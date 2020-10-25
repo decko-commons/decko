@@ -4,25 +4,24 @@ format :html do
   # (2) adds card data for javascript - including the "card-slot" class,
   #     which in principle is not supposed to be in styles
   def wrap slot=true, slot_attr={}, tag=:div, &block
-    method_wrap :wrap_with, tag, slot, slot_attr, &block
+    attrib = slot_attributes slot, slot_attr
+    method_wrap :wrap_with, tag, attrib, &block
   end
 
   wrapper :slot do |opts|
     class_up "card-slot", opts[:class] if opts[:class]
-    method_wrap :wrap_with, :div, true, opts do
-      interior
-    end
+    attrib = slot_attributes true, opts
+    method_wrap(:wrap_with, :div, attrib) { interior }
   end
 
   def haml_wrap slot=true, slot_attr={}, tag=:div, &block
-    method_wrap :haml_tag, tag, slot, slot_attr, &block
+    attrib = slot_attributes slot, slot_attr
+    method_wrap :haml_tag, tag, attrib, &block
   end
 
-  def method_wrap method, tag, slot, slot_attr, &block
+  def method_wrap method, tag, attrib, &block
     @slot_view = @current_view
-    debug_slot do
-      send method, tag, slot_attributes(slot, slot_attr), &block
-    end
+    debug_slot { send method, tag, attrib, &block }
   end
 
   def slot_attributes slot, slot_attr
@@ -114,21 +113,29 @@ format :html do
     Env.ajax? || params[:layout] == "none"
   end
 
-  def wrap_with tag, content_or_args={}, html_args={}
-    content = block_given? ? yield : content_or_args
+  def wrap_with tag, content_or_args={}, html_args={}, &block
     tag_args = block_given? ? content_or_args : html_args
-    content_tag(tag, tag_args) { output(content).to_s.html_safe }
+    content_tag(tag, tag_args) { content_within_wrap content_or_args, &block }
   end
 
-  def wrap_each_with tag, content_or_args={}, args={}
-    content = block_given? ? yield(args) : content_or_args
-    args    = block_given? ? content_or_args : args
-    content.compact.map do |item|
-      wrap_with(tag, args) { item }
+  def wrap_each_with tag, content_or_args={}, args={}, &block
+    tag_args = block_given? ? content_or_args : args
+    content_items_within_wrap(content_or_args, args, &block).map do |item|
+      wrap_with(tag, tag_args) { item }
     end.join "\n"
   end
 
   private
+
+  def content_items_within_wrap content, args
+    content = block_given? ? yield(args) : content
+    content.compact
+  end
+
+  def content_within_wrap content
+    content = block_given? ? yield : content
+    output(content).to_s.html_safe
+  end
 
   def html_escape_except_quotes string
     # to be used inside single quotes (makes for readable json attributes)

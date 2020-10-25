@@ -106,8 +106,11 @@ format do
 
   # normalizes certain path opts to specified data types
   def cast_path_opts opts, cast_hash=nil
-    cast_hash ||= CAST_PARAMS
     return opts unless opts.is_a?(::Hash)
+    cast_each_path_opt opts, (cast_hash || CAST_PARAMS)
+  end
+
+  def cast_each_path_opt opts, cast_hash
     opts.each do |key, value|
       next unless (cast_to = cast_hash[key])
       opts[key] = cast_path_value value, cast_to
