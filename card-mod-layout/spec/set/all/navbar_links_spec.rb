@@ -1,8 +1,9 @@
 RSpec.describe Card::Set::All::NavbarLinks do
   describe "view: navbar_links" do
     def expect_navbar_link content, divider=false
-      expect_view(:navbar_links, card: { name: "B", type: :pointer, content: content })
-          .to have_tag :ul do
+      expect_view(
+        :navbar_links, card: { name: "B", type: :pointer, content: content }
+      ).to have_tag :ul do
         with_tag "li.nav-item.dropdown" do
           with_tag "a.nav-link.dropdown-toggle", "stacky"
           with_tag "div.dropdown-menu" do
