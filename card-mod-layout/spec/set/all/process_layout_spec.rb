@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-RSpec.describe Card::Set::All::RichHtml::ProcessLayout do
+RSpec.describe Card::Set::All::ProcessLayout do
   let(:layout_card) { Card["tmp layout"] }
 
   describe "simple page with Default Layout" do
