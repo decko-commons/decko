@@ -11,10 +11,9 @@ format :html do
     process_content nil, chunk_list: :references do |chunk|
       case chunk
       when Card::Content::Chunk::Link
-        link = chunk.render_link view: view, explicit_link_opts: { class: link_class }
-        chunk.explicit_link? && view == :nav_item ? wrap_with_nav_item(link) : link
+        navbar_link_chunk chunk, view, link_class
       when Card::Content::Chunk::Nest
-        content_nest chunk.options.merge view: view
+        navbar_nest_chunk chunk, view
       else
         chunk.process_chunk
       end
@@ -54,5 +53,16 @@ format :html do
 
   def dropdown_menu_items
     navbar_items view: :nav_link_in_dropdown, link_class: "dropdown-item"
+  end
+
+  private
+
+  def navbar_link_chunk chunk, view, link_class
+    link = chunk.render_link view: view, explicit_link_opts: { class: link_class }
+    chunk.explicit_link? && view == :nav_item ? wrap_with_nav_item(link) : link
+  end
+
+  def navbar_nest_chunk chunk, view
+    content_nest chunk.options.merge view: view
   end
 end

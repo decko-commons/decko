@@ -49,7 +49,7 @@ format :html do
   def checkbox_input
     card.ensure_roles
     wrap_with :div, class: "pointer-checkbox-list" do
-      account_dropdown &method(:role_item_checkbox)
+      account_dropdown(&method(:role_item_checkbox))
     end
   end
 

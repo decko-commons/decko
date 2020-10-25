@@ -28,9 +28,6 @@ format :html do
   # Also, the forced division of "raw" and "core" should probably be replaced
   # with a single haml template (for core view)
   def navbar_placeholder
-    @@placeholder ||= begin
-                        holder_card = Card["#{Card[:navbox].name}+*placeholder"]
-                        holder_card ? holder_card.content : "Search"
-                      end
+    @placeholder ||= Card[:navbox, "*placeholder"]&.content || "Search"
   end
 end
