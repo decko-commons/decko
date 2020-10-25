@@ -1,6 +1,6 @@
+mod "core"
 mod "utility"
 mod "admin"
-mod "core"
 gem_mod "format"
 mod "pointer"
 gem_mod "machines"
