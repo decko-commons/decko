@@ -1,8 +1,7 @@
 # -*- encoding : utf-8 -*-
 
 RSpec.describe Card::Set::All::History do
-  context "history view" do
-
+  describe "history view" do
     it "has a frame" do
       history = render_card :history, name: "A"
       assert_view_select history, 'div[class~="d0-card-frame"]'
@@ -190,7 +189,7 @@ RSpec.describe Card::Set::All::History do
       end
     end
 
-    context "for plus card" do
+    context "with plus card adds" do
       let :card do
         Card::Auth.as_bot do
           content = "Nobody expects the Spanish inquisition"
@@ -202,34 +201,32 @@ RSpec.describe Card::Set::All::History do
       let(:right_action) { act.actions[2] }
       let(:plus_action) { act.actions[0] }
 
-      context "adds" do
-        it "only a act for plus card" do
-          act_start_cnt
-          expect(act.card_id).to eq(card.id)
-          expect(Card::Act.count).to eq(act_start_cnt + 1)
-        end
-        it "three actions" do
-          act = card.acts.last
-          expect(act.actions.size).to eq(3)
-        end
-        it "action for left part of type create" do
-          expect(left_action.card.name).to eq("left")
-          expect(left_action.action_type).to eq(:create)
-        end
-        it "superaction for left part" do
-          expect(left_action.super_action_id).to eq(plus_action.id)
-        end
-        it "action for right part of type create" do
-          expect(right_action.card.name).to eq("right")
-          expect(right_action.action_type).to eq(:create)
-        end
-        it "action for plus card of type create" do
-          expect(plus_action.card.name).to eq("left+right")
-          expect(plus_action.action_type).to eq(:create)
-        end
-        it "content change" do
-          expect(plus_action.value(:db_content)).to eq(content)
-        end
+      it "only a act for plus card" do
+        act_start_cnt
+        expect(act.card_id).to eq(card.id)
+        expect(Card::Act.count).to eq(act_start_cnt + 1)
+      end
+      it "three actions" do
+        act = card.acts.last
+        expect(act.actions.size).to eq(3)
+      end
+      it "action for left part of type create" do
+        expect(left_action.card.name).to eq("left")
+        expect(left_action.action_type).to eq(:create)
+      end
+      it "superaction for left part" do
+        expect(left_action.super_action_id).to eq(plus_action.id)
+      end
+      it "action for right part of type create" do
+        expect(right_action.card.name).to eq("right")
+        expect(right_action.action_type).to eq(:create)
+      end
+      it "action for plus card of type create" do
+        expect(plus_action.card.name).to eq("left+right")
+        expect(plus_action.action_type).to eq(:create)
+      end
+      it "content change" do
+        expect(plus_action.value(:db_content)).to eq(content)
       end
     end
   end
