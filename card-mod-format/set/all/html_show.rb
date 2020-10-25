@@ -1,15 +1,9 @@
 format :html do
   def show view, args
-    content = send show_method, view, args
-    show_full_page? ? wrap_with_html_page(content) : content
-
-  # TODO: remove the following after tracking down wikirate encoding bug
-  rescue Card::Error::ServerError => e
-    if e.message.match?(/invalid byte sequence/)
-      Card::Lexicon.cache.reset
-      Rails.logger.info "reset name cache to prevent encoding freakiness"
+    capture_the_freak do
+      content = send show_method, view, args
+      show_full_page? ? wrap_with_html_page(content) : content
     end
-    raise e
   end
 
   def show_method
@@ -41,5 +35,19 @@ format :html do
 
   def head_content
     nest card.rule_card(:head), view: :head_content
+  end
+
+  private
+
+  # this is a temporary fix to try to debug a recurring encoding-related error
+  # TODO: remove the following after tracking down wikirate encoding bug
+  def capture_the_freak
+    yield
+  rescue Card::Error::ServerError => e
+    if e.message.match?(/invalid byte sequence/)
+      Card::Lexicon.cache.reset
+      Rails.logger.info "reset name cache to prevent encoding freakiness"
+    end
+    raise e
   end
 end

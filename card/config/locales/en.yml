@@ -86,12 +86,12 @@ en:
           codename:
             only_admins_codename: only admins can set codename
             error_code_in_use: codename %{codename} already in use
-          event:
-            outside_event_phases: phase method %{method} called outside of event phases
-            called_in_stage: "%{item} method %{method} called in stage %{stage}"
-            called_on_action: "on: %{xaction} method %{method} called on %{yaction}"
-          fetch:
-            exception_fetch_arg_skipvirt: "%{func} called with new arguments and %{sv}"
+          # event:
+          #   outside_event_phases: phase method %{method} called outside of event phases
+          #   called_in_stage: "%{item} method %{method} called in stage %{stage}"
+          #   called_on_action: "on: %{xaction} method %{method} called on %{yaction}"
+          # fetch:
+          #   exception_fetch_arg_skipvirt: "%{func} called with new arguments and %{sv}"
           name_events:
             error_name_exists: must be unique; '%{name}' already exists.
             error_too_long: is too long (255 character maximum; length is %{length})
@@ -192,83 +192,18 @@ en:
     :standard:
       set:
         all:
+          list_changes:
+            search_list_fields: list fields
+            search_listed_by_fields: listed by fields
+            search_lists_that_link: lists that link to %{name}
+            error_is_referenced: can't be changed because %{name} is referenced by list card %{cardname}
           comment:
             author_not_signed_in: "%{comment_author} (Not signed in)"
             anonymous: Anonymous
             my_name_is: "<label>My Name is:</label> %{author_field}"
             comment: Comment
             commenting: Commenting
-          error:
-            unsupported_view: view (%{view}) not supported for %{cardname}
-            not_found_named: Could not find %{cardname}.
-            not_found_no_name: the card requested
-            server_error: "\nWagn Hitch!  Server Error. Yuck, sorry about that.\nTo tell us more and follow the fix,\nadd a support ticket at %{ticket_link}\n"
-            se_hitch: 'Wagn Hitch :('
-            se_sorry: Server Error. Yuck, sorry about that.
-            se_ticket: <a href="%{ticket_link}">Add a support ticket</a> to tell us more and follow the fix.
-            denial: Permission Denied
-            bad_address: "404: Bad Address"
-            too_slow: Timed out! %{showname} took too long to load.
-            error_rendering: error rendering
-            error_message: Error message (visible to admin only)
-            add_thing: Add %{title}
-            conflict: Conflict!
-            also_changes: "%{actor_link} has also been making changes."
-            conflict_instruction: Please examine below, resolve above, and re-submit.
-            not_found: Not Found
-            not_found_card: Could not find %{cardname}
-          list_changes:
-            search_list_fields: list fields
-            search_listed_by_fields: listed by fields
-            search_lists_that_link: lists that link to %{name}
-            error_is_referenced: can't be changed because %{name} is referenced by list card %{cardname}
-          rich_html:
-            content:
-              action_verb_added: added
-              action_verb_deleted: deleted
-              action_verb_edited: edited
-              updated_how_when_who: "%{action_verb} %{elapsed_time_in_words} ago by %{who}"
-            editing:
-              new_type: New %{type_name}
-              new: New
-              confirm_rename: Are you sure you want to rename %{cardname}?
-              alter_related:
-                one: automatically alter 1 related name.
-                other: automatically alter %{count} related names.
-              affect_refs:
-                one: affect at least 1 reference to "%{cardname}"
-                other: affect at least %{count} references to "%{cardname}"
-              update_ignore: You may choose to <em>update or ignore</em> the referers.
-              change_will: This change will...
-              rename_update: Rename and Update
-              renaming: Renaming
-              rename: Rename
-            error:
-              problems_name: Problems with %{cardname}
-              please: Please
-              sign_in: sign in
-              or: or
-              sign_up: sign up
-              read_only: We are currently in read-only mode.  Please try again later.
-              sorry: Sorry!
-              need_permission_task: You need permission %{task}.
-              to_do_that: to do that
-              denied_task: to %{denied_task} this
-            form:
-              unsupported_action_class: "unsupported card_form action class: %{actionclass}"
-              submit: Submit
-              submitting: Submitting
-              cancel: Cancel
-            menu:
-              edit: edit
-              discuss: discuss
-              page: page
-              rules: rules
-              account: account
-            modal:
-              close: Close
-            wrapper:
-              close: Close
+
         rstar:
           rules_editor:
             not_a_rule: not a rule
@@ -321,8 +256,6 @@ en:
             configure_card: Configure %{cardname}
             error_cant_alter: can't alter this type; %{name} cards still exist
             error_invalid_character_in_cardtype: "may not contain any of the following characters: %{banned}"
-          number:
-            not_numeric: "'%{content}' is not numeric"
           search_type:
             no_limit_exception: OH NO.. no limit
             no_content_exception: "Error in card '%{name}': can't run search with empty content"
@@ -338,10 +271,6 @@ en:
             by_group: by group
             by_name: by name
             recent: recent
-          toggle:
-            # Warning: unless careful, yes/no get converted to true/false
-            :yes: 'yes'
-            :no: 'no'
     #:bootstrap: #No known language-specfic messages
 
     :admin:
@@ -422,9 +351,6 @@ en:
 
     card-mod-format:
       set:
-        all:
-          base:
-            too_deep: Man, you're too deep.  (Too many levels of nests at a time)
         abstract:
           code_file:
             exception_not_set_path: "not a set path: %{path}"
@@ -437,6 +363,82 @@ en:
             search_opt_names_ptr: option names for pointer
           json:
             invalid_json: invalid json
+          toggle:
+            # Warning: unless careful, yes/no get converted to true/false
+            :yes: 'yes'
+            :no: 'no'
+          number:
+            not_numeric: "'%{content}' is not numeric"
+        all:
+          base:
+            too_deep: Man, you're too deep.  (Too many levels of nests at a time)
+          error:
+            unsupported_view: view (%{view}) not supported for %{cardname}
+            not_found_named: Could not find %{cardname}.
+            not_found_no_name: the card requested
+            server_error: "\nWagn Hitch!  Server Error. Yuck, sorry about that.\nTo tell us more and follow the fix,\nadd a support ticket at %{ticket_link}\n"
+            se_hitch: 'Wagn Hitch :('
+            se_sorry: Server Error. Yuck, sorry about that.
+            se_ticket: <a href="%{ticket_link}">Add a support ticket</a> to tell us more and follow the fix.
+            denial: Permission Denied
+            bad_address: "404: Bad Address"
+            too_slow: Timed out! %{showname} took too long to load.
+            error_rendering: error rendering
+            error_message: Error message (visible to admin only)
+            add_thing: Add %{title}
+            conflict: Conflict!
+            also_changes: "%{actor_link} has also been making changes."
+            conflict_instruction: Please examine below, resolve above, and re-submit.
+            not_found: Not Found
+            not_found_card: Could not find %{cardname}
+
+          html_content:
+            action_verb_added: added
+            action_verb_deleted: deleted
+            action_verb_edited: edited
+            updated_how_when_who: "%{action_verb} %{elapsed_time_in_words} ago by %{who}"
+          # editing:
+          #   new_type: New %{type_name}
+          #   new: New
+          #   confirm_rename: Are you sure you want to rename %{cardname}?
+          #   alter_related:
+          #     one: automatically alter 1 related name.
+          #     other: automatically alter %{count} related names.
+          #   affect_refs:
+          #     one: affect at least 1 reference to "%{cardname}"
+          #     other: affect at least %{count} references to "%{cardname}"
+          #   update_ignore: You may choose to <em>update or ignore</em> the referers.
+          #   change_will: This change will...
+          #   rename_update: Rename and Update
+          #   renaming: Renaming
+          #   rename: Rename
+          html_error:
+            problems_name: Problems with %{cardname}
+            please: Please
+            sign_in: sign in
+            or: or
+            sign_up: sign up
+            read_only: We are currently in read-only mode.  Please try again later.
+            sorry: Sorry!
+            need_permission_task: You need permission %{task}.
+            to_do_that: to do that
+            denied_task: to %{denied_task} this
+          # form:
+          #   unsupported_action_class: "unsupported card_form action class: %{actionclass}"
+          #   submit: Submit
+          #   submitting: Submitting
+          #   cancel: Cancel
+          menu:
+            edit: edit
+            discuss: discuss
+            page: page
+            rules: rules
+            account: account
+          modal:
+            close: Close
+          html_wrapper:
+            close: Close
+
 
     card-mod-edit:
       set:

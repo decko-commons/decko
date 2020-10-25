@@ -94,7 +94,7 @@ format :data do
 end
 
 format :csv do
-  view :core, :core, mod: All::AllCsv::CsvFormat
+  view :core, :core, mod: All::Csv::CsvFormat
 
   view :card_list do
     items = super()

@@ -90,7 +90,7 @@ class Card
       end
 
       def unknown_gem_mod! name
-        raise Error, "Unknown gem \"#{name}\". Make sure it is in your Gemfile."
+        raise Error, %(Unknown gem "#{name}". Make sure it is in your Gemfile.)
       end
 
       def add_gem_mod mod_name, mod_path
