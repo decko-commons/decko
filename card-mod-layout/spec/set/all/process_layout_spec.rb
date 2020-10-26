@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-RSpec.describe Card::Set::All::RichHtml::ProcessLayout do
+RSpec.describe Card::Set::All::ProcessLayout do
   let(:layout_card) { Card["tmp layout"] }
 
   describe "simple page with Default Layout" do
@@ -8,7 +8,7 @@ RSpec.describe Card::Set::All::RichHtml::ProcessLayout do
 
     it "renders top menu" do
       expect(open_view).to have_tag "header" do
-        with_tag 'a.nav-link.dropdown-toggle', text: "Getting started"
+        with_tag "a.nav-link.dropdown-toggle", text: "Getting started"
         with_tag 'a.nav-link.known-card[href="/*recent"]', text: "Recent Changes"
         with_tag 'form.navbox-form[action="/*search"]' do
           with_tag 'select[name="query[keyword]"]'
@@ -25,15 +25,16 @@ RSpec.describe Card::Set::All::RichHtml::ProcessLayout do
     end
 
     it "renders card content" do
-      expect(open_view).to have_tag "div.d0-card-body.d0-card-content" \
-                                    ".ALL.ALL_PLUS" \
-                                    ".TYPE-rich_text.RIGHT-b.TYPE_PLUS_RIGHT-rich_text-b" \
-                                    ".SELF-a-b.card-body.card-text",
-                                    text:  /AlphaBeta/
+      expect(open_view)
+        .to have_tag "div.d0-card-body.d0-card-content" \
+                     ".ALL.ALL_PLUS" \
+                     ".TYPE-rich_text.RIGHT-b.TYPE_PLUS_RIGHT-rich_text-b" \
+                     ".SELF-a-b.card-body.card-text",
+                     text:  /AlphaBeta/
     end
 
     it "renders card credit" do
-      expect(open_view).to have_tag 'footer' do
+      expect(open_view).to have_tag "footer" do
         with_tag "svg"
         with_tag "a", text: "Decko v#{Card::Version.release}"
       end

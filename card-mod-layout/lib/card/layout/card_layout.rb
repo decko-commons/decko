@@ -11,9 +11,7 @@ class Card
       end
 
       def fetch_main_nest_opts
-        main_nest = find_main_nest_chunk
-        # don't .& me !! (can be false)
-        (main_nest && main_nest.options) ||
+        find_main_nest_chunk&.options ||
           raise(Card::Error, "no main nest found in layout \"#{@layout}\"")
       end
 
@@ -21,19 +19,19 @@ class Card
 
       def find_main_nest_chunk card=layout_card, depth=0
         content = Card::Content.new(card.content, @format, chunk_list: :nest_only)
-        return false unless content.each_chunk.count.positive?
+        return unless content.each_chunk.count.positive?
 
         main_chunk(content) || go_deeper(content, depth)
       end
 
       def go_deeper content, depth
-        return false if depth > MAIN_NESTING_LIMIT
+        return if depth > MAIN_NESTING_LIMIT
 
         content.each_chunk do |chunk|
           main_chunk = find_main_nest_chunk chunk.referee_card, depth + 1
           return main_chunk if main_chunk
         end
-        false
+        nil
       end
 
       def main_chunk content

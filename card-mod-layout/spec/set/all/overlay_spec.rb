@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-RSpec.describe Card::Set::All::RichHtml::Overlay do
+RSpec.describe Card::Set::All::Overlay do
   describe "overlay layout" do
     subject(:core_view) do
       Card["A"].format.show :core, wrap: :overlay
