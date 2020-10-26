@@ -60,12 +60,18 @@ format :html do
   def wrapper_names wrappers
     case wrappers
     when Hash  then wrappers.keys
-    when Array then wrappers.map { |w| w.is_a?(Array) ? w.first : w }
+    when Array then wrapper_names_from_array wrappers
     else            [wrappers]
     end
   end
 
   def layout_name_from_rule
     card.rule_card(:layout)&.try :item_name
+  end
+
+  private
+
+  def wrapper_names_from_array wrapper_array
+    wrapper_array.map { |w| w.is_a?(Array) ? w.first : w }
   end
 end

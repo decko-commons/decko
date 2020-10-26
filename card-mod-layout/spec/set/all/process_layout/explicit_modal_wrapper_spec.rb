@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-RSpec.describe Card::Set::All::RichHtml::ProcessLayout do
+RSpec.describe Card::Set::All::ProcessLayout do
   describe "#explicit_modal_wrapper?" do
     subject(:format) { Card["A"].format }
 

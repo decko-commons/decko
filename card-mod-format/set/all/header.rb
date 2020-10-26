@@ -48,7 +48,8 @@ format :html do
     toggle_verb_adjective.last
   end
 
-  TOGGLE_MAP = { close: %w[open open], open: %w[close closed] }  # LOCALIZE first item
+  # LOCALIZE first item
+  TOGGLE_MAP = { close: %w[open open], open: %w[close closed] }.freeze
 
   def toggle_verb_adjective
     TOGGLE_MAP[@toggle_mode || :open] ||
@@ -59,5 +60,3 @@ format :html do
     card.structure && card.template.ok?(:update)
   end
 end
-
-

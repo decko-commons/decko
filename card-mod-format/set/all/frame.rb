@@ -7,7 +7,7 @@ format :html do
   end
 
   def frame &block
-    standard_frame &block
+    standard_frame(&block)
   end
 
   def standard_frame slot=true
