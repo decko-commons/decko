@@ -1,17 +1,6 @@
-# STAGE: prepare to validate
-
-event :set_autoname, :prepare_to_validate, on: :create do
-  if name.blank? && (autoname_card = rule_card(:autoname))
-    self.name = autoname autoname_card.db_content
-    # FIXME: should give placeholder in approve phase
-    # and finalize/commit change in store phase
-    autoname_card.refresh.update_column :db_content, name
-  end
-end
-
 # STAGE: validate
 
-event :validate_name, :validate, on: :save, changed: :name do
+event :validate_name, :validate, on: :save, changed: :name, when: :no_autoname? do
   validate_legality_of_name
   return if errors.any?
   Card.write_to_soft_cache self
@@ -35,7 +24,7 @@ event :validate_legality_of_name do
     errors.add :name, tr(:error_too_long, length: name.length)
   elsif name.blank?
     errors.add :name, tr(:error_blank_name)
-  elsif name.parts.include? ""
+  elsif name_incomplete?
     errors.add :name, tr(:is_incomplete)
   elsif !name.valid?
     errors.add :name, tr(:error_banned_characters, banned: Card::Name.banned_array * " ")
@@ -44,7 +33,7 @@ event :validate_legality_of_name do
   end
 end
 
-event :validate_key, after: :validate_name, on: :save do
+event :validate_key, after: :validate_name, on: :save, when: :no_autoname? do
   if key.empty?
     errors.add :key, tr(:error_blank_key) if errors.empty?
   elsif key != name.key
@@ -53,6 +42,12 @@ event :validate_key, after: :validate_name, on: :save do
 end
 
 # STAGE: store
+
+event :set_autoname, :prepare_to_store, on: :create, when: :autoname? do
+  self.name = autoname rule(:autoname)
+  rule_card(:autoname).update_column :db_content, name
+  pull_from_trash!
+end
 
 event :expire_old_name, :store, changed: :name, on: :update do
   Director.expirees << name_before_act
@@ -103,6 +98,19 @@ def prepare_obstructed_side side, side_id, sidename
   clear_name sidename
   send "#{side}_id=", add_subcard(sidename)
   true
+end
+
+def name_incomplete?
+  name.parts.include?("") && !superleft&.autoname?
+end
+
+def no_autoname?
+  !autoname?
+end
+
+def autoname?
+  name.blank? &&
+    (@autoname_rule.nil? ? (@autoname_rule = rule(:autoname).present?) : @autoname_rule)
 end
 
 private
