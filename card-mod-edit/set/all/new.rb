@@ -1,4 +1,6 @@
 format :html do
+  delegate :autoname?, to: :card
+
   view :new, perms: :create, unknown: true, cache: :never do
     new_view_frame_and_form new_form_opts
   end
@@ -112,10 +114,6 @@ format :html do
     voo.visible? :name_formgroup do
       needs_name? || params[:name_prompt]
     end
-  end
-
-  def autoname?
-    @autoname.nil? ? (@autoname = card.rule_card :autoname).present? : @autoname
   end
 
   def needs_name?
