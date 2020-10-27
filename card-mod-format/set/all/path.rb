@@ -86,8 +86,8 @@ format do
   def path_mark opts
     return "" if markless_path? opts
     name = opts[:mark] ? Card::Name[opts.delete(:mark)] : card.name
-    add_unknown_name_to_opts name.to_name, opts
-    name.to_name.url_key
+    add_unknown_name_to_opts name, opts
+    name.url_key
   end
 
   def markless_path? opts
