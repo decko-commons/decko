@@ -188,15 +188,13 @@ describe Card::Set::Type::EmailTemplate::EmailConfig do
 
     it "handles inline image nests in html message  in core view" do
       Card::Env[:host] = "http://testhost"
-      update_field "*html message",
-                   content: "Triggered by {{:yeti_skin_image|core}}"
+      yeti_img = "http://testhost/files/:yeti_skin_image/bootstrap-medium.png"
+      update_field "*html message", content: "Triggered by {{:yeti_skin_image|core}}"
       mail = email.format.mail context_card
       expect(mail.parts.size).to eq 2
       expect(mail.parts[0].mime_type).to eq "text/plain"
       expect(mail.parts[1].mime_type).to eq "text/html"
-      expect(mail.parts[1].body.raw_source)
-        .to have_tag(:img,
-                     with: { src: "http://testhost/files/:yeti_skin_image/bootstrap-medium.png" })
+      expect(mail.parts[1].body.raw_source).to have_tag(:img, with: { src: yeti_img })
     end
 
     it "handles inline image nests in html message" do
