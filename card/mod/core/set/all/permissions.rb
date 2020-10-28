@@ -166,13 +166,7 @@ event :set_read_rule, :store,
 end
 
 event :set_field_read_rules, after: :set_read_rule, on: :update, changed: :type_id do
-  # find all cards with me as trunk and update their read_rule
-  # (because of *type plus right)
-  # skip if name is updated because will already be resaved
-
-  each_field_as_bot do |field|
-    field.update_read_rule
-  end
+  each_field_as_bot(&:update_read_rule)
 end
 
 def update_field_read_rules
@@ -183,6 +177,9 @@ def update_field_read_rules
 end
 
 def each_field_as_bot
+  # find all cards with me as trunk and update their read_rule
+  # (because of *type plus right)
+  # skip if name is updated because will already be resaved
   Auth.as_bot do
     fields.each { |field| yield field }
   end

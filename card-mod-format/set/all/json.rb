@@ -43,17 +43,16 @@ format :json do
   end
 
   view :status, unknown: true, perms: :none do
-    status = card.state
-    hash = { key: card.key,
-             url_key: card.name.url_key,
-             status: status }
-    hash[:id] = card.id if status == :real
-    hash
+    { key: card.key,
+      url_key: card.name.url_key,
+      status: card.state }.tap do |h|
+
+      h[:id] = card.id if h[:status] == :real
+    end
   end
 
   def request_url
-    req = controller.request
-    req ? req.original_url : path
+    controller.request&.original_url || path
   end
 
   view :core, unknown: true do
@@ -75,6 +74,10 @@ format :json do
 
   view :molecule do
     molecule
+  end
+
+  view :page, cache: :never do
+    page_details card: render_atom
   end
 
   # NOCACHE because sometimes item_cards is dynamic.
@@ -131,18 +134,19 @@ format :json do
   # views manipulate their hashes.
   #
   def nucleus
-    h = { id: card.id,
-          name: card.name,
-          type: card.type_name,
-          url: path(format: :json) }
-    h[:codename] = card.codename if card.codename
-    h
+    { id: card.id,
+      name: card.name,
+      type: card.type_name,
+      url: path(format: :json) }.tap do |h|
+
+      h[:codename] = card.codename if card.codename
+    end
   end
 
   def atom
-    h = nucleus
-    h[:content] = render_content if card.known? && !card.structure
-    h
+    nucleus.tap do |h|
+      h[:content] = render_content if card.known? && !card.structure
+    end
   end
 
   def molecule
