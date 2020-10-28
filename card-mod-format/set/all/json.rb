@@ -21,13 +21,25 @@ format :json do
   # and layout=none gives you ONLY the requested view (default atom)
   def show view, args
     view ||= :molecule
-    raw = render! view, args
-    raw.is_a?(String) ? raw : stringify(raw)
+    string_with_page_details do
+      render! view, args
+    end
+  end
+
+  def string_with_page_details
+    raw = yield
+    return raw if raw.is_a? String
+
+    stringify page_details(raw)
   end
 
   def stringify raw
     method = params[:compress] ? :generate : :pretty_generate
     JSON.send method, raw
+  end
+
+  def page_details hash
+    hash.merge url: request_url, timestamp: Time.now.to_s
   end
 
   view :status, unknown: true, perms: :none do
@@ -37,13 +49,6 @@ format :json do
              status: status }
     hash[:id] = card.id if status == :real
     hash
-  end
-
-  # NOCACHE because of timestamp
-  view :page, cache: :never do
-    { url: request_url,
-      timestamp: Time.now.to_s,
-      card: _render_atom }
   end
 
   def request_url
