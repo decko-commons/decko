@@ -165,14 +165,13 @@ event :set_read_rule, :store,
   self.read_rule_class = read_rule_class
 end
 
-event :set_field_read_rules,
-      after: :set_read_rule, on: :update, changed: :type_id do
+event :set_field_read_rules, after: :set_read_rule, on: :update, changed: :type_id do
   # find all cards with me as trunk and update their read_rule
   # (because of *type plus right)
   # skip if name is updated because will already be resaved
 
   each_field_as_bot do |field|
-    field.refresh.update_read_rule
+    field.update_read_rule
   end
 end
 
