@@ -47,6 +47,7 @@ event :set_autoname, :prepare_to_store, on: :create, when: :autoname? do
   self.name = autoname rule(:autoname)
   rule_card(:autoname).update! content: name
   pull_from_trash!
+  Card.write_to_soft_cache self
 end
 
 event :expire_old_name, :store, changed: :name, on: :update do
