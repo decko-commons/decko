@@ -119,17 +119,20 @@ def ok_to_create
   return true if simple?
 
   %i[left right].each do |side|
-    # left is supercard; create permissions will get checked there.
-    next if side == :left && superleft
-    part_card = send side, new: {}
-    # if no card, there must be other errors
-    next unless part_card && part_card.new_card?
-    unless part_card.ok? :create
-      deny_because you_cant("create #{part_card.name}")
-      return false
-    end
+    return false unless ok_to_create_side side
   end
   true
+end
+
+def ok_to_create_side side
+  # left is supercard; create permissions will get checked there.
+  return true if side == :left && superleft
+  part_card = send side, new: {}
+  # if no card, there must be other errors
+  return true unless part_card&.new_card? && !part_card.ok?(:create)
+
+  deny_because you_cant("create #{part_card.name}")
+  false
 end
 
 def ok_to_read
@@ -158,22 +161,14 @@ end
 #   self.read_rule_id = self.read_rule_class = nil
 # end
 
-event :set_read_rule, :store,
-      on: :save, changed: %i[type_id name] do
+event :set_read_rule, :store, on: :save, changed: %i[type_id name] do
   read_rule_id, read_rule_class = permission_rule_id_and_class(:read)
   self.read_rule_id = read_rule_id
   self.read_rule_class = read_rule_class
 end
 
-event :set_field_read_rules,
-      after: :set_read_rule, on: :update, changed: :type_id do
-  # find all cards with me as trunk and update their read_rule
-  # (because of *type plus right)
-  # skip if name is updated because will already be resaved
-
-  each_field_as_bot do |field|
-    field.refresh.update_read_rule
-  end
+event :set_field_read_rules, after: :set_read_rule, on: :update, changed: :type_id do
+  each_field_as_bot(&:update_read_rule)
 end
 
 def update_field_read_rules
@@ -184,6 +179,9 @@ def update_field_read_rules
 end
 
 def each_field_as_bot
+  # find all cards with me as trunk and update their read_rule
+  # (because of *type plus right)
+  # skip if name is updated because will already be resaved
   Auth.as_bot do
     fields.each { |field| yield field }
   end
@@ -203,8 +201,7 @@ event :update_read_rule do
     # these two are just to make sure vals are correct on current object
     self.read_rule_id = rcard_id
     self.read_rule_class = rclass
-    Card.where(id: id).update_all read_rule_id: rcard_id,
-                                  read_rule_class: rclass
+    Card.where(id: id).update_all read_rule_id: rcard_id, read_rule_class: rclass
     expire :hard
     update_field_read_rules
   end

@@ -9,7 +9,8 @@ describe Card::Migration::Import do
   end
 
   def card_content_dir
-    Card::Migration::Import::ImportData.new(path).instance_variable_get("@card_content_dir")
+    Card::Migration::Import::ImportData.new(path)
+      .instance_variable_get("@card_content_dir")
   end
 
   def meta_data
