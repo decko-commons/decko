@@ -65,11 +65,11 @@ RSpec.describe Card::Set::All::Json do
     it "handles real and virtual cards" do
       jf = Card::Format::JsonFormat
       real_json = jf.new(Card["T"]).show :status, {}
-      expect(JSON[real_json]).to eq(
+      expect(JSON[real_json]).to include(
         "key" => "t", "status" => "real", "id" => Card["T"].id, "url_key" => "T"
       )
       virtual_json = jf.new(Card.fetch("T+*self")).show :status, {}
-      expect(JSON[virtual_json]).to eq(
+      expect(JSON[virtual_json]).to include(
         "key" => "t+*self", "status" => "virtual", "url_key" => "T+*self"
       )
     end
@@ -81,11 +81,11 @@ RSpec.describe Card::Set::All::Json do
         unknown = Card.new name: "sump"
         unreadable = Card.new name: "kumq", type: "Fruit"
         unknown_json = jf.new(unknown).show :status, {}
-        expect(JSON[unknown_json]).to eq(
+        expect(JSON[unknown_json]).to include(
           "key" => "sump", "status" => "unknown", "url_key" => "sump"
         )
         unreadable_json = jf.new(unreadable).show :status, {}
-        expect(JSON[unreadable_json]).to eq(
+        expect(JSON[unreadable_json]).to include(
           "key" => "kumq", "status" => "unknown", "url_key" => "kumq"
         )
       end
