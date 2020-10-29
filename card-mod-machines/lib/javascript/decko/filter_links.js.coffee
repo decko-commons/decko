@@ -26,7 +26,9 @@ $(window).ready ->
   $("body").on "click", "._filter-category-select", (e) ->
     e.preventDefault()
     # e.stopPropagation()
-    filterFor(this).activate $(this).data("category")
+    f = filterFor(this)
+    f.activate $(this).data("category")
+    f.update()
 
   # Update filter results based on filter value changes
   onchangers = "._filter-input input:not(.simple-text), " +
