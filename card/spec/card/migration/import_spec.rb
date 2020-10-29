@@ -5,12 +5,12 @@ describe Card::Migration::Import do
   let(:importer) { Card::Migration::Import.new path }
 
   def card_meta_path
-    Card::Migration::Import::ImportData.new(path).instance_variable_get("@path")
+    Card::Migration::Import::ImportData.new(path).instance_variable_get "@path"
   end
 
   def card_content_dir
     Card::Migration::Import::ImportData.new(path)
-      .instance_variable_get("@card_content_dir")
+                                       .instance_variable_get "@card_content_dir"
   end
 
   def meta_data
