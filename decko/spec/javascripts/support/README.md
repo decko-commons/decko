@@ -16,7 +16,7 @@ pipeline. That means, things inside Decko gem and folder `mod` can be included i
 this way.
 
 For core testing, the default settings now will include the js and coffee inside
-`mod/machines/lib/javascript`. For mod development, the default settings now 
+`card-mod-script/lib/javascript`. For mod development, the default settings now 
 will include the js and coffee inside `mod`.
 
 #### How to run

@@ -10,8 +10,7 @@ RSpec.describe Card::Set::Type::List do
   end
 
   specify "#item_names" do
-    card = Card.new name:"test", type_id: Card::ListID,
-                       content: "A\n[[+B]]\n[[C]]"
+    card = Card.new name: "test", type_id: Card::ListID, content: "A\n[[+B]]\n[[C]]"
     expect(card.item_names).to eq %w[A test+B C]
   end
 end

@@ -38,7 +38,7 @@ class PagingLinks
   def left_part
     [
       previous_page_link,
-      (direct_page_link 0 if @window_start > 0),
+      (direct_page_link 0 if @window_start.positive?),
       (ellipse if @window_start > 1)
     ].compact
   end
@@ -81,7 +81,7 @@ class PagingLinks
   end
 
   def previous_page
-    @current > 0 ? @current - 1 : false
+    @current.positive? ? @current - 1 : false
   end
 
   def next_page
