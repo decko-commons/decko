@@ -1,5 +1,3 @@
-include_set Abstract::BsBadge
-
 format :html do
   setting :bar_cols
   setting :info_bar_cols
