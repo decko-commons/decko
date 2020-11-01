@@ -36,7 +36,7 @@ end
 
 def compress_css?
   return true
-  !Rails.env.development?
+  # !Rails.env.development?
 end
 
 format do
