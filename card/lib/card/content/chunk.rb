@@ -83,7 +83,7 @@ class Card
       # Could really happen almost anywhere
       # (even before chunk classes are loaded).
       register_list :default, %i[
-        URI HostURI EmailURI EscapedLiteral Nest Link
+        Uri HostUri EmailUri EscapedLiteral Nest Link
       ]
       register_list :references,  %i[EscapedLiteral Nest Link]
       register_list :nest_only, [:Nest]
@@ -92,5 +92,5 @@ class Card
       register_list :references_keep_escaping,  %i[KeepEscapedLiteral Nest Link]
     end
   end
-  Card::Mod::Loader.load_chunks
+  # Card::Mod::Loader.load_chunks
 end

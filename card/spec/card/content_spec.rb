@@ -86,8 +86,8 @@ RSpec.describe Card::Content do
                       "https://brain.org/more?args",
                       " } "],
       classes: [
-        String, :URI, String, :HostURI, String, :URI, String, :Link,
-        String, :URI, String, :URI, String
+        String, :Uri, String, :HostUri, String, :Uri, String, :Link,
+        String, :Uri, String, :Uri, String
       ]
     },
 
@@ -121,8 +121,8 @@ RSpec.describe Card::Content do
                  '<a target="_blank" class="external-link" ' \
                'href="http://brain.org/Home">extra</a>'],
       classes:  [
-        String, :URI, String, :HostURI, String, :URI, String, :URI,
-        String, :URI, String, :Link
+        String, :Uri, String, :HostUri, String, :Uri, String, :Uri,
+        String, :Uri, String, :Link
       ]
     },
 
