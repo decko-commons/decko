@@ -58,7 +58,7 @@ format :html do
   end
 end
 
-format :email do
+format :email_html do
   def mail context, fields
     super context, fields.reverse_merge(to: card.email)
   end

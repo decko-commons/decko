@@ -61,7 +61,7 @@ class Card
           @rows ||= super
         end
 
-        alias :lookup_key_without_user :lookup_key
+        alias_method :lookup_key_without_user, :lookup_key
 
         def lookup_key row
           return unless (base = lookup_key_without_user row)
