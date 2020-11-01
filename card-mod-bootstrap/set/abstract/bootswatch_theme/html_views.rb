@@ -1,5 +1,5 @@
 include_set Abstract::Media
-include_set Abstract::BsBadge
+# include_set Abstract::BsBadge
 
 format :html do
   before :box do

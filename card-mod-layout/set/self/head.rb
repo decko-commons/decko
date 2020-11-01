@@ -1,3 +1,8 @@
+extend Card::Setting
+setting_opts group: :webpage, position: 1, rule_type_editable: false,
+             short_help_text: "head tag content",
+             help_text: "head tag content"
+
 format :html do
   # when *head is rendered in the main body of a page, we escape the HTML
   # otherwise (most typically in the head tag, of course), we render the
