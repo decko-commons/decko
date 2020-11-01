@@ -1,5 +1,3 @@
-include_set Abstract::BsBadge
-
 format :html do
   view :core, cache: :never do
     standard_pointer_core
