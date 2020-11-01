@@ -2,7 +2,8 @@
 
 require "../decko_gem"
 
-DeckoGem.mod "search" do |s, _d|
+DeckoGem.mod "search" do |s, d|
   s.summary = "search"
   s.description = ""
+  d.depends_on_mod :collection
 end
