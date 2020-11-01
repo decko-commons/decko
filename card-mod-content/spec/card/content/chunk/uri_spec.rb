@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-RSpec.describe Card::Content::Chunk::URI, "URI chunk tests" do
+RSpec.describe Card::Content::Chunk::Uri, "URI chunk tests" do
   it "test_non_matches" do
     no_match_uri "There is no URI here"
     no_match_uri "One gemstone is the garnet:reddish in colour, like ruby"
@@ -220,7 +220,7 @@ RSpec.describe Card::Content::Chunk::URI, "URI chunk tests" do
 
   it "test_uri_list_item" do
     match_chunk(
-      Card::Content::Chunk::URI,
+      Card::Content::Chunk::Uri,
       "* http://www.btinternet.com/~mail2minh/SonyEricssonP80xPlatform.sis",
       path: "/~mail2minh/SonyEricssonP80xPlatform.sis"
     )
@@ -240,7 +240,7 @@ RSpec.describe Card::Content::Chunk::URI, "URI chunk tests" do
     )
   end
 
-  describe Card::Content::Chunk::URI, "URI chunk tests" do
+  describe Card::Content::Chunk::Uri, "URI chunk tests" do
     it "test_local_urls" do
       # normal
       match_http_uri "http://perforce:8001/toto.html",
@@ -278,11 +278,11 @@ RSpec.describe Card::Content::Chunk::URI, "URI chunk tests" do
   end
 
   def match_uri uri, opts
-    match_chunk Card::Content::Chunk::URI, uri, opts
+    match_chunk Card::Content::Chunk::Uri, uri, opts
   end
 
   def no_match_uri text
-    no_match Card::Content::Chunk::URI, text
+    no_match Card::Content::Chunk::Uri, text
   end
 
   def match_http_uri uri, opts
