@@ -3,7 +3,7 @@
 require "../decko_gem"
 
 DeckoGem.mod "ace_editor" do |s, d|
-  d.depends_on_mod "edit"
   s.summary = "Ace editor"
   s.description = ""
+  d.depends_on_mod :edit, :script
 end
