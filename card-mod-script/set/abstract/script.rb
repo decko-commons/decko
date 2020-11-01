@@ -47,7 +47,8 @@ def clean_html?
 end
 
 format do
-  def chunk_list  # turn off autodetection of uri's
+  def chunk_list
+    # turn off autodetection of uri's
     :nest_only
   end
 
