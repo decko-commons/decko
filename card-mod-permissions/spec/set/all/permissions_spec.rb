@@ -2,16 +2,11 @@
 
 class ::Card
   def writeable_by user
-    Card::Auth.as(user.id) do
-      # warn "writeable #{Card::Auth.as_id}, #{user.inspect}"
-      ok? :update
-    end
+    Card::Auth.as(user.id) { ok? :update }
   end
 
   def readable_by user
-    Card::Auth.as(user.id) do
-      ok? :read
-    end
+    Card::Auth.as(user.id) { ok? :read }
   end
 end
 
@@ -224,21 +219,15 @@ RSpec.describe Card::Set::All::Permissions do
     it "private cql" do
       # set up cards of type TestType, 2 with nil reader, 1 with role1 reader
       Card::Auth.as_bot do
-        [@c1, @c2, @c3].each do |c|
-          c.update content: "WeirdWord"
-        end
+        [@c1, @c2, @c3].each { |c| c.update content: "WeirdWord" }
         Card.create(name: "c1+*self+*read", type: "Pointer", content: "[[u1]]")
       end
 
       Card::Auth.as(@u1) do
-        expect(Card.search(content: "WeirdWord").map(&:name).sort).to(
-          eq %w[c1 c2 c3]
-        )
+        expect(Card.search(content: "WeirdWord").map(&:name).sort).to(eq %w[c1 c2 c3])
       end
       Card::Auth.as(@u2) do
-        expect(Card.search(content: "WeirdWord").map(&:name).sort).to(
-          eq %w[c2 c3]
-        )
+        expect(Card.search(content: "WeirdWord").map(&:name).sort).to(eq %w[c2 c3])
       end
     end
 
@@ -247,16 +236,12 @@ RSpec.describe Card::Set::All::Permissions do
 
       # set up cards of type TestType, 2 with nil reader, 1 with role1 reader
       Card::Auth.as_bot do
-        [@c1, @c2, @c3].each do |c|
-          c.update content: "WeirdWord"
-        end
+        [@c1, @c2, @c3].each { |c| c.update content: "WeirdWord" }
         Card.create(name: "c1+*self+*read", type: "Pointer", content: "[[r3]]")
       end
 
       Card::Auth.as(@u1) do
-        expect(Card.search(content: "WeirdWord").map(&:name).sort).to(
-          eq(%w[c1 c2 c3])
-        )
+        expect(Card.search(content: "WeirdWord").map(&:name).sort).to(eq(%w[c1 c2 c3]))
       end
       # for Card::Auth.as to be effective, you can't have a logged in user
       Card::Auth.signin nil
@@ -350,9 +335,7 @@ RSpec.describe Card::Set::All::Permissions do
   it "create read rule as subcard" do
     Card::Auth.as_bot do
       Card.create! name: "read rule test",
-                   subcards: {
-                     "+*self+*read" => { content: "[[Administrator]]" }
-                   }
+                   subcards: { "+*self+*read" => { content: "[[Administrator]]" } }
       expect(Card["read rule test"].read_rule_class)
         .to eq("*self")
       rule_id = Card.fetch_id "read rule test+*self+*read"
@@ -361,11 +344,10 @@ RSpec.describe Card::Set::All::Permissions do
     end
   end
 
-
   describe "cardtypes and permissions" do
     specify "cardtype b has create role r1" do
-      expect(Card["Cardtype B+*type+*create"]).to have_db_content("[[r3]]")
-                                                    .and have_type :pointer
+      expect(Card["Cardtype B+*type+*create"])
+        .to have_db_content("[[r3]]").and have_type(:pointer)
     end
 
     example "changing cardtype needs new cardtype's create permission", with_user: "u2" do
@@ -385,4 +367,3 @@ RSpec.describe Card::Set::All::Permissions do
     # end
   end
 end
-

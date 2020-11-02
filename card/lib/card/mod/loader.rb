@@ -48,12 +48,6 @@ class Card
           SetLoader.new(patterns: Set::Pattern.nonbase_loadable_codes).load
         end
 
-        def load_chunks
-          Mod.dirs.each(:chunk) do |dir|
-            load_dir dir
-          end
-        end
-
         def module_class_template
           const_get :Template
         end
