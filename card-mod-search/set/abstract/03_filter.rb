@@ -21,5 +21,9 @@ end
 format :html do
   view :filtered_content, template: :haml, wrap: :slot
 
+  view :filtered_results do
+    wrap { render_core }
+  end
+
   view :selectable_filtered_content, template: :haml, cache: :never
 end
