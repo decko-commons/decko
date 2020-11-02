@@ -20,7 +20,7 @@ require "uri"
 # The generic names are from www.bnoack.com/data/countrycode2.html)
 #   [iso3166]: http://geotags.com/iso3166/
 module Card::Content::Chunk
-  class URI < Abstract
+  class Uri < Abstract
     SCHEMES = %w[irc http https ftp ssh git sftp file ldap ldaps mailto].freeze
 
     REJECTED_PREFIX_RE = %w{! ": " ' ](}.map { |s| Regexp.escape s } * "|"
@@ -87,7 +87,7 @@ module Card::Content::Chunk
   end
 
   # FIXME: DRY, merge these two into one class
-  class EmailURI < URI
+  class EmailUri < Uri
     PREPEND_STR = "mailto:".freeze
     EMAIL = '[a-zA-Z\\d](?:[-a-zA-Z\\d.]*[a-zA-Z\\d])?\\@'.freeze
 
@@ -104,7 +104,7 @@ module Card::Content::Chunk
     end
   end
 
-  class HostURI < URI
+  class HostUri < Uri
     GENERIC = "aero|biz|com|coop|edu|gov|info|int|mil|" \
               "museum|name|net|org".freeze
 

@@ -22,20 +22,23 @@ class Card
         end
 
         def interpret match, _content
-          target, @link_text =
-            if (raw_syntax = match[1])
-              if (i = divider_index(raw_syntax))  # [[A | B]]
-                [raw_syntax[0..(i - 1)], raw_syntax[(i + 1)..-1]]
-              else                                # [[ A ]]
-                [raw_syntax, nil]
-              end
-            end
+          target, @link_text = target_and_link_text match[1]
 
           @link_text = objectify @link_text
           if target.match? %r{^(/|https?:|mailto:)}
             @explicit_link = objectify target
           else
             @name = target
+          end
+        end
+
+        def target_and_link_text raw_syntax
+          return unless raw_syntax
+
+          if (i = divider_index raw_syntax)                    # [[A | B]]
+            [raw_syntax[0..(i - 1)], raw_syntax[(i + 1)..-1]]  # [A, B]
+          else                                                 # [[ A ]]
+            [raw_syntax, nil]                                  # [A, nil]
           end
         end
 

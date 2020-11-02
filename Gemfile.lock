@@ -41,6 +41,8 @@ PATH
       mini_magick (~> 4.2)
     card-mod-collection (0.10.1)
       card (= 1.100.1)
+    card-mod-content (0.10.1)
+      card (= 1.100.1)
     card-mod-date (0.10.1)
       card (= 1.100.1)
     card-mod-defaults (0.10.1)
@@ -78,6 +80,7 @@ PATH
       card-mod-carrierwave (= 0.10.1)
     card-mod-format (0.10.1)
       card (= 1.100.1)
+      card-mod-content (= 0.10.1)
     card-mod-google_analytics (0.10.1)
       card (= 1.100.1)
       staccato
