@@ -4,11 +4,11 @@
 [submodule "card/tmpsets"]
 	path = card/tmpsets
 	url = https://github.com/decko-commons/decko-tmpsets.git
-[submodule "card/mod/machines/vendor/jquery_file_upload"]
-	path = card-mod-machines/vendor/jquery_file_upload
+[submodule "card-mod-script/vendor/jquery_file_upload"]
+	path = card-mod-script/vendor/jquery_file_upload
 	url = https://github.com/blueimp/jQuery-File-Upload
-[submodule "card/mod/machines/vendor/jquery_rails"]
-	path = card-mod-machines/vendor/jquery_rails
+[submodule "card-mod-script/vendor/jquery_rails"]
+	path = card-mod-script/vendor/jquery_rails
 	url = https://github.com/rails/jquery-rails
 [submodule "card-mod-date/vendor/moment"]
 	path = card-mod-date/vendor/moment

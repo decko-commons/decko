@@ -35,26 +35,17 @@ class Card
         attr_reader :module_type
 
         def load_mods
-          load_formats
-          Card::Mod::Loader::SetPatternLoader.new.load
-          Card::Mod::Loader::SetLoader.new.load
-          Card::Set.process_base_modules
+          SetPatternLoader.new.load
+          SetLoader.new.load
+          Set.process_base_modules
           load_initializers
         end
 
         def reload_sets
-          Card::Set::Pattern.reset
-          Card::Set.reset_modules
-          Card::Mod::Loader::SetPatternLoader.new.load
-          Card::Mod::Loader::SetLoader.new(
-            patterns: Card::Set::Pattern.nonbase_loadable_codes
-          ).load
-        end
-
-        def load_chunks
-          Mod.dirs.each(:chunk) do |dir|
-            load_dir dir
-          end
+          Set::Pattern.reset
+          Set.reset_modules
+          SetPatternLoader.new.load
+          SetLoader.new(patterns: Set::Pattern.nonbase_loadable_codes).load
         end
 
         def module_class_template
@@ -66,14 +57,6 @@ class Card
         def load_initializers
           Card.config.paths["mod/config/initializers"].existent.sort.each do |initializer|
             load initializer
-          end
-        end
-
-        # {Card::Format}
-        def load_formats
-          # cheating on load issues now by putting all inherited-from formats in core mod.
-          Mod.dirs.each(:format) do |dir|
-            load_dir dir
           end
         end
 

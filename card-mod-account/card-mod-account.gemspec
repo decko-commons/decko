@@ -5,5 +5,5 @@ require "../decko_gem"
 DeckoGem.mod "account" do |s, d|
   s.summary = "Email-based account handling for decko cards"
   s.description = ""
-  d.depends_on_mod :email
+  d.depends_on_mod :email, :permissions
 end
