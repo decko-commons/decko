@@ -70,6 +70,7 @@ PATH
       card-mod-machines (= 0.10.1)
       card-mod-markdown (= 0.10.1)
       card-mod-permissions (= 0.10.1)
+      card-mod-prosemirror_editor (= 0.10.1)
       card-mod-recaptcha (= 0.10.1)
       card-mod-rules (= 0.10.1)
       card-mod-search (= 0.10.1)
@@ -132,6 +133,9 @@ PATH
       codeclimate-test-reporter
       fog-aws
       yard
+    card-mod-prosemirror_editor (0.10.1)
+      card (= 1.100.1)
+      card-mod-edit (= 0.10.1)
     card-mod-recaptcha (0.10.1)
       card (= 1.100.1)
       recaptcha (~> 4.13.1)
@@ -597,7 +601,7 @@ GEM
     staccato (0.5.3)
     systemu (2.6.5)
     temple (0.8.2)
-    terminal-table (1.8.0)
+    terminal-table (2.0.0)
       unicode-display_width (~> 1.1, >= 1.1.1)
     thin (1.7.2)
       daemons (~> 1.0, >= 1.0.9)
