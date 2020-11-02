@@ -21,6 +21,7 @@ PATH
     card-mod-account (0.10.1)
       card (= 1.100.1)
       card-mod-email (= 0.10.1)
+      card-mod-permissions (= 0.10.1)
     card-mod-ace_editor (0.10.1)
       card (= 1.100.1)
       card-mod-edit (= 0.10.1)
@@ -61,6 +62,7 @@ PATH
       card-mod-list (= 0.10.1)
       card-mod-machines (= 0.10.1)
       card-mod-markdown (= 0.10.1)
+      card-mod-permissions (= 0.10.1)
       card-mod-prosemirror_editor (= 0.10.1)
       card-mod-recaptcha (= 0.10.1)
       card-mod-rules (= 0.10.1)
@@ -111,6 +113,8 @@ PATH
       pry-rescue
       pry-stack_explorer
       rubocop (= 0.88)
+    card-mod-permissions (0.10.1)
+      card (= 1.100.1)
     card-mod-platypus (0.10.1)
       card (= 1.100.1)
       codeclimate-test-reporter

@@ -22,7 +22,7 @@ RSpec.describe Card::Set::All::Chunk do
     end
 
     it "treats symbols as codenames", as_bot: true do
-      format = format_with_edit_fields [:write, :basic]
+      format = format_with_edit_fields %i[write basic]
       expect(format.render_edit).to have_tag ".card-slot" do
         with_tag ".card-editor.RIGHT-Xwrite", with: { card_name: "A+*write" }
         with_tag ".card-editor.RIGHT-rich_text", with: { card_name: "A+RichText" }

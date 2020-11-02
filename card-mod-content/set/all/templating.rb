@@ -31,17 +31,17 @@ end
 
 def new_card_template
   default = rule_card :default, skip_modules: true
+  return default unless (structure = dup_structure default&.type_id)
 
+  @virtual = true if compound?
+  self.type_id = structure.type_id if assign_type_to?(structure)
+  structure
+end
+
+def dup_structure type_id
   dup_card = dup
-  dup_card.type_id = default&.type_id || default_type_id
-
-  if (structure = dup_card.structure_rule_card)
-    @virtual = true if junction?
-    self.type_id = structure.type_id if assign_type_to?(structure)
-    structure
-  else
-    default
-  end
+  dup_card.type_id = type_id || default_type_id
+  dup_card.structure_rule_card
 end
 
 def assign_type_to? structure
@@ -60,8 +60,7 @@ def assigns_type?
 end
 
 def structure
-  return unless template && template.is_structure?
-  template
+  template&.is_structure? ? template : nil
 end
 
 def structure_rule_card

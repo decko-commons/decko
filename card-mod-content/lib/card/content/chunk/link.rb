@@ -61,7 +61,7 @@ class Card
         def objectify raw
           return unless raw
           raw.strip!
-          if raw =~ /(^|[^\\])\{\{/
+          if raw.match?(/(^|[^\\])\{\{/)
             Card::Content.new raw, format
           else
             raw

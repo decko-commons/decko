@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-RSpec.describe Card::Content::Chunk::Uri, "URI chunk tests" do
+RSpec.describe Card::Content::Chunk::Uri do
   it "test_non_matches" do
     no_match_uri "There is no URI here"
     no_match_uri "One gemstone is the garnet:reddish in colour, like ruby"

@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-describe Card::Content::Chunk::QueryReference, "QueryReference" do
+describe Card::Content::Chunk::QueryReference do
   context "syntax parsing" do
     before do
       @class = Card::Content::Chunk::QueryReference
