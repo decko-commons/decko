@@ -118,10 +118,7 @@ def ok_to_create
   return false unless permit :create
   return true if simple?
 
-  %i[left right].each do |side|
-    return false unless ok_to_create_side side
-  end
-  true
+  %i[left right].find { |side| !ok_to_create_side side } ? false : true
 end
 
 def ok_to_create_side side

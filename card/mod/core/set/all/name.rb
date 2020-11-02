@@ -121,13 +121,8 @@ def autoname name
 end
 
 # FIXME: use delegations and include all name functions
-def simple?
-  name.simple?
-end
+delegate :simple?, :compound?, :junction?, to: :name
 
-def junction?
-  name.junction?
-end
 
 def raw_name
   @raw_name || name

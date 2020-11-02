@@ -26,15 +26,15 @@ end
 
 def set_classes_with_rules
   Card.set_patterns.reverse.map do |set_class|
-    cql = { left: { type: SetID },
-            right: id,
-            sort: %w[content name],
-            limit: 0 }
-    cql[:left][(set_class.anchorless? ? :id : :right_id)] = set_class.pattern_id
-
-    rules = Card.search cql
+    rules = rules_for_set_class set_class
     [set_class, rules] unless rules.empty?
   end.compact
+end
+
+def rules_for_set_class set_class
+  cql = { left: { type: SetID }, right: id, sort: %w[content name], limit: 0 }
+  cql[:left][(set_class.anchorless? ? :id : :right_id)] = set_class.pattern_id
+  Card.search cql
 end
 
 format :html do
