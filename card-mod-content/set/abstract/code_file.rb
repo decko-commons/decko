@@ -26,15 +26,24 @@ def source_dir
 end
 
 def find_file filename
-  modname = file_content_mod_name
-  modname = $1 if modname =~ /^card-mod-(\w*)/
-  mod_path = Card::Mod.dirs.path modname
-  file_path = File.join(mod_path, source_dir, filename)
-  unless File.exist?(file_path)
-    Rails.logger.info "couldn't locate file #{filename} at #{file_path}"
-    return nil
+  File.join(mod_path, source_dir, filename).tap do |file_path|
+    return nil if unknown_file? filename, file_path
   end
-  file_path
+end
+
+def mod_path
+  modname = file_content_mod_name
+  if (match = modname.match(/^card-mod-(\w*)/))
+    modname = match[1]
+  end
+  Card::Mod.dirs.path modname
+end
+
+def unknown_file? filename, file_path
+  return false if File.exist? file_path
+
+  Rails.logger.info "couldn't locate file #{filename} at #{file_path}"
+  true
 end
 
 def existing_source_paths

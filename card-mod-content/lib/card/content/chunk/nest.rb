@@ -18,11 +18,10 @@ class Card
           in_brackets = strip_tags match[1]
           name, @opt_lists = in_brackets.split "|", 2
           name = name.to_s.strip
-          if name =~ /^\#/
-            @process_chunk = name =~ /^\#\#/ ? "" : visible_comment(in_brackets)
+          if name.match?(/^\#/)
+            @process_chunk = name.match?(/^\#\#/) ? "" : visible_comment(in_brackets)
           else
-            @options = interpret_options.merge nest_name: name,
-                                               nest_syntax: in_brackets
+            @options = interpret_options.merge nest_name: name, nest_syntax: in_brackets
             @name = name
           end
         end
@@ -85,7 +84,7 @@ class Card
         def explicit_view= view
           return if @options[:view]
           # could check to make sure it's not already the default...
-          if @text =~ /\|/
+          if @text.match?(/\|/)
             @text.sub! "|", "|#{view};"
           else
             @text.sub! "}}", "|#{view}}}"

@@ -4,7 +4,8 @@ class Card
   class Content
     module Chunk
       class Reference < Abstract
-        attr_accessor :referee_name, :name
+        attr_writer :referee_name
+        attr_accessor :name
 
         def referee_name
           return if name.nil?
