@@ -40,7 +40,6 @@ describe 'editing pointers', () ->
       .should "contain", "Joe Camel"
       .should "contain", "Joe Admin"
 
-
   specify 'create with filtered list input', () ->
     input "filtered list"
 
