@@ -13018,7 +13018,7 @@ return jQuery;
     this.reset = function() {
       this.clear();
       this.dropdownItems.show();
-      return restrict(this.find("._reset-filter").data);
+      return this.restrict(this.form.find("._reset-filter").data);
     };
     this.clear = function() {
       return this.activeContainer.find(".input-group").remove();
