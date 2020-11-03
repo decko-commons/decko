@@ -23,9 +23,9 @@ decko.filter = (el) ->
         f.activate item.data("category")
 
   @reset = () ->
-    @clear()
-    @dropdownItems.show()
-    @restrict @form.find("._reset-filter").data
+    # @clear()
+    # @dropdownItems.show()
+    @restrict @form.find("._reset-filter").data("reset")
 
   @clear = () ->
     @activeContainer.find(".input-group").remove()
@@ -66,7 +66,7 @@ decko.filter = (el) ->
 
   @simpleFieldValue = (field, value) ->
     input = field.find("input, select")
-    input.val value if value
+    input.val value if (typeof value != 'undefined')
 
   @compoundFieldValue = (field, vals) ->
     for key of vals

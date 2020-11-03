@@ -17,6 +17,10 @@ format :html do
     end
   end
 
+  def reset_filter_data
+    JSON default_filter_hash
+  end
+
   def quick_filter_item hash, filter_key
     {
       text: (hash.delete(:text) || hash[filter_key]),
