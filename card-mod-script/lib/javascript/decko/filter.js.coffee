@@ -25,7 +25,7 @@ decko.filter = (el) ->
   @reset = () ->
     @clear()
     @dropdownItems.show()
-    @showWithStatus "default"
+    restrict @find("._reset-filter").data
 
   @clear = () ->
     @activeContainer.find(".input-group").remove()
@@ -162,6 +162,10 @@ decko.filter = (el) ->
 
   @updateIfChanged = ()->
     @update() if @changedSinceLastVal()
+
+  @updateIfPresent = (category)->
+    val = @activeField(category).find("input, select").val()
+    @update() if val && val.length > 0
 
   @changedSinceLastVal = () ->
     changed = false
