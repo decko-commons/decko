@@ -163,6 +163,10 @@ decko.filter = (el) ->
   @updateIfChanged = ()->
     @update() if @changedSinceLastVal()
 
+  @updateIfPresent = (category)->
+    val = @activeField(category).find("input, select").val()
+    @update() if val && val.length > 0
+
   @changedSinceLastVal = () ->
     changed = false
     @activeFields().find("input, select").each ()->
