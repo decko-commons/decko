@@ -25,7 +25,7 @@ decko.filter = (el) ->
   @reset = () ->
     @clear()
     @dropdownItems.show()
-    @showWithStatus "default"
+    restrict @find("._reset-filter").data
 
   @clear = () ->
     @activeContainer.find(".input-group").remove()
