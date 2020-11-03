@@ -27,12 +27,13 @@ $(window).ready ->
     e.preventDefault()
     # e.stopPropagation()
     f = filterFor(this)
-    f.activate $(this).data("category")
-    f.update()
+    category = $(this).data("category")
+    f.activate category
+    f.updateIfPresent category
 
   # Update filter results based on filter value changes
-  onchangers = "._filter-input input:not(.simple-text), " +
-    "._filter-input select, ._filter-sort"
+  onchangers =
+    "._filter-input input:not(.simple-text), ._filter-input select, ._filter-sort"
   $("body").on "change", onchangers, ->
     return if weirdoSelect2FilterBreaker this
     filterFor(this).update()
