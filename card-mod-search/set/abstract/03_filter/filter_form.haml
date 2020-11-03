@@ -48,6 +48,6 @@
                       = category[:label]
 
               // RESET BUTTON
-              ._reset-filter
-                %button.btn.btn-sm.btn-secondary{type: "button"}
+              ._reset-filter{type: "button", data: default_filter_hash}
+                %button.btn.btn-sm.btn-secondary
                   %i.fa.fa-refresh
