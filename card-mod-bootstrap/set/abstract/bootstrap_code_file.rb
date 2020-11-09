@@ -43,7 +43,7 @@ module OverrideCodeFile
 
   def load_from_path path
     @stylesheets ||= []
-    Rails.logger.info "reading file: #{path}"
+    Rails.logger.debug "reading file: #{path}"
     @stylesheets << File.read(path)
   end
 
