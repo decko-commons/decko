@@ -27,8 +27,9 @@ $(window).ready ->
     e.preventDefault()
     # e.stopPropagation()
     f = filterFor(this)
-    f.activate $(this).data("category")
-    f.update()
+    category = $(this).data("category")
+    f.activate category
+    f.updateIfPresent category
 
   # Update filter results based on filter value changes
   onchangers =

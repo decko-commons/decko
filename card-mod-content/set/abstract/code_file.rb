@@ -59,7 +59,7 @@ end
 def content
   Array.wrap(source_files).map do |filename|
     if (source_path = find_file filename)
-      Rails.logger.info "reading file: #{source_path}"
+      Rails.logger.debug "reading file: #{source_path}"
       File.read source_path
     end
   end.compact.join "\n"
