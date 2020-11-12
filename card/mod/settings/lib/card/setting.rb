@@ -33,7 +33,7 @@ class Card
       end
 
       def codenames
-        Card::Setting.groups.values.flatten.compact.map(&:codename)
+        groups.values.flatten.compact.map(&:codename)
       end
 
       def preference? codename
@@ -67,30 +67,10 @@ class Card
       Card::Setting.groups[group] ||= []
       set_position group, opts[:position]
 
-      register_preference opts[:codename] if opts[:preference]
-
-      %i[rule_type_editable short_help_text applies].each do |option|
-        send "#{option}=", opts[option]
-      end
-
-      self.restricted_to_type = permitted_type_ids opts[:restricted_to_type]
-      right_set.raw_help_text = self.raw_help_text = opts[:help_text]
-    end
-
-    def register_preference codename
-      codename ||= name.match(/::(\w+)$/)[1].underscore.to_sym
-      Card::Setting.preferences << codename
-    end
-
-    def set_position group, pos
-      grp = Card::Setting.groups[group]
-      return (grp << self) unless pos
-
-      if grp[pos - 1]
-        grp.insert(pos - 1, self)
-      else
-        grp[pos - 1] = self
-      end
+      register_preference opts[:codename], opts[:preference]
+      standard_setting_opts opts, :rule_type_editable, :short_help_text, :applies
+      restrict_setting_to_type opts[:restricted_to_type]
+      help_text_for_setting opts[:help_text]
     end
 
     def applies_to_cardtype type_id, prototype=nil
@@ -104,6 +84,35 @@ class Card
     end
 
     private
+
+    def standard_setting_opts hash, *options
+      options.each { |opt| send "#{opt}=", hash[opt] }
+    end
+
+    def restrict_setting_to_type types
+      self.restricted_to_type = permitted_type_ids types
+    end
+
+    def register_preference codename, preference
+      @codename = codename || name.match(/::(\w+)$/)[1].underscore.to_sym
+
+      Card::Setting.preferences << @codename if preference
+    end
+
+    def set_position group, pos
+      grp = Card::Setting.groups[group]
+      return (grp << self) unless pos
+
+      if grp[pos - 1]
+        grp.insert(pos - 1, self)
+      else
+        grp[pos - 1] = self
+      end
+    end
+
+    def help_text_for_setting help_text
+      right_set.raw_help_text = self.raw_help_text = help_text
+    end
 
     def permitted_type_ids types
       return unless types
