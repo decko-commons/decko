@@ -23,7 +23,7 @@ class Card
     class << self
       def extended host_class
         # accessible in E and O
-        host_class.mattr_accessor *SETTING_OPTIONS
+        host_class.mattr_accessor(*SETTING_OPTIONS)
         setting_class_name = host_class.to_s.split("::").last
         host_class.ensure_set { "Card::Set::Right::#{setting_class_name}" }
 
@@ -42,13 +42,13 @@ class Card
     end
 
     self.group_names = {
-        templating:  "Templating",
-        permission:  "Permissions",
-        webpage:     "Webpage",
-        editing:     "Editing",
-        event:       "Events",
-        other:       "Other",
-        config:      "Config"
+      templating: "Templating",
+      permission: "Permissions",
+      webpage:    "Webpage",
+      editing:    "Editing",
+      event:      "Events",
+      other:      "Other",
+      config:     "Config"
     }
 
     self.groups = group_names.keys.each_with_object({}) do |key, groups|
