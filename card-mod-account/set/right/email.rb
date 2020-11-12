@@ -6,7 +6,7 @@ event :validate_email, :validate, on: :save do
   return unless content?
 
   self.content = content.strip
-  return unless content.match?(/^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i)
+  return if content.match?(/^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i)
 
   errors.add :content, tr(:error_invalid_address)
 end
