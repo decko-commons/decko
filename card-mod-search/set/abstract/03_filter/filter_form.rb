@@ -58,8 +58,7 @@ format :html do
     all_filter_keys.each_with_object({}) do |cat, h|
       h[cat] = { label: filter_label(cat),
                  input_field: _render("filter_#{cat}_formgroup"),
-                 active: active_filter?(cat),
-                 default: default_filter?(cat) }
+                 active: active_filter?(cat) }
     end
   end
 
