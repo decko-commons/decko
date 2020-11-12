@@ -10,38 +10,52 @@ class Card
     # accessible in E
     attr_accessor :codename
     # accessible in E and M
-    mattr_accessor :groups, :group_names, :user_specific
-    def self.extended host_class
-      # accessible in E and O
-      host_class.mattr_accessor :restricted_to_type, :rule_type_editable, :short_help_text,
-                                :raw_help_text, :right_set, :applies
-      setting_class_name = host_class.to_s.split("::").last
-      host_class.ensure_set { "Card::Set::Right::#{setting_class_name}" }
-      host_class.right_set = Card::Set::Right.const_get(setting_class_name)
-      host_class.right_set.mattr_accessor :raw_help_text
+    mattr_accessor :groups, :group_names, :preferences
+
+    SETTING_OPTIONS = %i[
+      restricted_to_type
+      rule_type_editable
+      short_help_text
+      raw_help_text
+      applies
+    ].freeze
+
+    class << self
+      def extended host_class
+        # accessible in E and O
+        host_class.mattr_accessor(*SETTING_OPTIONS)
+        setting_class_name = host_class.to_s.split("::").last
+        host_class.ensure_set { "Card::Set::Right::#{setting_class_name}" }
+
+        host_class.mattr_accessor :right_set
+        host_class.right_set = Card::Set::Right.const_get(setting_class_name)
+        host_class.right_set.mattr_accessor :raw_help_text
+      end
+
+      def codenames
+        Card::Setting.groups.values.flatten.compact.map(&:codename)
+      end
+
+      def preference? codename
+        preferences.include? codename
+      end
     end
 
-    def self.codenames
-      Card::Setting.groups.values.flatten.compact.map(&:codename)
-    end
-
-    @@group_names = {
-      templating:  "Templating",
-      permission:  "Permissions",
-      webpage:     "Webpage",
-      editing:     "Editing",
-      event:       "Events",
-      other:       "Other",
-      config:      "Config"
+    self.group_names = {
+      templating: "Templating",
+      permission: "Permissions",
+      webpage:    "Webpage",
+      editing:    "Editing",
+      event:      "Events",
+      other:      "Other",
+      config:     "Config"
     }
-    @@groups = @@group_names.keys.each_with_object({}) do |key, groups|
+
+    self.groups = group_names.keys.each_with_object({}) do |key, groups|
       groups[key] = []
     end
-    @@user_specific = ::Set.new
 
-    def self.user_specific? codename
-      @@user_specific.include? codename
-    end
+    self.preferences = ::Set.new
 
     # usage:
     # setting_opts group:        :permission | :event | ...
@@ -50,29 +64,32 @@ class Card
     #              restricted_to_type: <cardtype> | [ <cardtype>, ...]
     def setting_opts opts
       group = opts[:group] || :other
-      @@groups[group] ||= []
+      Card::Setting.groups[group] ||= []
       set_position group, opts[:position]
 
-      @codename = opts[:codename] ||
-                  name.match(/::(\w+)$/)[1].underscore.to_sym
-      self.rule_type_editable = opts[:rule_type_editable]
+      register_preference opts[:codename] if opts[:preference]
+
+      %i[rule_type_editable short_help_text applies].each do |option|
+        send "#{option}=", opts[option]
+      end
+
       self.restricted_to_type = permitted_type_ids opts[:restricted_to_type]
-      self.short_help_text = opts[:short_help_text]
-      self.applies = opts[:applies]
       right_set.raw_help_text = self.raw_help_text = opts[:help_text]
-      return unless opts[:user_specific]
-      @@user_specific << @codename
+    end
+
+    def register_preference codename
+      codename ||= name.match(/::(\w+)$/)[1].underscore.to_sym
+      Card::Setting.preferences << codename
     end
 
     def set_position group, pos
-      if pos
-        if @@groups[group][pos - 1]
-          @@groups[group].insert(pos - 1, self)
-        else
-          @@groups[group][pos - 1] = self
-        end
+      grp = Card::Setting.groups[group]
+      return (grp << self) unless pos
+
+      if grp[pos - 1]
+        grp.insert(pos - 1, self)
       else
-        @@groups[group] << self
+        grp[pos - 1] = self
       end
     end
 
