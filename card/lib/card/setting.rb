@@ -62,7 +62,7 @@ class Card
     #              position:     <Fixnum> (starting at 1, default: add to end)
     #              rule_type_editable: true | false (default: false)
     #              restricted_to_type: <cardtype> | [ <cardtype>, ...]
-    def setting_opts opts
+    def register_setting opts
       group = opts[:group] || :other
       Card::Setting.groups[group] ||= []
       set_position group, opts[:position]
