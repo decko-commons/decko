@@ -120,6 +120,15 @@ class Card
         end
       end
 
+      def map_paths subdir=nil
+        @mods.map do |mod|
+          path = subdir ? File.join(@paths[mod], subdir) : @paths[mod]
+          next unless Dir.exist? path
+
+          yield mod, path
+        end.compact
+      end
+
       def each_tmp type
         @mods.each do |mod|
           path = tmp_dir mod, type
@@ -138,9 +147,18 @@ class Card
         end
       end
 
-      def each_assets_path
+      def each_public_assets_path
         @mods.each do |mod|
           path = File.join(@paths[mod], "public", "assets")
+          next unless Dir.exist? path
+
+          yield mod, path
+        end
+      end
+
+      def each_assets_path
+        @mods.each do |mod|
+          path = File.join(@paths[mod], "assets")
           next unless Dir.exist? path
 
           yield mod, path
