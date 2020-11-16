@@ -1,18 +1,5 @@
-mod 'utility'
-mod 'admin'
-mod 'core'
-mod 'virtual'
-mod 'basic_formats'
-mod 'item'
-mod 'pointer'
-mod 'basic_types'
-mod 'machines'
-mod 'settings'
-mod 'email'
-mod 'media'
-mod 'search'
-mod 'standard'
-mod 'rules'
-gem_mod 'account'
-mod 'navbar'
-# mod 'history'
+mod "admin"
+mod "core"
+gem_mod "machines"
+mod "settings"
+mod "standard"

@@ -93,9 +93,7 @@ def valid_storage_type_list
 end
 
 def invalid_storage_type! type
-  raise Card::Error, I18n.t(:error_invalid_storage_type,
-                            scope: "mod.carrierwave.set.abstract.attachment",
-                            type: type)
+  raise Card::Error, tr(:error_invalid_storage_type, type: type)
 end
 
 def storage_type_from_content

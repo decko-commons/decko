@@ -1,3 +1,8 @@
+
+def left_type_for_nest_editor_set_selection
+  type_name
+end
+
 format :html do
   # Card::View::Options.shark_keys - %i[nest_syntax nest_name items cache]
   # TODO: connect to Card::View::Options
@@ -91,14 +96,10 @@ format :html do
                                       default_nest_view, default_item_view
   end
 
-  def left_type_for_nest_editor_set_selection
-    card.type_name
-  end
-
   def set_name_for_nest_rules
     nest_name = nest_snippet.name
-    if left_type_for_nest_editor_set_selection
-      [left_type_for_nest_editor_set_selection, nest_name, :type_plus_right]
+    if (type_name = card.left_type_for_nest_editor_set_selection)
+      [type_name, nest_name, :type_plus_right]
     else
       [nest_name, :right]
     end
@@ -128,15 +129,18 @@ format :html do
   end
 
   def nest_option_name_disabled selected, level
-    disabled = if level == 0
-                 nest_snippet.options
-               else
-                 nest_snippet.item_options[level - 1] || default_nest_editor_item_options
-               end
-
+    disabled = nest_option_name_disabled_options level
     disabled = disabled&.map(&:first)
     disabled&.delete selected if selected
     disabled
+  end
+
+  def nest_option_name_disabled_options level
+    if level == 0
+      nest_snippet.options
+    else
+      nest_snippet.item_options[level - 1] || default_nest_editor_item_options
+    end
   end
 
   def nest_apply_opts

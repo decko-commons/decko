@@ -8,10 +8,11 @@ global_job_config:
   env_vars:
     - name: BUNDLE_PATH
       value: "~/bundle/"
-    - name: COVERAGE
-      value: "false"
     - name: DECKO_REPO_PATH
       value: "~/decko"
+  secrets:
+    - name: s3-credentials
+    - name: code-climate
   prologue:
     commands:
       - checkout # semaphore does git checkout and cds into decko
@@ -53,11 +54,16 @@ blocks:
 
   - name: Unit Tests
     task:
+      env_vars:
+        - name: REPO_TMPSETS
+          value: "true"
       prologue:
         commands:
           - sem-service start mysql
           - git submodule update
           - cache restore bundle-gems-$(checksum Gemfile.lock)
+          - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+          - chmod +x ./cc-test-reporter
 
       jobs:
         - name: RSpec
@@ -66,14 +72,24 @@ blocks:
             - cd platypus
             - be decko seed --test
             - be decko rspec
+      epilogue:
+        commands:
+          - cd -
+          - ./cc-test-reporter format-coverage --output "coverage/codeclimate.$SEMAPHORE_JOB_ID.json" -t simplecov
+          - aws s3 cp "coverage/codeclimate.$SEMAPHORE_JOB_ID.json" "s3://deckodev-test/$SEMAPHORE_PROJECT_NAME/$SEMAPHORE_GIT_BRANCH/coverage/$SEMAPHORE_WORKFLOW_ID/"
 
   - name: Integration Tests
     task:
+      env_vars:
+        - name: REPO_TMPSETS
+          value: "true"
       prologue:
         commands:
           - sem-service start mysql
           - git submodule update
           - cache restore bundle-gems-$(checksum Gemfile.lock)
+          - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+          - chmod +x ./cc-test-reporter
           - be decko new platypus --platypus
           - cd platypus
           - be decko seed --test
@@ -89,3 +105,22 @@ blocks:
         - name: Cucumber
           commands:
             - RAILS_ENV=cucumber bundle exec decko cucumber
+
+      epilogue:
+        commands:
+          - cd ~/decko
+          - ./cc-test-reporter format-coverage --output "coverage/codeclimate.$SEMAPHORE_JOB_ID.json" -t simplecov
+          - aws s3 cp "coverage/codeclimate.$SEMAPHORE_JOB_ID.json" "s3://deckodev-test/$SEMAPHORE_PROJECT_NAME/$SEMAPHORE_GIT_BRANCH/coverage/$SEMAPHORE_WORKFLOW_ID/"
+
+  - name: Coverage Report
+    task:
+      jobs:
+        - name: CodeClimate Coverage
+          commands:
+            - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+            - chmod +x ./cc-test-reporter
+            # SEMAPHORE_GIT_BRANCH is the destination branch when it's a PR.
+            # in those cases we probably want SEMAPHORE_GIT_PR_BRANCH.
+            - aws s3 sync "s3://deckodev-test/$SEMAPHORE_PROJECT_NAME/$SEMAPHORE_GIT_BRANCH/coverage/$SEMAPHORE_WORKFLOW_ID/" coverage/
+            - ./cc-test-reporter sum-coverage --output - --parts $(ls -1 coverage/ | wc -l) coverage/codeclimate.*.json > coverage/codeclimate.json
+            - ./cc-test-reporter upload-coverage

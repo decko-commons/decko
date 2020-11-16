@@ -3,7 +3,7 @@
 require "../decko_gem"
 
 DeckoGem.mod "bootstrap" do |s, d|
-  d.depends_on_mod :edit
   s.summary = "Bootstrap"
   s.description = ""
+  d.depends_on_mod :edit, :bar_and_box, :style, :script
 end

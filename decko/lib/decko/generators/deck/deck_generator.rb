@@ -55,17 +55,14 @@ module Decko
         end
 
         def empty_dirs
-          empty_directory_with_keep_file "mod"
-          empty_directory_with_keep_file "log"
-          empty_directory_with_keep_file "files"
-          empty_directory "tmp"
+          %w[mod log files tmp].each { |dirname| empty_directory_with_keep_file dirname }
         end
 
         def dotfiles
           copy_file "pryrc", ".pryrc"
           copy_file "gitignore", ".gitignore"
           template "rspec.erb", ".rspec"
-          template "simplecov.erb", ".simplecov"
+          template "simplecov.rb.erb", ".simplecov"
         end
 
         def config

@@ -330,17 +330,13 @@ CardController#soft_redirect)</p>
 
 19
 20
-21
-22
-23</pre>
+21</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'card/lib/card/director/event_delay.rb', line 19</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_delaying?'>delaying?</span>
-  <span class='id identifier rubyid_const_defined?'>const_defined?</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Delayed</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='op'>&amp;&amp;</span>
-    <span class='const'>Delayed</span><span class='op'>::</span><span class='const'>Worker</span><span class='period'>.</span><span class='id identifier rubyid_delay_jobs'>delay_jobs</span> <span class='op'>&amp;&amp;</span>
-    <span class='const'><span class='object_link'><a href="../../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_config'><span class='object_link'><a href="../../Card.html#config-class_method" title="Card.config (method)">config</a></span></span><span class='period'>.</span><span class='id identifier rubyid_active_job'>active_job</span><span class='period'>.</span><span class='id identifier rubyid_queue_adapter'>queue_adapter</span> <span class='op'>==</span> <span class='symbol'>:delayed_job</span>
+  <span class='const'><span class='object_link'><a href="../../Cardio.html" title="Cardio (module)">Cardio</a></span></span><span class='period'>.</span><span class='id identifier rubyid_config'>config</span><span class='period'>.</span><span class='id identifier rubyid_delaying'>delaying</span> <span class='op'>==</span> <span class='kw'>true</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -362,14 +358,14 @@ CardController#soft_redirect)</p>
       <pre class="lines">
 
 
+29
+30
 31
 32
-33
-34
-35</pre>
+33</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/director/event_delay.rb', line 31</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/director/event_delay.rb', line 29</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_run_job_with_act'>run_job_with_act</span> <span class='id identifier rubyid_act'>act</span><span class='comma'>,</span> <span class='id identifier rubyid_card'>card</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span>
   <span class='id identifier rubyid_run_act'>run_act</span> <span class='id identifier rubyid_card'>card</span> <span class='kw'>do</span>
@@ -396,14 +392,14 @@ CardController#soft_redirect)</p>
       <pre class="lines">
 
 
+23
+24
 25
 26
-27
-28
-29</pre>
+27</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/director/event_delay.rb', line 25</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/director/event_delay.rb', line 23</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_with_delay_act'>with_delay_act</span> <span class='id identifier rubyid_act_id'>act_id</span><span class='comma'>,</span> <span class='id identifier rubyid_card'>card</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span>
   <span class='kw'>return</span> <span class='kw'>yield</span> <span class='kw'>unless</span> <span class='id identifier rubyid_act_id'>act_id</span> <span class='op'>&amp;&amp;</span> <span class='lparen'>(</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_act'>act</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../Act.html" title="Card::Act (class)">Act</a></span></span><span class='period'>.</span><span class='id identifier rubyid_find'>find</span> <span class='id identifier rubyid_act_id'>act_id</span><span class='rparen'>)</span>
@@ -430,16 +426,16 @@ CardController#soft_redirect)</p>
       <pre class="lines">
 
 
+35
+36
 37
 38
 39
 40
-41
-42
-43</pre>
+41</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/director/event_delay.rb', line 37</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/director/event_delay.rb', line 35</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_with_env_and_auth'>with_env_and_auth</span> <span class='id identifier rubyid_env'>env</span><span class='comma'>,</span> <span class='id identifier rubyid_auth'>auth</span>
   <span class='const'><span class='object_link'><a href="../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Auth.html" title="Card::Auth (module)">Auth</a></span></span><span class='period'>.</span><span class='id identifier rubyid_with'><span class='object_link'><a href="../Auth/Current.html#with-instance_method" title="Card::Auth::Current#with (method)">with</a></span></span> <span class='id identifier rubyid_auth'>auth</span> <span class='kw'>do</span>
@@ -458,7 +454,7 @@ CardController#soft_redirect)</p>
 </div>
 
       <div id="footer">
-  Generated on Sat Sep 26 18:17:03 2020 by
+  Generated on Sun Oct 18 23:47:45 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.25 (ruby-2.6.3).
 </div>

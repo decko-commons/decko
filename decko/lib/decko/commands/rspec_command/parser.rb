@@ -35,7 +35,7 @@ module Decko
               opts[:files] = find_mod_file(file, Cardio.gem_root)
             end
             parser.on("-s", "--[no-]simplecov", "Run with simplecov") do |s|
-              opts[:simplecov] = s ? "" : "COVERAGE=false"
+              opts[:simplecov] = s ? "TMPSETS=true" : ""
             end
             parser.on("--rescue", "Run with pry-rescue") do
               process_rescue_opts opts

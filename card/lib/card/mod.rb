@@ -56,10 +56,8 @@ class Card
   # ## Other Directories
   #
   # Other ways your mod can extend Decko functionality include:
-  #   - **format** for creating new formats (think file extensions)
   #   - **set_pattern** for additional {Card::Set::Pattern set patterns},
   #     or types of sets.
-  #   - **chunk** provides tools for finding new patterns in card content
   #   - **file** for fixed initial card content
   module Mod
     class << self
