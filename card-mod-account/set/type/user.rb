@@ -1,4 +1,3 @@
-include Basic
 include_set Abstract::Accountable
 
 attr_accessor :email
