@@ -211,7 +211,7 @@ en:
             # memory difference
             memory_diff: memory diff
             megabyte_suffix: M
-
+        type:
           cardtype:
             cards_exist: Sorry, this card must remain a Cardtype so long as there are %{cardname} cards.
             add_card: Add %{cardname}
