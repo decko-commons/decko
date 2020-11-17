@@ -1,6 +1,9 @@
 class Card
   # Generate standard card paths.
   class Path
+    cattr_accessor :cast_params
+    self.cast_params = { slot: { hide: :array, show: :array, wrap: :array } }.freeze
+
     def initialize card, opts
       @card = card
       @opts = opts
@@ -12,9 +15,7 @@ class Card
 
     private
 
-    def opts
-      @opts
-    end
+    attr_reader :opts
 
     def action
       @action ||= opts.delete(:action)&.to_sym
@@ -83,7 +84,7 @@ class Card
     # normalizes certain path opts to specified data types
     def cast_path_hash hash, cast_hash=nil
       return hash unless hash.is_a? Hash
-      cast_each_path_hash hash, (cast_hash || CAST_PARAMS)
+      cast_each_path_hash hash, (cast_hash || self.class.cast_params)
       hash
     end
 

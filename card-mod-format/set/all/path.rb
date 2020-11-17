@@ -1,10 +1,12 @@
 format do
-  # Decko uses "path" a bit unusually.  In most formats, it returns a full url.  In HTML,
-  # it provides everything after the domain/port.
+  # Decko uses the term "path" a bit unusually.
   #
-  # If you're feeling your saucy oats, you might point out that typically "paths" don't
+  # In most formats, #path returns a full url.  In HTML, it provides everything after
+  # the domain/port.
+  #
+  # If you're feeling saucy, you might point out that typically "paths" don't
   # include queries and fragment identifiers, much less protocols, domains, and ports.
-  # 10 pedantry points to you! But "path" has just four letters and is smart about
+  # 10 pedantry points to you! But "path" is easy to type and the method is smart about
   # format needs, so using it will lead you down the right ... something or other.
 
   # Format#path is for generating standard card routes, eg, assuming the card
@@ -29,9 +31,6 @@ format do
   # @option opts [Symbol] :format
   # @option opts [Hash] :card
   # @option opts [TrueClass] :no_mark
-
-  CAST_PARAMS = { slot: { hide: :array, show: :array, wrap: :array } }.freeze
-  # TODO: monkey API for this
 
   def path opts={}
     return opts unless opts.is_a? Hash
