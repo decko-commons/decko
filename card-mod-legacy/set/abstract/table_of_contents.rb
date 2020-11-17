@@ -12,18 +12,19 @@ format :html do
   end
 
   def table_of_contents content
-    return if nest_mode == :compact || !content.present?
-
-    min = card.rule(:table_of_contents).to_i
-    return unless min && min > 0
+    return if nest_mode == :compact || !content.present? || toc_minimum&.zero?
 
     toc = toc_items content
-    if toc.flatten.length >= min
-      content.replace(
-        %( <div class="table-of-contents"> <h5>#{tr(:toc)}</h5> ) +
-          make_table_of_contents_list(toc) + "</div>" + content
-      )
-    end
+    return unless toc.flatten.length >= toc_minimum
+
+    content.replace(
+      %( <div class="table-of-contents"> <h5>#{tr(:toc)}</h5> ) +
+        make_table_of_contents_list(toc) + "</div>" + content
+    )
+  end
+
+  def toc_minimum
+    @toc_minimum ||= card.rule(:table_of_contents).to_i
   end
 
   def toc_items content
