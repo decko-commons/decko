@@ -1,5 +1,4 @@
 mod "admin"
 mod "core"
-gem_mod "machines"
 mod "settings"
 mod "standard"
