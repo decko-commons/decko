@@ -258,13 +258,6 @@ en:
           table_of_contents:
             toc: Table of Contents
 
-    card-mod-format:
-      format:
-        html_format:
-          unknown_layout: "Unknown layout: %{name}"
-          built_in: "Built-in Layouts: %{built_in_layouts}"
-          available_layouts: "Available Layouts: %{available_layouts}"
-
     card-mod-email:
       set:
         all:
@@ -403,7 +396,11 @@ en:
             close: Close
           html_wrapper:
             close: Close
-
+      format:
+        html_format:
+          unknown_layout: "Unknown layout: %{name}"
+          built_in: "Built-in Layouts: %{built_in_layouts}"
+          available_layouts: "Available Layouts: %{available_layouts}"
 
     card-mod-edit:
       set:
