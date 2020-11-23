@@ -3,4 +3,9 @@ def tr key, args={}
   ::I18n.t key, args
 end
 
-format { delegate :tr, to: :card }
+format do
+  def tr key, args={}
+    args[:scope] ||= Card::Set.scope(caller)
+    ::I18n.t key, args
+  end
+end
