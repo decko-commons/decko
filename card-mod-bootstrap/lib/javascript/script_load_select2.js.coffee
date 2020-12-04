@@ -49,6 +49,7 @@ $.fn.extend
     $cloned
 
   deInitSelect2: ->
-    this.select2 "destroy"
-    this.removeAttr "data-select2-id"
-    this.find("option").removeAttr "data-select2-id"
+    return unless @attr "data-select2-id"
+    @select2 "destroy"
+    @removeAttr "data-select2-id"
+    @find("option").removeAttr "data-select2-id"
