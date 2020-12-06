@@ -2,6 +2,7 @@ include_set Abstract::Pointer
 
 abstract_basket :item_codenames
 
+
 # simplify api
 # Self::MyCodePointerSet.add_item :my_item_codename
 # instead of
@@ -36,7 +37,7 @@ def asset_file_cards
   Card::Mod.dirs.map_paths(subpath) do |mod, path|
     manifest_path = File.join(path, "manifest.yml")
     if File.exists? manifest_path
-      asset_file_cards_from_manifest mod, manifest_path
+      manifest_groups_cards mod, manifest_path
     else
       asset_file_cards_from_paths mod, path, Dir::children(path)
     end
@@ -52,12 +53,29 @@ def asset_file_cards_from_paths mod, basepath, filenames
     end
 end
 
-def asset_file_cards_from_manifest mod, manifest_path
+def manifest_groups_cards mod, manifest_path
   yaml = YAML.load_file manifest_path
-  return unless yaml["include"].present?
-
-  asset_file_cards_from_paths mod, File.dirname(manifest_path), yaml["include"]
+  yaml.keys.map do |key|
+    new_manifest_group key, yaml[key]
+  end
 end
+
+def new_manifest_group key, config
+  group = Card.new name: key, type_id: Card::ManifestGroupID
+  group.minimize if config["minimize"]
+  group.local if config["local"]
+  group.add_items config["items"]
+  group
+end
+
+format :html do
+  view :include_tag do
+    item_cards.map do |icard|
+      nest icard, view: :include_tag
+    end.join("\n")
+  end
+end
+
 
 def basket_cards
   item_codenames.map do |codename|

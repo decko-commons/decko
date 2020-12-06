@@ -55,9 +55,7 @@ format :html do
   end
 
   view :head_javascript, unknown: true, cache: :never, perms: :none do
-    Array.wrap(head_javascript_paths).map do |path|
-      javascript_include_tag path
-    end
+    Array.wrap(head_javascript_paths).join("\n")
   end
 
   view :decko_script_variables, unknown: true, cache: :never, perms: :none do
@@ -115,7 +113,7 @@ format :html do
   def head_javascript_paths
     debug_or_machine_path :script do |script_card|
       script_card.item_cards.map do |script|
-        script.format(:js).render :source
+        script.format(:html).render :javascript_include_tag
       end
     end
   end

@@ -38,6 +38,19 @@ def virtual?
   true
 end
 
+
+def compress_js?
+  @minimize
+end
+
+def minimize
+  @minimze = true
+end
+
+def local
+  @local = true
+end
+
 format do
   def link_view opts={}
     opts[:path] = { card: { type: card.type, content: card.db_content}}
