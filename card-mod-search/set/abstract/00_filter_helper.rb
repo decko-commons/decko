@@ -3,8 +3,6 @@ format do
     filter_hash[field.to_sym]
   end
 
-  # FIXME: it is inconsistent that #sort_hash has :sort as the key, but
-  # #filter_hash is the _value_ of the hash with :filter as the key.
   def filter_hash
     @filter_hash ||= filter_hash_from_params || default_filter_hash
   end
