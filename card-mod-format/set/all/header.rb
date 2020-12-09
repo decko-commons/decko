@@ -1,3 +1,6 @@
+# LOCALIZE first item
+TOGGLE_MAP = { close: %w[open open], open: %w[close closed] }.freeze
+
 format :html do
   view :header, perms: :none do
     main_header
@@ -47,9 +50,6 @@ format :html do
   def toggle_view
     toggle_verb_adjective.last
   end
-
-  # LOCALIZE first item
-  TOGGLE_MAP = { close: %w[open open], open: %w[close closed] }.freeze
 
   def toggle_verb_adjective
     TOGGLE_MAP[@toggle_mode || :open] ||
