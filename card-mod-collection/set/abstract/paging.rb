@@ -10,11 +10,11 @@ format do
   end
 
   def search_with_params
-    card.item_names
+    @search_with_params ||= card.item_names
   end
 
   def count_with_params
-    card.item_names.count
+    @count_with_params ||= card.item_names.count
   end
 
   def total_pages
