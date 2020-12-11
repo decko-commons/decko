@@ -12,7 +12,7 @@ PATH
       haml (~> 5.0)
       jwt (~> 2.2)
       kaminari (~> 1.0)
-      rails (~> 6)
+      rails (~> 6.1)
       rake (<= 12.3.0)
       sassc (~> 2.0)
       sprockets (~> 3.7)
