@@ -49,6 +49,7 @@ end
 
 event :initialize_because_of_type_change, :prepare_to_store,
       on: :update, changed: :type do
+  self.content = content
   initialize_theme old_skin_items
 end
 

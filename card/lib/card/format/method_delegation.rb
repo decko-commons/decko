@@ -67,8 +67,6 @@ class Card
         proc = proc { |*a| raw yield(*a) } if proc
         response = action_view.send method, *opts, &proc
         response.is_a?(String) ? action_view.raw(response) : response
-      rescue
-        action_view
       end
     end
   end
