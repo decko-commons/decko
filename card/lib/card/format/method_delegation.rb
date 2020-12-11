@@ -56,15 +56,21 @@ class Card
       def new_action_view
         c = controller
         lookup_context = ActionView::LookupContext.new c.class.view_paths
-        ActionView::Base.new(lookup_context, { _routes: c._routes }, c).tap do |t|
+        CardActionView.new(lookup_context, { _routes: c._routes }, c).tap do |t|
           t.extend c.class._helpers
         end
+      end
+
+      class CardActionView < ActionView::Base
+        with_empty_template_cache
       end
 
       def delegate_to_action_view method, opts, proc
         proc = proc { |*a| raw yield(*a) } if proc
         response = action_view.send method, *opts, &proc
         response.is_a?(String) ? action_view.raw(response) : response
+      rescue
+        action_view
       end
     end
   end
