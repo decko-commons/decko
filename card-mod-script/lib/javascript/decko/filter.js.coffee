@@ -24,7 +24,7 @@ decko.filter = (el) ->
 
   @reset = () ->
     # @clear()
-    # @dropdownItems.show()
+    @dropdownItems.show()
     @restrict @form.find("._reset-filter").data("reset")
 
   @clear = () ->

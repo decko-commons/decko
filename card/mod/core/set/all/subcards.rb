@@ -86,16 +86,17 @@ end
 
 def handle_subcard_errors
   subcards.each do |subcard|
-    subcard.errors.each do |field, err|
-      subcard_error subcard, field, err
+    subcard.errors.each do |error|
+      subcard_error subcard, error
     end
     subcard.errors.clear
   end
 end
 
-def subcard_error subcard, field, err
-  err = "#{field} #{err}" unless %i[content abort].member? field
-  errors.add subcard.name.from(name), err
+def subcard_error subcard, error
+  msg = error.message
+  msg = "#{error.attribute} #{msg}" unless %i[content abort].member? error.attribute
+  errors.add subcard.name.from(name), msg
 end
 
 event :reject_empty_subcards, :prepare_to_validate do
