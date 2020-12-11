@@ -6,21 +6,29 @@ RSpec.describe Card::Set::All::Subcards do
                             "12" => { subcards: { "121" => "A" } } }
   end
 
+  class Card
+    def __current_trans
+      @current_trans = ActiveRecord::Base.connection.current_transaction
+    end
+
+    def __record_names reset=false
+      trans = @current_trans && !reset ? @current_trans : __current_trans
+      trans.records.map { |r| r.try :name }.compact
+    end
+  end
+
   describe "add subcards" do
-    let(:transact) { ActiveRecord::Base.connection.current_transaction }
-    let(:record_names) { transact.records.map(&:name) }
 
     context "when in integrate stage" do
       context "with default subcard handling" do
         it "processes all cards in one transaction" do
           with_test_events do
             test_event :validate, on: :create, for: "main card" do
-              transact
               add_subcard("sub card")
             end
 
             test_event :finalize, on: :create, for: "main card" do
-              expect(record_names).to eq ["main card", "sub card"]
+              expect(__record_names).to eq ["main card", "sub card"]
             end
 
             create_card
@@ -33,17 +41,6 @@ RSpec.describe Card::Set::All::Subcards do
         after { Cardio.delaying! :off }
 
         context "with serial subcard handling" do
-          class Card
-            def __current_trans
-              ActiveRecord::Base.connection.current_transaction
-            end
-
-            def __record_names trans=nil
-              trans ||= __current_trans
-              trans.records.map(&:name)
-            end
-          end
-
           it "director.delay! processes subcards in separate transaction" do
             with_test_events do
               test_event :validate, on: :create, for: "main card" do
@@ -52,21 +49,21 @@ RSpec.describe Card::Set::All::Subcards do
               end
 
               test_event :finalize, on: :create, for: "main card" do
-                expect(__record_names).to eq ["main card"]
+                expect(__record_names(true)).to eq ["main card"]
                 expect(subcard("sub card").director.stage).to eq nil
               end
 
               test_event :integrate, on: :create, for: "main card" do
-                expect(__record_names).to eq []
+                expect(__record_names(true)).to eq []
                 expect(subcard("sub card").director.stage).to eq nil
               end
 
               test_event :finalize, on: :create, for: "sub card" do
-                expect(__record_names).to eq ["sub card"]
+                expect(__record_names(true)).to eq ["sub card"]
               end
 
               test_event :integrate_with_delay, on: :create do
-                expect(__record_names).to eq []
+                expect(__record_names(true)).to eq []
               end
               create_card
               expect(Delayed::Worker.new.work_off).to eq [2, 0]
@@ -85,13 +82,13 @@ RSpec.describe Card::Set::All::Subcards do
             end
 
             test_event :finalize, on: :create, for: "main card" do
-              transact
+              __current_trans
             end
 
             main_card = create_card
             Delayed::Worker.new.work_off
 
-            expect(record_names).to eq ["main card"]
+            expect(main_card.__record_names).to eq ["main card"]
             expect(Card["sub card"]).to exist
             expect(Card["sub create card"]).to exist
 
