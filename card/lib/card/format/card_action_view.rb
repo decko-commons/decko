@@ -1,5 +1,6 @@
 class Card
   class Format
+    # minimalist subclass of ActionView
     class CardActionView < ActionView::Base
       class << self
         def new controller

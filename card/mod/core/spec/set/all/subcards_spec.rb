@@ -18,7 +18,6 @@ RSpec.describe Card::Set::All::Subcards do
   end
 
   describe "add subcards" do
-
     context "when in integrate stage" do
       context "with default subcard handling" do
         it "processes all cards in one transaction" do
