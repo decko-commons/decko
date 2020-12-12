@@ -52,11 +52,13 @@ class Card
         end
       end
 
-      # TODO: review this. it's quite old, and there might be a better way to do this now.
+      # TODO: review this; there's likely a better way
       def new_action_view
         c = controller
         lookup_context = ActionView::LookupContext.new c.class.view_paths
-        ActionView::Base.new(lookup_context, { _routes: c._routes }, c).tap do |t|
+        ActionView::Base.with_empty_template_cache.new(
+          lookup_context, { _routes: c._routes }, c
+        ).tap do |t|
           t.extend c.class._helpers
         end
       end
