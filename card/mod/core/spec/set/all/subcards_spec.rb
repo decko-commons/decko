@@ -13,7 +13,7 @@ RSpec.describe Card::Set::All::Subcards do
 
     def __record_names reset=false
       trans = @current_trans && !reset ? @current_trans : __current_trans
-      trans.records.map { |r| r.try :name }.compact
+      trans.records&.map { |r| r.try :name }&.compact
     end
   end
 
@@ -54,7 +54,7 @@ RSpec.describe Card::Set::All::Subcards do
               end
 
               test_event :integrate, on: :create, for: "main card" do
-                expect(__record_names(true)).to eq []
+                expect(__record_names(true)).to eq(nil)
                 expect(subcard("sub card").director.stage).to eq nil
               end
 
@@ -63,7 +63,7 @@ RSpec.describe Card::Set::All::Subcards do
               end
 
               test_event :integrate_with_delay, on: :create do
-                expect(__record_names(true)).to eq []
+                expect(__record_names(true)).to eq(nil)
               end
               create_card
               expect(Delayed::Worker.new.work_off).to eq [2, 0]
