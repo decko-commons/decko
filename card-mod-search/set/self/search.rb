@@ -8,7 +8,7 @@ format do
   end
 
   def search_with_params
-    cql_keyword? ? cql_search : super
+    @search_with_params ||= cql_keyword? ? cql_search : super
   end
 
   def cql_search
