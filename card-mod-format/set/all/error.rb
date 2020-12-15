@@ -32,18 +32,27 @@ format do
   end
 
   view :errors do
-    ["Problem:", "", standard_errors].flatten.join "\n"
+    ["Problem:", "", error_messages].flatten.join "\n"
   end
 
-  def standard_errors
-    card.errors.map do |attrib, msg|
-      attrib == :abort ? msg : standard_error_message(attrib, msg)
+  def error_messages
+    card.errors.map do |error|
+      if error.attribute == :abort
+        simple_error_message error.message
+      else
+        standard_error_message error
+      end
     end
   end
 
   # for override
-  def standard_error_message attribute, message
-    "#{attribute.to_s.upcase}: #{message}"
+  def simple_error_message message
+    message
+  end
+
+  # for override
+  def standard_error_message error
+    "#{error.attribute.to_s.upcase}: #{error.message}"
   end
 
   def unsupported_view_error_message view

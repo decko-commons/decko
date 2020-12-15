@@ -55,7 +55,7 @@ def verifying_token success, failure
   requiring_token do |token|
     result = Auth::Token.decode token
     if result.is_a?(String)
-      aborting { send failure, result }
+      send failure, result
     else
       send success
     end
@@ -64,7 +64,7 @@ end
 
 def requiring_token
   if !(token = Env.params[:token])
-    aborting { errors.add :token, "is required" }
+    errors.add :token, "is required"
   else
     yield token
   end
@@ -83,7 +83,8 @@ end
 
 def verify_and_activate_failure error_message
   send_verification_email
-  errors.add "Sorry, #{error_message}. Please check your email for a new activation link."
+  errors.add :content,
+             "Sorry, #{error_message}. Please check your email for a new activation link."
 end
 
 def reset_password_success
@@ -94,5 +95,5 @@ end
 
 def reset_password_failure error_message
   Auth.as_bot { send_password_reset_email }
-  errors.add tr(:sorry_email_reset, error_msg: error_message)
+  errors.add :content, tr(:sorry_email_reset, error_msg: error_message)
 end
