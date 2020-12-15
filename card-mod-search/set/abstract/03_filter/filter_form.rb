@@ -13,17 +13,21 @@ format :html do
 
   def normalized_quick_filter_list
     quick_filter_list.map do |hash|
-      hash = hash.clone
-      filter_key = hash.keys.first
-      {
-        text: (hash.delete(:text) || hash[filter_key]),
-        icon: (hash.delete(:icon) || mapped_icon_tag(filter_key)),
-        # FIXME: mapped_icon_tag is a wikirate concept
-        class:  css_classes(hash.delete(:class),
-                            "_filter-link quick-filter-by-#{filter_key}"),
-        filter: JSON(hash[:filter] || hash)
-      }
+      quick_filter_item hash.clone, hash.keys.first
     end
+  end
+
+  def reset_filter_data
+    JSON default_filter_hash
+  end
+
+  def quick_filter_item hash, filter_key
+    {
+      text: (hash.delete(:text) || hash[filter_key]),
+      class: css_classes(hash.delete(:class),
+                         "_filter-link quick-filter-by-#{filter_key}"),
+      filter: JSON(hash[:filter] || hash)
+    }
   end
 
   # for override
@@ -54,13 +58,12 @@ format :html do
     all_filter_keys.each_with_object({}) do |cat, h|
       h[cat] = { label: filter_label(cat),
                  input_field: _render("filter_#{cat}_formgroup"),
-                 active: active_filter?(cat),
-                 default: default_filter?(cat) }
+                 active: active_filter?(cat) }
     end
   end
 
   def active_filter? field
-    if card.filter_keys_from_params.present?
+    if filter_keys_from_params.present?
       filter_hash.key? field
     else
       default_filter? field
@@ -68,7 +71,7 @@ format :html do
   end
 
   def default_filter? field
-    card.default_filter_hash.key? field
+    default_filter_hash.key? field
   end
 
   def filter_label field
@@ -91,7 +94,7 @@ format :html do
 
   view :sort_formgroup, cache: :never do
     select_tag "sort",
-               options_for_select(sort_options, card.current_sort),
+               options_for_select(sort_options, current_sort),
                class: "pointer-select _filter-sort form-control",
                "data-minimum-results-for-search": "Infinity"
   end

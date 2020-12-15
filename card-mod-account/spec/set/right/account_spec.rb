@@ -154,7 +154,9 @@ RSpec.describe Card::Set::Right::Account do
       Card::Auth.signin Card::AnonymousID
     end
 
-    let(:trigger_reset) { @account.update! trigger: :reset_password }
+    def trigger_reset
+      @account.update! trigger: :reset_password
+    end
 
     def auth_token extra_payload={}
       Card::Env.params[:token] = Card::Auth::Token.encode @account.left_id, extra_payload

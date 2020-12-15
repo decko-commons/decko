@@ -74,24 +74,28 @@ en:
       set:
         format:
           exception_alias_fail: cannot find %{optview} view in %{optmod}; failed to alias %{view} in %{self}
+      setting:
+        templating: Templating
+        permission: Permissions
+        webpage: Webpage
+        pointer: Pointer
+        editing_cue: Editing cues
+        event: Events
+        other: Other
+        config: Config
   mod:
     :core:
-      format:
-        html_format:
-          unknown_layout: "Unknown layout: %{name}"
-          built_in: "Built-in Layouts: %{built_in_layouts}"
-          available_layouts: "Available Layouts: %{available_layouts}"
       set:
         all:
           codename:
             only_admins_codename: only admins can set codename
             error_code_in_use: codename %{codename} already in use
-          event:
-            outside_event_phases: phase method %{method} called outside of event phases
-            called_in_stage: "%{item} method %{method} called in stage %{stage}"
-            called_on_action: "on: %{xaction} method %{method} called on %{yaction}"
-          fetch:
-            exception_fetch_arg_skipvirt: "%{func} called with new arguments and %{sv}"
+          # event:
+          #   outside_event_phases: phase method %{method} called outside of event phases
+          #   called_in_stage: "%{item} method %{method} called in stage %{stage}"
+          #   called_on_action: "on: %{xaction} method %{method} called on %{yaction}"
+          # fetch:
+          #   exception_fetch_arg_skipvirt: "%{func} called with new arguments and %{sv}"
           name_events:
             error_name_exists: must be unique; '%{name}' already exists.
             error_too_long: is too long (255 character maximum; length is %{length})
@@ -161,59 +165,100 @@ en:
           label_setfollow_typeplusright_cards: all "+%{right}" on "%{type}s"
         :08_self:
           label_set_self_card: The card "%{name}"
-    :basic_formats:
-      set:
-        all:
-          base:
-            too_deep: Man, you're too deep.  (Too many levels of nests at a time)
-    :basic_types:
-      set:
-        abstract:
-          code_file:
-            exception_not_set_path: "not a set path: %{path}"
-            content_in_file: Content is stored in file and can't be edited.
-        all:
-          all_css:
-            comment_style_card: Style Card
-            comment_missing_style_card: MISSING Style Card
-          file:
-            file_not_supported: File rendering of this card not yet supported
-        type:
-          pointer:
-            label_select: Select
-            #description: description
-            comment_style_group: STYLE GROUP
-            search_opt_names_ptr: option names for pointer
-          json:
-            invalid_json: invalid json
 
-    #:machines: # No language-specific items known to be present in Ruby files
-    :settings:
-      lib:
-        card:
-          setting:
-            templating: Templating
-            permission: Permissions
-            webpage: Webpage
-            pointer: Pointer
-            editing_cue: Editing cues
-            event: Events
-            other: Other
-            config: Config
+    :standard:
+      set:
+        rstar:
+          rules_editor:
+            not_a_rule: not a rule
+            applies_to: "<label>Applies to</label> %{card_link}:"
+            no_current_rule: No Current Rule
+            cancel: Cancel
+            delete_revert_rule: Deleting will revert to %{rule_setting_name} rule for %{card_label}
+            delete: Delete
+            set: set
+            related_set: related set
+            current: current
+            delete_narrower:
+              one: This rule will not have any effect on this card unless you delete the narrower rule for %{rules_sentence}.
+              other: This rule will not have any effect on this card unless you delete the narrower rules for %{rules_sentence}.
+            submit: Submit
+        self:
+          head:
+            edit_page: Edit this page!
+          recent:
+            recent_changes: Recent Changes
+          search:
+            results_for: "Search results for: %{keyword}"
+            search_goto_items: "goto items for term: %{term}"
+          stats:
+            stat: Stat
+            value: Value
+            action: Action
+            cards: cards
+            trashed_cards: trashed cards
+            delete_all: delete all
+            actions: actions
+            delete_old: delete old
+            references: references
+            repair_all: repair all
+            view_cache: view cache
+            clear_view_cache: clear view cache
+            memory_now: memory now
+            clear_cache: clear cache
+            # memory previous
+            memory_prev: memory prev
+            # memory difference
+            memory_diff: memory diff
+            megabyte_suffix: M
+        type:
+          cardtype:
+            cards_exist: Sorry, this card must remain a Cardtype so long as there are %{cardname} cards.
+            add_card: Add %{cardname}
+            configure_card: Configure %{cardname}
+            error_cant_alter: can't alter this type; %{name} cards still exist
+            error_invalid_character_in_cardtype: "may not contain any of the following characters: %{banned}"
+          search_type:
+            no_limit_exception: OH NO.. no limit
+            no_content_exception: "Error in card '%{name}': can't run search with empty content"
+            no_results: no results
+            previous: Previous
+            next: Next
+          set:
+            cant_edit: Cannot currently edit Sets
+            rules: Rules
+            set: Set
+            field: field
+            common: common
+            by_group: by group
+            by_name: by name
+            recent: recent
+    #:bootstrap: #No known language-specfic messages
+
+    :admin:
+      set:
+        self:
+          admin_info:
+            email_off: Email delivery is turned off. Change settings in %{path} to send sign up notifications.
+            admin_warn: ADMINISTRATOR WARNING
+            captcha_temp: Your captcha is currently working with temporary settings. This is fine for a local installation, but you will need new %{recaptcha_link} if you want to make this site public.
+            captcha_keys: You are configured to use %{captcha_link}, but for that to work you need new %{recaptcha_link}.
+            recaptcha_keys: recaptcha keys
+            instructions: Instructions
+            howto_add_keys: "How to add new recaptcha keys:"
+            howto_register: Register your domain at %{recaptcha_link}
+            howto_add: Add your keys to %{recaptcha_settings}
+            howto_turn_off: 'How to turn captcha off:'
+            howto_go: Go to %{captcha_card}
+            howto_update: Update all *captcha rules to "no".
+
+    card-mod-legacy:
       set:
         abstract:
-          permission:
-            search_roles_by_name: roles by name
-            use_lefts_rule: use left's %{tag} rule
-            groups: Groups
-            individuals: Individuals
-            inherit_links: Inherit ( %{links} )
-            inherit: Inherit
-            inherit_from_left: Inherit from left card
-        type:
-          setting:
-            search_all_setting: all setting cards
-    :email:
+          table_of_contents:
+            toc: Table of Contents
+
+    card-mod-email:
       set:
         all:
           follow:
@@ -261,15 +306,30 @@ en:
               problems_card: Problems with %{cardname}
               sign_in: sign in
               please_sign_in: Please %{sign_in}
-    :standard:
+
+    card-mod-format:
       set:
+        abstract:
+          code_file:
+            exception_not_set_path: "not a set path: %{path}"
+            content_in_file: Content is stored in file and can't be edited.
+        type:
+          pointer:
+            label_select: Select
+            #description: description
+            comment_style_group: STYLE GROUP
+            search_opt_names_ptr: option names for pointer
+          json:
+            invalid_json: invalid json
+          toggle:
+            # Warning: unless careful, yes/no get converted to true/false
+            :yes: 'yes'
+            :no: 'no'
+          number:
+            not_numeric: "'%{content}' is not numeric"
         all:
-          comment:
-            author_not_signed_in: "%{comment_author} (Not signed in)"
-            anonymous: Anonymous
-            my_name_is: "<label>My Name is:</label> %{author_field}"
-            comment: Comment
-            commenting: Commenting
+          base:
+            too_deep: Man, you're too deep.  (Too many levels of nests at a time)
           error:
             unsupported_view: view (%{view}) not supported for %{cardname}
             not_found_named: Could not find %{cardname}.
@@ -289,159 +349,58 @@ en:
             conflict_instruction: Please examine below, resolve above, and re-submit.
             not_found: Not Found
             not_found_card: Could not find %{cardname}
-          list_changes:
-            search_list_fields: list fields
-            search_listed_by_fields: listed by fields
-            search_lists_that_link: lists that link to %{name}
-            error_is_referenced: can't be changed because %{name} is referenced by list card %{cardname}
-          rich_html:
-            content:
-              action_verb_added: added
-              action_verb_deleted: deleted
-              action_verb_edited: edited
-              updated_how_when_who: "%{action_verb} %{elapsed_time_in_words} ago by %{who}"
-            editing:
-              new_type: New %{type_name}
-              new: New
-              confirm_rename: Are you sure you want to rename %{cardname}?
-              alter_related:
-                one: automatically alter 1 related name.
-                other: automatically alter %{count} related names.
-              affect_refs:
-                one: affect at least 1 reference to "%{cardname}"
-                other: affect at least %{count} references to "%{cardname}"
-              update_ignore: You may choose to <em>update or ignore</em> the referers.
-              change_will: This change will...
-              rename_update: Rename and Update
-              renaming: Renaming
-              rename: Rename
-            error:
-              problems_name: Problems with %{cardname}
-              please: Please
-              sign_in: sign in
-              or: or
-              sign_up: sign up
-              read_only: We are currently in read-only mode.  Please try again later.
-              sorry: Sorry!
-              need_permission_task: You need permission %{task}.
-              to_do_that: to do that
-              denied_task: to %{denied_task} this
-            form:
-              unsupported_action_class: "unsupported card_form action class: %{actionclass}"
-              submit: Submit
-              submitting: Submitting
-              cancel: Cancel
-            menu:
-              edit: edit
-              discuss: discuss
-              page: page
-              rules: rules
-              account: account
-            modal:
-              close: Close
-            wrapper:
-              close: Close
-        rstar:
-          rules_editor:
-            not_a_rule: not a rule
-            applies_to: "<label>Applies to</label> %{card_link}:"
-            no_current_rule: No Current Rule
-            cancel: Cancel
-            delete_revert_rule: Deleting will revert to %{rule_setting_name} rule for %{card_label}
-            delete: Delete
-            set: set
-            related_set: related set
-            current: current
-            delete_narrower:
-              one: This rule will not have any effect on this card unless you delete the narrower rule for %{rules_sentence}.
-              other: This rule will not have any effect on this card unless you delete the narrower rules for %{rules_sentence}.
-            submit: Submit
-        self:
-          head:
-            edit_page: Edit this page!
-          recent:
-            recent_changes: Recent Changes
-          search:
-            results_for: "Search results for: %{keyword}"
-            search_goto_items: "goto items for term: %{term}"
-          stats:
-            stat: Stat
-            value: Value
-            action: Action
-            cards: cards
-            trashed_cards: trashed cards
-            delete_all: delete all
-            actions: actions
-            delete_old: delete old
-            references: references
-            repair_all: repair all
-            view_cache: view cache
-            clear_view_cache: clear view cache
-            memory_now: memory now
-            clear_cache: clear cache
-            # memory previous
-            memory_prev: memory prev
-            # memory difference
-            memory_diff: memory diff
-            megabyte_suffix: M
-        type:
-          basic:
-            toc: Table of Contents
-          cardtype:
-            cards_exist: Sorry, this card must remain a Cardtype so long as there are %{cardname} cards.
-            add_card: Add %{cardname}
-            configure_card: Configure %{cardname}
-            error_cant_alter: can't alter this type; %{name} cards still exist
-            error_invalid_character_in_cardtype: "may not contain any of the following characters: %{banned}"
-          number:
-            not_numeric: "'%{content}' is not numeric"
-          search_type:
-            no_limit_exception: OH NO.. no limit
-            no_content_exception: "Error in card '%{name}': can't run search with empty content"
-            no_results: no results
-            previous: Previous
-            next: Next
-          set:
-            cant_edit: Cannot currently edit Sets
-            rules: Rules
-            set: Set
-            field: field
-            common: common
-            by_group: by group
-            by_name: by name
-            recent: recent
-          toggle:
-            # Warning: unless careful, yes/no get converted to true/false
-            :yes: 'yes'
-            :no: 'no'
-    #:bootstrap: #No known language-specfic messages
 
-    :admin:
-      set:
-        self:
-          admin_info:
-            email_off: Email delivery is turned off. Change settings in %{path} to send sign up notifications.
-            admin_warn: ADMINISTRATOR WARNING
-            captcha_temp: Your captcha is currently working with temporary settings. This is fine for a local installation, but you will need new %{recaptcha_link} if you want to make this site public.
-            captcha_keys: You are configured to use %{captcha_link}, but for that to work you need new %{recaptcha_link}.
-            recaptcha_keys: recaptcha keys
-            instructions: Instructions
-            howto_add_keys: "How to add new recaptcha keys:"
-            howto_register: Register your domain at %{recaptcha_link}
-            howto_add: Add your keys to %{recaptcha_settings}
-            howto_turn_off: 'How to turn captcha off:'
-            howto_go: Go to %{captcha_card}
-            howto_update: Update all *captcha rules to "no".
-    :pointer:
-      set:
-        type:
-          mirrored_list:
-            cardtype_right: must have a cardtype name as right part
-            conflict_item_type: name conflicts with list items' type; delete content first
-            only_type_allowed: "%{cardname} has wrong cardtype; only cards of type %{cardtype} are allowed"
-          mirror_list:
-            cardtype_right: must have a cardtype name as right part
-            only_type: "%{cardname} has wrong cardtype; only cards of type %{cardtype} are allowed"
+          html_content:
+            action_verb_added: added
+            action_verb_deleted: deleted
+            action_verb_edited: edited
+            updated_how_when_who: "%{action_verb} %{elapsed_time_in_words} ago by %{who}"
+          # editing:
+          #   new_type: New %{type_name}
+          #   new: New
+          #   confirm_rename: Are you sure you want to rename %{cardname}?
+          #   alter_related:
+          #     one: automatically alter 1 related name.
+          #     other: automatically alter %{count} related names.
+          #   affect_refs:
+          #     one: affect at least 1 reference to "%{cardname}"
+          #     other: affect at least %{count} references to "%{cardname}"
+          #   update_ignore: You may choose to <em>update or ignore</em> the referers.
+          #   change_will: This change will...
+          #   rename_update: Rename and Update
+          #   renaming: Renaming
+          #   rename: Rename
+          html_error:
+            problems_name: Problems with %{cardname}
+            please: Please
+            sign_in: sign in
+            or: or
+            sign_up: sign up
+            read_only: We are currently in read-only mode.  Please try again later.
+            sorry: Sorry!
+            need_permission_task: You need permission %{task}.
+            to_do_that: to do that
+            denied_task: to %{denied_task} this
+          # form:
+          #   unsupported_action_class: "unsupported card_form action class: %{actionclass}"
+          #   submit: Submit
+          #   submitting: Submitting
+          #   cancel: Cancel
+          menu:
+            edit: edit
+            discuss: discuss
+            page: page
+            rules: rules
+            account: account
+          modal:
+            close: Close
+          html_wrapper:
+            close: Close
+      format:
+        html_format:
+          unknown_layout: "Unknown layout: %{name}"
+          built_in: "Built-in Layouts: %{built_in_layouts}"
+          available_layouts: "Available Layouts: %{available_layouts}"
 
     card-mod-edit:
       set:

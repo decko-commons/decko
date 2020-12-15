@@ -83,7 +83,7 @@
   
   <dl>
     <dt>Defined in:</dt>
-    <dd>card/tmpsets/set/mod018-navbar/right/enabled_roles.rb</dd>
+    <dd>card/tmpsets/set/mod013-navbar/right/enabled_roles.rb</dd>
   </dl>
   
 </div>
@@ -442,9 +442,9 @@
 7</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod018-navbar/right/enabled_roles.rb', line 7</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod013-navbar/right/enabled_roles.rb', line 7</span>
 
-<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_source_location'>source_location</span><span class='semicolon'>;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/Users/ethan/dev/decko/gem/card/mod/navbar/set/right/enabled_roles.rb</span><span class='tstring_end'>&quot;</span></span><span class='semicolon'>;</span> <span class='kw'>end</span></pre>
+<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_source_location'>source_location</span><span class='semicolon'>;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/Users/ezl5238/dev/decko/gem/card/mod/navbar/set/right/enabled_roles.rb</span><span class='tstring_end'>&quot;</span></span><span class='semicolon'>;</span> <span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -476,7 +476,7 @@
 24</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod018-navbar/right/enabled_roles.rb', line 22</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod013-navbar/right/enabled_roles.rb', line 22</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_ensure_roles'>ensure_roles</span>
   <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_content'>content</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../Auth.html" title="Card::Auth (module)">Auth</a></span></span><span class='period'>.</span><span class='id identifier rubyid_current_roles'><span class='object_link'><a href="../../Auth/Current.html#current_roles-instance_method" title="Card::Auth::Current#current_roles (method)">current_roles</a></span></span><span class='period'>.</span><span class='id identifier rubyid_to_pointer_content'>to_pointer_content</span> <span class='kw'>if</span> <span class='id identifier rubyid_content'>content</span><span class='period'>.</span><span class='id identifier rubyid_blank?'>blank?</span>
@@ -507,7 +507,7 @@
 36</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod018-navbar/right/enabled_roles.rb', line 33</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod013-navbar/right/enabled_roles.rb', line 33</span>
 
 <span class='id identifier rubyid_event'>event</span> <span class='symbol'>:clear_roles_cache</span><span class='comma'>,</span> <span class='symbol'>:prepare_to_store</span><span class='comma'>,</span> <span class='label'>before:</span> <span class='symbol'>:store_in_session</span> <span class='kw'>do</span>
   <span class='id identifier rubyid_clear_roles'>clear_roles</span>
@@ -541,7 +541,7 @@
 31</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod018-navbar/right/enabled_roles.rb', line 26</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod013-navbar/right/enabled_roles.rb', line 26</span>
 
 <span class='id identifier rubyid_event'>event</span> <span class='symbol'>:validate_role_enabling</span><span class='comma'>,</span> <span class='symbol'>:validate</span><span class='comma'>,</span> <span class='label'>on:</span> <span class='symbol'>:save</span> <span class='kw'>do</span>
   <span class='id identifier rubyid_illegal_roles'>illegal_roles</span> <span class='op'>=</span> <span class='id identifier rubyid_item_names'>item_names</span> <span class='op'>-</span> <span class='const'><span class='object_link'><a href="../../Auth.html" title="Card::Auth (module)">Auth</a></span></span><span class='period'>.</span><span class='id identifier rubyid_current_roles'><span class='object_link'><a href="../../Auth/Current.html#current_roles-instance_method" title="Card::Auth::Current#current_roles (method)">current_roles</a></span></span>
@@ -574,7 +574,7 @@
 20</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod018-navbar/right/enabled_roles.rb', line 18</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod013-navbar/right/enabled_roles.rb', line 18</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_ok_to_create'>ok_to_create</span>
   <span class='id identifier rubyid_left_id'>left_id</span> <span class='op'>==</span> <span class='const'><span class='object_link'><a href="../../Auth.html" title="Card::Auth (module)">Auth</a></span></span><span class='period'>.</span><span class='id identifier rubyid_current_id'><span class='object_link'><a href="../../Auth/Current.html#current_id-instance_method" title="Card::Auth::Current#current_id (method)">current_id</a></span></span>
@@ -604,7 +604,7 @@
 12</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod018-navbar/right/enabled_roles.rb', line 10</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod013-navbar/right/enabled_roles.rb', line 10</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_ok_to_read'>ok_to_read</span>
   <span class='kw'>true</span>
@@ -634,7 +634,7 @@
 16</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod018-navbar/right/enabled_roles.rb', line 14</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod013-navbar/right/enabled_roles.rb', line 14</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_ok_to_update'>ok_to_update</span>
   <span class='id identifier rubyid_left_id'>left_id</span> <span class='op'>==</span> <span class='const'><span class='object_link'><a href="../../Auth.html" title="Card::Auth (module)">Auth</a></span></span><span class='period'>.</span><span class='id identifier rubyid_current_id'><span class='object_link'><a href="../../Auth/Current.html#current_id-instance_method" title="Card::Auth::Current#current_id (method)">current_id</a></span></span>
@@ -649,7 +649,7 @@
 </div>
 
       <div id="footer">
-  Generated on Sat Sep 26 18:17:14 2020 by
+  Generated on Sun Oct 18 23:48:01 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.25 (ruby-2.6.3).
 </div>

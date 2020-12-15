@@ -1,15 +1,3 @@
-def query_args args={}
-  return super unless keyword_contains_cql? args
-  args.merge parse_keyword_cql(args)
-end
-
-def parse_keyword_cql args
-  parse_json_query(args[:vars][:keyword])
-end
-
-def keyword_contains_cql? hash
-  hash[:vars] && (keyword = hash[:vars][:keyword]) && keyword =~ /^\{.+\}$/
-end
 
 format do
   view :search_error, cache: :never do
@@ -18,31 +6,40 @@ format do
     # don't show card content; not very helpful in this case
     %(#{sr_class} :: #{search_with_params.message})
   end
-end
 
-format :html do
-  view :title, cache: :never do
-    return super() unless (keyword = search_keyword) &&
-                          (title = keyword_search_title(keyword))
-    voo.title = title
+  def search_with_params
+    @search_with_params ||= cql_keyword? ? cql_search : super
   end
 
-  def keyword_search_title keyword
-    %(Search results for: <span class="search-keyword">#{h keyword}</span>)
+  def cql_search
+    query = card.parse_json_cql search_keyword
+    rescuing_bad_query query do
+      Card.search query
+    end
   end
 
   def search_keyword
-    (vars = search_vars) && vars[:keyword]
-  rescue Card::Error::PermissionDenied
-    nil
+    @search_keyword ||= search_vars&.dig :keyword
   end
 
   def search_vars
     root.respond_to?(:search_params) ? root.search_params[:vars] : search_params[:vars]
   end
 
-  def cql_search?
-    card.keyword_contains_cql? vars: search_vars
+  def cql_keyword?
+    search_keyword&.match?(/^\{.+\}$/)
+  end
+end
+
+format :html do
+  view :title, cache: :never do
+    return super() unless (title = keyword_search_title)
+    voo.title = title
+  end
+
+  def keyword_search_title
+    search_keyword &&
+      %(Search results for: <span class="search-keyword">#{h search_keyword}</span>)
   end
 end
 
@@ -65,7 +62,7 @@ format :json do
                   exact.name.valid? &&
                   !exact.virtual? &&
                   exact.ok?(:create)
-    [h(exact.name), exact.name.url_key]
+    [h(exact.name), URI.escape(exact.name)]
   end
 
   def new_item_of_type exact

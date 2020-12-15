@@ -53,32 +53,28 @@ end
 
 format do
   def search_with_params
-    search_with_rescue search_params
+    @search_with_params ||= search_with_rescue search_params
   end
 
   def count_with_params
-    search_with_rescue search_params.merge(return: :count)
+    @count_with_params ||= search_with_rescue search_params.merge(return: :count)
   end
 
   def search_with_rescue query_args
-    card.cached_search query_args
+    rescuing_bad_query query_args do
+      card.cached_search query_args
+    end
+  end
+
+  def rescuing_bad_query query_args
+    yield
   rescue Error::BadQuery => e
     Rails.logger.info "BadQuery: #{query_args}"
     e
   end
 
   def implicit_item_view
-    view = voo_items_view || item_view_from_query || default_item_view
+    view = voo_items_view || default_item_view
     Card::View.normalize view
-  end
-
-  # override if query can specify item view
-  def item_view_from_query
-    nil
-  end
-
-  def with_results
-    return render_no_search_results if search_with_params.empty?
-    yield
   end
 end

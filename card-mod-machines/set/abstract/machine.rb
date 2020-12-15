@@ -6,7 +6,7 @@
 #
 # The classic example: A style card observes a collection of css and sccs card
 # to generate a file card with a css file that contains the assembled
-# compressed  css.
+# compressed css.
 #
 # ## Using Machines
 # Include the Machine module in the card set that is supposed to produce the

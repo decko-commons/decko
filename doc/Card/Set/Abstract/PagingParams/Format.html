@@ -83,7 +83,7 @@
   
   <dl>
     <dt>Defined in:</dt>
-    <dd>card/tmpsets/set/mod007-pointer/abstract/00_paging_params.rb</dd>
+    <dd>card/tmpsets/set/mod005-pointer/abstract/00_paging_params.rb</dd>
   </dl>
   
 </div>
@@ -271,7 +271,7 @@
 21</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod007-pointer/abstract/00_paging_params.rb', line 19</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod005-pointer/abstract/00_paging_params.rb', line 19</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_contextual_param'>contextual_param</span> <span class='id identifier rubyid_param'>param</span>
   <span class='id identifier rubyid_env_search_param'>env_search_param</span><span class='lparen'>(</span><span class='id identifier rubyid_param'>param</span><span class='rparen'>)</span> <span class='op'>||</span> <span class='id identifier rubyid_voo_search_param'>voo_search_param</span><span class='lparen'>(</span><span class='id identifier rubyid_param'>param</span><span class='rparen'>)</span>
@@ -303,7 +303,7 @@
 27</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod007-pointer/abstract/00_paging_params.rb', line 23</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod005-pointer/abstract/00_paging_params.rb', line 23</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_env_search_param'>env_search_param</span> <span class='id identifier rubyid_param'>param</span>
   <span class='kw'>return</span> <span class='kw'>unless</span> <span class='id identifier rubyid_focal?'>focal?</span> <span class='op'>&amp;&amp;</span> <span class='const'><span class='object_link'><a href="../../../Env.html" title="Card::Env (module)">Env</a></span></span><span class='period'>.</span><span class='id identifier rubyid_params'><span class='object_link'><a href="../../../Env.html#params-class_method" title="Card::Env.params (method)">params</a></span></span><span class='lbracket'>[</span><span class='id identifier rubyid_param'>param</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_present?'>present?</span>
@@ -360,7 +360,7 @@
 33</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod007-pointer/abstract/00_paging_params.rb', line 29</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod005-pointer/abstract/00_paging_params.rb', line 29</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_legal_search_param!'>legal_search_param!</span> <span class='id identifier rubyid_param'>param</span><span class='comma'>,</span> <span class='id identifier rubyid_val'>val</span>
   <span class='kw'>return</span> <span class='id identifier rubyid_val'>val</span> <span class='kw'>if</span> <span class='const'><span class='object_link'><a href="../../../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../../Auth.html" title="Card::Auth (module)">Auth</a></span></span><span class='period'>.</span><span class='id identifier rubyid_signed_in?'><span class='object_link'><a href="../../../Auth/Current.html#signed_in%3F-instance_method" title="Card::Auth::Current#signed_in? (method)">signed_in?</a></span></span> <span class='op'>||</span> <span class='id identifier rubyid_val'>val</span> <span class='op'>&lt;=</span> <span class='const'><span class='object_link'><a href="../PagingParams.html#MAX_ANONYMOUS_SEARCH_PARAM-constant" title="Card::Set::Abstract::PagingParams::MAX_ANONYMOUS_SEARCH_PARAM (constant)">MAX_ANONYMOUS_SEARCH_PARAM</a></span></span>
@@ -392,7 +392,7 @@
 13</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod007-pointer/abstract/00_paging_params.rb', line 11</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod005-pointer/abstract/00_paging_params.rb', line 11</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_limit_param'>limit_param</span>
   <span class='ivar'>@limit</span> <span class='op'>||=</span> <span class='id identifier rubyid_contextual_param'>contextual_param</span><span class='lparen'>(</span><span class='symbol'>:limit</span><span class='rparen'>)</span> <span class='op'>||</span> <span class='id identifier rubyid_default_limit'>default_limit</span>
@@ -422,7 +422,7 @@
 17</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod007-pointer/abstract/00_paging_params.rb', line 15</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod005-pointer/abstract/00_paging_params.rb', line 15</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_offset_param'>offset_param</span>
   <span class='ivar'>@offset</span> <span class='op'>||=</span> <span class='id identifier rubyid_contextual_param'>contextual_param</span><span class='lparen'>(</span><span class='symbol'>:offset</span><span class='rparen'>)</span> <span class='op'>||</span> <span class='int'>0</span>
@@ -452,7 +452,7 @@
 37</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod007-pointer/abstract/00_paging_params.rb', line 35</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod005-pointer/abstract/00_paging_params.rb', line 35</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_voo_search_param'>voo_search_param</span> <span class='id identifier rubyid_param'>param</span>
   <span class='id identifier rubyid_voo'>voo</span><span class='op'>&amp;.</span><span class='id identifier rubyid_cql'>cql</span><span class='op'>&amp;.</span><span class='id identifier rubyid_dig'>dig</span> <span class='id identifier rubyid_param'>param</span>
@@ -467,7 +467,7 @@
 </div>
 
       <div id="footer">
-  Generated on Sat Sep 26 18:17:17 2020 by
+  Generated on Sun Oct 18 23:48:09 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.25 (ruby-2.6.3).
 </div>

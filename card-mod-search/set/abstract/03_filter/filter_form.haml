@@ -13,9 +13,12 @@
                                     "data-remote": "true",
                                     method: "get"}
         - not_ids = params.dig :filter, :not_ids
-        %input{ type: :hidden, name: "filter[not_ids]", class: "_not-ids", value: not_ids }
+        %input{ type: :hidden,
+                name: "filter[not_ids]",
+                class: "_not-ids",
+                value: not_ids }
         = render_quick_filters
-        .d-flex.flex-wrap
+        .filter-and-sort.d-flex.flex-wrap
           - if sort_input_field.present?
             // SORTING
             .sort-in-filter-form
@@ -40,14 +43,14 @@
                   More Filters
                 .dropdown-menu
                   - categories.each do |key, category|
-                    %a.dropdown-item._filter-category-select{"data-category": key,
-                                                             "data-label": category[:label],
-                                                             "data-active": ("true" if category[:active]),
-                                                             "data-default": ("true" if category[:default]),
-                                                             :href => "#"}
+                    %a{ class: "dropdown-item _filter-category-select",
+                        href: "#",
+                        "data-category": key,
+                        "data-label": category[:label],
+                        "data-active": ("true" if category[:active])}
                       = category[:label]
 
               // RESET BUTTON
-              ._reset-filter
-                %button.btn.btn-sm.btn-secondary{type: "button"}
-                  %i.fa.fa-refresh
+              ._reset-filter{ "data-reset": reset_filter_data }
+                %button.btn.btn-sm.btn-secondary{ type: "button" }
+                  %i.fa.fa-sync

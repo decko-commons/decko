@@ -83,7 +83,7 @@
   
   <dl>
     <dt>Defined in:</dt>
-    <dd>card/tmpsets/set/mod015-standard/type/session.rb</dd>
+    <dd>card/tmpsets/set/mod010-standard/type/session.rb</dd>
   </dl>
   
 </div>
@@ -603,9 +603,9 @@
 7</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod015-standard/type/session.rb', line 7</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod010-standard/type/session.rb', line 7</span>
 
-<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_source_location'>source_location</span><span class='semicolon'>;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/Users/ethan/dev/decko/gem/card/mod/standard/set/type/session.rb</span><span class='tstring_end'>&quot;</span></span><span class='semicolon'>;</span> <span class='kw'>end</span></pre>
+<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_source_location'>source_location</span><span class='semicolon'>;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/Users/ezl5238/dev/decko/gem/card/mod/standard/set/type/session.rb</span><span class='tstring_end'>&quot;</span></span><span class='semicolon'>;</span> <span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -660,7 +660,7 @@
 62</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod015-standard/type/session.rb', line 60</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod010-standard/type/session.rb', line 60</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_add_to_trash'>add_to_trash</span> <span class='id identifier rubyid_args'>args</span>
   <span class='kw'>yield</span> <span class='id identifier rubyid_args'>args</span><span class='period'>.</span><span class='id identifier rubyid_merge'>merge</span> <span class='label'>trash:</span> <span class='kw'>true</span>
@@ -690,7 +690,7 @@
 40</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod015-standard/type/session.rb', line 38</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod010-standard/type/session.rb', line 38</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_content'>content</span>
   <span class='id identifier rubyid_db_content'>db_content</span> <span class='op'>||</span> <span class='id identifier rubyid_session_content'>session_content</span>
@@ -721,7 +721,7 @@
 50</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod015-standard/type/session.rb', line 47</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod010-standard/type/session.rb', line 47</span>
 
 <span class='id identifier rubyid_event'>event</span> <span class='symbol'>:delete_in_session</span><span class='comma'>,</span> <span class='symbol'>:prepare_to_store</span><span class='comma'>,</span> <span class='label'>on:</span> <span class='symbol'>:delete</span> <span class='kw'>do</span>
   <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_session_content'>session_content</span> <span class='op'>=</span> <span class='kw'>nil</span>
@@ -753,7 +753,7 @@
 45</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod015-standard/type/session.rb', line 42</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod010-standard/type/session.rb', line 42</span>
 
 <span class='id identifier rubyid_event'>event</span> <span class='symbol'>:store_in_session</span><span class='comma'>,</span> <span class='symbol'>:prepare_to_store</span><span class='comma'>,</span> <span class='label'>on:</span> <span class='symbol'>:save</span> <span class='kw'>do</span>
   <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_session_content'>session_content</span> <span class='op'>=</span> <span class='id identifier rubyid_db_content'>db_content</span>
@@ -807,7 +807,7 @@
 20</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod015-standard/type/session.rb', line 18</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod010-standard/type/session.rb', line 18</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_followable?'>followable?</span>
   <span class='kw'>false</span>
@@ -860,7 +860,7 @@
 16</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod015-standard/type/session.rb', line 14</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod010-standard/type/session.rb', line 14</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_history?'>history?</span>
   <span class='kw'>false</span>
@@ -890,7 +890,7 @@
 54</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod015-standard/type/session.rb', line 52</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod010-standard/type/session.rb', line 52</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_ok_to_create'>ok_to_create</span>
   <span class='kw'>true</span>
@@ -920,7 +920,7 @@
 58</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod015-standard/type/session.rb', line 56</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod010-standard/type/session.rb', line 56</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_ok_to_update'>ok_to_update</span>
   <span class='kw'>true</span>
@@ -973,7 +973,7 @@
 24</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod015-standard/type/session.rb', line 22</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod010-standard/type/session.rb', line 22</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_recaptcha_on?'>recaptcha_on?</span>
   <span class='kw'>false</span>
@@ -1003,7 +1003,7 @@
 32</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod015-standard/type/session.rb', line 30</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod010-standard/type/session.rb', line 30</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_session_content'>session_content</span>
   <span class='const'><span class='object_link'><a href="../../Env.html" title="Card::Env (module)">Env</a></span></span><span class='period'>.</span><span class='id identifier rubyid_session'><span class='object_link'><a href="../../Env.html#session-class_method" title="Card::Env.session (method)">session</a></span></span><span class='lbracket'>[</span><span class='id identifier rubyid_session_key'>session_key</span><span class='rbracket'>]</span>
@@ -1033,7 +1033,7 @@
 36</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod015-standard/type/session.rb', line 34</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod010-standard/type/session.rb', line 34</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_session_content='>session_content=</span> <span class='id identifier rubyid_val'>val</span>
   <span class='const'><span class='object_link'><a href="../../Env.html" title="Card::Env (module)">Env</a></span></span><span class='period'>.</span><span class='id identifier rubyid_session'><span class='object_link'><a href="../../Env.html#session-class_method" title="Card::Env.session (method)">session</a></span></span><span class='lbracket'>[</span><span class='id identifier rubyid_session_key'>session_key</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_val'>val</span>
@@ -1063,7 +1063,7 @@
 28</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod015-standard/type/session.rb', line 26</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod010-standard/type/session.rb', line 26</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_session_key'>session_key</span>
   <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>_card_</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_key'>key</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
@@ -1116,7 +1116,7 @@
 12</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod015-standard/type/session.rb', line 10</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod010-standard/type/session.rb', line 10</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_virtual?'>virtual?</span>
   <span class='id identifier rubyid_session_content'>session_content</span><span class='period'>.</span><span class='id identifier rubyid_present?'>present?</span>
@@ -1131,7 +1131,7 @@
 </div>
 
       <div id="footer">
-  Generated on Sat Sep 26 18:17:10 2020 by
+  Generated on Sun Oct 18 23:47:55 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.25 (ruby-2.6.3).
 </div>

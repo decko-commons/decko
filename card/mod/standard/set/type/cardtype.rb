@@ -1,9 +1,3 @@
-include_set Abstract::CqlSearch
-
-def cql_content
-  { type_id: id, sort: :name }
-end
-
 def related_sets with_self=false
   sets = []
   sets << ["#{name}+*type", Card::Set::Type.label(name)] if known?
@@ -94,8 +88,6 @@ format :html do
     end
   end
 end
-
-include Basic
 
 def cards_of_type_exist?
   !new_card? && Card.where(trash: false, type_id: id).exists?

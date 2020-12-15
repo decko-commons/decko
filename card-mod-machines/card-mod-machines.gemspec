@@ -2,7 +2,8 @@
 
 require "../decko_gem"
 
-DeckoGem.mod "machines" do |s, _d|
+DeckoGem.mod "machines" do |s, d|
   s.summary = "decko machines"
   s.description = ""
+  d.depends_on_mod :virtual, :format, :list, :carrierwave
 end

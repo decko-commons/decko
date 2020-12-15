@@ -2,6 +2,11 @@ class Card
   module Set
     # advanced set module API
     module AdvancedApi
+      def setting_opts opts
+        extend Card::Setting
+        register_setting opts
+      end
+
       def ensure_set &block
         set_module = yield
         set_module = card_set_module_const_get(set_module) unless set_module.is_a?(Module)

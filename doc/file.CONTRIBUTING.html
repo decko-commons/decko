@@ -57,8 +57,7 @@
         <div class="clear"></div>
       </div>
 
-      <div id="content"><div id='filecontents'>
-<h1 id="thinking-about-contributing-to-decko">Thinking about contributing to Decko?</h1>
+      <div id="content"><div id='filecontents'><h1 id="thinking-about-contributing-to-decko">Thinking about contributing to Decko?</h1>
 <p>Nice! There’s tons to do involving lots of different skillsets, and we welcome the help.</p>
 
 <p>We want to make contributing to Decko as rewarding an experience as possible. Please 
@@ -115,7 +114,21 @@ If you’re not familiar with pull requests, that’s the best place to start.</
 
 <h3 id="development-environment">Development Environment</h3>
 
-<p>To install in a core-developer friendly mode, try <code>decko new mydeckname --core-dev</code>.</p>
+<p>First, you will need a copy of the decko repo:</p>
+
+<pre class="code ruby"><code class="ruby">git clone --recurse-submodules git@github.com:decko-commons/decko.git
+</code></pre>
+
+<p>Then you will need to install a platypus deck (somewhere else – not inside the repo):</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_decko'>decko</span> <span class='id identifier rubyid_new'>new</span> <span class='const'>MY_DECK</span> <span class='op'>-</span><span class='op'>-</span><span class='id identifier rubyid_platypus'>platypus</span>
+</code></pre>
+
+<p>The <code>--platypus</code> flag will make several key configuration alterations for you and make 
+it easy to run tests from the repo.</p>
+
+<p>You will be prompted to give the path to your repo. Alternatively you can use the 
+<code>--repo-path</code> flag or a <code>DECKO_REPO_PATH</code> environmental variable.</p>
 
 <h3 id="testing">Testing</h3>
 <p>There are three different types of core tests. 
@@ -124,16 +137,16 @@ cypress tests.</p>
 
 <h4 id="rspec">Rspec</h4>
 <p>To run the whole rspec test suite execute <code>bundle exec decko rspec</code> in your
-core-dev deck directory. 
+platypus deck directory. 
 If you want to run only a single spec file use 
 <code>bundle exec decko rspec -- &lt;path_to_spec_file&gt;</code>.
 For more options run <code>bundle exec decko rspec --help</code>.</p>
 
 <h4 id="cucumber">Cucumber</h4>
-<p>Similar to rspec run <code>bundle exec decko cucumber</code> in your deck directory.</p>
+<p>Similar to rspec run <code>bundle exec decko cucumber</code> in your platypus deck directory.</p>
 
 <h4 id="cypress">Cypress</h4>
-<p>Start the server for your core-dev deck with <code>RAILS_ENV=cypress bundle exec decko s -p 
+<p>Start the server for your platypus deck with <code>RAILS_ENV=cypress bundle exec decko s -p 
 5002</code> and then in the gem in <code>decko/spec</code> run <code>yarn run cypress open</code> to open the 
 cypress interface. Cypress upgrades can be installed in that same directory via npm.</p>
 
@@ -164,7 +177,7 @@ within a copy of the repo.</p>
 </div></div>
 
       <div id="footer">
-  Generated on Sat Sep 26 18:17:00 2020 by
+  Generated on Sun Oct 18 23:47:40 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.25 (ruby-2.6.3).
 </div>

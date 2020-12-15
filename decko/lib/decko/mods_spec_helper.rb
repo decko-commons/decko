@@ -1,9 +1,8 @@
 # -*- encoding : utf-8 -*-
-# require 'codeclimate-test-reporter'
-# CodeClimate::TestReporter.start
 
 require "cardio" # only for card_gem_root
 require File.join Cardio.gem_root, "spec/support/card_spec_loader.rb"
+require "simplecov"
 
 CardSpecLoader.init
 

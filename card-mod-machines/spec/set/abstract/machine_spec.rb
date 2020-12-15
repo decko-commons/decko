@@ -9,7 +9,7 @@ RSpec.describe Card::Set::Abstract::Machine do
       expect(File.exist?(path)).to be_truthy
     end
   end
-  
+
   example "machine config" do
     expect(card_subject).to respond_to :engine_input
   end

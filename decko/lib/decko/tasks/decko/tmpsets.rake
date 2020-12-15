@@ -1,10 +1,10 @@
 namespace :decko do
   namespace :tmpsets do
-    # We have to load the environment with `env DECKO_GEM_TMPSETS=true` in
+    # We have to load the environment with `env REPO_TMPSETS=true` in
     # development mode to trigger the tmpset generation.
     # There's probably a more elegant way?
     task :trigger do
-      ENV["DECKO_GEM_TMPSETS"] = "true"
+      ENV["REPO_TMPSETS"] = "true"
       Rake::Task["decko:tmpsets:dummy"].invoke
     end
 

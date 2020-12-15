@@ -85,6 +85,9 @@ but content is #{@field.content? ? @field.content : "empty" }"
     elsif @pointing_to
       "expected #{card} to have a field #{field_key} pointing to #{@pointing_to} but
 content is '#{@field.content}'"
+    elsif @refering_to
+      "expected #{card} to have a field #{field_key} referring to #{@refering_to} but
+content is '#{@field.content}'"
     end
   end
 end

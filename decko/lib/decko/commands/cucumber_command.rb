@@ -13,16 +13,14 @@ module Decko
 
       def command
         @cmd ||=
-          "#{env_args} #{@opts[:executer] || "bundle exec"} cucumber #{require_args} #{feature_args}"
+          "#{env_args} #{@opts[:executer] || 'bundle exec'} " \
+          "cucumber #{require_args} #{feature_args}"
       end
 
       private
 
       def env_args
-        env_args = @opts[:env].join " "
-        # turn coverage off if not all cukes run
-        env_args << " COVERAGE=false" if @cucumber_args.present?
-        env_args
+        @opts[:env].join " "
       end
 
       def feature_args
