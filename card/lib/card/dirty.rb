@@ -28,7 +28,7 @@ class Card
       elsif not_in_callback?
         attribute_was attr
       else
-        _read_attribute attr
+        _read_attribute attr.to_s
       end
     end
 

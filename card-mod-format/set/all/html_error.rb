@@ -114,14 +114,12 @@ format :html do
     end
   end
 
-  def error_messages
-    card.errors.map do |attrib, msg|
-      attrib == :abort ? h(msg) : standard_error_message(attrib, msg)
-    end
+  def simple_error_message message
+    h message
   end
 
-  def standard_error_message attribute, message
-    "<p><strong>#{h attribute.to_s.upcase}:</strong> #{h message}</p>"
+  def standard_error_message error
+    "<p><strong>#{h error.attribute.to_s.upcase}:</strong> #{h error.message}</p>"
   end
 
   def not_found_errors

@@ -53,11 +53,11 @@ end
 
 format do
   def search_with_params
-    search_with_rescue search_params
+    @search_with_params ||= search_with_rescue search_params
   end
 
   def count_with_params
-    search_with_rescue search_params.merge(return: :count)
+    @count_with_params ||= search_with_rescue search_params.merge(return: :count)
   end
 
   def search_with_rescue query_args
