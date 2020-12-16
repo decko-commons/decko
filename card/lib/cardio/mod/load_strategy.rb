@@ -1,4 +1,4 @@
-class Card
+module Cardio
   module Mod
     # Shared code for the three different load strategies: Eval, TmpFiles and BindingMagic
     class LoadStrategy

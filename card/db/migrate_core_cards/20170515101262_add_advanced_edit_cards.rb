@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-class AddAdvancedEditCards < Card::Migration::Core
+class AddAdvancedEditCards < Cardio::Migration::Core
   def up
     ensure_card "*activity toolbar button", codename: "activity_toolbar_button"
     ensure_card "*rules toolbar button", codename: "rules_toolbar_button"

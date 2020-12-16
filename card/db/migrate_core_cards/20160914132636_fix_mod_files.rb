@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-class FixModFiles < Card::Migration::Core
+class FixModFiles < Cardio::Migration::Core
   def up
     Card.search(type: "image").each do |card|
       next unless card.coded?

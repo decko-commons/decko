@@ -1,8 +1,8 @@
 # -*- encoding : utf-8 -*-
 
-class Card
+module Cardio
   class Migration < ActiveRecord::Migration[4.2]
-    include Card::Model::SaveHelper
+    # include Card::Model::SaveHelper
     @type = :deck_cards
 
     class << self
@@ -11,7 +11,7 @@ class Card
       # methods.
       # The subclass Card::CoreMigration needs a different @type so we can't use a
       # class variable @@type. It has to be a class instance variable.
-      # Migrations are subclasses of Card::Migration or Card::CoreMigration
+      # Migrations are subclasses of Cardio::Migration or Card::CoreMigration
       # but they don't inherit the @type. The method below solves this problem.
       def type
         @type || (ancestors[1]&.type)
@@ -101,7 +101,7 @@ class Card
       names_or_keys = Array(names_or_keys)
       Card::Mailer.perform_deliveries = false
 
-      Card::Migration::Import.new(data_path).merge only: names_or_keys
+      Cardio::Migration::Import.new(data_path).merge only: names_or_keys
     end
 
     def merge_pristine_cards names_or_keys
@@ -156,4 +156,4 @@ class Card
   end
 end
 
-require "card/migration/core"
+require "cardio/migration/core"
