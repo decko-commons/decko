@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-class CardtypeGrouping < Card::Migration::Core
+class CardtypeGrouping < Cardio::Migration::Core
   CONTENT =
     <<-EOT
       {{+description|content}}

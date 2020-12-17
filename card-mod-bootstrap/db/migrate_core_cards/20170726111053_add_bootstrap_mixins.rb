@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-class AddBootstrapMixins < Card::Migration::Core
+class AddBootstrapMixins < Cardio::Migration::Core
   def up
     ensure_card "style: bootstrap mixins", type_id: Card::ScssID,
                 codename: "style_bootstrap_mixins"

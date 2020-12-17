@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-class AddSharkAndHelpDeskRole < Card::Migration::Core
+class AddSharkAndHelpDeskRole < Cardio::Migration::Core
   def up
     # delete_code_card :eagle
     ensure_role "Shark", codename: "shark"

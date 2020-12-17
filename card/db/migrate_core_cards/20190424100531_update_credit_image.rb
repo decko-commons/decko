@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-class UpdateCreditImage < Card::Migration::Core
+class UpdateCreditImage < Cardio::Migration::Core
   def svg attr=""
     <<-SVG.strip_heredoc
       <svg style="#{attr}" viewBox="0 0 242 220" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
