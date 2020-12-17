@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-class HeadRule < Card::Migration::Core
+class HeadRule < Cardio::Migration::Core
   def up
     update_card! :head, type_id: Card::SettingID
     ensure_card [:all, :head],

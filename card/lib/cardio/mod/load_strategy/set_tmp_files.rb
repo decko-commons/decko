@@ -1,4 +1,4 @@
-class Card
+module Cardio
   module Mod
     class LoadStrategy
       # The {TmpFiles} load strategy version for set modules

@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-class ResponsiveSidebar < Card::Migration::Core
+class ResponsiveSidebar < Cardio::Migration::Core
   def up
     if (layout = Card.fetch "Default Layout") &&
        layout.updater.id == Card::WagnBotID

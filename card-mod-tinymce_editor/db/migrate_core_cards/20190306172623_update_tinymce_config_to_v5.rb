@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-class UpdateTinymceConfigToV5 < Card::Migration::Core
+class UpdateTinymceConfigToV5 < Cardio::Migration::Core
   DEPRECATED_PLUGINS = %w[contextmenu textcolor colorpicker].freeze
 
   def up

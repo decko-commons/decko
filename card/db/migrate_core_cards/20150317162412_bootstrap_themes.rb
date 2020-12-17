@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-class BootstrapThemes < Card::Migration::Core
+class BootstrapThemes < Cardio::Migration::Core
   def up
     Card.create! name: "themeless bootstrap skin", type_code: :skin, content: "[[style: bootstrap]]\n[[style: jquery-ui-smoothness]]\n[[style: cards]]\n[[style: right sidebar]]\n[[style: bootstrap cards]]"
     %w(cerulean cosmo cyborg darkly flatly journal lumen paper readable sandstone simplex slate spacelab superhero united yeti).each do |theme|
