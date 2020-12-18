@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-class TinymceAddNestToToolbar < Card::Migration::Core
+class TinymceAddNestToToolbar < Cardio::Migration::Core
   def up
     content =
       Card[:tiny_mce].content

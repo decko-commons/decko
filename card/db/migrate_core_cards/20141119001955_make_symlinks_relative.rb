@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-class MakeSymlinksRelative < Card::Migration
+class MakeSymlinksRelative < Cardio::Migration
   def up
     Card.paths["files"].each do |file_path|
       files = Dir.glob(File.join file_path, "**", "*")

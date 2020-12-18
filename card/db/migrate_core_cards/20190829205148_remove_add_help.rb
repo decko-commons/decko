@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-class RemoveAddHelp < Card::Migration::Core
+class RemoveAddHelp < Cardio::Migration::Core
   def up
     Card.search(right: { codename: "add_help" },
                 left: { type_id: Card::SetID }).each do |card|

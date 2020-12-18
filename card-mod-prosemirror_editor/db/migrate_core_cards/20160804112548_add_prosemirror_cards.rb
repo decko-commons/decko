@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-class AddProsemirrorCards < Card::Migration
+class AddProsemirrorCards < Cardio::Migration
   PM_CONFIG = <<-JSON.strip_heredoc
                 {
                   "menuBar": true,
