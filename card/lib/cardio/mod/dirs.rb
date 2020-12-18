@@ -145,7 +145,7 @@ module Cardio
 
       def load_from_dir
         Dir.entries(@current_path).sort.each do |filename|
-          add_path filename if filename.match?(/^\./)
+          add_path filename unless filename.match?(/^\./)
         end
       end
 
