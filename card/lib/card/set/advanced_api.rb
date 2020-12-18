@@ -62,10 +62,6 @@ class Card
       end
 
       def normalize_const const
-        const_to_string(const).gsub /^Card::Set::/, ""
-      end
-
-      def const_to_string const
         case const
         when Array
           const.map { |piece| piece.to_s.camelcase }.join("::")
