@@ -2,11 +2,18 @@ module Cardio
   module Mod
     # Shared code for the three different load strategies: Eval, TmpFiles and BindingMagic
     class LoadStrategy
-      def self.klass symbol
-        case symbol
-        when :tmp_files     then TmpFiles
-        when :binding_magic then BindingMagic
-        else                     Eval
+      class << self
+        def klass symbol
+          case symbol
+          when :tmp_files     then TmpFiles
+          when :binding_magic then BindingMagic
+          else                     Eval
+          end
+        end
+
+        # for override
+        def tmp_files?
+          false
         end
       end
 

@@ -1,6 +1,13 @@
-def self.included host_class
-  host_class.mattr_accessor :file_content_mod_name
-  host_class.file_content_mod_name = Card::Set.mod_name(caller)
+class << self
+
+  def included host_class
+    track_mod_name host_class, caller
+  end
+
+  def track_mod_name host_class, caller
+    host_class.mattr_accessor :file_content_mod_name
+    host_class.file_content_mod_name = Card::Set.mod_name(caller)
+  end
 end
 
 # FIXME: these should abstracted and configured on the types
