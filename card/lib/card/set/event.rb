@@ -12,8 +12,8 @@ class Card
       # action has three phases, each phase has three stages, and each stage has many
       # events.
       #
-      # Events are defined in set modules in {Card::Mod **mods**}. Learn more about
-      # {Card::Mod set modules}.
+      # Events are defined in set modules in {Cardio::Mod **mods**}. Learn more about
+      # {Cardio::Mod set modules}.
       #
       # A simple event definition looks something like this:
       #

@@ -1,4 +1,4 @@
-class Card
+module Cardio
   class Migration
     class Import
       class ImportData

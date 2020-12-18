@@ -1,4 +1,4 @@
-class Card
+module Cardio
   module Mod
     # ModuleTemplate is an abstract class to build ruby modules out of
     # deckos dsl for sets and set patterns.

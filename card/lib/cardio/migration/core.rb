@@ -1,8 +1,8 @@
 # -*- encoding : utf-8 -*-
 
-require "card/migration"
+require "cardio/migration"
 
-class Card
+module Cardio
   class Migration
     class Core < Migration
       @type = :core_cards

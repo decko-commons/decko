@@ -36,7 +36,7 @@ def mod_path
   if (match = modname.match(/^card-mod-(\w*)/))
     modname = match[1]
   end
-  Card::Mod.dirs.path modname
+  Cardio::Mod.dirs.path modname
 end
 
 def unknown_file? filename, file_path

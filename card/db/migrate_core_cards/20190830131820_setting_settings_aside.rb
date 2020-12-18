@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-class SettingSettingsAside < Card::Migration::Core
+class SettingSettingsAside < Cardio::Migration::Core
   def up
     ensure_card %i[account right create], "Administrator"
     ensure_card %i[signup account type_plus_right create], "_left"
