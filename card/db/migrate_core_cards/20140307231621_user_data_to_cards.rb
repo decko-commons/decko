@@ -3,7 +3,7 @@
 class User < ApplicationRecord
 end
 
-class UserDataToCards < Card::Migration::Core
+class UserDataToCards < Cardio::Migration::Core
   def up
     puts "adding new codename cards"
     [:password, :token, :salt, :status, :signin, :stats].each do |codename|

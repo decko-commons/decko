@@ -1,4 +1,4 @@
-class Card
+module Cardio
   # A Card Mod (short for "module" or "modification") is a discrete piece of Decko
   # functionality. Mods are how the Decko community develops and shares code.
   # If you want to customize a deck in a way that can't be done on the site itself,
@@ -65,7 +65,7 @@ class Card
         return if ENV["CARD_MODS"] == "none"
 
         if Card.take
-          Card::Mod::Loader.load_mods
+          Cardio::Mod::Loader.load_mods
         else
           Rails.logger.warn "empty database"
         end
@@ -73,7 +73,7 @@ class Card
 
       # @return an array of Rails::Path objects
       def dirs
-        @dirs ||= Mod::Dirs.new(Card.paths["mod"].existent)
+        @dirs ||= Mod::Dirs.new(Cardio.paths["mod"].existent)
       end
 
       def dependencies name, nickname=true

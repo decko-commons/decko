@@ -32,6 +32,10 @@ def first_code
   first_card&.codename
 end
 
+def first_id
+  first_card&.id
+end
+
 # @return [Array] list of integers (card ids of items)
 # @param args [Hash] see #item_names
 def item_ids args={}
