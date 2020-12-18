@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-class UpdatePristineData < Card::Migration::Core
+class UpdatePristineData < Cardio::Migration::Core
   def up
     names = %w[
       home home+original

@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-class AddReadAnyoneRules < Card::Migration::Core
+class AddReadAnyoneRules < Cardio::Migration::Core
   def up
     ensure_card "*main menu", codename: :main_menu
     ensure_card "*credit", codename: :credit

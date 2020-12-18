@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-class ReorganizeScripts < Card::Migration::Core
+class ReorganizeScripts < Cardio::Migration::Core
   def up
     create_or_update! name: "*machine cache", codename: "machine_cache"
     ensure_card name: "script: mods", type_id: Card::PointerID,

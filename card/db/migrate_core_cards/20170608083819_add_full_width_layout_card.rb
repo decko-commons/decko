@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-class AddFullWidthLayoutCard < Card::Migration::Core
+class AddFullWidthLayoutCard < Cardio::Migration::Core
   LAYOUT =
     <<-HTML.strip_heredoc
       <!DOCTYPE HTML>

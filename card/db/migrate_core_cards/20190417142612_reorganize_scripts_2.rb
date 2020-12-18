@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-class ReorganizeScripts2 < Card::Migration::Core
+class ReorganizeScripts2 < Cardio::Migration::Core
   def up
     delete_code_card :script_card_menu
     if Card::Codename[:script_slot]

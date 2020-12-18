@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-class UpdateTinymceConfig < Card::Migration::Core
+class UpdateTinymceConfig < Cardio::Migration::Core
   TINYMCE_CONF = <<-JSON.strip_heredoc
     {
       "theme": "modern",

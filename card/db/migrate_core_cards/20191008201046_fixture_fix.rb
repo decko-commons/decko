@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-class FixtureFix < Card::Migration::Core
+class FixtureFix < Cardio::Migration::Core
   def up
     set_name = ["*header", :self]
     set_card = ensure_card Card::Name[set_name] # set missing

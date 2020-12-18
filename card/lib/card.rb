@@ -92,7 +92,7 @@ ActiveSupport.run_load_hooks(:before_card, self)
 # card presentation, while events customize card transactions. Or, if you like, views
 # and events respectively alter cards in _space_ and _time_.
 #
-# Both views and events are defined in {Card::Mod mods}, short for modules or
+# Both views and events are defined in {Cardio::Mod mods}, short for modules or
 # modifications.
 #
 # {Card::Set::Format::AbstractFormat More on views}
@@ -126,6 +126,10 @@ class Card < ApplicationRecord
   has_many :drafts, -> { where(draft: true).order :id }, class_name: :Action
 
   cattr_accessor :set_patterns, :action_specific_attributes, :set_specific_attributes
+
+  class << self
+    delegate :config, :paths, to: Cardio
+  end
 
   self.set_patterns = []
   self.action_specific_attributes = [

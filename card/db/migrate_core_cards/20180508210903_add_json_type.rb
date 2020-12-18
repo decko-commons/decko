@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-class AddJsonType < Card::Migration::Core
+class AddJsonType < Cardio::Migration::Core
   def up
     ensure_card "json", codename: "json", type_id: Card::CardtypeID
     update_card! :ace, type_id: Card::JsonID

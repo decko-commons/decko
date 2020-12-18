@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-class CleanupForDecko10 < Card::Migration::Core
+class CleanupForDecko10 < Cardio::Migration::Core
   def up
     ensure_card "Cards with account", codename: "cards_with_account",
                 content: '{"right_plus": "*account"}'
