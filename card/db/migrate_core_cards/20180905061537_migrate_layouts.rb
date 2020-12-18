@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-class MigrateLayouts < Card::Migration::Core
+class MigrateLayouts < Cardio::Migration::Core
   def up
     Card.search referred_to_by: { right: :layout } do |card|
       create_head_rules card

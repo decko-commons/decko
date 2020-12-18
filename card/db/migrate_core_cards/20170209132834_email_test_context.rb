@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-class EmailTestContext < Card::Migration::Core
+class EmailTestContext < Cardio::Migration::Core
   def up
     ensure_card "*test context",
                 codename: :test_context

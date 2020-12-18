@@ -6,9 +6,9 @@ class Card
   # are responsible for defining and rendering _views_.
   #
   # However, monkeys (those who code in the Card/Decko framework) rarely write code
-  # directly in these classes. Instead they organize their code using {Card::Mod mods}.
+  # directly in these classes. Instead they organize their code using {Cardio::Mod mods}.
   #
-  # {Card::Mod} explains how to set up a mod.
+  # {Cardio::Mod} explains how to set up a mod.
   # {Card::Set::Format} explains how to use this and other format classes within a mod.
   # {Card::Set::Format::AbstractFormat} introduces the view API, which is organized with
   # these format classes.

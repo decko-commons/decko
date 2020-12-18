@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-class ChangeBootstrapCardTypeToScss < Card::Migration::Core
+class ChangeBootstrapCardTypeToScss < Cardio::Migration::Core
   def up
     create_or_update! name: "*machine cache", codename: "machine_cache"
     if (card = Card[:bootstrap_cards])

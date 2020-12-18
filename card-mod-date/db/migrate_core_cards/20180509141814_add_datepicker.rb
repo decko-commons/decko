@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-class AddDatepicker < Card::Migration::Core
+class AddDatepicker < Cardio::Migration::Core
   HELP_TEXT = <<-TEXT.strip_heredoc
     Configure the date select tool using these available [[https://tempusdominus.github.io/bootstrap-4/Options/|options]]
   TEXT

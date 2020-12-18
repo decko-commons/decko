@@ -2,8 +2,8 @@
 
 class Card
   module Set
-    # This document explains how to use format blocks within {Card::Mod mods}. To make
-    # use of it, you will need to understand both {Card::Mod mods} and {Card::Set sets}.
+    # This document explains how to use format blocks within {Cardio::Mod mods}. To make
+    # use of it, you will need to understand both {Cardio::Mod mods} and {Card::Set sets}.
     #
     # Within a card mod, you can define format blocks like the following:
     #
