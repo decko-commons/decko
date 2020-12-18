@@ -103,37 +103,33 @@ module Cardio
       #   It is attached as subdirectory.
       def each type=nil
         super() do |path|
-          dirname = type ? File.join(path, type.to_s) : path
-          next unless Dir.exist? dirname
-
-          yield dirname
+          dirname = dirname path, type
+          yield dirname if Dir.exist? dirname
         end
+      end
+
+      def dirname path, type
+        type ? File.join(path, type.to_s) : path
       end
 
       def each_tmp type
         @mods.each do |mod|
           path = tmp_dir mod, type
-          next unless Dir.exist? path
-
-          yield path
+          yield path if Dir.exist? path
         end
       end
 
       def each_with_tmp type=nil
         @mods.each do |mod|
-          dirname = type ? File.join(@paths[mod], type.to_s) : @paths[mod]
-          next unless Dir.exist? dirname
-
-          yield dirname, tmp_dir(mod, type)
+          dirname = dirname @paths[mod], type
+          yield dirname, tmp_dir(mod, type) if Dir.exist? dirname
         end
       end
 
       def each_assets_path
         @mods.each do |mod|
           path = File.join(@paths[mod], "public", "assets")
-          next unless Dir.exist? path
-
-          yield mod, path
+          yield mod, path if Dir.exist? path
         end
       end
 
@@ -149,10 +145,8 @@ module Cardio
 
       def load_from_dir
         Dir.entries(@current_path).sort.each do |filename|
-          next if filename =~ /^\./
-
-          add_path filename
-        end.compact
+          add_path filename if filename.match?(/^\./)
+        end
       end
 
       def load_from_gemfile

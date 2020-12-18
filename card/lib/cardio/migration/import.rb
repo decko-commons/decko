@@ -73,21 +73,27 @@ module Cardio
 
       # Returns an array of hashes with card attributes
       def fetch_card_data name, url, opts
-        view, result_key =
-          if opts[:items_only]
-            ["export_items", nil]
-          elsif opts[:deep]
-            ["export", nil]
-          else
-            [nil, :card]
-          end
-        card_data =
-          if url
-            fetch_remote_data name, view, url
-          else
-            fetch_local_data name, view
-          end
+        view, result_key = fetch_card_data_view_and_key opts
+        card_data = fetch_all_card_data name, view, url
         result_key ? [card_data[result_key]] : card_data
+      end
+
+      def fetch_all_card_data name, view, url
+        if url
+          fetch_remote_data name, view, url
+        else
+          fetch_local_data name, view
+        end
+      end
+
+      def fetch_card_data_view_and_key opts
+        if opts[:items_only]
+          ["export_items", nil]
+        elsif opts[:deep]
+          ["export", nil]
+        else
+          [nil, :card]
+        end
       end
 
       def fetch_remote_data name, view, url
