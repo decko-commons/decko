@@ -71,7 +71,7 @@ class Card
       end
 
       def initialize_by_attributes name, attributes
-        attributes[:supercard] = @context_card
+        attributes[:supercard] ||= @context_card
         Card.assign_or_newish name, attributes, local_only: true
       end
 
