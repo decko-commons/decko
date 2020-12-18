@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-class AddDeveloperCards < Card::Migration
+class AddDeveloperCards < Cardio::Migration
   def up
     ensure_card name: "*debug",
                 codename: "debug"

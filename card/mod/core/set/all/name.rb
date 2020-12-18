@@ -55,10 +55,10 @@ end
 
 def superize_name cardname
   return cardname unless @supercard
-  @raw_name = cardname.s
+
   @supercard.subcards.rename key, cardname.key
   update_superleft cardname
-  cardname.absolute_name @supercard.name
+  @supercard.name.relative? ? cardname : cardname.absolute_name(@supercard.name)
 end
 
 def update_superleft cardname
@@ -122,11 +122,6 @@ end
 
 # FIXME: use delegations and include all name functions
 delegate :simple?, :compound?, :junction?, to: :name
-
-
-def raw_name
-  @raw_name || name
-end
 
 def left *args
   case
