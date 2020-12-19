@@ -5,6 +5,8 @@ class Card
       module HamlPaths
         TEMPLATE_DIR = %w[template set].freeze
 
+        delegate :tmp_files?, to: Cardio::Mod::LoadStrategy
+
         def haml_to_html haml, locals={}, a_binding=nil, debug_info={}
           a_binding ||= binding
           ::Haml::Engine.new(haml).render a_binding, locals || {}
@@ -49,7 +51,7 @@ class Card
         TMPSET_REGEXP = %r{(?<carddir>/card)/tmp(sets)?/set/mod\d{3}-(?<modname>[^/]+)/}
 
         def deep_source source
-          return source unless Cardio.config.load_strategy == :tmp_files
+          return source unless tmp_files?
 
           source&.gsub TMPSET_REGEXP do
             match = Regexp.last_match

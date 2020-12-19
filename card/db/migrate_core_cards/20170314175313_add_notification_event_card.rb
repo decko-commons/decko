@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-class AddNotificationEventCard < Card::Migration::Core
+class AddNotificationEventCard < Cardio::Migration::Core
   def up
     ensure_card "Notification template", codename: "notification_template",
                 type_id: Card::CardtypeID

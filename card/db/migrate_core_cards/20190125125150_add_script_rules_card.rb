@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-class AddScriptRulesCard < Card::Migration::Core
+class AddScriptRulesCard < Cardio::Migration::Core
   def up
     ensure_card name: "script: rules",
                 type_id: Card::CoffeeScriptID,

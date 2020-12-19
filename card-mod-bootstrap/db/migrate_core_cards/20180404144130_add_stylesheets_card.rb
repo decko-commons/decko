@@ -2,7 +2,7 @@
 
 require_relative "lib/skin"
 
-class AddStylesheetsCard < Card::Migration::Core
+class AddStylesheetsCard < Cardio::Migration::Core
   def up
     ensure_card "*stylesheets", codename: "stylesheets"
   end
