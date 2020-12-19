@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-class AddPointerCards < Card::Migration
+class AddPointerCards < Cardio::Migration
   def up
     ensure_card name: "script: pointer config",
                 type_id: Card::CoffeeScriptID,
