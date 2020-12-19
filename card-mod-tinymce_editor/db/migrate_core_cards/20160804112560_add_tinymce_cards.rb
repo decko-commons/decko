@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-class AddTinymceCards < Card::Migration
+class AddTinymceCards < Cardio::Migration
   TINYMCE_CONFIG = <<-JSON.strip_heredoc
     {
       "width":"100%",

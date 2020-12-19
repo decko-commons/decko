@@ -1,9 +1,3 @@
-def copy_errors card
-  card.errors.each do |att, msg|
-    errors.add att, msg
-  end
-end
-
 format do
   view :compact_missing, perms: :none, compact: true do
     ""
