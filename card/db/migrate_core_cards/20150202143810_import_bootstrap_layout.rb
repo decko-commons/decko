@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-class ImportBootstrapLayout < Card::Migration::Core
+class ImportBootstrapLayout < Cardio::Migration::Core
   def up
     layout = Card.fetch "Default Layout"
     if layout

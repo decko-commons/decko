@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-class RailsInflectionUpdates < Card::Migration::Core
+class RailsInflectionUpdates < Cardio::Migration::Core
   def word ar
     [/(?<=\W|_|^)#{ar[0]}(?=\W|_|$)/i, /(?<=\W|_|^)#{ar[1]}(?=\W|_|$)/i, ar[2]]
   end

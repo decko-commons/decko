@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-class CorrectSignupSuccessMessage < Card::Migration::Core
+class CorrectSignupSuccessMessage < Cardio::Migration::Core
   def up
     if (card = Card["signup success"]) && card.db_content.include?("{{*title}}")
       new_content = card.db_content.gsub "{{*title}}", "{{*title|core}}"

@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-class EnsureDescriptionCard < Card::Migration
+class EnsureDescriptionCard < Cardio::Migration
   def up
     ensure_card "description", codename: :description
 
