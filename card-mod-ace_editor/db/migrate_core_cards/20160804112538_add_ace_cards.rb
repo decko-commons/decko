@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-class AddAceCards < Card::Migration
+class AddAceCards < Cardio::Migration
   ACE_CONFIG = <<-JSON.strip_heredoc
                  {
                    "default": {

@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-class UpdateKeys < Card::Migration::Core
+class UpdateKeys < Cardio::Migration::Core
   def up
     Card.pluck(:id, :name, :key).each do |id, name, key|
       new_key = name.to_name.key

@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-class WagnToDeckoLogo < Card::Migration::Core
+class WagnToDeckoLogo < Cardio::Migration::Core
   def up
     logo = Card[:logo]
     return unless logo&.pristine?

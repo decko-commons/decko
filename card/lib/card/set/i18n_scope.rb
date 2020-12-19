@@ -1,6 +1,8 @@
 class Card
   module Set
     module I18nScope
+      delegate :tmp_files?, to: Cardio::Mod::LoadStrategy
+
       # return scope for I18n
       def scope backtrace
         parts = path_parts backtrace
@@ -71,9 +73,6 @@ class Card
       # end
       #
       #
-      def tmp_files?
-        Card.config.load_strategy == :tmp_files
-      end
 
       def find_set_path backtrace
         re = %r{(?<!card)/set/}
