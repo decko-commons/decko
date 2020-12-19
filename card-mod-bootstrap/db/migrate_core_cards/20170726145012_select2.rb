@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-class Select2 < Card::Migration
+class Select2 < Cardio::Migration
   def up
     add_script "select2",
                 type_id: Card::JavaScriptID,

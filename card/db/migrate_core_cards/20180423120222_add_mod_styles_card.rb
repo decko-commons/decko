@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-class AddModStylesCard < Card::Migration::Core
+class AddModStylesCard < Cardio::Migration::Core
   def up
     ensure_card "style: mods", codename: "style_mods",
                                type_id: Card::PointerID
