@@ -2,7 +2,7 @@
 
 RSpec.describe Cardio::Mod::Loader::SetLoader do
   # This test is screwing up other tests when running in tmpfiles mode.
-  # Temporarily disabiling - EFM
+  # Temporarily disabling - EFM
   #
   #
   let(:mod_dirs) do

@@ -13,9 +13,8 @@ module Cardio
           end
         end
 
-        # for override
         def tmp_files?
-          current.tmp_files == true
+          Cardio.config.load_strategy == :tmp_files
         end
       end
 
