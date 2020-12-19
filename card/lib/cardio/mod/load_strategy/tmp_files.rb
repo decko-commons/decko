@@ -4,7 +4,7 @@ module Cardio
       # LoadStrategy for mod modules. It writes the code to tmp files
       # and then loads the tmp files. (deprecated)
       class TmpFiles < LoadStrategy
-        def self.tmp_files?
+        def self.tmp_files
           true
         end
 
