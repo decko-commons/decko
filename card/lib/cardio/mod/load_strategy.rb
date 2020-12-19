@@ -15,7 +15,7 @@ module Cardio
 
         # for override
         def tmp_files?
-          @tmp_files.nil? ? (@tmp_files = current.tmp_files == true) : @tmp_files
+          current.tmp_files == true
         end
       end
 
