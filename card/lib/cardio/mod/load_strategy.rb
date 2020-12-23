@@ -3,6 +3,8 @@ module Cardio
     # Shared code for the three different load strategies: Eval, TmpFiles and BindingMagic
     class LoadStrategy
       class << self
+        attr_accessor :tmp_files, :current
+
         def klass symbol
           case symbol
           when :tmp_files     then TmpFiles
@@ -11,13 +13,13 @@ module Cardio
           end
         end
 
-        # for override
         def tmp_files?
-          false
+          Cardio.config.load_strategy == :tmp_files
         end
       end
 
       def initialize mod_dirs, loader
+        LoadStrategy.current = self.class
         @mod_dirs = mod_dirs
         @loader = loader
       end
