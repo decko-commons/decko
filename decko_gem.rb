@@ -19,18 +19,36 @@ class DeckoGem
     def mod name, &block
       gem name, true, &block
     end
+
+    def decko_version
+      VERSION
+    end
+
+    def card_version
+      @card_version ||= [1, minor, point].compact.map(&:to_s).join "."
+    end
+
+    private
+
+    def bits
+      @bits ||= decko_version.split(".").map(&:to_i)
+    end
+
+    def major
+      bits[0]
+    end
+
+    def minor
+      CARD_MINOR[major] + bits[1]
+    end
+
+    def point
+      bits[2]
+    end
   end
 
   def initialize spec
     @spec = spec
-  end
-
-  def decko_version
-    VERSION
-  end
-
-  def card_version
-    [1, minor, point].compact.map(&:to_s).join "."
   end
 
   def shared
@@ -57,21 +75,11 @@ class DeckoGem
     mods.each { |mod| spec.add_runtime_dependency "card-mod-#{mod}", decko_version }
   end
 
-  private
-
-  def bits
-    @bits ||= decko_version.split(".").map(&:to_i)
+  def decko_version
+    DeckoGem.decko_version
   end
 
-  def major
-    bits[0]
-  end
-
-  def minor
-    CARD_MINOR[major] + bits[1]
-  end
-
-  def point
-    bits[2]
+  def card_version
+    DeckoGem.card_version
   end
 end
