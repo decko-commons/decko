@@ -26,9 +26,11 @@ format :html do
 
   def add_link_opts opts
     modal = opts.delete :modal
-    modal = true if modal.nil?
-    opts[:path] = add_path(modal ? :new_in_modal : :new)
-    modal ? modal_link_opts(opts) : opts
+    if modal.nil? || modal
+      modal_link_opts opts.merge(path: :new_in_modal)
+    else
+      opts.merge path: add_path(:new)
+    end
   end
 
   view :add_url do
@@ -57,7 +59,7 @@ format :html do
   end
 
   view :configure_button, cache: :never, denial: :blank,
-       perms:  ->(fmt) { fmt.can_configure? } do
+       perms: ->(fmt) { fmt.can_configure? } do
     configure_link "btn btn-secondary"
   end
 
@@ -66,8 +68,10 @@ format :html do
 
     voo.title ||= tr(:configure_card, cardname: safe_name.pluralize)
     title = _render_title
-    link_to_card card, title, path: { view: :bridge, bridge: { tab: :rules_tab },
-                                      set: Card::Name[safe_name, :type] },
+    link_to_card card, title,
+                 path: { view: :bridge,
+                         bridge: { tab: :rules_tab },
+                         set: Card::Name[safe_name, :type] },
                  class: css_classes("configure-type-link ml-3", css_class)
   end
 

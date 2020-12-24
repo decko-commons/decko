@@ -1,10 +1,7 @@
 format :html do
   view :demo do
     frame do
-      [
-          view_select,
-          wrap_with(:div, view_demo, class: "demo-slot")
-      ]
+      [view_select, wrap_with(:div, view_demo, class: "demo-slot")]
     end
   end
 
@@ -26,14 +23,14 @@ format :html do
 
   def view_select
     card_form :get, success: { view: :demo } do
-      select_tag :demo_view, options_for_select(all_views, demo_view),
+      select_tag :demo_view,
+                 options_for_select(all_views, demo_view),
                  class: "_submit-on-select"
     end
   end
 
   def all_views
-    Card::Set::Format::AbstractFormat::ViewDefinition.views
-        .slice(*self.class.ancestors)
-        .values.map(&:keys).flatten.uniq
+    Card::Set::Format::AbstractFormat::ViewDefinition
+      .views.slice(*self.class.ancestors).values.map(&:keys).flatten.uniq
   end
 end
