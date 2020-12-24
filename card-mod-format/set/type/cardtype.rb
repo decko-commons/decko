@@ -1,9 +1,3 @@
-def related_sets with_self=false
-  sets = []
-  sets << ["#{name}+*type", Card::Set::Type.label(name)] if known?
-  sets + super
-end
-
 format :html do
   view :type, unknown: true do
     link_to_card card.type_card, nil, class: "cardtype"
@@ -63,7 +57,7 @@ format :html do
   end
 
   view :configure_button, cache: :never, denial: :blank,
-                          perms:  ->(fmt) { fmt.can_configure? } do
+       perms:  ->(fmt) { fmt.can_configure? } do
     configure_link "btn btn-secondary"
   end
 
@@ -74,7 +68,7 @@ format :html do
     title = _render_title
     link_to_card card, title, path: { view: :bridge, bridge: { tab: :rules_tab },
                                       set: Card::Name[safe_name, :type] },
-                              class: css_classes("configure-type-link ml-3", css_class)
+                 class: css_classes("configure-type-link ml-3", css_class)
   end
 
   private
@@ -86,34 +80,5 @@ format :html do
       key = key.to_name.absolute(context)
       path_args[key] = value
     end
-  end
-end
-
-def cards_of_type_exist?
-  !new_card? && Card.where(trash: false, type_id: id).exists?
-end
-
-def create_ok?
-  Card.new(type_id: id).ok? :create
-end
-
-def was_cardtype?
-  type_id_before_act == Card::CardtypeID
-end
-
-event :check_for_cards_of_type, after: :validate_delete do
-  errors.add :cardtype, tr(:cards_exist, cardname: name) if cards_of_type_exist?
-end
-
-event :check_for_cards_of_type_when_type_changed,
-      :validate, changing: :type, when: :was_cardtype? do
-  if cards_of_type_exist?
-    errors.add :cardtype, tr(:error_cant_alter, name: name_before_act)
-  end
-end
-
-event :validate_cardtype_name, :validate, on: :save, changed: :name do
-  if %r{[<>/]}.match?(name)
-    errors.add :name, tr(:error_invalid_character_in_cardtype, banned: "<, >, /")
   end
 end
