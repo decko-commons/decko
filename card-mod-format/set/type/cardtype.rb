@@ -27,7 +27,7 @@ format :html do
   def add_link_opts opts
     modal = opts.delete :modal
     if modal.nil? || modal
-      modal_link_opts opts.merge(path: :new_in_modal)
+      modal_link_opts opts.merge(path: add_path(:new_in_modal))
     else
       opts.merge path: add_path(:new)
     end
@@ -58,8 +58,9 @@ format :html do
     Card.fetch(card, :type, :structure, new: {}).ok? :update
   end
 
-  view :configure_button, cache: :never, denial: :blank,
-       perms: ->(fmt) { fmt.can_configure? } do
+  view :configure_button, cache: :never,
+                          denial: :blank,
+                          perms: ->(fmt) { fmt.can_configure? } do
     configure_link "btn btn-secondary"
   end
 
