@@ -6,7 +6,7 @@ require "./decko_gem"
 # developers.  Therefore they should contain only tasks for core developers.
 
 task :push_gems do
-  # push_main_gems
+  push_main_gems
   push_mod_gems
 end
 
@@ -37,12 +37,11 @@ def push_main_gems
 end
 
 def push_mod_gems
-  %w(edit ace_editor prosemirror_editor tinymce_editor date recaptcha).each do |gem|
-    gem = "card-mod-#{gem}"
+  Dir.glob("card-mod-*").each do |gem|
     system %(cd #{gem}; #{push_gem gem, version})
   end
 end
 
 def version
-  DeckoGem.version
+  DeckoGem.decko_version
 end
