@@ -141,6 +141,11 @@ en:
             error_hard_templated: can't be changed because %{name} is hard templated to %{type_name}
           utils:
             exception_almost_deleted: Narrowly averted deleting current file
+        type:
+          cardtype:
+            cards_exist: Sorry, this card must remain a Cardtype so long as there are %{cardname} cards.
+            error_cant_alter: can't alter this type; %{name} cards still exist
+            error_invalid_character_in_cardtype: "may not contain any of the following characters: %{banned}"
       set_pattern:
         :01_all:
           label_set_all_cards: All cards
@@ -212,12 +217,6 @@ en:
             memory_diff: memory diff
             megabyte_suffix: M
         type:
-          cardtype:
-            cards_exist: Sorry, this card must remain a Cardtype so long as there are %{cardname} cards.
-            add_card: Add %{cardname}
-            configure_card: Configure %{cardname}
-            error_cant_alter: can't alter this type; %{name} cards still exist
-            error_invalid_character_in_cardtype: "may not contain any of the following characters: %{banned}"
           search_type:
             no_limit_exception: OH NO.. no limit
             no_content_exception: "Error in card '%{name}': can't run search with empty content"
@@ -314,6 +313,10 @@ en:
             exception_not_set_path: "not a set path: %{path}"
             content_in_file: Content is stored in file and can't be edited.
         type:
+          cardtype:
+            cards_exist: Sorry, this card must remain a Cardtype so long as there are %{cardname} cards.
+            add_card: Add %{cardname}
+            configure_card: Configure %{cardname}
           pointer:
             label_select: Select
             #description: description

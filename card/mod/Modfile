@@ -1,4 +1,0 @@
-mod "admin"
-mod "core"
-mod "settings"
-mod "standard"
