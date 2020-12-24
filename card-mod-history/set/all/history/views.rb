@@ -32,4 +32,35 @@ format :html do
   view :action_expanded do
     action_content action_from_context, :expanded
   end
+
+  view :change do
+    voo.show :title_link
+    voo.hide :menu
+    wrap do
+      [_render_title,
+       _render_menu,
+       _render_last_action]
+    end
+  end
+
+  view :last_action do
+    %(
+      <span class="last-update">
+        #{render_last_action_verb} #{render_acted_at} ago by
+        #{nest card.last_actor, view: :link}
+      </span>
+    )
+  end
+
+  view :last_action_verb, cache: :never do
+    return unless (act = card.last_act)
+    return unless (action = act.action_on card.id)
+
+    case action.action_type
+    when :create then "added"
+    when :delete then "deleted"
+    else
+      link_to_view :history, "edited", class: "last-edited", rel: "nofollow"
+    end
+  end
 end
