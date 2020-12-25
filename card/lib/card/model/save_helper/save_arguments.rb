@@ -3,8 +3,6 @@ class Card
     module SaveHelper
       # private helper methods for public SaveHelper api
       module SaveArguments
-        CARDTYPE_METHOD_REGEXP = /^(?<method_name>create|ensure)_(?<type>.+?)(?:_card)?$/
-
         private
 
         # @return args

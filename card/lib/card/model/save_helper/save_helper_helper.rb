@@ -3,6 +3,8 @@ class Card
     module SaveHelper
       # private helper methods for public SaveHelper api
       module SaveHelperHelper
+        CARDTYPE_METHOD_REGEXP = /^(?<method_name>create|ensure)_(?<type>.+?)(?:_card)?$/
+
         private
 
         def codename_from_name name
@@ -36,7 +38,7 @@ class Card
         end
 
         def extract_cardtype_from_method_name method
-          return unless match = method.match CARDTYPE_METHOD_REGEXP
+          return unless (match = method.match CARDTYPE_METHOD_REGEXP)
 
           cardtype_card = cardtype_card_from_string match[:type]
 
