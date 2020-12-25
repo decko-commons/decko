@@ -1,6 +1,7 @@
 class Card
   class Name
     module All
+      # Card methods for finding name children, eg A+B is a child of A and B
       module Descendants
         # NOTE: for all these helpers, method returns *all* fields/children/descendants.
         # (Not just those current user has permission to read.)

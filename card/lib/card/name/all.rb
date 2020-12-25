@@ -47,7 +47,12 @@ class Card
         @superleft = @supercard if cardname.field_of? @supercard.name
       end
 
-      private
+      def update_subcard_names new_name, name_to_replace=nil
+        return unless @subcards
+        subcards.each do |subcard|
+          update_subcard_name subcard, new_name, name_to_replace if subcard.new?
+        end
+      end
 
       def key= newkey
         return if newkey == key
@@ -58,6 +63,8 @@ class Card
         clean_patterns
         @key
       end
+
+      private
 
       def assign_side_ids
         if name.simple?
@@ -83,8 +90,6 @@ class Card
         @supercard.name.relative? ? cardname : cardname.absolute_name(@supercard.name)
       end
 
-
-
       def clean_patterns
         return unless patterns?
         reset_patterns
@@ -97,17 +102,11 @@ class Card
         Card.write_to_soft_cache self if was_in_cache
       end
 
-      def update_subcard_names new_name, name_to_replace=nil
-        return unless @subcards
-        subcards.each do |subcard|
-          update_subcard_name subcard, new_name, name_to_replace if subcard.new?
-        end
-      end
-
       def update_subcard_name subcard, new_name, name_to_replace
         name_to_replace ||= name_to_replace_for_subcard subcard, new_name
         subcard.name = subcard.name.swap name_to_replace, new_name.s
-        subcard.update_subcard_names new_name, name # needed?  shouldn't #name= trigger this?
+        # following needed?  shouldn't #name= trigger this?
+        subcard.update_subcard_names new_name, name
       end
 
       def name_to_replace_for_subcard subcard, new_name

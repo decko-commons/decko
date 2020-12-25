@@ -1,6 +1,7 @@
 class Card
   class Name
     module All
+      # Card methods for handling name parts, eg A and B are both parts of A+B
       module Parts
         def left *args
           case
