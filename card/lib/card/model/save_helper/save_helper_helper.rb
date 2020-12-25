@@ -66,9 +66,9 @@ class Card
         end
 
         def validate_setting setting
-          unless Codename.exist?(setting) && Card.fetch_type_id(setting) == SettingID
-            raise ArgumentError, "not a valid setting: #{setting}"
-          end
+          return if Codename.exist?(setting) && Card.fetch_type_id(setting) == SettingID
+
+          raise ArgumentError, "not a valid setting: #{setting}"
         end
 
         def normalize_trait_rule_args setting, value
