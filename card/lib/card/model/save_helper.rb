@@ -10,6 +10,7 @@ class Card
     # to resolve name conflicts)
     module SaveHelper
       include SaveHelperHelper
+      include SaveArguments
 
       def create_card name_or_args, content_or_args=nil
         Card.create! create_args(name_or_args, content_or_args)
