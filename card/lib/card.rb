@@ -116,6 +116,7 @@ class Card < ApplicationRecord
   include Dirty
   include DirtyNames
   include Director::CardMethods
+  include Name::All
 
   Card::Cache # trigger autoload
 
