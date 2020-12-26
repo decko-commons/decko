@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-RSpec.describe Card::Set::All::Name do
+RSpec.describe Card::Name::All do
   describe "#each_descendants" do
     it "finds descendants" do
       descendants_of_a = []
