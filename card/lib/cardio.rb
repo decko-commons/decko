@@ -42,8 +42,7 @@ module Cardio
     # TODO: many of these defaults should be in mods!
     def default_configs
       defaults_from_yaml.merge(
-        read_only: !ENV["DECKO_READ_ONLY"].nil?,
-        token_expiry: 2.days,
+        read_only: (!ENV["DECKO_READ_ONLY"].nil?),
         load_strategy: (ENV["REPO_TMPSETS"] || ENV["TMPSETS"] ? :tmp_files : :eval)
       )
     end
@@ -82,10 +81,6 @@ module Cardio
     def autoload_and_watch config, mod_path
       config.autoload_paths += Dir["#{mod_path}/lib"]
       config.watchable_dirs["#{mod_path}/set"] = [:rb]
-    end
-
-    def read_only?
-
     end
 
     # In production mode set_config gets called twice.

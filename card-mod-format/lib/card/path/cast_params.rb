@@ -4,7 +4,7 @@ class Card
     self.cast_params = { slot: { hide: :array, show: :array, wrap: :array } }.freeze
 
     # normalizes certain path opts to specified data types
-    module ClassParams
+    module CastParams
       private
 
       def cast_path_hash hash, cast_hash=nil
