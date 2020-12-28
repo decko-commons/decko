@@ -95,18 +95,30 @@ def revision action, before_action=false
 end
 
 def attachment_format ext
-  if ext.present? && attachment && (original_ext = attachment.extension.sub(/^\./, ""))
-    if ["file", original_ext].member? ext
-      original_ext
-    elsif (exts = Mime::Types[attachment.content_type])
-      if exts.find { |mt| mt.extensions.member? ext }
-        ext
-      else
-        exts[0].extensions[0]
-      end
-    end
-  end
+  return unless ext.present? && original_extension
+
+  confirm_original_extension(ext) || detect_extension(ext)
 rescue => e
   Rails.logger.info "attachment_format issue: #{e.message}"
   nil
+end
+
+def detect_extension ext
+  return unless (mime_types = Mime::Types[attachment.content_type])
+
+  recognized_extension?(mime_types, ext) ? ext : mime_types[0].extensions[0]
+end
+
+def recognized_extension? mime_types, ext
+  mime_types.find { |mt| mt.extensions.member? ext }
+end
+
+def confirm_original_extension ext
+  return unless ["file", original_extension].member? ext
+
+  original_extension
+end
+
+def original_extension
+  @original_extension ||= attachment&.extension&.sub(/^\./, "")
 end
