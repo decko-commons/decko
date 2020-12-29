@@ -14,4 +14,8 @@ RSpec.describe Card::Set::Self::ScriptLibraries do
   specify "core view" do
     expect_view(:core, card: subject).to include "script_ace.js"
   end
+
+  specify "include_tag view" do
+    expect_view(:include_tag, card: subject). to eq("")
+  end
 end

@@ -2,3 +2,20 @@ include:
   - ../../../vendor/bootstrap/dist/js/bootstrap.bundle.js
   - ../../../lib/javascript/bootstrap_modal_decko.js
   - ../../..vendor/bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js
+remote:
+  download: true
+  minimize: true
+
+group1:
+  minimize: false
+  local: true
+  items:
+    - ../../../vendor/bootstrap/dist/js/bootstrap.bundle.js
+    - ../../../lib/javascript/bootstrap_modal_decko.js
+    - ../../..vendor/bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js
+    - http://jquery.somewhere
+
+group2:
+  minimize: true
+
+

@@ -2,6 +2,21 @@ include_set Abstract::Pointer
 
 abstract_basket :item_codenames
 
+def self.included host_class
+  host_class.include_set Abstract::Machine
+  host_class.include_set Abstract::MachineInput
+
+  host_class.machine_input { standard_machine_input }
+  host_class.store_machine_output filetype: "js"
+end
+
+def standard_machine_input
+  manifest_groups_cards.reject { |mcard| !mcard.local }.map do |mcard|
+    js = mcard.format(:js)._render_core
+    js = compress_js js if mcard.minimize
+    js
+  end.join "\n"
+end
 
 # simplify api
 # Self::MyCodePointerSet.add_item :my_item_codename
@@ -27,10 +42,6 @@ module ClassMethods
       Rails.logger.info "unknown codename '#{codename}' added to code pointer"
     end
   end
-end
-
-def subpath
-  "assets/javascript/libraries"
 end
 
 def asset_file_cards
