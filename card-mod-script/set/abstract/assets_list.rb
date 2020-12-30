@@ -81,12 +81,11 @@ end
 
 format :html do
   view :include_tag do
-    item_cards.map do |icard|
+    card.item_cards.map do |icard|
       nest icard, view: :include_tag
     end.join("\n")
   end
 end
-
 
 def basket_cards
   item_codenames.map do |codename|
