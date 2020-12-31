@@ -42,60 +42,78 @@ format :html do
     end
   end
 
+  def type_field args={}
+    @no_current_type = args.delete :no_current_type # just a test artifact?
+    action_view.select_tag "card[type]", type_field_options,
+                           args.merge("data-select2-id": "#{unique_id}-#{Time.now.to_i}")
+  end
+
+  private
+
+  def raw_type_options
+    return @raw_type_options if @raw_type_options
+    options = Auth.createable_types
+    if !@no_current_type && card.real? && !options.include?(card.type_name)
+      # current type should be an option on existing cards,
+      # regardless of create perms
+      options.push(card.type_name).sort!
+    end
+    @raw_type_options = ::Set.new options
+  end
+
   def wrap_type_formgroup
     formgroup "Type", input: "type", class: "type-formgroup", help: false do
       output [yield, hidden_field_tag(:assign, true)]
     end
   end
 
-  def type_field args={}
-    typelist = Auth.createable_types
-    current_type = type_field_current_value args, typelist
-    action_view.select_tag "card[type]", type_field_options(current_type),
-                           args.merge("data-select2-id": "#{unique_id}-#{Time.now.to_i}")
-  end
-
-  def type_field_options current_type
-    types = grouped_types(current_type)
-
-    if types.size == 1
-      options_for_select types.flatten[1], current_type
+  def type_field_options
+    if grouped_types.size == 1
+      simple_type_field_options
     else
-      grouped_options_for_select types, current_type
+      multi_type_field_options
     end
   end
 
-  def grouped_types current_type
-    groups = Hash.new { |h, k| h[k] = [] }
-    allowed = ::Set.new Auth.createable_types
-    allowed << current_type if current_type
+  def simple_type_field_options
+    options_for_select grouped_types.flatten[1], current_type_value
+  end
 
-    visible_cardtype_groups.each_pair do |name, items|
+  def multi_type_field_options
+    grouped_options_for_select grouped_types, current_type_value
+  end
+
+  def current_type_value
+    return if @no_current_type
+
+    @current_type_value ||= card.type_name_or_default
+  end
+
+  def grouped_types
+    groups = Hash.new { |h, k| h[k] = [] }
+
+    visible_cardtype_groups.each_pair.with_object(groups) do |(name, items), groups|
       if name == "Custom"
-        Auth.createable_types.each do |type|
-          groups["Custom"] << type unless ::Card::Set::Self::Cardtype::GROUP_MAP[type]
-        end
+        custom_grouped_types groups
       else
-        items.each do |i|
-          groups[name] << i if allowed.include?(i)
-        end
+        standard_grouped_types groups, name, items
       end
     end
-    groups
+  end
+
+  def custom_grouped_types groups
+    Auth.createable_types.each do |type|
+      groups["Custom"] << type unless ::Card::Set::Self::Cardtype::GROUP_MAP[type]
+    end
+  end
+
+  def standard_grouped_types groups, name, items
+    items.each do |i|
+      groups[name] << i if raw_type_options.include?(i)
+    end
   end
 
   def visible_cardtype_groups
     ::Card::Set::Self::Cardtype::GROUP
-  end
-
-  def type_field_current_value args, typelist
-    return if args.delete :no_current_type
-
-    if !card.new_card? && !typelist.include?(card.type_name)
-      # current type should be an option on existing cards,
-      # regardless of create perms
-      typelist.push(card.type_name).sort!
-    end
-    card.type_name_or_default
   end
 end
