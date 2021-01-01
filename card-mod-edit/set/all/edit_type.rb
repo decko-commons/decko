@@ -92,11 +92,11 @@ format :html do
   def grouped_types
     groups = Hash.new { |h, k| h[k] = [] }
 
-    visible_cardtype_groups.each_pair.with_object(groups) do |(name, items), groups|
+    visible_cardtype_groups.each_pair.with_object(groups) do |(name, items), grps|
       if name == "Custom"
-        custom_grouped_types groups
+        custom_grouped_types grps
       else
-        standard_grouped_types groups, name, items
+        standard_grouped_types grps, name, items
       end
     end
   end
