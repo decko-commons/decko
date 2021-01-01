@@ -42,7 +42,7 @@ module Cardio
     # TODO: many of these defaults should be in mods!
     def default_configs
       defaults_from_yaml.merge(
-        read_only: (!ENV["DECKO_READ_ONLY"].nil?),
+        read_only: !ENV["DECKO_READ_ONLY"].nil?,
         load_strategy: (ENV["REPO_TMPSETS"] || ENV["TMPSETS"] ? :tmp_files : :eval)
       )
     end
