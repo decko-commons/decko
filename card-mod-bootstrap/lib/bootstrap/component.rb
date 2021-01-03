@@ -121,8 +121,8 @@ class Bootstrap
     end
 
     def standardize_block_args opts, args, &block
-      instance_exec(opts, args, &block).tap do |opts, _args|
-        unless opts.is_a? Hash
+      instance_exec(opts, args, &block).tap do |s_opts, _s_args|
+        unless s_opts.is_a? Hash
           raise Card::Error, "first return value of a tag block has to be a hash"
         end
       end

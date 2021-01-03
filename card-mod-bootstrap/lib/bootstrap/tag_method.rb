@@ -1,5 +1,8 @@
 class Bootstrap
+  # support html tag generation
   class TagMethod
+    include Content
+
     def initialize component, name, html_class, tag_opts={}, &tag_block
       @component = component
       @name = name
@@ -11,30 +14,12 @@ class Bootstrap
       @xm = Builder::XmlMarkup.new
     end
 
-    def call *args, &content_block
+    def call *_args, &content_block
       component.content.push "".html_safe
 
-      content, opts = content_block.call
-      wrappers = @wrap.pop
-      if wrappers.present?
-        while wrappers.present? do
-          wrapper = wrappers.shift
-          if wrapper.is_a? Symbol
-            send wrapper, &content_block
-          else
-            instance_exec(content, &wrappers.shift)
-          end
-        end
-      else
-        add_content content
-      end
-
-      collected_content = @content.pop
-      tag_name = opts.delete(:tag) if tag_name == :yield
-      add_content content_tag(tag_name, collected_content, opts, false)
-      @append.pop.each do |block|
-        add_content instance_exec(&block)
-      end
+      opts = process_content(&content_block)
+      process_collected_content tag_name, opts
+      process_append
       ""
     end
 
