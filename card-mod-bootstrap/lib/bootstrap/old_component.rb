@@ -67,7 +67,7 @@ class Bootstrap
       @append << []
       @wrap << []
 
-      opts = process_content &content_block
+      opts = process_content(&content_block)
       process_collected_content tag_name, opts
       process_append
       ""
@@ -104,13 +104,6 @@ class Bootstrap
         else
           instance_exec content, &wrappers.shift
         end
-      end
-    end
-
-    def add_classes opts, html_class, optional_classes
-      prepend_class opts, html_class if html_class
-      Array.wrap(optional_classes).each do |k, v|
-        prepend_class opts, v if opts.delete k
       end
     end
 
