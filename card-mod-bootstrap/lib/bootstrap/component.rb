@@ -40,7 +40,7 @@ class Bootstrap
           add_classes opts, html_class, tag_opts.delete(:optional_classes)
 
           @html.tag! tag, opts do
-            instance_exec &content_block
+            instance_exec(&content_block)
           end
         end
       end
@@ -63,12 +63,12 @@ class Bootstrap
 
     def prepend &block
       tmp = @content.pop
-      instance_exec &block
+      instance_exec(&block)
       @content << tmp
     end
 
     def insert &block
-      instance_exec &block
+      instance_exec(&block)
     end
 
     def append &block

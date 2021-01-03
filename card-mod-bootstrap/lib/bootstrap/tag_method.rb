@@ -24,21 +24,23 @@ class Bootstrap
     end
 
     def method_missing method, *args, &block
+      return super unless respond_to_missing? method
+
       @component.send method, *args, &block
     end
 
-    def respond_to_missing?
-      true
+    def respond_to_missing? method, _include_private=false
+      @component.respond_to? method
     end
 
     def prepend &block
       tmp = @content.pop
-      instance_exec &block
+      instance_exec(&block)
       @content << tmp
     end
 
     def wrap &block
-      instance_exec &block
+      instance_exec(&block)
     end
 
     def append &block
