@@ -68,12 +68,12 @@ class Bootstrap
       @wrap << []
 
       opts = process_content &content_block
-      process_collected_content opts
+      process_collected_content tag_name, opts
       process_append
       ""
     end
 
-    def process_collected_content opts
+    def process_collected_content tag_name, opts
       collected_content = @content.pop
       tag_name = opts.delete(:tag) if tag_name == :yield
       add_content content_tag(tag_name, collected_content, opts, false)
@@ -106,8 +106,6 @@ class Bootstrap
         end
       end
     end
-
-
 
     def add_classes opts, html_class, optional_classes
       prepend_class opts, html_class if html_class
