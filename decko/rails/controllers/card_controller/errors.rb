@@ -12,6 +12,7 @@ class CardController
     end
   end
 
+  # controller error handling
   module Errors
     def handle_exception exception
       raise exception if debug_exception?(exception)
@@ -23,9 +24,9 @@ class CardController
     # TODO: move to exception object
     def debug_exception? e
       !e.is_a?(Card::Error::UserError) &&
-          !e.is_a?(ActiveRecord::RecordInvalid) &&
-          Card::Codename[:debugger] &&
-          Card[:debugger]&.content =~ /on/  # && !Card::Env.ajax?
+        !e.is_a?(ActiveRecord::RecordInvalid) &&
+        Card::Codename[:debugger] &&
+        Card[:debugger]&.content =~ /on/  # && !Card::Env.ajax?
     end
   end
 
