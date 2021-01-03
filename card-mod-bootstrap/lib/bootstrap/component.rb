@@ -1,4 +1,3 @@
-#! no set module
 class Bootstrap
   class TagMethod
     def initialize component, name, html_class, tag_opts={}, &tag_block
@@ -116,7 +115,6 @@ class Bootstrap
       end
     end
 
-
     def render
       @rendered = begin
         render_content
@@ -171,17 +169,27 @@ class Bootstrap
     end
 
     def standardize_args args, &block
-      opts = args.last.is_a?(Hash) ? args.pop : {}
-      items = ((args.one? && args.last.is_a?(String)) || args.last.is_a?(Array)) &&
-        args.pop
-      if block.present?
-        opts, args = instance_exec opts, args, &block
-        unless opts.is_a?(Hash)
+      opts = standardize_opts args
+      items = items_from_args args
+      opts, args = standardize_block_args opts, args, &block if block.present?
+
+      [items, opts, args]
+    end
+
+    def standardize_opts args
+      args.last.is_a?(Hash) ? args.pop : {}
+    end
+
+    def items_from_args args
+      ((args.one? && args.last.is_a?(String)) || args.last.is_a?(Array)) && args.pop
+    end
+
+    def standardize_block_args opts, args, &block
+      instance_exec(opts, args, &block).tap do |opts, _args|
+        unless opts.is_a? Hash
           raise Card::Error, "first return value of a tag block has to be a hash"
         end
       end
-
-      [items, opts, args]
     end
 
     def add_classes opts, html_class, optional_classes

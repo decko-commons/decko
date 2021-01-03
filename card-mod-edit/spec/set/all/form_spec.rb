@@ -30,6 +30,7 @@ RSpec.describe Card::Set::All::Form do
     end
   end
 
+
   context "with type and header" do
     it "renders type without no-edit class when no cards of type" do
       card = Card["UserForm"]  # no cards with this type
