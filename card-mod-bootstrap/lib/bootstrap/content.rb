@@ -10,7 +10,7 @@ class Bootstrap
     end
 
     def process_content &content_block
-      content, opts = content_block.call
+      content, opts = yield
       wrappers = @wrap.pop
       if wrappers.present?
         process_wrappers wrappers, content, &content_block

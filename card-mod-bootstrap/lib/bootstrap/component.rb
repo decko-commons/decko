@@ -95,9 +95,7 @@ class Bootstrap
 
     def with_child_args args
       @child_args << args if args.present?
-      res = yield
-      @child_args.pop if args.present?
-      res
+      yield.tap { @child_args.pop if args.present? }
     end
 
     def add_content content
