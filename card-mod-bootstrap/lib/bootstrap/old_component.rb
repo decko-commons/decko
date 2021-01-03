@@ -1,6 +1,8 @@
-#! no set module
 class Bootstrap
+  # not-yet-obviated component handling
   class OldComponent < Component
+    include Content
+
     def initialize context, *args, &block
       @context = context
       @content = ["".html_safe]
@@ -61,98 +63,17 @@ class Bootstrap
       end
     end
 
-    def prepend &block
-      tmp = @content.pop
-      instance_exec &block
-      @content << tmp
-    end
-
-    def insert &block
-      instance_exec &block
-    end
-
-    def append &block
-      @append[-1] << block
-    end
-
-    def wrap tag=nil, &block
-      @wrap[-1] << (block_given? ? block : tag)
-    end
-
     private
-
-    def render_content
-      # if @build_block.arity > 0
-      instance_exec *@args, &@build_block
-    end
-
-    def generate_content content, processor, &block
-      content = instance_exec &block if block.present?
-      return content if !processor || !content.is_a?(Array)
-      content.each {|item| send processor, item}
-      ""
-    end
-
-    def with_child_args args
-      @child_args << args if args.present?
-      res = yield
-      @child_args.pop if args.present?
-      res
-    end
-
-    def add_content content
-      @content[-1] << "\n#{content}".html_safe if content.present?
-    end
 
     def process_tag tag_name, &content_block
       @content.push "".html_safe
       @append << []
       @wrap << []
 
-
-      content, opts = content_block.call
-      wrappers = @wrap.pop
-      if wrappers.present?
-        while wrappers.present? do
-          wrapper = wrappers.shift
-          if wrapper.is_a? Symbol
-            send wrapper, &content_block
-          else
-            instance_exec(content, &wrappers.shift)
-          end
-        end
-      else
-        add_content content
-      end
-
-      collected_content = @content.pop
-      tag_name = opts.delete(:tag) if tag_name == :yield
-      add_content content_tag(tag_name, collected_content, opts, false)
-      @append.pop.each do |block|
-        add_content instance_exec(&block)
-      end
+      opts = process_content(&content_block)
+      process_collected_content tag_name, opts
+      process_append
       ""
-    end
-
-    def standardize_args args, &block
-      opts = args.last.is_a?(Hash) ? args.pop : {}
-      items = ((args.one? && args.last.is_a?(String)) || args.last.is_a?(Array)) &&
-        args.pop
-      if block.present?
-        opts, args = instance_exec opts, args, &block
-        unless opts.is_a?(Hash)
-          raise Card::Error, "first return value of a tag block has to be a hash"
-        end
-      end
-
-      [items, opts, args]
-    end
-
-    def add_classes opts, html_class, optional_classes
-      prepend_class opts, html_class if html_class
-      Array.wrap(optional_classes).each do |k, v|
-        prepend_class opts, v if opts.delete k
-      end
     end
 
     # include BasicTags
