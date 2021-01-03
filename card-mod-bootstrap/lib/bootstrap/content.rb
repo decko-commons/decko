@@ -27,7 +27,7 @@ class Bootstrap
     end
 
     def process_wrappers wrappers, content, &content_block
-      while wrappers.present? do
+      while wrappers.present?
         wrapper = wrappers.shift
         if wrapper.is_a? Symbol
           send wrapper, &content_block

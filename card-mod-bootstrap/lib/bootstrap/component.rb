@@ -1,5 +1,5 @@
 class Bootstrap
-
+  # render components of bootstrap library
   class Component
     def initialize context, *args, &block
       @context = context

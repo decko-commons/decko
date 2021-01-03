@@ -27,6 +27,10 @@ class Bootstrap
       @component.send method, *args, &block
     end
 
+    def respond_to_missing?
+      true
+    end
+
     def prepend &block
       tmp = @content.pop
       instance_exec &block
