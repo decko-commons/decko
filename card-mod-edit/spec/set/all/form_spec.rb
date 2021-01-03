@@ -27,8 +27,6 @@ RSpec.describe Card::Set::All::Form do
           expect(tf.scan(/<option /).length).to eq(2)
         end
       end
-    end
-  end
 
   context "with type and header" do
     it "renders type without no-edit class when no cards of type" do
