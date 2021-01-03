@@ -1,67 +1,5 @@
-#! no set module
 class Bootstrap
-  class TagMethod
-    def initialize component, name, html_class, tag_opts={}, &tag_block
-      @component = component
-      @name = name
-      @html_class = html_class
-      @tag_opts = tag_opts
-      @tag_block = tag_block
-      @append = []
-      @wrap = []
-      @xm = Builder::XmlMarkup.new
-    end
-
-    def call *args, &content_block
-      component.content.push "".html_safe
-
-      content, opts = content_block.call
-      wrappers = @wrap.pop
-      if wrappers.present?
-        while wrappers.present? do
-          wrapper = wrappers.shift
-          if wrapper.is_a? Symbol
-            send wrapper, &content_block
-          else
-            instance_exec(content, &wrappers.shift)
-          end
-        end
-      else
-        add_content content
-      end
-
-      collected_content = @content.pop
-      tag_name = opts.delete(:tag) if tag_name == :yield
-      add_content content_tag(tag_name, collected_content, opts, false)
-      @append.pop.each do |block|
-        add_content instance_exec(&block)
-      end
-      ""
-    end
-
-    def method_missing method, *args, &block
-      @component.send method, *args, &block
-    end
-
-    def prepend &block
-      tmp = @content.pop
-      instance_exec &block
-      @content << tmp
-    end
-
-    def wrap &block
-      instance_exec &block
-    end
-
-    def append &block
-      @append[-1] << block
-    end
-
-    def wrapInner tag=nil, &block
-      @wrap[-1] << (block_given? ? block : tag)
-    end
-  end
-
+  # render components of bootstrap library
   class Component
     def initialize context, *args, &block
       @context = context
@@ -102,7 +40,7 @@ class Bootstrap
           add_classes opts, html_class, tag_opts.delete(:optional_classes)
 
           @html.tag! tag, opts do
-            instance_exec &content_block
+            instance_exec(&content_block)
           end
         end
       end
@@ -116,7 +54,6 @@ class Bootstrap
       end
     end
 
-
     def render
       @rendered = begin
         render_content
@@ -126,12 +63,12 @@ class Bootstrap
 
     def prepend &block
       tmp = @content.pop
-      instance_exec &block
+      instance_exec(&block)
       @content << tmp
     end
 
     def insert &block
-      instance_exec &block
+      instance_exec(&block)
     end
 
     def append &block
@@ -167,21 +104,28 @@ class Bootstrap
       @content[-1] << "\n#{content}".html_safe if content.present?
     end
 
-    def process_tag tag_name, &content_block
+    def standardize_args args, &block
+      opts = standardize_opts args
+      items = items_from_args args
+      opts, args = standardize_block_args opts, args, &block if block.present?
+
+      [items, opts, args]
     end
 
-    def standardize_args args, &block
-      opts = args.last.is_a?(Hash) ? args.pop : {}
-      items = ((args.one? && args.last.is_a?(String)) || args.last.is_a?(Array)) &&
-        args.pop
-      if block.present?
-        opts, args = instance_exec opts, args, &block
-        unless opts.is_a?(Hash)
+    def standardize_opts args
+      args.last.is_a?(Hash) ? args.pop : {}
+    end
+
+    def items_from_args args
+      ((args.one? && args.last.is_a?(String)) || args.last.is_a?(Array)) && args.pop
+    end
+
+    def standardize_block_args opts, args, &block
+      instance_exec(opts, args, &block).tap do |s_opts, _s_args|
+        unless s_opts.is_a? Hash
           raise Card::Error, "first return value of a tag block has to be a hash"
         end
       end
-
-      [items, opts, args]
     end
 
     def add_classes opts, html_class, optional_classes
