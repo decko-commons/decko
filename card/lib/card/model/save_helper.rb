@@ -12,6 +12,10 @@ class Card
       include SaveHelperHelper
       include SaveArguments
 
+      def with_user user_name
+        Card::Auth.with(current_id: Card.fetch_id(user_name)) { yield }
+      end
+
       def create_card name_or_args, content_or_args=nil
         Card.create! create_args(name_or_args, content_or_args)
       end
