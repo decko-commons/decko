@@ -95,10 +95,16 @@ def revision action, before_action=false
 end
 
 def attachment_format ext
-  return unless ext.present? && original_extension
+  rescuing_extension_issues do
+    return unless ext.present? && original_extension
 
-  confirm_original_extension(ext) || detect_extension(ext)
-rescue => e
+    confirm_original_extension(ext) || detect_extension(ext)
+  end
+end
+
+def rescuing_extension_issues
+  yield
+rescue StandardError => e
   Rails.logger.info "attachment_format issue: #{e.message}"
   nil
 end

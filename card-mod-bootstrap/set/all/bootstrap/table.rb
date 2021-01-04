@@ -64,19 +64,20 @@ format :html do
       end
     end
 
-    def tag elem, content_or_opts={}, opts={}, &block
+    def tag elem, *args, &block
       if @div_table
-        if content_or_opts.is_a? Hash
-          @format.add_class content_or_opts, elem
-        else
-          @format.add_class opts, elem
-        end
+        add_div_table_class elem, *args
         elem = :div
       end
-      @format.wrap_with elem, content_or_opts, opts, &block
+      @format.wrap_with elem, *args, &block
     end
 
     private
+
+    def add_div_table_class elem, content_or_opts={}, opts={}
+      klass_opts = content_or_opts.is_a?(Hash) ? content_or_opts : opts
+      @format.add_class klass_opts, elem
+    end
 
     def initialize_header header, content
       case header
