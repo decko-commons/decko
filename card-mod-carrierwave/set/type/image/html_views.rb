@@ -54,15 +54,16 @@ format :html do
   end
 
   def old_image action, hide_diff
-    old_image_change action, hide_diff do |action_id|
-      card.with_selected_action_id action_id do
+    return if hide_diff || !action
+
+    old_image_change action do |old_action_id|
+      card.with_selected_action_id old_action_id do
         Card::Content::Diff.render_deleted_chunk _render_core
       end
     end
   end
 
-  def old_image_change action, hide_diff
-    return if hide_diff || !action
+  def old_image_change action
     return unless (change = card.last_change_on(:db_content, before: action))
 
     yield change.card_action_id
