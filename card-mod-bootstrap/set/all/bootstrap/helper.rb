@@ -13,10 +13,14 @@ format :html do
     options = content_or_options if block_given?
     content = block_given? ? yield : content_or_options
     content = Array(content).map(&:to_s)
+    add_list_group_classes options
+    list_tag content, options
+  end
+
+  def add_list_group_classes options
     add_class options, "list-group"
     options[:items] ||= {}
     add_class options[:items], "list-group-item"
-    list_tag content, options
   end
 
   def list_tag content_or_options=nil, options={}
