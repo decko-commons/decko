@@ -18,9 +18,17 @@ format :html do
   def apply_tm_snippet_data snippet
     { "data-tinymce-id": tinymce_id }.tap do |data|
       apply_tm_snippet_vars data, snippet
-      data["data-dismiss"] = "modal" if modal_tm_snippet_editor?
-      data["data-index"] = params["index"] if params["index"].present?
+      apply_tm_data_dismiss data
+      apply_tm_data_index data
     end
+  end
+
+  def apply_tm_data_dismiss data
+    data["data-dismiss"] = "modal" if modal_tm_snippet_editor?
+  end
+
+  def apply_tm_data_index data
+    data["data-index"] = params["index"] if params["index"].present?
   end
 
   def apply_tm_snippet_vars data, snippet
