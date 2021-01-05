@@ -51,7 +51,7 @@ format :html do
 
   private
 
-  def discussion_permission_task d_card = nil
+  def discussion_permission_task d_card=nil
     d_card ||= discussion_card
     d_card.new_card? ? :update : :read
   end

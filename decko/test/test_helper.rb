@@ -38,6 +38,7 @@ unless defined? TEST_ROOT
     self.use_instantiated_fixtures  = false
 
     def prepare_url url, cardtype
+      raise Card::ServerError, "prepare_url called"
       if url =~ /:id/
         # find by naming convention in test data:
         renames = { "layout_type" => "Layout", "search_type" => "Search" }
