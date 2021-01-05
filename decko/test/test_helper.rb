@@ -36,19 +36,5 @@ unless defined? TEST_ROOT
     # instantiated fixtures translates to a database query per test method),
     # then set this back to true.
     self.use_instantiated_fixtures  = false
-
-    def prepare_url url, cardtype
-      raise Card::ServerError, "prepare_url called"
-      if url =~ /:id/
-        # find by naming convention in test data:
-        renames = { "layout_type" => "Layout", "search_type" => "Search" }
-        if card = Card["Sample #{renames[cardtype] || cardtype}"]
-          url.gsub!(/:id/, "~#{card.id}")
-        else
-          puts("ERROR finding 'Sample #{cardtype}'")
-        end
-      end
-      url
-    end
   end
 end
