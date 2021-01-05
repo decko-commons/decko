@@ -106,7 +106,7 @@ class Card
 
       def register_set_format format_class, mod
         if all_set?
-          all_set_format_mod! format_class, mod
+          register_all_set_format format_class, mod
         else
           register_standard_set_format format_class, mod
         end
