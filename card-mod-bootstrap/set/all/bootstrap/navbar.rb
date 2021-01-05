@@ -7,11 +7,17 @@ format :html do
   # @option opts [String] class
   # @option opts [Boolean] no_collapse
   # @option opts [:left, :right] toggle_align
-  def navbar id, opts={}
+  def navbar id, opts={}, &block
     nav_opts = opts[:navbar_opts] || {}
     nav_opts[:class] ||= opts[:class]
     add_class nav_opts,
               "navbar navbar-dark bg-#{opts.delete(:navbar_type) || 'primary'}"
+    navbar_content id, opts, nav_opts, &block
+  end
+
+  private
+
+  def navbar_content id, opts, nav_opts
     content = yield
     if opts[:no_collapse]
       navbar_nocollapse content, nav_opts
