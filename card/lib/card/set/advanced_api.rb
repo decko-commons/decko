@@ -7,17 +7,16 @@ class Card
         register_setting opts
       end
 
-      def ensure_set &block
+      def ensure_set # &block
         set_module = yield
         set_module = card_set_module_const_get(set_module) unless set_module.is_a?(Module)
-        set_module
-      rescue NameError => e
-        if e.message =~ /uninitialized constant (?:Card::Set::)?(.+)$/
-          define_set Regexp.last_match(1)
-        end
-        # try again - there might be another submodule that doesn't exist
-        ensure_set(&block)
-      else
+      # rescue NameError => e
+      #   if e.message =~ /uninitialized constant (?:Card::Set::)?(.+)$/
+      #     define_set Regexp.last_match(1)
+      #   end
+      #   # try again - there might be another submodule that doesn't exist
+      #   ensure_set(&block)
+      # else
         set_module.extend Card::Set
       end
 
