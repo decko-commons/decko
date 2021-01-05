@@ -34,11 +34,9 @@ format :html do
   end
 
   def show_discussion?
-    d_card = discussion_card
-    return unless d_card
+    return unless (d_card = discussion_card)
 
-    permission_task = d_card.new_card? ? :update : :read
-    d_card.ok? permission_task
+    d_card.ok? discussion_permission_task(d_card)
   end
 
   def discussion_card?
@@ -49,5 +47,12 @@ format :html do
     return if card.new_card? || discussion_card?
 
     card.fetch :discussion, skip_modules: true, new: {}
+  end
+
+  private
+
+  def discussion_permission_task d_card = nil
+    d_card ||= discussion_card
+    d_card.new_card? ? :update : :read
   end
 end
