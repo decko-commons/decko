@@ -37,19 +37,22 @@ class Card
         Card::Set.traits[mod] || Card::Set.traits[mod] = {}
       end
 
-      def add_traits args, options
-        mod = self
-        mod_traits = get_traits mod
+      def add_traits traits, options
+        mod_traits = get_traits self
+        new_opts = new_trait_opts options
 
-        new_opts = options[:type] ? { type: options[:type] } : {}
-        new_opts[:default_content] = options[:default] if options[:default]
-
-        args.each do |trait|
+        traits.each do |trait|
           define_trait_card trait, new_opts
           define_trait_reader trait if options[:reader]
           define_trait_writer trait if options[:writer]
 
           mod_traits[trait.to_sym] = options
+        end
+      end
+
+      def new_trait_opts options
+        %i[type default_content].each_with_object({}).each do |key, hash|
+          hash[key] = options[key] if options[key]
         end
       end
 

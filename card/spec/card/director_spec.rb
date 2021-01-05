@@ -225,16 +225,10 @@ RSpec.describe "Card::Director" do
       end
 
       def define_test_events adding_subcard, order
-        one_test_event_per_stage do |stage_shortname, stage|
-          order << "#{stage_shortname}:#{name}"
-          add_subcard "112v" if adding_subcard && stage == :validate && name == "11"
-        end
-      end
-
-      def one_test_event_per_stage
         STAGE_MAP.each do |stage_shortname, stage|
           test_event stage, on: :create do
-            yield stage_shortname, stage
+            order << "#{stage_shortname}:#{name}"
+            add_subcard "112v" if adding_subcard && stage == :validate && name == "11"
           end
         end
       end
