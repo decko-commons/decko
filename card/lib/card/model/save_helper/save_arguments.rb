@@ -58,7 +58,7 @@ class Card
         end
 
         def ensure_attributes card, args
-          subcards = card.extract_subcard_args! args
+          subcards = card.extract_subcard_args! args.stringify_keys
           update_args = changing_args card, args
 
           return if update_args.empty? && subcards.empty?
