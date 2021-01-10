@@ -2,7 +2,7 @@
 
 module Cardio
   class Migration < ActiveRecord::Migration[4.2]
-    # include Card::Model::SaveHelper
+    include Card::Model::SaveHelper
     @type = :deck_cards
 
     class << self

@@ -113,6 +113,8 @@ ActiveSupport.run_load_hooks(:before_card, self)
 class Card < ApplicationRecord
   extend Mark
   extend Dirty::MethodFactory
+  extend Name::All::ClassMethods
+
   include Dirty
   include DirtyNames
   include Director::CardMethods
