@@ -8,7 +8,7 @@ module ClassMethods
   end
 
   def with_normalized_new_args args={}
-    args = (args || {}).stringify_keys
+    args = (args || {}).symbolize_keys
     delete_junk_args args
     normalize_type_args args
     normalize_content_args args
