@@ -63,7 +63,7 @@ class Card
       end
 
       def new_by_attributes name, attributes={}
-        attributes ||= {}
+        attributes = attributes&.symbolize_keys || {}
         absolute_name = absolutize_subcard_name name
         subcard_args = extract_subcard_args! attributes
         card = initialize_by_attributes absolute_name, attributes
