@@ -22,7 +22,7 @@ class CardController < ApplicationController
   end
 
   def update
-    card.new_card? ? create : handle { card.update! params[:card] }
+    card.new_card? ? create : handle { card.update! params[:card]&.to_unsafe_h }
   end
 
   def delete

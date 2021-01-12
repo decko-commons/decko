@@ -75,7 +75,7 @@ end
 
 def assign_set_specific_attributes
   # reset content if we really have something to upload
-  self.content = nil if set_specific[attachment_name.to_s].present?
+  self.content = nil if set_specific[attachment_name].present?
   super
 end
 
