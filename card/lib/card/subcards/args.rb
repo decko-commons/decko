@@ -3,16 +3,20 @@ class Card
     # Handling shared subcard args processing
     module Args
       def extract_subcard_args! args
-        subcards = args.delete(:subcards) || {}
-        extract_explicit_subfields subcards, args
-        extract_implicit_subfields subcards, args
-
-        # FIXME: the following should be handled before it gets this far
-        subcards = subcards.to_unsafe_h if subcards.respond_to?(:to_unsafe_h)
-        subcards
+        safe_subcard_args do
+          (args.delete(:subcards) || {}).tap do |subcards|
+            extract_explicit_subfields subcards, args
+            extract_implicit_subfields subcards, args
+          end
+        end
       end
 
       private
+
+      # FIXME: the following should be handled before it gets this far
+      def safe_subcard_args
+        yield.tap { |h| subcards.respond_to?(:to_unsafe_h) ? h.to_unsafe_h : h }
+      end
 
       def extract_explicit_subfields subcards, args
         return unless (subfields = args.delete :subfields)
@@ -24,7 +28,7 @@ class Card
 
       def extract_implicit_subfields subcards, args
         args.keys.each do |key|
-          subcards[key] = args.delete(key) if key.to_s =~ /^\+/
+          subcards[key.to_s] = args.delete(key) if key.to_s =~ /^\+/
         end
       end
     end

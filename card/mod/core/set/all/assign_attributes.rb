@@ -1,4 +1,4 @@
-include Card::Subcard::Args
+include Card::Subcards::Args
 
 def assign_attributes args={}
   args = prepare_assignment_args args
