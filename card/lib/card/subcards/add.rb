@@ -14,6 +14,8 @@ class Card
       #   add 'spoiler', content: 'John Snow is a Targaryen'
       #   add card_obj, delayed: true
 
+      include Args
+
       def << value
         add value
       end
@@ -75,30 +77,7 @@ class Card
         Card.assign_or_newish name, attributes, local_only: true
       end
 
-      # TODO: this method already exists as card instance method in
-      #   tracked_attributes.rb. Find a place for it where its accessible
-      #   for both. There is one important difference. The keys are symbols
-      # here instead of strings
-      def extract_subcard_args! args
-        subcards = args.delete(:subcards) || {}
-        if (subfields = args.delete(:subfields))
-          subfields.each_pair do |key, value|
-            subcards[normalize_subfield_key(key)] = value
-          end
-        end
-        args.keys.each do |key|
-          subcards[key] = args.delete(key) if key =~ /^\+/
-        end
-        subcards
-      end
-
       private
-
-      # ensure a leading '+'
-      def normalize_subfield_key key
-        key = Card::Codename.name(key) if key.is_a?(Symbol) && Card::Codename.exist?(key)
-        key.to_name.prepend_joint
-      end
 
       # Handles hash with several subcards
       def multi_add args
