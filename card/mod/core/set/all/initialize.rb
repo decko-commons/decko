@@ -22,7 +22,7 @@ module ClassMethods
   end
 
   def normalize_type_args args
-    %w[type type_code].each { |k| args.delete(k) if args[k].blank? }
+    %i[type type_code].each { |k| args.delete(k) if args[k].blank? }
   end
 
   def normalize_content_args args
