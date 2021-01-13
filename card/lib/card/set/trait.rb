@@ -28,7 +28,7 @@ class Card
 
       def add_attributes *args
         Card.set_specific_attributes ||= []
-        Card.set_specific_attributes += args.map(&:to_s)
+        Card.set_specific_attributes += args.map(&:to_sym)
         Card.set_specific_attributes.uniq!
       end
 
