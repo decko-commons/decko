@@ -33,7 +33,7 @@ class Card
       end
 
       def extract_implicit_subfields subcards, args
-        args.keys.each do |key|
+        args.each_key do |key|
           subcards[key.to_s] = args.delete(key) if key.to_s.match?(/^\+/)
         end
       end
