@@ -82,7 +82,9 @@ class Card
 
     def handle_unknown
       yield.tap do |name|
+        return "".to_name if name.nil?
         return name if name_specified? || name_standardish?(name) || Card.known?(name)
+
         opts[:card] ||= {}
         opts[:card][:name] = name
       end
