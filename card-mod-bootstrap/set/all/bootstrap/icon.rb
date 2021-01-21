@@ -75,17 +75,18 @@ format :html do
   end
 
   def icon_tag icon, opts={}
-    opts = { class: opts } unless opts.is_a? Hash
-    library = opts.delete(:library) || default_icon_library
-    universal_icon_tag icon, library, opts
+    with_icon_tag_opts(opts) do |tag_opts|
+      library = tag_opts.delete(:library) || default_icon_library
+      universal_icon_tag icon, library, tag_opts
+    end
   end
 
   def universal_icon_tag icon, icon_library=default_icon_library, opts={}
     return "" unless icon.present?
 
-    opts = { class: opts } unless opts.is_a? Hash
-    icon_method = "#{icon_library}_icon_tag"
-    send icon_method, icon, opts
+    with_icon_tag_opts(opts) do |tag_opts|
+      send "#{icon_library}_icon_tag", icon, tag_opts
+    end
   end
 
   def default_icon_library
@@ -105,5 +106,12 @@ format :html do
   def material_icon_tag icon, opts={}
     add_class opts, "material-icons"
     wrap_with :i, icon_class(:material, icon), opts
+  end
+
+  private
+
+  def with_icon_tag_opts opts={}
+    opts = { class: opts } unless opts.is_a? Hash
+    yield opts
   end
 end
