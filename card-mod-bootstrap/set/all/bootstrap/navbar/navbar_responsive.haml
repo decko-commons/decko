@@ -1,0 +1,17 @@
+- brand = opts[:brand]
+- if brand.is_a? String
+  %span.navbar-brand
+    = brand
+- elsif brand
+  %a.navbar-brand{ href: brand[:href] || "#" }
+    = brand[:name]
+%button{ class: "navbar-toggler navbar-toggler-#{align}",
+         type: "button",
+         "data-toggle": "collapse",
+         "data-target": "#navbar-collapse-#{id}",
+         "aria-controls": "navbar-collapse-#{id}",
+         "aria-expanded": "false",
+         "aria-label": "Toggle navigation" }
+  %span.navbar-toggler-icon
+%div.collapse.navbar-collapse{ id: "navbar-collapse-#{id}" }
+  = content

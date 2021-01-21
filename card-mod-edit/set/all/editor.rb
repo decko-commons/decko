@@ -24,8 +24,9 @@ format :html do
 
   # move somewhere more accessible?
   def with_card mark
-    card = Card[mark]
-    card ? yield(card) : nil
+    return nil unless (card = Card[mark])
+
+    yield card
   rescue Card::Error::CodenameNotFound
     nil
   end
