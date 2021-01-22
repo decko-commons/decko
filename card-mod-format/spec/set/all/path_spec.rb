@@ -34,6 +34,10 @@ describe Card::Set::All::Path do
       expect(path(mark: Card::SetID)).to eq "/Set"
     end
 
+    it "handles unknown ids" do
+      expect(path(mark: 90827345098237459)).to eq "/"
+    end
+
     it "handles :no_mark" do
       expect(path(no_mark: true, id: "Donate")).to eq "/?id=Donate"
     end
