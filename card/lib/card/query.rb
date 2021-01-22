@@ -37,12 +37,13 @@ class Card
     require "card/query/clause"
     require "card/query/card_query"
     require "card/query/sql_statement"
+
     # Card::Query::CardQuery
-    # After conversion, ATTRIBUTES is a Hash where the key is the attribute
+    # After conversion, @attributes is a Hash where the key is the attribute
     # and the value is the attribute type:
     # { id: :basic, name: :basic, key: :basic ...}
     # This is used for rapid attribute type lookups in the interpretation phase.
-    ATTRIBUTES = {
+    @attributes = {
       # Each of the "basic" fields corresponds directly to a database field.
       # their values are translated fairly directly into SQL-safe values.
       # (These are referred to as "properties" in CQL documentation. Need to
@@ -76,7 +77,7 @@ class Card
     CONJUNCTIONS = { any: :or, in: :or, or: :or, all: :and, and: :and }.freeze
 
     MODIFIERS = %i[conj return sort sort_as group dir limit offset]
-                .each_with_object({}) { |v, h| h[v] = nil }
+                  .each_with_object({}) { |v, h| h[v] = nil }
 
     OPERATORS =
       %w[!= = =~ < > in ~ is].each_with_object({}) { |v, h| h[v] = v }.merge(
@@ -87,6 +88,8 @@ class Card
     DEFAULT_ORDER_DIRS = { update: "desc", relevance: "desc" }.freeze
 
     class << self
+      attr_accessor :attributes
+
       def new statement, comment=nil
         Query::CardQuery.new statement, comment
       end
@@ -106,5 +109,7 @@ class Card
         txt
       end
     end
+
+    delegate :attributes, to: :class
   end
 end

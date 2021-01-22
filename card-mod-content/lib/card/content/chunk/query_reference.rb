@@ -21,7 +21,7 @@ class Card
           (
             ::Card::Query::MODIFIERS.keys +
             ::Card::Query::OPERATORS.keys +
-            ::Card::Query::ATTRIBUTES.keys +
+            ::Card::Query::attributes.keys +
             ::Card::Query::CONJUNCTIONS.keys +
             %w[desc asc count]
           ).map(&:to_s)
