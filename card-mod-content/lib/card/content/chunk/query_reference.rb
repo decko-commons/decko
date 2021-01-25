@@ -19,10 +19,10 @@ class Card
       class QueryReference < Reference
         QUERY_KEYWORDS = ::Set.new(
           (
-            ::Card::Query::MODIFIERS.keys +
-            ::Card::Query::OPERATORS.keys +
-            ::Card::Query::attributes.keys +
-            ::Card::Query::CONJUNCTIONS.keys +
+            Query::MODIFIERS.keys +
+            Query::OPERATORS.keys +
+            Query.attributes.keys +
+            Query::CONJUNCTIONS.keys +
             %w[desc asc count]
           ).map(&:to_s)
         )

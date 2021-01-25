@@ -35,7 +35,7 @@ describe Card::Set::All::Path do
     end
 
     it "handles unknown ids" do
-      expect(path(mark: 90827345098237459)).to eq "/"
+      expect(path(mark: 999_999)).to eq "/"
     end
 
     it "handles :no_mark" do
