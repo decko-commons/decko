@@ -79,7 +79,7 @@ class Card
       end
 
       def standard_full_field table, field
-        if ATTRIBUTES[field.to_sym] == :basic
+        if Query.attributes[field.to_sym] == :basic
           "#{table}.#{field}"
         else
           safe_sql field
