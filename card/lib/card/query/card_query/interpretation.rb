@@ -29,7 +29,7 @@ class Card
         def interpret_as_content? key
           # eg "match" is both operator and attribute;
           # interpret as attribute when "match" is key
-          OPERATORS.key?(key.to_s) && !ATTRIBUTES[key]
+          OPERATORS.key?(key.to_s) && !Query.attributes[key]
         end
 
         def interpret_as_modifier? key, val
@@ -43,7 +43,7 @@ class Card
         end
 
         def interpret_attributes attribute, val
-          attribute_type = ATTRIBUTES[attribute]
+          attribute_type = Query.attributes[attribute]
           if (method = INTERPRET_METHOD[attribute_type])
             send method, attribute, val
           else

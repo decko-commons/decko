@@ -59,7 +59,7 @@ class Card
       name = handle_unknown do
         opts[:mark] ? Card::Name[opts.delete(:mark)] : @card.name
       end
-      name.url_key
+      (name&.url_key).to_s
     end
 
     def markless?
@@ -82,10 +82,15 @@ class Card
 
     def handle_unknown
       yield.tap do |name|
-        return name if name_specified? || name_standardish?(name) || Card.known?(name)
+        return name if name.nil? || known_name?(name)
+
         opts[:card] ||= {}
         opts[:card][:name] = name
       end
+    end
+
+    def known_name? name
+      name_specified? || name_standardish?(name) || Card.known?(name)
     end
 
     def name_specified?
