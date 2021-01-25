@@ -77,7 +77,7 @@ class Card
     CONJUNCTIONS = { any: :or, in: :or, or: :or, all: :and, and: :and }.freeze
 
     MODIFIERS = %i[conj return sort sort_as group dir limit offset]
-                  .each_with_object({}) { |v, h| h[v] = nil }
+                .each_with_object({}) { |v, h| h[v] = nil }
 
     OPERATORS =
       %w[!= = =~ < > in ~ is].each_with_object({}) { |v, h| h[v] = v }.merge(
