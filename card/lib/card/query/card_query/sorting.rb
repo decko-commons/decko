@@ -16,8 +16,8 @@ class Card
         def sort val
           return nil unless full?
 
-          interpret_sort_hash val do |val, item, sort_field|
-            sort_by val, item, sort_field
+          interpret_sort_hash val do |value, item, sort_field|
+            sort_by value, item, sort_field
           end
         end
 
