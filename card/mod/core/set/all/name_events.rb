@@ -45,7 +45,9 @@ end
 
 event :set_autoname, :prepare_to_store, on: :create, when: :autoname? do
   self.name = autoname rule(:autoname)
-  rule_card(:autoname).update_column :db_content, name
+  autoname_card = rule_card :autoname
+  autoname_card.update_column :db_content, name
+  autoname_card.expire
   pull_from_trash!
   Card.write_to_soft_cache self
 end
