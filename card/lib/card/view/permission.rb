@@ -31,7 +31,7 @@ class Card
       # views for unknown cards can be configured in view definitions
       # or render/nest options (the latter take precedence)
       def alter_unknown
-        return if card.known? || (setting == true && unknown.blank?)
+        return if card.known?
 
         unknown_from_options || unknown_from_view_definition
       end
