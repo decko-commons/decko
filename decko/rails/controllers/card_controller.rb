@@ -103,7 +103,7 @@ class CardController < ApplicationController
 
   def show view=nil, status=200
     card.action = :read
-    format = load_format
+    format = load_format status
     result = render_page format, view
     status = format.error_status || status
     respond format, result, status

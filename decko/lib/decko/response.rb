@@ -97,9 +97,9 @@ module Decko
     # below is about beginning (initialization).  above is about end (response)
     # Both this file and that would make sense as submodules of CardController
 
-    def load_format
+    def load_format status
       request.format = :html if implicit_html?
-      card.format response_format
+      card.format(response_format).tap { |fmt| fmt.error_status = status }
     end
 
     def implicit_html?
