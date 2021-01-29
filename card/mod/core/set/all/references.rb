@@ -155,12 +155,12 @@ end
 # eg.  A links to X+Y.  if X+Y is renamed and we're not updating the link in A,
 # then we need to be sure that A has a partial reference
 event :update_referer_references_out, :finalize,
-      on: :update, when: :not_update_referers do
+      changed: :name, on: :update, when: :not_update_referers do
   referers.map(&:update_references_out)
 end
 
 # when name changes, update references to card
-event :refresh_references_in, :finalize, on: :save do
+event :refresh_references_in, :finalize, changed: :name, on: :save do
   Card::Reference.unmap_referees id if action == :update && !update_referers
   Card::Reference.map_referees key, id
 end
