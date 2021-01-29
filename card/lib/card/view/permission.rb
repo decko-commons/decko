@@ -28,11 +28,22 @@ class Card
         format.view_setting setting_name, view
       end
 
-      # by default views can't handle unknown cards, but this can be overridden in
-      # view definitions with the `unknown` directive
+      # views for unknown cards can be configured in view definitions
+      # or render/nest options (the latter take precedence)
       def alter_unknown
+        return if card.known?
+
+        unknown_from_options || unknown_from_view_definition
+      end
+
+      def unknown_from_options
+        unknown.to_sym if unknown.present
+      end
+
+      def unknown_from_view_definition
         setting = setting(:unknown)
-        return if setting == true || card.known?
+        return if setting == true # use original view
+
         setting.is_a?(Symbol) ? setting : format.view_for_unknown(requested_view)
       end
 

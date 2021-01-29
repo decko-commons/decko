@@ -279,8 +279,7 @@ module CarrierWave
     end
 
     def original_filename
-      @original_filename ||= model.selected_action &&
-                             model.selected_action.comment
+      @original_filename ||= model.selected_action&.comment
     end
 
     def action_id
@@ -288,7 +287,7 @@ module CarrierWave
     end
 
     # delegate carrierwave's fog config methods to bucket configuration
-    ::CarrierWave::FileCardUploader::CONFIG_OPTIONS.each do |name|
+    CONFIG_OPTIONS.each do |name|
       define_method("fog_#{name}") { bucket_config name }
     end
 
@@ -311,9 +310,9 @@ module CarrierWave
     def storage
       case @model.storage_type
       when :cloud
-        ::CarrierWave::Storage::Fog.new(self)
+        Storage::Fog.new self
       else
-        ::CarrierWave::Storage::File.new(self)
+        Storage::File.new self
       end
     end
   end
