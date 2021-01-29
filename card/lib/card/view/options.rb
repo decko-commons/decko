@@ -31,7 +31,7 @@ class Card
           :wrap,           # wrap the nest with a wrapper
           :show,           # render these views when optional
           :hide,           # do not render these views when optional
-          :unknown
+          :unknown         # view to use if nested card is unknown
         ],                 #   show/hide can be view (Symbol), list of views (Array),
         #                      or comma separated views (String)
         # NOTE: although show and hide are in this non-inheriting group, they are
