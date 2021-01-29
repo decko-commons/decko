@@ -7,7 +7,7 @@ require "cardio/modfiles"
 require "cardio/delaying"
 
 ActiveSupport.on_load :after_card do
-  Card::Mod.load
+  Cardio::Mod.load
 end
 
 module Cardio

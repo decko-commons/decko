@@ -2,11 +2,11 @@
 
 RSpec.describe Card::Content::Chunk::Nest do
   describe "parsing syntax", aggregate_failures: true do
-    let :instance do
+    let :full_match do
       described_class.new(described_class.full_match(@chunk), nil)
     end
-    let(:options) { instance.options }
-    let(:name) { instance.name }
+    let(:options) { full_match.options }
+    let(:match_name) { full_match.name }
 
     def chunk_nest chunk
       described_class.new(described_class.full_match(chunk), nil)
@@ -27,36 +27,36 @@ RSpec.describe Card::Content::Chunk::Nest do
 
     it "handles empty nests" do
       @chunk = "{{ }}"
-      expect(name).to eq("")
+      expect(match_name).to eq("")
       expect(options[:nest_syntax]).to eq(" ")
     end
 
     it "handles empty nests with pipe" do
       @chunk = "{{|}}"
-      expect(name).to eq("")
+      expect(match_name).to eq("")
       expect(options[:nest_syntax]).to eq("|")
     end
 
     it "handles no pipes" do
       @chunk = "{{toy}}"
-      expect(name).to eq("toy")
+      expect(match_name).to eq("toy")
       expect(options[:nest_name]).to eq("toy")
       expect(options.key?(:view)).to eq(false)
     end
 
     it "strips the name" do
       @chunk = "{{ toy }}"
-      expect(name).to eq("toy")
+      expect(match_name).to eq("toy")
     end
 
     it "strips html tags" do
       @chunk = "{{ <span>toy</span> }}"
-      expect(name).to eq("toy")
+      expect(match_name).to eq("toy")
     end
 
     it "strips html tags with pipe" do
       @chunk = "{{ <span>toy|open</span> }}"
-      expect(name).to eq("toy")
+      expect(match_name).to eq("toy")
       expect(options[:view]).to eq("open")
     end
 
@@ -65,7 +65,7 @@ RSpec.describe Card::Content::Chunk::Nest do
       expect(options[:nest_name]).to eq("toy")
       expect(options[:view]).to eq("link")
       expect(options[:hide]).to eq("me")
-      expect(instance.text).to eq "{{toy|view:link;hide:me}}"
+      expect(full_match.text).to eq "{{toy|view:link;hide:me}}"
       expect(options.key?(:items)).to eq(false)
     end
 
@@ -101,11 +101,11 @@ RSpec.describe Card::Content::Chunk::Nest do
 
     it "#each_option should work" do
       @chunk = "{{}}"
-      expect { |b| instance.send(:each_option, "", &b) }.not_to yield_control
-      expect { |b| instance.send(:each_option, nil, &b) }.not_to yield_control
-      expect { |b| instance.send(:each_option, "a:b;c:4", &b) }
+      expect { |b| full_match.send(:each_option, "", &b) }.not_to yield_control
+      expect { |b| full_match.send(:each_option, nil, &b) }.not_to yield_control
+      expect { |b| full_match.send(:each_option, "a:b;c:4", &b) }
         .to yield_successive_args(%w[a b], %w[c 4])
-      expect { |b| instance.send(:each_option, "d:b;e:4; ", &b) }
+      expect { |b| full_match.send(:each_option, "d:b;e:4; ", &b) }
         .to yield_successive_args(%w[d b], %w[e 4])
     end
   end

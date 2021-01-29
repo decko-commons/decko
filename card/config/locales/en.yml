@@ -74,13 +74,17 @@ en:
       set:
         format:
           exception_alias_fail: cannot find %{optview} view in %{optmod}; failed to alias %{view} in %{self}
+      setting:
+        templating: Templating
+        permission: Permissions
+        webpage: Webpage
+        pointer: Pointer
+        editing_cue: Editing cues
+        event: Events
+        other: Other
+        config: Config
   mod:
     :core:
-      format:
-        html_format:
-          unknown_layout: "Unknown layout: %{name}"
-          built_in: "Built-in Layouts: %{built_in_layouts}"
-          available_layouts: "Available Layouts: %{available_layouts}"
       set:
         all:
           codename:
@@ -137,6 +141,11 @@ en:
             error_hard_templated: can't be changed because %{name} is hard templated to %{type_name}
           utils:
             exception_almost_deleted: Narrowly averted deleting current file
+        type:
+          cardtype:
+            cards_exist: Sorry, this card must remain a Cardtype so long as there are %{cardname} cards.
+            error_cant_alter: can't alter this type; %{name} cards still exist
+            error_invalid_character_in_cardtype: "may not contain any of the following characters: %{banned}"
       set_pattern:
         :01_all:
           label_set_all_cards: All cards
@@ -162,48 +171,8 @@ en:
         :08_self:
           label_set_self_card: The card "%{name}"
 
-
-    #:machines: # No language-specific items known to be present in Ruby files
-    :settings:
-      lib:
-        card:
-          setting:
-            templating: Templating
-            permission: Permissions
-            webpage: Webpage
-            pointer: Pointer
-            editing_cue: Editing cues
-            event: Events
-            other: Other
-            config: Config
-      set:
-        abstract:
-          permission:
-            search_roles_by_name: roles by name
-            use_lefts_rule: use left's %{tag} rule
-            groups: Groups
-            individuals: Individuals
-            inherit_links: Inherit ( %{links} )
-            inherit: Inherit
-            inherit_from_left: Inherit from left card
-        type:
-          setting:
-            search_all_setting: all setting cards
     :standard:
       set:
-        all:
-          list_changes:
-            search_list_fields: list fields
-            search_listed_by_fields: listed by fields
-            search_lists_that_link: lists that link to %{name}
-            error_is_referenced: can't be changed because %{name} is referenced by list card %{cardname}
-          comment:
-            author_not_signed_in: "%{comment_author} (Not signed in)"
-            anonymous: Anonymous
-            my_name_is: "<label>My Name is:</label> %{author_field}"
-            comment: Comment
-            commenting: Commenting
-
         rstar:
           rules_editor:
             not_a_rule: not a rule
@@ -248,14 +217,6 @@ en:
             memory_diff: memory diff
             megabyte_suffix: M
         type:
-          basic:
-            toc: Table of Contents
-          cardtype:
-            cards_exist: Sorry, this card must remain a Cardtype so long as there are %{cardname} cards.
-            add_card: Add %{cardname}
-            configure_card: Configure %{cardname}
-            error_cant_alter: can't alter this type; %{name} cards still exist
-            error_invalid_character_in_cardtype: "may not contain any of the following characters: %{banned}"
           search_type:
             no_limit_exception: OH NO.. no limit
             no_content_exception: "Error in card '%{name}': can't run search with empty content"
@@ -289,16 +250,12 @@ en:
             howto_turn_off: 'How to turn captcha off:'
             howto_go: Go to %{captcha_card}
             howto_update: Update all *captcha rules to "no".
-    :pointer:
+
+    card-mod-legacy:
       set:
-        type:
-          mirrored_list:
-            cardtype_right: must have a cardtype name as right part
-            conflict_item_type: name conflicts with list items' type; delete content first
-            only_type_allowed: "%{cardname} has wrong cardtype; only cards of type %{cardtype} are allowed"
-          mirror_list:
-            cardtype_right: must have a cardtype name as right part
-            only_type: "%{cardname} has wrong cardtype; only cards of type %{cardtype} are allowed"
+        abstract:
+          table_of_contents:
+            toc: Table of Contents
 
     card-mod-email:
       set:
@@ -356,6 +313,10 @@ en:
             exception_not_set_path: "not a set path: %{path}"
             content_in_file: Content is stored in file and can't be edited.
         type:
+          cardtype:
+            cards_exist: Sorry, this card must remain a Cardtype so long as there are %{cardname} cards.
+            add_card: Add %{cardname}
+            configure_card: Configure %{cardname}
           pointer:
             label_select: Select
             #description: description
@@ -438,7 +399,11 @@ en:
             close: Close
           html_wrapper:
             close: Close
-
+      format:
+        html_format:
+          unknown_layout: "Unknown layout: %{name}"
+          built_in: "Built-in Layouts: %{built_in_layouts}"
+          available_layouts: "Available Layouts: %{available_layouts}"
 
     card-mod-edit:
       set:

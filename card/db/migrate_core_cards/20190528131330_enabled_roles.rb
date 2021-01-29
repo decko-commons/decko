@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-class EnabledRoles < Card::Migration::Core
+class EnabledRoles < Cardio::Migration::Core
   def up
     ensure_trait "*enabled roles", "enabled_roles",
                  default: { type_id: Card::SessionID }

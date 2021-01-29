@@ -1,4 +1,4 @@
-<div>When someone signs up, they create a [[Sign up]] card...</div>
+<div>When someone signs up, they create a [[Sign up]] card...</div>
 <blockquote>
 <div>{{Sign up|closed;title: Sign ups}}</div>
 </blockquote>
@@ -11,7 +11,7 @@
 <ul>
 <li>When [[Anyone]] can [[*create|create]] a [[Sign up]] card, links to sign up will appear.</li>
 <li>When [[Anyone]] can [[*create|create]] a [[User]] card, each [[Sign up]] can be auto-approved with a verification email.</li>
-<li>If permission to [[*create|create]] a [[User]] is restricted, someone with that permission must approve each [[Sign up]] by hand.</li>
+<li>If permission to [[*create|create]] a [[User]] is restricted, someone with that permission must approve each [[Sign up]] by hand.</li>
 </ul>
 </div>
 <h5>Related links</h5>

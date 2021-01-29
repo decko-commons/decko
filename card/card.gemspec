@@ -17,8 +17,7 @@ DeckoGem.gem "card" do |s, d|
   d.depends_on(
     ["cardname",             d.decko_version],
     ["rake",                     "<= 12.3.0"],
-    ["rails",                         "~> 6"],
-    ["uuid",                        "~> 2.3"], # universally unique identifier.
+    ["rails",                       "~> 6.1"],
     ["colorize",                    "~> 0.8"], # livelier cli outputs
     #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     # MOVE TO MODS?
