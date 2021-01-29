@@ -32,7 +32,8 @@ class Card
       # view definitions with the `unknown` directive
       def alter_unknown
         setting = setting(:unknown)
-        return if setting == true || card.known?
+        return if card.known? || (setting == true && unknown.blank?)
+        return unknown.to_sym if unknown.present?
         setting.is_a?(Symbol) ? setting : format.view_for_unknown(requested_view)
       end
 
