@@ -56,24 +56,17 @@ end
 
 format :json do
   view :errors do
-    format_error error_list
+    {
+      error_status: error_status,
+      errors: card.errors.each_with_object({}) { |e, h| h[e.attribute] = e.message }
+    }
   end
 
   view :server_error, :errors
   view :denial, :errors
   view :not_found, :errors
-
   view :bad_address do
-    format_error super()
-  end
-
-  def format_error error
-    { error_status: error_status, errors: error }
-  end
-
-  def error_list
-    card.errors.each_with_object([]) do |(field, message), list|
-      list << { field: field, message: message }
-    end
+    card.errors.add :address, super()
+    render_error
   end
 end

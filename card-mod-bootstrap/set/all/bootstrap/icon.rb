@@ -23,7 +23,6 @@ format :html do
       expand: :expand_more,
       collapse_down: :expand_less,
       globe: :public,
-      check_circle_o: nil,
       commenting: :comment
     },
     font_awesome: {
@@ -32,7 +31,6 @@ format :html do
       globe: :globe,
       zoom_out: "search-minus",
       close: :remove,
-      check_circle_o: "check-circle-o",
       check_circe: "check-circle",
       reorder: "align-justify",
       commenting: :commenting
@@ -51,7 +49,6 @@ format :html do
       close: :remove,
       new_window: "new-window",
       history: :time,
-      check_circle_o: "ok-circle",
       check_circle: "ok-sign",
       reorder: "align-justify"
     }
