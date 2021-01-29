@@ -37,7 +37,7 @@ class Card
       end
 
       def unknown_from_options
-        unknown.to_sym if unknown.present
+        unknown.to_sym if unknown.present?
       end
 
       def unknown_from_view_definition
