@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-class AddStyleCards < Card::Migration::Core
+class AddStyleCards < Cardio::Migration::Core
   def up
     # TAKE "CSS" CODENAME FROM OLD *CSS CARD
     old_css = Card[:css]

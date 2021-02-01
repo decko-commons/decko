@@ -14,17 +14,22 @@ class Card
         end
       end
 
-      def log_file_action path
-        status, color =
-          if File.exist?(path) && !@force
-            ["file exists (use 'force=true' to override)", :yellow]
-          else
-            status = File.exist?(path) ? "overridden" : "created"
-            yield
-            [status, :green]
-          end
+      def log_file_action path, &block
+        if File.exist?(path) && !@force
+          log_file_exists path
+        else
+          execute_and_log_file_action path, &block
+        end
+      end
 
-        color_puts status, color, path
+      def execute_and_log_file_action path
+        status = File.exist?(path) ? "overridden" : "created"
+        yield
+        color_puts status, :green, path
+      end
+
+      def log_file_exists path
+        color_puts "file exists (use 'force=true' to override)", :yellow, path
       end
 
       # insert content into a file at a given line number

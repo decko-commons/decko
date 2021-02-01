@@ -7,7 +7,7 @@ require "cardio/modfiles"
 require "cardio/delaying"
 
 ActiveSupport.on_load :after_card do
-  Card::Mod.load
+  Cardio::Mod.load
 end
 
 module Cardio
@@ -39,70 +39,17 @@ module Cardio
       @cache ||= ::Rails.cache
     end
 
+    # TODO: many of these defaults should be in mods!
     def default_configs
-      {
-        read_only: read_only?,
+      defaults_from_yaml.merge(
+        read_only: !ENV["DECKO_READ_ONLY"].nil?,
+        load_strategy: (ENV["REPO_TMPSETS"] || ENV["TMPSETS"] ? :tmp_files : :eval)
+      )
+    end
 
-        # if you disable inline styles tinymce's formatting options stop working
-        allow_inline_styles: true,
-
-        delaying: nil,
-
-        recaptcha_public_key: nil, # deprecated; use recaptcha_site_key instead
-        recaptcha_private_key: nil, # deprecated; use recaptcha_secret_key instead
-        recaptcha_proxy: nil,
-        recaptcha_site_key: nil,
-        recaptcha_secret_key: nil,
-        recaptcha_minimum_score: 0.5,
-
-        google_analytics_key: nil,
-
-        override_host: nil,
-        override_protocol: nil,
-
-        no_authentication: false,
-        files_web_path: "files",
-
-        max_char_count: 200,
-        max_depth: 20,
-        email_defaults: nil,
-
-        token_expiry: 2.days,
-        acts_per_page: 10,
-        space_last_in_multispace: true,
-        closed_search_limit: 10,
-        paging_limit: 20,
-
-        non_createable_types: [%w[signup setting set session bootswatch_skin customized_bootswatch_skin]], # FIXME
-        view_cache: false,
-        rss_enabled: false,
-        double_click: :signed_in,
-
-        encoding: "utf-8",
-        request_logger: false,
-        performance_logger: false,
-        sql_comments: true,
-
-        file_storage: :local,
-        file_buckets: {},
-        file_default_bucket: nil,
-        protocol_and_host: nil,
-
-        rich_text_editor: :tinymce,
-
-        persistent_cache: true,
-        prepopulate_cache: false,
-        machine_refresh: :cautious, # options: eager, cautious, never
-        compress_javascript: true,
-
-        allow_irreversible_admin_tasks: false,
-        raise_all_rendering_errors: false,
-        rescue_all_in_controller: true,
-        navbox_match_start_only: true,
-
-        load_strategy: (ENV["REPO_TMPSETS"] || ENV["TMPSETS"] ? :tmp_files : :eval),
-        cache_set_module_list: false
-      }
+    def defaults_from_yaml
+      filename = File.expand_path "cardio/defaults.yml", __dir__
+      YAML.load_file filename
     end
 
     def set_config config
@@ -134,10 +81,6 @@ module Cardio
     def autoload_and_watch config, mod_path
       config.autoload_paths += Dir["#{mod_path}/lib"]
       config.watchable_dirs["#{mod_path}/set"] = [:rb]
-    end
-
-    def read_only?
-      !ENV["DECKO_READ_ONLY"].nil?
     end
 
     # In production mode set_config gets called twice.

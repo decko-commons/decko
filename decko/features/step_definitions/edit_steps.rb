@@ -141,10 +141,7 @@ def set_pm_editor_content name, content
 end
 
 def set_tinymce_editor_content name, content
-  5.times do
-    break if all("iframe.tox-edit-area__iframe", wait: false).present?
-    sleep(0.5)
-  end
+  wait_for_iframe_load
   find_editor "textarea[name='#{name}']" do |editors|
     editor_id = editors.first[:id]
     return unless page.evaluate_script("typeof tinyMCE != 'undefined' && "\
@@ -152,6 +149,13 @@ def set_tinymce_editor_content name, content
     sleep(0.5)
     content = escape_quotes content
     page.execute_script "tinyMCE.get('#{editor_id}').setContent('#{content}')"
+  end
+end
+
+def wait_for_iframe_load
+  5.times do
+    break if all("iframe.tox-edit-area__iframe", wait: false).present?
+    sleep(0.5)
   end
 end
 

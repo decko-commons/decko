@@ -67,4 +67,7 @@ Decko.application.class.configure do
 
   # cache the list of set module objects on card objects
   config.cache_set_module_list = true
+
+  # if false, application will raise errors that make it to controller.
+  config.rescue_all_in_controller = true
 end

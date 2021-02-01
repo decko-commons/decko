@@ -1,8 +1,7 @@
 class Card
   # Generate standard card paths.
   class Path
-    cattr_accessor :cast_params
-    self.cast_params = { slot: { hide: :array, show: :array, wrap: :array } }.freeze
+    include CastParams
 
     def initialize card, opts
       @card = card
@@ -60,7 +59,7 @@ class Card
       name = handle_unknown do
         opts[:mark] ? Card::Name[opts.delete(:mark)] : @card.name
       end
-      name.url_key
+      (name&.url_key).to_s
     end
 
     def markless?
@@ -81,38 +80,17 @@ class Card
       query_opts.empty? ? "" : "?#{query_opts.to_param}"
     end
 
-    # normalizes certain path opts to specified data types
-    def cast_path_hash hash, cast_hash=nil
-      return hash unless hash.is_a? Hash
-      cast_each_path_hash hash, (cast_hash || self.class.cast_params)
-      hash
-    end
-
-    def cast_each_path_hash hash, cast_hash
-      hash.each do |key, value|
-        next unless (cast_to = cast_hash[key])
-        hash[key] = cast_path_value value, cast_to
-      end
-    end
-
-    def cast_path_value value, cast_to
-      if cast_to.is_a? Hash
-        cast_path_hash value, cast_to
-      else
-        send "cast_path_value_as_#{cast_to}", value
-      end
-    end
-
-    def cast_path_value_as_array value
-      Array.wrap value
-    end
-
     def handle_unknown
       yield.tap do |name|
-        return name if name_specified? || name_standardish?(name) || Card.known?(name)
+        return name if name.nil? || known_name?(name)
+
         opts[:card] ||= {}
         opts[:card][:name] = name
       end
+    end
+
+    def known_name? name
+      name_specified? || name_standardish?(name) || Card.known?(name)
     end
 
     def name_specified?

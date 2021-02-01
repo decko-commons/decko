@@ -1,5 +1,3 @@
-
-
 format :html do
   # Options
   # @param opts [Hash]
@@ -7,11 +5,17 @@ format :html do
   # @option opts [String] class
   # @option opts [Boolean] no_collapse
   # @option opts [:left, :right] toggle_align
-  def navbar id, opts={}
+  def navbar id, opts={}, &block
     nav_opts = opts[:navbar_opts] || {}
     nav_opts[:class] ||= opts[:class]
     add_class nav_opts,
               "navbar navbar-dark bg-#{opts.delete(:navbar_type) || 'primary'}"
+    navbar_content id, opts, nav_opts, &block
+  end
+
+  private
+
+  def navbar_content id, opts, nav_opts
     content = yield
     if opts[:no_collapse]
       navbar_nocollapse content, nav_opts
@@ -28,32 +32,8 @@ format :html do
   def navbar_responsive id, content, opts, nav_opts
     opts[:toggle_align] ||= :right
     wrap_with :nav, nav_opts do
-      [
-        navbar_header(opts[:brand]),
-        navbar_toggle(id, opts[:toggle_align]),
-        wrap_with(:div, class: "collapse navbar-collapse",
-                  id: "navbar-collapse-#{id}") { content }
-      ]
+      haml :navbar_responsive, id: id, content: content, opts: opts
     end
-  end
-
-  def navbar_header brand
-    return "" unless brand
-    if brand.is_a? String
-      "<span class='navbar-brand'>#{brand}</span>"
-    else
-      link = brand[:href] || "#"
-      "<a class='navbar-brand' href='#{link}#'>#{brand[:name]}</a>"
-    end
-  end
-
-  def navbar_toggle id, align
-    content ||= %(<span class="navbar-toggler-icon"></span>)
-    <<-HTML
-      <button class="navbar-toggler navbar-toggler-#{align}" type="button" data-toggle="collapse" data-target="#navbar-collapse-#{id}" aria-controls="navbar-collapse-#{id}" aria-expanded="false" aria-label="Toggle navigation">
-          #{content}
-      </button>
-    HTML
   end
 
   def breadcrumb items

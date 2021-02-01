@@ -5,6 +5,7 @@ class CardController < ApplicationController
   include ::Card::Env::Location
   include ::Recaptcha::Verify
   include ::Decko::Response
+  include Errors
 
   layout nil
   attr_reader :card
@@ -21,7 +22,7 @@ class CardController < ApplicationController
   end
 
   def update
-    card.new_card? ? create : handle { card.update! params[:card] }
+    card.new_card? ? create : handle { card.update! params[:card]&.to_unsafe_h }
   end
 
   def delete
@@ -102,7 +103,7 @@ class CardController < ApplicationController
 
   def show view=nil, status=200
     card.action = :read
-    format = load_format
+    format = load_format status
     result = render_page format, view
     status = format.error_status || status
     respond format, result, status
@@ -118,34 +119,4 @@ class CardController < ApplicationController
   def view_from_params
     params[:view] || params[:v]
   end
-
-  def handle_exception exception
-    raise exception if debug_exception?(exception)
-    @card ||= Card.new
-    error = Card::Error.report exception, card
-    show error.class.view, error.class.status_code
-  end
-
-  # TODO: move to exception object
-  def debug_exception? e
-    !e.is_a?(Card::Error::UserError) &&
-      !e.is_a?(ActiveRecord::RecordInvalid) &&
-      Card::Codename[:debugger] &&
-      Card[:debugger]&.content =~ /on/  # && !Card::Env.ajax?
-  end
-
-  class << self
-    def rescue_from_class *klasses
-      klasses.each do |klass|
-        rescue_from(klass) { |exception| handle_exception exception }
-      end
-    end
-
-    def rescue_all?
-      Cardio.config.rescue_all_in_controller
-    end
-  end
-
-  rescue_from_class(*Card::Error::UserError.user_error_classes)
-  rescue_from_class StandardError if rescue_all?
 end

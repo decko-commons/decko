@@ -63,12 +63,14 @@ def all_roles
 end
 
 def enabled_role_ids
-  Auth.as_bot do
-    # workaround for broken migrations
-    return fetch_roles unless Card::Codename.exists? :enabled_roles
-
-    enabled = enabled_roles_card
+  with_enabled_roles do |enabled|
     enabled.virtual? ? enabled.item_ids : fetch_roles
+  end
+end
+
+def with_enabled_roles
+  Auth.as_bot do
+    Card::Codename.exists?(:enabled_roles) ? yield(enabled_roles_card) : fetch_roles
   end
 end
 

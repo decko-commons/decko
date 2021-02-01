@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-class AddStyleSelect2Card < Card::Migration::Core
+class AddStyleSelect2Card < Cardio::Migration::Core
   def up
     ensure_card "style: select2",
                 type_id: Card::ScssID,

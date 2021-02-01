@@ -2,8 +2,8 @@
 
 class Card
   module Set
-    # This document explains how to use format blocks within {Card::Mod mods}. To make
-    # use of it, you will need to understand both {Card::Mod mods} and {Card::Set sets}.
+    # This document explains how to use format blocks within {Cardio::Mod mods}. To make
+    # use of it, you will need to understand both {Cardio::Mod mods} and {Card::Set sets}.
     #
     # Within a card mod, you can define format blocks like the following:
     #
@@ -106,20 +106,27 @@ class Card
 
       def register_set_format format_class, mod
         if all_set?
-          all_set_format_mod! format_class, mod
+          register_all_set_format format_class, mod
         else
-          format_type = abstract_set? ? :abstract_format : :nonbase_format
-          # ready to include dynamically in set members' format singletons
-          format_hash = modules[format_type][format_class] ||= {}
-          format_hash[shortname] ||= []
-          format_hash[shortname] << mod
+          register_standard_set_format format_class, mod
         end
       end
 
       # make mod ready to include in base (non-set-specific) format classes
-      def all_set_format_mod! format_class, mod
-        modules[:base_format][format_class] ||= []
-        modules[:base_format][format_class] << mod
+      def register_all_set_format format_class, mod
+        add_to_array_val modules[:base_format], format_class, mod
+      end
+
+      def register_standard_set_format format_class, mod
+        format_type = abstract_set? ? :abstract_format : :nonbase_format
+        # ready to include dynamically in set members' format singletons
+        format_hash = modules[format_type][format_class] ||= {}
+        add_to_array_val format_hash, shortname, mod
+      end
+
+      def add_to_array_val hash, key, val
+        hash[key] ||= []
+        hash[key] << val
       end
 
       class << self

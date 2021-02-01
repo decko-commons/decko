@@ -99,7 +99,6 @@ Lint/UselessAssignment:
 # Offense count: 4
 Lint/Void:
   Exclude:
-    - 'card/mod/machines/spec/set/type/skin_spec.rb'
     - 'card/mod/standard/spec/set/type/uri_spec.rb'
     - 'decko/test/performance/render_test.rb'
 
