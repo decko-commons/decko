@@ -33,7 +33,7 @@ format :html do
       close: :remove,
       check_circe: "check-circle",
       reorder: "align-justify",
-      commenting: :commenting
+      commenting: :comments
     },
     glyphicon: {
       option_horizontal: "option-horizontal",
