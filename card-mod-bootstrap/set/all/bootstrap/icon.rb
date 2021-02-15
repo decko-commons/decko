@@ -31,9 +31,9 @@ format :html do
       globe: :globe,
       zoom_out: "search-minus",
       close: :remove,
-      check_circe: "check-circle",
+      check_circle: "check-circle",
       reorder: "align-justify",
-      commenting: :commenting
+      commenting: :comments
     },
     glyphicon: {
       option_horizontal: "option-horizontal",
