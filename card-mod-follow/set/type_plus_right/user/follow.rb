@@ -1,4 +1,5 @@
-FOLLOW_TABS = { "Follow" => "follow_tab", "Ignore" => "ignore_tab" }.freeze
+FOLLOW_TABS = { "Follow" => { view: "follow_tab" },
+                "Ignore" => { view: "ignore_tab" } }.freeze
 
 # a virtual pointer to the sets that a user is following.
 # (data is stored in preferences: `[Set]+[User]+:follow`)
@@ -36,7 +37,7 @@ format :html do
 
   # renders follow tab and ignore tab
   view :core do
-    tabs FOLLOW_TABS, "follow_tab", load: :lazy do
+    tabs FOLLOW_TABS, "Follow", load: :lazy do
       render_follow_tab
     end
   end

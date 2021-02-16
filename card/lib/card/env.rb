@@ -34,7 +34,7 @@ class Card
       end
 
       def params
-        self[:params] ||= {}
+        self[:params] ||= {} # .with_indifferent_access
       end
 
       def with_params hash
@@ -42,7 +42,7 @@ class Card
         params.merge! hash
         yield
       ensure
-        self.params = old_params
+        self[:params] = old_params
       end
 
       def hash hashish
