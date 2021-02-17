@@ -42,6 +42,8 @@ format :html do
   end
 
   def delete_button opts={}
+    return unless card.real?
+
     link_to "Delete", delete_button_opts(opts)
   end
 

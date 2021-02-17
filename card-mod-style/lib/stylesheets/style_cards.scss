@@ -882,7 +882,8 @@ html>body .open-view {
 a.external-link {
   // color: $warning;
   &:after {
-    content: "\f08e";
+    content: "\f360";
+    font-weight: 900;
     right: -2px;
     position: relative;
     bottom: 4px;
