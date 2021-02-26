@@ -1,5 +1,3 @@
-ACTS_PER_PAGE = Card.config.acts_per_page
-
 format :html do
   def act_from_context
     if (act_id = params["act_id"])
@@ -79,7 +77,7 @@ format :html do
   end
 
   def acts_per_page
-    @acts_per_page || ACTS_PER_PAGE
+    @acts_per_page ||= Card.config.acts_per_page || 10
   end
 
   def acts_page_from_params
@@ -87,6 +85,7 @@ format :html do
   end
 
   def act_paging acts, context
+    return unless controller.request # paginate requires a request
     wrap_with :div, class: "slotter btn-sm" do
       acts = current_page_acts acts
       opts = { remote: true, theme: "twitter-bootstrap-4" }
