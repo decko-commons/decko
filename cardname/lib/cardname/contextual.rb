@@ -116,13 +116,15 @@ class Cardname
 
     def absolutize_extremes new_parts, context
       [0, -1].each do |i|
-        next if new_parts[i].present?
-        # following avoids recontextualizing with relative contexts.
-        # Eg, `+A+B+.absolute('+A')` should be +A+B, not +A+A+B.
-        next if new_parts.to_name.send "#{[ :start, :end ][i]}s_with_parts?", context
-        new_parts[i] = context
+        new_parts[i] = context if absolutize_extreme? new_parts, context, i
       end
     end
 
+    def absolutize_extreme? new_parts, context, index
+      return false if new_parts[index].present?
+      # following avoids recontextualizing with relative contexts.
+      # Eg, `+A+B+.absolute('+A')` should be +A+B, not +A+A+B.
+      !new_parts.to_name.send "#{[ :start, :end ][index]}s_with_parts?", context
+    end
   end
 end
