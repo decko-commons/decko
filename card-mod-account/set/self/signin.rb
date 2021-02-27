@@ -30,8 +30,13 @@ end
 # triggered by clicking "Reset my Password", this sends out the verification password
 # and aborts (does not sign in)
 event :send_reset_password_token, before: :signin, on: :update, trigger: :required do
-  email = subfield(:email)&.content
-  send_reset_password_email_or_fail email
+  aborting do
+    blank_email? ? break : send_reset_password_email_or_fail
+  end
+end
+
+def email_from_subfield
+  @email_from_subfield ||= subfield(:email)&.content
 end
 
 def ok_to_read
@@ -83,34 +88,16 @@ def account_for email
   Auth.find_account_by_email email
 end
 
-def send_reset_password_email_or_fail email
-  aborting do
-    break errors.add :email, i18n_signin(:error_blank) if email.blank?
-
-    if (account = Auth.find_account_by_email(email))&.active?
-      Auth.as_bot { account.send_password_reset_email }
-    elsif account
-      errors.add :account, i18n_signin(:error_not_active)
-    else
-      errors.add :email, i18n_signin(:error_not_recognized)
-    end
+def send_reset_password_email_or_fail
+  if (account = account_for email_from_subfield)&.active?
+    send_reset_password_email account
+  else
+    reset_password_fail account
   end
 end
 
-def send_reset_password_email_or_fail email
-  aborting do
-    break if blank_email? email
-
-    if (account = account_for email)&.active?
-      send_reset_password_email account
-    else
-      reset_password_fail account
-    end
-  end
-end
-
-def blank_email? email
-  return false if email.present?
+def blank_email?
+  return false if email_from_subfield.present?
 
   error_on :email, :error_blank
 end

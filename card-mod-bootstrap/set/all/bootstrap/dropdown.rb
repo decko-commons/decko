@@ -2,17 +2,7 @@ format :html do
   def dropdown_button name, items_or_opts={}, opts={}
     items = block_given? ? yield : items_or_opts
     opts = items_or_opts if block_given?
-    <<-HTML
-      <div class="btn-group #{opts[:extra_css_class]}" role="group">
-        <button class="btn btn-primary dropdown-toggle"
-                data-toggle="dropdown" title="#{name}" aria-expanded="false"
-                aria-haspopup="true">
-          #{icon_tag opts[:icon] if opts[:icon]} #{name}
-          <span class="caret"></span>
-        </button>
-        #{dropdown_list items, opts[:class], opts[:active]}
-      </div>
-    HTML
+    haml :dropdown_button, name: name, items: items, opts: opts
   end
 
   def split_button main_button, active_item

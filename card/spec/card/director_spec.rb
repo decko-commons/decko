@@ -226,10 +226,17 @@ RSpec.describe "Card::Director" do
 
       def define_test_events adding_subcard, order
         STAGE_MAP.each do |stage_shortname, stage|
-          test_event stage, on: :create do
+          subcard = adding_subcard && stage == :validate
+          define_test_event stage, subcard do |name|
             order << "#{stage_shortname}:#{name}"
-            add_subcard "112v" if adding_subcard && stage == :validate && name == "11"
           end
+        end
+      end
+
+      def define_test_event stage, subcard
+        test_event stage, on: :create do
+          yield name
+          add_subcard "112v" if subcard && name == "11"
         end
       end
 
