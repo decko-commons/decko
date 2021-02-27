@@ -87,10 +87,13 @@ format :html do
   def act_paging acts, context
     return unless controller.request # paginate requires a request
     wrap_with :div, class: "slotter btn-sm" do
-      acts = current_page_acts acts
-      opts = { remote: true, theme: "twitter-bootstrap-4" }
+      paginate current_page_acts(acts), act_paging_opts(context)
+    end
+  end
+
+  def act_paging_opts context
+    { remote: true, theme: "twitter-bootstrap-4" }.tap do |opts|
       opts[:total_pages] = 10 if limited_paging? context
-      paginate acts, opts
     end
   end
 
