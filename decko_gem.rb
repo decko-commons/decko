@@ -11,7 +11,7 @@ class DeckoGem
       Gem::Specification.new do |spec|
         dg = DeckoGem.new spec
         dg.shared
-        mod ? dg.mod(name) : spec.name = name
+        dg.non_shared name, mod
         yield spec, dg
       end
     end
@@ -54,17 +54,36 @@ class DeckoGem
   def shared
     spec.authors = ["Ethan McCutchen", "Philipp Kühl", "Gerry Gleason"]
     spec.email = ["info@decko.org"]
-    spec.homepage = "http://decko.org"
+    spec.homepage = "https://decko.org"
     spec.licenses = ["GPL-3.0"]
     spec.required_ruby_version = ">= 2.5"
     spec.version = decko_version
   end
 
+  def non_shared name, is_mod
+    if is_mod
+      mod name
+    else
+      spec.name = name
+      spec.metadata = standard_metadata
+    end
+  end
+
   def mod name
     spec.name = "card-mod-#{name}"
-    spec.metadata = { "card-mod" => name }
+    spec.metadata = standard_metadata.merge "card-mod" => name
     spec.files = Dir["{db,file,lib,public,set,config,vendor}/**/*", "README.md"]
     spec.add_runtime_dependency "card", card_version
+  end
+
+  def standard_metadata
+    {
+      "source_code_uri"   => "https://github.com/decko-commons/decko",
+      "homepage_uri"      => "https://decko.org",
+      "bug_tracker_uri"   => "https://github.com/decko-commons/decko/issues",
+      "wiki_uri"          => "https://decko.org",
+      "documentation_url" => "http://docs.decko.org/"
+    }
   end
 
   def depends_on *gems
