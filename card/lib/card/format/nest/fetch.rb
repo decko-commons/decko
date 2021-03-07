@@ -24,8 +24,7 @@ class Card
         end
 
         def not_found_codename_error codename
-          ::I18n.t :exception_unknown_codename, codename: codename,
-                                                scope: "lib.card.codename"
+          Cardio.tr :exception_unknown_codename, codename: codename
         end
 
         def new_card cardish

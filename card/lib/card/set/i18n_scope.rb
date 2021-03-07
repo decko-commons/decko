@@ -5,11 +5,10 @@ class Card
 
       # return scope for I18n
       def scope backtrace
-        parts = path_parts backtrace
+        return "lib" unless (parts = path_parts backtrace)
         index = path_set_index parts
         mod = mod_from_parts parts, index
-        set = set_from_parts parts, index
-        "mod.#{mod}.set.#{set}"
+        mod || "lib"
       end
 
       # extract the mod name from the path of a set's tmp file
@@ -38,7 +37,8 @@ class Card
       end
 
       def path_parts backtrace
-        parts = find_set_path(backtrace).split(File::SEPARATOR)
+        return unless (path = find_set_path backtrace)
+        parts = path.split File::SEPARATOR
         parts[-1] = parts.last.split(".").first
         parts
       end
@@ -76,9 +76,9 @@ class Card
 
       def find_set_path backtrace
         re = %r{(?<!card)/set/}
-        path = backtrace.find { |line| line =~ re }
-        raise Error, "couldn't find set path in backtrace: #{backtrace}" unless path
-        path
+        backtrace.find { |line| line =~ re }.tap do |path|
+          return unless path
+        end
       end
 
       # # index of the mod part in the tmp path
