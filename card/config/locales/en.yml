@@ -4,7 +4,7 @@
 #
 #  key name prefixes:
 #    'exception_' begins key of text to be used in a raised exception
-#    'error_' begins key of text to be added to an error list (usuallly)
+#    'error_' begins key of text to be added to an error list (usually)
 #    'search_' begins key of text to be used in CQL search comment
 #    'deny_' begins key of text to be used in denying action due to permissions
 #    (Not all key names begin with a prefix. In the absence of a prefix,
@@ -30,62 +30,56 @@ en:
       card_date_seconds: '%B %e, %Y %H:%M:%S'
       card_date_only: '%B %e, %Y'
 
-#  sign_in: Sign in
-#  sign_up: Sign up
-#  sign_out: Sign out
-#  invite: Invite
-#  submit: Submit
-#  cancel: Cancel
-#  close: Close
-#  delete: Delete
-
   lib:
-    config: Config
-    editing_cue: Editing cues
+    # CONFIRMED
     error_rendering: "Error rendering: %{cardname} (%{view} view)"
-    event: Events
-    exception_alias_fail: cannot find %{optview} view in %{optmod}; failed to alias %{view} in %{self}
-    exception_bad_arg: "bad %{category} argument: %{arg}"
-    exception_bad_args: "bad %{category} arguments: %{args}"
-    exception_bad_chars: "CQL contains disallowed characters: %{text}"
-    exception_bad_condition_clause: Invalid Condition Clause %{item}
-    exception_bad_query: '"%{found_by}" value must be valid Search, but %{name} is a %{type}'
     exception_for_card: "for card %{cardname}: %{message}"
     exception_init_without_card: format initialized without card
-    exception_invalid_args: Invalid query args %{items}
-    exception_invalid_attribute: Invalid attribute %{key}
-    exception_invalid_operator: Invalid Operator %{operator}
-    exception_invalid_option: "invalid %{side} option: %{object}"
     exception_not_implemented: "%{func} not implemented"
-    exception_sort_not_implemented: "sort item: %{item} not yet implemented"
-    exception_to_not_join: "%{to} cannot be %{join}"
     exception_unknown_codename: "unknown codename: %{codename}"
-    exception_unknown_valtype: "unknown CQL value type: %{klass}"
     no_cardname: unknown card
-    other: Other
-    permission: Permissions
-    pointer: Pointer
-    templating: Templating
-    webpage: Webpage
+
+    # UNCONFIRMED
+
+    # J'ACCUSE
+    # editing_cue: Editing cues
+    # exception_alias_fail: cannot find %{optview} view in %{optmod}; failed to alias %{view} in %{self}
+    # exception_bad_arg: "bad %{category} argument: %{arg}"
+    # exception_bad_args: "bad %{category} arguments: %{args}"
+    # exception_bad_chars: "CQL contains disallowed characters: %{text}"
+    # exception_bad_condition_clause: Invalid Condition Clause %{item}
+    # exception_bad_query: '"%{found_by}" value must be valid Search, but %{name} is a %{type}'
+    # exception_invalid_args: Invalid query args %{items}
+    # exception_invalid_attribute: Invalid attribute %{key}
+    # exception_invalid_operator: Invalid Operator %{operator}
+    # exception_invalid_option: "invalid %{side} option: %{object}"
+    # exception_sort_not_implemented: "sort item: %{item} not yet implemented"
+    # exception_to_not_join: "%{to} cannot be %{join}"
+    # exception_unknown_valtype: "unknown CQL value type: %{klass}"
 
   core:
+    # CONFIRMED
     cannot_change_content: cannot change content while changing name
     cannot_change_type: cannot change type while changing name
     cards_exist: Sorry, this card must remain a Cardtype so long as there are %{cardname} cards.
-    deny_change_to_type: You don't have permission to change to this type (need create permission)
-    deny_create: You don't have permission to create %{part_card_name}
-    deny_no_comment_structured: No comments allowed on structured content
-    deny_no_comment_template: No comments allowed on templates
-    deny_read_only: Currently in read-only mode
-    deny_read_this: You don't have permission to read this
-    deny_verb_name: You don't have permission to %{verb} %{name}
-    deny_verb_this: You don't have permission to %{verb} this
     error_banned_characters: "may not contain any of the following characters: %{banned}"
     error_blank_key: cannot be blank
     error_blank_name: can't be blank
     error_cant_alter: can't alter this type; %{name} cards still exist
     error_cant_change_errors: "of %{name} can't be changed; errors creating new %{type_id}: %{error_messages}"
-    error_cant_delete_child: "can't delete %{child_name}: %{message}"
+
+    # UNCONFIRMED
+
+    # J'ACCUSE
+    # deny_change_to_type: You don't have permission to change to this type (need create permission)
+    # deny_create: You don't have permission to create %{part_card_name}
+    # deny_no_comment_structured: No comments allowed on structured content
+    # deny_no_comment_template: No comments allowed on templates
+    # deny_read_only: Currently in read-only mode
+    # deny_read_this: You don't have permission to read this
+    # deny_verb_name: You don't have permission to %{verb} %{name}
+    # deny_verb_this: You don't have permission to %{verb} this
+    # error_cant_delete_child: "can't delete %{child_name}: %{message}"
     error_code_in_use: codename %{codename} already in use
     error_hard_templated: can't be changed because %{name} is hard templated to %{type_name}
     error_indestructible: "%{name} is an indestructible rule"
@@ -226,7 +220,6 @@ en:
     add_thing: Add %{title}
     also_changes: "%{actor_link} has also been making changes."
     bad_address: "404: Bad Address"
-    cards_exist: Sorry, this card must remain a Cardtype so long as there are %{cardname} cards.
     close: Close
     comment_style_group: STYLE GROUP
     configure_card: Configure %{cardname}
@@ -402,3 +395,13 @@ en:
     verification_to: A verification email has been sent to %{email}
     was_signed_up_on: "%{name} was signed up on %{date}"
     welcome: Welcome, Decker!
+
+  card-mod-rule:
+    # CONFIRMED
+    config: Config
+    event: Events
+    other: Other
+    permission: Permissions
+    pointer: Pointer
+    templating: Templating
+    webpage: Webpage

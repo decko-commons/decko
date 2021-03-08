@@ -9,7 +9,7 @@ format :html do
 
   def setting_options
     [["Categories", SETTING_OPTIONS],
-     ["Groups", Card::Setting.group_names.keys],
+     ["Groups", Card::Setting.groups.keys],
      ["Single rules", card.visible_setting_codenames]]
   end
 

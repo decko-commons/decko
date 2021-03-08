@@ -33,7 +33,7 @@ class Card
       end
 
       def mod_without_version_suffix mod
-        mod.gsub /-[\d\.]+$/, ""
+        mod.gsub(/-[\d\.]+$/, "")
       end
 
       def mod_without_tmp_prefix mod

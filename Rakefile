@@ -31,7 +31,6 @@ def each_gem
   end
 end
 
-
 def push_gem gem, version
   %(
     rm *.gem
