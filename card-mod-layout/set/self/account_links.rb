@@ -16,7 +16,7 @@ format :html do
     # removed invite for now
     links =
       %i[my_card sign_out sign_up sign_in].map do |link_view|
-        render(link_view)
+        render link_view
       end.compact
 
     links.map do |link|
@@ -58,8 +58,8 @@ format :html do
   end
 
   def interactive_roles_dropdown
-    nest(enabled_roles_card,
-         view: :edit_inline, hide: %i[edit_inline_buttons name_formgroup])
+    nest enabled_roles_card,
+         view: :edit_inline, hide: %i[edit_inline_buttons name_formgroup]
   end
 
   def simple_roles_dropdown
@@ -80,7 +80,7 @@ format :html do
   end
 
   def account_link_text purpose
-    voo.title || tr(purpose)
+    voo.title || tr(purpose, scope: "card-mod-account")
   end
 
   def nav_link_class type
