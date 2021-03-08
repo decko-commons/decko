@@ -77,7 +77,7 @@ class Card
       def find_set_path backtrace
         re = %r{(?<!card)/set/}
         backtrace.find { |line| line =~ re }.tap do |path|
-          return unless path
+          return nil unless path
         end
       end
 
@@ -98,8 +98,7 @@ class Card
 
       # index of the mod part in the path
       def path_set_index parts
-        unless (set_index = parts.index("set")) &&
-               parts.size >= set_index + 2
+        unless (set_index = parts.index("set")) && parts.size >= set_index + 2
           raise Error, "not a valid set path: #{path}"
         end
 
