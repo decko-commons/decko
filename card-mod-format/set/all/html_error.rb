@@ -140,7 +140,7 @@ format :html do
   end
 
   def signin_link
-    link_to_card :signin, tr(:sign_in),
+    link_to_card :signin, tr(:sign_in, mod: "card-mod-account"),
                  class: "signin-link", slotter: true, path: { view: :open }
   end
 
