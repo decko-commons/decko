@@ -42,7 +42,7 @@ class Card
         if card&.name.present?
           safe_name
         else
-          I18n.t :no_cardname, scope: %i[lib card format error]
+          Cardio.tr :no_cardname
         end
       end
 

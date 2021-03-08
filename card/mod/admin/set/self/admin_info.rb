@@ -25,19 +25,16 @@ format :html do
   end
 
   def warning_alert warnings
-    admin_warn = I18n.t(:admin_warn, scope: "mod.admin.set.self.admin_info")
     # 'ADMINISTRATOR WARNING'
     alert :warning, true do
-      "<h5>#{admin_warn}</h5>" + list_tag(warnings)
+      "<h5>#{tr :admin_warn}</h5>" + list_tag(warnings)
     end
   end
 
   def no_email_delivery_message
     # "Email delivery is turned off."
     # "Change settings in config/application.rb to send sign up notifications."
-    I18n.t(:email_off,
-           scope: "mod.admin.set.self.admin_info",
-           path: "config/application.rb")
+    tr :email_off, path: "config/application.rb"
   end
 
   def warning_list_with_auto_scope warnings
