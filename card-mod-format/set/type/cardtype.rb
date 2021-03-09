@@ -5,7 +5,7 @@ format :html do
 
   def type_formgroup args={}
     if card.cards_of_type_exist?
-      wrap_with :div, tr(:cards_exist, cardname: safe_name)
+      wrap_with :div, tr(:cards_exist, scope: "core", cardname: safe_name)
     else
       super
     end
