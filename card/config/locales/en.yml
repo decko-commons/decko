@@ -396,7 +396,7 @@ en:
     was_signed_up_on: "%{name} was signed up on %{date}"
     welcome: Welcome, Decker!
 
-  card-mod-rule:
+  card-mod-rules:
     # CONFIRMED
     config: Config
     event: Events
@@ -405,3 +405,4 @@ en:
     pointer: Pointer
     templating: Templating
     webpage: Webpage
+    editing: Editing

@@ -4,6 +4,6 @@ RSpec::Matchers.define :lack_errors do
   end
 
   failure_message do |view|
-    %(View #{view} contains either "error" or "not supported")
+    %(View #{view} contains "error", "not supported", or "translation missing")
   end
 end
