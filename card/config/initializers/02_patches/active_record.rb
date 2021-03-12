@@ -66,7 +66,7 @@ module Patches
     module ConnectionAdapters
       module AbstractAdapter
         def match _string
-          raise I18n.t(:exception_not_implemented, scope: "lib.card.active_record_ext")
+          raise tr(:exception_not_implemented)
         end
 
         def cast_types

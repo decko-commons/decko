@@ -6,8 +6,10 @@ require "./decko_gem"
 # developers.  Therefore they should contain only tasks for core developers.
 
 task :push_gems do
-  push_main_gems
-  push_mod_gems
+  each_gem do |gem|
+    v = gem == "card" ? DeckoGem.card_version : version
+    system %(cd #{gem}; #{push_gem gem, v})
+  end
 end
 
 task :version do
@@ -21,25 +23,20 @@ task :release do
   )
 end
 
+def each_gem
+  %w[card decko].map do |prefix|
+    Dir.glob("#{prefix}*").each do |gem|
+      yield gem
+    end
+  end
+end
+
 def push_gem gem, version
   %(
     rm *.gem
     gem build #{gem}.gemspec
     gem push #{gem}-#{version}.gem
   )
-end
-
-def push_main_gems
-  %w(card cardname decko).each do |gem|
-    v = gem == "card" ? DeckoGem.card_version : version
-    system %(cd #{gem}; #{push_gem gem, v})
-  end
-end
-
-def push_mod_gems
-  Dir.glob("card-mod-*").each do |gem|
-    system %(cd #{gem}; #{push_gem gem, version})
-  end
 end
 
 def version

@@ -137,9 +137,8 @@ class Card
       end
 
       def unknown_codename! mark
-        raise Card::Error::CodenameNotFound, I18n.t(:exception_unknown_codename,
-                                                    scope: "lib.card.codename",
-                                                    codename: mark)
+        raise Card::Error::CodenameNotFound,
+              Cardio.tr(:exception_unknown_codename, codename: mark)
       end
 
       def id_constant codename, id=nil
