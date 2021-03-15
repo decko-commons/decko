@@ -15,7 +15,6 @@ module Cardio
   extend Utils
   extend Modfiles
   extend Delaying
-  extend I18n
   CARD_GEM_ROOT = File.expand_path("..", __dir__)
 
   mattr_reader :paths, :config
