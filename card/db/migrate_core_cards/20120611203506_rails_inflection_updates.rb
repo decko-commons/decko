@@ -69,7 +69,7 @@ class RailsInflectionUpdates < Cardio::Migration::Core
       end
     end
 
-    cards_with_css = Card.search type: %w(in html css scss)
+    cards_with_css = Card.search type: %w[in html css scss]
     cards_with_css.each do |card|
       new_content = card.db_content
       content_changed = false

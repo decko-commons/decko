@@ -3,7 +3,7 @@ RSpec.describe Card::Query::CardQuery::Run do
   include QuerySpecHelper
 
   it "does not alter original statement" do
-    query = { right_plus: { name: %w(in tag source) } }
+    query = { right_plus: { name: %w[in tag source] } }
     query_clone = query.deep_clone
     Card::Query.run query
     expect(query_clone).to eq(query)
