@@ -11,8 +11,8 @@ RSpec.describe Card::Query::CardQuery::Sorting do
   end
 
   it "sorts by name" do
-    expect(run_query(name: %w(in B Z A Y C X), sort: "name", dir: "desc"))
-      .to eq(%w(Z Y X C B A))
+    expect(run_query(name: %w[in B Z A Y C X], sort: "name", dir: "desc"))
+      .to eq(%w[Z Y X C B A])
   end
 
   it "sorts by content" do
