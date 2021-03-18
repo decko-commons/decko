@@ -108,7 +108,7 @@ class Card
     end
 
     def draft?
-      main_action.draft
+      main_action&.draft
     end
 
     # time (in words) since act took place

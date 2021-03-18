@@ -123,7 +123,7 @@ class Card
       #   here. The problem is that here we have extra links in the title
       #   that are not supposed to expand the accordion
       def act_accordion
-        context = @act.main_action.draft ? :warning : :default
+        context = @act.main_action&.draft ? :warning : :default
         <<-HTML
         <div class="card card-#{context} nodblclick">
           #{act_accordion_panel}
