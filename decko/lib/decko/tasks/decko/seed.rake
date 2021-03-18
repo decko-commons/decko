@@ -170,7 +170,7 @@ end
 # # end
 
 # def each_file_card
-#   Card.search(type: %w(in Image File), ne: "").each do |card|
+#   Card.search(type: %w[in Image File], ne: "").each do |card|
 #     if card.coded? || card.codename == "new_file" ||
 #        card.codename == "new_image"
 #       puts "skipping #{card.name}: already in code"
