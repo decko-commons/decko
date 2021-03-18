@@ -231,7 +231,6 @@ en:
     discuss: discuss
     edit: edit
     error_message: Error message (visible to admin only)
-    error_rendering: error rendering
     exception_not_set_path: "not a set path: %{path}"
     invalid_json: invalid json
     label_select: Select
