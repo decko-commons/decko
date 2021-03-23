@@ -1,6 +1,8 @@
 # DEPRECATED
 #
-# Despite its name (*follow defaults)card does not influence defaults for *follow rules.
+# The card "*follow defaults"
+#
+# Despite its name, this card does not influence defaults for *follow rules.
 # What it does is provide a mechanism (with interface) for updating all users so that
 # they follow the items that are its content.
 #
@@ -29,7 +31,7 @@ event :update_follow_rules, :finalize, on: :save, when: :update_all_users do
   Card.follow_caches_expired
 end
 
-def follow_defaults
+def follow_defaultsbe
   item_names.map do |item|
     if (set_card = Card.fetch item.to_name.left)&.type_code == :set
       [set_card, follow_option(item)]
