@@ -1,5 +1,3 @@
-require "rspec/rails"
-
 class CardSpecLoader
   class << self
     def init
@@ -36,6 +34,8 @@ class CardSpecLoader
     end
 
     def rspec_config
+      require "rspec/rails"
+
       RSpec.configure do |config|
         config.include RSpec::Rails::Matchers::RoutingMatchers,
                        file_path: %r{\bspec/controllers/}
