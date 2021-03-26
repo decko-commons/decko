@@ -31,7 +31,7 @@ event :update_follow_rules, :finalize, on: :save, when: :update_all_users do
   Card.follow_caches_expired
 end
 
-def follow_defaultsbe
+def follow_defaults
   item_names.map do |item|
     if (set_card = Card.fetch item.to_name.left)&.type_code == :set
       [set_card, follow_option(item)]
