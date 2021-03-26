@@ -48,15 +48,13 @@ class CardSpecLoader
         config.use_transactional_fixtures = true
         config.use_instantiated_fixtures = false
 
-        before_config config
-        around_config config
-        after_config config
+        CardSpecLoader.wrap_config config
         yield config if block_given?
       end
     end
 
     def example_signin metadata
-      Card::Auth.signin example_user_id(metadata[:user_id]) unless metadata[:as_bot]
+      Card::Auth.signin example_user_id(metadata[:with_user]) unless metadata[:as_bot]
     end
 
     def example_user_id with_user
@@ -64,7 +62,7 @@ class CardSpecLoader
       when String
         Card.fetch_id with_user
       when Card
-        with_user.id
+        Card.id
       when Integer
         with_user
       else
@@ -72,18 +70,23 @@ class CardSpecLoader
       end
     end
 
-    def before_config config
-      config.before(:each) { |example| before_example example.metadata }
+    def wrap_config config
+      before_config config
+      around_config config
+      after_config config
     end
 
-    def before_example metadata
-      Cardio.delaying! :off
-      example_signin metadata
-      output_length metadata[:output_length]
+    def before_config config
+      config.before(:each) do |example|
+        metadata = example.metadata
+        Cardio.delaying! :off
+        CardSpecLoader.example_signin metadata
+        CardSpecLoader.output_length metadata[:output_length]
 
-      Card::Cache.restore
-      Card::Env.reset
-      Card::Env[:params] = metadata[:params] if metadata[:params]
+        Card::Cache.restore
+        Card::Env.reset
+        Card::Env[:params] = metadata[:params] if metadata[:params]
+      end
     end
 
     def output_length num
@@ -94,7 +97,7 @@ class CardSpecLoader
 
     def around_config config
       config.around :example, :as_bot do |example|
-        Card::Auth.signin joe_user_id
+        Card::Auth.signin CardSpecLoader.joe_user_id
         Card::Auth.as_bot { example.run }
       end
     end
