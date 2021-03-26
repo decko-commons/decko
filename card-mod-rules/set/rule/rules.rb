@@ -101,7 +101,7 @@ def state_of_existing_set
 end
 
 def state_of_nonexisting_set
-  @sets_with_existing_rules == 1 ? :current : :overwritten
+  @sets_with_existing_rules.positive? ? :overwritten : :available
 end
 
 def rule_for_set? set_name

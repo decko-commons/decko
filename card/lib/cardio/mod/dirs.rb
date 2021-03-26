@@ -65,7 +65,7 @@ module Cardio
       # Add a mod to mod load paths
       def add_path mod_name, path=nil
         if @mods.include? mod_name
-          raise Error,
+          raise Card::Error,
                 "name conflict: mod with name \"#{mod_name}\" already loaded"
         end
         @mods << mod_name
@@ -80,7 +80,7 @@ module Cardio
       end
 
       def unknown_gem_mod! name
-        raise Error, %(Unknown gem "#{name}". Make sure it is in your Gemfile.)
+        raise Card::Error, %(Unknown gem "#{name}". Make sure it is in your Gemfile.)
       end
 
       def add_gem_mod mod_name, mod_path

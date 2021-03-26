@@ -80,7 +80,7 @@ class Card
 
       def find_set_path backtrace
         re = %r{(?<!card)/set/}
-        backtrace.find { |line| line =~ re }.tap do |path|
+        backtrace.find { |line| line.match?(re) }.tap do |path|
           return nil unless path
         end
       end
