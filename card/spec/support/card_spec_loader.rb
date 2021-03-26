@@ -29,10 +29,13 @@ class CardSpecLoader
       yield if block_given?
     end
 
+    def joe_user_id
+      @joe_user_id ||= Card.fetch_id "joe_user"
+    end
+
     def rspec_config
       require "rspec/rails"
 
-      @@joe_user_id = Card["joe_user"].id
       RSpec.configure do |config|
         config.include RSpec::Rails::Matchers::RoutingMatchers,
                        file_path: %r{\bspec/controllers/}
@@ -42,55 +45,62 @@ class CardSpecLoader
         # config.default_formatter=formatter
 
         config.infer_spec_type_from_file_location!
-        # config.include CustomMatchers
-        # config.include ControllerMacros, type: :controllers
-
-        # == Mock Framework
-        # If you prefer to mock with mocha, flexmock or RR,
-        # uncomment the appropriate symbol:
-        # :mocha, :flexmock, :rr
-
         config.use_transactional_fixtures = true
         config.use_instantiated_fixtures = false
 
-        config.before(:each) do |example|
-          Cardio.delaying! :off
-          unless example.metadata[:as_bot]
-            user_id =
-              case example.metadata[:with_user]
-              when String
-                Card.fetch_id example.metadata[:with_user]
-              when Card
-                Card.id
-              when Integer
-                example.metadata[:with_user]
-              else
-                @@joe_user_id
-              end
-            Card::Auth.signin user_id
-          end
-
-          if example.metadata[:output_length]
-            RSpec::Support::ObjectFormatter.default_instance.max_formatted_output_length =
-              example.metadata[:output_length]
-          end
-          Card::Cache.restore
-          Card::Env.reset
-          Card::Env[:params] = example.metadata[:params] if example.metadata[:params]
-        end
-
-        config.around(:example, :as_bot) do |example|
-          Card::Auth.signin @@joe_user_id
-          Card::Auth.as_bot do
-            example.run
-          end
-        end
-
-        config.after(:each) do
-          Timecop.return
-        end
+        before_config config
+        around_config config
+        after_config config
         yield config if block_given?
       end
+    end
+
+    def example_signin metadata
+      Card::Auth.signin example_user_id(metadata[:user_id]) unless metadata[:as_bot]
+    end
+
+    def example_user_id with_user
+      case with_user
+      when String
+        Card.fetch_id with_user
+      when Card
+        with_user.id
+      when Integer
+        with_user
+      else
+        joe_user_id
+      end
+    end
+
+    def before_config config
+      config.before(:each) { |example| before_example example.metadata }
+    end
+
+    def before_example metadata
+      Cardio.delaying! :off
+      example_signin metadata
+      output_length metadata[:output_length]
+
+      Card::Cache.restore
+      Card::Env.reset
+      Card::Env[:params] = metadata[:params] if metadata[:params]
+    end
+
+    def output_length num
+      return unless num
+
+      RSpec::Support::ObjectFormatter.default_instance.max_formatted_output_length = num
+    end
+
+    def around_config config
+      config.around :example, :as_bot do |example|
+        Card::Auth.signin joe_user_id
+        Card::Auth.as_bot { example.run }
+      end
+    end
+
+    def after_config config
+      config.after(:each) { Timecop.return }
     end
 
     def helper
