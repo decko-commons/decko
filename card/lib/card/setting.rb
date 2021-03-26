@@ -10,7 +10,7 @@ class Card
     # accessible in E
     attr_accessor :codename
     # accessible in E and M
-    mattr_accessor :groups, :group_names, :preferences
+    mattr_accessor :groups, :preferences
 
     SETTING_OPTIONS = %i[
       restricted_to_type
@@ -41,17 +41,15 @@ class Card
       end
     end
 
-    self.group_names = {
-      templating: "Templating",
-      permission: "Permissions",
-      webpage:    "Webpage",
-      editing:    "Editing",
-      event:      "Events",
-      other:      "Other",
-      config:     "Config"
-    }
-
-    self.groups = group_names.keys.each_with_object({}) do |key, groups|
+    self.groups = %i[
+      templating
+      permission
+      webpage
+      editing
+      event
+      other
+      config
+    ].each_with_object({}) do |key, groups|
       groups[key] = []
     end
 

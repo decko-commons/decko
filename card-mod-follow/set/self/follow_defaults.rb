@@ -1,6 +1,8 @@
 # DEPRECATED
 #
-# Despite its name (*follow defaults)card does not influence defaults for *follow rules.
+# The card "*follow defaults"
+#
+# Despite its name, this card does not influence defaults for *follow rules.
 # What it does is provide a mechanism (with interface) for updating all users so that
 # they follow the items that are its content.
 #
