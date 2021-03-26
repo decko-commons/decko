@@ -103,7 +103,7 @@ class Card
       # @param key [String]
       # @return [String]
       def full_key key
-        "#{prefix}--#{key}"
+        "#{prefix}/#{key}"
       end
 
       def read key
