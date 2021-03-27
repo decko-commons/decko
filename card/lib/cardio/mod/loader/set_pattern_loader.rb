@@ -40,7 +40,6 @@ module Cardio
           def preamble_bits
             [module_comment,
              module_chain,
-             "extend Card::Set::Pattern::Helper",
              "cattr_accessor :options",
              "class << self"]
           end
