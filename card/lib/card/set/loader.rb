@@ -24,9 +24,7 @@ class Card
           modules[:base] << set_module
         else
           set_type = set_module.abstract_set? ? :abstract : :nonbase
-          # made ready for dynamic loading via #include_set_modules
-          modules[set_type][set_module.shortname] ||= []
-          modules[set_type][set_module.shortname] << set_module
+          register_set_of_type set_module, set_type
         end
       end
 
@@ -44,19 +42,17 @@ class Card
       # Format class
       # 'nonbase modules' are included dynamically on singleton_classes
       def process_base_modules
-        return unless modules[:base].present?
+        base_modules = modules[:base]
+        return unless base_modules.present?
 
-        Card.add_set_modules modules[:base]
-        modules[:base_format].each do |format_class, modules_list|
-          format_class.add_set_modules modules_list
-        end
-        modules[:base].clear
-        modules[:base_format].clear
+        Card.add_set_modules base_modules
+        process_base_format_modules modules[:base_format]
+        base_modules.clear
       end
 
       def clean_empty_modules
         clean_empty_module_from_hash modules[:nonbase]
-        modules[:nonbase_format].values.each do |hash|
+        modules[:nonbase_format].each_value do |hash|
           clean_empty_module_from_hash hash
         end
       end
@@ -66,6 +62,23 @@ class Card
           modlist.delete_if { |x| x.instance_methods.empty? }
           hash.delete mod_name if modlist.empty?
         end
+      end
+
+      private
+
+      # makes sets ready for dynamic loading via #include_set_modules
+      def register_set_of_type set_module, set_type
+        mods = modules[set_type]
+        key = set_module.shortname
+        mods[key] ||= []
+        mods[key] << set_module
+      end
+
+      def process_base_format_modules base_format_modules
+        base_format_modules.each do |format_class, modules_list|
+          format_class.add_set_modules modules_list
+        end
+        base_format_modules.clear
       end
     end
   end
