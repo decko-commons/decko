@@ -1,6 +1,7 @@
 class Card
   module Set
     class Pattern
+      # methods for Set::Pattern classes
       module ClassMethods
         attr_accessor :pattern_code, :pattern_id, :junction_only,
                       :assigns_type, :anchorless
