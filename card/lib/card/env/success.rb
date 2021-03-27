@@ -75,19 +75,21 @@ class Card
       private
 
       def respond_to_missing? method, _include_private=false
-        method.match?(/^(\w+)=?$/)
+        method.match?(/^(\w+)=?$/) || super
       end
 
       def method_missing method, *args
-        if (m = method.match(/^(\w+)(=)?/))
+        if (m = method.match(/^(\w+(=))?/))
           infer_bracket m[1].to_sym, m[2], args[0]
         else
           super
         end
       end
 
-      def infer_bracket attrib, assign, val
-        assign ? (self[attrib] = val) : self[attrib]
+      def infer_bracket method, assign, val
+        args = [method]
+        args << val if assign
+        @params.send(*args)
       end
 
       def apply hash
