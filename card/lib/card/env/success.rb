@@ -79,7 +79,7 @@ class Card
       end
 
       def method_missing method, *args
-        if (m = method.match /^(\w+)(=)?/)
+        if (m = method.match(/^(\w+)(=)?/))
           infer_bracket m[1].to_sym, m[2], args[0]
         else
           super
