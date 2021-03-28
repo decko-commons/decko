@@ -14,13 +14,13 @@ RSpec.describe Card::Set::Type::Css do
   #   end
   # end
 
+  def dummy_css name="test css"
+    Card.gimme! name, type: :css, content: css
+  end
+
   it_behaves_like "machine input"  do
-    let(:create_machine_input_card) do
-      Card.gimme! "test css", type: :css, content: css
-    end
-    let(:create_another_machine_input_card) do
-      Card.gimme! "more test css", type: :css, content: css
-    end
+    let(:create_machine_input_card) { dummy_css }
+    let(:create_another_machine_input_card) { dummy_css "more test css" }
     let(:create_machine_card) do
       Card.gimme! "style with css+*style", type: :pointer
     end
