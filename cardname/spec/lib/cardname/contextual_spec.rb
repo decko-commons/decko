@@ -81,7 +81,7 @@ RSpec.describe Cardname::Contextual do
       end
 
       it "handles bogus _llr requests" do
-        %w(_R _L _LR _LL _LLR _LLL _LLLR _LLLL).each do |variant|
+        %w[_R _L _LR _LL _LLR _LLL _LLLR _LLLL].each do |variant|
           expect_absolute(variant, "A").to eq("A")
         end
       end
