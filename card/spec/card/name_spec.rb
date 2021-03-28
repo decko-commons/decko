@@ -59,7 +59,6 @@ RSpec.describe Card::Name do
     end
   end
 
-
   describe "creation" do
     describe ".[]" do
       it "translates simple codenames" do
