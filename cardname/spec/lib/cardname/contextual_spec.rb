@@ -68,7 +68,7 @@ RSpec.describe Cardname::Contextual do
       expect_absolute("_LLLL", "A+B+C+D+E").to eq("A")
     end
 
-    context "mismatched requests" do
+    context "with mismatched requests" do
       it "returns _self for _left or _right on simple cards" do
         expect_absolute("_left+Z", "A").to eq("A+Z")
         expect_absolute("_right+Z", "A").to eq("A+Z")
@@ -81,14 +81,9 @@ RSpec.describe Cardname::Contextual do
       end
 
       it "handles bogus _llr requests" do
-        expect_absolute("_R", "A").to eq("A")
-        expect_absolute("_L", "A").to eq("A")
-        expect_absolute("_LR", "A").to eq("A")
-        expect_absolute("_LL", "A").to eq("A")
-        expect_absolute("_LLR", "A").to eq("A")
-        expect_absolute("_LLL", "A").to eq("A")
-        expect_absolute("_LLLR", "A").to eq("A")
-        expect_absolute("_LLLL", "A").to eq("A")
+        %w(_R _L _LR _LL _LLR _LLL _LLLR _LLLL).each do |variant|
+          expect_absolute(variant, "A").to eq("A")
+        end
       end
     end
   end
@@ -96,7 +91,8 @@ RSpec.describe Cardname::Contextual do
   describe "#from" do
     it "ignores ignorables" do
       expect_from("you+awe", "you").to eq("+awe")
-      #expect("me+you+awe".to_name.from("you")).to eq("me+awe") #HMMM..... what should this do?
+      # expect("me+you+awe".to_name.from("you")).to eq("me+awe")
+      # #HMMM..... what should this do?
       expect_from("me+you+awe", "me").to eq("+you+awe")
       expect_from("me+you+awe", "me", "you").to eq("+awe")
       expect_from("me+you","me", "you").to eq("me+you")
@@ -135,9 +131,9 @@ RSpec.describe Cardname::Contextual do
      ["A",     "A",   "A"],
      ["A+B",   "A+B", "A+B"],
      ["A",     "A+B", "A"],
-     #["A+C",   "A+B", "+C"],
-     #["A+B",   "C+B", "A"],
-     #["X+A+B", "A+C", "X+B"]
+     # ["A+C",   "A+B", "+C"],
+     # ["A+B",   "C+B", "A"],
+     # ["X+A+B", "A+C", "X+B"]
     ].each do |name, from, res|
       it "#{name} from #{from} is #{res}" do
         expect(name.to_name.from from).to eq res
