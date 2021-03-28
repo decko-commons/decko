@@ -34,17 +34,16 @@ RSpec.describe Card::Set::All::Header do
 
     context "with show: icon_toggle" do
       it "has icon toggle and no title toggle" do
-        expect(view_with_show(:closed, :icon_toggle))
-          .to have_tag(header_tag) do
-            with_tag "div.d0-card-header-title" do
-              with_tag "a.toggle-open.slotter", with: { href: "/A?view=open" } do
-                with_tag :i, "expand_more"
-              end
-
-              without_tag "a.toggle-open", with:  { href: "/A" }
-              with_tag "span.card-title", "A"
+        expect(view_with_show(:closed, :icon_toggle)).to have_tag(header_tag) do
+          with_tag "div.d0-card-header-title" do
+            with_tag "a.toggle-open.slotter", with: { href: "/A?view=open" } do
+              with_tag :i, "expand_more"
             end
+
+            without_tag "a.toggle-open", with:  { href: "/A" }
+            with_tag "span.card-title", "A"
           end
+        end
       end
     end
   end
@@ -70,17 +69,16 @@ RSpec.describe Card::Set::All::Header do
 
     context "with show: icon_toggle" do
       it "has icon toggle and no title toggle" do
-        expect(view_with_show(:open, :icon_toggle))
-          .to have_tag(header_tag) do
-            with_tag "div.d0-card-header-title" do
-              with_tag "a.toggle-closed.slotter", with: { href: "/A?view=closed" } do
-                with_tag :i, "expand_less"
-              end
-
-              without_tag "a.toggle-closed", with:  { href: "/A" }
-              with_tag "span.card-title", "A"
+        expect(view_with_show(:open, :icon_toggle)).to have_tag(header_tag) do
+          with_tag "div.d0-card-header-title" do
+            with_tag "a.toggle-closed.slotter", with: { href: "/A?view=closed" } do
+              with_tag :i, "expand_less"
             end
+
+            without_tag "a.toggle-closed", with:  { href: "/A" }
+            with_tag "span.card-title", "A"
           end
+        end
       end
     end
   end
