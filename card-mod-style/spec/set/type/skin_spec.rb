@@ -8,13 +8,13 @@ describe Card::Set::Type::Skin do
   let(:new_css)                { "#box{display: none }\n"   }
   let(:compressed_new_css)     { "#box{display:none}\n"     }
 
-  it_behaves_like "machine input"  do
-    let(:create_machine_input_card) do
-      Card.gimme! "test skin input", type: :css, content: css
-    end
-    let(:create_another_machine_input_card) do
-      Card.gimme! "more skin input", type: :css, content: css
-    end
+  def dummy_css name="test skin input"
+    Card.gimme! name, type: :css, content: css
+  end
+
+  it_behaves_like "machine input" do
+    let(:create_machine_input_card) { dummy_css }
+    let(:create_another_machine_input_card) { dummy_css "more skin input" }
     let(:create_machine_card) do
       Card.gimme! "style with skin machine+*style", type: :pointer
     end
@@ -42,7 +42,7 @@ describe Card::Set::Type::Skin do
   context "when item changed" do
     it "updates output of related machine card" do
       skin = Card.gimme! "test skin supplier", type: :skin, content: ""
-      item = Card.gimme! "skin item", type: :css, content: css
+      item = dummy_css "skin item"
       machine = Card.gimme! "style with skin machine+*style",
                             type: :pointer, content: "[[test skin supplier]]"
       skin << item
