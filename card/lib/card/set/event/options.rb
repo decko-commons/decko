@@ -23,13 +23,21 @@ class Card
           if condition == :when
             validate_when_value val
           else
-            invalid = Array.wrap(val) - Api::OPTIONS[condition]
-            return if invalid.empty?
-
-            raise ArgumentError,
-                  "invalid option#{'s' if invalid.size > 1} '#{invalid}' "\
-                  "for condition '#{condition}' in event '#{@event}'"
+            validate_standard_condition_value condition, val
           end
+        end
+
+        def validate_standard_condition_value condition, val
+          invalid = invalid_condition_values condition, val
+          return if invalid.empty?
+
+          raise ArgumentError,
+                "invalid option#{'s' if invalid.size > 1} '#{invalid}' "\
+                  "for condition '#{condition}' in event '#{@event}'"
+        end
+
+        def invalid_condition_values condition, val
+          Array.wrap(val) - Api::OPTIONS[condition]
         end
 
         def validate_when_value val

@@ -28,7 +28,7 @@ class Card
         end
 
         def interpret_hash_values
-          @stub_hash.keys.each do |key|
+          @stub_hash.each_key do |key|
             send "interpret_#{key}"
           end
         end

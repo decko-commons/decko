@@ -5,6 +5,8 @@ format :html do
     params[:tinymce_id]
   end
 
+  private
+
   def tm_param key
     params[:"tm_snippet_#{key}"]
   end
@@ -13,15 +15,25 @@ format :html do
     @tm_snippet_editor_mode != :overlay
   end
 
-  private
-
   def apply_tm_snippet_data snippet
     { "data-tinymce-id": tinymce_id }.tap do |data|
-      apply_tm_snippet_var(data, :start) { tm_param :start }
-      apply_tm_snippet_var(data, :size, :raw) { snippet.raw.size }
-      data["data-dismiss"] = "modal" if modal_tm_snippet_editor?
-      data["data-index"] = params["index"] if params["index"].present?
+      apply_tm_snippet_vars data, snippet
+      apply_tm_data_dismiss data
+      apply_tm_data_index data
     end
+  end
+
+  def apply_tm_data_dismiss data
+    data["data-dismiss"] = "modal" if modal_tm_snippet_editor?
+  end
+
+  def apply_tm_data_index data
+    data["data-index"] = params["index"] if params["index"].present?
+  end
+
+  def apply_tm_snippet_vars data, snippet
+    apply_tm_snippet_var(data, :start) { tm_param :start }
+    apply_tm_snippet_var(data, :size, :raw) { snippet.raw.size }
   end
 
   def apply_tm_snippet_var data, varname, paramname=nil

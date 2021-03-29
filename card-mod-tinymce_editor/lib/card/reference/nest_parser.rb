@@ -43,16 +43,21 @@ class Card
       end
 
       def extract_options options
-        Card::Reference::NestParser::NEST_OPTIONS.each_with_object([]) do |key, res|
-          next unless options[key]
-
+        applicable_options(options).each_with_object([]) do |key, res|
           if key.in? %i[show hide]
-            values = Card::View.normalize_list(options[key])
-            res.concat(values.map { |val| [key, val] })
+            res.concat viz_values(key, options)
           else
             res << [key, options[key]]
           end
         end
+      end
+
+      def viz_values key, options
+        Card::View.normalize_list(options[key]).map { |val| [key, val] }
+      end
+
+      def applicable_options options
+        Card::Reference::NestParser::NEST_OPTIONS.select { |key| options[key] }
       end
 
       def extract_item_options options

@@ -190,8 +190,8 @@ body.mceContentBody {
   }
 }
 
-.titled-view > .d0-card-header {
-  > .d0-card-header-title {
+.titled-view > .d0-card-header > {
+  > .d0-card-header-title .card-title {
     font-size: 1.3em;
   }
   margin: 3px 0
