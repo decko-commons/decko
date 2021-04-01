@@ -3,6 +3,7 @@ require File.expand_path("../boot", __FILE__)
 require "decko/application"
 
 module Shark
+  # sample decko application
   class Application < Decko::Application
     config.performance_logger = nil
 
@@ -90,6 +91,5 @@ module Shark
 
     # config.override_protocol = "https"
     # overrides protocol auto-detected from web requests
-
   end
 end
