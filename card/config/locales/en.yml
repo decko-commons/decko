@@ -233,7 +233,7 @@ en:
     discuss: discuss
     edit: edit
     error_message: Error message (visible to admin only)
-    error_rendering: error rendering
+    error_rendering: "Error rendering: %{cardname} (%{view} view)"
     exception_not_set_path: "not a set path: %{path}"
     invalid_json: invalid json
     label_select: Select
@@ -398,7 +398,7 @@ en:
     was_signed_up_on: "%{name} was signed up on %{date}"
     welcome: Welcome, Decker!
 
-  card-mod-rule:
+  card-mod-rules:
     # CONFIRMED
     config: Config
     event: Events
@@ -407,3 +407,4 @@ en:
     pointer: Pointer
     templating: Templating
     webpage: Webpage
+    editing: Editing

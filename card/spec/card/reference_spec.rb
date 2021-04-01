@@ -23,7 +23,8 @@ RSpec.describe Card::Reference, as_bot: true do
       tmpl.content = "{{+monkey}} {{+banana}} {{+fruit}}"
       tmpl.save!
       Card["JoeForm"].format.render!(:core)
-      expect(Card["JoeForm"].nestees.map(&:key)).to contain_exactly("joe_form+banana", "joe_form+fruit", "joe_form+monkey")
+      expect(Card["JoeForm"].nestees.map(&:key))
+        .to contain_exactly("joe_form+banana", "joe_form+fruit", "joe_form+monkey")
     end
   end
 
@@ -33,14 +34,14 @@ RSpec.describe Card::Reference, as_bot: true do
     create! "Sun", "[[Yellow]]"
     create! "Yellow"
     yellow_refs = Card["Yellow"].referers.map(&:name).sort
-    expect(yellow_refs).to eq(%w(Banana Submarine Sun))
+    expect(yellow_refs).to eq(%w[Banana Submarine Sun])
 
     y = Card["Yellow"]
     y.type_id = Card.fetch_id "UserForm"
     y.save!
 
     yellow_refs = Card["Yellow"].referers.map(&:name).sort
-    expect(yellow_refs).to eq(%w(Banana Submarine Sun))
+    expect(yellow_refs).to eq(%w[Banana Submarine Sun])
   end
 
   it "container nest" do
@@ -52,9 +53,9 @@ RSpec.describe Card::Reference, as_bot: true do
   end
 
   it "pickup new links on rename" do
-    @l = create!("L", "[[Ethan]]")  # no Ethan card yet...
-    @e = create!("Earthman")
-    @e.update! name: "Ethan" # NOW there is an Ethan card
+    create! "L", "[[Ethan]]"  # no Ethan card yet...
+    e = create! "Earthman"
+    e.update! name: "Ethan" # NOW there is an Ethan card
     #  do we need the links to be caught before reloading the card?
     expect(Card["Ethan"].referers.map(&:name).include?("L")).not_to eq(nil)
   end
@@ -102,24 +103,28 @@ RSpec.describe Card::Reference, as_bot: true do
     expect(lew.reload.content).to eq(correct_content)
 
     ref_types = lew.references_out.order(:id).map(&:ref_type)
-    expect(ref_types).to eq(%w(L L P)) #, "need partial references!"
+    expect(ref_types).to eq(%w[L L P]) # , "need partial references!"
     actual_referee_ids = lew.references_out.order(:id).map(&:referee_id)
     assert_equal actual_referee_ids, [nil, nil, Card.fetch_id("seed")],
                  'only partial reference to "seeds" should have referee_id'
   end
 
-  it "update referencing content on rename junction card" do
-    @ab = Card["A+B"] # linked to from X, included by Y
-    @ab.update! name: "Peanut+Butter", update_referers: true
-    @x = Card["X"]
-    expect(@x.content).to eq("[[A]] [[Peanut+Butter]] [[T]]")
-  end
+  context "when renaming junction cards" do
+    let(:x) { Card["X"] } # links to A+B
 
-  it "update referencing content on rename junction card" do
-    @ab = Card["A+B"] # linked to from X, included by Y
-    @ab.update! name: "Peanut+Butter", update_referers: false
-    @x = Card["X"]
-    expect(@x.content).to eq("[[A]] [[A+B]] [[T]]")
+    def rename update_referers=true
+      Card["A+B"].update! name: "Peanut+Butter", update_referers: update_referers
+    end
+
+    it "updating referers can be opted into" do
+      rename
+      expect(x.content).to eq("[[A]] [[Peanut+Butter]] [[T]]")
+    end
+
+    it "updating referers can be opted out of" do
+      rename false
+      expect(x.content).to eq("[[A]] [[A+B]] [[T]]")
+    end
   end
 
   it "template nest" do
@@ -133,32 +138,27 @@ RSpec.describe Card::Reference, as_bot: true do
     expect(green_rgb.reload.nesters.map(&:name)).to eq(["green"])
   end
 
+  def expect_reference referee, referer, content
+    Card.create name: referee
+    Card.create name: referer, content: content
+    expect(Card[referee].referers.map(&:name)).to eq([referer])
+    expect(Card[referer].referees.map(&:name)).to eq([referee])
+  end
+
   it "simple link" do
-    Card.create name: "alpha"
-    Card.create name: "beta", content: "I link to [[alpha]]"
-    expect(Card["alpha"].referers.map(&:name)).to eq(["beta"])
-    expect(Card["beta"].referees.map(&:name)).to eq(["alpha"])
+    expect_reference "alpha", "beta", "I link to [[alpha]]"
   end
 
   it "link with spaces" do
-    Card.create! name: "alpha card"
-    Card.create! name: "beta card", content: "I link to [[alpha_card]]"
-    expect(Card["beta card"].referees.map(&:name)).to eq(["alpha card"])
-    expect(Card["alpha card"].referers.map(&:name)).to eq(["beta card"])
+    expect_reference "alpha card", "beta card", "I link to [[alpha card]]"
   end
 
   it "simple nest" do
-    Card.create name: "alpha"
-    Card.create name: "beta", content: "I nest {{alpha}}"
-    expect(Card["beta"].nestees.map(&:name)).to eq(["alpha"])
-    expect(Card["alpha"].nesters.map(&:name)).to eq(["beta"])
+    expect_reference "alpha", "beta", "I nest [[alpha]]"
   end
 
   it "non simple link" do
-    Card.create name: "alpha"
-    Card.create name: "beta", content: "I link to [[alpha|ALPHA]]"
-    expect(Card["beta"].referees.map(&:name)).to eq(["alpha"])
-    expect(Card["alpha"].referers.map(&:name)).to eq(["beta"])
+    expect_reference "alpha", "beta", "I link to [[alpha|ALPHA]]"
   end
 
   it "query" do
@@ -171,7 +171,7 @@ RSpec.describe Card::Reference, as_bot: true do
     expect(y_referers).to include("search with references")
 
     search_referees = Card["search with references"].referees.map(&:name).sort
-    expect(search_referees).to eq(%w(A B X Y))
+    expect(search_referees).to eq(%w[A B X Y])
   end
 
   it "handles contextual names in Basic cards" do
@@ -188,21 +188,21 @@ RSpec.describe Card::Reference, as_bot: true do
 
   it "handles commented nest" do
     c = create "nest comment test", "{{## hi mom }}"
-    expect(c.errors.any?).to be_falsey
+    expect(c.errors).to be_empty
   end
 
   it "pickup new links on create" do
-    @l = create!("woof", "[[Lewdog]]")  # no Lewdog card yet...
-    @e = create!("Lewdog")              # now there is
-    # NOTE @e.referers does not work, you have to reload
-    expect(@e.reload.referers.map(&:name).include?("woof")).not_to eq(nil)
+    create! "woof", "[[Lewdog]]"  # no Lewdog card yet...
+    e = create! "Lewdog"          # now there is
+    # NOTE e.referers does not work, you have to reload
+    expect(e.reload.referers.map(&:name).include?("woof")).not_to eq(nil)
   end
 
   it "pickup new nests on create" do
-    @l = Card.create! name: "woof", content: "{{Lewdog}}"
+    Card.create! name: "woof", content: "{{Lewdog}}"
     # no Lewdog card yet...
-    @e = Card.new name: "Lewdog", content: "grrr"
+    e = Card.new name: "Lewdog", content: "grrr"
     # now it's inititated
-    expect(@e.name_referers.map(&:name).include?("woof")).not_to eq(nil)
+    expect(e.name_referers.map(&:name).include?("woof")).not_to eq(nil)
   end
 end

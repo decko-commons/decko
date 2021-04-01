@@ -1,0 +1,75 @@
+class Card
+  module Env
+    class Success
+      # The success "target" is the destination upon success.
+      #
+      # @card, @name, @id, etc all refer to the target card
+      module Target
+        def target= value
+          @id = @name = @card = nil
+          @target = process_target value
+        end
+
+        def target name_context=@name_context
+          card(name_context) ||
+            (@target == :previous ? Card::Env.previous_location : @target) ||
+            Card.fetch(name_context)
+        end
+
+        # TODO: refactor to use cardish
+        def mark= value
+          case value
+          when Integer then @id = value
+          when String then @name = value
+          when Card then @card = value
+          else
+            self.target = value
+          end
+        end
+
+        # @deprecated
+        def id= id
+          # for backwards compatibility use mark here.
+          # id was often used for the card name
+          self.mark = id
+        end
+
+        def type= type
+          @new_args[:type] = type
+        end
+
+        def type_id= type_id
+          @new_args[:type_id] = type_id.to_i
+        end
+
+        def content= content
+          @new_args[:content] = content
+        end
+
+        def card name_context=@name_context
+          if @card
+            @card
+          elsif @id
+            Card.fetch @id
+          elsif @name
+            Card.fetch @name.to_name.absolute(name_context), new: @new_args
+          end
+        end
+
+        private
+
+        def process_target value
+          case value
+          when ""                     then ""
+          when "*previous", :previous then :previous
+          when %r{^(http|/)}          then value
+          when /^REDIRECT:\s*(.+)/
+            @redirect = true
+            process_target Regexp.last_match(1)
+          else self.mark = value
+          end
+        end
+      end
+    end
+  end
+end
