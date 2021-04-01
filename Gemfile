@@ -33,7 +33,6 @@ gem "card-mod-defaults"
 # See https://github.com/decko-commons/decko/tree/master/card-mod-delayed_job
 # for additional configuration details.
 gem "card-mod-delayed_job"
-cd
 
 # MONKEYS
 # You can also create your own mods. Mod developers (or "Monkeys") will want some
