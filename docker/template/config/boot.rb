@@ -3,7 +3,7 @@
 require "rubygems"
 
 # defaults to development mode without the following
-<%= "# " unless shark? %>ENV["RAILS_ENV"] ||= "production"
+ENV["RAILS_ENV"] ||= "production"
 
 # Set up gems listed in the Gemfile.
 ENV["BUNDLE_GEMFILE"] ||= File.expand_path("Gemfile")

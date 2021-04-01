@@ -1,3 +1,4 @@
+#!/usr/bin/env ruby
 
 # This command will be run when you use `decko` from within your deck.
 
