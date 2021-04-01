@@ -2,7 +2,7 @@ require File.expand_path("../boot", __FILE__)
 
 require "decko/application"
 
-module <%= app_const_base %>
+module Shark
   class Application < Decko::Application
     config.performance_logger = nil
 
@@ -24,14 +24,12 @@ module <%= app_const_base %>
     # config.action_mailer.delivery_method = :smtp
     # config.action_mailer.smtp_settings = { address: "localhost", port: 1025 }
 
-
     # BACKGROUND
     # Decko lets you run some card events (like follower notifications) in the
     # background. This is off by default but can be turned on by changing the
     # `delaying` setting to `true`
     config.active_job.queue_adapter = :delayed_job
     config.delaying = false
-
 
     # CACHING
     # config.cache_store = :file_store, "tmp/cache"
@@ -41,7 +39,6 @@ module <%= app_const_base %>
     # for production, we highly recommend memcache
     # here's a sample configuration for use with the dalli gem
     # config.cache_store = :dalli_store, []
-
 
     # FILES
     # config.paths["files"] = "files"
@@ -93,15 +90,6 @@ module <%= app_const_base %>
 
     # config.override_protocol = "https"
     # overrides protocol auto-detected from web requests
-    <% if platypus? %>
-    config.file_buckets = {
-      test_bucket: {
-        provider: "AWS",
-        aws_access_key_id: ENV["TEST_BUCKET_AWS_ACCESS_KEY_ID"],
-        aws_secret_access_key: ENV["TEST_BUCKET_AWS_SECRET_ACCESS_KEY"],
-        region: "us-east-1"
-      }
-    }
-    <% end %>
+
   end
 end

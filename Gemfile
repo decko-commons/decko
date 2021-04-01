@@ -34,7 +34,6 @@ gem "card-mod-defaults"
 # for additional configuration details.
 gem "card-mod-delayed_job"
 
-
 # MONKEYS
 # You can also create your own mods. Mod developers (or "Monkeys") will want some
 # additional gems to support development and testing.
