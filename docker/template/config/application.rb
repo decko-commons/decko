@@ -1,6 +1,6 @@
-require File.expand_path('../boot', __FILE__)
+require File.expand_path("../boot", __FILE__)
 
-require 'decko/application'
+require "decko/application"
 
 module Shark
   class Application < Decko::Application
@@ -24,7 +24,6 @@ module Shark
     # config.action_mailer.delivery_method = :smtp
     # config.action_mailer.smtp_settings = { address: "localhost", port: 1025 }
 
-
     # BACKGROUND
     # Decko lets you run some card events (like follower notifications) in the
     # background. This is off by default but can be turned on by changing the
@@ -32,9 +31,8 @@ module Shark
     config.active_job.queue_adapter = :delayed_job
     config.delaying = false
 
-
     # CACHING
-    # config.cache_store = :file_store, 'tmp/cache'
+    # config.cache_store = :file_store, "tmp/cache"
     # determines caching mechanism.  options include: file_store, memory_store,
     # mem_cache_store, dalli_store...
     #
@@ -42,9 +40,8 @@ module Shark
     # here's a sample configuration for use with the dalli gem
     # config.cache_store = :dalli_store, []
 
-
     # FILES
-    # config.paths['files'] = 'files'
+    # config.paths["files"] = "files"
     # directory in which uploaded files are actually stored. (eg Image and File cards)
 
     # config.file_storage = :local
@@ -59,13 +56,13 @@ module Shark
     #     directory: "bucket-name",
     #     subdirectory: "files",
     #     credentials: {
-    #        provider: 'AWS',                         # required
-    #        aws_access_key_id: 'key',                # required
-    #        aws_secret_access_key: 'secret-key',     # required
+    #        provider: "AWS",                         # required
+    #        aws_access_key_id: "key",                # required
+    #        aws_secret_access_key: "secret-key",     # required
     #        use_iam_profile: true,             # optional, defaults to false
-    #        region: 'eu-central-1',                   # optional, defaults to 'us-east-1'
-    #        host: 's3.example.com',                  # optional, defaults to nil
-    #        endpoint: 'https://s3.example.com:8080'  # optional, defaults to nil
+    #        region: "eu-central-1",                   # optional, defaults to "us-east-1"
+    #        host: "s3.example.com",                  # optional, defaults to nil
+    #        endpoint: "https://s3.example.com:8080"  # optional, defaults to nil
     #     },
     #     attributes: { "Cache-Control" => "max-age=#{365.day.to_i}" },
     #     public: true,
@@ -82,7 +79,7 @@ module Shark
     # defaults to false
     # disallows creating, updating, and deleting cards.
 
-    # config.paths['mod'] << 'my-mod-dir'
+    # config.paths["mod"] << "my-mod-dir"
     # add a new directory for code customizations, or "mods"
 
     # config.allow_inline_styles = false
@@ -93,6 +90,6 @@ module Shark
 
     # config.override_protocol = "https"
     # overrides protocol auto-detected from web requests
-    
+
   end
 end

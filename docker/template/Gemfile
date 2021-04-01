@@ -5,7 +5,7 @@ gem "decko"
 # DATABASE
 # Decko currently supports MySQL (best tested), PostgreSQL (well tested), and SQLite
 # (not well tested).
-gem 'mysql2', '~> 0.5'
+gem "mysql2", "~> 0.5"
 
 # The "defaults" includes a lot of functionality that is needed in standard decks.
 gem "card-mod-defaults"
