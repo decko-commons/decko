@@ -80,6 +80,8 @@ en:
     # deny_verb_name: You don't have permission to %{verb} %{name}
     # deny_verb_this: You don't have permission to %{verb} this
     # error_cant_delete_child: "can't delete %{child_name}: %{message}"
+
+
     error_code_in_use: codename %{codename} already in use
     error_hard_templated: can't be changed because %{name} is hard templated to %{type_name}
     error_indestructible: "%{name} is an indestructible rule"
