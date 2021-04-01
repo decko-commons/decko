@@ -72,7 +72,7 @@ module Decko
 
           def database_gem_and_version
             entry = database_gemfile_entry
-            text = %('#{entry.name}')
+            text = %("#{entry.name}")
             text << %(, '#{entry.version}') if entry.version
             # single quotes to prevent, eg: `gem "pg", ">= 0.18', '< 2.0"`
             text
