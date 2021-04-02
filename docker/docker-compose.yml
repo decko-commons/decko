@@ -1,0 +1,23 @@
+version: "3.7"
+
+services:
+  deck:
+    image: decko1:latest
+    ports:
+      - 4444:4444
+    environment:
+      MYSQL_HOST: mysql
+      MYSQL_USER: root
+      MYSQL_PASSWORD: changeme
+      MYSQL_DB: deck
+
+  mysql:
+    image: mysql:5.7
+    volumes:
+      - deckdb:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: changeme
+      MYSQL_DATABASE: deck
+
+volumes:
+  deckdb:

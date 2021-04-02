@@ -16,7 +16,7 @@ module Shark
     # Learn more:
     #  https://guides.rubyonrails.org/configuring.html#configuring-action-mailer
 
-    config.action_mailer.perform_deliveries = false
+    config.action_mailer.perform_deliveries = true
     # config.action_mailer.delivery_method  = ...
     # config.action_mailer.smtp_settings    = ...
 
