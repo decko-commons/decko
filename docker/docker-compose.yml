@@ -1,15 +1,23 @@
 version: "3.7"
 
 services:
-  deck:
+  app:
     image: decko1:latest
+    command: docker_bundle
     ports:
-      - 4444:4444
+      - 3000:3000
+    volumes_from:
+      - bundle
     environment:
       MYSQL_HOST: mysql
       MYSQL_USER: root
       MYSQL_PASSWORD: changeme
       MYSQL_DB: deck
+
+  bundle:
+    image: busybox
+    volumes:
+      - /bundle
 
   mysql:
     image: mysql:5.7
