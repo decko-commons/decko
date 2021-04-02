@@ -1,9 +1,9 @@
 
 # "passenger-full" includes passenger, ruby 2.7, nginx, and memcached
 # (and more, but those are the things we need)
+#
+# Could be optimized to use less space
 FROM phusion/passenger-full:1.0.12
-
-ENV BUNDLE_PATH /bundle
 
 # ENABLE RUBY, MEMCACHED, NGINX
 # use ruby 2.7
@@ -22,16 +22,7 @@ CMD ["/sbin/my_init"]
 
 WORKDIR /deck
 
-# BUNDLE CONFIGURATION
-# normally bad practice to run bundle as root, but it's ok in a container
-RUN bundle config silence_root_warning 1
-# enforce consistency between Gemfile and Gemfile.lock
-RUN bundle config set deployment 'true'
-# installing outside of working path makes it easier to make use of docker caching
-RUN bundle config path '/vendor'
-
 COPY --chown=app:app template/ .
-
 
 # Clean up APT when done.
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*

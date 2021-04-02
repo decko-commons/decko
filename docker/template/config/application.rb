@@ -2,7 +2,7 @@ require File.expand_path("../boot", __FILE__)
 
 require "decko/application"
 
-module Shark
+module DockerDeck
   # sample decko application
   class Application < Decko::Application
     config.performance_logger = nil
