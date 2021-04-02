@@ -7,6 +7,8 @@ module DockerDeck
   class Application < Decko::Application
     config.performance_logger = nil
 
+    config.encoding = "utf-8"
+
     # Decko inherits most Ruby-on-Rails configuration options.
     # See http://guides.rubyonrails.org/configuring.html
 
@@ -33,13 +35,12 @@ module DockerDeck
     config.delaying = false
 
     # CACHING
-    # config.cache_store = :file_store, "tmp/cache"
     # determines caching mechanism.  options include: file_store, memory_store,
     # mem_cache_store, dalli_store...
     #
     # for production, we highly recommend memcache
     # here's a sample configuration for use with the dalli gem
-    # config.cache_store = :dalli_store, []
+    config.cache_store = :mem_cache_store, []
 
     # FILES
     # config.paths["files"] = "files"

@@ -1,2 +1,6 @@
 In this directory are docker resources to run the decko app.
 
+docker compose build
+docker compose run app bundle install
+docker compose up -d
+docker compose exec app bundle exec decko seed

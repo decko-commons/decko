@@ -7,6 +7,8 @@ gem "decko"
 # (not well tested).
 gem "mysql2", "~> 0.5"
 
+gem "dalli"
+
 # The "defaults" includes a lot of functionality that is needed in standard decks.
 gem "card-mod-defaults"
 

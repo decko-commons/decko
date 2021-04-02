@@ -7,22 +7,16 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - 3000:3000
+      - 4444:80
     volumes:
       - bundler_gems:/bundle
-    environment:
-      MYSQL_HOST: mysql
-      MYSQL_USER: root
-      MYSQL_PASSWORD: changeme
-      MYSQL_DB: deck
 
   mysql:
     image: mysql:5.7
     volumes:
       - deckdb:/var/lib/mysql
     environment:
-      MYSQL_ROOT_PASSWORD: changeme
-      MYSQL_DATABASE: deck
+      MYSQL_ROOT_PASSWORD: deckDbPass
 
 volumes:
   deckdb:

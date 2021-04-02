@@ -23,6 +23,7 @@ CMD ["/sbin/my_init"]
 WORKDIR /deck
 
 COPY --chown=app:app template/ .
+COPY bundle_config .bundle/config
 
 # Clean up APT when done.
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
