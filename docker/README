@@ -4,3 +4,4 @@ docker compose build
 docker compose run app bundle install
 docker compose up -d
 docker compose exec app bundle exec decko seed
+docker compose exec app bundle exec decko update

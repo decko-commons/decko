@@ -46,51 +46,54 @@ module DockerDeck
     # config.paths["files"] = "files"
     # directory in which uploaded files are actually stored. (eg Image and File cards)
 
-    # config.file_storage = :local
-    # File storage options (see http://decko.org/file_storage_options)
-    # options include: local, cloud, web, coded
-    # defaults to local
-    # For cloud storage use the following config options and add the corresponding fog gem
-    # for your cloud service. For example for AWS add "fog-aws" to your Gemfile.
-    # config.file_default_bucket = :my_bucket
-    # config.file_buckets = {
-    #   my_bucket: {
-    #     directory: "bucket-name",
-    #     subdirectory: "files",
-    #     credentials: {
-    #        provider: "AWS",                         # required
-    #        aws_access_key_id: "key",                # required
-    #        aws_secret_access_key: "secret-key",     # required
-    #        use_iam_profile: true,             # optional, defaults to false
-    #        region: "eu-central-1",                   # optional, defaults to "us-east-1"
-    #        host: "s3.example.com",                  # optional, defaults to nil
-    #        endpoint: "https://s3.example.com:8080"  # optional, defaults to nil
-    #     },
-    #     attributes: { "Cache-Control" => "max-age=#{365.day.to_i}" },
-    #     public: true,
-    #     read_only: false,                  # if true then updating a file
-    #                                        # in that bucket will move it
-    #                                        # to the default storage location
-    #     authenticated_url_expiration: 180  # if public is set to false this
-    #                                        # option is needed
-    #   }
-    # }
+    if %w[DO AWS].member? ENV["DECKO_FILE_STORAGE"]
+      credentials =
+        if ENV["DECKO_FILE_STORAGE"] == "DO"
+          { host: "https://ams3.digitaloceanspaces.com",
+            endpoint: "https://ams3.digitaloceanspaces.com" }
+        else
+          { host: "s3.example.com",
+            endpoint: "https://s3.example.com:8080" }
+        end
+
+      # config.file_storage = :local
+      # File storage options (see http://decko.org/file_storage_options)
+      # options include: local, cloud, web, coded
+      # defaults to local
+      # For cloud storage use the following config options and add the corresponding fog gem
+      # for your cloud service. For example for AWS add "fog-aws" to your Gemfile.
+
+      config.file_default_bucket = :my_bucket
+      config.file_buckets = {
+        my_bucket: {
+          directory: ENV['DECKO_FILE_BUCKET'],
+          subdirectory: "files",
+          credentials: credentials.merge(
+            provider: "AWS",
+            aws_access_key_id:     ENV["DECKO_FILE_KEY"],    # required
+            aws_secret_access_key: ENV["DECKO_FILE_SECRET"], # required
+            region:                ENV["DECKO_FILE_REGION"], # optional,
+                                                             # defaults to "us-east-1"
+          ),
+          attributes: { "Cache-Control" => "max-age=#{365.day.to_i}" },
+          public: true,
+
+          # if true then updating a file in that bucket will move it to the
+          # default storage location
+          read_only: false,
+
+          # if public is set to false this option is needed
+          authenticated_url_expiration: 180
+        }
+      }
+    end
 
     # MISCELLANEOUS
     # config.read_only = true
     # defaults to false
     # disallows creating, updating, and deleting cards.
 
-    # config.paths["mod"] << "my-mod-dir"
-    # add a new directory for code customizations, or "mods"
-
     # config.allow_inline_styles = false
     # don't strip style attributes (not recommended)
-
-    # config.override_host = "example.com"
-    # overrides host auto-detected from web requests
-
-    # config.override_protocol = "https"
-    # overrides protocol auto-detected from web requests
   end
 end
