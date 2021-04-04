@@ -2,10 +2,12 @@ require File.expand_path("../boot", __FILE__)
 
 require "decko/application"
 
-module Shark
+module DockerDeck
   # sample decko application
   class Application < Decko::Application
     config.performance_logger = nil
+
+    config.encoding = "utf-8"
 
     # Decko inherits most Ruby-on-Rails configuration options.
     # See http://guides.rubyonrails.org/configuring.html
@@ -16,7 +18,7 @@ module Shark
     # Learn more:
     #  https://guides.rubyonrails.org/configuring.html#configuring-action-mailer
 
-    config.action_mailer.perform_deliveries = false
+    config.action_mailer.perform_deliveries = true
     # config.action_mailer.delivery_method  = ...
     # config.action_mailer.smtp_settings    = ...
 
@@ -33,13 +35,12 @@ module Shark
     config.delaying = false
 
     # CACHING
-    # config.cache_store = :file_store, "tmp/cache"
     # determines caching mechanism.  options include: file_store, memory_store,
     # mem_cache_store, dalli_store...
     #
     # for production, we highly recommend memcache
     # here's a sample configuration for use with the dalli gem
-    # config.cache_store = :dalli_store, []
+    config.cache_store = :mem_cache_store, []
 
     # FILES
     # config.paths["files"] = "files"

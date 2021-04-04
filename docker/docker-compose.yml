@@ -1,0 +1,23 @@
+version: "3.7"
+
+services:
+  app:
+    image: decko1:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 4444:80
+    volumes:
+      - bundler_gems:/bundle
+
+  mysql:
+    image: mysql:5.7
+    volumes:
+      - deckdb:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: deckDbPass
+
+volumes:
+  deckdb:
+  bundler_gems:
