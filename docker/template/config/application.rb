@@ -49,27 +49,21 @@ module DockerDeck
     if %w[DO AWS].member? ENV["DECKO_FILE_STORAGE"]
       credentials =
         if ENV["DECKO_FILE_STORAGE"] == "DO"
-          { host: "https://ams3.digitaloceanspaces.com",
-            endpoint: "https://ams3.digitaloceanspaces.com" }
+          { host: "https://nyc3.digitaloceanspaces.com",
+            endpoint: "https://nyc3.digitaloceanspaces.com" }
         else
           { host: "s3.example.com",
             endpoint: "https://s3.example.com:8080" }
         end
 
-      # config.file_storage = :local
-      # File storage options (see http://decko.org/file_storage_options)
-      # options include: local, cloud, web, coded
-      # defaults to local
-      # For cloud storage use the following config options and add the corresponding fog gem
-      # for your cloud service. For example for AWS add "fog-aws" to your Gemfile.
-
+      config.file_storage = :cloud
       config.file_default_bucket = :my_bucket
       config.file_buckets = {
         my_bucket: {
-          directory: ENV['DECKO_FILE_BUCKET'],
+          directory: ENV["DECKO_FILE_BUCKET"],
           subdirectory: "files",
           credentials: credentials.merge(
-            provider: "AWS",
+            provider: "fog/aws",
             aws_access_key_id:     ENV["DECKO_FILE_KEY"],    # required
             aws_secret_access_key: ENV["DECKO_FILE_SECRET"], # required
             region:                ENV["DECKO_FILE_REGION"], # optional,

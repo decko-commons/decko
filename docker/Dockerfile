@@ -1,17 +1,15 @@
 # PASSENGER-DOCKER
 # https://github.com/phusion/passenger-docker
-FROM phusion/passenger-customizable
+FROM phusion/passenger-full
 
+# ENABLE RUBY, MEMCACHED, NGINX
 # use ruby 2.7
-RUN /pd_build/ruby-2.7.*.sh
+RUN bash -lc 'rvm --default use ruby-2.7.2'
 # enable memcached
-RUN /pd_build/memcached.sh
 RUN rm -f /etc/service/memcached/down
 # enable nginx
 RUN rm -f /etc/service/nginx/down
 RUN rm /etc/nginx/sites-enabled/default
-# enable nodejs (for javascript runtime)
-RUN /pd_build/nodejs.sh
 
 # Use baseimage-docker's init process.
 CMD ["/sbin/my_init"]
@@ -31,8 +29,9 @@ COPY bundle_config .bundle/config
 ARG DECKO_FILE_STORAGE
 ENV DECKO_FILE_STORAGE=${DECKO_FILE_STORAGE}
 
-RUN bundle install
-RUN bundle exec rake decko:update_assets_symlink
+
+# RUN bundle install
+# RUN bundle exec rake decko:update_assets_symlink
 
 # Clean up APT when done.
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*

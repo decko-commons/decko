@@ -2,7 +2,7 @@ version: "3.7"
 
 services:
   app:
-    image: decko-app-mysql:latest
+    image: decko-app-mysql-aws:latest
     build:
       context: .
       dockerfile: Dockerfile
