@@ -44,7 +44,7 @@ module DockerDeck
     # config.paths["files"] = "files"
     # directory in which uploaded files are actually stored. (eg Image and File cards)
 
-    if %w[DO AWS].member? ENV["DECKO_FILE_STORAGE"]
+    if ENV["DECKO_FILE_STORAGE"] == "AWS"
       config.file_storage = :cloud
       config.file_default_bucket = :my_bucket
       config.file_buckets = {
