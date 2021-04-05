@@ -2,7 +2,7 @@ version: "3.7"
 
 services:
   app:
-    image: decko-app-mysql-aws:latest
+    image: ethn/decko-app-mysql-aws:latest
     build:
       context: .
       dockerfile: Dockerfile
@@ -10,19 +10,18 @@ services:
         DECKO_FILE_STORAGE: DO
     ports:
       - 4444:80
-    volumes:
-      - bundler_gems:/bundle
-      - assets_dir:/deck/public/assets
-      - /tmp/files:/deck/files
-    environment:
-      DECKO_FILE_STORAGE: DO
-      DECKO_FILE_BUCKET: docko
-      DECKO_FILE_KEY: 4JHURSZIN34IGZD7IOQZ
-      DECKO_FILE_SECRET: 1azObevzogwGL4NIZHcIw5B3kz+8gjpr2oYjFJ6lGNc
-      DECKO_FILE_REGION: nyc3
+    depends_on:
+      - mysql
+      # volumes:
+      # - bundler_gems:/bundle
+      # - assets_dir:/deck/public/assets
+      # - /tmp/files:/deck/files
+    # environment:
+
 
   mysql:
     image: mysql:5.7
+
     volumes:
       - deckdb:/var/lib/mysql
     environment:
@@ -30,5 +29,5 @@ services:
 
 volumes:
   deckdb:
-  bundler_gems:
-  assets_dir:
+  # bundler_gems:
+  # assets_dir:

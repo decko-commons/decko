@@ -12,21 +12,6 @@ module DockerDeck
     # Decko inherits most Ruby-on-Rails configuration options.
     # See http://guides.rubyonrails.org/configuring.html
 
-    # EMAIL
-    # Email is not turned on by default.  To turn it on, you need to change the
-    # following to `true` and then add configuration specific to your site.
-    # Learn more:
-    #  https://guides.rubyonrails.org/configuring.html#configuring-action-mailer
-
-    config.action_mailer.perform_deliveries = true
-    # config.action_mailer.delivery_method  = ...
-    # config.action_mailer.smtp_settings    = ...
-
-    # Example configuration for mailcatcher, a simple smtp server.
-    # See http://mailcatcher.me for more information
-    # config.action_mailer.delivery_method = :smtp
-    # config.action_mailer.smtp_settings = { address: "localhost", port: 1025 }
-
     # BACKGROUND
     # Decko lets you run some card events (like follower notifications) in the
     # background. This is off by default but can be turned on by changing the
@@ -42,42 +27,47 @@ module DockerDeck
     # here's a sample configuration for use with the dalli gem
     config.cache_store = :mem_cache_store, []
 
+
+    # EMAIL
+    # Email is not turned on by default.  To turn it on, you need to change the
+    # following to `true` and then add configuration specific to your site.
+    # Learn more:
+    #  https://guides.rubyonrails.org/configuring.html#configuring-action-mailer
+
+    config.action_mailer.perform_deliveries = true
+
+    # Example configuration for mailcatcher, a simple smtp server.
+    # See http://mailcatcher.me for more information
+    # config.action_mailer.delivery_method = :smtp
+    # config.action_mailer.smtp_settings = { address: "localhost", port: 1025 }
+
+
     # FILES
     # config.paths["files"] = "files"
     # directory in which uploaded files are actually stored. (eg Image and File cards)
 
     if %w[DO AWS].member? ENV["DECKO_FILE_STORAGE"]
-      credentials =
-        if ENV["DECKO_FILE_STORAGE"] == "DO"
-          { host: "https://nyc3.digitaloceanspaces.com",
-            endpoint: "https://nyc3.digitaloceanspaces.com" }
-        else
-          { host: "s3.example.com",
-            endpoint: "https://s3.example.com:8080" }
-        end
-
       config.file_storage = :cloud
       config.file_default_bucket = :my_bucket
       config.file_buckets = {
         my_bucket: {
+          provider: "fog/aws",
           directory: ENV["DECKO_FILE_BUCKET"],
           subdirectory: "files",
           credentials: credentials.merge(
-            provider: "fog/aws",
-            aws_access_key_id:     ENV["DECKO_FILE_KEY"],    # required
-            aws_secret_access_key: ENV["DECKO_FILE_SECRET"], # required
-            region:                ENV["DECKO_FILE_REGION"], # optional,
-                                                             # defaults to "us-east-1"
+            provider: "AWS",
+            host:                  ENV["DECKO_FILE_HOST"],
+            endpoint:              ENV["DECKO_FILE_ENDPOINT"],
+            aws_access_key_id:     ENV["DECKO_FILE_KEY"],
+            aws_secret_access_key: ENV["DECKO_FILE_SECRET"],
+            region:                ENV["DECKO_FILE_REGION"]
           ),
           attributes: { "Cache-Control" => "max-age=#{365.day.to_i}" },
           public: true,
 
           # if true then updating a file in that bucket will move it to the
           # default storage location
-          read_only: false,
-
-          # if public is set to false this option is needed
-          authenticated_url_expiration: 180
+          read_only: false
         }
       }
     end

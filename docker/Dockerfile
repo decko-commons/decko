@@ -29,9 +29,8 @@ COPY bundle_config .bundle/config
 ARG DECKO_FILE_STORAGE
 ENV DECKO_FILE_STORAGE=${DECKO_FILE_STORAGE}
 
-
-# RUN bundle install
-# RUN bundle exec rake decko:update_assets_symlink
+RUN bundle install
+RUN bundle exec rake decko:update_assets_symlink
 
 # Clean up APT when done.
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
