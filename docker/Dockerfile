@@ -1,9 +1,7 @@
-FROM phusion/passenger-full
-RUN bash -lc 'rvm --default use ruby-2.7.2'
+# Sample Dockerfile for Decko Monkeys
 
-RUN bundle config --global silence_root_warning 1
+FROM ethn/decko-base
 
 WORKDIR /deck
-COPY template/* .
 
-RUN bundle install
+COPY . .
