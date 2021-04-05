@@ -7,4 +7,3 @@ RUN ./script/db_yml_from_env.rb
 CMD ["/sbin/my_init"]
 
 RUN bundle install
-
