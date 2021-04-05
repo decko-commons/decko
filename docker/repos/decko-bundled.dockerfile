@@ -1,6 +1,7 @@
 FROM ethn/decko-base
 
-ENV DECKO_DB_ENGINE=all
-
 RUN bundle install
-RUN bundle exec rake decko:update_assets_symlink
+RUN rake decko:update_assets_symlink
+
+# Use baseimage-docker's init process.
+CMD ["/sbin/my_init"]

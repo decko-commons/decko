@@ -1,7 +1,10 @@
 FROM ethn/decko-bundled
 
 ENV DECKO_DB_ENGINE=mysql
+RUN ./script/db_yml_from_env.rb
 
-RUN erb config/database.yml.erb > config/database.yml
+# Use baseimage-docker's init process.
+CMD ["/sbin/my_init"]
 
 RUN bundle install
+

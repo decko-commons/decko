@@ -9,11 +9,6 @@ gem "dalli"
 # AWS-COMPATIBLE FILE STORAGE - not all docker chambers use it, but easy to ignore
 gem "fog-aws"
 
-# DATABASE
-def db? engine
-  ["all", engine].include? ENV["DECKO_DB_ENGINE"]
-end
-
-gem "mysql2"  if db? "mysql"
-gem "pg"      if db? "postgres"
-gem "sqlite3" if db? "sqlite"
+gem "mysql2"  if ENV["DECKO_DB_ENGINE"] ==  "mysql"
+gem "pg"      if ENV["DECKO_DB_ENGINE"] ==  "postgres"
+gem "sqlite3" if ENV["DECKO_DB_ENGINE"] ==  "sqlite"

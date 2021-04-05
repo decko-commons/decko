@@ -23,3 +23,5 @@ COPY . .
 # docker image.  Only use `bundle install` if you do.
 RUN bundle install
 
+# Use baseimage-docker's init process. (see passenger-docker to learn more)
+CMD ["/sbin/my_init"]
