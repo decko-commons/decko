@@ -1,0 +1,4 @@
+---
+BUNDLE_PATH: "/gems"
+BUNDLE_SILENCE_ROOT_WARNING: "1"
+BUNDLE_BIN: "/usr/local/bin/"
