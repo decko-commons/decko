@@ -1,0 +1,12 @@
+<% engine = { mysql: :mysql2, postgres: :pg, sqlite: :sqlite3} %>
+
+production:
+  host: db
+  database: deckdb
+  username: root
+  password: deckDbPass
+
+  adapter: <%= engine[ENV["DECKO_DB_ENGINE"]&.to_sym] || "mysql2" %>
+  encoding: utf8
+  reconnect: false
+  pool: 5

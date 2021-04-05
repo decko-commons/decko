@@ -23,3 +23,4 @@ decko/spec/cypress/screenshots
 decko/spec/cypress/videos
 vendor
 docker/env
+docker/test

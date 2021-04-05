@@ -18,6 +18,9 @@ CMD ["/sbin/my_init"]
 RUN apt-get update -y
 RUN apt-get install -y imagemagick
 
+# INSTALL ERB
+RUN apt-get install -y  ruby-markerb
+
 # NGINX CONFIG
 COPY mydeck.conf /etc/nginx/sites-enabled/mydeck.conf
 
