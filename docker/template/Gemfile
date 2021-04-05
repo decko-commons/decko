@@ -3,9 +3,17 @@ source "http://rubygems.org"
 gem "decko"
 gem "card-mod-defaults"
 
-# database
-gem "mysql2", "~> 0.5"
+# MEMCACHED - used in all docker images
+gem "dalli"
+
+# AWS-COMPATIBLE FILE STORAGE - not all docker chambers use it, but easy to ignore
 gem "fog-aws"
 
-# MEMCACHED
-gem "dalli"
+# DATABASE
+def db? engine
+  ["all", engine].include? ENV["DECKO_DB_ENGINE"]
+end
+
+gem "mysql2" if db? "mysql"
+gem "pg" if db? "postgres"
+gem "sqlite3" if db? "sqlite3"

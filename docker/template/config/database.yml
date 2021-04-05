@@ -1,5 +1,5 @@
 production:
-  host: mysql
+  host: db
   database: deckdb
   username: root
   password: deckDbPass
