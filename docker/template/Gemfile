@@ -1,6 +1,5 @@
 source "http://rubygems.org"
 
-
 gem "decko"
 
 # The "defaults" includes a lot of functionality that is needed in standard decks.
@@ -10,9 +9,7 @@ gem "card-mod-defaults"
 gem "mysql2", "~> 0.5"
 
 # FILE STORAGE
-if %w[DO AWS].member? ENV["DECKO_FILE_STORAGE"]
-  gem "fog-aws"
-end
+gem "fog-aws" if %w[DO AWS].member? ENV["DECKO_FILE_STORAGE"]
 
 # MEMCACHED
 gem "dalli"

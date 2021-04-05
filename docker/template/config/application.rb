@@ -27,7 +27,6 @@ module DockerDeck
     # here's a sample configuration for use with the dalli gem
     config.cache_store = :mem_cache_store, []
 
-
     # EMAIL
     # Email is not turned on by default.  To turn it on, you need to change the
     # following to `true` and then add configuration specific to your site.
@@ -40,7 +39,6 @@ module DockerDeck
     # See http://mailcatcher.me for more information
     # config.action_mailer.delivery_method = :smtp
     # config.action_mailer.smtp_settings = { address: "localhost", port: 1025 }
-
 
     # FILES
     # config.paths["files"] = "files"
@@ -64,10 +62,9 @@ module DockerDeck
           ),
           attributes: { "Cache-Control" => "max-age=#{365.day.to_i}" },
           public: true,
-
+          read_only: false
           # if true then updating a file in that bucket will move it to the
           # default storage location
-          read_only: false
         }
       }
     end
