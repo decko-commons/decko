@@ -1,0 +1,5 @@
+---
+BUNDLE_PATH: "/bundle"
+BUNDLE_SILENCE_ROOT_WARNING: "1"
+BUNDLE_SET: "deployment true"
+BUNDLE_BIN: "/usr/local/bin/"

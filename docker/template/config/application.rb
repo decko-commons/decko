@@ -2,28 +2,15 @@ require File.expand_path("../boot", __FILE__)
 
 require "decko/application"
 
-module Shark
+module DockerDeck
   # sample decko application
   class Application < Decko::Application
     config.performance_logger = nil
 
+    config.encoding = "utf-8"
+
     # Decko inherits most Ruby-on-Rails configuration options.
     # See http://guides.rubyonrails.org/configuring.html
-
-    # EMAIL
-    # Email is not turned on by default.  To turn it on, you need to change the
-    # following to `true` and then add configuration specific to your site.
-    # Learn more:
-    #  https://guides.rubyonrails.org/configuring.html#configuring-action-mailer
-
-    config.action_mailer.perform_deliveries = false
-    # config.action_mailer.delivery_method  = ...
-    # config.action_mailer.smtp_settings    = ...
-
-    # Example configuration for mailcatcher, a simple smtp server.
-    # See http://mailcatcher.me for more information
-    # config.action_mailer.delivery_method = :smtp
-    # config.action_mailer.smtp_settings = { address: "localhost", port: 1025 }
 
     # BACKGROUND
     # Decko lets you run some card events (like follower notifications) in the
@@ -33,63 +20,61 @@ module Shark
     config.delaying = false
 
     # CACHING
-    # config.cache_store = :file_store, "tmp/cache"
     # determines caching mechanism.  options include: file_store, memory_store,
     # mem_cache_store, dalli_store...
     #
     # for production, we highly recommend memcache
     # here's a sample configuration for use with the dalli gem
-    # config.cache_store = :dalli_store, []
+    config.cache_store = :mem_cache_store, []
+
+    # EMAIL
+    # Email is not turned on by default.  To turn it on, you need to change the
+    # following to `true` and then add configuration specific to your site.
+    # Learn more:
+    #  https://guides.rubyonrails.org/configuring.html#configuring-action-mailer
+
+    config.action_mailer.perform_deliveries = true
+
+    # Example configuration for mailcatcher, a simple smtp server.
+    # See http://mailcatcher.me for more information
+    # config.action_mailer.delivery_method = :smtp
+    # config.action_mailer.smtp_settings = { address: "localhost", port: 1025 }
 
     # FILES
     # config.paths["files"] = "files"
     # directory in which uploaded files are actually stored. (eg Image and File cards)
 
-    # config.file_storage = :local
-    # File storage options (see http://decko.org/file_storage_options)
-    # options include: local, cloud, web, coded
-    # defaults to local
-    # For cloud storage use the following config options and add the corresponding fog gem
-    # for your cloud service. For example for AWS add "fog-aws" to your Gemfile.
-    # config.file_default_bucket = :my_bucket
-    # config.file_buckets = {
-    #   my_bucket: {
-    #     directory: "bucket-name",
-    #     subdirectory: "files",
-    #     credentials: {
-    #        provider: "AWS",                         # required
-    #        aws_access_key_id: "key",                # required
-    #        aws_secret_access_key: "secret-key",     # required
-    #        use_iam_profile: true,             # optional, defaults to false
-    #        region: "eu-central-1",                   # optional, defaults to "us-east-1"
-    #        host: "s3.example.com",                  # optional, defaults to nil
-    #        endpoint: "https://s3.example.com:8080"  # optional, defaults to nil
-    #     },
-    #     attributes: { "Cache-Control" => "max-age=#{365.day.to_i}" },
-    #     public: true,
-    #     read_only: false,                  # if true then updating a file
-    #                                        # in that bucket will move it
-    #                                        # to the default storage location
-    #     authenticated_url_expiration: 180  # if public is set to false this
-    #                                        # option is needed
-    #   }
-    # }
+    if %w[DO AWS].member? ENV["DECKO_FILE_STORAGE"]
+      config.file_storage = :cloud
+      config.file_default_bucket = :my_bucket
+      config.file_buckets = {
+        my_bucket: {
+          provider: "fog/aws",
+          directory: ENV["DECKO_FILE_BUCKET"],
+          subdirectory: "files",
+          credentials: credentials.merge(
+            provider: "AWS",
+            host:                  ENV["DECKO_FILE_HOST"],
+            endpoint:              ENV["DECKO_FILE_ENDPOINT"],
+            aws_access_key_id:     ENV["DECKO_FILE_KEY"],
+            aws_secret_access_key: ENV["DECKO_FILE_SECRET"],
+            region:                ENV["DECKO_FILE_REGION"]
+          ),
+          attributes: { "Cache-Control" => "max-age=#{365.day.to_i}" },
+          public: true,
+          read_only: false
+          # if true then updating a file in that bucket will move it to the
+          # default storage location
+        }
+      }
+    end
 
     # MISCELLANEOUS
     # config.read_only = true
     # defaults to false
     # disallows creating, updating, and deleting cards.
 
-    # config.paths["mod"] << "my-mod-dir"
-    # add a new directory for code customizations, or "mods"
-
     # config.allow_inline_styles = false
     # don't strip style attributes (not recommended)
-
-    # config.override_host = "example.com"
-    # overrides host auto-detected from web requests
-
-    # config.override_protocol = "https"
-    # overrides protocol auto-detected from web requests
   end
 end
