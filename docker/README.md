@@ -52,6 +52,6 @@ Docker gives you a lot of power to manipulate the containers, and you can consul
 
 ## For Monkeys
 
-There is not yet a lot of great support for monkeys wanting to develop within docker, but that's coming soon.  The idea is to create options for `decko new` that will create the basic structure (Dockerfile, etc) to use docker containers in all stages of site creation.
+Increased support for monkeys who want to use Docker when developing is coming soon.  The idea is to create options for `decko new` that will create the basic structure (Dockerfile, etc) to use docker containers in all stages of site creation.
 
 In the meantime, you can get a sense of how that would look by looking at how the Dockerfile is structured in the docker directory in the decko repo. 

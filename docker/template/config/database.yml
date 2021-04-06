@@ -2,7 +2,7 @@ production:
   host: db
   database: deckdb
   username: root
-  password: deckDbPass
+  password: deckodbpass
 
   adapter: mysql2
   encoding: utf8
