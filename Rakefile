@@ -2,6 +2,8 @@
 #
 require "./decko_gem"
 
+DOCKER_IMAGES = %w[base bundled mysql postgres sandbox].map { |name| "decko-#{name}" }
+
 # Note: these tasks are not in any gem and are thus not available to mod
 # developers.  Therefore they should contain only tasks for core developers.
 
@@ -21,6 +23,18 @@ task :release do
     git tag -a v#{version} -m "Decko Version #{version}"
     git push --tags decko
   )
+end
+
+task :build_images do
+  DOCKER_IMAGES.each do |image|
+    system "cd docker; docker build -f repos/#{image}.dockerfile -t ethn/#{image} ."
+  end
+end
+
+task :push_images do
+  DOCKER_IMAGES.each do |image|
+    system "docker push ethn/#{image}"
+  end
 end
 
 def each_gem
