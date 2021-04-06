@@ -1,10 +1,10 @@
 production:
   host: db
   database: deckdb
-  username: root
+  username: <%= username %>
   password: deckodbpass
 
-  adapter: mysql2
+  adapter: <%= adapter %>
   encoding: utf8
   reconnect: false
   pool: 5

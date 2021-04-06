@@ -1,0 +1,25 @@
+version: "3.7"
+
+services:
+  app:
+    # Use one of the following three out-of-the-box images or add your own image
+    # and uncommment the build command if using your own Dockerfile
+    image: ethn/decko-mysql
+    ports:
+      - 4444:80
+    volumes:
+      # The following assumes there is a "files" subdirectory inside the directory
+      # running docker compose. Comment it out if using cloud storage
+      - ./files:/deck/files
+
+  db:
+    # Comment out the following lines if using postgres
+    image: mysql
+    volumes:
+      - mysqldeckdb:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: deckodbpass
+
+volumes:
+  mysqldeckdb:
+
