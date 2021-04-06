@@ -1,12 +1,14 @@
 source "http://rubygems.org"
 
 gem "decko"
+
+# default mods
 gem "card-mod-defaults"
 
-# MEMCACHED - used in all docker images
+# memcached - used in all docker images
 gem "dalli"
 
-# AWS-COMPATIBLE FILE STORAGE - not all docker chambers use it, but easy to ignore
+# AWS-compatible file storage - not all docker chambers use it, but easy to ignore
 gem "fog-aws"
 
 gem "mysql2"  if ENV["DECKO_DB_ENGINE"] ==  "mysql"

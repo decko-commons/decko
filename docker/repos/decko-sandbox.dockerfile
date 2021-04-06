@@ -9,3 +9,4 @@ CMD ["/sbin/my_init"]
 RUN bundle install
 
 RUN decko seed
+RUN chown -R app.app .
