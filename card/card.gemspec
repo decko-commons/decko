@@ -16,8 +16,8 @@ DeckoGem.gem "card" do |s, d|
 
   d.depends_on(
     ["cardname",             d.decko_version],
-    ["rake",                     "<= 12.3.0"],
-    ["rails",                       "~> 6.1"],
+    ["rake",                       "~> 13.0"],
+    ["rails",                   "~> 6.1.3.1"], # reduce digits after 6.2 (mimemagic issue)
     ["colorize",                    "~> 0.8"], # livelier cli outputs
     #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     # MOVE TO MODS?
@@ -30,7 +30,7 @@ DeckoGem.gem "card" do |s, d|
     ["coderay",                     "~> 1.1"],
     ["sassc",                       "~> 2.0"],
     ["coffee-script",               "~> 2.4"],
-    ["uglifier",                    "~> 3.2"],
+    ["uglifier",                    "~> 4.2"],
     ["sprockets",                   "~> 3.7"], # sprockets 4 requires new configuration
     # pagination
     ["kaminari",                    "~> 1.0"],
