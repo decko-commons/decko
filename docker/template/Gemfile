@@ -2,14 +2,15 @@ source "http://rubygems.org"
 
 gem "decko"
 
-# DATABASE
-# Decko currently supports MySQL (best tested), PostgreSQL (well tested), and SQLite
-# (not well tested).
-gem "mysql2", "~> 0.5"
-
-# The "defaults" includes a lot of functionality that is needed in standard decks.
+# default mods
 gem "card-mod-defaults"
 
-# The following allows simple (non-gem) mods to specify gems via a Gemfile.
-# You may need to alter this code if you move such mods to an unconventional location.
-Dir.glob("mod/**/Gemfile").each { |gemfile| instance_eval File.read(gemfile) }
+# memcached - used in all docker images
+gem "dalli"
+
+# AWS-compatible file storage - not all docker chambers use it, but easy to ignore
+gem "fog-aws"
+
+gem "mysql2"  if ENV["DECKO_DB_ENGINE"] ==  "mysql"
+gem "pg"      if ENV["DECKO_DB_ENGINE"] ==  "postgres"
+gem "sqlite3" if ENV["DECKO_DB_ENGINE"] ==  "sqlite"
