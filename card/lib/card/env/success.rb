@@ -17,12 +17,8 @@ class Card
       end
 
       def to_url name_context=@name_context
-        case (target = target(name_context))
-        when Card
-          target.format.path params
-        else
-          target
-        end
+        target = target name_context
+        target.is_a?(Card) ? target.format.path(params) : target
       end
 
       def in_context name_context
@@ -79,11 +75,9 @@ class Card
       end
 
       def method_missing method, *args
-        if (m = method.match(/^(\w+(=)?)/))
-          infer_bracket m[1].to_sym, m[2], args[0]
-        else
-          super
-        end
+        return super unless (m = method.match(/^(\w+(=)?)/))
+
+        infer_bracket m[1].to_sym, m[2], args[0]
       end
 
       def infer_bracket method, assign, val
