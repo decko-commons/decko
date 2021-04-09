@@ -20,7 +20,6 @@ class Card
         def mark= value
           case value
           when Integer then @id = value
-          when String then @name = value
           when Card then @card = value
           else
             self.target = value
@@ -66,7 +65,8 @@ class Card
           when /^REDIRECT:\s*(.+)/
             @redirect = true
             process_target Regexp.last_match(1)
-          else self.mark = value
+          else
+            @name = value
           end
         end
       end

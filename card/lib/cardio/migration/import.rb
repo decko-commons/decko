@@ -99,7 +99,7 @@ module Cardio
       def fetch_remote_data name, view, url
         json_url = "#{url}/#{name}.json"
         json_url += "?view=#{view}" if view
-        json = ::File.open(json_url).read
+        json = open(json_url).read
         parse_and_symbolize json
       end
 
