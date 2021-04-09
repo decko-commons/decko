@@ -7,7 +7,7 @@ format :html do
 
   def select_filter field, default=nil, options=nil
     options ||= filter_options field
-    options.unshift(["--", ""]) unless default
+    options = [["--", ""]] + options unless default
     select_filter_tag field, default, options
   end
 
