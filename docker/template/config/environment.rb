@@ -2,4 +2,4 @@
 require File.expand_path("../application", __FILE__)
 
 # Initialize the decko application
-<%= app_const %>.initialize!
+DockerDeck::Application.initialize!
