@@ -12015,9 +12015,14 @@ return jQuery;
       var form;
       form = $(this);
       return $.each(form.data("main-success"), function(key, value) {
-        var inputSelector;
+        var input, inputSelector;
         inputSelector = "[name=success\\[" + key + "\\]]";
-        return form.find(inputSelector).val(value);
+        input = form.find(inputSelector);
+        if (!input[0]) {
+          input = $('<input type="hidden" name="success[' + key + ']"/>');
+          form.append(input);
+        }
+        return input.val(value);
       });
     },
     slotterSuccess: function(event, data) {
