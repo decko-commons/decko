@@ -59,8 +59,7 @@ format :html do
   end
 
   def overlay_delete_button
-    opts = { no_success: true }.merge OVERLAY_CLOSE_OPTS
-    delete_button opts
+    delete_button OVERLAY_CLOSE_OPTS.merge(success: {})
   end
 
   def overlay_save_and_close_button

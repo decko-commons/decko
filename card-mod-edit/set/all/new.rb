@@ -75,7 +75,7 @@ format :html do
   end
 
   def new_form_opts
-    { "main-success" => "REDIRECT" }
+    { "data-main-success": JSON(redirect: true) }
   end
 
   def new_view_title

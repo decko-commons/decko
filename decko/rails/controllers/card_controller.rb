@@ -29,11 +29,10 @@ class CardController < ApplicationController
     handle { card.delete! }
   end
 
-  # @deprecated
   def asset
-    Rails.logger.info "Routing assets through Card. Recommend symlink from " \
-                      'Deck to Card gem using "rake decko:update_assets_symlink"'
-    send_deprecated_asset
+    body = "Decko installation error: missing asset symlinks"
+    Rails.logger.info "#{body}.\n  >>> Try `rake decko:update_assets_symlink`"
+    render body: body, status: 404
   end
 
   # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -117,6 +116,7 @@ class CardController < ApplicationController
   end
 
   def view_from_params
-    params[:view] || params[:v]
+    %i[view v].each { |k| return params[k] if params[k].present? }
+    nil
   end
 end
