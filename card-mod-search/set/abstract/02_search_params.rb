@@ -27,9 +27,7 @@ format do
   end
 
   def extra_paging_path_args
-    return {} unless (vars = query_params)
-
-    { query: vars }
+    (vars = query_params) ? { query: vars } : {}
   end
 end
 
