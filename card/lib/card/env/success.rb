@@ -5,8 +5,8 @@ class Card
       include Location
       include Target
 
-      attr_accessor :redirect, :name, :name_context, :reload
-      attr_writer :params, :card
+      attr_accessor :name, :name_context, :reload
+      attr_writer :params, :redirect, :card
       attr_reader :id
 
       def initialize name_context=nil, success_args=nil
@@ -17,7 +17,7 @@ class Card
       end
 
       def to_url name_context=@name_context
-        case (target = target(name_context))
+        case (target = target(name_context)) 
         when Card
           target.format.path params
         else
@@ -36,6 +36,10 @@ class Card
         else
           self.target = value
         end
+      end
+
+      def redirect
+        @redirect.present? ? @redirect : false
       end
 
       def reload?

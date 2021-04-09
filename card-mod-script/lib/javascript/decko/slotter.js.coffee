@@ -94,12 +94,8 @@ $(window).ready ->
     $(this).closest('.slotter').data("slotter-mode", "update-origin")
 
   $('body').on 'submit', 'form.slotter', (event)->
-    if (target = $(this).attr 'main-success') and $(this).isMain()
-      input = $(this).find '[name=success]'
-      if input and input.val() and !(input.val().match /^REDIRECT/)
-        input.val(
-          (if target == 'REDIRECT' then target + ': ' + input.val() else target)
-        )
+    if $(this).attr('main-success') and $(this).isMain()
+      $(this).redirectSuccess()
     if $(this).data('recaptcha') == 'on'
       return $(this).handleRecaptchaBeforeSubmit(event)
 
@@ -107,6 +103,9 @@ $(window).ready ->
     $(this).slotterBeforeSend(opt)
 
 jQuery.fn.extend
+  redirectSuccess: ()->
+    $(this).find('[name=success\\[redirect\\]]').val "true"
+
   slotterSuccess: (event, data) ->
     unless @hasClass("slotter")
       console.log "warning: slotterSuccess called on non-slotter element #{this}"
