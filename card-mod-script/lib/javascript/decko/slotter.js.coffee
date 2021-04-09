@@ -94,17 +94,21 @@ $(window).ready ->
     $(this).closest('.slotter').data("slotter-mode", "update-origin")
 
   $('body').on 'submit', 'form.slotter', (event)->
-    if $(this).attr('main-success') and $(this).isMain()
-      $(this).redirectSuccess()
-    if $(this).data('recaptcha') == 'on'
-      return $(this).handleRecaptchaBeforeSubmit(event)
+    form = $(this)
+    if form.data("main-success") and form.isMain()
+      form.mainSuccess()
+    if form.data('recaptcha') == 'on'
+      return form.handleRecaptchaBeforeSubmit(event)
 
   $('body').on 'ajax:beforeSend', '.slotter', (event, xhr, opt)->
-    $(this).slotterBeforeSend(opt)
+    $(this).slotterBeforeSend opt
 
 jQuery.fn.extend
-  redirectSuccess: ()->
-    $(this).find('[name=success\\[redirect\\]]').val "true"
+  mainSuccess: ()->
+    form = $(this)
+    $.each form.data("main-success"), (key, value)->
+      inputSelector = "[name=success\\[" + key + "\\]]"
+      form.find(inputSelector).val value
 
   slotterSuccess: (event, data) ->
     unless @hasClass("slotter")

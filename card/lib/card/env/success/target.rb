@@ -11,9 +11,7 @@ class Card
         end
 
         def target name_context=@name_context
-          card(name_context) ||
-            (@target == :previous ? Card::Env.previous_location : @target) ||
-            Card.fetch(name_context)
+          card(name_context) || @target || Card.fetch(name_context)
         end
 
         # TODO: refactor to use cardish
@@ -59,14 +57,14 @@ class Card
 
         def process_target value
           case value
-          when ""                     then ""
-          when "*previous", :previous then :previous
-          when %r{^(http|/)}          then value
-          when /^REDIRECT:\s*(.+)/
-            @redirect = true
-            process_target Regexp.last_match(1)
+          when ""
+            ""
+          when "*previous", ":previous", :previous
+            Card::Env.previous_location
+          when %r{^(http|/)}
+            value
           else
-            @name = value
+            @name = Name[value]
           end
         end
       end

@@ -19,8 +19,7 @@ format :html do
 
     delete_opts = {
       confirm: delete_confirm(args[:fallback_set]),
-      # success: @edit_rule_success,
-      no_success: true,
+      success: {},
       "data-slotter-mode": "silent-success",
       class: "_close-#{form_type}-on-success"
     }

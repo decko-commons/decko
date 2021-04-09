@@ -30,7 +30,7 @@ class Card
         if value.is_a? Hash
           apply value
         else
-          self.target = value
+          self.mark = value
         end
       end
 
