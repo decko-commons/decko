@@ -108,7 +108,11 @@ jQuery.fn.extend
     form = $(this)
     $.each form.data("main-success"), (key, value)->
       inputSelector = "[name=success\\[" + key + "\\]]"
-      form.find(inputSelector).val value
+      input = form.find inputSelector
+      unless input[0]
+        input = $('<input type="hidden" name="success[' + key + ']"/>')
+        form.append input
+      input.val value
 
   slotterSuccess: (event, data) ->
     unless @hasClass("slotter")
