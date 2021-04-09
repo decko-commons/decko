@@ -11,7 +11,7 @@ format :html do
 
   def name_form success_view=nil
     card_form({ action: :update, id: card.id },
-              # "main-success" => "REDIRECT",
+              "main-success" => "REDIRECT",
               "data-update-origin": "true",
               success: edit_name_success(success_view)) do
       [hidden_edit_name_fields,
@@ -22,7 +22,7 @@ format :html do
   end
 
   def edit_name_success view=nil
-    success = { id: "_self" }
+    success = { id: "_self", redirect: "" }
     success[:view] = view if view
     success
   end

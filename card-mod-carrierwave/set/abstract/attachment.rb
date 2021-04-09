@@ -110,7 +110,7 @@ rescue StandardError => e
 end
 
 def detect_extension ext
-  return unless (mime_types = Mime::Types[attachment.content_type])
+  return unless (mime_types = MIME::Types[attachment.content_type])
 
   recognized_extension?(mime_types, ext) ? ext : mime_types[0].extensions[0]
 end

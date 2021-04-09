@@ -12,7 +12,7 @@ DeckoGem.gem "decko-rspec" do |s, d|
                "rr",
                ["rspec-html-matchers", "0.9.1"],
                "rspec",
-               ["rspec-rails", "~> 4.0.0.beta2"],
+               ["rspec-rails", "~> 5"],
                "rubocop-rspec",
                ["simplecov", "~> 0.17.1"],
                ["spork", ">= 0.9"],
