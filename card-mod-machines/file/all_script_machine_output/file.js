@@ -11610,11 +11610,15 @@ return jQuery;
       return $(this).hasClass("card-slot");
     },
     isMain: function() {
-      if ($(this).closest(".modal")[0]) {
-        return $(this).findOriginSlot("modal").isMain();
-      } else {
-        return this.slot().parent('#main')[0];
+      return this.slot().parent('#main')[0];
+    },
+    isMainOrMainModal: function() {
+      var el;
+      el = $(this);
+      if (el.closest(".modal")[0]) {
+        el = el.findOriginSlot("modal");
       }
+      return el.isMain();
     },
     findSlot: function(selector) {
       var parent_slot, target_slot;
@@ -11998,7 +12002,7 @@ return jQuery;
     $('body').on('submit', 'form.slotter', function(event) {
       var form;
       form = $(this);
-      if (form.data("main-success") && form.isMain()) {
+      if (form.data("main-success") && form.isMainOrMainModal()) {
         form.mainSuccess();
       }
       if (form.data('recaptcha') === 'on') {
