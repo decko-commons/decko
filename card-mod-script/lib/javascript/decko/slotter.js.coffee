@@ -94,19 +94,26 @@ $(window).ready ->
     $(this).closest('.slotter').data("slotter-mode", "update-origin")
 
   $('body').on 'submit', 'form.slotter', (event)->
-    if (target = $(this).attr 'main-success') and $(this).isMain()
-      input = $(this).find '[name=success]'
-      if input and input.val() and !(input.val().match /^REDIRECT/)
-        input.val(
-          (if target == 'REDIRECT' then target + ': ' + input.val() else target)
-        )
-    if $(this).data('recaptcha') == 'on'
-      return $(this).handleRecaptchaBeforeSubmit(event)
+    form = $(this)
+    if form.data("main-success") and form.isMainOrMainModal()
+      form.mainSuccess()
+    if form.data('recaptcha') == 'on'
+      return form.handleRecaptchaBeforeSubmit(event)
 
   $('body').on 'ajax:beforeSend', '.slotter', (event, xhr, opt)->
-    $(this).slotterBeforeSend(opt)
+    $(this).slotterBeforeSend opt
 
 jQuery.fn.extend
+  mainSuccess: ()->
+    form = $(this)
+    $.each form.data("main-success"), (key, value)->
+      inputSelector = "[name=success\\[" + key + "\\]]"
+      input = form.find inputSelector
+      unless input[0]
+        input = $('<input type="hidden" name="success[' + key + ']"/>')
+        form.append input
+      input.val value
+
   slotterSuccess: (event, data) ->
     unless @hasClass("slotter")
       console.log "warning: slotterSuccess called on non-slotter element #{this}"

@@ -59,20 +59,10 @@ Decko::RestSpecHelper.describe_api do
   end
 
   describe "#asset" do
-    it "serves file" do
-      filename = "asset-test.txt"
-      # args = { id: filename, format: "txt", explicit_file: true }
-      path = File.join(Decko::Engine.paths["gem-assets"].existent.first, filename)
-      File.open(path, "w") { |f| f.puts "test" }
-      # args = { filename: filename.to_s }
-      visit "/assets/#{filename}"
-      expect(page.body).to eq "test\n"
-      FileUtils.rm path
-    end
-
-    it "denies access to other directories" do
+    it "denies access" do
       get :asset, params: { mark: "/../../Gemfile" }
       expect(response.status).to eq(404)
+      expect(response.body).to eq("Decko installation error: missing asset symlinks")
     end
   end
 end

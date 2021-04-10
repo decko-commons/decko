@@ -44,17 +44,20 @@ Decko::RestSpecHelper.describe_api do
 
     context "success specified in request" do
       it "redirects to thanks if present" do
-        post :create, params: { mark: "Wombly", success: "REDIRECT: /thank_you" }
+        post :create, params: { mark: "Wombly",
+                                success: { redirect: true, mark: "/thank_you" } }
         assert_redirected_to "/thank_you"
       end
 
       it "redirects to card if thanks is _self" do
-        post :create, params: { mark: "Wombly", success: "REDIRECT: _self" }
+        post :create, params: { mark: "Wombly",
+                                success: { redirect: true, mark: "_self" } }
         assert_redirected_to "/Wombly"
       end
 
       it "redirects to previous" do
-        post :create, params: { mark: "Wombly", success: "REDIRECT: *previous" },
+        post :create, params: { mark: "Wombly",
+                                success: { redirect: true, mark: "*previous" } },
                       session: { history: ["/blam"] }
         assert_redirected_to "/blam"
       end
