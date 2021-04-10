@@ -41,7 +41,7 @@ format :html do
 
   def edit_rule_form success_view, &block
     @rule_context ||= card
-    @edit_rule_success = edit_rule_success(success_view)
+    @edit_rule_success = edit_rule_success success_view
     action_args = { action: :update, no_mark: true }
     card_form action_args, rule_form_args, &block
   end
@@ -51,7 +51,6 @@ format :html do
   end
 
   def edit_rule_success view="overlay_rule"
-    { id: @rule_context.name.url_key,
-      view: view }
+    { mark: @rule_context.name.url_key, view: view }
   end
 end

@@ -51,7 +51,7 @@ class FollowLink
   def path view=:follow_status
     @format.path mark: mark,
                  action: :update,
-                 success: { id: @card.name, view: view },
+                 success: { mark: @card.name, view: view },
                  card: { content: "[[#{rule_content}]]" }
   end
 

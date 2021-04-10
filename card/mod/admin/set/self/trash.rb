@@ -35,7 +35,7 @@ format :html do
       button_link("empty trash",
                   btn_type: :default,
                   path: { mark: :admin, action: :update, task: :empty_trash,
-                          success: { id: "~#{card.id}" } },
+                          success: { mark: "~#{card.id}" } },
                   "data-confirm" => "Are you sure you want to delete "\
                                     "all cards in the trash?")
     )
@@ -58,6 +58,6 @@ format :html do
                                action: :update,
                                restore: trashed_card.id,
                                action_ids: [before_delete],
-                               success: { id: "~#{card.id}" } }
+                               success: { mark: "~#{card.id}" } }
   end
 end
