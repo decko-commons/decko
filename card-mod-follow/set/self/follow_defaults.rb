@@ -47,8 +47,7 @@ end
 
 format :html do
   view :edit, perms: :update, unknown: true do
-    frame_and_form :update, hidden: { success: "_self",
-                                      card: { update_all_users: false } } do
+    frame_and_form :update, hidden: { card: { update_all_users: false } } do
       [
         _render_content_formgroups,
         _render_confirm_update_all,

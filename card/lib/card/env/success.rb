@@ -5,8 +5,8 @@ class Card
       include Location
       include Target
 
-      attr_accessor :redirect, :name, :name_context, :reload
-      attr_writer :params, :card
+      attr_accessor :name, :name_context, :reload
+      attr_writer :params, :redirect, :card
       attr_reader :id
 
       def initialize name_context=nil, success_args=nil
@@ -17,12 +17,8 @@ class Card
       end
 
       def to_url name_context=@name_context
-        case (target = target(name_context))
-        when Card
-          target.format.path params
-        else
-          target
-        end
+        target = target name_context
+        target.is_a?(Card) ? target.format.path(params) : target
       end
 
       def in_context name_context
@@ -34,8 +30,12 @@ class Card
         if value.is_a? Hash
           apply value
         else
-          self.target = value
+          self.mark = value
         end
+      end
+
+      def redirect
+        @redirect.present? ? @redirect : false
       end
 
       def reload?
@@ -79,11 +79,9 @@ class Card
       end
 
       def method_missing method, *args
-        if (m = method.match(/^(\w+(=)?)/))
-          infer_bracket m[1].to_sym, m[2], args[0]
-        else
-          super
-        end
+        return super unless (m = method.match(/^(\w+(=)?)/))
+
+        infer_bracket m[1].to_sym, m[2], args[0]
       end
 
       def infer_bracket method, assign, val

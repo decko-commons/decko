@@ -27,13 +27,6 @@ RSpec.describe Card::Env::Success do
       it { is_expected.to eq home }
     end
 
-    context "initialized with REDIRECT string" do
-      before do
-        success_params "REDIRECT: Home"
-      end
-      it { is_expected.to eq home }
-    end
-
     context "initialized with card object" do
       before do
         success_params home
@@ -83,7 +76,7 @@ RSpec.describe Card::Env::Success do
     end
     context "redirect string" do
       before do
-        success_params "REDIRECT: *previous"
+        success_params mark: "*previous"
       end
       it { is_expected.to eq previous }
     end
@@ -95,9 +88,9 @@ RSpec.describe Card::Env::Success do
       expect(@success.redirect).to eq("soft")
     end
 
-    it 'true for "REDIRECT: anywhere"' do
-      success_params "REDIRECT: anywhere"
-      expect(@success.redirect).to be_truthy
+    it "is false for blank redirect parameter" do
+      success_params redirect: ""
+      expect(@success.redirect).to be false
     end
   end
 
