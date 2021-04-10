@@ -90,7 +90,7 @@ format :html do
   end
 
   def new_success
-    card.rule(:thanks) || "_self"
+    { mark: (card.rule(:thanks) || "_self") }
   end
 
   def new_in_modal_success; end
