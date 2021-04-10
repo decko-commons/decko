@@ -214,7 +214,14 @@ format :html do
     add_class opts, "card-form"
     add_class opts, "slotter" unless opts[:redirect] || opts[:no_slotter]
     add_class opts, "autosave" if action == :update
+    interpret_main_success_opts opts
     opts
+  end
+
+  def interpret_main_success_opts opts
+    return unless (hash = opts.delete :main_success)
+
+    opts["data-main-success"] = JSON hash
   end
 
   def card_form_url_and_action action

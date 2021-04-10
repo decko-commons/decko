@@ -51,7 +51,7 @@ format :html do
     add_class opts,  "slotter btn btn-outline-danger ml-auto btn-sm"
     opts["data-confirm"] = delete_confirm opts
     opts[:path] = { action: :delete }
-    opts[:path][:success] = delete_success(opts) unless opts.delete(:no_success)
+    opts[:path][:success] = delete_success(opts)
     opts[:remote] = true
     opts
   end
@@ -61,6 +61,12 @@ format :html do
   end
 
   def delete_success opts
-    opts.delete(:success) || (main? ? "REDIRECT: *previous" : { view: :just_deleted })
+    if opts[:success]
+      opts.delete :success
+    elsif main?
+      { redirect: true, mark: "*previous" }
+    else
+      { view: :just_deleted }
+    end
   end
 end
