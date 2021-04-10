@@ -79,10 +79,12 @@ jQuery.fn.extend
     $(this).hasClass "card-slot"
 
   isMain: ->
-    if $(this).closest(".modal")[0]
-      $(this).findOriginSlot("modal").isMain()
-    else
-      @slot().parent('#main')[0]
+    @slot().parent('#main')[0]
+
+  isMainOrMainModal: ->
+    el = $(this)
+    el = el.findOriginSlot("modal") if el.closest(".modal")[0]
+    el.isMain()
 
   findSlot: (selector) ->
     if selector == "modal-origin"

@@ -95,7 +95,7 @@ $(window).ready ->
 
   $('body').on 'submit', 'form.slotter', (event)->
     form = $(this)
-    if form.data("main-success") and form.isMain()
+    if form.data("main-success") and form.isMainOrMainModal()
       form.mainSuccess()
     if form.data('recaptcha') == 'on'
       return form.handleRecaptchaBeforeSubmit(event)
