@@ -37,7 +37,12 @@ format :html do
 
   def wrap_data slot=true
     with_slot_data slot do
-      { "card-id": card.id, "card-name": slot_cardname, "slot-id": SecureRandom.hex(10) }
+      {
+        "card-id": card.id,
+        "card-name": slot_cardname,
+        "card-link-name": card.name.url_key,
+        "slot-id": SecureRandom.hex(10)
+      }
     end
   end
 
