@@ -26,7 +26,7 @@ services:
       #-  ./config/application.rb:/deck/config/application.rb
 
       # Uncomment to add mods in mods
-      #-  ./config/application.rb:/deck/config/application.rb
+      #-  ./mods:/deck/mods
 
       # INSTALLING YOUR OWN GEMS
       # Uncomment the following two lines if using bundle install to install your own gems
