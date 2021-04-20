@@ -5,8 +5,12 @@ event :lose_coded_status_on_update, :initialize, on: :update, when: :coded? do
 end
 
 event :validate_coded_storage_type, :validate, on: :save, when: :will_become_coded? do
-  errors.add :storage_type, tr(:mod_argument_needed_to_save) unless mod || @new_mod
-  errors.add :storage_type, tr(:codename_needed_for_storage) if codename.blank?
+  storage_type_error :mod_argument_needed_to_save unless mod || @new_mod
+  storage_type_error :codename_needed_for_storage if codename.blank?
+end
+
+def storage_type_error error_name
+  errors.add :storage_type, t("carrierwave_#{error_name}")
 end
 
 def will_become_coded?
