@@ -151,14 +151,10 @@ def temporary_storage_type_change?
   @temp_storage_type
 end
 
-def validate_temporary_storage_type_change new_storage_type=nil
-  new_storage_type ||= @new_storage_type
-  return unless new_storage_type
-  unless known_storage_type? new_storage_type
-    raise Error,
-  end
-
-  if new_storage_type == :coded && codename.blank?
+def validate_temporary_storage_type_change type=nil
+  return unless (type ||= @new_storage_type)
+  raise Error, unknown_storage_type(type) unless known_storage_type? type
+  if type == :coded && codename.blank?
     raise Error, "codename needed for storage type :coded"
   end
 end

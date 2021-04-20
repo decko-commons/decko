@@ -116,7 +116,6 @@ def signin_error_key
   end
 end
 
-
 format :html do
   view :core, cache: :never do
     voo.edit_structure = [signin_field(:email), signin_field(:password)]
@@ -192,7 +191,8 @@ format :html do
   end
 
   def reset_password_link
-    link = link_to_view :edit, t(:account_reset_password), path: { slot: { hide: :bridge_link } }
+    link = link_to_view :edit, t(:account_reset_password),
+                        path: { slot: { hide: :bridge_link } }
     # FIXME: inline styling
     raw("<div style='float:right'>#{link}</div>")
   end

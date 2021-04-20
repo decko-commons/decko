@@ -43,6 +43,8 @@ end
 #   return "permanent" if string == "none"
 #   re_match = /^(\d+)[\.\s]*(#{DURATIONS})s?$/.match(string)
 #   number, unit = re_match.captures if re_match
-#   raise Card::Open::Error, t(:account_exception_bad_expiration, example: '2 days') unless unit
+#   unless unit
+#     raise Card::Open::Error, t(:account_exception_bad_expiration, example: '2 days')
+#   end
 #   number.to_i.send unit
 # end
