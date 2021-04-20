@@ -37,17 +37,14 @@ module DockerDeck
     config.action_mailer.smtp_settings = {
       address:    ENV["DECKO_SMTP_ADDRESS"],
       domain:     ENV["DECKO_SMTP_DOMAIN"] || ENV["DECKO_SMTP_ADDRESS"],
-
       user_name:  ENV["DECKO_SMTP_USER"],
       password:   ENV["DECKO_SMTP_PASSWORD"],
-
       authentication: :login,
       port: 465,
       enable_starttls_auto: false,
       ssl: true,
       tls: true
     }
-
 
     # Example configuration for mailcatcher, a simple smtp server.
     # See http://mailcatcher.me for more information
