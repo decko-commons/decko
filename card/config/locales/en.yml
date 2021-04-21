@@ -178,6 +178,54 @@ en:
     instructions: Instructions
     recaptcha_keys: recaptcha keys
 
+  account_check_email: Check your email for a link to reset your password
+  account_deny_email_restricted: viewing email is restricted to administrators and account holders
+  account_deny_not_change_own_account: change the status of your own account
+  account_email_missing: email can't be blank
+  account_email_off: "WARNING: E-Mail-Versand ist deaktiviert. Ändere die Einstellung in %{path} um bei neuen Registrierungen Benachrichtigungen zu senden."
+  account_encrypted: encrypted
+  account_error_blank: can't be blank
+  account_error_incorrect_token: token mismatch
+  account_error_invalid_address: must be valid address
+  account_error_not_active: Sorry, that account is not active.
+  account_error_not_recognized: not recognized
+  account_error_not_unique: must be unique
+  account_error_token_expired: expired token
+  account_error_token_not_found: no token found
+  account_error_unknown_email: Unrecognized email.
+  account_error_wrong_password: Wrong password
+  account_exception_bad_expiration: illegal expiration value (eg '%{example}')
+  account_forgot_password: Forgot Password
+  account_invite: Invite
+  account_missing_account: "ERROR: signup card missing account"
+  account_or_sign_up: '...or sign up!'
+  account_password_length: must be at least 4 characters
+  account_password_missing: password can't be blank
+  account_private_data: Private data
+  account_reset_my_password: Reset my password
+  account_search_email_duplicate: email duplicate? (%{content})
+  account_sign_in: Sign in
+  account_sign_in_title: Sign In
+  account_sign_out: Sign out
+  account_sign_up: Sign up
+  account_sorry_email_reset: Sorry, %{error_msg}. Please check your email for a new password reset link.
+
+  bootstrap_cannot_source_theme: can't find source for theme %{theme_name}
+  bootstrap_not_valid_theme: not a valid theme %{theme_name}
+
+  carrierwave_add_item: Add %{attachment_name}...
+  carrierwave_codename_needed_for_storage: codename needed for storage type coded
+  carrierwave_delete: Delete
+  carrierwave_download: Download %{title}
+  carrierwave_error_invalid_storage_type: "%{type} is not a valid file storage option"
+  carrierwave_file_error: File Error
+  carrierwave_is_missing: is missing
+  carrierwave_mod_argument_needed_to_save: mod argument needed to save card as coded
+  carrierwave_moving_files_is_not_supported: moving files from cloud elsewhere is not supported
+  carrierwave_replace_item: Replace %{attachment_name}...
+  carrierwave_unknown_storage_type: unknown storage type %{new_storage_type}
+  carrierwave_url_is_missing: url is missing
+
   card-mod-legacy:
     toc: Table of Contents
 
@@ -272,61 +320,6 @@ en:
     built_in: "Built-in Layouts: %{built_in_layouts}"
     unknown_layout: "Unknown layout: %{name}"
 
-  card-mod-edit:
-    account: account
-    activity: activity
-    all: all
-    autosaved_draft: autosaved draft
-    by_group: by group
-    by_name: by name
-    cancel: cancel
-    card_delete_confirm: Are you sure you want to delete %{cardname}?
-    card_deleted: "%{cardname} deleted"
-    children: children
-    common: common
-    content: content
-    created: created
-    delete: delete
-    details: details
-    discuss: discuss
-    edit: edit
-    edited: edited
-    editors: editors
-    engage: engage
-    follow: follow
-    history: history
-    mates: mates
-    name: name
-    nests: nests
-    pin_pin: pin
-    pin_unpin: unpin
-    recent: recent
-    references_in: references in
-    references_out: references out
-    refresh: refresh
-    roles: roles
-    rules: rules
-    structure: structure
-    type: type
-
-  card-mod-carrierwave:
-    add_item: Add %{attachment_name}...
-    codename_needed_for_storage: codename needed for storage type coded
-    delete: Delete
-    download: Download %{title}
-    error_invalid_storage_type: "%{type} is not a valid file storage option"
-    file_error: File Error
-    is_missing: is missing
-    mod_argument_needed_to_save: mod argument needed to save card as coded
-    moving_files_is_not_supported: moving files from cloud elsewhere is not supported
-    replace_item: Replace %{attachment_name}...
-    unknown_storage_type: unknown storage type %{new_storage_type}
-    url_is_missing: url is missing
-
-  card-mod-bootstrap:
-    cannot_source_theme: can't find source for theme %{theme_name}
-    not_valid_theme: not a valid theme %{theme_name}
-
   card-mod-history:
     added: Added
     current: Current
@@ -337,74 +330,12 @@ en:
     show_changes: Show changes
     time_ago: "%{elapsed__time_in_words} ago"
 
-  card-mod-account:
-    action_verify_email: "%{action} verification email"
-    approve_without: Approve without verification
-    cache_db_compare: Cache/DB Comparison
-    cache_value: Cache Val
-    cached_card: Cached Card Inspect
-    check_email: Check your email for a link to reset your password
-    check_email_reset: Please check your email for a new password reset link.
-    db_card: Database Card Inspect
-    db_value: Database Val
-    deny_delete: Deny and delete
-    deny_email_restricted: viewing email is restricted to administrators and account holders
-    deny_not_change_own_account: change the status of your own account
-    email_missing: email can't be blank
-    email_off: "WARNING: E-Mail-Versand ist deaktiviert. Ändere die Einstellung in %{path} um bei neuen Registrierungen Benachrichtigungen zu senden."
-    encrypted: encrypted
-    error_blank: can't be blank
-    error_incorrect_token: token mismatch
-    error_invalid_address: must be valid address
-    error_not_active: Sorry, that account is not active.
-    error_not_recognized: not recognized
-    error_not_unique: must be unique
-    error_token_expired: expired token
-    error_token_not_found: no token found
-    error_unknown_email: Unrecognized email.
-    error_wrong_password: Wrong password
-    errors_message: Sorry, %{item}. %{message}
-    exception_bad_expiration: illegal expiration value (eg '%{example}')
-    field: Field
-    field_manip_abort: no field manipulation mid-activation
-    first_last_help: usually first and last name
-    forgot_password: Forgot Password
-    get_started: Um loszulegen, erstelle einen Account.
-    help_first_last: üblicherweise Vor- und Nachname
-    illegal_approval_abort: illegal approval
-    invite: Invite
-    missing_account: "ERROR: signup card missing account"
-    no_account_abort: no account associated with %{name}
-    or_sign_up: '...or sign up!'
-    password_length: must be at least 4 characters
-    password_missing: password can't be blank
-    private_data: Private data
-    resend: Resend
-    reset_my_password: Reset my password
-    reset_password: RESET PASSWORD
-    search_email_duplicate: email duplicate? (%{content})
-    send: Send
-    send_invite: Send Invitation
-    set_up: Set up
-    setting_up: Setting up
-    sign_in: Sign in
-    sign_in_title: Sign In
-    sign_out: Sign out
-    sign_up: Sign up
-    signed_up_on: "%{name} signed up on %{date}"
-    sorry_email_reset: Sorry, %{error_msg}. Please check your email for a new password reset link.
-    verification: A verification email has been sent
-    verification_to: A verification email has been sent to %{email}
-    was_signed_up_on: "%{name} was signed up on %{date}"
-    welcome: Welcome, Decker!
-
-  card-mod-rules:
-    # CONFIRMED
-    config: Config
-    event: Events
-    other: Other
-    permission: Permissions
-    pointer: Pointer
-    templating: Templating
-    webpage: Webpage
-    editing: Editing
+  # CONFIRMED
+  rules_config: Config
+  rules_event: Events
+  rules_other: Other
+  rules_permission: Permissions
+  rules_pointer: Pointer
+  rules_templating: Templating
+  rules_webpage: Webpage
+  rules_editing: Editing

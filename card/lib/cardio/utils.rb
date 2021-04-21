@@ -7,6 +7,10 @@ module Cardio
       ::I18n.t key, args
     end
 
+    def t key, args={}
+      ::I18n.t key, args
+    end
+
     def seed_test_db
       system "env RAILS_ENV=test bundle exec rake db:fixtures:load"
     end
