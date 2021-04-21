@@ -647,7 +647,7 @@ DEPENDENCIES
   decko-profile
   decko-rspec
   decko-spring
-  mysql2 (>= 0.4.4)
+  mysql2
   thin
 
 BUNDLED WITH
