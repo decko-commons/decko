@@ -9,7 +9,7 @@ DeckoGem.mod "monkey" do |s, d|
                # CODE GENERATION
                "html2haml",
                # CODE STYLE
-               ["rubocop", "0.88"],      # 0.89 introduced bugs.
+               "rubocop",      # 0.89 introduced bugs.
                # ["rubocop-decko"],
                # DEBUGGING
                "better_errors",
