@@ -1,4 +1,4 @@
- # -*- encoding : utf-8 -*-
+# -*- encoding : utf-8 -*-
 
 RSpec.describe Card::Set::All::Rename do
   include CardExpectations
@@ -25,7 +25,7 @@ RSpec.describe Card::Set::All::Rename do
     update! card.name, name: new_name, update_referers: true
 
     expect(card.actions.count).to eq(actions_count_before + 1)
-    expect(Card.cache.read old_name).to eq(nil)
+    expect(Card.cache.read(old_name)).to eq(nil)
     expect(name_invariant_attributes(card)).to eq(attrs_before)
     expect(Card[new_name]).to eq(card)
   end
