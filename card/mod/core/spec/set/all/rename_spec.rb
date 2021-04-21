@@ -1,6 +1,8 @@
-# -*- encoding : utf-8 -*-
+ # -*- encoding : utf-8 -*-
 
-module RenameMethods
+RSpec.describe Card::Set::All::Rename do
+  include CardExpectations
+
   def name_invariant_attributes card
     descendant_ids = []
     card.each_descendant { |d| descendant_ids << d.id }
@@ -15,22 +17,24 @@ module RenameMethods
   end
 
   def assert_rename card, new_name
-    if card.is_a? String
-      card = Card[card].refresh || raise("Couldn't find card named #{card}")
-    end
+    card = card_to_rename card
     attrs_before = name_invariant_attributes(card)
     actions_count_before = card.actions.count
-    update! card.name, name: new_name, update_referers: true
-    expect(card.actions.count).to eq(actions_count_before + 1)
-    assert_equal attrs_before, name_invariant_attributes(card)
-    assert_equal new_name, card.name
-    assert Card[new_name]
-  end
-end
+    #old_name = card.name
 
-RSpec.describe Card::Set::All::Rename do
-  include RenameMethods
-  include CardExpectations
+    update! card.name, name: new_name, update_referers: true
+
+    expect(card.actions.count).to eq(actions_count_before + 1)
+    # expect(Card.cache.read old_name).to eq(nil)
+    expect(name_invariant_attributes(card)).to eq(attrs_before)
+    expect(Card[new_name]).to eq(card)
+  end
+
+  def card_to_rename card
+    return card unless card.is_a? String
+
+    Card[card].refresh || raise("Couldn't find card named #{card}")
+  end
 
   it "renames simple card to its own child" do
     assert_rename "F", "F+M"
