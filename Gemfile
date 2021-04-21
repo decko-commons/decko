@@ -6,7 +6,7 @@ gem "decko", path: "./"
 # DATABASE
 # Decko currently supports MySQL (best tested), PostgreSQL (well tested), and SQLite
 # (not well tested).
-gem 'mysql2', '>= 0.4.4'
+gem 'mysql2'
 
 
 # WEBSERVER
