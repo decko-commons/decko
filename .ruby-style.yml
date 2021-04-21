@@ -95,7 +95,7 @@ RSpec/NestedGroups:
   Description: Checks for nested example groups.
   Enabled: true
   Max: 5
-Metrics/LineLength:
+Layout/LineLength:
   Enabled: true
   Max: 90
   Exclude:
