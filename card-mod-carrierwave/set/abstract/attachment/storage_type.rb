@@ -130,8 +130,8 @@ def storage_type= value
 end
 
 def with_storage_options opts={}
-  validate_temporary_storage_type_change opts[:storage_type]
   old_values = stash_and_set_storage_options opts
+  validate_temporary_storage_type_change opts[:storage_type]
   @temp_storage_type = true
   yield
 ensure
@@ -144,6 +144,7 @@ def stash_and_set_storage_options opts
     next unless opts[opt_name]
     old_values[opt_name] = instance_variable_get "@#{opt_name}"
     instance_variable_set "@#{opt_name}", opts[opt_name]
+    old_values
   end
 end
 

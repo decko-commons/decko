@@ -108,7 +108,7 @@ end
 
 private
 
-def signin_error_key
+def signin_error_key account
   case
   when account.nil?     then :error_unknown_email
   when !account.active? then :error_not_active
