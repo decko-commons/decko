@@ -95,5 +95,5 @@ end
 
 def reset_password_failure error_message
   Auth.as_bot { send_password_reset_email }
-  errors.add :content, tr(:sorry_email_reset, error_msg: error_message)
+  errors.add :content, t(:account_sorry_email_reset, error_msg: error_message)
 end
