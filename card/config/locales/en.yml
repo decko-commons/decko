@@ -178,16 +178,7 @@ en:
     instructions: Instructions
     recaptcha_keys: recaptcha keys
 
-  account_action_verify_email: "%{action} verification email"
-  account_approve_without: Approve without verification
-  account_cache_db_compare: Cache/DB Comparison
-  account_cache_value: Cache Val
-  account_cached_card: Cached Card Inspect
   account_check_email: Check your email for a link to reset your password
-  account_check_email_reset: Please check your email for a new password reset link.
-  account_db_card: Database Card Inspect
-  account_db_value: Database Val
-  account_deny_delete: Deny and delete
   account_deny_email_restricted: viewing email is restricted to administrators and account holders
   account_deny_not_change_own_account: change the status of your own account
   account_email_missing: email can't be blank
@@ -203,40 +194,21 @@ en:
   account_error_token_not_found: no token found
   account_error_unknown_email: Unrecognized email.
   account_error_wrong_password: Wrong password
-  account_errors_message: Sorry, %{item}. %{message}
   account_exception_bad_expiration: illegal expiration value (eg '%{example}')
-  account_field: Field
-  account_field_manip_abort: no field manipulation mid-activation
-  account_first_last_help: usually first and last name
   account_forgot_password: Forgot Password
-  account_get_started: Um loszulegen, erstelle einen Account.
-  account_help_first_last: üblicherweise Vor- und Nachname
-  account_illegal_approval_abort: illegal approval
   account_invite: Invite
   account_missing_account: "ERROR: signup card missing account"
-  account_no_account_abort: no account associated with %{name}
   account_or_sign_up: '...or sign up!'
   account_password_length: must be at least 4 characters
   account_password_missing: password can't be blank
   account_private_data: Private data
-  account_resend: Resend
   account_reset_my_password: Reset my password
-  account_reset_password: RESET PASSWORD
   account_search_email_duplicate: email duplicate? (%{content})
-  account_send: Send
-  account_send_invite: Send Invitation
-  account_set_up: Set up
-  account_setting_up: Setting up
   account_sign_in: Sign in
   account_sign_in_title: Sign In
   account_sign_out: Sign out
   account_sign_up: Sign up
-  account_signed_up_on: "%{name} signed up on %{date}"
   account_sorry_email_reset: Sorry, %{error_msg}. Please check your email for a new password reset link.
-  account_verification: A verification email has been sent
-  account_verification_to: A verification email has been sent to %{email}
-  account_was_signed_up_on: "%{name} was signed up on %{date}"
-  account_welcome: Welcome, Decker!
 
   bootstrap_cannot_source_theme: can't find source for theme %{theme_name}
   bootstrap_not_valid_theme: not a valid theme %{theme_name}
@@ -348,47 +320,6 @@ en:
     built_in: "Built-in Layouts: %{built_in_layouts}"
     unknown_layout: "Unknown layout: %{name}"
 
-  card-mod-edit:
-    account: account
-    activity: activity
-    all: all
-    autosaved_draft: autosaved draft
-    by_group: by group
-    by_name: by name
-    cancel: cancel
-    card_delete_confirm: Are you sure you want to delete %{cardname}?
-    card_deleted: "%{cardname} deleted"
-    children: children
-    common: common
-    content: content
-    created: created
-    delete: delete
-    details: details
-    discuss: discuss
-    edit: edit
-    edited: edited
-    editors: editors
-    engage: engage
-    follow: follow
-    history: history
-    mates: mates
-    name: name
-    nests: nests
-    pin_pin: pin
-    pin_unpin: unpin
-    recent: recent
-    references_in: references in
-    references_out: references out
-    refresh: refresh
-    roles: roles
-    rules: rules
-    structure: structure
-    type: type
-
-
-
-
-
   card-mod-history:
     added: Added
     current: Current
@@ -398,8 +329,6 @@ en:
     save_as_current: Save as current
     show_changes: Show changes
     time_ago: "%{elapsed__time_in_words} ago"
-
-
 
   # CONFIRMED
   rules_config: Config

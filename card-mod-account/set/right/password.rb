@@ -31,7 +31,7 @@ event :validate_password_present, :prepare_to_validate, on: :update do
 end
 
 view :raw do
-  tr :encrypted
+  t :account_encrypted
 end
 
 format :html do
