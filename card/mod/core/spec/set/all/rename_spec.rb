@@ -20,12 +20,12 @@ RSpec.describe Card::Set::All::Rename do
     card = card_to_rename card
     attrs_before = name_invariant_attributes(card)
     actions_count_before = card.actions.count
-    #old_name = card.name
+    old_name = card.name
 
     update! card.name, name: new_name, update_referers: true
 
     expect(card.actions.count).to eq(actions_count_before + 1)
-    # expect(Card.cache.read old_name).to eq(nil)
+    expect(Card.cache.read old_name).to eq(nil)
     expect(name_invariant_attributes(card)).to eq(attrs_before)
     expect(Card[new_name]).to eq(card)
   end
@@ -49,8 +49,11 @@ RSpec.describe Card::Set::All::Rename do
   end
 
   it "clears cache for old name" do
-    assert_rename "Menu", "manure"
-    expect(Card["Menu"]).to be_nil
+    Card["A"]
+    Card["A+B"]
+    assert_rename "A", "AAA"
+    expect(Card.cache.read("a")).to be_nil
+    expect(Card.cache.read("a+b")).to be_nil
   end
 
   it "wipes old references by default" do
