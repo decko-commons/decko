@@ -62,9 +62,9 @@ class Card
     end
 
     def dirty_name left_id, right_id
-      parts = [left_id, right_id].map do |side_id|
-        side_id.present? ? Card.quick_fetch(side_id)&.name_before_act : return
-      end
+      return unless left_id.present? && right_id.present?
+
+      parts = [left_id, right_id].map { |side_id| Card.quick_fetch(side_id)&.name_before_act }
 
       Card::Name[*parts]
     end
