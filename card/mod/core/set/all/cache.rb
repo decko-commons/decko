@@ -100,8 +100,8 @@ def expire_view_cache_keys view_keys
 end
 
 def each_key_version
-  [name, name_before_act].uniq.each do |name_version|
-    yield name_version.key
+  [name, name_before_act].uniq.compact.each do |name_version|
+    yield name_version.to_name.key
   end
 end
 
