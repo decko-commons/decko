@@ -68,5 +68,13 @@ class Card
 
       Card::Name[*parts]
     end
+
+    def lex_before_act
+      if (old_left_id = left_id_before_act)
+        [old_left_id, right_id_before_act]
+      else
+        name_before_act
+      end
+    end
   end
 end
