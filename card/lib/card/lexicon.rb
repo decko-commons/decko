@@ -36,12 +36,12 @@ class Card
 
       def update card
         add card
-        cache.delete cache_key(card.old_lex)
+        cache.delete cache_key(card.lex_before_act)
       end
 
       # def delete card
       #   cache.delete card.id.to_s
-      #   cache.delete cache_key(card.old_lex)
+      #   cache.delete cache_key(card.lex_before_act)
       # end
 
       def lex_to_name lex
