@@ -111,6 +111,6 @@ format :html do
   end
 
   def preview_editor_delete_text
-    tr :delete
+    t :carrierwave_delete
   end
 end
