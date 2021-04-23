@@ -37,13 +37,17 @@ def theme_codename
 end
 
 event :validate_theme_template, :validate, on: :create do
-  if theme_name
-    if Card.fetch_type_id(theme_card_name) != Card::BootswatchSkinID
-      errors.add :abort, tr(:not_valid_theme, theme_name: theme_name)
-    elsif !Dir.exist? source_dir
-      puts method(:source_dir).source_location
-      errors.add :abort, tr(:cannot_source_theme, theme_name: theme_name)
-    end
+  return unless (tname = theme_name) && (etype = theme_error_type)
+
+  errors.add :abort, t("bootstrap_#{etype}", theme_name: tname)
+end
+
+def theme_error_type
+  if Card.fetch_type_id(theme_card_name) != Card::BootswatchSkinID
+    :not_valid_theme
+  elsif !Dir.exist? source_dir
+    # puts method(:source_dir).source_location
+    :cannot_source_theme
   end
 end
 

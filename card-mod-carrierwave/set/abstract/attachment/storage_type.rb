@@ -14,12 +14,9 @@ event :storage_type_change, :store, on: :update, when: :storage_type_changed? do
 end
 
 event :validate_storage_type, :validate, on: :save do
-  unless known_storage_type? will_be_stored_as
-    errors.add :storage_type, tr(
-      :unknown_storage_type,
-      new_storage_type: @new_storage_type
-    )
-  end
+  return if known_storage_type? will_be_stored_as
+
+  errors.add :storage_type, unknown_storage_type(@new_storage_type)
 end
 
 def will_be_stored_as
@@ -93,7 +90,7 @@ def valid_storage_type_list
 end
 
 def invalid_storage_type! type
-  raise Card::Error, tr(:error_invalid_storage_type, type: type)
+  raise Card::Error, t(:carrierwave_error_invalid_storage_type, type: type)
 end
 
 def storage_type_from_content
@@ -133,19 +130,21 @@ def storage_type= value
 end
 
 def with_storage_options opts={}
-  old_values = {}
+  old_values = stash_and_set_storage_options opts
   validate_temporary_storage_type_change opts[:storage_type]
-  %i[storage_type mod bucket].each do |opt_name|
-    next unless opts[opt_name]
-    old_values[opt_name] = instance_variable_get "@#{opt_name}"
-    instance_variable_set "@#{opt_name}", opts[opt_name]
-    @temp_storage_type = true
-  end
+  @temp_storage_type = true
   yield
 ensure
   @temp_storage_type = false
-  old_values.each do |key, val|
-    instance_variable_set "@#{key}", val
+  old_values.each { |key, val| instance_variable_set "@#{key}", val }
+end
+
+def stash_and_set_storage_options opts
+  %i[storage_type mod bucket].each_with_object({}) do |opt_name, old_values|
+    next unless opts[opt_name]
+    old_values[opt_name] = instance_variable_get "@#{opt_name}"
+    instance_variable_set "@#{opt_name}", opts[opt_name]
+    old_values
   end
 end
 
@@ -153,18 +152,18 @@ def temporary_storage_type_change?
   @temp_storage_type
 end
 
-def validate_temporary_storage_type_change new_storage_type=nil
-  new_storage_type ||= @new_storage_type
-  return unless new_storage_type
-  unless known_storage_type? new_storage_type
-    raise Error, tr(:unknown_storage_type, new_storage_type: new_storage_type)
-  end
-
-  if new_storage_type == :coded && codename.blank?
+def validate_temporary_storage_type_change type=nil
+  return unless (type ||= @new_storage_type)
+  raise Error, unknown_storage_type(type) unless known_storage_type? type
+  if type == :coded && codename.blank?
     raise Error, "codename needed for storage type :coded"
   end
 end
 
 def known_storage_type? type=storage_type
   type.in? CarrierWave::FileCardUploader::STORAGE_TYPES
+end
+
+def unknown_storage_type type
+  t :carrierwave_unknown_storage_type, new_storage_type: type
 end
