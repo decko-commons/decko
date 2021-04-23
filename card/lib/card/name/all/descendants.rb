@@ -19,6 +19,8 @@ class Card
         end
 
         def each_child
+          return unless id
+
           Card.where(
             "(left_id = #{id} or right_id = #{id}) and trash is false"
           ).each do |child|
