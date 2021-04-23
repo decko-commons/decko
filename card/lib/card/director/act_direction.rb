@@ -60,6 +60,10 @@ class Card
         directors.keys.any? { |card| card.key == name.to_name.key }
       end
 
+      def include_id? id
+        directors.keys.any? { |card| card.id == id }
+      end
+
       def new_director card, parent
         if !parent && act_card && act_card != card && running_act?
           act_card.director.subdirectors.add card

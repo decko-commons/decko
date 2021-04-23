@@ -1,9 +1,7 @@
 event :rename_in_trash, after: :expire_old_name, on: :update do
   existing_card = Card.find_by_key_and_trash name.key, true
   return if !existing_card || existing_card == self
-  existing_card.name = existing_card.name + "*trash"
-  existing_card.rename_in_trash_without_callbacks
-  existing_card.save!
+  existing_card.rename_as_trash_obstacle
 end
 
 event :validate_renaming, :validate, on: :update, changed: :name, skip: :allowed do
@@ -14,13 +12,22 @@ event :validate_renaming, :validate, on: :update, changed: :name, skip: :allowed
 end
 
 event :cascade_name_changes, :finalize, on: :update, changed: :name do
-  each_descendant do |d|
-    d.action = :update
-    update_referers ? d.update_referers : d.update_referer_references_out
-    d.refresh_references_in
-    d.refresh_references_out
-    d.expire
-  end
+  each_descendant { |d| d.rename_as_descendant update_referers }
+end
+
+def rename_as_trash_obstacle
+  self.name = name + "*trash"
+  rename_in_trash_without_callbacks
+  save!
+end
+
+def rename_as_descendant referers=true
+  self.action = :update
+  referers ? update_referers : update_referer_references_out
+  refresh_references_in
+  refresh_references_out
+  expire
+  Card::Lexicon.update self
 end
 
 def changed_from_simple_to_compound?

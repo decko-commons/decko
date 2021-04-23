@@ -61,18 +61,18 @@ def view_cache_clean?
 end
 
 def view_cache_keys
-  @view_cache_keys ||= hard_read_view_cache_keys || []
+  @view_cache_keys ||= hard_read_view_cache_keys(key) || []
 end
 
 def ensure_view_cache_key cache_key
   return if view_cache_keys.include? cache_key
 
-  @view_cache_keys << cache_key
+  view_cache_keys << cache_key
   hard_write_view_cache_keys
 end
 
-def hard_read_view_cache_keys
-  Card.cache.hard&.read_attribute key, :view_cache_keys
+def hard_read_view_cache_keys key_root=key
+  Card.cache.hard&.read_attribute key_root, :view_cache_keys
 end
 
 def hard_write_view_cache_keys
@@ -81,18 +81,18 @@ def hard_write_view_cache_keys
 end
 
 def expire_views
-  # puts "EXPIRE VIEW CACHE (#{name}): #{view_cache_keys}"
-  return unless view_cache_keys.present?
-  Array.wrap(view_cache_keys).each do |view_cache_key|
-    Card::View.cache.delete view_cache_key
+  each_key_version do |key|
+    # puts "EXPIRE VIEW CACHE (#{name}): #{view_cache_keys}"
+    view_keys = hard_read_view_cache_keys key
+    next unless view_keys.present?
+    expire_view_cache_keys view_keys
   end
   @view_cache_keys = []
-  hard_write_view_cache_keys
 end
 
 def expire_names cache
-  [name, name_before_act].uniq.each do |name_version|
-    expire_name name_version, cache
+  each_key_version do |key_version|
+    expire_name key_version, cache
   end
 end
 
@@ -106,4 +106,18 @@ end
 def expire_id cache
   return unless id.present?
   cache.delete "~#{id}"
+end
+
+private
+
+def expire_view_cache_keys view_keys
+  Array.wrap(view_keys).each do |view_key|
+    Card::View.cache.delete view_key
+  end
+end
+
+def each_key_version
+  [name, name_before_act].uniq.compact.each do |name_version|
+    yield name_version.to_name.key
+  end
 end
