@@ -21,11 +21,14 @@ RSpec.describe Card::Set::All::NameEvents do
     old_name = card.name
 
     update! card.name, name: new_name, update_referers: true
+    expect_successful_rename card, old_name, attrs_before, (actions_count_before + 1)
+  end
 
-    expect(card.actions.count).to eq(actions_count_before + 1)
+  def expect_successful_rename card, old_name, attrs_before, actions_count_after
+    expect(card.actions.count).to eq(actions_count_after)
     expect(Card.cache.read(old_name)).to eq(nil)
     expect(name_invariant_attributes(card)).to eq(attrs_before)
-    expect(Card[new_name]).to eq(card)
+    expect(Card[card.name]).to eq(card)
   end
 
   def card_to_rename card
@@ -88,7 +91,7 @@ RSpec.describe Card::Set::All::NameEvents do
   it "updates descendants" do
     old_names = %w[One+Two One+Two+Three Four+One Four+One+Five]
     new_names = %w[Uno+Two Uno+Two+Three Four+Uno Four+Uno+Five]
-    card_list = old_names.map {|name| Card[name]}
+    card_list = old_names.map { |name| Card[name] }
 
     expect(card_list.map(&:name)).to eq old_names
     update "One", name: "Uno"
@@ -142,7 +145,7 @@ RSpec.describe Card::Set::All::NameEvents do
     assert_rename Card["a+b"], "e+f"
   end
 
-  context "self references" do
+  context "with self references" do
     example "renaming card with self link should nothang" do
       pre_content = Card["self_aware"].content
       update "self aware", name: "buttah", update_referers: true
@@ -156,7 +159,7 @@ RSpec.describe Card::Set::All::NameEvents do
     end
   end
 
-  context "references" do
+  context "with references" do
     it "updates nests" do
       update "Blue", name: "Red", update_referers: true
       expect_card("blue includer 1").to have_content("{{Red}}")
