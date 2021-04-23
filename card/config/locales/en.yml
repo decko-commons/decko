@@ -31,7 +31,6 @@ en:
       card_date_only: '%B %e, %Y'
 
   lib:
-    # CONFIRMED
     error_rendering: "Error rendering: %{cardname} (%{view} view)"
     exception_for_card: "for card %{cardname}: %{message}"
     exception_init_without_card: format initialized without card
@@ -39,26 +38,7 @@ en:
     exception_unknown_codename: "unknown codename: %{codename}"
     no_cardname: unknown card
 
-    # UNCONFIRMED
-
-    # J'ACCUSE
-    # editing_cue: Editing cues
-    # exception_alias_fail: cannot find %{optview} view in %{optmod}; failed to alias %{view} in %{self}
-    # exception_bad_arg: "bad %{category} argument: %{arg}"
-    # exception_bad_args: "bad %{category} arguments: %{args}"
-    # exception_bad_chars: "CQL contains disallowed characters: %{text}"
-    # exception_bad_condition_clause: Invalid Condition Clause %{item}
-    # exception_bad_query: '"%{found_by}" value must be valid Search, but %{name} is a %{type}'
-    # exception_invalid_args: Invalid query args %{items}
-    # exception_invalid_attribute: Invalid attribute %{key}
-    # exception_invalid_operator: Invalid Operator %{operator}
-    # exception_invalid_option: "invalid %{side} option: %{object}"
-    # exception_sort_not_implemented: "sort item: %{item} not yet implemented"
-    # exception_to_not_join: "%{to} cannot be %{join}"
-    # exception_unknown_valtype: "unknown CQL value type: %{klass}"
-
   core:
-    # CONFIRMED
     cannot_change_content: cannot change content while changing name
     cannot_change_type: cannot change type while changing name
     cards_exist: Sorry, this card must remain a Cardtype so long as there are %{cardname} cards.
@@ -67,21 +47,6 @@ en:
     error_blank_name: can't be blank
     error_cant_alter: can't alter this type; %{name} cards still exist
     error_cant_change_errors: "of %{name} can't be changed; errors creating new %{type_id}: %{error_messages}"
-
-    # UNCONFIRMED
-
-    # J'ACCUSE
-    # deny_change_to_type: You don't have permission to change to this type (need create permission)
-    # deny_create: You don't have permission to create %{part_card_name}
-    # deny_no_comment_structured: No comments allowed on structured content
-    # deny_no_comment_template: No comments allowed on templates
-    # deny_read_only: Currently in read-only mode
-    # deny_read_this: You don't have permission to read this
-    # deny_verb_name: You don't have permission to %{verb} %{name}
-    # deny_verb_this: You don't have permission to %{verb} this
-    # error_cant_delete_child: "can't delete %{child_name}: %{message}"
-
-
     error_code_in_use: codename %{codename} already in use
     error_hard_templated: can't be changed because %{name} is hard templated to %{type_name}
     error_indestructible: "%{name} is an indestructible rule"
@@ -203,6 +168,7 @@ en:
   account_password_missing: password can't be blank
   account_private_data: Private data
   account_reset_my_password: Reset my password
+  account_reset_password: RESET PASSWORD
   account_search_email_duplicate: email duplicate? (%{content})
   account_sign_in: Sign in
   account_sign_in_title: Sign In
@@ -226,99 +192,28 @@ en:
   carrierwave_unknown_storage_type: unknown storage type %{new_storage_type}
   carrierwave_url_is_missing: url is missing
 
-  card-mod-legacy:
-    toc: Table of Contents
-
-  card-mod-follow:
-    confirm_update_all_heading: Are you sure you want to change the default follow rules?
-    confirm_update_all_text: You may choose to update all existing users. This may take a while.
-    deleted: deleted
-    emails_send: send emails about changes to %{cardlabel}
-    emails_stop: stop sending emails about changes to %{cardlabel}
-    follow: follow
-    follow_if_created: follow if I created
-    follow_if_edited: follow if I edited
-    follow_included: follow cards included by %{cardname}
-    followed_card: followed card
-    follower: follower
-    following: Following
-    following_created: Following content you created
-    following_edited: Following content you edited
-    heading_get_notified: Get notified about changes
-    ignore: ignore
-    ignoring: Ignoring
-    more_options: more options
-    new: new
-    no_preference: No following preference
-    please_sign_in: Please %{sign_in}
-    problems_card: Problems with %{cardname}
-    sign_in: sign in
-    submit: Submit
-    submit_update: Submit and update all users
-    thing_created: "%{label} I created"
-    thing_edited: "%{label} I edited"
-    unfollow: unfollow
-    update_changes: "\nThis update included the following changes:%{changes}"
-    updating: Updating
-
-  card-mod-format:
-    account: account
-    action_verb_added: added
-    action_verb_deleted: deleted
-    action_verb_edited: edited
-    add_card: Add %{cardname}
-    add_thing: Add %{title}
-    also_changes: "%{actor_link} has also been making changes."
-    bad_address: "404: Bad Address"
-    close: Close
-    comment_style_group: STYLE GROUP
-    configure_card: Configure %{cardname}
-    conflict: Conflict!
-    conflict_instruction: Please examine below, resolve above, and re-submit.
-    content_in_file: Content is stored in file and can't be edited.
-    denial: Permission Denied
-    denied_task: to %{denied_task} this
-    discuss: discuss
-    edit: edit
-    error_message: Error message (visible to admin only)
-    error_rendering: "Error rendering: %{cardname} (%{view} view)"
-    exception_not_set_path: "not a set path: %{path}"
-    invalid_json: invalid json
-    label_select: Select
-    need_permission_task: "You need permission %{task}."
-    no: "no"
-    not_found: Not Found
-    not_found_card: Could not find %{cardname}
-    not_found_named: Could not find %{cardname}.
-    not_found_no_name: the card requested
-    not_numeric: "'%{content}' is not numeric"
-    or: "or"
-    page: page
-    please: Please
-    problems_name: Problems with %{cardname}
-    read_only: We are currently in read-only mode.  Please try again later.
-    rules: rules
-    se_hitch: 'Wagn Hitch :('
-    se_sorry: Server Error. Yuck, sorry about that.
-    se_ticket: <a href="%{ticket_link}">Add a support ticket</a> to tell us more and follow the fix.
-    search_opt_names_ptr: option names for pointer
-    server_error: "\nWagn Hitch!  Server Error. Yuck, sorry about that.\nTo tell us more and follow the fix,\nadd a support ticket at %{ticket_link}\n"
-    sign_in: sign in
-    sign_up: sign up
-    sorry: Sorry!
-    to_do_that: to do that
-    toggle_no: "no"
-    toggle_yes: "yes"
-    too_deep: Man, you're too deep.  (Too many levels of nests at a time)
-    too_slow: Timed out! %{showname} took too long to load.
-    unsupported_view: view (%{view}) not supported for %{cardname}
-    updated_how_when_who: "%{action_verb} %{elapsed_time_in_words} ago by %{who}"
-    yes: "yes"
-
-  card-mod-layout:
-    available_layouts: "Available Layouts: %{available_layouts}"
-    built_in: "Built-in Layouts: %{built_in_layouts}"
-    unknown_layout: "Unknown layout: %{name}"
+  format_add_card: Add %{cardname}
+  format_bad_address: "404: Bad Address"
+  format_close: Close
+  format_configure_card: Configure %{cardname}
+  format_denial: Permission Denied
+  format_denied_task: to %{denied_task} this
+  format_invalid_json: invalid json
+  format_need_permission_task: "You need permission %{task}."
+  format_not_found_named: Could not find %{cardname}.
+  format_not_found_no_name: the card requested
+  format_not_numeric: "'%{content}' is not numeric"
+  format_or: "or"
+  format_please: Please
+  format_problems_name: Problems with %{cardname}
+  format_read_only: We are currently in read-only mode.  Please try again later.
+  format_server_error: "\nWagn Hitch!  Server Error. Yuck, sorry about that.\nTo tell us more and follow the fix,\nadd a support ticket at %{ticket_link}\n"
+  format_sorry: Sorry!
+  format_to_do_that: to do that
+  format_toggle_no: "no"
+  format_toggle_yes: "yes"
+  format_too_deep: Man, you're too deep.  (Too many levels of nests at a time)
+  format_unsupported_view: view (%{view}) not supported for %{cardname}
 
   card-mod-history:
     added: Added
@@ -330,7 +225,14 @@ en:
     show_changes: Show changes
     time_ago: "%{elapsed__time_in_words} ago"
 
-  # CONFIRMED
+  card-mod-layout:
+    available_layouts: "Available Layouts: %{available_layouts}"
+    built_in: "Built-in Layouts: %{built_in_layouts}"
+    unknown_layout: "Unknown layout: %{name}"
+
+  card-mod-legacy:
+    toc: Table of Contents
+
   rules_config: Config
   rules_event: Events
   rules_other: Other

@@ -29,7 +29,7 @@ class Card
       end
 
       def monitor_depth
-        raise Card::Error::UserError, tr(:too_deep) if depth >= Card.config.max_depth
+        raise Card::Error::UserError, t(:format_too_deep) if depth >= Card.config.max_depth
         yield
       end
 

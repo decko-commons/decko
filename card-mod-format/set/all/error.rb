@@ -8,21 +8,21 @@ format do
   end
 
   view :server_error, perms: :none do
-    tr(:server_error)
+    t(:format_server_error)
   end
 
   view :denial, perms: :none do
-    focal? ? tr(:denial) : ""
+    focal? ? t(:format_denial) : ""
   end
 
   view :not_found, perms: :none do
-    error_name = card.name.present? ? safe_name : tr(:not_found_no_name)
-    tr(:not_found_named, cardname: error_name)
+    error_name = card.name.present? ? safe_name : t(:format_not_found_no_name)
+    t(:format_not_found_named, cardname: error_name)
   end
 
   view :bad_address, perms: :none do
     root.error_status = 404
-    tr(:bad_address)
+    t(:format_bad_address)
   end
 
   view :errors do
@@ -50,7 +50,7 @@ format do
   end
 
   def unsupported_view_error_message view
-    tr(:unsupported_view, view: view, cardname: card.name)
+    t(:format_unsupported_view, view: view, cardname: card.name)
   end
 end
 
