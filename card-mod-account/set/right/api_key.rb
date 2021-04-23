@@ -7,15 +7,15 @@ def history?
 end
 
 view :raw do
-  tr :private_data
+  t :account_private_data
 end
 
 def validate! api_key
   error =
     case
-    when !real?             then [:token_not_found, tr(:error_token_not_found)]
-    # when expired?           then [:token_expired, tr(:error_token_expired)]
-    when content != api_key then [:incorrect_token, tr(:error_incorrect_token)]
+    when !real?             then [:token_not_found, t(:account_error_token_not_found)]
+    # when expired?           then [:token_expired, t(:account_error_token_expired)]
+    when content != api_key then [:incorrect_token, t(:account_error_incorrect_token)]
     end
   errors.add(*error) if error
   error.nil?
@@ -43,6 +43,8 @@ end
 #   return "permanent" if string == "none"
 #   re_match = /^(\d+)[\.\s]*(#{DURATIONS})s?$/.match(string)
 #   number, unit = re_match.captures if re_match
-#   raise Card::Open::Error, tr(:exception_bad_expiration, example: '2 days') unless unit
+#   unless unit
+#     raise Card::Open::Error, t(:account_exception_bad_expiration, example: '2 days')
+#   end
 #   number.to_i.send unit
 # end

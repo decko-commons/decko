@@ -11,7 +11,7 @@ event :validate_storage_type_update, :validate, on: :update, when: :cloud? do
   #        `update storage_type: :local, file: [file handle]` is ok
   return unless storage_type_changed? && !attachment_is_changing?
 
-  errors.add :storage_type, tr(:moving_files_is_not_supported)
+  errors.add :storage_type, t(:carrierwave_moving_files_is_not_supported)
 end
 
 def bucket

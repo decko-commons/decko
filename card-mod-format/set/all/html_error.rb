@@ -52,7 +52,7 @@ format :html do
   view :errors, perms: :none do
     return if card.errors.empty?
 
-    voo.title = card.name.blank? ? "Problems" : tr(:problems_name, cardname: card.name)
+    voo.title = card.name.blank? ? "Problems" : t(:format_problems_name, cardname: card.name)
     voo.hide! :menu
     class_up "alert", "card-error-msg"
     standard_errors voo.title
@@ -133,21 +133,21 @@ format :html do
   def sign_in_or_up_links to_task
     return if Auth.signed_in?
 
-    links = [signin_link, signup_link].compact.join " #{tr :or} "
+    links = [signin_link, signup_link].compact.join " #{t(:format_or)} "
     wrap_with(:div) do
-      [tr(:please), links, to_task].join(" ") + "."
+      [t(:format_please), links, to_task].join(" ") + "."
     end
   end
 
   def signin_link
-    link_to_card :signin, tr(:sign_in, mod: "card-mod-account"),
+    link_to_card :signin, t(:account_sign_in),
                  class: "signin-link", slotter: true, path: { view: :open }
   end
 
   def signup_link
     return unless signup_ok?
 
-    link_to_card :signup, tr(:sign_up),
+    link_to_card :signup, t(:account_sign_up),
                  class: "signup-link", slotter: true, path: { action: :new }
   end
 
@@ -164,19 +164,19 @@ format :html do
   def loud_denial
     voo.hide :menu
     frame do
-      [wrap_with(:h1, tr(:sorry)),
+      [wrap_with(:h1, t(:format_sorry)),
        wrap_with(:div, loud_denial_message)]
     end
   end
 
   def loud_denial_message
-    to_task = @denied_task ? tr(:denied_task, denied_task: @denied_task) : tr(:to_do_that)
+    to_task = @denied_task ? t(:format_denied_task, denied_task: @denied_task) : t(:format_to_do_that)
 
     case
     when not_denied_task_read?
-      tr(:read_only)
+      t(:format_read_only)
     when Auth.signed_in?
-      tr(:need_permission_task, task: to_task)
+      t(:format_need_permission_task, task: to_task)
     else
       Env.save_interrupted_action request.env["REQUEST_URI"]
       sign_in_or_up_links to_do_unauthorized_task
@@ -188,6 +188,6 @@ format :html do
   end
 
   def to_do_unauthorized_task
-    @denied_task ? tr(:denied_task, denied_task: @denied_task) : tr(:to_do_that)
+    @denied_task ? t(:format_denied_task, denied_task: @denied_task) : t(:format_to_do_that)
   end
 end
