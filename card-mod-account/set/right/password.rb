@@ -23,7 +23,7 @@ end
 event :validate_password, :validate, on: :save do
   return if content.length > 3
 
-  errors.add :password, tr(:password_length)
+  errors.add :password, t(:account_password_length)
 end
 
 event :validate_password_present, :prepare_to_validate, on: :update do
@@ -31,7 +31,7 @@ event :validate_password_present, :prepare_to_validate, on: :update do
 end
 
 view :raw do
-  tr :encrypted
+  t :account_encrypted
 end
 
 format :html do
