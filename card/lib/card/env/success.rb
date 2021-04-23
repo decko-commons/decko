@@ -92,6 +92,8 @@ class Card
 
       def apply hash
         hash.each_pair do |key, value|
+          next unless value.present?
+
           self[key] = value
         end
       end

@@ -27,6 +27,7 @@ def rename_as_descendant referers=true
   refresh_references_in
   refresh_references_out
   expire
+  Card::Lexicon.update self
 end
 
 def changed_from_simple_to_compound?
