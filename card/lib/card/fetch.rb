@@ -36,7 +36,6 @@ class Card
     def absolutize_mark
       return unless mark.name? && (supercard = opts.dig(:new, :supercard))
       @mark = mark.absolute_name supercard.name
-      # binding.pry if @mark.right_name == :metric_type.cardname
     end
 
     def validate_opts!
