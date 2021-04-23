@@ -19,9 +19,10 @@ class Card
         end
 
         def each_child
-          child_ids.each do |id|
-            (child = Card[id]) && yield(child)
-            # check should not be needed (remove after fixing data problems)
+          Card.where(
+            "(left_id = #{id} or right_id = #{id}) and trash is false"
+          ).each do |child|
+            yield child
           end
         end
 
