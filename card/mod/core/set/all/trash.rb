@@ -109,10 +109,7 @@ end
 event :validate_delete_children, after: :validate_delete, on: :delete do
   return if errors.any?
   each_child do |child|
-    next unless child
-    # prevents errors in cases where a child is deleted prior to this point
-    # and thus is not returned by the fetch in #children
-
+    child.include_set_modules
     delete_as_subcard child
     # next if child.valid?
     # child.errors.each do |field, message|
