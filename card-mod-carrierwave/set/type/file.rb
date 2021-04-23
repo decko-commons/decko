@@ -77,7 +77,7 @@ end
 format :html do
   view :core do
     handle_source do |source|
-      "<a href=\"#{source}\">#{tr :download, title: title_in_context(voo.title)}</a>"
+      haml :core, source: source
     end
   end
 
@@ -111,6 +111,6 @@ format :html do
   end
 
   def preview_editor_delete_text
-    tr :delete
+    t :carrierwave_delete
   end
 end

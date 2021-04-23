@@ -5,7 +5,7 @@ format :html do
 
   def type_formgroup args={}
     if card.cards_of_type_exist?
-      wrap_with :div, tr(:cards_exist, scope: "core", cardname: safe_name)
+      wrap_with :div, t(:format_cards_exist, scope: "core", cardname: safe_name)
     else
       super
     end
@@ -20,7 +20,7 @@ format :html do
   end
 
   def add_link opts={}
-    voo.title ||= tr(:add_card, cardname: safe_name)
+    voo.title ||= t(:format_add_card, cardname: safe_name)
     link_to render_title, add_link_opts(opts)
   end
 
@@ -67,7 +67,7 @@ format :html do
   def configure_link css_class=nil
     return "" unless Card.fetch(card, :type, :structure, new: {}).ok? :update
 
-    voo.title ||= tr(:configure_card, cardname: safe_name.pluralize)
+    voo.title ||= t(:format_configure_card, cardname: safe_name.pluralize)
     title = _render_title
     link_to_card card, title,
                  path: { view: :bridge,

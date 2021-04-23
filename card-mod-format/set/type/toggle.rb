@@ -4,8 +4,8 @@ end
 
 view :core do
   case card.content.to_i
-  when 1 then tr :toggle_yes
-  when 0 then tr :toggle_no
+  when 1 then t(:format_toggle_yes)
+  when 0 then t(:format_toggle_no)
   else
     "?"
   end

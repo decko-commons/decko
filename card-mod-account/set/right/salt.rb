@@ -9,5 +9,5 @@ def history?
 end
 
 view :raw do
-  tr :private_data
+  t :account_private_data
 end

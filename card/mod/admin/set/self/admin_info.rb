@@ -34,7 +34,7 @@ format :html do
   def no_email_delivery_message
     # "Email delivery is turned off."
     # "Change settings in config/application.rb to send sign up notifications."
-    tr :email_off, path: "config/application.rb"
+    t :account_email_off, path: "config/application.rb"
   end
 
   def warning_list_with_auto_scope warnings

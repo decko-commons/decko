@@ -65,19 +65,15 @@ def failed_signin email
 end
 
 def abort_unless value, error_key
-  abort :failure, tr(error_key) unless value
+  abort :failure, t("account_#{error_key}") unless value
 end
 
 def signin_error_message account
-  case
-  when account.nil?     then tr :error_unknown_email
-  when !account.active? then tr :error_not_active
-  else                       tr :error_wrong_password
-  end
+  t "account_#{signin_error_key account}"
 end
 
 def error_on field, error_key
-  errors.add field, tr(error_key)
+  errors.add field, t("account_#{error_key}")
 end
 
 def account_for email
@@ -110,6 +106,16 @@ def reset_password_fail account
   end
 end
 
+private
+
+def signin_error_key account
+  case
+  when account.nil?     then :error_unknown_email
+  when !account.active? then :error_not_active
+  else                       :error_wrong_password
+  end
+end
+
 format :html do
   view :core, cache: :never do
     voo.edit_structure = [signin_field(:email), signin_field(:password)]
@@ -131,7 +137,7 @@ format :html do
 
   # FIXME: need a generic solution for this
   view :title do
-    voo.title ||= tr :sign_in_title
+    voo.title ||= t(:account_sign_in_title)
     super()
   end
 
@@ -146,7 +152,7 @@ format :html do
 
   view :reset_password_success do
     # 'Check your email for a link to reset your password'
-    frame { tr :check_email }
+    frame { t :account_check_email }
   end
 
   view :signin_buttons do
@@ -162,13 +168,13 @@ format :html do
   end
 
   def reset_password_voo
-    voo.title ||= tr :forgot_password
+    voo.title ||= t :account_forgot_password
     voo.edit_structure = [signin_field(:email)]
     voo.hide :help
   end
 
   view :edit_buttons do
-    button_tag tr(:reset_my_password),
+    button_tag t(:account_reset_my_password),
                situation: "primary", class: "_close-modal-on-success"
   end
 
@@ -177,15 +183,16 @@ format :html do
   end
 
   def signin_button
-    button_tag tr(:sign_in), situation: "primary"
+    button_tag t(:account_sign_in), situation: "primary"
   end
 
   def signup_link
-    subformat(Card[:account_links]).render! :sign_up, title: tr(:or_sign_up)
+    subformat(Card[:account_links]).render! :sign_up, title: t(:account_or_sign_up)
   end
 
   def reset_password_link
-    link = link_to_view :edit, tr(:reset_password), path: { slot: { hide: :bridge_link } }
+    link = link_to_view :edit, t(:account_reset_password),
+                        path: { slot: { hide: :bridge_link } }
     # FIXME: inline styling
     raw("<div style='float:right'>#{link}</div>")
   end
