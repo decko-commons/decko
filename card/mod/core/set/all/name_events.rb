@@ -56,12 +56,9 @@ event :expire_old_name, :store, changed: :name, on: :update do
   Director.expirees << name_before_act
 end
 
-event :update_lexicon_on_create, :finalize, changed: :name, on: :create do
-  Card::Lexicon.add self
-end
-
-event :update_lexicon_on_rename, :finalize, changed: :name, on: :update do
-  Card::Lexicon.update self
+event :update_lexicon, :store, changed: :name, on: :save, after_subcards: true do
+  lexicon_action = @action == :create ? :add : :update
+  Card::Lexicon.send lexicon_action, self
 end
 
 def lex
