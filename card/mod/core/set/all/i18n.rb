@@ -1,17 +1,5 @@
-def t key, args={}
-  Cardio.t key, args
-end
-
-def tr key, args={}
-  Cardio.tr key, args.merge(caller: caller)
-end
+delegate :t, to: Cardio
 
 format do
-  def t key, args={}
-    Cardio.t key, args
-  end
-
-  def tr key, args={}
-    Cardio.tr key, args.merge(caller: caller)
-  end
+  delegate :t, to: Cardio
 end

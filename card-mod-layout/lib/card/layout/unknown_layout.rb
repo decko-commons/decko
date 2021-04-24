@@ -1,18 +1,18 @@
 class Card
   class Layout
     class UnknownLayout < Layout
+      delegate :t, to: Cardio
+
       def render
         @format.output [header, text]
       end
 
       def header
-        @format.content_tag :h1, @format.tr(:unknown_layout,
-                                            scope: "card-mod-format", name: @layout)
+        @format.content_tag :h1, t(:layout_unknown_layout, name: @layout)
       end
 
       def text
-        @format.tr(:available_layouts, scope: "card-mod-format",
-                                       available_layouts: self.class.built_in_layouts)
+        t :layout_available_layouts, available_layouts: self.class.built_in_layouts
       end
     end
   end
