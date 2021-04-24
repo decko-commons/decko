@@ -24,7 +24,7 @@ class Card
         end
 
         def not_found_codename_error codename
-          Cardio.tr :exception_unknown_codename, codename: codename
+          Cardio.t :lib_exception_unknown_codename, codename: codename
         end
 
         def new_card cardish

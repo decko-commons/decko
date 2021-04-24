@@ -18,7 +18,7 @@ def actionable?
 end
 
 event :detect_conflict, :validate, on: :update, when: :edit_conflict? do
-  errors.add :conflict, tr(:error_not_latest_revision)
+  errors.add :conflict, Cardio.t(:history_error_not_latest_revision)
 end
 
 def edit_conflict?
