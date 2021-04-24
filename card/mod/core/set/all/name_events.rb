@@ -15,36 +15,36 @@ event :validate_uniqueness_of_name, skip: :allowed do
   # TODO: perform the following as a remote-only fetch (not yet supported)
   return unless (existing_card = Card.where(id: existing_id, trash: false).take)
 
-  errors.add :name, tr(:error_name_exists, name: existing_card.name)
+  errors.add :name, t(:core_error_name_exists, name: existing_card.name)
 end
 
 # called by validate_name
 event :validate_legality_of_name do
   if name.length > 255
-    errors.add :name, tr(:error_too_long, length: name.length)
+    errors.add :name, t(:core_error_too_long, length: name.length)
   elsif name.blank?
-    errors.add :name, tr(:error_blank_name)
+    errors.add :name, t(:core_error_blank_name)
   elsif name_incomplete?
-    errors.add :name, tr(:is_incomplete)
+    errors.add :name, t(:core_is_incomplete)
   elsif !name.valid?
-    errors.add :name, tr(:error_banned_characters, banned: Card::Name.banned_array * " ")
+    errors.add :name, t(:core_error_banned_characters, banned: Card::Name.banned_array * " ")
   elsif changing_existing_tag_to_junction?
-    errors.add :name, tr(:error_name_tag, name: name)
+    errors.add :name, t(:core_error_name_tag, name: name)
   end
 end
 
 event :validate_key, after: :validate_name, on: :save, when: :no_autoname? do
   if key.empty?
-    errors.add :key, tr(:error_blank_key) if errors.empty?
+    errors.add :key, t(:core_error_blank_key) if errors.empty?
   elsif key != name.key
-    errors.add :key, tr(:error_wrong_key, key: key, name: name)
+    errors.add :key, t(:core_error_wrong_key, key: key, name: name)
   end
 end
 
 event :validate_renaming, :validate, on: :update, changed: :name, skip: :allowed do
   return if name_before_act&.to_name == name # just changing to new variant
-  errors.add :content, tr(:cannot_change_content) if content_is_changing?
-  errors.add :type, tr(:cannot_change_type) if type_is_changing?
+  errors.add :content, t(:core_cannot_change_content) if content_is_changing?
+  errors.add :type, t(:core_cannot_change_type) if type_is_changing?
   detect_illegal_compound_names
 end
 
