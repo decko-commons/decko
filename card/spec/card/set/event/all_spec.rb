@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-RSpec.describe Card::Set::All::EventConditions do
+RSpec.describe Card::Set::Event::All do
   let(:create_card) {Card.create!(name: "main card")}
   let(:create_card_with_subcards) do
     Card.create name: "main card",

@@ -27,7 +27,8 @@ event :validate_legality_of_name do
   elsif name_incomplete?
     errors.add :name, t(:core_is_incomplete)
   elsif !name.valid?
-    errors.add :name, t(:core_error_banned_characters, banned: Card::Name.banned_array * " ")
+    errors.add :name, t(:core_error_banned_characters,
+                        banned: Card::Name.banned_array * " ")
   elsif changing_existing_tag_to_junction?
     errors.add :name, t(:core_error_name_tag, name: name)
   end
