@@ -33,7 +33,7 @@ module ClassMethods
     file_ids = all_file_ids
     file_ids.each do |file_id|
       next unless trashed_card_ids.member?(file_id)
-      raise Card::Error, tr(:exception_almost_deleted) if Card.exists?(file_id)
+      raise Card::Error, t(:core_exception_almost_deleted) if Card.exists?(file_id)
       ::FileUtils.rm_rf "#{dir}/#{file_id}", secure: true
     end
   end
@@ -91,7 +91,7 @@ end
 
 event :validate_delete, :validate, on: :delete do
   unless codename.blank?
-    errors.add :delete, tr(:error_system_card, name: name, codename: codename)
+    errors.add :delete, t(:core_error_system_card, name: name, codename: codename)
   end
 
   undeletable_all_rules_tags =
@@ -100,10 +100,10 @@ event :validate_delete, :validate, on: :delete do
 
   if junction? && left&.codename == :all &&
      undeletable_all_rules_tags.member?(right.codename.to_s)
-    errors.add :delete, tr(:error_indestructible, name: name)
+    errors.add :delete, t(:core_error_indestructible, name: name)
   end
 
-  errors.add :delete, tr(:error_user_edits, name: name) if account && has_edits?
+  errors.add :delete, t(:core_error_user_edits, name: name) if account && has_edits?
 end
 
 event :validate_delete_children, after: :validate_delete, on: :delete do

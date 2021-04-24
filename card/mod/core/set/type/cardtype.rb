@@ -11,18 +11,18 @@ def was_cardtype?
 end
 
 event :check_for_cards_of_type, after: :validate_delete do
-  errors.add :cardtype, tr(:cards_exist, cardname: name) if cards_of_type_exist?
+  errors.add :cardtype, t(:core_cards_exist, cardname: name) if cards_of_type_exist?
 end
 
 event :check_for_cards_of_type_when_type_changed,
       :validate, changing: :type, when: :was_cardtype? do
   if cards_of_type_exist?
-    errors.add :cardtype, tr(:error_cant_alter, name: name_before_act)
+    errors.add :cardtype, t(:core_error_cant_alter, name: name_before_act)
   end
 end
 
 event :validate_cardtype_name, :validate, on: :save, changed: :name do
   if %r{[<>/]}.match?(name)
-    errors.add :name, tr(:error_invalid_character_in_cardtype, banned: "<, >, /")
+    errors.add :name, t(:core_error_invalid_character_in_cardtype, banned: "<, >, /")
   end
 end
