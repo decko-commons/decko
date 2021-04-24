@@ -67,29 +67,29 @@ RSpec.describe Card::Set::Event::All do
 
     # events are on pointer (the FROM type)
     context "when event is on OLD type's set" do
-      it "does NOT run by default" do
-        update_type_with_event set: Card::Set::Type::Pointer
-        expect(log).to be_empty
-      end
-
       it "DOES run with `changing: :type`" do
         update_type_with_event set: Card::Set::Type::Pointer, changing: :type
         expect(log).to contain_exactly("VALIDATION RAN")
+      end
+
+      it "does NOT run by default" do
+        update_type_with_event set: Card::Set::Type::Pointer
+        expect(log).to be_empty
       end
     end
 
     # events are on search (the TO type)
     context "when event is on NEW type's set" do
-      it "DOES run by default" do
-        update_type_with_event set: Card::Set::Type::SearchType
-        expect(log).to contain_exactly("VALIDATION RAN")
-      end
-
       # following does not yet work, because old card has both old sets and new sets
       # when conditions are tested.
       xit "does NOT run with `changing: :type`" do
         update_type_with_event set: Card::Set::Type::SearchType, changing: :type
         expect(log).to be_empty
+      end
+
+      it "DOES run by default" do
+        update_type_with_event set: Card::Set::Type::SearchType
+        expect(log).to contain_exactly("VALIDATION RAN")
       end
     end
   end
