@@ -95,15 +95,15 @@ RSpec.describe Card::Set::Event::All do
   end
 
   context "when changing name" do
-    def update_name
-      update_card "Cardtype B+*type+*create", name: "B+*update"
-    end
-
     def update_name_with_event args
       with_test_events do
         log_validation args
         update_name
       end
+    end
+
+    def update_name
+      update_card "Cardtype B+*type+*create", name: "B+*update"
     end
 
     # events are on +*create (the FROM name)
