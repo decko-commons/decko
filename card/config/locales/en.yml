@@ -30,13 +30,12 @@ en:
       card_date_seconds: '%B %e, %Y %H:%M:%S'
       card_date_only: '%B %e, %Y'
 
-  lib:
-    error_rendering: "Error rendering: %{cardname} (%{view} view)"
-    exception_for_card: "for card %{cardname}: %{message}"
-    exception_init_without_card: format initialized without card
-    exception_not_implemented: "%{func} not implemented"
-    exception_unknown_codename: "unknown codename: %{codename}"
-    no_cardname: unknown card
+  lib_error_rendering: "Error rendering: %{cardname} (%{view} view)"
+  lib_exception_for_card: "for card %{cardname}: %{message}"
+  lib_exception_init_without_card: format initialized without card
+  lib_exception_not_implemented: "%{func} not implemented"
+  lib_exception_unknown_codename: "unknown codename: %{codename}"
+  lib_no_cardname: unknown card
 
   core_cannot_change_content: cannot change content while changing name
   core_cannot_change_type: cannot change type while changing name
@@ -76,51 +75,6 @@ en:
   # core_label_setfollow_star_cards: all "*" cards
   # core_label_setfollow_type_cards: all "%{name}s"
   # core_label_setfollow_typeplusright_cards: all "+%{right}" on "%{type}s"
-
-  standard:
-    action: Action
-    actions: actions
-    applies_to: "<label>Applies to</label> %{card_link}:"
-    by_group: by group
-    by_name: by name
-    cancel: Cancel
-    cant_edit: Cannot currently edit Sets
-    cards: cards
-    clear_cache: clear cache
-    clear_view_cache: clear view cache
-    common: common
-    current: current
-    delete: Delete
-    delete_all: delete all
-    delete_old: delete old
-    delete_revert_rule: Deleting will revert to %{rule_setting_name} rule for %{card_label}
-    edit_page: Edit this page!
-    field: field
-    megabyte_suffix: M
-    memory_diff: memory diff
-    memory_now: memory now
-    memory_prev: memory prev
-    next: Next
-    no_content_exception: "Error in card '%{name}': can't run search with empty content"
-    no_current_rule: No Current Rule
-    no_limit_exception: OH NO.. no limit
-    no_results: no results
-    not_a_rule: not a rule
-    previous: Previous
-    recent: recent
-    recent_changes: Recent Changes
-    references: references
-    related_set: related set
-    repair_all: repair all
-    results_for: "Search results for: %{keyword}"
-    rules: Rules
-    search_goto_items: "goto items for term: %{term}"
-    set: Set
-    stat: Stat
-    submit: Submit
-    trashed_cards: trashed cards
-    value: Value
-    view_cache: view cache
 
   admin_warn: ADMINISTRATOR WARNING
   admin_email_off: Email delivery is turned off. Change settings in %{path} to send sign up notifications.
@@ -202,6 +156,8 @@ en:
   layout_unknown_layout: "Unknown layout: %{name}"
 
   legacy_toc: Table of Contents
+
+  permission_error_no_action_rule: No %{action} rule for %{name}
 
   recaptcha_captcha_keys: You are configured to use %{captcha_link}, but for that to work you need new %{recaptcha_link}.
   recaptcha_captcha_temp: Your captcha is currently working with temporary settings. This is fine for a local installation, but you will need new %{recaptcha_link} if you want to make this site public.
