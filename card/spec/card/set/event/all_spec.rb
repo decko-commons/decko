@@ -5,10 +5,8 @@ RSpec.describe Card::Set::Event::All do
   let(:create_card) { Card.create!(name: "main card") }
   let :create_card_with_subcards do
     Card.create name: "main card",
-                subcards: {
-                  "11" => { subcards: { "111" => "A" } },
-                  "12" => { subcards: { "121" => "A" } }
-                }
+                subcards: { "11" => { subcards: { "111" => "A" } },
+                            "12" => { subcards: { "121" => "A" } } }
   end
 
   def add_to_log entry
@@ -57,9 +55,7 @@ RSpec.describe Card::Set::Event::All do
 
   context "when changing type" do
     def update_type
-      Card::Auth.as_bot do
-        Card["Sample Pointer"].update! type: "Search"
-      end
+      update_card "Sample Pointer", type: "Search"
     end
 
     def update_type_with_event args
@@ -100,9 +96,7 @@ RSpec.describe Card::Set::Event::All do
 
   context "when changing name" do
     def update_name
-      Card::Auth.as_bot do
-        Card["Cardtype B+*type+*create"].update! name: "B+*update"
-      end
+      update_card "Cardtype B+*type+*create", name: "B+*update"
     end
 
     def update_name_with_event args
