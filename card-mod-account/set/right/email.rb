@@ -8,7 +8,7 @@ event :validate_email, :validate, on: :save do
   self.content = content.strip
   return if content.match?(/^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i)
 
-  errors.add :content, tr(:error_invalid_address)
+  errors.add :content, t(:account_error_invalid_address)
 end
 
 event :validate_unique_email, after: :validate_email, on: :save do
@@ -16,9 +16,9 @@ event :validate_unique_email, after: :validate_email, on: :save do
     Auth.as_bot do
       cql = { right_id: EmailID, eq: content, return: :id }
       cql[:not] = { id: id } if id
-      cql_comment = tr(:search_email_duplicate, content: content)
+      cql_comment = t(:account_search_email_duplicate, content: content)
       if Card.search(cql, cql_comment).first
-        errors.add :content, tr(:error_not_unique)
+        errors.add :content, t(:account_error_not_unique)
       end
     end
   end
@@ -37,7 +37,7 @@ def ok_to_read
   if own_email? || Auth.always_ok?
     true
   else
-    deny_because tr(:deny_email_restricted)
+    deny_because t(:account_deny_email_restricted)
   end
 end
 

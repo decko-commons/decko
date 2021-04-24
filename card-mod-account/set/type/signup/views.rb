@@ -4,7 +4,7 @@ format :html do
   end
 
   view :new do
-    voo.title = invitation? ? tr(:invite) : tr(:sign_up)
+    voo.title = invitation? ? t(:account_invite) : t(:account_sign_up)
     super()
   end
 
@@ -46,7 +46,7 @@ format :html do
     if card.account
       verification_lines
     else
-      [tr(:missing_account)]
+      [t(:account_missing_account)]
     end
   end
 
