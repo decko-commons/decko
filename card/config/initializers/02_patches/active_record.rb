@@ -66,7 +66,7 @@ module Patches
     module ConnectionAdapters
       module AbstractAdapter
         def match _string
-          raise tr(:exception_not_implemented)
+          raise Cardio.t(:lib_exception_not_implemented)
         end
 
         def cast_types

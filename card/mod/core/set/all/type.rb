@@ -43,19 +43,17 @@ def type_id_from_template
 end
 
 event :validate_type_change, :validate, on: :update, changed: :type_id do
-  if (c = dup) && c.action == :create && !c.valid?
-    errors.add :type, tr(
-      :error_cant_change_errors,
-      name: name, type_id: type_id,
-      error_messages: c.errors.full_messages
-    )
-  end
+  return unless (c = dup) && c.action == :create && !c.valid?
+  errors.add :type, t(:core_error_cant_change_errors,
+                      name: name,
+                      type_id: type_id,
+                      error_messages: c.errors.full_messages)
 end
 
 event :validate_type, :validate, changed: :type_id, on: :save do
-  errors.add :type, tr(:error_no_such_type) unless type_name
+  errors.add :type, t(:core_error_no_such_type) unless type_name
 
   if (rt = structure) && rt.assigns_type? && type_id != rt.type_id
-    errors.add :type, tr(:error_hard_templated, name: name, type_name: rt.type_name)
+    errors.add :type, t(:core_error_hard_templated, name: name, type_name: rt.type_name)
   end
 end

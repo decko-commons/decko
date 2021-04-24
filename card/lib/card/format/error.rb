@@ -42,7 +42,7 @@ class Card
         if card&.name.present?
           safe_name
         else
-          Cardio.tr :no_cardname
+          Cardio.t :lib_no_cardname
         end
       end
 
@@ -71,7 +71,7 @@ class Card
         if exception.is_a? Card::Error::UserError
           exception.message
         else
-          tr :error_rendering, cardname: error_cardname(exception), view: view
+          t :lib_error_rendering, cardname: error_cardname(exception), view: view
         end
       end
     end
