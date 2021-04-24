@@ -21,12 +21,20 @@ RSpec.describe Card::Set::All::NameEvents do
     old_name = card.name
 
     update! card.name, name: new_name, update_referers: true
-    expect_successful_rename card, old_name, attrs_before, (actions_count_before + 1)
+    expect_action_added card, actions_count_before
+    expect_old_name_cleared old_name
+    expect_successful_rename card, attrs_before
   end
 
-  def expect_successful_rename card, old_name, attrs_before, actions_count_after
-    expect(card.actions.count).to eq(actions_count_after)
+  def expect_action_added card, actions_count_before
+    expect(card.actions.count).to eq(actions_count_before - 1)
+  end
+
+  def expect_old_name_cleared old_name
     expect(Card.cache.read(old_name)).to eq(nil)
+  end
+
+  def expect_successful_rename card, attrs_before
     expect(name_invariant_attributes(card)).to eq(attrs_before)
     expect(Card[card.name]).to eq(card)
   end
