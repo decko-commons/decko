@@ -1,8 +1,9 @@
 # -*- encoding : utf-8 -*-
 
-RSpec.describe Card::Set::All::EventConditions do
-  let(:create_card) {Card.create!(name: "main card")}
-  let(:create_card_with_subcards) do
+RSpec.describe Card::Set::Event::All do
+  let(:log) { @log ||= [] }
+  let(:create_card) { Card.create!(name: "main card") }
+  let :create_card_with_subcards do
     Card.create name: "main card",
                 subcards: {
                   "11" => { subcards: { "111" => "A" } },
@@ -10,45 +11,40 @@ RSpec.describe Card::Set::All::EventConditions do
                 }
   end
 
-  context "restricted to changed content:" do
-    STAGES = [:validate, :store, :finalize, :integrate]
+  def add_to_log entry
+    log << entry
+  end
 
-    def add_to_log entry
-      @log << entry
-    end
+  context "when restricted to changed content:" do
+    STAGES = %i[validate store finalize integrate].freeze
 
     def change_content
       Card["A"].update! content: "changed content"
     end
 
-    before do
-      @log = []
+    def in_each_stage
+      STAGES.each do |stage|
+        test_event stage, on: :update, changed: :content, for: "A" do
+          yield stage
+        end
+      end
     end
 
     it "is executed when content changed" do
       with_test_events do
-        STAGES.each do |stage|
-          test_event stage, on: :update, changed: :content, for: "A" do
-            # can't access instance variables here but methods are fine
-            add_to_log stage
-          end
-        end
+        in_each_stage { |stage| add_to_log stage }
         change_content
-        expect(@log).to contain_exactly(*STAGES)
       end
+      expect(log).to contain_exactly(*STAGES)
     end
 
     specify "content change is accessible in all stages" do
+      content_before_change = [Card["A"].db_content] * STAGES.size
       with_test_events do
-        STAGES.each do |stage|
-          test_event stage, on: :update, changed: :content, for: "A" do
-            add_to_log db_content_before_act
-          end
-        end
-        content_before_change = [Card["A"].db_content] * STAGES.size
+        in_each_stage { |_stage| add_to_log db_content_before_act }
         change_content
-        expect(@log).to contain_exactly(*content_before_change)
       end
+      expect(log).to contain_exactly(*content_before_change)
     end
 
     context "when changing type" do
@@ -64,7 +60,7 @@ RSpec.describe Card::Set::All::EventConditions do
             add_to_log "NO to run"
           end
           update_type
-          expect(@log).to be_empty
+          expect(log).to be_empty
         end
       end
 
@@ -75,8 +71,9 @@ RSpec.describe Card::Set::All::EventConditions do
             add_to_log "YES to run"
           end
           update_type
-          expect(@log).to contain_exactly("YES to run")
         end
+        expect(log).to contain_exactly("YES to run")
+
       end
 
       it "does run update events from sets that apply after change" do
@@ -85,7 +82,7 @@ RSpec.describe Card::Set::All::EventConditions do
             add_to_log "YES to run"
           end
           update_type
-          expect(@log).to contain_exactly("YES to run")
+          expect(log).to contain_exactly("YES to run")
         end
       end
 
@@ -98,7 +95,7 @@ RSpec.describe Card::Set::All::EventConditions do
             add_to_log "NO to run"
           end
           update_type
-          expect(@log).to be_empty
+          expect(log).to be_empty
         end
       end
     end
@@ -116,7 +113,7 @@ RSpec.describe Card::Set::All::EventConditions do
             add_to_log "NO to run"
           end
           update_name
-          expect(@log).to be_empty
+          expect(log).to be_empty
         end
       end
 
@@ -127,7 +124,7 @@ RSpec.describe Card::Set::All::EventConditions do
             add_to_log "YES to run"
           end
           update_name
-          expect(@log).to contain_exactly("YES to run")
+          expect(log).to contain_exactly("YES to run")
         end
       end
 
@@ -137,7 +134,7 @@ RSpec.describe Card::Set::All::EventConditions do
             add_to_log "YES to run"
           end
           update_name
-          expect(@log).to contain_exactly("YES to run")
+          expect(log).to contain_exactly("YES to run")
         end
       end
     end
@@ -151,9 +148,9 @@ RSpec.describe Card::Set::All::EventConditions do
           Card["A"].update! content: "changed content"
 
           aggregate_failures do
-            expect(@log).to be_empty
+            expect(log).to be_empty
             Card["A"].update! content: "changed content", trigger: :test_event_0
-            expect(@log).to contain_exactly "triggered"
+            expect(log).to contain_exactly "triggered"
           end
         end
       end
@@ -167,9 +164,9 @@ RSpec.describe Card::Set::All::EventConditions do
           update_with_skip force, changes, skip_key
 
           aggregate_failures do
-            expect(@log).to eq(log1)                              # logging with skip
+            expect(log).to eq(log1)                              # logging with skip
             Card["A"].update! changes                             # update without skip
-            expect(@log).to contain_exactly(*log2)                # logging without skip
+            expect(log).to contain_exactly(*log2)                # logging without skip
           end
         end
       end

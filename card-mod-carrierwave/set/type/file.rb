@@ -38,7 +38,7 @@ format do
     block_given? ? yield(source) : source
   rescue => e
     Rails.logger.info "Error with file source: #{e.message}"
-    tr :file_error
+    t :carrierwave_file_error
   end
 
   def selected_version
