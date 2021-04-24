@@ -215,23 +215,12 @@ en:
   format_too_deep: Man, you're too deep.  (Too many levels of nests at a time)
   format_unsupported_view: view (%{view}) not supported for %{cardname}
 
-  card-mod-history:
-    added: Added
-    current: Current
-    deleted: Deleted
-    error_not_latest_revision: changes not based on latest revision
-    hide_changes: Hide changes
-    save_as_current: Save as current
-    show_changes: Show changes
-    time_ago: "%{elapsed__time_in_words} ago"
+  history_error_not_latest_revision: changes not based on latest revision
 
-  card-mod-layout:
-    available_layouts: "Available Layouts: %{available_layouts}"
-    built_in: "Built-in Layouts: %{built_in_layouts}"
-    unknown_layout: "Unknown layout: %{name}"
+  layout_available_layouts: "Available Layouts: %{available_layouts}"
+  layout_unknown_layout: "Unknown layout: %{name}"
 
-  card-mod-legacy:
-    toc: Table of Contents
+  legacy_toc: Table of Contents
 
   rules_config: Config
   rules_event: Events
