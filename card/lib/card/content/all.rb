@@ -1,5 +1,6 @@
 class Card
   class Content
+    # content-related methods for cards
     module All
       def content= value
         self.db_content = standardize_content(value)
