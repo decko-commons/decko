@@ -22,7 +22,7 @@ class Card
     end
 
     def message_from_card
-      Cardio.tr :exception_for_card, cardname: card.name, message: card_message_text
+      Cardio.t :lib_exception_for_card, cardname: card.name, message: card_message_text
     end
 
     def backtrace

@@ -27,19 +27,17 @@ format :html do
   def warning_alert warnings
     # 'ADMINISTRATOR WARNING'
     alert :warning, true do
-      "<h5>#{tr :admin_warn}</h5>" + list_tag(warnings)
+      "<h5>#{t :admin_warn}</h5>" + list_tag(warnings)
     end
   end
 
   def no_email_delivery_message
     # "Email delivery is turned off."
     # "Change settings in config/application.rb to send sign up notifications."
-    t :account_email_off, path: "config/application.rb"
+    t :admin_email_off, path: "config/application.rb"
   end
 
   def warning_list_with_auto_scope warnings
-    # 'ADMINISTRATOR WARNING'
-    admin_warn = tr(:admin_warn)
-    "<h5>#{admin_warn}</h5>" + warnings.join("\n")
+    "<h5>#{t :admin_warn}</h5>" + warnings.join("\n")
   end
 end

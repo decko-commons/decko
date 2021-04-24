@@ -119,6 +119,8 @@ class Card < ApplicationRecord
   include DirtyNames
   include Director::CardMethods
   include Name::All
+  include Content::All
+  include Set::Event::All
 
   Card::Cache # trigger autoload
 
@@ -146,7 +148,6 @@ class Card < ApplicationRecord
     :skip_in_action,              # skip event for just this card
     :trigger,                     # trigger event(s) for all cards in act
     :trigger_in_action,           # trigger event for just this card
-
     :comment,                     # obviated soon
 
     # TODO: refactor following to use skip/trigger
@@ -156,6 +157,8 @@ class Card < ApplicationRecord
   ]
 
   attr_accessor(*action_specific_attributes)
+  self.action_specific_attributes +=
+    %i[skip_hash full_skip_hash trigger_hash full_trigger_hash]
 
   define_callbacks :select_action, :show_page, :act
 

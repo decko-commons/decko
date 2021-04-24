@@ -7,18 +7,18 @@ class Card
 
       def layout_class layout
         if layout.respond_to? :call
-          Card::Layout::ProcLayout
+          ProcLayout
         elsif card_layout? layout
-          Card::Layout::CardLayout
+          CardLayout
         elsif code_layout? layout
-          Card::Layout::CodeLayout
+          CodeLayout
         else
-          Card::Layout::UnknownLayout
+          UnknownLayout
         end
       end
 
       def card_layout? name
-        Card.fetch_type_id(name).in? [Card::LayoutTypeID, Card::HtmlID, Card::BasicID]
+        Card.fetch_type_id(name).in? [LayoutTypeID, HtmlID, BasicID]
       rescue ArgumentError, Card::Error::CodenameNotFound => _e
         false
       end
