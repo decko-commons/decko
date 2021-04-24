@@ -1,6 +1,7 @@
 class Card
   module Set
     class Event
+      # card methods for testing event applicability
       module All
         include SkipAndTrigger
 
