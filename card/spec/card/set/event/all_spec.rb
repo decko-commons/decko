@@ -16,36 +16,35 @@ RSpec.describe Card::Set::Event::All do
   end
 
   context "when restricted to changed content:" do
-    STAGES = %i[validate store finalize integrate]
+    STAGES = %i[validate store finalize integrate].freeze
 
     def change_content
       Card["A"].update! content: "changed content"
     end
 
-    it "is executed when content changed" do
-      with_test_events do
-        STAGES.each do |stage|
-          test_event stage, on: :update, changed: :content, for: "A" do
-            # can't access instance variables here but methods are fine
-            add_to_log stage
-          end
+    def in_each_stage
+      STAGES.each do |stage|
+        test_event stage, on: :update, changed: :content, for: "A" do
+          yield stage
         end
-        change_content
-        expect(log).to contain_exactly(*STAGES)
       end
     end
 
-    specify "content change is accessible in all stages" do
+    it "is executed when content changed" do
       with_test_events do
-        STAGES.each do |stage|
-          test_event stage, on: :update, changed: :content, for: "A" do
-            add_to_log db_content_before_act
-          end
-        end
-        content_before_change = [Card["A"].db_content] * STAGES.size
+        in_each_stage { |stage| add_to_log stage }
         change_content
-        expect(log).to contain_exactly(*content_before_change)
       end
+      expect(log).to contain_exactly(*STAGES)
+    end
+
+    specify "content change is accessible in all stages" do
+      content_before_change = [Card["A"].db_content] * STAGES.size
+      with_test_events do
+        in_each_stage { |_stage| add_to_log db_content_before_act }
+        change_content
+      end
+      expect(log).to contain_exactly(*content_before_change)
     end
 
     context "when changing type" do
@@ -72,8 +71,9 @@ RSpec.describe Card::Set::Event::All do
             add_to_log "YES to run"
           end
           update_type
-          expect(log).to contain_exactly("YES to run")
         end
+        expect(log).to contain_exactly("YES to run")
+
       end
 
       it "does run update events from sets that apply after change" do
