@@ -140,14 +140,14 @@ format :html do
   end
 
   def signin_link
-    link_to_card :signin, t(:account_sign_in),
+    link_to_card :signin, t(:account_sign_in)&.downcase,
                  class: "signin-link", slotter: true, path: { view: :open }
   end
 
   def signup_link
     return unless signup_ok?
 
-    link_to_card :signup, t(:account_sign_up),
+    link_to_card :signup, t(:account_sign_up)&.downcase,
                  class: "signup-link", slotter: true, path: { action: :new }
   end
 
