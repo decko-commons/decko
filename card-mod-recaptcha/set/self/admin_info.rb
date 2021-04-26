@@ -11,17 +11,17 @@ format :html do
         # %(Your captcha is currently working with temporary settings.
         #   This is fine for a local installation, but you will need new
         #   recaptcha keys if you want to make this site public.)
-        tr :captcha_temp, recaptcha_link: add_recaptcha_keys_link
+        t :recaptcha_captcha_temp, recaptcha_link: add_recaptcha_keys_link
       else
         # %(You are configured to use [[*captcha]], but for that to work
         #   you need new recaptcha keys.)
-        tr :captcha_keys, recaptcha_link: add_recaptcha_keys_link,
-                          captcha_link: link_to_card(:captcha)
+        t :recaptcha_captcha_keys, recaptcha_link: add_recaptcha_keys_link,
+                                   captcha_link: link_to_card(:captcha)
       end
     end
   end
 
   def add_recaptcha_keys_link
-    Card[:recaptcha_settings]&.format&.edit_link link_text: tr(:recaptcha_keys)
+    Card[:recaptcha_settings]&.format&.edit_link link_text: t(:recaptcha_captcha_keys)
   end
 end

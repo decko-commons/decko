@@ -25,7 +25,6 @@ class Card
         run_stage :prepare_to_validate
         run_stage :validate
       ensure
-        # @card.expire_pieces if @card.errors.any?
         @card.errors.empty?
       end
 
