@@ -27,7 +27,7 @@ RSpec.describe Card::Set::All::NameEvents do
   end
 
   def expect_action_added card, actions_count_before
-    expect(card.actions.count).to eq(actions_count_before - 1)
+    expect(card.actions.count).to eq(actions_count_before + 1)
   end
 
   def expect_old_name_cleared old_name
