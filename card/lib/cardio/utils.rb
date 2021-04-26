@@ -1,12 +1,6 @@
 module Cardio
   # Utilities that may need to be run even when mods are not loaded.
   module Utils
-    def tr key, args={}
-      kaller = args.delete(:caller) || caller
-      args[:scope] ||= Card::Set.scope kaller
-      ::I18n.t key, args
-    end
-
     def t key, args={}
       ::I18n.t key, args
     end
