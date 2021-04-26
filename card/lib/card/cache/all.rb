@@ -1,5 +1,6 @@
 class Card
   class Cache
+    # cache-related instance methods available to all Cards
     module All
       def expire cache_type=nil
         return unless (cache_class = cache_class_from_type cache_type)

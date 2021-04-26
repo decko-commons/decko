@@ -1,5 +1,6 @@
 class Card
   class Cache
+    # cache-related class methods
     module AllClass
       def retrieve_from_cache cache_key, local_only=false
         return unless cache
