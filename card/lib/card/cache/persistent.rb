@@ -18,15 +18,6 @@ class Card
       attr_accessor :prefix
 
       class << self
-        # name of current database; used here to insure that different databases
-        # are cached separately
-        # TODO: find better home for this method
-        def database_name
-          @database_name ||= (cfg = Cardio.config) &&
-                             (dbcfg = cfg.database_configuration) &&
-                             dbcfg[Rails.env]["database"]
-        end
-
         def stamp
           @stamp ||= Cardio.cache.fetch(stamp_key) { new_stamp }
         end
@@ -37,7 +28,7 @@ class Card
         end
 
         def stamp_key
-          "#{database_name}-stamp"
+          "#{Cardio.database_name}-stamp"
         end
 
         def renew
@@ -58,7 +49,7 @@ class Card
         @store = opts[:store]
         @klass = opts[:class]
         @class_key = @klass.to_s.to_name.key
-        @database = opts[:database] || self.class.database_name
+        @database = opts[:database] || Cardio.database_name
       end
 
       # renew insures you're using the most current cache version by
