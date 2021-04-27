@@ -13,7 +13,6 @@ class Card
           @referee_name = @referee_name.absolute_name card.name
         rescue Card::Error::NotFound
           # do not break on missing id/codename references.
-
         end
 
         def referee_raw_name
