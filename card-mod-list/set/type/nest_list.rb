@@ -1,7 +1,7 @@
 include_set Abstract::Items
 
 def raw_item_strings content
-  reference_chunks(content).map(&:referee_name)
+  reference_chunks(content).map(&:referee_raw_name)
 end
 
 def item_options
