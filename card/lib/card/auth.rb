@@ -10,6 +10,7 @@ class Card
     extend Proxy
     extend Setup
     extend Current
+    extend Token
 
     @as_card = @as_id = @current_id = @current = nil
 
@@ -39,6 +40,10 @@ class Card
       # @return [SHA1 String]
       def encrypt password, salt
         Digest::SHA1.hexdigest "#{salt}--#{password}--"
+      end
+
+      def serialize
+        { as_id: as_id, current_id: current_id }
       end
     end
   end

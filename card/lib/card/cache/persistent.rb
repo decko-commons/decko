@@ -22,9 +22,8 @@ class Card
         # are cached separately
         # TODO: find better home for this method
         def database_name
-          @database_name ||= (cfg = Cardio.config) &&
-                             (dbcfg = cfg.database_configuration) &&
-                             dbcfg[Rails.env]["database"]
+          @database_name ||=
+            Cardio.config&.database_configuration&.dig Rails.env, "database"
         end
 
         def stamp

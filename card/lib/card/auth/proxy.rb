@@ -4,10 +4,10 @@ class Card
     module Proxy
       # operate with the permissions of another "proxy" user
       def as given_user
-        tmp_id   = @as_id
+        tmp_id = @as_id
         tmp_card = @as_card
 
-        @as_id   = get_user_id(given_user)
+        @as_id = Card.id given_user
         @as_card = nil
         # we could go ahead and set as_card if given a card...
 
@@ -18,7 +18,7 @@ class Card
         yield
       ensure
         if block_given?
-          @as_id   = tmp_id
+          @as_id = tmp_id
           @as_card = tmp_card
         end
       end
@@ -37,22 +37,35 @@ class Card
       # proxy user card
       # @return [Card]
       def as_card
-        if @as_card && @as_card.id == as_id
-          @as_card
-        else
-          @as_card = Card[as_id]
-        end
+        return @as_card if @as_card&.id == as_id
+
+        @as_card = Card[as_id]
       end
 
-      # get card id from args of unknown type
-      # @todo replace with general mechanism, eg #quick_fetch
-      def get_user_id user
-        case user
-        when NilClass then nil
-        when Card     then user.id
-        when Integer   then user
-        else Card.fetch_id(user)
+      # @param auth_data [Integer|Hash] user id, user name, or a hash
+      # @option auth_data [Integer] current_id
+      # @option auth_data [Integer] as_id
+      def with auth_data
+        if auth_data.is_a?(Integer) || auth_data.is_a?(String)
+          auth_data = { current_id: Card.id(auth_data) }
         end
+
+        tmp_current_id = current_id
+        tmp_as_id = as_id
+        tmp_current = @current
+        tmp_as_card = @as_card
+        tmp_current_roles = @current_roles
+
+        # resets @as and @as_card
+        self.current_id = auth_data[:current_id]
+        @as_id = auth_data[:as_id] if auth_data[:as_id]
+        yield
+      ensure
+        @current_id = tmp_current_id
+        @as_id = tmp_as_id
+        @current = tmp_current
+        @as_card = tmp_as_card
+        @current_roles = tmp_current_roles
       end
     end
   end
