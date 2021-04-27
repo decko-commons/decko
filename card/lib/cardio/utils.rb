@@ -10,7 +10,7 @@ module Cardio
     end
 
     def database_name
-      config.database_configuration.dig Rails.env, "database"
+      @database_name ||= config.database_configuration.dig Rails.env, "database"
     end
 
     # deletes tmp directory within files directory
