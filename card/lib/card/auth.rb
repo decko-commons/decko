@@ -10,7 +10,6 @@ class Card
     extend Proxy
     extend Setup
     extend Current
-    extend Token
 
     class << self
       # authenticate a user by their login name and unencrypted password.
