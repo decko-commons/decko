@@ -1,5 +1,9 @@
 include_set Abstract::TemplatedNests
 
+def item_names args={}
+  item_strings(args).compact.map(&:to_name)
+end
+
 format :rss do
   def raw_feed_items
     [card]
