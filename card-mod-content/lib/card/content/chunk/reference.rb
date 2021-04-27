@@ -8,16 +8,14 @@ class Card
         attr_accessor :name
 
         def referee_name
-          return if name.nil?
-          @referee_name ||= referee_name_from_rendered(render_obj(name))
-          @referee_name = @referee_name.absolute(card.name).to_name
-        rescue Card::Error::NotFound
-          # do not break on missing id/codename references.
+          @referee_name = referee_raw_name&.absolute_name card.name
         end
 
-        def referee_name_from_rendered rendered_name
-          ref_card = fetch_referee_card rendered_name
-          ref_card ? ref_card.name : rendered_name.to_name
+        def referee_raw_name
+          return if name.nil?
+          @referee_raw_name ||= Name[render_obj(name)]
+        rescue Card::Error::NotFound
+          # do not break on missing id/codename references.
         end
 
         def referee_card
@@ -41,17 +39,6 @@ class Card
             format.process_content raw
           else
             raw
-          end
-        end
-
-        private
-
-        def fetch_referee_card rendered_name
-          case rendered_name # FIXME: this should be standard fetch option.
-          when /^\~(\d+)$/ # get by id
-            Card.fetch Regexp.last_match(1).to_i
-          when /^\:(\w+)$/ # get by codename
-            Card.fetch Regexp.last_match(1).to_sym
           end
         end
       end

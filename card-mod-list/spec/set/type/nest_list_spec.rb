@@ -38,7 +38,7 @@ RSpec.describe Card::Set::Type::NestList do
           with_tag "input._nest-options", with: { value: "core" }
         end
         with_tag "li.pointer-li", with: { "data-index": "1" } do
-          with_tag "input._reference", with: { value: "test+B" }
+          with_tag "input._reference", with: { value: "+B" }
           with_tag "input._nest-options", with: { value: "title" }
         end
         with_tag "li.pointer-li", with: { "data-index": "2" } do
