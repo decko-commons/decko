@@ -8,14 +8,17 @@ class Card
         attr_accessor :name
 
         def referee_name
-          @referee_name = referee_raw_name&.absolute_name card.name
+          # puts "referee_name: #{name}, #{@referee_name}"
+          return if name.nil?
+          @referee_name ||= referee_raw_name
+          @referee_name = @referee_name.absolute_name card.name
+        rescue Card::Error::NotFound
+          # do not break on missing id/codename references.
+
         end
 
         def referee_raw_name
-          return if name.nil?
-          @referee_raw_name ||= Name[render_obj(name)]
-        rescue Card::Error::NotFound
-          # do not break on missing id/codename references.
+          Name[render_obj(name)]
         end
 
         def referee_card
