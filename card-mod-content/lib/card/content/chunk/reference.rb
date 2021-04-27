@@ -8,7 +8,6 @@ class Card
         attr_accessor :name
 
         def referee_name
-          # puts "referee_name: #{name}, #{@referee_name}"
           return if name.nil?
           @referee_name ||= referee_raw_name
           @referee_name = @referee_name.absolute_name card.name
