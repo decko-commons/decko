@@ -32,8 +32,8 @@ class Card
 
       # set current user in process and session
       def signin cardish
-        session[session_user_key] = self.current_id =
-          Card.id(cardish) || Card::AnonymousID
+        session[session_user_key] =
+          self.current_id = Card.id(cardish) || Card::AnonymousID
       end
 
       # current user is not anonymous
@@ -68,14 +68,14 @@ class Card
       end
 
       def reset
-        @as_id = @as_card = @current_id = @current_card = nil
+        @as_id = @as_card = @current_id = @current_card = @current_roles = nil
       end
-
-      private
 
       def session_user_key
         "user_#{Cardio.database_name.underscore}".to_sym
       end
+
+      private
 
       # general pattern for finding +\*account card based on field cards
       # @param fieldcode [Symbol] code of account field

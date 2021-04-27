@@ -50,15 +50,22 @@ class Card
           auth_data = { current_id: Card.id(auth_data) }
         end
 
+        temporarily do
+          # resets @as and @as_card
+          self.current_id = auth_data[:current_id]
+          @as_id = auth_data[:as_id] if auth_data[:as_id]
+          yield
+        end
+      end
+
+      private
+
+      def temporarily
         tmp_current_id = current_id
         tmp_as_id = as_id
         tmp_current_card = @current_card
         tmp_as_card = @as_card
         tmp_current_roles = @current_roles
-
-        # resets @as and @as_card
-        self.current_id = auth_data[:current_id]
-        @as_id = auth_data[:as_id] if auth_data[:as_id]
         yield
       ensure
         @current_id = tmp_current_id
