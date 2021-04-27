@@ -44,7 +44,11 @@ class Card
 
       # set current from token, api_key, or session
       def signin_with _opts={}
-        signin_with_session
+        if opts[:token]
+          signin_with_token opts[:token]
+        else
+          signin_with_session
+        end
       end
 
       # get :user id from session and set Auth.current_id
