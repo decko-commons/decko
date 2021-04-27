@@ -11,8 +11,6 @@ class Card
     extend Setup
     extend Current
 
-    @as_card = @as_id = @current_id = @current = nil
-
     class << self
       # authenticate a user by their login name and unencrypted password.
       # @param email [String]
@@ -39,6 +37,10 @@ class Card
       # @return [SHA1 String]
       def encrypt password, salt
         Digest::SHA1.hexdigest "#{salt}--#{password}--"
+      end
+
+      def serialize
+        { as_id: as_id, current_id: current_id }
       end
     end
   end
