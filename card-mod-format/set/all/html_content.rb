@@ -17,7 +17,7 @@ format :html do
     prepare_content_slot
   end
 
-  view :content_with_edit_button do
+  view :content_with_edit_button, unknown: true do
     wrap do
       [_render_menu, _render_core, _render_edit_button(edit: :inline)]
     end
