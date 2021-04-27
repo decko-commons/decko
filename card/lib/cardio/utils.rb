@@ -9,6 +9,10 @@ module Cardio
       system "env RAILS_ENV=test bundle exec rake db:fixtures:load"
     end
 
+    def database_name
+      @database_name ||= config.database_configuration.dig Rails.env, "database"
+    end
+
     # deletes tmp directory within files directory
     # It's here because it gets called as part of cache clearing, which sometimes gets
     # called in a context where card mods are not loaded.

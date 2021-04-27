@@ -4,7 +4,6 @@ card_accessor :email
 card_accessor :password
 card_accessor :salt
 card_accessor :status
-card_accessor :api_key
 
 require_field :email
 
@@ -43,16 +42,12 @@ def send_account_email email_template
   ecard.deliver self, to: email
 end
 
-def validate_api_key! api_key
-  api_key_card.validate! api_key
-end
-
 def method_missing method, *args
-  super unless args.empty? && (matches = method.match(/^(?<status>.*)\?$/))
+  return super unless args.empty? && (matches = method.match(/^(?<status>.*)\?$/))
 
   status == matches[:status]
 end
 
 def respond_to_missing? method, _include_private=false
-  method.match?(/\?/) ? true : super
+  method.match?(/\?$/) ? true : super
 end

@@ -56,7 +56,7 @@ class CardController < ApplicationController
   end
 
   def authenticate
-    Card::Auth.signin_with token: params[:token], api_key: params[:api_key]
+    Card::Auth.signin_with params
   end
 
   def load_mark
