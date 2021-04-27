@@ -140,11 +140,7 @@ class Card
       end
 
       def session_user_key
-        "user_#{database.underscore}".to_sym
-      end
-
-      def database
-        Rails.configuration.database_configuration.dig Rails.env, "database"
+        "user_#{Cardio.database_name.underscore}".to_sym
       end
 
       # set the id of the current user.
