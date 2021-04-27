@@ -12,8 +12,6 @@ class Card
     extend Current
     extend Token
 
-    @as_card = @as_id = @current_id = @current = nil
-
     class << self
       # authenticate a user by their login name and unencrypted password.
       # @param email [String]

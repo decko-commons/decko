@@ -52,7 +52,7 @@ class Card
 
         tmp_current_id = current_id
         tmp_as_id = as_id
-        tmp_current = @current
+        tmp_current_card = @current_card
         tmp_as_card = @as_card
         tmp_current_roles = @current_roles
 
@@ -63,7 +63,7 @@ class Card
       ensure
         @current_id = tmp_current_id
         @as_id = tmp_as_id
-        @current = tmp_current
+        @current = tmp_current_card
         @as_card = tmp_as_card
         @current_roles = tmp_current_roles
       end

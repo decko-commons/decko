@@ -9,20 +9,21 @@ class Card
       end
 
       # set the id of the current user.
+      # @return [Integer]
       def current_id= card_id
-        @current = @as_id = @as_card = @current_roles = nil
+        reset
         card_id = card_id.to_i if card_id.present?
         @current_id = card_id
       end
 
       # current accounted card (must have +\*account)
       # @return [Card]
-      def current_user
-        return @current if @current&.id == current_id
+      def current_card
+        return @current_card if @current_card&.id == current_id
 
-        @current = Card[current_id]
+        @current_card = Card[current_id]
       end
-      alias_method :current_card, :current
+      alias_method :current, :current_card
 
       def current_roles
         @current_roles ||= [Card.fetch_name(:anyone_signed_in),
@@ -31,9 +32,8 @@ class Card
 
       # set current user in process and session
       def signin cardish
-        signin_id = Card.id(cardish) || Card::AnonymousID
-        self.current_id = signin_id
-        session[session_user_key] = card_id
+        session[session_user_key] = self.current_id =
+          Card.id(cardish) || Card::AnonymousID
       end
 
       # current user is not anonymous
@@ -65,6 +65,10 @@ class Card
       # @return [+*account card, nil]
       def find_account_by_email email
         find_account_by :email, email.strip.downcase
+      end
+
+      def reset
+        @as_id = @as_card = @current_id = @current_card = nil
       end
 
       private
