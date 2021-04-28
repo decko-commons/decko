@@ -15,40 +15,9 @@ class Card
     # re-included after retrieval from the persistent cache.
     #
     class Persistent
+      extend PersistentClass
+
       attr_accessor :prefix
-
-      class << self
-        # name of current database; used here to insure that different databases
-        # are cached separately
-        # TODO: find better home for this method
-        def database_name
-          @database_name ||= (cfg = Cardio.config) &&
-                             (dbcfg = cfg.database_configuration) &&
-                             dbcfg[Rails.env]["database"]
-        end
-
-        def stamp
-          @stamp ||= Cardio.cache.fetch(stamp_key) { new_stamp }
-        end
-
-        # stamp generator
-        def new_stamp
-          Time.now.to_i.to_s(36) + rand(999).to_s(36)
-        end
-
-        def stamp_key
-          "#{database_name}-stamp"
-        end
-
-        def renew
-          @stamp = nil
-        end
-
-        def reset
-          @stamp = new_stamp
-          Cardio.cache.write stamp_key, @stamp
-        end
-      end
 
       # @param opts [Hash]
       # @option opts [Rails::Cache] :store
@@ -58,7 +27,7 @@ class Card
         @store = opts[:store]
         @klass = opts[:class]
         @class_key = @klass.to_s.to_name.key
-        @database = opts[:database] || self.class.database_name
+        @database = opts[:database] || Cardio.database_name
       end
 
       # renew insures you're using the most current cache version by
