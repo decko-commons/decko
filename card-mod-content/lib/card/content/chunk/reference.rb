@@ -23,6 +23,8 @@ class Card
           @referee_card ||= referee_name && Card.fetch(referee_name)
         end
 
+        private
+
         def replace_name_reference old_name, new_name
           @referee_card = nil
           @referee_name = nil
@@ -36,11 +38,9 @@ class Card
         end
 
         def render_obj raw
-          if format && raw.is_a?(Card::Content)
-            format.process_content raw
-          else
-            raw
-          end
+          return raw unless format && raw.is_a?(Card::Content)
+
+          format.process_content raw
         end
       end
     end
