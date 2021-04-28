@@ -17,7 +17,7 @@ class Card
       # set the current user based on api_key
       def signin_with_api_key api_key
         account = find_account_by_api_key api_key
-        unless account&.validate_api_key! api_key
+        unless account&.authenticate_api_key api_key
           raise Card::Error::PermissionDenied, "API key authentication failed"
         end
 
