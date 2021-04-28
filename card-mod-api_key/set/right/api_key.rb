@@ -4,8 +4,14 @@ event :generate_api_key, :prepare_to_validate, trigger: :required do
   generate
 end
 
-event :validate_api_key do
-  errors.add :api_key_invalid, t(:api_key_invalid) unless content.match? /^\w{20,}$/
+event :validate_api_key, :validate do
+  errors.add :content, t(:api_key_invalid) unless content.match? /^\w{20,}$/
+  errors.add :content, t(:api_key_taken) if api_key_taken?
+end
+
+def api_key_taken?
+  return false unless (acct = Card::Auth.find_account_by_api_key content)
+  acct.left_id == left_id
 end
 
 def history?
@@ -44,10 +50,6 @@ def api_key_validation_error api_key
 end
 
 format :html do
-  view :wokka, unknown: true  do
-    "wokka"
-  end
-
   view :core, unknown: true do
     wrap { haml :core }
   end
