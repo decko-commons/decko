@@ -1,0 +1,7 @@
+.current-api-key
+  %label{ for: :current_api_key }
+    = t :api_key_label
+  %span
+    = text_field_tag :current_api_key, card.content, readonly: true
+.api-key-generate-button
+  = render_generate_button
