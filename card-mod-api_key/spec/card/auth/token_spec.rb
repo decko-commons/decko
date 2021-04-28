@@ -30,17 +30,18 @@ RSpec.describe Card::Auth::Token do
   end
 
   describe "signin_with_api_key" do
+    let(:joe_admin) { Card["Joe Admin"] }
+    let(:api_key) { "abcd" }
+
     before do
-      @joeadmin = Card["Joe Admin"]
-      @api_key = "abcd"
       Card::Auth.as_bot do
-        @joeadmin.account.api_key_card.update! content: @api_key
+        joe_admin.account.api_key_card.update! content: api_key
       end
     end
 
     it "sets current from api key" do
-      Card::Auth.signin_with_api_key @api_key
-      expect(Card::Auth.current_id).to eq(@joeadmin.id)
+      Card::Auth.signin_with_api_key api_key
+      expect(Card::Auth.current_id).to eq(joe_admin.id)
     end
   end
 end
