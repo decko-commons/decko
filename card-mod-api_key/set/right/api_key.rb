@@ -5,7 +5,7 @@ event :generate_api_key, :prepare_to_validate, trigger: :required do
 end
 
 event :validate_api_key, :validate do
-  errors.add :content, t(:api_key_invalid) unless content.match? /^\w{20,}$/
+  errors.add :content, t(:api_key_invalid) unless content.match?(/^\w{20,}$/)
   errors.add :content, t(:api_key_taken) if api_key_taken?
 end
 

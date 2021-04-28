@@ -24,18 +24,18 @@ RSpec.describe Card::Set::Right::ApiKey do
   describe "validate_api_key" do
     it "accepts generated keys" do
       new_key # trigger generation
-      expect(card_subject.valid?).to be_truthy
+      expect(card_subject).to be_valid
     end
 
     it "validates length" do
-      card_subject.content ="abcdefg555"
-      expect(card_subject.valid?).to be_falsey
+      card_subject.content = "abcdefg555"
+      expect(card_subject).not_to be_valid
     end
 
     it "catches duplicates" do
       create_card "Joe User+*api key", content: new_key
       new_card = Card.new name: "Joe User+*api key", content: new_key
-      expect(new_card.valid?).to be_falsey
+      expect(new_card).not_to be_valid
     end
   end
 end
