@@ -49,8 +49,10 @@ def api_key_validation_error api_key
 end
 
 format :html do
-  view :core, unknown: true do
-    wrap { haml :core }
+  view :core, unknown: true, template: :haml
+
+  %i[titled titled_content].each do |viewname|
+    view(viewname, unknown: true) { super() }
   end
 
   view :generate_button, perms: :update, unknown: true do
