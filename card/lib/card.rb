@@ -115,6 +115,7 @@ class Card < ApplicationRecord
   extend Dirty::MethodFactory
   extend Name::AllClass
   extend Cache::AllClass
+  extend Director::AllClass
 
   include Dirty
   include DirtyNames
@@ -123,6 +124,7 @@ class Card < ApplicationRecord
   include Content::All
   include Set::Event::All
   include Cache::All
+  include Director::All
 
   Card::Cache # trigger autoload
 
