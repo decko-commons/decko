@@ -28,20 +28,4 @@ RSpec.describe Card::Auth::Token do
       expect(described_class.decode(token)).to eq("Signature has expired")
     end
   end
-
-  describe "signin_with_api_key" do
-    let(:joe_admin) { Card["Joe Admin"] }
-    let(:api_key) { "abcd" }
-
-    before do
-      Card::Auth.as_bot do
-        joe_admin.account.api_key_card.update! content: api_key
-      end
-    end
-
-    it "sets current from api key" do
-      Card::Auth.signin_with_api_key api_key
-      expect(Card::Auth.current_id).to eq(joe_admin.id)
-    end
-  end
 end
