@@ -116,7 +116,6 @@ class Cardname < String
     end
   end
 
-  # dangerous, too
   def []= index, val
     p = parts
     p[index] = val
