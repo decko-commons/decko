@@ -1,5 +1,3 @@
 card_accessor :api_key
 
-def validate_api_key! api_key
-  api_key_card.validate! api_key
-end
+delegate :authenticate_api_key, to: :api_key_card
