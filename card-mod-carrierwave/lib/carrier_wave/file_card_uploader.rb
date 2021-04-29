@@ -1,40 +1,4 @@
 module CarrierWave
-  class << self
-    def tmp_path
-      @tmp_path ||= Card.paths["tmp"].existent.first
-    end
-  end
-
-  class SanitizedFile
-    def content_type
-      # the original content_type method doesn't seem to be very reliable
-      # It uses mime_magic_content_type  - which returns invalid/invalid for css files
-      # that start with a comment - as the second option.  (we switch the order and
-      # use it as the third option)
-      @content_type ||=
-        existing_content_type ||
-        mini_mime_content_type ||
-        mime_magic_content_type
-    end
-  end
-
-  module Uploader
-    # Implements a different name pattern for versions than CarrierWave's
-    # default: we expect the version name at the end of the filename separated
-    # by a dash
-    module Versions
-      private
-
-      # put version at the end of the filename
-      def full_filename for_file
-        name = super(for_file)
-        parts = name.split "."
-        basename = [parts.shift, version_name].compact.join("-")
-        "#{basename}.#{parts.join('.')}"
-      end
-    end
-  end
-
   # Takes care of the file upload for cards with attached files.
   # Most of the upload behaviour depends on the card itself.
   # (e.g. card type and storage option chosen for the card). So in contrary
@@ -162,6 +126,7 @@ module CarrierWave
   class FileCardUploader < Uploader::Base
     attr_accessor :mod
     include Card::Env::Location
+    include Path
 
     STORAGE_TYPES = [:cloud, :web, :coded, :local].freeze
     CONFIG_OPTIONS = [:provider, :attributes, :directory, :public, :credentials,
@@ -230,52 +195,8 @@ module CarrierWave
       end
     end
 
-    def local_url opts={}
-      "%s/%s/%s" % [local_url_base(opts), file_dir, full_filename(url_filename(opts))]
-    end
-
-    def local_url_base opts={}
-      web_path = Card.config.files_web_path
-      opts.delete(:absolute) ? card_url(web_path) : card_path(web_path)
-    end
-
-    def public_path
-      File.join Cardio.paths["public"].existent.first, url
-    end
-
-    def cache_dir
-      @model.files_base_dir + "/cache"
-    end
-
-    # Carrierwave calls store_path without argument when it stores the file
-    # and with the identifier from the db when it retrieves the file.
-    # In our case the first part of our identifier is not part of the path
-    # but we can construct the filename from db data. So we don't need the
-    # identifier.
-    def store_path for_file=nil
-      if for_file
-        retrieve_path
-      else
-        File.join([store_dir, full_filename(filename)].compact)
-      end
-    end
-
-    def retrieve_path
-      File.join([retrieve_dir, full_filename(filename)].compact)
-    end
-
-    def tmp_path
-      Dir.mkdir model.tmp_upload_dir unless Dir.exist? model.tmp_upload_dir
-      File.join model.tmp_upload_dir, filename
-    end
-
     def create_versions? new_file
       model.create_versions? new_file
-    end
-
-    # paperclip compatibility used in type/file.rb#core (base format)
-    def path version=nil
-      version ? versions[version].path : super()
     end
 
     def original_filename
@@ -313,6 +234,36 @@ module CarrierWave
         Storage::Fog.new self
       else
         Storage::File.new self
+      end
+    end
+  end
+
+  class SanitizedFile
+    def content_type
+      # the original content_type method doesn't seem to be very reliable
+      # It uses mime_magic_content_type  - which returns invalid/invalid for css files
+      # that start with a comment - as the second option.  (we switch the order and
+      # use it as the third option)
+      @content_type ||=
+        existing_content_type ||
+          mini_mime_content_type ||
+          mime_magic_content_type
+    end
+  end
+
+  module Uploader
+    # Implements a different name pattern for versions than CarrierWave's
+    # default: we expect the version name at the end of the filename separated
+    # by a dash
+    module Versions
+      private
+
+      # put version at the end of the filename
+      def full_filename for_file
+        name = super(for_file)
+        parts = name.split "."
+        basename = [parts.shift, version_name].compact.join("-")
+        "#{basename}.#{parts.join('.')}"
       end
     end
   end

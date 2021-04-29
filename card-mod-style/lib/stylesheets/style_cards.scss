@@ -1260,3 +1260,23 @@ body.right-sidebar, body.left-sidebar, body.two-sidebar {
 .tm-icon {
   color: #000;
 }
+
+/*----- move to api key mod ------*/
+
+.RIGHT-Xapi_key.core-view {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+
+  .current-api-key {
+    width: 50%;
+    input {
+      width: 100%;
+      font-family: monospace;
+      border: 1px solid  transparent ;
+    }
+  }
+  .current-api-key:hover input {
+    border: 1px solid #DDD;
+  }
+}
