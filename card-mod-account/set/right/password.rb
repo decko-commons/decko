@@ -5,7 +5,7 @@ def history?
 end
 
 def ok_to_read
-  own_account? ? true : super
+  own_account? || super
 end
 
 event :encrypt_password, :store,
