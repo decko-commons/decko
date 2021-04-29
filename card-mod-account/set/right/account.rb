@@ -16,7 +16,7 @@ def accounted_id
 end
 
 def ok_to_read
-  own_account? ? true : super
+  own_account? || super
 end
 
 # allow account owner to update account field content
