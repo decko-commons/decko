@@ -144,8 +144,9 @@ RSpec.describe "Card::Director" do
         expect(called_events).to eq(preorder)
       end
 
-      it "executes all validate stages before next stage" do
-        test_with_subcards validate: "V", prepare_to_store: "S"
+      it "finishes all validate stages before next stage" do
+        test_with_subcards validate: "V",
+                           prepare_to_store: "S"
         expect(called_events).to eq(%w[V:1 V:11 V:111 V:12 V:121
                                        S:1 S:11 S:111 S:12 S:121])
       end
