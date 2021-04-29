@@ -9,10 +9,9 @@ def action_from_id action_id
 
   # if not an integer revision id is probably a mod (e.g. if you request
   # files/:logo/standard.png)
-  action = Action.fetch action_id
-  return unless action.card_id == id
-
-  action
+  Action.fetch(action_id).tap do |action|
+    return unless action&.card_id == id
+  end
 end
 
 def old_actions
