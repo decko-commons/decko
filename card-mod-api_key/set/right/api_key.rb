@@ -19,7 +19,11 @@ def history?
 end
 
 def ok_to_read
-  own_account? ? true : super
+  own_account? || super
+end
+
+def ok_to_create
+  own_account? || super
 end
 
 def authenticate_api_key api_key

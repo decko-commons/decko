@@ -1,5 +1,7 @@
 RSpec.describe Card::Set::Right::ApiKey do
   let(:new_key) { card_subject.generate }
+  let(:user) { Card["Joe User"] }
+  let(:user_key) { user.account.api_key_card }
 
   describe "#generate" do
     it "creates a new key of at least twenty characters" do
@@ -39,10 +41,11 @@ RSpec.describe Card::Set::Right::ApiKey do
     end
   end
 
-  describe "permissions" do
-    let(:user) { Card["Joe User"] }
-    let(:user_key) { user.account.api_key_card }
+  specify "#accounted" do
+    expect(user_key.accounted).to eq(user)
+  end
 
+  describe "permissions" do
     before do
       Card::Auth.signin user
     end
@@ -52,7 +55,15 @@ RSpec.describe Card::Set::Right::ApiKey do
     end
 
     it "allows users to update their own key" do
+      Card::Auth.as_bot do
+        user_key.generate
+        user_key.save!
+      end
       expect(user_key.ok?(:update)).to be_truthy
+    end
+
+    it "allows users to create their own key" do
+      expect(user_key.ok?(:create)).to be_truthy
     end
   end
 end
