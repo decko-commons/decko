@@ -1,7 +1,4 @@
 module CarrierWave
-  Uploader::Versions.include Uploader::CardVersions
-  SanitizedFile.include CardSanitizedFile
-
   # Takes care of the file upload for cards with attached files.
   # Most of the upload behaviour depends on the card itself.
   # (e.g. card type and storage option chosen for the card). So in contrary
@@ -237,6 +234,36 @@ module CarrierWave
         Storage::Fog.new self
       else
         Storage::File.new self
+      end
+    end
+  end
+
+  class SanitizedFile
+    def content_type
+      # the original content_type method doesn't seem to be very reliable
+      # It uses mime_magic_content_type  - which returns invalid/invalid for css files
+      # that start with a comment - as the second option.  (we switch the order and
+      # use it as the third option)
+      @content_type ||=
+        existing_content_type ||
+          mini_mime_content_type ||
+          mime_magic_content_type
+    end
+  end
+
+  module Uploader
+    # Implements a different name pattern for versions than CarrierWave's
+    # default: we expect the version name at the end of the filename separated
+    # by a dash
+    module Versions
+      private
+
+      # put version at the end of the filename
+      def full_filename for_file
+        name = super(for_file)
+        parts = name.split "."
+        basename = [parts.shift, version_name].compact.join("-")
+        "#{basename}.#{parts.join('.')}"
       end
     end
   end
