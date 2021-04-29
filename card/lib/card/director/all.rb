@@ -6,7 +6,7 @@ class Card
         if act_card
           add_to_act options, &block
         else
-          start_new_act &block
+          start_new_act(&block)
         end
       end
 
@@ -23,11 +23,11 @@ class Card
         act(as_subcard: as_subcard) { super }
       end
 
-      def save(*)
+      def save *args
         act { super }
       end
 
-      def valid?(*)
+      def valid? *args
         act(validating: true) { super }
       end
 

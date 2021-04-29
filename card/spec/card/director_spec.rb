@@ -34,6 +34,15 @@ RSpec.describe "Card::Director" do
     end
   end
 
+  def test_with_subcards hash={}
+    with_test_events do
+      hash.each do |stage, prefix|
+        test_event(stage, on: :create) { called_events << "#{prefix}:#{name}" }
+      end
+      create_card_with_subcards
+    end
+  end
+
   describe "abortion" do
     let(:create_card) { Card.create name: "a card" }
     let(:create_card_with_subcard) do
@@ -81,10 +90,7 @@ RSpec.describe "Card::Director" do
 
       it "does not execute subcard stages on create" do
         with_test_events do
-          test_event :validate, on: :create, for: "a card" do
-            abort :success
-          end
-
+          test_event(:validate, on: :create, for: "a card") { abort :success }
           stage_test_events on: :create, for: "a subcard"
 
           create_card_with_subcard
@@ -93,12 +99,8 @@ RSpec.describe "Card::Director" do
       end
 
       it "does not delete children" do
-
         with_test_events do
-
-          test_event :validate, on: :delete, for: "A" do
-            abort :success
-          end
+          test_event(:validate, on: :delete, for: "A") { abort :success }
           stage_test_events on: :delete, for: "A+B"
           Card["A"].delete!
           expect(called_events).to eq []
@@ -136,48 +138,33 @@ RSpec.describe "Card::Director" do
 
     describe "validate" do
       it "is pre-order depth-first" do
-        in_stage :validate, on: :create, rigger: -> { create_card_with_subcards } do
+        in_stage :validate, on: :create, trigger: -> { create_card_with_subcards } do
           called_events << name
         end
         expect(called_events).to eq(preorder)
       end
 
       it "executes all validate stages before next stage" do
-        with_test_events do
-          test_event(:validate, on: :create) { called_events << "V:#{name}" }
-          test_event(:prepare_to_store, on: :create) { called_events << "S:#{name}" }
-          create_card_with_subcards
-        end
+        test_with_subcards validate: "V", prepare_to_store: "S"
         expect(called_events).to eq(%w[V:1 V:11 V:111 V:12 V:121
                                        S:1 S:11 S:111 S:12 S:121])
       end
     end
 
-    describe "finalize" do
-      it "is pre-order depth-first" do
-        in_stage :finalize, on: :create, trigger: -> { create_card_with_subcards } do
-          called_events << name
+    %i[finalize store].each do |stage|
+      describe "finalize" do
+        it "is pre-order depth-first" do
+          in_stage stage, on: :create, trigger: -> { create_card_with_subcards } do
+            called_events << name
+          end
+          expect(called_events).to eq(preorder)
         end
-        expect(called_events).to eq(preorder)
-      end
-    end
-
-    describe "store" do
-      it "is pre-order depth-first" do
-        in_stage :store, on: :create, trigger: -> { create_card_with_subcards } do
-          called_events << name
-        end
-        expect(called_events).to eq(preorder)
       end
     end
 
     describe "store and finalize" do
       it "executes finalize when all subcards are stored" do
-        with_test_events do
-          test_event(:store, on: :create) { called_events << "S:#{name}" }
-          test_event(:finalize, on: :create) { called_events << "F:#{name}" }
-          create_card_with_subcards
-        end
+        test_with_subcards store: "S", finalize: "F"
         expect(called_events).to eq(%w[S:1 S:11 S:111 S:12 S:121
                                        F:1 F:11 F:111 F:12 F:121])
       end
@@ -292,21 +279,17 @@ RSpec.describe "Card::Director" do
     end
 
     it "load type_plus_right set module", as_bot: true do
-      in_stage :prepare_to_validate, on: :create,
-                                     for: "single card",
+      in_stage :prepare_to_validate, on: :create, for: "single card",
                                      trigger: :create_single_card do
 
         u_card = attach_subfield "a user", type_id: Card::UserID
         f_card = u_card.attach_subfield "*follow"
-        expect(f_card.set_modules)
-          .to include(Card::Set::TypePlusRight::User::Follow)
+        expect(f_card.set_modules).to include(Card::Set::TypePlusRight::User::Follow)
       end
     end
 
     def sub? director
-      director.subdirectors.any? do |subdir|
-        subdir.card.name == "AARGH"
-      end
+      director.subdirectors.any? { |subdir| subdir.card.name == "AARGH" }
     end
 
     it "adds subsubcard to correct subdirector", as_bot: true do
