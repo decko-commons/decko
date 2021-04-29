@@ -51,7 +51,7 @@ RSpec.describe Card::Set::Right::ApiKey do
     end
 
     it "allows users to read their own key" do
-      expect(user_key.ok?(:read)).to be_truthy
+      expect(user_key).to be_ok(:read)
     end
 
     it "allows users to update their own key" do
@@ -59,11 +59,15 @@ RSpec.describe Card::Set::Right::ApiKey do
         user_key.generate
         user_key.save!
       end
-      expect(user_key.ok?(:update)).to be_truthy
+      expect(user_key).to be_ok(:update)
     end
 
     it "allows users to create their own key" do
-      expect(user_key.ok?(:create)).to be_truthy
+      expect(user_key).to be_ok(:create)
+    end
+
+    it "does not allow users to see others' keys" do
+      expect(Card.fetch("Joe Camel+*account+*api key", new: {})).not_to be_ok(:read)
     end
   end
 end
