@@ -16,9 +16,7 @@ RSpec.describe "Card::Director" do
 
   def stage_test_events args
     STAGE_MAP.each do |stage_shortname, stage|
-      test_event stage, args do
-        called_events << stage_shortname
-      end
+      test_event(stage, args) { called_events << stage_shortname }
     end
   end
 
@@ -29,9 +27,7 @@ RSpec.describe "Card::Director" do
   end
 
   def success_at_stage stage
-    in_stage stage, on: :create, trigger: -> { create_card } do
-      abort :success
-    end
+    in_stage(stage, on: :create, trigger: -> { create_card }) { abort :success }
   end
 
   def test_with_subcards hash={}
@@ -173,19 +169,17 @@ RSpec.describe "Card::Director" do
 
     describe "complete run" do
       def with_complete_events adding_subcard: false
-        order = []
         with_test_events do
-          define_test_events adding_subcard, order
+          define_test_events adding_subcard, called_events
           yield
         end
-        order
       end
 
-      def define_test_events adding_subcard, order
+      def define_test_events adding_subcard, called_events
         STAGE_MAP.each do |stage_shortname, stage|
           subcard = adding_subcard && stage == :validate
           define_test_event stage, subcard do |name|
-            order << "#{stage_shortname}:#{name}"
+            called_events << "#{stage_shortname}:#{name}"
           end
         end
       end
@@ -198,39 +192,37 @@ RSpec.describe "Card::Director" do
       end
 
       it "is in correct order" do
-        order = with_complete_events adding_subcard: true do
-          create_card_with_subcards
-        end
+        with_complete_events(adding_subcard: true) { create_card_with_subcards }
         # Delayed::Worker.new.work_off
-        expect(order).to eq(%w[VI:1 VI:11 VI:111 VI:12 VI:121
-                               VP:1 VP:11 VP:111 VP:12 VP:121
-                               VV:1 VV:11 VV:111
-                               VI:112v
-                               VP:112v
-                               VV:112v VV:12 VV:121
-                               SP:1 SP:11 SP:111 SP:112v SP:12 SP:121
-                               SS:1 SS:11 SS:111 SS:112v SS:12 SS:121
-                               SF:1 SF:11 SF:111 SF:112v SF:12 SF:121
-                               II:1 II:11 II:111 II:112v II:12 II:121
-                               IA:1 IA:11 IA:111 IA:112v IA:12 IA:121
-                               ID:1 ID:11 ID:111 ID:112v ID:12 ID:121])
+        expect(called_events).to eq(%w[VI:1 VI:11 VI:111 VI:12 VI:121
+                                       VP:1 VP:11 VP:111 VP:12 VP:121
+                                       VV:1 VV:11 VV:111
+                                       VI:112v
+                                       VP:112v
+                                       VV:112v VV:12 VV:121
+                                       SP:1 SP:11 SP:111 SP:112v SP:12 SP:121
+                                       SS:1 SS:11 SS:111 SS:112v SS:12 SS:121
+                                       SF:1 SF:11 SF:111 SF:112v SF:12 SF:121
+                                       II:1 II:11 II:111 II:112v II:12 II:121
+                                       IA:1 IA:11 IA:111 IA:112v IA:12 IA:121
+                                       ID:1 ID:11 ID:111 ID:112v ID:12 ID:121])
       end
 
       it "with junction" do
-        order = with_complete_events { create_card_with_junction }
+        with_complete_events { create_card_with_junction }
         # Delayed::Worker.new.work_off
-        expect(order).to eq(%w[VI:1+2 VI:11
-                               VP:1+2 VP:11
-                               VV:1+2 VV:11
-                               SP:1+2 SP:11
-                               SS:1+2
-                               VI:1 VP:1 VV:1 SP:1 SS:1
-                               VI:2 VP:2 VV:2 SP:2 SS:2
-                               SS:11
-                               SF:1+2 SF:11 SF:1 SF:2
-                               II:1+2 II:11 II:1 II:2
-                               IA:1+2 IA:11 IA:1 IA:2
-                               ID:1+2 ID:11 ID:1 ID:2])
+        expect(called_events).to eq(%w[VI:1+2 VI:11
+                                       VP:1+2 VP:11
+                                       VV:1+2 VV:11
+                                       SP:1+2 SP:11
+                                       SS:1+2
+                                       VI:1 VP:1 VV:1 SP:1 SS:1
+                                       VI:2 VP:2 VV:2 SP:2 SS:2
+                                       SS:11
+                                       SF:1+2 SF:11 SF:1 SF:2
+                                       II:1+2 II:11 II:1 II:2
+                                       IA:1+2 IA:11 IA:1 IA:2
+                                       ID:1+2 ID:11 ID:1 ID:2])
       end
     end
   end
