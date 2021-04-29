@@ -11,7 +11,7 @@ end
 
 def api_key_taken?
   return false unless (acct = Card::Auth.find_account_by_api_key content)
-  acct.left_id == left_id
+  acct.id == left_id
 end
 
 def history?
@@ -19,7 +19,11 @@ def history?
 end
 
 def ok_to_read
-  own_account? ? true : super
+  own_account? || super
+end
+
+def ok_to_create
+  own_account? || super
 end
 
 def authenticate_api_key api_key
@@ -37,6 +41,10 @@ def generate!
   generate.tap { save! }
 end
 
+def simple_token
+  Card::Auth::Token.encode accounted.id
+end
+
 private
 
 def api_key_validation_error api_key
@@ -48,9 +56,21 @@ def api_key_validation_error api_key
   end
 end
 
+format :json do
+  view :token do
+    { token: card.simple_token }
+  end
+end
+
 format :html do
-  view :core, unknown: true do
-    wrap { haml :core }
+  view :core, unknown: true, template: :haml
+
+  %i[titled titled_content].each do |viewname|
+    view(viewname, unknown: true) { super() }
+  end
+
+  view :token_link do
+    link_to t(:api_key_get_jwt_token), path: { format: :json, view: :token }
   end
 
   view :generate_button, perms: :update, unknown: true do

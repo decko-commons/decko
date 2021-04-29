@@ -6,13 +6,16 @@ end
 
 def action_from_id action_id
   return unless action_id.is_a?(Integer) || action_id =~ /^\d+$/
-
-  # if not an integer revision id is probably a mod (e.g. if you request
+  # if not an integer, action_id is probably a mod (e.g. if you request
   # files/:logo/standard.png)
-  action = Action.fetch action_id
-  return unless action.card_id == id
 
-  action
+  action_if_on_self Action.fetch(action_id)
+end
+
+def action_if_on_self action
+  return unless action.is_a? Action
+
+  action if action.card_id == id
 end
 
 def old_actions
