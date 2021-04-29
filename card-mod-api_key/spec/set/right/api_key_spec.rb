@@ -1,13 +1,13 @@
 RSpec.describe Card::Set::Right::ApiKey do
   let(:new_key) { card_subject.generate }
 
-  describe "generate" do
+  describe "#generate" do
     it "creates a new key of at least twenty characters" do
       expect(new_key).to match(/\w{20,}/)
     end
   end
 
-  describe "authenticate_api_key" do
+  describe "#authenticate_api_key" do
     before { new_key } # trigger generation
 
     it "fails if api key is not exact match" do
@@ -21,7 +21,7 @@ RSpec.describe Card::Set::Right::ApiKey do
     end
   end
 
-  describe "validate_api_key" do
+  describe "#validate_api_key" do
     it "accepts generated keys" do
       new_key # trigger generation
       expect(card_subject).to be_valid
@@ -33,9 +33,26 @@ RSpec.describe Card::Set::Right::ApiKey do
     end
 
     it "catches duplicates" do
-      create_card "Joe User+*api key", content: new_key
-      new_card = Card.new name: "Joe User+*api key", content: new_key
+      create_card "Joe User+*account+*api key", content: new_key
+      new_card = Card.new name: "Joe Admin+*account*api key", content: new_key
       expect(new_card).not_to be_valid
+    end
+  end
+
+  describe "permissions" do
+    let(:user) { Card["Joe User"] }
+    let(:user_key) { user.account.api_key_card }
+
+    before do
+      Card::Auth.signin user
+    end
+
+    it "allows users to read their own key" do
+      expect(user_key.ok?(:read)).to be_truthy
+    end
+
+    it "allows users to update their own key" do
+      expect(user_key.ok?(:update)).to be_truthy
     end
   end
 end
