@@ -34,8 +34,7 @@ def generate
 end
 
 def generate!
-  generate
-  save!
+  generate.tap { save! }
 end
 
 private
