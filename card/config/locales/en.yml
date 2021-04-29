@@ -114,10 +114,11 @@ en:
   api_key_incorrect: API key mismatch
   api_key_invalid: "Invalid API Key; must contain 20+ alphanumeric characters only"
   api_key_label: "API Key"
-  api_key_generate: "Generate"
-  api_key_regenerate: "Regenerate"
-  api_key_generating: "Generating"
+  api_key_generate: "Generate API Key"
+  api_key_regenerate: "Regenerate API Key"
+  api_key_generating: "Generating API Key"
   api_key_taken: "API Key taken"
+  api_key_get_jwt_token: "get a JWT token"
 
   bootstrap_cannot_source_theme: can't find source for theme %{theme_name}
   bootstrap_not_valid_theme: not a valid theme %{theme_name}

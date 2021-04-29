@@ -48,7 +48,7 @@ class Card
       # @return [Action, nil]
       def fetch id
         cache.fetch id.to_s do
-          find id.to_i
+          where(id: id.to_i).take
         end
       end
 

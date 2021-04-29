@@ -1,3 +1,8 @@
+delegate :accounted, to: :account_card
+
+def account_card
+  left
+end
 
 # allow account owner to update account field content
 def ok_to_update
