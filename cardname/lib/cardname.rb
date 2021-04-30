@@ -11,6 +11,7 @@ class Cardname < String
   require_relative "cardname/manipulate"
 
   include Parts
+  include Pieces
   include Variants
   include Contextual
   include Predicates
