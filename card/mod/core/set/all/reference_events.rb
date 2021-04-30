@@ -39,8 +39,36 @@ event :clear_references, :finalize, on: :delete do
   Reference.unmap_referees id
 end
 
+# replace references in card content
+def replace_reference_syntax old_name, new_name
+  replacing_references do |chunk|
+    next unless replace_reference chunk, old_name, new_name
+  end
+end
+
 protected
 
 def not_update_referers
   !update_referers
+end
+
+private
+
+def replace_reference chunk, old_name, new_name
+  return unless (old = chunk.referee_name) && (new = old.swap old_name, new_name)
+  chunk.referee_name = chunk.replace_reference old_name, new_name
+  update_reference old, new
+end
+
+def update_reference old_ref_name, new_ref_name
+  Reference.where(referee_key: old_ref_name.key)
+           .update_all referee_key: new_ref_name.key
+end
+
+def replacing_references
+  cont = Content.new content, self
+  cont.find_chunks(Content::Chunk::Reference).select do |chunk|
+    yield chunk
+  end
+  cont.to_s
 end

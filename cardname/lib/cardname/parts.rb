@@ -7,6 +7,17 @@ class Cardname
 
     alias_method :to_a, :parts
 
+    def simple
+      @simple = parts.size <= 1
+    end
+    alias_method :simple?, :simple
+
+    # @return true if name has more than one part
+    def compound?
+      !simple?
+    end
+    alias_method :junction?, :compound?
+
     def parts
       @parts = Cardname.split_parts s
     end

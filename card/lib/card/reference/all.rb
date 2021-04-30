@@ -44,21 +44,6 @@ class Card
         Card.joins(:references_out).where card_references: { referee_key: key }
       end
 
-      # replace references in card content
-      def replace_reference_syntax old_name, new_name
-        replacing_references do |chunk|
-          next unless (old_ref_name = chunk.referee_name)
-          next unless (new_ref_name = old_ref_name.swap old_name, new_name)
-          chunk.referee_name = chunk.replace_reference old_name, new_name
-          update_reference old_ref_name, new_ref_name
-        end
-      end
-
-      def update_reference old_ref_name, new_ref_name
-        Reference.where(referee_key: old_ref_name.key)
-                 .update_all referee_key: new_ref_name.key
-      end
-
       # delete old references from this card's content, create new ones
       def update_references_out
         delete_references_out
@@ -92,24 +77,16 @@ class Card
         yield referee_name, referee_key, Lexicon.id(referee_name)
       end
 
-      def replacing_references
-        cont = Content.new content, self
-        cont.find_chunks(Content::Chunk::Reference).select do |chunk|
-          yield chunk
-        end
-        cont.to_s
-      end
-
       # interpretation phase helps to prevent duplicate references
       # results in hash like:
       # { referee1_key: [referee1_id, referee1_type2],
       #   referee2_key...
       # }
       def interpret_reference ref_hash, raw_referee_name, ref_type
-        with_normalized_referee raw_referee_name do |referee_name, referee_key, referee_id|
-          ref_hash[referee_key] ||= [referee_id]
-          ref_hash[referee_key] << ref_type
-          interpret_partial_references ref_hash, referee_name unless referee_id
+        with_normalized_referee raw_referee_name do |name, key, id|
+          ref_hash[key] ||= [id]
+          ref_hash[key] << ref_type
+          interpret_partial_references ref_hash, name unless id
         end
       end
 

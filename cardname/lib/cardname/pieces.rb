@@ -1,4 +1,7 @@
 class Cardname
+  # Cards never have more than two "parts" (left and right), but they can have many
+  # "pieces".  A card's pieces are all the other cards whose existence its existence
+  # implies. For example if A+B+C exists, that implies that A, B, C, and A+B do too.
   module Pieces
     # self and all ancestors (= parts and recursive lefts)
     # @example
