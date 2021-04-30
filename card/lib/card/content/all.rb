@@ -2,14 +2,14 @@ class Card
   class Content
     # content-related methods for cards
     module All
-      def content= value
-        self.db_content = standardize_content(value)
-      end
-
       def content
         structured_content || standard_content
       end
       alias_method :raw_content, :content # DEPRECATED!
+
+      def content= value
+        self.db_content = standardize_content(value)
+      end
 
       def content?
         content.present?
@@ -45,6 +45,10 @@ class Card
 
       def blank_content?
         content.blank? || content.strip.blank?
+      end
+
+      def content_object
+        Card::Content.new content, self
       end
     end
   end

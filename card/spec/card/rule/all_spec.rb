@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-RSpec.describe Card::Set::All::Rules do
+RSpec.describe Card::Rule::All do
   before do
     Card::Auth.signin Card::WagnBotID
   end
@@ -53,7 +53,7 @@ RSpec.describe Card::Set::All::Rules do
       Card::Auth.as_bot do
         card = Card.create name: "Book+*type+Joe User+*follow",
                            content: "[[*always]]"
-        expect(card.is_rule?).to be_truthy
+        expect(card.rule?).to be_truthy
       end
     end
 
