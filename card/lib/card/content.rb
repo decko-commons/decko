@@ -36,9 +36,10 @@ class Card
     end
 
     # Find all chunks of a given type
-    # @param chunk_type [Chunk Class]
+    # @param chunk_type [Chunk Class or Symbol]
     # @return [Array of Chunk instances]
-    def find_chunks chunk_type
+    def find_chunks chunk_type=nil
+      chunk_type = interpret_chunk_type chunk_type
       each_chunk.select { |chunk| chunk.is_a?(chunk_type) }
     end
 
@@ -118,6 +119,19 @@ class Card
     end
 
     private
+
+    def interpret_chunk_type chunk_type
+      case chunk_type
+      when nil
+        Chunk
+      when Symbol, String
+        Chunk.const_get chunk_type
+      when Class
+        chunk_type
+      else
+        raise ArgumentError, "unknown chunk type: #{chunk_type}"
+      end
+    end
 
     def stash_chunks chunk_classes
       chunks = []

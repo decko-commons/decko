@@ -5,12 +5,14 @@ require "htmlentities"
 
 class Cardname < String
   require_relative "cardname/parts"
+  require_relative "cardname/pieces"
   require_relative "cardname/variants"
   require_relative "cardname/contextual"
   require_relative "cardname/predicates"
   require_relative "cardname/manipulate"
 
   include Parts
+  include Pieces
   include Variants
   include Contextual
   include Predicates

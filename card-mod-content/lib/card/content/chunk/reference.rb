@@ -28,8 +28,8 @@ class Card
         def replace_name_reference old_name, new_name
           @referee_card = nil
           @referee_name = nil
-          if name.is_a? Card::Content
-            name.find_chunks(Chunk::Reference).each do |chunk|
+          if name.is_a? Content
+            name.find_chunks(:Reference).each do |chunk|
               chunk.replace_reference old_name, new_name
             end
           else
@@ -38,7 +38,7 @@ class Card
         end
 
         def render_obj raw
-          return raw unless format && raw.is_a?(Card::Content)
+          return raw unless format && raw.is_a?(Content)
 
           format.process_content raw
         end
