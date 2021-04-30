@@ -73,12 +73,8 @@ module ClassMethods
 
   # @param mark - see #fetch
   # @return [Card::Name]
-  def fetch_name *mark
-    if (card = quick_fetch(*mark))
-      card.name
-    elsif block_given?
-      yield.to_name
-    end
+  def fetch_name *mark, &block
+    simple_fetch_name *mark, &block
   rescue ActiveModel::RangeError => _e
     block_given? ? yield.to_name : nil
   rescue Card::Error::CodenameNotFound => e
@@ -89,6 +85,16 @@ module ClassMethods
   # @return [Integer]
   def fetch_type_id *mark
     fetch(*mark, skip_modules: true)&.type_id
+  end
+
+  private
+
+  def simple_fetch_name *mark
+    if (card = quick_fetch(*mark))
+      card.name
+    elsif block_given?
+      yield.to_name
+    end
   end
 end
 
