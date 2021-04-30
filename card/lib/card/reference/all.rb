@@ -82,6 +82,24 @@ class Card
         Reference.where(referer_id: id).delete_all
       end
 
+      private
+
+      def with_normalized_referee referee_name
+        return unless referee_name # eg commented nest has no referee_name
+        referee_name = referee_name.to_name
+        referee_key = referee_name.key
+        return if referee_key == key # don't create self reference
+        yield referee_name, referee_key, Lexicon.id(referee_name)
+      end
+
+      def replacing_references
+        cont = Content.new content, self
+        cont.find_chunks(Content::Chunk::Reference).select do |chunk|
+          yield chunk
+        end
+        cont.to_s
+      end
+
       # interpretation phase helps to prevent duplicate references
       # results in hash like:
       # { referee1_key: [referee1_id, referee1_type2],
@@ -120,34 +138,6 @@ class Card
         content_object.find_chunks(Content::Chunk::Reference).each do |chunk|
           yield chunk.referee_name, chunk.reference_code
         end
-      end
-
-      def has_nests?
-        content_object.has_chunk? Content::Chunk::Nest
-      end
-
-      protected
-
-      def not_update_referers
-        !update_referers
-      end
-
-      private
-
-      def with_normalized_referee referee_name
-        return unless referee_name # eg commented nest has no referee_name
-        referee_name = referee_name.to_name
-        referee_key = referee_name.key
-        return if referee_key == key # don't create self reference
-        yield referee_name, referee_key, Lexicon.id(referee_name)
-      end
-
-      def replacing_references
-        cont = Content.new content, self
-        cont.find_chunks(Content::Chunk::Reference).select do |chunk|
-          yield chunk
-        end
-        cont.to_s
       end
 
       # Partial references are needed to track references to virtual cards.

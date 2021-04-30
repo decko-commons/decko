@@ -50,6 +50,10 @@ class Card
       def content_object
         Card::Content.new content, self
       end
+
+      def has_nests?
+        content_object.has_chunk? Content::Chunk::Nest
+      end
     end
   end
 end

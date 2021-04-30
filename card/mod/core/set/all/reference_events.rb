@@ -38,3 +38,9 @@ event :clear_references, :finalize, on: :delete do
   delete_references_out
   Reference.unmap_referees id
 end
+
+protected
+
+def not_update_referers
+  !update_referers
+end
