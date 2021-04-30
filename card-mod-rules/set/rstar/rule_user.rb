@@ -1,4 +1,3 @@
-
 def rule_user_name
   is_preference? ? name.trunk_name.tag : nil
 end
