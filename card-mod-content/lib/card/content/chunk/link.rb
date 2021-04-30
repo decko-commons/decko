@@ -107,7 +107,7 @@ class Card
 
         def replace_link_text old_name, new_name
           if @link_text.is_a?(Card::Content)
-            @link_text.find_chunks(Card::Content::Chunk::Reference).each do |chunk|
+            @link_text.find_chunks(:Reference).each do |chunk|
               chunk.replace_reference old_name, new_name
             end
           elsif @link_text.present?

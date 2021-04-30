@@ -2,7 +2,7 @@
 # While the user follow dashboard ([User]+:follow`) is also in this Set, its
 # customizations are handled in TypePlusRight::User::Follow
 
-event :cache_expired_for_new_preference, :integrate, when: :is_preference? do
+event :cache_expired_for_new_preference, :integrate, when: :preference? do
   Card.follow_caches_expired
 end
 
