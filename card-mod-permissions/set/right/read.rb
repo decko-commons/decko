@@ -2,7 +2,7 @@ include Abstract::Permission
 
 format :html do include Abstract::Permission::HtmlFormat end
 
-event :cascade_read_rule, :finalize, after: :update_rule_cache, when: :is_rule? do
+event :cascade_read_rule, :finalize, after: :update_rule_cache, when: :rule? do
   return unless name_is_changing? || trash_is_changing?
 
   update_read_ruled_cards

@@ -28,25 +28,26 @@ class Card
                        "#{setting_code}+#{AllID}"
       end
 
-      def is_rule?
-        is_standard_rule? || is_preference?
+      def rule?
+        standard_rule? || preference?
       end
 
-      def is_standard_rule?
+      def standard_rule?
         (Card.fetch_type_id(name.right) == SettingID) &&
           (Card.fetch_type_id(name.left) == SetID)
       end
 
-      def is_preference?
+      def preference?
         name.parts.length > 2 &&
           (Card.fetch_type_id(name.right) == SettingID) &&
-          (self[0..-3, skip_modules: true]&.type_id == SetID) &&
-          is_preferer?(self[-2, skip_modules: true])
+          (Card.fetch_type_id(name[0..-3]) == SetID) &&
+          has_preferer?
       end
 
       private
 
-      def is_preferer? preferer
+      def has_preferer?
+        preferer = self[-2, skip_modules: true]
         (preferer.type_id == UserID) || (preferer.codename == :all)
       end
 
