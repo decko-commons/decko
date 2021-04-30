@@ -8,7 +8,7 @@ event :update_referer_content, :finalize, on: :update, when: :update_referers do
   referers.each do |card|
     next if card.structure
     card.skip_event! :validate_renaming, :check_permissions
-    card.content = card.replace_reference_syntax name_before_act, name
+    card.content = card.replace_references name_before_act, name
     attach_subcard card
   end
 end
@@ -40,10 +40,12 @@ event :clear_references, :finalize, on: :delete do
 end
 
 # replace references in card content
-def replace_reference_syntax old_name, new_name
-  replacing_references do |chunk|
+def replace_references old_name, new_name
+  cont = content_object
+  cont.find_chunks(:Reference).each do |chunk|
     next unless replace_reference chunk, old_name, new_name
   end
+  cont.to_s
 end
 
 protected
@@ -56,19 +58,10 @@ private
 
 def replace_reference chunk, old_name, new_name
   return unless (old = chunk.referee_name) && (new = old.swap old_name, new_name)
-  chunk.referee_name = chunk.replace_reference old_name, new_name
+  chunk.referee_name = chunk.replace_reference old_name.key, new_name.key
   update_reference old, new
 end
 
-def update_reference old_ref_name, new_ref_name
-  Reference.where(referee_key: old_ref_name.key)
-           .update_all referee_key: new_ref_name.key
-end
-
-def replacing_references
-  cont = Content.new content, self
-  cont.find_chunks(Content::Chunk::Reference).select do |chunk|
-    yield chunk
-  end
-  cont.to_s
+def update_reference old, new
+  Reference.where(referee_key: old).update_all referee_key: new
 end
