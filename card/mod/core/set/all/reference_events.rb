@@ -58,8 +58,8 @@ private
 
 def replace_reference chunk, old_name, new_name
   return unless (old = chunk.referee_name) && (new = old.swap old_name, new_name)
-  chunk.referee_name = chunk.replace_reference old_name.key, new_name.key
-  update_reference old, new
+  chunk.referee_name = chunk.replace_reference old_name, new_name
+  update_reference old.key, new.key
 end
 
 def update_reference old, new
