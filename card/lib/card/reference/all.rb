@@ -46,16 +46,17 @@ class Card
 
       # replace references in card content
       def replace_reference_syntax old_name, new_name
-        obj_content = Content.new content, self
-        obj_content.find_chunks(Content::Chunk::Reference).select do |chunk|
+        replacing_references do |chunk|
           next unless (old_ref_name = chunk.referee_name)
           next unless (new_ref_name = old_ref_name.swap old_name, new_name)
           chunk.referee_name = chunk.replace_reference old_name, new_name
-          refs = Reference.where referee_key: old_ref_name.key
-          refs.update_all referee_key: new_ref_name.key
+          update_reference old_ref_name, new_ref_name
         end
+      end
 
-        obj_content.to_s
+      def update_reference old_ref_name, new_ref_name
+        Reference.where(referee_key: old_ref_name.key)
+                 .update_all referee_key: new_ref_name.key
       end
 
       # delete old references from this card's content, create new ones
@@ -91,16 +92,6 @@ class Card
           ref_hash[referee_key] ||= [referee_id]
           ref_hash[referee_key] << ref_type
           interpret_partial_references ref_hash, referee_name unless referee_id
-        end
-      end
-
-      # Partial references are needed to track references to virtual cards.
-      # For example a link to virual card [[A+*self]] won't have a referee_id,
-      # but when A's name is changed we have to find and update that link.
-      def interpret_partial_references ref_hash, referee_name
-        return if referee_name.simple?
-        [referee_name.left, referee_name.right].each do |sidename|
-          interpret_reference ref_hash, sidename, PARTIAL_REF_CODE
         end
       end
 
@@ -149,6 +140,24 @@ class Card
         referee_key = referee_name.key
         return if referee_key == key # don't create self reference
         yield referee_name, referee_key, Lexicon.id(referee_name)
+      end
+
+      def replacing_references
+        cont = Content.new content, self
+        cont.find_chunks(Content::Chunk::Reference).select do |chunk|
+          yield chunk
+        end
+        cont.to_s
+      end
+
+      # Partial references are needed to track references to virtual cards.
+      # For example a link to virual card [[A+*self]] won't have a referee_id,
+      # but when A's name is changed we have to find and update that link.
+      def interpret_partial_references ref_hash, referee_name
+        return if referee_name.simple?
+        [referee_name.left, referee_name.right].each do |sidename|
+          interpret_reference ref_hash, sidename, PARTIAL_REF_CODE
+        end
       end
     end
   end
