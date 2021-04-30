@@ -292,9 +292,9 @@ RSpec.describe "Card::Director" do
         case name
         when "main"
           add_subcard "subby", "+sub2" => { subcards: { "AARGH" => { "+sub4" => "hi" } } }
-          expect(test.sub?(director)).to be_falsey
+          expect(test).not_to be_sub(director)
         when "subby+sub2"
-          expect(test.sub?(director)).to be_truthy
+          expect(test).to be_sub(director)
         end
       end
     end
