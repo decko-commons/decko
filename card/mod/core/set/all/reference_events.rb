@@ -62,6 +62,6 @@ def replace_reference chunk, old_name, new_name
   update_reference old.key, new.key
 end
 
-def update_reference old, new
-  Reference.where(referee_key: old).update_all referee_key: new
+def update_reference old_key, new_key
+  Reference.where(referee_key: old_key).update_all referee_key: new_key
 end
