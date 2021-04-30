@@ -87,8 +87,8 @@ module ClassMethods
 
   # @param mark - see #fetch
   # @return [Integer]
-  def fetch_type_id mark
-    quick_fetch(mark)&.type_id
+  def fetch_type_id *mark
+    fetch(*mark, skip_modules: true)&.type_id
   end
 end
 

@@ -1,6 +1,3 @@
-def field tag, opts={}
-  Card.fetch name.field(tag), opts
-end
 
 def subcard card_name
   subcards.card card_name
