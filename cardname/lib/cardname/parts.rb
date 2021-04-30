@@ -11,17 +11,6 @@ class Cardname
       @parts = Cardname.split_parts s
     end
 
-    def simple
-      @simple = parts.size <= 1
-    end
-    alias simple? simple
-
-    # @return true if name has more than one part
-    def compound?
-      !simple?
-    end
-    alias junction? compound?
-
     def part_keys
       @part_keys ||= simple ? [simple_key] : parts.map { |p| p.to_name.simple_key }
     end
@@ -87,25 +76,6 @@ class Cardname
 
     def piece_names
       @piece_names ||= pieces.map(&:to_name)
-    end
-
-    # self and all ancestors (= parts and recursive lefts)
-    # @example
-    #   "A+B+C+D".to_name.pieces
-    #   # => ["A", "B", "C", "D", "A+B", "A+B+C", "A+B+C+D"]
-    def pieces
-      @pieces ||=
-        if simple?
-          [self]
-        else
-          junction_pieces = []
-          parts[1..-1].inject parts[0] do |left, right|
-            piece = [left, right] * self.class.joint
-            junction_pieces << piece
-            piece
-          end
-          parts + junction_pieces
-        end
     end
 
     def ancestors
