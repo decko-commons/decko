@@ -11,11 +11,12 @@ class Cardname
     private
 
     def junction_pieces
-      junction_pieces = []
-      parts[1..-1].inject parts[0] do |left, right|
-        piece = [left, right] * self.class.joint
-        junction_pieces << piece
-        piece
+      [].tap do |pieces|
+        parts[1..-1].inject parts[0] do |left, right|
+          piece = [left, right] * self.class.joint
+          pieces << piece
+          piece
+        end
       end
     end
   end
