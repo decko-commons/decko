@@ -125,6 +125,8 @@ class Card < ApplicationRecord
   include Set::Event::All
   include Cache::All
   include Director::All
+  include Reference::All
+  include Rule::All
 
   Card::Cache # trigger autoload
 

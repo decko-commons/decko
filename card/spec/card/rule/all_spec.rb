@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-RSpec.describe Card::Set::All::Rules do
+RSpec.describe Card::Rule::All do
   before do
     Card::Auth.signin Card::WagnBotID
   end
