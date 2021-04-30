@@ -1,23 +1,22 @@
 
-def chunks content, type, named=false
+def chunks content, type=nil, named=false
   content ||= self.content
-  type ||= Card::Content::Chunk
   all_chunks = Card::Content.new(content, self).find_chunks type
   named ? all_chunks.select(&:referee_name) : all_chunks
 end
 
 def reference_chunks content=nil, named=true
-  chunks content, Card::Content::Chunk::Reference, named
+  chunks content, :Reference, named
 end
 
 # named=true rejects commented nests
 def nest_chunks content=nil, named=true
-  chunks content, Card::Content::Chunk::Nest, named
+  chunks content, :Nest, named
 end
 
 # named=true rejects external links (since the don't refer to a card name)
 def link_chunks content=nil, named=false
-  chunks content, Card::Content::Chunk::Link, named
+  chunks content, :Link, named
 end
 
 def each_item_name_with_options content=nil

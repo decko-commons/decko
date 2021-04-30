@@ -13,5 +13,5 @@ def prototype_args _anchor
 end
 
 def pattern_applies? card
-  card.is_rule?
+  card.rule?
 end
