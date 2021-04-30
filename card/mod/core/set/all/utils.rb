@@ -87,6 +87,9 @@ def mod_root modname
   end
 end
 
+delegate :t, to: Cardio
+
 format do
+  delegate :t, to: Cardio
   delegate :measure, to: :card
 end
