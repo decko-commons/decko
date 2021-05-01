@@ -12,8 +12,7 @@ RSpec.describe Card::Fetch do
 
     it "returns nil and caches missing cards" do
       expect(Card.fetch("Zork")).to be_nil
-      expect(Card.cache.read("zork").new_card?).to be_truthy
-      expect(Card.fetch("Zork")).to be_nil
+      expect(Card.cache.read("zork")).to be_new_card
     end
 
     it "returns nil and caches trash cards", as_bot: true do
@@ -196,7 +195,7 @@ RSpec.describe Card::Fetch do
       it "does not be a new_record after being saved" do
         Card.create!(name: "growing up")
         card = Card.fetch("growing up")
-        expect(card.new_record?).to be_falsey
+        expect(card).not_to be_new_record
       end
     end
 
