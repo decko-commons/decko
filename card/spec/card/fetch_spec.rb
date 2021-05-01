@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-RSpec.describe Card::Set::All::Fetch do
+RSpec.describe Card::Fetch do
   describe "#fetch" do
     it "returns and caches existing cards" do
       card_double = class_double("Card")
@@ -12,18 +12,15 @@ RSpec.describe Card::Set::All::Fetch do
 
     it "returns nil and caches missing cards" do
       expect(Card.fetch("Zork")).to be_nil
-      expect(Card.cache.read("zork").new_card?).to be_truthy
-      expect(Card.fetch("Zork")).to be_nil
+      expect(Card.cache.read("zork")).to be_new_card
     end
 
-    it "returns nil and caches trash cards" do
-      Card::Auth.as_bot do
-        card_double = class_double("Card")
-        Card.fetch("A").delete!
-        expect(Card.fetch("A")).to be_nil
-        expect(card_double).not_to receive(:find_by_key_and_trash)
-        expect(Card.fetch("A")).to be_nil
-      end
+    it "returns nil and caches trash cards", as_bot: true do
+      card_double = class_double("Card")
+      Card.fetch("A").delete!
+      expect(Card.fetch("A")).to be_nil
+      expect(card_double).not_to receive(:find_by_key_and_trash)
+      expect(Card.fetch("A")).to be_nil
     end
 
     it "returns and caches builtin cards" do
@@ -31,16 +28,10 @@ RSpec.describe Card::Set::All::Fetch do
       expect(Card.cache.read("*head")).not_to be_nil
     end
 
-    it "returns virtual cards and caches them as missing" do
-      Card::Auth.as_bot do
-        card = Card.fetch("Joe User+*email")
-        expect(card).to be_a(Card).and have_name "Joe User+*email"
-        expect(card.format.render_raw).to eq("joe@user.com")
-      end
-      # card.content.should == 'joe@user.com'
-      # cached_card = Card.cache.read('joe_user+*email')
-      # cached_card.missing?.should be_true
-      # cached_card.virtual?.should be_true
+    it "returns virtual cards and caches them as missing", as_bot: true do
+      card = Card.fetch("Joe User+*email")
+      expect(card).to be_a(Card).and have_name "Joe User+*email"
+      expect(card.format.render_raw).to eq("joe@user.com")
     end
 
     it "fetches virtual cards after skipping them" do
@@ -68,7 +59,10 @@ RSpec.describe Card::Set::All::Fetch do
         Card.create! name: "a+y", content: "DB Content"
       end
       card = Card.fetch("a+y")
-      expect(card).to be_real.and have_content("Formatted Content").and have_db_content("DB Content")
+      expect(card)
+        .to be_real
+        .and have_content("Formatted Content")
+        .and have_db_content("DB Content")
     end
 
     it "handles name variants of cached cards" do
@@ -76,8 +70,7 @@ RSpec.describe Card::Set::All::Fetch do
       expect(Card.fetch("YOMAMA+*self").name).to eq("YOMAMA+*self")
       expect(Card.fetch("yomama", new: {}).name).to eq("yomama")
       expect(Card.fetch("YOMAMA", new: {}).name).to eq("YOMAMA")
-      expect(Card.fetch("yomama!", new: { name: "Yomama" }).name)
-        .to eq("Yomama")
+      expect(Card.fetch("yomama!", new: { name: "Yomama" }).name).to eq("Yomama")
     end
 
     it "fetches junction of names" do
@@ -202,15 +195,14 @@ RSpec.describe Card::Set::All::Fetch do
       it "does not be a new_record after being saved" do
         Card.create!(name: "growing up")
         card = Card.fetch("growing up")
-        expect(card.new_record?).to be_falsey
+        expect(card).not_to be_new_record
       end
     end
 
     describe "default_content option" do
       context "when card doesn't exist" do
         it "initializes card with default content" do
-          card = Card.fetch "non-existent",
-                            new: { default_content: "default content" }
+          card = Card.fetch "non-existent", new: { default_content: "default content" }
           expect(card).to have_db_content "default content"
         end
       end
@@ -239,8 +231,10 @@ RSpec.describe Card::Set::All::Fetch do
 
     it "takes a second hash of options as new card options" do
       new_card = Card.fetch "Never Before", new: { type: "Image" }
-      expect(new_card).to be_a(Card).and be_a_new_record
-                                            .and have_type(:image)
+      expect(new_card)
+        .to be_a(Card)
+        .and be_a_new_record
+        .and have_type(:image)
       expect(Card.fetch("Never Before", new: {})).to have_type(:basic)
     end
   end
@@ -252,87 +246,26 @@ RSpec.describe Card::Set::All::Fetch do
                      content: '{"plus":"_self"}', type: "Search"
       end
     end
+
     it "finds cards with *right+*structure specified" do
       expect(Card.fetch("A+testsearch".to_name))
-        .to be_virtual.and have_type(:search_type)
-                              .and have_content '{"plus":"_self"}'
+        .to be_virtual
+        .and have_type(:search_type)
+        .and have_content '{"plus":"_self"}'
     end
-    context "fetched virtual card with new args" do
+
+    context "with new args" do
       it "fetchs the virtual card with type set in patterns" do
-        Card.fetch "+testsearch", new: { name: "+testsearch",
-                                         supercard: Card["home"] }
+        Card.fetch "+testsearch", new: { name: "+testsearch", supercard: Card["home"] }
 
         c = Card.fetch("Home+testsearch".to_name)
-        expect(c).to be_virtual.and have_type(:search_type)
-                                       .and have_content('{"plus":"_self"}')
+        expect(c).to be_virtual
+          .and have_type(:search_type)
+          .and have_content('{"plus":"_self"}')
 
         patterns = c.instance_variable_get("@patterns").map(&:to_s)
         expect(patterns).to include("Search+*type")
       end
-    end
-  end
-
-  describe "#id" do
-    it "handles integer args" do
-      expect(Card.id(1234)).to eq(1234)
-    end
-
-    it "handles card args" do
-      a = Card["A"]
-      expect(Card.id(a)).to eq(a.id)
-    end
-
-    it "handles symbols" do
-      expect(Card.id(:structure)).to eq(Card::StructureID)
-    end
-  end
-
-  describe "#exists?" do
-    it "is true for cards that are there" do
-      expect(Card.exists?("A")).to eq(true)
-    end
-
-    it "is false for cards that aren't" do
-      expect(Card.exists?("Mumblefunk is gone")).to eq(false)
-    end
-  end
-
-  describe "#fetch_name" do
-    example "symbol" do
-      expect(Card.fetch_name(:all)).to eq "*all"
-    end
-
-    example "string" do
-      expect(Card.fetch_name("home")).to eq "Home"
-    end
-
-    example "id" do
-      expect(Card.fetch_name(Card::BasicID)).to eq "RichText"
-    end
-
-    example "invalid id" do
-      expect(Card.fetch_name("~1836/[[/assets/fonts")).to be_nil
-    end
-
-    example "array" do
-      expect(Card.fetch_name(%w[a b])).to eq "A+B"
-    end
-
-    example "param list" do
-      expect(Card.fetch_name("fruit", :type, "*create")).to eq "Fruit+*type+*create"
-    end
-
-    example "name doesn't exist" do
-      expect(Card.fetch_name("unknown_name")).to eq nil
-    end
-
-    example "fallback policy" do
-      name = Card.fetch_name("unknown_name") { "Unknown Name" }
-      expect(name).to eq "Unknown Name"
-    end
-
-    it "doesn't fetch virtual names" do
-      expect(Card.fetch_name(:all, :self, :create)).to eq nil
     end
   end
 end
