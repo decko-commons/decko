@@ -50,7 +50,7 @@ class Card
       # @return [Card]
       def fetch_from_cast cast
         fetch_args = cast[:id] ? [cast[:id].to_i] : [cast[:name], { new: cast }]
-        fetch *fetch_args
+        fetch(*fetch_args)
       end
 
       #----------------------------------------------------------------------
@@ -121,19 +121,24 @@ class Card
         opts = Env.hash args[:card]
         opts[:type] ||= args[:type] if args[:type]
         # for /new/:type shortcut.  we should handle in routing and deprecate this
-        opts[:name] ||= Card::Name.url_key_to_standard args[:mark]
+        opts[:name] ||= Name.url_key_to_standard args[:mark]
         opts
       end
 
-      def rescue_fetch_name error
-        case error
-        when ActiveModel::RangeError
-          block_given? ? yield.to_name : nil
-        when Error::CodenameNotFound
-          block_given? ? yield.to_name : raise(error)
+      def rescue_fetch_name error, &block
+        if rescued_fetch_name_to_name? error, &block
+          yield.to_name
+        elsif error.is_a? ActiveModel::RangeError
+          nil
         else
           raise error
         end
+      end
+
+      def rescued_fetch_name_to_name? error
+        return unless block_given?
+
+        error.is_a?(ActiveModel::RangeError) || error.is_a?(Error::CodenameNotFound)
       end
     end
   end
