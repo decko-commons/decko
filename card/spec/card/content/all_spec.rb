@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-describe Card::Set::All::Content do
+describe Card::Content::All do
   describe "save_content_draft" do
     it "stores a draft revision" do
       @card = Card.create! name: "mango", content: "foo"
