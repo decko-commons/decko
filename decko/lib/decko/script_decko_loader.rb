@@ -38,7 +38,7 @@ module Decko
 
       def in_application_subdirectory? path=Pathname.new(Dir.pwd)
         File.exist?(File.join(path, SCRIPT_DECKO)) ||
-          !path.root? && in_decko_application_subdirectory?(path.parent)
+          !path.root? && in_application_subdirectory?(path.parent)
       end
     end
   end
