@@ -246,8 +246,8 @@ module CarrierWave
       # use it as the third option)
       @content_type ||=
         existing_content_type ||
-          mini_mime_content_type ||
-          mime_magic_content_type
+        mini_mime_content_type ||
+        mime_magic_content_type
     end
   end
 
