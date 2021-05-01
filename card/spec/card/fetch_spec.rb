@@ -255,7 +255,7 @@ RSpec.describe Card::Fetch do
         .and have_content '{"plus":"_self"}'
     end
 
-    context "fetched virtual card with new args" do
+    context "with new args" do
       it "fetchs the virtual card with type set in patterns" do
         Card.fetch "+testsearch", new: { name: "+testsearch", supercard: Card["home"] }
 

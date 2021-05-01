@@ -2,13 +2,10 @@ RSpec.describe Card::Fetch::Retrieve do
   let(:retrieve) { test_retrieve_existing }
   let(:retrieve_from_trash) { test_retrieve_existing look_in_trash: true }
 
+  let(:fetch_obj) { Card::Fetch.new "A".to_name }
+
   def fetch_object opts={}
-    if @fetch_object
-      @fetch_object.opts.merge! opts
-      @fetch_object
-    else
-      @fetch_object = Card::Fetch.new("A".to_name, opts)
-    end
+    fetch_obj.tap { |f| f.opts.merge! opts }
   end
 
   def test_retrieve_existing opts={}

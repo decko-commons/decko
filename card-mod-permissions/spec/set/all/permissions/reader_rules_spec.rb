@@ -161,7 +161,7 @@ RSpec.describe Card::Set::All::Permissions do
 
     it "works on virtual+virtual cards" do
       c = Card.fetch("Number+*type+by name")
-      expect(c.ok?(:read)).to be_truthy
+      expect(c).to be_ok(:read)
     end
   end
 end

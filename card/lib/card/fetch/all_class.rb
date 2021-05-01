@@ -37,7 +37,9 @@ class Card
         fetch(*mark, skip_virtual: true)
       end
 
-      # fetch real cards without set modules loaded. Should only be used for simple attributes
+      # fetch real cards without set modules loaded. Should only be used for
+      # simple attributes
+      #
       # @example
       #   quick_fetch "A", :self, :structure
       #
