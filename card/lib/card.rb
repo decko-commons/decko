@@ -116,6 +116,7 @@ class Card < ApplicationRecord
   extend Name::AllClass
   extend Cache::AllClass
   extend Director::AllClass
+  extend Fetch::AllClass
 
   include Dirty
   include DirtyNames
@@ -127,6 +128,7 @@ class Card < ApplicationRecord
   include Director::All
   include Reference::All
   include Rule::All
+  include Fetch::All
 
   Card::Cache # trigger autoload
 
