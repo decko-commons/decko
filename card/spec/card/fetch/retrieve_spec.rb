@@ -1,6 +1,4 @@
-# -*- encoding : utf-8 -*-
-
-RSpec.describe Card::Set::All::FetchHelper do
+RSpec.describe Card::Fetch::Retrieve do
   let(:retrieve) { test_retrieve_existing }
   let(:retrieve_from_trash) { test_retrieve_existing look_in_trash: true }
 
