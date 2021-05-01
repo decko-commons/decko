@@ -16,14 +16,12 @@ RSpec.describe Card::Fetch do
       expect(Card.fetch("Zork")).to be_nil
     end
 
-    it "returns nil and caches trash cards" do
-      Card::Auth.as_bot do
-        card_double = class_double("Card")
-        Card.fetch("A").delete!
-        expect(Card.fetch("A")).to be_nil
-        expect(card_double).not_to receive(:find_by_key_and_trash)
-        expect(Card.fetch("A")).to be_nil
-      end
+    it "returns nil and caches trash cards", as_bot: true do
+      card_double = class_double("Card")
+      Card.fetch("A").delete!
+      expect(Card.fetch("A")).to be_nil
+      expect(card_double).not_to receive(:find_by_key_and_trash)
+      expect(Card.fetch("A")).to be_nil
     end
 
     it "returns and caches builtin cards" do
@@ -31,16 +29,10 @@ RSpec.describe Card::Fetch do
       expect(Card.cache.read("*head")).not_to be_nil
     end
 
-    it "returns virtual cards and caches them as missing" do
-      Card::Auth.as_bot do
-        card = Card.fetch("Joe User+*email")
-        expect(card).to be_a(Card).and have_name "Joe User+*email"
-        expect(card.format.render_raw).to eq("joe@user.com")
-      end
-      # card.content.should == 'joe@user.com'
-      # cached_card = Card.cache.read('joe_user+*email')
-      # cached_card.missing?.should be_true
-      # cached_card.virtual?.should be_true
+    it "returns virtual cards and caches them as missing", as_bot: true do
+      card = Card.fetch("Joe User+*email")
+      expect(card).to be_a(Card).and have_name "Joe User+*email"
+      expect(card.format.render_raw).to eq("joe@user.com")
     end
 
     it "fetches virtual cards after skipping them" do
@@ -68,7 +60,10 @@ RSpec.describe Card::Fetch do
         Card.create! name: "a+y", content: "DB Content"
       end
       card = Card.fetch("a+y")
-      expect(card).to be_real.and have_content("Formatted Content").and have_db_content("DB Content")
+      expect(card)
+        .to be_real
+        .and have_content("Formatted Content")
+        .and have_db_content("DB Content")
     end
 
     it "handles name variants of cached cards" do
@@ -76,8 +71,7 @@ RSpec.describe Card::Fetch do
       expect(Card.fetch("YOMAMA+*self").name).to eq("YOMAMA+*self")
       expect(Card.fetch("yomama", new: {}).name).to eq("yomama")
       expect(Card.fetch("YOMAMA", new: {}).name).to eq("YOMAMA")
-      expect(Card.fetch("yomama!", new: { name: "Yomama" }).name)
-        .to eq("Yomama")
+      expect(Card.fetch("yomama!", new: { name: "Yomama" }).name).to eq("Yomama")
     end
 
     it "fetches junction of names" do
@@ -209,8 +203,7 @@ RSpec.describe Card::Fetch do
     describe "default_content option" do
       context "when card doesn't exist" do
         it "initializes card with default content" do
-          card = Card.fetch "non-existent",
-                            new: { default_content: "default content" }
+          card = Card.fetch "non-existent", new: { default_content: "default content" }
           expect(card).to have_db_content "default content"
         end
       end
@@ -239,8 +232,10 @@ RSpec.describe Card::Fetch do
 
     it "takes a second hash of options as new card options" do
       new_card = Card.fetch "Never Before", new: { type: "Image" }
-      expect(new_card).to be_a(Card).and be_a_new_record
-                                            .and have_type(:image)
+      expect(new_card)
+        .to be_a(Card)
+        .and be_a_new_record
+        .and have_type(:image)
       expect(Card.fetch("Never Before", new: {})).to have_type(:basic)
     end
   end
@@ -255,84 +250,23 @@ RSpec.describe Card::Fetch do
 
     it "finds cards with *right+*structure specified" do
       expect(Card.fetch("A+testsearch".to_name))
-        .to be_virtual.and have_type(:search_type)
-                              .and have_content '{"plus":"_self"}'
+        .to be_virtual
+        .and have_type(:search_type)
+        .and have_content '{"plus":"_self"}'
     end
 
     context "fetched virtual card with new args" do
       it "fetchs the virtual card with type set in patterns" do
-        Card.fetch "+testsearch", new: { name: "+testsearch",
-                                         supercard: Card["home"] }
+        Card.fetch "+testsearch", new: { name: "+testsearch", supercard: Card["home"] }
 
         c = Card.fetch("Home+testsearch".to_name)
-        expect(c).to be_virtual.and have_type(:search_type)
-                                       .and have_content('{"plus":"_self"}')
+        expect(c).to be_virtual
+          .and have_type(:search_type)
+          .and have_content('{"plus":"_self"}')
 
         patterns = c.instance_variable_get("@patterns").map(&:to_s)
         expect(patterns).to include("Search+*type")
       end
-    end
-  end
-
-  let(:retrieve) { test_retrieve_existing }
-  let(:retrieve_from_trash) { test_retrieve_existing look_in_trash: true }
-
-  def fetch_object opts={}
-    if @fetch_object
-      @fetch_object.opts.merge! opts
-      @fetch_object
-    else
-      @fetch_object = Card::Fetch.new("A".to_name, opts)
-    end
-  end
-
-  def test_retrieve_existing opts={}
-    fetch_object(opts)&.retrieve_existing
-  end
-
-  describe "#controller fetch" do
-    it "removes underscores from new card names" do
-      expect(Card.controller_fetch(mark: "no_un_der_score").name).to eq("no un der score")
-    end
-  end
-
-  describe "retrieve_existing" do
-    it "looks for non-cached card in database" do
-      # expect_db_retrieval_with(:key, "a", nil) { retrieve }
-      expect_db_retrieval { retrieve }
-    end
-
-    it "doesn't look in db for cached cards(real)" do
-      Card.cache.write "a", Card["B"]
-      expect_no_db_retrieval { retrieve }
-    end
-
-    it "doesn't look in db for cached cards (new)" do
-      Card.cache.write "a", Card.new
-      expect_no_db_retrieval { retrieve }
-    end
-
-    it "doesn't look in db for cached cards (real) if 'look_in_trash' option used" do
-      Card.cache.write "a", Card["B"]
-      expect_no_db_retrieval { retrieve_from_trash }
-    end
-
-    it "looks in db for cached cards (new) if 'look_in_trash' option used" do
-      Card.cache.write "a", Card.new
-      # expect_db_retrieval_with(:key, "a", true) { retrieve_from_trash }
-      expect_db_retrieval { retrieve_from_trash }
-    end
-
-    def expect_no_db_retrieval
-      allow(fetch_object).to receive(:retrieve_from_db)
-      yield
-      expect(fetch_object).not_to have_received(:retrieve_from_db)
-    end
-
-    def expect_db_retrieval
-      allow(fetch_object).to receive(:retrieve_from_db)
-      yield
-      expect(fetch_object).to have_received(:retrieve_from_db) # .with(*args)
     end
   end
 end
