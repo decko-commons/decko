@@ -80,7 +80,7 @@ Metrics/BlockLength:
     - 'spec/**/*.rb'
     - '**/*_spec.rb'
 RSpec/MultipleExpectations:
-  Disabled: true
+  Enabled: false
 RSpec/ExampleLength:
   Description: Checks for long examples.
   Enabled: true
