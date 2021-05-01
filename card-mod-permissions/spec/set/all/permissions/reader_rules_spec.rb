@@ -1,4 +1,4 @@
-describe Card::Set::All::Permissions do
+RSpec.describe Card::Set::All::Permissions do
   describe "reader rules" do
     before do
       @perm_card = Card.new name: "Home+*self+*read", type: "Pointer",

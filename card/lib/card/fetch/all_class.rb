@@ -76,11 +76,13 @@ class Card
       # @param mark - see #fetch
       # @return [Card::Name]
       def fetch_name *mark, &block
-        simple_fetch_name *mark, &block
-      rescue ActiveModel::RangeError => _e
-        block_given? ? yield.to_name : nil
-      rescue Card::Error::CodenameNotFound => e
-        block_given? ? yield.to_name : raise(e)
+        if (card = quick_fetch(*mark))
+          card.name
+        elsif block_given?
+          yield.to_name
+        end
+      rescue => error
+        rescue_fetch_name error, &block
       end
 
       # @param mark - see #fetch
@@ -123,11 +125,14 @@ class Card
         opts
       end
 
-      def simple_fetch_name(*mark)
-        if (card = quick_fetch(*mark))
-          card.name
-        elsif block_given?
-          yield.to_name
+      def rescue_fetch_name error
+        case error
+        when ActiveModel::RangeError
+          block_given? ? yield.to_name : nil
+        when Error::CodenameNotFound
+          block_given? ? yield.to_name : raise(error)
+        else
+          raise error
         end
       end
     end
