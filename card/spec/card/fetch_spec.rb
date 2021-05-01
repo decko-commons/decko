@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-RSpec.describe Card::Set::All::Fetch do
+RSpec.describe Card::Fetch do
   describe "#fetch" do
     it "returns and caches existing cards" do
       card_double = class_double("Card")
@@ -252,11 +252,13 @@ RSpec.describe Card::Set::All::Fetch do
                      content: '{"plus":"_self"}', type: "Search"
       end
     end
+
     it "finds cards with *right+*structure specified" do
       expect(Card.fetch("A+testsearch".to_name))
         .to be_virtual.and have_type(:search_type)
                               .and have_content '{"plus":"_self"}'
     end
+
     context "fetched virtual card with new args" do
       it "fetchs the virtual card with type set in patterns" do
         Card.fetch "+testsearch", new: { name: "+testsearch",
@@ -272,67 +274,65 @@ RSpec.describe Card::Set::All::Fetch do
     end
   end
 
-  describe "#id" do
-    it "handles integer args" do
-      expect(Card.id(1234)).to eq(1234)
-    end
+  let(:retrieve) { test_retrieve_existing }
+  let(:retrieve_from_trash) { test_retrieve_existing look_in_trash: true }
 
-    it "handles card args" do
-      a = Card["A"]
-      expect(Card.id(a)).to eq(a.id)
-    end
-
-    it "handles symbols" do
-      expect(Card.id(:structure)).to eq(Card::StructureID)
+  def fetch_object opts={}
+    if @fetch_object
+      @fetch_object.opts.merge! opts
+      @fetch_object
+    else
+      @fetch_object = Card::Fetch.new("A".to_name, opts)
     end
   end
 
-  describe "#exists?" do
-    it "is true for cards that are there" do
-      expect(Card.exists?("A")).to eq(true)
-    end
+  def test_retrieve_existing opts={}
+    fetch_object(opts)&.retrieve_existing
+  end
 
-    it "is false for cards that aren't" do
-      expect(Card.exists?("Mumblefunk is gone")).to eq(false)
+  describe "#controller fetch" do
+    it "removes underscores from new card names" do
+      expect(Card.controller_fetch(mark: "no_un_der_score").name).to eq("no un der score")
     end
   end
 
-  describe "#fetch_name" do
-    example "symbol" do
-      expect(Card.fetch_name(:all)).to eq "*all"
+  describe "retrieve_existing" do
+    it "looks for non-cached card in database" do
+      # expect_db_retrieval_with(:key, "a", nil) { retrieve }
+      expect_db_retrieval { retrieve }
     end
 
-    example "string" do
-      expect(Card.fetch_name("home")).to eq "Home"
+    it "doesn't look in db for cached cards(real)" do
+      Card.cache.write "a", Card["B"]
+      expect_no_db_retrieval { retrieve }
     end
 
-    example "id" do
-      expect(Card.fetch_name(Card::BasicID)).to eq "RichText"
+    it "doesn't look in db for cached cards (new)" do
+      Card.cache.write "a", Card.new
+      expect_no_db_retrieval { retrieve }
     end
 
-    example "invalid id" do
-      expect(Card.fetch_name("~1836/[[/assets/fonts")).to be_nil
+    it "doesn't look in db for cached cards (real) if 'look_in_trash' option used" do
+      Card.cache.write "a", Card["B"]
+      expect_no_db_retrieval { retrieve_from_trash }
     end
 
-    example "array" do
-      expect(Card.fetch_name(%w[a b])).to eq "A+B"
+    it "looks in db for cached cards (new) if 'look_in_trash' option used" do
+      Card.cache.write "a", Card.new
+      # expect_db_retrieval_with(:key, "a", true) { retrieve_from_trash }
+      expect_db_retrieval { retrieve_from_trash }
     end
 
-    example "param list" do
-      expect(Card.fetch_name("fruit", :type, "*create")).to eq "Fruit+*type+*create"
+    def expect_no_db_retrieval
+      allow(fetch_object).to receive(:retrieve_from_db)
+      yield
+      expect(fetch_object).not_to have_received(:retrieve_from_db)
     end
 
-    example "name doesn't exist" do
-      expect(Card.fetch_name("unknown_name")).to eq nil
-    end
-
-    example "fallback policy" do
-      name = Card.fetch_name("unknown_name") { "Unknown Name" }
-      expect(name).to eq "Unknown Name"
-    end
-
-    it "doesn't fetch virtual names" do
-      expect(Card.fetch_name(:all, :self, :create)).to eq nil
+    def expect_db_retrieval
+      allow(fetch_object).to receive(:retrieve_from_db)
+      yield
+      expect(fetch_object).to have_received(:retrieve_from_db) # .with(*args)
     end
   end
 end

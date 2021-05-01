@@ -3,7 +3,7 @@ require "decko/script_decko_loader"
 
 # If we are inside a Decko application this method performs an exec and thus
 # the rest of this script is not run.
-Decko::ScriptDeckoLoader.exec_script_decko!
+Decko::ScriptDeckoLoader.exec!
 
 require "rails/ruby_version_check"
 Signal.trap("INT") { puts; exit(1) }
