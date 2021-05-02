@@ -1,7 +1,7 @@
 class Card
   class Cache
     # cache-related class methods
-    module AllClass
+    module CardClass
       def retrieve_from_cache cache_key, local_only=false
         return unless cache
         local_only ? cache.soft.read(cache_key) : cache.read(cache_key)

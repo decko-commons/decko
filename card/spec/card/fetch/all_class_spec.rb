@@ -1,4 +1,4 @@
-RSpec.describe Card::Fetch::AllClass do
+RSpec.describe Card::Fetch::CardClass do
   describe "#id" do
     it "handles integer args" do
       expect(Card.id(1234)).to eq(1234)
