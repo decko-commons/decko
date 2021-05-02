@@ -130,6 +130,7 @@ class Card < ApplicationRecord
   include Reference::All
   include Rule::All
   include Fetch::All
+  include Subcards::All
 
   Card::Cache # trigger autoload
 

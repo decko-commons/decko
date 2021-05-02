@@ -1,15 +1,16 @@
 # -*- encoding : utf-8 -*-
 
 RSpec.describe Card::Set::Pattern::All do
-  describe :set_names do
-    it "returns self, type, all for simple cards" do
-      Card::Auth.as_bot do
-        card = Card.new(name: "AnewCard")
-        expect(card.set_names).to eq(["RichText+*type", "*all"])
-        card.save!
-        card = Card.fetch("AnewCard")
-        expect(card.set_names).to eq(["AnewCard+*self", "RichText+*type", "*all"])
-      end
+  describe "#set_names" do
+    let(:simple_card) { Card.new(name: "AnewCard") }
+
+    it "returns type, all for new simple cards" do
+      expect(simple_card.set_names).to eq(["RichText+*type", "*all"])
+    end
+
+    it "returns type, all for new simple cards" do
+      simple_card.save!
+      expect(simple_card.set_names).to eq(["AnewCard+*self", "RichText+*type", "*all"])
     end
 
     it "returns set names for simple star cards" do
@@ -26,7 +27,7 @@ RSpec.describe Card::Set::Pattern::All do
                   "author+*right",
                   "RichText+*type",
                   "*all plus",
-                  "*all" ])
+                  "*all"])
       end
     end
 
@@ -48,7 +49,7 @@ RSpec.describe Card::Set::Pattern::All do
                 "*rstar",
                 "List+*type",
                 "*all plus",
-                "*all" ])
+                "*all"])
     end
 
     # right place for this?  really need more prototype tests...
@@ -60,37 +61,46 @@ RSpec.describe Card::Set::Pattern::All do
     end
   end
 
-  describe :rule_set_keys do
+  describe "#rule_set_keys" do
     it "returns correct set names for new cards" do
       card = Card.new name: "AnewCard"
       expect(card.rule_set_keys).to eq(["#{Card::BasicID}+type", "all"])
     end
   end
 
-  describe :safe_set_keys do
-    it "returns css names for simple star cards" do
-      Card::Auth.as_bot do
-        card = Card.new(name: "*AnewCard")
-        expect(card.safe_set_keys).to eq("ALL TYPE-rich_text STAR")
-        card.save!
-        card = Card.fetch("*AnewCard")
-        expect(card.safe_set_keys).to eq("ALL TYPE-rich_text STAR SELF-Xanew_card")
+  describe "#safe_set_keys" do
+    context "with simple star cards" do
+      let(:star_card) { Card.new(name: "*AnewCard") }
+      let(:all_type_star) { "ALL TYPE-rich_text STAR" }
+
+      it "includes STAR class" do
+        expect(star_card.safe_set_keys).to eq(all_type_star)
+      end
+
+      it "includes SELF class when real", as_bot: true do
+        star_card.save!
+        expect(star_card.safe_set_keys).to eq("#{all_type_star} SELF-Xanew_card")
       end
     end
 
-    it "returns set names for junction cards" do
-      card = Card.new(name: "Iliad+author")
-      expect(card.safe_set_keys)
-        .to eq("ALL ALL_PLUS TYPE-rich_text RIGHT-author TYPE_PLUS_RIGHT-book-author")
-      card.save!
-      card = Card.fetch("Iliad+author")
-      expect(card.safe_set_keys)
-        .to eq("ALL ALL_PLUS TYPE-rich_text RIGHT-author TYPE_PLUS_RIGHT-book-author "\
+    context "with junction cards" do
+      let(:plus_card) { Card.new(name: "Iliad+author") }
+
+      it "includes 5 sets when new" do
+        expect(plus_card.safe_set_keys)
+          .to eq("ALL ALL_PLUS TYPE-rich_text RIGHT-author TYPE_PLUS_RIGHT-book-author")
+      end
+
+      it "includes 6 sets when real" do
+        plus_card.save!
+        expect(plus_card.safe_set_keys)
+          .to eq("ALL ALL_PLUS TYPE-rich_text RIGHT-author TYPE_PLUS_RIGHT-book-author "\
                "SELF-iliad-author")
+      end
     end
   end
 
-  describe :label do
+  describe "#label" do
     it "returns label for name" do
       expect(Card.new(name: "address+*right").label)
         .to eq(%(All "+address" cards))
