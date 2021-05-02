@@ -29,13 +29,14 @@ module ClassMethods
     # TODO: handle cloud files
     return unless dir
 
-    trashed_card_ids = all_trashed_card_ids
-    file_ids = all_file_ids
-    file_ids.each do |file_id|
-      next unless trashed_card_ids.member?(file_id)
-      raise Card::Error, t(:core_exception_almost_deleted) if Card.exists?(file_id)
-      ::FileUtils.rm_rf "#{dir}/#{file_id}", secure: true
+    (all_trashed_card_ids & all_file_ids).each do |file_id|
+      delete_files_with_id file_id
     end
+  end
+
+  def delete_files_with_id file_id
+    raise Card::Error, t(:core_exception_almost_deleted) if Card.exists?(file_id)
+    ::FileUtils.rm_rf "#{dir}/#{file_id}", secure: true
   end
 
   def all_file_ids

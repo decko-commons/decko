@@ -20,8 +20,7 @@ class Cardname < String
 
   OK4KEY_RE = '\p{Word}\*'
 
-  cattr_accessor :joint, :banned_array, :var_re, :uninflect, :params,
-                 :session, :stabilize
+  cattr_accessor :joint, :banned_array, :var_re, :uninflect, :params, :session, :stabilize
 
   self.joint          = "+"
   self.banned_array   = []

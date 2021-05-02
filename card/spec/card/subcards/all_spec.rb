@@ -1,4 +1,4 @@
-RSpec.describe Card::Set::All::Subcards do
+RSpec.describe Card::Subcards::All do
   let(:create_card) { Card.create!(name: "main card") }
   let(:create_card_with_subcards) do
     Card.create name: "main card",
