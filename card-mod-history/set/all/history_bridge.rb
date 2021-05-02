@@ -57,7 +57,8 @@ format :html do
     total = updaters.size
     num_to_show = total > max_count ? max_count - 1 : max_count
 
-    links = links_to_updaters(updaters, num_to_show, item_view) +
+    links =
+      links_to_updaters(updaters, num_to_show, item_view) +
       link_to_other_updaters(total, others_target, num_to_show)
 
     links.to_sentence
