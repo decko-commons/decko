@@ -4,11 +4,11 @@ RSpec.describe Card::Set::Pattern::All do
   describe "#set_names" do
     let(:simple_card) { Card.new(name: "AnewCard") }
 
-    it "returns type, all for new simple cards" do
+    it "returns type and all for new simple cards" do
       expect(simple_card.set_names).to eq(["RichText+*type", "*all"])
     end
 
-    it "returns type, all for new simple cards" do
+    it "returns self, type, and all for new simple cards" do
       simple_card.save!
       expect(simple_card.set_names).to eq(["AnewCard+*self", "RichText+*type", "*all"])
     end
@@ -95,15 +95,14 @@ RSpec.describe Card::Set::Pattern::All do
         plus_card.save!
         expect(plus_card.safe_set_keys)
           .to eq("ALL ALL_PLUS TYPE-rich_text RIGHT-author TYPE_PLUS_RIGHT-book-author "\
-               "SELF-iliad-author")
+                 "SELF-iliad-author")
       end
     end
   end
 
   describe "#label" do
     it "returns label for name" do
-      expect(Card.new(name: "address+*right").label)
-        .to eq(%(All "+address" cards))
+      expect(Card.new(name: "address+*right").label).to eq(%(All "+address" cards))
     end
   end
 end

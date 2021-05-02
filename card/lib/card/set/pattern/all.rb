@@ -1,6 +1,7 @@
 class Card
   module Set
     class Pattern
+      # pattern-related Card instance methods
       module All
         def patterns?
           defined? @patterns
