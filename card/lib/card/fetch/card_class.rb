@@ -4,7 +4,7 @@ class Card
     #
     # A multipurpose retrieval operator that integrates caching, database lookups,
     # and "virtual" card construction
-    module AllClass
+    module CardClass
       # Look for cards in
       # * cache
       # * database

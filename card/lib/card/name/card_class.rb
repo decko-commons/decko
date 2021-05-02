@@ -1,7 +1,7 @@
 class Card
   class Name
     # Name-related Card class methods
-    module AllClass
+    module CardClass
       def rename! oldname, newname
         Card[oldname].update! name: newname, update_referers: true
       end
