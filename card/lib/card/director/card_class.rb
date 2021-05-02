@@ -1,7 +1,7 @@
 class Card
   class Director
     # director-related Card class methods
-    module AllClass
+    module CardClass
       def create! opts
         card = Card.new opts
         card.save!

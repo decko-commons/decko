@@ -81,13 +81,21 @@ class Bootstrap
       def col_widths args, opts
         opts = args.pop if args.one? && args.last.is_a?(Hash)
         if args.present?
-          raise Error, "bad argument" unless args.all? { |a| a.is_a? Integer }
-          { md: Array.wrap(args) }
+          col_widths_from_args args
         else
-          %i[lg xs sm md].each_with_object({}) do |k, cols_w|
-            next unless (widths = opts.delete(k))
-            cols_w[k] = Array.wrap widths
-          end
+          col_widths_from_opts opts
+        end
+      end
+
+      def col_widths_from_args args
+        raise Error, "bad argument" unless args.all? { |a| a.is_a? Integer }
+        { md: Array.wrap(args) }
+      end
+
+      def col_widths_from_opts opts
+        %i[lg xs sm md].each_with_object({}) do |k, cols_w|
+          next unless (widths = opts.delete(k))
+          cols_w[k] = Array.wrap widths
         end
       end
     end
