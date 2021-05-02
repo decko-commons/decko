@@ -30,15 +30,6 @@ RSpec.describe "Card::Director" do
     in_stage(stage, on: :create, trigger: -> { create_card }) { abort :success }
   end
 
-  def test_with_subcards hash={}
-    with_test_events do
-      hash.each do |stage, prefix|
-        test_event(stage, on: :create) { called_events << "#{prefix}:#{name}" }
-      end
-      create_card_with_subcards
-    end
-  end
-
   describe "abortion" do
     let(:create_card) { Card.create name: "a card" }
     let(:create_card_with_subcard) do
@@ -132,6 +123,16 @@ RSpec.describe "Card::Director" do
 
     let(:preorder) { %w[1 11 111 12 121] }
 
+    def expect_subcards_first order, hash={}
+      with_test_events do
+        hash.each do |stage, prefix|
+          test_event(stage, on: :create) { called_events << "#{prefix}:#{name}" }
+        end
+        create_card_with_subcards
+      end
+      expect(called_events).to eq(order)
+    end
+
     describe "validate" do
       it "is pre-order depth-first" do
         in_stage :validate, on: :create, trigger: -> { create_card_with_subcards } do
@@ -141,10 +142,17 @@ RSpec.describe "Card::Director" do
       end
 
       it "finishes all validate stages before next stage" do
-        # lame comment to appease codeclimate's duplication detector
-        test_with_subcards validate: "V", prepare_to_store: "S"
-        expect(called_events).to eq(%w[V:1 V:11 V:111 V:12 V:121
-                                       S:1 S:11 S:111 S:12 S:121])
+        expect_subcards_first %w[V:1 V:11 V:111 V:12 V:121
+                                 S:1 S:11 S:111 S:12 S:121],
+                              validate: "V", prepare_to_store: "S"
+      end
+    end
+
+    describe "store and finalize" do
+      it "executes finalize when all subcards are stored" do
+        expect_subcards_first %w[S:1 S:11 S:111 S:12 S:121
+                                 F:1 F:11 F:111 F:12 F:121],
+                              store: "S", finalize: "F"
       end
     end
 
@@ -156,14 +164,6 @@ RSpec.describe "Card::Director" do
           end
           expect(called_events).to eq(preorder)
         end
-      end
-    end
-
-    describe "store and finalize" do
-      it "executes finalize when all subcards are stored" do
-        test_with_subcards store: "S", finalize: "F"
-        expect(called_events).to eq(%w[S:1 S:11 S:111 S:12 S:121
-                                       F:1 F:11 F:111 F:12 F:121])
       end
     end
 
@@ -324,9 +324,8 @@ RSpec.describe "Card::Director" do
     it "update works integrate_with_delay stage" do
       act_cnt = Card["A"].acts.size
       with_delayed_jobs 1 do
-        in_stage :integrate_with_delay,
-                 on: :create, for: "act card",
-                 trigger: -> { Card.create! name: "act card" } do
+        in_stage :integrate_with_delay, on: :create, for: "act card",
+                                        trigger: -> { Card.create! name: "act card" } do
           Card["A"].update content: "changed content"
         end
       end

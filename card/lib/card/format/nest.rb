@@ -2,7 +2,7 @@ class Card
   class Format
     # processing nests
     class Nest
-      include Fetch
+      include Nest::Fetch
 
       attr_accessor :format, :card, :view, :view_opts, :format_opts
       def initialize format, cardish, view_opts={}, format_opts={}

@@ -38,6 +38,7 @@ module ClassMethods
     end
   end
 
+
   def all_file_ids
     dir = Card.paths["files"].existent.first
     Dir.entries(dir)[2..-1].map(&:to_i)
