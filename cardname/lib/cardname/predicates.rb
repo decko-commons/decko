@@ -1,5 +1,16 @@
 class Cardname
   module Predicates
+    def simple
+      @simple.nil? ? (@simple = parts.size <= 1) : @simple
+    end
+    alias_method :simple?, :simple
+
+    # @return true if name has more than one part
+    def compound?
+      !simple?
+    end
+    alias_method :junction?, :compound?
+
     def valid?
       return true if self.class.nothing_banned?
       !parts.find do |pt|
