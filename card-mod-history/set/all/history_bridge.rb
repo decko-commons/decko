@@ -52,16 +52,18 @@ format :html do
   private
 
   def updater_links updaters, item_view: :link, max_count: 3, others_target: card
-    return "" unless updaters.present?
-
     total = updaters.size
-    num_to_show = total > max_count ? max_count - 1 : max_count
+    num_to_show = number_of_updaters_to_show total, max_count
 
     links =
       links_to_updaters(updaters, num_to_show, item_view) +
       link_to_other_updaters(total, others_target, num_to_show)
 
     links.to_sentence
+  end
+
+  def number_of_updaters_to_show total, max_count
+    total > max_count ? max_count - 1 : max_count
   end
 
   def links_to_updaters updaters, num_to_show, item_view
