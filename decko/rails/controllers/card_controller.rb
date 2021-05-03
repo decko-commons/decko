@@ -64,7 +64,7 @@ class CardController < ApplicationController
   end
 
   def load_card
-    @card = Card.controller_fetch params
+    @card = Card.uri_fetch params
     raise Card::Error::NotFound unless card
     record_as_main
   end
