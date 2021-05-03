@@ -60,7 +60,7 @@ class Card
       end
 
       def url_key_to_standard key
-        key.to_s.tr "_", " "
+        key.to_s.
       end
     end
 
