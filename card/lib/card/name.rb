@@ -58,10 +58,6 @@ class Card
         name_parts = parts.flatten.map { |part| new part }
         new name_parts.join(joint), true
       end
-
-      def url_key_to_standard key
-        key.to_s.
-      end
     end
 
     def star?

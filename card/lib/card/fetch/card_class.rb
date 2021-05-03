@@ -121,7 +121,7 @@ class Card
         card = fetch mark, skip_modules: true,
                            standardize_name: true,
                            new: card_opts,
-                           look_in_trash: params[:look_in_trash],
+                           look_in_trash: params[:look_in_trash]
         card.assign_attributes card_opts if params[:assign] && card&.real?
         card&.include_set_modules
         card
