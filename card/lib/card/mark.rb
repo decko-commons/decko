@@ -23,16 +23,7 @@ class Card
     def id_or_name parts
       mark = parts.flatten
       mark = mark.first if mark.size <= 1
-      id_from_mark(mark) || name_from_mark(mark)
-    end
-
-    def id_from_mark mark
-      case mark
-      when Integer then mark
-      when Symbol  then Card::Codename.id! mark
-      when String  then id_from_string mark
-      when Card    then mark.id
-      end
+      id_from_mark(mark) || Card::Name[mark]
     end
 
     # translates string identifiers into an id:
@@ -60,8 +51,15 @@ class Card
       end
     end
 
-    def name_from_mark mark
-      Card::Name[mark]
+    private
+
+    def id_from_mark mark
+      case mark
+      when Integer then mark
+      when Symbol  then Card::Codename.id! mark
+      when String  then id_from_string mark
+      when Card    then mark.id
+      end
     end
   end
 end

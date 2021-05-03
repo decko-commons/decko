@@ -93,38 +93,44 @@ class Card
         fetch(*mark, skip_modules: true)&.type_id
       end
 
-      # a fetch method to support the needs of the card controller.
-      # should be in Decko?
-      def controller_fetch args
-        card_opts = controller_fetch_opts args
-        if args[:action] == "create"
+      # Enhanced fetch to support interpretation of URI parameters.
+      # To normal fetching this adds:
+      # - interpretation of the card hash (params[:card])
+      # - handling conflicts between "mark" and "card" params
+      #   removing
+      # - special root-level parameters, including
+      #   - type (String, added to card hash)
+      #   - look_in_trash (boolean, applied to fetch)
+      #   - assign (boolean, assignment of card attributes to existing cards
+      def uri_fetch params
+        card_opts = uri_fetch_opts params
+        if params[:action] == "create"
           # FIXME: we currently need a "new" card to catch duplicates
           # (otherwise save will just act like a normal update)
           # We may need a "#create" instance method to handle this checking?
           Card.new card_opts
         else
-          standard_controller_fetch args, card_opts
+          standard_uri_fetch params, card_opts
         end
       end
 
       private
 
-      def standard_controller_fetch args, card_opts
-        mark = args[:mark] || card_opts[:name]
-        card = Card.fetch mark, skip_modules: true,
-                                look_in_trash: args[:look_in_trash],
-                                new: card_opts
-        card.assign_attributes card_opts if args[:assign] && card&.real?
+      def standard_uri_fetch params, card_opts
+        mark = params[:mark] || card_opts[:name]
+        card = fetch mark, skip_modules: true,
+                           standardize_name: true,
+                           new: card_opts,
+                           look_in_trash: params[:look_in_trash]
+        card.assign_attributes card_opts if params[:assign] && card&.real?
         card&.include_set_modules
         card
       end
 
-      def controller_fetch_opts args
-        opts = Env.hash args[:card]
-        opts[:type] ||= args[:type] if args[:type]
-        # for /new/:type shortcut.  we should handle in routing and deprecate this
-        opts[:name] ||= Name.url_key_to_standard args[:mark]
-        opts
+      def uri_fetch_opts params
+        Env.hash(params[:card]).tap do |card_opts|
+          card_opts[:type] ||= params[:type] if params[:type] # for /new/:type shortcut.
+        end
       end
 
       def rescue_fetch_name error, &block

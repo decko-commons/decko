@@ -116,9 +116,9 @@ class Card
       end
 
       def assign_name_from_mark
-        return if opts[:local_only]
-        return unless mark&.to_s != card.name
-        card.name = mark.to_s
+        mark = mark&.to_s
+        return if opts[:local_only] || mark == card.name
+        card.name = opts[:standardize_name] ? mark.tr("_", " ") : mark
       end
     end
   end
