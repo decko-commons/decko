@@ -35,8 +35,7 @@ class Card
 
         def anchor_codenames
           anchor_parts.map do |part|
-            part_id = Card.fetch_id part
-            Card::Codename[part_id] || break
+            part.cardname&.code || break
           end
         end
 

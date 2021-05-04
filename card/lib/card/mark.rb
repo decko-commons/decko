@@ -39,19 +39,23 @@ class Card
       end
     end
 
-    def bad_mark mark
-      case mark
+    def name_from_id_from_string id, string
+      fetch_name(id) { bad_mark string }
+    end
+
+    private
+
+    def bad_mark string
+      case string
       when ID_MARK_RE
         raise Card::Error::NotFound, "id doesn't exist: #{Regexp.last_match[:id]}"
       when CODENAME_MARK_RE
         raise Card::Error::CodenameNotFound,
               "codename doesn't exist: #{Regexp.last_match[:codename]}"
       else
-        raise Card::Error, "invalid mark: #{mark}"
+        raise Card::Error, "invalid mark: #{string}"
       end
     end
-
-    private
 
     def id_from_mark mark
       case mark

@@ -99,7 +99,7 @@ class Card
 
     # no name info will be lost by using url_key
     def name_standardish? name
-      name.tr(" ", "_") == name.url_key
+      name.url_key == name.tr(" ", "_")
     end
   end
 end

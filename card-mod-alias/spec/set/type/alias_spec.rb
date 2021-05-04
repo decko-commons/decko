@@ -11,6 +11,5 @@ RSpec.describe Card::Set::Type::Alias do
     it "is false for compound non-alias cards" do
       expect(Card["A+B"]).not_to be_alias
     end
-
   end
 end

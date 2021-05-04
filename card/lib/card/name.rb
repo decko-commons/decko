@@ -41,8 +41,8 @@ class Card
 
         if !validated_parts && str.include?(joint)
           compose Cardname.split_parts(str)
-        elsif (id = Card.id_from_string(str))  # handles ~ and :
-          Card.fetch_name(id) { Card.bad_mark(str) }
+        elsif (id = Card.id_from_string str)  # handles ~[id] and :[codename]
+          Card.name_from_id_from_string id, str
         else
           super str
         end
@@ -50,12 +50,17 @@ class Card
 
       # interprets symbols/integers as codenames/ids
       def smart_compose parts
-        name_parts = parts.flatten.map { |part| self[part] }
-        new name_parts.join(joint), true
+        new_from_parts(parts) { |part| self[part] }
       end
 
       def compose parts
-        name_parts = parts.flatten.map { |part| new part }
+        new_from_parts(parts) { |part| new part }
+      end
+
+      private
+
+      def new_from_parts parts
+        name_parts = parts.flatten.map { |part| yield part }
         new name_parts.join(joint), true
       end
     end
@@ -69,7 +74,7 @@ class Card
     end
 
     def code
-      Card::Codename[Card.fetch_id self]
+      Card::Codename[card_id]
     end
 
     def setting?
