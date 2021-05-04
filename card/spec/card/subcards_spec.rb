@@ -126,7 +126,7 @@ RSpec.describe Card::Subcards do
         add_subcard "left part", type_id: Card::PhraseID
       end
       expect_card("left part").to have_type Card::PhraseID
-      expect_card("left part+right part").to have_left_id Card.fetch_id("left part")
+      expect_card("left part+right part").to have_left_id "left part".card_id
     end
   end
 

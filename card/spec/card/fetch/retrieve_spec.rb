@@ -14,7 +14,7 @@ RSpec.describe Card::Fetch::Retrieve do
 
   describe "#controller fetch" do
     it "removes underscores from new card names" do
-      expect(Card.controller_fetch(mark: "no_un_der_score").name).to eq("no un der score")
+      expect(Card.uri_fetch(mark: "no_un_der_score").name).to eq("no un der score")
     end
   end
 

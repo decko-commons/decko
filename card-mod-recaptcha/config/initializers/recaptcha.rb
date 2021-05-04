@@ -53,3 +53,5 @@ ActiveSupport.on_load :after_card do
     config.verify_url = "https://www.google.com/recaptcha/api/siteverify"
   end
 end
+
+CardController.include ::Recaptcha::Verify

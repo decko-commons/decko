@@ -4,7 +4,7 @@ class Cardname
 
     # @return true if name is left or right of context
     def child_of? context
-      return false unless junction?
+      return false unless compound?
       context_key = context.to_name.key
       absolute_name(context).parent_keys.include? context_key
     end
@@ -26,7 +26,7 @@ class Cardname
     end
 
     def starts_with_joint?
-      junction? && parts.first.empty?
+      compound? && parts.first.empty?
     end
 
     def from *from
