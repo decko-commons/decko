@@ -11,7 +11,7 @@ describe Card::Format::Render do
     after { Cardio.config.view_cache = false }
 
     let(:cache_key) do
-      "#{Card.fetch_id "Z"}-Card::Format::HtmlFormat-normal-home_view:content;" \
+      "#{'Z'.card_id}-Card::Format::HtmlFormat-normal-home_view:content;" \
       "nest_name:Z;nest_syntax:Z|content;view:contentcontent:show;menu:hide"
     end
 

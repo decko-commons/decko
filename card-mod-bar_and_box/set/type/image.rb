@@ -25,7 +25,7 @@ format :html do
   end
 
   def image_box_card_name
-    card.name.junction? ? card.name.left : card.name
+    card.name.compound? ? card.name.left : card.name
   end
 
   def image_box_link_target

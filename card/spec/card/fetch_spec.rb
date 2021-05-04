@@ -80,7 +80,7 @@ RSpec.describe Card::Fetch do
     end
 
     it "fetches junction of string, id, and codename" do
-      card = Card.fetch "Book", Card.fetch_id(:type), :structure
+      card = Card.fetch "Book", Card.id(:type), :structure
       expect(card).to be_instance_of(Card)
       expect(card.name).to eq "Book+*type+*structure"
     end
