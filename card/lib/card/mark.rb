@@ -23,16 +23,7 @@ class Card
     def id_or_name parts
       mark = parts.flatten
       mark = mark.first if mark.size <= 1
-      id_from_mark(mark) || name_from_mark(mark)
-    end
-
-    def id_from_mark mark
-      case mark
-      when Integer then mark
-      when Symbol  then Card::Codename.id! mark
-      when String  then id_from_string mark
-      when Card    then mark.id
-      end
+      id_from_mark(mark) || Card::Name[mark]
     end
 
     # translates string identifiers into an id:
@@ -48,20 +39,31 @@ class Card
       end
     end
 
-    def bad_mark mark
-      case mark
+    def name_from_id_from_string id, string
+      fetch_name(id) { bad_mark string }
+    end
+
+    private
+
+    def bad_mark string
+      case string
       when ID_MARK_RE
         raise Card::Error::NotFound, "id doesn't exist: #{Regexp.last_match[:id]}"
       when CODENAME_MARK_RE
         raise Card::Error::CodenameNotFound,
               "codename doesn't exist: #{Regexp.last_match[:codename]}"
       else
-        raise Card::Error, "invalid mark: #{mark}"
+        raise Card::Error, "invalid mark: #{string}"
       end
     end
 
-    def name_from_mark mark
-      Card::Name[mark]
+    def id_from_mark mark
+      case mark
+      when Integer then mark
+      when Symbol  then Card::Codename.id! mark
+      when String  then id_from_string mark
+      when Card    then mark.id
+      end
     end
   end
 end

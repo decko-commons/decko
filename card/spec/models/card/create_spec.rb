@@ -85,9 +85,9 @@ RSpec.describe Card do
       sugar_milk = Card["Sugar+Milk"]
       sugar_milk_flour = Card["Sugar+Milk+Flour"]
       expect(sugar_milk_flour.left_id).to eq(sugar_milk.id)
-      expect(sugar_milk_flour.right_id).to eq(Card.fetch_id("Flour"))
-      expect(sugar_milk.left_id).to eq(Card.fetch_id("Sugar"))
-      expect(sugar_milk.right_id).to eq(Card.fetch_id("Milk"))
+      expect(sugar_milk_flour.right_id).to eq("Flour".card_id)
+      expect(sugar_milk.left_id).to eq("Sugar".card_id)
+      expect(sugar_milk.right_id).to eq("Milk".card_id)
     end
   end
 

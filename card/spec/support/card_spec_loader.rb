@@ -30,7 +30,7 @@ class CardSpecLoader
     end
 
     def joe_user_id
-      @joe_user_id ||= Card.fetch_id "joe_user"
+      @joe_user_id ||= "joe_user".card_id
     end
 
     def rspec_config
@@ -62,7 +62,7 @@ class CardSpecLoader
       when String
         Card.fetch_id with_user
       when Card
-        Card.id
+        with_user.id
       when Integer
         with_user
       else
