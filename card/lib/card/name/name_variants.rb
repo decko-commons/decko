@@ -22,7 +22,6 @@ class Card
         Card.fetch self, new: {}
       end
 
-
       def card_id
         Card.fetch_id self
       end
