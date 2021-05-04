@@ -22,12 +22,24 @@ module CoreExtensions
       (block_given? ? yield : self) || send(method, *args)
     end
 
-    def send_if     method, *args, &_block
+    def send_if method, *args, &_block
       (block_given? ? yield : self) && send(method, *args)
     end
 
-    def to_name
+    # @return [Card::Name]
+    def cardname
       Card::Name.new self
+    end
+    alias_method :to_name, :cardname
+
+    # @return [Card]
+    def card
+      Card[cardname]
+    end
+
+    # @return [Integer] id of card with name
+    def card_id
+      Card.fetch_id cardname
     end
 
     def name?
@@ -36,7 +48,7 @@ module CoreExtensions
       # (at least in development mode) but the name cache is persistent.
       # Hence the name objects in the cache are objects of a different instance of the
       # Card::Name class and is_a?(Card::Name) will return false
-      self.is_a? Cardname
+      is_a? Cardname
     end
 
     def deep_clone_instance_variables
