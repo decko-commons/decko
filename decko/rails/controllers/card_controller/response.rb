@@ -1,4 +1,4 @@
-module Decko
+class CardController
   # methods for managing decko responses
   module Response
     def response_format

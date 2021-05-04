@@ -11,12 +11,14 @@ class Card
       # * virtual cards
       #
       # @param args [Integer, String, Card::Name, Symbol, Array]
-      #    one or more of the three unique identifiers
-      #      1. a numeric id (Integer)
-      #      2. a name/key (String or Card::Name)
-      #      3. a codename (Symbol)
+      #    Initials args must be one or more "marks," which uniquely idenfify cards:
+      #      1. a name/key. (String or Card::Name)
+      #      2. a numeric id. Can be (a) an Integer or (b) a String with an integer
+      #         prefixed with a tilde, eg "~1234"
+      #      3. a codename. Can be (a) a Symbol or (b) a String with a colon prefix,
+      #         eg :mycodename
       #    If you pass more then one mark or an array of marks they get joined with a '+'.
-      #    The final argument can be a hash to set the following options
+      #    The final argument can be a Hash to set the following options
       #      :skip_virtual               Real cards only
       #      :skip_modules               Don't load Set modules
       #      :look_in_trash              Return trashed card objects
@@ -24,9 +26,10 @@ class Card
       #      new: { opts for Card#new }  Return a new card when not found
       # @return [Card]
       def fetch *args
-        Card::Fetch.new(*args)&.retrieve_or_new
+        f = Card::Fetch.new(*args)
+        f.retrieve_or_new
       rescue ActiveModel::RangeError => _e
-        return Card.new name: "card id out of range: #{f.mark}"
+        Card.new name: "card id out of range: #{f.mark}"
       end
 
       # fetch only real (no virtual) cards
@@ -93,15 +96,14 @@ class Card
         fetch(*mark, skip_modules: true)&.type_id
       end
 
-      # Enhanced fetch to support interpretation of URI parameters.
-      # To normal fetching this adds:
-      # - interpretation of the card hash (params[:card])
-      # - handling conflicts between "mark" and "card" params
-      #   removing
-      # - special root-level parameters, including
-      #   - type (String, added to card hash)
-      #   - look_in_trash (boolean, applied to fetch)
-      #   - assign (boolean, assignment of card attributes to existing cards
+      # Specialized fetching appropriate for cards requested by URI
+      # @param params [Hash] hash in the style of parameters expected by Decko
+      # @option params [Hash] :card arguments for Card.new
+      # @option params [String] :mark.
+      # @option params [String] :type shortcut for card[:type]
+      # @option params [True/False] :look_in_trash - passed to Card.fetch
+      # @option params [True/False] :assign - override attributes of fetched card with
+      #   card hash
       def uri_fetch params
         card_opts = uri_fetch_opts params
         if params[:action] == "create"
