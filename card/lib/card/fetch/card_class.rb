@@ -118,9 +118,8 @@ class Card
 
       def standard_uri_fetch params, card_opts
         mark = params[:mark] || card_opts[:name]
-        card = fetch mark, skip_modules: true,
-                           standardize_name: true,
-                           new: card_opts,
+        card = fetch mark, new: card_opts,
+                           skip_modules: true,
                            look_in_trash: params[:look_in_trash]
         card.assign_attributes card_opts if params[:assign] && card&.real?
         card&.include_set_modules
@@ -128,8 +127,9 @@ class Card
       end
 
       def uri_fetch_opts params
-        Env.hash(params[:card]).tap do |card_opts|
-          card_opts[:type] ||= params[:type] if params[:type] # for /new/:type shortcut.
+        Env.hash(params[:card]).tap do |opts|
+          opts[:type] ||= params[:type] if params[:type] # for /new/:type shortcut.
+          opts[:name] ||= Name[params[:mark]]&.tr "_", " "
         end
       end
 
