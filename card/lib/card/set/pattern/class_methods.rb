@@ -35,7 +35,7 @@ class Card
         end
 
         def pattern_applies? card
-          junction_only? ? card.name.junction? : true
+          junction_only? ? card.name.compound? : true
         end
 
         def anchor_parts_count
@@ -63,7 +63,7 @@ class Card
         def quick_type name
           if name.present?
             card = Card.fetch name, skip_modules: true, new: {}
-            card.include_set_modules if card.new? && name.to_name.junction?
+            card.include_set_modules if card.new? && name.to_name.compound?
             card&.type_name
           else
             "RichText"

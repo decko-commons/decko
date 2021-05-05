@@ -6,7 +6,7 @@ RSpec.shared_examples_for "virtual content" do
   it "saves content in virtual table" do
     virtual = Card::Virtual.find_by_content vc
     aggregate_failures do
-      expect(virtual.left_id).to eq Card.fetch_id(:all)
+      expect(virtual.left_id).to eq Card.id(:all)
       expect(Card.fetch(:all, :machine_cache).content).to eq vc
     end
   end

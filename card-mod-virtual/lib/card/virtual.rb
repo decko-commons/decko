@@ -64,7 +64,7 @@ class Card
       end
 
       def left_id card
-        if card.junction?
+        if card.compound?
           card.left_id&.positive? ? card.left_id : card.left&.id
         else
           card.id
@@ -72,7 +72,7 @@ class Card
       end
 
       def right_id card
-        if card.junction?
+        if card.compound?
           card.right_id&.positive? ? card.right_id : card.right&.id
         else
           -2
@@ -81,7 +81,7 @@ class Card
 
       def validate_card card
         reason ||=
-          if card.junction?
+          if card.compound?
             "needs left_id" unless left_id(card)
             "needs right_id" unless right_id(card)
           elsif !card.id

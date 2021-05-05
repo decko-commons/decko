@@ -1,0 +1,1 @@
+CardController.include CardController::Aliasing
