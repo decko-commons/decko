@@ -1,0 +1,3 @@
+def alias?
+  false
+end

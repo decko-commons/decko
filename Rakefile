@@ -26,6 +26,7 @@ task :release do
 end
 
 task :build_images do
+  # invalidate docker caches?
   DOCKER_IMAGES.each do |image|
     system "cd docker; docker build -f repos/#{image}.dockerfile -t ethn/#{image} ."
   end
