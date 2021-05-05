@@ -26,7 +26,7 @@ Decko::RestSpecHelper.describe_api do
       assert_response 403
     end
 
-    it "handles cards that are createable but not readable", with_user: Card::AnonymousID do
+    it "handles createable-but-not-readable cards", with_user: Card::AnonymousID do
       # Fruits (from shared_data) are anon creatable but not readable
       # login_as :anonymous
       post :create, params: { card: { type: "Fruit", name: "papayan" } }

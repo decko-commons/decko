@@ -101,10 +101,9 @@ class CardController
     end
 
     def format_name_from_params
-      if explicit_file_format?       then :file
-      elsif params[:format].present? then params[:format].to_sym
-      else                                request.format.to_sym
-      end
+      return :file if explicit_file_format?
+
+      (params[:format].present? ? params[:format] : request.format).to_sym
     end
 
     def explicit_file_format?

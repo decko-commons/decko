@@ -1,4 +1,5 @@
 class CardController
+  # RESTful action methods for card
   module Rest
     # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     #  PUBLIC METHODS

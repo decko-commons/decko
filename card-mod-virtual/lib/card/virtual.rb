@@ -14,11 +14,10 @@ class Card
       def create card, virtual_content=nil
         validate_card card
         virtual_content ||= block_given? ? yield : card.generate_virtual_content
-        virtual = new left_id: left_id(card), right_id: right_id(card),
-                      left_key: card.name.left_key,
-                      content: virtual_content
-        virtual.save!
-        virtual
+        create! left_id: left_id(card),
+                right_id: right_id(card),
+                left_key: card.name.left_key,
+                content: virtual_content
       end
 
       def create_or_update card, virtual_content

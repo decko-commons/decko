@@ -1,6 +1,6 @@
 class CardController
+  # methods for interpretation of card marks requested
   module Mark
-    # methods for interpretation of card marks requested
     private
 
     def load_mark
@@ -26,10 +26,14 @@ class CardController
 
     def implicit_mark
       case
-      when initial_setup                then ""
-      when (name = mark_from_card_hash) then name
-      when view_does_not_require_name?  then ""
-      else                                   home_mark
+      when initial_setup
+        ""
+      when (name = mark_from_card_hash)
+        name
+      when view_does_not_require_name?
+        ""
+      else
+        home_mark
       end
     end
 

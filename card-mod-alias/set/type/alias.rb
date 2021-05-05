@@ -8,11 +8,19 @@ event :validate_alias_source, :validate do
 end
 
 event :validate_alias_target, :validate do
-  return if count == 1 && first_card&.name&.simple?
+  return if count == 1 && target_name&.simple?
 
   errors.add :content, t(:alias_target_must_be_simple)
 end
 
 def alias?
   true
+end
+
+def target_name
+  first_name
+end
+
+def target_card
+  first_card
 end

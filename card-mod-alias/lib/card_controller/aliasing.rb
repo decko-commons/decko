@@ -4,17 +4,23 @@ class CardController < ApplicationController
     def read
       return super unless redirect_to_aliased?
 
-      hard_redirect card_url(card.first_name.url_key)
+      hard_redirect target_url
     end
 
     %i[create update delete].each do |action|
       define_method action do
-        @card = card.first_card if card&.type_id == Card::AliasID
+        @card = card.target_card if card&.compound? && card.alias?
         super()
       end
     end
 
     private
+
+    def target_url
+      target_params = params.clone.merge(mark: card.target_name).to_unsafe_h
+      target_params.delete :controller
+      card.target_card.format(:base).path target_params
+    end
 
     def redirect_to_aliased?
       return false unless card&.alias?
