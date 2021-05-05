@@ -40,7 +40,7 @@ format :html do
   end
 
   def discussion_card?
-    card.junction? && card.name.tag_name.key == :discussion.cardname.key
+    card.compound? && card.name.tag_name.key == :discussion.cardname.key
   end
 
   def discussion_card

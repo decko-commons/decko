@@ -12,7 +12,7 @@ class SharedData
     "Big Brother", "Optic fan", "Sunglasses fan", "Narcissist"
   ].freeze
 
-  CARDTYPE_COUNT = 43
+  CARDTYPE_COUNT = 44
 
   class << self
 
@@ -46,7 +46,7 @@ class SharedData
       # CREATE A CARD OF EACH TYPE
 
       no_samples = %w[user sign_up set number mirror_list mirrored_list file image
-                      customized_bootswatch_skin]
+                      customized_bootswatch_skin alias]
       Card::Auth.createable_types.each do |type|
         next if no_samples.include? type.to_name.key
         create type: type, name: "Sample #{type}"

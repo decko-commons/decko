@@ -14,11 +14,10 @@ class Card
       def create card, virtual_content=nil
         validate_card card
         virtual_content ||= block_given? ? yield : card.generate_virtual_content
-        virtual = new left_id: left_id(card), right_id: right_id(card),
-                      left_key: card.name.left_key,
-                      content: virtual_content
-        virtual.save!
-        virtual
+        create! left_id: left_id(card),
+                right_id: right_id(card),
+                left_key: card.name.left_key,
+                content: virtual_content
       end
 
       def create_or_update card, virtual_content
@@ -64,7 +63,7 @@ class Card
       end
 
       def left_id card
-        if card.junction?
+        if card.compound?
           card.left_id&.positive? ? card.left_id : card.left&.id
         else
           card.id
@@ -72,7 +71,7 @@ class Card
       end
 
       def right_id card
-        if card.junction?
+        if card.compound?
           card.right_id&.positive? ? card.right_id : card.right&.id
         else
           -2
@@ -81,7 +80,7 @@ class Card
 
       def validate_card card
         reason ||=
-          if card.junction?
+          if card.compound?
             "needs left_id" unless left_id(card)
             "needs right_id" unless right_id(card)
           elsif !card.id

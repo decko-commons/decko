@@ -17,7 +17,7 @@ def pattern
 end
 
 def inheritable?
-  junction_only? || (anchor_name&.junction? && self_set?)
+  junction_only? || (anchor_name&.compound? && self_set?)
 end
 
 def self_set?

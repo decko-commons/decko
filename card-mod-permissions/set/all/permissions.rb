@@ -51,7 +51,7 @@ def direct_rule_card action
 end
 
 def permission_rule_id action
-  if junction? && rule(action).match?(/^\[?\[?_left\]?\]?$/)
+  if compound? && rule(action).match?(/^\[?\[?_left\]?\]?$/)
     left_permission_rule_id action
   else
     rule_card_id(action)
