@@ -31,7 +31,7 @@ module CoreExtensions
 
     # @return [Integer] id of card with name
     def card_id
-      Card.fetch_id cardname
+      cardname.card_id
     end
 
     def name?

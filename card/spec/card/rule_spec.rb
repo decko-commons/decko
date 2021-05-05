@@ -3,7 +3,7 @@ RSpec.describe Card::Rule do
     it "translates special lookup keys into preference ids" do
       name = "Cardtype+*type+*structure"
       key = ["Cardtype".to_name.card_id, :type, :structure].map(&:to_s).join "+"
-      expect(Card::Rule.rule_cache[key]).to eq(Card.fetch_id name)
+      expect(Card::Rule.rule_cache[key]).to eq(name.card_id)
     end
 
     it "handles rules on *all set" do
@@ -16,7 +16,7 @@ RSpec.describe Card::Rule do
       name = "Sunglasses+*self+Sunglasses fan+*follow"
       key = ["Sunglasses".to_name.card_id, :self, :follow,
              "Sunglasses fan".to_name.card_id].map(&:to_s).join "+"
-      expect(Card::Rule.preference_cache[key]).to eq(Card.fetch_id name)
+      expect(Card::Rule.preference_cache[key]).to eq(name.card_id)
     end
   end
 
@@ -24,7 +24,7 @@ RSpec.describe Card::Rule do
     it "translates special lookup keys into preference ids" do
       name = "Cardtype+*type+*structure"
       key = ["Cardtype".to_name.card_id, :type, :structure].map(&:to_s).join "+"
-      expect(Card::Rule.rule_cache[key]).to eq(Card.fetch_id name)
+      expect(Card::Rule.rule_cache[key]).to eq(name.card_id)
     end
   end
 end
