@@ -1,4 +1,4 @@
-module Decko
+class CardController
   # methods for managing decko responses
   module Response
     def response_format
@@ -115,7 +115,7 @@ module Decko
       case mark
       when "*previous"
         # Why support this? It's only needed in Success, right? Deprecate?
-        return hard_redirect(Card::Env.previous_location)
+        hard_redirect Card::Env.previous_location
       when nil
         implicit_mark
       else

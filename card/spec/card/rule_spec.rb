@@ -7,7 +7,7 @@ RSpec.describe Card::Rule do
     end
 
     it "handles rules on *all set" do
-      expect(Card::Rule.rule_cache["all+default"]).to eq(Card.fetch_id("*all+*default"))
+      expect(Card::Rule.rule_cache["all+default"]).to eq("*all+*default".card_id)
     end
   end
 

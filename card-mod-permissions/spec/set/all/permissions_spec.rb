@@ -338,7 +338,7 @@ RSpec.describe Card::Set::All::Permissions do
                    subcards: { "+*self+*read" => { content: "[[Administrator]]" } }
       expect(Card["read rule test"].read_rule_class)
         .to eq("*self")
-      rule_id = Card.fetch_id "read rule test+*self+*read"
+      rule_id = "read rule test+*self+*read".card_id
       expect(Card["read rule test"].read_rule_id)
         .to eq(rule_id)
     end

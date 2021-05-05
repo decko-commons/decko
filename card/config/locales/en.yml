@@ -185,3 +185,6 @@ en:
   rules_templating: Templating
   rules_webpage: Webpage
   rules_editing: Editing
+
+  alias_target_must_be_simple: "must be aliased to a single, valid simple card"
+  alias_must_be_simple: "must be a simple (not a compound) card"

@@ -245,7 +245,7 @@ format :html do
   # FIELD VIEWS
 
   def add_junction_class
-    return unless card.name.junction?
+    return unless card.name.compound?
 
     class_up "card-editor", "RIGHT-#{card.name.tag_name.safe_key}"
   end

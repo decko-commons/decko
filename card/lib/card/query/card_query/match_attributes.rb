@@ -19,7 +19,7 @@ class Card
         # match names beginning with term
         def complete val
           val = val.to_name
-          if val.junction?
+          if val.compound?
             interpret left: val.left
             interpret right: { complete: val.right } if val.right.present?
           else

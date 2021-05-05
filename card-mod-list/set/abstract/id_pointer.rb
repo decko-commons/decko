@@ -1,7 +1,7 @@
 # store items as ids, not names
 
 def standardize_item cardish
-  if (id = Card.fetch_id cardish)
+  if (id = Card.id cardish)
     "~#{id}"
   else
     Rails.logger.info "no id for '#{cardish}' added to id pointer"

@@ -6,7 +6,7 @@ class Card
       include Descendants
 
       # TODO: use delegations and include more name functions
-      delegate :simple?, :compound?, :junction?, to: :name
+      delegate :simple?, :compound?, :compound?, to: :name
 
       def name
         @name ||= left_id ? Lexicon.lex_to_name([left_id, right_id]) : super.to_name

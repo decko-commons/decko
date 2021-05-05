@@ -237,12 +237,12 @@ RSpec.describe Card::Set::All::History do
             with_user: "Sample User", aggregate_failures: true do
       time = Time.now - 1.second
       expect(Card["B"].updated_at).to be < time
-      expect(Card["B"].updater_id).not_to eq Card.fetch_id("Sample User")
+      expect(Card["B"].updater_id).not_to eq "Sample User".card_id
 
       Card["Z"].update! content: "new content"
 
       expect(Card["B"].updated_at).to be > time
-      expect(Card["B"].updater_id).to eq Card.fetch_id("Sample User")
+      expect(Card["B"].updater_id).to eq "Sample User".card_id
     end
   end
 end
