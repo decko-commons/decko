@@ -6,6 +6,7 @@ class CardController < ApplicationController
   include Response
   include Errors
   include Rest
+  include Mark
 
   layout nil
   attr_reader :card

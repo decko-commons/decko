@@ -41,10 +41,6 @@ class CardController
       Card::Auth.signin_with params
     end
 
-    def load_mark
-      params[:mark] = interpret_mark params[:mark]
-    end
-
     def load_card
       @card = Card.uri_fetch params
       raise Card::Error::NotFound unless card
@@ -53,7 +49,9 @@ class CardController
 
     def load_action
       card.select_action_by_params params
-      card.content = card.last_draft_content if params[:edit_draft] && card.drafts.present?
+      return unless params[:edit_draft] && card.drafts.present?
+
+      card.content = card.last_draft_content
     end
 
     # TODO: refactor this away this when new layout handling is ready
