@@ -12,8 +12,8 @@ Decko::RestSpecHelper.describe_api do
     Card.create! name: alias_name, type_code: :alias, content: target_name
   end
 
-  context "when simple alias" do
-    describe "#read" do
+  describe "#read" do
+    context "when simple alias" do
       it "redirects to target when no view param" do
         get :read, params: { mark: alias_name, format: :json, tab: "soda" }
         expect(response).to redirect_to("/#{target_name}.json?tab=soda")
@@ -25,25 +25,26 @@ Decko::RestSpecHelper.describe_api do
       end
     end
 
-    specify "#update" do
-      login_as "Joe User"
-      post :update, params: { mark: alias_name, card: { content: :"Z" } }
-      expect(assigns(:card).name).to eq(alias_name)
-      expect(response).to redirect_to("/#{alias_name.url_key}")
-    end
-  end
-
-  context "when compound alias (compound card in which one part is an alias)" do
-    specify "#read" do
+    it "redirects compound cards" do
       get :read, params: { mark: compound_alias }
       expect(response).to redirect_to("/#{compound_target}")
     end
+  end
 
-    specify "#update" do
+  describe "#update" do
+    def expect_update mark, result
       login_as "Joe User"
-      post :update, params: { mark: compound_alias, card: { content: :"Z" } }
-      expect(assigns(:card).name).to eq(compound_target)
-      expect(response).to redirect_to("/#{compound_target.url_key}")
+      post :update, params: { mark: mark, card: { content: "Z" } }
+      expect(assigns(:card).name).to eq(result)
+      expect(response).to redirect_to("/#{result.url_key}")
+    end
+
+    it "applies to alias card when simple" do
+      expect_update alias_name, alias_name
+    end
+
+    it "applies to target card when compound" do
+      expect_update compound_alias, compound_target
     end
   end
 end
