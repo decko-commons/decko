@@ -41,13 +41,10 @@ module CoreExtensions
       # Hence the name objects in the cache are objects of a different instance of the
       # Card::Name class and is_a?(Card::Name) will return false
       is_a? Cardname
-<<<<<<< Updated upstream
-=======
     end
 
     def in? other
       other.include? self
->>>>>>> Stashed changes
     end
 
     def deep_clone_instance_variables
