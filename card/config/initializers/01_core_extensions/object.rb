@@ -18,14 +18,6 @@ module CoreExtensions
       klone
     end
 
-    def send_unless method, *args, &_block
-      (block_given? ? yield : self) || send(method, *args)
-    end
-
-    def send_if method, *args, &_block
-      (block_given? ? yield : self) && send(method, *args)
-    end
-
     # @return [Card::Name]
     def cardname
       Card::Name.new self
@@ -51,14 +43,14 @@ module CoreExtensions
       is_a? Cardname
     end
 
+    def in? other
+      other.include? self
+    end
+
     def deep_clone_instance_variables
       instance_variables.each do |v|
         instance_variable_set v, instance_variable_get(v).deep_clone
       end
-    end
-
-    def in? other
-      other.include? self
     end
   end
 end
