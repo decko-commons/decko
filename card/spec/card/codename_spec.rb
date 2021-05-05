@@ -30,16 +30,16 @@ RSpec.describe Card::Codename, "Codename" do
 
   describe "#id" do
     example "symbol" do
-      expect(Card::Codename.id(:all)).to eq Card.fetch_id(:all)
+      expect(Card::Codename.id(:all)).to eq Card.id(:all)
     end
 
     example "id" do
-      all_id = Card.fetch_id(:all)
+      all_id = Card.id(:all)
       expect(Card::Codename.id(all_id)).to eq all_id
     end
 
     example "string" do
-      expect(Card::Codename.id("all")).to eq Card.fetch_id(:all)
+      expect(Card::Codename.id("all")).to eq Card.id(:all)
     end
 
     example "missing codename" do
@@ -53,7 +53,7 @@ RSpec.describe Card::Codename, "Codename" do
     end
 
     example "id" do
-      all_id = Card.fetch_id(:all)
+      all_id = Card.id(:all)
       expect(Card::Codename[all_id]).to eq :all
     end
 

@@ -7,8 +7,9 @@ module CoreExtensions
       end.join "\n"
     end
 
-    def to_name
+    def cardname
       Card::Name.compose self
     end
+    alias_method :to_name, :cardname
   end
 end

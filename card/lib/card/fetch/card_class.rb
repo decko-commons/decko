@@ -11,12 +11,14 @@ class Card
       # * virtual cards
       #
       # @param args [Integer, String, Card::Name, Symbol, Array]
-      #    one or more of the three unique identifiers
-      #      1. a numeric id (Integer)
-      #      2. a name/key (String or Card::Name)
-      #      3. a codename (Symbol)
+      #    Initials args must be one or more "marks," which uniquely idenfify cards:
+      #      1. a name/key. (String or Card::Name)
+      #      2. a numeric id. Can be (a) an Integer or (b) a String with an integer
+      #         prefixed with a tilde, eg "~1234"
+      #      3. a codename. Can be (a) a Symbol or (b) a String with a colon prefix,
+      #         eg :mycodename
       #    If you pass more then one mark or an array of marks they get joined with a '+'.
-      #    The final argument can be a hash to set the following options
+      #    The final argument can be a Hash to set the following options
       #      :skip_virtual               Real cards only
       #      :skip_modules               Don't load Set modules
       #      :look_in_trash              Return trashed card objects
@@ -24,9 +26,10 @@ class Card
       #      new: { opts for Card#new }  Return a new card when not found
       # @return [Card]
       def fetch *args
-        Card::Fetch.new(*args)&.retrieve_or_new
+        f = Card::Fetch.new(*args)
+        f.retrieve_or_new
       rescue ActiveModel::RangeError => _e
-        return Card.new name: "card id out of range: #{f.mark}"
+        Card.new name: "card id out of range: #{f.mark}"
       end
 
       # fetch only real (no virtual) cards
@@ -93,38 +96,43 @@ class Card
         fetch(*mark, skip_modules: true)&.type_id
       end
 
-      # a fetch method to support the needs of the card controller.
-      # should be in Decko?
-      def controller_fetch args
-        card_opts = controller_fetch_opts args
-        if args[:action] == "create"
+      # Specialized fetching appropriate for cards requested by URI
+      # @param params [Hash] hash in the style of parameters expected by Decko
+      # @option params [Hash] :card arguments for Card.new
+      # @option params [String] :mark.
+      # @option params [String] :type shortcut for card[:type]
+      # @option params [True/False] :look_in_trash - passed to Card.fetch
+      # @option params [True/False] :assign - override attributes of fetched card with
+      #   card hash
+      def uri_fetch params
+        card_opts = uri_fetch_opts params
+        if params[:action] == "create"
           # FIXME: we currently need a "new" card to catch duplicates
           # (otherwise save will just act like a normal update)
           # We may need a "#create" instance method to handle this checking?
           Card.new card_opts
         else
-          standard_controller_fetch args, card_opts
+          standard_uri_fetch params, card_opts
         end
       end
 
       private
 
-      def standard_controller_fetch args, card_opts
-        mark = args[:mark] || card_opts[:name]
-        card = Card.fetch mark, skip_modules: true,
-                                look_in_trash: args[:look_in_trash],
-                                new: card_opts
-        card.assign_attributes card_opts if args[:assign] && card&.real?
+      def standard_uri_fetch params, card_opts
+        mark = params[:mark] || card_opts[:name]
+        card = fetch mark, new: card_opts,
+                           skip_modules: true,
+                           look_in_trash: params[:look_in_trash]
+        card.assign_attributes card_opts if params[:assign] && card&.real?
         card&.include_set_modules
         card
       end
 
-      def controller_fetch_opts args
-        opts = Env.hash args[:card]
-        opts[:type] ||= args[:type] if args[:type]
-        # for /new/:type shortcut.  we should handle in routing and deprecate this
-        opts[:name] ||= Name.url_key_to_standard args[:mark]
-        opts
+      def uri_fetch_opts params
+        Env.hash(params[:card]).tap do |opts|
+          opts[:type] ||= params[:type] if params[:type] # for /new/:type shortcut.
+          opts[:name] ||= Name[params[:mark]]&.tr "_", " "
+        end
       end
 
       def rescue_fetch_name error, &block
