@@ -96,7 +96,7 @@ def type_id_from_codename type_code
 end
 
 def type_id_from_cardname type_name
-  type_id_or_error(type_name) { Card.fetch_id type_name }
+  type_id_or_error(type_name) { type_name.card_id }
 end
 
 def type_id_or_error val
