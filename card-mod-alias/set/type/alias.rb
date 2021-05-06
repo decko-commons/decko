@@ -24,3 +24,9 @@ end
 def target_card
   first_card
 end
+
+format :html do
+  def input_type
+    :autocomplete
+  end
+end
