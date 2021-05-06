@@ -26,7 +26,7 @@ class Bootstrap
 
         define_method method_name do |*args, &content_block|
           content, opts, new_child_args = standardize_args args, &tag_opts_block
-          add_classbs opts, html_class, tag_opts.delete(:optional_classes)
+          add_classes opts, html_class, tag_opts.delete(:optional_classes)
 
           @html.tag! tag, opts do
             instance_exec(&content_block)
