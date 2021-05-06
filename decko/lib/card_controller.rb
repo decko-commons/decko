@@ -1,5 +1,5 @@
 # -*- encoding : utf-8 -*-
-#
+
 # Decko's only controller.
 class CardController < ActionController::Base
   include Mark
@@ -7,7 +7,7 @@ class CardController < ActionController::Base
   include Response
   include Errors
 
-  # note: the following triggers card loading, which triggers mod loading,
+  # NOTE: including Card::Env::Location triggers card loading, which triggers mod loading,
   # which can include initializers that add to the CardController class.
   # It's important that it come *after* the modules above, so that mod modules
   # can override them.
