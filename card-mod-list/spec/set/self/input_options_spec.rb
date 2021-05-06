@@ -14,7 +14,7 @@ describe Card::Set::Self::InputOptions do
         "select",
         "tinymce editor",
         "text area",
-        "text field",
+        "text field"
       )
   end
 end
