@@ -60,7 +60,7 @@ class CardSpecLoader
     def example_user_id with_user
       case with_user
       when String
-        Card.fetch_id with_user
+        with_user.card_id
       when Card
         with_user.id
       when Integer
