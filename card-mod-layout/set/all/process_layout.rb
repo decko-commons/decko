@@ -30,6 +30,12 @@ format :html do
     !Env.ajax? || params[:layout]
   end
 
+  def explicit_modal_wrapper? view
+    return unless (wrap_view = view_setting :wrap, view)
+
+    (wrapper_names(wrap_view) & %i[modal bridge]).any?
+  end
+
   private
 
   def main_render_args view, args
@@ -57,12 +63,6 @@ format :html do
     else
       body + modal
     end
-  end
-
-  def explicit_modal_wrapper? view
-    return unless (wrap_view = view_setting :wrap, view)
-
-    (wrapper_names(wrap_view) & %i[modal bridge]).any?
   end
 
   def wrapper_names wrappers
