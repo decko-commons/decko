@@ -23,19 +23,26 @@ format :html do
     add_class options[:items], "list-group-item"
   end
 
-  def list_tag content_or_options=nil, options={}
+  def list_tag content_or_options=nil, options={}, &block
+    content, options = list_tag_content_and_options content_or_options, options, &block
+    default_item_options = options.delete(:items) || {}
+    wrap_with (options[:ordered] ? :ol : :ul), options do
+      list_items content, default_item_options
+    end
+  end
+
+  def list_items content, default_item_options
+    content.map do |item|
+      i_content, i_opts = item
+      i_opts ||= default_item_options
+      wrap_with :li, i_content, i_opts
+    end
+  end
+
+  def list_tag_content_and_options content_or_options, options
     options = content_or_options if block_given?
     content = block_given? ? yield : content_or_options
-    content = Array(content)
-    default_item_options = options.delete(:items) || {}
-    tag = options[:ordered] ? :ol : :ul
-    wrap_with tag, options do
-      content.map do |item|
-        i_content, i_opts = item
-        i_opts ||= default_item_options
-        wrap_with :li, i_content, i_opts
-      end
-    end
+    [Array(content), options]
   end
 
   def badge_tag content, options={}
