@@ -14,13 +14,6 @@ format :html do
     end
   end
 
-  def main_render_args view, args
-    args[:view] = view if view
-    args[:main] = true
-    args[:main_view] = true
-    args
-  end
-
   def page_layout
     params[:layout] || layout_name_from_rule || :default
   end
@@ -33,28 +26,43 @@ format :html do
     render! view, view_opts.reverse_merge(args)
   end
 
-  def render_outside_of_layout view, args
-    body = render_with_layout(nil, page_layout, {})
-    modal = render!(view, args)
-    if body.include?("</body>")
-      # a bit hacky
-      # the problem is that the body tag has to be in the layout
-      # so that you can add layout css classes like <body class="right-sidebar">
-      body.sub!("</body>", "#{modal}</body>")
-    else
-      body += modal
-    end
-    body
-  end
-
   def show_layout?
     !Env.ajax? || params[:layout]
   end
 
   def explicit_modal_wrapper? view
-    return unless view_setting(:wrap, view)
+    return unless (wrap_view = view_setting :wrap, view)
 
-    wrapper_names(view_setting(:wrap, view)).any? { |n| n == :modal || n == :bridge }
+    (wrapper_names(wrap_view) & %i[modal bridge]).any?
+  end
+
+  private
+
+  def main_render_args view, args
+    args[:view] = view if view
+    args[:main] = true
+    args[:main_view] = true
+    args
+  end
+
+  def layout_name_from_rule
+    card.rule_card(:layout)&.try :item_name
+  end
+
+  def render_outside_of_layout view, args
+    body = render_with_layout nil, page_layout, {}
+    body_with_modal body, render!(view, args)
+  end
+
+  def body_with_modal body, modal
+    if body.include? "</body>"
+      # a bit hacky
+      # the problem is that the body tag has to be in the layout
+      # so that you can add layout css classes like <body class="right-sidebar">
+      body.sub "</body>", "#{modal}</body>"
+    else
+      body + modal
+    end
   end
 
   def wrapper_names wrappers
@@ -64,12 +72,6 @@ format :html do
     else            [wrappers]
     end
   end
-
-  def layout_name_from_rule
-    card.rule_card(:layout)&.try :item_name
-  end
-
-  private
 
   def wrapper_names_from_array wrapper_array
     wrapper_array.map { |w| w.is_a?(Array) ? w.first : w }
