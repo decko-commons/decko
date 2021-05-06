@@ -29,7 +29,7 @@ def type_cardname
 end
 
 def type= type_name
-  self.type_id = Card.fetch_id type_name
+  self.type_id = type_name.card_id
 end
 
 def type_id= card_or_id

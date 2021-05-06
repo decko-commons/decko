@@ -1,7 +1,7 @@
 def left_type_for_nest_editor_set_selection
   return super unless is_template?
 
-  case Card.fetch_id rule_set_pattern_name
+  case rule_set_pattern_name.card_id
   when TypeID
     rule_set.anchor_name
   when SelfID
