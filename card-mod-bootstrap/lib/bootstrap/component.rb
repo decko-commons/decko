@@ -133,6 +133,10 @@ class Bootstrap
       end
     end
 
+    def card
+      @context.context.card
+    end
+
     include BasicTags
     include Delegate
   end

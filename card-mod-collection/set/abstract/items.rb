@@ -39,7 +39,7 @@ end
 # @return [Array] list of integers (card ids of items)
 # @param args [Hash] see #item_names
 def item_ids args={}
-  item_names(args).map { |name| name.card_id }.compact
+  item_names(args).map(&:card_id).compact
 end
 
 # @return [Array] list of Card objects

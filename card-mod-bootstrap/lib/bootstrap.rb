@@ -6,6 +6,8 @@ class Bootstrap
   extend ComponentLoader
   load_components
 
+  attr_reader :context
+
   def initialize context=nil
     @context = context
   end
