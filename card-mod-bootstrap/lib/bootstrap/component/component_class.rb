@@ -22,24 +22,17 @@ class Bootstrap
       #   link  # => <a class="known-link" id="uniq-link"></a>
       def def_tag_method method_name, html_class, tag_opts={}, &tag_opts_block
         tag = tag_opts.delete(:tag) || method_name
-        return def_simple_tag_method method_name, tag, html_class, tag_opts unless block_given?
-
         define_method method_name do |*args, &content_block|
-          content, opts, new_child_args = standardize_args args, &tag_opts_block
-          add_classes opts, html_class, tag_opts.delete(:optional_classes)
-
-          @html.tag! tag, opts do
+          @html.tag! tag, tag_method_opts(args, html_class, tag_opts, &tag_opts_block) do
             instance_exec(&content_block)
           end
         end
       end
 
-      def def_simple_tag_method method_name, tag, html_class, tag_opts={}
-        define_method method_name do |*args, &content_block|
-          @html.tag! tag, class: html_class do
-            instance_exec &content_block
-          end
-        end
+      def tag_method_opts args, html_class, tag_opts, &tag_opts_block
+        _blah, opts, _blah = standardize_args args, &tag_opts_block if block_given?
+        add_classes opts, html_class, tag_opts.delete(:optional_classes)
+        opts
       end
     end
   end
