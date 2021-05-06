@@ -1,4 +1,4 @@
-class CardController < ApplicationController
+class CardController
   # overrides REST methods to handle alias redirects and card reloads
   module Aliasing
     def read

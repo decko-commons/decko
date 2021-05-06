@@ -1,12 +1,16 @@
 # -*- encoding : utf-8 -*-
-
 # Decko's only controller.
-class CardController < ApplicationController
-  include ::Card::Env::Location
+class CardController < ActionController::Base
+  include Mark
+  include Rest
   include Response
   include Errors
-  include Rest
-  include Mark
+
+  # note: the following triggers card loading, which triggers mod loading,
+  # which can include initializers that add to the CardController class.
+  # It's important that it come *after* the modules above, so that mod modules
+  # can override them.
+  include ::Card::Env::Location
 
   layout nil
   attr_reader :card
