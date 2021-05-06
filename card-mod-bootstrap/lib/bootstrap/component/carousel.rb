@@ -26,13 +26,21 @@ class Bootstrap
       def items
         @html.div class: "carousel-inner", role: "listbox" do
           @items.each_with_index do |item, index|
-            html_opts = { class: "carousel-item" }
-            add_class html_opts, "active" if index == @active_item_index
-            @html.div html_opts do
-              item = item.call if item.respond_to?(:call)
-              @html << item if item.is_a?(String)
-            end
+            carousel_item item, carousel_item_opts(index)
           end
+        end
+      end
+
+      def carousel_item_opts index
+        { class: "carousel-item" }.tap do |opts|
+          add_class opts, "active" if index == @active_item_index
+        end
+      end
+
+      def carousel_item item, html_opts
+        @html.div html_opts do
+          item = item.call if item.respond_to?(:call)
+          @html << item if item.is_a?(String)
         end
       end
 
