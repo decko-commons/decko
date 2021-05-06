@@ -13,8 +13,11 @@ class Bootstrap
       end
 
       # Defines a method that generates a html tag
-      # @param method_name [Symbol, String] the name of the method. If no :tag option in tag_opts is defined then the name is also the name of the tag that the method generates
-      # @param html_class [String] a html class that is added to tag. Use nil if you don't want a html_class
+      # @param method_name [Symbol, String] the name of the method. If no :tag option
+      #   in tag_opts is defined then the name is also the name of the tag that the
+      #   method generates
+      # @param html_class [String] a html class that is added to tag. Use nil if you
+      #   don't want a html_class
       # @param tag_opts [Hash] additional argument that will be added to the tag
       # @option tag_opts [Symbol, String] tag the name of the tag
       # @example
@@ -28,6 +31,8 @@ class Bootstrap
           end
         end
       end
+
+      private
 
       def tag_method_opts args, html_class, tag_opts, &tag_opts_block
         _blah, opts, _blah = standardize_args args, &tag_opts_block if block_given?
