@@ -1,6 +1,7 @@
 
 Self::InputOptions.add_to_basket :options, "text area"
 Self::InputOptions.add_to_basket :options, "text field"
+Self::InputOptions.add_to_basket :options, "autocomplete"
 
 format :html do
   def input_type

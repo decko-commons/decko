@@ -79,6 +79,7 @@ module Decko
 
         paths["app/models"] = []
         paths["app/mailers"] = []
+        paths["app/controllers"] = []
 
         unless paths["config/routes.rb"].existent.present?
           add_path paths, "config/routes.rb",
