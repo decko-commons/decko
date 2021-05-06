@@ -31,14 +31,6 @@ class Bootstrap
           end
         end
       end
-
-      private
-
-      def tag_method_opts args, html_class, tag_opts, &tag_opts_block
-        _blah, opts, _blah = standardize_args args, &tag_opts_block if block_given?
-        add_classes opts, html_class, tag_opts.delete(:optional_classes)
-        opts
-      end
     end
   end
 end
