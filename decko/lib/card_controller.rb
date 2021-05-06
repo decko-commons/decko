@@ -1,4 +1,5 @@
 # -*- encoding : utf-8 -*-
+#
 # Decko's only controller.
 class CardController < ActionController::Base
   include Mark
@@ -20,5 +21,5 @@ class CardController < ActionController::Base
   before_action :load_mark, only: [:read]
   before_action :load_card, except: [:asset]
   before_action :load_action, only: [:read]
-  before_action :refresh_card, only: [:create, :update, :delete]
+  before_action :refresh_card, only: %i[create update delete]
 end
