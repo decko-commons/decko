@@ -40,7 +40,8 @@ $d-yellow-1: #ffd;
 .editor .revision-navigation,
 .editor .autosave-alert,
 .hidden-alert,
-.btn.renamer-updater,
+.btn._renamer-updater,
+._rename-reference-confirm,
 .confirm_update_all-view,
 .follow-updater,
 .admin-error-message {
@@ -1281,5 +1282,12 @@ body.right-sidebar, body.left-sidebar, body.two-sidebar {
   }
   .current-api-key:hover input {
     border: 1px solid #DDD;
+  }
+}
+
+.rename-button-form-group {
+  display: flex;
+  .btn {
+    margin-right: 1rem;
   }
 }
