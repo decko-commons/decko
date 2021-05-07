@@ -70,6 +70,10 @@ format do
   end
 end
 
+format :json do
+  include File::JsonFormat
+end
+
 format :email_html do
   view :inline, cache: :never do
     handle_source do |source|
