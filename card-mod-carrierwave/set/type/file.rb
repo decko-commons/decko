@@ -74,6 +74,10 @@ format :file do
   end
 end
 
+format :json do
+  view(:content) { render_core }
+end
+
 format :html do
   view :core do
     handle_source do |source|
