@@ -7,7 +7,7 @@ format :html do
     name_form :edit_name_row
   end
 
-  def name_form(success_view=nil)
+  def name_form success_view=nil
     card_form({ action: :update, id: card.id },
               "data-main-success": JSON(redirect: true, view: ""),
               "data-update-origin": "true",
@@ -50,7 +50,6 @@ format :html do
   end
 
   def rename_button
-    button_tag t(:core_rename), data: { disable_with: t(:core_renaming) },
-               class: "renamer"
+    button_tag t(:core_rename), class: "renamer", data: { disable_with: t(:core_renaming) }
   end
 end
