@@ -63,7 +63,9 @@ module Decko
         config.filter_parameters += [:password]
 
         # Rails.autoloaders.log!
-        Rails.autoloaders.main.ignore(File.join(Cardio.gem_root, "lib/card/seed_consts.rb"))
+        Rails.autoloaders.main.ignore(
+          File.join(Cardio.gem_root, "lib/card/seed_consts.rb")
+        )
         config
       end
     end
@@ -77,6 +79,7 @@ module Decko
 
         paths["app/models"] = []
         paths["app/mailers"] = []
+        paths["app/controllers"] = []
 
         unless paths["config/routes.rb"].existent.present?
           add_path paths, "config/routes.rb",

@@ -220,7 +220,7 @@ RSpec.describe Card::Content::Chunk::Uri do
 
   it "test_uri_list_item" do
     match_chunk(
-      Card::Content::Chunk::Uri,
+      described_class,
       "* http://www.btinternet.com/~mail2minh/SonyEricssonP80xPlatform.sis",
       path: "/~mail2minh/SonyEricssonP80xPlatform.sis"
     )
@@ -240,7 +240,7 @@ RSpec.describe Card::Content::Chunk::Uri do
     )
   end
 
-  describe Card::Content::Chunk::Uri, "URI chunk tests" do
+  describe "URI chunk tests" do
     it "test_local_urls" do
       # normal
       match_http_uri "http://perforce:8001/toto.html",

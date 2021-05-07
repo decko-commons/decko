@@ -7,25 +7,11 @@ format :html do
   end
 
   view :updated_by, wrap: { div: { class: "text-muted" } } do
-    return "" unless card.id
-    updaters = Card.search(updater_of: { id: card.id })
+    updaters = Card.search(updater_of: { id: card.id }) if card.id
     return "" unless updaters.present?
 
-    updaters = updater_links updaters, others_target: Card.fetch(card, :editors)
-    "Updated by #{updaters}"
-  end
-
-  def updater_links updaters, item_view: :link, max_count: 3, others_target: card
-    return "" unless updaters.present?
-
-    total = updaters.size
-    fetch_count = total > max_count ? max_count - 1 : max_count
-
-    reduced = first_card(fetch_count).map { |c| nest c, view: item_view }
-    if total > max_count
-      reduced << link_to_card(others_target, "#{total - fetch_count} others")
-    end
-    reduced.to_sentence
+    links = updater_links updaters, others_target: card.fetch(:editors)
+    "Updated by #{links}"
   end
 
   def acts_bridge_layout acts, context=:bridge
@@ -61,5 +47,32 @@ format :html do
     wrap_with_overlay title: ar.overlay_title, slot: breadcrumb_data("History") do
       act_listing(act, opts[:act_seq], :bridge)
     end
+  end
+
+  private
+
+  def updater_links updaters, item_view: :link, max_count: 3, others_target: card
+    total = updaters.size
+    num_to_show = number_of_updaters_to_show total, max_count
+
+    links =
+      links_to_updaters(updaters, num_to_show, item_view) +
+      link_to_other_updaters(total, others_target, num_to_show)
+
+    links.to_sentence
+  end
+
+  def number_of_updaters_to_show total, max_count
+    total > max_count ? max_count - 1 : max_count
+  end
+
+  def links_to_updaters updaters, num_to_show, item_view
+    updaters[0..(num_to_show - 1)].map { |c| nest c, view: item_view }
+  end
+
+  def link_to_other_updaters total, target, num_to_show
+    return [] unless total > num_to_show
+
+    link_to_card target, "#{total - num_to_show} others"
   end
 end

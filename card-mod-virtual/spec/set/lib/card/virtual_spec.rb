@@ -3,10 +3,12 @@
 RSpec.describe Card::Virtual do
   let(:virtual_content) { "vc" }
 
-  let(:card) do
-    double("virtual card", junction?: true,
-                           generate_virtual_content: virtual_content,
-                           left_id: 1, right_id: 5, name: "virtual card".to_name)
+  let :card do
+    instance_double "virtual card", name: "virtual card".to_name,
+                                    left_id: 1,
+                                    right_id: 5,
+                                    compound?: true,
+                                    generate_virtual_content: virtual_content
   end
 
   let(:create_virtual) { described_class.create(card) }

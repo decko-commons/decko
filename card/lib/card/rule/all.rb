@@ -1,5 +1,6 @@
 class Card
   module Rule
+    # rule-related Card instance methods
     module All
       def rule setting_code
         rule_card(setting_code, skip_modules: true)&.db_content
@@ -28,32 +29,33 @@ class Card
                        "#{setting_code}+#{AllID}"
       end
 
-      def is_rule?
-        is_standard_rule? || is_preference?
+      def rule?
+        standard_rule? || preference?
       end
 
-      def is_standard_rule?
+      def standard_rule?
         (Card.fetch_type_id(name.right) == SettingID) &&
           (Card.fetch_type_id(name.left) == SetID)
       end
 
-      def is_preference?
+      def preference?
         name.parts.length > 2 &&
           (Card.fetch_type_id(name.right) == SettingID) &&
-          (self[0..-3, skip_modules: true]&.type_id == SetID) &&
-          is_preferer?(self[-2, skip_modules: true])
+          (Card.fetch_type_id(name[0..-3]) == SetID) &&
+          valid_preferer?
       end
 
       private
 
-      def is_preferer? preferer
+      def valid_preferer?
+        preferer = self[-2, skip_modules: true]
         (preferer.type_id == UserID) || (preferer.codename == :all)
       end
 
       def preference_user_id user
         case user
-        when Integer then user;
-        when Card    then user
+        when Integer then user
+        when Card    then user.id
         when nil     then Auth.current_id
         else
           raise Card::ServerError, "invalid preference user"

@@ -1,4 +1,7 @@
 class Cardname
+  # Cards never have more than two "parts" (left and right), but they can have many
+  # "pieces".  A card's pieces are all the other cards whose existence its existence
+  # implies. For example if A+B+C exists, that implies that A, B, C, and A+B do too.
   module Pieces
     # self and all ancestors (= parts and recursive lefts)
     # @example
@@ -11,11 +14,12 @@ class Cardname
     private
 
     def junction_pieces
-      junction_pieces = []
-      parts[1..-1].inject parts[0] do |left, right|
-        piece = [left, right] * self.class.joint
-        junction_pieces << piece
-        piece
+      [].tap do |pieces|
+        parts[1..-1].inject parts[0] do |left, right|
+          piece = [left, right] * self.class.joint
+          pieces << piece
+          piece
+        end
       end
     end
   end

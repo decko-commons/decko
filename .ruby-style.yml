@@ -79,6 +79,8 @@ Metrics/BlockLength:
     - '**/*.rake'
     - 'spec/**/*.rb'
     - '**/*_spec.rb'
+RSpec/MultipleExpectations:
+  Enabled: false
 RSpec/ExampleLength:
   Description: Checks for long examples.
   Enabled: true

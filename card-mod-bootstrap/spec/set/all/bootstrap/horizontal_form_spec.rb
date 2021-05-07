@@ -4,7 +4,7 @@ RSpec.describe Bootstrap::Component::HorizontalForm do
   describe "horizontal form" do
     subject { Card["A"].format(:html) }
 
-    let(:form) do
+    let :form do
       subject.bs_horizontal_form 2, 10 do
         group do
           input "email", label: "Email Address", id: "theemail"
@@ -15,7 +15,8 @@ RSpec.describe Bootstrap::Component::HorizontalForm do
         end
       end
     end
-    let(:bsform) do
+
+    let :bsform do
       subject.bs do
         horizontal_form 2, 10 do
           group do

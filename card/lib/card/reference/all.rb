@@ -44,20 +44,6 @@ class Card
         Card.joins(:references_out).where card_references: { referee_key: key }
       end
 
-      # replace references in card content
-      def replace_reference_syntax old_name, new_name
-        obj_content = Content.new content, self
-        obj_content.find_chunks(Content::Chunk::Reference).select do |chunk|
-          next unless (old_ref_name = chunk.referee_name)
-          next unless (new_ref_name = old_ref_name.swap old_name, new_name)
-          chunk.referee_name = chunk.replace_reference old_name, new_name
-          refs = Reference.where referee_key: old_ref_name.key
-          refs.update_all referee_key: new_ref_name.key
-        end
-
-        obj_content.to_s
-      end
-
       # delete old references from this card's content, create new ones
       def update_references_out
         delete_references_out
@@ -81,26 +67,26 @@ class Card
         Reference.where(referer_id: id).delete_all
       end
 
+      private
+
+      def with_normalized_referee referee_name
+        return unless referee_name # eg commented nest has no referee_name
+        referee_name = referee_name.to_name
+        referee_key = referee_name.key
+        return if referee_key == key # don't create self reference
+        yield referee_name, referee_key, Lexicon.id(referee_name)
+      end
+
       # interpretation phase helps to prevent duplicate references
       # results in hash like:
       # { referee1_key: [referee1_id, referee1_type2],
       #   referee2_key...
       # }
       def interpret_reference ref_hash, raw_referee_name, ref_type
-        with_normalized_referee raw_referee_name do |referee_name, referee_key, referee_id|
-          ref_hash[referee_key] ||= [referee_id]
-          ref_hash[referee_key] << ref_type
-          interpret_partial_references ref_hash, referee_name unless referee_id
-        end
-      end
-
-      # Partial references are needed to track references to virtual cards.
-      # For example a link to virual card [[A+*self]] won't have a referee_id,
-      # but when A's name is changed we have to find and update that link.
-      def interpret_partial_references ref_hash, referee_name
-        return if referee_name.simple?
-        [referee_name.left, referee_name.right].each do |sidename|
-          interpret_reference ref_hash, sidename, PARTIAL_REF_CODE
+        with_normalized_referee raw_referee_name do |name, key, id|
+          ref_hash[key] ||= [id]
+          ref_hash[key] << ref_type
+          interpret_partial_references ref_hash, name unless id
         end
       end
 
@@ -126,29 +112,19 @@ class Card
       # invokes the given block for each reference in content with
       # the reference name and reference type
       def each_reference_out
-        content_object.find_chunks(Content::Chunk::Reference).each do |chunk|
+        content_object.find_chunks(:Reference).each do |chunk|
           yield chunk.referee_name, chunk.reference_code
         end
       end
 
-      def has_nests?
-        content_object.has_chunk? Content::Chunk::Nest
-      end
-
-      protected
-
-      def not_update_referers
-        !update_referers
-      end
-
-      private
-
-      def with_normalized_referee referee_name
-        return unless referee_name # eg commented nest has no referee_name
-        referee_name = referee_name.to_name
-        referee_key = referee_name.key
-        return if referee_key == key # don't create self reference
-        yield referee_name, referee_key, Lexicon.id(referee_name)
+      # Partial references are needed to track references to virtual cards.
+      # For example a link to virual card [[A+*self]] won't have a referee_id,
+      # but when A's name is changed we have to find and update that link.
+      def interpret_partial_references ref_hash, referee_name
+        return if referee_name.simple?
+        [referee_name.left, referee_name.right].each do |sidename|
+          interpret_reference ref_hash, sidename, PARTIAL_REF_CODE
+        end
       end
     end
   end

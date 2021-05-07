@@ -4,7 +4,6 @@ class Cardname
   # the same methods without _name return strings
   module Parts
     attr_reader :parts, :part_keys, :simple
-
     alias_method :to_a, :parts
 
     def parts
@@ -40,15 +39,15 @@ class Cardname
     end
 
     def parents
-      @parents ||= junction? ? [left, right] : []
+      @parents ||= compound? ? [left, right] : []
     end
 
     def parent_names
-      @parent_names ||= junction? ? [left_name, right_name] : []
+      @parent_names ||= compound? ? [left_name, right_name] : []
     end
 
     def parent_keys
-      @parent_keys ||= junction? ? [left_key, right_key] : []
+      @parent_keys ||= compound? ? [left_key, right_key] : []
     end
 
     # Note that all names have a trunk and tag,

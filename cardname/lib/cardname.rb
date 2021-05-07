@@ -5,6 +5,7 @@ require "htmlentities"
 
 class Cardname < String
   require_relative "cardname/parts"
+  require_relative "cardname/pieces"
   require_relative "cardname/variants"
   require_relative "cardname/contextual"
   require_relative "cardname/predicates"
@@ -19,8 +20,7 @@ class Cardname < String
 
   OK4KEY_RE = '\p{Word}\*'
 
-  cattr_accessor :joint, :banned_array, :var_re, :uninflect, :params,
-                 :session, :stabilize
+  cattr_accessor :joint, :banned_array, :var_re, :uninflect, :params, :session, :stabilize
 
   self.joint          = "+"
   self.banned_array   = []

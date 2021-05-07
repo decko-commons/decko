@@ -10,7 +10,7 @@ def rule_set_key
 end
 
 def rule_set_name
-  if is_preference?
+  if preference?
     name.trunk_name.trunk_name
   else
     name.trunk_name
@@ -22,7 +22,7 @@ def rule_set_pattern_name
 end
 
 def rule_set
-  if is_preference?
+  if preference?
     self[0..-3]
   else
     trunk
@@ -46,7 +46,7 @@ def rule_setting_title
 end
 
 def rule_user_setting_name
-  if is_preference?
+  if preference?
     "#{rule_user_name}+#{rule_setting_name}"
   else
     rule_setting_name
@@ -71,7 +71,7 @@ def first_set_option_index candidates
 end
 
 def set_prototype
-  if is_preference?
+  if preference?
     self[0..-3].prototype
   else
     trunk.prototype

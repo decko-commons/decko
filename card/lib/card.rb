@@ -113,9 +113,10 @@ ActiveSupport.run_load_hooks(:before_card, self)
 class Card < ApplicationRecord
   extend Mark
   extend Dirty::MethodFactory
-  extend Name::AllClass
-  extend Cache::AllClass
-  extend Director::AllClass
+  extend Name::CardClass
+  extend Cache::CardClass
+  extend Director::CardClass
+  extend Fetch::CardClass
 
   include Dirty
   include DirtyNames
@@ -123,10 +124,13 @@ class Card < ApplicationRecord
   include Name::All
   include Content::All
   include Set::Event::All
+  include Set::Pattern::All
   include Cache::All
   include Director::All
   include Reference::All
   include Rule::All
+  include Fetch::All
+  include Subcards::All
 
   Card::Cache # trigger autoload
 

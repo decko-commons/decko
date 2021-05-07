@@ -47,6 +47,10 @@ class Card
         content.blank? || content.strip.blank?
       end
 
+      def nests?
+        content_object.has_chunk? Content::Chunk::Nest
+      end
+
       def content_object
         Card::Content.new content, self
       end

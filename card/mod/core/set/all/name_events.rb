@@ -29,7 +29,7 @@ event :validate_legality_of_name do
   elsif !name.valid?
     errors.add :name, t(:core_error_banned_characters,
                         banned: Card::Name.banned_array * " ")
-  elsif changing_existing_tag_to_junction?
+  elsif changing_existing_tag_to_compound?
     errors.add :name, t(:core_error_name_tag, name: name)
   end
 end
@@ -108,8 +108,8 @@ def detect_illegal_compound_names
   errors.add :name, "illegal name change; existing names end in +#{name_before_act}"
 end
 
-def changing_existing_tag_to_junction?
-  return false unless changing_name_to_junction?
+def changing_existing_tag_to_compound?
+  return false unless changing_name_to_compound?
   name_in_use_as_tag?
 end
 
@@ -117,8 +117,8 @@ def name_in_use_as_tag?
   !Card.where(right_id: id, trash: false).take.nil?
 end
 
-def changing_name_to_junction?
-  name.junction? && simple?
+def changing_name_to_compound?
+  name.compound? && simple?
 end
 
 def old_name_in_way? sidecard

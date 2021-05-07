@@ -13,7 +13,7 @@ class SearchCardContext < Cardio::Migration::Core
       ["",       "left"]
     ]
     Card.search(type_id: ["in", Card::SearchTypeID, Card::SetID]).each do |card|
-      next unless card.name.junction? && card.real?
+      next unless card.name.compound? && card.real?
       content = card.db_content
       replace.each do |key, val|
         content.gsub!(/(#{sep})_(#{key})(?=#{sep})/, "\\1_#{val}")
