@@ -5,10 +5,8 @@ RSpec.describe Card::Set::Type::Alias do
     end
   end
 
-  def new_alias target
-    Card["A"].tap do |a|
-      a.assign_attributes type: "Alias", content: target
-    end
+  def new_alias target="A"
+    Card.new name: "Alex", type: "Alias", content: target
   end
 
   describe "event: validate_alias_source" do
@@ -41,7 +39,7 @@ RSpec.describe Card::Set::Type::Alias do
 
     it "is true for compound Alias cards" do
       new_target
-      expect(Card["A+B"]).to be_alias
+      expect(Card.fetch("Alex+B", new: {})).to be_alias
     end
   end
 end

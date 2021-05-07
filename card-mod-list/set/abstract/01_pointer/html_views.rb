@@ -61,8 +61,7 @@ format :html do
   end
 
   def autocomplete_input
-    items = items_for_input
-    haml :autocomplete_input, item: items.first, options_card: options_card_name
+    haml :autocomplete_input, item: items_for_input.first, options_card: options_card_name
   end
 
   def checkbox_input
