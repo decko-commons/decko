@@ -35,10 +35,8 @@ format :html do
                          class: classy("card-editor")) { yield }
   end
 
-  def button_formgroup
-    wrap_with :div, class: classy("form-group") do
-      wrap_with :div, yield
-    end
+  def button_formgroup &block
+    wrap_with :div, class: "form-group #{classy 'button-form-group'}", &block
   end
 
   def name_field

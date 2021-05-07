@@ -189,3 +189,9 @@ en:
   alias_target_must_be_simple: "must be aliased to a single, valid simple card"
   alias_must_be_simple: "must be a simple (not a compound) card"
   alias_cards_no_children: "Alias cards can't have children"
+
+  core_rename_and_update: "Rename and Update"
+  core_renaming: "Renaming"
+  core_rename: "Rename"
+  core_rename_confirm: "Are you sure you want to rename"
+  core_rename_reference_confirm: "This name is referred to at least %{count} time(s). You may choose to <em>update</em> those references to use the new name."
