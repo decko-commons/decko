@@ -11,4 +11,10 @@ RSpec.describe Card::Set::All::Alias do
       expect(source.target_name).to eq(new_name)
     end
   end
+
+  describe "#auto_alias_checkbox" do
+    specify do
+      expect_view(:name_form).to have_tag(".auto-alias")
+    end
+  end
 end
