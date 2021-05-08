@@ -33,16 +33,24 @@ format do
   end
 
   def handle_source
-    source = _render_source
-    return "" if source.blank?
-    block_given? ? yield(source) : source
-  rescue => e
-    Rails.logger.info "Error with file source: #{e.message}"
-    t :carrierwave_file_error
+    rescuing_file_source_error do
+      source = _render_source
+      return "" if source.blank?
+      block_given? ? yield(source) : source
+    end
   end
 
   def selected_version
     card.attachment
+  end
+
+  private
+
+  def rescuing_file_source_error
+    yield
+  rescue => e
+    Rails.logger.info "Error with file source: #{e.message}"
+    t :carrierwave_file_error
   end
 end
 
