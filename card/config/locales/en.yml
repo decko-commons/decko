@@ -59,22 +59,11 @@ en:
   core_exception_almost_deleted: Narrowly averted deleting current file
   core_is_incomplete: is incomplete
   core_only_admins_codename: only admins can set codename
-
-  # core_label_set_all_cards: All cards
-  # core_label_set_plus_cards: All "+" cards
-  # core_label_set_right_cards: All "+%{name}" cards
-  # core_label_set_rstar_cards: All "+*" cards
-  # core_label_set_self_card: The card "%{name}"
-  # core_label_set_star_cards: All "*" cards
-  # core_label_set_type_cards: All "%{name}" cards
-  # core_label_set_typeplusright_cards: All "+%{right}" cards on "%{type}" cards
-  # core_label_setfollow_all_cards: everything
-  # core_label_setfollow_plus_cards: all "+" cards
-  # core_label_setfollow_right_cards: all "+%{name}s"
-  # core_label_setfollow_rstar_cards: all "+*" cards
-  # core_label_setfollow_star_cards: all "*" cards
-  # core_label_setfollow_type_cards: all "%{name}s"
-  # core_label_setfollow_typeplusright_cards: all "+%{right}" on "%{type}s"
+  core_rename_and_update: "Rename and Update"
+  core_renaming: "Renaming"
+  core_rename: "Rename"
+  core_rename_confirm: "Are you sure you want to rename"
+  core_rename_reference_confirm: "This name is referred to at least %{count} time(s). You may choose to <em>update</em> those references to use the new name."
 
   admin_warn: ADMINISTRATOR WARNING
   admin_email_off: Email delivery is turned off. Change settings in %{path} to send sign up notifications.
@@ -189,3 +178,4 @@ en:
   alias_target_must_be_simple: "must be aliased to a single, valid simple card"
   alias_must_be_simple: "must be a simple (not a compound) card"
   alias_cards_no_children: "Alias cards can't have children"
+  alias_redirect_former_name: "redirect former name to new one"
