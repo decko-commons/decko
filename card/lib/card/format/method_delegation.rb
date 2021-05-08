@@ -47,7 +47,7 @@ class Card
       def render_args underscore, bang, opts
         # opts is a list; args is a hash. we're using various inputs to build the hash
         interpret_render_opts opts do |args|
-          args[:optional] = optional_render_opt opts.shift, args[:optional] unless bang
+          args[:optional] = optional_render_opt opts, args unless bang
           args[:skip_perms] = true if underscore
         end
       end
@@ -56,8 +56,8 @@ class Card
         (opts[0] ? opts.shift.clone : {}).tap { |args| yield args }
       end
 
-      def optional_render_opt opts, optional_arg
-        opts.shift || optional_arg || :show
+      def optional_render_opt opts, args
+        opts.shift || args[:optional] || :show
       end
 
       def new_action_view
