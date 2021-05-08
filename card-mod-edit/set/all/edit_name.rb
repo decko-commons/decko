@@ -50,6 +50,7 @@ format :html do
   end
 
   def rename_button
-    button_tag t(:core_rename), class: "renamer", data: { disable_with: t(:core_renaming) }
+    button_tag t(:core_rename),
+               class: "renamer", data: { disable_with: t(:core_renaming) }
   end
 end
