@@ -1,5 +1,6 @@
 # -*- encoding : utf-8 -*-
-# rubocop:disable Lint/AmbiguousRegexpLiteral, Lint/Syntax
+
+# rubocop:disable Lint/AmbiguousRegexpLiteral
 #
 Then /the card (.*) should contain "([^"]*)"$/ do |cardname, content|
   visit path_to("card #{cardname}")

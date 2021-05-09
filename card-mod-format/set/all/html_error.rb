@@ -52,7 +52,12 @@ format :html do
   view :errors, perms: :none do
     return if card.errors.empty?
 
-    voo.title = card.name.blank? ? "Problems" : t(:format_problems_name, cardname: card.name)
+    voo.title = if card.name.blank?
+                  "Problems"
+                else
+                  t(:format_problems_name,
+                    cardname: card.name)
+                end
     voo.hide! :menu
     class_up "alert", "card-error-msg"
     standard_errors voo.title
@@ -135,7 +140,7 @@ format :html do
 
     links = [signin_link, signup_link].compact.join " #{t(:format_or)} "
     wrap_with(:div) do
-      [t(:format_please), links, to_task].join(" ") + "."
+      "#{[t(:format_please), links, to_task].join(' ')}."
     end
   end
 
@@ -170,7 +175,12 @@ format :html do
   end
 
   def loud_denial_message
-    to_task = @denied_task ? t(:format_denied_task, denied_task: @denied_task) : t(:format_to_do_that)
+    to_task = if @denied_task
+                t(:format_denied_task,
+                  denied_task: @denied_task)
+              else
+                t(:format_to_do_that)
+              end
 
     case
     when not_denied_task_read?
@@ -188,6 +198,11 @@ format :html do
   end
 
   def to_do_unauthorized_task
-    @denied_task ? t(:format_denied_task, denied_task: @denied_task) : t(:format_to_do_that)
+    if @denied_task
+      t(:format_denied_task,
+        denied_task: @denied_task)
+    else
+      t(:format_to_do_that)
+    end
   end
 end

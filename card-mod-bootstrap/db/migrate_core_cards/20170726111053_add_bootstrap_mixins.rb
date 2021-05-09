@@ -3,9 +3,9 @@
 class AddBootstrapMixins < Cardio::Migration::Core
   def up
     ensure_card "style: bootstrap mixins", type_id: Card::ScssID,
-                codename: "style_bootstrap_mixins"
+                                           codename: "style_bootstrap_mixins"
 
     ensure_card "style: bootstrap breakpoints", type_id: Card::ScssID,
-                    codename: "style_bootstrap_breakpoints"
+                                                codename: "style_bootstrap_breakpoints"
   end
 end

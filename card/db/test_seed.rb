@@ -15,7 +15,6 @@ class SharedData
   CARDTYPE_COUNT = 44
 
   class << self
-
     def create_user name, args
       args[:subcards] = account_args args if args[:email]
 
@@ -49,6 +48,7 @@ class SharedData
                       customized_bootswatch_skin alias]
       Card::Auth.createable_types.each do |type|
         next if no_samples.include? type.to_name.key
+
         create type: type, name: "Sample #{type}"
       end
 
@@ -57,7 +57,7 @@ class SharedData
       end
 
       create_layout_type "lay out", "Greatest {{_main|title: Callahan!; view: labeled}}"
-      create_pointer "stacks", ["horizontal", "vertical"]
+      create_pointer "stacks", %w[horizontal vertical]
       create_pointer "stacks+*self+*layout", "lay out"
       create "horizontal"
       create_pointer "vertical"
@@ -75,7 +75,7 @@ class SharedData
         ["Z", "I'm here to be referenced to"],
         ["A", "Alpha [[Z]]"],
         ["B", "Beta {{Z}}"],
-        ["T", "Theta"],
+        %w[T Theta],
         ["X", "[[A]] [[A+B]] [[T]]"],
         ["Y", "{{B}} {{A+B}} {{A}} {{T}}"],
         ["A+B", "AlphaBeta"],
@@ -114,7 +114,8 @@ class SharedData
       ## --------- Fruit: creatable by anyone but not readable ---
       Card.create! type: "Cardtype", name: "Fruit"
       Card.create! name: "Fruit+*type+*create", type: "Pointer", content: "[[Anyone]]"
-      Card.create! name: "Fruit+*type+*read", type: "Pointer", content: "[[Administrator]]"
+      Card.create! name: "Fruit+*type+*read", type: "Pointer",
+                   content: "[[Administrator]]"
 
       # codenames for card_accessor tests
       Card.create! name: "*write", codename: :write
@@ -158,7 +159,7 @@ class SharedData
 
     def user_and_role_cards
       # Card::Auth.instant_account_activation do
-        create_user "Joe Admin", content: "I'm number one", email: "joe@admin.com"
+      create_user "Joe Admin", content: "I'm number one", email: "joe@admin.com"
         create_user "Joe User", content: "I'm number two", email: "joe@user.com"
         create_user "Joe Camel", content: "Mr. Buttz", email: "joe@camel.com"
 
@@ -169,10 +170,10 @@ class SharedData
 
       # noinspection RubyResolve
       Card["Joe Admin"].fetch(:roles, new: { type_code: "pointer" })
-        .items = [Card::AdministratorID, Card::SharkID, Card::HelpDeskID]
+                       .items = [Card::AdministratorID, Card::SharkID, Card::HelpDeskID]
 
       Card["Joe User"].fetch(:roles, new: { type_code: "pointer" })
-              .items = [Card::SharkID]
+                      .items = [Card::SharkID]
 
       create_user "u1", email: "u1@user.com", password: "u1_pass"
       create_user "u2", email: "u2@user.com", password: "u2_pass"
@@ -188,19 +189,18 @@ class SharedData
       Card["u3"].fetch(:roles, new: {}).items = [r1, r4, Card::AdministratorID]
     end
 
-
     def cardtype_cards
       # for cql & permissions
-      %w[A+C A+D A+E C+A D+A F+A A+B+C].each {|name| create name}
+      %w[A+C A+D A+E C+A D+A F+A A+B+C].each { |name| create name }
       ("A".."F").each do |ch|
         create "Cardtype #{ch}", type_code: "cardtype",
-               codename: "cardtype_#{ch.downcase}"
+                                 codename: "cardtype_#{ch.downcase}"
       end
       Card::Codename.reset_cache
 
       ("a".."f").each do |ch|
         create "type-#{ch}-card", type_code: "cardtype_#{ch}",
-               content: "type_#{ch}_content"
+                                  content: "type_#{ch}_content"
       end
 
       create_pointer "Cardtype B+*type+*create", "[[r3]]"
@@ -209,7 +209,6 @@ class SharedData
       ## --------- create templated permissions -------------
       create "Cardtype E+*type+*default"
     end
-
 
     def notification_cards
       Timecop.freeze(Cardio.future_stamp - 1.day) do
@@ -231,7 +230,7 @@ class SharedData
 
         followers.each do |name, _follow|
           create_user name, email: "#{name.parameterize}@user.com",
-                      password: "#{name.parameterize}_pass"
+                            password: "#{name.parameterize}_pass"
         end
 
         create "All Eyes On Me"
@@ -252,7 +251,8 @@ class SharedData
 
         Card::Auth.signin Card::WagnBotID
         create "Google glass+*self+*follow_fields", ""
-        create "Sunglasses+*self+*follow_fields", "[[#{:nests.cardname}]]\n[[_self+price]]\n[[_self+producer]]"
+        create "Sunglasses+*self+*follow_fields",
+               "[[#{:nests.cardname}]]\n[[_self+price]]\n[[_self+producer]]"
         create "Sunglasses+tint"
         create "Sunglasses+price"
 
@@ -277,7 +277,7 @@ class SharedData
           ["card with fields", "field 1", "field 2"],
           ["card with fields and admin fields", "field 1", "admin field 1"],
           ["admin card with fields and admin fields", "field 1", "admin field 1"],
-          ["admin card with admin fields", "admin field 1", "admin field 2"],
+          ["admin card with admin fields", "admin field 1", "admin field 2"]
         ].each do |name, f1, f2|
           create name,
                  content: "main content {{+#{f1}}}  {{+#{f2}}}",
@@ -297,25 +297,24 @@ class SharedData
         end
         create ["field 1", :right, :read], type: "Pointer", content: "[[Anyone]]"
       end
-
     end
   end
 
-  TEXT = <<-TXT.strip_heredoc.freeze
-      Far out in the uncharted backwaters of the unfashionable end of
-      the western spiral arm of the Galaxy lies a small unregarded
-      yellow sun.
-      
-      Orbiting this at a distance of roughly ninety-two million miles
-      is an utterly insignificant little blue green planet whose ape-
-      descended life forms are so amazingly primitive that they still
-      think digital watches are a pretty neat idea.
-      
-      This planet has - or rather had - a problem, which was this: most
-      of the people living on it were unhappy for pretty much of the time.
-      Many solutions were suggested for this problem, but most of these
-      were largely concerned with the movements of small green pieces
-      of paper, which is odd because on the whole it wasn't the small
-      green pieces of paper that were unhappy.
+  TEXT = <<~TXT.strip_heredoc.freeze
+          Far out in the uncharted backwaters of the unfashionable end of
+          the western spiral arm of the Galaxy lies a small unregarded
+          yellow sun.
+    #{'      '}
+          Orbiting this at a distance of roughly ninety-two million miles
+          is an utterly insignificant little blue green planet whose ape-
+          descended life forms are so amazingly primitive that they still
+          think digital watches are a pretty neat idea.
+    #{'      '}
+          This planet has - or rather had - a problem, which was this: most
+          of the people living on it were unhappy for pretty much of the time.
+          Many solutions were suggested for this problem, but most of these
+          were largely concerned with the movements of small green pieces
+          of paper, which is odd because on the whole it wasn't the small
+          green pieces of paper that were unhappy.
   TXT
 end

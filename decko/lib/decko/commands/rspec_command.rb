@@ -1,4 +1,4 @@
-require File.expand_path("../command", __FILE__)
+require File.expand_path("command", __dir__)
 
 module Decko
   module Commands
@@ -33,4 +33,4 @@ module Decko
   end
 end
 
-require File.expand_path("../rspec_command/parser", __FILE__)
+require File.expand_path("rspec_command/parser", __dir__)

@@ -5,8 +5,7 @@ def assign_attributes args={}
 
   assign_with_subcards args do
     assign_with_set_modules args do
-      params = prepare_assignment_params args
-      super params
+      super prepare_assignment_params(args)
     end
   end
 end
@@ -40,25 +39,24 @@ end
 
 def prepare_assignment_args args
   return {} unless args
+
   args = args.symbolize_keys
   normalize_type_attributes args
   stash_set_specific_attributes args
   args
 end
 
-def assign_with_set_modules args
+def assign_with_set_modules args, &block
   set_changed = args[:name] || args[:type_id]
   return yield unless set_changed
 
-  refresh_set_modules { yield }
+  refresh_set_modules(&block)
 end
 
 def assign_with_subcards args
   subcard_args = extract_subcard_args! args
   yield
-  # name= must come before process subcards
-  return unless subcard_args.present?
-  subcards.add subcard_args
+  subcards.add subcard_args if subcard_args.present?
 end
 
 def refresh_set_modules

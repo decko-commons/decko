@@ -6,7 +6,7 @@ RSpec.describe Cardio::Mod::Loader::SetLoader do
   #
   #
   let(:mod_dirs) do
-    path = File.expand_path "../../../../support/test_mods", __FILE__
+    path = File.expand_path "../../../support/test_mods", __dir__
     Cardio::Mod::Dirs.new path
   end
 

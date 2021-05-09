@@ -17,7 +17,6 @@ class Bootstrap
     #     row 6, 6, ["unicorn", "rainbow"], class: "horn"
     #   end
     class Layout < OldComponent
-
       def render
         @rendered = begin
           render_content
@@ -26,10 +25,11 @@ class Bootstrap
       end
 
       def render_content
-        content = instance_exec *@args, &@build_block
+        content = instance_exec(*@args, &@build_block)
         add_content content
         opts = @args.first
-        return unless opts && opts.delete(:container)
+        return unless opts&.delete(:container)
+
         content = @content.pop
         @content = ["".html_safe]
         container content, opts
@@ -67,7 +67,7 @@ class Bootstrap
         opts
       end
 
-     alias_method :col, :column
+      alias_method :col, :column
 
       private
 
@@ -89,12 +89,14 @@ class Bootstrap
 
       def col_widths_from_args args
         raise Error, "bad argument" unless args.all? { |a| a.is_a? Integer }
+
         { md: Array.wrap(args) }
       end
 
       def col_widths_from_opts opts
         %i[lg xs sm md].each_with_object({}) do |k, cols_w|
           next unless (widths = opts.delete(k))
+
           cols_w[k] = Array.wrap widths
         end
       end

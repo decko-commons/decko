@@ -1,5 +1,6 @@
 RSpec.describe Card::Set::All::GoogleAnalytics do
   before { Cardio.config.google_analytics_key = "UA-34941429-6" }
+
   after { Cardio.config.google_analytics_key = nil }
 
   it "instantiates a tracker" do

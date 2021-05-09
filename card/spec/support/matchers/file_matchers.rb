@@ -1,4 +1,4 @@
-RSpec::Matchers.define :have_file do |trait|
+RSpec::Matchers.define :have_file do |_trait|
   match do |card|
     (@file = card.file) && file_size_matches
   end
@@ -29,6 +29,7 @@ RSpec::Matchers.define :have_file do |trait|
 
   def file_size_matches
     return true unless @size
+
     @size === @file.size
   end
 end
@@ -66,6 +67,7 @@ RSpec::Matchers.define :have_file_trait do |trait|
 
   def file_size_matches
     return true unless @size
+
     @size === @file.file.size
   end
 end

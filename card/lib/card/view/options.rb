@@ -51,11 +51,11 @@ class Card
           :structure,      # overrides the content of the card
           :title,          # overrides the name of the card
           :variant,        # override the canonical version of the name with a different
-                           # variant
+          # variant
           :input_type,     # inline_nests makes a form within standard content (Symbol)
           :type,           # set the default type of new cards
           :size,           # set an image size
-                           # (also used for character limit in one_line_content)
+          # (also used for character limit in one_line_content)
           :params,         # parameters for add button.  deprecated!
           :items,          # options for items (Hash)
           :cache,          # change view cache behaviour
@@ -71,7 +71,7 @@ class Card
           :layout          #
         ]
       }
-      # Note: option values are strings unless otherwise noted
+      # NOTE: option values are strings unless otherwise noted
 
       class << self
         attr_reader :keymap

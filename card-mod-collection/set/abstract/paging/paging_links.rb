@@ -63,6 +63,7 @@ class PagingLinks
 
   def direct_page_link page
     return unless page >= 0 && page <= @total
+
     paging_item page + 1, page
   end
 

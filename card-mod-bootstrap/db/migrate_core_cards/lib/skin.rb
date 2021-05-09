@@ -4,7 +4,7 @@ class Skin
 
   class << self
     def vendor_path
-      File.expand_path "../../../../vendor", __FILE__
+      File.expand_path "../../../vendor", __dir__
     end
 
     def bootstrap_scss_path filename

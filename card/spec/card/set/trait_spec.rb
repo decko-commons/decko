@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 
 RSpec.describe Card::Set::Trait do
-  add_set_modules = Proc.new do
+  add_set_modules = proc do
     class Card
       module Set
         class Type
@@ -41,7 +41,7 @@ RSpec.describe Card::Set::Trait do
     add_set_modules.call # this prevents problems when called after #reload_sets
     Card::Auth.as_bot do
       Card.create! name: "joke", type_id: Card::PhraseID, "+*write" => "some content",
-                                                          "+*read" => "some content"
+                   "+*read" => "some content"
     end
   end
 
@@ -53,6 +53,7 @@ RSpec.describe Card::Set::Trait do
       in_stage :prepare_to_validate, on: :create, trigger: -> { subject } do
         # test API doesn't support sets for event so we check the name
         return unless name == "joke"
+
         aggregate_failures do
           expect(write_card.type_id).to eq(Card::PhraseID)
           # expect(write_card.left).to be_instance_of(Card)
@@ -66,6 +67,7 @@ RSpec.describe Card::Set::Trait do
     it "trait card is created correctly" do
       in_stage :prepare_to_validate, on: :create, trigger: -> { subject } do
         return unless name == "joke"
+
         aggregate_failures do
           # expect(read_card.type_id).to eq(Card::PhraseID)
           expect(read_card.left).to be_instance_of(Card)

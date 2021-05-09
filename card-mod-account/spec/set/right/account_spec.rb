@@ -13,7 +13,7 @@ RSpec.describe Card::Set::Right::Account do
     end
 
     context "valid user" do
-      # note - much of this is tested in account_request_spec
+      # NOTE: - much of this is tested in account_request_spec
       before do
         Card::Auth.as_bot do
           @user_card = Card.create! dummy_account_args.merge(type_id: Card::UserID)
@@ -28,7 +28,7 @@ RSpec.describe Card::Set::Right::Account do
 
     it "checks accountability of 'accounted' card" do
       expect(Card.create(dummy_account_args).errors["+*account"].first)
-        .to match(/You don\'t have permission to create/)
+        .to match(/You don't have permission to create/)
     end
 
     it "works for any card with +*account permissions -- not just User type" do
@@ -176,7 +176,7 @@ RSpec.describe Card::Set::Right::Account do
     end
 
     it "does not work if token is wrong" do
-      Card::Env.params[:token] = auth_token + "xxx"
+      Card::Env.params[:token] = "#{auth_token}xxx"
       expect { trigger_reset }.to raise_error(/Signature verification raised/)
     end
   end

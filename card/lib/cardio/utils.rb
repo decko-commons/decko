@@ -19,6 +19,7 @@ module Cardio
     # Why does cache clearing need to do this??
     def delete_tmp_files! id=nil
       raise "no files directory" unless files_dir
+
       delete_tmp_files id
     rescue StandardError
       Rails.logger.info "failed to remove tmp files"

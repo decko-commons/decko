@@ -3,20 +3,20 @@
 RSpec.describe Card do
   describe "test data" do
     it "is findable by name" do
-      expect(Card["Decko Bot"]).to be_a Card
+      expect(described_class["Decko Bot"]).to be_a described_class
     end
   end
 
   describe "creation" do
-    before(:each) do
+    before do
       Card::Auth.as_bot do
-        @b = Card.create! name: "New Card", content: "Great Content"
-        @c = Card.find(@b.id)
+        @b = described_class.create! name: "New Card", content: "Great Content"
+        @c = described_class.find(@b.id)
       end
     end
 
     it "does not have errors"  do expect(@b.errors.size).to eq(0)        end
-    it "has the right class"   do expect(@c.class).to    eq(Card)        end
+    it "has the right class"   do expect(@c.class).to    eq(described_class)        end
     it "has the right key"     do expect(@c.key).to      eq("new_card")  end
     it "has the right name"    do expect(@c.name).to     eq("New Card")  end
     it "has the right content" do expect(@c.content).to  eq("Great Content") end
@@ -27,14 +27,14 @@ RSpec.describe Card do
     end
 
     it "is findable by name" do
-      expect(Card["New Card"].class).to eq(Card)
+      expect(described_class["New Card"].class).to eq(described_class)
     end
   end
 
   describe "content change should create new action" do
     before do
       Card::Auth.as_bot do
-        @c = Card["basicname"]
+        @c = described_class["basicname"]
         @c.update! content: "foo"
       end
     end
@@ -44,12 +44,12 @@ RSpec.describe Card do
     end
 
     it "has original action" do
-      expect(@c.nth_action(1).value :db_content).to eq("basiccontent")
+      expect(@c.nth_action(1).value(:db_content)).to eq("basiccontent")
     end
   end
 
   example "creates a virtual card when missing" do
-    expect(Card.new(name: "A+*last edited")).to be_virtual
+    expect(described_class.new(name: "A+*last edited")).to be_virtual
   end
 end
 
@@ -92,7 +92,7 @@ describe "basic card tests" do
     Card["banana"].update! subcards: { "+peel" => { content: "yellow" } }
 
     peel = Card["Banana+peel"]
-    expect(peel.content).       to eq("yellow")
+    expect(peel.content).to eq("yellow")
     expect(Card["joe_user"].id).to eq(peel.creator_id)
   end
 
@@ -102,7 +102,8 @@ describe "basic card tests" do
     expect(Card["Banana"]).not_to be
     expect(Card[:basic].ok?(:create)).to be_falsey, "anon can't creat"
 
-    Card.create! type: "Fruit", name: "Banana", subcards: { "+peel" => { content: "yellow" } }
+    Card.create! type: "Fruit", name: "Banana",
+                 subcards: { "+peel" => { content: "yellow" } }
     expect(Card["Banana"]).to be
     peel = Card["Banana+peel"]
 

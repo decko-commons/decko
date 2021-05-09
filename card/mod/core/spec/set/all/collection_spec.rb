@@ -9,20 +9,20 @@ RSpec.describe Card::Set::All::Collection do
 
     it "returns item for each line of basic content" do
       @args = { name: "foo", content: "X\nY" }
-      is_expected.to eq(%w[X Y])
+      expect(subject).to eq(%w[X Y])
     end
 
     it "returns list of card names for search" do
       @args = { name: "foo", type: "Search", content: '{"name":"Z"}' }
-      is_expected.to eq(["Z"])
+      expect(subject).to eq(["Z"])
     end
 
     it "handles searches relative to context card" do
-      # note: A refers to 'Z'
+      # NOTE: A refers to 'Z'
       @context = "A"
       @args = { name: "foo", type: "Search",
                 content: '{"referred_to_by":"_self"}' }
-      is_expected.to eq(["Z"])
+      expect(subject).to eq(["Z"])
     end
   end
 

@@ -2,10 +2,10 @@
 
 RSpec.describe Card::View do
   it "cache gets cleared by Card::Cache.reset_all" do
-    Card::View.cache.write "testkey", 1
-    expect(Card::View.cache.exist? "testkey").to be_truthy
+    described_class.cache.write "testkey", 1
+    expect(described_class.cache).to exist("testkey")
     Card::Cache.reset_all
-    expect(Card::View.cache.exist? "testkey").to be_falsey
+    expect(described_class.cache).not_to exist("testkey")
   end
 
   def html_message_for user
@@ -25,6 +25,6 @@ RSpec.describe Card::View do
     html_message_for "John"
     msg = html_message_for "Sara"
     expect(msg).to include("update/Sara+*follow")
-               .and not_include "John"
+      .and not_include "John"
   end
 end

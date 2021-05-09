@@ -1,4 +1,5 @@
 # -*- encoding : utf-8 -*-
+
 class TrunkLeft < ActiveRecord::Migration[4.2]
   def up
     rename_column :card_references, :link_type, :ref_type

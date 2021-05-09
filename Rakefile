@@ -1,10 +1,10 @@
 # -*- encoding : utf-8 -*-
-#
+
 require "./decko_gem"
 
 DOCKER_IMAGES = %w[base bundled mysql postgres sandbox].map { |name| "decko-#{name}" }
 
-# Note: these tasks are not in any gem and are thus not available to mod
+# NOTE: these tasks are not in any gem and are thus not available to mod
 # developers.  Therefore they should contain only tasks for core developers.
 
 task :push_gems do
@@ -38,11 +38,9 @@ task :push_images do
   end
 end
 
-def each_gem
+def each_gem &block
   %w[card decko].map do |prefix|
-    Dir.glob("#{prefix}*").each do |gem|
-      yield gem
-    end
+    Dir.glob("#{prefix}*").each(&block)
   end
 end
 

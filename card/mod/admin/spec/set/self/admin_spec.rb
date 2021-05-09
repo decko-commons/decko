@@ -8,8 +8,8 @@ describe Card::Set::Self::Admin do
     assert_view_select @core, "table"
   end
 
-  context "#update" do
-    let(:admin) {Card[:admin]}
+  describe "#update" do
+    let(:admin) { Card[:admin] }
 
     def run_admin_task task
       Card::Auth.as_bot do
@@ -29,14 +29,14 @@ describe Card::Set::Self::Admin do
     end
 
     context "irreversible tasks allowed" do
-      around(:example) do |example|
+      around do |example|
         Cardio.config.allow_irreversible_admin_tasks = true
         example.run
         Cardio.config.allow_irreversible_admin_tasks = false
       end
 
       it "triggers empty trash (with right params)" do
-        Card::Auth.as_bot {Card["A"].delete!}
+        Card::Auth.as_bot { Card["A"].delete! }
 
         expect(Card.where(trash: true)).not_to be_empty
         run_admin_task :empty_trash

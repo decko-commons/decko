@@ -44,7 +44,7 @@ def activatable
   yield
 end
 
-# note: this only works in the context of an action.
+# NOTE: this only works in the context of an action.
 # if run independently, it will not activate an account
 event :activate_account do
   add_subfield :status, content: "active"

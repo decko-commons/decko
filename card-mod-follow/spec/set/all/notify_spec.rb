@@ -145,6 +145,7 @@ RSpec.describe Card::Set::All::Notify do
     # cache when the delayed job is started.  This would more reliably test that the
     # delayed job can get everything it needs with a clean cache.
     before { Card::Cache.no_renewal = true }
+
     after { Card::Cache.no_renewal = false }
 
     def expect_user user_name

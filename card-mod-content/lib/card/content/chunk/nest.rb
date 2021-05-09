@@ -8,11 +8,12 @@ class Card
       # Handler for nest chunks: {{example}}
       class Nest < Reference
         attr_reader :options
+
         DEFAULT_OPTION = :view # a value without a key is interpreted as view
 
         Chunk.register_class(self, prefix_re: '\\{\\{',
-                                   full_re:    /\A\{\{([^\{\}]*)\}\}/,
-                                   idx_char:  "{")
+                                   full_re: /\A\{\{([^{}]*)\}\}/,
+                                   idx_char: "{")
 
         def interpret match, _content
           in_brackets = strip_tags match[1]
@@ -27,9 +28,9 @@ class Card
         end
 
         def strip_tags string
-          # note: not using ActionView's strip_tags here
+          # NOTE: not using ActionView's strip_tags here
           # because this needs to be super fast.
-          string.gsub(/\<[^\>]*\>/, "")
+          string.gsub(/<[^>]*>/, "")
         end
 
         def visible_comment message
@@ -83,6 +84,7 @@ class Card
 
         def explicit_view= view
           return if @options[:view]
+
           # could check to make sure it's not already the default...
           if @text.match?(/\|/)
             @text.sub! "|", "|#{view};"
@@ -100,7 +102,7 @@ class Card
         end
 
         def self.gsub string
-          string.gsub(/\{\{([^\}]*)\}\}/) do |_match|
+          string.gsub(/\{\{([^}]*)\}\}/) do |_match|
             yield(Regexp.last_match[1])
           end
         end
@@ -113,6 +115,7 @@ class Card
 
         def each_option attr_string
           return if attr_string.blank?
+
           attr_string.strip.split(";").each do |pair|
             # key is optional for view option
             value, key = pair.split(":", 2).reverse

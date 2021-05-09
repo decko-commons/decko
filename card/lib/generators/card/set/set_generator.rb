@@ -5,7 +5,7 @@ require "generators/card"
 class Card
   module Generators
     class SetGenerator < NamedBase
-      source_root File.expand_path("../templates", __FILE__)
+      source_root File.expand_path("templates", __dir__)
 
       argument :set_pattern, required: true
       argument :anchors, required: true, type: :array
@@ -14,8 +14,8 @@ class Card
                            desc: "create set files in Card gem"
 
       class_option "spec-only", type: :boolean,
-                                 default: false, group: :runtime,
-                                 desc: "create only spec file"
+                                default: false, group: :runtime,
+                                desc: "create only spec file"
 
       def create_files
         template "set_template.erb", set_path unless options["spec-only"]

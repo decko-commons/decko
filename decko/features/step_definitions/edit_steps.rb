@@ -1,5 +1,6 @@
 # -*- encoding : utf-8 -*-
-# rubocop:disable Lint/AmbiguousRegexpLiteral, Lint/Syntax, Metrics/LineLength
+
+# rubocop:disable Lint/AmbiguousRegexpLiteral, Metrics/
 
 Given /^(.*) (is|am) watching "([^"]+)"$/ do |user, _verb, cardname|
   Delayed::Worker.new.work_off
@@ -125,6 +126,7 @@ end
 def set_ace_editor_content name, content
   find_editor ".ace-editor-textarea[name='#{name}']" do |_editors|
     return unless page.evaluate_script("typeof ace != 'undefined'")
+
     sleep(0.5)
     content = escape_quotes content
     page.execute_script "ace.edit($('.ace_editor').get(0))"\
@@ -146,6 +148,7 @@ def set_tinymce_editor_content name, content
     editor_id = editors.first[:id]
     return unless page.evaluate_script("typeof tinyMCE != 'undefined' && "\
                                        "tinyMCE.get('#{editor_id}') != null")
+
     sleep(0.5)
     content = escape_quotes content
     page.execute_script "tinyMCE.get('#{editor_id}').setContent('#{content}')"
@@ -155,6 +158,7 @@ end
 def wait_for_iframe_load
   5.times do
     break if all("iframe.tox-edit-area__iframe", wait: false).present?
+
     sleep(0.5)
   end
 end
@@ -166,6 +170,7 @@ end
 def find_editor selector
   editors = all(selector, wait: false)
   return unless editors.present?
+
   yield editors
   true
 end

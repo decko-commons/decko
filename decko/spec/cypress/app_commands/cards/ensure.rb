@@ -1,7 +1,7 @@
-name = command_options.try(:[], 'name')
-content = command_options.try(:[], 'content')
-type = command_options.try(:[], 'type')
-args = command_options.try(:[], 'args')
+name = command_options.try(:[], "name")
+content = command_options.try(:[], "content")
+type = command_options.try(:[], "type")
+args = command_options.try(:[], "args")
 
 Class.new do
   extend Card::Model::SaveHelper

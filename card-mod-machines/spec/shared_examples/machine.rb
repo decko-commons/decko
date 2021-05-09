@@ -11,9 +11,11 @@ shared_examples_for "machine" do |args|
     it "has +machine_input card" do
       expect(machine.machine_input_card).to be_real
     end
+
     it "has +machine_output card" do
       expect(machine.machine_output_card).to be_real
     end
+
     it "generates #{args[:that_produces]} file" do
       expect(machine.machine_output_path).to match(/\.#{filetype}$/)
     end
@@ -41,6 +43,7 @@ shared_examples_for "content machine" do |args|
       path = machine_card.machine_output_path
       expect(File.read(path)).to eq(card_content[:out])
     end
+
     it "updates #{args[:that_produces]} file when content is changed" do
       changed_factory = machine_card
       changed_factory.putty content: card_content[:changed_in]
