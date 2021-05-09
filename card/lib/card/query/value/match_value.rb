@@ -21,6 +21,7 @@ class Card
 
         def exact_name_match field
           return false unless match_prefix == "=" && field.to_sym == :name
+
           "#{field_sql field} = #{quote match_term.to_name.key}"
         end
 

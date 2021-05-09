@@ -1,5 +1,6 @@
 # -*- encoding : utf-8 -*-
-# rubocop:disable Lint/AmbiguousRegexpLiteral, Lint/Syntax
+
+# rubocop:disable Lint/AmbiguousRegexpLiteral
 
 When /^(?:|I )enter "([^"]*)" into "([^"]*)"$/ do |value, field|
   selector = ".RIGHT-#{field.to_name.safe_key} input.d0-card-content"
@@ -95,6 +96,7 @@ module Capybara
       def decko_fill_in locator, options
         el = labeled_field(:input, locator) || labeled_field(:textarea, locator)
         return unless el
+
         el.set options[:with]
         true
       end
@@ -102,6 +104,7 @@ module Capybara
       def decko_select value, options
         el = labeled_field :select, options[:from], visible: false
         return unless el
+
         value = el.find("option", text: value, visible: false)["value"]
         choose_value el, value
         true

@@ -17,7 +17,7 @@ class Card
         end
 
         def bin_to_hex string
-          string.unpack("H*").first
+          string.unpack1("H*")
         end
 
         # @return [Hash]

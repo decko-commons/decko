@@ -25,6 +25,7 @@ class AddTypeBootswatchSkin < Cardio::Migration::Core
       puts "updating #{skin_name}"
       card = Card.fetch(skin_name)
       next puts "card not found" unless card
+
       card.update! type_id: Card::BootswatchSkinID
     end
   end

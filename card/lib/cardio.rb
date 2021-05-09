@@ -26,7 +26,7 @@ module Cardio
 
     def load_card?
       ActiveRecord::Base.connection && !card_defined?
-    rescue
+    rescue StandardError
       false
     end
 

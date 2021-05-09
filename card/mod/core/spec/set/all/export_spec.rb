@@ -23,6 +23,7 @@ RSpec.describe Card::Set::All::Export do
           a_hash_including(name: "A+B", type: "RichText", content: "AlphaBeta")
         )
       end
+
       it "handles multi levels pointer cards" do
         inner_pointer = create "inner pointer", type: :pointer, content: "T"
         expect(export_pointer([inner_pointer.name, "A+B"])).to include(

@@ -6,6 +6,7 @@ class AddDebuggerSessionCard < Cardio::Migration::Core
                  subcards: {
                    "+*self+*options" => "[[on]]",
                    "+*self+*input" => "[[checkbox]]",
-                   "+*self+*help" => "show more useful error pages" }
+                   "+*self+*help" => "show more useful error pages"
+                 }
   end
 end

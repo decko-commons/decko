@@ -2,7 +2,8 @@ def item_names _args={}
   format._render_raw.split(/[,\n]/)
 end
 
-def item_cards _args={} # FIXME: this is inconsistent with item_names
+# FIXME: this is inconsistent with item_names
+def item_cards _args={}
   [self]
 end
 
@@ -35,12 +36,14 @@ end
 
 def add_item item
   return if include_item? item
+
   items_to_content(items_strings << item)
 end
 
 def drop_item item
   item = Card::Name[item]
   return unless include_item? item
+
   items_to_content(item_names.reject { |i| i == item })
 end
 
@@ -53,6 +56,7 @@ end
 
 def replace_item old, new
   return unless include_item? old
+
   drop_item old
   add_item new
 end
@@ -89,6 +93,7 @@ format do
 
   def voo_items_view
     return unless voo && (items = voo.items)
+
     items[:view]
   end
 
@@ -106,6 +111,7 @@ format do
 
   def determine_item_view_options_type options
     return if options[:type]
+
     type_from_rule = card.item_type
     options[:type] = type_from_rule if type_from_rule
   end

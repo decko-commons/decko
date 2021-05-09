@@ -16,13 +16,12 @@ def link_task task, from: nil, to: nil, namespace: nil
   case task
   when Hash
     task.each do |key, val|
-      link_task val, from: from, to: to ,
-                  namespace: append_to_namespace(namespace, key)
-
+      link_task val, from: from, to: to,
+                     namespace: append_to_namespace(namespace, key)
     end
   when Array
     task.each do |t|
-     link_task t, from: from, to: to, namespace: namespace
+      link_task t, from: from, to: to, namespace: namespace
     end
   else
     shared_part = append_to_namespace namespace, task

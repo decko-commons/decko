@@ -25,5 +25,6 @@ end
 def validate_codename_uniqueness
   return (self.codename = nil) if codename.blank?
   return if errors.present? || !Card.find_by_codename(codename)
+
   errors.add :codename, t(:core_error_code_in_use, codename: codename)
 end

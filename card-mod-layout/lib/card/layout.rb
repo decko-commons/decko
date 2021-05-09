@@ -40,6 +40,7 @@ class Card
 
       def layout_key name
         return name if name.is_a? Symbol
+
         name.to_name.key.to_sym
       end
 

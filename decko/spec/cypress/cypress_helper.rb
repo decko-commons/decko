@@ -1,9 +1,9 @@
 # This is loaded once before the first command is executed
 
 begin
- require 'database_cleaner'
+  require "database_cleaner"
 rescue LoadError => e
- puts e.message
+  puts e.message
 end
 
 # begin

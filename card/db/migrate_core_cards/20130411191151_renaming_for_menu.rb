@@ -3,15 +3,15 @@
 class RenamingForMenu < Cardio::Migration::Core
   def up
     renames = {
-      "*content"    => "*structure",
-      "*edit help"  => "*help",
-      "*links"      => "*links to",
+      "*content" => "*structure",
+      "*edit help" => "*help",
+      "*links" => "*links to",
       "*inclusions" => "*includes",
-      "*linkers"    => "*linked to by",
-      "*includers"  => "*included by",
+      "*linkers" => "*linked to by",
+      "*includers" => "*included by",
       "*plus cards" => "*children",
       "*plus parts" => "*mates",
-      "*editing"    => "*edited"
+      "*editing" => "*edited"
     }
     renames.each do |oldname, newname|
       puts "updating: #{oldname}"
@@ -21,7 +21,7 @@ class RenamingForMenu < Cardio::Migration::Core
       c.save!
     end
 
-    codenames = %w(
+    codenames = %w[
       by_name
       by_update
       by_create
@@ -37,9 +37,9 @@ class RenamingForMenu < Cardio::Migration::Core
       discussion
       created
       edited
-    )
+    ]
     codenames.each do |codename|
-      name = codename =~ /^by|disc/ ? codename : "*" + codename
+      name = codename =~ /^by|disc/ ? codename : "*#{codename}"
       c = Card[name]
       c.codename = codename
       c.save!

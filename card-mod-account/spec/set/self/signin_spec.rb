@@ -30,7 +30,7 @@ RSpec.describe Card::Set::Self::Signin do
     expect(Card::Auth.current_id).to eq(Card::AnonymousID)
   end
 
-  context "#update" do
+  describe "#update" do
     it "triggers signin with valid credentials" do
       @card.update! "+*email" => "joe@admin.com",
                     "+*password" => "joe_pass"
@@ -50,7 +50,7 @@ RSpec.describe Card::Set::Self::Signin do
     end
   end
 
-  context "#reset password" do
+  describe "#reset password" do
     it "is triggered by an update" do
       # Card['joe admin'].account.token.should be_nil FIXME:  this should be t
       @card.update! "+*email" => "joe@admin.com", trigger: :send_reset_password_token

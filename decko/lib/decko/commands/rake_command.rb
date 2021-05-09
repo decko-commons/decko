@@ -1,4 +1,4 @@
-require File.expand_path("../command", __FILE__)
+require File.expand_path("command", __dir__)
 # require "pry"
 
 module Decko
@@ -21,7 +21,7 @@ module Decko
           # exit_with_child_status cmd
 
           result = `#{cmd}`
-          process = $?
+          process = $CHILD_STATUS
           puts result
           exit process.exitstatus unless process.success?
         end
@@ -30,6 +30,7 @@ module Decko
       def commands
         task_cmd = "bundle exec rake #{@task}"
         return [task_cmd] if !@envs || @envs.empty?
+
         @envs.map do |env|
           "env RAILS_ENV=#{env} #{task_cmd}"
         end
@@ -38,4 +39,4 @@ module Decko
   end
 end
 
-require File.expand_path("../rake_command/parser", __FILE__)
+require File.expand_path("rake_command/parser", __dir__)

@@ -9,10 +9,6 @@ class Card
           idx_char: "("
         )
 
-        def initialize text, content
-          super
-        end
-
         def interpret match, _content
           @stub_hash = initial_stub_hash match[1]
           interpret_hash_values

@@ -27,11 +27,12 @@ end
 
 def value_from_variables_card name
   return unless (var_card = left.variables_card) && var_card.content.present?
+
   value_from_scss name, var_card.content
 end
 
 def definition_regex name
-  /^(?<before>\s*\$#{name}\:\s*)(?<value>.+?)(?<after> !default;)$/
+  /^(?<before>\s*\$#{name}:\s*)(?<value>.+?)(?<after> !default;)$/
 end
 
 def default_value_from_bootstrap name
@@ -109,5 +110,5 @@ def replace_values group, prefix=""
 end
 
 def variable_values_from_params group
-  Env.params.dig(group)&.slice(*VARIABLE_NAMES[group]) || {}
+  Env.params[group]&.slice(*VARIABLE_NAMES[group]) || {}
 end

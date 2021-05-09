@@ -48,28 +48,28 @@ class Card
       # their values are translated fairly directly into SQL-safe values.
       # (These are referred to as "properties" in CQL documentation. Need to
       # reconcile #EFM)
-      basic:           %i[id name key type_id content left_id right_id
-                          creator_id updater_id codename read_rule_id],
+      basic: %i[id name key type_id content left_id right_id
+                creator_id updater_id codename read_rule_id],
       # "Relational" values can involve tying multiple queries together
-      relational:      %i[type
-                          part left right
-                          editor_of edited_by last_editor_of last_edited_by
-                          creator_of created_by
-                          updater_of updated_by
-                          link_to linked_to_by
-                          include included_by
-                          nest nested_by
+      relational: %i[type
+                     part left right
+                     editor_of edited_by last_editor_of last_edited_by
+                     creator_of created_by
+                     updater_of updated_by
+                     link_to linked_to_by
+                     include included_by
+                     nest nested_by
 
-                          refer_to referred_to_by
-                          member_of member
+                     refer_to referred_to_by
+                     member_of member
 
-                          found_by
-                          not sort match name_match complete],
+                     found_by
+                     not sort match name_match complete],
 
       plus_relational: %i[plus left_plus right_plus],
-      conjunction:     %i[and or all any],
-      ignore:          %i[prepend append vars],
-      deprecated:      %i[view params size]
+      conjunction: %i[and or all any],
+      ignore: %i[prepend append vars],
+      deprecated: %i[view params size]
     }.each_with_object({}) do |pair, h|
       pair[1].each { |v| h[v] = pair[0] }
     end

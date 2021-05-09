@@ -1,4 +1,3 @@
-
 format :html do
   def prosemirror_editor_input
     wrap_with :div, id: unique_id, class: "prosemirror-editor" do

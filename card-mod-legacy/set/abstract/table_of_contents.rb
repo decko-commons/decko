@@ -18,8 +18,7 @@ format :html do
     return unless toc.flatten.length >= toc_minimum
 
     content.replace(
-      %( <div class="table-of-contents"> <h5>#{t :legacy_toc}</h5> ) +
-        make_table_of_contents_list(toc) + "</div>" + content
+      " <div class="table-of-contents"> <h5>#{t :legacy_toc}</h5> #{make_table_of_contents_list(toc)}</div>#{content}"
     )
   end
 
@@ -30,11 +29,12 @@ format :html do
   def toc_items content
     toc = []
     dep = 1
-    content.gsub!(/<(h\d)>(.*?)<\/h\d>/i) do |match|
+    content.gsub!(%r{<(h\d)>(.*?)</h\d>}i) do |match|
       if $LAST_MATCH_INFO
         tag, value = $LAST_MATCH_INFO[1, 2]
         value = strip_tags(value).strip
         next if value.empty?
+
         item = { value: value, uri: URI.escape(value) }
         case tag.downcase
         when "h1"
@@ -59,6 +59,6 @@ format :html do
         %(<li><a href="##{i[:uri]}"> #{i[:value]}</a></li>)
       end
     end.join("\n")
-    "<ol>" + list + "</ol>"
+    "<ol>#{list}</ol>"
   end
 end

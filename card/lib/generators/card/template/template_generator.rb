@@ -7,7 +7,7 @@ class Card
     # A decko generator that creates a haml template for a view.
     # Run "decko generate card:template" to get usage information.
     class TemplateGenerator < NamedBase
-      source_root File.expand_path("../templates", __FILE__)
+      source_root File.expand_path("templates", __dir__)
 
       argument :set_pattern, required: true
       argument :anchors, required: true, type: :array
