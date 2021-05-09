@@ -1,4 +1,3 @@
-
 def self.included host_class
   host_class.include_set Abstract::CodeFile
   host_class.include OverrideCodeFile

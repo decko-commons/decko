@@ -15,6 +15,7 @@ class UpdateFileAndImageCards < Cardio::Migration::Core
     Card.search(type: [:in, "file", "image"]).each do |card|
       update_history card
       next unless card.db_content.present?
+
       update_db_content card
       update_filenames card
     end
@@ -37,9 +38,11 @@ class UpdateFileAndImageCards < Cardio::Migration::Core
   # swap variant and action_id/type_code in file name
   def update_filenames card
     return unless Dir.exist? card.store_dir
+
     symlink_target_hash =
       Dir.entries(card.store_dir).each_with_object({}) do |file, symlink_target|
         next unless (new_filename = get_new_file_name(file))
+
         file_path = File.join(card.store_dir, file)
         if File.symlink?(file_path)
           symlink_target[new_filename] = File.readlink(file_path)
@@ -69,11 +72,12 @@ class UpdateFileAndImageCards < Cardio::Migration::Core
   end
 
   def add_skin_thumbnails
-    %w(cerulean_skin cosmo_skin cyborg_skin darkly_skin flatly_skin
+    %w[cerulean_skin cosmo_skin cyborg_skin darkly_skin flatly_skin
        journal_skin lumen_skin paper_skin readable_skin sandstone_skin
        simplex_skin slate_skin spacelab_skin superhero_skin united_skin
-       yeti_skin).each do |name|
+       yeti_skin].each do |name|
       next unless (card = Card[name.to_sym])
+
       card.update! codename: nil
       if (card = Card.fetch name, :image)
         card.update_column :codename, "#{name}_image"

@@ -132,6 +132,7 @@ RSpec.describe Card::Fetch do
           expect(card.db_content).to eq "default content"
         end
       end
+
       context "when new card exist" do
         it "doesn't change anything" do
           Card.new name: "new card",
@@ -206,6 +207,7 @@ RSpec.describe Card::Fetch do
           expect(card).to have_db_content "default content"
         end
       end
+
       context "when new card exist" do
         it "doesn't change content" do
           Card.new name: "new card", "+sub" => { content: "some content" }

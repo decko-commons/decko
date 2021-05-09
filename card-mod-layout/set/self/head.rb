@@ -9,7 +9,7 @@ format :html do
   view :core, cache: :never do
     escape_in_main do
       nest root.card, view: :head
-      # note that the head tag for each card is different
+      # NOTE: that the head tag for each card is different
       # (different title, different style rules, etc)
       # so we don't cache the core of *head, but we _do_ cache some
       # views within each head (see all/head.rb)

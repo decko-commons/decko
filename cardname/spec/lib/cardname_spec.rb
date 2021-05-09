@@ -121,27 +121,35 @@ RSpec.describe Cardname do
       it 'includes "A"' do
         expect(name).to include("A")
       end
+
       it '"includes "a"' do
         expect(name).to include("a")
       end
+
       it '"includes "B"' do
         expect(name).to include("B")
       end
+
       it '"includes "A+B"' do
         expect(name).to include("A+B")
       end
+
       it '"includes "CD+EF"' do
         expect(name).to include("CD+EF")
       end
+
       it '"includes "A+B+CD+EF"' do
         expect(name).to include("A+B+CD+EF")
       end
+
       it '"does not include "A+B+C"' do
         expect(name).not_to include("A+B+C")
       end
+
       it '"does not include "F"' do
         expect(name).not_to include("F")
       end
+
       it '"does not include "D+EF"' do
         expect(name).not_to include("AD+EF")
       end

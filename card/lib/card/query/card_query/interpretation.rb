@@ -53,6 +53,7 @@ class Card
 
         def no_method_for_attribute_type attribute, type
           return if type == :ignore
+
           if type == :deprecated
             deprecated_attribute attribute
           else

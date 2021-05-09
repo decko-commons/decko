@@ -2,11 +2,11 @@
 
 describe Card::Content::Chunk::QueryReference do
   context "syntax parsing" do
-    before do
-      @class = Card::Content::Chunk::QueryReference
-    end
-
     subject { query_refs.first.name }
+
+    before do
+      @class = described_class
+    end
 
     let :query_refs do
       Card::Content.new(@content, Card.new(type: "Search")).find_chunks(:QueryReference)
@@ -14,12 +14,12 @@ describe Card::Content::Chunk::QueryReference do
 
     it "handles simple search" do
       @content = '{"name":"Waldo"}'
-      is_expected.to eq "Waldo"
+      expect(subject).to eq "Waldo"
     end
 
     it "handles operators" do
       @content = '{"name":["eq","Waldo"]}'
-      is_expected.to eq "Waldo"
+      expect(subject).to eq "Waldo"
     end
 
     it "handles multiple values for operators" do
@@ -29,7 +29,7 @@ describe Card::Content::Chunk::QueryReference do
 
     it "handles plus attributes" do
       @content = '{"right_plus":["Waldo",{"content":"here"}]}'
-      is_expected.to eq "Waldo"
+      expect(subject).to eq "Waldo"
     end
 
     it "handles nested query structures" do
@@ -42,7 +42,7 @@ describe Card::Content::Chunk::QueryReference do
 
     it "handles contextual names" do
       @content = '{"name":"_+Waldo"}'
-      is_expected.to eq "_+Waldo"
+      expect(subject).to eq "_+Waldo"
     end
   end
 end

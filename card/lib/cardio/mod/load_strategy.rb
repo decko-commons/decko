@@ -56,10 +56,8 @@ module Cardio
         end
       end
 
-      def each_mod_dir module_type
-        @mod_dirs.each module_type do |base_dir|
-          yield base_dir
-        end
+      def each_mod_dir module_type, &block
+        @mod_dirs.each module_type, &block
       end
 
       def each_file_in_dir base_dir, subdir=nil

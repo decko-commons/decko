@@ -78,6 +78,7 @@ module Cardio
 
       def dependencies name, nickname=true
         return unless (spec = gem_spec name, nickname)
+
         deps = spec&.dependencies || []
         dep_names = deps.map { |dep| dependencies dep.name, false }
         (dep_names << spec).flatten.compact.uniq

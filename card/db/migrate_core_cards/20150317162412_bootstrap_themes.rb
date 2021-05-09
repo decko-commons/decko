@@ -2,10 +2,13 @@
 
 class BootstrapThemes < Cardio::Migration::Core
   def up
-    Card.create! name: "themeless bootstrap skin", type_code: :skin, content: "[[style: bootstrap]]\n[[style: jquery-ui-smoothness]]\n[[style: cards]]\n[[style: right sidebar]]\n[[style: bootstrap cards]]"
-    %w(cerulean cosmo cyborg darkly flatly journal lumen paper readable sandstone simplex slate spacelab superhero united yeti).each do |theme|
+    Card.create! name: "themeless bootstrap skin", type_code: :skin,
+                 content: "[[style: bootstrap]]\n[[style: jquery-ui-smoothness]]\n[[style: cards]]\n[[style: right sidebar]]\n[[style: bootstrap cards]]"
+    %w[cerulean cosmo cyborg darkly flatly journal lumen paper readable sandstone simplex
+       slate spacelab superhero united yeti].each do |theme|
       Card.create! name: "theme: #{theme}", type_code: :css, codename: "theme_#{theme}"
-      Card.create! name: "#{theme} skin", type_code: :skin, codename: "#{theme}_skin", content: "[[themeless bootstrap skin]]\n[[theme: #{theme}]]"
+      Card.create! name: "#{theme} skin", type_code: :skin, codename: "#{theme}_skin",
+                   content: "[[themeless bootstrap skin]]\n[[theme: #{theme}]]"
     end
 
     if credit_card = Card["*credit"]
@@ -30,7 +33,8 @@ class BootstrapThemes < Cardio::Migration::Core
     import_json "skin_images.json"
 
     if sidebar_card = Card["*sidebar"]
-      new_content = sidebar_card.db_content.gsub(/(\*(logo|credit))\|content/, '\1|content_panel')
+      new_content = sidebar_card.db_content.gsub(/(\*(logo|credit))\|content/,
+                                                 '\1|content_panel')
       sidebar_card.update! content: new_content
     end
   end

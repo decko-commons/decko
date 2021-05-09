@@ -17,11 +17,13 @@ end
 
 event :save_original_filename, :prepare_to_store, on: :save, when: :file_ready_to_save? do
   return unless @current_action
+
   @current_action.update! comment: original_filename
 end
 
 event :validate_file_exist, :validate, on: :create do
   return if empty_ok?
+
   if will_be_stored_as == :web
     errors.add "url is missing" if content.blank?
   elsif !attachment.file.present?
@@ -40,12 +42,14 @@ def file_ready_to_save?
     attachment_is_changing?
 end
 
-def item_names _args={} # needed for flexmail attachments.  hacky.
+# needed for flexmail attachments.  hacky.
+def item_names _args={}
   [name]
 end
 
 def original_filename
   return content.split("/").last if web?
+
   attachment.original_filename
 end
 
@@ -90,6 +94,7 @@ end
 
 def revision action, before_action=false
   return unless (result = super)
+
   result[:empty_ok] = true
   result
 end

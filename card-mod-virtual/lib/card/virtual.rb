@@ -39,6 +39,7 @@ class Card
       def refresh card
         virtual = find_by_card(card)
         return create(card) unless virtual
+
         virtual.update card.generate_virtual_content
       end
 
@@ -87,6 +88,7 @@ class Card
             "needs id"
           end
         return unless reason
+
         raise Card::Error, card.name, "count not cacheable: card #{card.name} #{reason}"
       end
     end

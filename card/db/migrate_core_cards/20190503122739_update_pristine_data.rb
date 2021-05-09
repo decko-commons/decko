@@ -12,7 +12,7 @@ class UpdatePristineData < Cardio::Migration::Core
       full_width_layout
       *header
       cardtype+*type+*structure
-      ]
+    ]
     merge_pristine_cards names
   end
 end

@@ -51,6 +51,7 @@ class MigrateCustomizedBootstrapSkin < Cardio::Migration::Core
   def migrate_customizable_bootstrap_skin
     referers = Card.search refer_to: { codename: OLD_SKIN.to_s }
     return unless referers.present?
+
     replace_old_skin referers
     build_new_skin
     delete_code_card OLD_SKIN

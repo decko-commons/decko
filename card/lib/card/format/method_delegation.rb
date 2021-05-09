@@ -52,8 +52,8 @@ class Card
         end
       end
 
-      def interpret_render_opts opts
-        (opts[0] ? opts.shift.clone : {}).tap { |args| yield args }
+      def interpret_render_opts opts, &block
+        (opts[0] ? opts.shift.clone : {}).tap(&block)
       end
 
       def optional_render_opt opts, args

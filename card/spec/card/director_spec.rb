@@ -31,22 +31,22 @@ RSpec.describe "Card::Director" do
   end
 
   describe "abortion" do
+    subject { Card.fetch "a card" }
+
     let(:create_card) { Card.create name: "a card" }
     let(:create_card_with_subcard) do
       Card.create name: "a card", subcards: { "a subcard" => "content" }
     end
 
-    subject { Card.fetch "a card" }
-
     context "when error added" do
       it "stops act in validation phase" do
         stop_at_stage :validate
-        is_expected.to be_falsey
+        expect(subject).to be_falsey
       end
 
       it "stops act in storage phase" do
         stop_at_stage :store
-        is_expected.to be_falsey
+        expect(subject).to be_falsey
       end
     end
 
@@ -60,19 +60,19 @@ RSpec.describe "Card::Director" do
 
       it "rollbacks in finalize stage" do
         rollback_at_stage :finalize
-        is_expected.to be_falsey
+        expect(subject).to be_falsey
       end
 
       it "does not rollback in integrate stage", is_bot: true do
         rollback_at_stage :integrate
-        is_expected.to be_truthy
+        expect(subject).to be_truthy
       end
     end
 
     context "when abort :success called" do
       it "aborts storage in validation stage" do
         success_at_stage :validate
-        is_expected.to be_falsey
+        expect(subject).to be_falsey
       end
 
       it "does not execute subcard stages on create" do
@@ -96,17 +96,17 @@ RSpec.describe "Card::Director" do
 
       it "aborts storage in store stage" do
         success_at_stage :store
-        is_expected.to be_falsey
+        expect(subject).to be_falsey
       end
 
       it "does not abort storage in finalize stage" do
         success_at_stage :finalize
-        is_expected.to be_truthy
+        expect(subject).to be_truthy
       end
 
       it "does not abort storage in integrate stage" do
         success_at_stage :integrate
-        is_expected.to be_truthy
+        expect(subject).to be_truthy
       end
     end
   end
@@ -274,7 +274,6 @@ RSpec.describe "Card::Director" do
     it "load type_plus_right set module", as_bot: true do
       in_stage :prepare_to_validate, on: :create, for: "single card",
                                      trigger: :create_single_card do
-
         u_card = attach_subfield "a user", type_id: Card::UserID
         f_card = u_card.attach_subfield "*follow"
         expect(f_card.set_modules).to include(Card::Set::TypePlusRight::User::Follow)

@@ -1,6 +1,7 @@
 format :html do
   view :core do
     return super() if voo.hide? :test_context
+
     card.with_context test_context_card do
       super()
     end

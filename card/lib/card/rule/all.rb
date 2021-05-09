@@ -24,6 +24,7 @@ class Card
 
       def preference_card_id setting_code, user=nil
         return unless (user_id = preference_user_id user)
+
         rule_id_lookup Card::Rule.preference_cache,
                        "#{setting_code}+#{user_id}",
                        "#{setting_code}+#{AllID}"

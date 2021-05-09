@@ -1,4 +1,5 @@
 # -*- encoding : utf-8 -*-
+
 require "recaptcha"
 
 # This initializer module is mostly here to avoid adding methods/vars to the Object
@@ -39,6 +40,7 @@ module RecaptchaCard
 
     def card_value setting
       return unless Card::Codename.exist? setting # prevents breakage in migrations
+
       value = Card[setting]&.content
       value if value.present?
     end

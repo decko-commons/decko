@@ -16,6 +16,6 @@ end
 
 format :html do
   def related_by_type_items
-    super.unshift ["#{card.name} cards", [card, :type, :by_name], mark: :absolute]
+    super.unshift ["#{card.name} cards", [card, :type, :by_name], { mark: :absolute }]
   end
 end

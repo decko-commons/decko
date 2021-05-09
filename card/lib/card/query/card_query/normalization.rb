@@ -8,6 +8,7 @@ class Card
           clause.symbolize_keys!
           clause.each do |key, val|
             next if key.to_sym == :return
+
             # when return values are relative, they are relative to the name of the
             # card returned, not the context card
             clause[key] = normalize_value val

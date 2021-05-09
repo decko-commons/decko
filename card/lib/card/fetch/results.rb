@@ -4,6 +4,7 @@ class Card
     module Results
       def results
         return if card.nil?
+
         card.new_card? ? new_result_card : finalize_result_card
       end
 
@@ -34,6 +35,7 @@ class Card
 
       def renew
         return if new_opts.blank?
+
         # Rails.logger.info "renewing: #{mark}, #{new_opts}"
         @card = card.dup
         @card.newish newish_opts
@@ -59,6 +61,7 @@ class Card
 
       def update_supercard
         return unless (sc = new_opts[:supercard])
+
         @card.supercard = sc
         @card.update_superleft @card.name
       end
@@ -67,6 +70,7 @@ class Card
         return true if new_opts.blank?
         return false if type_change? || name_change?
         return false if fancy_renew?
+
         quick_content
         true
       end
@@ -84,19 +88,23 @@ class Card
 
       def quick_content
         return unless (content = assignable_content(new_opts[:default_content]))
+
         @card.content = content
       end
 
       def name_change?
         return false unless (new_name = new_opts[:name]&.to_name)
         return false if new_name.relative? && mark.name? && mark.absolute?
+
         new_name.to_s != @card.name.to_s
       end
 
       def type_change?
         return true if @card.type_id.nil?
+
         type_id = type_id_from_new_opts
         return true if !type_id && supercard_might_change_type?
+
         type_id && (type_id != @card.type_id)
       end
 
@@ -118,6 +126,7 @@ class Card
       def assign_name_from_mark
         return if opts[:local_only]
         return unless mark&.to_s != card.name
+
         card.name = mark.to_s
       end
     end

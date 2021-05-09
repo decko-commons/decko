@@ -6,10 +6,9 @@ class Card
       # for the card of the format that renders the act.
       class RelativeActRenderer < ActRenderer
         def title
-          "<span class=\"nr\">##{@args[:act_seq]}</span>" +
-            accordion_expand_link(@act.actor.name) +
-            " " +
-            wrap_with(:small, edited_ago)
+          "<span class=\"nr\">##{@args[:act_seq]}</span>#{accordion_expand_link(@act.actor.name)} #{wrap_with(
+            :small, edited_ago
+          )}"
         end
 
         def subtitle

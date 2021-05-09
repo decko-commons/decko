@@ -136,6 +136,7 @@ format :html do
 
   def short_content_items
     return unless card.respond_to? :count
+
     "#{count} #{'item'.pluralize count}"
   end
 

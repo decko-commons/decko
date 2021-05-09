@@ -51,13 +51,14 @@ class Bootstrap
 
     def render_content
       # if @build_block.arity > 0
-      instance_exec *@args, &@build_block
+      instance_exec(*@args, &@build_block)
     end
 
     def generate_content content, processor, &block
-      content = instance_exec &block if block.present?
+      content = instance_exec(&block) if block.present?
       return content if !processor || !content.is_a?(Array)
-      content.each {|item| send processor, item}
+
+      content.each { |item| send processor, item }
       ""
     end
 

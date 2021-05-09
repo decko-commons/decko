@@ -58,12 +58,14 @@ class Card
           interpret_reference ref_hash, referee_name, ref_type
         end
         return if ref_hash.empty?
+
         Reference.mass_insert reference_values_array(ref_hash)
       end
 
       # delete references from this card
       def delete_references_out
         raise "id required to delete references" if id.nil?
+
         Reference.where(referer_id: id).delete_all
       end
 
@@ -71,9 +73,11 @@ class Card
 
       def with_normalized_referee referee_name
         return unless referee_name # eg commented nest has no referee_name
+
         referee_name = referee_name.to_name
         referee_key = referee_name.key
         return if referee_key == key # don't create self reference
+
         yield referee_name, referee_key, Lexicon.id(referee_name)
       end
 
@@ -103,10 +107,10 @@ class Card
         end
       end
 
-      def each_reference_type ref_types
+      def each_reference_type ref_types, &block
         ref_types.delete PARTIAL_REF_CODE if ref_types.size > 1
         # partial references are not necessary if there are explicit references
-        ref_types.each { |ref_type| yield ref_type }
+        ref_types.each(&block)
       end
 
       # invokes the given block for each reference in content with
@@ -122,6 +126,7 @@ class Card
       # but when A's name is changed we have to find and update that link.
       def interpret_partial_references ref_hash, referee_name
         return if referee_name.simple?
+
         [referee_name.left, referee_name.right].each do |sidename|
           interpret_reference ref_hash, sidename, PARTIAL_REF_CODE
         end

@@ -8,8 +8,10 @@ class Card
 
       def uniquify_name name, rename=:new
         return name unless Card.exists? name
+
         uniq_name = generate_alternative_name name
         return uniq_name unless rename == :old
+
         rename!(name, uniq_name)
         name
       end

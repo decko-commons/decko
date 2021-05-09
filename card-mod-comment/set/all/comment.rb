@@ -5,6 +5,7 @@ end
 event :add_comment, :prepare_to_store, on: :save, when: :comment do
   Env.session[:comment_author] = comment_author if Env.session
   return unless comment.present?
+
   self.content =
     [content, format.comment_with_signature].compact.join "\n<hr\>\n"
   self.comment = nil
@@ -25,7 +26,7 @@ end
 
 format do
   def comment_with_signature
-    card.clean_comment + "\n" + comment_signature
+    "#{card.clean_comment}\n#{comment_signature}"
   end
 
   def comment_signature
@@ -53,6 +54,7 @@ format do
 
   def hidden_comment_fields
     return unless card.new_card?
+
     hidden_field_tag "card[name]", card.name
     # FIXME: wish we had more generalized solution for names.
     # without this, nonexistent cards will often take left's linkname.
@@ -71,6 +73,7 @@ format do
 
   def comment_author_label
     return if Auth.signed_in?
+
     %(<label>My Name is:</label> #{text_field :comment_author})
   end
 

@@ -23,9 +23,9 @@ RSpec.describe Card::Set::Right::Style do
     let(:expected_input_items) { nil }
     let(:input_type) { :css }
     let(:card_content) do
-      { in:           css,         out:     compressed_css,
-        changed_in:   changed_css, changed_out: compressed_changed_css,
-        new_in:       new_css,     new_out:     compressed_new_css }
+      { in: css,         out:     compressed_css,
+        changed_in: changed_css, changed_out: compressed_changed_css,
+        new_in: new_css,     new_out:     compressed_new_css }
     end
   end
 end

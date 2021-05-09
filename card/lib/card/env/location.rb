@@ -9,7 +9,7 @@ class Card
           Rails.logger.warn "Pass only strings to card_path. "\
                             "(#{rel_path} = #{rel_path.class})"
         end
-        if rel_path =~ %r{^(https?\:)?/}
+        if rel_path =~ %r{^(https?:)?/}
           rel_path
         else
           "#{Card.config.relative_url_root}/#{rel_path}"
@@ -17,7 +17,7 @@ class Card
       end
 
       def card_url rel
-        rel =~ /^https?\:/ ? rel : "#{protocol_and_host}#{card_path rel}"
+        rel =~ /^https?:/ ? rel : "#{protocol_and_host}#{card_path rel}"
       end
 
       def protocol_and_host
@@ -26,6 +26,7 @@ class Card
 
       def cardname_from_url url
         return unless (cardname = cardname_from_url_regexp)
+
         m = url.match cardname
         m ? Card::Name[m[:mark]] : nil
       end
@@ -35,7 +36,7 @@ class Card
       def cardname_from_url_regexp
         return unless Env[:host]
 
-        %r{#{Regexp.escape Env[:host]}/(?<mark>[^\?]+)}
+        %r{#{Regexp.escape Env[:host]}/(?<mark>[^?]+)}
       end
 
       extend Location # allows calls on Location constant, eg Location.card_url

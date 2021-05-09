@@ -27,12 +27,10 @@ class AccountRequestsToSignups < Cardio::Migration::Core
     end
 
     # get rid of old signup card unless there is other data there (most likely +*subject and +*message)
-    unless Card.search(return: :id, left_id: old_signup.id).first
-      old_signup.delete!
-    end
+    old_signup.delete! unless Card.search(return: :id, left_id: old_signup.id).first
 
     # turn captcha off by default on signup
-    rulename = [:signup, :type, :captcha].map { |code| Card[code].name } * "+"
+    rulename = %i[signup type captcha].map { |code| Card[code].name } * "+"
     captcha_rule = Card.fetch rulename, new: {}
     captcha_rule.content = "0"
     captcha_rule.save!

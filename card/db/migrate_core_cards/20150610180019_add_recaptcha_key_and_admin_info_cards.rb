@@ -14,7 +14,7 @@ class AddRecaptchaKeyAndAdminInfoCards < Cardio::Migration::Core
     admin_only name: "*google_analytics_key",
                codename: "google_analytics_key"
 
-    codenames = %w(debugger recaptcha_settings)
+    codenames = %w[debugger recaptcha_settings]
     content =
       codenames.map do |cn|
         "[[#{Card[cn.to_sym].name}]]"
@@ -28,6 +28,7 @@ class AddRecaptchaKeyAndAdminInfoCards < Cardio::Migration::Core
 
   def add_admin_info_to_home_card
     return unless (home = Card[Card[:home].db_content])
+
     new_content = home.db_content.prepend "{{*admin info|content}}\n"
     home.update! content: new_content
   end
@@ -39,7 +40,7 @@ class AddRecaptchaKeyAndAdminInfoCards < Cardio::Migration::Core
                         "[[+private key]]\n" \
                         "[[+proxy]]"
     Card::Cache.reset_all
-    %w(public_key private_key proxy).each do |name|
+    %w[public_key private_key proxy].each do |name|
       Card.create!(
         name: "#{Card[:recaptcha_settings].name}+#{name.tr('_', ' ')}",
         codename: "recaptcha_#{name}"
@@ -49,7 +50,7 @@ class AddRecaptchaKeyAndAdminInfoCards < Cardio::Migration::Core
 
   def admin_only args
     create_or_update! args.reverse_merge(type_id: Card::PhraseID)
-    %w(*read *update *delete).each do |perm|
+    %w[*read *update *delete].each do |perm|
       create_or_update! name: "#{args[:name]}+*self+#{perm}",
                         content: "[[Administrator]]"
     end

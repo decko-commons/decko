@@ -1,5 +1,9 @@
 RSpec.describe Card::Set::Format::AbstractFormat::Wrapper do
   describe "simple wrapper" do
+    subject do
+      format.wrap_with_cream { "cake" }
+    end
+
     let(:format) do
       Card["A"].format_with do
         wrapper :cream do
@@ -12,12 +16,8 @@ RSpec.describe Card::Set::Format::AbstractFormat::Wrapper do
       end
     end
 
-    subject do
-      format.wrap_with_cream { "cake" }
-    end
-
     it "is wrapped with cream" do
-      is_expected.to  eq "cream_cake_cream"
+      expect(subject).to eq "cream_cake_cream"
     end
 
     it "is possible to use format methods in wrapper" do
@@ -38,7 +38,7 @@ RSpec.describe Card::Set::Format::AbstractFormat::Wrapper do
       end
 
       it "is wrapped with cream" do
-        is_expected.to have_tag "div.creamy", "cake"
+        expect(subject).to have_tag "div.creamy", "cake"
       end
     end
 
@@ -48,12 +48,16 @@ RSpec.describe Card::Set::Format::AbstractFormat::Wrapper do
       end
 
       it "is wrapped with cream" do
-        is_expected.to have_tag "div.creamy", "cake"
+        expect(subject).to have_tag "div.creamy", "cake"
       end
     end
   end
 
   describe "wrapper with options" do
+    subject do
+      format.wrap_with_cream(topping: "cherry") { "cake" }
+    end
+
     let(:format) do
       Card["A"].format_with do
         wrapper :cream do |opts|
@@ -62,12 +66,8 @@ RSpec.describe Card::Set::Format::AbstractFormat::Wrapper do
       end
     end
 
-    subject do
-      format.wrap_with_cream(topping: "cherry") { "cake" }
-    end
-
     it "is wrapped with cream" do
-      is_expected.to eq "cherry_cream_cake_cream"
+      expect(subject).to eq "cherry_cream_cake_cream"
     end
   end
 
@@ -125,9 +125,10 @@ RSpec.describe Card::Set::Format::AbstractFormat::Wrapper do
     context "with before hook" do
       let(:format) do
         Card["A"].format_with do
-          wrapper(:cream) { "#{classy("cream")}_#{interior}_cream" }
+          wrapper(:cream) { "#{classy('cream')}_#{interior}_cream" }
 
           before(:whipped_cream_cake) { class_up "cream", "whipped" }
+
           view(:whipped_cream_cake, wrap: :cream) { "cake" }
         end
       end
@@ -139,6 +140,8 @@ RSpec.describe Card::Set::Format::AbstractFormat::Wrapper do
   end
 
   describe "nested wrapper" do
+    subject { format.render_kwai }
+
     let(:format) do
       Card["A"].format_with do
         view :kwai, wrap: :bridge do
@@ -147,10 +150,8 @@ RSpec.describe Card::Set::Format::AbstractFormat::Wrapper do
       end
     end
 
-    subject { format.render_kwai }
-
     it "wrapped with bridge" do
-      is_expected.to have_tag "div#modal-container.modal._modal-slot" do
+      expect(subject).to have_tag "div#modal-container.modal._modal-slot" do
         with_tag "div.modal-dialog" do
           with_tag "div.modal-content" do
             with_tag "div.modal-body" do

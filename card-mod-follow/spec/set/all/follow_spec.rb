@@ -6,6 +6,8 @@ RSpec.describe Card::Set::All::Follow do
   end
 
   describe "follower_ids" do
+    subject(:followers) { Card[cardname].follower_names.sort }
+
     context "when a new +*follow rule created" do
       it "contains id of a new follower" do
         Card::Auth.as_bot do
@@ -15,8 +17,6 @@ RSpec.describe Card::Set::All::Follow do
         end
       end
     end
-
-    subject(:followers) { Card[cardname].follower_names.sort }
 
     context "when not followed" do
       let(:cardname) { "No One Sees Me" }
@@ -41,7 +41,7 @@ RSpec.describe Card::Set::All::Follow do
 
       it do
         expect(followers).to eq ["Big Brother", "Narcissist", "Optic fan", "Sara",
-                           "Sunglasses fan"]
+                                 "Sunglasses fan"]
       end
     end
 
@@ -50,7 +50,7 @@ RSpec.describe Card::Set::All::Follow do
 
       it do
         expect(followers).to eq ["Big Brother", "Narcissist", "Optic fan", "Sara",
-                           "Sunglasses fan"]
+                                 "Sunglasses fan"]
       end
     end
 

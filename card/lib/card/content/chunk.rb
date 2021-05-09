@@ -69,7 +69,7 @@ class Card
               chunk_class = const_get chunkname
               chunk_class.config[:prefix_re]
             end
-          /(?:#{ prefix_res * '|' })/m
+          /(?:#{prefix_res * '|'})/m
         end
 
         def validate_chunk_list_key chunk_list_key

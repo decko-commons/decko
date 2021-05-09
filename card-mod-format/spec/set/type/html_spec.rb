@@ -23,6 +23,6 @@ RSpec.describe Card::Set::Type::Html do
 
   it "does not render uris" do
     rendered = render_card :core, type: "HTML", content: "http://google.com"
-    expect(rendered).not_to match(/\<a/)
+    expect(rendered).not_to match(/<a/)
   end
 end

@@ -9,7 +9,7 @@ class Card
 
         truncated, wordstring = truncate input, words
         # nuke partial tags at end of snippet
-        wordstring.gsub!(/(<[^\>]+)$/, "")
+        wordstring.gsub!(/(<[^>]+)$/, "")
         wordstring = close_tags wordstring
         wordstring += ELLIPSES_HTML if truncated
         # wordstring += '...' if wordlist.length > l
@@ -34,9 +34,9 @@ class Card
       end
 
       def polish wordstring
-        wordstring.gsub! %r{<[/]?br[\s/]*>}, " "
+        wordstring.gsub! %r{</?br[\s/]*>}, " "
         # Also a hack -- get rid of <br>'s -- they make line view ugly.
-        wordstring.gsub! %r{<[/]?p[^>]*>}, " "
+        wordstring.gsub! %r{</?p[^>]*>}, " "
         ## Also a hack -- get rid of <br>'s -- they make line view ugly.
         wordstring
       end
@@ -45,17 +45,17 @@ class Card
         tags = []
 
         # match tags with or without self closing (ie. <foo />)
-        wordstring.scan(%r{\<([^\>\s/]+)[^\>]*?\>}).each do |t|
+        wordstring.scan(%r{<([^>\s/]+)[^>]*?>}).each do |t|
           tags.unshift(t[0])
         end
         # match tags with self closing and mark them as closed
-        wordstring.scan(%r{\<([^\>\s/]+)[^\>]*?/\>}).each do |t|
+        wordstring.scan(%r{<([^>\s/]+)[^>]*?/>}).each do |t|
           next unless (x = tags.index(t[0]))
 
           tags.slice!(x)
         end
         # match close tags
-        wordstring.scan(%r{\</([^\>\s/]+)[^\>]*?\>}).each do |t|
+        wordstring.scan(%r{</([^>\s/]+)[^>]*?>}).each do |t|
           next unless (x = tags.rindex(t[0]))
 
           tags.slice!(x)

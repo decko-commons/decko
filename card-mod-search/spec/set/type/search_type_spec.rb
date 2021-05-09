@@ -40,11 +40,12 @@ RSpec.describe Card::Set::Type::SearchType do
   end
 
   context "references" do
-    before do
-      create_search_type "search with references", content: '{"name":"Y"}'
-    end
     subject do
       Card["search with references"]
+    end
+
+    before do
+      create_search_type "search with references", content: '{"name":"Y"}'
     end
 
     it "updates query if referee changed" do
@@ -72,7 +73,7 @@ RSpec.describe Card::Set::Type::SearchType do
       end
 
       it "has title row with nest names" do
-        is_expected.to include "AUTHOR,ILLUSTRATOR"
+        expect(subject).to include "AUTHOR,ILLUSTRATOR"
       end
 
       it "has nests contents" do
@@ -80,7 +81,7 @@ RSpec.describe Card::Set::Type::SearchType do
                type: "Book",
                subfields: { "author" => "Hitchhiker",
                             "illustrator" => "Galaxy" }
-        is_expected.to include "Hitchhiker,Galaxy"
+        expect(subject).to include "Hitchhiker,Galaxy"
       end
     end
 
@@ -92,7 +93,7 @@ RSpec.describe Card::Set::Type::SearchType do
       end
 
       it "has title row item name and field names" do
-        is_expected.to include "ITEM NAME,AUTHOR,ILLUSTRATOR"
+        expect(subject).to include "ITEM NAME,AUTHOR,ILLUSTRATOR"
       end
 
       it "has field contents" do
@@ -100,7 +101,7 @@ RSpec.describe Card::Set::Type::SearchType do
                type: "Book",
                subfields: { "author" => "Hitchhiker",
                             "illustrator" => "Galaxy" }
-        is_expected.to include "Guide,Hitchhiker,Galaxy"
+        expect(subject).to include "Guide,Hitchhiker,Galaxy"
       end
     end
   end
