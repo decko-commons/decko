@@ -173,7 +173,7 @@ RSpec.describe Card::Set::Type::File do
       Card::Auth.as_bot do
         unprotected_file.delete!
       end
-      expect(Dir).not_to exist(File.dirname(pp))
+      expect(Dir).not_to be_exist(File.dirname(pp))
     end
   end
 
