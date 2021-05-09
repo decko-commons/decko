@@ -61,7 +61,7 @@ def mod
 end
 
 def mod_from_content
-  if content =~ %r{^:[^/]+/([^.]+)}
+  if content.match? %r{^:[^/]+/([^.]+)}
     Regexp.last_match(1) # current mod_file format
   else
     mod_from_deprecated_content
@@ -70,7 +70,7 @@ end
 
 # old format is still used in card_changes
 def mod_from_deprecated_content
-  return if content =~ /^~/
+  return if content.match?(/^~/)
   return unless (lines = content.split("\n")) && lines.size == 4
 
   lines.last

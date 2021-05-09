@@ -196,8 +196,8 @@ RSpec.describe Card::Content::Diff do
     end
 
     it "diff for tag change" do
-      expect(diff(old_p,
-                  new_h)).to eq(del("#{tag 'p'}old#{tag '/p'}") + ins("#{tag 'h1'}new#{tag '/h1'}"))
+      expect(diff(old_p, new_h))
+        .to eq(del("#{tag 'p'}old#{tag '/p'}") + ins("#{tag 'h1'}new#{tag '/h1'}"))
     end
   end
 

@@ -7,7 +7,7 @@ CARD_TASKS =
     :migrate,
     { migrate: %i[cards structure core_cards deck_cards redo stamp] },
     :reset_cache
-  ]
+  ].freeze
 
 link_task CARD_TASKS, from: :decko, to: :card
 

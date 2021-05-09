@@ -37,8 +37,8 @@ format :html do
 
     def singleton_modules_list subject
       all_mods = subject.singleton_class.ancestors.map(&:to_s)
-    all_mods.shift
-    list_group all_mods
+      all_mods.shift
+      list_group all_mods
     end
 
   def cache_comparison_table subject

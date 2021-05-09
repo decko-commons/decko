@@ -9,7 +9,7 @@ class Card
           Rails.logger.warn "Pass only strings to card_path. "\
                             "(#{rel_path} = #{rel_path.class})"
         end
-        if rel_path =~ %r{^(https?:)?/}
+        if rel_path.match? %r{^(https?:)?/}
           rel_path
         else
           "#{Card.config.relative_url_root}/#{rel_path}"
@@ -17,7 +17,7 @@ class Card
       end
 
       def card_url rel
-        rel =~ /^https?:/ ? rel : "#{protocol_and_host}#{card_path rel}"
+        rel.match?(/^https?:/) ? rel : "#{protocol_and_host}#{card_path rel}"
       end
 
       def protocol_and_host

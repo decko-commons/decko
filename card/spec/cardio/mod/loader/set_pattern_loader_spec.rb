@@ -8,8 +8,8 @@ RSpec.describe Cardio::Mod::Loader::SetPatternLoader do
   end
 
   it "initializes the load strategy" do
-    expect(Cardio::Mod::LoadStrategy::Eval).to receive(:new).with(mod_dirs,
-                                                                  instance_of(described_class))
+    expect(Cardio::Mod::LoadStrategy::Eval)
+      .to receive(:new).with(mod_dirs, instance_of(described_class))
     described_class.new load_strategy: :eval, mod_dirs: mod_dirs
   end
 

@@ -36,7 +36,7 @@ end
 
 Before("not @background-jobs", "not @delayed-jobs", "not @javascript") do
   DatabaseCleaner.strategy = :transaction
- DatabaseCleaner.start
+  DatabaseCleaner.start
 end
 
 After("not @background-jobs", "not @delayed-jobs", "not @javascript") do

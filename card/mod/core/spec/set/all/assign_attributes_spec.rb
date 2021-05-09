@@ -33,11 +33,11 @@ RSpec.describe Card::Set::All::AssignAttributes do
 
   it "assigns subfields" do
     card = Card.new name: "#name", subfields: { default: { content: "subcontent" } }
-      expect(card.subcards.first).to eq "name+*default"
-      subcard = card.subfield :default
-      expect(subcard).to be_a(Card)
-      expect(subcard.name).to eq "#name+*default"
-      expect(subcard.content).to eq "subcontent"
+    expect(card.subcards.first).to eq "name+*default"
+    subcard = card.subfield :default
+    expect(subcard).to be_a(Card)
+    expect(subcard.name).to eq "#name+*default"
+    expect(subcard.content).to eq "subcontent"
   end
 
   describe "set specific attributes" do
