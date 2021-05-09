@@ -3,6 +3,7 @@
 event :validate_name, :validate, on: :save, changed: :name, when: :no_autoname? do
   validate_legality_of_name
   return if errors.any?
+
   Card.write_to_soft_cache self
   validate_uniqueness_of_name
 end
@@ -44,6 +45,7 @@ end
 
 event :validate_renaming, :validate, on: :update, changed: :name, skip: :allowed do
   return if name_before_act&.to_name == name # just changing to new variant
+
   errors.add :content, t(:core_cannot_change_content) if content_is_changing?
   errors.add :type, t(:core_cannot_change_type) if type_is_changing?
   detect_illegal_compound_names
@@ -58,11 +60,13 @@ end
 event :rename_in_trash, after: :expire_old_name, on: :update do
   existing_card = Card.find_by_key_and_trash name.key, true
   return if !existing_card || existing_card == self
+
   existing_card.rename_as_trash_obstacle
 end
 
 event :prepare_left_and_right, :store, changed: :name, on: :save do
   return if name.simple?
+
   prepare_side :left
   prepare_side :right
 end
@@ -79,7 +83,7 @@ end
 protected
 
 def rename_as_trash_obstacle
-  self.name = name + "*trash"
+  self.name = "#{name}*trash"
   rename_in_trash_without_callbacks
   save!
 end
@@ -105,11 +109,13 @@ end
 
 def detect_illegal_compound_names
   return unless changed_from_simple_to_compound? && child_ids(:right).present?
+
   errors.add :name, "illegal name change; existing names end in +#{name_before_act}"
 end
 
 def changing_existing_tag_to_compound?
   return false unless changing_name_to_compound?
+
   name_in_use_as_tag?
 end
 
@@ -150,6 +156,7 @@ end
 
 def prepare_obstructed_side side, side_id, sidename
   return unless side_id && side_id == id
+
   clear_name sidename
   send "#{side}_id=", add_subcard(sidename)
   true

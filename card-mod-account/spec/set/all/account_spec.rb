@@ -12,7 +12,7 @@ RSpec.describe Card::Set::All::Account do
     context "for Joe User" do
       before do
         @joe_user_card = Card::Auth.current
-        @parties = @joe_user_card.parties # note: must be called to test resets
+        @parties = @joe_user_card.parties # NOTE: must be called to test resets
       end
 
       it "initially has only auth and self " do
@@ -46,7 +46,7 @@ RSpec.describe Card::Set::All::Account do
 
   describe "among?" do
     it "is true for self" do
-      expect(Card::Auth.current.among?([Card::Auth.current_id])).to be_truthy
+      expect(Card::Auth.current).to be_among([Card::Auth.current_id])
     end
   end
 
@@ -71,8 +71,8 @@ RSpec.describe Card::Set::All::Account do
   end
 
   context "updates" do
-    let(:card) {Card["Joe User"]}
-    let(:account) {card.account}
+    let(:card) { Card["Joe User"] }
+    let(:account) { card.account }
 
     it "handles email updates" do
       card.update! "+*account" => { "+*email" => "joe@user.co.uk" }
@@ -81,7 +81,7 @@ RSpec.describe Card::Set::All::Account do
 
     it "lets Wagn Bot block accounts", as_bot: true do
       card.account.status_card.update! content: "blocked"
-      expect(account.blocked?).to be_truthy
+      expect(account).to be_blocked
     end
 
     it "does not allow a user to block or unblock himself" do
@@ -90,7 +90,7 @@ RSpec.describe Card::Set::All::Account do
       end.to raise_error(ActiveRecord::RecordInvalid,
                          "Validation failed: Permission denied You don't have "\
                        "permission to change the status of your own account")
-      expect(account.blocked?).to be_falsey
+      expect(account).not_to be_blocked
     end
   end
 
@@ -100,7 +100,7 @@ RSpec.describe Card::Set::All::Account do
     end
 
     it "*all+*read should apply to Joe User" do
-      expect(@read_rules.member?(Card.fetch("*all+*read").id)).to be_truthy
+      expect(@read_rules).to be_member(Card.fetch("*all+*read").id)
     end
 
     it "11 more should apply to Joe Admin" do

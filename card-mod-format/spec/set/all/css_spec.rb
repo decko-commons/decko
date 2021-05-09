@@ -5,6 +5,6 @@ describe Card::Set::All::Css do
     content = "#box { display: block }"
     rendered = render_card :content, { content: content }, format: :css
     #    rendered.should =~ /Style Card\:/
-    expect(rendered).to match(/#{ Regexp.escape content }/)
+    expect(rendered).to match(/#{Regexp.escape content}/)
   end
 end

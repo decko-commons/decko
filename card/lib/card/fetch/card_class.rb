@@ -86,8 +86,8 @@ class Card
         elsif block_given?
           yield.to_name
         end
-      rescue => error
-        rescue_fetch_name error, &block
+      rescue StandardError => e
+        rescue_fetch_name e, &block
       end
 
       # @param mark - see #fetch

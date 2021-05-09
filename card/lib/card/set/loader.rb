@@ -33,8 +33,6 @@ class Card
       #  tmp files that add module names (Card::Set::PATTERN::ANCHOR) and
       #  extend the module with Card::Set.
 
-      #
-
       # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
       # Organization Phase
 

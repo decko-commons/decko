@@ -9,6 +9,7 @@ class Card
 
         def referee_name
           return if name.nil?
+
           @referee_name ||= referee_raw_name
           @referee_name = @referee_name.absolute_name card.name
         rescue Card::Error::NotFound

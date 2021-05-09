@@ -86,6 +86,7 @@ format :html do
 
   def act_paging acts, context
     return unless controller.request # paginate requires a request
+
     wrap_with :div, class: "slotter btn-sm" do
       paginate current_page_acts(acts), act_paging_opts(context)
     end

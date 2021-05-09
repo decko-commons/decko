@@ -55,6 +55,7 @@ class Card
             if block_given?
               raise Card::Error::ServerError, "no blocks allowed in aliased views"
             end
+
             views[mod][alias_to] || begin
               raise "cannot find #{alias_to} view in #{mod}; " \
                       "failed to alias #{view} from #{self}"

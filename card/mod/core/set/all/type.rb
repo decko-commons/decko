@@ -1,4 +1,3 @@
-
 module ClassMethods
   def default_type_id
     @@default_type_id ||= Card[:all].fetch(:default, skip_modules: true).type_id
@@ -7,6 +6,7 @@ end
 
 def type_card
   return if type_id.nil?
+
   Card.quick_fetch type_id.to_i
 end
 
@@ -38,12 +38,14 @@ end
 
 def type_id_from_template
   return unless name && (t = template)
+
   reset_patterns # still necessary even with new template handling?
   self.type_id = t.type_id
 end
 
 event :validate_type_change, :validate, on: :update, changed: :type_id do
   return unless (c = dup) && c.action == :create && !c.valid?
+
   errors.add :type, t(:core_error_cant_change_errors,
                       name: name,
                       type_id: type_id,

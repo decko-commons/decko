@@ -69,6 +69,7 @@ class UpdateCreditImage < Cardio::Migration::Core
     credit = ensure_card "*credit_image", codename: :credit_image
 
     return unless credit&.pristine?
+
     credit.update type_id: Card::HtmlID,
                   content: svg("width:18px; height:14px;")
   end

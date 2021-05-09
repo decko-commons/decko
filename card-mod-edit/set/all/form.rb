@@ -30,9 +30,9 @@ format :html do
     hidden_field :last_action_id_before_edit, class: "current_revision_id"
   end
 
-  def wrap_content_formgroup
+  def wrap_content_formgroup &block
     formgroup("Content", input: :content, help: false,
-                         class: classy("card-editor")) { yield }
+                         class: classy("card-editor"), &block)
   end
 
   def button_formgroup &block
@@ -232,12 +232,10 @@ format :html do
     end
   end
 
-  def editor_wrap type=nil
+  def editor_wrap type=nil, &block
     html_class = "editor"
     html_class << " #{type}-editor" if type
-    wrap_with :div, class: html_class do
-      yield
-    end
+    wrap_with :div, class: html_class, &block
   end
 
   # FIELD VIEWS

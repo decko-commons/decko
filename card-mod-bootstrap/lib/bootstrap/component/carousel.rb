@@ -2,14 +2,14 @@ class Bootstrap
   class Component
     class Carousel < Component
       def render_content
-        carousel *@args, &@build_block
+        carousel(*@args, &@build_block)
       end
 
       def carousel id, active_index, &block
         @id = id
         @active_item_index = active_index
         @items = []
-        instance_exec &block
+        instance_exec(&block)
 
         @html.div class: "carousel slide", id: id, "data-ride" => "carousel" do
           indicators

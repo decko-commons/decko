@@ -5,6 +5,7 @@ class UpdateKeys < Cardio::Migration::Core
     Card.pluck(:id, :name, :key).each do |id, name, key|
       new_key = name.to_name.key
       next if new_key == key
+
       update_key id, key, new_key
     end
   end
@@ -34,7 +35,7 @@ class UpdateKeys < Cardio::Migration::Core
       # the living "matthia_tax".
       # The living card is the one that has been updated more recently.
       longer_untouched = [Card.find(id), Card.find_by_key(new_key)]
-                           .min { |a, b| a.updated_at <=> b.updated_at}
+                         .min { |a, b| a.updated_at <=> b.updated_at }
       Card.where(id: longer_untouched).delete_all
       update_key id, key, new_key if longer_untouched != id
     end

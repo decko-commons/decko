@@ -11,7 +11,7 @@ RSpec.describe Bootstrap::Component::HorizontalForm do
           input "password", label: "Password", id: "thepassword"
         end
         group do
-          #checkbox "test", label: "checkbox label", id: "thecheckbox"
+          # checkbox "test", label: "checkbox label", id: "thecheckbox"
         end
       end
     end
@@ -31,10 +31,10 @@ RSpec.describe Bootstrap::Component::HorizontalForm do
     end
 
     it "creates form" do
-      expect(form).to have_tag 'form.form-horizontal' do
-        with_tag 'div.form-group' do
+      expect(form).to have_tag "form.form-horizontal" do
+        with_tag "div.form-group" do
           with_tag 'label.col-sm-2.control-label[for="theemail"]', text: /Email Address/
-          with_tag 'div.col-sm-10' do
+          with_tag "div.col-sm-10" do
             with_tag 'input.form-control#theemail[type="email"]'
           end
         end

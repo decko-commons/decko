@@ -12,7 +12,7 @@ class AddAceCards < Cardio::Migration
                      "maxLines": 30
                    }
                  }
-               JSON
+  JSON
   def up
     ensure_card name: "*Ace", type_id: Card::PlainTextID,
                 codename: "ace", content: ACE_CONFIG

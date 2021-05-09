@@ -13,6 +13,6 @@ class Bootstrap
   end
 
   def render *args, &block
-    instance_exec *args, &block
+    instance_exec(*args, &block)
   end
 end

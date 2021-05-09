@@ -31,6 +31,7 @@ class Card
         # @param old_sets [True/False] whether to use the old_sets
         def set_condition_card old_sets
           return self if old_sets || no_current_action?
+
           @set_condition_card ||=
             updating_sets? ? set_condition_card_with_new_set_modules : self
         end
@@ -57,8 +58,10 @@ class Card
 
         def changed_condition_applies? _event, db_columns
           return true unless action == :update
+
           db_columns = Array(db_columns).compact
           return true if db_columns.empty?
+
           db_columns.any? { |col| single_changed_condition_applies? col }
         end
         alias_method :changing_condition_applies?, :changed_condition_applies?
@@ -73,11 +76,13 @@ class Card
 
         def single_changed_condition_applies? db_column
           return true unless db_column
+
           send "#{db_column}_is_changing?"
         end
 
         def wrong_stage opts
           return false if director.stage_ok? opts
+
           if !stage
             "phase method #{method} called outside of event phases"
           else
@@ -87,6 +92,7 @@ class Card
 
         def wrong_action actn
           return false if on_condition_applies?(nil, actn)
+
           "on: #{actn} method #{method} called on #{action}"
         end
       end

@@ -202,7 +202,7 @@ class Card
     def main_director
       return self if main?
 
-      Director.act_director || (@parent&.main_director)
+      Director.act_director || @parent&.main_director
     end
 
     def to_s level=1

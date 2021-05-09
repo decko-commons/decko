@@ -1,5 +1,4 @@
 class << self
-
   def included host_class
     track_mod_name host_class, caller
   end

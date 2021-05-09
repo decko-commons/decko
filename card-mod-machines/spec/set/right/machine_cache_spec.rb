@@ -29,11 +29,13 @@ RSpec.describe Card::Set::Right::MachineCache, as_bot: true do
 
   context "when content is updated" do
     before { update_virtual }
+
     include_examples "virtual content"
   end
 
   context "when card is created" do
     before { create_virtual }
+
     include_examples "virtual content"
   end
 

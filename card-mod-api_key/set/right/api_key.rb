@@ -11,6 +11,7 @@ end
 
 def api_key_taken?
   return false unless (acct = Card::Auth.find_account_by_api_key content)
+
   acct.id == left_id
 end
 

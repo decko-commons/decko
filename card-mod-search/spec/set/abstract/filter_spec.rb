@@ -8,7 +8,7 @@ RSpec.describe Card::Set::Abstract::Filter do
   end
 
   specify "#filter_form" do
-    is_expected.to have_tag "._filter-widget" do
+    expect(subject).to have_tag "._filter-widget" do
       with_tag "div._filter-input-field-prototypes" do
         with_tag "div._filter-input-a" do
           with_tag "input#a"

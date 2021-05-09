@@ -17,6 +17,7 @@ format :html do
 
     def header
       return unless @header
+
       tag :thead do
         tag :tr do
           @header.map do |item|

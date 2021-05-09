@@ -1,4 +1,3 @@
-
 def clean_html?
   false
 end
@@ -6,8 +5,8 @@ end
 def deliver context=nil, fields={}, opts={}
   mail = format.mail context, fields, opts
   mail.deliver
-rescue Net::SMTPError => exception
-  errors.add :exception, exception.message
+rescue Net::SMTPError => e
+  errors.add :exception, e.message
 end
 
 format do
@@ -72,6 +71,7 @@ format do
 
   def add_attachments mail, list
     return unless list.present?
+
     each_valid_attachment list do |file, index|
       mail.add_file filename: attachment_name(file, index),
                     content: File.read(file.path)
@@ -81,6 +81,7 @@ format do
   def each_valid_attachment list
     list.each_with_index do |cardname, index|
       next unless (file = Card[cardname]&.try(:attachment))
+
       yield file, index
     end
   end

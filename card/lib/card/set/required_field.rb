@@ -29,6 +29,7 @@ class Card
 
       def define_field_test
         return unless (test = event_test)
+
         method_name = field_test_name
         field_set.class_exec do
           define_method method_name do
@@ -39,13 +40,15 @@ class Card
 
       def field_test_name
         return unless event_test
+
         "_when_left_#{event_test}".to_sym
       end
 
       def event_test
         return @event_test unless @event_test.nil?
+
         test = options[:when]
-        @event_test = test&.is_a?(Symbol) ? test : false
+        @event_test = test.is_a?(Symbol) ? test : false
       end
 
       def field_set

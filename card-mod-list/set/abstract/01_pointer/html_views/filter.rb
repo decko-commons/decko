@@ -51,6 +51,7 @@ format :html do
 
   def filter_card_from_params
     return unless params[:filter_card]
+
     Card.fetch params[:filter_card], new: {}
   end
 
