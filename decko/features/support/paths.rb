@@ -20,13 +20,13 @@ module NavigationHelpers
     when /the home\s?page/
       "/"
     when /card (.*) with (.*) layout$/
-      "/#{url_key}?layout=$2"
+      "/#{url_key}?layout=#{cgi_val 2}"
     when /card (.*)$/
       "/#{url_key}"
     when /new (.*) presetting name to "(.*)" and author to "(.*)"/
-      "/new/#{url_key}?card[name]=#{cgi_key 2}&_author=#{cgi_key 3}"
+      "/new/#{url_key}?card[name]=#{cgi_val 2}&_author=#{cgi_val 3}"
     when /new card named (.*)$/
-      "/card/new?card[name]=#{cgi_key}"
+      "/card/new?card[name]=#{cgi_val}"
     when /edit (.*)$/
       "/#{url_key}/edit"
     when /rename (.*)$/
