@@ -21,14 +21,14 @@ format :html do
      ["Cache/DB Comparison", cache_comparison_table(subject)]]
   end
 
-    def set_modules_accordion subject
-      sets = subject.set_modules.each_with_object({}) do |sm, hash|
-        ans = sm.ancestors
-        ans.shift
-        hash[sm.to_s] = ans
-      end
-    accordion_group sets
+  def set_modules_accordion subject
+    sets = subject.set_modules.each_with_object({}) do |sm, hash|
+      ans = sm.ancestors
+      ans.shift
+      hash[sm.to_s] = ans
     end
+    accordion_group sets
+  end
 
   def set_patterns_breadcrumb subject
     links = subject.patterns.reverse.map { |pattern| link_to_card pattern.to_s }

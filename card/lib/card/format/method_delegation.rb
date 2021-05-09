@@ -40,7 +40,7 @@ class Card
         if (match = api_render? method)
           api_render match, opts
         else
-          delegate_to_action_view(method, opts, proc, &block)
+          delegate_to_action_view(method, opts, proc) { yield }
         end
       end
 
