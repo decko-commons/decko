@@ -59,6 +59,7 @@ module Cardio
     def puts *args
       text = args.first
       return super unless args.size == 1 && htmlish?(text)
+
       html = Nokogiri::XML text, &:noblanks
       puts_html(html, text) { |*super_args| super(*super_args) }
     end
@@ -105,7 +106,7 @@ module Cardio
       @_user ||= Card.fetch "Joe User"
     end
 
-    intro = File.read File.expand_path("../pry/intro.txt", __FILE__)
+    intro = File.read File.expand_path("pry/intro.txt", __dir__)
     puts intro
   end
 end

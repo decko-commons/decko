@@ -18,7 +18,7 @@ format :csv  do
   end
 
   view :csv_row do
-    array = _render_raw.scan(/\{\{[^\}]*\}\}/).map do |inc|
+    array = _render_raw.scan(/\{\{[^}]*\}\}/).map do |inc|
       process_content(inc).strip
     end
 
@@ -69,6 +69,7 @@ format :csv  do
   def title_row extra_titles=nil
     titles = column_titles extra_titles
     return "" unless titles.present?
+
     CSV.generate_line titles.map(&:upcase)
   end
 

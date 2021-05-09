@@ -17,6 +17,7 @@ RSpec.describe Card::Env::Success do
       before do
         success_params nil
       end
+
       it { is_expected.to eq Card["A"] }
     end
 
@@ -24,6 +25,7 @@ RSpec.describe Card::Env::Success do
       before do
         success_params id: home.id, view: "closed"
       end
+
       it { is_expected.to eq home }
     end
 
@@ -31,6 +33,7 @@ RSpec.describe Card::Env::Success do
       before do
         success_params home
       end
+
       it { is_expected.to eq home }
     end
 
@@ -38,6 +41,7 @@ RSpec.describe Card::Env::Success do
       before do
         success_params "https://decko.org"
       end
+
       it  { is_expected.to eq "https://decko.org" }
     end
   end
@@ -50,34 +54,43 @@ RSpec.describe Card::Env::Success do
         before do
           success_params id: home.id, view: "closed", layout: "my_layout"
         end
+
         it { is_expected.to eq "/Home?layout=my_layout&view=closed" }
       end
+
       context "using array assignment" do
         before do
           success_params nil
           @success[:view] = "closed"
         end
+
         it { is_expected.to eq "/A?view=closed" }
       end
+
       context "using assignment" do
         before do
           success_params nil
           @success.view = "closed"
         end
+
         it { is_expected.to eq "/A?view=closed" }
       end
+
       context "using <<" do
         before do
           success_params nil
           @success << { card: home, view: "closed" }
         end
+
         it { is_expected.to eq "/Home?view=closed" }
       end
     end
+
     context "redirect string" do
       before do
         success_params mark: "*previous"
       end
+
       it { is_expected.to eq previous }
     end
   end
@@ -96,17 +109,21 @@ RSpec.describe Card::Env::Success do
 
   describe "#mark=" do
     subject { @success.target }
+
     before do
       success_params nil
     end
+
     it "works with id" do
       @success.mark = home.id
       is_expected.to eq home
     end
+
     it "works with name" do
       @success.mark = home.name
       is_expected.to eq home
     end
+
     it "works with card object" do
       @success.mark = home
       is_expected.to eq home
@@ -118,8 +135,9 @@ RSpec.describe Card::Env::Success do
       success_params name: "Home", view: "View"
       @success.layout = "Layout"
       @success << { structure: "Structure", script: "Script" }
-      expect(@success.params.keys.sort).to eq [:layout, :script, :structure, :view]
+      expect(@success.params.keys.sort).to eq %i[layout script structure view]
     end
+
     it 'ignores "id", "name", "mark", "card"", target", and "redirect"' do
       success_params(id: 5,
                      name: "Home",

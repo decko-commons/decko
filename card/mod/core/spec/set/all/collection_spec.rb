@@ -18,7 +18,7 @@ RSpec.describe Card::Set::All::Collection do
     end
 
     it "handles searches relative to context card" do
-      # note: A refers to 'Z'
+      # NOTE: A refers to 'Z'
       @context = "A"
       @args = { name: "foo", type: "Search",
                 content: '{"referred_to_by":"_self"}' }

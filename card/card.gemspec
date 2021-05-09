@@ -19,7 +19,7 @@ DeckoGem.gem "card" do |s, d|
     ["rake",                       "~> 13.0"],
     ["rails",                   "~> 6.1.3.1"], # reduce digits after 6.2 (mimemagic issue)
     ["colorize",                    "~> 0.8"], # livelier cli outputs
-    #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     # MOVE TO MODS?
     # card-mod-format
     ["haml",                        "~> 5.0"], # markup language used in view API

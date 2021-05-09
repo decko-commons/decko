@@ -46,6 +46,7 @@ format :html do
 
   def autocomplete?
     return "on" if @parent && @parent.card.name == "*signin+*account" # HACK
+
     "off"
   end
 end

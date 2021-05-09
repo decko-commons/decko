@@ -37,7 +37,7 @@ Decko::Engine.routes.draw do
 
   # explicit GET alternatives for transactions
   %w[create read update delete asset].each do |action|
-    get "(card)/#{action}(/:mark(.:format))"  => "card", action: action
+    get "(card)/#{action}(/:mark(.:format))" => "card", action: action
   end
 
   # for super-explicit over-achievers

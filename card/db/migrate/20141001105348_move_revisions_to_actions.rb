@@ -8,15 +8,19 @@ class MoveRevisionsToActions < ActiveRecord::Migration[4.2]
       TmpRevision.joins(left_join).where("cards.id IS NULL").delete_all
     end
   end
+
   class TmpAct < ApplicationRecord
     self.table_name = "card_acts"
   end
+
   class TmpAction < ApplicationRecord
     self.table_name = "card_actions"
   end
+
   class TmpChange < ApplicationRecord
     self.table_name = "card_changes"
   end
+
   class TmpCard < ApplicationRecord
     belongs_to :tmp_revision, foreign_key: :current_revision_id
     has_many :tmp_actions, foreign_key: :card_id
@@ -30,7 +34,10 @@ class MoveRevisionsToActions < ActiveRecord::Migration[4.2]
     created = ::Set.new
 
     TmpRevision.find_each do |rev|
-      TmpAct.create({ id: rev.id, card_id: rev.card_id, actor_id: rev.creator_id, acted_at: rev.created_at }, without_protection: true)
+      TmpAct.create(
+        { id: rev.id, card_id: rev.card_id, actor_id: rev.creator_id,
+          acted_at: rev.created_at }, without_protection: true
+      )
       if created.include? rev.card_id
         TmpAction.connection.execute "INSERT INTO card_actions (id, card_id, card_act_id, action_type) VALUES
                                                                ('#{rev.id}', '#{rev.card_id}', '#{rev.id}', 1)"
@@ -59,6 +66,5 @@ class MoveRevisionsToActions < ActiveRecord::Migration[4.2]
     # remove_column :cards, :current_revision
   end
 
-  def down
-  end
+  def down; end
 end

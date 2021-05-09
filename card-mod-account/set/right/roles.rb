@@ -9,8 +9,8 @@ end
 def forbidden_roles
   # restore old roles for permission check
   with_old_role_permissions do |new_roles|
-    new_roles.select do |card|
-      !Card.fetch(card, "*members").ok? :update
+    new_roles.reject do |card|
+      Card.fetch(card, "*members").ok? :update
     end
   end
 end

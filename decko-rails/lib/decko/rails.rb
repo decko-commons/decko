@@ -1,10 +1,11 @@
-DECKO_RAILS_GEM_ROOT = File.expand_path("../../..", __FILE__)
+DECKO_RAILS_GEM_ROOT = File.expand_path("../..", __dir__)
 
 require "rails/all"
 require "decko/engine"
 
 module Decko
-  module Rails # not sure we need this
+  # not sure we need this
+  module Rails
     class << self
       def gem_root
         DECKO_RAILS_GEM_ROOT

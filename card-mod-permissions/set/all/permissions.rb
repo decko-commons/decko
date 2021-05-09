@@ -64,9 +64,7 @@ end
 
 def left_permission_rule_id action
   lcard = left_or_new(skip_virtual: true, skip_modules: true)
-  if action == :create && lcard.real? && lcard.action != :create
-    action = :update
-  end
+  action = :update if action == :create && lcard.real? && lcard.action != :create
   lcard.permission_rule_id action
 end
 
@@ -76,6 +74,7 @@ end
 
 def require_permission_rule! rule_id, action
   return if rule_id
+
   # RULE missing.  should not be possible.
   # generalize this to handling of all required rules
   errors.add :permission_denied,
@@ -111,6 +110,7 @@ def permit action, verb=nil
   end
 
   return true if permitted? action
+
   verb ||= action.to_s
   deny_because you_cant("#{verb} #{name.present? ? name : 'this'}")
 end
@@ -125,6 +125,7 @@ end
 def ok_to_create_side side
   # left is supercard; create permissions will get checked there.
   return true if side == :left && superleft
+
   part_card = send side, new: {}
   # if no card, there must be other errors
   return true unless part_card&.new_card? && !part_card.ok?(:create)
@@ -145,6 +146,7 @@ end
 def ok_to_update
   return false unless permit(:update)
   return true unless type_id_changed? && !permitted?(:create)
+
   deny_because you_cant("change to this type (need create permission)")
 end
 
@@ -171,17 +173,18 @@ end
 
 def update_field_read_rules
   return unless type_id_changed? || read_rule_id_changed?
+
   each_field_as_bot do |field|
     field.update_read_rule if field.rule(:read) == "_left"
   end
 end
 
-def each_field_as_bot
+def each_field_as_bot &block
   # find all cards with me as trunk and update their read_rule
   # (because of *type plus right)
   # skip if name is updated because will already be resaved
   Auth.as_bot do
-    fields.each { |field| yield field }
+    fields.each(&block)
   end
 end
 

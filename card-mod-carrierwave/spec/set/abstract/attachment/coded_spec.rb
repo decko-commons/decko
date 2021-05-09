@@ -93,7 +93,7 @@ RSpec.describe Card::Set::Abstract::Attachment::Coded do
           file_card.update! storage_type: :coded, mod: "test_mod", codename: "mod_file"
         end
         expect(file_card.db_content).to eq(":#{file_card.codename}/test_mod.txt")
-        expect(File.exist?(file_path)).to be_truthy
+        expect(File).to be_exist(file_path)
       end
     end
 

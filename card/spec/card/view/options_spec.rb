@@ -1,6 +1,7 @@
 RSpec.describe Card::View::Options do
   describe "#add_option" do
     let(:option_keys) { described_class.all_keys }
+
     it "does not have :new_option by default" do
       expect(option_keys).not_to include(:new_option)
     end
@@ -13,10 +14,12 @@ RSpec.describe Card::View::Options do
 
   describe "#accessible keys" do
     subject { described_class.accessible_keys }
+
     specify "accessible keys" do
-      is_expected.to include *%i[nest_name nest_syntax main home_view edit_structure cql
-                                 help structure title variant input_type type size params
-                                 items cache skip_perms main_view]
+      accessible_keys = %i[nest_name nest_syntax main home_view edit_structure cql
+                           help structure title variant input_type type size params
+                           items cache skip_perms main_view]
+      is_expected.to include(*accessible_keys)
     end
 
     specify "non-accessible keys" do

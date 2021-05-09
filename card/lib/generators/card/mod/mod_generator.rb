@@ -11,15 +11,16 @@ class Card
                    desc: "create mod Card gem"
 
       def create_mod_tree
-        create_empty_tree mod_path => { lib:    [:javascript, :stylesheets],
+        create_empty_tree mod_path => { lib: %i[javascript stylesheets],
                                         public: [:assets],
-                                        set:    [] }
+                                        set: [] }
       end
 
       private
 
       def create_empty_tree structure
         return unless structure.present?
+
         if structure.is_a?(Hash)
           structure.each_pair do |k, v|
             empty_directory k.to_s

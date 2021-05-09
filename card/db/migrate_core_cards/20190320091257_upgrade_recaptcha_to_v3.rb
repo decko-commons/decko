@@ -2,13 +2,13 @@
 
 class UpgradeRecaptchaToV3 < Cardio::Migration::Core
   def up
-    update_card! [:recaptcha_settings, :self, :structure],
-                 content: <<-STRING
-{{+site key}}
-{{+secret key}}
-{{+minimum score}}
-{{+proxy}}
-    STRING
+    update_card! %i[recaptcha_settings self structure],
+                 content: <<~STRING
+                   {{+site key}}
+                   {{+secret key}}
+                   {{+minimum score}}
+                   {{+proxy}}
+                 STRING
 
     { public: :site, private: :secret }.each do |old_name, new_name|
       codename = "recaptcha_#{old_name}_key".to_sym

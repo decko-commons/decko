@@ -13,7 +13,7 @@ RSpec.describe Card::Set::Right::ApiKey do
     before { new_key } # trigger generation
 
     it "fails if api key is not exact match" do
-      card_subject.authenticate_api_key new_key + "!"
+      card_subject.authenticate_api_key "#{new_key}!"
       expect(card_subject.errors[:api_key_incorrect].first).to match(/API key mismatch/)
     end
 

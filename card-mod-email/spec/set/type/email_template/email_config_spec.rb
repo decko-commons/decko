@@ -30,6 +30,7 @@ describe Card::Set::Type::EmailTemplate::EmailConfig do
       "+*text_message" => "*text message #{chunk_test}"
     }
   end
+
   describe "address fields" do
     it "uses *from field" do
       expect(mailconfig[:from]).to eq "from@user.com"
@@ -80,12 +81,15 @@ describe Card::Set::Type::EmailTemplate::EmailConfig do
     it "uses *subject field" do
       is_expected.to include "*subject"
     end
+
     it "does not render url" do
       is_expected.to include "Url(decko.org)"
     end
+
     it "does not render link" do
       is_expected.to include "Link(Decko[https://decko.org])"
     end
+
     it "renders nest" do
       is_expected.to include "Inclusion(B)"
     end
@@ -97,12 +101,15 @@ describe Card::Set::Type::EmailTemplate::EmailConfig do
     it "uses *text_message field" do
       is_expected.to include "*text message"
     end
+
     it "does not render url" do
       is_expected.to include "Url(decko.org)"
     end
+
     it "renders link" do
       is_expected.to include "Link(Decko[https://decko.org])"
     end
+
     it "renders nest" do
       is_expected.to include "Inclusion(B)"
     end
@@ -116,17 +123,21 @@ describe Card::Set::Type::EmailTemplate::EmailConfig do
     it "uses *html_message field" do
       is_expected.to include "*html message"
     end
+
     it "renders url" do
       is_expected.to include 'Url(<a target="_blank" class="external-link" '\
                                'href="http://decko.org">decko.org</a>)'
     end
+
     it "renders link" do
       is_expected.to include 'Link(<a target="_blank" class="external-link" '\
                                'href="https://decko.org">Decko</a>)'
     end
+
     it "renders nest" do
       is_expected.to include "Inclusion(B)"
     end
+
     it "renders absolute urls" do
       Card::Env[:protocol] = "http://"
       Card::Env[:host] = "www.fake.com"

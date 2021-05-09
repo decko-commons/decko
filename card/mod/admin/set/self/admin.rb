@@ -4,17 +4,18 @@ basket :tasks
 
 def run_task_from_task_basket task
   task = task.to_sym
-  task_data = tasks.find {|h| h[:name].to_sym == task.to_sym}
+  task_data = tasks.find { |h| h[:name].to_sym == task.to_sym }
   if !irreversibles_tasks_allowed? && task_data[:irreversible]
     not_allowed task_data[:stats][:link_text]
-  else
-    task_data[:execute_policy].call if task_data
+  elsif task_data
+    task_data[:execute_policy].call
   end
 end
 
 event :admin_tasks, :initialize, on: :update do
   return unless (task = Env.params[:task])
   raise Card::Error::PermissionDenied, self unless Auth.always_ok?
+
   case task.to_sym
   when :clear_cache          then Card::Cache.reset_all
   when :repair_references    then Card::Reference.repair_all
@@ -95,6 +96,7 @@ format :html do
         link_text: "clear cache", task: "clear_cache" }
     ]
     return stats unless oldmem
+
     stats << { title: "memory prev", count: oldmem, unit: "M" }
     stats << { title: "memory diff", count: newmem - oldmem, unit: "M" }
     stats
@@ -104,6 +106,7 @@ format :html do
     res = [(args[:title] || "")]
     res << "#{count(args[:count])}#{args[:unit]}"
     return res unless args[:task]
+
     res << link_to_card(:admin, (args[:link_text] || args[:task]),
                         path: { action: :update, task: args[:task] })
     res

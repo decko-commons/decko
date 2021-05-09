@@ -142,6 +142,7 @@ end
 def scss_from_theme_file file
   return "" unless (path = ::File.join(source_dir, "_#{file}.scss")) &&
                    ::File.exist?(path)
+
   ::File.read path
 end
 

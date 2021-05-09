@@ -4,6 +4,7 @@ format :html do
   # core HTML image view.
   view :core do
     return card.attachment.read if card.svg?
+
     with_valid_source do |source|
       image_tag source, alt: card.name
     end
@@ -34,6 +35,7 @@ format :html do
 
   def preview
     return if card.new_card? && !card.preliminary_upload?
+
     wrap_with :div, class: "attachment-preview",
                     id: "#{card.attachment.filename}-preview" do
       _render_core size: :medium

@@ -59,7 +59,7 @@ class Card
       name = handle_unknown do
         opts[:mark] ? Card::Name[opts.delete(:mark)] : @card.name
       end
-      (name&.url_key).to_s
+      name&.url_key.to_s
     end
 
     def markless?

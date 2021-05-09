@@ -17,7 +17,7 @@ module RSpecHtmlMatchers
       @tag = tag
     end
 
-    def highlight_syntax text, syntax = :html
+    def highlight_syntax text, syntax=:html
       text = reformat_html text if syntax == :html
       CodeRay.scan(text, syntax).term
     end

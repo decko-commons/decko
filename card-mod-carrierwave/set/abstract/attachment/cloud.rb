@@ -20,6 +20,7 @@ end
 
 def new_card_bucket
   return unless new_card?
+
   # If the file is assigned before the bucket option we have to
   # check if there is a bucket options in set_specific.
   # That happens for exmaple when the file appears before the bucket in the
@@ -34,6 +35,7 @@ end
 
 def load_bucket_config
   return {} unless bucket
+
   bucket_config = Cardio.config.file_buckets&.dig(bucket.to_sym) || {}
   bucket_config.symbolize_keys!
   bucket_config[:credentials]&.symbolize_keys!
@@ -96,6 +98,7 @@ def each_credential_from_env
   regexp = credential_from_env_regexp
   ENV.each_key do |env_key|
     next unless (m = regexp.match env_key)
+
     yield m[:option].downcase.to_sym
   end
 end
@@ -112,6 +115,7 @@ end
 
 def bucket_from_content
   return unless content
+
   content.match(/^\((?<bucket>[^)]+)\)/) { |m| m[:bucket] }
 end
 

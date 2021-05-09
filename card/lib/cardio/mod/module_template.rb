@@ -63,6 +63,7 @@ module Cardio
 
       def module_comment
         return "" unless @strategy.clean_comments?
+
         @module_comment = nil if @module_comment.blank?
         [auto_comment, @module_comment].compact.join "\n"
       end

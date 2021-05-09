@@ -2,11 +2,11 @@
 
 describe Card::Content::Chunk::QueryReference do
   context "syntax parsing" do
-    before do
-      @class = Card::Content::Chunk::QueryReference
-    end
-
     subject { query_refs.first.name }
+
+    before do
+      @class = described_class
+    end
 
     let :query_refs do
       Card::Content.new(@content, Card.new(type: "Search")).find_chunks(:QueryReference)
