@@ -22,7 +22,7 @@ end
 
 def compress_js input
   Uglifier.compile input
-rescue => e
+rescue StandardError => e
   # CoffeeScript is compiled in a view
   # If there is a CoffeeScript syntax error we get the rescued view here
   # and the error that the rescued view is no valid Javascript

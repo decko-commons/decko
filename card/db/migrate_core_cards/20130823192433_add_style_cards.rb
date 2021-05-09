@@ -26,8 +26,8 @@ class AddStyleCards < Cardio::Migration::Core
 
     # PERMISSIONS FOR CSS AND SCSS TYPES
 
-    %w(CSS SCSS Skin).each do |type|
-      [:create, :update, :delete].each do |action|
+    %w[CSS SCSS Skin].each do |type|
+      %i[create update delete].each do |action|
         Card.create! name: "#{type}+#{Card[:type].name}+#{Card[action].name}",
                      content: "[[#{Card[:administrator].name}]]"
       end
@@ -53,10 +53,10 @@ class AddStyleCards < Cardio::Migration::Core
 
     simple_styles = []
     classic_styles = []
-    %w(
+    %w[
       jquery-ui-smoothness.css functional.scss standard.scss right_sidebar.scss
       common.scss classic_cards.scss traditional.scss
-    ).each_with_index do |sheet, index|
+    ].each_with_index do |sheet, index|
       name, type = sheet.split "."
       name.tr! "_", " "
       index < 5 ? simple_styles << name : classic_styles << name
@@ -90,7 +90,7 @@ class AddStyleCards < Cardio::Migration::Core
     begin
       Card.create! name: "#{Card[:all].name}+*style",
                    content: "[[#{default_skin}]]"
-    rescue
+    rescue StandardError
       if default_skin =~ /customized/
         all_style = Card["#{Card[:all].name}+*style"]
         all_style.update content: "[[classic skin]]"

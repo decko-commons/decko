@@ -25,8 +25,8 @@ class Card
         def decode token
           decoded = JWT.decode(token, SECRET_KEY)[0]
           HashWithIndifferentAccess.new decoded
-        rescue JWT::DecodeError => error
-          error.message
+        rescue JWT::DecodeError => e
+          e.message
         end
 
         def expiration

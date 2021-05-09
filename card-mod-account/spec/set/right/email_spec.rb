@@ -20,7 +20,7 @@ describe Card::Set::Right::Email do
     end
 
     it "hides from other users" do
-      expect(@card.ok?(:read)).to be_falsey
+      expect(@card).not_to be_ok(:read)
       expect(@format.render_raw).to match(/denied/)
     end
   end

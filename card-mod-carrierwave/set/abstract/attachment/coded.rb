@@ -1,6 +1,7 @@
 event :lose_coded_status_on_update, :initialize, on: :update, when: :coded? do
   # unless explicit
   return if @new_mod
+
   @new_storage_type ||= storage_type_from_config
 end
 

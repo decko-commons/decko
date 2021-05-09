@@ -42,6 +42,7 @@ format :html do
 
   view :universal_edit_button, unknown: true, denial: :blank, perms: :update do
     return if card.new?
+
     tag "link", rel: "alternate", type: "application/x-wiki",
                 title: "Edit this page!", href: path(view: :edit)
   end
@@ -51,6 +52,7 @@ format :html do
   # (but note that machine clearing would need to reset card cache...)
   view :head_stylesheet, unknown: true, cache: :never, perms: :none do
     return unless (href = head_stylesheet_path)
+
     tag "link", href: href, media: "all", rel: "stylesheet", type: "text/css"
   end
 
@@ -82,7 +84,7 @@ format :html do
     if value.is_a? Hash
       string = "{"
       value.each { |k, v| string += "#{k}:#{script_variable_to_js v}" }
-      string + "}"
+      "#{string}}"
     else
       "'#{value}'"
     end
@@ -98,11 +100,13 @@ format :html do
 
   def debug_or_machine_path setting, &block
     return unless (asset_card = param_or_rule_card setting)
+
     debug_path(setting, asset_card, &block) || asset_card.machine_output_url
   end
 
   def debug_path setting, asset_card
     return unless params[:debug] == setting.to_s
+
     yield asset_card
   end
 

@@ -1,4 +1,3 @@
-
 def chunks content, type=nil, named=false
   content ||= self.content
   all_chunks = Card::Content.new(content, self).find_chunks type
@@ -75,6 +74,7 @@ format do
 
   def each_nested_chunk content: nil, fields: false, uniq: true, virtual: true, &block
     return unless block_given?
+
     chunks = prepare_nested_chunks content, fields, uniq
     process_nested_chunks chunks, virtual, &block
   end
@@ -116,8 +116,8 @@ format do
     end
   end
 
-  def process_virtual_chunk chunk
-    subformat(chunk.referee_card).each_nested_field_chunk { |sub_chunk| yield sub_chunk }
+  def process_virtual_chunk chunk, &block
+    subformat(chunk.referee_card).each_nested_field_chunk(&block)
   end
 
   def explicit_edit_fields_config
@@ -136,6 +136,7 @@ format do
   def normalized_edit_field_mark cardish, options
     return cardish if cardish.is_a?(Card) ||
                       (options.is_a?(Hash) && options.delete(:absolute))
+
     card.name.field cardish
   end
 end

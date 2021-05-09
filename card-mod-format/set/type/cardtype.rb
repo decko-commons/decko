@@ -79,7 +79,7 @@ format :html do
   private
 
   def process_voo_params path_args
-    context = ((@parent&.card) || card).name
+    context = (@parent&.card || card).name
     Rack::Utils.parse_nested_query(voo.params).each do |key, value|
       value = value.to_name.absolute(context) if value
       key = key.to_name.absolute(context)

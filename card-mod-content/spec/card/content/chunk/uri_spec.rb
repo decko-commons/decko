@@ -11,30 +11,36 @@ RSpec.describe Card::Content::Chunk::Uri do
     match_http_uri "http://www.example.com",
                    host: "www.example.com", path: ""
   end
+
   it "works with trailing slash" do
     match_http_uri "http://www.example.com/",
                    host: "www.example.com", path: "/"
   end
+
   it "works with trailing slash inside html tags" do
     match_http_uri "<p>http://www.example.com/</p>",
                    host: "www.example.com", path: "/",
                    link_text: "http://www.example.com/"
   end
+
   it "works with trailing period (no longer suppressed .. spec?)" do
     match_http_uri "http://www.example.com/. ",
                    host: "www.example.com", path: "/",
                    link_text: "http://www.example.com/"
   end
+
   it "works with trailing period inside html tags (dot change?)" do
     match_http_uri "<p>http://www.example.com/.</p>",
                    host: "www.example.com", path: "/",
                    link_text: "http://www.example.com/"
   end
+
   it "works with trailing &nbsp;" do
     match_http_uri "http://www.example.com/&nbsp;",
                    host: "www.example.com", path: "/",
                    link_text: "http://www.example.com/"
   end
+
   it "works without http://" do
     match_http_uri "www.example.com",
                    host: "www.example.com",
@@ -45,16 +51,19 @@ RSpec.describe Card::Content::Chunk::Uri do
                    text: "example.com",
                    link_text: "http://example.com"
   end
+
   it 'matches "unusual" base domain (was a bug in an early version)' do
     match_http_uri "http://example.com.au/",
                    host: "example.com.au"
   end
+
   it 'works with "unusual" base domain without http://' do
     match_http_uri "example.com.au",
                    host: "example.com.au",
                    text: "example.com.au",
                    link_text: "http://example.com.au"
   end
+
   it 'works with another "unusual" base domain' do
     match_http_uri "http://www.example.co.uk/",
                    host: "www.example.co.uk"
@@ -63,11 +72,13 @@ RSpec.describe Card::Content::Chunk::Uri do
                    text: "example.co.uk",
                    link_text: "http://example.co.uk"
   end
+
   it "works with some path at the end" do
     match_http_uri "http://moinmoin.wikiwikiweb.de/HelpOnNavigation",
                    host: "moinmoin.wikiwikiweb.de",
                    path: "/HelpOnNavigation"
   end
+
   it "works with some path at the end, and without http:// prefix "\
      "(@link_text has prefix added)" do
     match_http_uri "moinmoin.wikiwikiweb.de/HelpOnNavigation",
@@ -76,27 +87,32 @@ RSpec.describe Card::Content::Chunk::Uri do
                    text: "moinmoin.wikiwikiweb.de/HelpOnNavigation",
                    link_text: "http://moinmoin.wikiwikiweb.de/HelpOnNavigation"
   end
+
   it "works with a port number" do
     match_http_uri "http://www.example.com:80",
                    host: "www.example.com", port: 80,
                    path: ""
   end
+
   it "works with a port number and a path" do
     match_http_uri "http://www.example.com.tw:80/HelpOnNavigation",
                    host: "www.example.com.tw", port: 80,
                    path: "/HelpOnNavigation"
   end
+
   it "works with a query" do
     match_http_uri "http://www.example.com.tw:80/HelpOnNavigation?arg=val",
                    host: "www.example.com.tw", port: 80,
                    path: "/HelpOnNavigation", query: "arg=val"
   end
+
   it "works on Query with two arguments" do
     match_http_uri "http://www.example.com.tw:80/HelpOnNavigation"\
                    "?arg=val&arg2=val2",
                    host: "www.example.com.tw", port: 80,
                    path: "/HelpOnNavigation", query: "arg=val&arg2=val2"
   end
+
   it "works with IRC" do
     match_uri "irc://irc.freenode.net#recentchangescamp",
               scheme: "irc", host: "irc.freenode.net",
@@ -109,11 +125,13 @@ RSpec.describe Card::Content::Chunk::Uri do
               scheme: "https", host: "www.example.com", port: 443,
               path: "", query: nil
   end
+
   it "sees FTP" do
     match_uri "ftp://www.example.com",
               scheme: "ftp", host: "www.example.com", port: 21,
               path: "", query: nil
   end
+
   it "handles mailto:" do
     match_uri "mailto:j.d.oe123@example.com",
               scheme: "mailto", host: nil, port: nil,

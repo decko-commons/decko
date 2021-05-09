@@ -3,16 +3,15 @@ RSpec.describe Bootstrap do
 
   let(:format) { Card["A"].format(:html) }
 
-  def render
-    subject.render do
-      yield
-    end
+  def render &block
+    subject.render(&block)
   end
 
   it "loads components" do
-    expect(subject).to respond_to(:form)
-    expect(subject.form() {}).to eq "<form></form>"
+    is_expected.to respond_to(:form)
+    expect(subject.form {}).to eq "<form></form>"
   end
+
   describe "html" do
     it "renderes plain text" do
       # expect(render { html "test" }).to eq "test"

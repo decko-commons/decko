@@ -1,6 +1,5 @@
-
 module Decko
-  DECKO_GEM_ROOT = File.expand_path("../..", __FILE__)
+  DECKO_GEM_ROOT = File.expand_path("..", __dir__)
 
   class << self
     def root

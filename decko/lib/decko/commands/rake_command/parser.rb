@@ -1,4 +1,5 @@
 # -*- encoding : utf-8 -*-
+
 require "optparse"
 
 module Decko
@@ -24,7 +25,7 @@ module Decko
             end
             parser.on("--all", "-a",
                       "#{command} production, test, and development database") do
-              opts[:envs] = %w(production development test)
+              opts[:envs] = %w[production development test]
             end
           end
         end

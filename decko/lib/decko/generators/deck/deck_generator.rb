@@ -11,7 +11,7 @@ module Decko
         include RailsOverrides
         include DeckHelper
 
-        source_root File.expand_path("../templates", __FILE__)
+        source_root File.expand_path("templates", __dir__)
 
         # All but the first aliases should be considered deprecated
         class_option "monkey",
@@ -123,6 +123,7 @@ module Decko
 
         def database_gemfile_entry
           return [] if options[:skip_active_record]
+
           gem_name, gem_version = gem_for_database
           msg = "Use #{options[:database]} as the database for Active Record"
           GemfileEntry.version gem_name, gem_version, msg

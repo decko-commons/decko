@@ -37,6 +37,7 @@ RSpec.describe Card::Subcards::All do
 
       context "with delayed jobs" do
         before { Cardio.delaying! }
+
         after { Cardio.delaying! :off }
 
         context "with serial subcard handling" do

@@ -8,6 +8,7 @@ class Card
 
       def anyone_can? task
         return false unless task.is_a? Symbol
+
         @anyone_can ||= {}
         @anyone_can[task] = card.anyone_can? task if @anyone_can[task].nil?
         @anyone_can[task]
@@ -29,7 +30,11 @@ class Card
       end
 
       def monitor_depth
-        raise Card::Error::UserError, t(:format_too_deep) if depth >= Card.config.max_depth
+        if depth >= Card.config.max_depth
+          raise Card::Error::UserError,
+                t(:format_too_deep)
+        end
+
         yield
       end
 

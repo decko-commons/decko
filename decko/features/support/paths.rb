@@ -37,7 +37,7 @@ module NavigationHelpers
       "/#{Regexp.last_match(1).to_name.url_key}?view=edit"
 
     when /rename (.*)$/
-      "/#{$1.to_name.url_key}?view=edit_name"
+      "/#{Regexp.last_match(1).to_name.url_key}?view=edit_name"
 
     when /new (.*)$/
       "/new/#{Regexp.last_match(1).to_name.url_key}"

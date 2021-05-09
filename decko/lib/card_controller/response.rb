@@ -72,6 +72,7 @@ class CardController
 
     def require_card_for_soft_redirect!
       return if card.is_a? Card
+
       raise Card::Error, "tried to do soft redirect without a card"
     end
 

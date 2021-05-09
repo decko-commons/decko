@@ -1,4 +1,3 @@
-
 format :css do
   def default_nest_view
     :raw

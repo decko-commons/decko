@@ -76,8 +76,8 @@ format :html do
     opts[:name_context] = initial_context_names.map(&:key) * ","
   end
 
-  def debug_slot
-    debug_slot? ? debug_slot_wrap { yield } : yield
+  def debug_slot &block
+    debug_slot? ? debug_slot_wrap(&block) : yield
   end
 
   def debug_slot?
@@ -97,13 +97,13 @@ format :html do
     classy list
   end
 
-  def wrap_body
-    wrap_with(:div, class: body_css_classes) { yield }
+  def wrap_body &block
+    wrap_with(:div, class: body_css_classes, &block)
   end
 
-  def haml_wrap_body
+  def haml_wrap_body &block
     wrap_body do
-      capture_haml { yield }
+      capture_haml(&block)
     end
   end
 
@@ -150,7 +150,7 @@ format :html do
   def html_escape_except_quotes string
     # to be used inside single quotes (makes for readable json attributes)
     string.to_s.gsub(/&/,  "&amp;")
-          .gsub(/\'/, "&apos;")
+          .gsub(/'/, "&apos;")
           .gsub(/>/,  "&gt;")
           .gsub(/</,  "&lt;")
   end

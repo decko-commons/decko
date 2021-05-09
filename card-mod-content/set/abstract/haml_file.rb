@@ -1,4 +1,3 @@
-
 def self.included host_class
   host_class.mattr_accessor :template_path
   host_class.extend Card::Set::Format::HamlPaths

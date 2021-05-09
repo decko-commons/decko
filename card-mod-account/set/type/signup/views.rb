@@ -20,6 +20,7 @@ format :html do
 
   def invite_button
     return unless invitation?
+
     button_tag "Send Invitation", situation: "primary"
   end
 
@@ -57,12 +58,14 @@ format :html do
   def verification_sent_line
     account = card.account
     return unless account.email_card.ok?(:read)
+
     "A verification email has been sent to #{account.email}"
   end
 
   def verification_link_line
     links = verification_links
     return if links.empty?
+
     links.join " "
   end
 
@@ -81,6 +84,7 @@ format :html do
 
   def approval_link text, with_or_without
     return unless card.can_approve?
+
     link_to_card card, text,
                  path: { action: :update,
                          card: { trigger: "approve_#{with_or_without}_verification" } }
@@ -88,6 +92,7 @@ format :html do
 
   def deny_link
     return unless card.ok? :delete
+
     link_to_card card, "Deny and delete", path: { action: :delete }
   end
 end

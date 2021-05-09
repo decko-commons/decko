@@ -1,4 +1,3 @@
-
 def extended_item_cards context=nil
   items = item_cards limit: "", context: (context || self).name
   list = []
@@ -20,6 +19,7 @@ private
 def extend_item_list items, list, book
   item = items.shift
   return if already_extended? item, book
+
   if item.collection?
     # keep items in order
     items.unshift(*item.item_cards)
@@ -30,6 +30,7 @@ end
 
 def already_extended? item, book
   return true if book.include? item
+
   book << item
   false
 end

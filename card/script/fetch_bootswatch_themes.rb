@@ -5,16 +5,17 @@ require "fileutils"
 
 THEMES = %w[Cerulean Cosmo Cyborg Darkly Flatly Journal Litera Lumen Lux Materia Minty
             Pulse Sandstone Simplex Slate Solar Spacelab Superhero United Yeti]
-           .map(&:downcase).freeze
+         .map(&:downcase).freeze
 
 class Theme
-  STORE_DIR = File.expand_path("../../db/migrate_core_cards/data/b4_themes", __FILE__).freeze
+  STORE_DIR = File.expand_path("../db/migrate_core_cards/data/b4_themes",
+                               __dir__).freeze
   BOOTSWATCH_HOST = "bootswatch.com".freeze
   VERSION = "4-alpha"
 
   def initialize name
     @theme = name
-    @store_dir =  File.join STORE_DIR, @theme
+    @store_dir = File.join STORE_DIR, @theme
     FileUtils.mkdir_p @store_dir
   end
 

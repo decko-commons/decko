@@ -14,7 +14,7 @@ end
 
 def compress_css input
   compress_css? ? SassC::Engine.new(input, style: :compressed).render : input
-rescue => e
+rescue StandardError => e
   raise Card::Error, css_compression_error(e)
 end
 
@@ -35,7 +35,7 @@ def clean_html?
 end
 
 def compress_css?
-  return true
+  true
   # !Rails.env.development?
 end
 
@@ -44,7 +44,8 @@ format do
   #   :raw
   # end
 
-  def chunk_list # turn off autodetection of uri's
+  # turn off autodetection of uri's
+  def chunk_list
     :references
   end
 end

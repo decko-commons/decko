@@ -59,9 +59,9 @@ class Card
 
           def handle_perform
             yield
-          rescue StandardError => error
-            Card::Error.report error, @card
-            raise error
+          rescue StandardError => e
+            Card::Error.report e, @card
+            raise e
           ensure
             Director.expire
           end
@@ -121,7 +121,7 @@ class Card
   end
 
   def serialize_hash_value value
-    value.each_with_object({}) { |(k, v), h| h[k] = serialize_value(v) }
+    value.transform_values { |v| serialize_value(v) }
   end
 
   def deserialize_value val, type
@@ -138,8 +138,8 @@ class Card
   end
 
   def deserialize_hash_value value
-    value.each_with_object({}) do |(k, v), h|
-      h[k] = deserialize_value v[:value], v[:type]
+    value.transform_values do |v|
+      deserialize_value v[:value], v[:type]
     end
   end
 end

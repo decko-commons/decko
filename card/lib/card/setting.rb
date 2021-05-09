@@ -9,6 +9,7 @@ class Card
     #     O = Card['*create']         (object)
     # accessible in E
     attr_accessor :codename
+
     # accessible in E and M
     mattr_accessor :groups, :preferences
 
@@ -78,6 +79,7 @@ class Card
 
     def applies_to_prototype? prototype
       return true unless applies
+
       applies.call(prototype)
     end
 
@@ -114,6 +116,7 @@ class Card
 
     def permitted_type_ids types
       return unless types
+
       type_ids = Array.wrap(types).flatten.map do |cardtype|
         Card::Codename.id cardtype
       end

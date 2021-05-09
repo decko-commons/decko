@@ -1,6 +1,7 @@
 RSpec.describe Card::Dirty do
   describe "dirty attributes" do
     before { Cardio.delaying! }
+
     after { Cardio.delaying! :off }
 
     it "survives to integration phase" do

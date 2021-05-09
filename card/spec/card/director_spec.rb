@@ -31,12 +31,12 @@ RSpec.describe "Card::Director" do
   end
 
   describe "abortion" do
+    subject { Card.fetch "a card" }
+
     let(:create_card) { Card.create name: "a card" }
     let(:create_card_with_subcard) do
       Card.create name: "a card", subcards: { "a subcard" => "content" }
     end
-
-    subject { Card.fetch "a card" }
 
     context "when error added" do
       it "stops act in validation phase" do
@@ -274,7 +274,6 @@ RSpec.describe "Card::Director" do
     it "load type_plus_right set module", as_bot: true do
       in_stage :prepare_to_validate, on: :create, for: "single card",
                                      trigger: :create_single_card do
-
         u_card = attach_subfield "a user", type_id: Card::UserID
         f_card = u_card.attach_subfield "*follow"
         expect(f_card.set_modules).to include(Card::Set::TypePlusRight::User::Follow)

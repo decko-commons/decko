@@ -21,9 +21,7 @@ module Patches
           def real_filename_and_line_offset filename
             File.open(filename) do |file|
               file.each_line.with_index do |line, i|
-                if line =~ /pulled from ([\S]+) ~~/
-                  return Regexp.last_match(1), i + 1
-                end
+                return Regexp.last_match(1), i + 1 if line.match?(/pulled from (\S+) ~~/)
               end
             end
             [filename, 0]

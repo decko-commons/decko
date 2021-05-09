@@ -1,7 +1,7 @@
 require_relative "../query_spec_helper"
 RSpec.describe Card::Query::CardQuery::RelationalAttributes do
   include QuerySpecHelper
-  A_JOINEES = %w(B C D E F).freeze
+  A_JOINEES = %w[B C D E F].freeze
 
   each_fasten do |fastn|
     context "with fasten: #{fastn}" do
@@ -46,20 +46,20 @@ RSpec.describe Card::Query::CardQuery::RelationalAttributes do
         end
 
         it "finds connection cards" do
-          expect(run_query(part: "A")).to eq(%w(A+B A+C A+D A+E C+A D+A F+A))
+          expect(run_query(part: "A")).to eq(%w[A+B A+C A+D A+E C+A D+A F+A])
         end
 
         it "finds left connection cards" do
-          expect(run_query(left: "A")).to eq(%w(A+B A+C A+D A+E))
+          expect(run_query(left: "A")).to eq(%w[A+B A+C A+D A+E])
         end
 
         it "finds right connection cards based on name" do
-          expect(run_query(right: "A")).to eq(%w(C+A D+A F+A))
+          expect(run_query(right: "A")).to eq(%w[C+A D+A F+A])
         end
 
         it "finds right connection cards based on content" do
           expect(run_query(right: { content: "Alpha [[Z]]" }, sort: :id))
-            .to eq(%w(C+A D+A F+A))
+            .to eq(%w[C+A D+A F+A])
         end
       end
 
@@ -71,11 +71,12 @@ RSpec.describe Card::Query::CardQuery::RelationalAttributes do
 
         it "finds connection cards" do
           expect(run_query(part: "_self", context: "A"))
-            .to eq(%w(A+B A+C A+D A+E C+A D+A F+A))
+            .to eq(%w[A+B A+C A+D A+E C+A D+A F+A])
         end
 
         it "is able to use parts of nonexistent cards in search" do
           raise Card::Error, "B+A exists" if Card["B+A"]
+
           expect(run_query(left: "_right", right: "_left", context: "B+A"))
             .to eq(["A+B"])
         end
@@ -118,7 +119,7 @@ RSpec.describe Card::Query::CardQuery::RelationalAttributes do
           # this is a weak test, since it gives the name, but different sorting
           # mechanisms in other db setups
           # was having it return *account in some cases and 'A' in others
-          expect(run_query(edited_by: "Decko Bot", name: "A")).to eq(%w(A))
+          expect(run_query(edited_by: "Decko Bot", name: "A")).to eq(%w[A])
         end
 
         it "fails gracefully if user isn't there" do
@@ -158,11 +159,11 @@ RSpec.describe Card::Query::CardQuery::RelationalAttributes do
 
       describe "updated_by/updater_of" do
         it "finds card updated by Narcissist" do
-          expect(run_query(updated_by: "Narcissist")).to eq(%w(Magnifier+lens))
+          expect(run_query(updated_by: "Narcissist")).to eq(%w[Magnifier+lens])
         end
 
         it "finds Narcississt as the card's updater" do
-          expect(run_query(updater_of: "Magnifier+lens")).to eq(%w(Narcissist))
+          expect(run_query(updater_of: "Magnifier+lens")).to eq(%w[Narcissist])
         end
 
         it "does not give duplicate results for multiple updates" do
@@ -175,7 +176,7 @@ RSpec.describe Card::Query::CardQuery::RelationalAttributes do
 
         it "'or' doesn't mess up updated_by SQL" do
           expect(run_query(or: { updated_by: "Narcissist" }))
-            .to eq(%w(Magnifier+lens))
+            .to eq(%w[Magnifier+lens])
         end
 
         it "'or' doesn't mess up updater_of SQL" do
