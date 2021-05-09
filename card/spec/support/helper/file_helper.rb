@@ -26,6 +26,7 @@ class Card
 
       def with_test_bucket
         return unless (credentials = test_bucket_credentials)
+
         ensure_test_bucket credentials
         let(:cloud_url) { "http://#{BUCKET}.s3.amazonaws.com/files/#{file_path}" }
         yield
@@ -43,6 +44,7 @@ class Card
       def bucket_from_file
         yml_file = File.expand_path test_bucket_file_path
         return unless File.exist? yml_file
+
         YAML.load_file(yml_file).deep_symbolize_keys[:aws]
       end
 

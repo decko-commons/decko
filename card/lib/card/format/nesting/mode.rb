@@ -41,7 +41,7 @@ class Card
         # @param view [Symbol]
         # @return [Symbol ] viewname
         def modal_nest_view view
-          # Note: the subformat always has the same nest_mode as its parent format
+          # NOTE: the subformat always has the same nest_mode as its parent format
           case nest_mode
           when :edit     then view_in_edit_mode(view)
           when :template then :template_nest

@@ -5,6 +5,7 @@ class Card
       # look for card in cache.  if that doesn't work, look in database
       def retrieve_existing
         return unless mark.present?
+
         retrieve_from_cache || retrieve_from_db
       end
 
@@ -26,6 +27,7 @@ class Card
 
       def retrieval_from_db_query
         return unless (query = retrieval_from_db_query_base)
+
         query[:trash] = false unless look_in_trash?
         query
       end

@@ -16,7 +16,7 @@ RSpec.describe Card::Query::CardQuery::Sorting do
   end
 
   it "sorts by content" do
-    expect(run_query(name: %w(in Z T A), sort: "content")).to eq(%w(A Z T))
+    expect(run_query(name: %w[in Z T A], sort: "content")).to eq(%w[A Z T])
   end
 
   it "plays nice with match" do
@@ -31,7 +31,7 @@ RSpec.describe Card::Query::CardQuery::Sorting do
       expect(run_query(right_plus: "*table of contents",
                        sort: { right: "*table_of_contents" },
                        sort_as: "integer"))
-        .to eq(%w(*all RichText+*type Setting+*self))
+        .to eq(%w[*all RichText+*type Setting+*self])
     end
   end
 

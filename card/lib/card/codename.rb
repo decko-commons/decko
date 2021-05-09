@@ -143,7 +143,7 @@ class Card
 
       def id_constant codename, id=nil
         id ||= id! codename
-        Card.const_get_or_set(codename.to_s.camelize + "ID") { id }
+        Card.const_get_or_set("#{codename.to_s.camelize}ID") { id }
       end
     end
 

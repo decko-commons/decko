@@ -1,6 +1,6 @@
 format :html do
   def frame
-    class_up "d0-card-header" , "card-header"
+    class_up "d0-card-header", "card-header"
     class_up "d0-card-body", "card-body card-text"
     super
   end
@@ -14,7 +14,5 @@ format :html do
     super
   end
 
-  def panel_state
-  end
+  def panel_state; end
 end
-

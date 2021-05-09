@@ -53,7 +53,7 @@ class Card
           # prefix identified by first character, last character, or default.
           # a little ugly...
 
-          config[:class]
+            config[:class]
         end
 
         def prefix_regexp chunk_list_key
@@ -69,7 +69,7 @@ class Card
               chunk_class = const_get chunkname
               chunk_class.config[:prefix_re]
             end
-          /(?:#{ prefix_res * '|' })/m
+          /(?:#{prefix_res * '|'})/m
         end
 
         def validate_chunk_list_key chunk_list_key

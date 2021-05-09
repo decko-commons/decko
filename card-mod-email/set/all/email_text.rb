@@ -1,4 +1,3 @@
-
 format :email_text do
   view :unknown do
     ""

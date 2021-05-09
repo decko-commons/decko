@@ -24,12 +24,12 @@ class MigrateLayouts < Cardio::Migration::Core
   end
 
   def body_tag card
-    card.content[/<body[^>]*>.*<\/body>/mi] || add_body_tag(card)
+    card.content[%r{<body[^>]*>.*</body>}mi] || add_body_tag(card)
   end
 
   def add_body_tag card
-    content = card.content.gsub('<!DOCTYPE HTML>', '')
-                          .gsub(/\{\{\*head[^}]*\}\}/i, '').strip
+    content = card.content.gsub("<!DOCTYPE HTML>", "")
+                  .gsub(/\{\{\*head[^}]*\}\}/i, "").strip
     "<body>\n  #{content}\n</body>"
   end
 
@@ -48,7 +48,7 @@ class MigrateLayouts < Cardio::Migration::Core
   end
 
   def head_tag card
-    if (match = card.content.match(/<head>(.*)<\/head>/mi))
+    if (match = card.content.match(%r{<head>(.*)</head>}mi))
       match[1].strip
     end
   end

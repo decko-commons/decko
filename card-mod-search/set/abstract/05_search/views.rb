@@ -1,4 +1,3 @@
-
 format do
   view :search_count, cache: :never do
     search_with_params.to_s
@@ -55,6 +54,7 @@ format :json do
 
     remaining_slots = limit - starts_with.size
     return starts_with if remaining_slots.zero?
+
     starts_with + match_search(not_names: starts_with, limit: remaining_slots)
   end
 
@@ -145,12 +145,10 @@ format :html do
     end
   end
 
-  def search_result_list klass
+  def search_result_list klass, &block
     with_paging do
       wrap_with :div, class: klass do
-        search_with_params.map do |item_card|
-          yield item_card
-        end
+        search_with_params.map(&block)
       end
     end
   end

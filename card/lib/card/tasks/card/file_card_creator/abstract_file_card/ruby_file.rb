@@ -18,7 +18,7 @@ class Card
         end
 
         def ruby_file_name
-          @codename + ".rb"
+          "#{@codename}.rb"
         end
 
         def ruby_file_content

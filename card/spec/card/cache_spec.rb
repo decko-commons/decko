@@ -3,7 +3,7 @@
 RSpec.describe Card::Cache do
   describe "with nil store" do
     before do
-      @cache = Card::Cache.new prefix: "prefix"
+      @cache = described_class.new prefix: "prefix"
     end
 
     describe "#basic operations" do
@@ -18,9 +18,9 @@ RSpec.describe Card::Cache do
   end
 
   describe "with same cache_id" do
-    before :each do
+    before do
       @hard = ActiveSupport::Cache::MemoryStore.new
-      @cache = Card::Cache.new store: @hard
+      @cache = described_class.new store: @hard
       @prefix = @cache.hard.prefix
     end
 
@@ -56,7 +56,7 @@ RSpec.describe Card::Cache do
 
   it "#reset" do
     @hard = ActiveSupport::Cache::MemoryStore.new
-    @cache = Card::Cache.new store: @hard, database: "mydb"
+    @cache = described_class.new store: @hard, database: "mydb"
 
     expect(@cache.hard.prefix).to match(/^mydb-/)
     @cache.write("foo", "bar")
@@ -67,7 +67,7 @@ RSpec.describe Card::Cache do
     expect(@cache.hard.prefix).to match(/^mydb-/)
     expect(@cache.read("foo")).to be_nil
 
-    cache2 = Card::Cache.new store: @hard, database: "mydb"
+    cache2 = described_class.new store: @hard, database: "mydb"
     expect(cache2.hard.prefix).to match(/^mydb-/)
   end
 
@@ -85,13 +85,13 @@ RSpec.describe Card::Cache do
       # root_dirs = Dir.entries(cache_path).reject{|f| ['.', '..'].include?(f)}
       # files_to_remove = root_dirs.collect{|f| File.join(cache_path, f)}
       # FileUtils.rm_r(files_to_remove)
-      @cache = Card::Cache.new store: @hard, prefix: "prefix"
+      @cache = described_class.new store: @hard, prefix: "prefix"
     end
 
     describe "#basic operations with special symbols" do
       it "works" do
         @cache.write('%\\/*:?"<>|', "foo")
-        cache2 = Card::Cache.new store: @hard, prefix: "prefix"
+        cache2 = described_class.new store: @hard, prefix: "prefix"
         expect(cache2.read('%\\/*:?"<>|')).to eq("foo")
         @cache.reset
       end
@@ -101,7 +101,7 @@ RSpec.describe Card::Cache do
       it "works" do
         @cache.write("(汉语漢語 Hànyǔ; 华语華語 Huáyǔ; 中文 Zhōngwén", "foo")
         @cache.write("русский", "foo")
-        cache3 = Card::Cache.new store: @hard, prefix: "prefix"
+        cache3 = described_class.new store: @hard, prefix: "prefix"
         cached = cache3.read "(汉语漢語 Hànyǔ; 华语華語 Huáyǔ; 中文 Zhōngwén"
         expect(cached).to eq("foo")
         expect(cache3.read("русский")).to eq("foo")

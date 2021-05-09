@@ -1,4 +1,3 @@
-
 format :html do
   def input_type
     :text_field
@@ -6,7 +5,10 @@ format :html do
 end
 
 event :validate_number, :validate, on: :save do
-  errors.add :content, t(:format_not_numeric, content: content) unless valid_number?(content)
+  unless valid_number?(content)
+    errors.add :content,
+               t(:format_not_numeric, content: content)
+  end
 end
 
 def valid_number? string

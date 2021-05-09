@@ -33,6 +33,7 @@ namespace :decko do
 
     def delete_ignored_cards
       return unless (ignore = Card["*ignore"])
+
       Card::Auth.as_bot do
         ignore.item_cards.each(&:delete!)
       end
@@ -62,6 +63,7 @@ namespace :decko do
         Card.search(right: { codename: codename }).each do |card|
           FileUtils.rm_rf File.join("files", card.id.to_s), secure: true
           next if reserved_output? card.name
+
           card.delete!
         end
       end
@@ -116,6 +118,7 @@ namespace :decko do
 
     def add_test_data
       return unless Rails.env == "test"
+
       load CARD_TEST_SEED_SCRIPT_PATH
       SharedData.add_test_data
     end

@@ -2,7 +2,7 @@ class Card
   class Format
     module Content
       def process_content override_content=nil, content_opts=nil, &block
-        content_obj = content_object override_content , content_opts
+        content_obj = content_object override_content, content_opts
         content_obj.process_chunks(&block)
         content_obj.to_s
       end
@@ -82,8 +82,6 @@ class Card
         content ||= render_raw || ""
         Card::Content.new content, self, content_opts
       end
-
-
     end
   end
 end

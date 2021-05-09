@@ -2,7 +2,7 @@ module Patches
   module Kaminari
     module Helpers
       module Tag
-        def self.included(klass)
+        def self.included klass
           klass.class_eval do
             remove_method :page_url_for
           end
@@ -33,7 +33,7 @@ module Patches
             #     to: {other: "params", user: {name: "yuki", page: nil}}
             #   (when @param_name == "user[page]")
             @param_name.to_s.scan(/\w+/)[0..-2]
-              .inject(page_params) { |h, k| h[k] }[$&] = nil
+                       .inject(page_params) { |h, k| h[k] }[Regexp.last_match(0)] = nil
           end
 
           page_params

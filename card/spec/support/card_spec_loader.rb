@@ -11,13 +11,14 @@ class CardSpecLoader
         unless ENV["RAILS_ROOT"]
           raise Card::Error, "No RAILS_ROOT given. Can't load environment."
         end
+
         require File.join ENV["RAILS_ROOT"], "config/environment"
         load_shared_examples
-        require File.expand_path("../../../db/test_seed.rb", __FILE__)
+        require File.expand_path("../../db/test_seed.rb", __dir__)
 
         # Requires supporting ruby files with custom matchers and macros, etc,
         # in spec/support/ and its subdirectories.
-        Dir[File.join(Cardio.gem_root, "spec/support/matchers/*.rb")].each do |f|
+        Dir[File.join(Cardio.gem_root, "spec/support/matchers/*.rb")].sort.each do |f|
           require f
         end
         yield if block_given?
@@ -77,7 +78,7 @@ class CardSpecLoader
     end
 
     def before_config config
-      config.before(:each) do |example|
+      config.before do |example|
         metadata = example.metadata
         Cardio.delaying! :off
         CardSpecLoader.example_signin metadata
@@ -103,20 +104,20 @@ class CardSpecLoader
     end
 
     def after_config config
-      config.after(:each) { Timecop.return }
+      config.after { Timecop.return }
     end
 
     def helper
-      require File.expand_path "../card_spec_helper.rb", __FILE__
-      RSpec::Core::ExampleGroup.send :include, Card::SpecHelper
-      RSpec::Core::ExampleGroup.send :extend, Card::SpecHelper::ClassMethods
-      Card.send :include, Card::SpecHelper::CardHelper
-      Card.send :include, Card::SpecHelper::SetHelper
-      Card.send :extend, Card::SpecHelper::CardHelper::ClassMethods
+      require File.expand_path "card_spec_helper.rb", __dir__
+      RSpec::Core::ExampleGroup.include Card::SpecHelper
+      RSpec::Core::ExampleGroup.extend Card::SpecHelper::ClassMethods
+      Card.include Card::SpecHelper::CardHelper
+      Card.include Card::SpecHelper::SetHelper
+      Card.extend Card::SpecHelper::CardHelper::ClassMethods
     end
 
     def load_shared_examples
-      require File.expand_path "../card_shared_examples", __FILE__
+      require File.expand_path "card_shared_examples", __dir__
       %w[shared_examples shared_context].each do |dirname|
         Cardio::Mod.dirs.each "spec/#{dirname}" do |shared_ex_dir|
           Dir["#{shared_ex_dir}/**/*.rb"].sort.each { |f| require f }

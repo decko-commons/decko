@@ -65,8 +65,8 @@ class Card
       end
 
       def pretty_path source_location
-        source_location.first.gsub(%r{^.+mod\d+-([^/]+)}, '\1: ') + ":" +
-          source_location.second.to_s
+        "#{source_location.first.gsub(%r{^.+mod\d+-([^/]+)},
+                                      '\1: ')}:#{source_location.second}"
       end
 
       # :standard, :always, :never

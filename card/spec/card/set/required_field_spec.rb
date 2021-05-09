@@ -13,7 +13,7 @@ RSpec.describe Card::Set::RequiredField, as_bot: true do
       card = Card.new name: "reader", "+*read" => "me"
       card.set_with { require_field :read }
 
-      expect { card.save! }.not_to raise_error #ActiveRecord::RecordInvalid
+      expect { card.save! }.not_to raise_error # ActiveRecord::RecordInvalid
     end
   end
 

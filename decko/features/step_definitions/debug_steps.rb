@@ -1,9 +1,10 @@
 # -*- encoding : utf-8 -*-
-# rubocop:disable Lint/AmbiguousRegexpLiteral, Lint/Syntax
+
+# rubocop:disable Lint/AmbiguousRegexpLiteral
 
 Then /debug/ do
   require "pry"
-  binding.pry #
+  binding.pry
   nil
 end
 

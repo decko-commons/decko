@@ -26,7 +26,7 @@ describe CoreExtensions do
       end
 
       it "overrides existing values" do
-        expect({ a: { b: 5 }}.bury(:a, :b, 6)).to eq(a: { b: 6 })
+        expect({ a: { b: 5 } }.bury(:a, :b, 6)).to eq(a: { b: 6 })
       end
     end
   end
@@ -34,6 +34,7 @@ describe CoreExtensions do
   context CoreExtensions::PersistentIdentifier do
     describe "#name" do
       subject { :wagn_bot.cardname }
+
       it "converts into a name" do
         is_expected.to be_instance_of Card::Name
         expect(subject.s).to eq "Decko Bot"
@@ -43,6 +44,7 @@ describe CoreExtensions do
     describe "#card" do
       context "called on Integer" do
         subject { Card::LogoID.card }
+
         it "converts into a card" do
           is_expected.to be_instance_of Card
           expect(subject.id).to eq Card::LogoID
@@ -51,6 +53,7 @@ describe CoreExtensions do
 
       context "called on Symbol" do
         subject { :logo.card }
+
         it "converts into a card" do
           is_expected.to be_instance_of Card
           expect(subject.key).to eq(:logo.cardname.key)

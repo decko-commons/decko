@@ -50,6 +50,7 @@ module MachineClassMethods
   def store_machine_output args={}, &block
     output_config.merge!(args)
     return unless block_given?
+
     define_method :after_engine, &block
   end
 end
@@ -57,8 +58,7 @@ end
 card_accessor :machine_output, type: FileID
 card_accessor :machine_input, type: PointerID
 
-def before_engine
-end
+def before_engine; end
 
 def engine_input
   ei = EngineInput.new self
