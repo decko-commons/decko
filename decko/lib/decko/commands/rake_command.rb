@@ -21,7 +21,7 @@ module Decko
           # exit_with_child_status cmd
 
           result = `#{cmd}`
-          process = $CHILD_STATUS
+          process = $?
           puts result
           exit process.exitstatus unless process.success?
         end

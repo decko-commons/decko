@@ -54,23 +54,23 @@ describe Card::Set::All::Initialize do
 
   describe "module inclusion" do
     context "(search)" do
-      before do
-        @c = Card.new type: "Search", name: "Module Inclusion Test Card"
+      let :c do
+        Card.new type: "Search", name: "Module Inclusion Test Card"
       end
 
       it "happens after new" do
-        expect(@c).to respond_to(:query)
+        expect(c).to respond_to(:query)
       end
 
       it "happens after save" do
-        expect(@c).to respond_to(:query)
-        @c.save!
-        expect(@c).to respond_to(:query)
+        expect(c).to respond_to(:query)
+        c.save!
+        expect(c).to respond_to(:query)
       end
 
       it "happens after fetch" do
-        @c.save!
-        c = Card.fetch(@c.name)
+        c.save!
+        c = Card.fetch(c.name)
         expect(c).to respond_to(:query)
       end
     end
