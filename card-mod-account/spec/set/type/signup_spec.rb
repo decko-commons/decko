@@ -46,7 +46,7 @@ RSpec.describe Card::Set::Type::Signup do
 
     it "renders in core view" do
       Card::Auth.as_bot do
-#        puts @signup.format.render_core
+        #        puts @signup.format.render_core
         expect(@signup.format.render_core).to have_tag "div.invite-links" do
           with_tag "div", text: "A verification email has been sent to wolf@decko.org"
           with_tag "div" do

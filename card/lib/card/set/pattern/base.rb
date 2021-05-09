@@ -7,6 +7,7 @@ class Card
 
         def initialize card
           return if self.class.anchorless?
+
           @anchor_name = self.class.anchor_name(card).to_name
           @anchor_id = find_anchor_id card
         end
@@ -17,6 +18,7 @@ class Card
 
         def module_key
           return @module_key if defined? @module_key
+
           @module_key = self.class.module_key anchor_codenames
         end
 

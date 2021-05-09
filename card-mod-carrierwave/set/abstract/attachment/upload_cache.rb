@@ -27,6 +27,7 @@ end
 event :assign_attachment_on_create, :initialize,
       after: :assign_action, on: :create, when: :save_preliminary_upload? do
   return unless  (action = Card::Action.fetch(@action_id_of_cached_upload))
+
   upload_cache_card.selected_action_id = action.id
   upload_cache_card.select_file_revision
   assign_attachment upload_cache_card.attachment.file, action.comment
@@ -35,6 +36,7 @@ end
 event :assign_attachment_on_update, :initialize,
       after: :assign_action, on: :update, when: :save_preliminary_upload? do
   return unless (action = Card::Action.fetch(@action_id_of_cached_upload))
+
   uploaded_file = with_selected_action_id(action.id) { attachment.file }
   assign_attachment uploaded_file, action.comment
 end
@@ -48,6 +50,7 @@ end
 event :delete_cached_upload_file_on_create, :integrate,
       on: :create, when: :save_preliminary_upload? do
   return unless (action = Card::Action.fetch(@action_id_of_cached_upload))
+
   upload_cache_card.delete_files_for_action action
   action.delete
 end
@@ -61,6 +64,7 @@ end
 event :delete_cached_upload_file_on_update, :integrate,
       on: :update, when: :save_preliminary_upload? do
   return unless  (action = Card::Action.fetch(@action_id_of_cached_upload))
+
   delete_files_for_action action
   action.delete
 end

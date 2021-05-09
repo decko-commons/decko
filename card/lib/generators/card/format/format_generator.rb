@@ -5,7 +5,7 @@ require "generators/card"
 class Card
   module Generators
     class FormatGenerator < NamedBase
-      source_root File.expand_path("../templates", __FILE__)
+      source_root File.expand_path("templates", __dir__)
 
       argument :module_name, required: true
       class_option "core", type: :boolean, aliases: "-c",

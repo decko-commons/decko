@@ -1,4 +1,3 @@
-
 require_relative "lib/skin"
 
 class FixSkinImages < ActiveRecord::Migration[5.2]

@@ -9,6 +9,7 @@ class Card
 
       def cast_path_hash hash, cast_hash=nil
         return hash unless hash.is_a? Hash
+
         cast_each_path_hash hash, (cast_hash || self.class.cast_params)
         hash
       end
@@ -16,6 +17,7 @@ class Card
       def cast_each_path_hash hash, cast_hash
         hash.each do |key, value|
           next unless (cast_to = cast_hash[key])
+
           hash[key] = cast_path_value value, cast_to
         end
       end

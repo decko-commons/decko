@@ -29,6 +29,6 @@ format :html do
   end
 
   def related_by_type_items
-    [["#{card.type} cards", [card.type, :type, :by_name], mark: :absolute]]
+    [["#{card.type} cards", [card.type, :type, :by_name], { mark: :absolute }]]
   end
 end

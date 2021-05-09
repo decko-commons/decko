@@ -6,7 +6,7 @@ describe Card::Format do
 
     def show_menu? args, default_viz=:show
       args.merge! optional: true
-      format.with_voo(Card::View.new format, :nonview, args) do
+      format.with_voo(Card::View.new(format, :nonview, args)) do
         format.show_view?(:menu, default_viz)
       end
     end
@@ -31,7 +31,7 @@ describe Card::Format do
   end
 
   describe "format helpers and link building" do
-    before :each do
+    before do
       # should be a way to get these defaults in these tests
       Card::Env[:host] = "//test.host"
       Card::Env[:protocol] = "http:"
@@ -66,23 +66,23 @@ describe Card::Format do
     it "formats html links" do
       cobj = Card::Content.new url_text1, html_format
       expect(cobj.to_s).to eq(
-                             'with external free link <a target="_blank" class="external-link" ' \
+        'with external free link <a target="_blank" class="external-link" ' \
         'href="http://localhost:2020/path?cgi=foo&amp;bar=baz">' \
         "http://localhost:2020/path?cgi=foo&bar=baz</a>"
-                           )
+      )
       cobj = Card::Content.new url_text2 + url_text3 + url_text4, html_format
       expect(cobj.to_s).to eq url_text2 + url_text3 + url_text4
       cobj = Card::Content.new url_text5, html_format
       expect(cobj.to_s).to eq(
-                             'external with port: <a target="_blank" class="external-link" ' \
+        'external with port: <a target="_blank" class="external-link" ' \
         'href="http://localhost:2020/path?cgi=foo+bar=baz">' \
         "http://localhost:2020/path?cgi=foo+bar=baz</a> after "
-                           )
+      )
     end
 
     it "formats path" do
-      expect(text_format.path(card.name)).to eq "/" + card.name
-      expect(html_format.path(card.name)).to eq "/" + card.name
+      expect(text_format.path(card.name)).to eq "/#{card.name}"
+      expect(html_format.path(card.name)).to eq "/#{card.name}"
       path = html_format.path mark: card.name, format: "txt", opt1: 11, opt2: "foo"
       expect(path).to eq "/#{card.name}.txt?opt1=11&opt2=foo"
     end

@@ -10,8 +10,8 @@ class Card
       def ensure_set &block
         set_module = yield
         set_module = card_set_module_const_get(set_module) unless set_module.is_a?(Module)
-      rescue NameError => error
-        define_set_from_error error
+      rescue NameError => e
+        define_set_from_error e
         # try again - there might be another submodule that doesn't exist
         ensure_set(&block)
       else
@@ -21,6 +21,7 @@ class Card
       def define_set_from_error error
         match = error.message.match(/uninitialized constant (?:Card::Set::)?(.+)$/)
         return unless match
+
         define_set match[1]
       end
 

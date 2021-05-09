@@ -3,7 +3,8 @@
 # Helper methods for gem specs and gem-related tasks
 class DeckoGem
   attr_reader :spec
-  VERSION = File.open(File.expand_path("../card/VERSION", __FILE__)).read.chomp
+
+  VERSION = File.open(File.expand_path("card/VERSION", __dir__)).read.chomp
   CARD_MINOR = { 0 => 90, 1 => 1000 }.freeze # can remove and hardcode after 1.0
 
   class << self
@@ -78,10 +79,10 @@ class DeckoGem
 
   def standard_metadata
     {
-      "source_code_uri"   => "https://github.com/decko-commons/decko",
-      "homepage_uri"      => "https://decko.org",
-      "bug_tracker_uri"   => "https://github.com/decko-commons/decko/issues",
-      "wiki_uri"          => "https://decko.org",
+      "source_code_uri" => "https://github.com/decko-commons/decko",
+      "homepage_uri" => "https://decko.org",
+      "bug_tracker_uri" => "https://github.com/decko-commons/decko/issues",
+      "wiki_uri" => "https://decko.org",
       "documentation_url" => "http://docs.decko.org/"
     }
   end

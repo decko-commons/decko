@@ -25,6 +25,7 @@ end
 
 def first_card args={}
   return unless (name = first_name)
+
   fetch_item_card name, args
 end
 
@@ -50,6 +51,7 @@ end
 def item_cards args={}
   return item_cards_search(args) if args[:complete]
   return known_item_cards(args) if args[:known_only]
+
   all_item_cards args
 end
 
@@ -153,6 +155,7 @@ def item_type
   opt = options_rule_card
   # FIXME: need better recursion prevention
   return if !opt || opt == self
+
   opt.item_type
 end
 
@@ -189,6 +192,7 @@ end
 def clean_item_name item, context
   item = item.to_name
   return item if context == :raw
+
   context ||= context_card.name
   item.absolute_name context
 rescue Card::Error::NotFound

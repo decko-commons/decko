@@ -13,6 +13,7 @@ describe Card::Set::All::Observer do
                    }
     end
   end
+
   it "sends email on update" do
     Card::Auth.as_bot do
       Card.create! name: "mail test+*self+*on update", type_code: :pointer,
@@ -68,6 +69,7 @@ describe Card::Set::All::Observer do
     it "delivers all emails for given action" do
       expect(ActionMailer::Base.deliveries.size).to eq(2)
     end
+
     it "uses correct context" do
       expect(ActionMailer::Base.deliveries.last.body.raw_source)
         .to include("My name is mail test")

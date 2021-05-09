@@ -14,6 +14,7 @@ format :html do
   def normalize_modal_option key, opts
     val = opts[key]
     return render("modal_#{key}") unless val
+
     cast_model_option val
   end
 

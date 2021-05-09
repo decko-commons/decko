@@ -8,11 +8,11 @@ class Card
       # effect that params changes in the CardController get lost
       # (a crucial example are success params that are processed in
       # CardController#soft_redirect)
-      def contextualize_delayed_event act_id, card, env, auth
+      def contextualize_delayed_event act_id, card, env, auth, &block
         return yield unless delaying?
 
         with_env_and_auth env, auth do
-          with_delay_act(act_id, card) { yield }
+          with_delay_act(act_id, card, &block)
         end
       end
 
@@ -32,11 +32,9 @@ class Card
         end
       end
 
-      def with_env_and_auth env, auth
+      def with_env_and_auth env, auth, &block
         Card::Auth.with auth do
-          Card::Env.with env do
-            yield
-          end
+          Card::Env.with env, &block
         end
       end
     end

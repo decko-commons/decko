@@ -19,7 +19,8 @@ describe Card::Format::MethodDelegation do
   end
 
   it "handles optional view with permission skipping" do
-    expect(format).to receive(:render!).with("viewname", optional: :show, skip_perms: true)
+    expect(format).to receive(:render!).with("viewname", optional: :show,
+                                                         skip_perms: true)
     format._render_viewname
   end
 

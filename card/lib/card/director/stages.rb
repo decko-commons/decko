@@ -22,9 +22,9 @@ class Card
 
       def stage_index stage
         case stage
-        when Symbol then
+        when Symbol
           STAGE_INDEX[stage]
-        when Integer then
+        when Integer
           stage
         else
           raise Card::Error, "not a valid stage: #{stage}"
@@ -33,6 +33,7 @@ class Card
 
       def stage_ok? opts
         return false unless stage
+
         test = %i[during before after].find { |t| opts[t] }
         test ? send("#{test}?", opts[t]) : true
       end

@@ -5,9 +5,11 @@ format :html do
         views =
           format_class.instance_methods.map do |method|
             next unless method.to_s =~ /^_view_(.+)$/
+
             Regexp.last_match(1)
           end.compact
         next unless  views.present?
+
         format_class.name =~ /^Card(::Set)?::(.+?)$/ #::(\w+Format)
         hash[Regexp.last_match(2)] = views
       end

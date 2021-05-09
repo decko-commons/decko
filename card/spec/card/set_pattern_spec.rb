@@ -10,7 +10,7 @@ end
 
 RSpec.describe Card::Set::Pattern do
   specify ".in_load_order" do
-    expect(Card::Set::Pattern.loadable_codes)
+    expect(described_class.loadable_codes)
       .to eq(%i[abstract all all_plus type star rstar rule right type_plus_right self])
   end
 end
@@ -26,7 +26,7 @@ end
 RSpec.describe Card::Set::Type do
   it_generates name: "Book+*type", from: Card.new(type: "Book")
 
-  before :each do
+  before do
     Card::Auth.as_bot do
       @mylist = Card.create! name: "MyList", type_id: Card::CardtypeID
       Card.create name: "MyList+*type+*default", type_id: Card::PointerID
@@ -34,17 +34,16 @@ RSpec.describe Card::Set::Type do
     @mylist_card = Card.create name: "ip", type_id: @mylist.id
   end
 
-  # similar tests for an inherited type of Pointer
+# similar tests for an inherited type of Pointer
 it "has inherited set module" do
-    expect(@mylist_card.set_modules).to include(Card::Set::Type::Pointer)
+  expect(@mylist_card.set_modules).to include(Card::Set::Type::Pointer)
     expect(@mylist_card.set_format_modules(Card::Format::HtmlFormat))
       .to include(Card::Set::Type::Pointer::HtmlFormat)
     expect(@mylist_card.set_format_modules(Card::Format::CssFormat))
       .to include(Card::Set::Type::Pointer::CssFormat)
     expect(@mylist_card.set_format_modules(Card::Format::JsFormat))
       .to include(Card::Set::Type::Pointer::JsFormat)
-
-  end
+end
 end
 
 RSpec.describe Card::Set::AllPlus do

@@ -36,6 +36,7 @@ module ClassMethods
 
   def delete_files_with_id file_id
     raise Card::Error, t(:core_exception_almost_deleted) if Card.exists?(file_id)
+
     ::FileUtils.rm_rf "#{dir}/#{file_id}", secure: true
   end
 
@@ -65,6 +66,7 @@ end
 
 def add_to_trash args
   return if new_card?
+
   yield args.merge trash: true
 end
 
@@ -77,6 +79,7 @@ end
 def pull_from_trash!
   return unless (id = Card::Lexicon.id key) # name is already known
   return unless (trashed_card = Card.where(id: id).take)&.trash
+
   # confirm name is actually in trash
 
   db_attributes["id"] = trashed_card.db_attributes["id"]
@@ -109,6 +112,7 @@ end
 
 event :validate_delete_children, after: :validate_delete, on: :delete do
   return if errors.any?
+
   each_child do |child|
     child.include_set_modules
     delete_as_subcard child

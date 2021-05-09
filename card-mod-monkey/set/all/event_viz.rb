@@ -40,9 +40,9 @@ end
 
 def print_event_pre event, depth, space
   if event[:before]
-    print_events event[:before], space + "v  ", depth
+    print_events event[:before], "#{space}v  ", depth
   elsif event[:around]
-    print_events event[:around], space + "vv ", depth
+    print_events event[:around], "#{space}vv ", depth
   else
     ""
   end
@@ -55,7 +55,7 @@ end
 def print_event_post event, depth, space
   return "" unless event[:after]
 
-  print_events event[:after], space + "^  ", depth
+  print_events event[:after], "#{space}^  ", depth
 end
 
 def events_branch hash, kind, filter

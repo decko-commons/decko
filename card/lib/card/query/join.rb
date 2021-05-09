@@ -58,7 +58,7 @@ class Card
       private
 
       def inside_or?
-        from&.is_a?(Card::Query) && from.mods[:conj] == "or"
+        from.is_a?(Card::Query) && from.mods[:conj] == "or"
       end
 
       # the options :to and :from can be translated into the full table/alias/field trio.

@@ -17,7 +17,7 @@ class Card
       def format_with format_type=:html, &block
         dynamic_set =
           create_dynamic_set do
-            format(format_type, &block)
+            format format_type, &block
           end
         format_with_set dynamic_set, format_type
         #::Card::Set::Self::DynamicSet, :html
@@ -82,7 +82,7 @@ class Card
         ::Card::Set::Type.const_remove_if_defined :DynamicSet
         ::Card::Set::Type.const_set :DynamicSet, Module.new
         ::Card::Set::Type::DynamicSet.extend Card::Set
-        ::Card::Set::Type::DynamicSet.module_eval &block
+        ::Card::Set::Type::DynamicSet.module_eval(&block)
         ::Card::Set::Type::DynamicSet
       end
     end

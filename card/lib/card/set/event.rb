@@ -156,8 +156,8 @@ class Card
     end
   end
 
-  def rescuing_if_integration is_integration
-    is_integration ? rescuing_integration { yield } : yield
+  def rescuing_if_integration is_integration, &block
+    is_integration ? rescuing_integration(&block) : yield
   end
 
   # one failed integration event should not harm others.
