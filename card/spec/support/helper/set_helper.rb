@@ -17,7 +17,7 @@ class Card
       def format_with format_type=:html, &block
         dynamic_set =
           create_dynamic_set do
-            format_type % &block
+            format format_type, &block
           end
         format_with_set dynamic_set, format_type
         #::Card::Set::Self::DynamicSet, :html

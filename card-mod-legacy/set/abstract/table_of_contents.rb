@@ -17,9 +17,12 @@ format :html do
     toc = toc_items content
     return unless toc.flatten.length >= toc_minimum
 
-    content.replace(
-      " <div class="table-of-contents"> <h5>#{t :legacy_toc}</h5> #{make_table_of_contents_list(toc)}</div>#{content}"
-    )
+    content.replace(%(
+      <div class="table-of-contents">
+        <h5>#{t :legacy_toc}</h5>
+        #{make_table_of_contents_list toc}
+      </div>#{content}
+    ))
   end
 
   def toc_minimum

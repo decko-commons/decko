@@ -40,16 +40,10 @@ describe Cardio::Mod::Loader do
   it "loads self set" do
     create_card "set test load", codename: "set_test_load"
     Card::Cache.reset_all
-    module ::Card
-      module Set
-        class Self
-          module SetTestLoad
-            extend Card::Set
-            def hello
-              "hello"
-            end
-          end
-        end
+    module Card::Set::Self::SetTestLoad
+      extend Card::Set
+      def hello
+        "hello"
       end
     end
 
@@ -59,16 +53,10 @@ describe Cardio::Mod::Loader do
   it "loads self set for junction card" do
     create_card "set+test+load", codename: "set_test_load"
     Card::Cache.reset_all
-    module ::Card
-      module Set
-        class Self
-          module SetTestLoad
-            extend Card::Set
-            def hello
-              "hello"
-            end
-          end
-        end
+    module Card::Set::Self::SetTestLoad
+      extend Card::Set
+      def hello
+        "hello"
       end
     end
 
@@ -78,16 +66,10 @@ describe Cardio::Mod::Loader do
   it "loads type set" do
     create_card "set test load", codename: "set_test_load", type_id: Card::CardtypeID
     Card::Cache.reset_all
-    module ::Card
-      module Set
-        class Type
-          module SetTestLoad
-            extend Card::Set
-            def hello
-              "hello"
-            end
-          end
-        end
+    module Card::Set::Type::SetTestLoad
+      extend Card::Set
+      def hello
+        "hello"
       end
     end
     expect(Card.new(name: "test load", type: "set test load")).to respond_to :hello
@@ -96,16 +78,10 @@ describe Cardio::Mod::Loader do
   it "loads type set for a junction cardtyp" do
     create_card "set+test load", codename: "set_test_load", type_id: Card::CardtypeID
     Card::Cache.reset_all
-    module ::Card
-      module Set
-        class Type
-          module SetTestLoad
-            extend Card::Set
-            def hi
-              "hello"
-            end
-          end
-        end
+    module Card::Set::Type::SetTestLoad
+      extend Card::Set
+      def hi
+        "hello"
       end
     end
     expect(Card.new(name: "test load", type: "set+test load")).to respond_to :hi

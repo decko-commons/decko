@@ -26,7 +26,7 @@ format :html do
 
   def self.link_options opts={}, &block
     options = { denial: :blank, cache: :never }.merge opts
-    options[:perms] = ->(&block) if block_given?
+    options[:perms] = block if block_given?
     options.clone
   end
 

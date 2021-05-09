@@ -2,6 +2,7 @@ class Card
   class Director
     module CardMethods
       attr_writer :director
+
       delegate :validation_phase, :storage_phase, :integration_phase,
                :validation_phase_callback?, :integration_phase_callback?, to: :director
 

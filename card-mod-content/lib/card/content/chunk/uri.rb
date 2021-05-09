@@ -19,8 +19,8 @@ require "uri"
 # suffixes.
 # The generic names are from www.bnoack.com/data/countrycode2.html)
 #   [iso3166]: http://geotags.com/iso3166/
-module Card
-  module Content
+class Card
+  class Content
     module Chunk
       class Uri < Abstract
         SCHEMES = %w[irc http https ftp ssh git sftp file ldap ldaps mailto].freeze
