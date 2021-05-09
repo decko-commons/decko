@@ -15,7 +15,7 @@ class Bootstrap
     end
 
     def components
-      path = File.expand_path "../component/*.rb", __FILE__
+      path = File.expand_path "component/*.rb", __dir__
       Dir.glob(path).map do |file|
         File.basename file, ".rb"
       end

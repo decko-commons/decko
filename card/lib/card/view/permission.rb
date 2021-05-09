@@ -16,6 +16,7 @@ class Card
 
       def altered_view
         return if skip_check?
+
         alter_unknown || denial
       end
 

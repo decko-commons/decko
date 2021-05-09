@@ -61,8 +61,8 @@ def mod
 end
 
 def mod_from_content
-  if content =~ %r{^:[^/]+/([^.]+)}
-    Regexp.last_match(1) # current mod_file format
+  if (m = content.match %r{^:[^/]+/([^.]+)})
+    m[1] # current mod_file format
   else
     mod_from_deprecated_content
   end
@@ -70,8 +70,9 @@ end
 
 # old format is still used in card_changes
 def mod_from_deprecated_content
-  return if content =~ /^\~/
+  return if content.match?(/^~/)
   return unless (lines = content.split("\n")) && lines.size == 4
+
   lines.last
 end
 
@@ -95,10 +96,10 @@ end
 
 def storage_type_from_content
   case content
-  when /^\(/           then :cloud
-  when %r{/^https?\:/} then :web
-  when /^~/            then :local
-  when /^\:/           then :coded
+  when /^\(/          then :cloud
+  when %r{/^https?:/} then :web
+  when /^~/           then :local
+  when /^:/           then :coded
   else
     if deprecated_mod_file?
       :coded
@@ -120,7 +121,7 @@ end
 
 def storage_type= value
   known_storage_type? value
-  if @action == :update #&& storage_type != value
+  if @action == :update # && storage_type != value
     # we cant update the storage type directly here
     # if we do then the uploader doesn't find the file we want to update
     @new_storage_type = value
@@ -142,6 +143,7 @@ end
 def stash_and_set_storage_options opts
   %i[storage_type mod bucket].each_with_object({}) do |opt_name, old_values|
     next unless opts[opt_name]
+
     old_values[opt_name] = instance_variable_get "@#{opt_name}"
     instance_variable_set "@#{opt_name}", opts[opt_name]
     old_values
@@ -153,7 +155,7 @@ def temporary_storage_type_change?
 end
 
 def validate_temporary_storage_type_change type=nil
-  return unless (type ||= @new_storage_type)
+  return unless type ||= @new_storage_type
   raise Error, unknown_storage_type(type) unless known_storage_type? type
   if type == :coded && codename.blank?
     raise Error, "codename needed for storage type :coded"

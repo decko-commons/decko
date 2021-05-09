@@ -16,6 +16,7 @@ class Card
 
     def add_rule key, value
       return unless value.present?
+
       case @rules[key]
       when Symbol
         send("#{@rules[key]}_rule", key, value)
@@ -32,6 +33,7 @@ class Card
       @cql = {}
       @filter_cql.each do |cql_key, values|
         next if values.empty?
+
         case cql_key
         when :right_plus, :left_plus, :type
           merge_using_and cql_key, values
@@ -62,12 +64,14 @@ class Card
     # nest values with the same key using :and
     def build_nested_hash key, values
       return { key => values[0] } if values.one?
+
       val = values.pop
       { key => val, and: build_nested_hash(key, values) }
     end
 
     def name_cql name
       return unless name.present?
+
       @filter_cql[:name] = ["match", name]
     end
   end

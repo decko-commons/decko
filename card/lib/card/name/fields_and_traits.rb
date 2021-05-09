@@ -25,6 +25,7 @@ class Card
       # @return [True/False]
       def field_of? context
         return false unless compound?
+
         if context.present?
           absolute_name(context).left_name.key == context.to_name.key
         else
@@ -54,6 +55,7 @@ class Card
       # @return [True/False]
       def trait_name? *traitlist
         return false unless compound?
+
         right_key = right_name.key
         traitlist.any? do |codename|
           Card::Codename.name(codename)&.key == right_key

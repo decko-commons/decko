@@ -13,6 +13,7 @@ format :html do
 
   def customize_button target: parent&.card, text: "Apply and customize"
     return "" unless card.codename.present?
+
     theme = card.codename.match(/^(?<theme_name>.+)_skin$/).capture(:theme_name)
     link_to_card target, text,
                  path: { action: :update, card: { content: "[[#{card.name}]]" },
@@ -22,6 +23,7 @@ format :html do
 
   view :box_middle do
     return unless card.field(:image)
+
     field_nest(:image, view: :full_width, size: :large)
   end
 

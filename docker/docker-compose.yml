@@ -4,10 +4,10 @@ services:
   app:
     # Use one of the following three out-of-the-box images or add your own image
     # and uncommment the build command if using your own Dockerfile
-    image: ethn/decko-mysql
-    # image: ethn/decko-postgres
+    image: ethn/decko-mysql:latest
+    # image: ethn/decko-postgres:latest
     # note: base image does not include ANY gems. See "INSTALLING YOUR OWN GEMS" below
-    # image: ethn/decko-base
+    # image: ethn/decko-base:latest
 
     # build:
     #   context: .

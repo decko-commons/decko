@@ -1,4 +1,4 @@
-require File.expand_path("../boot", __FILE__)
+require File.expand_path("boot", __dir__)
 
 require "decko/application"
 
@@ -35,10 +35,10 @@ module DockerDeck
 
     config.action_mailer.perform_deliveries = true
     config.action_mailer.smtp_settings = {
-      address:    ENV["DECKO_SMTP_ADDRESS"],
-      domain:     ENV["DECKO_SMTP_DOMAIN"] || ENV["DECKO_SMTP_ADDRESS"],
-      user_name:  ENV["DECKO_SMTP_USER"],
-      password:   ENV["DECKO_SMTP_PASSWORD"],
+      address: ENV["DECKO_SMTP_ADDRESS"],
+      domain: ENV["DECKO_SMTP_DOMAIN"] || ENV["DECKO_SMTP_ADDRESS"],
+      user_name: ENV["DECKO_SMTP_USER"],
+      password: ENV["DECKO_SMTP_PASSWORD"],
       authentication: :login,
       port: 465,
       enable_starttls_auto: false,
@@ -65,11 +65,11 @@ module DockerDeck
           subdirectory: "files",
           credentials: credentials.merge(
             provider: "AWS",
-            host:                  ENV["DECKO_FILE_HOST"],
-            endpoint:              ENV["DECKO_FILE_ENDPOINT"],
-            aws_access_key_id:     ENV["DECKO_FILE_KEY"],
+            host: ENV["DECKO_FILE_HOST"],
+            endpoint: ENV["DECKO_FILE_ENDPOINT"],
+            aws_access_key_id: ENV["DECKO_FILE_KEY"],
             aws_secret_access_key: ENV["DECKO_FILE_SECRET"],
-            region:                ENV["DECKO_FILE_REGION"]
+            region: ENV["DECKO_FILE_REGION"]
           ),
           attributes: { "Cache-Control" => "max-age=#{365.day.to_i}" },
           public: true,

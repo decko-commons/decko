@@ -39,12 +39,14 @@ class Card
         def lookup_hash
           rows.each_with_object({}) do |row, hash|
             next unless (key = lookup_key row)
+
             hash[key] = row["rule_id"].to_i
           end
         end
 
         def lookup_key row
           return false unless (setting_code = setting_code(row))
+
           anchor_id = row["anchor_id"]
           return false unless (pattern_code = pattern_code(anchor_id, row))
 

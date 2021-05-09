@@ -33,9 +33,9 @@ def add_recaptcha_errors error_codes
 end
 
 def recaptcha_success? result
-  result['success'] &&
-    (result['score'].to_f >= Cardio.config.recaptcha_minimum_score) &&
-    (result['action'].to_sym == action.to_sym)
+  result["success"] &&
+    (result["score"].to_f >= Cardio.config.recaptcha_minimum_score) &&
+    (result["action"].to_sym == action.to_sym)
 end
 
 def recaptcha_response
@@ -55,15 +55,15 @@ event :recaptcha, :validate, when: :validate_recaptcha? do
 end
 
 def handle_recaptcha_config_errors
-  if Env.params[:recaptcha_token] == "grecaptcha-undefined"
+  case Env.params[:recaptcha_token]
+  when "grecaptcha-undefined"
     errors.add "recaptcha", "needs correct v3 configuration" # LOCALILZE
-  elsif Env.params[:recaptcha_token] == "recaptcha-token-field-missing"
+  when "recaptcha-token-field-missing"
     raise Card::Error, "recaptcha token field missing" # LOCALILZE
   else
     yield
   end
 end
-
 
 def validate_recaptcha?
   !@supercard && !Env[:recaptcha_used] && recaptcha_on?

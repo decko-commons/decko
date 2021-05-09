@@ -12,8 +12,8 @@ RSpec.describe Card::Set::Type::CoffeeScript do
                                     content: coffee
     end
     let(:card_content) do
-      { in:         coffee,
-        out:        "//coffee machine\n#{compressed_coffee}",
+      { in: coffee,
+        out: "//coffee machine\n#{compressed_coffee}",
         changed_in: changed_coffee,
         changed_out: "//coffee machine\n#{compressed_changed_coffee}" }
     end

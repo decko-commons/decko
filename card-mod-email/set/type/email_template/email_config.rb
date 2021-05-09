@@ -22,6 +22,7 @@ end
 
 def email_field_from_card field, auth, format_opts
   return unless (field_card = fetch(field))
+
   auth ||= field_card.updater
   special_email_field_method(field, field_card, auth, format_opts) ||
     standard_email_field(field, field_card, auth, format_opts)
@@ -30,6 +31,7 @@ end
 def special_email_field_method field, field_card, auth, format_opts
   method = "email_#{field}_field"
   return unless respond_to? method
+
   send method, field_card, auth, format_opts
 end
 
@@ -73,7 +75,7 @@ def email_from_field_value conf_name, conf_email, actual_email
 end
 
 def configured_from_name_and_email raw_string
-  if raw_string =~ /(.*)\<(.*)>/
+  if raw_string =~ /(.*)<(.*)>/
     [Regexp.last_match(1).strip, Regexp.last_match(2)]
   else
     [nil, raw_string]

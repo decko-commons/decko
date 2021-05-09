@@ -2,15 +2,13 @@ class Card
   class FileCardCreator
     # Helper methods to write to files and the console.
     module OutputHelper
-      def write_to_mod rel_dir, filename
+      def write_to_mod rel_dir, filename, &block
         dir = File.join "mod", @mod, rel_dir
         FileUtils.mkdir_p(dir) unless Dir.exist?(dir)
 
         path = File.join dir, filename
         log_file_action path do
-          File.open(path, "w") do |opened_file|
-            yield(opened_file)
-          end
+          File.open(path, "w", &block)
         end
       end
 

@@ -29,6 +29,7 @@ RSpec.describe Card::Rule::All do
     before do
       @pointer_settings = %i[options options_label input]
     end
+
     it "doesn't fail on nonexistent trunks" do
       codenames = Card.new(name: "foob+*right").setting_codenames_by_group
       expect(codenames.class).to eq(Hash)

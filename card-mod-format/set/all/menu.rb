@@ -116,7 +116,7 @@ format :html do
   end
 
   def menu_link_classes
-    "nodblclick" + (show_view?(:hover_link) ? " _show-on-hover" : "")
+    "nodblclick#{show_view?(:hover_link) ? ' _show-on-hover' : ''}"
   end
 
   def menu_icon

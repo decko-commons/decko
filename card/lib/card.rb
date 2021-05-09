@@ -167,6 +167,7 @@ class Card < ApplicationRecord
   ]
 
   attr_accessor(*action_specific_attributes)
+
   self.action_specific_attributes +=
     %i[skip_hash full_skip_hash trigger_hash full_trigger_hash]
 

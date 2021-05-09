@@ -32,30 +32,33 @@ RSpec.describe Card::Content::Diff do
     it "is green for addition" do
       a = "a"
       b = "a b"
-      db = Card::Content::Diff.new(a, b)
-      expect(db.green?).to be_truthy
-      expect(db.red?).to be_falsey
+      db = described_class.new(a, b)
+      expect(db).to be_green
+      expect(db).not_to be_red
     end
+
     it "is red for deletion" do
       a = "a"
       b = ""
-      db = Card::Content::Diff.new(a, b)
-      expect(db.green?).to be_falsey
-      expect(db.red?).to be_truthy
+      db = described_class.new(a, b)
+      expect(db).not_to be_green
+      expect(db).to be_red
     end
+
     it "is green and red for change" do
       a = "a"
       b = "b"
-      db = Card::Content::Diff.new(a, b)
-      expect(db.green?).to be_truthy
-      expect(db.red?).to be_truthy
+      db = described_class.new(a, b)
+      expect(db).to be_green
+      expect(db).to be_red
     end
+
     it "is off for no change" do
       a = "a"
       b = "a"
-      db = Card::Content::Diff.new(a, b)
-      expect(db.green?).to be_falsey
-      expect(db.red?).to be_falsey
+      db = described_class.new(a, b)
+      expect(db).not_to be_green
+      expect(db).not_to be_red
     end
   end
 
@@ -67,7 +70,7 @@ RSpec.describe Card::Content::Diff do
     it "omits unchanged text" do
       a = "<p>this was the original string</p>"
       b = "<p>this is the new string</p>"
-      expect(summary a, b).to eq(
+      expect(summary(a, b)).to eq(
         "...#{del 'was'}#{ins 'is'}...#{del 'original'}#{ins 'new'}..."
       )
     end
@@ -75,7 +78,7 @@ RSpec.describe Card::Content::Diff do
     it "no ellipsis if changes fit exactly" do
       a = "123"
       b = "456"
-      expect(summary a, b, summary: { length: 6 }).to eq(
+      expect(summary(a, b, summary: { length: 6 })).to eq(
         "#{del '123'}#{ins '456'}"
       )
     end
@@ -83,7 +86,7 @@ RSpec.describe Card::Content::Diff do
     it "green ellipsis if added text does not fit" do
       a = "123"
       b = "5678"
-      expect(summary a, b, summary: { length: 6 }).to eq(
+      expect(summary(a, b, summary: { length: 6 })).to eq(
         "#{del '123'}#{ins '...'}"
       )
     end
@@ -91,7 +94,7 @@ RSpec.describe Card::Content::Diff do
     it "neutral ellipsis if complete change does not fit" do
       a = "123 123"
       b = "456 456"
-      expect(summary a, b, summary: { length: 9 }).to eq(
+      expect(summary(a, b, summary: { length: 9 })).to eq(
         "#{del '123'}#{ins '456'}..."
       )
     end
@@ -99,7 +102,7 @@ RSpec.describe Card::Content::Diff do
     it "red ellipsis if deleted text partially fits" do
       a = "123456"
       b = "567"
-      expect(summary a, b, summary: { length: 4 }).to eq(
+      expect(summary(a, b, summary: { length: 4 })).to eq(
         (del "1...").to_s
       )
     end
@@ -107,7 +110,7 @@ RSpec.describe Card::Content::Diff do
     it "green ellipsis if added text partially fits" do
       a = "1234"
       b = "56789"
-      expect(summary a, b, summary: { length: 8 }).to eq(
+      expect(summary(a, b, summary: { length: 8 })).to eq(
         "#{del '1234'}#{ins '5...'}"
       )
     end
@@ -115,7 +118,7 @@ RSpec.describe Card::Content::Diff do
     it "removes html tags" do
       a = "<a>A</a>"
       b = "<b>B</b>"
-      expect(summary a, b, diff_format: :html).to eq(
+      expect(summary(a, b, diff_format: :html)).to eq(
         "#{del 'A'}#{ins 'B'}"
       )
     end
@@ -123,8 +126,8 @@ RSpec.describe Card::Content::Diff do
     it "with html tags in raw format" do
       a = "<a>1</a>"
       b = "<b>1</b>"
-      expect(summary a, b, diff_format: :raw).to eq(
-        "#{del(tag 'a')}#{ins(tag 'b')}...#{del(tag '/a')}#{ins(tag '/b')}"
+      expect(summary(a, b, diff_format: :raw)).to eq(
+        "#{del(tag('a'))}#{ins(tag('b'))}...#{del(tag('/a'))}#{ins(tag('/b'))}"
       )
     end
   end
@@ -136,20 +139,22 @@ RSpec.describe Card::Content::Diff do
 
     it "doesn't change a text without changes" do
       text = "Hello World!\n How are you?"
-      expect(diff text, text).to eq(text)
+      expect(diff(text, text)).to eq(text)
     end
+
     it "preserves html" do
       expect(p_diff).to eq("<p>#{del 'old'}#{ins 'new'}</p>")
     end
+
     it "ignores html changes" do
-      expect(diff old_p, new_h).to eq("<h1>#{del 'old'}#{ins 'new'}</h1>")
+      expect(diff(old_p, new_h)).to eq("<h1>#{del 'old'}#{ins 'new'}</h1>")
     end
 
     it "diff with multiple paragraphs" do
       a = "<p>this was the original string</p>"
       b = "<p>this is</p>\n<p> the new string</p>\n<p>around the world</p>"
 
-      expect(diff a, b).to eq(
+      expect(diff(a, b)).to eq(
         "<p>this #{del 'was'}#{ins 'is'}</p>"\
         "\n<p> the " \
         "#{del 'original'}#{ins 'new'}" \
@@ -169,12 +174,14 @@ RSpec.describe Card::Content::Diff do
     end
 
     it "compares complete links" do
-      diff = Card::Content::Diff.complete("[[A]]\n[[B]]", "[[A]]\n[[C]]", diff_format: :html)
+      diff = described_class.complete("[[A]]\n[[B]]", "[[A]]\n[[C]]",
+                                      diff_format: :html)
       expect(diff).to eq("[[A]]\n#{del '[[B]]'}#{ins '[[C]]'}")
     end
 
     it "compares complete nests" do
-      diff = Card::Content::Diff.complete("{{A}}\n{{B}}", "{{A}}\n{{C}}", diff_format: :html)
+      diff = described_class.complete("{{A}}\n{{B}}", "{{A}}\n{{C}}",
+                                      diff_format: :html)
       expect(diff).to eq("{{A}}\n#{del '{{B}}'}#{ins '{{C}}'}")
     end
   end
@@ -189,7 +196,8 @@ RSpec.describe Card::Content::Diff do
     end
 
     it "diff for tag change" do
-      expect(diff old_p, new_h).to eq(del("#{tag 'p'}old#{tag '/p'}") + ins("#{tag 'h1'}new#{tag '/h1'}"))
+      expect(diff(old_p, new_h))
+        .to eq(del("#{tag 'p'}old#{tag '/p'}") + ins("#{tag 'h1'}new#{tag '/h1'}"))
     end
   end
 
@@ -199,7 +207,7 @@ RSpec.describe Card::Content::Diff do
     end
 
     it "removes square brackets" do
-      expect(diff "[[Hello]]", "[[Hi]]").to eq(del("Hello<br>") + ins("Hi<br>"))
+      expect(diff("[[Hello]]", "[[Hi]]")).to eq(del("Hello<br>") + ins("Hi<br>"))
     end
   end
 end

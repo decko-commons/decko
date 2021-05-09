@@ -1,4 +1,3 @@
-
 format do
   # turn off autodetection of uri's
   def chunk_list
@@ -27,7 +26,7 @@ format :email_text do
   end
 
   def email_address? string
-    string =~ /.+\@.+\..+/
+    string =~ /.+@.+\..+/
   end
 
   def email_address_from_card name, context

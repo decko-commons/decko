@@ -52,6 +52,7 @@ format :html do
 
   def raw_type_options
     return @raw_type_options if @raw_type_options
+
     options = Auth.createable_types
     if !@no_current_type && card.real? && !options.include?(card.type_name)
       # current type should be an option on existing cards,

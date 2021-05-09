@@ -14,7 +14,7 @@ module Cardio
       # Migrations are subclasses of Cardio::Migration or Card::CoreMigration
       # but they don't inherit the @type. The method below solves this problem.
       def type
-        @type || (ancestors[1]&.type)
+        @type || ancestors[1]&.type
       end
 
       def find_unused_name base_name

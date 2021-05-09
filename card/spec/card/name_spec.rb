@@ -11,30 +11,30 @@ RSpec.describe Card::Name do
 
   describe "Cardnames star handling" do
     it "recognizes star cards" do
-      expect("*a".to_name.star?).to be_truthy
+      expect("*a".to_name).to be_star
     end
 
     it "doesn't recognize star cards with plusses" do
-      expect("*a+*b".to_name.star?).to be_falsey
+      expect("*a+*b".to_name).not_to be_star
     end
 
     it "recognizes rstar cards" do
-      expect("a+*a".to_name.rstar?).to be_truthy
+      expect("a+*a".to_name).to be_rstar
     end
 
     it "doesn't recognize star cards as rstar" do
-      expect("*a".to_name.rstar?).to be_falsey
+      expect("*a".to_name).not_to be_rstar
     end
 
     it "doesn't recognize non-star or star left" do
-      expect("*a+a".to_name.rstar?).to be_falsey
+      expect("*a+a".to_name).not_to be_rstar
     end
   end
 
   describe "trait_name?" do
     it "returns true for content codename" do
-      expect("bazoinga+*right+*structure".to_name.trait_name?(:structure)).to(
-        be_truthy
+      expect("bazoinga+*right+*structure".to_name).to(
+        be_trait_name(:structure)
       )
     end
 
@@ -62,35 +62,35 @@ RSpec.describe Card::Name do
   describe "creation" do
     describe ".[]" do
       it "translates simple codenames" do
-        expect(Card::Name[":self"]).to eq "*self"
+        expect(described_class[":self"]).to eq "*self"
       end
 
       it "translates simple ids" do
-        expect(Card::Name["~#{Card::SelfID}"]).to eq "*self"
+        expect(described_class["~#{Card::SelfID}"]).to eq "*self"
       end
 
       it "translates junctions of codenames and ids" do
-        expect(Card::Name["A+~#{Card::SelfID}+:default"]).to eq "A+*self+*default"
+        expect(described_class["A+~#{Card::SelfID}+:default"]).to eq "A+*self+*default"
       end
 
       it "interprets symbols as codenames" do
-        expect(Card::Name[:self]).to eq "*self"
+        expect(described_class[:self]).to eq "*self"
       end
 
       it "interprets integers as ids" do
-        expect(Card::Name[Card::SelfID]).to eq "*self"
+        expect(described_class[Card::SelfID]).to eq "*self"
       end
 
       it "interprets array items as name parts" do
-        expect(Card::Name[["A", Card::SelfID, :default]]).to eq "A+*self+*default"
+        expect(described_class[["A", Card::SelfID, :default]]).to eq "A+*self+*default"
       end
 
       example "nil" do
-        expect(Card::Name[nil]).to eq ""
+        expect(described_class[nil]).to eq ""
       end
 
       it "fails for TrueClass" do
-        expect { Card::Name[true] }
+        expect { described_class[true] }
           .to raise_error ArgumentError
       end
     end

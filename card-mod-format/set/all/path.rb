@@ -34,6 +34,7 @@ format do
 
   def path opts={}
     return opts unless opts.is_a? Hash
+
     path = Card::Path.new(card, opts)&.render
     contextualize_path path
   end

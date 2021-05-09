@@ -6,6 +6,7 @@ class Card
       # return scope for I18n
       def scope backtrace
         return "lib" unless (parts = path_parts backtrace)
+
         index = path_set_index parts
         mod = mod_from_parts parts, index
         mod || "lib"
@@ -33,15 +34,16 @@ class Card
       end
 
       def mod_without_version_suffix mod
-        mod.gsub(/-[\d\.]+$/, "")
+        mod.gsub(/-[\d.]+$/, "")
       end
 
       def mod_without_tmp_prefix mod
-        mod.gsub(/^[^-]*\-/, "")
+        mod.gsub(/^[^-]*-/, "")
       end
 
       def path_parts backtrace
         return unless (path = find_set_path backtrace)
+
         parts = path.split File::SEPARATOR
         parts[-1] = parts.last.split(".").first
         parts

@@ -2,8 +2,14 @@
 
 class PointerOverhaul < Cardio::Migration::Core
   def up
-    update "List", name: "Mirrored List", codename: "mirrored_list" unless Card::Codename[:mirrored_list]
-    update "Listed by", name: "Mirror List", codename: "mirror_list" unless Card::Codename[:mirror_list]
+    unless Card::Codename[:mirrored_list]
+      update "List", name: "Mirrored List",
+                     codename: "mirrored_list"
+    end
+    unless Card::Codename[:mirror_list]
+      update "Listed by", name: "Mirror List",
+                          codename: "mirror_list"
+    end
     update "Pointer", name: "List", codename: "list" unless Card::Codename[:list]
     ensure_code_card "Pointer", type_id: Card::CardtypeID
     ensure_code_card "Link list", type_id: Card::CardtypeID
@@ -12,8 +18,6 @@ class PointerOverhaul < Cardio::Migration::Core
                      content: ["List", "Multiselect", "Checkbox", "Filtered list"]
 
     ensure_list_card "pointer+*input+*type plus right+*options",
-                     content: ["Select", "Radio"]
-
-
+                     content: %w[Select Radio]
   end
 end

@@ -19,8 +19,8 @@ describe Card::Set::Type::Skin do
       Card.gimme! "style with skin machine+*style", type: :pointer
     end
     let(:card_content) do
-      { in:           css,         out:     compressed_css,
-        changed_in:   changed_css, changed_out: compressed_changed_css }
+      { in: css,         out:     compressed_css,
+        changed_in: changed_css, changed_out: compressed_changed_css }
     end
   end
 

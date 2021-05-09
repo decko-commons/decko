@@ -9,6 +9,7 @@ format :html do
 
   view :paging, cache: :never do
     return "" unless paging_needed?
+
     <<-HTML
       <nav>
         <ul class="pagination paging">

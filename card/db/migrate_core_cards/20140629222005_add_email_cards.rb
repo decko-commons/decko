@@ -3,14 +3,15 @@
 class AddEmailCards < Cardio::Migration::Core
   def up
     # change notification rules
-    %w(create update delete).each do |action|
+    %w[create update delete].each do |action|
       Card.create! name: "*on #{action}", type_code: :setting, codename: "on_#{action}"
-      Card.create! name: "*on #{action}+*right+*help", content: "Configures email to be sent when card is #{action}d."
+      Card.create! name: "*on #{action}+*right+*help",
+                   content: "Configures email to be sent when card is #{action}d."
       Card.create! name: "*on #{action}+*right+*default", type_code: :pointer
     end
 
     # change email address list fields to pointers
-    [:to, :from, :cc, :bcc].each do |field|
+    %i[to from cc bcc].each do |field|
       set = Card[field].fetch(:right, new: {})
       default_rule = set.fetch(:default, new: {})
       default_rule.type_id = Card::PointerID
@@ -27,7 +28,8 @@ class AddEmailCards < Cardio::Migration::Core
     end
 
     # create new cardtype for email templates
-    Card.create! name: "Email template", codename: :email_template, type_id: Card::CardtypeID
+    Card.create! name: "Email template", codename: :email_template,
+                 type_id: Card::CardtypeID
     Card.create! name: "Email template+*type+*structure", content: %(
 {{+#{Card[:from].name} | labeled | link}}
 {{+#{Card[:to].name} | labeled | link}}
@@ -55,21 +57,25 @@ class AddEmailCards < Cardio::Migration::Core
     data = JSON.parse(json)
     data.each do |mail|
       mail = mail.symbolize_keys!
-      Card.create! name: mail[:name], codename: mail[:codename], type_id: Card::EmailTemplateID
-      Card.create! name: "#{mail[:name]}+*html message", content: File.read(File.join(dir, "#{mail[:codename]}.html"))
-      Card.create! name: "#{mail[:name]}+*text message", content: File.read(File.join(dir, "#{mail[:codename]}.txt"))
+      Card.create! name: mail[:name], codename: mail[:codename],
+                   type_id: Card::EmailTemplateID
+      Card.create! name: "#{mail[:name]}+*html message",
+                   content: File.read(File.join(dir, "#{mail[:codename]}.html"))
+      Card.create! name: "#{mail[:name]}+*text message",
+                   content: File.read(File.join(dir, "#{mail[:codename]}.txt"))
       Card.create! name: "#{mail[:name]}+*subject", content: mail[:subject]
     end
 
     # move old hard-coded signup alert email handling to new card-based on_create handling
     Card.create!(
-      name: ([:signup, :type, :on_create].map { |code| Card[code].name } * "+"),
+      name: (%i[signup type on_create].map { |code| Card[code].name } * "+"),
       type_id: Card::PointerID, content: "[[signup alert email]]"
     )
     if request_card = Card[:request]
-      [:to, :from].each do |field|
+      %i[to from].each do |field|
         if old_card = request_card.fetch(field) && !old_card.db_content.blank?
-          Card.create! name: "signup alert email+#{Card[field].name}", content: old_card.db_content
+          Card.create! name: "signup alert email+#{Card[field].name}",
+                       content: old_card.db_content
         end
       end
       request_card.codename = nil
@@ -87,7 +93,8 @@ class AddEmailCards < Cardio::Migration::Core
     wagn_bot = Card[:wagn_bot].account.email.present? ? Card[:wagn_bot].name : nil
     token_emails_from = Card::Rule.global_setting("*invite+*from") || wagn_bot || "_user"
     ["verification email", "password reset email"].each do |token_email_template_name|
-      Card.create! name: "#{token_email_template_name}+#{Card[:from].name}", content: token_emails_from
+      Card.create! name: "#{token_email_template_name}+#{Card[:from].name}",
+                   content: token_emails_from
     end
 
     if invite_card = Card[:invite]
@@ -118,6 +125,7 @@ class AddEmailCards < Cardio::Migration::Core
 
     send = Card[:send]
     return unless send
+
     send.update codename: nil
     send.delete!
   end

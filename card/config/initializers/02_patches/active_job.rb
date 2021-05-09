@@ -69,7 +69,7 @@ module Patches
         end
       end
 
-      def transform_integer_keys(hash, integer_keys)
+      def transform_integer_keys hash, integer_keys
         hash.transform_keys do |key|
           if integer_keys.include?(key)
             key.to_i

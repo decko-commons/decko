@@ -1,4 +1,4 @@
-RESOURCE_TYPE_REGEXP = /^([a-zA-Z][\-+\.a-zA-Z\d]*):/
+RESOURCE_TYPE_REGEXP = /^([a-zA-Z][\-+.a-zA-Z\d]*):/
 
 # The #link_to methods support smart formatting of links in multiple formats.
 format do
@@ -63,10 +63,10 @@ format do
 
   def resource_type resource
     case resource
-    when /^https?\:/          then "external-link"
+    when /^https?:/          then "external-link"
     when %r{^/}               then "internal-link"
-    when /^mailto\:/          then "email-link"
-    when RESOURCE_TYPE_REGEXP then Regexp.last_match(1) + "-link"
+    when /^mailto:/          then "email-link"
+    when RESOURCE_TYPE_REGEXP then "#{Regexp.last_match(1)}-link"
     end
   end
 
@@ -138,6 +138,7 @@ format :html do
   def interpret_data_opts_to_link_to opts
     %i[remote method].each do |key|
       next unless (val = opts.delete key)
+
       opts["data-#{key}"] = val
     end
   end

@@ -12,7 +12,7 @@ format :html do
   def core_section_config subject
     [["Sets", tabs("set modules" => set_modules_accordion(subject),
                    "all modules" => singleton_modules_list(subject),
-                   "patterns"    => set_patterns_breadcrumb(subject))],
+                   "patterns" => set_patterns_breadcrumb(subject))],
      ["Views", tabs("by format" => subformat(subject)._render_views_by_format,
                     "by name" => subformat(subject)._render_views_by_name)],
      ["Events", tabs(create: "<pre>#{subject.events(:create)}</pre>",
@@ -21,7 +21,6 @@ format :html do
      ["Cache/DB Comparison", cache_comparison_table(subject)]]
   end
 
-  # rubocop:disable AccessorMethodName
   def set_modules_accordion subject
     sets = subject.set_modules.each_with_object({}) do |sm, hash|
       ans = sm.ancestors
@@ -35,7 +34,6 @@ format :html do
     links = subject.patterns.reverse.map { |pattern| link_to_card pattern.to_s }
     breadcrumb links
   end
-  # rubocop:enable AccessorMethodName
 
   def singleton_modules_list subject
     all_mods = subject.singleton_class.ancestors.map(&:to_s)
@@ -47,6 +45,7 @@ format :html do
     cache_card = Card.fetch(subject.key)
     db_card    = Card.find_by_key(subject.key)
     return unless cache_card && db_card
+
     table(
       %i[name updated_at updater_id content inspect].map do |field|
         [field.to_s,

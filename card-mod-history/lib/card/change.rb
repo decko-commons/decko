@@ -1,5 +1,6 @@
 # -*- encoding : utf-8 -*-
-require 'activerecord-import'
+
+require "activerecord-import"
 
 class Card
   # A _change_ is an alteration to a card's name, type, content, or trash state.

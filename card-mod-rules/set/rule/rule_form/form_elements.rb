@@ -32,10 +32,10 @@ format :html do
     set_context && Card.fetch(set_context).prototype.related_sets
   end
 
-  def option_list title
+  def option_list title, &block
     formgroup title, input: "set", class: "col-xs-6", help: false do
       wrap_with :ul do
-        wrap_each_with(:li, class: "radio") { yield }
+        wrap_each_with(:li, class: "radio", &block)
       end
     end
   end

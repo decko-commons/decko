@@ -46,7 +46,7 @@ class Card
         # $LAST_MATCH_INFO is nil if string is a SafeBuffer
         string.to_str.gsub(%r{<(/*)(\w+)([^>]*)>}) do |_raw|
           clean_tag $LAST_MATCH_INFO, ok_tags
-        end.gsub(/<\!--.*?-->/, "")
+        end.gsub(/<!--.*?-->/, "")
       end
 
       def clean_spaces string
@@ -56,6 +56,7 @@ class Card
       def clean_tag match, ok_tags
         tag = match[2].downcase
         return " " unless (ok_attrs = ok_tags[tag])
+
         "<#{match[1]}#{html_attribs tag, match[3], ok_attrs}>"
       end
 
@@ -70,7 +71,7 @@ class Card
         return ['"', nil] unless all_attributes =~ /\b#{attrib}\s*=\s*(?=(.))/i
 
         q = '"'
-        rest_value = $'
+        rest_value = Regexp.last_match.post_match
         if (idx = %w[' "].index Regexp.last_match(1))
           q = Regexp.last_match(1)
         end
@@ -79,7 +80,7 @@ class Card
         [q, rest_value]
       end
 
-      # NOTE allows classes beginning with "w-" (deprecated)
+      # NOTE: allows classes beginning with "w-" (deprecated)
       def process_attribute_match rest_value, reg_exp, attrib
         return rest_value unless (match = rest_value.match reg_exp)
 

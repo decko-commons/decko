@@ -7,6 +7,7 @@ end
 event :update_referer_content, :finalize, on: :update, when: :update_referers do
   referers.each do |card|
     next if card.structure
+
     card.skip_event! :validate_renaming, :check_permissions
     card.content = card.replace_references name_before_act, name
     attach_subcard card
@@ -58,6 +59,7 @@ private
 
 def replace_reference chunk, old_name, new_name
   return unless (old = chunk.referee_name) && (new = old.swap old_name, new_name)
+
   chunk.referee_name = chunk.replace_reference old_name, new_name
   update_reference old.key, new.key
 end

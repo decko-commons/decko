@@ -3,8 +3,8 @@
 class Select2 < Cardio::Migration
   def up
     add_script "select2",
-                type_id: Card::JavaScriptID,
-                to: "*all+*script"
+               type_id: Card::JavaScriptID,
+               to: "*all+*script"
 
     # add_style "select2",
     #           type_id: Card::CssID,

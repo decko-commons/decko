@@ -48,7 +48,6 @@ format :json do
     { key: card.key,
       url_key: card.name.url_key,
       status: card.state }.tap do |h|
-
       h[:id] = card.id if h[:status] == :real
     end
   end
@@ -129,6 +128,7 @@ format :json do
 
   def essentials
     return {} if card.structure
+
     { content: card.db_content }
   end
 
@@ -140,7 +140,6 @@ format :json do
       name: card.name,
       type: card.type_name,
       url: path(format: :json) }.tap do |h|
-
       h[:codename] = card.codename if card.codename
     end
   end

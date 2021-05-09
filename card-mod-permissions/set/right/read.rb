@@ -44,11 +44,9 @@ def update_cards_with_read_rule_id processed
   end
 end
 
-def each_member
+def each_member &block
   Auth.as_bot do
-    all_members.each_with_object(::Set.new) do |member, processed|
-      yield member, processed
-    end
+    all_members.each_with_object(::Set.new, &block)
   end
 end
 

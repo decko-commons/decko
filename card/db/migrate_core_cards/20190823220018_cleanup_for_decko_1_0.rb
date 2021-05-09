@@ -3,7 +3,7 @@
 class CleanupForDecko10 < Cardio::Migration::Core
   def up
     ensure_card "Cards with account", codename: "cards_with_account",
-                content: '{"right_plus": "*account"}'
+                                      content: '{"right_plus": "*account"}'
 
     %i[delete create update comment].each do |perm|
       delete_card [perm, :right, :options]
