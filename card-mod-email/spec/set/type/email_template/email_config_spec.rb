@@ -79,19 +79,19 @@ describe Card::Set::Type::EmailTemplate::EmailConfig do
     subject { mailconfig[:subject] }
 
     it "uses *subject field" do
-      expect(subject).to include "*subject"
+      is_expected.to include "*subject"
     end
 
     it "does not render url" do
-      expect(subject).to include "Url(decko.org)"
+      is_expected.to include "Url(decko.org)"
     end
 
     it "does not render link" do
-      expect(subject).to include "Link(Decko[https://decko.org])"
+      is_expected.to include "Link(Decko[https://decko.org])"
     end
 
     it "renders nest" do
-      expect(subject).to include "Inclusion(B)"
+      is_expected.to include "Inclusion(B)"
     end
   end
 
@@ -99,19 +99,19 @@ describe Card::Set::Type::EmailTemplate::EmailConfig do
     subject { mailconfig[:text_message] }
 
     it "uses *text_message field" do
-      expect(subject).to include "*text message"
+      is_expected.to include "*text message"
     end
 
     it "does not render url" do
-      expect(subject).to include "Url(decko.org)"
+      is_expected.to include "Url(decko.org)"
     end
 
     it "renders link" do
-      expect(subject).to include "Link(Decko[https://decko.org])"
+      is_expected.to include "Link(Decko[https://decko.org])"
     end
 
     it "renders nest" do
-      expect(subject).to include "Inclusion(B)"
+      is_expected.to include "Inclusion(B)"
     end
   end
 
@@ -121,27 +121,27 @@ describe Card::Set::Type::EmailTemplate::EmailConfig do
     end
 
     it "uses *html_message field" do
-      expect(subject).to include "*html message"
+      is_expected.to include "*html message"
     end
 
     it "renders url" do
-      expect(subject).to include 'Url(<a target="_blank" class="external-link" '\
+      is_expected.to include 'Url(<a target="_blank" class="external-link" '\
                                'href="http://decko.org">decko.org</a>)'
     end
 
     it "renders link" do
-      expect(subject).to include 'Link(<a target="_blank" class="external-link" '\
+      is_expected.to include 'Link(<a target="_blank" class="external-link" '\
                                'href="https://decko.org">Decko</a>)'
     end
 
     it "renders nest" do
-      expect(subject).to include "Inclusion(B)"
+      is_expected.to include "Inclusion(B)"
     end
 
     it "renders absolute urls" do
       Card::Env[:protocol] = "http://"
       Card::Env[:host] = "www.fake.com"
-      expect(subject).to include 'Card link(<a class="known-card" '\
+      is_expected.to include 'Card link(<a class="known-card" '\
                              'href="http://www.fake.com/A">' \
                              '<span class="card-title" title="A">A</span></a>)'
     end

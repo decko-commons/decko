@@ -73,7 +73,7 @@ RSpec.describe Card::Set::Type::SearchType do
       end
 
       it "has title row with nest names" do
-        expect(subject).to include "AUTHOR,ILLUSTRATOR"
+        is_expected.to include "AUTHOR,ILLUSTRATOR"
       end
 
       it "has nests contents" do
@@ -81,7 +81,7 @@ RSpec.describe Card::Set::Type::SearchType do
                type: "Book",
                subfields: { "author" => "Hitchhiker",
                             "illustrator" => "Galaxy" }
-        expect(subject).to include "Hitchhiker,Galaxy"
+        is_expected.to include "Hitchhiker,Galaxy"
       end
     end
 
@@ -93,7 +93,7 @@ RSpec.describe Card::Set::Type::SearchType do
       end
 
       it "has title row item name and field names" do
-        expect(subject).to include "ITEM NAME,AUTHOR,ILLUSTRATOR"
+        is_expected.to include "ITEM NAME,AUTHOR,ILLUSTRATOR"
       end
 
       it "has field contents" do
@@ -101,7 +101,7 @@ RSpec.describe Card::Set::Type::SearchType do
                type: "Book",
                subfields: { "author" => "Hitchhiker",
                             "illustrator" => "Galaxy" }
-        expect(subject).to include "Guide,Hitchhiker,Galaxy"
+        is_expected.to include "Guide,Hitchhiker,Galaxy"
       end
     end
   end

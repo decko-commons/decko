@@ -41,7 +41,7 @@ describe "#bucket config" do
   end
 
   it "takes config from Cardio.config" do
-    expect(subject).to eq bucket_config[:test_bucket]
+    is_expected.to eq bucket_config[:test_bucket]
   end
 
   it "raises error if no bucket config given" do
@@ -53,8 +53,8 @@ describe "#bucket config" do
     Cardio.config.file_buckets = {}
     ENV["PROVIDER"] = "env provider"
     ENV["CREDENTIALS_PROVIDER"] = "env cred provider"
-    expect(subject).to eq provider: "env provider",
-                          credentials: { provider:  "env cred provider" }
+    is_expected.to eq provider: "env provider",
+                      credentials: { provider:  "env cred provider" }
   end
 
   it "overrides Cardio.config with env variables" do
@@ -63,7 +63,7 @@ describe "#bucket config" do
     changed_config = bucket_config[:test_bucket]
     changed_config[:provider] =  "env provider"
     changed_config[:credentials][:provider] = "env cred provider"
-    expect(subject).to eq changed_config
+    is_expected.to eq changed_config
   end
 
   it "prefers bucket specific env variables" do
@@ -74,7 +74,7 @@ describe "#bucket config" do
     changed_config = bucket_config[:test_bucket]
     changed_config[:provider] =  "bucket provider"
     changed_config[:credentials][:provider] = "bucket cred provider"
-    expect(subject).to eq changed_config
+    is_expected.to eq changed_config
   end
 
   it "finds any credential env variable" do
@@ -84,6 +84,6 @@ describe "#bucket config" do
     changed_config = bucket_config[:test_bucket]
     changed_config[:credentials][:my_own_cloud_bucket] =  "my provider"
     changed_config[:credentials][:my_own_cloud] = "find me"
-    expect(subject).to eq changed_config
+    is_expected.to eq changed_config
   end
 end

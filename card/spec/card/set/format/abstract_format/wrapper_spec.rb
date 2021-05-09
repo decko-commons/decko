@@ -17,7 +17,7 @@ RSpec.describe Card::Set::Format::AbstractFormat::Wrapper do
     end
 
     it "is wrapped with cream" do
-      expect(subject).to eq "cream_cake_cream"
+      is_expected.to eq "cream_cake_cream"
     end
 
     it "is possible to use format methods in wrapper" do
@@ -38,7 +38,7 @@ RSpec.describe Card::Set::Format::AbstractFormat::Wrapper do
       end
 
       it "is wrapped with cream" do
-        expect(subject).to have_tag "div.creamy", "cake"
+        is_expected.to have_tag "div.creamy", "cake"
       end
     end
 
@@ -48,7 +48,7 @@ RSpec.describe Card::Set::Format::AbstractFormat::Wrapper do
       end
 
       it "is wrapped with cream" do
-        expect(subject).to have_tag "div.creamy", "cake"
+        is_expected.to have_tag "div.creamy", "cake"
       end
     end
   end
@@ -67,7 +67,7 @@ RSpec.describe Card::Set::Format::AbstractFormat::Wrapper do
     end
 
     it "is wrapped with cream" do
-      expect(subject).to eq "cherry_cream_cake_cream"
+      is_expected.to eq "cherry_cream_cake_cream"
     end
   end
 
@@ -151,7 +151,7 @@ RSpec.describe Card::Set::Format::AbstractFormat::Wrapper do
     end
 
     it "wrapped with bridge" do
-      expect(subject).to have_tag "div#modal-container.modal._modal-slot" do
+      is_expected.to have_tag "div#modal-container.modal._modal-slot" do
         with_tag "div.modal-dialog" do
           with_tag "div.modal-content" do
             with_tag "div.modal-body" do

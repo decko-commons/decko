@@ -14,12 +14,12 @@ describe Card::Content::Chunk::QueryReference do
 
     it "handles simple search" do
       @content = '{"name":"Waldo"}'
-      expect(subject).to eq "Waldo"
+      is_expected.to eq "Waldo"
     end
 
     it "handles operators" do
       @content = '{"name":["eq","Waldo"]}'
-      expect(subject).to eq "Waldo"
+      is_expected.to eq "Waldo"
     end
 
     it "handles multiple values for operators" do
@@ -29,7 +29,7 @@ describe Card::Content::Chunk::QueryReference do
 
     it "handles plus attributes" do
       @content = '{"right_plus":["Waldo",{"content":"here"}]}'
-      expect(subject).to eq "Waldo"
+      is_expected.to eq "Waldo"
     end
 
     it "handles nested query structures" do
@@ -42,7 +42,7 @@ describe Card::Content::Chunk::QueryReference do
 
     it "handles contextual names" do
       @content = '{"name":"_+Waldo"}'
-      expect(subject).to eq "_+Waldo"
+      is_expected.to eq "_+Waldo"
     end
   end
 end

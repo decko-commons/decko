@@ -36,7 +36,7 @@ describe CoreExtensions do
       subject { :wagn_bot.cardname }
 
       it "converts into a name" do
-        expect(subject).to be_instance_of Card::Name
+        is_expected.to be_instance_of Card::Name
         expect(subject.s).to eq "Decko Bot"
       end
     end
@@ -46,7 +46,7 @@ describe CoreExtensions do
         subject { Card::LogoID.card }
 
         it "converts into a card" do
-          expect(subject).to be_instance_of Card
+          is_expected.to be_instance_of Card
           expect(subject.id).to eq Card::LogoID
         end
       end
@@ -55,7 +55,7 @@ describe CoreExtensions do
         subject { :logo.card }
 
         it "converts into a card" do
-          expect(subject).to be_instance_of Card
+          is_expected.to be_instance_of Card
           expect(subject.key).to eq(:logo.cardname.key)
         end
       end

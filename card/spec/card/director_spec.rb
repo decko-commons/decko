@@ -41,12 +41,12 @@ RSpec.describe "Card::Director" do
     context "when error added" do
       it "stops act in validation phase" do
         stop_at_stage :validate
-        expect(subject).to be_falsey
+        is_expected.to be_falsey
       end
 
       it "stops act in storage phase" do
         stop_at_stage :store
-        expect(subject).to be_falsey
+        is_expected.to be_falsey
       end
     end
 
@@ -60,19 +60,19 @@ RSpec.describe "Card::Director" do
 
       it "rollbacks in finalize stage" do
         rollback_at_stage :finalize
-        expect(subject).to be_falsey
+        is_expected.to be_falsey
       end
 
       it "does not rollback in integrate stage", is_bot: true do
         rollback_at_stage :integrate
-        expect(subject).to be_truthy
+        is_expected.to be_truthy
       end
     end
 
     context "when abort :success called" do
       it "aborts storage in validation stage" do
         success_at_stage :validate
-        expect(subject).to be_falsey
+        is_expected.to be_falsey
       end
 
       it "does not execute subcard stages on create" do
@@ -96,17 +96,17 @@ RSpec.describe "Card::Director" do
 
       it "aborts storage in store stage" do
         success_at_stage :store
-        expect(subject).to be_falsey
+        is_expected.to be_falsey
       end
 
       it "does not abort storage in finalize stage" do
         success_at_stage :finalize
-        expect(subject).to be_truthy
+        is_expected.to be_truthy
       end
 
       it "does not abort storage in integrate stage" do
         success_at_stage :integrate
-        expect(subject).to be_truthy
+        is_expected.to be_truthy
       end
     end
   end

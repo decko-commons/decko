@@ -116,17 +116,17 @@ RSpec.describe Card::Env::Success do
 
     it "works with id" do
       @success.mark = home.id
-      expect(subject).to eq home
+      is_expected.to eq home
     end
 
     it "works with name" do
       @success.mark = home.name
-      expect(subject).to eq home
+      is_expected.to eq home
     end
 
     it "works with card object" do
       @success.mark = home
-      expect(subject).to eq home
+      is_expected.to eq home
     end
   end
 

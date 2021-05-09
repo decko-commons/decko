@@ -8,7 +8,7 @@ RSpec.describe Bootstrap do
   end
 
   it "loads components" do
-    expect(subject).to respond_to(:form)
+    is_expected.to respond_to(:form)
     expect(subject.form {}).to eq "<form></form>"
   end
 

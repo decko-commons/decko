@@ -29,7 +29,7 @@ RSpec.describe Bootstrap, "bootstrap builder" do
 
     it "appends work" do
       skip "test_tag method needs to be repaired"
-      expect(subject).to have_tag "container" do
+      is_expected.to have_tag "container" do
         with_tag "prepend.prepend-class"
         with_tag "test_tag.test-class" do
           with_tag "insert.insert-class"

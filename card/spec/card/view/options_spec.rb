@@ -16,13 +16,13 @@ RSpec.describe Card::View::Options do
     subject { described_class.accessible_keys }
 
     specify "accessible keys" do
-      expect(subject).to include(*%i[nest_name nest_syntax main home_view edit_structure cql
-                                     help structure title variant input_type type size params
-                                     items cache skip_perms main_view])
+      is_expected.to include(*%i[nest_name nest_syntax main home_view edit_structure cql
+                                 help structure title variant input_type type size params
+                                 items cache skip_perms main_view])
     end
 
     specify "non-accessible keys" do
-      expect(subject).not_to contain_exactly :view, :show, :hide
+      is_expected.not_to contain_exactly :view, :show, :hide
     end
   end
 

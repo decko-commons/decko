@@ -119,14 +119,14 @@ RSpec.describe Card::Set::Type::Image do
           image: File.new(File.join(CARD_TEST_SEED_PATH, "rails.gif"))
         )
       end
-      expect(subject).not_to be_coded
+      is_expected.not_to be_coded
       expect(subject.image.url)
         .to eq "/files/~#{subject.id}/#{subject.last_action_id}-original.gif"
     end
 
     describe "#coded?" do
       it "returns true" do
-        expect(subject).to be_coded
+        is_expected.to be_coded
       end
     end
 

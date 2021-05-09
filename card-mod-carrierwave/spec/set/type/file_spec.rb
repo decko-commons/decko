@@ -21,7 +21,7 @@ RSpec.describe Card::Set::Type::File do
       subject { source_view protected_file }
 
       it "renders protected url to be processed by decko" do
-        expect(subject).to(
+        is_expected.to(
           eq "/files/~#{protected_file.id}/#{protected_file.last_action_id}.txt"
         )
       end
@@ -31,7 +31,7 @@ RSpec.describe Card::Set::Type::File do
       subject { source_view unprotected_file }
 
       it "renders relative url" do
-        expect(subject)
+        is_expected
           .to eq("/files/~#{unprotected_file.id}/#{unprotected_file.last_action_id}.txt")
       end
     end

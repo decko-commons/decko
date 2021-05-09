@@ -19,9 +19,9 @@ describe Card::Format::Render do
     end
 
     it "can be changed with nest option" do
-      expect(subject).to receive(:fetch).with cache_key
+      is_expected.to receive(:fetch).with cache_key
       render_content "{{Z|content}}"
-      expect(subject).not_to receive(:fetch)
+      is_expected.not_to receive(:fetch)
       render_content "{{Z|cache:never}}"
     end
   end
