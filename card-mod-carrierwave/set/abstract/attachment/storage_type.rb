@@ -61,7 +61,7 @@ def mod
 end
 
 def mod_from_content
-  if content.match? %r{^:[^/]+/([^.]+)}
+  if content.match %r{^:[^/]+/([^.]+)}
     Regexp.last_match(1) # current mod_file format
   else
     mod_from_deprecated_content
@@ -96,9 +96,9 @@ end
 
 def storage_type_from_content
   case content
-  when /^\(/           then :cloud
+  when /^\(/          then :cloud
   when %r{/^https?:/} then :web
-  when /^~/            then :local
+  when /^~/           then :local
   when /^:/           then :coded
   else
     if deprecated_mod_file?

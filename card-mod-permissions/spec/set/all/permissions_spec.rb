@@ -277,19 +277,19 @@ RSpec.describe Card::Set::All::Permissions do
   end
 
   context "default permissions" do
-    before do
-      @c = Card.create! name: "sky blue"
+    let :c do
+      Card.create! name: "sky blue"
     end
 
     it "lets anonymous users view basic cards" do
       Card::Auth.as :anonymous do
-        expect(@c).to be_ok(:read)
+        expect(c).to be_ok(:read)
       end
     end
 
     it "lets joe user basic cards" do
       Card::Auth.as "joe_user" do
-        expect(@c).to be_ok(:read)
+        expect(c).to be_ok(:read)
       end
     end
   end
@@ -307,10 +307,8 @@ RSpec.describe Card::Set::All::Permissions do
   context "settings based permissions" do
     before do
       Card::Auth.as_bot do
-        @delete_rule_card = Card.fetch "*all+*delete", new: {}
-        @delete_rule_card.type_id = Card::PointerID
-        @delete_rule_card.db_content = "[[Joe_User]]"
-        @delete_rule_card.save!
+        Card.fetch("*all+*delete", new: {}).update! type_code: :pointer,
+                                                    content: "Joe User"
       end
     end
 
