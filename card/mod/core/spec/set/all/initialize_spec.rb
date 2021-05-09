@@ -70,8 +70,8 @@ describe Card::Set::All::Initialize do
 
       it "happens after fetch" do
         c.save!
-        c = Card.fetch(c.name)
-        expect(c).to respond_to(:query)
+        f = Card.fetch(c.name)
+        expect(f).to respond_to(:query)
       end
     end
 

@@ -49,7 +49,7 @@ RSpec.describe Card::Model::SaveHelper, as_bot: true do
 
     it "changes codename" do
       ensure_card :home, codename: "new_home"
-      expect(Card::Codename).not_to exist(:home)
+      expect(Card::Codename).not_to be_exist(:home)
       expect_card(:new_home).to exist
     end
   end

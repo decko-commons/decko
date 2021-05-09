@@ -277,9 +277,8 @@ RSpec.describe Card::Set::All::Permissions do
   end
 
   context "default permissions" do
-    let :c do
-      Card.create! name: "sky blue"
-    end
+    before { c }
+    let(:c) { Card.create! name: "sky blue" }
 
     it "lets anonymous users view basic cards" do
       Card::Auth.as :anonymous do

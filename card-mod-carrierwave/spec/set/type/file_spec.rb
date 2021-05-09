@@ -58,7 +58,7 @@ RSpec.describe Card::Set::Type::File do
       url = "https://decko.org/files/bruce_logo-large-122798.png"
       with_storage_config :local do
         file = (create_file_card :local, nil, remote_file_url: url)&.file
-        expect(file.size).to be.positive?
+        expect(file.size).to be_positive
         expect(file.url).to match(/\.png$/)
       end
     end
@@ -73,7 +73,7 @@ RSpec.describe Card::Set::Type::File do
         end
 
         it "stores file" do
-          expect(File).to exist(subject.file.path)
+          expect(File).to be_exist(subject.file.path)
           expect(subject.file.read.strip).to eq "file1"
         end
 
@@ -169,7 +169,7 @@ RSpec.describe Card::Set::Type::File do
   context "deleting" do
     it "removes symlink for unprotected files" do
       pp = unprotected_file.attachment.public_path
-      expect(File).to exist(pp)
+      expect(File).to be_exist(pp)
       Card::Auth.as_bot do
         unprotected_file.delete!
       end

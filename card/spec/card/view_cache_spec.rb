@@ -3,9 +3,9 @@
 RSpec.describe Card::View do
   it "cache gets cleared by Card::Cache.reset_all" do
     described_class.cache.write "testkey", 1
-    expect(described_class.cache).to exist("testkey")
+    expect(described_class.cache).to be_exist("testkey")
     Card::Cache.reset_all
-    expect(described_class.cache).not_to exist("testkey")
+    expect(described_class.cache).not_to be_exist("testkey")
   end
 
   def html_message_for user

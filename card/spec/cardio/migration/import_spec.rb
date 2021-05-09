@@ -60,12 +60,12 @@ describe Cardio::Migration::Import do
 
       it "does not save linked card" do
         importer.pull "A", deep: true
-        expect(File).not_to exist(content_path("z"))
+        expect(File).not_to be_exist(content_path("z"))
       end
 
       it "saves pointer items" do
         importer.pull "Fruit+*type+*create", deep: true
-        expect(File).to exist(content_path("anyone"))
+        expect(File).to be_exist(content_path("anyone"))
       end
     end
   end

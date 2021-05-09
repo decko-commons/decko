@@ -14,14 +14,11 @@ RSpec.describe Card::Set::Right::Account do
 
     context "valid user" do
       # NOTE: - much of this is tested in account_request_spec
-      before do
-        Card::Auth.as_bot do
-          @user_card = Card.create! dummy_account_args.merge(type_id: Card::UserID)
-        end
-      end
+      before { Card::Auth.as_bot { user_card } }
+      let(:user_card) { Card.create! dummy_account_args.merge(type_code: :user) }
 
       it "creates an authenticable password" do
-        validity = Card::Auth.password_valid? @user_card.account, "tmp_pass"
+        validity = Card::Auth.password_valid? user_card.account, "tmp_pass"
         expect(validity).to be_truthy
       end
     end
@@ -41,12 +38,12 @@ RSpec.describe Card::Set::Right::Account do
     end
 
     it "requires email" do
-      @no_email = Card.create(
+      no_email = Card.create(
         name: "TmpUser",
         type_id: Card::UserID,
         "+*account" => { "+*password" => "tmp_pass" }
       )
-      expect(@no_email.errors["+*account"].first).to match(/email required/)
+      expect(no_email.errors["+*account"].first).to match(/email required/)
     end
   end
 

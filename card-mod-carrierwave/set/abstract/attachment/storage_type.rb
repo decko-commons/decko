@@ -61,8 +61,8 @@ def mod
 end
 
 def mod_from_content
-  if content.match %r{^:[^/]+/([^.]+)}
-    Regexp.last_match(1) # current mod_file format
+  if (m = content.match %r{^:[^/]+/([^.]+)})
+    m[1] # current mod_file format
   else
     mod_from_deprecated_content
   end
