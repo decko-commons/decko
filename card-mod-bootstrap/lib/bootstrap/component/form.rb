@@ -2,7 +2,7 @@ class Bootstrap
   class Component
     class Form < Component
       def render_content *args
-        form *args, &@build_block
+        form(*args, &@build_block)
       end
 
       #
@@ -23,13 +23,13 @@ class Bootstrap
         add_class opts, "form-horizontal" if opts.delete(:horizontal)
         add_class opts, "form-inline" if opts.delete(:inline)
         @html.form opts do
-          instance_exec &block
+          instance_exec(&block)
         end
       end
 
       def group text=nil, &block
         @html.div text, class: "form-group" do
-          instance_exec &block
+          instance_exec(&block)
         end
       end
 
@@ -53,7 +53,7 @@ class Bootstrap
         #   opts
         # end
 
-        define_method tag do |text: nil, id:, label: |
+        define_method tag do |id:, label:, text: nil|
           @html.input id: id, class: "form-control", type: tag do
             @html.label label, for: id if label
             @html << text

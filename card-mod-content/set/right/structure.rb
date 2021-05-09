@@ -55,7 +55,7 @@ def structuree_names
 end
 
 def update_structurees args
-  # note that this is not smart about overriding templating rules
+  # NOTE: that this is not smart about overriding templating rules
   # for example, if someone were to change the type of a
   # +*right+*structure rule that was overridden
   # by a +*type plus right+*structure rule, the override would not be respected.

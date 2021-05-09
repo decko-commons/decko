@@ -3,7 +3,7 @@ class Card
     module Nesting
       # Formats can have subformats. Lineage can be retraced through "parent" format.
       module Subformat
-        # note: while it is possible to have a subformat of a different class,
+        # NOTE: while it is possible to have a subformat of a different class,
         # the :format_class value takes precedence over :format.
         def subformat subcard, opts={}
           subcard = subformat_card subcard
@@ -56,6 +56,7 @@ class Card
 
         def subformat_card subcard
           return subcard if subcard.is_a? Card
+
           Card.fetch subcard, new: {}
         end
       end

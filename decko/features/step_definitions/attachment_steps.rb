@@ -1,5 +1,6 @@
 # -*- encoding : utf-8 -*-
-# rubocop:disable Lint/AmbiguousRegexpLiteral, Lint/Syntax
+
+# rubocop:disable Lint/AmbiguousRegexpLiteral
 
 When /^(?:|I )upload the (.+) "(.+)"$/ do |attachment_name, filename|
   Capybara.ignore_hidden_elements = false
@@ -12,6 +13,7 @@ def find_file filename
   roots = "{#{Cardio.root}/mod/**,#{Cardio.gem_root}/mod/**,#{Decko.gem_root}}"
   paths = Dir.glob(File.join(roots, "features", "support", filename))
   raise ArgumentError, "couldn't find file '#{filename}'" if paths.empty?
+
   paths.first
 end
 

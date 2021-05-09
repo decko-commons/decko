@@ -79,25 +79,23 @@ format :html do
     header_wrap [title, _render_overlay_menu]
   end
 
-  def overlay_frame slot=true, header=render_overlay_header, slot_opts=nil
+  def overlay_frame slot=true, header=render_overlay_header, slot_opts=nil, &block
     slot_opts ||= {}
     overlay_framer slot, header, slot_opts do
-      wrap_body { yield }
+      wrap_body(&block)
     end
   end
 
-  def haml_overlay_frame slot=true, header=render_overlay_header
+  def haml_overlay_frame slot=true, header=render_overlay_header, &block
     overlay_framer slot, header, {} do
-      haml_wrap_body { yield }
+      haml_wrap_body(&block)
     end
   end
 
   private
 
-  def overlay_framer slot, header, slot_opts
+  def overlay_framer slot, header, slot_opts, &block
     class_up "card-slot", "_overlay"
-    with_frame slot, header, slot_opts do
-      yield
-    end
+    with_frame slot, header, slot_opts, &block
   end
 end

@@ -120,7 +120,7 @@ RSpec.describe Card::Content do
                  " ",
                  '<a target="_blank" class="external-link" ' \
                'href="http://brain.org/Home">extra</a>'],
-      classes:  [
+      classes: [
         String, :Uri, String, :HostUri, String, :Uri, String, :Uri,
         String, :Uri, String, :Link
       ]
@@ -170,6 +170,7 @@ RSpec.describe Card::Content do
 
   EXAMPLES.each_value do |val|
     next unless val[:classes]
+
     val[:classes] = val[:classes].map do |klass|
       klass.is_a?(Class) ? klass : Card::Content::Chunk.const_get(klass)
     end
@@ -182,7 +183,9 @@ RSpec.describe Card::Content do
           wrong_class = m[0] != v.class
           expect(wrong_class).to be_falsey
           is_last = m.size == 1
-          is_last ? true : m[1..-1] unless wrong_class
+          unless wrong_class
+            is_last ? true : m[1..-1]
+          end
         end
       end
 
@@ -203,7 +206,7 @@ RSpec.describe Card::Content do
     end
 
     let(:example)       { EXAMPLES[@example] }
-    let(:cobj)          { Card::Content.new example[:content], @card }
+    let(:cobj)          { described_class.new example[:content], @card }
     let(:classes)       { example[:classes] }
     let(:rendered)      { example[:rendered] }
     let(:text_rendered) { example[:text_rendered] }
@@ -220,7 +223,7 @@ RSpec.describe Card::Content do
       end
 
       def nonstring_classes
-        classes.select { |c| String != c }
+        classes.reject { |c| String == c }
       end
 
       def all_classes_pass_check_proc
@@ -228,7 +231,7 @@ RSpec.describe Card::Content do
       end
 
       it "finds all the chunks and strings" do
-        # note the mixed [} that are considered matching, needs some cleanup ...
+        # NOTE: the mixed [} that are considered matching, needs some cleanup ...
         @example = :nests
         all_classes_pass_check_proc
       end
@@ -296,7 +299,7 @@ RSpec.describe Card::Content do
         @example = :uris_and_links
         card2 = Card[@card.id]
         format = card2.format format: :text
-        cobj = Card::Content.new content, format
+        cobj = described_class.new content, format
         cobj.process_chunks
         expect(cobj.as_json.to_json).to eq(text_rendered.to_json)
       end
@@ -330,69 +333,69 @@ RSpec.describe Card::Content do
     describe "#clean!" do
       it "does not alter untagged content" do
         UNTAGGED_CASES.each do |test_case|
-          assert_equal test_case, Card::Content.clean!(test_case)
+          assert_equal test_case, described_class.clean!(test_case)
         end
       end
 
       it "strips disallowed html class attributes" do
         assert_equal "<p>html<div>with</div> funky tags</p>",
-                     Card::Content.clean!(
+                     described_class.clean!(
                        '<p>html<div class="boo">with</div>' \
                        "<monkey>funky</butts>tags</p>"
                      )
         assert_equal "<span>foo</span>",
-                     Card::Content.clean!('<span class="banana">foo</span>')
+                     described_class.clean!('<span class="banana">foo</span>')
       end
 
       it "does not strip permitted_classes" do
         has_stripped1 = '<span class="w-spotlight">foo</span>'
         assert_equal has_stripped1,
-                     Card::Content.clean!(has_stripped1)
+                     described_class.clean!(has_stripped1)
         has_stripped2 = '<p class="w-highlight w-ok">foo</p>'
         assert_equal has_stripped2,
-                     Card::Content.clean!(has_stripped2)
+                     described_class.clean!(has_stripped2)
       end
 
       it "strips permitted_classes " \
             "but not permitted ones when both are present" do
         assert_equal '<span class="w-spotlight w-ok">foo</span>',
-                     Card::Content.clean!(
+                     described_class.clean!(
                        '<span class="w-spotlight banana w-ok">foo</span>'
                      )
         assert_equal '<p class="w-highlight">foo</p>',
-                     Card::Content.clean!(
+                     described_class.clean!(
                        '<p class="w-highlight bad-at end">foo</p>'
                      )
         assert_equal '<p class="w-highlight">foo</p>',
-                     Card::Content.clean!(
+                     described_class.clean!(
                        '<p class="bad-class w-highlight">foo</p>'
                      )
       end
 
       it "allows permitted attributes" do
-        assert_equal '<img src="foo">', Card::Content.clean!('<img src="foo">')
-        assert_equal "<img alt='foo'>", Card::Content.clean!("<img alt='foo'>")
-        assert_equal '<img title="foo">', Card::Content.clean!("<img title=foo>")
-        assert_equal '<a href="foo">', Card::Content.clean!('<a href="foo">')
-        assert_equal '<code lang="foo">', Card::Content.clean!('<code lang="foo">')
+        assert_equal '<img src="foo">', described_class.clean!('<img src="foo">')
+        assert_equal "<img alt='foo'>", described_class.clean!("<img alt='foo'>")
+        assert_equal '<img title="foo">', described_class.clean!("<img title=foo>")
+        assert_equal '<a href="foo">', described_class.clean!('<a href="foo">')
+        assert_equal '<code lang="foo">', described_class.clean!('<code lang="foo">')
         assert_equal '<blockquote cite="foo">',
-                     Card::Content.clean!('<blockquote cite="foo">')
+                     described_class.clean!('<blockquote cite="foo">')
       end
 
       it "does not allow nonpermitted attributes" do
-        assert_equal "<img>", Card::Content.clean!('<img size="25">')
-        assert_equal "<p>",   Card::Content.clean!('<p font="blah">')
+        assert_equal "<img>", described_class.clean!('<img size="25">')
+        assert_equal "<p>",   described_class.clean!('<p font="blah">')
       end
 
       it "removes comments" do
-        assert_equal "yo", Card::Content.clean!("<!-- not me -->yo")
+        assert_equal "yo", described_class.clean!("<!-- not me -->yo")
         assert_equal "joe",
-                     Card::Content.clean!("<!-- not me -->joe<!-- not me -->")
+                     described_class.clean!("<!-- not me -->joe<!-- not me -->")
       end
 
       it "fixes regular nbsp order by default" do
         assert_equal "space&nbsp; test&nbsp; two&nbsp;&nbsp; space",
-                     Card::Content.clean!(
+                     described_class.clean!(
                        "space&nbsp; test &nbsp;two &nbsp;&nbsp;space"
                      )
       end
@@ -412,7 +415,7 @@ RSpec.describe Card::Content do
 
   describe "#pieces" do
     def pieces content
-      Card::Content.new(content, Card["A"],).pieces
+      Card::Content.new(content, Card["A"]).pieces
     end
 
     example "A {{B}}" do

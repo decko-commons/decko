@@ -37,14 +37,12 @@ module Cardio
       end
     end
 
-    def with_suffix type
+    def with_suffix type, &block
       return yield unless (new_suffix = Cardio.schema_suffix type) &&
                           new_suffix.present?
 
       original_name = ActiveRecord::Base.schema_migrations_table_name
-      with_migration_table "#{original_name}#{new_suffix}", original_name do
-        yield
-      end
+      with_migration_table "#{original_name}#{new_suffix}", original_name, &block
     end
 
     def with_migration_table new_table_name, old_table_name

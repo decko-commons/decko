@@ -4,6 +4,7 @@ class Card
     module All
       def expire cache_type=nil
         return unless (cache_class = cache_class_from_type cache_type)
+
         expire_views
         expire_names cache_class
         expire_id cache_class
@@ -47,8 +48,10 @@ class Card
 
       def expire_name name_version, cache
         return unless name_version.present?
+
         key_version = name_version.to_name.key
         return unless key_version.present?
+
         cache.delete key_version
       end
 
@@ -57,6 +60,7 @@ class Card
           # puts "EXPIRE VIEW CACHE (#{name}): #{view_cache_keys}"
           view_keys = hard_read_view_cache_keys key
           next unless view_keys.present?
+
           expire_view_cache_keys view_keys
         end
         @view_cache_keys = []
@@ -64,6 +68,7 @@ class Card
 
       def expire_id cache
         return unless id.present?
+
         cache.delete "~#{id}"
       end
 

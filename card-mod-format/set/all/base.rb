@@ -42,6 +42,7 @@ format do
 
   def specify_type_in_link! opts
     return if opts[:known] || !voo.type
+
     opts[:path] = { card: { type: voo.type } }
   end
 
@@ -71,6 +72,7 @@ format do
 
   def structure_card
     return nil if voo.structure == true
+
     voo.structure ? Card[voo.structure] : card
   end
 
@@ -104,7 +106,7 @@ format do
     ""
   end
 
-  # note: content and open_content may look like they should be aliased to
+  # NOTE: content and open_content may look like they should be aliased to
   # core, but it's important that they render core explicitly so that core view
   # overrides work.  the titled and labeled views below, however, are not
   # intended for frequent override, so this shortcut is fine.

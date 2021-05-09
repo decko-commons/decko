@@ -2,6 +2,7 @@ class Card
   class Action
     class ActionRenderer
       attr_reader :action, :header
+
       def initialize format, action, header=true, action_view=:summary, hide_diff=false
         @format = format
         @action = action
@@ -58,7 +59,7 @@ class Card
         else
           link_to_view(
             :related, name_changes,
-            path: { slot: { items: { view: "history", nest_name: @action.card.name } } },
+            path: { slot: { items: { view: "history", nest_name: @action.card.name } } }
             # "data-slot-selector" => ".card-slot.history-view"
           )
         end

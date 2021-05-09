@@ -1,6 +1,7 @@
 #! no set module
 class RuleSetRadio
   attr_reader :format
+
   delegate :link_to_card, :radio_button, :wrap_with, :icon_tag,
            to: :format
 

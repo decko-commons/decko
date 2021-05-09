@@ -27,7 +27,7 @@ class Bootstrap
         @html.label label, for: id, class: "col-sm-#{left_col_width} control-label"
       end
 
-      def input type, label:, id:, &block
+      def input type, label:, id:
         label_col label, id: id
         @html.div class: "col-sm-#{right_col_width}" do
           @html.input type: type, id: id, class: "form-control"
@@ -49,7 +49,7 @@ class Bootstrap
         { class: "col-sm-offset-#{left_col_width} col-sm-#{right_col_width}" }
       end
 
-      def checkbox text, extra_args
+      def checkbox _text, _extra_args
         @html.div class: "col-sm-offset-#{left_col_width} col-sm-#{right_col_width}" do
           @html.div class: "checkbox" do
             label_cllabel do

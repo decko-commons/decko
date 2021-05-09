@@ -107,5 +107,3 @@ RSpec.describe Card::Set::All::ProcessLayout do
       .to have_tag "div#main", "A"
   end
 end
-
-

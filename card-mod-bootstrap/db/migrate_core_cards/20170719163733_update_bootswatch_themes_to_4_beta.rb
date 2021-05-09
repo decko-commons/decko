@@ -1,4 +1,5 @@
 # -*- encoding : utf-8 -*-
+
 require_relative "lib/skin"
 
 class UpdateBootswatchThemesTo4Beta < Cardio::Migration::Core
@@ -51,5 +52,3 @@ class UpdateBootswatchThemesTo4Beta < Cardio::Migration::Core
     end
   end
 end
-
-

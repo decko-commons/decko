@@ -22,6 +22,7 @@ class Card
       end
 
       attr_reader :result
+
       delegate :summary, :complete, :summary_omits_content?, to: :result
 
       # diff options
@@ -41,11 +42,11 @@ class Card
       end
 
       def red?
-        @result.dels_cnt > 0
+        @result.dels_cnt.positive?
       end
 
       def green?
-        @result.adds_cnt > 0
+        @result.adds_cnt.positive?
       end
 
       private

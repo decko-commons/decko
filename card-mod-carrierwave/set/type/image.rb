@@ -23,8 +23,10 @@ format do
 
   view :source do
     return card.content if card.web?
+
     image = selected_version
     return "" unless image.valid?
+
     contextualize_path image.url
   end
 
@@ -35,10 +37,6 @@ format do
     else
       card.image
     end
-  end
-
-  def handle_source
-    super
   end
 
   def closed_size
@@ -79,6 +77,7 @@ format :email_html do
     handle_source do |source|
       return source unless (mail = inherit :active_mail) &&
                            ::File.exist?(path = selected_version.path)
+
       url = attach_image mail, path
       image_tag url
     end

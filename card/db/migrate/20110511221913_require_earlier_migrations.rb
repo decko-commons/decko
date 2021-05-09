@@ -1,4 +1,5 @@
 # -*- encoding : utf-8 -*-
+
 class RequireEarlierMigrations < ActiveRecord::Migration[4.2]
   def self.up
     raise %(

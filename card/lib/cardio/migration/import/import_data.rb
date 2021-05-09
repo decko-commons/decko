@@ -42,6 +42,7 @@ module Cardio
             unless attributes
               raise("no entry for #{key} (key: #{key.to_name.key}) in #{@path}")
             end
+
             prepare_for_import attributes
           end
         end

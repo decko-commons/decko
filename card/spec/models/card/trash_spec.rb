@@ -2,34 +2,34 @@
 
 RSpec.describe Card, "deleting card" do
   it "requires permission" do
-    a = Card["a"]
+    a = described_class["a"]
     Card::Auth.as :anonymous do
       expect(a.ok?(:delete)).to eq(false)
       expect(a.delete).to eq(false)
       expect(a.errors[:permission_denied]).not_to be_empty
-      expect(Card["a"].trash).to eq(false)
+      expect(described_class["a"].trash).to eq(false)
     end
   end
 end
 
 describe Card, "in trash" do
   it "is retrieved by fetch with new" do
-    Card.create(name: "Betty").delete
-    c = Card.fetch "Betty", new: {}
+    described_class.create(name: "Betty").delete
+    c = described_class.fetch "Betty", new: {}
     c.save
-    expect(Card["Betty"]).to be_instance_of(Card)
+    expect(described_class["Betty"]).to be_instance_of(described_class)
   end
 end
 
 describe Card, "plus cards" do
   it "is deleted when root is" do
     Card::Auth.as "joe_admin" do
-      c = Card.create! name: "zz+top"
-      root = Card["zz"]
+      c = described_class.create! name: "zz+top"
+      root = described_class["zz"]
       root.delete
       #      Rails.logger.info "ERRORS = #{root.errors.full_messages*''}"
-      expect(Card.find(c.id).trash).to be_truthy
-      expect(Card["zz"]).to be_nil
+      expect(described_class.find(c.id).trash).to be_truthy
+      expect(described_class["zz"]).to be_nil
     end
   end
 end
@@ -50,8 +50,8 @@ end
 describe Card, "rename to trashed name" do
   before do
     Card::Auth.as_bot do
-      @a = Card["A"]
-      @b = Card["B"]
+      @a = described_class["A"]
+      @b = described_class["B"]
       @a.delete!  # trash
       @b.update! name: "A", update_referers: true
     end
@@ -62,7 +62,7 @@ describe Card, "rename to trashed name" do
   end
 
   it "renames a to a*trash" do
-    expect((c = Card.find(@a.id)).name.to_s).to eq("A*trash")
+    expect((c = described_class.find(@a.id)).name.to_s).to eq("A*trash")
     expect(c.name).to eq("A*trash")
     expect(c.key).to eq("a*trash")
   end
@@ -71,7 +71,7 @@ end
 describe Card, "sent to trash" do
   before do
     Card::Auth.as_bot do
-      @c = Card["basicname"]
+      @c = described_class["basicname"]
       @c.delete!
     end
   end
@@ -81,7 +81,7 @@ describe Card, "sent to trash" do
   end
 
   it "does not be findable by name" do
-    expect(Card["basicname"]).to eq(nil)
+    expect(described_class["basicname"]).to eq(nil)
   end
 
   it "still has actions" do
@@ -93,9 +93,9 @@ end
 describe Card, "revived from trash" do
   before do
     Card::Auth.as_bot do
-      Card["basicname"].delete!
+      described_class["basicname"].delete!
 
-      @c = Card.create! name: "basicname", content: "revived content"
+      @c = described_class.create! name: "basicname", content: "revived content"
     end
   end
 
@@ -108,7 +108,7 @@ describe Card, "revived from trash" do
   end
 
   it "still has old content" do
-    expect(@c.nth_action(1).value :db_content).to eq("basiccontent")
+    expect(@c.nth_action(1).value(:db_content)).to eq("basiccontent")
   end
 
   it "has the same content" do
@@ -134,9 +134,9 @@ end
 RSpec.describe Card, "junction revival" do
   before do
     Card::Auth.as_bot do
-      @c = Card.create! name: "basicname+woot", content: "basiccontent"
+      @c = described_class.create! name: "basicname+woot", content: "basiccontent"
       @c.delete!
-      @c = Card.create! name: "basicname+woot", content: "revived content"
+      @c = described_class.create! name: "basicname+woot", content: "revived content"
     end
   end
 
@@ -149,7 +149,7 @@ RSpec.describe Card, "junction revival" do
   end
 
   it "still has old action" do
-    expect(@c.nth_action(1).value :db_content).to eq("basiccontent")
+    expect(@c.nth_action(1).value(:db_content)).to eq("basiccontent")
   end
 
   it "has old content" do

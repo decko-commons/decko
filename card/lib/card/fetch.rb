@@ -35,12 +35,14 @@ class Card
 
     def normalize_mark
       return unless mark.name?
+
       supercard = opts.dig :new, :supercard
       @mark = mark.absolute_name supercard.name if supercard
     end
 
     def validate_opts!
       return unless opts[:new] && opts[:skip_virtual]
+
       raise Card::Error, "fetch called with new args and skip_virtual"
     end
 

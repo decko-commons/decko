@@ -26,6 +26,7 @@ end
 
 event :downcase_email, :prepare_to_validate, on: :save do
   return if !content || content == content.downcase
+
   self.content = content.downcase
 end
 

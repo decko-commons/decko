@@ -1,4 +1,3 @@
-
 Self::InputOptions.add_to_basket :options, "text area"
 Self::InputOptions.add_to_basket :options, "text field"
 

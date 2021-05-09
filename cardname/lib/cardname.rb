@@ -24,7 +24,7 @@ class Cardname < String
 
   self.joint          = "+"
   self.banned_array   = []
-  self.var_re         = /\{([^\}]*\})\}/
+  self.var_re         = /\{([^}]*\})\}/
   self.uninflect      = :singularize
   self.stabilize      = false
 

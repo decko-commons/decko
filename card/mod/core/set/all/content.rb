@@ -67,7 +67,8 @@ end
 format do
   ONE_LINE_CHARACTER_LIMIT = 60
 
-  def chunk_list # override to customize by set
+  # override to customize by set
+  def chunk_list
     :default
   end
 
@@ -117,7 +118,7 @@ format do
     if text.size <= limit
       text
     else
-      text[0..(limit - 3)] + "..."
+      "#{text[0..(limit - 3)]}..."
     end
   end
 

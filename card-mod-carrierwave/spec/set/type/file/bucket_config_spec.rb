@@ -1,4 +1,3 @@
-
 describe "#bucket config" do
   subject do
     Card.new(name: "test", type_id: Card::FileID,
@@ -36,7 +35,7 @@ describe "#bucket config" do
   after do
     Cardio.config.file_buckets = @old_bucket_config
     %w[PROVIDER CREDENTIALS_PROVIDER TEST_BUCKET_PROVIDER
-         TEST_BUCKET_CREDENTIALS_PROVIDER].each do |key|
+       TEST_BUCKET_CREDENTIALS_PROVIDER].each do |key|
       ENV.delete key
     end
   end

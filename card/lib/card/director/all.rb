@@ -44,10 +44,10 @@ class Card
 
       private
 
-      def start_new_act
+      def start_new_act &block
         self.director = nil
         Director.run_act(self) do
-          run_callbacks(:act) { yield }
+          run_callbacks(:act, &block)
         end
       end
 

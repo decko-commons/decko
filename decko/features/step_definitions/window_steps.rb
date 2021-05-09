@@ -1,5 +1,6 @@
 # -*- encoding : utf-8 -*-
-# rubocop:disable Lint/AmbiguousRegexpLiteral, Lint/Syntax
+
+# rubocop:disable Lint/AmbiguousRegexpLiteral
 
 When /^I open a new window for (.*)$/ do |account_name|
   str =
@@ -14,9 +15,10 @@ END_TAG
 end
 
 When /I switch to (.+) window$/ do |window|
-  if window == "first"
+  case window
+  when "first"
     page.driver.browser.switch_to.window(page.driver.browser.window_handles.first)
-  elsif window == "last"
+  when "last"
     page.driver.browser.switch_to.window(page.driver.browser.window_handles.last)
   end
 end

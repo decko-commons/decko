@@ -17,9 +17,7 @@ format :html do
     Auth.current_roles.size > 1
   end
 
-  def role_items
-    Auth.current_roles.map do |role_name|
-      yield role_name
-    end
+  def role_items &block
+    Auth.current_roles.map(&block)
   end
 end

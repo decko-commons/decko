@@ -1,4 +1,3 @@
-
 def standardize_items
   super unless content == "_left"
 end
@@ -84,6 +83,7 @@ format :html do
 
   def inheritance_checkbox
     return unless inheritable?
+
     <<-HTML
       <div class="perm-inheritance perm-section">
         #{check_box_tag 'inherit', 'inherit', inheriting?}
@@ -106,6 +106,7 @@ format :html do
 
   def in_context_of_self_set?
     return false unless @set_context
+
     @set_context.to_name.tag_name.key == Card[:self].key
   end
 
@@ -116,7 +117,7 @@ format :html do
       link_to_card card_id, nil, target: args[:target]
     end * ", "
     "Inherit ( #{links} )"
-  rescue
+  rescue StandardError
     "Inherit"
   end
 end
