@@ -1,11 +1,12 @@
 # -*- encoding : utf-8 -*-
+
 require "test_helper"
 require "rails/performance_test_help"
 
 class CardCreateTest < ActionDispatch::PerformanceTest
   def initialize *args
     @name = "CardA"
-    super *args
+    super(*args)
     Card::Auth.as Card::WagnBotID
   end
 

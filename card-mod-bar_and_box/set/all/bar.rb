@@ -16,7 +16,7 @@ format :html do
     voo.hide :bar_middle
     voo.hide :bar_bottom # needed for toggle
     class_up_bar_sides(voo.show?(:bar_middle))
-    # note: above cannot be in `before`, because before blocks run before viz processing
+    # NOTE: above cannot be in `before`, because before blocks run before viz processing
     wrap { haml :bar }
   end
 

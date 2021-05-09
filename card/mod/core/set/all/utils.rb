@@ -41,7 +41,7 @@ module ClassMethods
 
   def resolve_file_attributes! attribs
     %i[image file].each do |attach|
-      next unless attribs[attach] && attribs[attach].is_a?(String)
+      next unless attribs[attach].is_a?(String)
 
       attribs[attach] = ::File.open(attribs[attach])
     end

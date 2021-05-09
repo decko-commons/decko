@@ -36,7 +36,7 @@ RSpec.describe Card::Set::Type::Scss do
       Card.gimme! "style with scss+*style", type: :pointer
     end
     let(:card_content) do
-      { in:         scss,         out:     compressed_css,
+      { in: scss,         out:     compressed_css,
         changed_in: changed_scss, changed_out: compressed_changed_css }
     end
   end
@@ -50,7 +50,7 @@ RSpec.describe Card::Set::Type::Scss do
   it_behaves_like "content machine", that_produces: :css do
     let(:machine_card) { dummy_css }
     let(:card_content) do
-      { in:         scss,         out:     compressed_css,
+      { in: scss,         out:     compressed_css,
         changed_in: changed_scss, changed_out: compressed_changed_css }
     end
   end

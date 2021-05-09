@@ -20,7 +20,9 @@ guard :rspec, cmd: "bundle exec decko rspec" do
 
   # mods
   watch(%r{^mod/(.+)\.rb})                            { |m| "mod/spec/#{m[1]}_spec.rb" }
-  watch(%r{^tmp/mod/(.+)\.rb})                            { |m| "mod/spec/#{m[1]}_spec.rb" }
+  watch(%r{^tmp/mod/(.+)\.rb})                            do |m|
+    "mod/spec/#{m[1]}_spec.rb"
+  end
 
   # Turnip features and steps
   #  watch(%r{^spec/acceptance/(.+)\.feature$})

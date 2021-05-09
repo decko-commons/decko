@@ -62,7 +62,7 @@ class Card
           # prefix of matched chunk
           @chunk_start = prefix_match.begin(0) + @position
           # content index of beginning of chunk
-          if prefix_match.begin(0) > 0
+          if prefix_match.begin(0).positive?
             # if matched chunk is not beginning of test string
             @interval_string += @content[@position..@chunk_start - 1]
             # hold onto the non-chunk part of the string
@@ -87,7 +87,7 @@ class Card
           @chunks << @chunk_class.new(@match, @content_object)
           # add the chunk to the chunk list
           @last_position = @position
-          # note that the end of the chunk was the last place where a
+          # NOTE: that the end of the chunk was the last place where a
           # chunk was found (so far)
           true
         end

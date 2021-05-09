@@ -14,6 +14,7 @@ format :rss do
   # FIXME: integrate this with common XML features when it is added
   view :feed, cache: :never do
     return "RSS feeds disabled" unless Cardio.config.rss_enabled
+
     begin
       @xml.instruct! :xml, version: "1.0", standalone: "yes"
       @xml.rss version: "2.0",
@@ -25,7 +26,7 @@ format :rss do
           render_feed_body
         end
       end
-    rescue => e
+    rescue StandardError => e
       @xml.error "\n\nERROR rendering RSS: #{e.inspect}\n\n #{e.backtrace}"
     end
   end
@@ -43,7 +44,7 @@ format :rss do
   end
 
   view :feed_title do
-    Card::Rule.global_setting(:title) + " : " + card.name.gsub(/^\*/, "")
+    "#{Card::Rule.global_setting(:title)} : #{card.name.gsub(/^\*/, '')}"
   end
 
   view :feed_item do

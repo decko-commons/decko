@@ -20,13 +20,14 @@ RSpec.describe Card::Set::Type::Image do
   end
 
   context "newly created image card" do
+    subject { Card["image card"] }
+
     before do
       Card::Auth.as_bot do
         Card.create! name: "image card", type: "image",
                      image: File.new(File.join(CARD_TEST_SEED_PATH, "mao2.jpg"))
       end
     end
-    subject { Card["image card"] }
 
     it "stores correct identifier" do
       expect(subject.content)
@@ -39,12 +40,12 @@ RSpec.describe Card::Set::Type::Image do
 
     it "stores small size" do
       expect(subject.image.small.size).to be < 6000
-      expect(subject.image.small.size).to be > 0
+      expect(subject.image.small.size).to be.positive?
     end
 
     it "stores icon size" do
       expect(subject.image.icon.size).to be < 3000
-      expect(subject.image.icon.size).to be > 0
+      expect(subject.image.icon.size).to be.positive?
     end
 
     it "saves original file name as action comment" do
@@ -81,6 +82,7 @@ RSpec.describe Card::Set::Type::Image do
           image: File.new(File.join(CARD_TEST_SEED_PATH, "rails.gif"))
         )
       end
+
       it "updates file" do
         expect(subject.image.size).to eq 8533
       end
@@ -100,11 +102,13 @@ RSpec.describe Card::Set::Type::Image do
     subject { Card[:cerulean_skin_image] }
 
     it "exists" do
-      expect(subject.image.size).to be > 0
+      expect(subject.image.size).to be.positive?
     end
+
     it "has correct url" do
       expect(subject.image.url).to eq "/files/:cerulean_skin_image/bootstrap-original.png"
     end
+
     it "has correct url as content" do
       expect(subject.content).to eq ":#{subject.codename}/bootstrap.png"
     end
@@ -115,14 +119,14 @@ RSpec.describe Card::Set::Type::Image do
           image: File.new(File.join(CARD_TEST_SEED_PATH, "rails.gif"))
         )
       end
-      expect(subject.coded?).to be_falsey
+      is_expected.not_to be_coded
       expect(subject.image.url)
         .to eq "/files/~#{subject.id}/#{subject.last_action_id}-original.gif"
     end
 
     describe "#coded?" do
       it "returns true" do
-        expect(subject.coded?).to be_truthy
+        is_expected.to be_coded
       end
     end
 
@@ -147,9 +151,9 @@ RSpec.describe Card::Set::Type::Image do
       small_path = subject.image.small.path
       medium_path = subject.image.medium.path
       subject.delete_files_for_action(subject.last_action)
-      expect(File.exist?(small_path)).to be_falsey
-      expect(File.exist?(medium_path)).to be_falsey
-      expect(File.exist?(path)).to be_falsey
+      expect(File).not_to exist(small_path)
+      expect(File).not_to exist(medium_path)
+      expect(File).not_to exist(path)
     end
   end
 end

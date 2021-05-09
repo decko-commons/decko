@@ -177,9 +177,7 @@ class Card
 
     # all changed values in hash form. { field1: new_value }
     def changed_values
-      @changed_values ||= changes.each_with_object({}) do |(key, change), h|
-        h[key] = change.value
-      end
+      @changed_values ||= changes.transform_values(&:value)
     end
 
     # @return [Hash]

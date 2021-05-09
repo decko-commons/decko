@@ -38,6 +38,7 @@ class Card
       # rubocop:disable Lint/Eval
       def method_missing m, *args, &block
         return super unless Card.rspec_binding
+
         suppress_name_error do
           method = eval("method(%s)" % m.inspect, Card.rspec_binding)
           return method.call(*args, &block)

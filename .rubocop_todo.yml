@@ -496,7 +496,6 @@ Style/RegexpLiteral:
     - 'decko/features/step_definitions/email_steps.rb'
     - 'decko/lib/decko/mods_spec_helper.rb'
     - 'decko/lib/decko/simplecov_helper.rb'
-    - 'decko/script/test_filter'
     - 'decko/spec/controllers/card_controller_spec.rb'
     - 'decko/test/test_helper.rb'
 

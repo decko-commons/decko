@@ -14,6 +14,7 @@ end
 def item_type
   type = cql_hash[:type]
   return if type.is_a?(Array) || type.is_a?(Hash)
+
   type
 end
 
@@ -44,6 +45,7 @@ def search args={}
     # forces explicit limiting
     # can be 0 or less to force no limit
     raise "OH NO.. no limit" unless query.mods[:limit]
+
     query.run
   end
 end

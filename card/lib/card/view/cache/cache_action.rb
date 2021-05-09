@@ -14,12 +14,11 @@ class Card
         end
 
         def log_cache_action
-          action = yield
+          yield
           # TODO: make configurable
           # ...or better yet, integrate into performance logger...
           # Rails.logger.warn "VIEW CACHE #{cache_active? ? '-->' : ''}[#{action}] "\
           #                   "(#{card.name}##{requested_view})"
-          action
         end
 
         # @return [Symbol] :off, :active, or :free

@@ -194,8 +194,8 @@ class Card
       # those stubs.
       #
       # @return [String (usually)] rendered view
-      def cache_render
-        cached_view = cache_fetch { yield }
+      def cache_render &block
+        cached_view = cache_fetch(&block)
         cache_active? ? cached_view : format.stub_render(cached_view)
       end
 
@@ -212,18 +212,16 @@ class Card
 
       # If view is cached, retrieve it.  Otherwise render and store it.
       # Uses the primary cache API.
-      def cache_fetch
+      def cache_fetch &block
         caching do
           ensure_cache_key
-          self.class.cache.fetch cache_key do
-            yield
-          end
+          self.class.cache.fetch cache_key, &block
         end
       end
 
       # keep track of nested cache fetching
-      def caching
-        self.class.caching(self) { yield }
+      def caching &block
+        self.class.caching(self, &block)
       end
 
       # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

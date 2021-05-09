@@ -10,9 +10,9 @@ format :html do
     standard_frame(&block)
   end
 
-  def standard_frame slot=true
+  def standard_frame slot=true, &block
     with_frame slot do
-      wrap_body { yield } if block_given?
+      wrap_body(&block) if block_given?
     end
   end
 
@@ -36,18 +36,14 @@ format :html do
     end
   end
 
-  def frame_and_form action, form_opts={}
+  def frame_and_form action, form_opts={}, &block
     form_opts ||= {}
     frame do
-      card_form action, form_opts do
-        yield
-      end
+      card_form action, form_opts, &block
     end
   end
 
-  def panel
-    wrap_with :div, class: classy("d0-card-frame") do
-      yield
-    end
+  def panel &block
+    wrap_with :div, class: classy("d0-card-frame"), &block
   end
 end

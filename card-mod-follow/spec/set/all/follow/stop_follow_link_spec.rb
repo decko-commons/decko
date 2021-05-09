@@ -6,7 +6,7 @@ RSpec.describe Card::Set::All::Follow::StopFollowLink do
 
     specify do
       expect(button).to have_tag "a[href*='never']",
-                                 with: { "data-hover-text": "unfollow"},
+                                 with: { "data-hover-text": "unfollow" },
                                  text: /following/
     end
   end

@@ -7,7 +7,7 @@ module Bootstrapper
   end
 
   def bs *args, &block
-    bootstrap.render *args, &block
+    bootstrap.render(*args, &block)
   end
 
   components.each do |component|

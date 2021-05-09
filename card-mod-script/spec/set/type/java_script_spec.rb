@@ -15,9 +15,9 @@ describe Card::Set::Type::JavaScript do
       Card.gimme! "test javascript", type: :java_script, content: js
     end
     let(:card_content) do
-      { in:          js,
-        out:         comment_with_source(compressed_js),
-        changed_in:  changed_js,
+      { in: js,
+        out: comment_with_source(compressed_js),
+        changed_in: changed_js,
         changed_out: comment_with_source(compressed_changed_js) }
     end
   end
@@ -33,11 +33,11 @@ describe Card::Set::Type::JavaScript do
       Card.gimme! "script with js+*script", type: :pointer
     end
     let(:card_content) do
-      { in:          js,
-        out:         comment_with_source(compressed_js),
-        changed_in:  changed_js,
+      { in: js,
+        out: comment_with_source(compressed_js),
+        changed_in: changed_js,
         changed_out: comment_with_source(compressed_changed_js),
-        added_out:   "//test javascript\n#{compressed_js}\n"\
+        added_out: "//test javascript\n#{compressed_js}\n"\
                      "//more javascript\n#{compressed_js}" }
     end
   end

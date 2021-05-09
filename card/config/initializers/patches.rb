@@ -47,9 +47,11 @@ module ActiveRecord #:nodoc: all
   end
 end
 
-module ActiveJob::Arguments #:nodoc: all
-  class << self
-    prepend Patches::ActiveJob::Arguments
+module ActiveJob
+  module Arguments #:nodoc: all
+    class << self
+      prepend Patches::ActiveJob::Arguments
+    end
   end
 end
 
@@ -60,7 +62,6 @@ module ActiveSupport #:nodoc: all
     end
   end
 end
-
 
 module Zeitwerk #:nodoc: all
   class Loader

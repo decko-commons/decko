@@ -40,11 +40,12 @@ RSpec.describe Card::Set::Type::SearchType do
   end
 
   context "references" do
-    before do
-      create_search_type "search with references", content: '{"name":"Y"}'
-    end
     subject do
       Card["search with references"]
+    end
+
+    before do
+      create_search_type "search with references", content: '{"name":"Y"}'
     end
 
     it "updates query if referee changed" do

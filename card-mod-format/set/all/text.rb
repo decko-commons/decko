@@ -1,4 +1,3 @@
-
 format :text do
   view :core do
     HTMLEntities.new.decode strip_tags(super()).to_s

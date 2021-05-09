@@ -78,7 +78,7 @@ class Cardname
     end
 
     def ancestors
-      @ancestors ||= pieces.reject { |p| p == self}
+      @ancestors ||= pieces.reject { |p| p == self }
     end
 
     # def + other

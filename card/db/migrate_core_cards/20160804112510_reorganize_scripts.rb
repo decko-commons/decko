@@ -15,7 +15,7 @@ class ReorganizeScripts < Cardio::Migration::Core
     Card.search(type_id: Card::PointerID,
                 right: { codename: "script" },
                 link_to: "script: slot").each do |script_rule|
-      [:script_tinymce, :script_ace, :bootstrap_js].each do |codename|
+      %i[script_tinymce script_ace bootstrap_js].each do |codename|
         name = Card[codename].name
         script_rule.drop_item name
       end

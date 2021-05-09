@@ -16,6 +16,7 @@ class CardController
   module Errors
     def handle_exception exception
       raise exception if debug_exception?(exception)
+
       @card ||= Card.new
       error = Card::Error.report exception, card
       show error.class.view, error.class.status_code

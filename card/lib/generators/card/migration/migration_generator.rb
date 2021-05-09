@@ -5,7 +5,7 @@ require "generators/card"
 class Card
   module Generators
     class MigrationGenerator < MigrationBase
-      source_root File.expand_path("../templates", __FILE__)
+      source_root File.expand_path("templates", __dir__)
 
       class_option "core", type: :boolean, aliases: "-c",
                            default: false, group: :runtime,
@@ -15,6 +15,7 @@ class Card
         migration_type = options["core"] ? :core_cards : :deck_cards
         mig_paths = Cardio.migration_paths(migration_type)
         raise "No migration directory for #{migration_type}" if mig_paths.blank?
+
         set_local_assigns!
         migration_template @migration_template,
                            File.join(mig_paths.first, "#{file_name}.rb")

@@ -202,15 +202,15 @@ RSpec.describe Card::Set::All::Permissions do
       it "inherits" do
         Card::Auth.as(:anyone_signed_in) do
           # explicitly granted above
-          expect(Card.fetch("A+*self").ok?(:create)).to be_truthy
+          expect(Card.fetch("A+*self")).to be_ok(:create)
           # by default restricted
-          expect(Card.fetch("A+*right").ok?(:create)).to be_falsey
+          expect(Card.fetch("A+*right")).not_to be_ok(:create)
 
-          expect(Card.fetch("A+*self+*structure", new: {}).ok?(:create)).to(
-            be_truthy # +*structure granted;
+          expect(Card.fetch("A+*self+*structure", new: {})).to(
+            be_ok(:create) # +*structure granted;
           )
-          expect(Card.fetch("A+*right+*structure", new: {}).ok?(:create)).to(
-            be_falsey # can't create A+B, therefore can't create A+B+C
+          expect(Card.fetch("A+*right+*structure", new: {})).not_to(
+            be_ok(:create) # can't create A+B, therefore can't create A+B+C
           )
         end
       end
@@ -273,44 +273,42 @@ RSpec.describe Card::Set::All::Permissions do
   end
 
   it "lets joe view new cards" do
-    expect(Card.new.ok?(:read)).to be_truthy
+    expect(Card.new).to be_ok(:read)
   end
 
   context "default permissions" do
-    before do
-      @c = Card.create! name: "sky blue"
+    let :c do
+      Card.create! name: "sky blue"
     end
 
     it "lets anonymous users view basic cards" do
       Card::Auth.as :anonymous do
-        expect(@c.ok?(:read)).to be_truthy
+        expect(c).to be_ok(:read)
       end
     end
 
     it "lets joe user basic cards" do
       Card::Auth.as "joe_user" do
-        expect(@c.ok?(:read)).to be_truthy
+        expect(c).to be_ok(:read)
       end
     end
   end
 
   it "allows anyone signed in to create Basic Cards" do
-    expect(Card.new.ok?(:create)).to be_truthy
+    expect(Card.new).to be_ok(:create)
   end
 
   it "does not allow someone not signed in to create Basic Cards" do
     Card::Auth.as :anonymous do
-      expect(Card.new.ok?(:create)).not_to be_truthy
+      expect(Card.new).not_to be_ok(:create)
     end
   end
 
   context "settings based permissions" do
     before do
       Card::Auth.as_bot do
-        @delete_rule_card = Card.fetch "*all+*delete", new: {}
-        @delete_rule_card.type_id = Card::PointerID
-        @delete_rule_card.db_content = "[[Joe_User]]"
-        @delete_rule_card.save!
+        Card.fetch("*all+*delete", new: {}).update! type_code: :pointer,
+                                                    content: "Joe User"
       end
     end
 

@@ -99,16 +99,12 @@ class Card
       "<#{__getobj__.class}:#{card}:#{self}>"
     end
 
-    def without_nests
-      without_chunks Chunk::Nest do |content|
-        yield content
-      end
+    def without_nests &block
+      without_chunks Chunk::Nest, &block
     end
 
-    def without_references
-      without_chunks Chunk::Nest, Chunk::Link do |content|
-        yield content
-      end
+    def without_references &block
+      without_chunks Chunk::Nest, Chunk::Link, &block
     end
 
     def without_chunks *chunk_classes

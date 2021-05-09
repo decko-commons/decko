@@ -21,4 +21,3 @@ DeckoGem.gem "cardname" do |s, _d|
   s.add_dependency "activesupport", "~> 6"
   s.add_dependency "htmlentities",  "~> 4.3"
 end
-

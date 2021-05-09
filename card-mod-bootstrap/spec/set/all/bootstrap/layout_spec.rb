@@ -79,7 +79,7 @@ describe Bootstrap::Component::Layout, "layout dsl" do
       layout do
         row 8, 4 do
           column do
-            layout {row 12, ["c1"]}
+            layout { row 12, ["c1"] }
           end
           column do
             row 12, ["c2"]

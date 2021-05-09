@@ -6,8 +6,10 @@ class UpdateFileHistory < Cardio::Migration::Core
       card.actions.each do |action|
         next unless (content_change = action.change :db_content)
         next if content_change.new_record?
+
         original_filename, file_type, action_id, mod = content_change.value.split("\n")
         next unless file_type.present? && action_id.present?
+
         value =
           if mod.present?
             ":#{card.codename}/#{mod}#{::File.extname(original_filename)}"

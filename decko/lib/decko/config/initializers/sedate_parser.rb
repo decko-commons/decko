@@ -1,7 +1,10 @@
 # Hack to get rid of annoying parser warnings
 module Parser
   def self.warn msg
-    return if msg =~ %r{^warning: (?:parser/current|[\d\.]+-compliant syntax|please see)}
-    super
+    if msg.match? %r{^warning: (?:parser/current|[\d.]+-compliant syntax|please see)}
+      return
+    else
+      super
+    end
   end
 end

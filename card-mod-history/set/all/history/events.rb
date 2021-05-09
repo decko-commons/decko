@@ -34,7 +34,7 @@ event :finalize_action, :finalize, when: :finalize_action? do
   if changed_fields.present?
     @current_action.update! card_id: id
 
-    # Note: #last_change_on uses the id to sort by date
+    # NOTE: #last_change_on uses the id to sort by date
     # so the changes for the create changes have to be created before the first change
     store_card_changes_for_create_action if first_change?
     store_card_changes unless first_create?
@@ -64,7 +64,7 @@ def store_each_history_field action_id, fields=nil
   if false # Card::Change.supports_import?
     # attach.feature fails with this
     values = fields.map.with_index { |field, index| [index, yield(field), action_id] }
-    Card::Change.import [:field, :value, :card_action_id], values #, validate: false
+    Card::Change.import %i[field value card_action_id], values # , validate: false
   else
     fields.each do |field|
       Card::Change.create field: field,

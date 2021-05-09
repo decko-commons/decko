@@ -43,12 +43,14 @@ class Card
         def new_supercard_args
           # special case.  gets absolutized incorrectly. fix in name?
           return {} if view_opts[:nest_name].strip.blank?
+
           { supercard: format.context_card }
         end
 
         def new_main_args
           nest_name = view_opts[:nest_name]
           return {} unless nest_name =~ /main/
+
           { name: nest_name.gsub(/^_main\+/, "+"),
             supercard: format.root.card }
         end

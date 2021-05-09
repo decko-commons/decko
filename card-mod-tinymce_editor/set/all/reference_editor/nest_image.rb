@@ -20,7 +20,6 @@ format :html do
     nest_editor editor_mode
   end
 
-
   def adapt_reference_editor_for_images
     nest_name = card.autoname(card.name.field("image01"))
     voo.show! :content_tab
@@ -29,7 +28,6 @@ format :html do
     image_name = nest_name.to_name.right
     @nest_snippet = Card::Reference::NestParser.new_image image_name
   end
-
 
   def new_image_form_opts
     { buttons: new_image_buttons,

@@ -54,34 +54,34 @@ describe Card::Set::All::Initialize do
 
   describe "module inclusion" do
     context "(search)" do
-      before do
-        @c = Card.new type: "Search", name: "Module Inclusion Test Card"
+      let :c do
+        Card.new type: "Search", name: "Module Inclusion Test Card"
       end
 
       it "happens after new" do
-        expect(@c.respond_to?(:query)).to be_truthy
+        expect(c).to respond_to(:query)
       end
 
       it "happens after save" do
-        expect(@c.respond_to?(:query)).to be_truthy
-        @c.save!
-        expect(@c.respond_to?(:query)).to be_truthy
+        expect(c).to respond_to(:query)
+        c.save!
+        expect(c).to respond_to(:query)
       end
 
       it "happens after fetch" do
-        @c.save!
-        c = Card.fetch(@c.name)
-        expect(c.respond_to?(:query)).to be_truthy
+        c.save!
+        c = Card.fetch(c.name)
+        expect(c).to respond_to(:query)
       end
     end
 
     context "(pointer)" do
       it "happens with explicit pointer setting" do
-        expect(Card.new(type: "Pointer").respond_to?(:add_item)).to be_truthy
+        expect(Card.new(type: "Pointer")).to respond_to(:add_item)
       end
 
       it "happens with implicit pointer setting (from template)" do
-        expect(Card.new(name: "Home+*cc").respond_to?(:add_item)).to be_truthy
+        expect(Card.new(name: "Home+*cc")).to respond_to(:add_item)
       end
     end
   end

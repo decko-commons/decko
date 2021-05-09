@@ -23,6 +23,7 @@ end
 format :json do
   def items_for_export
     return [] if card.content.empty? || unexportable_tag?(card.name.tag_name.key)
+
     card.item_cards
   end
 

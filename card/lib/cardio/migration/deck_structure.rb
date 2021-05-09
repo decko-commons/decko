@@ -9,10 +9,8 @@ module Cardio
     class DeckStructure < Migration
       @type = :deck
 
-      def contentedly
-        Cardio.schema_mode :deck do
-          yield
-        end
+      def contentedly &block
+        Cardio.schema_mode :deck, &block
       end
     end
   end

@@ -13,6 +13,7 @@ class WatchersToFollowing < Cardio::Migration::Core
         card.include_set_modules
 
         next unless watched = card.left
+
         card.item_names.each do |user_name|
           follower_hash[user_name] << watched.name
         end
@@ -20,6 +21,7 @@ class WatchersToFollowing < Cardio::Migration::Core
 
       follower_hash.each do |user, items|
         next unless (card = Card.fetch(user)) && card.account
+
         following = card.fetch "following",  new: { type_code: :pointer }
         items.each { |item| following.add_item item }
         following.save!

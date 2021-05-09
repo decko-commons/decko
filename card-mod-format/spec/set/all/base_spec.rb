@@ -6,14 +6,17 @@ RSpec.describe Card::Set::All::Base do
   describe "handles view" do
     describe "name view" do
       it("name") { expect(render_card(:name)).to eq("Tempo Rary") }
+
       it "pluralizes" do
         name = render_content "{{Joe User|name; variant: plural}}"
         expect(name).to eq("Joe Users")
       end
+
       it "singularizes" do
         name = render_content "{{Sunglasses|name; variant: singular}}"
         expect(name).to eq("Sunglass")
       end
+
       it "handles more than one variant" do
         name = render_content(
           "{{Sunglasses|name; variant: singular, upcase}}"

@@ -10,9 +10,9 @@ RSpec.describe Card::View::Classy do
 
         view :a do
           class_up "down", "up"
-          "a:#{classy "down"}"
+          "a:#{classy 'down'}"
         end
-        view(:b) { "b:#{classy "down"}" }
+        view(:b) { "b:#{classy 'down'}" }
       end
     expect(format.render_test).to eq "a:down up;b:down"
   end
@@ -25,8 +25,8 @@ RSpec.describe Card::View::Classy do
           [render_a, render_b].join ";"
         end
 
-        view(:a) { "a:#{classy "down"}" }
-        view(:b) { "b:#{classy "down"}" }
+        view(:a) { "a:#{classy 'down'}" }
+        view(:b) { "b:#{classy 'down'}" }
       end
     expect(format.render_test).to eq "a:down up;b:down up"
   end
@@ -48,10 +48,10 @@ RSpec.describe Card::View::Classy do
       Card["A"].format_with do
         view :test do
           class_up "down", "up", :view
-          ["test:#{classy "down"}", render_a].join ";"
+          ["test:#{classy 'down'}", render_a].join ";"
         end
 
-        view(:a) { "a:#{classy "down"}" }
+        view(:a) { "a:#{classy 'down'}" }
       end
     expect(format.render_test).to eq "test:down up;a:down"
   end
