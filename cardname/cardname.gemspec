@@ -9,13 +9,7 @@ DeckoGem.gem "cardname" do |s, _d|
   s.files = [
     "README.md",
     "Rakefile",
-    "lib/core_ext.rb",
-    "lib/cardname.rb",
-    "lib/cardname/contextual.rb",
-    "lib/cardname/manipulate.rb",
-    "lib/cardname/parts.rb",
-    "lib/cardname/predicates.rb",
-    "lib/cardname/variants.rb"
+    "lib/**/*"
   ]
 
   s.add_dependency "activesupport", "~> 6"
