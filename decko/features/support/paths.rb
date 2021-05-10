@@ -11,7 +11,7 @@ module NavigationHelpers
     match[index].to_name.url_key
   end
 
-  def cgi_val index=1
+  def cgi_val match, index=1
     CGI.escape match[index]
   end
 
