@@ -42,7 +42,7 @@ class Card
             case action
             when "-" then del_old_excludees
             when "+" then add_new_excludees
-            when "!" then
+            when "!"
               del_old_excludees
               add_new_excludees
             else

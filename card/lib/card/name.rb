@@ -59,8 +59,8 @@ class Card
 
       private
 
-      def new_from_parts parts
-        name_parts = parts.flatten.map { |part| yield part }
+      def new_from_parts parts, &block
+        name_parts = parts.flatten.map(&block)
         new name_parts.join(joint), true
       end
     end

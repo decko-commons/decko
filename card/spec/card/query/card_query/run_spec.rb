@@ -13,12 +13,12 @@ RSpec.describe Card::Query::CardQuery::Run do
     context "when returning names" do
       it "finds real cards" do
         expect(run_query(name: [:in, "C", "D", "F"], append: "A"))
-          .to eq(%w(C+A D+A F+A))
+          .to eq(%w[C+A D+A F+A])
       end
 
       it "absolutizes names" do
         expect(run_query(name: [:in, "C", "D", "F"], append: "_right", context: "B+A"))
-          .to eq(%w(C+A D+A F+A))
+          .to eq(%w[C+A D+A F+A])
       end
 
       it "finds virtual cards" do
@@ -47,15 +47,15 @@ RSpec.describe Card::Query::CardQuery::Run do
     end
 
     it "handles _left" do
-      expect(returning("_left")).to eq %w(A A+B)
+      expect(returning("_left")).to eq %w[A A+B]
     end
 
     it "handles _right" do
-      expect(returning("_right")).to eq %w(C C)
+      expect(returning("_right")).to eq %w[C C]
     end
 
     it "handles _LL" do
-      expect(returning("_LL")).to eq %w(A+C A)
+      expect(returning("_LL")).to eq %w[A+C A]
     end
   end
 end

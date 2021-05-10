@@ -23,12 +23,12 @@ RSpec.describe Card::Set::Right::Script do
     let(:input_type) { :java_script }
     let(:card_content) do
       {
-        in:          js,
-        out:         "//test js\n#{compressed_js}",
-        changed_in:  changed_js,
+        in: js,
+        out: "//test js\n#{compressed_js}",
+        changed_in: changed_js,
         changed_out: "//test js\n#{compressed_changed_js}",
-        new_in:      new_js,
-        new_out:     "//more js\n#{compressed_new_js}"
+        new_in: new_js,
+        new_out: "//more js\n#{compressed_new_js}"
       }
     end
   end

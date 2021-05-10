@@ -9,7 +9,7 @@ class CardController
 
     %i[create update delete].each do |action|
       define_method action do
-        @card = card.target_card if card&.compound? && card.alias?
+        @card = card.target_card if card&.compound? && card&.alias?
         super()
       end
     end

@@ -2,7 +2,7 @@
 
 describe Cardio::Migration::Import do
   let(:path) { Cardio::Migration.data_path }
-  let(:importer) { Cardio::Migration::Import.new path }
+  let(:importer) { described_class.new path }
 
   def card_meta_path
     Cardio::Migration::Import::ImportData.new(path).instance_variable_get "@path"
@@ -10,7 +10,7 @@ describe Cardio::Migration::Import do
 
   def card_content_dir
     Cardio::Migration::Import::ImportData.new(path)
-                                       .instance_variable_get "@card_content_dir"
+                                         .instance_variable_get "@card_content_dir"
   end
 
   def meta_data
@@ -25,7 +25,7 @@ describe Cardio::Migration::Import do
     File.read content_path filename
   end
 
-  before(:each) do
+  before do
     FileUtils.rm card_meta_path if File.exist? card_meta_path
     FileUtils.rm_rf card_content_dir if Dir.exist? card_content_dir
   end
@@ -60,12 +60,12 @@ describe Cardio::Migration::Import do
 
       it "does not save linked card" do
         importer.pull "A", deep: true
-        expect(File.exist?(content_path("z"))).to be_falsey
+        expect(File).not_to be_exist(content_path("z"))
       end
 
       it "saves pointer items" do
         importer.pull "Fruit+*type+*create", deep: true
-        expect(File.exist?(content_path("anyone"))).to be_truthy
+        expect(File).to be_exist(content_path("anyone"))
       end
     end
   end

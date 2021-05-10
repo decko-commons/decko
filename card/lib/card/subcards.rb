@@ -16,6 +16,7 @@ class Card
     include Relate
 
     attr_accessor :context_card, :keys
+
     def initialize context_card
       @context_card = context_card
       @keys = ::Set.new
@@ -73,10 +74,8 @@ class Card
       end.compact
     end
 
-    def each_card
-      cards.each do |card|
-        yield card
-      end
+    def each_card &block
+      cards.each(&block)
     end
 
     alias_method :each, :each_card

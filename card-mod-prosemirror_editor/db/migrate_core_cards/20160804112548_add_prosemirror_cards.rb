@@ -6,7 +6,7 @@ class AddProsemirrorCards < Cardio::Migration
                   "menuBar": true,
                   "tooltipMenu": false
                 }
-              JSON
+  JSON
   def up
     ensure_card name: "*ProseMirror", type_id: Card::PlainTextID,
                 codename: "prose_mirror",

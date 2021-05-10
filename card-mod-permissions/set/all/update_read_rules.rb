@@ -1,4 +1,3 @@
-
 # FIXME: the following don't really belong here, but they have to come after
 # the reference stuff.  we need to organize a bit!
 

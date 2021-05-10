@@ -13,6 +13,7 @@ module CoreExtensions
 
         def initialize_nested classes, level=0
           return classes[level].new if level == classes.size - 1
+
           classes[level].new do |h, k|
             h[k] = initialize_nested classes, level + 1
           end

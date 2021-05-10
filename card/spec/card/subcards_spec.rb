@@ -10,8 +10,8 @@ RSpec.describe Card::Subcards do
     end
 
     it "check name-key bug" do
-      create "Matthias", subcards: {"+name" => "test"}
-      expect(Card.exists? "Matthias+name").to be_truthy
+      create "Matthias", subcards: { "+name" => "test" }
+      expect(Card).to exist("Matthias+name")
     end
 
     it "works with content string" do
@@ -20,8 +20,8 @@ RSpec.describe Card::Subcards do
     end
 
     it "check unstable key bug" do
-      create "Matthias", subcards: {"+name" => "test"}
-      expect(Card.exists? "Matthias+name").to be_truthy
+      create "Matthias", subcards: { "+name" => "test" }
+      expect(Card).to exist("Matthias+name")
     end
 
     it "works with +name key in args" do
@@ -67,6 +67,7 @@ RSpec.describe Card::Subcards do
       card.add_subfield "sub", content: "this is a sub"
       expect(local_content("#{card.name}+sub")).to eq "this is a sub"
     end
+
     it "works with codename" do
       card.add_subfield :phrase, content: "this is a sub"
       expect(local_content("A+phrase")).to eq "this is a sub"
@@ -97,7 +98,7 @@ RSpec.describe Card::Subcards do
 
     it "handles nested subfields" do
       create "card with subs",
-             subfields: { "nested" => { subfields: { title: "title 2"} } }
+             subfields: { "nested" => { subfields: { title: "title 2" } } }
       expect_card("card with subs+nested+*title").to exist.and have_db_content "title 2"
     end
 
@@ -149,12 +150,12 @@ RSpec.describe Card::Subcards do
   end
 
   describe "handle_subcard_errors" do
+    let(:referee) { Card["T"] }
+
     it "deals with renaming, even when children have content changing" do
       Card.create! name: "A+alias", content: "[[A]]"
       expect { Card["A"].update! name: "AABAA", update_referers: true }.not_to raise_error
     end
-
-    let(:referee) { Card["T"] }
 
     def with_subcard_validation_error_in_rename
       with_test_events do
@@ -168,14 +169,14 @@ RSpec.describe Card::Subcards do
 
     it "works on rename (update)" do
       with_subcard_validation_error_in_rename do
-        expect(referee.update name: "Tea", update_referers: true).to eq(false)
+        expect(referee.update(name: "Tea", update_referers: true)).to eq(false)
         expect(referee.errors[:X].first).to match(/referer error/)
       end
     end
 
     it "works on rename (update!)" do
       with_subcard_validation_error_in_rename do
-        expect{ referee.update! name: "Tea", update_referers: true }
+        expect { referee.update! name: "Tea", update_referers: true }
           .to raise_error(ActiveRecord::RecordInvalid)
         expect(referee.errors[:X].first).to match(/referer error/)
       end

@@ -6,7 +6,7 @@ class AddCardVirtualsTable < ActiveRecord::Migration[4.2]
     create_table :card_virtuals do |t|
       t.integer :left_id
       t.integer :right_id
-      t.text :content, limit: 16777215
+      t.text :content, limit: 16_777_215
     end
 
     add_index :card_virtuals, :right_id, name: "left_id_index"

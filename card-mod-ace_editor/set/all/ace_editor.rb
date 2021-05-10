@@ -1,4 +1,3 @@
-
 format :html do
   def ace_editor_input
     text_area :content, rows: 5,

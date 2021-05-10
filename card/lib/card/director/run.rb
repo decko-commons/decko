@@ -40,6 +40,7 @@ class Card
         @stage ||= -1
         return false if in_or_after?(next_stage) || ahead_of_parent?(next_stage)
         return false unless valid_card? next_stage
+
         check_skipped_stage next_stage
         true
       end
@@ -50,6 +51,7 @@ class Card
 
       def check_skipped_stage stage
         return unless before? previous_stage_index(stage)
+
         raise Card::Error, "stage #{previous_stage_symbol stage} was " \
                            "skipped for card #{@card}"
       end

@@ -1,9 +1,9 @@
 BRIDGE_TABS = { "Account" => :account_tab,
-                "Guide"   => :guide_tab,
-                "Engage"  => :engage_tab,
+                "Guide" => :guide_tab,
+                "Engage" => :engage_tab,
                 "History" => :history_tab,
                 "Related" => :related_tab,
-                "Rules"   => :rules_tab }.freeze
+                "Rules" => :rules_tab }.freeze
 
 format :html do
   wrapper :bridge do

@@ -40,6 +40,7 @@ RSpec.describe Card::Set::All::Form do
           .not_to match(/<a[^>]* class="([^"]*)?\bno-edit\b[^"]*"/)
       end
     end
+
     it "renders type header with no-edit class when cards of type exist" do
       no_edit_card = Card["cardtype a"]
       expect(no_edit_card.format.render_type)

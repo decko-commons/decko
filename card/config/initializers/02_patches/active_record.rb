@@ -42,9 +42,7 @@ module Patches
 
         loop do
           relation = reorder(table[primary_key].asc).limit(batch_size)
-          if batch_start
-            relation = relation.where(table[primary_key].gt(batch_start))
-          end
+          relation = relation.where(table[primary_key].gt(batch_start)) if batch_start
           items = relation.pluck(*select_columns)
 
           break if items.empty?

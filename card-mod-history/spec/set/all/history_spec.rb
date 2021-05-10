@@ -49,12 +49,15 @@ RSpec.describe Card::Set::All::History do
           expect(act.card_id).to eq(card.id)
           expect(act.acted_at).to be > Time.zone.now - 1.minute
         end
+
         it "adds create action" do
           expect(action.action_type).to eq(:create)
         end
+
         it "does not add card changes entries" do
           expect(action.card_changes).to be_empty
         end
+
         it "fetches card changes from cards table" do
           expect(action.changed_values).to eq(INITIAL_VALUES)
         end
@@ -66,10 +69,12 @@ RSpec.describe Card::Set::All::History do
           card.update name: "single card", content: content
           expect(Card::Act.count).to eq(act_start_cnt + 1)
         end
+
         it "adds new act" do
           card.update content: "new content"
           expect(Card::Act.count).to eq(act_start_cnt + 2)
         end
+
         it "adds changes to create action" do
           card.update content: "new content"
           expect(card.actions.first.changed_values).to eq INITIAL_VALUES
@@ -80,16 +85,20 @@ RSpec.describe Card::Set::All::History do
         before do
           Card::Auth.as_bot { card.delete }
         end
+
         it "adds act" do
           expect(Card::Act.count).to eq(act_start_cnt + 2)
         end
+
         it "adds delete action" do
           expect(action.action_type).to eq(:delete)
         end
+
         it "adds trash change" do
           expect(action.card_changes.last.field).to eq("trash")
           expect(action.card_changes.last.value).to be_truthy
         end
+
         it "adds changes to create action" do
           expect(card.actions.first.changed_values).to eq INITIAL_VALUES
         end
@@ -147,22 +156,27 @@ RSpec.describe Card::Set::All::History do
         it "adds three actions" do
           expect(act.actions.size).to eq(3)
         end
+
         it "adds action for left part of type create" do
           expect(left_action.card.name).to eq("left")
           expect(left_action.action_type).to eq(:create)
         end
+
         it "adds action for right part of type create" do
           expect(right_action.card.name).to eq("right")
           expect(right_action.action_type).to eq(:create)
         end
+
         it "adds action for plus card of type create" do
           expect(plus_action.card.name).to eq("left+right")
           expect(plus_action.action_type).to eq(:create)
         end
+
         it "adds content change" do
           changed_content = plus_action.value(:db_content)
           expect(changed_content).to eq(content)
         end
+
         it "adds superaction for plus card" do
           expect(plus_action.super_action_id).to eq(left_action.id)
         end
@@ -178,6 +192,7 @@ RSpec.describe Card::Set::All::History do
           expect(Card::Act.count).to eq(act_start_cnt + 2)
           expect(act.card).to eq(card)
         end
+
         it "adds action for subcard" do
           card.update subcards: {
             "+right" => { content: "New Content" }
@@ -206,25 +221,31 @@ RSpec.describe Card::Set::All::History do
         expect(act.card_id).to eq(card.id)
         expect(Card::Act.count).to eq(act_start_cnt + 1)
       end
+
       it "three actions" do
         act = card.acts.last
         expect(act.actions.size).to eq(3)
       end
+
       it "action for left part of type create" do
         expect(left_action.card.name).to eq("left")
         expect(left_action.action_type).to eq(:create)
       end
+
       it "superaction for left part" do
         expect(left_action.super_action_id).to eq(plus_action.id)
       end
+
       it "action for right part of type create" do
         expect(right_action.card.name).to eq("right")
         expect(right_action.action_type).to eq(:create)
       end
+
       it "action for plus card of type create" do
         expect(plus_action.card.name).to eq("left+right")
         expect(plus_action.action_type).to eq(:create)
       end
+
       it "content change" do
         expect(plus_action.value(:db_content)).to eq(content)
       end
@@ -232,7 +253,7 @@ RSpec.describe Card::Set::All::History do
   end
 
   describe "timestamping" do
-    # note: B includes Z, so updates to Z stamp B
+    # NOTE: B includes Z, so updates to Z stamp B
     example "includers get a new timestamp",
             with_user: "Sample User", aggregate_failures: true do
       time = Time.now - 1.second

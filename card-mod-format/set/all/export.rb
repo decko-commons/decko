@@ -35,6 +35,7 @@ format :json do
 
   def track_exporting card
     return unless @exported_keys
+
     @exported_keys << card.key
   end
 
@@ -52,6 +53,7 @@ format :json do
   def items_for_export
     nest_chunks.map do |chunk|
       next if chunk.try :main?
+
       chunk.referee_card
     end.compact
   end

@@ -24,7 +24,7 @@ def select_action action_id
 end
 
 def selected_action_id
-  @selected_action_id || (@current_action&.id) || last_action_id
+  @selected_action_id || @current_action&.id || last_action_id
 end
 
 def selected_action_id= action_id

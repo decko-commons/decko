@@ -6,7 +6,7 @@ describe Card::Set::Right::Comment do
       Card::Auth.as_bot do
         Card["basicname"].update! comment: " and more\n  \nsome lines\n\n"
       end
-      expect(Card["basicname"].content).to match(%r{\<p\>some lines\</p\>})
+      expect(Card["basicname"].content).to match(%r{<p>some lines</p>})
     end
   end
 end

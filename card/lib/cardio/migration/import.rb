@@ -112,9 +112,9 @@ module Cardio
       def parse_and_symbolize json
         parsed = JSON.parse(json)
         case parsed
-        when Hash then
+        when Hash
           parsed.deep_symbolize_keys
-        when Array then
+        when Array
           parsed.map(&:deep_symbolize_keys)
         else
           parsed

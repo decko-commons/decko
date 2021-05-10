@@ -8,6 +8,7 @@ class Cardname
       return self if old_name.num_parts > num_parts
       return swap_part(old_name, new_name) if old_name.simple?
       return self unless include? old_name
+
       swap_all_subsequences(old_name, new_name).to_name
     end
 
@@ -29,6 +30,7 @@ class Cardname
       return swap_part oldpiece, newpiece if oldpiece.simple?
       return self unless starts_with_parts?(oldpiece)
       return newpiece if oldpiece.num_parts == num_parts
+
       self.class.new [newpiece, self[oldpiece.num_parts..-1]].flatten
     end
 
@@ -72,6 +74,7 @@ class Cardname
 
     def ensure_simpleness part, msg=nil
       return if part.to_name.simple?
+
       raise StandardError, "'#{part}' has to be simple. #{msg}"
     end
   end

@@ -1,4 +1,3 @@
-
 def left_type_for_nest_editor_set_selection
   type_name
 end
@@ -136,7 +135,7 @@ format :html do
   end
 
   def nest_option_name_disabled_options level
-    if level == 0
+    if level.zero?
       nest_snippet.options
     else
       nest_snippet.item_options[level - 1] || default_nest_editor_item_options

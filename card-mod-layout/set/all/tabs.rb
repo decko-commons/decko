@@ -21,6 +21,7 @@ format :html do
       path: nest_path(name, tab_options).html_safe
     }
     return unless tabs[:active].empty?
+
     tabs[:active] = { name: name, content: nest(name, tab_options) }
   end
 

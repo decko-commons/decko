@@ -22,6 +22,7 @@ class MigrateClassicSkinsToBootstrap < ActiveRecord::Migration[5.2]
 
     layout_rule = Card[:all, :layout]
     return unless layout_rule.first_name.key == UNSUPPORTED_LAYOUT
+
     layout_rule.update! content: DEFAULT_LAYOUT
   end
 end

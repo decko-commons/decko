@@ -19,7 +19,7 @@ RSpec.describe Card::Auth::Token do
     end
 
     it "handles invalid tokens" do
-      expect(described_class.decode(encoded_token + "XYZ"))
+      expect(described_class.decode("#{encoded_token}XYZ"))
         .to eq("Signature verification raised")
     end
 

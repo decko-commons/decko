@@ -4,6 +4,7 @@ class Card
       # Result object for Diff processing
       class Result
         attr_accessor :complete, :summary, :dels_cnt, :adds_cnt
+
         def initialize summary_opts=nil
           @dels_cnt = 0
           @adds_cnt = 0

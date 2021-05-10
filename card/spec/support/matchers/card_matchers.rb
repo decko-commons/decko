@@ -1,9 +1,7 @@
-#TODO: is this global namespace? module?
+# TODO: is this global namespace? module?
 def expect_card *marks
   expect Card.cardish(marks)
 end
-
-
 
 RSpec::Matchers.define :exist do
   match do |card|
@@ -37,7 +35,7 @@ RSpec::Matchers.define :be_valid do
   end
 end
 
-[:name, :codename, :db_content, :type_id, :left_id, :right_id].each do |field|
+%i[name codename db_content type_id left_id right_id].each do |field|
   RSpec::Matchers.define "have_#{field}".to_sym do |name|
     match do |card|
       values_match?(name, card.send(field))
@@ -65,6 +63,7 @@ RSpec::Matchers.define :have_a_field do |field_key|
   match do |card|
     return unless card.is_a?(Card)
     return unless (@field = card.fetch(field_key))
+
     if @content
       values_match?(@content, @field.content)
     elsif @pointing_to
@@ -79,9 +78,10 @@ RSpec::Matchers.define :have_a_field do |field_key|
 
   failure_message do |card|
     return super() unless @field
+
     if @content
       "expected #{card} to have a field '#{field_key}' with content '#{@content}',
-but content is #{@field.content? ? @field.content : "empty" }"
+but content is #{@field.content? ? @field.content : 'empty'}"
     elsif @pointing_to
       "expected #{card} to have a field #{field_key} pointing to #{@pointing_to} but
 content is '#{@field.content}'"
@@ -167,5 +167,3 @@ RSpec::Matchers.define :be_invalid do
     end
   end
 end
-
-

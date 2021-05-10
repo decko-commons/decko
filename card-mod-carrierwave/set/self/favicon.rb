@@ -6,6 +6,7 @@ format :html do
 
   view :link_tag, perms: :none do
     return unless (source = render :source, size: :small)
+
     tag :link, rel: "shortcut icon", href: source
   end
 

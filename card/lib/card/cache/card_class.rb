@@ -4,6 +4,7 @@ class Card
     module CardClass
       def retrieve_from_cache cache_key, local_only=false
         return unless cache
+
         local_only ? cache.soft.read(cache_key) : cache.read(cache_key)
       end
 
@@ -28,12 +29,14 @@ class Card
 
       def write_to_soft_cache card
         return unless cache
+
         cache.soft.write card.key, card
       end
 
       def expire name
         key = name.to_name.key
         return unless (card = Card.cache.read key)
+
         card.expire
       end
     end

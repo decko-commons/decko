@@ -1,4 +1,5 @@
 # -*- encoding : utf-8 -*-
+
 class TableCleanup < ActiveRecord::Migration[4.2]
   def up
     drop_table :cardtypes
@@ -20,6 +21,5 @@ class TableCleanup < ActiveRecord::Migration[4.2]
     remove_column :card_references, :updated_at
   end
 
-  def down
-  end
+  def down; end
 end

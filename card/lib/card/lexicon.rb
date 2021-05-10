@@ -45,7 +45,8 @@ class Card
       # end
 
       def lex_to_name lex
-        return lex unless lex&.is_a? Array
+        return lex unless lex.is_a? Array
+
         lex.map { |side_id| name side_id or return }.join(Card::Name.joint).to_name
       end
 
@@ -83,7 +84,7 @@ class Card
       end
 
       def cache_key lex
-        "L-" + (lex.is_a?(Array) ? lex.join("-") : lex.to_name.key)
+        "L-#{lex.is_a?(Array) ? lex.join('-') : lex.to_name.key}"
       end
     end
   end

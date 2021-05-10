@@ -1,4 +1,3 @@
-
 format do
   view :search_error, cache: :never do
     sr_class = search_with_params.class.to_s
@@ -34,6 +33,7 @@ end
 format :html do
   view :title, cache: :never do
     return super() unless (title = keyword_search_title)
+
     voo.title = title
   end
 
@@ -62,12 +62,14 @@ format :json do
                   exact.name.valid? &&
                   !exact.virtual? &&
                   exact.ok?(:create)
+
     [h(exact.name), URI.escape(exact.name)]
   end
 
   def new_item_of_type exact
     return unless (exact.type_id == CardtypeID) &&
                   Card.new(type_id: exact.id).ok?(:create)
+
     [exact.name, "new/#{exact.name.url_key}"]
   end
 

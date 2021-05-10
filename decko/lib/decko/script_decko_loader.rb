@@ -10,6 +10,7 @@ module Decko
       def exec!
         cwd = Dir.pwd
         return unless continue?
+
         exec_decko_script
         recurse cwd
       rescue SystemCallError
