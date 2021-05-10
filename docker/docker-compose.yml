@@ -17,7 +17,7 @@ services:
     volumes:
       # The following assumes there is a "files" subdirectory inside the directory
       # running docker compose. Comment it out if using cloud storage
-      - ./files:/deck/files
+      - ./files:/deck/filesk
 
       # Uncomment to use your own database config in config/database.yml
       # -  ./config/database.yml:/deck/config/database.yml
@@ -50,6 +50,7 @@ services:
   db:
     # Comment out the following lines if using postgres
     image: mysql
+    restart: always
     volumes:
       - deckdb:/var/lib/mysql
     environment:
