@@ -3,8 +3,8 @@
 FROM phusion/passenger-full
 
 # ENABLE RUBY, MEMCACHED, NGINX
-# use ruby 2.7
-RUN bash -lc 'rvm --default use ruby-2.7.2'
+# use ruby 2.7 (default)
+# RUN bash -lc 'rvm --default use ruby-2.7.3'
 # enable memcached
 RUN rm -f /etc/service/memcached/down
 # enable nginx
