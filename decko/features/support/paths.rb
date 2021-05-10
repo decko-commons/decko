@@ -7,12 +7,12 @@ module NavigationHelpers
   #
   # step definition in web_steps.rb
 
-  def url_key index=1
-    Regexp.last_match(index).to_name.url_key
+  def url_key match, index=1
+    match[index].to_name.url_key
   end
 
   def cgi_val index=1
-    CGI.escape Regexp.last_match(index)
+    CGI.escape match[index]
   end
 
   def path_to page_name
@@ -20,19 +20,20 @@ module NavigationHelpers
     when /the home\s?page/
       "/"
     when /card (.*) with (.*) layout$/
-      "/#{url_key}?layout=#{cgi_val 2}"
+      "/#{url_key Regexp.last_match}?layout=#{cgi_val Regexp.last_match, 2}"
     when /card (.*)$/
-      "/#{url_key}"
+      "/#{url_key Regexp.last_match}"
     when /new (.*) presetting name to "(.*)" and author to "(.*)"/
-      "/new/#{url_key}?card[name]=#{cgi_val 2}&_author=#{cgi_val 3}"
+      m = Regexp.last_match
+      "/new/#{url_key m}?card[name]=#{cgi_val m, 2}&_author=#{cgi_val m, 3}"
     when /new card named (.*)$/
-      "/card/new?card[name]=#{cgi_val}"
+      "/card/new?card[name]=#{cgi_val Regexp.last_match}"
     when /edit (.*)$/
-      "/#{url_key}/edit"
+      "/#{url_key Regexp.last_match}/edit"
     when /rename (.*)$/
-      "/#{url_key}/edit_name"
+      "/#{url_key Regexp.last_match}/edit_name"
     when /new (.*)$/
-      "/new/#{url_key}"
+      "/new/#{url_key Regexp.last_match}"
     when /url "(.*)"/
       Regexp.last_match(1).to_s
     else
