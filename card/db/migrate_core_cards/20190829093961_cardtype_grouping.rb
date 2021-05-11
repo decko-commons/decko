@@ -2,11 +2,11 @@
 
 class CardtypeGrouping < Cardio::Migration::Core
   CONTENT =
-    <<~EOT
+    <<-EOT
             {{+description|content}}
-      #{'      '}
+
             {{_|add_button}} {{_|configure_button}}
-      #{'      '}
+
             {{_|grouped_list}}
     EOT
 
