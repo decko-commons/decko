@@ -71,7 +71,7 @@ module Cardio
       def module_content
         # for unknown reasons strip_heredoc doesn't work properly
         # and with trailing whitespace code like `=begin` fails
-        <<-RUBY.strip_heredoc
+        <<~RUBY.strip_heredoc
           # -*- encoding : utf-8 -*-
           #{preamble}
           #{@content}
