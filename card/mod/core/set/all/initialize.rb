@@ -71,6 +71,10 @@ def include_set_modules
   self
 end
 
+def set_mods_loaded?
+  @set_mods_loaded == true
+end
+
 def uncacheable?
   @uncacheable == true
 end
