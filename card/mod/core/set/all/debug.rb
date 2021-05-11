@@ -9,15 +9,10 @@ end
 
 private
 
-def inpect_tags
-  [].tap do |tags|
-    tags << "trash" if trash
-    tags << "new" if new_card?
-    tags << "frozen" if frozen?
-    tags << "readonly" if readonly?
-    tags << "virtual" if @virtual
-    tags << "set_mods_loaded" if @set_mods_loaded
-  end
+def inspect_tags
+  %w[trash new frozen readonly virtual set_mods_loaded].map do |tag|
+    tag if send "#{tag}?"
+  end.compact
 end
 
 def debug_type
