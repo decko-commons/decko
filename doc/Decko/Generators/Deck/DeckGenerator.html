@@ -6,7 +6,7 @@
 <title>
   Class: Decko::Generators::Deck::DeckGenerator
   
-    &mdash; Documentation by YARD 0.9.25
+    &mdash; Documentation by YARD 0.9.26
   
 </title>
 
@@ -468,7 +468,8 @@
 76
 77
 78
-79</pre>
+79
+80</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'decko/lib/decko/generators/deck/deck_generator.rb', line 68</span>
@@ -481,6 +482,7 @@
     <span class='id identifier rubyid_erb_template'>erb_template</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>boot.rb</span><span class='tstring_end'>&quot;</span></span>
     <span class='id identifier rubyid_template'>template</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>databases/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:database</span><span class='rbracket'>]</span><span class='embexpr_end'>}</span><span class='tstring_content'>.yml</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>database.yml</span><span class='tstring_end'>&quot;</span></span>
     <span class='id identifier rubyid_template'>template</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>cucumber.yml</span><span class='tstring_end'>&quot;</span></span>
+    <span class='id identifier rubyid_template'>template</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>storage.yml</span><span class='tstring_end'>&quot;</span></span>
     <span class='id identifier rubyid_template'>template</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>initializers/cypress.rb</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='id identifier rubyid_platypus?'>platypus?</span>
     <span class='id identifier rubyid_template'>template</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>puma.rb</span><span class='tstring_end'>&quot;</span></span>
   <span class='kw'>end</span>
@@ -563,7 +565,7 @@
   <span class='id identifier rubyid_copy_file'>copy_file</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>pryrc</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>.pryrc</span><span class='tstring_end'>&quot;</span></span>
   <span class='id identifier rubyid_copy_file'>copy_file</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>gitignore</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>.gitignore</span><span class='tstring_end'>&quot;</span></span>
   <span class='id identifier rubyid_template'>template</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>rspec.erb</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>.rspec</span><span class='tstring_end'>&quot;</span></span>
-  <span class='id identifier rubyid_template'>template</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>simplecov.erb</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>.simplecov</span><span class='tstring_end'>&quot;</span></span>
+  <span class='id identifier rubyid_template'>template</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>simplecov.rb.erb</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>.simplecov</span><span class='tstring_end'>&quot;</span></span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -615,15 +617,15 @@
       <pre class="lines">
 
 
-81
 82
 83
 84
 85
-86</pre>
+86
+87</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decko/lib/decko/generators/deck/deck_generator.rb', line 81</span>
+      <pre class="code"><span class="info file"># File 'decko/lib/decko/generators/deck/deck_generator.rb', line 82</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_public'>public</span>
   <span class='id identifier rubyid_inside'>inside</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>public</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>do</span>
@@ -651,13 +653,13 @@
       <pre class="lines">
 
 
-92
 93
 94
-95</pre>
+95
+96</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decko/lib/decko/generators/deck/deck_generator.rb', line 92</span>
+      <pre class="code"><span class="info file"># File 'decko/lib/decko/generators/deck/deck_generator.rb', line 93</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_script'>script</span>
   <span class='id identifier rubyid_directory'>directory</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>script</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_content'>content</span><span class='op'>|</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_shebang'>shebang</span><span class='embexpr_end'>}</span><span class='tstring_content'>\n</span><span class='tstring_end'>&quot;</span></span> <span class='op'>+</span> <span class='id identifier rubyid_content'>content</span> <span class='rbrace'>}</span>
@@ -683,7 +685,6 @@
       <pre class="lines">
 
 
-110
 111
 112
 113
@@ -692,10 +693,11 @@
 116
 117
 118
-119</pre>
+119
+120</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decko/lib/decko/generators/deck/deck_generator.rb', line 110</span>
+      <pre class="code"><span class="info file"># File 'decko/lib/decko/generators/deck/deck_generator.rb', line 111</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_seed_data'>seed_data</span>
   <span class='kw'>if</span> <span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>interactive</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
@@ -727,7 +729,6 @@
       <pre class="lines">
 
 
-97
 98
 99
 100
@@ -736,10 +737,11 @@
 103
 104
 105
-106</pre>
+106
+107</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decko/lib/decko/generators/deck/deck_generator.rb', line 97</span>
+      <pre class="code"><span class="info file"># File 'decko/lib/decko/generators/deck/deck_generator.rb', line 98</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_spec'>spec</span>
   <span class='id identifier rubyid_inside'>inside</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>spec</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>do</span>
@@ -771,12 +773,12 @@
       <pre class="lines">
 
 
-88
 89
-90</pre>
+90
+91</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decko/lib/decko/generators/deck/deck_generator.rb', line 88</span>
+      <pre class="code"><span class="info file"># File 'decko/lib/decko/generators/deck/deck_generator.rb', line 89</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_spring'>spring</span>
   <span class='id identifier rubyid_inside'>inside</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>bin</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='lbrace'>{</span> <span class='id identifier rubyid_erb_template'>erb_template</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>spring</span><span class='tstring_end'>&quot;</span></span> <span class='rbrace'>}</span>
@@ -791,9 +793,9 @@
 </div>
 
       <div id="footer">
-  Generated on Sun Oct 18 23:48:29 2020 by
+  Generated on Thu May 13 17:17:46 2021 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.25 (ruby-2.6.3).
+  0.9.26 (ruby-2.7.2).
 </div>
 
     </div>

@@ -6,7 +6,7 @@
 <title>
   Module: Cardname::Predicates
   
-    &mdash; Documentation by YARD 0.9.25
+    &mdash; Documentation by YARD 0.9.26
   
 </title>
 
@@ -106,6 +106,31 @@
         <li class="public ">
   <span class="summary_signature">
     
+      <a href="#compound%3F-instance_method" title="#compound? (instance method)">#<strong>compound?</strong>  &#x21d2; Boolean </a>
+    
+
+    
+      (also: #junction?)
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>True if name has more than one part.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
       <a href="#ends_with_parts%3F-instance_method" title="#ends_with_parts? (instance method)">#<strong>ends_with_parts?</strong>(*suffix)  &#x21d2; Boolean </a>
     
 
@@ -146,6 +171,31 @@
 
   
     <span class="summary_desc"><div class='inline'><p>True if name has a chain of parts that equals <code>subname</code>.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#simple%3F-instance_method" title="#simple? (instance method)">#<strong>simple?</strong>  &#x21d2; Boolean </a>
+    
+
+    
+      (also: #simple)
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
 </div></span>
   
 </li>
@@ -209,7 +259,68 @@
 
     
       <div class="method_details first">
-  <h3 class="signature first" id="ends_with_parts?-instance_method">
+  <h3 class="signature first" id="compound?-instance_method">
+  
+    #<strong>compound?</strong>  &#x21d2; <tt>Boolean</tt> 
+  
+
+  
+    <span class="aliases">Also known as:
+    <span class="names"><span id='junction?-instance_method'>junction?</span></span>
+    </span>
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Returns true if name has more than one part.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>true if name has more than one part</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+9
+10
+11</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'cardname/lib/cardname/predicates.rb', line 9</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_compound?'>compound?</span>
+  <span class='op'>!</span><span class='id identifier rubyid_simple?'>simple?</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="ends_with_parts?-instance_method">
   
     #<strong>ends_with_parts?</strong>(*suffix)  &#x21d2; <tt>Boolean</tt> 
   
@@ -254,13 +365,13 @@
       <pre class="lines">
 
 
-18
-19
-20
-21</pre>
+30
+31
+32
+33</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'cardname/lib/cardname/predicates.rb', line 18</span>
+      <pre class="code"><span class="info file"># File 'cardname/lib/cardname/predicates.rb', line 30</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_ends_with_parts?'>ends_with_parts?</span> <span class='op'>*</span><span class='id identifier rubyid_suffix'>suffix</span>
   <span class='id identifier rubyid_end_name'>end_name</span> <span class='op'>=</span> <span class='id identifier rubyid_suffix'>suffix</span><span class='period'>.</span><span class='id identifier rubyid_to_name'>to_name</span>
@@ -313,17 +424,74 @@
       <pre class="lines">
 
 
-25
-26
-27
-28</pre>
+37
+38
+39
+40</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'cardname/lib/cardname/predicates.rb', line 25</span>
+      <pre class="code"><span class="info file"># File 'cardname/lib/cardname/predicates.rb', line 37</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_include?'>include?</span> <span class='id identifier rubyid_subname'>subname</span>
   <span class='id identifier rubyid_subkey'>subkey</span> <span class='op'>=</span> <span class='id identifier rubyid_subname'>subname</span><span class='period'>.</span><span class='id identifier rubyid_to_name'>to_name</span><span class='period'>.</span><span class='id identifier rubyid_key'>key</span>
   <span class='id identifier rubyid_key'>key</span> <span class='op'>=~</span> <span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>(^|</span><span class='embexpr_beg'>#{</span><span class='const'><span class='object_link'><a href="../Cardname.html#JOINT_RE-constant" title="Cardname::JOINT_RE (constant)">JOINT_RE</a></span></span><span class='embexpr_end'>}</span><span class='tstring_content'>)</span><span class='embexpr_beg'>#{</span><span class='const'>Regexp</span><span class='period'>.</span><span class='id identifier rubyid_quote'>quote</span> <span class='id identifier rubyid_subkey'>subkey</span><span class='embexpr_end'>}</span><span class='tstring_content'>($|</span><span class='embexpr_beg'>#{</span><span class='const'><span class='object_link'><a href="../Cardname.html#JOINT_RE-constant" title="Cardname::JOINT_RE (constant)">JOINT_RE</a></span></span><span class='embexpr_end'>}</span><span class='tstring_content'>)</span><span class='regexp_end'>/</span></span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="simple?-instance_method">
+  
+    #<strong>simple?</strong>  &#x21d2; <tt>Boolean</tt> 
+  
+
+  
+    <span class="aliases">Also known as:
+    <span class="names"><span id='simple-instance_method'>simple</span></span>
+    </span>
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+3
+4
+5</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'cardname/lib/cardname/predicates.rb', line 3</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_simple?'>simple?</span>
+  <span class='ivar'>@simple</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span> <span class='op'>?</span> <span class='lparen'>(</span><span class='ivar'>@simple</span> <span class='op'>=</span> <span class='id identifier rubyid_parts'>parts</span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span> <span class='op'>&lt;=</span> <span class='int'>1</span><span class='rparen'>)</span> <span class='op'>:</span> <span class='ivar'>@simple</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -376,13 +544,13 @@
       <pre class="lines">
 
 
-11
-12
-13
-14</pre>
+23
+24
+25
+26</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'cardname/lib/cardname/predicates.rb', line 11</span>
+      <pre class="code"><span class="info file"># File 'cardname/lib/cardname/predicates.rb', line 23</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_starts_with_parts?'>starts_with_parts?</span> <span class='op'>*</span><span class='id identifier rubyid_prefix'>prefix</span>
   <span class='id identifier rubyid_start_name'>start_name</span> <span class='op'>=</span> <span class='id identifier rubyid_prefix'>prefix</span><span class='period'>.</span><span class='id identifier rubyid_to_name'>to_name</span>
@@ -431,18 +599,20 @@
       <pre class="lines">
 
 
-3
-4
-5
-6
-7
-8</pre>
+14
+15
+16
+17
+18
+19
+20</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'cardname/lib/cardname/predicates.rb', line 3</span>
+      <pre class="code"><span class="info file"># File 'cardname/lib/cardname/predicates.rb', line 14</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_valid?'>valid?</span>
   <span class='kw'>return</span> <span class='kw'>true</span> <span class='kw'>if</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_nothing_banned?'>nothing_banned?</span>
+
   <span class='op'>!</span><span class='id identifier rubyid_parts'>parts</span><span class='period'>.</span><span class='id identifier rubyid_find'>find</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_pt'>pt</span><span class='op'>|</span>
     <span class='id identifier rubyid_pt'>pt</span><span class='period'>.</span><span class='id identifier rubyid_match'>match</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_banned_re'>banned_re</span>
   <span class='kw'>end</span>
@@ -457,9 +627,9 @@
 </div>
 
       <div id="footer">
-  Generated on Sun Oct 18 23:47:44 2020 by
+  Generated on Thu May 13 17:17:18 2021 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.25 (ruby-2.6.3).
+  0.9.26 (ruby-2.7.2).
 </div>
 
     </div>

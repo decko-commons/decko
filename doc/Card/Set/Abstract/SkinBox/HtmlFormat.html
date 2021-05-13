@@ -6,7 +6,7 @@
 <title>
   Module: Card::Set::Abstract::SkinBox::HtmlFormat
   
-    &mdash; Documentation by YARD 0.9.25
+    &mdash; Documentation by YARD 0.9.26
   
 </title>
 
@@ -83,7 +83,7 @@
   
   <dl>
     <dt>Defined in:</dt>
-    <dd>card/tmpsets/set/mod007-card-mod-machines/abstract/skin_box.rb</dd>
+    <dd>card/tmpsets/set/mod019-card-mod-style/abstract/skin_box.rb</dd>
   </dl>
   
 </div>
@@ -276,7 +276,7 @@
 28</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod007-card-mod-machines/abstract/skin_box.rb', line 21</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod019-card-mod-style/abstract/skin_box.rb', line 21</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_customize_button'>customize_button</span> <span class='label'>target:</span> <span class='id identifier rubyid_parent'>parent</span><span class='op'>&amp;.</span><span class='id identifier rubyid_card'>card</span><span class='comma'>,</span> <span class='label'>text:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Apply and customize</span><span class='tstring_end'>&quot;</span></span>
   <span class='kw'>return</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>unless</span> <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_codename'>codename</span><span class='period'>.</span><span class='id identifier rubyid_present?'>present?</span>
@@ -313,7 +313,7 @@
 39</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod007-card-mod-machines/abstract/skin_box.rb', line 35</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod019-card-mod-style/abstract/skin_box.rb', line 35</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_select_button'>select_button</span> <span class='id identifier rubyid_target'>target</span><span class='op'>=</span><span class='id identifier rubyid_parent'>parent</span><span class='period'>.</span><span class='id identifier rubyid_card'>card</span>
   <span class='id identifier rubyid_link_to_card'>link_to_card</span> <span class='id identifier rubyid_target'>target</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Apply</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
@@ -347,7 +347,7 @@
 13</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod007-card-mod-machines/abstract/skin_box.rb', line 9</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod019-card-mod-style/abstract/skin_box.rb', line 9</span>
 
 <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:box</span> <span class='kw'>do</span>
   <span class='id identifier rubyid_class_up'>class_up</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>box-middle</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>p-0</span><span class='tstring_end'>&quot;</span></span>
@@ -377,7 +377,7 @@
 15</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod007-card-mod-machines/abstract/skin_box.rb', line 15</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod019-card-mod-style/abstract/skin_box.rb', line 15</span>
 
 <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:box_bottom</span><span class='comma'>,</span> <span class='label'>template:</span> <span class='symbol'>:haml</span></pre>
     </td>
@@ -406,7 +406,7 @@
 33</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod007-card-mod-machines/abstract/skin_box.rb', line 30</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod019-card-mod-style/abstract/skin_box.rb', line 30</span>
 
 <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:box_middle</span> <span class='kw'>do</span>
   <span class='kw'>return</span> <span class='kw'>unless</span> <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_field'>field</span><span class='lparen'>(</span><span class='symbol'>:image</span><span class='rparen'>)</span>
@@ -437,7 +437,7 @@
 19</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod007-card-mod-machines/abstract/skin_box.rb', line 17</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod019-card-mod-style/abstract/skin_box.rb', line 17</span>
 
 <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:customize_button</span><span class='comma'>,</span> <span class='label'>cache:</span> <span class='symbol'>:never</span> <span class='kw'>do</span>
   <span class='id identifier rubyid_customize_button'>customize_button</span>
@@ -452,9 +452,9 @@
 </div>
 
       <div id="footer">
-  Generated on Sun Oct 18 23:48:11 2020 by
+  Generated on Thu May 13 17:17:32 2021 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.25 (ruby-2.6.3).
+  0.9.26 (ruby-2.7.2).
 </div>
 
     </div>

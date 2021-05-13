@@ -6,7 +6,7 @@
 <title>
   Module: Card::Env::Location
   
-    &mdash; Documentation by YARD 0.9.25
+    &mdash; Documentation by YARD 0.9.26
   
 </title>
 
@@ -81,7 +81,7 @@
   
   <dl>
     <dt>Included in:</dt>
-    <dd><span class='object_link'><a href="" title="Card::Env::Location (module)">Location</a></span>, <span class='object_link'><a href="Success.html" title="Card::Env::Success (class)">Success</a></span>, <span class='object_link'><a href="../Format.html" title="Card::Format (class)">Format</a></span>, <span class='object_link'><a href="../../CarrierWave/FileCardUploader.html" title="CarrierWave::FileCardUploader (class)">CarrierWave::FileCardUploader</a></span></dd>
+    <dd><span class='object_link'><a href="" title="Card::Env::Location (module)">Location</a></span>, <span class='object_link'><a href="Success.html" title="Card::Env::Success (class)">Success</a></span>, <span class='object_link'><a href="../Format.html" title="Card::Format (class)">Format</a></span>, <span class='object_link'><a href="../../CardController.html" title="CardController (class)">CardController</a></span>, <span class='object_link'><a href="../../CarrierWave/FileCardUploader.html" title="CarrierWave::FileCardUploader (class)">CarrierWave::FileCardUploader</a></span></dd>
   </dl>
   
 
@@ -255,10 +255,10 @@ card_url     makes it a full url (if not already)</p>
     <span class='const'>Rails</span><span class='period'>.</span><span class='id identifier rubyid_logger'>logger</span><span class='period'>.</span><span class='id identifier rubyid_warn'>warn</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Pass only strings to card_path. </span><span class='tstring_end'>&quot;</span></span>\
                       <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>(</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_rel_path'>rel_path</span><span class='embexpr_end'>}</span><span class='tstring_content'> = </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_rel_path'>rel_path</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='embexpr_end'>}</span><span class='tstring_content'>)</span><span class='tstring_end'>&quot;</span></span>
   <span class='kw'>end</span>
-  <span class='kw'>if</span> <span class='id identifier rubyid_rel_path'>rel_path</span> <span class='op'>=~</span> <span class='tstring'><span class='regexp_beg'>%r{</span><span class='tstring_content'>^(https?\:)?/</span><span class='regexp_end'>}</span></span>
+  <span class='kw'>if</span> <span class='id identifier rubyid_rel_path'>rel_path</span><span class='period'>.</span><span class='id identifier rubyid_match?'>match?</span> <span class='tstring'><span class='regexp_beg'>%r{</span><span class='tstring_content'>^(https?:)?/</span><span class='regexp_end'>}</span></span>
     <span class='id identifier rubyid_rel_path'>rel_path</span>
   <span class='kw'>else</span>
-    <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='const'><span class='object_link'><a href="../../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_config'><span class='object_link'><a href="../../Card.html#config-class_method" title="Card.config (method)">config</a></span></span><span class='period'>.</span><span class='id identifier rubyid_relative_url_root'>relative_url_root</span><span class='embexpr_end'>}</span><span class='tstring_content'>/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_rel_path'>rel_path</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+    <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='const'><span class='object_link'><a href="../../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_config'>config</span><span class='period'>.</span><span class='id identifier rubyid_relative_url_root'>relative_url_root</span><span class='embexpr_end'>}</span><span class='tstring_content'>/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_rel_path'>rel_path</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
   <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -289,7 +289,7 @@ card_url     makes it a full url (if not already)</p>
       <pre class="code"><span class="info file"># File 'card/lib/card/env/location.rb', line 19</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_card_url'>card_url</span> <span class='id identifier rubyid_rel'>rel</span>
-  <span class='id identifier rubyid_rel'>rel</span> <span class='op'>=~</span> <span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>^https?\:</span><span class='regexp_end'>/</span></span> <span class='op'>?</span> <span class='id identifier rubyid_rel'>rel</span> <span class='op'>:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_protocol_and_host'>protocol_and_host</span><span class='embexpr_end'>}</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_card_path'>card_path</span> <span class='id identifier rubyid_rel'>rel</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+  <span class='id identifier rubyid_rel'>rel</span><span class='period'>.</span><span class='id identifier rubyid_match?'>match?</span><span class='lparen'>(</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>^https?:</span><span class='regexp_end'>/</span></span><span class='rparen'>)</span> <span class='op'>?</span> <span class='id identifier rubyid_rel'>rel</span> <span class='op'>:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_protocol_and_host'>protocol_and_host</span><span class='embexpr_end'>}</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_card_path'>card_path</span> <span class='id identifier rubyid_rel'>rel</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -315,13 +315,15 @@ card_url     makes it a full url (if not already)</p>
 28
 29
 30
-31</pre>
+31
+32</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'card/lib/card/env/location.rb', line 27</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_cardname_from_url'>cardname_from_url</span> <span class='id identifier rubyid_url'>url</span>
   <span class='kw'>return</span> <span class='kw'>unless</span> <span class='lparen'>(</span><span class='id identifier rubyid_cardname'>cardname</span> <span class='op'>=</span> <span class='id identifier rubyid_cardname_from_url_regexp'>cardname_from_url_regexp</span><span class='rparen'>)</span>
+
   <span class='id identifier rubyid_m'>m</span> <span class='op'>=</span> <span class='id identifier rubyid_url'>url</span><span class='period'>.</span><span class='id identifier rubyid_match'>match</span> <span class='id identifier rubyid_cardname'>cardname</span>
   <span class='id identifier rubyid_m'>m</span> <span class='op'>?</span> <span class='const'><span class='object_link'><a href="../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Name.html" title="Card::Name (class)">Name</a></span></span><span class='lbracket'>[</span><span class='id identifier rubyid_m'>m</span><span class='lbracket'>[</span><span class='symbol'>:mark</span><span class='rbracket'>]</span><span class='rbracket'>]</span> <span class='op'>:</span> <span class='kw'>nil</span>
 <span class='kw'>end</span></pre>
@@ -353,7 +355,7 @@ card_url     makes it a full url (if not already)</p>
       <pre class="code"><span class="info file"># File 'card/lib/card/env/location.rb', line 23</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_protocol_and_host'>protocol_and_host</span>
-  <span class='const'><span class='object_link'><a href="../../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_config'><span class='object_link'><a href="../../Card.html#config-class_method" title="Card.config (method)">config</a></span></span><span class='period'>.</span><span class='id identifier rubyid_protocol_and_host'>protocol_and_host</span> <span class='op'>||</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='const'><span class='object_link'><a href="../Env.html" title="Card::Env (module)">Env</a></span></span><span class='lbracket'>[</span><span class='symbol'>:protocol</span><span class='rbracket'>]</span><span class='embexpr_end'>}</span><span class='embexpr_beg'>#{</span><span class='const'><span class='object_link'><a href="../Env.html" title="Card::Env (module)">Env</a></span></span><span class='lbracket'>[</span><span class='symbol'>:host</span><span class='rbracket'>]</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+  <span class='const'><span class='object_link'><a href="../../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_config'>config</span><span class='period'>.</span><span class='id identifier rubyid_protocol_and_host'>protocol_and_host</span> <span class='op'>||</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='const'><span class='object_link'><a href="../Env.html" title="Card::Env (module)">Env</a></span></span><span class='lbracket'>[</span><span class='symbol'>:protocol</span><span class='rbracket'>]</span><span class='embexpr_end'>}</span><span class='embexpr_beg'>#{</span><span class='const'><span class='object_link'><a href="../Env.html" title="Card::Env (module)">Env</a></span></span><span class='lbracket'>[</span><span class='symbol'>:host</span><span class='rbracket'>]</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -365,9 +367,9 @@ card_url     makes it a full url (if not already)</p>
 </div>
 
       <div id="footer">
-  Generated on Sun Oct 18 23:47:42 2020 by
+  Generated on Thu May 13 17:17:16 2021 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.25 (ruby-2.6.3).
+  0.9.26 (ruby-2.7.2).
 </div>
 
     </div>

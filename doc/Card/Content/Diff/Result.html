@@ -6,7 +6,7 @@
 <title>
   Class: Card::Content::Diff::Result
   
-    &mdash; Documentation by YARD 0.9.25
+    &mdash; Documentation by YARD 0.9.26
   
 </title>
 
@@ -414,15 +414,15 @@
       <pre class="lines">
 
 
-7
 8
 9
 10
 11
-12</pre>
+12
+13</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/content/diff/result.rb', line 7</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/content/diff/result.rb', line 8</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span> <span class='id identifier rubyid_summary_opts'>summary_opts</span><span class='op'>=</span><span class='kw'>nil</span>
   <span class='ivar'>@dels_cnt</span> <span class='op'>=</span> <span class='int'>0</span>
@@ -653,12 +653,12 @@
       <pre class="lines">
 
 
-18
 19
-20</pre>
+20
+21</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/content/diff/result.rb', line 18</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/content/diff/result.rb', line 19</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_summary_omits_content?'>summary_omits_content?</span>
   <span class='ivar'>@summary</span><span class='period'>.</span><span class='id identifier rubyid_omits_content?'>omits_content?</span>
@@ -683,18 +683,18 @@
       <pre class="lines">
 
 
-22
 23
 24
 25
-26</pre>
+26
+27</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/content/diff/result.rb', line 22</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/content/diff/result.rb', line 23</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_write_added_chunk'>write_added_chunk</span> <span class='id identifier rubyid_text'>text</span>
   <span class='ivar'>@adds_cnt</span> <span class='op'>+=</span> <span class='int'>1</span>
-  <span class='ivar'>@complete</span> <span class='op'>&lt;&lt;</span> <span class='const'><span class='object_link'><a href="../../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../Content.html" title="Card::Content (class)">Content</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Diff.html" title="Card::Content::Diff (class)">Diff</a></span></span><span class='period'>.</span><span class='id identifier rubyid_render_added_chunk'><span class='object_link'><a href="../Diff.html#render_added_chunk-class_method" title="Card::Content::Diff.render_added_chunk (method)">render_added_chunk</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_text'>text</span><span class='rparen'>)</span>
+  <span class='ivar'>@complete</span> <span class='op'>&lt;&lt;</span> <span class='const'><span class='object_link'><a href="../Diff.html" title="Card::Content::Diff (class)">Diff</a></span></span><span class='period'>.</span><span class='id identifier rubyid_render_added_chunk'><span class='object_link'><a href="../Diff.html#render_added_chunk-class_method" title="Card::Content::Diff.render_added_chunk (method)">render_added_chunk</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_text'>text</span><span class='rparen'>)</span>
   <span class='ivar'>@summary</span><span class='period'>.</span><span class='id identifier rubyid_add'>add</span> <span class='id identifier rubyid_text'>text</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -717,18 +717,18 @@
       <pre class="lines">
 
 
-28
 29
 30
 31
-32</pre>
+32
+33</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/content/diff/result.rb', line 28</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/content/diff/result.rb', line 29</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_write_deleted_chunk'>write_deleted_chunk</span> <span class='id identifier rubyid_text'>text</span>
   <span class='ivar'>@dels_cnt</span> <span class='op'>+=</span> <span class='int'>1</span>
-  <span class='ivar'>@complete</span> <span class='op'>&lt;&lt;</span> <span class='const'><span class='object_link'><a href="../../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../Content.html" title="Card::Content (class)">Content</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Diff.html" title="Card::Content::Diff (class)">Diff</a></span></span><span class='period'>.</span><span class='id identifier rubyid_render_deleted_chunk'><span class='object_link'><a href="../Diff.html#render_deleted_chunk-class_method" title="Card::Content::Diff.render_deleted_chunk (method)">render_deleted_chunk</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_text'>text</span><span class='rparen'>)</span>
+  <span class='ivar'>@complete</span> <span class='op'>&lt;&lt;</span> <span class='const'><span class='object_link'><a href="../Diff.html" title="Card::Content::Diff (class)">Diff</a></span></span><span class='period'>.</span><span class='id identifier rubyid_render_deleted_chunk'><span class='object_link'><a href="../Diff.html#render_deleted_chunk-class_method" title="Card::Content::Diff.render_deleted_chunk (method)">render_deleted_chunk</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_text'>text</span><span class='rparen'>)</span>
   <span class='ivar'>@summary</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span> <span class='id identifier rubyid_text'>text</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -751,12 +751,12 @@
       <pre class="lines">
 
 
-39
 40
-41</pre>
+41
+42</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/content/diff/result.rb', line 39</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/content/diff/result.rb', line 40</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_write_excluded_chunk'>write_excluded_chunk</span> <span class='id identifier rubyid_text'>text</span>
   <span class='ivar'>@complete</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_text'>text</span>
@@ -781,13 +781,13 @@
       <pre class="lines">
 
 
-34
 35
 36
-37</pre>
+37
+38</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/content/diff/result.rb', line 34</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/content/diff/result.rb', line 35</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_write_unchanged_chunk'>write_unchanged_chunk</span> <span class='id identifier rubyid_text'>text</span>
   <span class='ivar'>@complete</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_text'>text</span>
@@ -803,9 +803,9 @@
 </div>
 
       <div id="footer">
-  Generated on Sun Oct 18 23:48:27 2020 by
+  Generated on Thu May 13 17:17:44 2021 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.25 (ruby-2.6.3).
+  0.9.26 (ruby-2.7.2).
 </div>
 
     </div>

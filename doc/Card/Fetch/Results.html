@@ -6,7 +6,7 @@
 <title>
   Module: Card::Fetch::Results
   
-    &mdash; Documentation by YARD 0.9.25
+    &mdash; Documentation by YARD 0.9.26
   
 </title>
 
@@ -83,7 +83,7 @@
   
   <dl>
     <dt>Defined in:</dt>
-    <dd>card/mod/core/lib/card/fetch/results.rb</dd>
+    <dd>card/lib/card/fetch/results.rb</dd>
   </dl>
   
 </div>
@@ -551,18 +551,20 @@
       <pre class="lines">
 
 
-118
-119
-120
-121
-122</pre>
+126
+127
+128
+129
+130
+131</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/mod/core/lib/card/fetch/results.rb', line 118</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/fetch/results.rb', line 126</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_assign_name_from_mark'>assign_name_from_mark</span>
   <span class='kw'>return</span> <span class='kw'>if</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:local_only</span><span class='rbracket'>]</span>
   <span class='kw'>return</span> <span class='kw'>unless</span> <span class='id identifier rubyid_mark'>mark</span><span class='op'>&amp;.</span><span class='id identifier rubyid_to_s'>to_s</span> <span class='op'>!=</span> <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span>
+
   <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span> <span class='op'>=</span> <span class='id identifier rubyid_mark'>mark</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -585,12 +587,12 @@
       <pre class="lines">
 
 
-81
-82
-83</pre>
+85
+86
+87</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/mod/core/lib/card/fetch/results.rb', line 81</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/fetch/results.rb', line 85</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_assignable_content'>assignable_content</span> <span class='id identifier rubyid_default_content'>default_content</span>
   <span class='id identifier rubyid_new_opts'>new_opts</span><span class='lbracket'>[</span><span class='symbol'>:content</span><span class='rbracket'>]</span> <span class='op'>||</span> <span class='lparen'>(</span><span class='ivar'>@card</span><span class='period'>.</span><span class='id identifier rubyid_db_content'>db_content</span><span class='period'>.</span><span class='id identifier rubyid_blank?'>blank?</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_default_content'>default_content</span><span class='rparen'>)</span>
@@ -638,14 +640,14 @@
       <pre class="lines">
 
 
-75
-76
-77
-78
-79</pre>
+79
+80
+81
+82
+83</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/mod/core/lib/card/fetch/results.rb', line 75</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/fetch/results.rb', line 79</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_fancy_renew?'>fancy_renew?</span>
   <span class='id identifier rubyid_test_opts'>test_opts</span> <span class='op'>=</span> <span class='id identifier rubyid_new_opts'>new_opts</span><span class='period'>.</span><span class='id identifier rubyid_slice'>slice</span> <span class='symbol'>:supercard</span><span class='comma'>,</span> <span class='symbol'>:name</span><span class='comma'>,</span> <span class='symbol'>:type_id</span><span class='comma'>,</span> <span class='symbol'>:type</span><span class='comma'>,</span> <span class='symbol'>:type_code</span><span class='comma'>,</span>
@@ -672,13 +674,13 @@
       <pre class="lines">
 
 
-10
 11
 12
-13</pre>
+13
+14</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/mod/core/lib/card/fetch/results.rb', line 10</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/fetch/results.rb', line 11</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_finalize_result_card'>finalize_result_card</span>
   <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_include_set_modules'>include_set_modules</span> <span class='kw'>unless</span> <span class='id identifier rubyid_skip_modules?'>skip_modules?</span>
@@ -727,18 +729,20 @@
       <pre class="lines">
 
 
-90
-91
-92
-93
-94</pre>
+95
+96
+97
+98
+99
+100</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/mod/core/lib/card/fetch/results.rb', line 90</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/fetch/results.rb', line 95</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_name_change?'>name_change?</span>
   <span class='kw'>return</span> <span class='kw'>false</span> <span class='kw'>unless</span> <span class='lparen'>(</span><span class='id identifier rubyid_new_name'>new_name</span> <span class='op'>=</span> <span class='id identifier rubyid_new_opts'>new_opts</span><span class='lbracket'>[</span><span class='symbol'>:name</span><span class='rbracket'>]</span><span class='op'>&amp;.</span><span class='id identifier rubyid_to_name'>to_name</span><span class='rparen'>)</span>
   <span class='kw'>return</span> <span class='kw'>false</span> <span class='kw'>if</span> <span class='id identifier rubyid_new_name'>new_name</span><span class='period'>.</span><span class='id identifier rubyid_relative?'>relative?</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_mark'>mark</span><span class='period'>.</span><span class='id identifier rubyid_name?'>name?</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_mark'>mark</span><span class='period'>.</span><span class='id identifier rubyid_absolute?'>absolute?</span>
+
   <span class='id identifier rubyid_new_name'>new_name</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span> <span class='op'>!=</span> <span class='ivar'>@card</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -761,12 +765,12 @@
       <pre class="lines">
 
 
-114
-115
-116</pre>
+122
+123
+124</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/mod/core/lib/card/fetch/results.rb', line 114</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/fetch/results.rb', line 122</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_new_opts'>new_opts</span>
   <span class='ivar'>@new_opts</span> <span class='op'>||=</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:new</span><span class='rbracket'>]</span>
@@ -791,17 +795,17 @@
       <pre class="lines">
 
 
-15
 16
 17
 18
 19
 20
 21
-22</pre>
+22
+23</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/mod/core/lib/card/fetch/results.rb', line 15</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/fetch/results.rb', line 16</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_new_result_card'>new_result_card</span>
   <span class='id identifier rubyid_with_new_card'>with_new_card</span> <span class='kw'>do</span>
@@ -831,17 +835,17 @@
       <pre class="lines">
 
 
-42
-43
 44
 45
 46
 47
 48
-49</pre>
+49
+50
+51</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/mod/core/lib/card/fetch/results.rb', line 42</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/fetch/results.rb', line 44</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_newish_opts'>newish_opts</span>
   <span class='id identifier rubyid_hash'>hash</span> <span class='op'>=</span> <span class='id identifier rubyid_new_opts'>new_opts</span><span class='period'>.</span><span class='id identifier rubyid_clone'>clone</span><span class='period'>.</span><span class='id identifier rubyid_reverse_merge'>reverse_merge</span> <span class='label'>name:</span> <span class='id identifier rubyid_mark'>mark</span>
@@ -871,16 +875,18 @@
       <pre class="lines">
 
 
-85
-86
-87
-88</pre>
+89
+90
+91
+92
+93</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/mod/core/lib/card/fetch/results.rb', line 85</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/fetch/results.rb', line 89</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_quick_content'>quick_content</span>
   <span class='kw'>return</span> <span class='kw'>unless</span> <span class='lparen'>(</span><span class='id identifier rubyid_content'>content</span> <span class='op'>=</span> <span class='id identifier rubyid_assignable_content'>assignable_content</span><span class='lparen'>(</span><span class='id identifier rubyid_new_opts'>new_opts</span><span class='lbracket'>[</span><span class='symbol'>:default_content</span><span class='rbracket'>]</span><span class='rparen'>)</span><span class='rparen'>)</span>
+
   <span class='ivar'>@card</span><span class='period'>.</span><span class='id identifier rubyid_content'>content</span> <span class='op'>=</span> <span class='id identifier rubyid_content'>content</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -903,17 +909,17 @@
       <pre class="lines">
 
 
-51
-52
 53
 54
 55
 56
 57
-58</pre>
+58
+59
+60</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/mod/core/lib/card/fetch/results.rb', line 51</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/fetch/results.rb', line 53</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_quick_renew'>quick_renew</span>
   <span class='kw'>return</span> <span class='kw'>false</span> <span class='kw'>unless</span> <span class='id identifier rubyid_quick_renew?'>quick_renew?</span>
@@ -966,21 +972,23 @@
       <pre class="lines">
 
 
-66
-67
-68
 69
 70
 71
-72</pre>
+72
+73
+74
+75
+76</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/mod/core/lib/card/fetch/results.rb', line 66</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/fetch/results.rb', line 69</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_quick_renew?'>quick_renew?</span>
   <span class='kw'>return</span> <span class='kw'>true</span> <span class='kw'>if</span> <span class='id identifier rubyid_new_opts'>new_opts</span><span class='period'>.</span><span class='id identifier rubyid_blank?'>blank?</span>
   <span class='kw'>return</span> <span class='kw'>false</span> <span class='kw'>if</span> <span class='id identifier rubyid_type_change?'>type_change?</span> <span class='op'>||</span> <span class='id identifier rubyid_name_change?'>name_change?</span>
   <span class='kw'>return</span> <span class='kw'>false</span> <span class='kw'>if</span> <span class='id identifier rubyid_fancy_renew?'>fancy_renew?</span>
+
   <span class='id identifier rubyid_quick_content'>quick_content</span>
   <span class='kw'>true</span>
 <span class='kw'>end</span></pre>
@@ -1004,18 +1012,20 @@
       <pre class="lines">
 
 
-35
 36
 37
 38
 39
-40</pre>
+40
+41
+42</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/mod/core/lib/card/fetch/results.rb', line 35</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/fetch/results.rb', line 36</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_renew'>renew</span>
   <span class='kw'>return</span> <span class='kw'>if</span> <span class='id identifier rubyid_new_opts'>new_opts</span><span class='period'>.</span><span class='id identifier rubyid_blank?'>blank?</span>
+
   <span class='comment'># Rails.logger.info &quot;renewing: #{mark}, #{new_opts}&quot;
 </span>  <span class='ivar'>@card</span> <span class='op'>=</span> <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_dup'>dup</span>
   <span class='ivar'>@card</span><span class='period'>.</span><span class='id identifier rubyid_newish'>newish</span> <span class='id identifier rubyid_newish_opts'>newish_opts</span>
@@ -1043,13 +1053,15 @@
 5
 6
 7
-8</pre>
+8
+9</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/mod/core/lib/card/fetch/results.rb', line 5</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/fetch/results.rb', line 5</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_results'>results</span>
   <span class='kw'>return</span> <span class='kw'>if</span> <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
+
   <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_new_card?'>new_card?</span> <span class='op'>?</span> <span class='id identifier rubyid_new_result_card'>new_result_card</span> <span class='op'>:</span> <span class='id identifier rubyid_finalize_result_card'>finalize_result_card</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -1095,14 +1107,14 @@
       <pre class="lines">
 
 
-108
-109
-110
-111
-112</pre>
+116
+117
+118
+119
+120</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/mod/core/lib/card/fetch/results.rb', line 108</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/fetch/results.rb', line 116</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_supercard_might_change_type?'>supercard_might_change_type?</span>
   <span class='comment'># ...via type_plus_right rule
@@ -1152,20 +1164,24 @@
       <pre class="lines">
 
 
-96
-97
-98
-99
-100
-101</pre>
+102
+103
+104
+105
+106
+107
+108
+109</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/mod/core/lib/card/fetch/results.rb', line 96</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/fetch/results.rb', line 102</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_type_change?'>type_change?</span>
   <span class='kw'>return</span> <span class='kw'>true</span> <span class='kw'>if</span> <span class='ivar'>@card</span><span class='period'>.</span><span class='id identifier rubyid_type_id'>type_id</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
+
   <span class='id identifier rubyid_type_id'>type_id</span> <span class='op'>=</span> <span class='id identifier rubyid_type_id_from_new_opts'>type_id_from_new_opts</span>
   <span class='kw'>return</span> <span class='kw'>true</span> <span class='kw'>if</span> <span class='op'>!</span><span class='id identifier rubyid_type_id'>type_id</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_supercard_might_change_type?'>supercard_might_change_type?</span>
+
   <span class='id identifier rubyid_type_id'>type_id</span> <span class='op'>&amp;&amp;</span> <span class='lparen'>(</span><span class='id identifier rubyid_type_id'>type_id</span> <span class='op'>!=</span> <span class='ivar'>@card</span><span class='period'>.</span><span class='id identifier rubyid_type_id'>type_id</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -1188,13 +1204,13 @@
       <pre class="lines">
 
 
-103
-104
-105
-106</pre>
+111
+112
+113
+114</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/mod/core/lib/card/fetch/results.rb', line 103</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/fetch/results.rb', line 111</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_type_id_from_new_opts'>type_id_from_new_opts</span>
   <span class='id identifier rubyid_type_id'>type_id</span> <span class='op'>=</span> <span class='id identifier rubyid_new_opts'>new_opts</span><span class='lbracket'>[</span><span class='symbol'>:type_id</span><span class='rbracket'>]</span> <span class='op'>||</span> <span class='id identifier rubyid_new_opts'>new_opts</span><span class='lbracket'>[</span><span class='symbol'>:type</span><span class='rbracket'>]</span> <span class='op'>||</span> <span class='id identifier rubyid_new_opts'>new_opts</span><span class='lbracket'>[</span><span class='symbol'>:type_code</span><span class='rbracket'>]</span><span class='op'>&amp;.</span><span class='id identifier rubyid_to_sym'>to_sym</span>
@@ -1220,17 +1236,19 @@
       <pre class="lines">
 
 
-60
-61
 62
 63
-64</pre>
+64
+65
+66
+67</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/mod/core/lib/card/fetch/results.rb', line 60</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/fetch/results.rb', line 62</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_update_supercard'>update_supercard</span>
   <span class='kw'>return</span> <span class='kw'>unless</span> <span class='lparen'>(</span><span class='id identifier rubyid_sc'>sc</span> <span class='op'>=</span> <span class='id identifier rubyid_new_opts'>new_opts</span><span class='lbracket'>[</span><span class='symbol'>:supercard</span><span class='rbracket'>]</span><span class='rparen'>)</span>
+
   <span class='ivar'>@card</span><span class='period'>.</span><span class='id identifier rubyid_supercard'>supercard</span> <span class='op'>=</span> <span class='id identifier rubyid_sc'>sc</span>
   <span class='ivar'>@card</span><span class='period'>.</span><span class='id identifier rubyid_update_superleft'>update_superleft</span> <span class='ivar'>@card</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span>
 <span class='kw'>end</span></pre>
@@ -1254,7 +1272,6 @@
       <pre class="lines">
 
 
-24
 25
 26
 27
@@ -1263,10 +1280,11 @@
 30
 31
 32
-33</pre>
+33
+34</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/mod/core/lib/card/fetch/results.rb', line 24</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/fetch/results.rb', line 25</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_with_new_card'>with_new_card</span>
   <span class='kw'>if</span> <span class='id identifier rubyid_new_opts'>new_opts</span>
@@ -1288,9 +1306,9 @@
 </div>
 
       <div id="footer">
-  Generated on Sun Oct 18 23:47:48 2020 by
+  Generated on Thu May 13 17:17:16 2021 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.25 (ruby-2.6.3).
+  0.9.26 (ruby-2.7.2).
 </div>
 
     </div>

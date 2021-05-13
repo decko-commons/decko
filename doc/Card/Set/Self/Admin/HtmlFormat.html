@@ -6,7 +6,7 @@
 <title>
   Module: Card::Set::Self::Admin::HtmlFormat
   
-    &mdash; Documentation by YARD 0.9.25
+    &mdash; Documentation by YARD 0.9.26
   
 </title>
 
@@ -83,7 +83,7 @@
   
   <dl>
     <dt>Defined in:</dt>
-    <dd>card/tmpsets/set/mod002-admin/self/admin.rb</dd>
+    <dd>card/tmpsets/set/mod001-admin/self/admin.rb</dd>
   </dl>
   
 </div>
@@ -354,7 +354,7 @@
 94</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod002-admin/self/admin.rb', line 78</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod001-admin/self/admin.rb', line 78</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_cache_stats'>cache_stats</span>
   <span class='lbracket'>[</span>
@@ -409,7 +409,7 @@
 76</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod002-admin/self/admin.rb', line 63</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod001-admin/self/admin.rb', line 63</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_card_stats'>card_stats</span>
   <span class='lbracket'>[</span>
@@ -451,7 +451,7 @@
 122</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod002-admin/self/admin.rb', line 119</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod001-admin/self/admin.rb', line 119</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_count'>count</span> <span class='id identifier rubyid_counter'>counter</span>
   <span class='id identifier rubyid_counter'>counter</span> <span class='op'>=</span> <span class='id identifier rubyid_counter'>counter</span><span class='period'>.</span><span class='id identifier rubyid_call'>call</span> <span class='kw'>if</span> <span class='id identifier rubyid_counter'>counter</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'>Proc</span><span class='rparen'>)</span>
@@ -483,7 +483,7 @@
 135</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod002-admin/self/admin.rb', line 132</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod001-admin/self/admin.rb', line 132</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_delete_sessions_link'>delete_sessions_link</span> <span class='id identifier rubyid_months'>months</span>
   <span class='id identifier rubyid_link_to_card'>link_to_card</span> <span class='symbol'>:admin</span><span class='comma'>,</span> <span class='id identifier rubyid_months'>months</span><span class='comma'>,</span> <span class='label'>path:</span> <span class='lbrace'>{</span> <span class='label'>action:</span> <span class='symbol'>:update</span><span class='comma'>,</span> <span class='label'>months:</span> <span class='id identifier rubyid_months'>months</span><span class='comma'>,</span>
@@ -514,7 +514,7 @@
 130</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod002-admin/self/admin.rb', line 128</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod001-admin/self/admin.rb', line 128</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_machine_cache_count'>machine_cache_count</span>
   <span class='const'><span class='object_link'><a href="../../../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../../Virtual.html" title="Card::Virtual (class)">Virtual</a></span></span><span class='period'>.</span><span class='id identifier rubyid_where'>where</span><span class='lparen'>(</span><span class='label'>right_id:</span> <span class='const'>MachineCacheID</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_count'>count</span>
@@ -554,7 +554,7 @@
 108</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod002-admin/self/admin.rb', line 96</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod001-admin/self/admin.rb', line 96</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_memory_stats'>memory_stats</span>
   <span class='id identifier rubyid_oldmem'>oldmem</span> <span class='op'>=</span> <span class='id identifier rubyid_session'>session</span><span class='lbracket'>[</span><span class='symbol'>:memory</span><span class='rbracket'>]</span>
@@ -594,7 +594,7 @@
 126</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod002-admin/self/admin.rb', line 124</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod001-admin/self/admin.rb', line 124</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_solid_cache_count'>solid_cache_count</span>
   <span class='const'><span class='object_link'><a href="../../../../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_search'>search</span> <span class='label'>right:</span> <span class='lbrace'>{</span> <span class='label'>codename:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>solid_cache</span><span class='tstring_end'>&quot;</span></span> <span class='rbrace'>}</span><span class='comma'>,</span> <span class='label'>return:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>count</span><span class='tstring_end'>&quot;</span></span>
@@ -629,7 +629,7 @@
 117</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod002-admin/self/admin.rb', line 110</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod001-admin/self/admin.rb', line 110</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_stat_row'>stat_row</span> <span class='id identifier rubyid_args'>args</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span>
   <span class='id identifier rubyid_res'>res</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='lparen'>(</span><span class='id identifier rubyid_args'>args</span><span class='lbracket'>[</span><span class='symbol'>:title</span><span class='rbracket'>]</span> <span class='op'>||</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='rbracket'>]</span>
@@ -671,7 +671,7 @@
 61</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod002-admin/self/admin.rb', line 52</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod001-admin/self/admin.rb', line 52</span>
 
 <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:core</span><span class='comma'>,</span> <span class='label'>cache:</span> <span class='symbol'>:never</span> <span class='kw'>do</span>
   <span class='id identifier rubyid_stats'>stats</span> <span class='op'>=</span> <span class='id identifier rubyid_card_stats'>card_stats</span>
@@ -693,9 +693,9 @@
 </div>
 
       <div id="footer">
-  Generated on Sun Oct 18 23:47:50 2020 by
+  Generated on Thu May 13 17:17:21 2021 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.25 (ruby-2.6.3).
+  0.9.26 (ruby-2.7.2).
 </div>
 
     </div>

@@ -1,4 +1,6 @@
+<!--
 # @title README - mod: alias
+-->
 
 # API key
 Enable Alias cards, which alias one simple card name to another.
@@ -25,21 +27,23 @@ will take effect on the alias, not the target.
 
 ## Sets with code rules
 
-### type: Alias
+### {Card::Set::Type::Alias type: Alias}
 An alias card's name is the alias's *source*, and its content is its target. So, in the 
 example above, the Alias card would be named *Former* and its content would be *Current*.
 
 Content is stored as a card id.
 
 #### Events
+
 | event name | when | purpose |
 |:---------:|:------:|:-------:|
 | validate_alias_source | on save | ensures name is simple and card has no children |
 | validate_alias_target | on save | ensures target is existing simple card |
 
-### All
+### {Card::Set::All::Alias All}
 
 #### Events
+
 | event name | when | purpose |
 |:---------:|:------:|:-------:|
 | create_alias_upon_rename | triggered | creates an alias from old name to new one |
@@ -49,14 +53,16 @@ Content is stored as a card id.
 Extends `#edit_name_buttons` so that when renaming, user is presented with a checkbox 
 to trigger the creation of an alias
 
-### All Plus
+### {Card::Set::AllPlus::Alias All Plus}
 Handle aliasing of compound names when at least one name part is an alias.
+
+#### Events
 
 | event name | when | purpose |
 |:---------:|:------:|:-------:|
 | validate_not_alias | on save | prevents creation of deescendents of aliases |
 
-## CardController::Aliasing
+## {CardController::Aliasing}
 Module that enables card controller to handle alias-driven redirects and ensure that 
 transaction requests act upon the correct card (the alias when simple, the target when
 compound).

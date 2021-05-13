@@ -6,7 +6,7 @@
 <title>
   Module: Card::Set::Abstract::CqlSearch::Format
   
-    &mdash; Documentation by YARD 0.9.25
+    &mdash; Documentation by YARD 0.9.26
   
 </title>
 
@@ -83,7 +83,7 @@
   
   <dl>
     <dt>Defined in:</dt>
-    <dd>card/tmpsets/set/mod009-card-mod-search/abstract/06_cql_search.rb</dd>
+    <dd>card/tmpsets/set/mod035-card-mod-search/abstract/06_cql_search.rb</dd>
   </dl>
   
 </div>
@@ -152,53 +152,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#item_view_from_query-instance_method" title="#item_view_from_query (instance method)">#<strong>item_view_from_query</strong>  &#x21d2; Object </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'>
-</div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#limit-instance_method" title="#limit (instance method)">#<strong>limit</strong>  &#x21d2; Object </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'>
-</div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#query_with_params-instance_method" title="#query_with_params (instance method)">#<strong>query_with_params</strong>  &#x21d2; Object </a>
+      <a href="#search_params-instance_method" title="#search_params (instance method)">#<strong>search_params</strong>  &#x21d2; Object </a>
     
 
     
@@ -243,12 +197,12 @@
       <pre class="lines">
 
 
-94
-95
-96</pre>
+89
+90
+91</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod009-card-mod-search/abstract/06_cql_search.rb', line 94</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod035-card-mod-search/abstract/06_cql_search.rb', line 89</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_card_content_limit'>card_content_limit</span>
   <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_cql_hash'>cql_hash</span><span class='op'>&amp;.</span><span class='id identifier rubyid_dig'>dig</span> <span class='symbol'>:limit</span>
@@ -273,12 +227,12 @@
       <pre class="lines">
 
 
-90
-91
-92</pre>
+85
+86
+87</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod009-card-mod-search/abstract/06_cql_search.rb', line 90</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod035-card-mod-search/abstract/06_cql_search.rb', line 85</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_default_limit'>default_limit</span>
   <span class='id identifier rubyid_card_content_limit'>card_content_limit</span> <span class='op'>||</span> <span class='kw'>super</span>
@@ -289,39 +243,9 @@
 </div>
     
       <div class="method_details ">
-  <h3 class="signature " id="item_view_from_query-instance_method">
+  <h3 class="signature " id="search_params-instance_method">
   
-    #<strong>item_view_from_query</strong>  &#x21d2; <tt><span class='object_link'><a href="../../../../Object.html" title="Object (class)">Object</a></span></tt> 
-  
-
-  
-
-  
-</h3><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-98
-99
-100</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod009-card-mod-search/abstract/06_cql_search.rb', line 98</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_item_view_from_query'>item_view_from_query</span>
-  <span class='id identifier rubyid_query_with_params'>query_with_params</span><span class='period'>.</span><span class='id identifier rubyid_statement'>statement</span><span class='lbracket'>[</span><span class='symbol'>:item</span><span class='rbracket'>]</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="limit-instance_method">
-  
-    #<strong>limit</strong>  &#x21d2; <tt><span class='object_link'><a href="../../../../Object.html" title="Object (class)">Object</a></span></tt> 
+    #<strong>search_params</strong>  &#x21d2; <tt><span class='object_link'><a href="../../../../Object.html" title="Object (class)">Object</a></span></tt> 
   
 
   
@@ -333,45 +257,15 @@
       <pre class="lines">
 
 
-106
-107
-108</pre>
+81
+82
+83</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod009-card-mod-search/abstract/06_cql_search.rb', line 106</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod035-card-mod-search/abstract/06_cql_search.rb', line 81</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_limit'>limit</span>
-  <span class='id identifier rubyid_query_with_params'>query_with_params</span><span class='period'>.</span><span class='id identifier rubyid_limit'>limit</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="query_with_params-instance_method">
-  
-    #<strong>query_with_params</strong>  &#x21d2; <tt><span class='object_link'><a href="../../../../Object.html" title="Object (class)">Object</a></span></tt> 
-  
-
-  
-
-  
-</h3><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-102
-103
-104</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod009-card-mod-search/abstract/06_cql_search.rb', line 102</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_query_with_params'>query_with_params</span>
-  <span class='ivar'>@query_with_params</span> <span class='op'>||=</span> <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_fetch_query'>fetch_query</span> <span class='id identifier rubyid_search_params'>search_params</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_search_params'>search_params</span>
+  <span class='kw'>super</span><span class='period'>.</span><span class='id identifier rubyid_merge'>merge</span> <span class='id identifier rubyid_filter_and_sort_cql'>filter_and_sort_cql</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -383,9 +277,9 @@
 </div>
 
       <div id="footer">
-  Generated on Sun Oct 18 23:48:14 2020 by
+  Generated on Thu May 13 17:17:37 2021 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.25 (ruby-2.6.3).
+  0.9.26 (ruby-2.7.2).
 </div>
 
     </div>
