@@ -6,7 +6,7 @@
 <title>
   Module: Card::Name::FieldsAndTraits
   
-    &mdash; Documentation by YARD 0.9.25
+    &mdash; Documentation by YARD 0.9.26
   
 </title>
 
@@ -473,13 +473,15 @@ card with a codename</p>
 30
 31
 32
-33</pre>
+33
+34</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'card/lib/card/name/fields_and_traits.rb', line 26</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_field_of?'>field_of?</span> <span class='id identifier rubyid_context'>context</span>
-  <span class='kw'>return</span> <span class='kw'>false</span> <span class='kw'>unless</span> <span class='id identifier rubyid_junction?'>junction?</span>
+  <span class='kw'>return</span> <span class='kw'>false</span> <span class='kw'>unless</span> <span class='id identifier rubyid_compound?'>compound?</span>
+
   <span class='kw'>if</span> <span class='id identifier rubyid_context'>context</span><span class='period'>.</span><span class='id identifier rubyid_present?'>present?</span>
     <span class='id identifier rubyid_absolute_name'>absolute_name</span><span class='lparen'>(</span><span class='id identifier rubyid_context'>context</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_left_name'>left_name</span><span class='period'>.</span><span class='id identifier rubyid_key'>key</span> <span class='op'>==</span> <span class='id identifier rubyid_context'>context</span><span class='period'>.</span><span class='id identifier rubyid_to_name'>to_name</span><span class='period'>.</span><span class='id identifier rubyid_key'>key</span>
   <span class='kw'>else</span>
@@ -529,12 +531,12 @@ card with a codename</p>
       <pre class="lines">
 
 
-35
 36
-37</pre>
+37
+38</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/name/fields_and_traits.rb', line 35</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/name/fields_and_traits.rb', line 36</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_field_only?'>field_only?</span>
   <span class='id identifier rubyid_relative?'>relative?</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_stripped'>stripped</span><span class='period'>.</span><span class='id identifier rubyid_to_name'>to_name</span><span class='period'>.</span><span class='id identifier rubyid_parts'>parts</span><span class='period'>.</span><span class='id identifier rubyid_reject'>reject</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='symbol'>:blank?</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_first'>first</span> <span class='op'>==</span> <span class='id identifier rubyid_parts'>parts</span><span class='period'>.</span><span class='id identifier rubyid_last'>last</span>
@@ -559,12 +561,12 @@ card with a codename</p>
       <pre class="lines">
 
 
-39
 40
-41</pre>
+41
+42</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/name/fields_and_traits.rb', line 39</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/name/fields_and_traits.rb', line 40</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_relative_field_name'>relative_field_name</span> <span class='id identifier rubyid_tag_name'>tag_name</span>
   <span class='id identifier rubyid_field_name'>field_name</span><span class='lparen'>(</span><span class='id identifier rubyid_tag_name'>tag_name</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_name_from'>name_from</span> <span class='kw'>self</span>
@@ -612,13 +614,13 @@ card with a codename</p>
       <pre class="lines">
 
 
-44
 45
 46
-47</pre>
+47
+48</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/name/fields_and_traits.rb', line 44</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/name/fields_and_traits.rb', line 45</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_trait'>trait</span> <span class='id identifier rubyid_tag_code'>tag_code</span>
   <span class='id identifier rubyid_name'>name</span> <span class='op'>=</span> <span class='id identifier rubyid_trait_name'>trait_name</span> <span class='id identifier rubyid_tag_code'>tag_code</span>
@@ -667,12 +669,12 @@ card with a codename</p>
       <pre class="lines">
 
 
-50
 51
-52</pre>
+52
+53</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/name/fields_and_traits.rb', line 50</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/name/fields_and_traits.rb', line 51</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_trait_name'>trait_name</span> <span class='id identifier rubyid_tag_code'>tag_code</span>
   <span class='const'><span class='object_link'><a href="../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Name.html" title="Card::Name (class)">Name</a></span></span><span class='lbracket'>[</span><span class='kw'>self</span><span class='comma'>,</span> <span class='id identifier rubyid_tag_code'>tag_code</span><span class='period'>.</span><span class='id identifier rubyid_to_sym'>to_sym</span><span class='rbracket'>]</span>
@@ -720,19 +722,21 @@ card with a codename</p>
       <pre class="lines">
 
 
-55
 56
 57
 58
 59
 60
-61</pre>
+61
+62
+63</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/name/fields_and_traits.rb', line 55</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/name/fields_and_traits.rb', line 56</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_trait_name?'>trait_name?</span> <span class='op'>*</span><span class='id identifier rubyid_traitlist'>traitlist</span>
-  <span class='kw'>return</span> <span class='kw'>false</span> <span class='kw'>unless</span> <span class='id identifier rubyid_junction?'>junction?</span>
+  <span class='kw'>return</span> <span class='kw'>false</span> <span class='kw'>unless</span> <span class='id identifier rubyid_compound?'>compound?</span>
+
   <span class='id identifier rubyid_right_key'>right_key</span> <span class='op'>=</span> <span class='id identifier rubyid_right_name'>right_name</span><span class='period'>.</span><span class='id identifier rubyid_key'>key</span>
   <span class='id identifier rubyid_traitlist'>traitlist</span><span class='period'>.</span><span class='id identifier rubyid_any?'>any?</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_codename'>codename</span><span class='op'>|</span>
     <span class='const'><span class='object_link'><a href="../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Codename.html" title="Card::Codename (class)">Codename</a></span></span><span class='period'>.</span><span class='id identifier rubyid_name'><span class='object_link'><a href="../Codename.html#name-class_method" title="Card::Codename.name (method)">name</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_codename'>codename</span><span class='rparen'>)</span><span class='op'>&amp;.</span><span class='id identifier rubyid_key'>key</span> <span class='op'>==</span> <span class='id identifier rubyid_right_key'>right_key</span>
@@ -748,9 +752,9 @@ card with a codename</p>
 </div>
 
       <div id="footer">
-  Generated on Sun Oct 18 23:47:45 2020 by
+  Generated on Thu May 13 17:17:19 2021 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.25 (ruby-2.6.3).
+  0.9.26 (ruby-2.7.2).
 </div>
 
     </div>

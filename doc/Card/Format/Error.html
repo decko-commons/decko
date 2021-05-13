@@ -6,7 +6,7 @@
 <title>
   Module: Card::Format::Error
   
-    &mdash; Documentation by YARD 0.9.25
+    &mdash; Documentation by YARD 0.9.26
   
 </title>
 
@@ -431,13 +431,15 @@
 11
 12
 13
-14</pre>
+14
+15</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'card/lib/card/format/error.rb', line 9</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_anyone_can?'>anyone_can?</span> <span class='id identifier rubyid_task'>task</span>
   <span class='kw'>return</span> <span class='kw'>false</span> <span class='kw'>unless</span> <span class='id identifier rubyid_task'>task</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span> <span class='const'>Symbol</span>
+
   <span class='ivar'>@anyone_can</span> <span class='op'>||=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
   <span class='ivar'>@anyone_can</span><span class='lbracket'>[</span><span class='id identifier rubyid_task'>task</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_anyone_can?'>anyone_can?</span> <span class='id identifier rubyid_task'>task</span> <span class='kw'>if</span> <span class='ivar'>@anyone_can</span><span class='lbracket'>[</span><span class='id identifier rubyid_task'>task</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
   <span class='ivar'>@anyone_can</span><span class='lbracket'>[</span><span class='id identifier rubyid_task'>task</span><span class='rbracket'>]</span>
@@ -462,22 +464,22 @@
       <pre class="lines">
 
 
-41
-42
-43
-44
-45
 46
-47</pre>
+47
+48
+49
+50
+51
+52</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/format/error.rb', line 41</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/format/error.rb', line 46</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_error_cardname'>error_cardname</span> <span class='id identifier rubyid__exception'>_exception</span>
   <span class='kw'>if</span> <span class='id identifier rubyid_card'>card</span><span class='op'>&amp;.</span><span class='id identifier rubyid_name'>name</span><span class='period'>.</span><span class='id identifier rubyid_present?'>present?</span>
     <span class='id identifier rubyid_safe_name'>safe_name</span>
   <span class='kw'>else</span>
-    <span class='const'>I18n</span><span class='period'>.</span><span class='id identifier rubyid_t'>t</span> <span class='symbol'>:no_cardname</span><span class='comma'>,</span> <span class='label'>scope:</span> <span class='qsymbols_beg'>%i[</span><span class='tstring_content'>lib</span><span class='words_sep'> </span><span class='tstring_content'>card</span><span class='words_sep'> </span><span class='tstring_content'>format</span><span class='words_sep'> </span><span class='tstring_content'>error</span><span class='tstring_end'>]</span></span>
+    <span class='const'><span class='object_link'><a href="../../Cardio.html" title="Cardio (module)">Cardio</a></span></span><span class='period'>.</span><span class='id identifier rubyid_t'><span class='object_link'><a href="../../Cardio/Utils.html#t-instance_method" title="Cardio::Utils#t (method)">t</a></span></span> <span class='symbol'>:lib_no_cardname</span>
   <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -500,13 +502,13 @@
       <pre class="lines">
 
 
-65
-66
-67
-68</pre>
+70
+71
+72
+73</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/format/error.rb', line 65</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/format/error.rb', line 70</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_log_error'>log_error</span> <span class='id identifier rubyid_e'>e</span>
   <span class='const'>Rails</span><span class='period'>.</span><span class='id identifier rubyid_logger'>logger</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span> <span class='id identifier rubyid_e'>e</span><span class='period'>.</span><span class='id identifier rubyid_message'>message</span>
@@ -532,14 +534,14 @@
       <pre class="lines">
 
 
-53
-54
-55
-56
-57</pre>
+58
+59
+60
+61
+62</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/format/error.rb', line 53</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/format/error.rb', line 58</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_loud_error'>loud_error</span> <span class='id identifier rubyid_e'>e</span><span class='comma'>,</span> <span class='id identifier rubyid_view'>view</span>
   <span class='id identifier rubyid_log_error'>log_error</span> <span class='id identifier rubyid_e'>e</span> <span class='kw'>if</span> <span class='id identifier rubyid_focal?'>focal?</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_voo'>voo</span><span class='period'>.</span><span class='id identifier rubyid_root?'>root?</span>
@@ -589,15 +591,15 @@
       <pre class="lines">
 
 
-49
-50
-51</pre>
+54
+55
+56</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/format/error.rb', line 49</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/format/error.rb', line 54</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_loud_error?'>loud_error?</span>
-  <span class='id identifier rubyid_focal?'>focal?</span> <span class='op'>||</span> <span class='const'><span class='object_link'><a href="../../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_config'><span class='object_link'><a href="../../Card.html#config-class_method" title="Card.config (method)">config</a></span></span><span class='period'>.</span><span class='id identifier rubyid_raise_all_rendering_errors'>raise_all_rendering_errors</span>
+  <span class='id identifier rubyid_focal?'>focal?</span> <span class='op'>||</span> <span class='const'><span class='object_link'><a href="../../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_config'>config</span><span class='period'>.</span><span class='id identifier rubyid_raise_all_rendering_errors'>raise_all_rendering_errors</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -613,45 +615,30 @@
   
 
   
-</h3><div class="docstring">
-  <div class="discussion">
-    
-
-
-  </div>
-</div>
-<div class="tags">
-  
-<p class="tag_title">Raises:</p>
-<ul class="raise">
-  
-    <li>
-      
-      
-        <span class='type'>(<tt><span class='object_link'><a href="../Error/UserError.html" title="Card::Error::UserError (class)">Card::Error::UserError</a></span></tt>)</span>
-      
-      
-      
-    </li>
-  
-</ul>
-
-</div><table class="source_code">
+</h3><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-31
 32
 33
-34</pre>
+34
+35
+36
+37
+38
+39</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/format/error.rb', line 31</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/format/error.rb', line 32</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_monitor_depth'>monitor_depth</span>
-  <span class='id identifier rubyid_raise'>raise</span> <span class='const'><span class='object_link'><a href="../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Error.html" title="Card::Error (class)">Error</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Error/UserError.html" title="Card::Error::UserError (class)">UserError</a></span></span><span class='comma'>,</span> <span class='id identifier rubyid_tr'>tr</span><span class='lparen'>(</span><span class='symbol'>:too_deep</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='id identifier rubyid_depth'>depth</span> <span class='op'>&gt;=</span> <span class='const'><span class='object_link'><a href="../../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_config'><span class='object_link'><a href="../../Card.html#config-class_method" title="Card.config (method)">config</a></span></span><span class='period'>.</span><span class='id identifier rubyid_max_depth'>max_depth</span>
+  <span class='kw'>if</span> <span class='id identifier rubyid_depth'>depth</span> <span class='op'>&gt;=</span> <span class='const'><span class='object_link'><a href="../../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_config'>config</span><span class='period'>.</span><span class='id identifier rubyid_max_depth'>max_depth</span>
+    <span class='id identifier rubyid_raise'>raise</span> <span class='const'><span class='object_link'><a href="../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Error.html" title="Card::Error (class)">Error</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Error/UserError.html" title="Card::Error::UserError (class)">UserError</a></span></span><span class='comma'>,</span>
+          <span class='id identifier rubyid_t'>t</span><span class='lparen'>(</span><span class='symbol'>:format_too_deep</span><span class='rparen'>)</span>
+  <span class='kw'>end</span>
+
   <span class='kw'>yield</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -729,14 +716,14 @@
       <pre class="lines">
 
 
-59
-60
-61
-62
-63</pre>
+64
+65
+66
+67
+68</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/format/error.rb', line 59</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/format/error.rb', line 64</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_quiet_error'>quiet_error</span> <span class='id identifier rubyid_e'>e</span><span class='comma'>,</span> <span class='id identifier rubyid_view'>view</span>
   <span class='comment'># TODO: unify with Card::Error#report
@@ -763,24 +750,22 @@
       <pre class="lines">
 
 
-70
-71
-72
-73
-74
 75
 76
-77</pre>
+77
+78
+79
+80
+81</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/format/error.rb', line 70</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/format/error.rb', line 75</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_rendering_error'>rendering_error</span> <span class='id identifier rubyid_exception'>exception</span><span class='comma'>,</span> <span class='id identifier rubyid_view'>view</span>
   <span class='kw'>if</span> <span class='id identifier rubyid_exception'>exception</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span> <span class='const'><span class='object_link'><a href="../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Error.html" title="Card::Error (class)">Error</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Error/UserError.html" title="Card::Error::UserError (class)">UserError</a></span></span>
     <span class='id identifier rubyid_exception'>exception</span><span class='period'>.</span><span class='id identifier rubyid_message'>message</span>
   <span class='kw'>else</span>
-    <span class='id identifier rubyid_tr'>tr</span> <span class='symbol'>:error_rendering</span><span class='comma'>,</span> <span class='label'>scope:</span> <span class='qsymbols_beg'>%i[</span><span class='tstring_content'>lib</span><span class='words_sep'> </span><span class='tstring_content'>card</span><span class='words_sep'> </span><span class='tstring_content'>format</span><span class='words_sep'> </span><span class='tstring_content'>error</span><span class='tstring_end'>]</span></span><span class='comma'>,</span>
-                         <span class='label'>cardname:</span> <span class='id identifier rubyid_error_cardname'>error_cardname</span><span class='lparen'>(</span><span class='id identifier rubyid_exception'>exception</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='label'>view:</span> <span class='id identifier rubyid_view'>view</span>
+    <span class='id identifier rubyid_t'>t</span> <span class='symbol'>:lib_error_rendering</span><span class='comma'>,</span> <span class='label'>cardname:</span> <span class='id identifier rubyid_error_cardname'>error_cardname</span><span class='lparen'>(</span><span class='id identifier rubyid_exception'>exception</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='label'>view:</span> <span class='id identifier rubyid_view'>view</span>
   <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -803,13 +788,13 @@
       <pre class="lines">
 
 
-36
-37
-38
-39</pre>
+41
+42
+43
+44</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/format/error.rb', line 36</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/format/error.rb', line 41</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_rescue_view'>rescue_view</span> <span class='id identifier rubyid_e'>e</span><span class='comma'>,</span> <span class='id identifier rubyid_view'>view</span>
   <span class='id identifier rubyid_method'>method</span> <span class='op'>=</span> <span class='id identifier rubyid_loud_error?'>loud_error?</span> <span class='op'>?</span> <span class='symbol'>:loud_error</span> <span class='op'>:</span> <span class='symbol'>:quiet_error</span>
@@ -835,14 +820,14 @@
       <pre class="lines">
 
 
-25
 26
 27
 28
-29</pre>
+29
+30</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/format/error.rb', line 25</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/format/error.rb', line 26</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_view_for_denial'>view_for_denial</span> <span class='id identifier rubyid_view'>view</span><span class='comma'>,</span> <span class='id identifier rubyid_task'>task</span>
   <span class='ivar'>@denied_task</span> <span class='op'>=</span> <span class='id identifier rubyid_task'>task</span>
@@ -869,17 +854,17 @@
       <pre class="lines">
 
 
-16
 17
 18
 19
 20
 21
 22
-23</pre>
+23
+24</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/format/error.rb', line 16</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/format/error.rb', line 17</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_view_for_unknown'>view_for_unknown</span> <span class='id identifier rubyid__view'>_view</span>
   <span class='kw'>if</span> <span class='id identifier rubyid_main?'>main?</span>
@@ -899,9 +884,9 @@
 </div>
 
       <div id="footer">
-  Generated on Sun Oct 18 23:47:42 2020 by
+  Generated on Thu May 13 17:17:16 2021 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.25 (ruby-2.6.3).
+  0.9.26 (ruby-2.7.2).
 </div>
 
     </div>

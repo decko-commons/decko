@@ -6,7 +6,7 @@
 <title>
   Module: Card::Set::Self::Search::JsonFormat
   
-    &mdash; Documentation by YARD 0.9.25
+    &mdash; Documentation by YARD 0.9.26
   
 </title>
 
@@ -83,7 +83,7 @@
   
   <dl>
     <dt>Defined in:</dt>
-    <dd>card/tmpsets/set/mod009-card-mod-search/self/search.rb</dd>
+    <dd>card/tmpsets/set/mod035-card-mod-search/self/search.rb</dd>
   </dl>
   
 </div>
@@ -289,12 +289,12 @@
       <pre class="lines">
 
 
-92
-93
-94</pre>
+89
+90
+91</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod009-card-mod-search/self/search.rb', line 92</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod035-card-mod-search/self/search.rb', line 89</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_add_exact_to_goto_names?'>add_exact_to_goto_names?</span> <span class='id identifier rubyid_exact'>exact</span><span class='comma'>,</span> <span class='id identifier rubyid_goto_names'>goto_names</span>
   <span class='id identifier rubyid_exact'>exact</span><span class='period'>.</span><span class='id identifier rubyid_known?'>known?</span> <span class='op'>&amp;&amp;</span> <span class='op'>!</span><span class='id identifier rubyid_goto_names'>goto_names</span><span class='period'>.</span><span class='id identifier rubyid_find'>find</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_n'>n</span><span class='op'>|</span> <span class='id identifier rubyid_n'>n</span><span class='period'>.</span><span class='id identifier rubyid_to_name'>to_name</span><span class='period'>.</span><span class='id identifier rubyid_key'>key</span> <span class='op'>==</span> <span class='id identifier rubyid_exact'>exact</span><span class='period'>.</span><span class='id identifier rubyid_key'>key</span> <span class='rbrace'>}</span>
@@ -319,23 +319,23 @@
       <pre class="lines">
 
 
+67
+68
+69
 70
 71
 72
-73
-74
-75
-76</pre>
+73</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod009-card-mod-search/self/search.rb', line 70</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod035-card-mod-search/self/search.rb', line 67</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_add_item'>add_item</span> <span class='id identifier rubyid_exact'>exact</span>
   <span class='kw'>return</span> <span class='kw'>unless</span> <span class='id identifier rubyid_exact'>exact</span><span class='period'>.</span><span class='id identifier rubyid_new_card?'>new_card?</span> <span class='op'>&amp;&amp;</span>
                 <span class='id identifier rubyid_exact'>exact</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span><span class='period'>.</span><span class='id identifier rubyid_valid?'>valid?</span> <span class='op'>&amp;&amp;</span>
                 <span class='op'>!</span><span class='id identifier rubyid_exact'>exact</span><span class='period'>.</span><span class='id identifier rubyid_virtual?'>virtual?</span> <span class='op'>&amp;&amp;</span>
                 <span class='id identifier rubyid_exact'>exact</span><span class='period'>.</span><span class='id identifier rubyid_ok?'>ok?</span><span class='lparen'>(</span><span class='symbol'>:create</span><span class='rparen'>)</span>
-  <span class='lbracket'>[</span><span class='id identifier rubyid_h'>h</span><span class='lparen'>(</span><span class='id identifier rubyid_exact'>exact</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='id identifier rubyid_exact'>exact</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span><span class='period'>.</span><span class='id identifier rubyid_url_key'>url_key</span><span class='rbracket'>]</span>
+  <span class='lbracket'>[</span><span class='id identifier rubyid_h'>h</span><span class='lparen'>(</span><span class='id identifier rubyid_exact'>exact</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='const'>URI</span><span class='period'>.</span><span class='id identifier rubyid_escape'>escape</span><span class='lparen'>(</span><span class='id identifier rubyid_exact'>exact</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span><span class='rparen'>)</span><span class='rbracket'>]</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -357,19 +357,19 @@
       <pre class="lines">
 
 
+81
+82
+83
 84
 85
 86
-87
-88
-89
-90</pre>
+87</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod009-card-mod-search/self/search.rb', line 84</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod035-card-mod-search/self/search.rb', line 81</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_goto_items'>goto_items</span> <span class='id identifier rubyid_term'>term</span><span class='comma'>,</span> <span class='id identifier rubyid_exact'>exact</span>
-  <span class='id identifier rubyid_goto_names'>goto_names</span> <span class='op'>=</span> <span class='id identifier rubyid_complete_or_match_search'>complete_or_match_search</span> <span class='label'>start_only:</span> <span class='const'><span class='object_link'><a href="../../../../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_config'><span class='object_link'><a href="../../../../Card.html#config-class_method" title="Card.config (method)">config</a></span></span><span class='period'>.</span><span class='id identifier rubyid_navbox_match_start_only'>navbox_match_start_only</span>
+  <span class='id identifier rubyid_goto_names'>goto_names</span> <span class='op'>=</span> <span class='id identifier rubyid_complete_or_match_search'>complete_or_match_search</span> <span class='label'>start_only:</span> <span class='const'><span class='object_link'><a href="../../../../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_config'>config</span><span class='period'>.</span><span class='id identifier rubyid_navbox_match_start_only'>navbox_match_start_only</span>
   <span class='id identifier rubyid_goto_names'>goto_names</span><span class='period'>.</span><span class='id identifier rubyid_unshift'>unshift</span> <span class='id identifier rubyid_exact'>exact</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span> <span class='kw'>if</span> <span class='id identifier rubyid_add_exact_to_goto_names?'>add_exact_to_goto_names?</span> <span class='id identifier rubyid_exact'>exact</span><span class='comma'>,</span> <span class='id identifier rubyid_goto_names'>goto_names</span>
   <span class='id identifier rubyid_goto_names'>goto_names</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_name'>name</span><span class='op'>|</span>
     <span class='lbracket'>[</span><span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='id identifier rubyid_name'>name</span><span class='period'>.</span><span class='id identifier rubyid_to_name'>to_name</span><span class='period'>.</span><span class='id identifier rubyid_url_key'>url_key</span><span class='comma'>,</span> <span class='id identifier rubyid_h'>h</span><span class='lparen'>(</span><span class='id identifier rubyid_highlight'>highlight</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='id identifier rubyid_term'>term</span><span class='comma'>,</span> <span class='label'>sanitize:</span> <span class='kw'>false</span><span class='rparen'>)</span><span class='rparen'>)</span><span class='rbracket'>]</span>
@@ -395,14 +395,14 @@
       <pre class="lines">
 
 
+75
+76
+77
 78
-79
-80
-81
-82</pre>
+79</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod009-card-mod-search/self/search.rb', line 78</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod035-card-mod-search/self/search.rb', line 75</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_new_item_of_type'>new_item_of_type</span> <span class='id identifier rubyid_exact'>exact</span>
   <span class='kw'>return</span> <span class='kw'>unless</span> <span class='lparen'>(</span><span class='id identifier rubyid_exact'>exact</span><span class='period'>.</span><span class='id identifier rubyid_type_id'>type_id</span> <span class='op'>==</span> <span class='const'>CardtypeID</span><span class='rparen'>)</span> <span class='op'>&amp;&amp;</span>
@@ -429,16 +429,16 @@
       <pre class="lines">
 
 
+93
+94
+95
 96
 97
 98
-99
-100
-101
-102</pre>
+99</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod009-card-mod-search/self/search.rb', line 96</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod035-card-mod-search/self/search.rb', line 93</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_term_param'>term_param</span>
   <span class='id identifier rubyid_term'>term</span> <span class='op'>=</span> <span class='id identifier rubyid_query_params'>query_params</span><span class='lbracket'>[</span><span class='symbol'>:keyword</span><span class='rbracket'>]</span>
@@ -467,6 +467,9 @@
       <pre class="lines">
 
 
+54
+55
+56
 57
 58
 59
@@ -475,17 +478,14 @@
 62
 63
 64
-65
-66
-67
-68</pre>
+65</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod009-card-mod-search/self/search.rb', line 57</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod035-card-mod-search/self/search.rb', line 54</span>
 
 <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:complete</span><span class='comma'>,</span> <span class='label'>cache:</span> <span class='symbol'>:never</span> <span class='kw'>do</span>
   <span class='id identifier rubyid_term'>term</span> <span class='op'>=</span> <span class='id identifier rubyid_term_param'>term_param</span>
-  <span class='id identifier rubyid_exact'>exact</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../../../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_fetch'>fetch</span> <span class='id identifier rubyid_term'>term</span><span class='comma'>,</span> <span class='label'>new:</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
+  <span class='id identifier rubyid_exact'>exact</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../../../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_fetch'><span class='object_link'><a href="../../../Fetch/CardClass.html#fetch-instance_method" title="Card::Fetch::CardClass#fetch (method)">fetch</a></span></span> <span class='id identifier rubyid_term'>term</span><span class='comma'>,</span> <span class='label'>new:</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
 
   <span class='lbrace'>{</span>
     <span class='label'>search:</span> <span class='kw'>true</span><span class='comma'>,</span>
@@ -505,9 +505,9 @@
 </div>
 
       <div id="footer">
-  Generated on Sun Oct 18 23:48:02 2020 by
+  Generated on Thu May 13 17:17:27 2021 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.25 (ruby-2.6.3).
+  0.9.26 (ruby-2.7.2).
 </div>
 
     </div>

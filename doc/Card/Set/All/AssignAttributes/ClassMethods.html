@@ -6,7 +6,7 @@
 <title>
   Module: Card::Set::All::AssignAttributes::ClassMethods
   
-    &mdash; Documentation by YARD 0.9.25
+    &mdash; Documentation by YARD 0.9.26
   
 </title>
 
@@ -78,7 +78,7 @@
   
   <dl>
     <dt>Defined in:</dt>
-    <dd>card/tmpsets/set/mod003-core/all/assign_attributes.rb</dd>
+    <dd>card/tmpsets/set/mod002-core/all/assign_attributes.rb</dd>
   </dl>
   
 </div>
@@ -155,10 +155,10 @@
 50</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod003-core/all/assign_attributes.rb', line 43</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod002-core/all/assign_attributes.rb', line 43</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_assign_or_newish'>assign_or_newish</span> <span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='id identifier rubyid_attributes'>attributes</span><span class='comma'>,</span> <span class='id identifier rubyid_fetch_opts'>fetch_opts</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span>
-  <span class='kw'>if</span> <span class='lparen'>(</span><span class='id identifier rubyid_known_card'>known_card</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../../../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_fetch'>fetch</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='id identifier rubyid_fetch_opts'>fetch_opts</span><span class='rparen'>)</span><span class='rparen'>)</span>
+  <span class='kw'>if</span> <span class='lparen'>(</span><span class='id identifier rubyid_known_card'>known_card</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../../../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_fetch'><span class='object_link'><a href="../../../Fetch/CardClass.html#fetch-instance_method" title="Card::Fetch::CardClass#fetch (method)">fetch</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='id identifier rubyid_fetch_opts'>fetch_opts</span><span class='rparen'>)</span><span class='rparen'>)</span>
     <span class='id identifier rubyid_known_card'>known_card</span><span class='period'>.</span><span class='id identifier rubyid_refresh'>refresh</span><span class='period'>.</span><span class='id identifier rubyid_newish'>newish</span> <span class='id identifier rubyid_attributes'>attributes</span>
     <span class='id identifier rubyid_known_card'>known_card</span>
   <span class='kw'>else</span>
@@ -175,9 +175,9 @@
 </div>
 
       <div id="footer">
-  Generated on Sun Oct 18 23:48:00 2020 by
+  Generated on Thu May 13 17:17:26 2021 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.25 (ruby-2.6.3).
+  0.9.26 (ruby-2.7.2).
 </div>
 
     </div>
