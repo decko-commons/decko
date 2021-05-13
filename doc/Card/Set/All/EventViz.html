@@ -6,7 +6,7 @@
 <title>
   Module: Card::Set::All::EventViz
   
-    &mdash; Documentation by YARD 0.9.25
+    &mdash; Documentation by YARD 0.9.26
   
 </title>
 
@@ -83,22 +83,14 @@
   
   <dl>
     <dt>Defined in:</dt>
-    <dd>card/tmpsets/set/mod030-card-mod-monkey/all/event_viz.rb</dd>
+    <dd>card/tmpsets/set/mod039-card-mod-monkey/all/event_viz.rb</dd>
   </dl>
   
 </div>
 
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
-    <p>Set: All cards (EventViz)</p>
-
-<p>the events method is a developer’s tool for visualizing the event order
-for a given card.
-For example, from a console you might run</p>
-
-<p>puts mycard.events :update</p>
-
-<p>to see the order of events that will be executed on mycard.</p>
+    <p>to see the order of events that will be executed on mycard.</p>
 
 
   </div>
@@ -182,7 +174,7 @@ For example, from a console you might run</p>
   
 
   
-    <span class="summary_desc"><div class='inline'><p>The indention and arrows (^v) indicate event dependencies.</p>
+    <span class="summary_desc"><div class='inline'><p>prevent events from showing up in the tree.</p>
 </div></span>
   
 </li>
@@ -234,8 +226,8 @@ For example, from a console you might run</p>
   
   
   
-  <h3 class="inherited">Methods included from <span class='object_link'><a href="../Loader.html" title="Card::Set::Loader (module)">Loader</a></span></h3>
-  <p class="inherited"><span class='object_link'><a href="../Loader.html#clean_empty_module_from_hash-instance_method" title="Card::Set::Loader#clean_empty_module_from_hash (method)">#clean_empty_module_from_hash</a></span>, <span class='object_link'><a href="../Loader.html#clean_empty_modules-instance_method" title="Card::Set::Loader#clean_empty_modules (method)">#clean_empty_modules</a></span>, <span class='object_link'><a href="../Loader.html#extended-instance_method" title="Card::Set::Loader#extended (method)">#extended</a></span>, <span class='object_link'><a href="../Loader.html#process_base_modules-instance_method" title="Card::Set::Loader#process_base_modules (method)">#process_base_modules</a></span>, <span class='object_link'><a href="../Loader.html#register_set-instance_method" title="Card::Set::Loader#register_set (method)">#register_set</a></span></p>
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="../I18nScope.html" title="Card::Set::I18nScope (module)">I18nScope</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="../I18nScope.html#mod_name-instance_method" title="Card::Set::I18nScope#mod_name (method)">#mod_name</a></span>, <span class='object_link'><a href="../I18nScope.html#scope-instance_method" title="Card::Set::I18nScope#scope (method)">#scope</a></span></p>
 
   
   
@@ -245,8 +237,8 @@ For example, from a console you might run</p>
   
   
   
-  <h3 class="inherited">Methods included from <span class='object_link'><a href="../I18nScope.html" title="Card::Set::I18nScope (module)">I18nScope</a></span></h3>
-  <p class="inherited"><span class='object_link'><a href="../I18nScope.html#mod_name-instance_method" title="Card::Set::I18nScope#mod_name (method)">#mod_name</a></span>, <span class='object_link'><a href="../I18nScope.html#scope-instance_method" title="Card::Set::I18nScope#scope (method)">#scope</a></span></p>
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="../Loader.html" title="Card::Set::Loader (module)">Loader</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="../Loader.html#clean_empty_module_from_hash-instance_method" title="Card::Set::Loader#clean_empty_module_from_hash (method)">#clean_empty_module_from_hash</a></span>, <span class='object_link'><a href="../Loader.html#clean_empty_modules-instance_method" title="Card::Set::Loader#clean_empty_modules (method)">#clean_empty_modules</a></span>, <span class='object_link'><a href="../Loader.html#extended-instance_method" title="Card::Set::Loader#extended (method)">#extended</a></span>, <span class='object_link'><a href="../Loader.html#process_base_modules-instance_method" title="Card::Set::Loader#process_base_modules (method)">#process_base_modules</a></span>, <span class='object_link'><a href="../Loader.html#register_set-instance_method" title="Card::Set::Loader#register_set (method)">#register_set</a></span></p>
 
   
   
@@ -268,7 +260,7 @@ For example, from a console you might run</p>
   
   
   <h3 class="inherited">Methods included from <span class='object_link'><a href="../AdvancedApi.html" title="Card::Set::AdvancedApi (module)">Card::Set::AdvancedApi</a></span></h3>
-  <p class="inherited"><span class='object_link'><a href="../AdvancedApi.html#attachment-instance_method" title="Card::Set::AdvancedApi#attachment (method)">#attachment</a></span>, <span class='object_link'><a href="../AdvancedApi.html#ensure_set-instance_method" title="Card::Set::AdvancedApi#ensure_set (method)">#ensure_set</a></span>, <span class='object_link'><a href="../AdvancedApi.html#stage_method-instance_method" title="Card::Set::AdvancedApi#stage_method (method)">#stage_method</a></span></p>
+  <p class="inherited"><span class='object_link'><a href="../AdvancedApi.html#attachment-instance_method" title="Card::Set::AdvancedApi#attachment (method)">#attachment</a></span>, <span class='object_link'><a href="../AdvancedApi.html#define_set_from_error-instance_method" title="Card::Set::AdvancedApi#define_set_from_error (method)">#define_set_from_error</a></span>, <span class='object_link'><a href="../AdvancedApi.html#ensure_set-instance_method" title="Card::Set::AdvancedApi#ensure_set (method)">#ensure_set</a></span>, <span class='object_link'><a href="../AdvancedApi.html#setting_opts-instance_method" title="Card::Set::AdvancedApi#setting_opts (method)">#setting_opts</a></span>, <span class='object_link'><a href="../AdvancedApi.html#stage_method-instance_method" title="Card::Set::AdvancedApi#stage_method (method)">#stage_method</a></span></p>
 
   
   
@@ -348,9 +340,9 @@ For example, from a console you might run</p>
 14</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod030-card-mod-monkey/all/event_viz.rb', line 14</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod039-card-mod-monkey/all/event_viz.rb', line 14</span>
 
-<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_source_location'>source_location</span><span class='semicolon'>;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/Users/ezl5238/dev/decko/gem/card-mod-monkey/set/all/event_viz.rb</span><span class='tstring_end'>&quot;</span></span><span class='semicolon'>;</span> <span class='kw'>end</span></pre>
+<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_source_location'>source_location</span><span class='semicolon'>;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/Users/ethan/dev/decko/gem/card-mod-monkey/set/all/event_viz.rb</span><span class='tstring_end'>&quot;</span></span><span class='semicolon'>;</span> <span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -373,12 +365,7 @@ For example, from a console you might run</p>
   
 </h3><div class="docstring">
   <div class="discussion">
-    <p>The indention and arrows (^v) indicate event dependencies.</p>
-
-<p>Note: as of yet, the functionality is a bit rough.  It does not display events
-that are called directly from within other events,
-and certain event requirements (like the presence of an ‘act’) may
-prevent events from showing up in the tree.</p>
+    <p>prevent events from showing up in the tree.</p>
 
 
   </div>
@@ -400,7 +387,7 @@ prevent events from showing up in the tree.</p>
 26</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod030-card-mod-monkey/all/event_viz.rb', line 21</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod039-card-mod-monkey/all/event_viz.rb', line 21</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_events'>events</span> <span class='id identifier rubyid_action'>action</span>
   <span class='ivar'>@action</span> <span class='op'>=</span> <span class='id identifier rubyid_action'>action</span>
@@ -435,7 +422,7 @@ prevent events from showing up in the tree.</p>
 32</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod030-card-mod-monkey/all/event_viz.rb', line 28</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod039-card-mod-monkey/all/event_viz.rb', line 28</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_events_tree'>events_tree</span> <span class='id identifier rubyid_filt'>filt</span>
   <span class='id identifier rubyid_try'>try</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>_</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_filt'>filt</span><span class='embexpr_end'>}</span><span class='tstring_content'>_callbacks</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='op'>&amp;.</span><span class='id identifier rubyid_each_with_object'>each_with_object</span><span class='lparen'>(</span><span class='lbrace'>{</span> <span class='label'>name:</span> <span class='id identifier rubyid_filt'>filt</span> <span class='rbrace'>}</span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_callback'>callback</span><span class='comma'>,</span> <span class='id identifier rubyid_hash'>hash</span><span class='op'>|</span>
@@ -452,9 +439,9 @@ prevent events from showing up in the tree.</p>
 </div>
 
       <div id="footer">
-  Generated on Sun Oct 18 23:48:06 2020 by
+  Generated on Thu May 13 17:17:29 2021 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.25 (ruby-2.6.3).
+  0.9.26 (ruby-2.7.2).
 </div>
 
     </div>

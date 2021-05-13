@@ -6,7 +6,7 @@
 <title>
   Module: Card::Set::All::NavbarLinks::HtmlFormat
   
-    &mdash; Documentation by YARD 0.9.25
+    &mdash; Documentation by YARD 0.9.26
   
 </title>
 
@@ -83,7 +83,7 @@
   
   <dl>
     <dt>Defined in:</dt>
-    <dd>card/tmpsets/set/mod013-navbar/all/navbar_links.rb</dd>
+    <dd>card/tmpsets/set/mod030-card-mod-layout/all/navbar_links.rb</dd>
   </dl>
   
 </div>
@@ -335,12 +335,12 @@
       <pre class="lines">
 
 
+57
 58
-59
-60</pre>
+59</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod013-navbar/all/navbar_links.rb', line 58</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod030-card-mod-layout/all/navbar_links.rb', line 57</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_dropdown_menu'>dropdown_menu</span>
   <span class='id identifier rubyid_wrap_with'>wrap_with</span> <span class='symbol'>:div</span><span class='comma'>,</span> <span class='id identifier rubyid_dropdown_menu_items'>dropdown_menu_items</span><span class='comma'>,</span> <span class='label'>class:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>dropdown-menu</span><span class='tstring_end'>&quot;</span></span>
@@ -365,12 +365,12 @@
       <pre class="lines">
 
 
+61
 62
-63
-64</pre>
+63</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod013-navbar/all/navbar_links.rb', line 62</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod030-card-mod-layout/all/navbar_links.rb', line 61</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_dropdown_menu_items'>dropdown_menu_items</span>
   <span class='id identifier rubyid_navbar_items'>navbar_items</span> <span class='label'>view:</span> <span class='symbol'>:nav_link_in_dropdown</span><span class='comma'>,</span> <span class='label'>link_class:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>dropdown-item</span><span class='tstring_end'>&quot;</span></span>
@@ -395,13 +395,13 @@
       <pre class="lines">
 
 
+52
 53
 54
-55
-56</pre>
+55</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod013-navbar/all/navbar_links.rb', line 53</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod030-card-mod-layout/all/navbar_links.rb', line 52</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_dropdown_toggle_link'>dropdown_toggle_link</span>
   <span class='id identifier rubyid_link_to'>link_to</span><span class='lparen'>(</span><span class='id identifier rubyid_render_title'>render_title</span><span class='comma'>,</span> <span class='label'>href:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>#</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>class:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>nav-link dropdown-toggle</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
@@ -427,17 +427,17 @@
       <pre class="lines">
 
 
+43
 44
 45
 46
 47
 48
 49
-50
-51</pre>
+50</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod013-navbar/all/navbar_links.rb', line 44</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod030-card-mod-layout/all/navbar_links.rb', line 43</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_nav_dropdown'>nav_dropdown</span>
   <span class='id identifier rubyid_wrap_with'>wrap_with</span><span class='lparen'>(</span><span class='symbol'>:li</span><span class='comma'>,</span> <span class='label'>class:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>nav-item dropdown</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>do</span>
@@ -489,20 +489,18 @@ Items that are pointer cards become dropdowns</p>
 25
 26
 27
-28
-29</pre>
+28</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod013-navbar/all/navbar_links.rb', line 17</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod030-card-mod-layout/all/navbar_links.rb', line 17</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_navbar_items'>navbar_items</span> <span class='label'>view:</span> <span class='symbol'>:nav_item</span><span class='comma'>,</span> <span class='label'>link_class:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>nav-link</span><span class='tstring_end'>&quot;</span></span>
   <span class='id identifier rubyid_process_content'>process_content</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>chunk_list:</span> <span class='symbol'>:references</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_chunk'>chunk</span><span class='op'>|</span>
     <span class='kw'>case</span> <span class='id identifier rubyid_chunk'>chunk</span>
     <span class='kw'>when</span> <span class='const'><span class='object_link'><a href="../../../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../../Content.html" title="Card::Content (class)">Content</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../../Content/Chunk.html" title="Card::Content::Chunk (module)">Chunk</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../../Content/Chunk/Link.html" title="Card::Content::Chunk::Link (class)">Link</a></span></span>
-      <span class='id identifier rubyid_link'>link</span> <span class='op'>=</span> <span class='id identifier rubyid_chunk'>chunk</span><span class='period'>.</span><span class='id identifier rubyid_render_link'>render_link</span> <span class='label'>view:</span> <span class='id identifier rubyid_view'>view</span><span class='comma'>,</span> <span class='label'>explicit_link_opts:</span> <span class='lbrace'>{</span> <span class='label'>class:</span> <span class='id identifier rubyid_link_class'>link_class</span> <span class='rbrace'>}</span>
-      <span class='id identifier rubyid_chunk'>chunk</span><span class='period'>.</span><span class='id identifier rubyid_explicit_link?'>explicit_link?</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_view'>view</span> <span class='op'>==</span> <span class='symbol'>:nav_item</span> <span class='op'>?</span> <span class='id identifier rubyid_wrap_with_nav_item'>wrap_with_nav_item</span><span class='lparen'>(</span><span class='id identifier rubyid_link'>link</span><span class='rparen'>)</span> <span class='op'>:</span> <span class='id identifier rubyid_link'>link</span>
+      <span class='id identifier rubyid_navbar_link_chunk'>navbar_link_chunk</span> <span class='id identifier rubyid_chunk'>chunk</span><span class='comma'>,</span> <span class='id identifier rubyid_view'>view</span><span class='comma'>,</span> <span class='id identifier rubyid_link_class'>link_class</span>
     <span class='kw'>when</span> <span class='const'><span class='object_link'><a href="../../../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../../Content.html" title="Card::Content (class)">Content</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../../Content/Chunk.html" title="Card::Content::Chunk (module)">Chunk</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../../Content/Chunk/Nest.html" title="Card::Content::Chunk::Nest (class)">Nest</a></span></span>
-      <span class='id identifier rubyid_content_nest'>content_nest</span> <span class='id identifier rubyid_chunk'>chunk</span><span class='period'>.</span><span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_merge'>merge</span> <span class='label'>view:</span> <span class='id identifier rubyid_view'>view</span>
+      <span class='id identifier rubyid_navbar_nest_chunk'>navbar_nest_chunk</span> <span class='id identifier rubyid_chunk'>chunk</span><span class='comma'>,</span> <span class='id identifier rubyid_view'>view</span>
     <span class='kw'>else</span>
       <span class='id identifier rubyid_chunk'>chunk</span><span class='period'>.</span><span class='id identifier rubyid_process_chunk'>process_chunk</span>
     <span class='kw'>end</span>
@@ -538,12 +536,12 @@ Items that are pointer cards become dropdowns</p>
       <pre class="lines">
 
 
+31
 32
-33
-34</pre>
+33</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod013-navbar/all/navbar_links.rb', line 32</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod030-card-mod-layout/all/navbar_links.rb', line 31</span>
 
 <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:nav_item</span> <span class='kw'>do</span>
   <span class='id identifier rubyid_wrap_with_nav_item'>wrap_with_nav_item</span> <span class='id identifier rubyid_link_view'>link_view</span><span class='lparen'>(</span><span class='label'>class:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>nav-link</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
@@ -568,12 +566,12 @@ Items that are pointer cards become dropdowns</p>
       <pre class="lines">
 
 
+39
 40
-41
-42</pre>
+41</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod013-navbar/all/navbar_links.rb', line 40</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod030-card-mod-layout/all/navbar_links.rb', line 39</span>
 
 <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:nav_link_in_dropdown</span> <span class='kw'>do</span>
   <span class='id identifier rubyid_link_to_card'>link_to_card</span> <span class='id identifier rubyid_card'>card</span><span class='comma'>,</span> <span class='id identifier rubyid_render_title'>render_title</span><span class='comma'>,</span> <span class='label'>class:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>dropdown-item</span><span class='tstring_end'>&quot;</span></span>
@@ -605,7 +603,7 @@ Items that are pointer cards become dropdowns</p>
 13</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod013-navbar/all/navbar_links.rb', line 9</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod030-card-mod-layout/all/navbar_links.rb', line 9</span>
 
 <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:navbar_links</span><span class='comma'>,</span> <span class='label'>perms:</span> <span class='symbol'>:none</span> <span class='kw'>do</span>
   <span class='id identifier rubyid_wrap_with'>wrap_with</span> <span class='symbol'>:ul</span><span class='comma'>,</span> <span class='label'>class:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>navbar-nav</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>do</span>
@@ -632,12 +630,12 @@ Items that are pointer cards become dropdowns</p>
       <pre class="lines">
 
 
+35
 36
-37
-38</pre>
+37</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod013-navbar/all/navbar_links.rb', line 36</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod030-card-mod-layout/all/navbar_links.rb', line 35</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_wrap_with_nav_item'>wrap_with_nav_item</span> <span class='id identifier rubyid_content'>content</span>
   <span class='id identifier rubyid_wrap_with'>wrap_with</span><span class='lparen'>(</span><span class='symbol'>:li</span><span class='comma'>,</span> <span class='id identifier rubyid_content'>content</span><span class='comma'>,</span> <span class='label'>class:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>nav-item</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
@@ -652,9 +650,9 @@ Items that are pointer cards become dropdowns</p>
 </div>
 
       <div id="footer">
-  Generated on Sun Oct 18 23:47:57 2020 by
+  Generated on Thu May 13 17:17:32 2021 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.25 (ruby-2.6.3).
+  0.9.26 (ruby-2.7.2).
 </div>
 
     </div>

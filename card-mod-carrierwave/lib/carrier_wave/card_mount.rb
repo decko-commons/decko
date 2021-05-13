@@ -28,14 +28,17 @@ module CarrierWave
               on: :delete, when: proc { |c| !c.history? } do
           remove_#{column}!
         end
+
         event :mark_remove_#{column}_false_event, :finalize,
               on: :update do
           mark_remove_#{column}_false
         end
+
         event :store_previous_changes_for_#{column}_event, :store,
               on: :update, when: proc { |c| !c.history? } do
           store_previous_changes_for_#{column}
         end
+
         event :remove_previously_stored_#{column}_event, :finalize,
               on: :update, when: proc { |c| !c.history?} do
           remove_previously_stored_#{column}
@@ -68,6 +71,7 @@ module CarrierWave
 
         def #{column}=(new_file)
           return if new_file.blank?
+          self.selected_action_id = Time.now.to_i unless history?
           assign_file(new_file) { super }
         end
 

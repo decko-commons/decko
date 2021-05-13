@@ -6,7 +6,7 @@
 <title>
   Module: Card::Director::EventDelay
   
-    &mdash; Documentation by YARD 0.9.25
+    &mdash; Documentation by YARD 0.9.26
   
 </title>
 
@@ -116,7 +116,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#contextualize_delayed_event-instance_method" title="#contextualize_delayed_event (instance method)">#<strong>contextualize_delayed_event</strong>(act_id, card, env, auth)  &#x21d2; Object </a>
+      <a href="#contextualize_delayed_event-instance_method" title="#contextualize_delayed_event (instance method)">#<strong>contextualize_delayed_event</strong>(act_id, card, env, auth, &amp;block)  &#x21d2; Object </a>
     
 
     
@@ -208,7 +208,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#with_env_and_auth-instance_method" title="#with_env_and_auth (instance method)">#<strong>with_env_and_auth</strong>(env, auth)  &#x21d2; Object </a>
+      <a href="#with_env_and_auth-instance_method" title="#with_env_and_auth (instance method)">#<strong>with_env_and_auth</strong>(env, auth, &amp;block)  &#x21d2; Object </a>
     
 
     
@@ -240,7 +240,7 @@
       <div class="method_details first">
   <h3 class="signature first" id="contextualize_delayed_event-instance_method">
   
-    #<strong>contextualize_delayed_event</strong>(act_id, card, env, auth)  &#x21d2; <tt><span class='object_link'><a href="../../Object.html" title="Object (class)">Object</a></span></tt> 
+    #<strong>contextualize_delayed_event</strong>(act_id, card, env, auth, &amp;block)  &#x21d2; <tt><span class='object_link'><a href="../../Object.html" title="Object (class)">Object</a></span></tt> 
   
 
   
@@ -278,11 +278,11 @@ CardController#soft_redirect)</p>
     <td>
       <pre class="code"><span class="info file"># File 'card/lib/card/director/event_delay.rb', line 11</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_contextualize_delayed_event'>contextualize_delayed_event</span> <span class='id identifier rubyid_act_id'>act_id</span><span class='comma'>,</span> <span class='id identifier rubyid_card'>card</span><span class='comma'>,</span> <span class='id identifier rubyid_env'>env</span><span class='comma'>,</span> <span class='id identifier rubyid_auth'>auth</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_contextualize_delayed_event'>contextualize_delayed_event</span> <span class='id identifier rubyid_act_id'>act_id</span><span class='comma'>,</span> <span class='id identifier rubyid_card'>card</span><span class='comma'>,</span> <span class='id identifier rubyid_env'>env</span><span class='comma'>,</span> <span class='id identifier rubyid_auth'>auth</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span>
   <span class='kw'>return</span> <span class='kw'>yield</span> <span class='kw'>unless</span> <span class='id identifier rubyid_delaying?'>delaying?</span>
 
   <span class='id identifier rubyid_with_env_and_auth'>with_env_and_auth</span> <span class='id identifier rubyid_env'>env</span><span class='comma'>,</span> <span class='id identifier rubyid_auth'>auth</span> <span class='kw'>do</span>
-    <span class='id identifier rubyid_with_delay_act'>with_delay_act</span><span class='lparen'>(</span><span class='id identifier rubyid_act_id'>act_id</span><span class='comma'>,</span> <span class='id identifier rubyid_card'>card</span><span class='rparen'>)</span> <span class='lbrace'>{</span> <span class='kw'>yield</span> <span class='rbrace'>}</span>
+    <span class='id identifier rubyid_with_delay_act'>with_delay_act</span><span class='lparen'>(</span><span class='id identifier rubyid_act_id'>act_id</span><span class='comma'>,</span> <span class='id identifier rubyid_card'>card</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
   <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -414,7 +414,7 @@ CardController#soft_redirect)</p>
       <div class="method_details ">
   <h3 class="signature " id="with_env_and_auth-instance_method">
   
-    #<strong>with_env_and_auth</strong>(env, auth)  &#x21d2; <tt><span class='object_link'><a href="../../Object.html" title="Object (class)">Object</a></span></tt> 
+    #<strong>with_env_and_auth</strong>(env, auth, &amp;block)  &#x21d2; <tt><span class='object_link'><a href="../../Object.html" title="Object (class)">Object</a></span></tt> 
   
 
   
@@ -430,18 +430,14 @@ CardController#soft_redirect)</p>
 36
 37
 38
-39
-40
-41</pre>
+39</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'card/lib/card/director/event_delay.rb', line 35</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_with_env_and_auth'>with_env_and_auth</span> <span class='id identifier rubyid_env'>env</span><span class='comma'>,</span> <span class='id identifier rubyid_auth'>auth</span>
-  <span class='const'><span class='object_link'><a href="../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Auth.html" title="Card::Auth (module)">Auth</a></span></span><span class='period'>.</span><span class='id identifier rubyid_with'><span class='object_link'><a href="../Auth/Current.html#with-instance_method" title="Card::Auth::Current#with (method)">with</a></span></span> <span class='id identifier rubyid_auth'>auth</span> <span class='kw'>do</span>
-    <span class='const'><span class='object_link'><a href="../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Env.html" title="Card::Env (module)">Env</a></span></span><span class='period'>.</span><span class='id identifier rubyid_with'><span class='object_link'><a href="../Env/Serialization.html#with-instance_method" title="Card::Env::Serialization#with (method)">with</a></span></span> <span class='id identifier rubyid_env'>env</span> <span class='kw'>do</span>
-      <span class='kw'>yield</span>
-    <span class='kw'>end</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_with_env_and_auth'>with_env_and_auth</span> <span class='id identifier rubyid_env'>env</span><span class='comma'>,</span> <span class='id identifier rubyid_auth'>auth</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span>
+  <span class='const'><span class='object_link'><a href="../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Auth.html" title="Card::Auth (module)">Auth</a></span></span><span class='period'>.</span><span class='id identifier rubyid_with'><span class='object_link'><a href="../Auth/Proxy.html#with-instance_method" title="Card::Auth::Proxy#with (method)">with</a></span></span> <span class='id identifier rubyid_auth'>auth</span> <span class='kw'>do</span>
+    <span class='const'><span class='object_link'><a href="../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Env.html" title="Card::Env (module)">Env</a></span></span><span class='period'>.</span><span class='id identifier rubyid_with'><span class='object_link'><a href="../Env/Serialization.html#with-instance_method" title="Card::Env::Serialization#with (method)">with</a></span></span> <span class='id identifier rubyid_env'>env</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span>
   <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -454,9 +450,9 @@ CardController#soft_redirect)</p>
 </div>
 
       <div id="footer">
-  Generated on Sun Oct 18 23:47:45 2020 by
+  Generated on Thu May 13 17:17:18 2021 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.25 (ruby-2.6.3).
+  0.9.26 (ruby-2.7.2).
 </div>
 
     </div>

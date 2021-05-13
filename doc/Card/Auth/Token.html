@@ -6,7 +6,7 @@
 <title>
   Module: Card::Auth::Token
   
-    &mdash; Documentation by YARD 0.9.25
+    &mdash; Documentation by YARD 0.9.26
   
 </title>
 
@@ -73,6 +73,11 @@
   
   
 
+  
+  <dl>
+    <dt>Included in:</dt>
+    <dd><span class='object_link'><a href="../Auth.html" title="Card::Auth (module)">Card::Auth</a></span></dd>
+  </dl>
   
 
   
@@ -218,6 +223,38 @@
       
     </ul>
   
+    <h2>
+      Instance Method Summary
+      <small><a href="#" class="summary_toggle">collapse</a></small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#signin_with_token-instance_method" title="#signin_with_token (instance method)">#<strong>signin_with_token</strong>(token)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>set the current user based on token.</p>
+</div></span>
+  
+</li>
+
+      
+    </ul>
+  
 
 
 
@@ -253,8 +290,8 @@
 <span class='kw'>def</span> <span class='id identifier rubyid_decode'>decode</span> <span class='id identifier rubyid_token'>token</span>
   <span class='id identifier rubyid_decoded'>decoded</span> <span class='op'>=</span> <span class='const'>JWT</span><span class='period'>.</span><span class='id identifier rubyid_decode'>decode</span><span class='lparen'>(</span><span class='id identifier rubyid_token'>token</span><span class='comma'>,</span> <span class='const'><span class='object_link'><a href="#SECRET_KEY-constant" title="Card::Auth::Token::SECRET_KEY (constant)">SECRET_KEY</a></span></span><span class='rparen'>)</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span>
   <span class='const'>HashWithIndifferentAccess</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span> <span class='id identifier rubyid_decoded'>decoded</span>
-<span class='kw'>rescue</span> <span class='const'>JWT</span><span class='op'>::</span><span class='const'>DecodeError</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_error'>error</span>
-  <span class='id identifier rubyid_error'>error</span><span class='period'>.</span><span class='id identifier rubyid_message'>message</span>
+<span class='kw'>rescue</span> <span class='const'>JWT</span><span class='op'>::</span><span class='const'>DecodeError</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_e'>e</span>
+  <span class='id identifier rubyid_e'>e</span><span class='period'>.</span><span class='id identifier rubyid_message'>message</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -318,7 +355,7 @@
       <pre class="code"><span class="info file"># File 'card/lib/card/auth/token.rb', line 32</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_expiration'>expiration</span>
-  <span class='const'><span class='object_link'><a href="../../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_config'><span class='object_link'><a href="../../Card.html#config-class_method" title="Card.config (method)">config</a></span></span><span class='period'>.</span><span class='id identifier rubyid_token_expiry'>token_expiry</span><span class='period'>.</span><span class='id identifier rubyid_from_now'>from_now</span><span class='period'>.</span><span class='id identifier rubyid_to_i'>to_i</span>
+  <span class='const'><span class='object_link'><a href="../../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_config'>config</span><span class='period'>.</span><span class='id identifier rubyid_token_expiry'>token_expiry</span><span class='period'>.</span><span class='id identifier rubyid_from_now'>from_now</span><span class='period'>.</span><span class='id identifier rubyid_to_i'>to_i</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -386,12 +423,60 @@
     
   </div>
 
+  <div id="instance_method_details" class="method_details_list">
+    <h2>Instance Method Details</h2>
+
+    
+      <div class="method_details first">
+  <h3 class="signature first" id="signin_with_token-instance_method">
+  
+    #<strong>signin_with_token</strong>(token)  &#x21d2; <tt><span class='object_link'><a href="../../Object.html" title="Object (class)">Object</a></span></tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>set the current user based on token</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+38
+39
+40
+41</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'card/lib/card/auth/token.rb', line 38</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_signin_with_token'>signin_with_token</span> <span class='id identifier rubyid_token'>token</span>
+  <span class='id identifier rubyid_payload'>payload</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="" title="Card::Auth::Token (module)">Token</a></span></span><span class='period'>.</span><span class='id identifier rubyid_validate!'><span class='object_link'><a href="#validate!-class_method" title="Card::Auth::Token.validate! (method)">validate!</a></span></span> <span class='id identifier rubyid_token'>token</span>
+  <span class='id identifier rubyid_signin'>signin</span> <span class='id identifier rubyid_payload'>payload</span><span class='lbracket'>[</span><span class='symbol'>:anonymous</span><span class='rbracket'>]</span> <span class='op'>?</span> <span class='const'><span class='object_link'><a href="../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'>AnonymousID</span> <span class='op'>:</span> <span class='id identifier rubyid_payload'>payload</span><span class='lbracket'>[</span><span class='symbol'>:user_id</span><span class='rbracket'>]</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
 </div>
 
       <div id="footer">
-  Generated on Sun Oct 18 23:47:41 2020 by
+  Generated on Thu May 13 17:17:15 2021 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.25 (ruby-2.6.3).
+  0.9.26 (ruby-2.7.2).
 </div>
 
     </div>

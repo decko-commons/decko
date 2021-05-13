@@ -6,7 +6,7 @@
 <title>
   Module: Card::Machine
   
-    &mdash; Documentation by YARD 0.9.25
+    &mdash; Documentation by YARD 0.9.26
   
 </title>
 
@@ -165,15 +165,17 @@
 7
 8
 9
-10</pre>
+10
+11</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'card-mod-machines/lib/card/machine.rb', line 6</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_refresh_script_and_style'>refresh_script_and_style</span>
   <span class='kw'>return</span> <span class='kw'>unless</span> <span class='id identifier rubyid_refresh_script_and_style?'>refresh_script_and_style?</span>
-  <span class='const'><span class='object_link'><a href="../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_fetch'>fetch</span><span class='lparen'>(</span><span class='symbol'>:all</span><span class='comma'>,</span> <span class='symbol'>:script</span><span class='rparen'>)</span><span class='op'>&amp;.</span><span class='id identifier rubyid_update_if_source_file_changed'>update_if_source_file_changed</span>
-  <span class='const'><span class='object_link'><a href="../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_fetch'>fetch</span><span class='lparen'>(</span><span class='symbol'>:all</span><span class='comma'>,</span> <span class='symbol'>:style</span><span class='rparen'>)</span><span class='op'>&amp;.</span><span class='id identifier rubyid_update_if_source_file_changed'>update_if_source_file_changed</span>
+
+  <span class='const'><span class='object_link'><a href="../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_fetch'><span class='object_link'><a href="Fetch/CardClass.html#fetch-instance_method" title="Card::Fetch::CardClass#fetch (method)">fetch</a></span></span><span class='lparen'>(</span><span class='symbol'>:all</span><span class='comma'>,</span> <span class='symbol'>:script</span><span class='rparen'>)</span><span class='op'>&amp;.</span><span class='id identifier rubyid_update_if_source_file_changed'>update_if_source_file_changed</span>
+  <span class='const'><span class='object_link'><a href="../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_fetch'><span class='object_link'><a href="Fetch/CardClass.html#fetch-instance_method" title="Card::Fetch::CardClass#fetch (method)">fetch</a></span></span><span class='lparen'>(</span><span class='symbol'>:all</span><span class='comma'>,</span> <span class='symbol'>:style</span><span class='rparen'>)</span><span class='op'>&amp;.</span><span class='id identifier rubyid_update_if_source_file_changed'>update_if_source_file_changed</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -185,9 +187,9 @@
 </div>
 
       <div id="footer">
-  Generated on Sun Oct 18 23:47:45 2020 by
+  Generated on Thu May 13 17:17:18 2021 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.25 (ruby-2.6.3).
+  0.9.26 (ruby-2.7.2).
 </div>
 
     </div>

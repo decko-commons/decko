@@ -6,7 +6,7 @@
 <title>
   Class: Decko::Application
   
-    &mdash; Documentation by YARD 0.9.25
+    &mdash; Documentation by YARD 0.9.26
   
 </title>
 
@@ -354,7 +354,9 @@
 66
 67
 68
-69</pre>
+69
+70
+71</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'decko/lib/decko/application.rb', line 33</span>
@@ -392,7 +394,9 @@
     <span class='id identifier rubyid_config'>config</span><span class='period'>.</span><span class='id identifier rubyid_filter_parameters'>filter_parameters</span> <span class='op'>+=</span> <span class='lbracket'>[</span><span class='symbol'>:password</span><span class='rbracket'>]</span>
 
     <span class='comment'># Rails.autoloaders.log!
-</span>    <span class='const'><span class='object_link'><a href="Rails.html" title="Decko::Rails (module)">Rails</a></span></span><span class='period'>.</span><span class='id identifier rubyid_autoloaders'>autoloaders</span><span class='period'>.</span><span class='id identifier rubyid_main'>main</span><span class='period'>.</span><span class='id identifier rubyid_ignore'>ignore</span><span class='lparen'>(</span><span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../Cardio.html" title="Cardio (module)">Cardio</a></span></span><span class='period'>.</span><span class='id identifier rubyid_gem_root'><span class='object_link'><a href="../Cardio.html#gem_root-class_method" title="Cardio.gem_root (method)">gem_root</a></span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>lib/card/seed_consts.rb</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='rparen'>)</span>
+</span>    <span class='const'><span class='object_link'><a href="Rails.html" title="Decko::Rails (module)">Rails</a></span></span><span class='period'>.</span><span class='id identifier rubyid_autoloaders'>autoloaders</span><span class='period'>.</span><span class='id identifier rubyid_main'>main</span><span class='period'>.</span><span class='id identifier rubyid_ignore'>ignore</span><span class='lparen'>(</span>
+      <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../Cardio.html" title="Cardio (module)">Cardio</a></span></span><span class='period'>.</span><span class='id identifier rubyid_gem_root'><span class='object_link'><a href="../Cardio.html#gem_root-class_method" title="Cardio.gem_root (method)">gem_root</a></span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>lib/card/seed_consts.rb</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+    <span class='rparen'>)</span>
     <span class='id identifier rubyid_config'>config</span>
   <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
@@ -416,8 +420,6 @@
       <pre class="lines">
 
 
-71
-72
 73
 74
 75
@@ -433,10 +435,13 @@
 85
 86
 87
-88</pre>
+88
+89
+90
+91</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decko/lib/decko/application.rb', line 71</span>
+      <pre class="code"><span class="info file"># File 'decko/lib/decko/application.rb', line 73</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_paths'>paths</span>
   <span class='ivar'>@paths</span> <span class='op'>||=</span> <span class='kw'>begin</span>
@@ -447,6 +452,7 @@
 
     <span class='id identifier rubyid_paths'>paths</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>app/models</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
     <span class='id identifier rubyid_paths'>paths</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>app/mailers</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
+    <span class='id identifier rubyid_paths'>paths</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>app/controllers</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
 
     <span class='kw'>unless</span> <span class='id identifier rubyid_paths'>paths</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>config/routes.rb</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_existent'>existent</span><span class='period'>.</span><span class='id identifier rubyid_present?'>present?</span>
       <span class='id identifier rubyid_add_path'>add_path</span> <span class='id identifier rubyid_paths'>paths</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>config/routes.rb</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
@@ -466,9 +472,9 @@
 </div>
 
       <div id="footer">
-  Generated on Sun Oct 18 23:48:25 2020 by
+  Generated on Thu May 13 17:17:43 2021 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.25 (ruby-2.6.3).
+  0.9.26 (ruby-2.7.2).
 </div>
 
     </div>

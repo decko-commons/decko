@@ -6,7 +6,7 @@
 <title>
   Class: Card::Set::Event::DelayedEvent::IntegrateWithDelayJob
   
-    &mdash; Documentation by YARD 0.9.25
+    &mdash; Documentation by YARD 0.9.26
   
 </title>
 
@@ -232,9 +232,9 @@
 
 <span class='kw'>def</span> <span class='id identifier rubyid_handle_perform'>handle_perform</span>
   <span class='kw'>yield</span>
-<span class='kw'>rescue</span> <span class='const'>StandardError</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_error'>error</span>
-  <span class='const'><span class='object_link'><a href="../../../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../../Error.html" title="Card::Error (class)">Error</a></span></span><span class='period'>.</span><span class='id identifier rubyid_report'><span class='object_link'><a href="../../../Error.html#report-class_method" title="Card::Error.report (method)">report</a></span></span> <span class='id identifier rubyid_error'>error</span><span class='comma'>,</span> <span class='ivar'>@card</span>
-  <span class='id identifier rubyid_raise'>raise</span> <span class='id identifier rubyid_error'>error</span>
+<span class='kw'>rescue</span> <span class='const'>StandardError</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_e'>e</span>
+  <span class='const'><span class='object_link'><a href="../../../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../../Error.html" title="Card::Error (class)">Error</a></span></span><span class='period'>.</span><span class='id identifier rubyid_report'><span class='object_link'><a href="../../../Error.html#report-class_method" title="Card::Error.report (method)">report</a></span></span> <span class='id identifier rubyid_e'>e</span><span class='comma'>,</span> <span class='ivar'>@card</span>
+  <span class='id identifier rubyid_raise'>raise</span> <span class='id identifier rubyid_e'>e</span>
 <span class='kw'>ensure</span>
   <span class='const'><span class='object_link'><a href="../../../Director.html" title="Card::Director (class)">Director</a></span></span><span class='period'>.</span><span class='id identifier rubyid_expire'><span class='object_link'><a href="../../../Director/ActDirection.html#expire-instance_method" title="Card::Director::ActDirection#expire (method)">expire</a></span></span>
 <span class='kw'>end</span></pre>
@@ -322,9 +322,9 @@
 </div>
 
       <div id="footer">
-  Generated on Sun Oct 18 23:48:28 2020 by
+  Generated on Thu May 13 17:17:45 2021 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.25 (ruby-2.6.3).
+  0.9.26 (ruby-2.7.2).
 </div>
 
     </div>

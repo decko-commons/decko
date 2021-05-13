@@ -6,7 +6,7 @@
 <title>
   Module: Card::Director::Phases
   
-    &mdash; Documentation by YARD 0.9.25
+    &mdash; Documentation by YARD 0.9.26
   
 </title>
 
@@ -275,6 +275,7 @@
       <pre class="lines">
 
 
+42
 43
 44
 45
@@ -283,11 +284,10 @@
 48
 49
 50
-51
-52</pre>
+51</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/director/phases.rb', line 43</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/director/phases.rb', line 42</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_integration_phase'>integration_phase</span>
   <span class='kw'>return</span> <span class='kw'>if</span> <span class='ivar'>@abort</span>
@@ -417,17 +417,17 @@ because it is called by an “around” callback</p>
       <pre class="lines">
 
 
+33
 34
 35
 36
 37
 38
 39
-40
-41</pre>
+40</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/director/phases.rb', line 34</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/director/phases.rb', line 33</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_storage_phase'>storage_phase</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span>
   <span class='id identifier rubyid_catch_up_to_stage'>catch_up_to_stage</span> <span class='symbol'>:prepare_to_store</span>
@@ -463,8 +463,7 @@ because it is called by an “around” callback</p>
 26
 27
 28
-29
-30</pre>
+29</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'card/lib/card/director/phases.rb', line 23</span>
@@ -474,8 +473,7 @@ because it is called by an “around” callback</p>
   <span class='id identifier rubyid_run_stage'>run_stage</span> <span class='symbol'>:prepare_to_validate</span>
   <span class='id identifier rubyid_run_stage'>run_stage</span> <span class='symbol'>:validate</span>
 <span class='kw'>ensure</span>
-  <span class='comment'># @card.expire_pieces if @card.errors.any?
-</span>  <span class='ivar'>@card</span><span class='period'>.</span><span class='id identifier rubyid_errors'>errors</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span>
+  <span class='ivar'>@card</span><span class='period'>.</span><span class='id identifier rubyid_errors'>errors</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -540,9 +538,9 @@ because it is called by an “around” callback</p>
 </div>
 
       <div id="footer">
-  Generated on Sun Oct 18 23:47:43 2020 by
+  Generated on Thu May 13 17:17:17 2021 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.25 (ruby-2.6.3).
+  0.9.26 (ruby-2.7.2).
 </div>
 
     </div>

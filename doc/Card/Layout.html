@@ -6,7 +6,7 @@
 <title>
   Class: Card::Layout
   
-    &mdash; Documentation by YARD 0.9.25
+    &mdash; Documentation by YARD 0.9.26
   
 </title>
 
@@ -94,8 +94,8 @@
   
   <dl>
     <dt>Defined in:</dt>
-    <dd>card/mod/standard/lib/card/layout.rb<span class="defines">,<br />
-  card/mod/standard/lib/card/layout/card_layout.rb,<br /> card/mod/standard/lib/card/layout/code_layout.rb,<br /> card/mod/standard/lib/card/layout/proc_layout.rb,<br /> card/mod/standard/lib/card/layout/unknown_layout.rb</span>
+    <dd>card-mod-layout/lib/card/layout.rb<span class="defines">,<br />
+  card-mod-layout/lib/card/layout/card_layout.rb,<br /> card-mod-layout/lib/card/layout/code_layout.rb,<br /> card-mod-layout/lib/card/layout/proc_layout.rb,<br /> card-mod-layout/lib/card/layout/unknown_layout.rb</span>
 </dd>
   </dl>
   
@@ -563,13 +563,13 @@
       <pre class="lines">
 
 
-80
 81
 82
-83</pre>
+83
+84</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/mod/standard/lib/card/layout.rb', line 80</span>
+      <pre class="code"><span class="info file"># File 'card-mod-layout/lib/card/layout.rb', line 81</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span> <span class='id identifier rubyid_layout'>layout</span><span class='comma'>,</span> <span class='id identifier rubyid_format'>format</span>
   <span class='ivar'>@layout</span> <span class='op'>=</span> <span class='id identifier rubyid_layout'>layout</span>
@@ -602,12 +602,12 @@
       <pre class="lines">
 
 
-55
 56
-57</pre>
+57
+58</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/mod/standard/lib/card/layout.rb', line 55</span>
+      <pre class="code"><span class="info file"># File 'card-mod-layout/lib/card/layout.rb', line 56</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_built_in_layouts'>built_in_layouts</span>
   <span class='id identifier rubyid_built_in_layouts_hash'>built_in_layouts_hash</span><span class='period'>.</span><span class='id identifier rubyid_keys'>keys</span>
@@ -632,12 +632,12 @@
       <pre class="lines">
 
 
-51
 52
-53</pre>
+53
+54</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/mod/standard/lib/card/layout.rb', line 51</span>
+      <pre class="code"><span class="info file"># File 'card-mod-layout/lib/card/layout.rb', line 52</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_built_in_layouts_hash'>built_in_layouts_hash</span>
   <span class='ivar'>@built_in_layouts</span> <span class='op'>||=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
@@ -692,10 +692,10 @@
 24</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/mod/standard/lib/card/layout.rb', line 20</span>
+      <pre class="code"><span class="info file"># File 'card-mod-layout/lib/card/layout.rb', line 20</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_card_layout?'>card_layout?</span> <span class='id identifier rubyid_name'>name</span>
-  <span class='const'><span class='object_link'><a href="../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_fetch_type_id'>fetch_type_id</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_in?'>in?</span> <span class='lbracket'>[</span><span class='const'><span class='object_link'><a href="../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'>LayoutTypeID</span><span class='comma'>,</span> <span class='const'><span class='object_link'><a href="../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'>HtmlID</span><span class='comma'>,</span> <span class='const'><span class='object_link'><a href="../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'>BasicID</span><span class='rbracket'>]</span>
+  <span class='const'><span class='object_link'><a href="../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_fetch_type_id'><span class='object_link'><a href="Fetch/CardClass.html#fetch_type_id-instance_method" title="Card::Fetch::CardClass#fetch_type_id (method)">fetch_type_id</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_in?'>in?</span> <span class='lbracket'>[</span><span class='const'>LayoutTypeID</span><span class='comma'>,</span> <span class='const'>HtmlID</span><span class='comma'>,</span> <span class='const'>BasicID</span><span class='rbracket'>]</span>
 <span class='kw'>rescue</span> <span class='const'>ArgumentError</span><span class='comma'>,</span> <span class='const'><span class='object_link'><a href="../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Error.html" title="Card::Error (class)">Error</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Error/CodenameNotFound.html" title="Card::Error::CodenameNotFound (class)">CodenameNotFound</a></span></span> <span class='op'>=&gt;</span> <span class='id identifier rubyid__e'>_e</span>
   <span class='kw'>false</span>
 <span class='kw'>end</span></pre>
@@ -719,12 +719,12 @@
       <pre class="lines">
 
 
-63
 64
-65</pre>
+65
+66</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/mod/standard/lib/card/layout.rb', line 63</span>
+      <pre class="code"><span class="info file"># File 'card-mod-layout/lib/card/layout.rb', line 64</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_clear_cache'>clear_cache</span>
   <span class='ivar'>@built_in_layouts</span> <span class='op'>=</span> <span class='ivar'>@layouts</span> <span class='op'>=</span> <span class='kw'>nil</span>
@@ -777,7 +777,7 @@
 28</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/mod/standard/lib/card/layout.rb', line 26</span>
+      <pre class="code"><span class="info file"># File 'card-mod-layout/lib/card/layout.rb', line 26</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_code_layout?'>code_layout?</span> <span class='id identifier rubyid_name'>name</span>
   <span class='id identifier rubyid_built_in_layouts_hash'>built_in_layouts_hash</span><span class='period'>.</span><span class='id identifier rubyid_key?'>key?</span> <span class='id identifier rubyid_name'>name</span><span class='period'>.</span><span class='id identifier rubyid_to_sym'>to_sym</span>
@@ -807,7 +807,7 @@
 39</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/mod/standard/lib/card/layout.rb', line 37</span>
+      <pre class="code"><span class="info file"># File 'card-mod-layout/lib/card/layout.rb', line 37</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_deregister_layout'>deregister_layout</span> <span class='id identifier rubyid_layout_name'>layout_name</span>
   <span class='id identifier rubyid_layouts'>layouts</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span> <span class='id identifier rubyid_layout_key'>layout_key</span><span class='lparen'>(</span><span class='id identifier rubyid_layout_name'>layout_name</span><span class='rparen'>)</span>
@@ -845,17 +845,17 @@
 18</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/mod/standard/lib/card/layout.rb', line 8</span>
+      <pre class="code"><span class="info file"># File 'card-mod-layout/lib/card/layout.rb', line 8</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_layout_class'>layout_class</span> <span class='id identifier rubyid_layout'>layout</span>
   <span class='kw'>if</span> <span class='id identifier rubyid_layout'>layout</span><span class='period'>.</span><span class='id identifier rubyid_respond_to?'>respond_to?</span> <span class='symbol'>:call</span>
-    <span class='const'><span class='object_link'><a href="../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="" title="Card::Layout (class)">Layout</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Layout/ProcLayout.html" title="Card::Layout::ProcLayout (class)">ProcLayout</a></span></span>
+    <span class='const'><span class='object_link'><a href="Layout/ProcLayout.html" title="Card::Layout::ProcLayout (class)">ProcLayout</a></span></span>
   <span class='kw'>elsif</span> <span class='id identifier rubyid_card_layout?'>card_layout?</span> <span class='id identifier rubyid_layout'>layout</span>
-    <span class='const'><span class='object_link'><a href="../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="" title="Card::Layout (class)">Layout</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Layout/CardLayout.html" title="Card::Layout::CardLayout (class)">CardLayout</a></span></span>
+    <span class='const'><span class='object_link'><a href="Layout/CardLayout.html" title="Card::Layout::CardLayout (class)">CardLayout</a></span></span>
   <span class='kw'>elsif</span> <span class='id identifier rubyid_code_layout?'>code_layout?</span> <span class='id identifier rubyid_layout'>layout</span>
-    <span class='const'><span class='object_link'><a href="../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="" title="Card::Layout (class)">Layout</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Layout/CodeLayout.html" title="Card::Layout::CodeLayout (class)">CodeLayout</a></span></span>
+    <span class='const'><span class='object_link'><a href="Layout/CodeLayout.html" title="Card::Layout::CodeLayout (class)">CodeLayout</a></span></span>
   <span class='kw'>else</span>
-    <span class='const'><span class='object_link'><a href="../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="" title="Card::Layout (class)">Layout</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Layout/UnknownLayout.html" title="Card::Layout::UnknownLayout (class)">UnknownLayout</a></span></span>
+    <span class='const'><span class='object_link'><a href="Layout/UnknownLayout.html" title="Card::Layout::UnknownLayout (class)">UnknownLayout</a></span></span>
   <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -881,13 +881,15 @@
 41
 42
 43
-44</pre>
+44
+45</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/mod/standard/lib/card/layout.rb', line 41</span>
+      <pre class="code"><span class="info file"># File 'card-mod-layout/lib/card/layout.rb', line 41</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_layout_key'>layout_key</span> <span class='id identifier rubyid_name'>name</span>
   <span class='kw'>return</span> <span class='id identifier rubyid_name'>name</span> <span class='kw'>if</span> <span class='id identifier rubyid_name'>name</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span> <span class='const'>Symbol</span>
+
   <span class='id identifier rubyid_name'>name</span><span class='period'>.</span><span class='id identifier rubyid_to_name'>to_name</span><span class='period'>.</span><span class='id identifier rubyid_key'>key</span><span class='period'>.</span><span class='id identifier rubyid_to_sym'>to_sym</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -910,12 +912,12 @@
       <pre class="lines">
 
 
-59
 60
-61</pre>
+61
+62</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/mod/standard/lib/card/layout.rb', line 59</span>
+      <pre class="code"><span class="info file"># File 'card-mod-layout/lib/card/layout.rb', line 60</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_layouts'>layouts</span>
   <span class='ivar'>@layouts</span> <span class='op'>||=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
@@ -940,14 +942,14 @@
       <pre class="lines">
 
 
-67
 68
 69
 70
-71</pre>
+71
+72</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/mod/standard/lib/card/layout.rb', line 67</span>
+      <pre class="code"><span class="info file"># File 'card-mod-layout/lib/card/layout.rb', line 68</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_main_nest_opts'>main_nest_opts</span> <span class='id identifier rubyid_layout_name'>layout_name</span><span class='comma'>,</span> <span class='id identifier rubyid_format'>format</span>
   <span class='id identifier rubyid_key'>key</span> <span class='op'>=</span> <span class='id identifier rubyid_layout_key'>layout_key</span> <span class='id identifier rubyid_layout_name'>layout_name</span>
@@ -974,13 +976,13 @@
       <pre class="lines">
 
 
-46
 47
 48
-49</pre>
+49
+50</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/mod/standard/lib/card/layout.rb', line 46</span>
+      <pre class="code"><span class="info file"># File 'card-mod-layout/lib/card/layout.rb', line 47</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_register_built_in_layout'>register_built_in_layout</span> <span class='id identifier rubyid_new_layout'>new_layout</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span>
   <span class='id identifier rubyid_register_layout'>register_layout</span><span class='lparen'>(</span><span class='id identifier rubyid_new_layout'>new_layout</span><span class='rparen'>)</span> <span class='lbrace'>{</span> <span class='id identifier rubyid_opts'>opts</span><span class='period'>.</span><span class='id identifier rubyid_present?'>present?</span> <span class='op'>?</span> <span class='id identifier rubyid_opts'>opts</span> <span class='op'>:</span> <span class='kw'>nil</span> <span class='rbrace'>}</span>
@@ -1014,7 +1016,7 @@
 35</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/mod/standard/lib/card/layout.rb', line 30</span>
+      <pre class="code"><span class="info file"># File 'card-mod-layout/lib/card/layout.rb', line 30</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_register_layout'>register_layout</span> <span class='id identifier rubyid_new_layout'>new_layout</span>
   <span class='id identifier rubyid_key'>key</span> <span class='op'>=</span> <span class='id identifier rubyid_layout_key'>layout_key</span> <span class='id identifier rubyid_new_layout'>new_layout</span>
@@ -1042,14 +1044,14 @@
       <pre class="lines">
 
 
-73
 74
 75
 76
-77</pre>
+77
+78</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/mod/standard/lib/card/layout.rb', line 73</span>
+      <pre class="code"><span class="info file"># File 'card-mod-layout/lib/card/layout.rb', line 74</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_register_layout_with_nest'>register_layout_with_nest</span> <span class='id identifier rubyid_layout_name'>layout_name</span><span class='comma'>,</span> <span class='id identifier rubyid_format'>format</span>
   <span class='id identifier rubyid_register_layout'>register_layout</span><span class='lparen'>(</span><span class='id identifier rubyid_layout_name'>layout_name</span><span class='rparen'>)</span> <span class='kw'>do</span>
@@ -1081,7 +1083,7 @@
 6</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/mod/standard/lib/card/layout.rb', line 4</span>
+      <pre class="code"><span class="info file"># File 'card-mod-layout/lib/card/layout.rb', line 4</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_render'>render</span> <span class='id identifier rubyid_layout'>layout</span><span class='comma'>,</span> <span class='id identifier rubyid_format'>format</span>
   <span class='id identifier rubyid_layout_class'>layout_class</span><span class='lparen'>(</span><span class='id identifier rubyid_layout'>layout</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_layout'>layout</span><span class='comma'>,</span> <span class='id identifier rubyid_format'>format</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_render'>render</span>
@@ -1112,12 +1114,12 @@
       <pre class="lines">
 
 
-85
 86
-87</pre>
+87
+88</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/mod/standard/lib/card/layout.rb', line 85</span>
+      <pre class="code"><span class="info file"># File 'card-mod-layout/lib/card/layout.rb', line 86</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_fetch_main_nest_opts'>fetch_main_nest_opts</span>
   <span class='lbrace'>{</span><span class='rbrace'>}</span>
@@ -1142,12 +1144,12 @@
       <pre class="lines">
 
 
-89
 90
-91</pre>
+91
+92</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/mod/standard/lib/card/layout.rb', line 89</span>
+      <pre class="code"><span class="info file"># File 'card-mod-layout/lib/card/layout.rb', line 90</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_main_nest_opts'>main_nest_opts</span>
   <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_main_nest_opts'>main_nest_opts</span> <span class='ivar'>@layout</span><span class='comma'>,</span> <span class='ivar'>@format</span>
@@ -1162,9 +1164,9 @@
 </div>
 
       <div id="footer">
-  Generated on Sun Oct 18 23:48:31 2020 by
+  Generated on Thu May 13 17:17:44 2021 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.25 (ruby-2.6.3).
+  0.9.26 (ruby-2.7.2).
 </div>
 
     </div>

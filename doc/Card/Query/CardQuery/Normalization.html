@@ -6,7 +6,7 @@
 <title>
   Module: Card::Query::CardQuery::Normalization
   
-    &mdash; Documentation by YARD 0.9.25
+    &mdash; Documentation by YARD 0.9.26
   
 </title>
 
@@ -275,7 +275,6 @@
       <pre class="lines">
 
 
-18
 19
 20
 21
@@ -283,10 +282,11 @@
 23
 24
 25
-26</pre>
+26
+27</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/query/card_query/normalization.rb', line 18</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/query/card_query/normalization.rb', line 19</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_clause_to_hash'>clause_to_hash</span> <span class='id identifier rubyid_clause'>clause</span>
   <span class='kw'>case</span> <span class='id identifier rubyid_clause'>clause</span>
@@ -317,12 +317,12 @@
       <pre class="lines">
 
 
-37
 38
-39</pre>
+39
+40</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/query/card_query/normalization.rb', line 37</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/query/card_query/normalization.rb', line 38</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_normalize_array_value'>normalize_array_value</span> <span class='id identifier rubyid_val'>val</span>
   <span class='id identifier rubyid_val'>val</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_v'>v</span><span class='op'>|</span> <span class='id identifier rubyid_normalize_value'>normalize_value</span> <span class='id identifier rubyid_v'>v</span> <span class='rbrace'>}</span>
@@ -357,7 +357,8 @@
 13
 14
 15
-16</pre>
+16
+17</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'card/lib/card/query/card_query/normalization.rb', line 6</span>
@@ -367,6 +368,7 @@
   <span class='id identifier rubyid_clause'>clause</span><span class='period'>.</span><span class='id identifier rubyid_symbolize_keys!'>symbolize_keys!</span>
   <span class='id identifier rubyid_clause'>clause</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_val'>val</span><span class='op'>|</span>
     <span class='kw'>next</span> <span class='kw'>if</span> <span class='id identifier rubyid_key'>key</span><span class='period'>.</span><span class='id identifier rubyid_to_sym'>to_sym</span> <span class='op'>==</span> <span class='symbol'>:return</span>
+
     <span class='comment'># when return values are relative, they are relative to the name of the
 </span>    <span class='comment'># card returned, not the context card
 </span>    <span class='id identifier rubyid_clause'>clause</span><span class='lbracket'>[</span><span class='id identifier rubyid_key'>key</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_normalize_value'>normalize_value</span> <span class='id identifier rubyid_val'>val</span>
@@ -393,7 +395,6 @@
       <pre class="lines">
 
 
-41
 42
 43
 44
@@ -404,10 +405,11 @@
 49
 50
 51
-52</pre>
+52
+53</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/query/card_query/normalization.rb', line 41</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/query/card_query/normalization.rb', line 42</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_normalize_string_value'>normalize_string_value</span> <span class='id identifier rubyid_val'>val</span>
   <span class='kw'>case</span> <span class='id identifier rubyid_val'>val</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span>
@@ -441,17 +443,17 @@
       <pre class="lines">
 
 
-28
 29
 30
 31
 32
 33
 34
-35</pre>
+35
+36</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/query/card_query/normalization.rb', line 28</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/query/card_query/normalization.rb', line 29</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_normalize_value'>normalize_value</span> <span class='id identifier rubyid_val'>val</span>
   <span class='kw'>case</span> <span class='id identifier rubyid_val'>val</span>
@@ -481,12 +483,12 @@
       <pre class="lines">
 
 
-54
 55
-56</pre>
+56
+57</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/query/card_query/normalization.rb', line 54</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/query/card_query/normalization.rb', line 55</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_string_value_from_var'>string_value_from_var</span> <span class='id identifier rubyid_varname'>varname</span>
   <span class='ivar'>@vars</span><span class='lbracket'>[</span><span class='id identifier rubyid_varname'>varname</span><span class='period'>.</span><span class='id identifier rubyid_to_sym'>to_sym</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='period'>.</span><span class='id identifier rubyid_strip'>strip</span>
@@ -501,9 +503,9 @@
 </div>
 
       <div id="footer">
-  Generated on Sun Oct 18 23:47:47 2020 by
+  Generated on Thu May 13 17:17:20 2021 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.25 (ruby-2.6.3).
+  0.9.26 (ruby-2.7.2).
 </div>
 
     </div>

@@ -6,7 +6,7 @@
 <title>
   Module: Card::Format::Render
   
-    &mdash; Documentation by YARD 0.9.25
+    &mdash; Documentation by YARD 0.9.26
   
 </title>
 
@@ -866,7 +866,7 @@
       <pre class="code"><span class="info file"># File 'card/lib/card/format/render.rb', line 96</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_prepare_stub_nest'>prepare_stub_nest</span> <span class='id identifier rubyid_stub_hash'>stub_hash</span>
-  <span class='id identifier rubyid_stub_card'>stub_card</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_fetch_from_cast'>fetch_from_cast</span> <span class='id identifier rubyid_stub_hash'>stub_hash</span><span class='lbracket'>[</span><span class='symbol'>:cast</span><span class='rbracket'>]</span>
+  <span class='id identifier rubyid_stub_card'>stub_card</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_fetch_from_cast'><span class='object_link'><a href="../Fetch/CardClass.html#fetch_from_cast-instance_method" title="Card::Fetch::CardClass#fetch_from_cast (method)">fetch_from_cast</a></span></span> <span class='id identifier rubyid_stub_hash'>stub_hash</span><span class='lbracket'>[</span><span class='symbol'>:cast</span><span class='rbracket'>]</span>
   <span class='id identifier rubyid_view_opts'>view_opts</span> <span class='op'>=</span> <span class='id identifier rubyid_stub_hash'>stub_hash</span><span class='lbracket'>[</span><span class='symbol'>:view_opts</span><span class='rbracket'>]</span>
   <span class='id identifier rubyid_voo'>voo</span><span class='period'>.</span><span class='id identifier rubyid_normalize_special_options!'>normalize_special_options!</span> <span class='id identifier rubyid_view_opts'>view_opts</span>
   <span class='kw'>if</span> <span class='id identifier rubyid_stub_card'>stub_card</span><span class='op'>&amp;.</span><span class='id identifier rubyid_key'>key</span><span class='period'>.</span><span class='id identifier rubyid_present?'>present?</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_stub_card'>stub_card</span><span class='period'>.</span><span class='id identifier rubyid_key'>key</span> <span class='op'>==</span> <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_key'>key</span>
@@ -903,8 +903,8 @@
       <pre class="code"><span class="info file"># File 'card/lib/card/format/render.rb', line 67</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_pretty_path'>pretty_path</span> <span class='id identifier rubyid_source_location'>source_location</span>
-  <span class='id identifier rubyid_source_location'>source_location</span><span class='period'>.</span><span class='id identifier rubyid_first'>first</span><span class='period'>.</span><span class='id identifier rubyid_gsub'>gsub</span><span class='lparen'>(</span><span class='tstring'><span class='regexp_beg'>%r{</span><span class='tstring_content'>^.+mod\d+-([^/]+)</span><span class='regexp_end'>}</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>\1: </span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='op'>+</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>:</span><span class='tstring_end'>&quot;</span></span> <span class='op'>+</span>
-    <span class='id identifier rubyid_source_location'>source_location</span><span class='period'>.</span><span class='id identifier rubyid_second'>second</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span>
+  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_source_location'>source_location</span><span class='period'>.</span><span class='id identifier rubyid_first'>first</span><span class='period'>.</span><span class='id identifier rubyid_gsub'>gsub</span><span class='lparen'>(</span><span class='tstring'><span class='regexp_beg'>%r{</span><span class='tstring_content'>^.+mod\d+-([^/]+)</span><span class='regexp_end'>}</span></span><span class='comma'>,</span>
+                                <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>\1: </span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span><span class='embexpr_end'>}</span><span class='tstring_content'>:</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_source_location'>source_location</span><span class='period'>.</span><span class='id identifier rubyid_second'>second</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1417,9 +1417,9 @@
 </div>
 
       <div id="footer">
-  Generated on Sun Oct 18 23:47:43 2020 by
+  Generated on Thu May 13 17:17:16 2021 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.25 (ruby-2.6.3).
+  0.9.26 (ruby-2.7.2).
 </div>
 
     </div>

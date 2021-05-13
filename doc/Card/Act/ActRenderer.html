@@ -6,7 +6,7 @@
 <title>
   Class: Card::Act::ActRenderer
   
-    &mdash; Documentation by YARD 0.9.25
+    &mdash; Documentation by YARD 0.9.26
   
 </title>
 
@@ -1060,7 +1060,7 @@
       <pre class="code"><span class="info file"># File 'card-mod-history/lib/card/act/act_renderer.rb', line 125</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_act_accordion'>act_accordion</span>
-  <span class='id identifier rubyid_context'>context</span> <span class='op'>=</span> <span class='ivar'>@act</span><span class='period'>.</span><span class='id identifier rubyid_main_action'>main_action</span><span class='period'>.</span><span class='id identifier rubyid_draft'>draft</span> <span class='op'>?</span> <span class='symbol'>:warning</span> <span class='op'>:</span> <span class='symbol'>:default</span>
+  <span class='id identifier rubyid_context'>context</span> <span class='op'>=</span> <span class='ivar'>@act</span><span class='period'>.</span><span class='id identifier rubyid_main_action'>main_action</span><span class='op'>&amp;.</span><span class='id identifier rubyid_draft'>draft</span> <span class='op'>?</span> <span class='symbol'>:warning</span> <span class='op'>:</span> <span class='symbol'>:default</span>
   <span class='heredoc_beg'>&lt;&lt;-HTML</span>
 <span class='tstring_content'>  &lt;div class=&quot;card card-</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_context'>context</span><span class='embexpr_end'>}</span><span class='tstring_content'> nodblclick&quot;&gt;
     </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_act_accordion_panel'>act_accordion_panel</span><span class='embexpr_end'>}</span><span class='tstring_content'>
@@ -1844,7 +1844,7 @@ save as current:
       <pre class="code"><span class="info file"># File 'card-mod-history/lib/card/act/act_renderer.rb', line 175</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_rollback_link'>rollback_link</span>
-  <span class='kw'>return</span> <span class='kw'>unless</span> <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_ok?'>ok?</span> <span class='symbol'>:update</span>
+  <span class='kw'>return</span> <span class='kw'>unless</span> <span class='ivar'>@card</span><span class='period'>.</span><span class='id identifier rubyid_ok?'>ok?</span> <span class='symbol'>:update</span>
 
   <span class='id identifier rubyid_wrap_with'>wrap_with</span> <span class='symbol'>:div</span><span class='comma'>,</span> <span class='label'>class:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>act-link collapse </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_collapse_id'>collapse_id</span><span class='embexpr_end'>}</span><span class='tstring_content'> float-right</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>do</span>
     <span class='id identifier rubyid_content_tag'>content_tag</span><span class='lparen'>(</span><span class='symbol'>:small</span><span class='comma'>,</span> <span class='id identifier rubyid_revert_link'>revert_link</span><span class='rparen'>)</span>
@@ -1949,9 +1949,9 @@ save as current:
 </div>
 
       <div id="footer">
-  Generated on Sun Oct 18 23:48:29 2020 by
+  Generated on Thu May 13 17:17:45 2021 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.25 (ruby-2.6.3).
+  0.9.26 (ruby-2.7.2).
 </div>
 
     </div>
