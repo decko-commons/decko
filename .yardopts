@@ -4,4 +4,5 @@ card/tmpsets/set*/**/*.rb
 - */*.md *.md GPL LICENSE card/VERSION
 --exclude .*/vendor/.* decko/README.md
 --markup markdown
+--markup-provider=kramdown
 --load .yard_extensions/yard_extensions.rb

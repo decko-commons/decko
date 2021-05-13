@@ -41,8 +41,8 @@ def selected_content
 end
 
 def content_at_time_of_selected_action
-  lc = last_change_on(:db_content, not_after: @selected_action_id, including_drafts: true)
-  lc&.value
+  last_change_on(:db_content, not_after: selected_action_id,
+                              including_drafts: true)&.value
 end
 
 def with_selected_action_id action_id
