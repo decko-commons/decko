@@ -1,18 +1,20 @@
 include_set Abstract::AccountField
 
+# triggerable event to generate new API Key
 event :generate_api_key, :prepare_to_validate, trigger: :required do
   generate
 end
 
-event :validate_api_key, :validate do
+event :validate_api_key, :validate, on: :save, changed: :content do
   errors.add :content, t(:api_key_invalid) unless content.match?(/^\w{20,}$/)
   errors.add :content, t(:api_key_taken) if api_key_taken?
 end
 
+# checks availability of API key
 def api_key_taken?
   return false unless (acct = Card::Auth.find_account_by_api_key content)
 
-  acct.id == left_id
+  acct.id != left_id
 end
 
 def history?
@@ -27,6 +29,7 @@ def ok_to_create
   own_account? || super
 end
 
+# @return [True/False] checks whether key matches content
 def authenticate_api_key api_key
   return true unless (error = api_key_validation_error api_key)
 
@@ -65,6 +68,7 @@ end
 
 format :html do
   view :core, unknown: true, template: :haml
+  view(:content, unknown: true) { super() }
 
   %i[titled titled_content].each do |viewname|
     view(viewname, unknown: true) { super() }
@@ -82,5 +86,9 @@ format :html do
         submit_button(text: text, disable_with: t(:api_key_generating))
       ]
     end
+  end
+
+  def input_type
+    :text_field
   end
 end
