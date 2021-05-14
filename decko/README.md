@@ -1,3 +1,7 @@
+<!--
+# @title README - Decko
+-->
+
 # Decko: you hold the cards
 
 [![Gem Version][3]][4]
