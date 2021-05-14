@@ -66,10 +66,10 @@ RSpec.describe Card::Set::All::Notify do
     follower = Card["Joe User"]
     context = Card[card_name].refresh(true)
     Card[:follower_notification_email].format.mail(
-      context, { to: follower.email }, auth: follower,
-                                       active_notice: { follower: follower.name,
-                                                        followed_set: followed_set,
-                                                        follow_option: "*always" }
+      context, { to: follower.email }, { auth: follower,
+                                         active_notice: { follower: follower.name,
+                                                          followed_set: followed_set,
+                                                          follow_option: "*always" } }
     ).text_part.body.raw_source
   end
 

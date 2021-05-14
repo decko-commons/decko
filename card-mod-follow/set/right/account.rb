@@ -9,7 +9,7 @@ end
 def notify_of_act act
   Auth.as(left.id) do
     Card[:follower_notification_email].deliver(
-      act.card, { to: email }, auth: left, active_notice: yield
+      act.card, { to: email }, { auth: left, active_notice: yield }
     )
   end
 end
