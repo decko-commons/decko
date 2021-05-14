@@ -52,9 +52,9 @@ module ClassMethods
   end
 end
 
-# def trash?
-#   trash
-# end
+def trash?
+  trash
+end
 
 def delete args={}
   add_to_trash args do |delete_args|
