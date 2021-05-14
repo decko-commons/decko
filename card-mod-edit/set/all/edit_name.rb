@@ -9,10 +9,10 @@ format :html do
 
   def name_form success_view=nil
     card_form({ action: :update, id: card.id },
-              "data-main-success": JSON(redirect: true, view: ""),
-              "data-update-origin": "true",
-              class: "_rename-form",
-              success: edit_name_success(success_view)) do
+              { "data-main-success": JSON(redirect: true, view: ""),
+                "data-update-origin": "true",
+                class: "_rename-form",
+                success: edit_name_success(success_view) }) do
       [edit_name_hidden_fields,
        _render_name_formgroup,
        edit_name_confirmation,

@@ -3,11 +3,11 @@ RSpec.describe Card::Set::Right::Account do
     subject(:mail) do
       follower = Card["Joe User"]
       Card[:follower_notification_email].format.mail(
-        Card.fetch("A", look_in_trash: true), { to: "joe@user.com" },
-        auth: follower,
-        active_notice: { follower: follower,
-                         followed_set: Card[:all],
-                         follow_option: Card[:always] }
+        Card.fetch("A", look_in_trash: true),
+        { to: "joe@user.com" },
+        { auth: follower, active_notice: { follower: follower,
+                          followed_set: Card[:all],
+                          follow_option: Card[:always] } }
       )
     end
 

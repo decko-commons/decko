@@ -35,7 +35,7 @@ RSpec.describe Card::Set::Abstract::Pointer do
       css_list = render_card(
         :content,
         { type: Card::PointerID, name: "my style list", content: "[[my css]]" },
-        format: :css
+        { format: :css }
       )
       #      css_list.should =~ /STYLE GROUP\: \"my style list\"/
       #      css_list.should =~ /Style Card\: \"my css\"/

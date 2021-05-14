@@ -7,7 +7,7 @@ class Card
           define_method methodname do |val|
             tie :reference,
                 { ref_method => { reftype: reftype, card: val } },
-                to: ref_field
+                { to: ref_field }
           end
         end
 

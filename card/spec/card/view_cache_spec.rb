@@ -12,12 +12,12 @@ RSpec.describe Card::View do
     Card["follower notification email"].format.mail(
       Card["All Eyes On Me"],
       { to: "#{user}@user.com" },
-      auth: user,
-      active_notice: {
-        follower: user,
-        followed_set: "All Eyes On Me+*self",
-        follow_option: "*always"
-      }
+      { auth: user,
+        active_notice: {
+          follower: user,
+          followed_set: "All Eyes On Me+*self",
+          follow_option: "*always"
+        } }
     ).html_part.body.raw_source
   end
 
