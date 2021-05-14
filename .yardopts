@@ -2,7 +2,7 @@
 {card,decko}/mod/*/{lib,format,chunk}/**/*.rb
 card/tmpsets/set*/**/*.rb
 - */*.md *.md GPL LICENSE card/VERSION
---exclude .*/vendor/.* decko/README.md
+--exclude .*/vendor/.*
 --markup markdown
 --markup-provider=kramdown
 --load .yard_extensions/yard_extensions.rb

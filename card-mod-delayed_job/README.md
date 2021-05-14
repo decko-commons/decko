@@ -1,3 +1,7 @@
+<!--
+# @title README - mod: delayed job
+-->
+
 This mod lets you run card events after sending an act response by using DelayedJobs.
 
 Any card event defined in the `integrate_with_delay` stage will be handled after an act
