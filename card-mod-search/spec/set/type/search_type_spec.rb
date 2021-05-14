@@ -68,8 +68,7 @@ RSpec.describe Card::Set::Type::SearchType do
   describe "csv format" do
     describe "view :content" do
       subject do
-        render_view :content, { name: "Book+*type+by name" },
-                    format: :csv
+        render_view :content, { name: "Book+*type+by name" }, { format: :csv }
       end
 
       it "has title row with nest names" do
