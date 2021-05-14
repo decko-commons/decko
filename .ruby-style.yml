@@ -8,70 +8,27 @@ AllCops:
     - "{card/mod/*,card-mod-*}/lib/javascript/*.js"
     - "{card/mod/*,card-mod-*}/{file,public,vendor}/**/*"
 
-Style/CommentAnnotation:
-  Enabled: true
-Style/CollectionMethods:
-  # Mapping from undesired method to desired_method
-  # e.g. to use `detect` over `find`:
-  #
-  # CollectionMethods:
-  #   PreferredMethods:
-  #     find: detect
-  Description: Preferred collection methods.
-  Enabled: false
-  PreferredMethods:
-    collect: 'map'
-    collect!: 'map!'
-    detect: 'find'
-    find_all: 'select'
-    reduce: 'inject'
 Layout/DotPosition:
   EnforcedStyle: leading
-Style/Encoding:
-  Description: Use UTF-8 as the source file encoding.
-  Enabled: false
-Style/GuardClause:
-  Description: Check for conditionals that can be replaced with guard clauses
-  Enabled: true
-Style/MethodDefParentheses:
-  Description: Checks if the method definitions have or don't have 252
-  Enabled: true
-  EnforcedStyle: require_no_parentheses
-Style/RegexpLiteral:
-  Description: Use %r for regular expressions matching more than
-               `MaxSlashes` '/' characters. Use %r only for regular expressions
-               matching more than `MaxSlashes` '/' character.
-  StyleGuide: https://github.com/bbatsov/ruby-style-guide#percent-r
-  Enabled: true
-Style/StringLiterals:
-  EnforcedStyle: double_quotes
-Style/Documentation:
-  Exclude:
-    - '**/migrate*/*.rb'
 Layout/SpaceAroundEqualsInParameterDefault:
   EnforcedStyle: no_space
-Style/FrozenStringLiteralComment:
+Layout/ExtraSpacing:
+  Description: Do not use unnecessary spacing.
   Enabled: false
+Layout/LineLength:
+  Enabled: true
+  Max: 90
+  Exclude:
+    - '**/step_definitions/*_steps.rb'
+
+Lint/AssignmentInCondition:
+  Enabled: true
+  AllowSafeAssignment: true
+
 Metrics/MethodLength:
   Enabled: true
   CountComments: false
   Max: 15
-Layout/ExtraSpacing:
-  Description: Do not use unnecessary spacing.
-  Enabled: false
-Lint/AssignmentInCondition:
-  Enabled: true
-  AllowSafeAssignment: true
-Style/Alias:
-  EnforcedStyle: prefer_alias_method
-Style/EmptyCaseCondition:
-  Enabled: false
-Style/FormatString:
-  EnforcedStyle: percent
-  SupportedStyles:
-    - format
-    - sprintf
-    - percent
 Metrics/BlockLength:
   Enabled: true
   Exclude:
@@ -79,6 +36,7 @@ Metrics/BlockLength:
     - '**/*.rake'
     - 'spec/**/*.rb'
     - '**/*_spec.rb'
+
 RSpec/MultipleExpectations:
   Enabled: false
 RSpec/ExampleLength:
@@ -97,11 +55,40 @@ RSpec/NestedGroups:
   Description: Checks for nested example groups.
   Enabled: true
   Max: 5
-Layout/LineLength:
+
+Style/Encoding:
+  Description: Use UTF-8 as the source file encoding.
+  Enabled: false
+Style/GuardClause:
+  Description: Check for conditionals that can be replaced with guard clauses
   Enabled: true
-  Max: 90
+Style/MethodDefParentheses:
+  Description: Checks if the method definitions have or don't have 252
+  Enabled: true
+  EnforcedStyle: require_no_parentheses
+Style/RegexpLiteral:
+  Description: Use %r for regular expressions matching more than
+    `MaxSlashes` '/' characters. Use %r only for regular expressions
+    matching more than `MaxSlashes` '/' character.
+  StyleGuide: https://github.com/bbatsov/ruby-style-guide#percent-r
+  Enabled: true
+Style/StringLiterals:
+  EnforcedStyle: double_quotes
+Style/Documentation:
   Exclude:
-    - '**/step_definitions/*_steps.rb'
+    - '**/migrate*/*.rb'
+Style/FrozenStringLiteralComment:
+  Enabled: false
+Style/Alias:
+  EnforcedStyle: prefer_alias_method
+Style/EmptyCaseCondition:
+  Enabled: false
+Style/FormatString:
+  EnforcedStyle: percent
+  SupportedStyles:
+    - format
+    - sprintf
+    - percent
 Style/PercentLiteralDelimiters:
   PreferredDelimiters:
     default: ()
@@ -110,3 +97,22 @@ Style/PercentLiteralDelimiters:
     '%r': '{}'
     '%w': '[]'
     '%W': '[]'
+Style/CommentAnnotation:
+  Enabled: true
+Style/CollectionMethods:
+  # Mapping from undesired method to desired_method
+  # e.g. to use `detect` over `find`:
+  #
+  # CollectionMethods:
+  #   PreferredMethods:
+  #     find: detect
+  Description: Preferred collection methods.
+  Enabled: false
+  PreferredMethods:
+    collect: 'map'
+    collect!: 'map!'
+    detect: 'find'
+    find_all: 'select'
+    reduce: 'inject'
+Style/BracesAroundHashParameters:
+  EnforcedStyle: context_dependent
