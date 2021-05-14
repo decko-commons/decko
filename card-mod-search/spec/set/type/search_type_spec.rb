@@ -68,8 +68,7 @@ RSpec.describe Card::Set::Type::SearchType do
   describe "csv format" do
     describe "view :content" do
       subject do
-        render_view :content, { name: "Book+*type+by name" },
-                    format: :csv
+        render_view :content, { name: "Book+*type+by name" }, { format: :csv }
       end
 
       it "has title row with nest names" do
@@ -88,8 +87,10 @@ RSpec.describe Card::Set::Type::SearchType do
     describe "view :nested_fields" do
       subject do
         # Card::Env.params[:item] = :name_with_fields
-        render_card_with_args :core, { name: "Book+*type+by name" },
-                              { format: :csv },  items: { view: :name_with_fields }
+        render_card_with_args :core,
+                              { name: "Book+*type+by name" },
+                              { format: :csv },
+                              { items: { view: :name_with_fields } }
       end
 
       it "has title row item name and field names" do
@@ -97,10 +98,8 @@ RSpec.describe Card::Set::Type::SearchType do
       end
 
       it "has field contents" do
-        create "Guide",
-               type: "Book",
-               subfields: { "author" => "Hitchhiker",
-                            "illustrator" => "Galaxy" }
+        create "Guide", type: "Book",
+                        subfields: { "author" => "Hitchhiker", "illustrator" => "Galaxy" }
         is_expected.to include "Guide,Hitchhiker,Galaxy"
       end
     end
@@ -148,15 +147,12 @@ RSpec.describe Card::Set::Type::SearchType do
 
         it "shows next and previous link" do
           Card::Env.params[:offset] = 1
-          expect(paging_values)
-            .to eq(next: paging_url(2),
-                   previous: paging_url(0))
+          expect(paging_values).to eq(next: paging_url(2), previous: paging_url(0))
         end
 
         it "shows previous link" do
           Card::Env.params[:offset] = 2
-          expect(paging_values)
-            .to eq(previous: paging_url(1))
+          expect(paging_values).to eq(previous: paging_url(1))
         end
       end
     end

@@ -11,11 +11,11 @@ class Card
       end
 
       def action_on card
-        tie :action, { action_on: card }, to: :card_act_id
+        tie :action, { action_on: card }, { to: :card_act_id }
       end
 
       def update_action_on card
-        tie :action, { update_action_on: card }, to: :card_act_id
+        tie :action, { update_action_on: card }, { to: :card_act_id }
       end
 
       def act_by card

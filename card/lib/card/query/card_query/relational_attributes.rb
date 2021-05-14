@@ -74,11 +74,11 @@ class Card
         private
 
         def tie_action action, val
-          tie :action, { action => val }, to: :card_id
+          tie :action, { action => val }, { to: :card_id }
         end
 
         def tie_act action, val
-          tie :act, { action => val }, to: :actor_id
+          tie :act, { action => val }, { to: :actor_id }
         end
 
         def junction val, side, field

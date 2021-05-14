@@ -22,7 +22,7 @@ class Card
         def revert_link
           revert_actions_link "revert to previous",
                               { revert_to: :previous, revert_act: @act.id },
-                              "data-slot-selector": "#main > .card-slot"
+                              { "data-slot-selector": "#main > .card-slot" }
         end
 
         def actions
