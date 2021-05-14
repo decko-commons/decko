@@ -1,13 +1,14 @@
 RSpec.describe Card::Set::Right::Account do
   describe "#send_change_notice" do
-    subject(:mail) do
+    subject :mail do
       follower = Card["Joe User"]
       Card[:follower_notification_email].format.mail(
-        Card.fetch("A", look_in_trash: true), { to: "joe@user.com" },
-        auth: follower,
-        active_notice: { follower: follower,
-                         followed_set: Card[:all],
-                         follow_option: Card[:always] }
+        Card.fetch("A", look_in_trash: true),
+        { to: "joe@user.com" },
+        { auth: follower,
+          active_notice: { follower: follower,
+                           followed_set: Card[:all],
+                           follow_option: Card[:always] } }
       )
     end
 
@@ -29,8 +30,8 @@ RSpec.describe Card::Set::Right::Account do
         u2.add_item "A"
 
         a = Card.fetch "A"
-      a.update content: "new content",
-               subcards: { "+B" => { content: "hidden content" } }
+        a.update content: "new content",
+                 subcards: { "+B" => { content: "hidden content" } }
       end
 
       it "sends no email if changes not visible" do

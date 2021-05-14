@@ -1,16 +1,15 @@
 # -*- encoding : utf-8 -*-
 
 RSpec.describe Card::Set::Type::SearchType do
-  it "wraps search items with correct view class" do
-    Card.create type: "Search", name: "Asearch", content: %({"type":"User"})
-    c = render_content("{{Asearch|core|name}}")
-    expect(c).to match("search-result-item item-name")
-    expect(render_content("{{Asearch|core}}")
-             .scan("search-result-item item-bar").size).to eq(14)
-    expect(render_content("{{Asearch|core|open}}")
-             .scan("search-result-item item-open").size).to eq(14)
-    expect(render_content("{{Asearch|core|titled}}")
-             .scan("search-result-item item-titled").size).to eq(14)
+  let :asearch do
+    Card.fetch "User+*type+by_name"
+  end
+
+  %w[name bar open titled].each do |view|
+    it "handles wrapping item in #{view} view" do
+      content = render_content "{{#{asearch.name}|core|#{view}}}"
+      expect(content.scan("search-result-item item-#{view}").size).to eq(14)
+    end
   end
 
   it "fails for invalid search syntax" do
@@ -19,9 +18,8 @@ RSpec.describe Card::Set::Type::SearchType do
   end
 
   it "handles returning 'count'" do
-    rendered = render_card(:core,
-                           type: "Search",
-                           content: %({ "type":"User", "return":"count"}))
+    rendered = render_card :core, type: "Search",
+                                  content: %({ "type":"User", "return":"count"})
     expect(rendered).to eq("14")
   end
 
@@ -57,8 +55,7 @@ RSpec.describe Card::Set::Type::SearchType do
   describe "rss format" do
     it "render rss without errors" do
       with_rss_enabled do
-        search_card = Card.create type: "Search", name: "Asearch",
-                                  content: %({"id":"1"})
+        search_card = Card.create type: "Search", name: "Asearch", content: %({"id":"1"})
         rss = search_card.format(:rss).render_feed
         expect(rss).to have_tag("title", text: "Decko Bot")
       end
@@ -68,8 +65,7 @@ RSpec.describe Card::Set::Type::SearchType do
   describe "csv format" do
     describe "view :content" do
       subject do
-        render_view :content, { name: "Book+*type+by name" },
-                    format: :csv
+        render_view :content, { name: "Book+*type+by name" }, { format: :csv }
       end
 
       it "has title row with nest names" do
@@ -88,8 +84,10 @@ RSpec.describe Card::Set::Type::SearchType do
     describe "view :nested_fields" do
       subject do
         # Card::Env.params[:item] = :name_with_fields
-        render_card_with_args :core, { name: "Book+*type+by name" },
-                              { format: :csv },  items: { view: :name_with_fields }
+        render_card_with_args :core,
+                              { name: "Book+*type+by name" },
+                              { format: :csv },
+                              { items: { view: :name_with_fields } }
       end
 
       it "has title row item name and field names" do
@@ -97,10 +95,8 @@ RSpec.describe Card::Set::Type::SearchType do
       end
 
       it "has field contents" do
-        create "Guide",
-               type: "Book",
-               subfields: { "author" => "Hitchhiker",
-                            "illustrator" => "Galaxy" }
+        create "Guide", type: "Book",
+                        subfields: { "author" => "Hitchhiker", "illustrator" => "Galaxy" }
         is_expected.to include "Guide,Hitchhiker,Galaxy"
       end
     end
@@ -148,15 +144,12 @@ RSpec.describe Card::Set::Type::SearchType do
 
         it "shows next and previous link" do
           Card::Env.params[:offset] = 1
-          expect(paging_values)
-            .to eq(next: paging_url(2),
-                   previous: paging_url(0))
+          expect(paging_values).to eq(next: paging_url(2), previous: paging_url(0))
         end
 
         it "shows previous link" do
           Card::Env.params[:offset] = 2
-          expect(paging_values)
-            .to eq(previous: paging_url(1))
+          expect(paging_values).to eq(previous: paging_url(1))
         end
       end
     end
