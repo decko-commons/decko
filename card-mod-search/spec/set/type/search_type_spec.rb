@@ -1,16 +1,15 @@
 # -*- encoding : utf-8 -*-
 
 RSpec.describe Card::Set::Type::SearchType do
-  it "wraps search items with correct view class" do
-    Card.create type: "Search", name: "Asearch", content: %({"type":"User"})
-    c = render_content("{{Asearch|core|name}}")
-    expect(c).to match("search-result-item item-name")
-    expect(render_content("{{Asearch|core}}")
-             .scan("search-result-item item-bar").size).to eq(14)
-    expect(render_content("{{Asearch|core|open}}")
-             .scan("search-result-item item-open").size).to eq(14)
-    expect(render_content("{{Asearch|core|titled}}")
-             .scan("search-result-item item-titled").size).to eq(14)
+  let :asearch do
+    Card.fetch "User+*type+by_name"
+  end
+
+  %w[name bar open titled].each do |view|
+    it "handles wrapping item in #{view} view" do
+      content = render_content "{{#{asearch.name}|core|#{view}}}"
+      expect(content.scan("search-result-item item-#{view}").size).to eq(14)
+    end
   end
 
   it "fails for invalid search syntax" do
@@ -19,9 +18,8 @@ RSpec.describe Card::Set::Type::SearchType do
   end
 
   it "handles returning 'count'" do
-    rendered = render_card(:core,
-                           type: "Search",
-                           content: %({ "type":"User", "return":"count"}))
+    rendered = render_card :core, type: "Search",
+                                  content: %({ "type":"User", "return":"count"})
     expect(rendered).to eq("14")
   end
 
@@ -57,8 +55,7 @@ RSpec.describe Card::Set::Type::SearchType do
   describe "rss format" do
     it "render rss without errors" do
       with_rss_enabled do
-        search_card = Card.create type: "Search", name: "Asearch",
-                                  content: %({"id":"1"})
+        search_card = Card.create type: "Search", name: "Asearch", content: %({"id":"1"})
         rss = search_card.format(:rss).render_feed
         expect(rss).to have_tag("title", text: "Decko Bot")
       end
