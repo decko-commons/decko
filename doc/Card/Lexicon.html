@@ -6,7 +6,7 @@
 <title>
   Module: Card::Lexicon
   
-    &mdash; Documentation by YARD 0.9.25
+    &mdash; Documentation by YARD 0.9.26
   
 </title>
 
@@ -199,7 +199,7 @@ name for simple cards, [left_id, right_id] for compound cards.</p>
   
 
   
-    <span class="summary_desc"><div class='inline'><p>def delete card   cache.delete card.id.to_s   cache.delete cache_key(card.old_lex) end.</p>
+    <span class="summary_desc"><div class='inline'><p>def delete card   cache.delete card.id.to_s   cache.delete cache_key(card.lex_before_act) end.</p>
 </div></span>
   
 </li>
@@ -394,7 +394,7 @@ name for simple cards, [left_id, right_id] for compound cards.</p>
   <div class="discussion">
     <p>def delete card
   cache.delete card.id.to_s
-  cache.delete cache_key(card.old_lex)
+  cache.delete cache_key(card.lex_before_act)
 end</p>
 
 
@@ -412,13 +412,15 @@ end</p>
 47
 48
 49
-50</pre>
+50
+51</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'card/lib/card/lexicon.rb', line 47</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_lex_to_name'>lex_to_name</span> <span class='id identifier rubyid_lex'>lex</span>
-  <span class='kw'>return</span> <span class='id identifier rubyid_lex'>lex</span> <span class='kw'>unless</span> <span class='id identifier rubyid_lex'>lex</span><span class='op'>&amp;.</span><span class='id identifier rubyid_is_a?'>is_a?</span> <span class='const'>Array</span>
+  <span class='kw'>return</span> <span class='id identifier rubyid_lex'>lex</span> <span class='kw'>unless</span> <span class='id identifier rubyid_lex'>lex</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span> <span class='const'>Array</span>
+
   <span class='id identifier rubyid_lex'>lex</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_side_id'>side_id</span><span class='op'>|</span> <span class='id identifier rubyid_name'>name</span> <span class='id identifier rubyid_side_id'>side_id</span> <span class='kw'>or</span> <span class='kw'>return</span> <span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Name.html" title="Card::Name (class)">Name</a></span></span><span class='period'>.</span><span class='id identifier rubyid_joint'>joint</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to_name'>to_name</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -510,7 +512,7 @@ end</p>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_update'>update</span> <span class='id identifier rubyid_card'>card</span>
   <span class='id identifier rubyid_add'>add</span> <span class='id identifier rubyid_card'>card</span>
-  <span class='id identifier rubyid_cache'>cache</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span> <span class='id identifier rubyid_cache_key'>cache_key</span><span class='lparen'>(</span><span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_old_lex'>old_lex</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_cache'>cache</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span> <span class='id identifier rubyid_cache_key'>cache_key</span><span class='lparen'>(</span><span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_lex_before_act'>lex_before_act</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -522,9 +524,9 @@ end</p>
 </div>
 
       <div id="footer">
-  Generated on Sun Oct 18 23:47:41 2020 by
+  Generated on Thu May 13 17:17:15 2021 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.25 (ruby-2.6.3).
+  0.9.26 (ruby-2.7.2).
 </div>
 
     </div>

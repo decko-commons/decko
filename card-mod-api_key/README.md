@@ -1,4 +1,6 @@
+<!--
 # @title README - mod: API key
+-->
 
 # API key
 Enable Decko users to perform authorized web requests associated with their account
@@ -12,17 +14,19 @@ without a session.
 
 ## Sets with code rules
 
-### [account card]+:api_key
+### {Card::Set::Right::ApiKey [account card]+:api_key}
 This is where the API key is stored. By default it is visible to and editable by 
 the account holder and to users with the "Help Desk" role.  
 
 #### Events
+
 | event name | when | purpose |
 |:---------:|:------:|:-------:|
 | generate_api_key | triggered | creates a new, random key |
 | validate_api_key | on save | ensures content is comprised of 20+ alphanumerics (only) |
 
 #### Views
+
 | view name | format | purpose |
 |:---------:|:------:|:-------:|
 | core | HTML | show key to permitted user and provide form to generate new one |
@@ -30,11 +34,10 @@ the account holder and to users with the "Help Desk" role.
 | token_link | HTML | links to json view returning a JWT token |
 | token | JSON | return a JWT token for rapid authentication |
 
-### [accounted card]+:account
-
-Adds an :api_key view:
+### {Card::Set::Right::Account [accounted card]+:account}
 
 #### Views
+
 | view name | format | purpose |
 |:---------:|:------:|:-------:|
 | api_key | HTML | nests api_key card |

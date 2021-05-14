@@ -6,7 +6,7 @@
 <title>
   Class: Card::Content::Chunk::Nest
   
-    &mdash; Documentation by YARD 0.9.25
+    &mdash; Documentation by YARD 0.9.26
   
 </title>
 
@@ -100,7 +100,7 @@
   
   <dl>
     <dt>Defined in:</dt>
-    <dd>card/mod/core/chunk/nest.rb</dd>
+    <dd>card-mod-content/lib/card/content/chunk/nest.rb</dd>
   </dl>
   
 </div>
@@ -577,7 +577,7 @@
 12</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/mod/core/chunk/nest.rb', line 10</span>
+      <pre class="code"><span class="info file"># File 'card-mod-content/lib/card/content/chunk/nest.rb', line 10</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_options'>options</span>
   <span class='ivar'>@options</span>
@@ -609,17 +609,17 @@
       <pre class="lines">
 
 
-103
 104
 105
 106
-107</pre>
+107
+108</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/mod/core/chunk/nest.rb', line 103</span>
+      <pre class="code"><span class="info file"># File 'card-mod-content/lib/card/content/chunk/nest.rb', line 104</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_gsub'>gsub</span> <span class='id identifier rubyid_string'>string</span>
-  <span class='id identifier rubyid_string'>string</span><span class='period'>.</span><span class='id identifier rubyid_gsub'>gsub</span><span class='lparen'>(</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>\{\{([^\}]*)\}\}</span><span class='regexp_end'>/</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid__match'>_match</span><span class='op'>|</span>
+  <span class='id identifier rubyid_string'>string</span><span class='period'>.</span><span class='id identifier rubyid_gsub'>gsub</span><span class='lparen'>(</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>\{\{([^}]*)\}\}</span><span class='regexp_end'>/</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid__match'>_match</span><span class='op'>|</span>
     <span class='kw'>yield</span><span class='lparen'>(</span><span class='const'>Regexp</span><span class='period'>.</span><span class='id identifier rubyid_last_match'>last_match</span><span class='lbracket'>[</span><span class='int'>1</span><span class='rbracket'>]</span><span class='rparen'>)</span>
   <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
@@ -657,15 +657,17 @@
 90
 91
 92
-93</pre>
+93
+94</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/mod/core/chunk/nest.rb', line 85</span>
+      <pre class="code"><span class="info file"># File 'card-mod-content/lib/card/content/chunk/nest.rb', line 85</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_explicit_view='>explicit_view=</span> <span class='id identifier rubyid_view'>view</span>
   <span class='kw'>return</span> <span class='kw'>if</span> <span class='ivar'>@options</span><span class='lbracket'>[</span><span class='symbol'>:view</span><span class='rbracket'>]</span>
+
   <span class='comment'># could check to make sure it&#39;s not already the default...
-</span>  <span class='kw'>if</span> <span class='ivar'>@text</span> <span class='op'>=~</span> <span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>\|</span><span class='regexp_end'>/</span></span>
+</span>  <span class='kw'>if</span> <span class='ivar'>@text</span><span class='period'>.</span><span class='id identifier rubyid_match?'>match?</span><span class='lparen'>(</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>\|</span><span class='regexp_end'>/</span></span><span class='rparen'>)</span>
     <span class='ivar'>@text</span><span class='period'>.</span><span class='id identifier rubyid_sub!'>sub!</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>|</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>|</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_view'>view</span><span class='embexpr_end'>}</span><span class='tstring_content'>;</span><span class='tstring_end'>&quot;</span></span>
   <span class='kw'>else</span>
     <span class='ivar'>@text</span><span class='period'>.</span><span class='id identifier rubyid_sub!'>sub!</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>}}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>|</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_view'>view</span><span class='embexpr_end'>}</span><span class='tstring_content'>}}</span><span class='tstring_end'>&quot;</span></span>
@@ -696,7 +698,7 @@
 69</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/mod/core/chunk/nest.rb', line 67</span>
+      <pre class="code"><span class="info file"># File 'card-mod-content/lib/card/content/chunk/nest.rb', line 67</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_inspect'>inspect</span>
   <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>&lt;#</span><span class='embexpr_beg'>#{</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='embexpr_end'>}</span><span class='tstring_content'>:n[</span><span class='embexpr_beg'>#{</span><span class='ivar'>@name</span><span class='embexpr_end'>}</span><span class='tstring_content'>] p[</span><span class='embexpr_beg'>#{</span><span class='ivar'>@process_chunk</span><span class='embexpr_end'>}</span><span class='tstring_content'>] txt:</span><span class='embexpr_beg'>#{</span><span class='ivar'>@text</span><span class='embexpr_end'>}</span><span class='tstring_content'>&gt;</span><span class='tstring_end'>&quot;</span></span>
@@ -721,7 +723,6 @@
       <pre class="lines">
 
 
-17
 18
 19
 20
@@ -735,17 +736,16 @@
 28</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/mod/core/chunk/nest.rb', line 17</span>
+      <pre class="code"><span class="info file"># File 'card-mod-content/lib/card/content/chunk/nest.rb', line 18</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_interpret'>interpret</span> <span class='id identifier rubyid_match'>match</span><span class='comma'>,</span> <span class='id identifier rubyid__content'>_content</span>
   <span class='id identifier rubyid_in_brackets'>in_brackets</span> <span class='op'>=</span> <span class='id identifier rubyid_strip_tags'>strip_tags</span> <span class='id identifier rubyid_match'>match</span><span class='lbracket'>[</span><span class='int'>1</span><span class='rbracket'>]</span>
   <span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='ivar'>@opt_lists</span> <span class='op'>=</span> <span class='id identifier rubyid_in_brackets'>in_brackets</span><span class='period'>.</span><span class='id identifier rubyid_split'>split</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>|</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='int'>2</span>
   <span class='id identifier rubyid_name'>name</span> <span class='op'>=</span> <span class='id identifier rubyid_name'>name</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='period'>.</span><span class='id identifier rubyid_strip'>strip</span>
-  <span class='kw'>if</span> <span class='id identifier rubyid_name'>name</span> <span class='op'>=~</span> <span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>^\#</span><span class='regexp_end'>/</span></span>
-    <span class='ivar'>@process_chunk</span> <span class='op'>=</span> <span class='id identifier rubyid_name'>name</span> <span class='op'>=~</span> <span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>^\#\#</span><span class='regexp_end'>/</span></span> <span class='op'>?</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span> <span class='op'>:</span> <span class='id identifier rubyid_visible_comment'>visible_comment</span><span class='lparen'>(</span><span class='id identifier rubyid_in_brackets'>in_brackets</span><span class='rparen'>)</span>
+  <span class='kw'>if</span> <span class='id identifier rubyid_name'>name</span><span class='period'>.</span><span class='id identifier rubyid_match?'>match?</span><span class='lparen'>(</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>^\#</span><span class='regexp_end'>/</span></span><span class='rparen'>)</span>
+    <span class='ivar'>@process_chunk</span> <span class='op'>=</span> <span class='id identifier rubyid_name'>name</span><span class='period'>.</span><span class='id identifier rubyid_match?'>match?</span><span class='lparen'>(</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>^\#\#</span><span class='regexp_end'>/</span></span><span class='rparen'>)</span> <span class='op'>?</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span> <span class='op'>:</span> <span class='id identifier rubyid_visible_comment'>visible_comment</span><span class='lparen'>(</span><span class='id identifier rubyid_in_brackets'>in_brackets</span><span class='rparen'>)</span>
   <span class='kw'>else</span>
-    <span class='ivar'>@options</span> <span class='op'>=</span> <span class='id identifier rubyid_interpret_options'>interpret_options</span><span class='period'>.</span><span class='id identifier rubyid_merge'>merge</span> <span class='label'>nest_name:</span> <span class='id identifier rubyid_name'>name</span><span class='comma'>,</span>
-                                       <span class='label'>nest_syntax:</span> <span class='id identifier rubyid_in_brackets'>in_brackets</span>
+    <span class='ivar'>@options</span> <span class='op'>=</span> <span class='id identifier rubyid_interpret_options'>interpret_options</span><span class='period'>.</span><span class='id identifier rubyid_merge'>merge</span> <span class='label'>nest_name:</span> <span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='label'>nest_syntax:</span> <span class='id identifier rubyid_in_brackets'>in_brackets</span>
     <span class='ivar'>@name</span> <span class='op'>=</span> <span class='id identifier rubyid_name'>name</span>
   <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
@@ -777,7 +777,7 @@
 45</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/mod/core/chunk/nest.rb', line 40</span>
+      <pre class="code"><span class="info file"># File 'card-mod-content/lib/card/content/chunk/nest.rb', line 40</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_interpret_options'>interpret_options</span>
   <span class='id identifier rubyid_raw_options'>raw_options</span> <span class='op'>=</span> <span class='ivar'>@opt_lists</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='period'>.</span><span class='id identifier rubyid_split'>split</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>|</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_reverse'>reverse</span>
@@ -812,7 +812,7 @@
 51</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/mod/core/chunk/nest.rb', line 47</span>
+      <pre class="code"><span class="info file"># File 'card-mod-content/lib/card/content/chunk/nest.rb', line 47</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_interpret_piped_options'>interpret_piped_options</span> <span class='id identifier rubyid_list_string'>list_string</span><span class='comma'>,</span> <span class='id identifier rubyid_items'>items</span>
   <span class='id identifier rubyid_options_hash'>options_hash</span> <span class='op'>=</span> <span class='id identifier rubyid_items'>items</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span> <span class='op'>?</span> <span class='lbrace'>{</span><span class='rbrace'>}</span> <span class='op'>:</span> <span class='lbrace'>{</span> <span class='label'>items:</span> <span class='id identifier rubyid_items'>items</span> <span class='rbrace'>}</span>
@@ -862,12 +862,12 @@
       <pre class="lines">
 
 
-95
 96
-97</pre>
+97
+98</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/mod/core/chunk/nest.rb', line 95</span>
+      <pre class="code"><span class="info file"># File 'card-mod-content/lib/card/content/chunk/nest.rb', line 96</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_main?'>main?</span>
   <span class='id identifier rubyid_nest_name'>nest_name</span> <span class='op'>==</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>_main</span><span class='tstring_end'>&quot;</span></span>
@@ -892,12 +892,12 @@
       <pre class="lines">
 
 
-99
 100
-101</pre>
+101
+102</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/mod/core/chunk/nest.rb', line 99</span>
+      <pre class="code"><span class="info file"># File 'card-mod-content/lib/card/content/chunk/nest.rb', line 100</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_nest_name'>nest_name</span>
   <span class='id identifier rubyid_options'>options</span><span class='op'>&amp;.</span><span class='id identifier rubyid_dig'>dig</span> <span class='symbol'>:nest_name</span>
@@ -937,7 +937,7 @@
 65</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/mod/core/chunk/nest.rb', line 53</span>
+      <pre class="code"><span class="info file"># File 'card-mod-content/lib/card/content/chunk/nest.rb', line 53</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_option_string_to_hash'>option_string_to_hash</span> <span class='id identifier rubyid_list_string'>list_string</span><span class='comma'>,</span> <span class='id identifier rubyid_options_hash'>options_hash</span>
   <span class='id identifier rubyid_each_option'>each_option</span><span class='lparen'>(</span><span class='id identifier rubyid_list_string'>list_string</span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_value'>value</span><span class='op'>|</span>
@@ -981,7 +981,7 @@
 77</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/mod/core/chunk/nest.rb', line 71</span>
+      <pre class="code"><span class="info file"># File 'card-mod-content/lib/card/content/chunk/nest.rb', line 71</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_process_chunk'>process_chunk</span>
   <span class='kw'>return</span> <span class='ivar'>@process_chunk</span> <span class='kw'>if</span> <span class='ivar'>@process_chunk</span>
@@ -1010,12 +1010,12 @@
       <pre class="lines">
 
 
-109
 110
-111</pre>
+111
+112</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/mod/core/chunk/nest.rb', line 109</span>
+      <pre class="code"><span class="info file"># File 'card-mod-content/lib/card/content/chunk/nest.rb', line 110</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_raw_options'>raw_options</span>
   <span class='ivar'>@opt_lists</span>
@@ -1047,7 +1047,7 @@
 83</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/mod/core/chunk/nest.rb', line 79</span>
+      <pre class="code"><span class="info file"># File 'card-mod-content/lib/card/content/chunk/nest.rb', line 79</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_replace_reference'>replace_reference</span> <span class='id identifier rubyid_old_name'>old_name</span><span class='comma'>,</span> <span class='id identifier rubyid_new_name'>new_name</span>
   <span class='id identifier rubyid_replace_name_reference'>replace_name_reference</span> <span class='id identifier rubyid_old_name'>old_name</span><span class='comma'>,</span> <span class='id identifier rubyid_new_name'>new_name</span>
@@ -1081,12 +1081,12 @@
 34</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/mod/core/chunk/nest.rb', line 30</span>
+      <pre class="code"><span class="info file"># File 'card-mod-content/lib/card/content/chunk/nest.rb', line 30</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_strip_tags'>strip_tags</span> <span class='id identifier rubyid_string'>string</span>
-  <span class='comment'># note: not using ActionView&#39;s strip_tags here
+  <span class='comment'># NOTE: not using ActionView&#39;s strip_tags here
 </span>  <span class='comment'># because this needs to be super fast.
-</span>  <span class='id identifier rubyid_string'>string</span><span class='period'>.</span><span class='id identifier rubyid_gsub'>gsub</span><span class='lparen'>(</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>\&lt;[^\&gt;]*\&gt;</span><span class='regexp_end'>/</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+</span>  <span class='id identifier rubyid_string'>string</span><span class='period'>.</span><span class='id identifier rubyid_gsub'>gsub</span><span class='lparen'>(</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>&lt;[^&gt;]*&gt;</span><span class='regexp_end'>/</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1113,7 +1113,7 @@
 38</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/mod/core/chunk/nest.rb', line 36</span>
+      <pre class="code"><span class="info file"># File 'card-mod-content/lib/card/content/chunk/nest.rb', line 36</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_visible_comment'>visible_comment</span> <span class='id identifier rubyid_message'>message</span>
   <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>&lt;!-- </span><span class='embexpr_beg'>#{</span><span class='const'>CGI</span><span class='period'>.</span><span class='id identifier rubyid_escapeHTML'>escapeHTML</span> <span class='id identifier rubyid_message'>message</span><span class='embexpr_end'>}</span><span class='tstring_content'> --&gt;</span><span class='tstring_end'>&quot;</span></span>
@@ -1128,9 +1128,9 @@
 </div>
 
       <div id="footer">
-  Generated on Sun Oct 18 23:48:31 2020 by
+  Generated on Thu May 13 17:17:46 2021 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.25 (ruby-2.6.3).
+  0.9.26 (ruby-2.7.2).
 </div>
 
     </div>

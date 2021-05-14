@@ -6,7 +6,7 @@
 <title>
   Module: Card::Query::Value::MatchValue
   
-    &mdash; Documentation by YARD 0.9.25
+    &mdash; Documentation by YARD 0.9.26
   
 </title>
 
@@ -321,12 +321,12 @@
       <pre class="lines">
 
 
-59
 60
-61</pre>
+61
+62</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/query/value/match_value.rb', line 59</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/query/value/match_value.rb', line 60</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_escape_regexp_characters'>escape_regexp_characters</span>
   <span class='id identifier rubyid_match_term'>match_term</span><span class='period'>.</span><span class='id identifier rubyid_gsub!'>gsub!</span><span class='lparen'>(</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>(\W)</span><span class='regexp_end'>/</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>\\\\\1</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
@@ -354,13 +354,15 @@
 22
 23
 24
-25</pre>
+25
+26</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'card/lib/card/query/value/match_value.rb', line 22</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_exact_name_match'>exact_name_match</span> <span class='id identifier rubyid_field'>field</span>
   <span class='kw'>return</span> <span class='kw'>false</span> <span class='kw'>unless</span> <span class='id identifier rubyid_match_prefix'>match_prefix</span> <span class='op'>==</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>=</span><span class='tstring_end'>&quot;</span></span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_field'>field</span><span class='period'>.</span><span class='id identifier rubyid_to_sym'>to_sym</span> <span class='op'>==</span> <span class='symbol'>:name</span>
+
   <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_field_sql'>field_sql</span> <span class='id identifier rubyid_field'>field</span><span class='embexpr_end'>}</span><span class='tstring_content'> = </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_quote'>quote</span> <span class='id identifier rubyid_match_term'>match_term</span><span class='period'>.</span><span class='id identifier rubyid_to_name'>to_name</span><span class='period'>.</span><span class='id identifier rubyid_key'>key</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
 <span class='kw'>end</span></pre>
     </td>
@@ -383,13 +385,13 @@
       <pre class="lines">
 
 
-27
 28
 29
-30</pre>
+30
+31</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/query/value/match_value.rb', line 27</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/query/value/match_value.rb', line 28</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_match_field'>match_field</span> <span class='id identifier rubyid_field'>field</span>
   <span class='id identifier rubyid_fld'>fld</span> <span class='op'>=</span> <span class='id identifier rubyid_field'>field</span><span class='period'>.</span><span class='id identifier rubyid_to_sym'>to_sym</span> <span class='op'>==</span> <span class='symbol'>:name</span> <span class='op'>?</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>name</span><span class='tstring_end'>&quot;</span></span> <span class='op'>:</span> <span class='id identifier rubyid_standardize_field'>standardize_field</span><span class='lparen'>(</span><span class='id identifier rubyid_field'>field</span><span class='rparen'>)</span>
@@ -415,12 +417,12 @@
       <pre class="lines">
 
 
-41
 42
-43</pre>
+43
+44</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/query/value/match_value.rb', line 41</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/query/value/match_value.rb', line 42</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_match_prefix'>match_prefix</span>
   <span class='ivar'>@match_prefix</span> <span class='op'>||</span> <span class='lparen'>(</span><span class='id identifier rubyid_parse_match_term_and_prefix'>parse_match_term_and_prefix</span> <span class='op'>&amp;&amp;</span> <span class='ivar'>@match_prefix</span><span class='rparen'>)</span>
@@ -477,12 +479,12 @@
       <pre class="lines">
 
 
-37
 38
-39</pre>
+39
+40</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/query/value/match_value.rb', line 37</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/query/value/match_value.rb', line 38</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_match_term'>match_term</span>
   <span class='ivar'>@match_term</span> <span class='op'>||</span> <span class='lparen'>(</span><span class='id identifier rubyid_parse_match_term_and_prefix'>parse_match_term_and_prefix</span> <span class='op'>&amp;&amp;</span> <span class='ivar'>@match_term</span><span class='rparen'>)</span>
@@ -507,13 +509,13 @@
       <pre class="lines">
 
 
-32
 33
 34
-35</pre>
+35
+36</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/query/value/match_value.rb', line 32</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/query/value/match_value.rb', line 33</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_match_value'>match_value</span>
   <span class='id identifier rubyid_escape_regexp_characters'>escape_regexp_characters</span> <span class='kw'>unless</span> <span class='id identifier rubyid_match_prefix'>match_prefix</span> <span class='op'>==</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>~~</span><span class='tstring_end'>&quot;</span></span>
@@ -554,15 +556,15 @@
       <pre class="lines">
 
 
-52
 53
 54
 55
 56
-57</pre>
+57
+58</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/query/value/match_value.rb', line 52</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/query/value/match_value.rb', line 53</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_parse_match_term_and_prefix'>parse_match_term_and_prefix</span>
   <span class='id identifier rubyid_raw_term'>raw_term</span> <span class='op'>=</span> <span class='const'>Array</span><span class='period'>.</span><span class='id identifier rubyid_wrap'>wrap</span><span class='lparen'>(</span><span class='ivar'>@value</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'> </span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
@@ -580,9 +582,9 @@
 </div>
 
       <div id="footer">
-  Generated on Sun Oct 18 23:47:45 2020 by
+  Generated on Thu May 13 17:17:19 2021 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.25 (ruby-2.6.3).
+  0.9.26 (ruby-2.7.2).
 </div>
 
     </div>

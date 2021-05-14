@@ -6,7 +6,7 @@
 <title>
   Module: Card::Set::All::Fetch::ClassMethods
   
-    &mdash; Documentation by YARD 0.9.25
+    &mdash; Documentation by YARD 0.9.26
   
 </title>
 
@@ -78,15 +78,14 @@
   
   <dl>
     <dt>Defined in:</dt>
-    <dd>card/tmpsets/set/mod003-core/all/fetch.rb</dd>
+    <dd>card/tmpsets/set/mod002-core/all/fetch.rb</dd>
   </dl>
   
 </div>
 
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
-    <p>A multipurpose retrieval operator that integrates caching, database lookups,
-and “virtual” card construction</p>
+    <p>and “virtual” card construction</p>
 
 
   </div>
@@ -366,7 +365,7 @@ and “virtual” card construction</p>
 43</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod003-core/all/fetch.rb', line 41</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod002-core/all/fetch.rb', line 41</span>
 
 <span class='kw'>def</span> <span class='op'>[]</span> <span class='op'>*</span><span class='id identifier rubyid_mark'>mark</span>
   <span class='id identifier rubyid_fetch'>fetch</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_mark'>mark</span><span class='comma'>,</span> <span class='label'>skip_virtual:</span> <span class='kw'>true</span><span class='rparen'>)</span>
@@ -453,7 +452,7 @@ The final argument can be a hash to set the following options
 35</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod003-core/all/fetch.rb', line 31</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod002-core/all/fetch.rb', line 31</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_fetch'>fetch</span> <span class='op'>*</span><span class='id identifier rubyid_args'>args</span>
   <span class='const'><span class='object_link'><a href="../../../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../../Fetch.html" title="Card::Fetch (class)">Fetch</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="../../../Fetch.html#initialize-instance_method" title="Card::Fetch#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span><span class='op'>&amp;.</span><span class='id identifier rubyid_retrieve_or_new'><span class='object_link'><a href="../../../Fetch.html#retrieve_or_new-instance_method" title="Card::Fetch#retrieve_or_new (method)">retrieve_or_new</a></span></span>
@@ -509,7 +508,7 @@ The final argument can be a hash to set the following options
 59</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod003-core/all/fetch.rb', line 56</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod002-core/all/fetch.rb', line 56</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_fetch_from_cast'>fetch_from_cast</span> <span class='id identifier rubyid_cast'>cast</span>
   <span class='id identifier rubyid_fetch_args'>fetch_args</span> <span class='op'>=</span> <span class='id identifier rubyid_cast'>cast</span><span class='lbracket'>[</span><span class='symbol'>:id</span><span class='rbracket'>]</span> <span class='op'>?</span> <span class='lbracket'>[</span><span class='id identifier rubyid_cast'>cast</span><span class='lbracket'>[</span><span class='symbol'>:id</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_to_i'>to_i</span><span class='rbracket'>]</span> <span class='op'>:</span> <span class='lbracket'>[</span><span class='id identifier rubyid_cast'>cast</span><span class='lbracket'>[</span><span class='symbol'>:name</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='lbrace'>{</span> <span class='label'>new:</span> <span class='id identifier rubyid_cast'>cast</span> <span class='rbrace'>}</span><span class='rbracket'>]</span>
@@ -585,7 +584,7 @@ The final argument can be a hash to set the following options
 79</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod003-core/all/fetch.rb', line 76</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod002-core/all/fetch.rb', line 76</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_fetch_id'>fetch_id</span> <span class='op'>*</span><span class='id identifier rubyid_mark_parts'>mark_parts</span>
   <span class='id identifier rubyid_mark'>mark</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../../Fetch.html" title="Card::Fetch (class)">Fetch</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="../../../Fetch.html#initialize-instance_method" title="Card::Fetch#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_mark_parts'>mark_parts</span><span class='rparen'>)</span><span class='op'>&amp;.</span><span class='id identifier rubyid_mark'><span class='object_link'><a href="../../../Fetch.html#mark-instance_method" title="Card::Fetch#mark (method)">mark</a></span></span>
@@ -668,7 +667,7 @@ The final argument can be a hash to set the following options
 93</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod003-core/all/fetch.rb', line 83</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod002-core/all/fetch.rb', line 83</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_fetch_name'>fetch_name</span> <span class='op'>*</span><span class='id identifier rubyid_mark'>mark</span>
   <span class='kw'>if</span> <span class='lparen'>(</span><span class='id identifier rubyid_card'>card</span> <span class='op'>=</span> <span class='id identifier rubyid_quick_fetch'>quick_fetch</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_mark'>mark</span><span class='rparen'>)</span><span class='rparen'>)</span>
@@ -750,7 +749,7 @@ The final argument can be a hash to set the following options
 99</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod003-core/all/fetch.rb', line 97</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod002-core/all/fetch.rb', line 97</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_fetch_type_id'>fetch_type_id</span> <span class='id identifier rubyid_mark'>mark</span>
   <span class='id identifier rubyid_quick_fetch'>quick_fetch</span><span class='lparen'>(</span><span class='id identifier rubyid_mark'>mark</span><span class='rparen'>)</span><span class='op'>&amp;.</span><span class='id identifier rubyid_type_id'>type_id</span>
@@ -797,7 +796,7 @@ The following methods optimize fetching of specific attributes</p>
 72</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod003-core/all/fetch.rb', line 65</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod002-core/all/fetch.rb', line 65</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_id'>id</span> <span class='id identifier rubyid_cardish'>cardish</span>
   <span class='kw'>case</span> <span class='id identifier rubyid_cardish'>cardish</span>
@@ -884,7 +883,7 @@ The following methods optimize fetching of specific attributes</p>
 53</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod003-core/all/fetch.rb', line 51</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod002-core/all/fetch.rb', line 51</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_quick_fetch'>quick_fetch</span> <span class='op'>*</span><span class='id identifier rubyid_mark'>mark</span>
   <span class='id identifier rubyid_fetch'>fetch</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_mark'>mark</span><span class='comma'>,</span> <span class='label'>skip_virtual:</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='label'>skip_modules:</span> <span class='kw'>true</span><span class='rparen'>)</span>
@@ -899,9 +898,9 @@ The following methods optimize fetching of specific attributes</p>
 </div>
 
       <div id="footer">
-  Generated on Sun Oct 18 23:47:49 2020 by
+  Generated on Thu May 13 17:17:21 2021 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.25 (ruby-2.6.3).
+  0.9.26 (ruby-2.7.2).
 </div>
 
     </div>

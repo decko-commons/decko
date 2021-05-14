@@ -6,7 +6,7 @@
 <title>
   Module: Card::Set::All::States::ClassMethods
   
-    &mdash; Documentation by YARD 0.9.25
+    &mdash; Documentation by YARD 0.9.26
   
 </title>
 
@@ -78,20 +78,14 @@
   
   <dl>
     <dt>Defined in:</dt>
-    <dd>card/tmpsets/set/mod003-core/all/states.rb</dd>
+    <dd>card/tmpsets/set/mod002-core/all/states.rb</dd>
   </dl>
   
 </div>
 
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
-    <p>based on the names.
-- <em>unknown</em> cards are everything else.</p>
-
-<p>These states are frequently grouped as follows:</p>
-
-<ul>
-  <li><em>known</em> cards are either <em>real</em> or <em>virtual</em></li>
+    <ul>
   <li><em>new</em> (or <em>unreal</em>) cards are either <em>unknown</em> or <em>virtual</em></li>
 </ul>
 
@@ -216,7 +210,7 @@
 32</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod003-core/all/states.rb', line 30</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod002-core/all/states.rb', line 30</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_known?'>known?</span> <span class='id identifier rubyid_mark'>mark</span>
   <span class='id identifier rubyid_fetch'>fetch</span><span class='lparen'>(</span><span class='id identifier rubyid_mark'>mark</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_present?'>present?</span>
@@ -273,7 +267,7 @@
 26</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod003-core/all/states.rb', line 24</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod002-core/all/states.rb', line 24</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_real?'>real?</span> <span class='id identifier rubyid_mark'>mark</span>
   <span class='id identifier rubyid_quick_fetch'>quick_fetch</span><span class='lparen'>(</span><span class='id identifier rubyid_mark'>mark</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_present?'>present?</span>
@@ -288,9 +282,9 @@
 </div>
 
       <div id="footer">
-  Generated on Sun Oct 18 23:47:50 2020 by
+  Generated on Thu May 13 17:17:21 2021 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.25 (ruby-2.6.3).
+  0.9.26 (ruby-2.7.2).
 </div>
 
     </div>

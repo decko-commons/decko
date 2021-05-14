@@ -6,7 +6,7 @@
 <title>
   Module: Card::Set::Abstract::Machine
   
-    &mdash; Documentation by YARD 0.9.25
+    &mdash; Documentation by YARD 0.9.26
   
 </title>
 
@@ -83,8 +83,8 @@
   
   <dl>
     <dt>Defined in:</dt>
-    <dd>card/tmpsets/set/mod007-card-mod-machines/abstract/machine.rb<span class="defines">,<br />
-  card/tmpsets/set/mod007-card-mod-machines/abstract/machine/output_cache.rb,<br /> card/tmpsets/set/mod007-card-mod-machines/abstract/machine/output_update.rb</span>
+    <dd>card/tmpsets/set/mod016-card-mod-machines/abstract/machine.rb<span class="defines">,<br />
+  card/tmpsets/set/mod016-card-mod-machines/abstract/machine/output_cache.rb,<br /> card/tmpsets/set/mod016-card-mod-machines/abstract/machine/output_update.rb</span>
 </dd>
   </dl>
   
@@ -92,25 +92,7 @@
 
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
-    <p>Set: Abstract (Machine)</p>
-
-<h2 id="what-are-machines">What are Machines?</h2>
-<p><span class='object_link'><a href="" title="Card::Set::Abstract::Machine (module)">Machine</a></span> and <span class='object_link'><a href="MachineInput.html" title="Card::Set::Abstract::MachineInput (module)">MachineInput</a></span> together implement a kind of observer pattern.
-<span class='object_link'><a href="" title="Card::Set::Abstract::Machine (module)">Machine</a></span> processes a collection of input cards to generate an output card
-(a <span class='object_link'><a href="../Type/File.html" title="Card::Set::Type::File (module)">Type::File</a></span> card by default). If one of the input cards is changed
-the output card will be updated.</p>
-
-<p>The classic example: A style card observes a collection of css and sccs card
-to generate a file card with a css file that contains the assembled
-compressed  css.</p>
-
-<h2 id="using-machines">Using Machines</h2>
-<p>Include the Machine module in the card set that is supposed to produce the
-output card. If the output card should be automatically updated when a input
-card is changed the input card has to be in a set that includes the
-MachineInput module.</p>
-
-<p>The default machine:</p>
+    <p>The default machine:</p>
 
 
   </div>
@@ -580,8 +562,8 @@ MachineInput module.</p>
   
   
   
-  <h3 class="inherited">Methods included from <span class='object_link'><a href="../Loader.html" title="Card::Set::Loader (module)">Loader</a></span></h3>
-  <p class="inherited"><span class='object_link'><a href="../Loader.html#clean_empty_module_from_hash-instance_method" title="Card::Set::Loader#clean_empty_module_from_hash (method)">#clean_empty_module_from_hash</a></span>, <span class='object_link'><a href="../Loader.html#clean_empty_modules-instance_method" title="Card::Set::Loader#clean_empty_modules (method)">#clean_empty_modules</a></span>, <span class='object_link'><a href="../Loader.html#extended-instance_method" title="Card::Set::Loader#extended (method)">#extended</a></span>, <span class='object_link'><a href="../Loader.html#process_base_modules-instance_method" title="Card::Set::Loader#process_base_modules (method)">#process_base_modules</a></span>, <span class='object_link'><a href="../Loader.html#register_set-instance_method" title="Card::Set::Loader#register_set (method)">#register_set</a></span></p>
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="../I18nScope.html" title="Card::Set::I18nScope (module)">I18nScope</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="../I18nScope.html#mod_name-instance_method" title="Card::Set::I18nScope#mod_name (method)">#mod_name</a></span>, <span class='object_link'><a href="../I18nScope.html#scope-instance_method" title="Card::Set::I18nScope#scope (method)">#scope</a></span></p>
 
   
   
@@ -591,8 +573,8 @@ MachineInput module.</p>
   
   
   
-  <h3 class="inherited">Methods included from <span class='object_link'><a href="../I18nScope.html" title="Card::Set::I18nScope (module)">I18nScope</a></span></h3>
-  <p class="inherited"><span class='object_link'><a href="../I18nScope.html#mod_name-instance_method" title="Card::Set::I18nScope#mod_name (method)">#mod_name</a></span>, <span class='object_link'><a href="../I18nScope.html#scope-instance_method" title="Card::Set::I18nScope#scope (method)">#scope</a></span></p>
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="../Loader.html" title="Card::Set::Loader (module)">Loader</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="../Loader.html#clean_empty_module_from_hash-instance_method" title="Card::Set::Loader#clean_empty_module_from_hash (method)">#clean_empty_module_from_hash</a></span>, <span class='object_link'><a href="../Loader.html#clean_empty_modules-instance_method" title="Card::Set::Loader#clean_empty_modules (method)">#clean_empty_modules</a></span>, <span class='object_link'><a href="../Loader.html#extended-instance_method" title="Card::Set::Loader#extended (method)">#extended</a></span>, <span class='object_link'><a href="../Loader.html#process_base_modules-instance_method" title="Card::Set::Loader#process_base_modules (method)">#process_base_modules</a></span>, <span class='object_link'><a href="../Loader.html#register_set-instance_method" title="Card::Set::Loader#register_set (method)">#register_set</a></span></p>
 
   
   
@@ -614,7 +596,7 @@ MachineInput module.</p>
   
   
   <h3 class="inherited">Methods included from <span class='object_link'><a href="../AdvancedApi.html" title="Card::Set::AdvancedApi (module)">Card::Set::AdvancedApi</a></span></h3>
-  <p class="inherited"><span class='object_link'><a href="../AdvancedApi.html#attachment-instance_method" title="Card::Set::AdvancedApi#attachment (method)">#attachment</a></span>, <span class='object_link'><a href="../AdvancedApi.html#ensure_set-instance_method" title="Card::Set::AdvancedApi#ensure_set (method)">#ensure_set</a></span>, <span class='object_link'><a href="../AdvancedApi.html#stage_method-instance_method" title="Card::Set::AdvancedApi#stage_method (method)">#stage_method</a></span></p>
+  <p class="inherited"><span class='object_link'><a href="../AdvancedApi.html#attachment-instance_method" title="Card::Set::AdvancedApi#attachment (method)">#attachment</a></span>, <span class='object_link'><a href="../AdvancedApi.html#define_set_from_error-instance_method" title="Card::Set::AdvancedApi#define_set_from_error (method)">#define_set_from_error</a></span>, <span class='object_link'><a href="../AdvancedApi.html#ensure_set-instance_method" title="Card::Set::AdvancedApi#ensure_set (method)">#ensure_set</a></span>, <span class='object_link'><a href="../AdvancedApi.html#setting_opts-instance_method" title="Card::Set::AdvancedApi#setting_opts (method)">#setting_opts</a></span>, <span class='object_link'><a href="../AdvancedApi.html#stage_method-instance_method" title="Card::Set::AdvancedApi#stage_method (method)">#stage_method</a></span></p>
 
   
   
@@ -700,7 +682,7 @@ MachineInput module.</p>
 161</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod007-card-mod-machines/abstract/machine.rb', line 155</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod016-card-mod-machines/abstract/machine.rb', line 155</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_define_machine_events'>define_machine_events</span> <span class='id identifier rubyid_host_class'>host_class</span>
   <span class='id identifier rubyid_event_suffix'>event_suffix</span> <span class='op'>=</span> <span class='id identifier rubyid_host_class'>host_class</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span><span class='period'>.</span><span class='id identifier rubyid_tr'>tr</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>:</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>_</span><span class='tstring_end'>&quot;</span></span>
@@ -738,7 +720,7 @@ MachineInput module.</p>
 153</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod007-card-mod-machines/abstract/machine.rb', line 147</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod016-card-mod-machines/abstract/machine.rb', line 147</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_included'>included</span> <span class='id identifier rubyid_host_class'>host_class</span>
   <span class='id identifier rubyid_host_class'>host_class</span><span class='period'>.</span><span class='id identifier rubyid_extend'>extend</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="Machine/MachineClassMethods.html" title="Card::Set::Abstract::Machine::MachineClassMethods (module)">MachineClassMethods</a></span></span><span class='rparen'>)</span>
@@ -770,9 +752,9 @@ MachineInput module.</p>
 24</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod007-card-mod-machines/abstract/machine.rb', line 24</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod016-card-mod-machines/abstract/machine.rb', line 24</span>
 
-<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_source_location'>source_location</span><span class='semicolon'>;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/Users/ezl5238/dev/decko/gem/card-mod-machines/set/abstract/machine.rb</span><span class='tstring_end'>&quot;</span></span><span class='semicolon'>;</span> <span class='kw'>end</span></pre>
+<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_source_location'>source_location</span><span class='semicolon'>;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/Users/ethan/dev/decko/gem/card-mod-machines/set/abstract/machine.rb</span><span class='tstring_end'>&quot;</span></span><span class='semicolon'>;</span> <span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -814,7 +796,7 @@ MachineInput module.</p>
 140</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod007-card-mod-machines/abstract/machine.rb', line 128</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod016-card-mod-machines/abstract/machine.rb', line 128</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_after_engine'>after_engine</span> <span class='id identifier rubyid_output'>output</span>
   <span class='id identifier rubyid_filetype'>filetype</span> <span class='op'>=</span> <span class='id identifier rubyid_output_config'>output_config</span><span class='lbracket'>[</span><span class='symbol'>:filetype</span><span class='rbracket'>]</span>
@@ -853,7 +835,7 @@ MachineInput module.</p>
 68</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod007-card-mod-machines/abstract/machine.rb', line 67</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod016-card-mod-machines/abstract/machine.rb', line 67</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_before_engine'>before_engine</span>
 <span class='kw'>end</span></pre>
@@ -906,7 +888,7 @@ MachineInput module.</p>
 178</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod007-card-mod-machines/abstract/machine.rb', line 175</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod016-card-mod-machines/abstract/machine.rb', line 175</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_direct_machine_input?'>direct_machine_input?</span> <span class='id identifier rubyid_input_card'>input_card</span>
   <span class='op'>!</span><span class='id identifier rubyid_input_card'>input_card</span><span class='period'>.</span><span class='id identifier rubyid_collection?'>collection?</span> <span class='op'>||</span>
@@ -937,7 +919,7 @@ MachineInput module.</p>
 126</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod007-card-mod-machines/abstract/machine.rb', line 124</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod016-card-mod-machines/abstract/machine.rb', line 124</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_engine'>engine</span> <span class='id identifier rubyid_input'>input</span>
   <span class='id identifier rubyid_input'>input</span>
@@ -969,7 +951,7 @@ MachineInput module.</p>
 74</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod007-card-mod-machines/abstract/machine.rb', line 70</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod016-card-mod-machines/abstract/machine.rb', line 70</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_engine_input'>engine_input</span>
   <span class='id identifier rubyid_ei'>ei</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Machine/EngineInput.html" title="Card::Set::Abstract::Machine::EngineInput (class)">EngineInput</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Machine/EngineInput.html#initialize-instance_method" title="Card::Set::Abstract::Machine::EngineInput#initialize (method)">new</a></span></span> <span class='kw'>self</span>
@@ -1005,7 +987,7 @@ MachineInput module.</p>
 197</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod007-card-mod-machines/abstract/machine.rb', line 191</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod016-card-mod-machines/abstract/machine.rb', line 191</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_input_from_card'>input_from_card</span> <span class='id identifier rubyid_input_card'>input_card</span>
   <span class='kw'>if</span> <span class='id identifier rubyid_input_card'>input_card</span><span class='period'>.</span><span class='id identifier rubyid_respond_to?'>respond_to?</span> <span class='symbol'>:machine_input</span>
@@ -1039,7 +1021,7 @@ MachineInput module.</p>
 217</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod007-card-mod-machines/abstract/machine.rb', line 215</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod016-card-mod-machines/abstract/machine.rb', line 215</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_input_item_cards'>input_item_cards</span>
   <span class='id identifier rubyid_machine_input_card'>machine_input_card</span><span class='period'>.</span><span class='id identifier rubyid_item_cards'>item_cards</span>
@@ -1071,7 +1053,7 @@ MachineInput module.</p>
 213</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod007-card-mod-machines/abstract/machine.rb', line 209</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod016-card-mod-machines/abstract/machine.rb', line 209</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_machine_output_codename'>machine_output_codename</span>
   <span class='id identifier rubyid_machine_output_card'>machine_output_card</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span><span class='period'>.</span><span class='id identifier rubyid_parts'>parts</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_part'>part</span><span class='op'>|</span>
@@ -1104,7 +1086,7 @@ MachineInput module.</p>
 228</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod007-card-mod-machines/abstract/machine.rb', line 225</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod016-card-mod-machines/abstract/machine.rb', line 225</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_machine_output_path'>machine_output_path</span>
   <span class='id identifier rubyid_ensure_machine_output'>ensure_machine_output</span>
@@ -1137,7 +1119,7 @@ MachineInput module.</p>
 223</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod007-card-mod-machines/abstract/machine.rb', line 219</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod016-card-mod-machines/abstract/machine.rb', line 219</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_machine_output_url'>machine_output_url</span>
   <span class='id identifier rubyid_ensure_machine_output'>ensure_machine_output</span>
@@ -1175,7 +1157,7 @@ MachineInput module.</p>
 207</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod007-card-mod-machines/abstract/machine.rb', line 199</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod016-card-mod-machines/abstract/machine.rb', line 199</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_make_machine_output_coded'>make_machine_output_coded</span> <span class='id identifier rubyid_mod'>mod</span><span class='op'>=</span><span class='symbol'>:machines</span>
   <span class='id identifier rubyid_update_machine_output'>update_machine_output</span>
@@ -1218,7 +1200,7 @@ MachineInput module.</p>
 189</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod007-card-mod-machines/abstract/machine.rb', line 180</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod016-card-mod-machines/abstract/machine.rb', line 180</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_run_engine'>run_engine</span> <span class='id identifier rubyid_input_card'>input_card</span>
   <span class='kw'>return</span> <span class='kw'>unless</span> <span class='id identifier rubyid_direct_machine_input?'>direct_machine_input?</span> <span class='id identifier rubyid_input_card'>input_card</span>
@@ -1260,7 +1242,7 @@ MachineInput module.</p>
 173</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod007-card-mod-machines/abstract/machine.rb', line 166</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod016-card-mod-machines/abstract/machine.rb', line 166</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_run_machine'>run_machine</span> <span class='id identifier rubyid_joint'>joint</span><span class='op'>=</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>\n</span><span class='tstring_end'>&quot;</span></span>
   <span class='id identifier rubyid_before_engine'>before_engine</span>
@@ -1295,7 +1277,7 @@ MachineInput module.</p>
 144</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod007-card-mod-machines/abstract/machine.rb', line 142</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod016-card-mod-machines/abstract/machine.rb', line 142</span>
 
 <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:machine_output_url</span> <span class='kw'>do</span>
   <span class='id identifier rubyid_machine_output_url'>machine_output_url</span>
@@ -1310,9 +1292,9 @@ MachineInput module.</p>
 </div>
 
       <div id="footer">
-  Generated on Sun Oct 18 23:48:10 2020 by
+  Generated on Thu May 13 17:17:33 2021 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.25 (ruby-2.6.3).
+  0.9.26 (ruby-2.7.2).
 </div>
 
     </div>

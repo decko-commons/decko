@@ -6,7 +6,7 @@
 <title>
   Class: Card::FilterQuery
   
-    &mdash; Documentation by YARD 0.9.25
+    &mdash; Documentation by YARD 0.9.26
   
 </title>
 
@@ -308,13 +308,15 @@
 26
 27
 28
-29</pre>
+29
+30</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'card-mod-search/lib/card/filter_query.rb', line 17</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_add_rule'>add_rule</span> <span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_value'>value</span>
   <span class='kw'>return</span> <span class='kw'>unless</span> <span class='id identifier rubyid_value'>value</span><span class='period'>.</span><span class='id identifier rubyid_present?'>present?</span>
+
   <span class='kw'>case</span> <span class='ivar'>@rules</span><span class='lbracket'>[</span><span class='id identifier rubyid_key'>key</span><span class='rbracket'>]</span>
   <span class='kw'>when</span> <span class='const'>Symbol</span>
     <span class='id identifier rubyid_send'>send</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='ivar'>@rules</span><span class='lbracket'>[</span><span class='id identifier rubyid_key'>key</span><span class='rbracket'>]</span><span class='embexpr_end'>}</span><span class='tstring_content'>_rule</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_value'>value</span><span class='rparen'>)</span>
@@ -376,7 +378,6 @@
       <pre class="lines">
 
 
-31
 32
 33
 34
@@ -388,15 +389,18 @@
 40
 41
 42
-43</pre>
+43
+44
+45</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card-mod-search/lib/card/filter_query.rb', line 31</span>
+      <pre class="code"><span class="info file"># File 'card-mod-search/lib/card/filter_query.rb', line 32</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_to_cql'>to_cql</span>
   <span class='ivar'>@cql</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
   <span class='ivar'>@filter_cql</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_cql_key'>cql_key</span><span class='comma'>,</span> <span class='id identifier rubyid_values'>values</span><span class='op'>|</span>
     <span class='kw'>next</span> <span class='kw'>if</span> <span class='id identifier rubyid_values'>values</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span>
+
     <span class='kw'>case</span> <span class='id identifier rubyid_cql_key'>cql_key</span>
     <span class='kw'>when</span> <span class='symbol'>:right_plus</span><span class='comma'>,</span> <span class='symbol'>:left_plus</span><span class='comma'>,</span> <span class='symbol'>:type</span>
       <span class='id identifier rubyid_merge_using_and'>merge_using_and</span> <span class='id identifier rubyid_cql_key'>cql_key</span><span class='comma'>,</span> <span class='id identifier rubyid_values'>values</span>
@@ -416,9 +420,9 @@
 </div>
 
       <div id="footer">
-  Generated on Sun Oct 18 23:48:28 2020 by
+  Generated on Thu May 13 17:17:45 2021 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.25 (ruby-2.6.3).
+  0.9.26 (ruby-2.7.2).
 </div>
 
     </div>
