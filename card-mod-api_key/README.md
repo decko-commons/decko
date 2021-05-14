@@ -2,7 +2,7 @@
 # @title README - mod: API key
 -->
 
-# API key
+# API key Mod
 Enable Decko users to perform authorized web requests associated with their account
 without a session.
 

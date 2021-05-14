@@ -2,7 +2,7 @@
 # @title README - mod: alias
 -->
 
-# API key
+# Alias Mod
 Enable Alias cards, which alias one simple card name to another.
 
 The primary use case for alias cards is for handling redirects, for example after a card 
