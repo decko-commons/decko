@@ -19,9 +19,7 @@ include SelectedAction
 format do
   view :source do
     file = card.attachment
-    return "" unless file.valid?
-
-    contextualize_path file.url
+    file.valid? ? contextualize_path(file.url) : ""
   end
 
   view :core do
@@ -49,6 +47,10 @@ format do
   def rescuing_file_source_error source
     source.blank? ? "" : yield(source)
   rescue StandardError => e
+    file_source_error e
+  end
+
+  def file_source_error e
     Rails.logger.info "Error with file source: #{e.message}"
     t :carrierwave_file_error
   end
