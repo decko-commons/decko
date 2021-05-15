@@ -110,6 +110,10 @@ class Card
 
             process_ellipsis
             index = @chunks.size - 1
+            process_remaining index
+          end
+
+          def process_remaining index
             while @remaining_chars < @joint.size && index >= 0
               process_overlap(index) ? break : (index -= 1)
             end
