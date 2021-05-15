@@ -90,6 +90,7 @@ class Card
       def define stage_or_opts, opts, &final
         @opts = event_opts stage_or_opts, opts
         @event_block = final
+        self
       end
 
       def register

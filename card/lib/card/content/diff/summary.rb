@@ -33,9 +33,9 @@ class Card
         end
 
         def omit
-          if @chunks.empty? || @chunks.last[:action] != :ellipsis
-            add_chunk @joint, :ellipsis
-          end
+          return unless @chunks.empty? || @chunks.last[:action] != :ellipsis
+
+          add_chunk @joint, :ellipsis
         end
 
         def omits_content?
@@ -74,9 +74,7 @@ class Card
         end
 
         def process_remaining index
-          while process_remaining? index
-            process_overlap(index) ? break : (index -= 1)
-          end
+          index process_overlap(index) ? break : (index -= 1) while process_remaining?
         end
 
         def process_remaining? index

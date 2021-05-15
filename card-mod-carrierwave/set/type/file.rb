@@ -45,7 +45,9 @@ format do
   private
 
   def rescuing_file_source_error source
-    source.blank? ? "" : yield(source)
+    return "" if source.blank?
+
+    yield source
   rescue StandardError => e
     file_source_error e
   end
