@@ -102,7 +102,7 @@ end
 
 def create_card username, card_args, &block
   signed_in_as(username) do
-    if card_ars[:type] == "Pointer"
+    if card_args[:type] == "Pointer"
       Card.create card_args
     else
       create_card_via_submit card_args, &block
