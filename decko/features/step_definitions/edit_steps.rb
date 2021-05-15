@@ -34,17 +34,17 @@ When /^(.*) creates? Search card "([^"]*)" for cards of type "([^"]*)"$/ do |use
 end
 
 def set_content_and_create username, cardtype, cardname, content
-  create_card(username, cardtype, cardname, content) do
+  create_card(username, type: cardtype, name: cardname, content: content) do
     set_content "card[content]", content, cardtype
   end
 end
 
 When /^(.*) creates?\s*([^\s]*) card "([^"]*)"$/ do |username, cardtype, cardname|
-  create_card username, cardtype, cardname
+  create_card username, type: cardtype, name: cardname
 end
 
 When /^(.*) creates?\s*([^\s]*) card "([^"]*)" with plusses:$/ do |username, cardtype, cardname, plusses|
-  create_card(username, cardtype, cardname) do
+  create_card(username, type: cardtype, name: cardname) do
     plusses.hashes.first.each do |name, content|
       set_content "card[subcards][+#{name}][content]", content, cardtype
     end
@@ -100,17 +100,21 @@ When /^(.*) deletes? "([^"]*)"$/ do |username, cardname|
   end
 end
 
-def create_card username, cardtype, cardname, content=""
+def create_card username, card_args, &block
   signed_in_as(username) do
-    if cardtype == "Pointer"
-      Card.create name: cardname, type: cardtype, content: content
+    if card_args[:type] == "Pointer"
+      Card.create card_args
     else
-      visit "/card/new?card[name]=#{CGI.escape(cardname)}&type=#{cardtype}"
-      yield if block_given?
-      click_button "Submit"
-      wait_for_ajax
+      create_card_via_submit card_args, &block
     end
   end
+end
+
+def create_card_via_submit card_args
+  visit "/card/new?card[name]=#{CGI.escape(card_args[:name])}&type=#{card_args[:type]}"
+  yield if block_given?
+  click_button "Submit"
+  wait_for_ajax
 end
 
 def set_content name, content, _cardtype=nil
