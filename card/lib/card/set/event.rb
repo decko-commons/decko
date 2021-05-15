@@ -70,7 +70,7 @@ class Card
         # @option opts [Symbol] :stage alternate representation for specifying stage
         # @option opts [True/False] :after_subcards run event after running subcard events
         def event event, stage_or_opts={}, opts={}, &final
-          Event.new(event, self).define(stage_or_opts, opts, &final).register
+          Event.new(event, self).register stage_or_opts, opts, &final
         end
       end
 
@@ -87,14 +87,14 @@ class Card
         @set_module = set_module
       end
 
-      def define stage_or_opts, opts, &final
+      def register stage_or_opts, opts, &final
         @opts = event_opts stage_or_opts, opts
         @event_block = final
-        self
+        validate_conditions
+        define
       end
 
-      def register
-        validate_conditions
+      def define
         Card.define_callbacks @event
         define_event
         set_event_callbacks

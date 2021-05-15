@@ -33,8 +33,15 @@ format do
   end
 
   def handle_source
-    rescuing_file_source_error _render_source do
-      block_given? ? yield(source) : source
+    rescuing_file_source_error do
+      source = _render_source
+      if source.blank?
+        ""
+      elsif block_given?
+        yield source
+      else
+        source
+      end
     end
   end
 
@@ -44,15 +51,9 @@ format do
 
   private
 
-  def rescuing_file_source_error source
-    return "" if source.blank?
-
-    yield source
+  def rescuing_file_source_error
+    yield
   rescue StandardError => e
-    file_source_error e
-  end
-
-  def file_source_error e
     Rails.logger.info "Error with file source: #{e.message}"
     t :carrierwave_file_error
   end
