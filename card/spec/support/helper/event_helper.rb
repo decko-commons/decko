@@ -71,7 +71,7 @@ class Card
         if (only_for_card = opts.delete(:for))
           opts[:when] = proc { |c| c.name == only_for_card }
         end
-        Card::Set::Event.new(name, stage, opts, set_module, &event_block).register
+        Card::Set::Event.new(name, set_module).define(stage, opts, &event_block).register
       end
 
       def remove_test_event stage, name

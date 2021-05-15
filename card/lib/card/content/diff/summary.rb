@@ -74,7 +74,7 @@ class Card
         end
 
         def process_remaining index
-          index process_overlap(index) ? break : (index -= 1) while process_remaining?
+          process_overlap(index) ? break : (index -= 1) while process_remaining? index
         end
 
         def process_remaining? index
