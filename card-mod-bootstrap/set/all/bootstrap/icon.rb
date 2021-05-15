@@ -96,7 +96,9 @@ format :html do
   end
 
   def font_awesome_icon_tag icon, opts={}
-    prepend_class opts, "fa fa-#{icon_class(:font_awesome, icon)}"
+
+    prepend_class opts,
+                  "fa#{'b' if opts.delete :brand} fa-#{icon_class(:font_awesome, icon)}"
     wrap_with :i, "", opts
   end
 
