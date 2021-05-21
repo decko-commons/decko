@@ -43,7 +43,28 @@ class Card
           @explicit_link
         end
 
+        def render_link view: :link, explicit_link_opts: {}
+          @link_text = render_obj @link_text
+
+          if @explicit_link
+            render_explicit_link explicit_link_opts
+          elsif @name
+            render_name_link view
+          end
+        end
+
         private
+
+        def render_explicit_link explicit_link_opts
+          @explicit_link = render_obj @explicit_link
+          format.link_to_resource @explicit_link, @link_text, explicit_link_opts
+        end
+
+        def render_name_link view
+          format.with_nest_mode :normal do
+            format.nest referee_name, options.merge(view: view)
+          end
+        end
 
         # interpret a chunk matching
         def interpret match, _content
@@ -89,19 +110,6 @@ class Card
             Content.new raw, format
           else
             raw
-          end
-        end
-
-        def render_link view: :link, explicit_link_opts: {}
-          @link_text = render_obj @link_text
-
-          if @explicit_link
-            @explicit_link = render_obj @explicit_link
-            format.link_to_resource @explicit_link, @link_text, explicit_link_opts
-          elsif @name
-            format.with_nest_mode :normal do
-              format.nest referee_name, options.merge(view: view)
-            end
           end
         end
 
