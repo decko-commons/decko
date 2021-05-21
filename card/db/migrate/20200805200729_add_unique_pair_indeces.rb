@@ -11,13 +11,15 @@ class AddUniquePairIndeces < ActiveRecord::Migration[6.0]
   private
 
   def stash_duplicate_cards
-    duplicates :cards do |id, left_id|
-      stash_card id, (-100000 - left_id)
+    fake_id = -9000
+    duplicates :cards do |id|
+      stash_card id, fake_id
+      fake_id = fake_id - 1
     end
   end
 
   def delete_duplicate_virtuals
-    duplicates :card_virtuals do |id, _left_id|
+    duplicates :card_virtuals do |id|
       connection.execute "delete from card_virtuals where id = #{id}"
     end
   end
@@ -32,7 +34,7 @@ class AddUniquePairIndeces < ActiveRecord::Migration[6.0]
     sql = "SELECT distinct a.id from #{table} a join #{table} b " \
           "ON a.left_id = b.left_id AND a.right_id = b.right_id " \
           "AND a.id < b.id"
-    connection.select_all(sql).each { |row| yield row["id"].to_i, row["left_id"].to_i }
+    connection.select_all(sql).each { |row| yield row["id"].to_i }
   end
 
   def connection
