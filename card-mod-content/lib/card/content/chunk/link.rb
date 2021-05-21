@@ -6,22 +6,46 @@ load File.expand_path("reference.rb", __dir__)
 class Card
   class Content
     module Chunk
-      # extend ActiveSupport::Autoload
-      # autoload :Reference , "reference"
-
-      class Link < Card::Content::Chunk::Reference
+      class Link < Reference
         CODE = "L".freeze # L for "Link"
         attr_reader :link_text
 
-        # Groups: $1, [$2]: [[$1]] or [[$1|$2]] or $3, $4: [$3][$4]
-        Card::Content::Chunk.register_class self,
-                                            prefix_re: '\\[\\[',
-                                            full_re: /\A\[\[([^\]]+)\]\]/,
-                                            idx_char: "["
+        Chunk.register_class self, prefix_re: '\\[\\[',
+                                   full_re: /\A\[\[([^\]]+)\]\]/,
+                                   idx_char: "["
+
         def reference_code
           CODE
         end
 
+        def process_chunk
+          @process_chunk ||= render_link
+        end
+
+        def inspect
+          "<##{self.class}:e[#{@explicit_link}]n[#{@name}]l[#{@link_text}]" \
+          "p[#{@process_chunk}] txt:#{@text}>"
+        end
+
+        # view options
+        def options
+          link_text ? { title: link_text } : {}
+        end
+
+        def replace_reference old_name, new_name
+          replace_name_reference old_name, new_name
+          replace_link_text old_name, new_name
+          link_text_syntax = "|#{@link_text}" if @link_text.present?
+          @text = "[[#{referee_name}#{link_text_syntax}]]"
+        end
+
+        def explicit_link?
+          @explicit_link
+        end
+
+        private
+
+        # interpret a chunk matching
         def interpret match, _content
           target, @link_text = target_and_link_text match[1]
 
@@ -55,17 +79,14 @@ class Card
           string_copy.index "|"
         end
 
-        # view options
-        def options
-          link_text ? { title: link_text } : {}
-        end
-
+        # turn a string into a Content object if it looks like it might have more
+        # chunks in it
         def objectify raw
           return unless raw
 
           raw.strip!
           if raw.match?(/(^|[^\\])\{\{/)
-            Card::Content.new raw, format
+            Content.new raw, format
           else
             raw
           end
@@ -92,34 +113,14 @@ class Card
           end
         end
 
-        def process_chunk
-          @process_chunk ||= render_link
-        end
-
-        def inspect
-          "<##{self.class}:e[#{@explicit_link}]n[#{@name}]l[#{@link_text}]" \
-      "p[#{@process_chunk}] txt:#{@text}>"
-        end
-
-        def replace_reference old_name, new_name
-          replace_name_reference old_name, new_name
-          replace_link_text old_name, new_name
-          @text =
-            @link_text.nil? ? "[[#{referee_name}]]" : "[[#{referee_name}|#{@link_text}]]"
-        end
-
         def replace_link_text old_name, new_name
-          if @link_text.is_a?(Card::Content)
+          if @link_text.is_a?(Content)
             @link_text.find_chunks(:Reference).each do |chunk|
               chunk.replace_reference old_name, new_name
             end
           elsif @link_text.present?
             @link_text = old_name.to_name.sub_in(@link_text, with: new_name)
           end
-        end
-
-        def explicit_link?
-          @explicit_link
         end
       end
     end
