@@ -53,6 +53,14 @@ class Card
           end
         end
 
+        def link_target
+          if @explicit_link
+            render_obj @explicit_link
+          elsif @name
+            referee_name
+          end
+        end
+
         private
 
         def render_explicit_link explicit_link_opts
@@ -81,9 +89,9 @@ class Card
         def target_and_link_text raw_syntax
           return unless raw_syntax
 
-          if (i = divider_index raw_syntax)                    # [[A | B]]
+          if (i = divider_index raw_syntax)                    # if [[A | B]]
             [raw_syntax[0..(i - 1)], raw_syntax[(i + 1)..-1]]  # [A, B]
-          else                                                 # [[ A ]]
+          else                                                 # else must be [[ A ]]
             [raw_syntax, nil]                                  # [A, nil]
           end
         end
@@ -110,14 +118,6 @@ class Card
             Content.new raw, format
           else
             raw
-          end
-        end
-
-        def link_target
-          if @explicit_link
-            render_obj @explicit_link
-          elsif @name
-            referee_name
           end
         end
 
