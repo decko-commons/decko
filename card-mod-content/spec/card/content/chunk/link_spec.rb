@@ -10,6 +10,7 @@ RSpec.describe Card::Content::Chunk::Link do
     end
     assert_args << { text: text } if text
     link = render_content target, (format_args || {})
+    puts link
     assert_view_select link, *assert_args
   end
 
@@ -60,6 +61,14 @@ RSpec.describe Card::Content::Chunk::Link do
     assert_link "[[/*recent]]", class: "internal-link",
                                 href: "/*recent",
                                 text: "/*recent"
+  end
+
+  it "handles relative urls with relative root" do
+    Cardio.config.relative_url_root = "/deck"
+    assert_link "[[/*recent]]", class: "internal-link",
+                                href: "/deck/*recent",
+                                text: "/deck/*recent"
+    Cardio.config.relative_url_root = nil
   end
 
   it "handles names with slashes" do
