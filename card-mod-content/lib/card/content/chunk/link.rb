@@ -6,22 +6,75 @@ load File.expand_path("reference.rb", __dir__)
 class Card
   class Content
     module Chunk
-      # extend ActiveSupport::Autoload
-      # autoload :Reference , "reference"
-
-      class Link < Card::Content::Chunk::Reference
+      class Link < Reference
         CODE = "L".freeze # L for "Link"
         attr_reader :link_text
 
-        # Groups: $1, [$2]: [[$1]] or [[$1|$2]] or $3, $4: [$3][$4]
-        Card::Content::Chunk.register_class self,
-                                            prefix_re: '\\[\\[',
-                                            full_re: /\A\[\[([^\]]+)\]\]/,
-                                            idx_char: "["
+        Chunk.register_class self, prefix_re: '\\[\\[',
+                                   full_re: /\A\[\[([^\]]+)\]\]/,
+                                   idx_char: "["
+
         def reference_code
           CODE
         end
 
+        def process_chunk
+          @process_chunk ||= render_link
+        end
+
+        def inspect
+          "<##{self.class}:e[#{@explicit_link}]n[#{@name}]l[#{@link_text}]" \
+          "p[#{@process_chunk}] txt:#{@text}>"
+        end
+
+        # view options
+        def options
+          link_text ? { title: link_text } : {}
+        end
+
+        def replace_reference old_name, new_name
+          replace_name_reference old_name, new_name
+          replace_link_text old_name, new_name
+          link_text_syntax = "|#{@link_text}" if @link_text.present?
+          @text = "[[#{referee_name}#{link_text_syntax}]]"
+        end
+
+        def explicit_link?
+          @explicit_link
+        end
+
+        def render_link view: :link, explicit_link_opts: {}
+          @link_text = render_obj @link_text
+
+          if @explicit_link
+            render_explicit_link explicit_link_opts
+          elsif @name
+            render_name_link view
+          end
+        end
+
+        def link_target
+          if @explicit_link
+            render_obj @explicit_link
+          elsif @name
+            referee_name
+          end
+        end
+
+        private
+
+        def render_explicit_link explicit_link_opts
+          @explicit_link = render_obj @explicit_link
+          format.link_to_resource @explicit_link, @link_text, explicit_link_opts
+        end
+
+        def render_name_link view
+          format.with_nest_mode :normal do
+            format.nest referee_name, options.merge(view: view)
+          end
+        end
+
+        # interpret a chunk matching
         def interpret match, _content
           target, @link_text = target_and_link_text match[1]
 
@@ -36,9 +89,9 @@ class Card
         def target_and_link_text raw_syntax
           return unless raw_syntax
 
-          if (i = divider_index raw_syntax)                    # [[A | B]]
+          if (i = divider_index raw_syntax)                    # if [[A | B]]
             [raw_syntax[0..(i - 1)], raw_syntax[(i + 1)..-1]]  # [A, B]
-          else                                                 # [[ A ]]
+          else                                                 # else must be [[ A ]]
             [raw_syntax, nil]                                  # [A, nil]
           end
         end
@@ -55,71 +108,27 @@ class Card
           string_copy.index "|"
         end
 
-        # view options
-        def options
-          link_text ? { title: link_text } : {}
-        end
-
+        # turn a string into a Content object if it looks like it might have more
+        # chunks in it
         def objectify raw
           return unless raw
 
           raw.strip!
           if raw.match?(/(^|[^\\])\{\{/)
-            Card::Content.new raw, format
+            Content.new raw, format
           else
             raw
           end
         end
 
-        def render_link view: :link, explicit_link_opts: {}
-          @link_text = render_obj @link_text
-
-          if @explicit_link
-            @explicit_link = render_obj @explicit_link
-            format.link_to_resource @explicit_link, @link_text, explicit_link_opts
-          elsif @name
-            format.with_nest_mode :normal do
-              format.nest referee_name, options.merge(view: view)
-            end
-          end
-        end
-
-        def link_target
-          if @explicit_link
-            render_obj @explicit_link
-          elsif @name
-            referee_name
-          end
-        end
-
-        def process_chunk
-          @process_chunk ||= render_link
-        end
-
-        def inspect
-          "<##{self.class}:e[#{@explicit_link}]n[#{@name}]l[#{@link_text}]" \
-      "p[#{@process_chunk}] txt:#{@text}>"
-        end
-
-        def replace_reference old_name, new_name
-          replace_name_reference old_name, new_name
-          replace_link_text old_name, new_name
-          @text =
-            @link_text.nil? ? "[[#{referee_name}]]" : "[[#{referee_name}|#{@link_text}]]"
-        end
-
         def replace_link_text old_name, new_name
-          if @link_text.is_a?(Card::Content)
+          if @link_text.is_a?(Content)
             @link_text.find_chunks(:Reference).each do |chunk|
               chunk.replace_reference old_name, new_name
             end
           elsif @link_text.present?
             @link_text = old_name.to_name.sub_in(@link_text, with: new_name)
           end
-        end
-
-        def explicit_link?
-          @explicit_link
         end
       end
     end
