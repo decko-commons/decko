@@ -6,7 +6,7 @@
 <title>
   Module: Card::Query::CardQuery::Run
   
-    &mdash; Documentation by YARD 0.9.25
+    &mdash; Documentation by YARD 0.9.26
   
 </title>
 
@@ -649,7 +649,7 @@
 
 <span class='kw'>def</span> <span class='id identifier rubyid_card_result'>card_result</span> <span class='id identifier rubyid_record'>record</span><span class='comma'>,</span> <span class='id identifier rubyid__field'>_field</span>
   <span class='kw'>if</span> <span class='id identifier rubyid_alter_results?'>alter_results?</span>
-    <span class='const'><span class='object_link'><a href="../../../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_fetch'>fetch</span> <span class='id identifier rubyid_name_result'>name_result</span><span class='lparen'>(</span><span class='id identifier rubyid_record'>record</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='label'>new:</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
+    <span class='const'><span class='object_link'><a href="../../../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_fetch'><span class='object_link'><a href="../../Fetch/CardClass.html#fetch-instance_method" title="Card::Fetch::CardClass#fetch (method)">fetch</a></span></span> <span class='id identifier rubyid_name_result'>name_result</span><span class='lparen'>(</span><span class='id identifier rubyid_record'>record</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='label'>new:</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
   <span class='kw'>else</span>
     <span class='id identifier rubyid_fetch_or_instantiate'>fetch_or_instantiate</span> <span class='id identifier rubyid_record'>record</span>
   <span class='kw'>end</span>
@@ -748,10 +748,10 @@
       <pre class="code"><span class="info file"># File 'card/lib/card/query/card_query/run.rb', line 75</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_fetch_or_instantiate'>fetch_or_instantiate</span> <span class='id identifier rubyid_record'>record</span>
-  <span class='id identifier rubyid_card'>card</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_retrieve_from_cache_by_id'>retrieve_from_cache_by_id</span> <span class='id identifier rubyid_record'>record</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>id</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
+  <span class='id identifier rubyid_card'>card</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_retrieve_from_cache_by_id'><span class='object_link'><a href="../../Cache/CardClass.html#retrieve_from_cache_by_id-instance_method" title="Card::Cache::CardClass#retrieve_from_cache_by_id (method)">retrieve_from_cache_by_id</a></span></span> <span class='id identifier rubyid_record'>record</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>id</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
   <span class='kw'>unless</span> <span class='id identifier rubyid_card'>card</span>
     <span class='id identifier rubyid_card'>card</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_instantiate'>instantiate</span> <span class='id identifier rubyid_record'>record</span>
-    <span class='const'><span class='object_link'><a href="../../../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_write_to_cache'>write_to_cache</span> <span class='id identifier rubyid_card'>card</span>
+    <span class='const'><span class='object_link'><a href="../../../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_write_to_cache'><span class='object_link'><a href="../../Cache/CardClass.html#write_to_cache-instance_method" title="Card::Cache::CardClass#write_to_cache (method)">write_to_cache</a></span></span> <span class='id identifier rubyid_card'>card</span>
   <span class='kw'>end</span>
   <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_include_set_modules'>include_set_modules</span>
   <span class='id identifier rubyid_card'>card</span>
@@ -1256,9 +1256,9 @@
 </div>
 
       <div id="footer">
-  Generated on Sun Oct 18 23:47:45 2020 by
+  Generated on Thu May 13 17:17:18 2021 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.25 (ruby-2.6.3).
+  0.9.26 (ruby-2.7.2).
 </div>
 
     </div>

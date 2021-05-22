@@ -18,16 +18,18 @@ class Card
           child_ids :left
         end
 
-        def each_child
-          child_ids.each do |id|
-            (child = Card[id]) && yield(child)
-            # check should not be needed (remove after fixing data problems)
-          end
+        def each_child &block
+          return unless id
+
+          Card.where(
+            "(left_id = #{id} or right_id = #{id}) and trash is false"
+          ).each(&block)
         end
 
         # eg, A+B is a child of A and B
         def child_ids side=nil
           return [] unless id
+
           side ||= name.simple? ? :part : :left_id
           Auth.as_bot do
             Card.search({ side => id, return: :id, limit: 0 }, "children of #{name}")

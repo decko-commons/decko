@@ -89,7 +89,7 @@ Decko.application.class.configure do
   rescue LoadError
   end
 
-  #config.session_store :cookie_store
+  # config.session_store :cookie_store
 end
 
 # Paperclip.options[:command_path] = "/opt/local/bin"

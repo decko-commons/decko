@@ -4,23 +4,11 @@ class Cardname
   # the same methods without _name return strings
   module Parts
     attr_reader :parts, :part_keys, :simple
-
     alias_method :to_a, :parts
 
     def parts
       @parts = Cardname.split_parts s
     end
-
-    def simple
-      @simple = parts.size <= 1
-    end
-    alias simple? simple
-
-    # @return true if name has more than one part
-    def compound?
-      !simple?
-    end
-    alias junction? compound?
 
     def part_keys
       @part_keys ||= simple ? [simple_key] : parts.map { |p| p.to_name.simple_key }
@@ -51,15 +39,15 @@ class Cardname
     end
 
     def parents
-      @parents ||= junction? ? [left, right] : []
+      @parents ||= compound? ? [left, right] : []
     end
 
     def parent_names
-      @parent_names ||= junction? ? [left_name, right_name] : []
+      @parent_names ||= compound? ? [left_name, right_name] : []
     end
 
     def parent_keys
-      @parent_keys ||= junction? ? [left_key, right_key] : []
+      @parent_keys ||= compound? ? [left_key, right_key] : []
     end
 
     # Note that all names have a trunk and tag,
@@ -89,27 +77,8 @@ class Cardname
       @piece_names ||= pieces.map(&:to_name)
     end
 
-    # self and all ancestors (= parts and recursive lefts)
-    # @example
-    #   "A+B+C+D".to_name.pieces
-    #   # => ["A", "B", "C", "D", "A+B", "A+B+C", "A+B+C+D"]
-    def pieces
-      @pieces ||=
-        if simple?
-          [self]
-        else
-          junction_pieces = []
-          parts[1..-1].inject parts[0] do |left, right|
-            piece = [left, right] * self.class.joint
-            junction_pieces << piece
-            piece
-          end
-          parts + junction_pieces
-        end
-    end
-
     def ancestors
-      @ancestors ||= pieces.reject { |p| p == self}
+      @ancestors ||= pieces.reject { |p| p == self }
     end
 
     # def + other

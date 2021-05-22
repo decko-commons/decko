@@ -10,7 +10,7 @@ class ImportBootstrapLayout < Cardio::Migration::Core
     end
 
     import_json "bootstrap_layout.json" # , pristine: true, output_file: nil
-    if layout && layout.pristine? && (all = Card[:all])
+    if layout&.pristine? && (all = Card[:all])
       layout_rule_card = all.fetch :layout
       style_rule_card  = all.fetch :style
       if layout_rule_card.pristine? && style_rule_card.pristine?
@@ -66,7 +66,7 @@ class ImportBootstrapLayout < Cardio::Migration::Core
     # update layouts to have explicit views in nests
     Card.search(type_id: Card::LayoutTypeID) do |lcard|
       lcontent = Card::Content.new lcard.db_content, lcard
-      lcontent.find_chunks(Card::Content::Chunk::Nest).each do |nest|
+      lcontent.find_chunks(:Nest).each do |nest|
         nest.explicit_view =
           nest.options[:nest_name] == "_main" ? "open" : "core"
       end

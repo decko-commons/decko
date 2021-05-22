@@ -6,7 +6,7 @@
 <title>
   Class: Card::Rule::PreferenceCache
   
-    &mdash; Documentation by YARD 0.9.25
+    &mdash; Documentation by YARD 0.9.26
   
 </title>
 
@@ -96,7 +96,7 @@
   
   <dl>
     <dt>Defined in:</dt>
-    <dd>card/mod/core/lib/card/rule/preference_cache.rb</dd>
+    <dd>card/lib/card/rule/preference_cache.rb</dd>
   </dl>
   
 </div>
@@ -357,7 +357,7 @@
 58</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/mod/core/lib/card/rule/preference_cache.rb', line 55</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/rule/preference_cache.rb', line 55</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_clear'>clear</span>
   <span class='kw'>super</span>
@@ -390,7 +390,7 @@
 70</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/mod/core/lib/card/rule/preference_cache.rb', line 66</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/rule/preference_cache.rb', line 66</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_lookup_key'>lookup_key</span> <span class='id identifier rubyid_row'>row</span>
   <span class='kw'>return</span> <span class='kw'>unless</span> <span class='lparen'>(</span><span class='id identifier rubyid_base'>base</span> <span class='op'>=</span> <span class='id identifier rubyid_lookup_key_without_user'>lookup_key_without_user</span> <span class='id identifier rubyid_row'>row</span><span class='rparen'>)</span>
@@ -420,9 +420,9 @@
 64</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/mod/core/lib/card/rule/preference_cache.rb', line 64</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/rule/preference_cache.rb', line 64</span>
 
-<span class='kw'>alias</span> <span class='symbol'>:lookup_key_without_user</span> <span class='symbol'>:lookup_key</span></pre>
+<span class='id identifier rubyid_alias_method'>alias_method</span> <span class='symbol'>:lookup_key_without_user</span><span class='comma'>,</span> <span class='symbol'>:lookup_key</span></pre>
     </td>
   </tr>
 </table>
@@ -452,7 +452,7 @@
 41</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/mod/core/lib/card/rule/preference_cache.rb', line 35</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/rule/preference_cache.rb', line 35</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_populate'>populate</span>
   <span class='ivar'>@rows</span> <span class='op'>=</span> <span class='kw'>nil</span>
@@ -486,7 +486,7 @@
 45</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/mod/core/lib/card/rule/preference_cache.rb', line 43</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/rule/preference_cache.rb', line 43</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_populate_user_ids'>populate_user_ids</span>
   <span class='const'><span class='object_link'><a href="../../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_cache'><span class='object_link'><a href="../../Card.html#cache-class_method" title="Card.cache (method)">cache</a></span></span><span class='period'>.</span><span class='id identifier rubyid_write'>write</span> <span class='const'><span class='object_link'><a href="#USER_ID_CACHE_KEY-constant" title="Card::Rule::PreferenceCache::USER_ID_CACHE_KEY (constant)">USER_ID_CACHE_KEY</a></span></span><span class='comma'>,</span> <span class='id identifier rubyid_user_id_hash'>user_id_hash</span>
@@ -516,7 +516,7 @@
 62</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/mod/core/lib/card/rule/preference_cache.rb', line 60</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/rule/preference_cache.rb', line 60</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_rows'>rows</span>
   <span class='ivar'>@rows</span> <span class='op'>||=</span> <span class='kw'>super</span>
@@ -550,7 +550,7 @@
 53</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/mod/core/lib/card/rule/preference_cache.rb', line 47</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/rule/preference_cache.rb', line 47</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_user_id_hash'>user_id_hash</span>
   <span class='id identifier rubyid_rows'>rows</span><span class='period'>.</span><span class='id identifier rubyid_each_with_object'>each_with_object</span><span class='lparen'>(</span><span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_row'>row</span><span class='comma'>,</span> <span class='id identifier rubyid_hash'>hash</span><span class='op'>|</span>
@@ -584,7 +584,7 @@
 33</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/mod/core/lib/card/rule/preference_cache.rb', line 31</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/rule/preference_cache.rb', line 31</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_user_ids'>user_ids</span>
   <span class='const'><span class='object_link'><a href="../../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_cache'><span class='object_link'><a href="../../Card.html#cache-class_method" title="Card.cache (method)">cache</a></span></span><span class='period'>.</span><span class='id identifier rubyid_read'>read</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="#USER_ID_CACHE_KEY-constant" title="Card::Rule::PreferenceCache::USER_ID_CACHE_KEY (constant)">USER_ID_CACHE_KEY</a></span></span><span class='rparen'>)</span> <span class='op'>||</span> <span class='lparen'>(</span><span class='id identifier rubyid_populate'>populate</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_user_ids'>user_ids</span><span class='rparen'>)</span>
@@ -599,9 +599,9 @@
 </div>
 
       <div id="footer">
-  Generated on Sun Oct 18 23:48:32 2020 by
+  Generated on Thu May 13 17:17:44 2021 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.25 (ruby-2.6.3).
+  0.9.26 (ruby-2.7.2).
 </div>
 
     </div>

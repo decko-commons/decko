@@ -36,6 +36,3 @@ Feature: Structure Rules
     Given I create card "Home Movie+*right+*default" with content "Watch this"
     When I go to new Movie card named "Lew+Home Movie"
     Then I should see "Watch this" in the editor
-
-
-

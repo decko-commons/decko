@@ -75,6 +75,10 @@ def include_set_module m
   singleton_class.send :include, m
 end
 
+def set_mods_loaded?
+  @set_mods_loaded == true
+end
+
 def uncacheable?
   @uncacheable == true
 end

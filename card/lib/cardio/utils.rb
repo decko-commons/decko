@@ -1,14 +1,16 @@
 module Cardio
   # Utilities that may need to be run even when mods are not loaded.
   module Utils
-    def tr key, args={}
-      kaller = args.delete(:caller) || caller
-      args[:scope] ||= Card::Set.scope kaller
+    def t key, args={}
       ::I18n.t key, args
     end
 
     def seed_test_db
       system "env RAILS_ENV=test bundle exec rake db:fixtures:load"
+    end
+
+    def database_name
+      @database_name ||= config.database_configuration.dig Rails.env, "database"
     end
 
     # deletes tmp directory within files directory
@@ -17,6 +19,7 @@ module Cardio
     # Why does cache clearing need to do this??
     def delete_tmp_files! id=nil
       raise "no files directory" unless files_dir
+
       delete_tmp_files id
     rescue StandardError
       Rails.logger.info "failed to remove tmp files"

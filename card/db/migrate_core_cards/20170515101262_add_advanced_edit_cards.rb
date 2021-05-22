@@ -9,7 +9,7 @@ class AddAdvancedEditCards < Cardio::Migration::Core
                 type_id: Card::RoleID
 
     Card::Cache.reset_all
-    ensure_card [:roles, :right, :options],
+    ensure_card %i[roles right options],
                 type_id: Card::SearchTypeID,
                 content: %({"type":"role", "not":{"codename":["in","anyone","anyone_signed_in, anyone_with_role"]}})
 

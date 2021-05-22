@@ -1,5 +1,6 @@
 # -*- encoding : utf-8 -*-
-# rubocop:disable Lint/AmbiguousRegexpLiteral, Lint/Syntax, Metrics/LineLength
+
+# rubocop:disable Lint/AmbiguousRegexpLiteral, Metrics/
 
 Given /^(.*) (is|am) watching "([^"]+)"$/ do |user, _verb, cardname|
   Delayed::Worker.new.work_off
@@ -33,17 +34,17 @@ When /^(.*) creates? Search card "([^"]*)" for cards of type "([^"]*)"$/ do |use
 end
 
 def set_content_and_create username, cardtype, cardname, content
-  create_card(username, cardtype, cardname, content) do
+  create_card(username, type: cardtype, name: cardname, content: content) do
     set_content "card[content]", content, cardtype
   end
 end
 
 When /^(.*) creates?\s*([^\s]*) card "([^"]*)"$/ do |username, cardtype, cardname|
-  create_card username, cardtype, cardname
+  create_card username, type: cardtype, name: cardname
 end
 
 When /^(.*) creates?\s*([^\s]*) card "([^"]*)" with plusses:$/ do |username, cardtype, cardname, plusses|
-  create_card(username, cardtype, cardname) do
+  create_card(username, type: cardtype, name: cardname) do
     plusses.hashes.first.each do |name, content|
       set_content "card[subcards][+#{name}][content]", content, cardtype
     end
@@ -99,17 +100,21 @@ When /^(.*) deletes? "([^"]*)"$/ do |username, cardname|
   end
 end
 
-def create_card username, cardtype, cardname, content=""
+def create_card username, card_args, &block
   signed_in_as(username) do
-    if cardtype == "Pointer"
-      Card.create name: cardname, type: cardtype, content: content
+    if card_args[:type] == "Pointer"
+      Card.create card_args
     else
-      visit "/card/new?card[name]=#{CGI.escape(cardname)}&type=#{cardtype}"
-      yield if block_given?
-      click_button "Submit"
-      wait_for_ajax
+      create_card_via_submit card_args, &block
     end
   end
+end
+
+def create_card_via_submit card_args
+  visit "/card/new?card[name]=#{CGI.escape(card_args[:name])}&type=#{card_args[:type]}"
+  yield if block_given?
+  click_button "Submit"
+  wait_for_ajax
 end
 
 def set_content name, content, _cardtype=nil
@@ -125,6 +130,7 @@ end
 def set_ace_editor_content name, content
   find_editor ".ace-editor-textarea[name='#{name}']" do |_editors|
     return unless page.evaluate_script("typeof ace != 'undefined'")
+
     sleep(0.5)
     content = escape_quotes content
     page.execute_script "ace.edit($('.ace_editor').get(0))"\
@@ -146,6 +152,7 @@ def set_tinymce_editor_content name, content
     editor_id = editors.first[:id]
     return unless page.evaluate_script("typeof tinyMCE != 'undefined' && "\
                                        "tinyMCE.get('#{editor_id}') != null")
+
     sleep(0.5)
     content = escape_quotes content
     page.execute_script "tinyMCE.get('#{editor_id}').setContent('#{content}')"
@@ -155,6 +162,7 @@ end
 def wait_for_iframe_load
   5.times do
     break if all("iframe.tox-edit-area__iframe", wait: false).present?
+
     sleep(0.5)
   end
 end
@@ -166,6 +174,7 @@ end
 def find_editor selector
   editors = all(selector, wait: false)
   return unless editors.present?
+
   yield editors
   true
 end

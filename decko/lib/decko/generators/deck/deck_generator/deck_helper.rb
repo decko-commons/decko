@@ -39,8 +39,8 @@ module Decko
             path.to_s
           end
 
-          def repo_path_constraint
-            repo_path.present? ? %(, path: "#{repo_path}") : ""
+          def repo_path_constraint subdir=nil
+            repo_path.present? ? %(, path: "#{repo_path}/#{subdir}") : ""
           end
 
           def prompt_for_repo_path

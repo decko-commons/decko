@@ -1,4 +1,5 @@
 # -*- encoding : utf-8 -*-
+
 require "decko/rest_spec_helper"
 
 Decko::RestSpecHelper.describe_api do
@@ -25,7 +26,7 @@ Decko::RestSpecHelper.describe_api do
       assert_response 403
     end
 
-    it "handles cards that are createable but not readable", with_user: Card::AnonymousID do
+    it "handles createable-but-not-readable cards", with_user: Card::AnonymousID do
       # Fruits (from shared_data) are anon creatable but not readable
       # login_as :anonymous
       post :create, params: { card: { type: "Fruit", name: "papayan" } }
@@ -44,17 +45,20 @@ Decko::RestSpecHelper.describe_api do
 
     context "success specified in request" do
       it "redirects to thanks if present" do
-        post :create, params: { mark: "Wombly", success: "REDIRECT: /thank_you" }
+        post :create, params: { mark: "Wombly",
+                                success: { redirect: true, mark: "/thank_you" } }
         assert_redirected_to "/thank_you"
       end
 
       it "redirects to card if thanks is _self" do
-        post :create, params: { mark: "Wombly", success: "REDIRECT: _self" }
+        post :create, params: { mark: "Wombly",
+                                success: { redirect: true, mark: "_self" } }
         assert_redirected_to "/Wombly"
       end
 
       it "redirects to previous" do
-        post :create, params: { mark: "Wombly", success: "REDIRECT: *previous" },
+        post :create, params: { mark: "Wombly",
+                                success: { redirect: true, mark: "*previous" } },
                       session: { history: ["/blam"] }
         assert_redirected_to "/blam"
       end
@@ -64,12 +68,12 @@ Decko::RestSpecHelper.describe_api do
   describe "#read" do
     it "works for basic request" do
       get :read, params: { mark: "Sample_RichText" }
-      expect(response.body).to match(/\<body[^>]*\>/im)
+      expect(response.body).to match(/<body[^>]*>/im)
       # have_selector broke in commit 8d3bf2380eb8197410e962304c5e640fced684b9,
       # presumably because of a gem (like capybara?)
       # response.should have_selector('body')
       assert_response :success
-      expect("Sample RichText").to eq(assigns["card"].name)
+      expect(assigns["card"].name).to eq("Sample RichText")
     end
 
     it "handles nonexistent card with create permission" do

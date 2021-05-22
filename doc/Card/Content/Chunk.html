@@ -6,7 +6,7 @@
 <title>
   Module: Card::Content::Chunk
   
-    &mdash; Documentation by YARD 0.9.25
+    &mdash; Documentation by YARD 0.9.26
   
 </title>
 
@@ -79,7 +79,7 @@
   <dl>
     <dt>Defined in:</dt>
     <dd>card/lib/card/content/chunk.rb<span class="defines">,<br />
-  card/lib/card/content/chunk/abstract.rb,<br /> card/mod/core/chunk/uri.rb,<br /> card/mod/core/chunk/link.rb,<br /> card/mod/core/chunk/nest.rb,<br /> card/mod/core/chunk/reference.rb,<br /> card/mod/core/chunk/view_stub.rb,<br /> card/mod/core/chunk/escaped_literal.rb,<br /> card/mod/core/chunk/query_reference.rb,<br /> card/mod/core/chunk/keep_escaped_literal.rb</span>
+  card/lib/card/content/chunk/abstract.rb,<br /> card-mod-content/lib/card/content/chunk/uri.rb,<br /> card-mod-content/lib/card/content/chunk/link.rb,<br /> card-mod-content/lib/card/content/chunk/nest.rb,<br /> card-mod-content/lib/card/content/chunk/reference.rb,<br /> card-mod-content/lib/card/content/chunk/view_stub.rb,<br /> card-mod-content/lib/card/content/chunk/escaped_literal.rb,<br /> card-mod-content/lib/card/content/chunk/query_reference.rb,<br /> card-mod-content/lib/card/content/chunk/keep_escaped_literal.rb</span>
 </dd>
   </dl>
   
@@ -87,23 +87,11 @@
 
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
-    <p>This wiki chunk matches arbitrary URIs, using patterns from the Ruby URI
-modules.
-It parses out a variety of fields that could be used by formats to format
-the links in various ways (shortening domain names, hiding email addresses)
-It matches email addresses and host.com.au domains without schemes (http://)
-but adds these on as required.</p>
-
-<p>The heuristic used to match a URI is designed to err on the side of caution.
-That is, it is more likely to not autolink a URI than it is to accidently
-autolink something that is not a URI. The reason behind this is it is easier
-to force a URI link by prefixing ‘http://’ to it than it is to escape and
-incorrectly marked up non-URI.</p>
-
-<p>I’m using a part of the [ISO 3166-1 Standard][iso3166] for country name
-suffixes.
-The generic names are from www.bnoack.com/data/countrycode2.html)
-  [iso3166]: http://geotags.com/iso3166/</p>
+    <p>A chunk is a pattern of text that can be protected
+and interrogated by a format. Each Chunk class has a
++pattern+ that states what sort of text it matches.
+Chunks are initalized by passing in the result of a
+match by its pattern.</p>
 
 
   </div>
@@ -117,7 +105,7 @@ The generic names are from www.bnoack.com/data/countrycode2.html)
     
   
     
-      <strong class="classes">Classes:</strong> <span class='object_link'><a href="Chunk/Abstract.html" title="Card::Content::Chunk::Abstract (class)">Abstract</a></span>, <span class='object_link'><a href="Chunk/EmailURI.html" title="Card::Content::Chunk::EmailURI (class)">EmailURI</a></span>, <span class='object_link'><a href="Chunk/EscapedLiteral.html" title="Card::Content::Chunk::EscapedLiteral (class)">EscapedLiteral</a></span>, <span class='object_link'><a href="Chunk/HostURI.html" title="Card::Content::Chunk::HostURI (class)">HostURI</a></span>, <span class='object_link'><a href="Chunk/KeepEscapedLiteral.html" title="Card::Content::Chunk::KeepEscapedLiteral (class)">KeepEscapedLiteral</a></span>, <span class='object_link'><a href="Chunk/Link.html" title="Card::Content::Chunk::Link (class)">Link</a></span>, <span class='object_link'><a href="Chunk/Nest.html" title="Card::Content::Chunk::Nest (class)">Nest</a></span>, <span class='object_link'><a href="Chunk/QueryReference.html" title="Card::Content::Chunk::QueryReference (class)">QueryReference</a></span>, <span class='object_link'><a href="Chunk/Reference.html" title="Card::Content::Chunk::Reference (class)">Reference</a></span>, <span class='object_link'><a href="Chunk/URI.html" title="Card::Content::Chunk::URI (class)">URI</a></span>, <span class='object_link'><a href="Chunk/ViewStub.html" title="Card::Content::Chunk::ViewStub (class)">ViewStub</a></span>
+      <strong class="classes">Classes:</strong> <span class='object_link'><a href="Chunk/Abstract.html" title="Card::Content::Chunk::Abstract (class)">Abstract</a></span>, <span class='object_link'><a href="Chunk/EmailUri.html" title="Card::Content::Chunk::EmailUri (class)">EmailUri</a></span>, <span class='object_link'><a href="Chunk/EscapedLiteral.html" title="Card::Content::Chunk::EscapedLiteral (class)">EscapedLiteral</a></span>, <span class='object_link'><a href="Chunk/HostUri.html" title="Card::Content::Chunk::HostUri (class)">HostUri</a></span>, <span class='object_link'><a href="Chunk/KeepEscapedLiteral.html" title="Card::Content::Chunk::KeepEscapedLiteral (class)">KeepEscapedLiteral</a></span>, <span class='object_link'><a href="Chunk/Link.html" title="Card::Content::Chunk::Link (class)">Link</a></span>, <span class='object_link'><a href="Chunk/Nest.html" title="Card::Content::Chunk::Nest (class)">Nest</a></span>, <span class='object_link'><a href="Chunk/QueryReference.html" title="Card::Content::Chunk::QueryReference (class)">QueryReference</a></span>, <span class='object_link'><a href="Chunk/Reference.html" title="Card::Content::Chunk::Reference (class)">Reference</a></span>, <span class='object_link'><a href="Chunk/Uri.html" title="Card::Content::Chunk::Uri (class)">Uri</a></span>, <span class='object_link'><a href="Chunk/ViewStub.html" title="Card::Content::Chunk::ViewStub (class)">ViewStub</a></span>
     
   
 </p>
@@ -351,7 +339,7 @@ The generic names are from www.bnoack.com/data/countrycode2.html)
       <span class='id identifier rubyid_chunk_class'>chunk_class</span> <span class='op'>=</span> <span class='id identifier rubyid_const_get'>const_get</span> <span class='id identifier rubyid_chunkname'>chunkname</span>
       <span class='id identifier rubyid_chunk_class'>chunk_class</span><span class='period'>.</span><span class='id identifier rubyid_config'>config</span><span class='lbracket'>[</span><span class='symbol'>:prefix_re</span><span class='rbracket'>]</span>
     <span class='kw'>end</span>
-  <span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>(?:</span><span class='embexpr_beg'>#{</span> <span class='id identifier rubyid_prefix_res'>prefix_res</span> <span class='op'>*</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>|</span><span class='tstring_end'>&#39;</span></span> <span class='embexpr_end'>}</span><span class='tstring_content'>)</span><span class='regexp_end'>/m</span></span>
+  <span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>(?:</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_prefix_res'>prefix_res</span> <span class='op'>*</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>|</span><span class='tstring_end'>&#39;</span></span><span class='embexpr_end'>}</span><span class='tstring_content'>)</span><span class='regexp_end'>/m</span></span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -569,9 +557,9 @@ The generic names are from www.bnoack.com/data/countrycode2.html)
 </div>
 
       <div id="footer">
-  Generated on Sun Oct 18 23:47:42 2020 by
+  Generated on Thu May 13 17:17:16 2021 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.25 (ruby-2.6.3).
+  0.9.26 (ruby-2.7.2).
 </div>
 
     </div>

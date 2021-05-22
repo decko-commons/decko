@@ -6,7 +6,7 @@
 <title>
   Class: Card::Action
   
-    &mdash; Documentation by YARD 0.9.25
+    &mdash; Documentation by YARD 0.9.26
   
 </title>
 
@@ -842,7 +842,7 @@ just one single <span class='object_link'><a href="Act.html" title="Card::Act (c
         <span class='name'>id</span>
       
       
-        <span class='type'>(<tt>id of <span class='object_link'><a href="" title="Card::Action (class)">Action</a></span></tt>)</span>
+        <span class='type'>(<tt><span class='object_link'><a href="Fetch/CardClass.html#id-instance_method" title="Card::Fetch::CardClass#id (method)">id</a></span> of <span class='object_link'><a href="" title="Card::Action (class)">Action</a></span></tt>)</span>
       
       
       
@@ -881,7 +881,7 @@ just one single <span class='object_link'><a href="Act.html" title="Card::Act (c
 
 <span class='kw'>def</span> <span class='id identifier rubyid_fetch'>fetch</span> <span class='id identifier rubyid_id'>id</span>
   <span class='id identifier rubyid_cache'>cache</span><span class='period'>.</span><span class='id identifier rubyid_fetch'>fetch</span> <span class='id identifier rubyid_id'>id</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span> <span class='kw'>do</span>
-    <span class='id identifier rubyid_find'>find</span> <span class='id identifier rubyid_id'>id</span><span class='period'>.</span><span class='id identifier rubyid_to_i'>to_i</span>
+    <span class='id identifier rubyid_where'>where</span><span class='lparen'>(</span><span class='label'>id:</span> <span class='id identifier rubyid_id'>id</span><span class='period'>.</span><span class='id identifier rubyid_to_i'>to_i</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_take'>take</span>
   <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -1119,7 +1119,7 @@ just one single <span class='object_link'><a href="Act.html" title="Card::Act (c
       <pre class="code"><span class="info file"># File 'card-mod-history/lib/card/action.rb', line 72</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_card'>card</span>
-  <span class='const'><span class='object_link'><a href="../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_fetch'>fetch</span> <span class='id identifier rubyid_card_id'>card_id</span><span class='comma'>,</span> <span class='label'>look_in_trash:</span> <span class='kw'>true</span>
+  <span class='const'><span class='object_link'><a href="../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_fetch'><span class='object_link'><a href="Fetch/CardClass.html#fetch-instance_method" title="Card::Fetch::CardClass#fetch (method)">fetch</a></span></span> <span class='id identifier rubyid_card_id'>card_id</span><span class='comma'>,</span> <span class='label'>look_in_trash:</span> <span class='kw'>true</span>
 
   <span class='comment'># I&#39;m not sure what the rationale for the following was/is, but it was causing
 </span>  <span class='comment'># problems in cases where slot attributes are overridden (eg see #wrap_data in
@@ -1230,17 +1230,13 @@ just one single <span class='object_link'><a href="Act.html" title="Card::Act (c
 
 179
 180
-181
-182
-183</pre>
+181</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'card-mod-history/lib/card/action.rb', line 179</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_changed_values'>changed_values</span>
-  <span class='ivar'>@changed_values</span> <span class='op'>||=</span> <span class='id identifier rubyid_changes'>changes</span><span class='period'>.</span><span class='id identifier rubyid_each_with_object'>each_with_object</span><span class='lparen'>(</span><span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_change'>change</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='id identifier rubyid_h'>h</span><span class='op'>|</span>
-    <span class='id identifier rubyid_h'>h</span><span class='lbracket'>[</span><span class='id identifier rubyid_key'>key</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_change'>change</span><span class='period'>.</span><span class='id identifier rubyid_value'>value</span>
-  <span class='kw'>end</span>
+  <span class='ivar'>@changed_values</span> <span class='op'>||=</span> <span class='id identifier rubyid_changes'>changes</span><span class='period'>.</span><span class='id identifier rubyid_transform_values'>transform_values</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='symbol'>:value</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1352,6 +1348,8 @@ just one single <span class='object_link'><a href="Act.html" title="Card::Act (c
       <pre class="lines">
 
 
+184
+185
 186
 187
 188
@@ -1359,12 +1357,10 @@ just one single <span class='object_link'><a href="Act.html" title="Card::Act (c
 190
 191
 192
-193
-194
-195</pre>
+193</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card-mod-history/lib/card/action.rb', line 186</span>
+      <pre class="code"><span class="info file"># File 'card-mod-history/lib/card/action.rb', line 184</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_current_changes'>current_changes</span>
   <span class='kw'>return</span> <span class='lbrace'>{</span><span class='rbrace'>}</span> <span class='kw'>unless</span> <span class='id identifier rubyid_card'>card</span>
@@ -1486,16 +1482,16 @@ just one single <span class='object_link'><a href="Act.html" title="Card::Act (c
       <pre class="lines">
 
 
+200
+201
 202
 203
 204
 205
-206
-207
-208</pre>
+206</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card-mod-history/lib/card/action.rb', line 202</span>
+      <pre class="code"><span class="info file"># File 'card-mod-history/lib/card/action.rb', line 200</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_interpret_field'>interpret_field</span> <span class='id identifier rubyid_field'>field</span>
   <span class='kw'>case</span> <span class='id identifier rubyid_field'>field</span>
@@ -1592,25 +1588,25 @@ just one single <span class='object_link'><a href="Act.html" title="Card::Act (c
       <pre class="lines">
 
 
+213
+214
 215
 216
 217
 218
 219
 220
-221
-222
-223</pre>
+221</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card-mod-history/lib/card/action.rb', line 215</span>
+      <pre class="code"><span class="info file"># File 'card-mod-history/lib/card/action.rb', line 213</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_interpret_value'>interpret_value</span> <span class='id identifier rubyid_field'>field</span><span class='comma'>,</span> <span class='id identifier rubyid_value'>value</span>
   <span class='kw'>case</span> <span class='id identifier rubyid_field'>field</span><span class='period'>.</span><span class='id identifier rubyid_to_sym'>to_sym</span>
   <span class='kw'>when</span> <span class='symbol'>:type_id</span>
     <span class='id identifier rubyid_value'>value</span><span class='op'>&amp;.</span><span class='id identifier rubyid_to_i'>to_i</span>
   <span class='kw'>when</span> <span class='symbol'>:cardtype</span>
-    <span class='const'><span class='object_link'><a href="../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_fetch_name'>fetch_name</span><span class='lparen'>(</span><span class='id identifier rubyid_value'>value</span><span class='op'>&amp;.</span><span class='id identifier rubyid_to_i'>to_i</span><span class='rparen'>)</span>
+    <span class='const'><span class='object_link'><a href="../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_fetch_name'><span class='object_link'><a href="Fetch/CardClass.html#fetch_name-instance_method" title="Card::Fetch::CardClass#fetch_name (method)">fetch_name</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_value'>value</span><span class='op'>&amp;.</span><span class='id identifier rubyid_to_i'>to_i</span><span class='rparen'>)</span>
   <span class='kw'>else</span> <span class='id identifier rubyid_value'>value</span>
   <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
@@ -1818,13 +1814,13 @@ just one single <span class='object_link'><a href="Act.html" title="Card::Act (c
       <pre class="lines">
 
 
+223
+224
 225
-226
-227
-228</pre>
+226</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card-mod-history/lib/card/action.rb', line 225</span>
+      <pre class="code"><span class="info file"># File 'card-mod-history/lib/card/action.rb', line 223</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_sole?'>sole?</span>
   <span class='id identifier rubyid_all_changes'>all_changes</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span> <span class='op'>&amp;&amp;</span>
@@ -1893,9 +1889,9 @@ just one single <span class='object_link'><a href="Act.html" title="Card::Act (c
 </div>
 
       <div id="footer">
-  Generated on Sun Oct 18 23:48:26 2020 by
+  Generated on Thu May 13 17:17:44 2021 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.25 (ruby-2.6.3).
+  0.9.26 (ruby-2.7.2).
 </div>
 
     </div>

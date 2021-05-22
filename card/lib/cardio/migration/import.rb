@@ -99,7 +99,7 @@ module Cardio
       def fetch_remote_data name, view, url
         json_url = "#{url}/#{name}.json"
         json_url += "?view=#{view}" if view
-        json = ::File.open(json_url).read
+        json = open(json_url).read
         parse_and_symbolize json
       end
 
@@ -112,9 +112,9 @@ module Cardio
       def parse_and_symbolize json
         parsed = JSON.parse(json)
         case parsed
-        when Hash then
+        when Hash
           parsed.deep_symbolize_keys
-        when Array then
+        when Array
           parsed.map(&:deep_symbolize_keys)
         else
           parsed

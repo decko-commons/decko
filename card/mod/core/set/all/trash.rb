@@ -29,13 +29,15 @@ module ClassMethods
     # TODO: handle cloud files
     return unless dir
 
-    trashed_card_ids = all_trashed_card_ids
-    file_ids = all_file_ids
-    file_ids.each do |file_id|
-      next unless trashed_card_ids.member?(file_id)
-      raise Card::Error, tr(:exception_almost_deleted) if Card.exists?(file_id)
-      ::FileUtils.rm_rf "#{dir}/#{file_id}", secure: true
+    (all_trashed_card_ids & all_file_ids).each do |file_id|
+      delete_files_with_id file_id
     end
+  end
+
+  def delete_files_with_id file_id
+    raise Card::Error, t(:core_exception_almost_deleted) if Card.exists?(file_id)
+
+    ::FileUtils.rm_rf "#{dir}/#{file_id}", secure: true
   end
 
   def all_file_ids
@@ -48,6 +50,10 @@ module ClassMethods
     sql_results = Card.connection.select_all(trashed_card_sql)
     sql_results.map(&:values).flatten.map(&:to_i)
   end
+end
+
+def trash?
+  trash
 end
 
 def delete args={}
@@ -64,6 +70,7 @@ end
 
 def add_to_trash args
   return if new_card?
+
   yield args.merge trash: true
 end
 
@@ -76,6 +83,7 @@ end
 def pull_from_trash!
   return unless (id = Card::Lexicon.id key) # name is already known
   return unless (trashed_card = Card.where(id: id).take)&.trash
+
   # confirm name is actually in trash
 
   db_attributes["id"] = trashed_card.db_attributes["id"]
@@ -91,28 +99,26 @@ end
 
 event :validate_delete, :validate, on: :delete do
   unless codename.blank?
-    errors.add :delete, tr(:error_system_card, name: name, codename: codename)
+    errors.add :delete, t(:core_error_system_card, name: name, codename: codename)
   end
 
   undeletable_all_rules_tags =
     %w[default style layout create read update delete]
   # FIXME: HACK! should be configured in the rule
 
-  if junction? && left&.codename == :all &&
+  if compound? && left&.codename == :all &&
      undeletable_all_rules_tags.member?(right.codename.to_s)
-    errors.add :delete, tr(:error_indestructible, name: name)
+    errors.add :delete, t(:core_error_indestructible, name: name)
   end
 
-  errors.add :delete, tr(:error_user_edits, name: name) if account && has_edits?
+  errors.add :delete, t(:core_error_user_edits, name: name) if account && has_edits?
 end
 
 event :validate_delete_children, after: :validate_delete, on: :delete do
   return if errors.any?
-  each_child do |child|
-    next unless child
-    # prevents errors in cases where a child is deleted prior to this point
-    # and thus is not returned by the fetch in #children
 
+  each_child do |child|
+    child.include_set_modules
     delete_as_subcard child
     # next if child.valid?
     # child.errors.each do |field, message|

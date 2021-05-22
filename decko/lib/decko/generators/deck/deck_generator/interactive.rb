@@ -52,8 +52,8 @@ module Decko
           end
 
           def build_option key, desc, command
-            command &&= " " * (65 - desc.size) + "[" + command + "]"
-            "  #{key} - #{desc}#{command if command}"
+            command &&= "#{' ' * (65 - desc.size)}[#{command}]"
+            "  #{key} - #{desc}#{command}"
           end
 
           def add_config_options
@@ -108,9 +108,9 @@ module Decko
           def add_after_seed_options
             @menu["x"][:desc] = "exit"
             @menu["r"] = {
-              desc:    "run decko server",
+              desc: "run decko server",
               command: "decko server",
-              code:    proc { bundle_exec "decko server" }
+              code: proc { bundle_exec "decko server" }
             }
           end
         end

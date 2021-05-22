@@ -6,7 +6,7 @@
 <title>
   Module: Card::Set::All::Base::Format
   
-    &mdash; Documentation by YARD 0.9.25
+    &mdash; Documentation by YARD 0.9.26
   
 </title>
 
@@ -83,7 +83,7 @@
   
   <dl>
     <dt>Defined in:</dt>
-    <dd>card/tmpsets/set/mod004-card-mod-format/all/base.rb</dd>
+    <dd>card/tmpsets/set/mod008-card-mod-format/all/base.rb</dd>
   </dl>
   
 </div>
@@ -919,7 +919,7 @@
 71</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod004-card-mod-format/all/base.rb', line 65</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod008-card-mod-format/all/base.rb', line 65</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_date_view'>date_view</span> <span class='id identifier rubyid_date'>date</span>
   <span class='kw'>if</span> <span class='id identifier rubyid_voo'>voo</span><span class='period'>.</span><span class='id identifier rubyid_variant'>variant</span>
@@ -955,7 +955,7 @@
 48</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod004-card-mod-format/all/base.rb', line 44</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod008-card-mod-format/all/base.rb', line 44</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_link_view'>link_view</span> <span class='id identifier rubyid_opts'>opts</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span>
   <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:known</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_known?'>known?</span>
@@ -987,7 +987,7 @@
 26</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod004-card-mod-format/all/base.rb', line 24</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod008-card-mod-format/all/base.rb', line 24</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_name_variant'>name_variant</span> <span class='id identifier rubyid_name'>name</span>
   <span class='id identifier rubyid_voo'>voo</span><span class='period'>.</span><span class='id identifier rubyid_variant'>variant</span> <span class='op'>?</span> <span class='id identifier rubyid_name'>name</span><span class='period'>.</span><span class='id identifier rubyid_to_name'>to_name</span><span class='period'>.</span><span class='id identifier rubyid_vary'>vary</span><span class='lparen'>(</span><span class='id identifier rubyid_voo'>voo</span><span class='period'>.</span><span class='id identifier rubyid_variant'>variant</span><span class='rparen'>)</span> <span class='op'>:</span> <span class='id identifier rubyid_name'>name</span>
@@ -1017,7 +1017,7 @@
 22</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod004-card-mod-format/all/base.rb', line 20</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod008-card-mod-format/all/base.rb', line 20</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_safe_name'>safe_name</span>
   <span class='id identifier rubyid_card'>card</span><span class='op'>&amp;.</span><span class='id identifier rubyid_name'>name</span>
@@ -1048,7 +1048,7 @@
 12</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod004-card-mod-format/all/base.rb', line 9</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod008-card-mod-format/all/base.rb', line 9</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_show'>show</span> <span class='id identifier rubyid_view'>view</span><span class='comma'>,</span> <span class='id identifier rubyid_args'>args</span>
   <span class='id identifier rubyid_view'>view</span> <span class='op'>||=</span> <span class='symbol'>:core</span>
@@ -1080,7 +1080,7 @@
 53</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod004-card-mod-format/all/base.rb', line 50</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod008-card-mod-format/all/base.rb', line 50</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_specify_type_in_link!'>specify_type_in_link!</span> <span class='id identifier rubyid_opts'>opts</span>
   <span class='kw'>return</span> <span class='kw'>if</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:known</span><span class='rbracket'>]</span> <span class='op'>||</span> <span class='op'>!</span><span class='id identifier rubyid_voo'>voo</span><span class='period'>.</span><span class='id identifier rubyid_type'>type</span>
@@ -1112,7 +1112,7 @@
 82</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod004-card-mod-format/all/base.rb', line 79</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod008-card-mod-format/all/base.rb', line 79</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_structure_card'>structure_card</span>
   <span class='kw'>return</span> <span class='kw'>nil</span> <span class='kw'>if</span> <span class='id identifier rubyid_voo'>voo</span><span class='period'>.</span><span class='id identifier rubyid_structure'>structure</span> <span class='op'>==</span> <span class='kw'>true</span>
@@ -1141,7 +1141,7 @@
 63</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod004-card-mod-format/all/base.rb', line 63</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod008-card-mod-format/all/base.rb', line 63</span>
 
 <span class='id identifier rubyid_view'>view</span><span class='lparen'>(</span><span class='symbol'>:acted_at</span><span class='comma'>,</span>   <span class='label'>compact:</span> <span class='kw'>true</span><span class='rparen'>)</span> <span class='lbrace'>{</span> <span class='id identifier rubyid_date_view'>date_view</span> <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_acted_at'>acted_at</span>   <span class='rbrace'>}</span></pre>
     </td>
@@ -1181,7 +1181,7 @@
 137</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod004-card-mod-format/all/base.rb', line 133</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod008-card-mod-format/all/base.rb', line 133</span>
 
 <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:array</span><span class='comma'>,</span> <span class='label'>cache:</span> <span class='symbol'>:never</span> <span class='kw'>do</span>
   <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_item_cards'>item_cards</span><span class='lparen'>(</span><span class='label'>limit:</span> <span class='int'>0</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_item_card'>item_card</span><span class='op'>|</span>
@@ -1213,7 +1213,7 @@
 112</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod004-card-mod-format/all/base.rb', line 110</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod008-card-mod-format/all/base.rb', line 110</span>
 
 <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:blank</span><span class='comma'>,</span> <span class='label'>compact:</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='label'>perms:</span> <span class='symbol'>:none</span> <span class='kw'>do</span>
   <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span>
@@ -1241,7 +1241,7 @@
 129</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod004-card-mod-format/all/base.rb', line 129</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod008-card-mod-format/all/base.rb', line 129</span>
 
 <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:closed</span><span class='comma'>,</span> <span class='symbol'>:labeled</span></pre>
     </td>
@@ -1267,7 +1267,7 @@
 55</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod004-card-mod-format/all/base.rb', line 55</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod008-card-mod-format/all/base.rb', line 55</span>
 
 <span class='id identifier rubyid_view'>view</span><span class='lparen'>(</span><span class='symbol'>:codename</span><span class='comma'>,</span> <span class='label'>compact:</span> <span class='kw'>true</span><span class='rparen'>)</span> <span class='lbrace'>{</span> <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_codename'>codename</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span> <span class='rbrace'>}</span></pre>
     </td>
@@ -1295,7 +1295,7 @@
 90</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod004-card-mod-format/all/base.rb', line 88</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod008-card-mod-format/all/base.rb', line 88</span>
 
 <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:content</span> <span class='kw'>do</span>
   <span class='id identifier rubyid__render_core'>_render_core</span>
@@ -1325,7 +1325,7 @@
 86</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod004-card-mod-format/all/base.rb', line 84</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod008-card-mod-format/all/base.rb', line 84</span>
 
 <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:core</span><span class='comma'>,</span> <span class='label'>compact:</span> <span class='kw'>true</span> <span class='kw'>do</span>
   <span class='id identifier rubyid_process_content'>process_content</span> <span class='id identifier rubyid__render_raw'>_render_raw</span>
@@ -1363,7 +1363,7 @@
 61</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod004-card-mod-format/all/base.rb', line 61</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod008-card-mod-format/all/base.rb', line 61</span>
 
 <span class='id identifier rubyid_view'>view</span><span class='lparen'>(</span><span class='symbol'>:created_at</span><span class='comma'>,</span> <span class='label'>compact:</span> <span class='kw'>true</span><span class='rparen'>)</span> <span class='lbrace'>{</span> <span class='id identifier rubyid_date_view'>date_view</span> <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_created_at'>created_at</span> <span class='rbrace'>}</span></pre>
     </td>
@@ -1389,7 +1389,7 @@
 56</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod004-card-mod-format/all/base.rb', line 56</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod008-card-mod-format/all/base.rb', line 56</span>
 
 <span class='id identifier rubyid_view'>view</span><span class='lparen'>(</span><span class='symbol'>:id</span><span class='comma'>,</span>       <span class='label'>compact:</span> <span class='kw'>true</span><span class='rparen'>)</span> <span class='lbrace'>{</span> <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span>            <span class='rbrace'>}</span></pre>
     </td>
@@ -1415,7 +1415,7 @@
 28</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod004-card-mod-format/all/base.rb', line 28</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod008-card-mod-format/all/base.rb', line 28</span>
 
 <span class='id identifier rubyid_view'>view</span><span class='lparen'>(</span><span class='symbol'>:key</span><span class='comma'>,</span>      <span class='label'>compact:</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='label'>perms:</span> <span class='symbol'>:none</span><span class='rparen'>)</span> <span class='lbrace'>{</span> <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_key'>key</span> <span class='rbrace'>}</span></pre>
     </td>
@@ -1443,7 +1443,7 @@
 128</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod004-card-mod-format/all/base.rb', line 126</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod008-card-mod-format/all/base.rb', line 126</span>
 
 <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:labeled</span> <span class='kw'>do</span>
   <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span><span class='embexpr_end'>}</span><span class='tstring_content'>: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid__render_labeled_content'>_render_labeled_content</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
@@ -1473,7 +1473,7 @@
 104</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod004-card-mod-format/all/base.rb', line 102</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod008-card-mod-format/all/base.rb', line 102</span>
 
 <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:labeled_content</span><span class='comma'>,</span> <span class='label'>unknown:</span> <span class='symbol'>:mini_unknown</span> <span class='kw'>do</span>
   <span class='id identifier rubyid_render_core'>render_core</span>
@@ -1503,7 +1503,7 @@
 38</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod004-card-mod-format/all/base.rb', line 36</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod008-card-mod-format/all/base.rb', line 36</span>
 
 <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:link</span><span class='comma'>,</span> <span class='label'>compact:</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='label'>perms:</span> <span class='symbol'>:none</span> <span class='kw'>do</span>
   <span class='id identifier rubyid_link_view'>link_view</span>
@@ -1531,7 +1531,7 @@
 29</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod004-card-mod-format/all/base.rb', line 29</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod008-card-mod-format/all/base.rb', line 29</span>
 
 <span class='id identifier rubyid_view'>view</span><span class='lparen'>(</span><span class='symbol'>:linkname</span><span class='comma'>,</span> <span class='label'>compact:</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='label'>perms:</span> <span class='symbol'>:none</span><span class='rparen'>)</span> <span class='lbrace'>{</span> <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span><span class='period'>.</span><span class='id identifier rubyid_url_key'>url_key</span> <span class='rbrace'>}</span></pre>
     </td>
@@ -1570,7 +1570,7 @@
 143</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod004-card-mod-format/all/base.rb', line 140</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod008-card-mod-format/all/base.rb', line 140</span>
 
 <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:naked</span> <span class='kw'>do</span>
   <span class='const'>Rails</span><span class='period'>.</span><span class='id identifier rubyid_logger'>logger</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>DEPRECATED: naked view (used with </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span><span class='embexpr_end'>}</span><span class='tstring_content'> card)</span><span class='tstring_end'>&quot;</span></span>
@@ -1611,7 +1611,7 @@
 18</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod004-card-mod-format/all/base.rb', line 16</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod008-card-mod-format/all/base.rb', line 16</span>
 
 <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:name</span><span class='comma'>,</span> <span class='label'>compact:</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='label'>perms:</span> <span class='symbol'>:none</span> <span class='kw'>do</span>
   <span class='id identifier rubyid_name_variant'>name_variant</span> <span class='id identifier rubyid_safe_name'>safe_name</span>
@@ -1641,7 +1641,7 @@
 42</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod004-card-mod-format/all/base.rb', line 40</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod008-card-mod-format/all/base.rb', line 40</span>
 
 <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:nav_link</span><span class='comma'>,</span> <span class='label'>compact:</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='label'>perms:</span> <span class='symbol'>:none</span> <span class='kw'>do</span>
   <span class='id identifier rubyid_link_view'>link_view</span> <span class='label'>class:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>nav-link</span><span class='tstring_end'>&quot;</span></span>
@@ -1673,7 +1673,7 @@
 100</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod004-card-mod-format/all/base.rb', line 96</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod008-card-mod-format/all/base.rb', line 96</span>
 
 <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:one_line_content</span><span class='comma'>,</span> <span class='label'>compact:</span> <span class='kw'>true</span> <span class='kw'>do</span>
   <span class='id identifier rubyid_with_nest_mode'>with_nest_mode</span> <span class='symbol'>:compact</span> <span class='kw'>do</span>
@@ -1703,7 +1703,7 @@
 124</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod004-card-mod-format/all/base.rb', line 124</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod008-card-mod-format/all/base.rb', line 124</span>
 
 <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:open</span><span class='comma'>,</span> <span class='symbol'>:titled</span></pre>
     </td>
@@ -1731,7 +1731,7 @@
 94</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod004-card-mod-format/all/base.rb', line 92</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod008-card-mod-format/all/base.rb', line 92</span>
 
 <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:open_content</span> <span class='kw'>do</span>
   <span class='id identifier rubyid__render_core'>_render_core</span>
@@ -1771,7 +1771,7 @@
 77</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod004-card-mod-format/all/base.rb', line 75</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod008-card-mod-format/all/base.rb', line 75</span>
 
 <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:raw</span> <span class='kw'>do</span>
   <span class='id identifier rubyid_structure_card'>structure_card</span><span class='op'>&amp;.</span><span class='id identifier rubyid_content'>content</span> <span class='op'>||</span> <span class='id identifier rubyid__render_blank'>_render_blank</span>
@@ -1811,7 +1811,7 @@
 123</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod004-card-mod-format/all/base.rb', line 121</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod008-card-mod-format/all/base.rb', line 121</span>
 
 <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:titled</span> <span class='kw'>do</span>
   <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span><span class='embexpr_end'>}</span><span class='tstring_content'>\n\n</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid__render_core'>_render_core</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
@@ -1841,7 +1841,7 @@
 108</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod004-card-mod-format/all/base.rb', line 106</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod008-card-mod-format/all/base.rb', line 106</span>
 
 <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:titled_content</span><span class='comma'>,</span> <span class='label'>unknown:</span> <span class='symbol'>:blank</span> <span class='kw'>do</span>
   <span class='id identifier rubyid_render_core'>render_core</span>
@@ -1869,7 +1869,7 @@
 57</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod004-card-mod-format/all/base.rb', line 57</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod008-card-mod-format/all/base.rb', line 57</span>
 
 <span class='id identifier rubyid_view'>view</span><span class='lparen'>(</span><span class='symbol'>:type</span><span class='comma'>,</span>     <span class='label'>compact:</span> <span class='kw'>true</span><span class='rparen'>)</span> <span class='lbrace'>{</span> <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_type_name'>type_name</span>     <span class='rbrace'>}</span></pre>
     </td>
@@ -1895,7 +1895,7 @@
 62</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod004-card-mod-format/all/base.rb', line 62</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod008-card-mod-format/all/base.rb', line 62</span>
 
 <span class='id identifier rubyid_view'>view</span><span class='lparen'>(</span><span class='symbol'>:updated_at</span><span class='comma'>,</span> <span class='label'>compact:</span> <span class='kw'>true</span><span class='rparen'>)</span> <span class='lbrace'>{</span> <span class='id identifier rubyid_date_view'>date_view</span> <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_updated_at'>updated_at</span> <span class='rbrace'>}</span></pre>
     </td>
@@ -1921,7 +1921,7 @@
 30</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod004-card-mod-format/all/base.rb', line 30</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod008-card-mod-format/all/base.rb', line 30</span>
 
 <span class='id identifier rubyid_view'>view</span><span class='lparen'>(</span><span class='symbol'>:url</span><span class='comma'>,</span>      <span class='label'>compact:</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='label'>perms:</span> <span class='symbol'>:none</span><span class='rparen'>)</span> <span class='lbrace'>{</span> <span class='id identifier rubyid_card_url'>card_url</span> <span class='id identifier rubyid__render_linkname'>_render_linkname</span> <span class='rbrace'>}</span></pre>
     </td>
@@ -1949,7 +1949,7 @@
 34</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod004-card-mod-format/all/base.rb', line 32</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod008-card-mod-format/all/base.rb', line 32</span>
 
 <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:url_link</span><span class='comma'>,</span> <span class='label'>compact:</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='label'>perms:</span> <span class='symbol'>:none</span> <span class='kw'>do</span>
   <span class='id identifier rubyid_link_to_resource'>link_to_resource</span> <span class='id identifier rubyid_card_url'>card_url</span><span class='lparen'>(</span><span class='id identifier rubyid__render_linkname'>_render_linkname</span><span class='rparen'>)</span>
@@ -1964,9 +1964,9 @@
 </div>
 
       <div id="footer">
-  Generated on Sun Oct 18 23:47:57 2020 by
+  Generated on Thu May 13 17:17:24 2021 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.25 (ruby-2.6.3).
+  0.9.26 (ruby-2.7.2).
 </div>
 
     </div>

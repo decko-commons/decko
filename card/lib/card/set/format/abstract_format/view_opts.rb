@@ -48,6 +48,7 @@ class Card
 
           def interpret_view_settings view, opts
             return unless opts.present?
+
             unknown_ok[view] = true if opts[:unknown] == true
 
             VIEW_SETTINGS.each do |setting_name|

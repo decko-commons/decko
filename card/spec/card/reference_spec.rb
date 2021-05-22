@@ -37,7 +37,7 @@ RSpec.describe Card::Reference, as_bot: true do
     expect(yellow_refs).to eq(%w[Banana Submarine Sun])
 
     y = Card["Yellow"]
-    y.type_id = Card.fetch_id "UserForm"
+    y.type_id = "UserForm".card_id
     y.save!
 
     yellow_refs = Card["Yellow"].referers.map(&:name).sort
@@ -75,13 +75,13 @@ RSpec.describe Card::Reference, as_bot: true do
 
   it "updates referers on rename when requested (case 2)" do
     card = Card["*sidebar+*self+*read"]
-    old_refs = Card::Reference.where(referee_id: Card::AdministratorID)
+    old_refs = described_class.where(referee_id: Card::AdministratorID)
 
     card.update_referers = true
     card.name = "*sidebar+*type+*read"
     card.save
 
-    new_refs = Card::Reference.where(referee_id: Card::AdministratorID)
+    new_refs = described_class.where(referee_id: Card::AdministratorID)
     expect(old_refs).to eq(new_refs)
   end
 
@@ -105,7 +105,7 @@ RSpec.describe Card::Reference, as_bot: true do
     ref_types = lew.references_out.order(:id).map(&:ref_type)
     expect(ref_types).to eq(%w[L L P]) # , "need partial references!"
     actual_referee_ids = lew.references_out.order(:id).map(&:referee_id)
-    assert_equal actual_referee_ids, [nil, nil, Card.fetch_id("seed")],
+    assert_equal actual_referee_ids, [nil, nil, "seed".card_id],
                  'only partial reference to "seeds" should have referee_id'
   end
 

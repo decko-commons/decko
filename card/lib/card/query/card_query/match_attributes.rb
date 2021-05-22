@@ -10,6 +10,7 @@ class Card
         # match term anywhere in name or content
         def match val
           return unless val.present?
+
           subconds = %i[name content].map do |field|
             Value.new([:match, val], self).to_sql field
           end
@@ -19,7 +20,7 @@ class Card
         # match names beginning with term
         def complete val
           val = val.to_name
-          if val.junction?
+          if val.compound?
             interpret left: val.left
             interpret right: { complete: val.right } if val.right.present?
           else

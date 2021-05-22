@@ -7,21 +7,21 @@ def load_rake_tasks
   Decko::Application.load_tasks
 end
 
-RAILS_COMMANDS = %w( generate destroy plugin benchmarker profiler console
-                     server dbconsole application runner ).freeze
-DECKO_COMMANDS = %w(new cucumber rspec jasmine).freeze
-DECKO_DB_COMMANDS = %w(seed reseed load update).freeze
+RAILS_COMMANDS = %w[ generate destroy plugin benchmarker profiler console
+                     server dbconsole application runner ].freeze
+DECKO_COMMANDS = %w[new cucumber rspec jasmine].freeze
+DECKO_DB_COMMANDS = %w[seed reseed load update].freeze
 
 ALIAS = {
   "rs" => "rspec",
   "cc" => "cucumber",
   "jm" => "jasmine",
-  "g"  => "generate",
-  "d"  => "destroy",
-  "c"  => "console",
-  "s"  => "server",
+  "g" => "generate",
+  "d" => "destroy",
+  "c" => "console",
+  "s" => "server",
   "db" => "dbconsole",
-  "r"  => "runner"
+  "r" => "runner"
 }.freeze
 
 def supported_rails_command? arg

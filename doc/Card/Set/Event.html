@@ -6,7 +6,7 @@
 <title>
   Class: Card::Set::Event
   
-    &mdash; Documentation by YARD 0.9.25
+    &mdash; Documentation by YARD 0.9.26
   
 </title>
 
@@ -100,7 +100,7 @@
   <dl>
     <dt>Defined in:</dt>
     <dd>card/lib/card/set/event.rb<span class="defines">,<br />
-  card/lib/card/set/event/options.rb,<br /> card/lib/card/set/event/callbacks.rb,<br /> card/lib/card/set/event/delayed_event.rb</span>
+  card/lib/card/set/event/all.rb,<br /> card/lib/card/set/event/options.rb,<br /> card/lib/card/set/event/callbacks.rb,<br /> card/lib/card/set/event/delayed_event.rb,<br /> card/lib/card/set/event/skip_and_trigger.rb</span>
 </dd>
   </dl>
   
@@ -120,7 +120,7 @@
 <p class="children">
   
     
-      <strong class="modules">Modules:</strong> <span class='object_link'><a href="Event/Api.html" title="Card::Set::Event::Api (module)">Api</a></span>, <span class='object_link'><a href="Event/Callbacks.html" title="Card::Set::Event::Callbacks (module)">Callbacks</a></span>, <span class='object_link'><a href="Event/DelayedEvent.html" title="Card::Set::Event::DelayedEvent (module)">DelayedEvent</a></span>, <span class='object_link'><a href="Event/Options.html" title="Card::Set::Event::Options (module)">Options</a></span>
+      <strong class="modules">Modules:</strong> <span class='object_link'><a href="Event/All.html" title="Card::Set::Event::All (module)">All</a></span>, <span class='object_link'><a href="Event/Api.html" title="Card::Set::Event::Api (module)">Api</a></span>, <span class='object_link'><a href="Event/Callbacks.html" title="Card::Set::Event::Callbacks (module)">Callbacks</a></span>, <span class='object_link'><a href="Event/DelayedEvent.html" title="Card::Set::Event::DelayedEvent (module)">DelayedEvent</a></span>, <span class='object_link'><a href="Event/Options.html" title="Card::Set::Event::Options (module)">Options</a></span>, <span class='object_link'><a href="Event/SkipAndTrigger.html" title="Card::Set::Event::SkipAndTrigger (module)">SkipAndTrigger</a></span>
     
   
     
@@ -388,7 +388,7 @@
   
   
   <h3 class="inherited">Methods included from <span class='object_link'><a href="Event/Options.html" title="Card::Set::Event::Options (module)">Options</a></span></h3>
-  <p class="inherited"><span class='object_link'><a href="Event/Options.html#callback_name-instance_method" title="Card::Set::Event::Options#callback_name (method)">#callback_name</a></span>, <span class='object_link'><a href="Event/Options.html#event_opts-instance_method" title="Card::Set::Event::Options#event_opts (method)">#event_opts</a></span>, <span class='object_link'><a href="Event/Options.html#normalize_opts-instance_method" title="Card::Set::Event::Options#normalize_opts (method)">#normalize_opts</a></span>, <span class='object_link'><a href="Event/Options.html#process_action_opts-instance_method" title="Card::Set::Event::Options#process_action_opts (method)">#process_action_opts</a></span>, <span class='object_link'><a href="Event/Options.html#process_stage_opts-instance_method" title="Card::Set::Event::Options#process_stage_opts (method)">#process_stage_opts</a></span>, <span class='object_link'><a href="Event/Options.html#validate_condition_name-instance_method" title="Card::Set::Event::Options#validate_condition_name (method)">#validate_condition_name</a></span>, <span class='object_link'><a href="Event/Options.html#validate_condition_value-instance_method" title="Card::Set::Event::Options#validate_condition_value (method)">#validate_condition_value</a></span>, <span class='object_link'><a href="Event/Options.html#validate_conditions-instance_method" title="Card::Set::Event::Options#validate_conditions (method)">#validate_conditions</a></span>, <span class='object_link'><a href="Event/Options.html#validate_when_value-instance_method" title="Card::Set::Event::Options#validate_when_value (method)">#validate_when_value</a></span></p>
+  <p class="inherited"><span class='object_link'><a href="Event/Options.html#callback_name-instance_method" title="Card::Set::Event::Options#callback_name (method)">#callback_name</a></span>, <span class='object_link'><a href="Event/Options.html#event_opts-instance_method" title="Card::Set::Event::Options#event_opts (method)">#event_opts</a></span>, <span class='object_link'><a href="Event/Options.html#invalid_condition_values-instance_method" title="Card::Set::Event::Options#invalid_condition_values (method)">#invalid_condition_values</a></span>, <span class='object_link'><a href="Event/Options.html#normalize_opts-instance_method" title="Card::Set::Event::Options#normalize_opts (method)">#normalize_opts</a></span>, <span class='object_link'><a href="Event/Options.html#process_action_opts-instance_method" title="Card::Set::Event::Options#process_action_opts (method)">#process_action_opts</a></span>, <span class='object_link'><a href="Event/Options.html#process_stage_opts-instance_method" title="Card::Set::Event::Options#process_stage_opts (method)">#process_stage_opts</a></span>, <span class='object_link'><a href="Event/Options.html#validate_condition_name-instance_method" title="Card::Set::Event::Options#validate_condition_name (method)">#validate_condition_name</a></span>, <span class='object_link'><a href="Event/Options.html#validate_condition_value-instance_method" title="Card::Set::Event::Options#validate_condition_value (method)">#validate_condition_value</a></span>, <span class='object_link'><a href="Event/Options.html#validate_conditions-instance_method" title="Card::Set::Event::Options#validate_conditions (method)">#validate_conditions</a></span>, <span class='object_link'><a href="Event/Options.html#validate_standard_condition_value-instance_method" title="Card::Set::Event::Options#validate_standard_condition_value (method)">#validate_standard_condition_value</a></span>, <span class='object_link'><a href="Event/Options.html#validate_when_value-instance_method" title="Card::Set::Event::Options#validate_when_value (method)">#validate_when_value</a></span></p>
 
   
   
@@ -755,9 +755,9 @@ defined in the event</p>
 </div>
 
       <div id="footer">
-  Generated on Sun Oct 18 23:48:24 2020 by
+  Generated on Thu May 13 17:17:43 2021 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.25 (ruby-2.6.3).
+  0.9.26 (ruby-2.7.2).
 </div>
 
     </div>

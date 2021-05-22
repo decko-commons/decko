@@ -10,7 +10,6 @@ class Card
     # see arg options in all/fetch
     def initialize *args
       normalize_args args
-      absolutize_mark
       validate_opts!
     end
 
@@ -31,15 +30,19 @@ class Card
     def normalize_args args
       @opts = args.last.is_a?(Hash) ? args.pop : {}
       @mark = Card.id_or_name args
+      normalize_mark
     end
 
-    def absolutize_mark
-      return unless mark.name? && (supercard = opts.dig(:new, :supercard))
-      @mark = mark.absolute_name supercard.name
+    def normalize_mark
+      return unless mark.name?
+
+      supercard = opts.dig :new, :supercard
+      @mark = mark.absolute_name supercard.name if supercard
     end
 
     def validate_opts!
       return unless opts[:new] && opts[:skip_virtual]
+
       raise Card::Error, "fetch called with new args and skip_virtual"
     end
 

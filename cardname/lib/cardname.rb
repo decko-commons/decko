@@ -5,12 +5,14 @@ require "htmlentities"
 
 class Cardname < String
   require_relative "cardname/parts"
+  require_relative "cardname/pieces"
   require_relative "cardname/variants"
   require_relative "cardname/contextual"
   require_relative "cardname/predicates"
   require_relative "cardname/manipulate"
 
   include Parts
+  include Pieces
   include Variants
   include Contextual
   include Predicates
@@ -18,12 +20,11 @@ class Cardname < String
 
   OK4KEY_RE = '\p{Word}\*'
 
-  cattr_accessor :joint, :banned_array, :var_re, :uninflect, :params,
-                 :session, :stabilize
+  cattr_accessor :joint, :banned_array, :var_re, :uninflect, :params, :session, :stabilize
 
   self.joint          = "+"
   self.banned_array   = []
-  self.var_re         = /\{([^\}]*\})\}/
+  self.var_re         = /\{([^}]*\})\}/
   self.uninflect      = :singularize
   self.stabilize      = false
 
@@ -116,7 +117,6 @@ class Cardname < String
     end
   end
 
-  # dangerous, too
   def []= index, val
     p = parts
     p[index] = val

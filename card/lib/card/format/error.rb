@@ -8,6 +8,7 @@ class Card
 
       def anyone_can? task
         return false unless task.is_a? Symbol
+
         @anyone_can ||= {}
         @anyone_can[task] = card.anyone_can? task if @anyone_can[task].nil?
         @anyone_can[task]
@@ -29,7 +30,11 @@ class Card
       end
 
       def monitor_depth
-        raise Card::Error::UserError, tr(:too_deep) if depth >= Card.config.max_depth
+        if depth >= Card.config.max_depth
+          raise Card::Error::UserError,
+                t(:format_too_deep)
+        end
+
         yield
       end
 
@@ -42,7 +47,7 @@ class Card
         if card&.name.present?
           safe_name
         else
-          Cardio.tr :no_cardname
+          Cardio.t :lib_no_cardname
         end
       end
 
@@ -71,7 +76,7 @@ class Card
         if exception.is_a? Card::Error::UserError
           exception.message
         else
-          tr :error_rendering, cardname: error_cardname(exception), view: view
+          t :lib_error_rendering, cardname: error_cardname(exception), view: view
         end
       end
     end

@@ -95,7 +95,7 @@ RSpec.describe Cardname::Contextual do
       # #HMMM..... what should this do?
       expect_from("me+you+awe", "me").to eq("+you+awe")
       expect_from("me+you+awe", "me", "you").to eq("+awe")
-      expect_from("me+you","me", "you").to eq("me+you")
+      expect_from("me+you", "me", "you").to eq("me+you")
       expect_from("?a?+awe", "A").to eq("+awe")
       expect_from("+awe").to eq("+awe")
       expect_from("+awe", nil).to eq("+awe")
@@ -126,19 +126,18 @@ RSpec.describe Cardname::Contextual do
 
   describe "#name_from" do
     [
-     ["A+B",   "A",   "+B"],
-     ["A+B",   "B",   "A+B"],
-     ["A",     "A",   "A"],
-     ["A+B",   "A+B", "A+B"],
-     ["A",     "A+B", "A"],
-     # ["A+C",   "A+B", "+C"],
-     # ["A+B",   "C+B", "A"],
-     # ["X+A+B", "A+C", "X+B"]
+      ["A+B",   "A",   "+B"],
+      ["A+B",   "B",   "A+B"],
+      %w[A A A],
+      ["A+B",   "A+B", "A+B"],
+      ["A",     "A+B", "A"]
+      # ["A+C",   "A+B", "+C"],
+      # ["A+B",   "C+B", "A"],
+      # ["X+A+B", "A+C", "X+B"]
     ].each do |name, from, res|
       it "#{name} from #{from} is #{res}" do
-        expect(name.to_name.from from).to eq res
+        expect(name.to_name.from(from)).to eq res
       end
     end
   end
-
 end

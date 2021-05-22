@@ -1,13 +1,15 @@
 # -*- encoding : utf-8 -*-
-#
+
 require "./decko_gem"
 
-# Note: these tasks are not in any gem and are thus not available to mod
+DOCKER_IMAGES = %w[base bundled mysql postgres sandbox].map { |name| "decko-#{name}" }
+
+# NOTE: these tasks are not in any gem and are thus not available to mod
 # developers.  Therefore they should contain only tasks for core developers.
 
 task :push_gems do
   each_gem do |gem|
-    v = gem == "card" ? DeckoGem.card_version : version
+    v = gem == :card ? DeckoGem.card_version : version
     system %(cd #{gem}; #{push_gem gem, v})
   end
 end
@@ -23,12 +25,29 @@ task :release do
   )
 end
 
-def each_gem
-  %w[card decko].map do |prefix|
-    Dir.glob("#{prefix}*").each do |gem|
-      yield gem
-    end
+task :build_images do
+  # system "docker pull phusion/passenger-full:latest"
+  system "cd docker/template; bundle update"
+
+  DOCKER_IMAGES.each do |i|
+    system "cd docker; "\
+           "docker build -f repos/#{i}.dockerfile -t ethn/#{i} -t ethn/#{i}:v#{version} ."
   end
+end
+
+task :push_images do
+  DOCKER_IMAGES.each do |image|
+    system "docker push ethn/#{image}"
+  end
+end
+
+#------ Support methods -----------
+
+def each_gem &block
+  yield :card
+  Dir.each_child "mod", &block
+  yield :decko
+  Dir.each_child "support", &block
 end
 
 def push_gem gem, version

@@ -2,16 +2,17 @@ class Card
   class Format
     # processing nests
     class Nest
-      include Fetch
+      include Nest::Fetch
 
       attr_accessor :format, :card, :view, :view_opts, :format_opts
+
       def initialize format, cardish, view_opts={}, format_opts={}
         @format = format
         @view_opts = view_opts
         @format_opts = format_opts.clone
         @override = @format_opts.delete(:override) != false
         @card ||= fetch_card cardish
-        # note: fetch_card can alter view and view_opts[:nest_name]
+        # NOTE: fetch_card can alter view and view_opts[:nest_name]
       end
 
       def prepare

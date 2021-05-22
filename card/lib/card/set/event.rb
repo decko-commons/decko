@@ -70,7 +70,7 @@ class Card
         # @option opts [Symbol] :stage alternate representation for specifying stage
         # @option opts [True/False] :after_subcards run event after running subcard events
         def event event, stage_or_opts={}, opts={}, &final
-          Event.new(event, stage_or_opts, opts, self, &final).register
+          Event.new(event, self).register stage_or_opts, opts, &final
         end
       end
 
@@ -82,15 +82,19 @@ class Card
 
       attr_reader :set_module, :opts
 
-      def initialize event, stage_or_opts, opts, set_module, &final
+      def initialize event, set_module
         @event = event
         @set_module = set_module
-        @opts = event_opts stage_or_opts, opts
-        @event_block = final
       end
 
-      def register
+      def register stage_or_opts, opts, &final
+        @opts = event_opts stage_or_opts, opts
+        @event_block = final
         validate_conditions
+        define
+      end
+
+      def define
         Card.define_callbacks @event
         define_event
         set_event_callbacks
@@ -156,8 +160,8 @@ class Card
     end
   end
 
-  def rescuing_if_integration is_integration
-    is_integration ? rescuing_integration { yield } : yield
+  def rescuing_if_integration is_integration, &block
+    is_integration ? rescuing_integration(&block) : yield
   end
 
   # one failed integration event should not harm others.

@@ -30,381 +30,153 @@ en:
       card_date_seconds: '%B %e, %Y %H:%M:%S'
       card_date_only: '%B %e, %Y'
 
-  lib:
-    # CONFIRMED
-    error_rendering: "Error rendering: %{cardname} (%{view} view)"
-    exception_for_card: "for card %{cardname}: %{message}"
-    exception_init_without_card: format initialized without card
-    exception_not_implemented: "%{func} not implemented"
-    exception_unknown_codename: "unknown codename: %{codename}"
-    no_cardname: unknown card
+  lib_error_rendering: "Error rendering: %{cardname} (%{view} view)"
+  lib_exception_for_card: "for card %{cardname}: %{message}"
+  lib_exception_init_without_card: format initialized without card
+  lib_exception_not_implemented: "%{func} not implemented"
+  lib_exception_unknown_codename: "unknown codename: %{codename}"
+  lib_no_cardname: unknown card
 
-    # UNCONFIRMED
+  core_cannot_change_content: cannot change content while changing name
+  core_cannot_change_type: cannot change type while changing name
+  core_cards_exist: Sorry, this card must remain a Cardtype so long as there are %{cardname} cards.
+  core_error_banned_characters: "may not contain any of the following characters: %{banned}"
+  core_error_blank_key: cannot be blank
+  core_error_blank_name: can't be blank
+  core_error_cant_alter: can't alter this type; %{name} cards still exist
+  core_error_cant_change_errors: "of %{name} can't be changed; errors creating new %{type_id}: %{error_messages}"
+  core_error_code_in_use: codename %{codename} already in use
+  core_error_hard_templated: can't be changed because %{name} is hard templated to %{type_name}
+  core_error_indestructible: "%{name} is an indestructible rule"
+  core_error_invalid_character_in_cardtype: "may not contain any of the following characters: %{banned}"
+  core_error_name_exists: must be unique; '%{name}' already exists.
+  core_error_name_tag: "%{name} in use as a tag"
+  core_error_no_such_type: No such type
+  core_error_system_card: "%{name} is is a system card. (%{codename})"
+  core_error_too_long: is too long (255 character maximum; length is %{length})
+  core_error_user_edits: "Edits have been made with %{name}'s user account.\nDeleting this card would mess up our history."
+  core_error_wrong_key: wrong key '%{key}' for name %{name}
+  core_exception_almost_deleted: Narrowly averted deleting current file
+  core_is_incomplete: is incomplete
+  core_only_admins_codename: only admins can set codename
+  core_rename_and_update: "Rename and Update"
+  core_renaming: "Renaming"
+  core_rename: "Rename"
+  core_rename_confirm: "Are you sure you want to rename"
+  core_rename_reference_confirm: "This name is referred to at least %{count} time(s). You may choose to <em>update</em> those references to use the new name."
 
-    # J'ACCUSE
-    # editing_cue: Editing cues
-    # exception_alias_fail: cannot find %{optview} view in %{optmod}; failed to alias %{view} in %{self}
-    # exception_bad_arg: "bad %{category} argument: %{arg}"
-    # exception_bad_args: "bad %{category} arguments: %{args}"
-    # exception_bad_chars: "CQL contains disallowed characters: %{text}"
-    # exception_bad_condition_clause: Invalid Condition Clause %{item}
-    # exception_bad_query: '"%{found_by}" value must be valid Search, but %{name} is a %{type}'
-    # exception_invalid_args: Invalid query args %{items}
-    # exception_invalid_attribute: Invalid attribute %{key}
-    # exception_invalid_operator: Invalid Operator %{operator}
-    # exception_invalid_option: "invalid %{side} option: %{object}"
-    # exception_sort_not_implemented: "sort item: %{item} not yet implemented"
-    # exception_to_not_join: "%{to} cannot be %{join}"
-    # exception_unknown_valtype: "unknown CQL value type: %{klass}"
+  admin_warn: ADMINISTRATOR WARNING
+  admin_email_off: Email delivery is turned off. Change settings in %{path} to send sign up notifications.
 
-  core:
-    # CONFIRMED
-    cannot_change_content: cannot change content while changing name
-    cannot_change_type: cannot change type while changing name
-    cards_exist: Sorry, this card must remain a Cardtype so long as there are %{cardname} cards.
-    error_banned_characters: "may not contain any of the following characters: %{banned}"
-    error_blank_key: cannot be blank
-    error_blank_name: can't be blank
-    error_cant_alter: can't alter this type; %{name} cards still exist
-    error_cant_change_errors: "of %{name} can't be changed; errors creating new %{type_id}: %{error_messages}"
+  account_check_email: Check your email for a link to reset your password
+  account_deny_email_restricted: viewing email is restricted to administrators and account holders
+  account_deny_not_change_own_account: change the status of your own account
+  account_email_missing: email can't be blank
+  account_encrypted: encrypted
+  account_error_blank: can't be blank
+  account_error_invalid_address: must be valid address
+  account_error_not_active: Sorry, that account is not active.
+  account_error_not_recognized: not recognized
+  account_error_not_unique: must be unique
+  account_error_token_expired: expired token
 
-    # UNCONFIRMED
+  account_error_unknown_email: Unrecognized email.
+  account_error_wrong_password: Wrong password
+  account_exception_bad_expiration: illegal expiration value (eg '%{example}')
+  account_forgot_password: Forgot Password
+  account_invite: Invite
+  account_missing_account: "ERROR: signup card missing account"
+  account_or_sign_up: '...or sign up!'
+  account_password_length: must be at least 4 characters
+  account_password_missing: password can't be blank
+  account_private_data: Private data
+  account_reset_my_password: Reset my password
+  account_reset_password: RESET PASSWORD
+  account_search_email_duplicate: email duplicate? (%{content})
+  account_sign_in: Sign in
+  account_sign_in_title: Sign In
+  account_sign_out: Sign out
+  account_sign_up: Sign up
+  account_sorry_email_reset: Sorry, %{error_msg}. Please check your email for a new password reset link.
 
-    # J'ACCUSE
-    # deny_change_to_type: You don't have permission to change to this type (need create permission)
-    # deny_create: You don't have permission to create %{part_card_name}
-    # deny_no_comment_structured: No comments allowed on structured content
-    # deny_no_comment_template: No comments allowed on templates
-    # deny_read_only: Currently in read-only mode
-    # deny_read_this: You don't have permission to read this
-    # deny_verb_name: You don't have permission to %{verb} %{name}
-    # deny_verb_this: You don't have permission to %{verb} this
-    # error_cant_delete_child: "can't delete %{child_name}: %{message}"
+  api_key_not_found: no API key found
+  api_key_incorrect: API key mismatch
+  api_key_invalid: "Invalid API Key; must contain 20+ alphanumeric characters only"
+  api_key_label: "API Key"
+  api_key_generate: "Generate API Key"
+  api_key_regenerate: "Regenerate API Key"
+  api_key_generating: "Generating API Key"
+  api_key_taken: "API Key taken"
+  api_key_get_jwt_token: "get a JWT token"
+  api_key_no_key: "No key."
 
+  bootstrap_cannot_source_theme: can't find source for theme %{theme_name}
+  bootstrap_not_valid_theme: not a valid theme %{theme_name}
 
-    error_code_in_use: codename %{codename} already in use
-    error_hard_templated: can't be changed because %{name} is hard templated to %{type_name}
-    error_indestructible: "%{name} is an indestructible rule"
-    error_invalid_character_in_cardtype: "may not contain any of the following characters: %{banned}"
-    error_name_exists: must be unique; '%{name}' already exists.
-    error_name_tag: "%{name} in use as a tag"
-    error_no_action_rule: No %{action} rule for %{name}
-    error_no_such_type: No such type
-    error_system_card: "%{name} is is a system card. (%{codename})"
-    error_too_long: is too long (255 character maximum; length is %{length})
-    error_unknown_type: "%{type} is not a known type."
-    error_user_edits: "Edits have been made with %{name}'s user account.\nDeleting this card would mess up our history."
-    error_wrong_key: wrong key '%{key}' for name %{name}
-    exception_almost_deleted: Narrowly averted deleting current file
-    exception_need_id: id required to delete references
-    exception_no_override_act: not allowed to override current act
-    is_incomplete: is incomplete
-    label_set_all_cards: All cards
-    label_set_plus_cards: All "+" cards
-    label_set_right_cards: All "+%{name}" cards
-    label_set_rstar_cards: All "+*" cards
-    label_set_self_card: The card "%{name}"
-    label_set_star_cards: All "*" cards
-    label_set_type_cards: All "%{name}" cards
-    label_set_typeplusright_cards: All "+%{right}" cards on "%{type}" cards
-    label_setfollow_all_cards: everything
-    label_setfollow_plus_cards: all "+" cards
-    label_setfollow_right_cards: all "+%{name}s"
-    label_setfollow_rstar_cards: all "+*" cards
-    label_setfollow_star_cards: all "*" cards
-    label_setfollow_type_cards: all "%{name}s"
-    label_setfollow_typeplusright_cards: all "+%{right}" on "%{type}s"
-    only_admins_codename: only admins can set codename
-    search_children: "(%{side}) children of %{parent_name}"
-    search_userprefcards: "preference cards for user: %{name}"
-    you_cant: You don't have permission to %{what}
+  carrierwave_add_item: Add %{attachment_name}...
+  carrierwave_codename_needed_for_storage: codename needed for storage type coded
+  carrierwave_delete: Delete
+  carrierwave_download: Download %{title}
+  carrierwave_error_invalid_storage_type: "%{type} is not a valid file storage option"
+  carrierwave_file_error: File Error
+  carrierwave_is_missing: is missing
+  carrierwave_mod_argument_needed_to_save: mod argument needed to save card as coded
+  carrierwave_moving_files_is_not_supported: moving files from cloud elsewhere is not supported
+  carrierwave_replace_item: Replace %{attachment_name}...
+  carrierwave_unknown_storage_type: unknown storage type %{new_storage_type}
+  carrierwave_url_is_missing: url is missing
 
-  standard:
-    action: Action
-    actions: actions
-    applies_to: "<label>Applies to</label> %{card_link}:"
-    by_group: by group
-    by_name: by name
-    cancel: Cancel
-    cant_edit: Cannot currently edit Sets
-    cards: cards
-    clear_cache: clear cache
-    clear_view_cache: clear view cache
-    common: common
-    current: current
-    delete: Delete
-    delete_all: delete all
-    delete_old: delete old
-    delete_revert_rule: Deleting will revert to %{rule_setting_name} rule for %{card_label}
-    edit_page: Edit this page!
-    field: field
-    megabyte_suffix: M
-    memory_diff: memory diff
-    memory_now: memory now
-    memory_prev: memory prev
-    next: Next
-    no_content_exception: "Error in card '%{name}': can't run search with empty content"
-    no_current_rule: No Current Rule
-    no_limit_exception: OH NO.. no limit
-    no_results: no results
-    not_a_rule: not a rule
-    previous: Previous
-    recent: recent
-    recent_changes: Recent Changes
-    references: references
-    related_set: related set
-    repair_all: repair all
-    results_for: "Search results for: %{keyword}"
-    rules: Rules
-    search_goto_items: "goto items for term: %{term}"
-    set: Set
-    stat: Stat
-    submit: Submit
-    trashed_cards: trashed cards
-    value: Value
-    view_cache: view cache
+  format_add_card: Add %{cardname}
+  format_bad_address: "404: Bad Address"
+  format_close: Close
+  format_configure_card: Configure %{cardname}
+  format_denial: Permission Denied
+  format_denied_task: to %{denied_task} this
+  format_invalid_json: invalid json
+  format_need_permission_task: "You need permission %{task}."
+  format_not_found_named: Could not find %{cardname}.
+  format_not_found_no_name: the card requested
+  format_not_numeric: "'%{content}' is not numeric"
+  format_or: "or"
+  format_please: Please
+  format_problems_name: Problems with %{cardname}
+  format_read_only: We are currently in read-only mode.  Please try again later.
+  format_server_error: "\nWagn Hitch!  Server Error. Yuck, sorry about that.\nTo tell us more and follow the fix,\nadd a support ticket at %{ticket_link}\n"
+  format_sorry: Sorry!
+  format_to_do_that: to do that
+  format_toggle_no: "no"
+  format_toggle_yes: "yes"
+  format_too_deep: Man, you're too deep.  (Too many levels of nests at a time)
+  format_unsupported_view: view (%{view}) not supported for %{cardname}
 
-  admin:
-    admin_warn: ADMINISTRATOR WARNING
-    captcha_keys: You are configured to use %{captcha_link}, but for that to work you need new %{recaptcha_link}.
-    captcha_temp: Your captcha is currently working with temporary settings. This is fine for a local installation, but you will need new %{recaptcha_link} if you want to make this site public.
-    email_off: Email delivery is turned off. Change settings in %{path} to send sign up notifications.
-    howto_add: Add your keys to %{recaptcha_settings}
-    howto_add_keys: "How to add new recaptcha keys:"
-    howto_go: Go to %{captcha_card}
-    howto_register: Register your domain at %{recaptcha_link}
-    howto_turn_off: 'How to turn captcha off:'
-    howto_update: Update all *captcha rules to "no".
-    instructions: Instructions
-    recaptcha_keys: recaptcha keys
+  history_error_not_latest_revision: changes not based on latest revision
 
-  card-mod-legacy:
-    toc: Table of Contents
+  layout_available_layouts: "Available Layouts: %{available_layouts}"
+  layout_unknown_layout: "Unknown layout: %{name}"
 
-  card-mod-follow:
-    confirm_update_all_heading: Are you sure you want to change the default follow rules?
-    confirm_update_all_text: You may choose to update all existing users. This may take a while.
-    deleted: deleted
-    emails_send: send emails about changes to %{cardlabel}
-    emails_stop: stop sending emails about changes to %{cardlabel}
-    follow: follow
-    follow_if_created: follow if I created
-    follow_if_edited: follow if I edited
-    follow_included: follow cards included by %{cardname}
-    followed_card: followed card
-    follower: follower
-    following: Following
-    following_created: Following content you created
-    following_edited: Following content you edited
-    heading_get_notified: Get notified about changes
-    ignore: ignore
-    ignoring: Ignoring
-    more_options: more options
-    new: new
-    no_preference: No following preference
-    please_sign_in: Please %{sign_in}
-    problems_card: Problems with %{cardname}
-    sign_in: sign in
-    submit: Submit
-    submit_update: Submit and update all users
-    thing_created: "%{label} I created"
-    thing_edited: "%{label} I edited"
-    unfollow: unfollow
-    update_changes: "\nThis update included the following changes:%{changes}"
-    updating: Updating
+  legacy_toc: Table of Contents
 
-  card-mod-format:
-    account: account
-    action_verb_added: added
-    action_verb_deleted: deleted
-    action_verb_edited: edited
-    add_card: Add %{cardname}
-    add_thing: Add %{title}
-    also_changes: "%{actor_link} has also been making changes."
-    bad_address: "404: Bad Address"
-    close: Close
-    comment_style_group: STYLE GROUP
-    configure_card: Configure %{cardname}
-    conflict: Conflict!
-    conflict_instruction: Please examine below, resolve above, and re-submit.
-    content_in_file: Content is stored in file and can't be edited.
-    denial: Permission Denied
-    denied_task: to %{denied_task} this
-    discuss: discuss
-    edit: edit
-    error_message: Error message (visible to admin only)
-    error_rendering: "Error rendering: %{cardname} (%{view} view)"
-    exception_not_set_path: "not a set path: %{path}"
-    invalid_json: invalid json
-    label_select: Select
-    need_permission_task: "You need permission %{task}."
-    no: "no"
-    not_found: Not Found
-    not_found_card: Could not find %{cardname}
-    not_found_named: Could not find %{cardname}.
-    not_found_no_name: the card requested
-    not_numeric: "'%{content}' is not numeric"
-    or: "or"
-    page: page
-    please: Please
-    problems_name: Problems with %{cardname}
-    read_only: We are currently in read-only mode.  Please try again later.
-    rules: rules
-    se_hitch: 'Wagn Hitch :('
-    se_sorry: Server Error. Yuck, sorry about that.
-    se_ticket: <a href="%{ticket_link}">Add a support ticket</a> to tell us more and follow the fix.
-    search_opt_names_ptr: option names for pointer
-    server_error: "\nWagn Hitch!  Server Error. Yuck, sorry about that.\nTo tell us more and follow the fix,\nadd a support ticket at %{ticket_link}\n"
-    sign_in: sign in
-    sign_up: sign up
-    sorry: Sorry!
-    to_do_that: to do that
-    toggle_no: "no"
-    toggle_yes: "yes"
-    too_deep: Man, you're too deep.  (Too many levels of nests at a time)
-    too_slow: Timed out! %{showname} took too long to load.
-    unsupported_view: view (%{view}) not supported for %{cardname}
-    updated_how_when_who: "%{action_verb} %{elapsed_time_in_words} ago by %{who}"
-    yes: "yes"
+  permission_error_no_action_rule: No %{action} rule for %{name}
 
-  card-mod-layout:
-    available_layouts: "Available Layouts: %{available_layouts}"
-    built_in: "Built-in Layouts: %{built_in_layouts}"
-    unknown_layout: "Unknown layout: %{name}"
+  recaptcha_captcha_keys: You are configured to use %{captcha_link}, but for that to work you need new %{recaptcha_link}.
+  recaptcha_captcha_temp: Your captcha is currently working with temporary settings. This is fine for a local installation, but you will need new %{recaptcha_link} if you want to make this site public.
+  recaptcha_howto_add: Add your keys to %{recaptcha_settings}
+  recaptcha_howto_add_keys: "How to add new recaptcha keys:"
+  recaptcha_howto_go: Go to %{captcha_card}
+  recaptcha_howto_register: Register your domain at %{recaptcha_link}
+  recaptcha_howto_turn_off: 'How to turn captcha off:'
+  recaptcha_howto_update: Update all *captcha rules to "no".
 
-  card-mod-edit:
-    account: account
-    activity: activity
-    all: all
-    autosaved_draft: autosaved draft
-    by_group: by group
-    by_name: by name
-    cancel: cancel
-    card_delete_confirm: Are you sure you want to delete %{cardname}?
-    card_deleted: "%{cardname} deleted"
-    children: children
-    common: common
-    content: content
-    created: created
-    delete: delete
-    details: details
-    discuss: discuss
-    edit: edit
-    edited: edited
-    editors: editors
-    engage: engage
-    follow: follow
-    history: history
-    mates: mates
-    name: name
-    nests: nests
-    pin_pin: pin
-    pin_unpin: unpin
-    recent: recent
-    references_in: references in
-    references_out: references out
-    refresh: refresh
-    roles: roles
-    rules: rules
-    structure: structure
-    type: type
+  rules_config: Config
+  rules_event: Events
+  rules_other: Other
+  rules_permission: Permissions
+  rules_pointer: Pointer
+  rules_templating: Templating
+  rules_webpage: Webpage
+  rules_editing: Editing
 
-  card-mod-carrierwave:
-    add_item: Add %{attachment_name}...
-    codename_needed_for_storage: codename needed for storage type coded
-    delete: Delete
-    download: Download %{title}
-    error_invalid_storage_type: "%{type} is not a valid file storage option"
-    file_error: File Error
-    is_missing: is missing
-    mod_argument_needed_to_save: mod argument needed to save card as coded
-    moving_files_is_not_supported: moving files from cloud elsewhere is not supported
-    replace_item: Replace %{attachment_name}...
-    unknown_storage_type: unknown storage type %{new_storage_type}
-    url_is_missing: url is missing
-
-  card-mod-bootstrap:
-    cannot_source_theme: can't find source for theme %{theme_name}
-    not_valid_theme: not a valid theme %{theme_name}
-
-  card-mod-history:
-    added: Added
-    current: Current
-    deleted: Deleted
-    error_not_latest_revision: changes not based on latest revision
-    hide_changes: Hide changes
-    save_as_current: Save as current
-    show_changes: Show changes
-    time_ago: "%{elapsed__time_in_words} ago"
-
-  card-mod-account:
-    action_verify_email: "%{action} verification email"
-    approve_without: Approve without verification
-    cache_db_compare: Cache/DB Comparison
-    cache_value: Cache Val
-    cached_card: Cached Card Inspect
-    check_email: Check your email for a link to reset your password
-    check_email_reset: Please check your email for a new password reset link.
-    db_card: Database Card Inspect
-    db_value: Database Val
-    deny_delete: Deny and delete
-    deny_email_restricted: viewing email is restricted to administrators and account holders
-    deny_not_change_own_account: change the status of your own account
-    email_missing: email can't be blank
-    email_off: "WARNING: E-Mail-Versand ist deaktiviert. Ändere die Einstellung in %{path} um bei neuen Registrierungen Benachrichtigungen zu senden."
-    encrypted: encrypted
-    error_blank: can't be blank
-    error_incorrect_token: token mismatch
-    error_invalid_address: must be valid address
-    error_not_active: Sorry, that account is not active.
-    error_not_recognized: not recognized
-    error_not_unique: must be unique
-    error_token_expired: expired token
-    error_token_not_found: no token found
-    error_unknown_email: Unrecognized email.
-    error_wrong_password: Wrong password
-    errors_message: Sorry, %{item}. %{message}
-    exception_bad_expiration: illegal expiration value (eg '%{example}')
-    field: Field
-    field_manip_abort: no field manipulation mid-activation
-    first_last_help: usually first and last name
-    forgot_password: Forgot Password
-    get_started: Um loszulegen, erstelle einen Account.
-    help_first_last: üblicherweise Vor- und Nachname
-    illegal_approval_abort: illegal approval
-    invite: Invite
-    missing_account: "ERROR: signup card missing account"
-    no_account_abort: no account associated with %{name}
-    or_sign_up: '...or sign up!'
-    password_length: must be at least 4 characters
-    password_missing: password can't be blank
-    private_data: Private data
-    resend: Resend
-    reset_my_password: Reset my password
-    reset_password: RESET PASSWORD
-    search_email_duplicate: email duplicate? (%{content})
-    send: Send
-    send_invite: Send Invitation
-    set_up: Set up
-    setting_up: Setting up
-    sign_in: Sign in
-    sign_in_title: Sign In
-    sign_out: Sign out
-    sign_up: Sign up
-    signed_up_on: "%{name} signed up on %{date}"
-    sorry_email_reset: Sorry, %{error_msg}. Please check your email for a new password reset link.
-    verification: A verification email has been sent
-    verification_to: A verification email has been sent to %{email}
-    was_signed_up_on: "%{name} was signed up on %{date}"
-    welcome: Welcome, Decker!
-
-  card-mod-rules:
-    # CONFIRMED
-    config: Config
-    event: Events
-    other: Other
-    permission: Permissions
-    pointer: Pointer
-    templating: Templating
-    webpage: Webpage
-    editing: Editing
+  alias_target_must_be_simple: "must be aliased to a single, valid simple card"
+  alias_must_be_simple: "must be a simple (not a compound) card"
+  alias_cards_no_children: "Alias cards can't have children"
+  alias_redirect_former_name: "redirect former name to new one"

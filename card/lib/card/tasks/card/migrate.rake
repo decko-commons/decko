@@ -24,7 +24,7 @@ def reset_column_information mod=false
 end
 
 def load_mod_lib
-  Dir.glob(Cardio.root.join("mod/*/lib/*.rb")).each { |x| require x }
+  Dir.glob(Cardio.root.join("mod/*/lib/*.rb")).sort.each { |x| require x }
 end
 
 def without_dumping
@@ -100,7 +100,7 @@ namespace :card do
 
       Cardio.schema_mode args[:type] do
         version = ActiveRecord::Migrator.current_version
-        if version.to_i > 0 && (file = ::File.open(stamp_file, "w"))
+        if version.to_i.positive? && (file = ::File.open(stamp_file, "w"))
           puts ">>  writing version: #{version} to #{stamp_file}"
           file.puts version
         end

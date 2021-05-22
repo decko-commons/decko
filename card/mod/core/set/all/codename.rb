@@ -19,11 +19,12 @@ private
 def validate_codename_permission
   return if Auth.always_ok? || Auth.as_id == creator_id
 
-  errors.add :codename, tr(:only_admins_codename)
+  errors.add :codename, t(:core_only_admins_codename)
 end
 
 def validate_codename_uniqueness
   return (self.codename = nil) if codename.blank?
   return if errors.present? || !Card.find_by_codename(codename)
-  errors.add :codename, tr(:error_code_in_use, codename: codename)
+
+  errors.add :codename, t(:core_error_code_in_use, codename: codename)
 end

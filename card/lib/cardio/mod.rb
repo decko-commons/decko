@@ -51,7 +51,7 @@ module Cardio
   #   - {Card::Set} provides an overview of how set modules work
   #   - {Card::Set::Format} explains the basics of the format API
   #   - {Card::Set::Format::AbstractFormat} explains the basics of the view definition API
-  #   - {Card::Set::Event:Api} explains the basics of the event API
+  #   - {Card::Set::Event::Api} explains the basics of the event API
   #
   # ## Other Directories
   #
@@ -78,6 +78,7 @@ module Cardio
 
       def dependencies name, nickname=true
         return unless (spec = gem_spec name, nickname)
+
         deps = spec&.dependencies || []
         dep_names = deps.map { |dep| dependencies dep.name, false }
         (dep_names << spec).flatten.compact.uniq

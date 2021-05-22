@@ -35,6 +35,10 @@ class Card
         end
       end
 
+      def lex
+        simple? ? name : [left_id, right_id]
+      end
+
       def autoname name
         if Card.exists?(name) || Director.include?(name)
           autoname name.next
@@ -49,6 +53,7 @@ class Card
 
       def update_subcard_names new_name, name_to_replace=nil
         return unless @subcards
+
         subcards.each do |subcard|
           update_subcard_name subcard, new_name, name_to_replace if subcard.new?
         end
@@ -56,12 +61,17 @@ class Card
 
       def key= newkey
         return if newkey == key
+
         update_cache_key key do
           write_attribute :key, (name.simple? ? newkey : nil)
           @key = newkey
         end
         clean_patterns
         @key
+      end
+
+      def field tag, opts={}
+        Card.fetch name.field(tag), opts
       end
 
       private
@@ -92,6 +102,7 @@ class Card
 
       def clean_patterns
         return unless patterns?
+
         reset_patterns
         patterns
       end

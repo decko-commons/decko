@@ -1,5 +1,4 @@
 RSpec.describe Card::Env::Location do
-
   describe "#cardname_from url" do
     before do
       Card::Env[:host] = "woot.io"
@@ -10,19 +9,19 @@ RSpec.describe Card::Env::Location do
     end
 
     it "extracts names from urls" do
-      expect(url2name "woot.io/home").to eq("home")
+      expect(url2name("woot.io/home")).to eq("home")
     end
 
     it "handles protocols" do
-      expect(url2name "http://woot.io/home").to eq("home")
+      expect(url2name("http://woot.io/home")).to eq("home")
     end
 
     it "returns nil if host is missing" do
-      expect(url2name "http://wootnot.io/home").to be_nil
+      expect(url2name("http://wootnot.io/home")).to be_nil
     end
 
     it "handles codenames" do
-      expect(url2name "woot.io/:search_type").to eq("Search")
+      expect(url2name("woot.io/:search_type")).to eq("Search")
     end
   end
 end

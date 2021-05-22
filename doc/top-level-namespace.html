@@ -6,7 +6,7 @@
 <title>
   Top Level Namespace
   
-    &mdash; Documentation by YARD 0.9.25
+    &mdash; Documentation by YARD 0.9.26
   
 </title>
 
@@ -86,7 +86,7 @@
     
   
     
-      <strong class="classes">Classes:</strong> <span class='object_link'><a href="ApplicationJob.html" title="ApplicationJob (class)">ApplicationJob</a></span>, <span class='object_link'><a href="ApplicationRecord.html" title="ApplicationRecord (class)">ApplicationRecord</a></span>, <span class='object_link'><a href="Bootstrap.html" title="Bootstrap (class)">Bootstrap</a></span>, <span class='object_link'><a href="Card.html" title="Card (class)">Card</a></span>, <span class='object_link'><a href="Cardname.html" title="Cardname (class)">Cardname</a></span>, <span class='object_link'><a href="ModInflector.html" title="ModInflector (class)">ModInflector</a></span>, <span class='object_link'><a href="Object.html" title="Object (class)">Object</a></span>
+      <strong class="classes">Classes:</strong> <span class='object_link'><a href="ApplicationJob.html" title="ApplicationJob (class)">ApplicationJob</a></span>, <span class='object_link'><a href="ApplicationRecord.html" title="ApplicationRecord (class)">ApplicationRecord</a></span>, <span class='object_link'><a href="Bootstrap.html" title="Bootstrap (class)">Bootstrap</a></span>, <span class='object_link'><a href="Card.html" title="Card (class)">Card</a></span>, <span class='object_link'><a href="CardController.html" title="CardController (class)">CardController</a></span>, <span class='object_link'><a href="Cardname.html" title="Cardname (class)">Cardname</a></span>, <span class='object_link'><a href="Object.html" title="Object (class)">Object</a></span>
     
   
 </p>
@@ -102,18 +102,18 @@
         <dt id="RAILS_COMMANDS-constant" class="">RAILS_COMMANDS =
           
         </dt>
-        <dd><pre class="code"><span class='qwords_beg'>%w(</span><span class='words_sep'> </span><span class='tstring_content'>generate</span><span class='words_sep'> </span><span class='tstring_content'>destroy</span><span class='words_sep'> </span><span class='tstring_content'>plugin</span><span class='words_sep'> </span><span class='tstring_content'>benchmarker</span><span class='words_sep'> </span><span class='tstring_content'>profiler</span><span class='words_sep'> </span><span class='tstring_content'>console</span><span class='words_sep'>
-</span><span class='tstring_content'>server</span><span class='words_sep'> </span><span class='tstring_content'>dbconsole</span><span class='words_sep'> </span><span class='tstring_content'>application</span><span class='words_sep'> </span><span class='tstring_content'>runner</span><span class='words_sep'> </span><span class='tstring_end'>)</span></span><span class='period'>.</span><span class='id identifier rubyid_freeze'>freeze</span></pre></dd>
+        <dd><pre class="code"><span class='qwords_beg'>%w[</span><span class='words_sep'> </span><span class='tstring_content'>generate</span><span class='words_sep'> </span><span class='tstring_content'>destroy</span><span class='words_sep'> </span><span class='tstring_content'>plugin</span><span class='words_sep'> </span><span class='tstring_content'>benchmarker</span><span class='words_sep'> </span><span class='tstring_content'>profiler</span><span class='words_sep'> </span><span class='tstring_content'>console</span><span class='words_sep'>
+</span><span class='tstring_content'>server</span><span class='words_sep'> </span><span class='tstring_content'>dbconsole</span><span class='words_sep'> </span><span class='tstring_content'>application</span><span class='words_sep'> </span><span class='tstring_content'>runner</span><span class='words_sep'> </span><span class='tstring_end'>]</span></span><span class='period'>.</span><span class='id identifier rubyid_freeze'>freeze</span></pre></dd>
       
         <dt id="DECKO_COMMANDS-constant" class="">DECKO_COMMANDS =
           
         </dt>
-        <dd><pre class="code"><span class='qwords_beg'>%w(</span><span class='tstring_content'>new</span><span class='words_sep'> </span><span class='tstring_content'>cucumber</span><span class='words_sep'> </span><span class='tstring_content'>rspec</span><span class='words_sep'> </span><span class='tstring_content'>jasmine</span><span class='tstring_end'>)</span></span><span class='period'>.</span><span class='id identifier rubyid_freeze'>freeze</span></pre></dd>
+        <dd><pre class="code"><span class='qwords_beg'>%w[</span><span class='tstring_content'>new</span><span class='words_sep'> </span><span class='tstring_content'>cucumber</span><span class='words_sep'> </span><span class='tstring_content'>rspec</span><span class='words_sep'> </span><span class='tstring_content'>jasmine</span><span class='tstring_end'>]</span></span><span class='period'>.</span><span class='id identifier rubyid_freeze'>freeze</span></pre></dd>
       
         <dt id="DECKO_DB_COMMANDS-constant" class="">DECKO_DB_COMMANDS =
           
         </dt>
-        <dd><pre class="code"><span class='qwords_beg'>%w(</span><span class='tstring_content'>seed</span><span class='words_sep'> </span><span class='tstring_content'>reseed</span><span class='words_sep'> </span><span class='tstring_content'>load</span><span class='words_sep'> </span><span class='tstring_content'>update</span><span class='tstring_end'>)</span></span><span class='period'>.</span><span class='id identifier rubyid_freeze'>freeze</span></pre></dd>
+        <dd><pre class="code"><span class='qwords_beg'>%w[</span><span class='tstring_content'>seed</span><span class='words_sep'> </span><span class='tstring_content'>reseed</span><span class='words_sep'> </span><span class='tstring_content'>load</span><span class='words_sep'> </span><span class='tstring_content'>update</span><span class='tstring_end'>]</span></span><span class='period'>.</span><span class='id identifier rubyid_freeze'>freeze</span></pre></dd>
       
         <dt id="ALIAS-constant" class="">ALIAS =
           
@@ -122,12 +122,12 @@
   <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>rs</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>rspec</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
   <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>cc</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>cucumber</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
   <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>jm</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>jasmine</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
-  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>g</span><span class='tstring_end'>&quot;</span></span>  <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>generate</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
-  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>d</span><span class='tstring_end'>&quot;</span></span>  <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>destroy</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
-  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>c</span><span class='tstring_end'>&quot;</span></span>  <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>console</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
-  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>s</span><span class='tstring_end'>&quot;</span></span>  <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>server</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>g</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>generate</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>d</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>destroy</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>c</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>console</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>s</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>server</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
   <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>db</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>dbconsole</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
-  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>r</span><span class='tstring_end'>&quot;</span></span>  <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>runner</span><span class='tstring_end'>&quot;</span></span>
+  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>r</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>runner</span><span class='tstring_end'>&quot;</span></span>
 <span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_freeze'>freeze</span></pre></dd>
       
         <dt id="CARD_SEED_TABLES-constant" class="">CARD_SEED_TABLES =
@@ -157,7 +157,7 @@
         <dt id="DECKO_RAILS_GEM_ROOT-constant" class="">DECKO_RAILS_GEM_ROOT =
           
         </dt>
-        <dd><pre class="code"><span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_expand_path'>expand_path</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>../../..</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='kw'>__FILE__</span><span class='rparen'>)</span></pre></dd>
+        <dd><pre class="code"><span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_expand_path'>expand_path</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>../..</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid___dir__'>__dir__</span><span class='rparen'>)</span></pre></dd>
       
     </dl>
   
@@ -402,8 +402,7 @@
 27
 28
 29
-30
-31</pre>
+30</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'decko/lib/decko/tasks/alias.rb', line 15</span>
@@ -412,13 +411,12 @@
   <span class='kw'>case</span> <span class='id identifier rubyid_task'>task</span>
   <span class='kw'>when</span> <span class='const'>Hash</span>
     <span class='id identifier rubyid_task'>task</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_val'>val</span><span class='op'>|</span>
-      <span class='id identifier rubyid_link_task'>link_task</span> <span class='id identifier rubyid_val'>val</span><span class='comma'>,</span> <span class='label'>from:</span> <span class='id identifier rubyid_from'>from</span><span class='comma'>,</span> <span class='label'>to:</span> <span class='id identifier rubyid_to'>to</span> <span class='comma'>,</span>
-                  <span class='label'>namespace:</span> <span class='id identifier rubyid_append_to_namespace'><span class='object_link'><a href="#append_to_namespace-instance_method" title="#append_to_namespace (method)">append_to_namespace</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_namespace'>namespace</span><span class='comma'>,</span> <span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span>
-
+      <span class='id identifier rubyid_link_task'>link_task</span> <span class='id identifier rubyid_val'>val</span><span class='comma'>,</span> <span class='label'>from:</span> <span class='id identifier rubyid_from'>from</span><span class='comma'>,</span> <span class='label'>to:</span> <span class='id identifier rubyid_to'>to</span><span class='comma'>,</span>
+                     <span class='label'>namespace:</span> <span class='id identifier rubyid_append_to_namespace'><span class='object_link'><a href="#append_to_namespace-instance_method" title="#append_to_namespace (method)">append_to_namespace</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_namespace'>namespace</span><span class='comma'>,</span> <span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span>
     <span class='kw'>end</span>
   <span class='kw'>when</span> <span class='const'>Array</span>
     <span class='id identifier rubyid_task'>task</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_t'>t</span><span class='op'>|</span>
-     <span class='id identifier rubyid_link_task'>link_task</span> <span class='id identifier rubyid_t'>t</span><span class='comma'>,</span> <span class='label'>from:</span> <span class='id identifier rubyid_from'>from</span><span class='comma'>,</span> <span class='label'>to:</span> <span class='id identifier rubyid_to'>to</span><span class='comma'>,</span> <span class='label'>namespace:</span> <span class='id identifier rubyid_namespace'>namespace</span>
+      <span class='id identifier rubyid_link_task'>link_task</span> <span class='id identifier rubyid_t'>t</span><span class='comma'>,</span> <span class='label'>from:</span> <span class='id identifier rubyid_from'>from</span><span class='comma'>,</span> <span class='label'>to:</span> <span class='id identifier rubyid_to'>to</span><span class='comma'>,</span> <span class='label'>namespace:</span> <span class='id identifier rubyid_namespace'>namespace</span>
     <span class='kw'>end</span>
   <span class='kw'>else</span>
     <span class='id identifier rubyid_shared_part'>shared_part</span> <span class='op'>=</span> <span class='id identifier rubyid_append_to_namespace'><span class='object_link'><a href="#append_to_namespace-instance_method" title="#append_to_namespace (method)">append_to_namespace</a></span></span> <span class='id identifier rubyid_namespace'>namespace</span><span class='comma'>,</span> <span class='id identifier rubyid_task'>task</span>
@@ -522,9 +520,9 @@
 </div>
 
       <div id="footer">
-  Generated on Sun Oct 18 23:47:40 2020 by
+  Generated on Thu May 13 17:17:14 2021 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.25 (ruby-2.6.3).
+  0.9.26 (ruby-2.7.2).
 </div>
 
     </div>

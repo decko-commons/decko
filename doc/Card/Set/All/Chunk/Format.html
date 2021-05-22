@@ -6,7 +6,7 @@
 <title>
   Module: Card::Set::All::Chunk::Format
   
-    &mdash; Documentation by YARD 0.9.25
+    &mdash; Documentation by YARD 0.9.26
   
 </title>
 
@@ -83,7 +83,7 @@
   
   <dl>
     <dt>Defined in:</dt>
-    <dd>card/tmpsets/set/mod003-core/all/chunk.rb</dd>
+    <dd>card/tmpsets/set/mod007-card-mod-content/all/chunk.rb</dd>
   </dl>
   
 </div>
@@ -411,7 +411,7 @@
 88</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod003-core/all/chunk.rb', line 84</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod007-card-mod-content/all/chunk.rb', line 84</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_each_nested_chunk'>each_nested_chunk</span> <span class='label'>content:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>fields:</span> <span class='kw'>false</span><span class='comma'>,</span> <span class='label'>uniq:</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='label'>virtual:</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span>
   <span class='kw'>return</span> <span class='kw'>unless</span> <span class='id identifier rubyid_block_given?'>block_given?</span>
@@ -443,7 +443,7 @@
 82</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod003-core/all/chunk.rb', line 80</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod007-card-mod-content/all/chunk.rb', line 80</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_each_nested_field_chunk'>each_nested_field_chunk</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span>
   <span class='id identifier rubyid_each_nested_chunk'>each_nested_chunk</span> <span class='label'>fields:</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span>
@@ -504,7 +504,7 @@
 70</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod003-core/all/chunk.rb', line 64</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod007-card-mod-content/all/chunk.rb', line 64</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_edit_field_configs'>edit_field_configs</span> <span class='id identifier rubyid_fields_only'>fields_only</span><span class='op'>=</span><span class='kw'>false</span>
   <span class='kw'>if</span> <span class='id identifier rubyid_edit_fields'>edit_fields</span><span class='period'>.</span><span class='id identifier rubyid_present?'>present?</span>
@@ -538,7 +538,7 @@
 49</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod003-core/all/chunk.rb', line 47</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod007-card-mod-content/all/chunk.rb', line 47</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_edit_fields'>edit_fields</span>
   <span class='id identifier rubyid_voo'>voo</span><span class='period'>.</span><span class='id identifier rubyid_edit_structure'>edit_structure</span> <span class='op'>||</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
@@ -568,7 +568,7 @@
 102</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod003-core/all/chunk.rb', line 100</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod007-card-mod-content/all/chunk.rb', line 100</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_field_chunks'>field_chunks</span> <span class='id identifier rubyid_chunks'>chunks</span>
   <span class='id identifier rubyid_chunks'>chunks</span><span class='period'>.</span><span class='id identifier rubyid_select'>select</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_chunk'>chunk</span><span class='op'>|</span> <span class='id identifier rubyid_field_name?'>field_name?</span><span class='lparen'>(</span><span class='id identifier rubyid_chunk'>chunk</span><span class='period'>.</span><span class='id identifier rubyid_referee_name'>referee_name</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
@@ -621,7 +621,7 @@
 61</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod003-core/all/chunk.rb', line 59</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod007-card-mod-content/all/chunk.rb', line 59</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_field_name?'>field_name?</span> <span class='id identifier rubyid_name'>name</span>
   <span class='id identifier rubyid_name'>name</span><span class='period'>.</span><span class='id identifier rubyid_field_of?'>field_of?</span> <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span>
@@ -655,7 +655,7 @@
 78</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod003-core/all/chunk.rb', line 72</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod007-card-mod-content/all/chunk.rb', line 72</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_implicit_edit_fields_config'>implicit_edit_fields_config</span> <span class='id identifier rubyid_fields_only'>fields_only</span>
   <span class='id identifier rubyid_result'>result</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
@@ -690,7 +690,7 @@
 41</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod003-core/all/chunk.rb', line 38</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod007-card-mod-content/all/chunk.rb', line 38</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_nest_chunks'>nest_chunks</span> <span class='id identifier rubyid_content'>content</span><span class='op'>=</span><span class='kw'>nil</span>
   <span class='id identifier rubyid_content'>content</span> <span class='op'>||=</span> <span class='id identifier rubyid__render_raw'>_render_raw</span>
@@ -721,7 +721,7 @@
 45</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod003-core/all/chunk.rb', line 43</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod007-card-mod-content/all/chunk.rb', line 43</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_nested_cards'>nested_cards</span> <span class='id identifier rubyid_content'>content</span><span class='op'>=</span><span class='kw'>nil</span>
   <span class='id identifier rubyid_nest_chunks'>nest_chunks</span><span class='lparen'>(</span><span class='id identifier rubyid_content'>content</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='symbol'>:referee_card</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_uniq'>uniq</span>
@@ -751,7 +751,7 @@
 57</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod003-core/all/chunk.rb', line 55</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod007-card-mod-content/all/chunk.rb', line 55</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_nested_field_cards'>nested_field_cards</span> <span class='id identifier rubyid_content'>content</span><span class='op'>=</span><span class='kw'>nil</span>
   <span class='id identifier rubyid_nested_cards'>nested_cards</span><span class='lparen'>(</span><span class='id identifier rubyid_content'>content</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_select'>select</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_c'>c</span><span class='op'>|</span> <span class='id identifier rubyid_field_name?'>field_name?</span> <span class='id identifier rubyid_c'>c</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span> <span class='rbrace'>}</span>
@@ -781,7 +781,7 @@
 53</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod003-core/all/chunk.rb', line 51</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod007-card-mod-content/all/chunk.rb', line 51</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_nested_field_names'>nested_field_names</span> <span class='id identifier rubyid_content'>content</span><span class='op'>=</span><span class='kw'>nil</span>
   <span class='id identifier rubyid_nest_chunks'>nest_chunks</span><span class='lparen'>(</span><span class='id identifier rubyid_content'>content</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='symbol'>:referee_name</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_select'>select</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_n'>n</span><span class='op'>|</span> <span class='id identifier rubyid_field_name?'>field_name?</span> <span class='id identifier rubyid_n'>n</span> <span class='rbrace'>}</span>
@@ -817,7 +817,7 @@
 98</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod003-core/all/chunk.rb', line 90</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod007-card-mod-content/all/chunk.rb', line 90</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_uniq_chunks'>uniq_chunks</span> <span class='id identifier rubyid_chunks'>chunks</span>
   <span class='id identifier rubyid_processed'>processed</span> <span class='op'>=</span> <span class='op'>::</span><span class='const'>Set</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span> <span class='lbracket'>[</span><span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_key'>key</span><span class='rbracket'>]</span>
@@ -838,9 +838,9 @@
 </div>
 
       <div id="footer">
-  Generated on Sun Oct 18 23:47:49 2020 by
+  Generated on Thu May 13 17:17:26 2021 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.25 (ruby-2.6.3).
+  0.9.26 (ruby-2.7.2).
 </div>
 
     </div>

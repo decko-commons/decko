@@ -17,8 +17,8 @@ module ClassMethods
   def real? mark
     quick_fetch(mark).present?
   end
-  alias exist? real?
-  alias exists? real?
+  alias_method :exist?, :real?
+  alias_method :exists?, :real?
 
   def known? mark
     fetch(mark).present?
@@ -71,8 +71,8 @@ def new?
   new_record? ||       # not yet in db (from ActiveRecord)
     !@from_trash.nil?  # in process of restoration from trash
 end
-alias new_card? new?
-alias unreal? new?
+alias_method :new_card?, :new?
+alias_method :unreal?, :new?
 
 # has not been edited directly by human users.  bleep blorp.
 def pristine?

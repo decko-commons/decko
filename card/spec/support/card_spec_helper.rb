@@ -1,8 +1,7 @@
 %w[helper matchers].each do |load_dir|
   load_path = File.expand_path "../#{load_dir}/*.rb", __FILE__
-  Dir[load_path].each { |f| require f }
+  Dir[load_path].sort.each { |f| require f }
 end
-
 
 class Card
   # to be included in  RSpec::Core::ExampleGroup
@@ -17,12 +16,8 @@ class Card
     include Rails::Dom::Testing::Assertions::SelectorAssertions
 
     def login_as user
+      Card::Env[:session] = @request.session if @request
       Card::Auth.signin user
-      return unless @request
-      Card::Env.session[Card::Auth.session_user_key] = Card::Auth.current_id
-      @request.session[Card::Auth.session_user_key] = Card::Auth.current_id
-      # warn "(ath)login_as #{user.inspect}, #{Card::Auth.current_id}, "\
-      #      "#{@request.session[:user]}"
     end
 
     def card_subject

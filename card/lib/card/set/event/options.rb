@@ -73,6 +73,7 @@ class Card
           stage = opts.delete :stage
           after_subcards = opts.delete :after_subcards
           return if opts[:after] || opts[:before] || opts[:around] || !(@stage = stage)
+
           # after, before, or around will override stage configuration
 
           opts[:after] = callback_name stage, after_subcards

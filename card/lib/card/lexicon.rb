@@ -36,16 +36,17 @@ class Card
 
       def update card
         add card
-        cache.delete cache_key(card.old_lex)
+        cache.delete cache_key(card.lex_before_act)
       end
 
       # def delete card
       #   cache.delete card.id.to_s
-      #   cache.delete cache_key(card.old_lex)
+      #   cache.delete cache_key(card.lex_before_act)
       # end
 
       def lex_to_name lex
-        return lex unless lex&.is_a? Array
+        return lex unless lex.is_a? Array
+
         lex.map { |side_id| name side_id or return }.join(Card::Name.joint).to_name
       end
 
@@ -83,7 +84,7 @@ class Card
       end
 
       def cache_key lex
-        "L-" + (lex.is_a?(Array) ? lex.join("-") : lex.to_name.key)
+        "L-#{lex.is_a?(Array) ? lex.join('-') : lex.to_name.key}"
       end
     end
   end

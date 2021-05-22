@@ -1,4 +1,3 @@
-
 require "rails/all"
 require "cardio"
 
@@ -15,7 +14,6 @@ require "decko"
 
 module Decko
   class Engine < ::Rails::Engine
-    paths.add "app/controllers",  with: "rails/controllers", eager_load: true
     paths.add "gem-assets",       with: "rails/assets"
     paths.add "config/routes.rb", with: "rails/engine-routes.rb"
     paths.add "lib/tasks", with: "#{::Decko.gem_root}/lib/decko/tasks",

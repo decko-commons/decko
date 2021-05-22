@@ -20,11 +20,9 @@ module Cardio
       each_gem_mod_path(&block)
     end
 
-    def each_simple_mod_path
+    def each_simple_mod_path &block
       paths["mod"].each do |mods_path|
-        Dir.glob("#{mods_path}/*").each do |single_mod_path|
-          yield single_mod_path
-        end
+        Dir.glob("#{mods_path}/*").each(&block)
       end
     end
 

@@ -5,8 +5,7 @@ def assign_attributes args={}
 
   assign_with_subcards args do
     assign_with_set_modules args do
-      params = prepare_assignment_params args
-      super params
+      super prepare_assignment_params(args)
     end
   end
 end
@@ -40,6 +39,7 @@ end
 
 def prepare_assignment_args args
   return {} unless args
+
   args = args.symbolize_keys
   normalize_type_attributes args
   stash_set_specific_attributes args
@@ -47,8 +47,7 @@ def prepare_assignment_args args
 end
 
 def assign_with_set_modules args
-  set_changed = args[:name] || args[:type_id]
-  return yield unless set_changed
+  return yield unless args[:name] || args[:type_id]
 
   refresh_set_modules { yield }
 end
@@ -56,9 +55,7 @@ end
 def assign_with_subcards args
   subcard_args = extract_subcard_args! args
   yield
-  # name= must come before process subcards
-  return unless subcard_args.present?
-  subcards.add subcard_args
+  subcards.add subcard_args if subcard_args.present?
 end
 
 def refresh_set_modules
@@ -96,7 +93,7 @@ def type_id_from_codename type_code
 end
 
 def type_id_from_cardname type_name
-  type_id_or_error(type_name) { Card.fetch_id type_name }
+  type_id_or_error(type_name) { type_name.card_id }
 end
 
 def type_id_or_error val

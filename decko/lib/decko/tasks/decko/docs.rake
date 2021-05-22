@@ -16,7 +16,7 @@ namespace :decko do
 
     # run yardoc command, which generates the docs content in the repo root
     #
-    # If you run this while decko is a gem, you could get some funky docs in
+    # If you run this while using decko as a built gem, you could get some funky docs in
     # your gems directory...
     task :yardoc do
       doc_dir = File.expand_path "..", Decko.gem_root

@@ -25,13 +25,19 @@ class Card
         def decode token
           decoded = JWT.decode(token, SECRET_KEY)[0]
           HashWithIndifferentAccess.new decoded
-        rescue JWT::DecodeError => error
-          error.message
+        rescue JWT::DecodeError => e
+          e.message
         end
 
         def expiration
           Card.config.token_expiry.from_now.to_i
         end
+      end
+
+      # set the current user based on token
+      def signin_with_token token
+        payload = Token.validate! token
+        signin payload[:anonymous] ? Card::AnonymousID : payload[:user_id]
       end
     end
   end

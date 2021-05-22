@@ -6,7 +6,7 @@
 <title>
   Module: Card::Fetch::Store
   
-    &mdash; Documentation by YARD 0.9.25
+    &mdash; Documentation by YARD 0.9.26
   
 </title>
 
@@ -83,7 +83,7 @@
   
   <dl>
     <dt>Defined in:</dt>
-    <dd>card/mod/core/lib/card/fetch/store.rb</dd>
+    <dd>card/lib/card/fetch/store.rb</dd>
   </dl>
   
 </div>
@@ -395,7 +395,7 @@
 18</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/mod/core/lib/card/fetch/store.rb', line 16</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/fetch/store.rb', line 16</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_cache_ready?'>cache_ready?</span>
   <span class='ivar'>@cache_ready</span>
@@ -443,12 +443,12 @@
       <pre class="lines">
 
 
-29
 30
-31</pre>
+31
+32</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/mod/core/lib/card/fetch/store.rb', line 29</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/fetch/store.rb', line 30</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_eager_caching?'>eager_caching?</span>
   <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:eager_cache</span><span class='rbracket'>]</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_mark'>mark</span><span class='period'>.</span><span class='id identifier rubyid_name?'>name?</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_mark'>mark</span><span class='period'>.</span><span class='id identifier rubyid_absolute?'>absolute?</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_new_opts'>new_opts</span><span class='period'>.</span><span class='id identifier rubyid_present?'>present?</span>
@@ -496,14 +496,14 @@
       <pre class="lines">
 
 
-37
 38
 39
 40
-41</pre>
+41
+42</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/mod/core/lib/card/fetch/store.rb', line 37</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/fetch/store.rb', line 38</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_needs_prep?'>needs_prep?</span>
   <span class='kw'>return</span> <span class='kw'>unless</span> <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_present?'>present?</span>
@@ -553,12 +553,12 @@
       <pre class="lines">
 
 
-43
 44
-45</pre>
+45
+46</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/mod/core/lib/card/fetch/store.rb', line 43</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/fetch/store.rb', line 44</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_new_card_needed?'>new_card_needed?</span>
   <span class='op'>!</span><span class='lparen'>(</span><span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_present?'>present?</span> <span class='op'>&amp;&amp;</span> <span class='lparen'>(</span><span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_type_id'>type_id</span><span class='period'>.</span><span class='id identifier rubyid_present?'>present?</span> <span class='op'>||</span> <span class='id identifier rubyid_skip_type_lookup?'>skip_type_lookup?</span><span class='rparen'>)</span><span class='rparen'>)</span>
@@ -599,13 +599,15 @@
 24
 25
 26
-27</pre>
+27
+28</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/mod/core/lib/card/fetch/store.rb', line 21</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/fetch/store.rb', line 21</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_new_for_cache'>new_for_cache</span>
   <span class='kw'>return</span> <span class='kw'>unless</span> <span class='id identifier rubyid_new_for_cache?'>new_for_cache?</span>
+
   <span class='id identifier rubyid_args'>args</span> <span class='op'>=</span> <span class='lbrace'>{</span> <span class='label'>name:</span> <span class='id identifier rubyid_mark'>mark</span><span class='comma'>,</span> <span class='label'>skip_modules:</span> <span class='kw'>true</span> <span class='rbrace'>}</span>
   <span class='id identifier rubyid_args'>args</span><span class='lbracket'>[</span><span class='symbol'>:type_lookup</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='symbol'>:skip</span> <span class='kw'>if</span> <span class='id identifier rubyid_skip_type_lookup?'>skip_type_lookup?</span>
   <span class='id identifier rubyid_args'>args</span><span class='period'>.</span><span class='id identifier rubyid_merge!'>merge!</span> <span class='id identifier rubyid_new_opts'>new_opts</span><span class='period'>.</span><span class='id identifier rubyid_slice'>slice</span><span class='lparen'>(</span><span class='symbol'>:type</span><span class='comma'>,</span> <span class='symbol'>:type_id</span><span class='comma'>,</span> <span class='symbol'>:type_code</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='id identifier rubyid_eager_caching?'>eager_caching?</span>
@@ -654,12 +656,12 @@
       <pre class="lines">
 
 
-33
 34
-35</pre>
+35
+36</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/mod/core/lib/card/fetch/store.rb', line 33</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/fetch/store.rb', line 34</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_new_for_cache?'>new_for_cache?</span>
   <span class='id identifier rubyid_reusable?'>reusable?</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_new_card_needed?'>new_card_needed?</span>
@@ -700,15 +702,15 @@ matching set patterns</p>
       <pre class="lines">
 
 
-58
 59
 60
 61
 62
-63</pre>
+63
+64</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/mod/core/lib/card/fetch/store.rb', line 58</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/fetch/store.rb', line 59</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_prep_for_cache'>prep_for_cache</span>
   <span class='comment'># return # DELETE ME
@@ -759,12 +761,12 @@ matching set patterns</p>
       <pre class="lines">
 
 
-47
 48
-49</pre>
+49
+50</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/mod/core/lib/card/fetch/store.rb', line 47</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/fetch/store.rb', line 48</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_reusable?'>reusable?</span>
   <span class='op'>!</span><span class='lparen'>(</span><span class='id identifier rubyid_mark'>mark</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'>Integer</span><span class='rparen'>)</span> <span class='op'>||</span> <span class='lparen'>(</span><span class='id identifier rubyid_mark'>mark</span><span class='period'>.</span><span class='id identifier rubyid_blank?'>blank?</span> <span class='op'>&amp;&amp;</span> <span class='op'>!</span><span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:new</span><span class='rbracket'>]</span><span class='rparen'>)</span><span class='rparen'>)</span>
@@ -797,13 +799,13 @@ matching set patterns</p>
 10</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/mod/core/lib/card/fetch/store.rb', line 5</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/fetch/store.rb', line 5</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_update_cache'>update_cache</span>
   <span class='kw'>return</span> <span class='kw'>unless</span> <span class='id identifier rubyid_update_cache?'>update_cache?</span>
 
   <span class='id identifier rubyid_prep_for_cache'>prep_for_cache</span>
-  <span class='const'><span class='object_link'><a href="../../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_write_to_cache'>write_to_cache</span> <span class='id identifier rubyid_card'>card</span><span class='comma'>,</span> <span class='id identifier rubyid_local_only?'>local_only?</span>
+  <span class='const'><span class='object_link'><a href="../../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_write_to_cache'><span class='object_link'><a href="../Cache/CardClass.html#write_to_cache-instance_method" title="Card::Cache::CardClass#write_to_cache (method)">write_to_cache</a></span></span> <span class='id identifier rubyid_card'>card</span><span class='comma'>,</span> <span class='id identifier rubyid_local_only?'>local_only?</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -853,7 +855,7 @@ matching set patterns</p>
 14</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/mod/core/lib/card/fetch/store.rb', line 12</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/fetch/store.rb', line 12</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_update_cache?'>update_cache?</span>
   <span class='lparen'>(</span><span class='id identifier rubyid_cache_ready?'>cache_ready?</span> <span class='op'>||</span> <span class='id identifier rubyid_new_for_cache'>new_for_cache</span> <span class='op'>||</span> <span class='id identifier rubyid_needs_prep?'>needs_prep?</span><span class='rparen'>)</span> <span class='op'>&amp;&amp;</span> <span class='op'>!</span><span class='id identifier rubyid_card'>card</span><span class='op'>&amp;.</span><span class='id identifier rubyid_uncacheable?'>uncacheable?</span>
@@ -868,9 +870,9 @@ matching set patterns</p>
 </div>
 
       <div id="footer">
-  Generated on Sun Oct 18 23:47:47 2020 by
+  Generated on Thu May 13 17:17:16 2021 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.25 (ruby-2.6.3).
+  0.9.26 (ruby-2.7.2).
 </div>
 
     </div>

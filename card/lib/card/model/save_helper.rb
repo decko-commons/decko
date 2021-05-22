@@ -12,8 +12,8 @@ class Card
       include SaveHelperHelper
       include SaveArguments
 
-      def with_user user_name
-        Card::Auth.with(current_id: Card.fetch_id(user_name)) { yield }
+      def with_user user_name, &block
+        Card::Auth.with(current_id: Card.fetch_id(user_name), &block)
       end
 
       def create_card name_or_args, content_or_args=nil
@@ -121,7 +121,7 @@ class Card
 
       # TODO: this is too specific for this
       def add_script name, opts={}
-        name.sub!(/^script\:?\s?/, "") # in case name is given with prefix
+        name.sub!(/^script:?\s?/, "") # in case name is given with prefix
         # remove it so that we don't double it
 
         add_coderule_item name, "script",

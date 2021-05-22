@@ -1,4 +1,5 @@
 # -*- encoding : utf-8 -*-
+
 require "decko/rest_spec_helper"
 
 Decko::RestSpecHelper.describe_api do
@@ -12,19 +13,19 @@ Decko::RestSpecHelper.describe_api do
     end
 
     it "recognizes file urls without size" do
-      expect(get:"/files/~1234/5678.pdf")
+      expect(get: "/files/~1234/5678.pdf")
         .to route_to_card(action: "read", explicit_file: true,
                           mark: "~1234", rev_id: "5678", format: "pdf")
     end
 
     it "recognizes file urls with size" do
-      expect(get:"/files/~1234/5678-medium.png")
+      expect(get: "/files/~1234/5678-medium.png")
         .to route_to_card(action: "read", explicit_file: true, size: "medium",
                           mark: "~1234", rev_id: "5678", format: "png")
     end
 
     it "captures additoinal params" do
-      expect(get:"/namey?paramy=valuey")
+      expect(get: "/namey?paramy=valuey")
         .to route_to_card(action: "read", mark: "namey", paramy: "valuey")
     end
 
