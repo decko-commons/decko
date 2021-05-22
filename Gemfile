@@ -1,6 +1,7 @@
 source "http://rubygems.org"
 
 gem "decko", path: "./"
+gem "card-mod-defaults", path: "./mod"
 
 # DATABASE
 # Decko currently supports MySQL (best tested), PostgreSQL (well tested), and SQLite
