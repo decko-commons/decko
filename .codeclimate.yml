@@ -22,7 +22,7 @@ ratings:
    paths:
    - "card/{lib,mod}/**"
    - "decko/{lib,rails}/**"
-   - "card-mod-*/**"
+   - "mod/**"
    - "**.rb"
 exclude_paths:
 - "card/db/**/*"
@@ -31,7 +31,7 @@ exclude_paths:
 - "decko/spec/**/*.js"
 - "doc/**/*"
 - "coverage/**/*"
-- "{card/mod/*,card-mod-*}/lib/javascript/*.js"
-- "{card/mod/*,card-mod-*}/lib/stylesheets/*.css"
-- "{card/mod/*,card-mod-*}/{file,public,vendor}/**/*"
+- "mod/*/lib/javascript/*.js"
+- "mod/*/lib/stylesheets/*.css"
+- "mod/*/{file,public,vendor}/**/*"
 
