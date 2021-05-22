@@ -41,6 +41,8 @@ task :push_images do
   end
 end
 
+#------ Support methods -----------
+
 def each_gem &block
   yield :card
   Dir.each_child "mod", &block
