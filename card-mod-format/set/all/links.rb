@@ -63,16 +63,17 @@ format do
 
   def resource_type resource
     case resource
-    when /^https?:/          then "external-link"
+    when /^https?:/           then "external-link"
     when %r{^/}               then "internal-link"
-    when /^mailto:/          then "email-link"
+    when /^mailto:/           then "email-link"
     when RESOURCE_TYPE_REGEXP then "#{Regexp.last_match(1)}-link"
     end
   end
 
   def clean_resource resource, resource_type
     if resource_type == "internal-link"
-      contextualize_path resource[1..-1]
+      # remove initial slash; #contextualize_path handles relative root
+      contextualize_path resource[1..-1].sub %r{^/}, ""
     else
       resource
     end
