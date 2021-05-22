@@ -110,6 +110,21 @@ decko_namespace = namespace :decko do
     end
   end
 
+  desc "install mods"
+  task mod_install: :environment do
+    Card.reset_script_machine
+    Card::Cache.reset_all
+    Cardio::Mod.dirs.mods.each do |mod|
+      mod.ensure_mod_card
+      Card::Cache.reset_all
+    end
+  end
+
+  desc "install mods"
+  task test_mod_install: :environment do
+    Card.fetch("mod: script+*script+decko").update_machine_output
+  end
+
   def prepped_asset_path
     return if Rails.root.to_s == Decko.gem_root # inside decko gem
 

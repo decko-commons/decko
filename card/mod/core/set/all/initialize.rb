@@ -64,11 +64,15 @@ def include_set_modules
   return self if @set_mods_loaded
 
   set_modules.each do |m|
-    singleton_class.send :include, m
+    include_set_module m
   end
   assign_set_specific_attributes
   @uncacheable = @set_mods_loaded = true
   self
+end
+
+def include_set_module m
+  singleton_class.send :include, m
 end
 
 def set_mods_loaded?
