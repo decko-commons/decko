@@ -1,5 +1,5 @@
-module Cardio
-  class Application < Rails::Application
-
-  end
-end
+# module Cardio
+#   class Application < Rails::Application
+#
+#   end
+# end

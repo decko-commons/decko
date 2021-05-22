@@ -10,7 +10,6 @@ RSpec.describe Card::Content::Chunk::Link do
     end
     assert_args << { text: text } if text
     link = render_content target, (format_args || {})
-    puts link
     assert_view_select link, *assert_args
   end
 

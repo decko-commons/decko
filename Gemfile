@@ -41,7 +41,7 @@ gem "decko-rspec", group: :test
 gem "decko-spring", group: %i[test development]
 
 # PLATYPUSES
-# This mod is strongly recomme  nded for platypuses – coders working on the decko core
+# This mod is strongly recommended for platypuses – coders working on the decko core
 gem "card-mod-platypus", group: :test
 
 # The following allows simple (non-gem) mods to specify gems via a Gemfile.

@@ -12,15 +12,25 @@ module Cardio
         def merge
           puts("nothing to merge") && return if @data.empty?
 
-          Card::Mailer.perform_deliveries = false
-          Card::Auth.as_bot do
-            Card.merge_list @data, output_file: @output_path
-          end
+          without_mail_deliveries do
+            Card::Auth.as_bot do
+              Card.merge_list @data, output_file: @output_path
+            end
 
-          update_import_data
+            update_import_data
+          end
         end
 
         private
+
+        def without_mail_deliveries
+          m = Card::Mailer
+          prior = m.perform_deliveries
+          m.perform_deliveries = false
+          yield
+        ensure
+          m.perform_deliveries = prior
+        end
 
         def update_import_data
           update_time = Time.zone.now.to_s
