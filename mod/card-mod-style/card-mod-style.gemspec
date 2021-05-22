@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-require "../decko_gem"
+require "../../decko_gem"
 
 DeckoGem.mod "style" do |s, d|
   s.summary = "Skins, CSS, SCSS, etc"

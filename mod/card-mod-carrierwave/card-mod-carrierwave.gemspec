@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-require "../decko_gem"
+require "../../decko_gem"
 
 DeckoGem.mod "carrierwave" do |s, d|
   s.summary = "File and Image handling"

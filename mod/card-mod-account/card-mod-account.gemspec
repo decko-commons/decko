@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-require "../decko_gem"
+require "../../decko_gem"
 
 DeckoGem.mod "account" do |s, d|
   s.summary = "Email-based account handling for decko cards"

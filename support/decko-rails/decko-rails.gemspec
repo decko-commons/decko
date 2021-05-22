@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-require "../decko_gem"
+require "../../decko_gem"
 
 DeckoGem.gem "decko-rails" do |s, d|
   s.summary = "rails engine for decko: a structured wiki web platform"

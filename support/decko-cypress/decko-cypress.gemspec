@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-require "../decko_gem"
+require "../../decko_gem"
 
 DeckoGem.gem "decko-cypress" do |s, d|
   s.summary = "cypress integration for decko development"

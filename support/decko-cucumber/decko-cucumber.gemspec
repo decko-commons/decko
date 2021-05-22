@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-require "../decko_gem"
+require "../../decko_gem"
 
 DeckoGem.gem "decko-cucumber" do |s, d|
   s.summary = "cucumber support for decko monkeys"

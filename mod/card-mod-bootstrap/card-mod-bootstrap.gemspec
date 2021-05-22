@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-require "../decko_gem"
+require "../../decko_gem"
 
 DeckoGem.mod "bootstrap" do |s, d|
   s.summary = "Bootstrap"

@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-require "../decko_gem"
+require "../../decko_gem"
 
 DeckoGem.mod "monkey" do |s, d|
   s.summary = "dev support for mod developers (monkeys)"

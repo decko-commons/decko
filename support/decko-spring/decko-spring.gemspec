@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-require "../decko_gem"
+require "../../decko_gem"
 
 DeckoGem.gem "decko-spring" do |s, d|
   s.summary = "spring integration for decko development"

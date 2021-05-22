@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-require "../decko_gem"
+require "../../decko_gem"
 
 DeckoGem.gem "decko-rspec" do |s, d|
   s.summary = "rspec support for decko monkeys"
