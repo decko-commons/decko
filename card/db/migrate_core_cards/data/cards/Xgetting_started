@@ -12,7 +12,7 @@
           Structure
         </p>
         <p>
-          <a href="/new/cardtype" class="btn btn-primary ml-2">Add new Cardtype</a>
+          <a href="new/cardtype" class="btn btn-primary ml-2">Add new Cardtype</a>
         </p>
       </div>
       <div class="pl-5">
@@ -20,12 +20,12 @@
           Style
         </p>
         <p>
-          <a href="/*all+*style" class="btn btn-primary ml-2">Configure Skin Card</a>
+          <a href="*all+*style" class="btn btn-primary ml-2">Configure Skin Card</a>
         </p>
       </div>
     </div>
   </div>
   <p class="lead mt-5">
-    <a href="/Administrator" class="">and more...</a>
+    <a href="Administrator" class="">and more...</a>
   </p>
 </div>

@@ -73,7 +73,7 @@ format do
   def clean_resource resource, resource_type
     if resource_type == "internal-link"
       # remove initial slash; #contextualize_path handles relative root
-      contextualize_path resource[1..-1].sub %r{^/}, ""
+      contextualize_path resource.sub(%r{^/}, "")
     else
       resource
     end
