@@ -33,9 +33,7 @@ class Card
         end
 
         def nonbase_loadable_codes
-          l = loadable_codes
-          l.delete :all
-          l
+          loadable_codes.tap { |l| l.delete :all }
         end
 
         def loadable_codes
