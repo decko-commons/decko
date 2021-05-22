@@ -17,6 +17,16 @@ PATH
       sassc (~> 2.0)
       sprockets (~> 3.7)
       uglifier (~> 4.2)
+    cardname (0.11.6)
+      activesupport (~> 6)
+      htmlentities (~> 4.3)
+    decko (0.11.6)
+      card (= 1.101.6)
+      card-mod-defaults (= 0.11.6)
+
+PATH
+  remote: mod
+  specs:
     card-mod-account (0.11.6)
       card (= 1.101.6)
       card-mod-email (= 0.11.6)
@@ -173,12 +183,10 @@ PATH
       card-mod-edit (= 0.11.6)
     card-mod-virtual (0.11.6)
       card (= 1.101.6)
-    cardname (0.11.6)
-      activesupport (~> 6)
-      htmlentities (~> 4.3)
-    decko (0.11.6)
-      card (= 1.101.6)
-      card-mod-defaults (= 0.11.6)
+
+PATH
+  remote: support
+  specs:
     decko-cucumber (0.11.6)
       capybara (~> 2.18)
       capybara-puma
@@ -645,12 +653,12 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  card-mod-defaults
+  card-mod-defaults!
   card-mod-delayed_job
   card-mod-monkey
   card-mod-platypus
   decko!
-  decko-cucumber
+  decko-cucumber!
   decko-cypress
   decko-profile
   decko-rspec
