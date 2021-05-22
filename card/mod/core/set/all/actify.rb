@@ -28,12 +28,12 @@ module ClassMethods
   end
 end
 
-def save! *args
+def save!(**args)
   as_subcard = args.first&.delete :as_subcard
   act(as_subcard: as_subcard) { super }
 end
 
-def save(*)
+def save(**)
   act { super }
 end
 
@@ -41,11 +41,11 @@ def valid?(*)
   act(validating: true) { super }
 end
 
-def update *args
+def update(*args)
   act { super }
 end
 
-def update! *args
+def update!(*args)
   act { super }
 end
 

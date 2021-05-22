@@ -1,3 +1,5 @@
+include_set Abstract::Sources
+
 class << self
 
   def included host_class
@@ -32,12 +34,6 @@ def source_dir
   end
 end
 
-def find_file filename
-  File.join(mod_path, source_dir, filename).tap do |file_path|
-    return nil if unknown_file? filename, file_path
-  end
-end
-
 def mod_path
   modname = file_content_mod_name
   if (match = modname.match(/^card-mod-(\w*)/))
@@ -46,28 +42,17 @@ def mod_path
   Cardio::Mod.dirs.path modname
 end
 
-def unknown_file? filename, file_path
-  return false if File.exist? file_path
-
-  Rails.logger.info "couldn't locate file #{filename} at #{file_path}"
-  true
-end
-
-def existing_source_paths
+def source_paths
   Array.wrap(source_files).map do |filename|
-    find_file(filename)
-  end.compact
-end
-
-def source_changed? since:
-  existing_source_paths.any? { |path| ::File.mtime(path) > since }
+    ::File.join mod_path, source_dir, filename
+  end
 end
 
 def content
   Array.wrap(source_files).map do |filename|
     if (source_path = find_file filename)
       Rails.logger.debug "reading file: #{source_path}"
-      File.read source_path
+      ::File.read source_path
     end
   end.compact.join "\n"
 end

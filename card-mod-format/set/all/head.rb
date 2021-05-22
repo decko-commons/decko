@@ -55,7 +55,7 @@ format :html do
   end
 
   view :head_javascript, unknown: true, cache: :never, perms: :none do
-    Array.wrap(head_javascript_paths).join("\n")
+    Array.wrap(head_javascript_paths).reject { |p| p.empty? }.join("\n")
   end
 
   view :decko_script_variables, unknown: true, cache: :never, perms: :none do
@@ -94,9 +94,10 @@ format :html do
     end
   end
 
-  def debug_or_machine_path setting, &block
+  def debug_or_machine_path setting, debug_lambda, machine_path_lambda
     return unless (asset_card = param_or_rule_card setting)
-    debug_path(setting, asset_card, &block) || asset_card.machine_output_url
+    debug_path(setting, asset_card, &debug_lambda) ||
+      machine_path_lambda.call(asset_card.machine_output_url)
   end
 
   def debug_path setting, asset_card
@@ -105,17 +106,28 @@ format :html do
   end
 
   def head_stylesheet_path
-    debug_or_machine_path :style do |style_card|
-      path mark: style_card.name, item: :import, format: :css
-    end
+    debug_or_machine_path :style,
+                          ->(style_card) { path mark: style_card.name, item: :import, format: :css },
+                          ->(machine_path) { machine_path }
   end
 
   def head_javascript_paths
-    debug_or_machine_path :script do |script_card|
-      script_card.item_cards.map do |script|
-        script.format(:html).render :javascript_include_tag
-      end
+    return unless (asset_card = param_or_rule_card :script)
+    asset_card.item_cards.map do |script|
+      script.format(:html).render :javascript_include_tag
     end
+
+    # debug_or_machine_path(
+    #   :script,
+    #   ->(script_card) {
+    #     script_card.item_cards.map do |script|
+    #       script.format(:html).render :javascript_include_tag
+    #     end
+    #   },
+    #   ->(machine_path) {
+    #     javascript_include_tag machine_path
+    #    }
+    # )
   end
 
   view :script_config_and_initiation, unknown: true, perms: :none do

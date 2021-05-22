@@ -1,5 +1,0 @@
-ace:
-  items:
-    - specify "include_tag view" do
-      expect_view(:include_tag, card: subject).to eq("")
-      end

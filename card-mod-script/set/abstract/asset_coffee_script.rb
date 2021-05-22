@@ -1,6 +1,7 @@
 # -*- encoding : utf-8 -*-
 
-include_set Type::JavaScript
+require "coffee-script"
+
 include_set Abstract::AssetFile
 
 def compress_js?
@@ -10,13 +11,15 @@ end
 format :js do
   view :source do
     if @local
-      machine_output_url
+      card.machine_output_url
     else
-      card.content
+      source
     end
   end
 end
 
 format :html do
-
+  view :javascript_include_tag do
+    javascript_include_tag card.machine_output_url
+  end
 end

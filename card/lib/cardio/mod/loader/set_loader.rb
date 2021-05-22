@@ -10,7 +10,7 @@ module Cardio
 
         def initialize args={}
           @patterns = args.delete(:patterns) || Card::Set::Pattern.loadable_codes
-          super
+          super load_strategy: args[:load_strategy], mod_dirs: args[:mod_dirs]
         end
 
         def load_strategy_class load_strategy

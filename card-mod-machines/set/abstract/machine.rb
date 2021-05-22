@@ -88,7 +88,7 @@ class EngineInput
   end
 
   def simple_item?
-    @item.item_cards == [@item] # no pointer card
+    @item.item_cards == [@item] || @item.try(:self_machine_input?) # no pointer card
   end
 
   def pointer_item

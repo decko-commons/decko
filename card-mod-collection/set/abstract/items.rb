@@ -160,7 +160,7 @@ def item_strings args={}
   items = raw_item_strings(args[:content] || content)
   return items unless args.present?
 
-  filtered_items items, args.slice(:limit, :offset)
+  filtered_items items, limit: args[:limit], offset: args[:offset]
 end
 
 def raw_item_strings content
