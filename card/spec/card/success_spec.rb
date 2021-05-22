@@ -124,8 +124,7 @@ RSpec.describe Card::Env::Success do
     it "returns params hash" do
       success_params name: "Home", view: "View"
       @success.layout = "Layout"
-      @success.apply script: "Script"
-      @success << { structure: "Structure" }
+      @success << { structure: "Structure", script: "Script" }
       expect(@success.params.keys.sort).to eq [:layout, :script, :structure, :view]
     end
     it 'ignores "id", "name", "mark", "card"", target", and "redirect"' do

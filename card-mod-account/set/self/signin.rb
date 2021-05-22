@@ -30,8 +30,13 @@ end
 # triggered by clicking "Reset my Password", this sends out the verification password
 # and aborts (does not sign in)
 event :send_reset_password_token, before: :signin, on: :update, trigger: :required do
-  email = subfield(:email)&.content
-  send_reset_password_email_or_fail email
+  aborting do
+    blank_email? ? break : send_reset_password_email_or_fail
+  end
+end
+
+def email_from_subfield
+  @email_from_subfield ||= subfield(:email)&.content
 end
 
 def ok_to_read
@@ -40,10 +45,6 @@ end
 
 def recaptcha_on?
   false
-end
-
-def i18n_signin key
-  I18n.t key, scope: "mod.card-mod-account.set.self.signin"
 end
 
 def authenticate_or_abort email, pword
@@ -64,53 +65,35 @@ def failed_signin email
 end
 
 def abort_unless value, error_key
-  abort :failure, i18n_signin(error_key) unless value
+  abort :failure, tr(error_key) unless value
 end
 
 def signin_error_message account
   case
-  when account.nil?     then i18n_signin(:error_unknown_email)
-  when !account.active? then i18n_signin(:error_not_active)
-  else                       i18n_signin(:error_wrong_password)
+  when account.nil?     then tr :error_unknown_email
+  when !account.active? then tr :error_not_active
+  else                       tr :error_wrong_password
   end
 end
 
 def error_on field, error_key
-  errors.add field, i18n_signin(error_key)
+  errors.add field, tr(error_key)
 end
 
 def account_for email
   Auth.find_account_by_email email
 end
 
-def send_reset_password_email_or_fail email
-  aborting do
-    break errors.add :email, i18n_signin(:error_blank) if email.blank?
-
-    if (account = Auth.find_account_by_email(email))&.active?
-      Auth.as_bot { account.send_password_reset_email }
-    elsif account
-      errors.add :account, i18n_signin(:error_not_active)
-    else
-      errors.add :email, i18n_signin(:error_not_recognized)
-    end
+def send_reset_password_email_or_fail
+  if (account = account_for email_from_subfield)&.active?
+    send_reset_password_email account
+  else
+    reset_password_fail account
   end
 end
 
-def send_reset_password_email_or_fail email
-  aborting do
-    break if blank_email? email
-
-    if (account = account_for email)&.active?
-      send_reset_password_email account
-    else
-      reset_password_fail account
-    end
-  end
-end
-
-def blank_email? email
-  return false if email.present?
+def blank_email?
+  return false if email_from_subfield.present?
 
   error_on :email, :error_blank
 end
@@ -148,7 +131,7 @@ format :html do
 
   # FIXME: need a generic solution for this
   view :title do
-    voo.title ||= I18n.t(:sign_in_title, scope: "mod.card-mod-account.set.self.signin")
+    voo.title ||= tr :sign_in_title
     super()
   end
 
@@ -163,7 +146,7 @@ format :html do
 
   view :reset_password_success do
     # 'Check your email for a link to reset your password'
-    frame { I18n.t(:check_email, scope: "mod.card-mod-account.set.self.signin") }
+    frame { tr :check_email }
   end
 
   view :signin_buttons do
@@ -179,14 +162,14 @@ format :html do
   end
 
   def reset_password_voo
-    voo.title ||= card.i18n_signin(:forgot_password)
+    voo.title ||= tr :forgot_password
     voo.edit_structure = [signin_field(:email)]
     voo.hide :help
   end
 
   view :edit_buttons do
-    text = I18n.t :reset_my_password, scope: "mod.card-mod-account.set.self.signin"
-    button_tag text, situation: "primary", class: "_close-modal-on-success"
+    button_tag tr(:reset_my_password),
+               situation: "primary", class: "_close-modal-on-success"
   end
 
   def signin_success
@@ -194,18 +177,15 @@ format :html do
   end
 
   def signin_button
-    text = I18n.t :sign_in, scope: "mod.card-mod-account.set.self.signin"
-    button_tag text, situation: "primary"
+    button_tag tr(:sign_in), situation: "primary"
   end
 
   def signup_link
-    text = I18n.t :or_sign_up, scope: "mod.card-mod-account.set.self.signin"
-    subformat(Card[:account_links]).render! :sign_up, title: text
+    subformat(Card[:account_links]).render! :sign_up, title: tr(:or_sign_up)
   end
 
   def reset_password_link
-    text = I18n.t :reset_password, scope: "mod.card-mod-account.set.self.signin"
-    link = link_to_view :edit, text, path: { slot: { hide: :bridge_link } }
+    link = link_to_view :edit, tr(:reset_password), path: { slot: { hide: :bridge_link } }
     # FIXME: inline styling
     raw("<div style='float:right'>#{link}</div>")
   end

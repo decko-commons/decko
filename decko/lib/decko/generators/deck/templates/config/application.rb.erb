@@ -1,6 +1,6 @@
-require File.expand_path('../boot', __FILE__)
+require File.expand_path("../boot", __FILE__)
 
-require 'decko/application'
+require "decko/application"
 
 module <%= app_const_base %>
   class Application < Decko::Application
@@ -34,7 +34,7 @@ module <%= app_const_base %>
 
 
     # CACHING
-    # config.cache_store = :file_store, 'tmp/cache'
+    # config.cache_store = :file_store, "tmp/cache"
     # determines caching mechanism.  options include: file_store, memory_store,
     # mem_cache_store, dalli_store...
     #
@@ -44,7 +44,7 @@ module <%= app_const_base %>
 
 
     # FILES
-    # config.paths['files'] = 'files'
+    # config.paths["files"] = "files"
     # directory in which uploaded files are actually stored. (eg Image and File cards)
 
     # config.file_storage = :local
@@ -59,13 +59,13 @@ module <%= app_const_base %>
     #     directory: "bucket-name",
     #     subdirectory: "files",
     #     credentials: {
-    #        provider: 'AWS',                         # required
-    #        aws_access_key_id: 'key',                # required
-    #        aws_secret_access_key: 'secret-key',     # required
+    #        provider: "AWS",                         # required
+    #        aws_access_key_id: "key",                # required
+    #        aws_secret_access_key: "secret-key",     # required
     #        use_iam_profile: true,             # optional, defaults to false
-    #        region: 'eu-central-1',                   # optional, defaults to 'us-east-1'
-    #        host: 's3.example.com',                  # optional, defaults to nil
-    #        endpoint: 'https://s3.example.com:8080'  # optional, defaults to nil
+    #        region: "eu-central-1",                   # optional, defaults to "us-east-1"
+    #        host: "s3.example.com",                  # optional, defaults to nil
+    #        endpoint: "https://s3.example.com:8080"  # optional, defaults to nil
     #     },
     #     attributes: { "Cache-Control" => "max-age=#{365.day.to_i}" },
     #     public: true,
@@ -82,7 +82,7 @@ module <%= app_const_base %>
     # defaults to false
     # disallows creating, updating, and deleting cards.
 
-    # config.paths['mod'] << 'my-mod-dir'
+    # config.paths["mod"] << "my-mod-dir"
     # add a new directory for code customizations, or "mods"
 
     # config.allow_inline_styles = false
