@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 
 $LOAD_PATH.unshift File.expand_path(
-  "../../card-mod-platypus/vendor/capybara-select2/lib", __dir__
+  "../../mod/platypus/vendor/capybara-select2/lib", __dir__
 )
 require "capybara-select2"
 
