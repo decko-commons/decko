@@ -2,6 +2,9 @@
 
 require "decko/engine"
 require_relative "config/initializers/sedate_parser"
+require "cardio/application"
+
+Bundler.require :default, *Rails.groups
 
 module Decko
   class Application < Cardio::Application
@@ -29,7 +32,11 @@ module Decko
     end
 
     def config
-      @config ||= super.tap do |config|
+      @config ||= begin
+        config = super
+
+        Cardio.set_config config
+
         # any config settings below:
         # (a) do not apply to Card used outside of a Decko context
         # (b) cannot be overridden in a deck's application.rb, but
@@ -45,6 +52,7 @@ module Decko
         # but should probably follow the cardio pattern.
 
         # config.load_defaults "6.0"
+        puts "zeitwerkiness"
         config.autoloader = :zeitwerk
         config.load_default = "6.0"
         config.i18n.enforce_available_locales = true
@@ -56,16 +64,19 @@ module Decko
 
         config.filter_parameters += [:password]
 
-        config.autoload_paths += Dir["#{Decko.gem_root}/lib"]
         # Rails.autoloaders.log!
         Rails.autoloaders.main.ignore(
           File.join(Cardio.gem_root, "lib/card/seed_consts.rb")
         )
+        config
       end
     end
 
     def paths
-      @paths ||= super.tap do |paths|
+      @paths ||= begin
+        paths = super
+        Cardio.set_paths paths
+
         paths.add "files"
 
         paths["app/models"] = []
@@ -76,6 +87,8 @@ module Decko
           add_path paths, "config/routes.rb",
                    with: "rails/application-routes.rb"
         end
+
+        paths
       end
     end
   end
