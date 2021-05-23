@@ -8,7 +8,7 @@ require_relative "config/initializers/sedate_parser"
 module Decko
   class Application < Cardio::Application
     initializer :load_decko_environment_config,
-                after: :load_environment_config, group: :all do
+                before: :load_environment_config, group: :all do
       add_path paths, "lib/decko/config/environments", glob: "#{Rails.env}.rb"
       paths["lib/decko/config/environments"].existent.each do |environment|
         require environment
