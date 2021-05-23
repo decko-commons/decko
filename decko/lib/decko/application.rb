@@ -1,10 +1,9 @@
 # -*- encoding : utf-8 -*-
 
 require "decko/engine"
-require_relative "config/initializers/sedate_parser"
 require "cardio/application"
 
-Bundler.require :default, *Rails.groups
+require_relative "config/initializers/sedate_parser"
 
 module Decko
   class Application < Cardio::Application
@@ -32,11 +31,7 @@ module Decko
     end
 
     def config
-      @config ||= begin
-        config = super
-
-        Cardio.set_config config
-
+      @config ||= super.tap do |config|
         # any config settings below:
         # (a) do not apply to Card used outside of a Decko context
         # (b) cannot be overridden in a deck's application.rb, but
@@ -52,7 +47,6 @@ module Decko
         # but should probably follow the cardio pattern.
 
         # config.load_defaults "6.0"
-        puts "zeitwerkiness"
         config.autoloader = :zeitwerk
         config.load_default = "6.0"
         config.i18n.enforce_available_locales = true
@@ -68,7 +62,6 @@ module Decko
         Rails.autoloaders.main.ignore(
           File.join(Cardio.gem_root, "lib/card/seed_consts.rb")
         )
-        config
       end
     end
 
