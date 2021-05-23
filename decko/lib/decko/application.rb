@@ -1,14 +1,14 @@
 # -*- encoding : utf-8 -*-
 
 require "decko/engine"
+require "cardio/application"
+
 require_relative "config/initializers/sedate_parser"
 
-Bundler.require :default, *Rails.groups
-
 module Decko
-  class Application < Rails::Application
+  class Application < Cardio::Application
     initializer :load_decko_environment_config,
-                before: :load_environment_config, group: :all do
+                after: :load_environment_config, group: :all do
       add_path paths, "lib/decko/config/environments", glob: "#{Rails.env}.rb"
       paths["lib/decko/config/environments"].existent.each do |environment|
         require environment
@@ -31,11 +31,7 @@ module Decko
     end
 
     def config
-      @config ||= begin
-        config = super
-
-        Cardio.set_config config
-
+      @config ||= super.tap do |config|
         # any config settings below:
         # (a) do not apply to Card used outside of a Decko context
         # (b) cannot be overridden in a deck's application.rb, but
@@ -66,7 +62,6 @@ module Decko
         Rails.autoloaders.main.ignore(
           File.join(Cardio.gem_root, "lib/card/seed_consts.rb")
         )
-        config
       end
     end
 

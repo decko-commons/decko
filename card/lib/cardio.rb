@@ -20,6 +20,9 @@ module Cardio
   mattr_reader :paths, :config
 
   class << self
+    delegate :application, :root, to: Rails
+
+
     def card_defined?
       const_defined? "Card"
     end
@@ -142,10 +145,6 @@ module Cardio
         path_mark = mod ? "mod/config/initializers" : "config/initializers"
         paths[path_mark] << initializers_dir
       end
-    end
-
-    def root
-      @@config.root
     end
 
     def gem_root
