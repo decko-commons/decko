@@ -60,8 +60,11 @@ class Card
         end
 
         def source_mod_dir modname, carddir
-          prefix = "#{carddir}/mod" unless modname.match?(/^card-mod-/)
-          "#{prefix}/#{modname}/set/"
+          if (m = modname.match(/^card-mod-(?<shortname>.*)/))
+            "/mod/#{m[:shortname]}/set/"
+          else
+            "#{carddir}/mod/#{modname}/set/"
+          end
         end
 
         def try_haml_template_path template_path, view, source_dir, ext="haml"
