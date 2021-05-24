@@ -1,6 +1,5 @@
 require "decko/application"
 require_relative "alias"
-require "card/seed_consts"
 
 CARD_TASKS =
   [
@@ -41,7 +40,7 @@ decko_namespace = namespace :decko do
     conn = ActiveRecord::Base.connection
 
     puts "delete all data in bootstrap tables"
-    CARD_SEED_TABLES.each do |table|
+    Cardio::Seed::TABLES.each do |table|
       conn.delete "delete from #{table}"
     end
   end

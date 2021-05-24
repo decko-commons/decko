@@ -1,4 +1,4 @@
-require "card/seed_consts"
+require "cardio/seed"
 require "active_record/fixtures"
-ActiveRecord::FixtureSet.create_fixtures CARD_SEED_PATH, CARD_SEED_TABLES
+ActiveRecord::FixtureSet.create_fixtures Cardio::Seed.path, Cardio::Seed::TABLES
 Cardio::Mod::Loader.load_mods

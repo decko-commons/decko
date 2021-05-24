@@ -109,7 +109,7 @@ RSpec.describe Card::Set::Type::File do
 
     context "with subcards" do
       it "handles file subcards" do
-        file = File.open(File.join(CARD_TEST_SEED_PATH, "file1.txt"))
+        file = File.open(File.join(Cardio::Seed.test_path, "file1.txt"))
         Card.create! name: "new card with file",
                      subcards: { "+my file" => { content: "ignore content",
                                                  type_id: Card::FileID,
