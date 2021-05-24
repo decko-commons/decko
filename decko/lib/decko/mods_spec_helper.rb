@@ -11,7 +11,7 @@ CardSpecLoader.prefork do
     Bundler.require(:test)
     # if simplecov is activated in the Gemfile, it has to be required here
   end
-  #  CARD_TEST_SEED_PATH = File.dirname(__FILE__) + '/../fixtures'
+  #  Cardio::Seed.test_path = File.dirname(__FILE__) + '/../fixtures'
   CardSpecLoader.rspec_config
 end
 

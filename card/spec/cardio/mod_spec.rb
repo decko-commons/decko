@@ -1,17 +1,19 @@
 RSpec.describe Cardio::Mod do
   describe "gem_spec" do
+    def gem_spec *args
+      described_class.send :gem_spec, *args
+    end
+
     it "finds card mods" do
-      expect(described_class.gem_spec("card-mod-defaults"))
-        .to be_a(Gem::Specification)
+      expect(gem_spec("card-mod-defaults")).to be_a(Gem::Specification)
     end
 
     it "handles nicknames" do
-      expect(described_class.gem_spec("defaults"))
-        .to be_a(Gem::Specification)
+      expect(gem_spec("defaults")).to be_a(Gem::Specification)
     end
 
     it "doesn't use nicknames when told not to" do
-      expect(described_class.gem_spec("defaults", false)).to be_nil
+      expect(gem_spec("defaults", false)).to be_nil
     end
   end
 
