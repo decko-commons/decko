@@ -9,7 +9,7 @@ DOCKER_IMAGES = %w[base bundled mysql postgres sandbox].map { |name| "decko-#{na
 
 task :push_gems do
   each_gem do |gem|
-    v = gem == "card" ? DeckoGem.card_version : version
+    v = gem == :card ? DeckoGem.card_version : version
     system %(cd #{gem}; #{push_gem gem, v})
   end
 end
@@ -36,10 +36,13 @@ task :build_images do
   end
 end
 
+#------ Support methods -----------
+
 def each_gem &block
-  %w[card decko].map do |prefix|
-    Dir.glob("#{prefix}*").each(&block)
-  end
+  yield :card
+  Dir.each_child "mod", &block
+  yield :decko
+  Dir.each_child "support", &block
 end
 
 def push_gem gem, version

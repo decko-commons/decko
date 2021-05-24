@@ -71,7 +71,8 @@ class Card
     mattr_accessor :modules, :traits
 
     def self.reset_modules
-      self.modules = { base: [], base_format: {}, nonbase: {}, nonbase_format: {},
+      self.modules = { base: [], base_format: {},
+                       nonbase: {}, nonbase_format: {},
                        abstract: {}, abstract_format: {} }
     end
 
