@@ -1,3 +1,5 @@
+require "cardio/mod"
+
 Bundler.require :default, *Rails.groups
 
 module Cardio
@@ -35,21 +37,18 @@ module Cardio
     def default_autoload_paths
       config.autoload_paths += Dir["#{Cardio.gem_root}/lib"]
 
-      # TODO: this should use each_mod_path, but it's not available when this is run
+      # TODO: this should use Mod::each_path, but it's not available when this is run
       # This means libs will not get autoloaded (and sets not watched) if the mod
       # dir location is overridden in config
       [Cardio.gem_root, config.root].each do |dir|
         autoload_and_watch "#{dir}/mod/*"
       end
-      Cardio.gem_mod_specs.each_value do |spec|
+      Cardio::Mod.gem_specs.each_value do |spec|
         autoload_and_watch spec.full_gem_path
       end
 
       # the watchable_dirs are processed in the
       # set_clear_dependencies_hook hook in the railties gem in finisher.rb
-
-      # TODO: move this to the right place in decko
-      config.autoload_paths += Dir["#{Decko.gem_root}/lib"]
     end
 
     def autoload_and_watch mod_path
@@ -84,12 +83,12 @@ module Cardio
     def add_initializer_paths
       add_path "config/initializers", glob: "**/*.rb"
       add_initializers config.root
-      Cardio.each_mod_path { |mod_path| add_initializers mod_path, false, "core_initializers" }
+      Cardio::Mod.each_path { |mod_path| add_initializers mod_path, false, "core_initializers" }
     end
 
     def add_mod_initializer_paths
       add_path "mod/config/initializers", glob: "**/*.rb"
-      Cardio.each_mod_path { |mod_path| add_initializers mod_path, true }
+      Cardio::Mod.each_path { |mod_path| add_initializers mod_path, true }
     end
 
     def add_initializers base_dir, mod=false, init_dir="initializers"

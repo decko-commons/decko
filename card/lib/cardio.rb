@@ -3,7 +3,6 @@
 require "active_support/core_ext/numeric/time"
 require "cardio/schema"
 require "cardio/utils"
-require "cardio/modfiles"
 require "cardio/delaying"
 
 ActiveSupport.on_load :after_card do
@@ -13,7 +12,6 @@ end
 module Cardio
   extend Schema
   extend Utils
-  extend Modfiles
   extend Delaying
   CARD_GEM_ROOT = File.expand_path("..", __dir__)
 

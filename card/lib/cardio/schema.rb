@@ -83,5 +83,13 @@ module Cardio
       end
       list.flatten
     end
+
+    private
+
+    def mod_migration_paths dir
+      [].tap do |list|
+        Cardio::Mod.dirs.each("db/#{dir}") { |path| list.concat Dir.glob path }
+      end
+    end
   end
 end
