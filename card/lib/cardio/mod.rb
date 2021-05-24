@@ -85,8 +85,8 @@ module Cardio
       end
 
       def each_path &block
-        each_simple_path &block
-        each_gem_path &block
+        each_simple_path(&block)
+        each_gem_path(&block)
       end
 
       # @return [Hash] in the form{ modname(String) => Gem::Specification }

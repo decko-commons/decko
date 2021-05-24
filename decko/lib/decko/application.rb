@@ -6,6 +6,7 @@ require "cardio/application"
 require_relative "config/initializers/sedate_parser"
 
 module Decko
+  # The application class from which all decko applications inherit
   class Application < Cardio::Application
     class << self
       def inherited base
@@ -49,7 +50,6 @@ module Decko
     def decko_config_defaults
       # config.load_defaults "6.0"
       config.autoloader = :zeitwerk
-      config.load_default = "6.0"
       config.i18n.enforce_available_locales = true
       # config.active_record.raise_in_transactional_callbacks = true
 
@@ -59,11 +59,6 @@ module Decko
 
       config.filter_parameters += [:password]
       config.autoload_paths += Dir["#{Decko.gem_root}/lib"]
-
-      # Rails.autoloaders.log!
-      Rails.autoloaders.main.ignore(
-        File.join(Cardio.gem_root, "lib/card/seed_consts.rb")
-      )
     end
   end
 end

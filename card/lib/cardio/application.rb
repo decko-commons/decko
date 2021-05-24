@@ -3,6 +3,7 @@ require "cardio/mod"
 Bundler.require :default, *Rails.groups
 
 module Cardio
+  # handles config and path defaults
   class Application < Rails::Application
     initializer "cardio.load_defaults", before: :load_environment_config, group: :all do
       add_tmppaths
@@ -83,12 +84,16 @@ module Cardio
     def add_initializer_paths
       add_path "config/initializers", glob: "**/*.rb"
       add_initializers config.root
-      Cardio::Mod.each_path { |mod_path| add_initializers mod_path, false, "core_initializers" }
+      Cardio::Mod.each_path do |mod_path|
+        add_initializers mod_path, false, "core_initializers"
+      end
     end
 
     def add_mod_initializer_paths
       add_path "mod/config/initializers", glob: "**/*.rb"
-      Cardio::Mod.each_path { |mod_path| add_initializers mod_path, true }
+      Cardio::Mod.each_path do |mod_path|
+        add_initializers mod_path, true
+      end
     end
 
     def add_initializers base_dir, mod=false, init_dir="initializers"

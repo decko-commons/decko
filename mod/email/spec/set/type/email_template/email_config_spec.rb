@@ -1,7 +1,5 @@
 # -*- encoding : utf-8 -*-
 
-require "card/seed_consts"
-
 describe Card::Set::Type::EmailTemplate::EmailConfig do
   let(:email_name) { "a mail template" }
   let(:email) { Card.fetch(email_name) }
@@ -151,7 +149,7 @@ describe Card::Set::Type::EmailTemplate::EmailConfig do
     subject(:config) { mailconfig(context_card) }
 
     let(:context_card) do
-      file = File.new(File.join(CARD_TEST_SEED_PATH, "mao2.jpg"))
+      file = File.new(File.join(Cardio::Seed.test_path, "mao2.jpg"))
       Card.create(
         name: "Banana",
         content: "data content [[A]]",
