@@ -10,7 +10,7 @@ module Cardio
 
       def db_path *args
         parts = [Cardio.gem_root, "db"] + args
-        File.join *parts
+        File.join(*parts)
       end
     end
 
