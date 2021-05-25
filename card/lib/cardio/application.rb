@@ -28,7 +28,6 @@ module Cardio
         end
       end
 
-
       # TODO: many of these defaults should be in mods!
       def default_configs
         defaults_from_yaml.merge(
