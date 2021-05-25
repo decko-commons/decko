@@ -14,6 +14,7 @@ module Decko
         Rails.app_class = base
         add_lib_to_load_path!(find_root(base.called_from))
         ActiveSupport.run_load_hooks(:before_configuration, base.instance)
+        cardio_defaults
       end
     end
 
