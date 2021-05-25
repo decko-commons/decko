@@ -58,7 +58,6 @@ def update_items
   end
 end
 
-
 def delete_unused_items
   @old_items = ::Set.new item_keys
   yield
@@ -67,11 +66,11 @@ end
 
 def assets_dir_exists?
   path = assets_path
-  path && Dir.exists?(path)
+  path && Dir.exist?(path)
 end
 
 def manifest_exists?
-  manifest_path && File.exists?(manifest_path)
+  manifest_path && File.exist?(manifest_path)
 end
 
 def manifest_group_items group_name
@@ -101,26 +100,25 @@ def new_manifest_group group_name, config
   ensure_item group_name, type_id
 end
 
-
 def ensure_item field, type_id
   item_name = "#{name}+#{field}"
+  @old_items.delete item_name.to_name.key
+  add_item item_name
+
   card = Card[item_name]
   codename = "#{mod_name}_group__#{field}"
   args = {
     type_id: type_id,
     codename: codename
   }
-  return if card && card.type_id == type_id && card.codename == codename
 
+  return if card && card.type_id == type_id && card.codename == codename
   if !card
     Card.create args.merge(name: item_name)
   else
     card.update args
   end
-  @old_items.delete item_name.to_name.key
   card.try(:update_machine_output)
-
-  add_item item_name
 end
 
 def groups_changed?

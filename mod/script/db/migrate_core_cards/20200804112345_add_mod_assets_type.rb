@@ -12,7 +12,8 @@ class AddModAssetsType < Cardio::Migration::Core
     delete_code_card :script_jquery
     delete_code_card :script_mods
     card = Card[:all, :script]
-    ["script: jquery", "script: decko", "script: libraries", "script: editors", "script: mods"].each do |name|
+    ["script: jquery", "script: decko", "script: libraries",
+     "script: editors", "script: mods"].each do |name|
       card.drop_item name
     end
     puts card.item_names

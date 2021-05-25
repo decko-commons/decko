@@ -15,7 +15,7 @@ def paths
   left.manifest_group_items group_name
 end
 
-def item_names content=nil
+def item_names _content=nil
   paths
 end
 
