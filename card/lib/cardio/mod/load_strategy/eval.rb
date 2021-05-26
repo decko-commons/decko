@@ -6,8 +6,7 @@ module Cardio
       class Eval < LoadStrategy
         def load_modules
           each_file do |abs_path, module_names|
-            template = module_template.new module_names, abs_path, self
-            template.build
+            template_class.new(module_names, abs_path, self).build
           end
         end
       end

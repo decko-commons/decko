@@ -12,28 +12,7 @@ module Cardio
     # The mods are given by a Mod::Dirs object.
     # SetLoader can use three different strategies to load the set modules.
     class Loader
-      def initialize load_strategy: nil, mod_dirs: nil
-        load_strategy ||= Cardio.config.load_strategy
-        mod_dirs ||= Mod.dirs
-        klass = load_strategy_class load_strategy
-        @load_strategy = klass.new mod_dirs, self
-      end
-
-      def load_strategy_class load_strategy
-        case load_strategy
-        when :tmp_files     then LoadStrategy::TmpFiles
-        when :binding_magic then LoadStrategy::BindingMagic
-        else                     LoadStrategy::Eval
-        end
-      end
-
-      def load
-        @load_strategy.load_modules
-      end
-
       class << self
-        attr_reader :module_type
-
         def load_mods
           SetPatternLoader.new.load
           SetLoader.new.load
@@ -45,19 +24,12 @@ module Cardio
           Card::Set::Pattern.reset
           Card::Set.reset_modules
           SetPatternLoader.new.load
-          SetLoader.new(patterns: Card::Set::Pattern.nonbase_loadable_codes).load
+          SetLoader.new(no_all: true).load
         end
-
-        def module_class_template
-          const_get :Template
-        end
-
-        # private
 
         def load_initializers
-          Cardio.config
-                .paths["mod/config/initializers"].existent.sort.each do |initializer|
-            load initializer
+          Cardio.config.paths["mod/config/initializers"].existent.sort.each do |init|
+            load init
           end
         end
 
@@ -72,6 +44,37 @@ module Cardio
             # }.format('%n: %t %r')
           end
         end
+      end
+
+      def initialize load_strategy: nil, mod_dirs: nil
+        load_strategy ||= Cardio.config.load_strategy
+        @mod_dirs ||= Mod.dirs
+        @load_strategy = load_strategy_class(load_strategy).new self
+      end
+
+      def load
+        @load_strategy.load_modules
+      end
+
+      private
+
+      def each_mod_dir module_type, &block
+        @mod_dirs.each module_type, &block
+      end
+
+      def each_file_in_dir base_dir, subdir=nil
+        pattern = File.join(*[base_dir, subdir, "**/*.rb"].compact)
+        Dir.glob(pattern).sort.each do |abs_path|
+          rel_path = abs_path.sub("#{base_dir}/", "")
+          const_parts = parts_from_path rel_path
+          yield abs_path, const_parts
+        end
+      end
+
+      def parts_from_path path
+        # remove file extension and number prefixes
+        parts = path.gsub(/\.rb/, "").gsub(%r{(?<=\A|/)\d+_}, "").split(File::SEPARATOR)
+        parts.map(&:camelize)
       end
     end
   end
