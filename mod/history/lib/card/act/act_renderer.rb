@@ -10,7 +10,7 @@ class Card
         @context = @args[:act_context]
       end
 
-      include ::Bootstrapper
+      include Card::Bootstrapper
 
       def method_missing method_name, *args, &block
         if block_given?
@@ -31,7 +31,7 @@ class Card
       end
 
       def header
-        #::Bootstrap.new(self).render do
+        # Card::Bootstrap.new(self).render do
         bs_layout do
           row xs: [10, 2] do
             column do

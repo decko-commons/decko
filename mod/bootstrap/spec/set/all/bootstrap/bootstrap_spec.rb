@@ -1,4 +1,4 @@
-RSpec.describe Bootstrap do
+RSpec.describe Card::Bootstrap do
   subject { described_class.new(format) }
 
   let(:format) { Card["A"].format(:html) }
