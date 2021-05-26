@@ -16,7 +16,7 @@ class Card
   # - _acted_at_, a timestamp of the action
   # - the _ip_address_ of the actor where applicable.
   #
-  class Act < ApplicationRecord
+  class Act < Cardio::Record
     before_save :assign_actor
     has_many :ar_actions, -> { order :id }, foreign_key: :card_act_id,
                                             inverse_of: :act,

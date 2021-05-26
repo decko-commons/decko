@@ -14,26 +14,35 @@ module Cardio
       add_initializer_paths
       add_mod_initializer_paths
       default_autoload_paths
+    end
 
-      default_configs.each_pair do |setting, value|
-        config.send "#{setting}=", *value
+    class << self
+      def inherited _base
+        super
+        cardio_defaults
+      end
+
+      def cardio_defaults
+        default_configs.each_pair do |setting, value|
+          config.send "#{setting}=", *value
+        end
+      end
+
+      # TODO: many of these defaults should be in mods!
+      def default_configs
+        defaults_from_yaml.merge(
+          read_only: !ENV["DECKO_READ_ONLY"].nil?,
+          load_strategy: (ENV["REPO_TMPSETS"] || ENV["TMPSETS"] ? :tmp_files : :eval)
+        )
+      end
+
+      def defaults_from_yaml
+        filename = File.expand_path "defaults.yml", __dir__
+        YAML.load_file filename
       end
     end
 
     private
-
-    # TODO: many of these defaults should be in mods!
-    def default_configs
-      defaults_from_yaml.merge(
-        read_only: !ENV["DECKO_READ_ONLY"].nil?,
-        load_strategy: (ENV["REPO_TMPSETS"] || ENV["TMPSETS"] ? :tmp_files : :eval)
-      )
-    end
-
-    def defaults_from_yaml
-      filename = File.expand_path "defaults.yml", __dir__
-      YAML.load_file filename
-    end
 
     def default_autoload_paths
       config.autoload_paths += Dir["#{Cardio.gem_root}/lib"]

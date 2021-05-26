@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-describe Bootstrap::Component::Carousel do
+RSpec.describe Card::Bootstrap::Component::Carousel do
   subject { Card["A"].format(:html) }
 
   specify "carousel helper" do

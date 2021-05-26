@@ -110,7 +110,7 @@ ActiveSupport.run_load_hooks(:before_card, self)
 # can be temporarily assumed using `Card::Auth#as`.
 #
 # {Card::Auth More on accounts}
-class Card < ApplicationRecord
+class Card < Cardio::Record
   extend Mark
   extend Dirty::MethodFactory
   extend Name::CardClass

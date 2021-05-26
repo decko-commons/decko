@@ -20,7 +20,7 @@ end
 def reset_column_information mod=false
   Rails.application.eager_load!
   load_mod_lib if mod
-  ApplicationRecord.descendants.each(&:reset_column_information)
+  Cardio::Record.descendants.each(&:reset_column_information)
 end
 
 def load_mod_lib
