@@ -34,7 +34,7 @@ module Cardio
 
         def write_tmp_file from_file, to_file, const_parts
           FileUtils.mkdir_p File.dirname(to_file)
-          mt = module_template.new const_parts, from_file, self
+          mt = template_class.new const_parts, from_file, self
           File.write to_file, mt.to_s
         end
       end
