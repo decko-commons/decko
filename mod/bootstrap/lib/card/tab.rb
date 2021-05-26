@@ -5,10 +5,17 @@ class Card
     class << self
       def tab_objects format, tab_hash, active_name, klass=nil
         klass ||= Card::Tab
-        active_name ||= tab_hash.keys.first
+        active_name = active active_name, tab_hash.keys
         tab_hash.map do |name, config|
           klass.new format, name, active_name, config
         end
+      end
+
+      private
+
+      def active requested, keys
+        r = requested.to_name
+        r && keys.find { |k| k.to_name == r } || keys.first
       end
     end
 
