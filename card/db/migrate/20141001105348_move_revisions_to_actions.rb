@@ -1,5 +1,5 @@
 class MoveRevisionsToActions < ActiveRecord::Migration[4.2]
-  class TmpRevision < Cardio::ApplicationRecord
+  class TmpRevision < Cardio::Record
     belongs_to :tmp_card, foreign_key: :card_id
     self.table_name = "card_revisions"
     def self.delete_cardless
@@ -9,19 +9,19 @@ class MoveRevisionsToActions < ActiveRecord::Migration[4.2]
     end
   end
 
-  class TmpAct < Cardio::ApplicationRecord
+  class TmpAct < Cardio::Record
     self.table_name = "card_acts"
   end
 
-  class TmpAction < Cardio::ApplicationRecord
+  class TmpAction < Cardio::Record
     self.table_name = "card_actions"
   end
 
-  class TmpChange < Cardio::ApplicationRecord
+  class TmpChange < Cardio::Record
     self.table_name = "card_changes"
   end
 
-  class TmpCard < Cardio::ApplicationRecord
+  class TmpCard < Cardio::Record
     belongs_to :tmp_revision, foreign_key: :current_revision_id
     has_many :tmp_actions, foreign_key: :card_id
     self.table_name = "cards"

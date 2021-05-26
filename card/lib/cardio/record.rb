@@ -1,5 +1,5 @@
 module Cardio
-  class ApplicationRecord < ActiveRecord::Base
+  class Record < ActiveRecord::Base
     self.abstract_class = true
   end
 end

@@ -45,7 +45,7 @@ class Card
           end
         end
 
-        class IntegrateWithDelayJob < Cardio::ApplicationJob
+        class IntegrateWithDelayJob < Cardio::Job
           def perform act_id, card, card_attribs, env, auth, method_name
             handle_perform do
               load_card card, card_attribs
