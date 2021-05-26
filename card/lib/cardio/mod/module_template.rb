@@ -2,7 +2,7 @@ module Cardio
   module Mod
     # ModuleTemplate is an abstract class to build ruby modules out of
     # deckos dsl for sets and set patterns.
-    # {Loader::SetLoader::Template} and {Loader::SetPatternLoader::Template} inherit
+    # {Loader::SetTemplate} and {Loader::SetPatternTemplate} inherit
     # from it and adapt the template to their needs.
     class ModuleTemplate
       def initialize modules, content_path, strategy
