@@ -37,7 +37,7 @@ class Card
         end
 
         def codes
-          Card.set_patterns.map(&:pattern_code).push(:abstract).reverse
+          Card.set_patterns.map(&:pattern_code).reverse
         end
       end
     end
