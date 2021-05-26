@@ -11,7 +11,7 @@ class Card
         @hide_diff = hide_diff
       end
 
-      include ::Bootstrapper
+      include Card::Bootstrapper
       def method_missing method_name, *args, &block
         if block_given?
           @format.send(method_name, *args, &block)
