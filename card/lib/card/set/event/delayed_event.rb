@@ -1,5 +1,3 @@
-require "application_job"
-
 class Card
   # attributes that ActiveJob can handle
   def serializable_attributes
@@ -47,7 +45,7 @@ class Card
           end
         end
 
-        class IntegrateWithDelayJob < ApplicationJob
+        class IntegrateWithDelayJob < Cardio::ApplicationJob
           def perform act_id, card, card_attribs, env, auth, method_name
             handle_perform do
               load_card card, card_attribs
