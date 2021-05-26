@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-RSpec.describe Bootstrap::Component::Form do
+RSpec.describe Card::Bootstrap::Component::Form do
   describe "input" do
     it "has form-group css class" do
       assert_view_select render_input("Phrase"),
