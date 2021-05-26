@@ -1,11 +1,6 @@
 # add method in? to Object class
 require "active_support/core_ext/object/inclusion"
 
-def load_rake_tasks
-  require "./config/environment"
-  require "rake"
-  Decko::Application.load_tasks
-end
 
 RAILS_COMMANDS = %w[ generate destroy plugin benchmarker profiler console
                      server dbconsole application runner ].freeze

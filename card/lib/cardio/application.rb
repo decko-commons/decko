@@ -42,6 +42,8 @@ module Cardio
       end
     end
 
+    private
+
     def default_autoload_paths
       config.autoload_paths += Dir["#{Cardio.gem_root}/lib"]
 

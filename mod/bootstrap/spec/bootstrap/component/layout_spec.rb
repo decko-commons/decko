@@ -1,4 +1,4 @@
-describe Bootstrap::Component::Layout, "layout dsl" do
+describe Card::Bootstrap::Component::Layout do
   let(:format) { Card["A"].format(:html) }
 
   it "creates correct layout with column array" do
