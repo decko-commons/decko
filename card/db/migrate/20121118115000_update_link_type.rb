@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 
 class UpdateLinkType < ActiveRecord::Migration[4.2]
-  class TmpReference < ApplicationRecord
+  class TmpReference < Cardio::ApplicationRecord
     self.table_name = "card_references"
   end
 

@@ -1,5 +1,5 @@
 class Card
-  class Reference < ApplicationRecord
+  class Reference < Cardio::ApplicationRecord
     module All
       # frozen_string_literal: true
 

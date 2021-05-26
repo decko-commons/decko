@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-RSpec.describe Bootstrap::Component::HorizontalForm do
+RSpec.describe Card::Bootstrap::Component::HorizontalForm do
   describe "horizontal form" do
     subject { Card["A"].format(:html) }
 
