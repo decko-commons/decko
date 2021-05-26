@@ -30,11 +30,11 @@ module ClassMethods
     return unless dir
 
     (all_trashed_card_ids & all_file_ids).each do |file_id|
-      delete_files_with_id file_id
+      delete_files_with_id dir, file_id
     end
   end
 
-  def delete_files_with_id file_id
+  def delete_files_with_id dir, file_id
     raise Card::Error, t(:core_exception_almost_deleted) if Card.exists?(file_id)
 
     ::FileUtils.rm_rf "#{dir}/#{file_id}", secure: true

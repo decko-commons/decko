@@ -25,7 +25,7 @@ module Cardio
       end
 
       attr_reader :loader
-      delegate :template_class, :each_file, :mod_dirs, to: :loader
+      delegate :template_class, :each_file, :mod_dirs, :parts_from_path, to: :loader
 
       def initialize loader
         LoadStrategy.current = self.class

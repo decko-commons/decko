@@ -58,6 +58,12 @@ module Cardio
         @load_strategy.load_modules
       end
 
+      def parts_from_path path
+        # remove file extension and number prefixes
+        parts = path.gsub(/\.rb/, "").gsub(%r{(?<=\A|/)\d+_}, "").split(File::SEPARATOR)
+        parts.map(&:camelize)
+      end
+
       private
 
       def each_mod_dir module_type, &block
@@ -71,12 +77,6 @@ module Cardio
           const_parts = parts_from_path rel_path
           yield abs_path, const_parts
         end
-      end
-
-      def parts_from_path path
-        # remove file extension and number prefixes
-        parts = path.gsub(/\.rb/, "").gsub(%r{(?<=\A|/)\d+_}, "").split(File::SEPARATOR)
-        parts.map(&:camelize)
       end
     end
   end

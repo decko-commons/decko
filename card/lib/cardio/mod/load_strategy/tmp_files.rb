@@ -24,12 +24,9 @@ module Cardio
         end
 
         def rewrite_tmp_files?
-          if defined?(@rewrite)
-            @rewrite
-          else
-            @rewrite = !(Rails.env.production? &&
-              Card.paths["tmp/set"].existent.first)
-          end
+          return @rewrite if defined? @rewrite
+
+          @rewrite = !(Rails.env.production? && Card.paths["tmp/set"].existent.first)
         end
 
         def write_tmp_file from_file, to_file, const_parts
