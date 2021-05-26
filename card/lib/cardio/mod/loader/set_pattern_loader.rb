@@ -6,13 +6,8 @@ module Cardio
           SetPatternTemplate
         end
 
-        def load_strategy_class load_strategy
-          case load_strategy
-          when :tmp_files
-            LoadStrategy::PatternTmpFiles
-          else # :eval
-            LoadStrategy::Eval
-          end
+        def load_strategy_class strategy
+          LoadStrategy.class_for_set_pattern strategy
         end
 
         def each_file &block

@@ -46,9 +46,11 @@ module Cardio
         end
       end
 
+      attr_reader :mod_dirs
+
       def initialize load_strategy: nil, mod_dirs: nil
         load_strategy ||= Cardio.config.load_strategy
-        @mod_dirs ||= Mod.dirs
+        @mod_dirs = mod_dirs || Mod.dirs
         @load_strategy = load_strategy_class(load_strategy).new self
       end
 

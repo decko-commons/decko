@@ -14,15 +14,8 @@ module Cardio
           super
         end
 
-        def load_strategy_class load_strategy
-          case load_strategy
-          when :tmp_files
-            LoadStrategy::SetTmpFiles
-          when :binding_magic
-            LoadStrategy::SetBindingMagic
-          else
-            LoadStrategy::Eval
-          end
+        def load_strategy_class strategy
+          LoadStrategy.class_for_set strategy
         end
 
         def load
@@ -39,7 +32,7 @@ module Cardio
 
         def each_file &block
           # each_file_with_patterns :abstract, &block
-          each_file_with_patterns *main_patterns, &block
+          each_file_with_patterns(*main_patterns, &block)
         end
 
         def each_file_with_patterns *patterns, &block

@@ -5,12 +5,18 @@ module Cardio
       class << self
         attr_accessor :tmp_files, :current
 
-        def klass symbol
-          case symbol
-          when :tmp_files     then TmpFiles
-          when :binding_magic then BindingMagic
+        def class_for_set strategy
+          case strategy
+          when :tmp_files     then SetTmpFiles
+          when :binding_magic then SetBindingMagic
           else                     Eval
           end
+        end
+
+        def class_for_set_pattern strategy
+          return PatternTmpFiles if strategy == :tmp_files
+
+          Eval
         end
 
         def tmp_files?
@@ -19,7 +25,7 @@ module Cardio
       end
 
       attr_reader :loader
-      delegate :template_class, :each_file, to: :loader
+      delegate :template_class, :each_file, :mod_dirs, to: :loader
 
       def initialize loader
         LoadStrategy.current = self.class
