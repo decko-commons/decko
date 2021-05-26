@@ -27,7 +27,8 @@ class Card
         def def_tag_method method_name, html_class, tag_opts={}, &tag_opts_block
           tag = tag_opts.delete(:tag) || method_name
           define_method method_name do |*args, &content_block|
-            @html.tag! tag, tag_method_opts(args, html_class, tag_opts, &tag_opts_block) do
+            @html.tag! tag,
+                       tag_method_opts(args, html_class, tag_opts, &tag_opts_block) do
               instance_exec(&content_block)
             end
           end
