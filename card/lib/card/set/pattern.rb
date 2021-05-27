@@ -32,11 +32,11 @@ class Card
             end
         end
 
-        def nonbase_loadable_codes
-          loadable_codes.tap { |l| l.delete :all }
+        def nonbase_codes
+          codes.tap { |list| list.delete :all }
         end
 
-        def loadable_codes
+        def codes
           Card.set_patterns.map(&:pattern_code).push(:abstract).reverse
         end
       end
