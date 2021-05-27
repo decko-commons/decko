@@ -37,7 +37,7 @@ Decko::RestSpecHelper.describe_api do
       before do
         Card::Auth.as_bot do
           Card.create! name: "mao2", type_code: "image",
-                       image: File.new(File.join(CARD_TEST_SEED_PATH, "mao2.jpg"))
+                       image: File.new(File.join(Cardio::Seed.test_path, "mao2.jpg"))
           Card.create! name: "mao2+*self+*read", content: "[[Administrator]]"
         end
       end

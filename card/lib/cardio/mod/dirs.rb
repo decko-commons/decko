@@ -167,7 +167,7 @@ module Cardio
       end
 
       def load_from_gemfile
-        Cardio.gem_mod_specs.each do |mod_name, mod_spec|
+        Cardio::Mod.gem_specs.each do |mod_name, mod_spec|
           add_gem_mod mod_name, mod_spec.full_gem_path
         end
       end

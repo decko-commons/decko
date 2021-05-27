@@ -4,7 +4,7 @@ class Card
   # Model for the card_virtuals table.
   # It provides method to get and store content for virtual cards from
   # the card_virtuals table.
-  class Virtual < ApplicationRecord
+  class Virtual < Cardio::Record
     def update new_content
       update! content: new_content
       new_content

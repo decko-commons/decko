@@ -20,7 +20,7 @@ class Card
   # * a boolean indicated whether the action is a _draft_
   # * a _comment_ (where applicable)
   #
-  class Action < ApplicationRecord
+  class Action < Cardio::Record
     include Differ
     extend Admin
 

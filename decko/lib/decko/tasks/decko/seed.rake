@@ -1,3 +1,5 @@
+require "cardio/seed"
+
 namespace :decko do
   namespace :seed do
     desc "reseed, migrate, re-clean, and re-dump"
@@ -121,14 +123,14 @@ namespace :decko do
     def add_test_data
       return unless Rails.env == "test"
 
-      load CARD_TEST_SEED_SCRIPT_PATH
+      load Cardio::Seed.test_script_path
       SharedData.add_test_data
     end
 
     desc "dump db to bootstrap fixtures"
     task dump: :environment do
       Card::Cache.reset_all
-      CARD_SEED_TABLES.each do |table|
+      Cardio::Seed::TABLES.each do |table|
         i = "000"
         write_seed_file table do
           yamlize_records table do |record, hash|
@@ -139,7 +141,7 @@ namespace :decko do
     end
 
     def write_seed_file table
-      path = Rails.env == "test" ? CARD_TEST_SEED_PATH : CARD_SEED_PATH
+      path = Rails.env == "test" ? Cardio::Seed.test_path : Cardio::Seed.path
       filename = File.join path, "#{table}.yml"
       File.open filename, "w" do |file|
         file.write yield
