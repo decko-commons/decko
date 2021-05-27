@@ -1,7 +1,7 @@
 # require "English" # needed for CHILD_STATUS, but not sure this is the best place for this.
 
 module Decko
-  module Commands
+  class Commands
     class Command
       def run
         puts command

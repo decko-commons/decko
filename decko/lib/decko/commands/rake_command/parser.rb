@@ -3,7 +3,7 @@
 require "optparse"
 
 module Decko
-  module Commands
+  class Commands
     class RakeCommand
       class Parser < OptionParser
         def initialize command, opts

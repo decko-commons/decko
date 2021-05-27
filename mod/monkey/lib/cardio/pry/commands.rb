@@ -1,7 +1,7 @@
 module Cardio
   module Pry
     # Pry command configuration
-    module Commands
+    class Commands
       class << self
         def alias_command *args
           ::Pry.config.commands.alias_command(*args)
