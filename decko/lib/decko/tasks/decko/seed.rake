@@ -4,7 +4,7 @@ namespace :decko do
     task update: :environment do
       ENV["STAMP_MIGRATIONS"] = "true"
       ENV["GENERATE_FIXTURES"] = "true"
-      %w[reseed update seed:clean seed:supplement seed:dump].each do |task|
+      %w[reseed update seed:clean seed:supplement mod_install seed:dump].each do |task|
         Rake::Task["decko:#{task}"].invoke
       end
     end
