@@ -2,6 +2,7 @@
 
 # This command will be run when you use `decko` from within your deck.
 
-APP_PATH = File.expand_path("../config/application",  __dir__)
-require File.expand_path("../config/boot",  __dir__)
+APP_PATH = File.expand_path("../config/application", __dir__)
 require "decko/commands"
+
+Decko::Commands.new(ARGV).run
