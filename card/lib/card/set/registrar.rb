@@ -8,7 +8,7 @@ class Card
     #     set_format modules
     #  2. Organization: have base classes include modules associated with the
     #     'all' set, and clean up the other modules
-    module Loader
+    module Registrar
       # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
       # Definition Phase
 
