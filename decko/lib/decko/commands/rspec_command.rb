@@ -1,7 +1,7 @@
 require File.expand_path("command", __dir__)
 
 module Decko
-  module Commands
+  class Commands
     class RspecCommand < Command
       def initialize args
         require "rspec/core"
