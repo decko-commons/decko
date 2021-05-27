@@ -3,7 +3,7 @@
 require "optparse"
 
 module Decko
-  module Commands
+  class Commands
     class RspecCommand
       class Parser < OptionParser
         RSPEC_PATH_MESSAGE = <<-EOT

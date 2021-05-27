@@ -3,7 +3,7 @@
 require "optparse"
 
 module Decko
-  module Commands
+  class Commands
     class CucumberCommand
       class Parser < OptionParser
         class Flagger
