@@ -49,11 +49,11 @@ module Decko
       else
         unrecognized
       end
+      exit 0
     end
 
     def run_help
       puts File.read(File.expand_path("../commands/USAGE", __FILE__))
-      exit 1
     end
 
     def run_rails
@@ -100,6 +100,9 @@ module Decko
     def unrecognized
       puts "Error: Command not recognized: #{command}"
       run_help
+      exit 1
     end
+
+    new(ARGV).run
   end
 end
