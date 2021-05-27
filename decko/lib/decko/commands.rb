@@ -102,7 +102,7 @@ module Decko
       run_help
       exit 1
     end
+
+    new(ARGV).run
   end
 end
-
-Decko::Commands.new(ARGV).run
