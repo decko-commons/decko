@@ -1,4 +1,5 @@
 ---
+
 # if you disable inline styles tinymce's formatting options stop working
 :allow_inline_styles: true
 :delaying:
