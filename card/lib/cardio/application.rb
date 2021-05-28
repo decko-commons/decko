@@ -6,6 +6,7 @@ module Cardio
   # handles config and path defaults
   class Application < Rails::Application
     def config
+      puts "Cardio::App config called"
       @config ||= super.tap do |config|
         simple_configs config
         coded_configs config
