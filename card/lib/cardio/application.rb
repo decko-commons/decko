@@ -32,7 +32,7 @@ module Cardio
       config.load_strategy = (ENV["REPO_TMPSETS"] || ENV["TMPSETS"] ? :tmp_files : :eval)
       config.autoload_paths += Dir["#{Cardio.gem_root}/lib"]
       Paths.new(config).assign
-      each_mod_path do |mod_path|
+      Cardio::Mod.each_path do |mod_path|
         config.autoload_paths += Dir["#{mod_path}/lib"]
         config.watchable_dirs["#{mod_path}/set"] = [:rb]
       end
