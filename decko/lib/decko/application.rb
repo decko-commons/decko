@@ -20,7 +20,6 @@ module Decko
     def config
       @config ||= super.tap do |config|
         # config.load_defaults "6.0"
-
         # config.active_record.raise_in_transactional_callbacks = true
 
         config.allow_concurrency = false
@@ -50,7 +49,8 @@ module Decko
     end
 
     def decko_root_path paths, path, options
-      paths.add path, options.merge(with: File.join(Decko.gem_root, path))
+      options[:with] = File.join(Decko.gem_root, (options[:with] || path))
+      paths.add path, options
     end
   end
 end

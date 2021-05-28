@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-describe Card::Set::All::Observer do
+RSpec.describe Card::Set::All::Observer do
   before do
     Card::Auth.as_bot do
       Card.create! name: "mail template",  type_code: "email_template",

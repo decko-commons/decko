@@ -38,17 +38,6 @@ module Cardio
       end
     end
 
-    def each_mod_path
-      # TODO: this should use Mod::each_path, but it's not available when this is run
-      # This means libs will not get autoloaded (and sets not watched) if the mod
-      # dir location is overridden in config
-      [Cardio.gem_root, config.root].each { |dir| yield "#{dir}/mod/*" }
-      Cardio::Mod.gem_specs.each_value { |spec| yield spec.full_gem_path }
-
-      # the watchable_dirs are processed in the
-      # set_clear_dependencies_hook hook in the railties gem in finisher.rb
-    end
-
     class Paths
       attr_reader :config, :paths
 
