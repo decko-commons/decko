@@ -14,52 +14,43 @@ module Decko
         Rails.app_class = base
         add_lib_to_load_path!(find_root(base.called_from))
         ActiveSupport.run_load_hooks(:before_configuration, base.instance)
-        cardio_defaults
       end
     end
 
-    initializer "decko.load_defaults", before: :load_environment_config, group: :all do
-      decko_path_defaults
-      decko_config_defaults
-      decko_environment_defaults
+    def config
+      @config ||= super.tap do |config|
+        # config.load_defaults "6.0"
+
+        # config.active_record.raise_in_transactional_callbacks = true
+
+        config.allow_concurrency = false
+        config.assets.enabled = false
+        config.assets.version = "1.0"
+
+        config.filter_parameters += [:password]
+        config.autoload_paths += Dir["#{Decko.gem_root}/lib"]
+        decko_path_defaults config.paths
+        decko_environment_defaults config.paths
+      end
     end
 
     private
 
-    def decko_path_defaults
-      paths["app/models"] = []
-      paths["app/mailers"] = []
-      paths["app/controllers"] = []
-
-      paths.add "files"
-
-      add_path "lib/decko/config/environments",
-               glob: "#{Rails.env}.rb", root: Decko.gem_root
-
+    def decko_path_defaults paths
+      decko_root_path paths, "lib/decko/config/environments", glob: "#{Rails.env}.rb"
       return if paths["config/routes.rb"].existent.present?
 
-      add_path "config/routes.rb",
-               with: "rails/application-routes.rb", root: Decko.gem_root
+      decko_root_path paths, "config/routes.rb", with: "rails/application-routes.rb"
     end
 
-    def decko_environment_defaults
+    def decko_environment_defaults paths
       paths["lib/decko/config/environments"].existent.each do |environment|
         require environment
       end
     end
 
-    def decko_config_defaults
-      # config.load_defaults "6.0"
-      config.autoloader = :zeitwerk
-      config.i18n.enforce_available_locales = true
-      # config.active_record.raise_in_transactional_callbacks = true
-
-      config.allow_concurrency = false
-      config.assets.enabled = false
-      config.assets.version = "1.0"
-
-      config.filter_parameters += [:password]
-      config.autoload_paths += Dir["#{Decko.gem_root}/lib"]
+    def decko_root_path paths, path, options
+      paths.add path, options.merge(with: File.join(Decko.gem_root, path))
     end
   end
 end
