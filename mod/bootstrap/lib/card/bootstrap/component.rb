@@ -1,3 +1,6 @@
+require "card/bootstrap/component/component_class"
+# above should not be necessary, but deployments failing without it
+
 class Card
   class Bootstrap
     # render components of bootstrap library
