@@ -6,7 +6,7 @@ namespace :decko do
     task update: :environment do
       ENV["STAMP_MIGRATIONS"] = "true"
       ENV["GENERATE_FIXTURES"] = "true"
-      %w[reseed update seed:clean seed:supplement seed:dump].each do |task|
+      %w[reseed update seed:clean seed:supplement mod_install seed:dump].each do |task|
         Rake::Task["decko:#{task}"].invoke
       end
     end
@@ -77,8 +77,10 @@ namespace :decko do
     end
 
     def machine_seed_names
+      script_names =
+        Card[:all , :script].item_cards.map { |mod_script_card| mod_script_card.item_names }.flatten
       @machine_seed_names ||=
-        [%i[all script], %i[all style], [:script_html5shiv_printshiv]].map do |name|
+        script_names + [%i[all style], [:script_html5shiv_printshiv]].map do |name|
           Card::Name[*name]
         end
     end
