@@ -2,7 +2,7 @@
 
 require "optparse"
 
-module Decko
+module Cardio
   class Commands
     class RspecCommand
       class Parser < OptionParser
@@ -85,11 +85,15 @@ module Decko
           if file.include?("_spec.rb") && File.exist?(file)
             filename
           else
-            file = File.basename(file, ".rb").sub(/_spec$/, "")
-            Dir.glob("#{base_dir}/**/#{file}_spec.rb").flatten.map do |spec_file|
-              line ? "#{spec_file}:#{line}" : file
-            end.join(" ")
+            find_matching_spec_files file, line, base_dir
           end
+        end
+
+        def find_matching_spec_files file, line, base_dir
+          file = File.basename(file, ".rb").sub(/_spec$/, "")
+          Dir.glob("#{base_dir}/**/#{file}_spec.rb").flatten.map do |spec_file|
+            line ? "#{spec_file}:#{line}" : file
+          end.join " "
         end
       end
     end

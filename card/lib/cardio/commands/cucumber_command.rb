@@ -1,6 +1,6 @@
 require File.expand_path("command", __dir__)
 
-module Decko
+module Cardio
   class Commands
     class CucumberCommand < Command
       def initialize args
