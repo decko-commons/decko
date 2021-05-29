@@ -1,3 +1,5 @@
+require "English"
+
 module Cardio
   class Commands
     attr_reader :command, :args

@@ -34,14 +34,15 @@ module Cardio
             parser.banner = RSPEC_BANNER
             parser.separator RSPEC_PATH_MESSAGE
 
-            parsers_on parser, opts
+            file_options parser, opts
+            other_options parser, opts
             parser.separator "\n"
           end
         end
 
         private
 
-        def parsers_on parser, opts
+        def file_options parser, opts
           parser.on("-d", "--spec FILENAME(:LINE)", DESC[:d]) do |file|
             opts[:files] = find_spec_file(file, "#{Decko.root}/mod")
           end
@@ -51,6 +52,9 @@ module Cardio
           parser.on("-m", "--mod MODNAME", DESC[:m]) do |file|
             opts[:files] = find_mod_file(file, Cardio.gem_root)
           end
+        end
+
+        def other_options parser, opts
           parser.on("-s", "--[no-]simplecov", "Run with simplecov") do |s|
             opts[:simplecov] = s ? "TMPSETS=true" : ""
           end
