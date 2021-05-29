@@ -1,4 +1,5 @@
 class Card
+  # each instance object represents a card mod
   class Mod
     attr_reader :name, :path, :index
 

@@ -109,11 +109,11 @@ format :html do
   end
 
   def head_stylesheet_path
-    debug_or_machine_path :style,
-                          ->(style_card) { path mark: style_card.name,
-                                                item: :import,
-                                                format: :css },
-                          ->(machine_path) { machine_path }
+    debug_or_machine_path(
+      :style,
+      ->(style_card) { path mark: style_card.name, item: :import, format: :css },
+      ->(machine_path) { machine_path }
+    )
   end
 
   def head_javascript_paths
