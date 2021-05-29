@@ -35,7 +35,7 @@ DeckoGem.gem "card" do |s, d|
     ["kaminari",                    "~> 1.0"],
     ["bootstrap4-kaminari-views",   "~> 1.0"],
     # other
-    ["diff-lcs",                    "~> 1.3"], # content diffs in histories
+    ["diff-lcs",                    "~>  1.3"], # content diffs in histories
     ["activerecord-import",         "~> 1.0"]
   )
 end
