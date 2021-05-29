@@ -2,7 +2,7 @@ class Card
   class Bootstrap
     class Component
       # class methods for Bootstrap::Component
-      module ComponentClass
+      module ComponentKlass
         def render format, *args, &block
           new(format, *args, &block).render
         end
