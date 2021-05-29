@@ -92,7 +92,7 @@ module Cardio
         add_mod mod_name, mod_path
       end
 
-      alias_method :mod, :add_mod
+      # alias_method :mod, :add_mod
 
       # @param mod_name [String] the name of a mod
       # @return the path to mod `mod_name`

@@ -49,12 +49,16 @@ def update_items
     self.content = ""
     return unless assets_dir_exists?
 
-    if manifest_exists?
-      ensure_manifest_groups_cards
-    else
-      ensure_item local_group_name, ::Card::LocalFolderGroupID
-    end
+    ensure_update_items
     save!
+  end
+end
+
+def ensure_update_items
+  if manifest_exists?
+    ensure_manifest_groups_cards
+  else
+    ensure_item local_group_name, ::Card::LocalFolderGroupID
   end
 end
 
@@ -101,24 +105,39 @@ def new_manifest_group group_name, config
 end
 
 def ensure_item field, type_id
+  ensure_item_content field
+
+  card = Card[item_name]
+  args = ensure_item_args field, type_id
+  return if item_already_coded? card, args
+
+  ensure_item_save card, args
+  card.try :update_machine_output
+end
+
+def item_already_coded? card, args
+  card&.type_id == args[:type_id] && card.codename == args[:codename]
+end
+
+def ensure_item_content field
   item_name = "#{name}+#{field}"
   @old_items.delete item_name.to_name.key
   add_item item_name
+end
 
-  card = Card[item_name]
-  codename = "#{mod_name}_group__#{field}"
-  args = {
-    type_id: type_id,
-    codename: codename
-  }
-
-  return if card && card.type_id == type_id && card.codename == codename
-  if !card
-    Card.create args.merge(name: item_name)
-  else
+def ensure_item_save card, args
+  if card
     card.update args
+  else
+    Card.create args.merge(name: item_name)
   end
-  card.try(:update_machine_output)
+end
+
+def ensure_item_args field, type_id
+  {
+    type_id: type_id,
+    codename: "#{mod_name}_group__#{field}"
+  }
 end
 
 def groups_changed?

@@ -12,4 +12,3 @@ format :html do
     multi_card_editor? ? super : ""
   end
 end
-

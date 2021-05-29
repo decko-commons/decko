@@ -77,8 +77,7 @@ namespace :decko do
     end
 
     def machine_seed_names
-      script_names =
-        Card[:all , :script].item_cards.map { |mod_script_card| mod_script_card.item_names }.flatten
+      script_names = Card[:all, :script].item_cards.map(&:item_names).flatten
       @machine_seed_names ||=
         script_names + [%i[all style], [:script_html5shiv_printshiv]].map do |name|
           Card::Name[*name]

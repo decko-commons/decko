@@ -57,7 +57,7 @@ format :html do
   end
 
   view :head_javascript, unknown: true, cache: :never, perms: :none do
-    Array.wrap(head_javascript_paths).reject { |p| p.empty? }.join("\n")
+    Array.wrap(head_javascript_paths).reject(&:empty?).join("\n")
   end
 
   view :decko_script_variables, unknown: true, cache: :never, perms: :none do

@@ -32,24 +32,29 @@ def fetch_item_card name, _args={}
   new_asset_file_card item_name_to_path(name)
 end
 
-def new_asset_file_card path, name = ::File.basename(path)
-  if path.ends_with? ".js.coffee"
-    type_id = Card::CoffeeScriptID
-    set_module = ::Card::Set::Abstract::AssetCoffeeScript
-  elsif path.ends_with? ".js"
-    type_id = Card::JavaScriptID
-    set_module = ::Card::Set::Abstract::AssetJavaScript
-  else
-    return
+def new_asset_file_card path, name=::File.basename(path)
+  return unless (constants = new_asset_constants path)
+  Card.new(name: name, type_id: constants[:type_id], content: path).tap do |asset_card|
+    asset_card.include_set_module constants[:set_module]
+    asset_card.minimize if @minimize
+    asset_card.local if @local
   end
-  asset_card = Card.new name: name,
-                        type_id: type_id,
-                        content: path
+end
 
-  asset_card.include_set_module set_module
-  asset_card.minimize if @minimize
-  asset_card.local if @local
-  asset_card
+def new_asset_constants path
+  if path.ends_with? ".js.coffee"
+    coffeescript_constants
+  elsif path.ends_with? ".js"
+    javascript_constants
+  end
+end
+
+def coffeescript_constants
+  { type_id: CoffeeScriptID, set_module: Abstract::AssetCoffeeScript }
+end
+
+def javascript_constants
+  { type_id: JavaScriptID, set_module: Abstract::AssetJavaScript }
 end
 
 def source_paths

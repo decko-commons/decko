@@ -37,6 +37,5 @@ DeckoGem.gem "card" do |s, d|
     # other
     ["diff-lcs",                    "~>  1.3"], # content diffs in histories
     ["activerecord-import",         "~> 1.0"]
-
   )
 end
