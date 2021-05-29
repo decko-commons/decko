@@ -34,11 +34,11 @@ end
 
 def new_asset_file_card path, name=::File.basename(path)
   return unless (constants = new_asset_constants path)
-  Card.new(name: name, type_id: constants[:type_id], content: path).tap do |asset_card|
-    asset_card.include_set_module constants[:set_module]
-    asset_card.minimize if @minimize
-    asset_card.local if @local
-  end
+  asset_card = Card.new(name: name, type_id: constants[:type_id], content: path)
+  asset_card.include_set_module constants[:set_module]
+  asset_card.minimize if @minimize
+  asset_card.local if @local
+  asset_card
 end
 
 def new_asset_constants path
