@@ -21,7 +21,7 @@ module Cardio
           # exit_with_child_status cmd
 
           result = `#{cmd}`
-          process = $?
+          process = $CHILD_STATUS
           puts result
           exit process.exitstatus unless process.success?
         end

@@ -6,7 +6,7 @@ module Cardio
   class Commands
     class RspecCommand
       class Parser < OptionParser
-        RSPEC_PATH_MESSAGE = <<-MESSAGE
+        RSPEC_PATH_MESSAGE = <<-MESSAGE.freeze
 
             DECKO ARGS
 
@@ -17,7 +17,7 @@ module Cardio
 
         MESSAGE
 
-        RSPEC_BANNER = <<-BANNER
+        RSPEC_BANNER = <<-BANNER.freeze
             Usage: decko rspec [DECKO ARGS] -- [RSPEC ARGS]
 
             RSPEC ARGS
@@ -27,36 +27,40 @@ module Cardio
           d: "Run spec for a Decko deck file",
           c: "Run spec for a Decko core file",
           m: "Run all specs for a mod or matching a mod"
-        }
+        }.freeze
 
         def initialize opts
           super() do |parser|
             parser.banner = RSPEC_BANNER
             parser.separator RSPEC_PATH_MESSAGE
 
-            parser.on("-d", "--spec FILENAME(:LINE)", DESC[:d]) do |file|
-              opts[:files] = find_spec_file(file, "#{Decko.root}/mod")
-            end
-            parser.on("-c", "--core-spec FILENAME(:LINE)", DESC[:c]) do |file|
-              opts[:files] = find_spec_file(file, Cardio.gem_root)
-            end
-            parser.on("-m", "--mod MODNAME", DESC[:m]) do |file|
-              opts[:files] = find_mod_file(file, Cardio.gem_root)
-            end
-            parser.on("-s", "--[no-]simplecov", "Run with simplecov") do |s|
-              opts[:simplecov] = s ? "TMPSETS=true" : ""
-            end
-            parser.on("--rescue", "Run with pry-rescue") do
-              process_rescue_opts opts
-            end
-            parser.on("--[no-]spring", "Run with spring") do |spring|
-              process_spring_opts spring, opts
-            end
+            parsers_on parser, opts
             parser.separator "\n"
           end
         end
 
         private
+
+        def parsers_on parser, opts
+          parser.on("-d", "--spec FILENAME(:LINE)", DESC[:d]) do |file|
+            opts[:files] = find_spec_file(file, "#{Decko.root}/mod")
+          end
+          parser.on("-c", "--core-spec FILENAME(:LINE)", DESC[:c]) do |file|
+            opts[:files] = find_spec_file(file, Cardio.gem_root)
+          end
+          parser.on("-m", "--mod MODNAME", DESC[:m]) do |file|
+            opts[:files] = find_mod_file(file, Cardio.gem_root)
+          end
+          parser.on("-s", "--[no-]simplecov", "Run with simplecov") do |s|
+            opts[:simplecov] = s ? "TMPSETS=true" : ""
+          end
+          parser.on("--rescue", "Run with pry-rescue") do
+            process_rescue_opts opts
+          end
+          parser.on("--[no-]spring", "Run with spring") do |spring|
+            process_spring_opts spring, opts
+          end
+        end
 
         def process_rescue_opts opts
           if opts[:executer] == "spring"
