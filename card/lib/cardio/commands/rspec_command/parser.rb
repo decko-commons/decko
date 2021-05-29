@@ -50,7 +50,7 @@ module Cardio
           parser.on("-d", "--spec FILENAME(:LINE)", DESC[:d]) do |file|
             opts[:files] = find_spec_file(file, "#{Decko.root}/mod")
           end
-          parser.on("-m", "--mod MODNAME", DESC[:m]) d  |file|
+          parser.on("-m", "--mod MODNAME", DESC[:m]) do |file|
             opts[:files] = find_mod_file(file, Cardio.gem_root)
           end
           parser.on("-c", "--core-spec FILENAME(:LINE)", DESC[:c]) do |file|
