@@ -1,8 +1,7 @@
-ENV["DONT_RUN_CARDIO_COMMANDS"] = "true"
+ENV["CARDIO_COMMANDS"] = "NO_RUN"
 
 require "cardio/commands"
 
-require "pry"
 module Decko
   class Commands < Cardio::Commands
     extend Cardio::Commands::Accessors

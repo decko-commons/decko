@@ -113,6 +113,6 @@ module Cardio
       exit 1
     end
 
-    new(ARGV).run unless ENV["DONT_RUN_CARDIO_COMMANDS"]
+    new(ARGV).run unless ENV["CARDIO_COMMANDS"] == "NO_RUN"
   end
 end
