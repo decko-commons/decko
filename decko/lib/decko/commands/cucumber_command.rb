@@ -1,11 +1,14 @@
-require File.expand_path("command", __dir__)
+# load the application so we can look in mods
+require APP_PATH
+require "cardio/commands/command"
+require "cardio/mod/dirs"
 
-module Cardio
+module Decko
   class Commands
-    class CucumberCommand < Command
+    class CucumberCommand < Cardio::Commands::Command
+      require "decko/commands/cucumber_command/parser"
+
       def initialize args
-        require "decko"
-        require "./config/environment"
         @decko_args, @cucumber_args = split_args args
         @opts = {}
         Parser.new(@opts).parse!(@decko_args)
@@ -44,5 +47,3 @@ module Cardio
     end
   end
 end
-
-require File.expand_path("cucumber_command/parser", __dir__)

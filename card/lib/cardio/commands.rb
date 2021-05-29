@@ -8,7 +8,6 @@ module Cardio
       def aliases
         @aliases ||= {
           "rs" => "rspec",
-          "cc" => "cucumber",
           "jm" => "jasmine",
           "g"  => "generate",
           "d"  => "destroy",
@@ -22,10 +21,10 @@ module Cardio
 
       def commands
         @commands ||= {
-          rails: %w[generate destroy plugin benchmarker profiler
-                    console dbconsole application runner],
-          decko: %w[new cucumber rspec jasmine version decko],
-          db:    %w[seed reseed load update]
+          rails:  %w[generate destroy plugin benchmarker profiler
+                     console dbconsole application runner],
+          rake:   %w[seed reseed load update],
+          custom: %w[new rspec jasmine version help]
         }
       end
     end
@@ -52,9 +51,9 @@ module Cardio
       case handler
       when :rails
         run_rails
-      when :db
-        run_db_task
-      when :decko
+      when :rake
+        run_rake
+      when :custom
         send "run_#{command}"
       else
         unrecognized
@@ -62,13 +61,26 @@ module Cardio
       exit 0
     end
 
-    def run_help
-      puts File.read(File.expand_path("../commands/USAGE", __FILE__))
-    end
-
+    # runs all commands in "rails" list
     def run_rails
       require "generators/card" if command == "generate"
       require "rails/commands"
+    end
+
+    # runs all commands in "rake" list
+    def run_rake
+      require "cardio/commands/rake_command"
+      RakeCommand.new("#{rake_prefix}:#{command}", args).run
+    end
+
+    def rake_prefix
+      "card"
+    end
+
+    # ~~~~~~~~~ CUSTOM COMMANDS ~~~~~~~~~~~~ #
+
+    def run_help
+      puts File.read(File.expand_path("../commands/USAGE", __FILE__))
     end
 
     def run_new
@@ -92,20 +104,12 @@ module Cardio
       RspecCommand.new(args).run
     end
 
-    def run_cucumber
-      require "cardio/commands/cucumber_command"
-      CucumberCommand.new(args).run
-    end
-
-    def run_db_task
-      require "cardio/commands/rake_command"
-      RakeCommand.new("decko:#{command}", args).run
-    end
-
     def run_jasmine
       require "cardio/commands/rake_command"
       RakeCommand.new("spec:javascript", envs: "test").run
     end
+
+    # ~~~~~~~~~~~~~~~~~~~~~ catch-all -------------- #
 
     def unrecognized
       puts "Error: Command not recognized: #{command}"

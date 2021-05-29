@@ -6,10 +6,10 @@ module Cardio
   class Commands
     class RspecCommand
       class Parser < OptionParser
-        RSPEC_PATH_MESSAGE = <<-MESSAGE.freeze
+        RSPEC_PATH_MESSAGE = <<~MESSAGE.freeze
 
             DECKO ARGS
-
+  
             You don't have to give a full path for FILENAME; the basename is enough.
             If FILENAME does not include '_spec', then rspec searches for the
             corresponding spec file.
@@ -17,10 +17,12 @@ module Cardio
 
         MESSAGE
 
-        RSPEC_BANNER = <<-BANNER.freeze
-            Usage: decko rspec [DECKO ARGS] -- [RSPEC ARGS]
+        RSPEC_BANNER = <<~BANNER.freeze
 
+            Usage: decko rspec [DECKO ARGS] -- [RSPEC ARGS]
+      
             RSPEC ARGS
+
         BANNER
 
         DESC = {
@@ -30,6 +32,7 @@ module Cardio
         }.freeze
 
         def initialize opts
+          puts "initialize parser"
           super() do |parser|
             parser.banner = RSPEC_BANNER
             parser.separator RSPEC_PATH_MESSAGE
