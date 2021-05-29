@@ -39,7 +39,7 @@ module Cardio
 
         def parser_on_opts env, command, desc
           main = "--#{env}"
-          short = "-#{env[0].first}"
+          short = "-#{env.to_s[0]}"
           desc ||= "#{env} database"
           [main, short, "#{command} #{desc}"]
         end
