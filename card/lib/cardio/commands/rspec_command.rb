@@ -1,11 +1,10 @@
 require File.expand_path("command", __dir__)
 
-module Decko
+module Cardio
   class Commands
     class RspecCommand < Command
       def initialize args
         require "rspec/core"
-        require "decko/application"
 
         @decko_args, @rspec_args = split_args args
         @opts = {}
@@ -25,7 +24,7 @@ module Decko
 
       def coverage
         # no coverage if rspec was started with file argument
-        return unless @opts[:files] || @rspec_args.present?
+        return unless @opts[:files] || @rspec_args.any?
 
         "COVERAGE=false"
       end
