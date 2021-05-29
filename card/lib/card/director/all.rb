@@ -18,24 +18,24 @@ class Card
         self == act_card
       end
 
-      def save! *args
+      def save!(**args)
         as_subcard = args.first&.delete :as_subcard
         act(as_subcard: as_subcard) { super }
       end
 
-      def save *args
+      def save(**)
         act { super }
       end
 
-      def valid? *args
+      def valid?(*)
         act(validating: true) { super }
       end
 
-      def update *args
+      def update(*args)
         act { super }
       end
 
-      def update! *args
+      def update!(*args)
         act { super }
       end
 
