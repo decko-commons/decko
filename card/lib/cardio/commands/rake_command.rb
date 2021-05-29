@@ -3,6 +3,7 @@ require File.expand_path("command", __dir__)
 
 module Cardio
   class Commands
+    # enhance standard rake command with some decko/card -specific options
     class RakeCommand < Command
       def initialize rake_task, args={}
         @task = rake_task

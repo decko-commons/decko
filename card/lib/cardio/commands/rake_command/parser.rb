@@ -5,6 +5,7 @@ require "optparse"
 module Cardio
   class Commands
     class RakeCommand
+      # parse decko/card -specific options for rake
       class Parser < OptionParser
         ONS = {
           production: {

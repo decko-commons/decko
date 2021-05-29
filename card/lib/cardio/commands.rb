@@ -1,9 +1,12 @@
 require "English"
 
 module Cardio
+  # manage different types of commands that can be run via bin/card and bin/decko
   class Commands
     attr_reader :command, :args
 
+    # class methods for commands
+    # (basically simulates cattr_reader, which isn't available here)
     module Accessors
       def aliases
         @aliases ||= {

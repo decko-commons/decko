@@ -5,23 +5,24 @@ require "optparse"
 module Cardio
   class Commands
     class RspecCommand
+      # parse decko/card -specific options for RSpec
       class Parser < OptionParser
         RSPEC_PATH_MESSAGE = <<~MESSAGE.freeze
 
-            DECKO ARGS
-  
-            You don't have to give a full path for FILENAME; the basename is enough.
-            If FILENAME does not include '_spec', then rspec searches for the
-            corresponding spec file.
-            The line number always refers to the example in the spec file.
+          DECKO ARGS
+
+          You don't have to give a full path for FILENAME; the basename is enough.
+          If FILENAME does not include '_spec', then rspec searches for the
+          corresponding spec file.
+          The line number always refers to the example in the spec file.
 
         MESSAGE
 
         RSPEC_BANNER = <<~BANNER.freeze
 
-            Usage: decko rspec [DECKO ARGS] -- [RSPEC ARGS]
-      
-            RSPEC ARGS
+          Usage: decko rspec [DECKO ARGS] -- [RSPEC ARGS]
+
+          RSPEC ARGS
 
         BANNER
 
@@ -49,11 +50,11 @@ module Cardio
           parser.on("-d", "--spec FILENAME(:LINE)", DESC[:d]) do |file|
             opts[:files] = find_spec_file(file, "#{Decko.root}/mod")
           end
+          parser.on("-m", "--mod MODNAME", DESC[:m]) d  |file|
+            opts[:files] = find_mod_file(file, Cardio.gem_root)
+          end
           parser.on("-c", "--core-spec FILENAME(:LINE)", DESC[:c]) do |file|
             opts[:files] = find_spec_file(file, Cardio.gem_root)
-          end
-          parser.on("-m", "--mod MODNAME", DESC[:m]) do |file|
-            opts[:files] = find_mod_file(file, Cardio.gem_root)
           end
         end
 

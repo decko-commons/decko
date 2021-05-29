@@ -2,13 +2,14 @@ require File.expand_path("command", __dir__)
 
 module Cardio
   class Commands
+    # enhance standard RSpec command with some decko/card -specific options
     class RspecCommand < Command
       def initialize args
         require "rspec/core"
 
-        @decko_args, @rspec_args = split_args args
+        cardio_args, @rspec_args = split_args args
         @opts = {}
-        Parser.new(@opts).parse!(@decko_args)
+        Parser.new(@opts).parse!(cardio_args)
       end
 
       def command

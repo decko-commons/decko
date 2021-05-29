@@ -1,5 +1,6 @@
 module Cardio
   class Commands
+    # shared handling of commands splitting cardio and original args with "--"
     class Command
       def run
         puts command
@@ -11,15 +12,15 @@ module Cardio
         exit $CHILD_STATUS.exitstatus unless system command
       end
 
-      # split special decko args and original command args separated by '--'
+      # split special cardio args and original command args separated by '--'
       def split_args args
         before_split = true
-        decko_args, command_args =
+        cardio_args, command_args =
           args.partition do |a|
             before_split = (a == "--" ? false : before_split)
           end
         command_args.shift
-        [decko_args, command_args]
+        [cardio_args, command_args]
       end
     end
   end
