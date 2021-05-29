@@ -4,33 +4,37 @@ module Cardio
   class Commands
     attr_reader :command, :args
 
-    class << self
-      attr_accessor :alias, :commands
+    module Accessors
+      def aliases
+        @aliases ||= {
+          "rs" => "rspec",
+          "cc" => "cucumber",
+          "jm" => "jasmine",
+          "g"  => "generate",
+          "d"  => "destroy",
+          "c"  => "console",
+          "db" => "dbconsole",
+          "r"  => "runner",
+          "v"  => "version",
+          "h"  => "help"
+        }
+      end
+
+      def commands
+        @commands ||= {
+          rails: %w[generate destroy plugin benchmarker profiler
+                    console dbconsole application runner],
+          decko: %w[new cucumber rspec jasmine version decko],
+          db:    %w[seed reseed load update]
+        }
+      end
     end
 
-    @alias = {
-      "rs" => "rspec",
-      "cc" => "cucumber",
-      "jm" => "jasmine",
-      "g"  => "generate",
-      "d"  => "destroy",
-      "c"  => "console",
-      "db" => "dbconsole",
-      "r"  => "runner",
-      "v"  => "version",
-      "h"  => "help"
-    }
-
-    @commands = {
-      rails: %w[generate destroy plugin benchmarker profiler
-                console dbconsole application runner],
-      decko: %w[new cucumber rspec jasmine version decko],
-      db:    %w[seed reseed load update]
-    }
+    extend Accessors
 
     def initialize args
       @args = args
-      @command = self.class.alias[args.first] || args.first
+      @command = self.class.aliases[args.first] || args.first
       ENV["PRY_RESCUE_RAILS"] = "1" if rescue?
       @args.shift unless handler == :rails
     end
