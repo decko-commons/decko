@@ -67,7 +67,7 @@ module Cardio
 
     def run_new
       if ["-h", "--help"].include? args.first
-        require "decko/commands/application"
+        require "cardio/commands/application"
       else
         puts "Can't initialize a new deck within the directory of another, " \
          "please change to a non-deck directory first.\n"
@@ -82,22 +82,22 @@ module Cardio
     end
 
     def run_rspec
-      require "decko/commands/rspec_command"
+      require "cardio/commands/rspec_command"
       RspecCommand.new(args).run
     end
 
     def run_cucumber
-      require "decko/commands/cucumber_command"
+      require "cardio/commands/cucumber_command"
       CucumberCommand.new(args).run
     end
 
     def run_db_task
-      require "decko/commands/rake_command"
+      require "cardio/commands/rake_command"
       RakeCommand.new("decko:#{command}", args).run
     end
 
     def run_jasmine
-      require "decko/commands/rake_command"
+      require "cardio/commands/rake_command"
       RakeCommand.new("spec:javascript", envs: "test").run
     end
 

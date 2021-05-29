@@ -1,5 +1,3 @@
-# require "English" # needed for CHILD_STATUS, but not sure this is the best place for this.
-
 module Cardio
   class Commands
     class Command
