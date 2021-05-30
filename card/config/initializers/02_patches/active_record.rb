@@ -18,8 +18,9 @@ module Patches
   module ActiveRecord
     module Relation
       def pluck_in_batches *columns, batch_size: 1000
-        prepare_pluck_in_batches(columns) do
-          |batch_start, select_columns, id_index, remove_id_from_results|
+        prepare_pluck_in_batches(
+          columns
+        ) do |batch_start, select_columns, id_index, remove_id_from_results|
 
           loop do
             items = pluck_in_batches_items batch_size, batch_start, select_columns
