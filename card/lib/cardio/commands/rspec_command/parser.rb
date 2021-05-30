@@ -33,7 +33,6 @@ module Cardio
         }.freeze
 
         def initialize opts
-          puts "initialize parser"
           super() do |parser|
             parser.banner = RSPEC_BANNER
             parser.separator RSPEC_PATH_MESSAGE

@@ -3,14 +3,6 @@ class Card
     module Format
       # AbstractFormat extends all format classes
       module AbstractFormat
-        def send_wrapper_method method_name, opts
-          if method(method_name).arity.zero?
-            send method_name
-          else
-            send method_name, (opts || {})
-          end
-        end
-
         # The Wrapper module provides an API to define wrap methods.
         # It is available in all formats.
         module Wrapper
