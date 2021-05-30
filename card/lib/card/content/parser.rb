@@ -36,12 +36,17 @@ class Card
         handle_remainder
       end
 
+      def current_match
+        @chunk_class = Chunk.find_class_by_prefix @prefix, @chunk_list
+
+        # get the chunk class from the prefix
+        content_slice = @content[@position..-1]
+        @chunk_class.full_match content_slice, @prefix
+      end
+
       def match_prefices prefix_regexp
         while match_prefix prefix_regexp
-          @chunk_class = Chunk.find_class_by_prefix @prefix, @chunk_list
-          # get the chunk class from the prefix
-          content_slice = @content[@position..-1]
-          @match, @offset = @chunk_class.full_match content_slice, @prefix
+          @match, @offset = current_match
           # see whether the full chunk actually matches
           # (as opposed to bogus prefix)
           if @match # we have a chunk match
