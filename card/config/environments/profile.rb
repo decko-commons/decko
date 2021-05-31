@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-Decko.application.class.configure do
+Cardio.application.class.configure do
   # Settings specified here will take precedence over those in config/environment.rb
   # The profile environment should match the same settings
   # as the production environment to give a reasonalbe
