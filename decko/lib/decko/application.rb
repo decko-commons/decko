@@ -17,13 +17,6 @@ module Decko
       end
     end
 
-    initializer "decko.load_environment_config",
-                before: :load_environment_config, group: :all do
-      paths["lib/decko/config/environments"].existent.each do |environment|
-        require environment
-      end
-    end
-
     def config
       @config ||= super.tap do |config|
         # config.load_defaults "6.0"
@@ -42,7 +35,6 @@ module Decko
     private
 
     def decko_path_defaults paths
-      decko_root_path paths, "lib/decko/config/environments", glob: "#{Rails.env}.rb"
       return if paths["config/routes.rb"].existent.present?
 
       decko_root_path paths, "config/routes.rb", with: "rails/application-routes.rb"

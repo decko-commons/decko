@@ -14,6 +14,9 @@ DeckoGem.gem "card" do |s, d|
   s.files = Dir["VERSION", "README.md", "LICENSE", "GPL", ".yardopts",
                 "{config,db,lib,mod,tmpsets}/**/*"]
 
+  s.bindir = "bin"
+  s.executables = ["card"]
+
   d.depends_on(
     ["cardname",             d.decko_version],
     ["rake",                       "~> 13.0"],
