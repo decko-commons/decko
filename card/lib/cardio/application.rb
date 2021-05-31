@@ -130,7 +130,6 @@ module Cardio
       end
 
       def add_gem_environment_path
-        puts "adding card/config/envir"
         add_path "card/config/environments",
                  glob: "#{Rails.env}.rb",
                  with: "config/environments"
