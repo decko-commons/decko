@@ -6,7 +6,6 @@ require "decko/script_decko_loader"
 Decko::ScriptDeckoLoader.exec!
 
 require "rails/ruby_version_check"
-Signal.trap("INT") { puts; exit(1) }
+Signal.trap("INT") { exit(1) }
 
 require "decko/commands/application"
-

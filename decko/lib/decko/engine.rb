@@ -1,8 +1,4 @@
-require "rails/all"
 require "cardio"
-
-
-
 require "decko"
 
 module Decko

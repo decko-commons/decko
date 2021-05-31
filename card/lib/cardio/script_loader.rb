@@ -4,7 +4,7 @@ module Cardio
   module ScriptLoader
     module ClassMethods
       RUBY = File.join(*RbConfig::CONFIG.values_at("bindir", "ruby_install_name")) +
-        RbConfig::CONFIG["EXEEXT"]
+             RbConfig::CONFIG["EXEEXT"]
 
       def script
         File.join("script", "card")
