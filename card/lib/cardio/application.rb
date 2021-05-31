@@ -16,12 +16,15 @@ Bundler.require :default, *Rails.groups
 module Cardio
   # handles config and path defaults
   class Application < Rails::Application
-    initializer "card.load_environment_config",
-                before: :load_environment_config, group: :all do
-      paths["card/config/environments"].existent.each do |environment|
-        require environment
+    def self.card_environment_initializer
+      initializer "card.load_environment_config",
+                  before: :load_environment_config, group: :all do
+        paths["card/config/environments"].existent.each do |environment|
+          require environment
+        end
       end
     end
+    card_environment_initializer
 
     def config
       @config ||= super.tap do |config|
@@ -127,9 +130,10 @@ module Cardio
       end
 
       def add_gem_environment_path
+        puts "adding card/config/envir"
         add_path "card/config/environments",
                  glob: "#{Rails.env}.rb",
-                 with: File.join(Cardio.gem_root, "config/environments")
+                 with: "config/environments"
       end
 
       def add_path path, options={}

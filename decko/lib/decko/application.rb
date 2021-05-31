@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-require "decko/engine"
+
 require "cardio/application"
 
 require_relative "config/initializers/sedate_parser"
@@ -8,6 +8,10 @@ require_relative "config/initializers/sedate_parser"
 module Decko
   # The application class from which all decko applications inherit
   class Application < Cardio::Application
+    require "decko/engine"
+
+    card_environment_initializer
+
     class << self
       def inherited base
         super
