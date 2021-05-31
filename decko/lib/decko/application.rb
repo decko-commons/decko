@@ -13,7 +13,6 @@ module Decko
 
     initializer "decko.load_environment_config",
                 before: :load_environment_config, group: :all do
-      puts "decko environments"
       paths["decko/config/environments"].existent.each do |environment|
         require environment
       end

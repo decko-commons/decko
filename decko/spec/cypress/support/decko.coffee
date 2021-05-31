@@ -83,4 +83,3 @@ Cypress.Commands.add "delete", (name) =>
 
 Cypress.Commands.add "update", (name, content) =>
   cy.app("cards/update", name: name, content: content)
-
