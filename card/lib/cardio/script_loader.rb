@@ -1,7 +1,9 @@
 require "pathname"
 
 module Cardio
+  # help card executable find ./script/card when called from anywhere within deck
   module ScriptLoader
+    # modularize for reusing in decko
     module ClassMethods
       RUBY = File.join(*RbConfig::CONFIG.values_at("bindir", "ruby_install_name")) +
              RbConfig::CONFIG["EXEEXT"]

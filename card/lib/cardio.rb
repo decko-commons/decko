@@ -5,15 +5,6 @@ require "cardio/schema"
 require "cardio/utils"
 require "cardio/delaying"
 
-# TODO: Move these to modules that use them
-require "htmlentities"
-require "coderay"
-require "haml"
-require "kaminari"
-require "bootstrap4-kaminari-views"
-require "diff/lcs"
-require "builder"
-
 ActiveSupport.on_load :after_card do
   Cardio::Mod.load
 end
