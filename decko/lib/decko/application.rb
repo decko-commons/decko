@@ -47,7 +47,7 @@ module Decko
     def decko_path_defaults paths
       paths.add "decko/config/environments",
                 with: File.join(Decko.gem_root, "config/environments"),
-                glob: "#{Rails.env}.rb",
+                glob: "#{Rails.env}.rb"
 
       return if paths["config/routes.rb"].existent.present?
 
