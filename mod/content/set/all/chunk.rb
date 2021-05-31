@@ -110,13 +110,15 @@ format do
 
   def process_nested_chunk chunk, virtual, &block
     if chunk.referee_card&.virtual?
-      process_nested_virtual_chunk chunk, &block unless virtual
+      process_virtual_chunk chunk, virtual, &block
     else
       yield chunk
     end
   end
 
-  def process_virtual_chunk chunk, &block
+  def process_virtual_chunk chunk, virtual, &block
+    return if virtual
+
     subformat(chunk.referee_card).each_nested_field_chunk(&block)
   end
 
