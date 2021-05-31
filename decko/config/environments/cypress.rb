@@ -53,9 +53,9 @@ Decko.application.class.configure do
 
   # config.performance_logger = {
   #     methods:   [:event, :search, :fetch, :view],  # choose methods to log
-  #     min_time:  100,                              # show only method calls that are slower than 100ms
-  #     max_depth: 3,                               # show nested method calls only up to depth 3
-  #     details:   true                                # show method arguments and sql
+  #     min_time:  100,                # show only method calls that are slower than 100ms
+  #     max_depth: 3,                  # show nested method calls only up to depth 3
+  #     details:   true                # show method arguments and sql
   #     log_level: :info
   # }
 
@@ -68,11 +68,13 @@ Decko.application.class.configure do
   #   # Expands the lines which load the assets
   #   config.assets.debug = false
   #
-  #   # This needs to be on for tinymce to work, because several important files (themes, etc) are only served statically
+  #     This needs to be on for tinymce to work, because several important files
+  #     (themes, etc) are only served statically
   #   config.serve_static_files = ENV['STATIC_ASSETS'] || true
   #
   #   # Setting a bogus directory so rails won't find public/assets in dev mode.
-  #   # Normally you could skip that by not serving static assets, but that breaks tinymce (see above)
+  #   # Normally you could skip that by not serving static assets, but that breaks
+  #     tinymce (see above)
   #   config.assets.prefix = "dynamic-assets"
 
   # Log the query plan for queries taking more than this (works
