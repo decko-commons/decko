@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-require "decko/engine"
+
 require "cardio/application"
 
 require_relative "config/initializers/sedate_parser"
@@ -8,19 +8,16 @@ require_relative "config/initializers/sedate_parser"
 module Decko
   # The application class from which all decko applications inherit
   class Application < Cardio::Application
+    require "decko/engine"
+
+    card_environment_initializer
+
     class << self
       def inherited base
         super
         Rails.app_class = base
         add_lib_to_load_path!(find_root(base.called_from))
         ActiveSupport.run_load_hooks(:before_configuration, base.instance)
-      end
-    end
-
-    initializer "decko.load_environment_config",
-                before: :load_environment_config, group: :all do
-      paths["lib/decko/config/environments"].existent.each do |environment|
-        require environment
       end
     end
 
@@ -42,7 +39,6 @@ module Decko
     private
 
     def decko_path_defaults paths
-      decko_root_path paths, "lib/decko/config/environments", glob: "#{Rails.env}.rb"
       return if paths["config/routes.rb"].existent.present?
 
       decko_root_path paths, "config/routes.rb", with: "rails/application-routes.rb"

@@ -1,10 +1,31 @@
+require "rails/all"
+require "cardio"
 require "cardio/mod"
+
+# TODO: Move these to modules that use them
+require "htmlentities"
+require "coderay"
+require "haml"
+require "kaminari"
+require "bootstrap4-kaminari-views"
+require "diff/lcs"
+require "builder"
 
 Bundler.require :default, *Rails.groups
 
 module Cardio
   # handles config and path defaults
   class Application < Rails::Application
+    def self.card_environment_initializer
+      initializer "card.load_environment_config",
+                  before: :load_environment_config, group: :all do
+        paths["card/config/environments"].existent.each do |environment|
+          require environment
+        end
+      end
+    end
+    card_environment_initializer
+
     def config
       @config ||= super.tap do |config|
         simple_configs config
@@ -55,6 +76,7 @@ module Cardio
         add_db_paths
         add_initializer_paths
         add_mod_initializer_paths
+        add_gem_environment_path
 
         paths["app/models"] = []
         paths["app/mailers"] = []
@@ -105,6 +127,13 @@ module Cardio
           path_mark = mod ? "mod/config/initializers" : "config/initializers"
           paths[path_mark] << initializers_dir
         end
+      end
+
+      def add_gem_environment_path
+        puts "adding card/config/envir"
+        add_path "card/config/environments",
+                 glob: "#{Rails.env}.rb",
+                 with: "config/environments"
       end
 
       def add_path path, options={}
