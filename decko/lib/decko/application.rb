@@ -12,7 +12,7 @@ module Decko
     card_environment_initializer
 
     initializer "decko.load_environment_config",
-                after: "card.load_environment_config", group: :all do
+                before: :load_environment_config, group: :all do
       paths["decko/config/environments"].existent.each do |environment|
         require environment
       end

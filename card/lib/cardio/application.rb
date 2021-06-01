@@ -2,6 +2,8 @@ require "rails/all"
 require "cardio"
 require "cardio/mod"
 
+Bundler.require :default, *Rails.groups
+
 # TODO: Move these to modules that use them
 require "htmlentities"
 require "coderay"
@@ -10,8 +12,6 @@ require "kaminari"
 require "bootstrap4-kaminari-views"
 require "diff/lcs"
 require "builder"
-
-Bundler.require :default, *Rails.groups
 
 module Cardio
   # handles config and path defaults
