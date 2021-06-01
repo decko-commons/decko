@@ -41,7 +41,7 @@ gem "card-mod-defaults"<%= repo_path_constraint :mod %>
 <%= "# " if shark? %>gem "card-mod-monkey", group: :development
 <%= "# " if shark? %>gem "decko-rspec", group: :test<%= repo_path_constraint :support %>
 <%= "# " if shark? %>gem "decko-cucumber", group: :cucumber
-<%= "# " if shark? %>gem "decko-cypress", group: %i[test development]
+<%= "# " if shark? %>gem "decko-cypress", group: :cypress
 <%= "# " if shark? %>gem "decko-profile", group: :profile
 <%= "# " if shark? || !spring_install? %>gem "decko-spring"
 

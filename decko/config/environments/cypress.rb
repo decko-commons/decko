@@ -1,8 +1,17 @@
+# -*- encoding : utf-8 -*-
+
 Decko::Engine.configure do
   config.cache_classes = false
 end
 
-# -*- encoding : utf-8 -*-
+CypressOnRails.configure do |c|
+  c.cypress_folder = File.join Decko.gem_root, "spec", "cypress"
+  # WARNING!! CypressOnRails can execute arbitrary ruby code
+  # please use with extra caution if enabling on hosted servers or starting your
+  # local server on 0.0.0.0
+  c.use_middleware = true
+  c.logger = Rails.logger
+end
 
 Decko.application.class.configure do
   # Settings specified here will take precedence over those in config/application.rb
@@ -19,14 +28,6 @@ Decko.application.class.configure do
   # since you don't have to restart the web server when you make code changes.
   config.cache_classes = false
   config.reload_classes_only_on_change = false
-
-  # if defined?(RailsDevTweaks)
-  #   config.dev_tweaks.autoload_rules do
-  #     skip "/files"
-  #     skip "/favicon.ico"
-  #     skip /view\=status/
-  #   end
-  # end
 
   # Log error messages when you accidentally call methods on nil.
   config.whiny_nils = true
@@ -90,12 +91,6 @@ Decko.application.class.configure do
 
   config.action_mailer.perform_deliveries = false
 
-  # Use Pry instead of IRB
-  silence_warnings do
-    require "pry"
-    config.console = Pry
-  rescue LoadError
-  end
   # config.session_store :cookie_store
 end
 

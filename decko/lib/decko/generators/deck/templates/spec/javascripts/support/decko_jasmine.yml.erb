@@ -2,7 +2,7 @@
 # relative path from Rails.root
 # defaults to app/assets/javascripts
 # useless for decko file structure
-src_dir: <%= cardio_gem_root %>/card-mod-script/lib/javascript
+src_dir: <%= expanded_repo_path %>/mod/script/lib/javascript
 #"app/assets/javascripts"
 
 # path to additional directory of source file that are not part of assets pipeline and need to be included
@@ -15,7 +15,7 @@ src_dir: <%= cardio_gem_root %>/card-mod-script/lib/javascript
 # relative path from Rails.root
 # defaults to app/assets/stylesheets
 # useless for decko file structure
-css_dir: <%= cardio_gem_root %>/card-mod-style/lib/stylesheets
+css_dir: <%= expanded_repo_path %>/mod/style/lib/stylesheets
 
 # list of file expressions to include as source files
 # relative path from src_dir
@@ -46,7 +46,7 @@ css_files:
     # - "**/*.{css,scss}"
 # THIS IS IMPORTANT!!!
 include_dir:
-  - <%= cardio_gem_root %>/card-mod-script/lib/javascript
+  - <%= expanded_repo_path %>/mod/script/lib/javascript
 # path to parent directory of spec_files
 # relative path from Rails.root
 #
@@ -56,7 +56,7 @@ include_dir:
 #   - ../engine/spec/javascripts
 #
 # defaults to spec/javascripts
-spec_dir:  <%= @decko_gem_root %>/spec/javascripts
+spec_dir:  <%= expanded_repo_path %>/decko/spec/javascripts
 
 # list of file expressions to include as helpers into spec runner
 # relative path from spec_dir
