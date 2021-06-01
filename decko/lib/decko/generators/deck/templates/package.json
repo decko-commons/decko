@@ -1,0 +1,12 @@
+{
+  "devDependencies": {
+    "cypress": "^5.3.0",
+    "cypress-cucumber-preprocessor": "^1.9.1"
+  },
+  "cypress-cucumber-preprocessor": {
+    "nonGlobalStepDefinitions": true
+  },
+  "dependencies": {
+    "wait-on": "^3.2.0"
+  }
+}

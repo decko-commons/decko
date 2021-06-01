@@ -61,15 +61,6 @@ module Decko
               platypus? ? File.expand_path("#{repo_path}/decko/features/") : "mod/"
           end
 
-          # FIXME: these gem roots are not correct unless repo_path is specified
-          def cardio_gem_root
-            @cardio_gem_root ||= File.join repo_path, "card"
-          end
-
-          def decko_gem_root
-            @decko_gem_root ||= File.join repo_path, "decko"
-          end
-
           def database_gem_and_version
             entry = database_gemfile_entry
             text = %("#{entry.name}")
