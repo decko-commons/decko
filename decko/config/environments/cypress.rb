@@ -1,5 +1,9 @@
 # -*- encoding : utf-8 -*-
 
+Decko::Engine.configure do
+  config.cache_classes = false
+end
+
 Decko.application.class.configure do
   # Settings specified here will take precedence over those in config/application.rb
 
@@ -10,7 +14,7 @@ Decko.application.class.configure do
   config.machine_refresh = :never
   config.compress_javascript = false
 
-  config.cache_classes = false
+  config.cache_classes = true
   config.reload_classes_only_on_change = false
 
   # Log error messages when you accidentally call methods on nil.
@@ -18,7 +22,7 @@ Decko.application.class.configure do
 
   # Show full error reports and disable caching
   config.consider_all_requests_local = true
-  config.action_controller.perform_caching = false
+  config.action_controller.perform_caching = true
 
   # Don't care if the mailer can't send
   config.action_mailer.raise_delivery_errors = false
@@ -43,6 +47,7 @@ Decko.application.class.configure do
   #     details:   true                # show method arguments and sql
   #     log_level: :info
   # }
+  config.action_controller.allow_forgery_protection = false
 
   # Only use best-standards-support built into browsers
   config.action_dispatch.best_standards_support = :builtin
