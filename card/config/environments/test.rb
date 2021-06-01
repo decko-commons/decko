@@ -60,10 +60,4 @@ Cardio.application.class.configure do
   config.raise_all_rendering_errors = true
 
   config.rescue_all_in_controller = false
-  # Use Pry instead of IRB
-  silence_warnings do
-    require "pry"
-    config.console = Pry
-  rescue LoadError
-  end
 end

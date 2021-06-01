@@ -1,7 +1,3 @@
-Decko::Engine.configure do
-  config.cache_classes = false
-end
-
 # -*- encoding : utf-8 -*-
 
 Decko.application.class.configure do
@@ -11,12 +7,9 @@ Decko.application.class.configure do
 
   config.eager_load = false
 
-  config.machine_refresh = :eager
+  config.machine_refresh = :never
   config.compress_javascript = false
 
-  # In the development environment your application's code is reloaded on
-  # every request.  This slows down response time but is perfect for development
-  # since you don't have to restart the web server when you make code changes.
   config.cache_classes = false
   config.reload_classes_only_on_change = false
 
@@ -82,12 +75,6 @@ Decko.application.class.configure do
 
   config.action_mailer.perform_deliveries = false
 
-  # Use Pry instead of IRB
-  silence_warnings do
-    require "pry"
-    config.console = Pry
-  rescue LoadError
-  end
   # config.session_store :cookie_store
 end
 

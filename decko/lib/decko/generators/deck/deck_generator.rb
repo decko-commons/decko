@@ -52,6 +52,8 @@ module Decko
           erb_template "config.ru"
           erb_template "Gemfile"
           erb_template "Rakefile"
+          # erb_template "cypress.json" if platypus?
+          # template "package.json" if platypus?
         end
 
         def empty_dirs
@@ -71,11 +73,12 @@ module Decko
             erb_template "routes.rb"
             erb_template "environment.rb"
             erb_template "boot.rb"
+
             template "databases/#{options[:database]}.yml", "database.yml"
             template "cucumber.yml"
             template "storage.yml"
-            template "initializers/cypress.rb" if platypus?
             template "puma.rb"
+            template "initializers/cypress.rb" if platypus?
           end
         end
 
