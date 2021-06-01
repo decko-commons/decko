@@ -1,8 +1,17 @@
+# -*- encoding : utf-8 -*-
+
 Decko::Engine.configure do
   config.cache_classes = false
 end
 
-# -*- encoding : utf-8 -*-
+CypressOnRails.configure do |c|
+  c.cypress_folder = File.join Decko.gem_root, "spec", "cypress"
+  # WARNING!! CypressOnRails can execute arbitrary ruby code
+  # please use with extra caution if enabling on hosted servers or starting your
+  # local server on 0.0.0.0
+  c.use_middleware = true
+  c.logger = Rails.logger
+end
 
 Decko.application.class.configure do
   # Settings specified here will take precedence over those in config/application.rb
@@ -82,12 +91,6 @@ Decko.application.class.configure do
 
   config.action_mailer.perform_deliveries = false
 
-  # Use Pry instead of IRB
-  silence_warnings do
-    require "pry"
-    config.console = Pry
-  rescue LoadError
-  end
   # config.session_store :cookie_store
 end
 
