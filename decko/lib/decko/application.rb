@@ -54,6 +54,5 @@ module Decko
       paths.add "config/routes.rb",
                 with: File.join(Decko.gem_root, "rails/application-routes.rb")
     end
-
   end
 end
