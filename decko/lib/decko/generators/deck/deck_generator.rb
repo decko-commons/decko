@@ -74,11 +74,11 @@ module Decko
             erb_template "environment.rb"
             erb_template "boot.rb"
 
-
             template "databases/#{options[:database]}.yml", "database.yml"
             template "cucumber.yml"
             template "storage.yml"
             template "puma.rb"
+            template "initializers/cypress.rb" if platypus?
           end
         end
 
