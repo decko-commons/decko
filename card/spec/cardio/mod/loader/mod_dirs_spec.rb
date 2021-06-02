@@ -1,7 +1,7 @@
-describe Cardio::Mod::Dirs do
+RSpec.describe Cardio::Mod::Dirs do
   it "loads mods from Modfile" do
     path = File.expand_path __dir__
     tg = described_class.new path
-    expect(tg.mods).to include("mod1", "mod2")
+    expect(tg.mods.map(&:name)).to include("mod1", "mod2")
   end
 end

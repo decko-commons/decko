@@ -75,6 +75,15 @@ module Cardio
         @mods_by_name[mod.name] = mod
       end
 
+      def delete_mod mod_name
+        name = Card::Mod.normalize_name(mod_name)
+        mod = @mods_by_name[name]
+        @mods.delete mod
+        @mods_by_name.delete name
+      end
+
+      alias_method :mod, :add_mod
+
       def gem_mod name
         deps = Mod.dependencies name
         unknown_gem_mod!(name) if deps.blank?
@@ -92,15 +101,13 @@ module Cardio
         add_mod mod_name, mod_path
       end
 
-      # alias_method :mod, :add_mod
-
       # @param mod_name [String] the name of a mod
       # @return the path to mod `mod_name`
       def path mod_name
-        mod(mod_name)&.path
+        fetch_mod(mod_name)&.path
       end
 
-      def mod mod_name
+      def fetch_mod mod_name
         @mods_by_name[Card::Mod.normalize_name(mod_name)]
       end
 

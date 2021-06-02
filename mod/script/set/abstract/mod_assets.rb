@@ -5,7 +5,7 @@ def mod_name
 end
 
 def mod
-  @mod ||= Cardio::Mod.dirs.mod(mod_name)
+  @mod ||= Cardio::Mod.dirs.fetch_mod(mod_name)
 end
 
 def assets_path
