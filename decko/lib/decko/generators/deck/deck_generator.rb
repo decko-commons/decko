@@ -52,8 +52,11 @@ module Decko
           erb_template "config.ru"
           erb_template "Gemfile"
           erb_template "Rakefile"
-          # erb_template "cypress.json" if platypus?
-          # template "package.json" if platypus?
+
+          return unless platypus?
+
+          erb_template "cypress.json"
+          template "package.json"
         end
 
         def empty_dirs
