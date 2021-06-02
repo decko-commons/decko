@@ -9,7 +9,7 @@ end
 def relative_paths
   return [] unless (path = left&.assets_path)
 
-  Dir::children path
+  Dir.children path
 end
 
 def item_name_to_path name

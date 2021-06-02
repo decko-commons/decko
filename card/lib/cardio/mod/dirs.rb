@@ -92,7 +92,7 @@ module Cardio
         add_mod mod_name, mod_path
       end
 
-      alias_method :mod, :add_mod
+      # alias_method :mod, :add_mod
 
       # @param mod_name [String] the name of a mod
       # @return the path to mod `mod_name`
@@ -128,7 +128,7 @@ module Cardio
       def each_with_tmp type=nil
         @mods.each do |mod|
           dirname = dirname mod.path, type
-          yield dirname, tmp_dir(mod, type) if Dir.exist? dirname
+          yield dirname, mod.tmp_dir(type) if Dir.exist? dirname
         end
       end
 

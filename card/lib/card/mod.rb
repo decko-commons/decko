@@ -1,4 +1,5 @@
 class Card
+  # each instance object represents a card mod
   class Mod
     attr_reader :name, :path, :index
 
@@ -39,18 +40,15 @@ class Card
 
     def ensure_mod_card
       Card::Auth.as_bot do
-        Card.create name: card_name, codename: codename unless Card::Codename.exists?(codename)
+        unless Card::Codename.exists? codename
+          Card.create name: card_name, codename: codename
+        end
         ensure_mod_script_card
       end
     end
 
     def ensure_mod_script_card
-      mod_script_card =
-        Card.create name: "#{card_name}+*script",
-                    type_id: Card::ModScriptAssetsID,
-                    codename: script_codename unless Card::Codename.exists?(script_codename)
-      mod_script_card ||= Card.fetch script_codename.to_sym
-      # binding.pry if card_name == "mod: script"
+      mod_script_card = find_or_create_mod_script_card
       mod_script_card.update_items
       if mod_script_card.item_cards.present?
         Card[:all, :script].add_item! script_codename.to_sym
@@ -59,7 +57,16 @@ class Card
         mod_script_card.delete update_referers: true
         Card[:all, :script].drop_item! mod_script_card
       end
+    end
 
+    def find_or_create_mod_script_card
+      if Card::Codename.exists? script_codename
+        Card.fetch script_codename.to_sym
+      else
+        Card.create name: "#{card_name}+*script",
+                    type_id: Card::ModScriptAssetsID,
+                    codename: script_codename
+      end
     end
   end
 end

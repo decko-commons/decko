@@ -23,18 +23,15 @@ def regenerate benchmarker, all_field
       i_card.expire_machine_cache
     end
 
-    Card.search(right: { codename: "machine_output"}).each do |mo|
-      mo.delete
-    end
-    Card.search(right: { codename: "machine_cache"}).each do |mo|
-      mo.delete
+    %w[machine_output machine_cache].each do |code|
+      Card.search(right: { codename: code }).each(&:delete)
     end
 
     Card::Cache.reset_all
 
     benchmarker.report(all_field) do
       card.update_machine_output
-          # regenerate_machine_output
+      # regenerate_machine_output
     end
     # puts Card[:all,  all_field, :machine_output].attachment.read
   end

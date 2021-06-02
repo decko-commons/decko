@@ -21,7 +21,6 @@ def unknown_file? file_path
   true
 end
 
-
 def virtual?
   true
 end
@@ -51,14 +50,14 @@ format do
   end
 
   def link_view opts={}
-    opts[:path] = { card: { type: card.type, content: card.db_content}}
+    opts[:path] = { card: { type: card.type, content: card.db_content } }
     link_to_card card.name, _render_title, opts
   end
 
   def link_to_view view, text=nil, opts={}
-    opts[:path] = { card: { type: card.type, content: card.db_content}}
-     super view, (text || view), opts
-   end
+    opts[:path] = { card: { type: card.type, content: card.db_content } }
+    super view, (text || view), opts
+  end
 end
 
 format :html do

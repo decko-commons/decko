@@ -2,15 +2,8 @@
 
 class AddModAssetsType < Cardio::Migration::Core
   def up
-    ensure_code_card name: "Mod script assets", type_id: Card::CardtypeID
-    ensure_code_card name: "Local folder group", type_id: Card::CardtypeID
-    ensure_code_card name: "Local manifest group", type_id: Card::CardtypeID
-    ensure_code_card name: "Remote manifest group", type_id: Card::CardtypeID
-    delete_code_card :script_decko
-    delete_code_card :script_editors
-    delete_code_card :script_pointer_config
-    delete_code_card :script_jquery
-    delete_code_card :script_mods
+    add_cardtypes
+    delete_script_cards
     card = Card[:all, :script]
     ["script: jquery", "script: decko", "script: libraries",
      "script: editors", "script: mods"].each do |name|
@@ -18,5 +11,20 @@ class AddModAssetsType < Cardio::Migration::Core
     end
     puts card.item_names
     card.save!
+  end
+
+  def add_cardtypes
+    ensure_code_card name: "Mod script assets", type_id: Card::CardtypeID
+    ensure_code_card name: "Local folder group", type_id: Card::CardtypeID
+    ensure_code_card name: "Local manifest group", type_id: Card::CardtypeID
+    ensure_code_card name: "Remote manifest group", type_id: Card::CardtypeID
+  end
+
+  def delete_script_cards
+    delete_code_card :script_decko
+    delete_code_card :script_editors
+    delete_code_card :script_pointer_config
+    delete_code_card :script_jquery
+    delete_code_card :script_mods
   end
 end
