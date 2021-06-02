@@ -1,86 +1,63 @@
 # -*- encoding : utf-8 -*-
 
-Decko::Engine.configure do
-  config.cache_classes = false
-end
-
 Decko.application.class.configure do
   # Settings specified here will take precedence over those in config/application.rb
-
-  config.view_cache = false
 
   config.eager_load = false
 
   config.machine_refresh = :never
-  config.compress_javascript = false
 
-  config.cache_classes = true
-  config.reload_classes_only_on_change = false
+  # The test environment is used exclusively to run your application's
+  # test suite.  You never need to work with it otherwise.  Remember that
+  # your test database is "scratch space" for the test suite and is wiped
+  # and recreated between test runs.  Don't rely on the data there!
+  config.cache_classes = false
 
-  # Log error messages when you accidentally call methods on nil.
+  config.assets.enabled = true if Object.const_defined?(:JasmineRails)
+
+  config.persistent_cache = false
+  config.prepopulate_cache = true
+
+  # Configure static asset server for tests with Cache-Control for performance
+  config.serve_static_files = true
+  config.static_cache_control = "public, max-age=3600"
+
+  # Log error messages when you accidentally call methods on nil
   config.whiny_nils = true
 
   # Show full error reports and disable caching
-  config.consider_all_requests_local = true
-  config.action_controller.perform_caching = true
+  config.consider_all_requests_local       = true
+  config.action_controller.perform_caching = false
 
-  # Don't care if the mailer can't send
-  config.action_mailer.raise_delivery_errors = false
+  # Raise exceptions instead of rendering exception templates
+  config.action_dispatch.show_exceptions = false
 
-  # Print deprecation notices to the Rails logger
-  config.active_support.deprecation = :log
-
-  # See everything in the log (default is :info)
-  config.log_level = :debug
-
-  # if false, most rendering errors will be rescued and made visible only
-  # in the nest where the error occurred
-  config.raise_all_rendering_errors = true
-
-  # if false, application will raise errors that make it to controller.
-  config.rescue_all_in_controller = false
-
-  # config.performance_logger = {
-  #     methods:   [:event, :search, :fetch, :view],  # choose methods to log
-  #     min_time:  100,                # show only method calls that are slower than 100ms
-  #     max_depth: 3,                  # show nested method calls only up to depth 3
-  #     details:   true                # show method arguments and sql
-  #     log_level: :info
-  # }
+  # Disable request forgery protection in test environment
   config.action_controller.allow_forgery_protection = false
 
-  # Only use best-standards-support built into browsers
-  config.action_dispatch.best_standards_support = :builtin
+  # Tell Action Mailer not to deliver emails to the real world.
+  # The :test delivery method accumulates sent emails in the
+  # ActionMailer::Base.deliveries array.
+  config.action_mailer.delivery_method = :test
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.default charset: "utf-8"
 
-  # Do not compress assets
-  # config.assets.compress = false
-  #
-  #   # Expands the lines which load the assets
-  #   config.assets.debug = false
-  #
-  #     This needs to be on for tinymce to work, because several important files
-  #     (themes, etc) are only served statically
-  #   config.serve_static_files = ENV['STATIC_ASSETS'] || true
-  #
-  #   # Setting a bogus directory so rails won't find public/assets in dev mode.
-  #   # Normally you could skip that by not serving static assets, but that breaks
-  #     tinymce (see above)
-  #   config.assets.prefix = "dynamic-assets"
+  # config.action_mailer.delivery_method = :smtp
+  # config.action_mailer.smtp_settings = { address: "localhost", port: 1025 }
 
-  # Log the query plan for queries taking more than this (works
-  # with SQLite, MySQL, and PostgreSQL)
-  #  config.active_record.auto_explain_threshold_in_seconds = 0.5
+  # Use SQL instead of Active Record's schema dumper when creating the test database.
+  # This is necessary if your schema can't be completely dumped by the schema dumper,
+  # like if you have constraints or database-specific column types
+  # config.active_record.schema_format = :sql
 
-  #  if File.exists?(File.join(Rails.root,'tmp', 'debug.txt'))
-  #    require 'ruby-debug'
-  #    Debugger.wait_connection = true
-  #    Debugger.start_remote
-  #    File.delete(File.join(Rails.root,'tmp', 'debug.txt'))
-  #  end
+  # FIXME: - add back the next one when we go back to 3.2
+  # Raise exception on mass assignment protection for Active Record models
+  #  config.active_record.mass_assignment_sanitizer = :strict
 
-  config.action_mailer.perform_deliveries = false
+  # Print deprecation notices to the stderr
+  config.active_support.deprecation = :stderr
 
-  # config.session_store :cookie_store
+  config.raise_all_rendering_errors = true
+
+  config.rescue_all_in_controller = false
 end
-
-# Paperclip.options[:command_path] = "/opt/local/bin"
