@@ -4,7 +4,7 @@ include_set Abstract::ManifestGroup
 def paths
   return [] unless left
 
-  relative_paths.map { |path|  ::File.join(base_path, path) } || []
+  relative_paths.map { |path| ::File.join(base_path, path) } || []
 end
 
 def relative_paths

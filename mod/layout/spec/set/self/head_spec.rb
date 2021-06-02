@@ -18,9 +18,7 @@ describe Card::Set::Self::Head do
     end
 
     it "has a main javascript tag" do
-      is_expected.to have_tag(
-        :script, with: { src: "/files/:all_script_machine_output/machines.js" }
-      )
+      is_expected.to match %r{<script src="/files/~\d+/\d+.js"}
     end
 
     it "has a main stylesheets link" do

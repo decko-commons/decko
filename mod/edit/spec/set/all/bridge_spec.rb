@@ -11,6 +11,5 @@ RSpec.describe Card::Set::All::Bridge do
     end
   end
 
-  check_views_for_errors :edit, :edit_buttons, :edit_name, :edit_type, :edit_rules,
-                         :edit_structure, :edit_nests
+  check_html_views_for_errors
 end

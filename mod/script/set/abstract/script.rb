@@ -75,8 +75,8 @@ format :html do
     process_content highlight(script)
   end
 
-  view :include_tag do
-    javascript_include_tag card.format(:js).source
+  view :javascript_include_tag do
+    javascript_include_tag card.machine_output_url
   end
 
   def highlight script
