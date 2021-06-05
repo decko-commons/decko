@@ -1,9 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-require "rails/generators"
-require "rails/generators/active_record"
-
-class Card
+module Cardio
   module Generators
     module ClassMethods
       def source_root path=nil
@@ -23,22 +20,11 @@ class Card
         text = "decko generate #{namespace} #{usage_arguments} [options]"
         text.gsub(/\s+/, " ")
       end
-    end
 
-    class NamedBase < ::Rails::Generators::NamedBase
-      extend ClassMethods
-
-      def mod_path
-        @mod_path ||= begin
-          path_parts = ["mod", file_name]
-          path_parts.unshift Cardio.gem_root if options.core?
-          File.join(*path_parts)
-        end
+      def namespace(name = nil)
+        return super if name
+        @namespace ||= super.sub(/cardio:/, "")
       end
-    end
-
-    class MigrationBase < ::ActiveRecord::Generators::Base
-      extend ClassMethods
     end
   end
 end

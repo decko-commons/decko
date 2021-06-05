@@ -1,9 +1,0 @@
-Description:
-    Generates a new format
-
-Example:
-    decko generate card:format core backup
-
-    This will create:
-        mod/core/format/backup_format.rb
-        spec/mod/core/format/backup_format_spec.rb
