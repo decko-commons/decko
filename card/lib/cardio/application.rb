@@ -55,7 +55,7 @@ module Cardio
       Paths.new(config).assign
       Cardio::Mod.each_path do |mod_path|
         config.autoload_paths += Dir["#{mod_path}/lib"]
-        config.watchable_dirs["#{mod_path}/set"] = [:rb, :haml]
+        config.watchable_dirs["#{mod_path}/set"] = %i[rb haml]
       end
     end
 
