@@ -2,6 +2,8 @@
 
 ActiveSupport.run_load_hooks(:before_card, self)
 
+puts "card loading"
+
 # Cards are wiki-inspired building blocks.
 #
 # This documentation is for developers who want to understand:

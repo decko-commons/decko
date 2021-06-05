@@ -66,7 +66,7 @@ module Cardio
 
     # runs all commands in "rails" list
     def run_rails
-      require "generators/card" if command == "generate"
+      # require "generators/card" if command == "generate"
       require "rails/commands"
     end
 
