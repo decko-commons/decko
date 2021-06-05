@@ -81,7 +81,7 @@ module Decko
             template "cucumber.yml"
             template "storage.yml"
             template "puma.rb"
-            template "initializers/cypress.rb" if platypus?
+            # template "initializers/cypress.rb" if platypus?
           end
         end
 
