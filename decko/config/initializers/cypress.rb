@@ -6,7 +6,7 @@ if defined?(CypressOnRails)
     # WARNING!! CypressOnRails can execute arbitrary ruby code
     # please use with extra caution if enabling on hosted servers or starting your
     # local server on 0.0.0.0
-    c.use_middleware = Rails.env.cypress? || ENV["CYPRESS_DEV"]
+    c.use_middleware = Rails.env.cypress?
     c.logger = Rails.logger
   end
 end
