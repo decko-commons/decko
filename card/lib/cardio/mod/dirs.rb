@@ -71,19 +71,19 @@ module Cardio
 
       # Add a mod to mod load paths
       def add_mod mod_name, path=nil
-        if @mods_by_name.key? Card::Mod.normalize_name(mod_name)
-          raise Card::Error,
+        if @mods_by_name.key? ::Card::Mod.normalize_name(mod_name)
+          raise ::Card::Error,
                 "name conflict: mod with name \"#{mod_name}\" already loaded"
         end
 
         path ||= File.join @current_path, mod_name
-        mod = Card::Mod.new(mod_name, path, @mods.size)
+        mod = ::Card::Mod.new(mod_name, path, @mods.size)
         @mods << mod
         @mods_by_name[mod.name] = mod
       end
 
       def delete_mod mod_name
-        name = Card::Mod.normalize_name(mod_name)
+        name = ::Card::Mod.normalize_name(mod_name)
         mod = @mods_by_name[name]
         @mods.delete mod
         @mods_by_name.delete name
@@ -96,7 +96,7 @@ module Cardio
       end
 
       def fetch_mod mod_name
-        @mods_by_name[Card::Mod.normalize_name(mod_name)]
+        @mods_by_name[::Card::Mod.normalize_name(mod_name)]
       end
 
       # Iterate over each mod directory
