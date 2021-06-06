@@ -3,10 +3,7 @@
 module Cardio
   module Generators
     module Card
-      class ModGenerator < NamedBase
-        class_option "mod-path", aliases: "-m", group: :runtime,
-                     desc: "full path for mod"
-
+      class ModGenerator < ModBase
         def create_mod
           inside mod_path do
             assets_dir

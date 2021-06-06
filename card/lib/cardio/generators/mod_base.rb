@@ -2,8 +2,11 @@
 
 module Cardio
   module Generators
-    class NamedBase < ::Rails::Generators::NamedBase
+    # base class for mod-related generators
+    class ModBase < ::Rails::Generators::NamedBase
       extend ClassMethods
+
+      class_option "mod-path", aliases: "-m", group: :runtime, desc: "full path for mod"
 
       def mod_path
         @mod_path = if (path = options["mod-path"])

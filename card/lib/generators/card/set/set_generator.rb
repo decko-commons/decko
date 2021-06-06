@@ -3,14 +3,11 @@
 module Cardio
   module Generators
     module Card
-      class SetGenerator < NamedBase
+      class SetGenerator < ModBase
         source_root File.expand_path("templates", __dir__)
 
         argument :set_pattern, required: true
         argument :anchors, required: true, type: :array
-        class_option "core", type: :boolean, aliases: "-c",
-                             default: false, group: :runtime,
-                             desc: "create set files in Card gem"
 
         class_option "spec-only", type: :boolean,
                                   default: false, group: :runtime,
@@ -29,6 +26,10 @@ module Cardio
           dirs = anchors[0..-2]
           path_parts = [mod_path, modifier, "set", set_pattern, dirs, filename]
           File.join(*path_parts.compact)
+        end
+
+        def module_class_string
+          "Card::Set::#{set_pattern.camelize}::#{anchors.map(&:camelize).join '::'}"
         end
       end
     end

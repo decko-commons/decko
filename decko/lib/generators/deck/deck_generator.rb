@@ -5,7 +5,7 @@ module Cardio
     module Deck
       # Create new Decks (Decko Applications)
       class DeckGenerator
-
+        # TODO: move decko-specific deck components here (eg cucumber)
       end
     end
   end
