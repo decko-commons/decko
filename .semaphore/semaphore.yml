@@ -97,7 +97,7 @@ blocks:
       jobs:
         - name: Cypress
           commands:
-            - RAILS_ENV=test CYPRESS_DEV=true bundle exec decko server -p 5002 -d
+            - RAILS_ENV=cypress bundle exec decko server -p 5002 -d
             - cd ~/decko/decko/spec
             - nvm use 10.10.0
             - yarn install

@@ -1,15 +1,4 @@
-require "rails/all"
 require "cardio"
-
-# TODO: Move these to modules that use them
-require "htmlentities"
-require "coderay"
-require "haml"
-require "kaminari"
-require "bootstrap4-kaminari-views"
-require "diff/lcs"
-require "builder"
-
 require "decko"
 
 module Decko
@@ -19,13 +8,13 @@ module Decko
     paths.add "lib/tasks", with: "#{::Decko.gem_root}/lib/decko/tasks",
                            glob: "**/*.rake"
     paths["lib/tasks"] << "#{::Cardio.gem_root}/lib/card/tasks"
-    paths.add "lib/decko/config/initializers",
-              with: File.join(Decko.gem_root, "lib/decko/config/initializers"),
+    paths.add "decko/config/initializers",
+              with: File.join(Decko.gem_root, "config/initializers"),
               glob: "**/*.rb"
 
     initializer "decko.engine.load_config_initializers",
                 after: :load_config_initializers do
-      paths["lib/decko/config/initializers"].existent.sort.each do |initializer|
+      paths["decko/config/initializers"].existent.sort.each do |initializer|
         load(initializer)
       end
     end

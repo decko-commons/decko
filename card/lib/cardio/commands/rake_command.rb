@@ -1,8 +1,9 @@
 require File.expand_path("command", __dir__)
 # require "pry"
 
-module Decko
+module Cardio
   class Commands
+    # enhance standard rake command with some decko/card -specific options
     class RakeCommand < Command
       def initialize rake_task, args={}
         @task = rake_task
@@ -21,7 +22,7 @@ module Decko
           # exit_with_child_status cmd
 
           result = `#{cmd}`
-          process = $?
+          process = $CHILD_STATUS
           puts result
           exit process.exitstatus unless process.success?
         end

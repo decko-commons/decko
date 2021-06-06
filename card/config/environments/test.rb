@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-Decko.application.class.configure do
+Cardio.application.class.configure do
   # Settings specified here will take precedence over those in config/application.rb
 
   config.eager_load = false
@@ -60,10 +60,4 @@ Decko.application.class.configure do
   config.raise_all_rendering_errors = true
 
   config.rescue_all_in_controller = false
-  # Use Pry instead of IRB
-  silence_warnings do
-    require "pry"
-    config.console = Pry
-  rescue LoadError
-  end
 end

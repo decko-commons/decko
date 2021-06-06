@@ -65,11 +65,11 @@ format :html do
   end
 
   def checkbox_input
-    haml :checkbox_input, submit_on_change: @submit_on_change
+    raw haml(:checkbox_input, submit_on_change: @submit_on_change)
   end
 
   def radio_input
-    haml :radio_input, submit_on_change: @submit_on_change
+    raw haml(:radio_input, submit_on_change: @submit_on_change)
   end
 
   def select_input

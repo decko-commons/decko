@@ -1,6 +1,7 @@
 class Card
   module Set
     module Format
+      # AbstractFormat extends all format classes
       module AbstractFormat
         # The Wrapper module provides an API to define wrap methods.
         # It is available in all formats.
@@ -75,12 +76,7 @@ class Card
             class_exec(self) do |_format|
               define_method "wrap_with_#{wrapper_name}" do |*args, &interior|
                 @interior, opts = interior ? [interior.call, args.first] : args
-
-                if method(wrapper_method_name).arity.zero?
-                  send wrapper_method_name
-                else
-                  send wrapper_method_name, (opts || {})
-                end
+                send_wrapper_method wrapper_method_name, opts
               end
             end
           end
