@@ -1,36 +1,58 @@
 # -*- encoding : utf-8 -*-
 
-require "generators/card"
-
-class Card
+module Cardio
   module Generators
-    class ModGenerator < NamedBase
-      class_option "core",
-                   type: :boolean, aliases: "-c",
-                   default: false, group: :runtime,
-                   desc: "create mod Card gem"
+    module Card
+      class ModGenerator < NamedBase
+        class_option "mod-path", aliases: "-m", group: :runtime,
+                     desc: "full path for mod"
 
-      def create_mod_tree
-        create_empty_tree mod_path => { lib: %i[javascript stylesheets],
-                                        public: [:assets],
-                                        set: [] }
-      end
+        def create_mod
+          inside mod_path do
+            assets_dir
+            set_dir
+            spec_dir
+            config_dir
+            public_dir
+          end
+        end
 
-      private
+        def root_files
+          template "README.md.erb", "#{mod_path}/README.md"
+        end
 
-      def create_empty_tree structure
-        return unless structure.present?
+        private
 
-        if structure.is_a?(Hash)
-          structure.each_pair do |k, v|
-            empty_directory k.to_s
-            inside k.to_s do
-              create_empty_tree v
+        def assets_dir
+          inside "assets" do
+            empty_directory "javascript"
+            empty_directory "stylesheets"
+          end
+        end
+
+        def set_dir
+          inside "set" do
+            %w[abstract all type type_plus_right right self].each do |pattern|
+              empty_directory pattern
             end
           end
-        else
-          Array.wrap(structure).each do |v|
-            empty_directory v.to_s
+        end
+
+        def spec_dir
+          inside "spec" do
+            set_dir
+          end
+        end
+
+        def config_dir
+          inside "config" do
+            empty_directory "initializers"
+          end
+        end
+
+        def public_dir
+          inside "public" do
+            empty_directory "assets"
           end
         end
       end
