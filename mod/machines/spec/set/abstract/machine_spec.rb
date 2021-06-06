@@ -3,10 +3,15 @@
 RSpec.describe Card::Set::Abstract::Machine do
   describe "#make_machine_output_coded" do
     it "creates coded file" do
-      Card[:all, :script].make_machine_output_coded
-      mod_path = Cardio::Mod.dirs.path "machines"
-      path = File.join mod_path, "file", "all_script_machine_output", "file.js"
-      expect(File).to be_exist(path)
+      mod_path = Cardio::Mod.dirs.path "script"
+      path = File.join mod_path, "file", "mod_script_script_decko_machine_output", "file.js"
+      expect(File).to be_exist(path), "Decko should be shipped with generated script files"
+
+      File.delete path
+
+      card = Card[:script_group__decko]
+      card.make_machine_output_coded :script
+       expect(File).to be_exist(path)
     end
   end
 
