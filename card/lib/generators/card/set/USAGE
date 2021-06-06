@@ -1,15 +1,35 @@
 Description:
     Generates new set files in mods and matching specs.
 
-Example:
-    decko generate card:set clothing type tshirt
+Examples:
+    <%= banner_command %> generate card:set clothing type tshirt
 
     This will create:
-        mod/clothing/set/type/tshirt.rb
-        mod/clothing/spec/set/type/tshirt_spec.rb
 
-    decko generate card:set clothing type_plus_right basic about tshirt
+      mod/
+        clothing/
+          set/
+            type/
+              tshirt.rb
+          spec/
+            set/
+              type/
+                tshirt_spec.rb
+
+
+    <%= banner_command %> generate card:set clothing type_plus_right basic about tshirt
 
     This will create:
-        mods/clothing/set/type_plus_right/basic/about/tshirt.rb
-        mods/clothing/spec/set/type_plus_right/basic/about/tshirt_spec.rb
+
+      mod/
+        clothing/
+          set/
+            type_plus_right/
+              basic/
+                tshirt.rb
+          spec/
+            set/
+              type_plus_right/
+                basic/
+                  tshirt_spec.rb
+
