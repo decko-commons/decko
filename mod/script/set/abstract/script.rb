@@ -76,7 +76,7 @@ format :html do
   end
 
   view :javascript_include_tag do
-    javascript_include_tag card.machine_output_url
+    javascript_include_tag card.machine_output_url # path(format: :js)
   end
 
   def highlight script

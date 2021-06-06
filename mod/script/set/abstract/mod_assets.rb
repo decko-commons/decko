@@ -153,3 +153,10 @@ def update_if_source_file_changed
     item_card.try(:update_if_source_file_changed)
   end
 end
+
+def make_machine_output_coded verbose=false
+  item_cards.each do |item_card|
+    puts "coding machine output for #{item_card.name}" if verbose
+    item_card.try(:make_machine_output_coded, mod_name)
+  end
+end
