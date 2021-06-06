@@ -44,7 +44,6 @@ module Cardio
     # array of paths to card mod directories.
     class Dirs < Array
       attr_reader :mods
-      include ModfileApi
 
       # @param mod_paths [String, Array<String>] paths to directories that contain mods
       def initialize mod_paths=[]
@@ -152,7 +151,7 @@ module Cardio
         modfile_path = File.join @current_path, "Modfile"
         return unless File.exist? modfile_path
 
-        loader = ModfileLoader.new self, modfile_path
+        loader = ModfileLoader.new self
         loader.load modfile_path
         true
       end
