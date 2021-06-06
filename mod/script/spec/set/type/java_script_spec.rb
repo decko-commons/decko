@@ -6,7 +6,7 @@ describe Card::Set::Type::JavaScript do
   let(:changed_js)            { 'alert( "Hello" );' }
   let(:compressed_changed_js) { 'alert("Hello");'   }
 
-  let(:js_card) { Card.new name: "js test card", type: :java_script, content: js}
+  let(:js_card) { Card.new name: "js test card", type: :java_script, content: js }
 
   def comment_with_source content, source="test javascript"
     "//#{source}\n#{content}"
