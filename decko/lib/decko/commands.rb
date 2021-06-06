@@ -18,6 +18,11 @@ module Decko
       "decko"
     end
 
+    def run_rails
+      require "decko/generators" if command == "generate"
+      super
+    end
+
     new(ARGV).run
   end
 end
