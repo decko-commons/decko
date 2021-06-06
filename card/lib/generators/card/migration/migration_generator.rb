@@ -3,7 +3,7 @@
 module Cardio
   module Generators
     module Card
-      class MigrationGenerator < MigrationBase
+      class MigrationGenerator < Base
         source_root File.expand_path("templates", __dir__)
 
         class_option "core", type: :boolean, aliases: "-c",

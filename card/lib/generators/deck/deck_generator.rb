@@ -1,6 +1,6 @@
 require "rails/generators/app_base"
 
-module Decko
+module Cardio
   module Generators
     module Deck
       # Create new Decks (Decko Applications)

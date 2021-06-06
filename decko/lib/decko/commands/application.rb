@@ -1,5 +1,5 @@
 require "rails/generators"
-require File.expand_path("../generators/deck/deck_generator", __dir__)
+require "generators/deck/deck_generator"
 
 if ARGV.first != "new"
   ARGV[0] = "--help"

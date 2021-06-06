@@ -2,15 +2,32 @@ Description:
     Generates new mod
 
 Example:
-    decko generate card:mod clothing
+    <%= banner_command %> generate card:mod clothing
 
     This will create:
-        mod/clothing/
-          lib/
-            javascript/
-            stylesheets/
-          public/
+
+        mod/
+          clothing/
             assets/
-          set/
-
-
+              javascript/
+              stylesheets/
+            config/
+              initializers/
+            public/
+              assets/
+            set/
+              abstract/
+              all/
+              type/
+              type_plus_right/
+              right/
+              self/
+            spec/
+              set/
+                abstract/
+                all/
+                type/
+                type_plus_right/
+                right/
+                self/
+            README.md

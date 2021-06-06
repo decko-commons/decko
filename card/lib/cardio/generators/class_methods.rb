@@ -8,19 +8,23 @@ module Cardio
           @_card_source_root = path
         else
           @_card_source_root ||= File.expand_path(
-            File.join(File.dirname(__FILE__),
-                      "card", generator_name, "templates")
+            "../../../generators/card/#{generator_name}/templates", __FILE__
           )
         end
       end
 
-      # Override Rails default banner (decko is the command name).
+      # Override Rails default banner (using card/decko for the command name).
       def banner
         usage_arguments = arguments.map(&:usage) * " "
-        text = "decko generate #{namespace} #{usage_arguments} [options]"
+        text = "#{banner_command} generate #{namespace} #{usage_arguments} [options]"
         text.gsub(/\s+/, " ")
       end
 
+      def banner_command
+        "card"
+      end
+
+      # Override Rails namespace handling so we can put generators in `module Cardio`
       def namespace(name = nil)
         return super if name
         @namespace ||= super.sub(/cardio:/, "")
