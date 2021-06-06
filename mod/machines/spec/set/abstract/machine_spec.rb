@@ -8,10 +8,11 @@ RSpec.describe Card::Set::Abstract::Machine do
       expect(File).to be_exist(path), "Decko should be shipped with generated script files"
 
       File.delete path
+      Card[:script_group__decko, :machine_output].delete
 
       card = Card[:script_group__decko]
       card.make_machine_output_coded :script
-       expect(File).to be_exist(path)
+      expect(File).to be_exist(path)
     end
   end
 
