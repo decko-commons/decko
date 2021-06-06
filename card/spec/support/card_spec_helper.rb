@@ -100,7 +100,7 @@ class Card
         include_context_for html_views, "view with valid html"
       end
 
-      def include_context_for views, context, format = :html
+      def include_context_for views, context, format=:html
         views.each do |view|
           include_context context, view, format
         end

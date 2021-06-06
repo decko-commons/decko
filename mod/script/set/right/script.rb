@@ -10,7 +10,6 @@ def update_if_source_file_changed
   end
 end
 
-
 format :html do
   view :javascript_include_tag do
     card.item_cards.map do |script|

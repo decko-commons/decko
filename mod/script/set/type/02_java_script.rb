@@ -7,4 +7,3 @@ format :js do
     _render_raw
   end
 end
-
