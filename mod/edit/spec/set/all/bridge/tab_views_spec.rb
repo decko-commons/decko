@@ -1,8 +1,7 @@
 # -*- encoding : utf-8 -*-
 
 RSpec.describe Card::Set::All::Bridge::TabViews do
-  check_views_for_errors :engage_tab, :history_tab, :related_tab, :rules_tab,
-                         :follow_section
+  check_html_views_for_errors
 
   specify "view :related_tab" do
     expect_view(:related_tab).to have_tag :ul do
