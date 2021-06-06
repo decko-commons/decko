@@ -5,8 +5,8 @@ module Cardio
     module Deck
       # Create new Decks (Decko Applications)
       class DeckGenerator < Rails::Generators::AppBase
-        require "decko/generators/deck/deck_generator/rails_overrides"
-        require "decko/generators/deck/deck_generator/deck_helper"
+        require "cardio/generators/rails_overrides"
+        require "cardio/generators/deck_helper"
 
         include RailsOverrides
         include DeckHelper
