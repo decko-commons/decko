@@ -1,0 +1,14 @@
+Description:
+    The '<%= banner_command %> new' command creates a new Decko deck with a default
+    directory structure and configuration at the path you specify.
+
+Examples:
+    <%= banner_command %> new poker
+
+    This generates a new deck in a directory named "poker" inside the current working
+    directory.
+
+
+    <%= banner_command %> new ~/Poker/FullHouse
+
+    This generates a new deck in ~/Poker/FullHouse.
