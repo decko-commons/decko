@@ -1,3 +1,5 @@
+require "haml"
+
 class Card
   module Set
     module Format

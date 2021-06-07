@@ -1,5 +1,6 @@
 # -*- encoding : utf-8 -*-
 
+require "action_controller/railtie"
 require "cardio/application"
 
 # require_relative "config/initializers/sedate_parser"
