@@ -1,5 +1,3 @@
-# require "card/content/diff/processor"
-
 class Card
   class Content
     class Diff

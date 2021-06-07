@@ -28,8 +28,6 @@ DeckoGem.gem "card" do |s, d|
     ["haml",                        "~> 5.0"], # markup language used in view API
     # card-mod-account
     ["jwt",                         "~> 2.2"], # used in token.rb
-
-
     # assets (JavaScript, CSS, etc)
     ["coderay",                     "~> 1.1"],
     ["sassc",                       "~> 2.0"],

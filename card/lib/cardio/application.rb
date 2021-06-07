@@ -5,10 +5,8 @@ Bundler.require :default, *Rails.groups
 # TODO: Move these to modules that use them
 require "htmlentities"
 require "coderay"
-require "haml"
 require "kaminari"
 require "bootstrap4-kaminari-views"
-require "diff/lcs"
 require "builder"
 
 module Cardio
