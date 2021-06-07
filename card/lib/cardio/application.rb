@@ -8,6 +8,7 @@ require "coderay"
 require "kaminari"
 require "bootstrap4-kaminari-views"
 require "builder"
+require "haml"
 
 module Cardio
   # handles config and path defaults
