@@ -1,6 +1,4 @@
-require "rails/all"
-require "cardio"
-require "cardio/mod"
+require "cardio/all"
 
 Bundler.require :default, *Rails.groups
 

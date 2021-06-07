@@ -10,7 +10,7 @@ Example:
 
     This will create:
 
-        db/migrate_cards/(migration_number)_(name).rb
+        db/migrate_cards/(migration_number)_better_commented_search_cards.rb
 
     ...which is set up to use methods in lib/card/migration.rb
 
@@ -19,6 +19,6 @@ Example:
 
     This will create:
 
-        db/migrate_cards/(migration_number)_(name).rb
+        db/migrate_cards/(migration_number)_import_better_search_cards.rb
 
     ...which is set up to import data from db/migrate_cards/data/better_search_cards.json
