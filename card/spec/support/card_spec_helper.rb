@@ -1,3 +1,5 @@
+require "coderay"
+
 %w[helper matchers].each do |load_dir|
   load_path = File.expand_path "../#{load_dir}/*.rb", __FILE__
   Dir[load_path].sort.each { |f| require f }

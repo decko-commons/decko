@@ -20,7 +20,7 @@ DeckoGem.gem "card" do |s, d|
   d.depends_on(
     ["cardname",             d.decko_version],
     ["rake",                       "~> 13.0"],
-    ["rails",                   "~> 6.1.3.1"], # reduce digits after 6.2 (mimemagic issue)
+    ["sprockets-rails",             ">= 2.0"],
     ["colorize",                    "~> 0.8"], # livelier cli outputs
     # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     # MOVE TO MODS?
@@ -41,4 +41,15 @@ DeckoGem.gem "card" do |s, d|
     ["diff-lcs",                    "~>  1.3"], # content diffs in histories
     ["activerecord-import",         "~> 1.0"]
   )
+  %w[
+    activerecord
+    activestorage
+    actionview
+    actionmailer
+    activejob
+    actionmailbox
+    railties
+  ].each do |gem_name|
+    s.add_runtime_dependency gem_name, d.rails_version
+  end
 end
