@@ -4,8 +4,10 @@ Bundler.require :default, *Rails.groups
 
 # these two have railties and likely need to be loaded before application so they
 # don't override configuration later
-require "kaminari"
 require "haml"
+require "kaminari"
+
+require "bootstrap4-kaminari-views"
 
 module Cardio
   # handles config and path defaults
