@@ -1,5 +1,7 @@
 # -*- encoding : utf-8 -*-
 
+require "coderay"
+
 include_set Type::Html
 
 event :update_layout_registry, :finalize, on: :update do

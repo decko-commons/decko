@@ -1,3 +1,5 @@
+require "htmlentities"
+
 class Cardname
   module Variants
     def simple_key

@@ -1,3 +1,5 @@
+require "builder"
+
 format :rss do
   attr_accessor :xml
 
