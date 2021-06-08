@@ -1,5 +1,5 @@
 module Cardio
-  module Mod
+  class Mod
     # Methods used via "eval" in Modfiles
     module ModfileApi
       def mod mod_name, path=nil
