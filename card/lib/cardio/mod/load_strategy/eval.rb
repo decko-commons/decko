@@ -1,5 +1,5 @@
 module Cardio
-  module Mod
+  class Mod
     class LoadStrategy
       # Put everything for the module definition in one string and the evaluate
       # it immediately with ruby's eval method.
