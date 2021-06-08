@@ -1,3 +1,5 @@
+require "coderay"
+
 module Cardio
   # These commands are available in the console when using binding.pry for breakpoints.
   module Pry

@@ -2,12 +2,9 @@ require "cardio/all"
 
 Bundler.require :default, *Rails.groups
 
-# TODO: Move these to modules that use them
-require "htmlentities"
-require "coderay"
+# these two have railties and likely need to be loaded before application so they
+# don't override configuration later
 require "kaminari"
-require "bootstrap4-kaminari-views"
-require "builder"
 require "haml"
 
 module Cardio
