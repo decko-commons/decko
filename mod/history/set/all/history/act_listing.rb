@@ -1,5 +1,3 @@
-require "bootstrap4-kaminari-views"
-
 format :html do
   def act_from_context
     if (act_id = params["act_id"])
