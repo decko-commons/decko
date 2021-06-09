@@ -2,6 +2,7 @@
 
 module Cardio
   module Generators
+    # generate mod with standard directories
     class ModGenerator < ModBase
       def create_mod
         inside mod_path do
@@ -43,6 +44,7 @@ module Cardio
       def config_dir
         inside "config" do
           empty_directory "initializers"
+          empty_directory "locales"
         end
       end
 
