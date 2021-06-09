@@ -2,8 +2,11 @@
 
 module Cardio
   module Generators
+    # generate structure and card migrations
     class MigrationGenerator < Base
       source_root File.expand_path("templates", __dir__)
+
+      # class_option "mod", aliases: "-m", group: :runtime, desc: "mod"
 
       class_option "core", type: :boolean, aliases: "-c",
                            default: false, group: :runtime,

@@ -10,8 +10,8 @@ module Cardio
   end
 end
 
-
 module Rails
+  # override to hide all the rails generators that don't apply in a card/decko context
   module Generators
     def self.sorted_groups
       [["card", %w[mod set migration]]]

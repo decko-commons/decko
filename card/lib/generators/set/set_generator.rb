@@ -2,6 +2,7 @@
 
 module Cardio
   module Generators
+    # generate set module files
     class SetGenerator < ModBase
       source_root File.expand_path("templates", __dir__)
 
