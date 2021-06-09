@@ -9,3 +9,12 @@ module Cardio
     # noop
   end
 end
+
+
+module Rails
+  module Generators
+    def self.sorted_groups
+      [["card", %w[mod set migration]]]
+    end
+  end
+end
