@@ -1,0 +1,6 @@
+
+# This command will be run when you use `card` from within your deck.
+
+APP_PATH = File.expand_path("../config/application", __dir__)
+require File.expand_path("../../config/boot",  __FILE__)
+require "cardio/commands"
