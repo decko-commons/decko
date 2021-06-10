@@ -1,5 +1,5 @@
 module Cardio
-  module Mod
+  class Mod
     class LoadStrategy
       # LoadStrategy for mod modules. It writes the code to tmp files
       # and then loads the tmp files. (deprecated)

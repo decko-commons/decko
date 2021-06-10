@@ -1,5 +1,5 @@
 module Cardio
-  module Mod
+  class Mod
     # Loads the mod of a Modfile into a Mod::Dirs object
     class ModfileLoader
       include ModfileApi
