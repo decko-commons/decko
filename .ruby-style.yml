@@ -4,8 +4,8 @@ AllCops:
     - "coverage/**/*"
     - "card/tmpsets/**/*"
     - "card/db/schema.rb"
-    - "mod/*/lib/stylesheets/*.css"
-    - "mod/*/lib/javascript/*.js"
+    - "mod/*/{lib,assets}/stylesheets/*.css"
+    - "mod/*/{lib,assets}/javascript/*.js"
     - "mod/*/{file,public,vendor}/**/*"
 
 Layout/DotPosition:

@@ -1,5 +1,5 @@
 module Cardio
-  module Mod
+  class Mod
     class Loader
       # A SetLoader object loads all set modules for a list of mods.
       # The mods are given by a Mod::Dirs object.
@@ -11,7 +11,7 @@ module Cardio
 
         def initialize args={}
           @no_all = args.delete :no_all
-          super
+          super load_strategy: args[:load_strategy], mod_dirs: args[:mod_dirs]
         end
 
         def load_strategy_class strategy
