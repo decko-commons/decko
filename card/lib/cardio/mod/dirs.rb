@@ -132,7 +132,7 @@ module Cardio
           path = mod.public_assets_path
           next unless Dir.exist? path
 
-          yield mod, path
+          yield mod.name, path
         end
       end
 
