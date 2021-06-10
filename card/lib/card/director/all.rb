@@ -23,19 +23,19 @@ class Card
         act(as_subcard: as_subcard) { super }
       end
 
-      def save *args
+      def save *_args
         act { super }
       end
 
-      def valid? *args
+      def valid? *_args
         act(validating: true) { super }
       end
 
-      def update *args
+      def update *_args
         act { super }
       end
 
-      def update! *args
+      def update! *_args
         act { super }
       end
 

@@ -76,6 +76,10 @@ format :html do
     process_content highlight(script)
   end
 
+  view :javascript_include_tag do
+    javascript_include_tag card.machine_output_url # path(format: :js)
+  end
+
   def highlight script
     ::CodeRay.scan(script, :js).div
   end

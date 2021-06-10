@@ -1,5 +1,5 @@
 module Cardio
-  module Mod
+  class Mod
     # Tries to build the module with as little string evaluation as possible.
     # The problem here is that in methods like `module_eval` the Module.nesting
     # list gets lost so all references in mod files to constants in the
