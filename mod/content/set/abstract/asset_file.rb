@@ -1,7 +1,7 @@
 include_set Abstract::CodeFile
 
-def source_path
-  db_content
+def source_paths
+  [db_content]
 end
 
 def source_files
@@ -42,13 +42,6 @@ def local
 end
 
 format do
-  view :core do
-    if (source_path = find_file source_path)
-      Rails.logger.debug "reading file: #{source_path}"
-      ::File.read source_path
-    end
-  end
-
   def link_view opts={}
     opts[:path] = { card: { type: card.type, content: card.db_content } }
     link_to_card card.name, _render_title, opts

@@ -48,8 +48,8 @@ def source_paths
 end
 
 def content
-  Array.wrap(source_files).map do |filename|
-    if (source_path = find_file filename)
+  Array.wrap(source_paths).map do |path|
+    if (source_path = find_file path)
       Rails.logger.debug "reading file: #{source_path}"
       ::File.read source_path
     end
