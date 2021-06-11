@@ -11,6 +11,7 @@ require "cardio/mod"
   action_mailbox/engine
   rails/test_unit/railtie
   sprockets/railtie
+  cardio/railtie
 ].each do |railtie|
   require railtie
 end
