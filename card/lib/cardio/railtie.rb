@@ -10,9 +10,7 @@ module Cardio
         require environment
       end
     end
-
-    binding.pry
-
+    
     def config
       @config ||= super.tap do |config|
         simple_configs config
