@@ -482,7 +482,7 @@ GEM
       ruby2_keywords (~> 0.0.1)
     mysql2 (0.5.3)
     nio4r (2.5.7)
-    nokogiri (1.11.7-x86_64-darwin)
+    nokogiri (1.11.7)
       racc (~> 1.4)
     nokogumbo (2.0.5)
       nokogiri (~> 1.8, >= 1.8.4)
