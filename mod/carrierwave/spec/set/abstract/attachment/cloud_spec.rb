@@ -48,7 +48,7 @@ RSpec.describe Card::Set::Abstract::Attachment::Cloud do
         expect(file_card.db_content).to eq("(test_bucket)/#{file_path}")
         url = file_card.file.url
         expect(url).to eq(cloud_url)
-        expect(open(url).read.strip).to eq "file1"
+        expect(URI.open(url).read.strip).to eq "file1"
       end
     end
 
