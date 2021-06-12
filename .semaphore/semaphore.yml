@@ -16,7 +16,8 @@ global_job_config:
   prologue:
     commands:
       - checkout # semaphore does git checkout and cds into decko
-      - sem-version ruby 2.6.3 # because pry-stack_explorer doesn't work in 2.5
+      # - sem-version ruby 2.6.3 # because pry-stack_explorer doesn't work in 2.5
+      - sem-version ruby 3.0.1 # temporary
       - alias be='bundle exec'
       - git submodule init
       # - git submodule status > substat.txt # needed for sem submodule caching
@@ -27,8 +28,10 @@ blocks:
     task:
       prologue:
         commands:
-          - cache restore bundle-gems-baseline
           # occasionally clear: `cache delete bundle-gems-baseline`
+          - cache delete bundle-gems-baseline
+          - cache delete bundle-gems-$(checksum Gemfile.lock)
+          - cache restore bundle-gems-baseline
           - cache restore bundle-gems-$(checksum Gemfile.lock)
           - bundle install
           - cache store bundle-gems-$(checksum Gemfile.lock) ~/bundle
