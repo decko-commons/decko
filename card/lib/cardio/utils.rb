@@ -1,8 +1,8 @@
 module Cardio
   # Utilities that may need to be run even when mods are not loaded.
   module Utils
-    def t key, args={}
-      ::I18n.t key, args
+    def t key, **options
+      ::I18n.t key, **options
     end
 
     def seed_test_db
