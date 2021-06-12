@@ -29,8 +29,6 @@ blocks:
       prologue:
         commands:
           # occasionally clear: `cache delete bundle-gems-baseline`
-          - cache delete bundle-gems-baseline
-          - cache delete bundle-gems-$(checksum Gemfile.lock)
           - cache restore bundle-gems-baseline
           - cache restore bundle-gems-$(checksum Gemfile.lock)
           - bundle install
