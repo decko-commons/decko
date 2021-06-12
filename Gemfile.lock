@@ -101,11 +101,6 @@ PATH
       card-mod-rules (= 0.11.6)
       card-mod-search (= 0.11.6)
       card-mod-tinymce_editor (= 0.11.6)
-    card-mod-delayed_job (0.11.6)
-      card (= 1.101.6)
-      daemons
-      delayed_job_active_record (>= 4.1)
-      delayed_job_web
     card-mod-edit (0.11.6)
       card (= 1.101.6)
     card-mod-email (0.11.6)
@@ -145,23 +140,8 @@ PATH
     card-mod-markdown (0.11.6)
       card (= 1.101.6)
       kramdown
-    card-mod-monkey (0.11.6)
-      better_errors
-      card (= 1.101.6)
-      colorize
-      html2haml
-      pry-byebug
-      pry-rails
-      pry-rescue
-      pry-stack_explorer
-      rubocop
     card-mod-permissions (0.11.6)
       card (= 1.101.6)
-    card-mod-platypus (0.11.6)
-      card (= 1.101.6)
-      codeclimate-test-reporter
-      fog-aws
-      yard
     card-mod-prosemirror_editor (0.11.6)
       card (= 1.101.6)
       card-mod-edit (= 0.11.6)
@@ -208,28 +188,6 @@ PATH
       rspec
       selenium-webdriver (= 3.141.0)
       simplecov (~> 0.17.1)
-    decko-cypress (0.11.6)
-      cypress-on-rails (~> 1.4)
-    decko-profile (0.11.6)
-      ruby-prof
-    decko-rspec (0.11.6)
-      i18n-tasks (~> 0.9.5)
-      minitest
-      nokogumbo
-      rails-controller-testing
-      rr
-      rspec
-      rspec-html-matchers (= 0.9.1)
-      rspec-rails (~> 5)
-      rubocop-rspec
-      simplecov (~> 0.17.1)
-      spork (>= 0.9)
-      timecop
-    decko-spring (0.11.6)
-      listen (= 3.0.6)
-      spring
-      spring-commands-cucumber
-      spring-commands-rspec
 
 GEM
   remote: http://rubygems.org/
@@ -322,6 +280,26 @@ GEM
     capybara-puma (1.0.1)
       capybara
       puma
+    card-mod-delayed_job (0.11.6)
+      card (= 1.101.6)
+      daemons
+      delayed_job_active_record (>= 4.1)
+      delayed_job_web
+    card-mod-monkey (0.11.6)
+      better_errors
+      card (= 1.101.6)
+      colorize
+      html2haml
+      pry-byebug
+      pry-rails
+      pry-rescue
+      pry-stack_explorer
+      rubocop
+    card-mod-platypus (0.11.6)
+      card (= 1.101.6)
+      codeclimate-test-reporter
+      fog-aws
+      yard
     carrierwave (2.2.2)
       activemodel (>= 5.0.0)
       activesupport (>= 5.0.0)
@@ -372,6 +350,28 @@ GEM
     daemons (1.4.0)
     database_cleaner (1.99.0)
     debug_inspector (1.1.0)
+    decko-cypress (0.11.6)
+      cypress-on-rails (~> 1.4)
+    decko-profile (0.11.6)
+      ruby-prof
+    decko-rspec (0.11.6)
+      i18n-tasks (~> 0.9.5)
+      minitest
+      nokogumbo
+      rails-controller-testing
+      rr
+      rspec
+      rspec-html-matchers (= 0.9.1)
+      rspec-rails (~> 5)
+      rubocop-rspec
+      simplecov (~> 0.17.1)
+      spork (>= 0.9)
+      timecop
+    decko-spring (0.11.6)
+      listen (= 3.0.6)
+      spring
+      spring-commands-cucumber
+      spring-commands-rspec
     delayed_job (4.1.9)
       activesupport (>= 3.0, < 6.2)
     delayed_job_active_record (4.1.6)
@@ -581,7 +581,7 @@ GEM
       rspec-mocks (~> 3.10)
       rspec-support (~> 3.10)
     rspec-support (3.10.2)
-    rubocop (1.16.0)
+    rubocop (1.16.1)
       parallel (~> 1.10)
       parser (>= 3.0.0.0)
       rainbow (>= 2.2.2, < 4.0)
@@ -592,7 +592,7 @@ GEM
       unicode-display_width (>= 1.4.0, < 3.0)
     rubocop-ast (1.7.0)
       parser (>= 3.0.1.1)
-    rubocop-rspec (2.3.0)
+    rubocop-rspec (2.4.0)
       rubocop (~> 1.0)
       rubocop-ast (>= 1.1.0)
     ruby-prof (1.4.3)
@@ -675,4 +675,4 @@ DEPENDENCIES
   thin
 
 BUNDLED WITH
-   2.1.4
+   2.2.15
