@@ -206,7 +206,7 @@ PATH
       email_spec
       launchy
       rspec
-      selenium-webdriver (= 3.141.0)
+      selenium-webdriver
       simplecov (~> 0.17.1)
     decko-cypress (0.12.0)
       cypress-on-rails (~> 1.4)
