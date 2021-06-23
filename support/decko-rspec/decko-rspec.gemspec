@@ -5,16 +5,16 @@ require "../../decko_gem"
 DeckoGem.gem "decko-rspec" do |s, d|
   s.summary = "rspec support for decko monkeys"
   s.description = ""
-  d.depends_on ["i18n-tasks", "~> 0.9.5"], # See if I18n keys are missing or unused
+  d.depends_on ["i18n-tasks", ">= 0.9.5"], # See if I18n keys are missing or unused
                "minitest",
                "nokogumbo",
                "rails-controller-testing",
                "rr",
                ["rspec-html-matchers", "0.9.1"],
                "rspec",
-               ["rspec-rails", "~> 5"],
+               ["rspec-rails", ">= 5"],
                "rubocop-rspec",
-               ["simplecov", "~> 0.17.1"],
+               ["simplecov", ">= 0.21"],
                ["spork", ">= 0.9"],
                "timecop"
   # following might be needed to get Jasmine going again?
