@@ -1,5 +1,5 @@
 module Cardio
-  module Mod
+  class Mod
     class Loader
       # Template for set modules
       class SetTemplate < ModuleTemplate
