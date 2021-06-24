@@ -102,7 +102,7 @@ format :html do
 
   def edit_link view=:edit, opts={}
     link_to_view view, opts.delete(:link_text) || menu_icon,
-                 edit_link_opts(opts.reverse_merge(modal: :lg))
+                 edit_link_opts(modal: (opts[:modal] || :lg))
   end
 
   # @param modal [Symbol] modal size
