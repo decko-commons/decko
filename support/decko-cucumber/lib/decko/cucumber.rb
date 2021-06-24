@@ -1,5 +1,3 @@
-
-
 require "rspec"
 require "capybara-puma"
 # require "selenium-webdriver"
@@ -8,8 +6,6 @@ require "capybara"
 require "database_cleaner"
 require "launchy"
 require "cucumber"
-
-puts "REQIORE minitest"
 require "minitest"
 require "email_spec"
 # require "email_spec/cucumber"
