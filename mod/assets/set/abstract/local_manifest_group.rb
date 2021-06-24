@@ -1,4 +1,3 @@
-include_set Abstract::AssetList
 include_set Abstract::ManifestGroup
 
 def paths

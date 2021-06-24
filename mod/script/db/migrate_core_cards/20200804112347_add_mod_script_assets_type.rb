@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-class AddModAssetsType < Cardio::Migration::Core
+class AddModScriptAssetsType < Cardio::Migration::Core
   def up
     add_cardtypes
     delete_script_cards
@@ -15,9 +15,8 @@ class AddModAssetsType < Cardio::Migration::Core
 
   def add_cardtypes
     ensure_code_card name: "Mod script assets", type_id: Card::CardtypeID
-    ensure_code_card name: "Local folder group", type_id: Card::CardtypeID
-    ensure_code_card name: "Local manifest group", type_id: Card::CardtypeID
-    ensure_code_card name: "Remote manifest group", type_id: Card::CardtypeID
+    ensure_code_card name: "Local script folder group", type_id: Card::CardtypeID
+    ensure_code_card name: "Local script manifest group", type_id: Card::CardtypeID
   end
 
   def delete_script_cards

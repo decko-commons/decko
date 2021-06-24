@@ -29,4 +29,10 @@ format :html do
       javascript_include_tag path
     end.join("\n")
   end
+
+  view :stylesheet_include_tag do
+    paths.map do |path|
+      tag "link", href: path, media: "all", rel: "stylesheet", type: "text/css"
+    end.join("\n")
+  end
 end

@@ -43,7 +43,7 @@ def local_group_name
 end
 
 def update_items
-  return unless groups_changed?
+  # return unless groups_changed?
 
   delete_unused_items do
     self.content = ""
@@ -58,7 +58,7 @@ def ensure_update_items
   if manifest_exists?
     ensure_manifest_groups_cards
   else
-    ensure_item local_group_name, ::Card::LocalFolderGroupID
+    ensure_item local_group_name, local_folder_group_type_id
   end
 end
 
@@ -100,12 +100,13 @@ def ensure_manifest_groups_cards
 end
 
 def new_manifest_group group_name, config
-  type_id = config["remote"] ? Card::RemoteManifestGroupID : Card::LocalManifestGroupID
+  type_id = config["remote"] ? ::Card::RemoteManifestGroupID : local_manifest_group_type_id
   ensure_item group_name, type_id
 end
 
 def ensure_item field, type_id
-  ensure_item_content field
+  item_name = "#{name}+#{field}"
+  ensure_item_content item_name
 
   card = Card[item_name]
   args = ensure_item_args field, type_id
@@ -119,8 +120,7 @@ def item_already_coded? card, args
   card&.type_id == args[:type_id] && card.codename == args[:codename]
 end
 
-def ensure_item_content field
-  item_name = "#{name}+#{field}"
+def ensure_item_content item_name
   @old_items.delete item_name.to_name.key
   add_item item_name
 end

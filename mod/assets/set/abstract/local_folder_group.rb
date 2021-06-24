@@ -1,5 +1,3 @@
-include_set Abstract::AssetList
-
 def paths
   return [] unless (path = left&.assets_path)
 

@@ -68,16 +68,12 @@ module Cardio
       @index = index
     end
 
-    def card_name
+    def mod_card_name
       "mod: #{name}"
     end
 
     def codename
       "mod_#{name}"
-    end
-
-    def script_codename
-      "#{codename}_script"
     end
 
     def tmp_dir type
@@ -95,32 +91,17 @@ module Cardio
 
     def ensure_mod_card
       Card::Auth.as_bot do
-        unless Card::Codename.exists? codename
-          Card.create name: card_name, codename: codename
-        end
-        ensure_mod_script_card
-      end
-    end
-
-    def ensure_mod_script_card
-      mod_script_card = find_or_create_mod_script_card
-      mod_script_card.update_items
-      if mod_script_card.item_cards.present?
-        Card[:all, :script].add_item! script_codename.to_sym
-      else
-        mod_script_card.update codename: nil
-        mod_script_card.delete update_referers: true
-        Card[:all, :script].drop_item! mod_script_card
-      end
-    end
-
-    def find_or_create_mod_script_card
-      if Card::Codename.exists? script_codename
-        Card.fetch script_codename.to_sym
-      else
-        Card.create name: "#{card_name}+*script",
-                    type_id: Card::ModScriptAssetsID,
-                    codename: script_codename
+        card =
+          if Card::Codename.exists? codename
+            Card.fetch codename.to_sym
+          else
+            Card.create name: mod_card_name,
+                        type_id: Card::ModID,
+                        codename: codename
+          end
+        card.update type_id: Card::ModID
+        card.ensure_mod_script_card
+        card.ensure_mod_style_card
       end
     end
 

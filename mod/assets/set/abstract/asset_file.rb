@@ -1,11 +1,15 @@
 include_set Abstract::CodeFile
 
+attr_accessor :base_path
+
 def source_paths
-  [db_content]
+  source_files.map do |file|
+    ::File.join base_path, file
+  end
 end
 
 def source_files
-  db_content
+  [db_content]
 end
 
 def find_file path
@@ -54,11 +58,13 @@ format do
 end
 
 format :html do
-  view :include_tag do
+  view :javascript_include_tag do
     card.existing_source_paths.map do |path|
       javascript_include_tag(path)
     end.join "\n"
   end
+
+
 
   def short_content
     fa_icon("exclamation-circle", class: "text-muted pr-2") +
