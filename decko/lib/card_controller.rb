@@ -6,6 +6,7 @@ class CardController < ActionController::Base
   include Rest
   include Response
   include Errors
+  extend Errors::Rescue
 
   # NOTE: including Card::Env::Location triggers card loading, which triggers mod loading,
   # which can include initializers that add to the CardController class.
@@ -22,4 +23,7 @@ class CardController < ActionController::Base
   before_action :load_card, except: [:asset]
   before_action :load_action, only: [:read]
   before_action :refresh_card, only: %i[create update delete]
+
+  rescue_from_class(*Card::Error::UserError.user_error_classes)
+  rescue_from_class StandardError if rescue_all?
 end
