@@ -2,6 +2,7 @@
 
 require "sassc"
 require "benchmark"
+require "coderay"
 
 include_set Abstract::Machine
 include_set Abstract::MachineInput
