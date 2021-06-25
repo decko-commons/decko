@@ -1,5 +1,12 @@
 # -*- encoding : utf-8 -*-
 
+require "email_spec"
+require "email_spec/cucumber"
+
+World(RSpec::Matchers)
+require "rspec-html-matchers"
+World(RSpecHtmlMatchers)
+
 Before("@background-jobs or @delayed-jobs or @javascript") do |scenario|
   # DatabaseCleaner.strategy = :truncation
   Cardio.seed_test_db
