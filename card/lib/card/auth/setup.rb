@@ -47,7 +47,7 @@ class Card
 
       def user_account_count
         cql = user_account_cql
-        cql[:not] = { id: ["in"].concat(@hidden_accounts) } if @hidden_accounts
+        cql[:not] = { id: ["in"].concat(@hidden_accounts) } if @hidden_accounts.present?
         as_bot { Card.count_by_cql cql }
       end
     end

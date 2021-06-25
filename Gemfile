@@ -1,6 +1,10 @@
 source "http://rubygems.org"
 
-gem "decko", path: "./"
+path "./" do
+  gem "decko"
+  gem "card", require: false
+end
+
 
 # DATABASE
 # Decko currently supports MySQL (best tested), PostgreSQL (well tested), and SQLite
@@ -21,28 +25,33 @@ gem "thin"
 #   3. run `decko update` to make any needed changes to your deck
 #
 # The "defaults" includes a lot of functionality that is needed in standard decks.
-gem "card-mod-defaults", path: "./mod"
+path "./mod" do
+  gem "card-mod-defaults"
 
 # BACKGROUND
 # A background gem is needed to run tasks like sending notifications in a background
 # process.
 # See https://github.com/decko-commons/decko/tree/master/card-mod-delayed_job
 # for additional configuration details.
-gem "card-mod-delayed_job"
+  gem "card-mod-delayed_job"
 
 # MONKEYS
 # You can also create your own mods. Mod developers (or "Monkeys") will want some
 # additional gems to support development and testing.
-gem "card-mod-monkey", group: :development
-gem "decko-cucumber", group: :test, path: "./support"
-gem "decko-cypress", group: %i[cypress test]
-gem "decko-profile", group: :profile
-gem "decko-rspec", group: :test
-gem "decko-spring", group: %i[test development]
+  gem "card-mod-monkey", group: :development
+end
+
+path "./support" do
+  gem "decko-cucumber", group: :test
+  gem "decko-cypress", group: %i[cypress test]
+  gem "decko-profile", group: :profile
+  gem "decko-rspec", group: :test
+  gem "decko-spring", group: %i[test development]
+end
 
 # PLATYPUSES
 # This mod is strongly recommended for platypuses – coders working on the decko core
-gem "card-mod-platypus", group: :test
+gem "card-mod-platypus", group: :test, path: "./mod"
 
 # The following allows simple (non-gem) mods to specify gems via a Gemfile.
 # You may need to alter this code if you move such mods to an unconventional location.
