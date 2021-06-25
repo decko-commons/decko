@@ -117,12 +117,12 @@ module Capybara
         # session.execute_script("$('##{id}').change()")
       end
 
-      def labeled_field type, label, options={}
+      def labeled_field type, label, visible: true
         label.gsub!(/^\+/, "") # because '+' is in an extra span,
         # descendant-or-self::text doesn't find it
         first :xpath,
               "//label[descendant-or-self::text()='#{label}']/..//#{type}",
-              options.merge(wait: 5, minimum: 0)
+              visible: visible
       end
     end
   end
