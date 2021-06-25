@@ -38,7 +38,7 @@ format :html do
         value = strip_tags(value).strip
         next if value.empty?
 
-        item = { value: value, uri: URI.escape(value) }
+        item = { value: value, uri: ERB::Util.url_encode(value) }
         case tag.downcase
         when "h1"
           item[:depth] = dep = 1
