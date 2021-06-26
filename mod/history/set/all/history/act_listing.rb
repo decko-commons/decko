@@ -88,7 +88,9 @@ format :html do
     return unless controller.request # paginate requires a request
 
     wrap_with :div, class: "slotter btn-sm" do
-      paginate current_page_acts(acts), act_paging_opts(context)
+      # normally we let method_missing handle the action_view stuff,
+      # but that doesn't handle **arguments yet
+      action_view.send :paginate, current_page_acts(acts), **act_paging_opts(context)
     end
   end
 
