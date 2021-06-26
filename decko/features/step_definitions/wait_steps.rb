@@ -17,6 +17,8 @@ def wait_for_ajax
 end
 
 def finished_all_ajax_requests?
+  return true unless @javascript
+
   jquery_undefined? || page.evaluate_script("jQuery.active").zero?
 end
 

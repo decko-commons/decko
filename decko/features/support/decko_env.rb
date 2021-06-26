@@ -48,3 +48,7 @@ After("@simulate-setup") do
   Card::Auth.simulate_setup! false
 end
 
+# Capybara.register_server :puma do |app, port, host, options={}|
+#   options.merge! Host: host, Port: port, Threads: "0:1", workers: 0, daemon: false
+#   Rack::Handler::Puma.run app, **options
+# end
