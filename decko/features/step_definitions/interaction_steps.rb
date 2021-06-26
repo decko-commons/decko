@@ -85,24 +85,24 @@ module Capybara
       alias_method :original_fill_in, :fill_in
       alias_method :original_select, :select
 
-      def fill_in locator, options={}
-        decko_fill_in(locator, options) || original_fill_in(locator, options)
+      def fill_in locator, with: nil, **options
+        decko_fill_in(locator, with) || original_fill_in(locator, with: with, **options)
       end
 
-      def select value, options={}
-        decko_select(value, options) || original_select(value, options)
+      def select value, from: nil, **options
+        decko_select(value, from) || original_select(value, from: from, **options)
       end
 
-      def decko_fill_in locator, options
+      def decko_fill_in locator, with
         el = labeled_field(:input, locator) || labeled_field(:textarea, locator)
         return unless el
 
-        el.set options[:with]
+        el.set with
         true
       end
 
-      def decko_select value, options
-        el = labeled_field :select, options[:from], visible: false
+      def decko_select value, from
+        el = labeled_field :select, from, visible: false
         return unless el
 
         value = el.find("option", text: value, visible: false)["value"]
@@ -117,12 +117,12 @@ module Capybara
         # session.execute_script("$('##{id}').change()")
       end
 
-      def labeled_field type, label, options={}
+      def labeled_field type, label, visible: true
         label.gsub!(/^\+/, "") # because '+' is in an extra span,
         # descendant-or-self::text doesn't find it
         first :xpath,
               "//label[descendant-or-self::text()='#{label}']/..//#{type}",
-              options.merge(wait: 5, minimum: 0)
+              visible: visible, wait: 5, minimum: 0
       end
     end
   end
