@@ -65,6 +65,8 @@ class Card
       def has_role? user_id, role_id
         return false unless user_id && role_id
 
+        # puts "\n\nUSER_ID: #{user_id}!!!!!!!!\n\n"
+
         Card[user_id].all_enabled_roles.include? role_id
       end
     end
