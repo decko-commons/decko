@@ -1,43 +1,19 @@
+# This file specifies the default gem set used in semaphore. It is here to encourage
+# frequent updates
+
 source "http://rubygems.org"
 
 path "./" do
-  gem "decko"
   gem "card", require: false
+  gem "decko"
 end
 
-
-# DATABASE
-# Decko currently supports MySQL (best tested), PostgreSQL (well tested), and SQLite
-# (not well tested).
 gem "mysql2"
-
-# WEBSERVER
-# To run a simple deck at localhost:3000, you can use thin (recommended), unicorn,
-# or (Rails" default) Webrick
 gem "thin"
-# gem "unicorn"
 
-# CARD MODS
-# The easiest way to change card behaviors is with card mods. To install a mod:
-#
-#   1. add `gem "card-mod-MODNAME"` below
-#   2. run `bundle update` to install the code
-#   3. run `decko update` to make any needed changes to your deck
-#
-# The "defaults" includes a lot of functionality that is needed in standard decks.
 path "./mod" do
   gem "card-mod-defaults"
-
-# BACKGROUND
-# A background gem is needed to run tasks like sending notifications in a background
-# process.
-# See https://github.com/decko-commons/decko/tree/master/card-mod-delayed_job
-# for additional configuration details.
   gem "card-mod-delayed_job"
-
-# MONKEYS
-# You can also create your own mods. Mod developers (or "Monkeys") will want some
-# additional gems to support development and testing.
   gem "card-mod-monkey", group: :development
 end
 

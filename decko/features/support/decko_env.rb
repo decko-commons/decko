@@ -7,8 +7,7 @@ World(RSpec::Matchers)
 require "rspec-html-matchers"
 World(RSpecHtmlMatchers)
 
-Before("@background-jobs or @delayed-jobs or @javascript") do |scenario|
-  # DatabaseCleaner.strategy = :truncation
+Before("@background-jobs or @delayed-jobs or @javascript") do
   Cardio.seed_test_db
 end
 
@@ -20,7 +19,6 @@ end
 After("not @background-jobs", "not @delayed-jobs", "not @javascript") do
   DatabaseCleaner.clean
 end
-require 'cucumber/rails'
 
 at_exit do
   Cardio.seed_test_db
