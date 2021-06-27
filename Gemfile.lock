@@ -7,26 +7,26 @@ PATH
       actionview (~> 6.1.3.1)
       activejob (~> 6.1.3.1)
       activerecord (~> 6.1.3.1)
-      activerecord-import (~> 1.0)
+      activerecord-import (>= 1.0)
       activestorage (~> 6.1.3.1)
-      bootstrap4-kaminari-views (~> 1.0)
+      bootstrap4-kaminari-views (>= 1.0)
       cardname (= 0.12.0)
-      coderay (~> 1.1)
-      coffee-script (~> 2.4)
-      colorize (~> 0.8)
-      diff-lcs (~> 1.3)
-      haml (~> 5.0)
-      jwt (~> 2.2)
-      kaminari (~> 1.0)
+      coderay (>= 1.1)
+      coffee-script (>= 2.4)
+      colorize (>= 0.8)
+      diff-lcs (>= 1.3)
+      haml (>= 5.0)
+      jwt (>= 2.2)
+      kaminari (>= 1.0)
       railties (~> 6.1.3.1)
-      rake (~> 13.0)
-      sassc (~> 2.0)
+      rake (>= 13.0)
+      sassc (>= 2.0)
       sprockets (~> 3.7)
       sprockets-rails (>= 2.0)
-      uglifier (~> 4.2)
+      uglifier (>= 4.2)
     cardname (0.12.0)
-      activesupport (~> 6)
-      htmlentities (~> 4.3)
+      activesupport (>= 6)
+      htmlentities (>= 4.3)
     decko (0.12.0)
       actionpack (~> 6.1.3.1)
       card (= 1.102.0)
@@ -62,8 +62,8 @@ PATH
       card (= 1.102.0)
       card-mod-history (= 0.12.0)
       card-mod-permissions (= 0.12.0)
-      carrierwave (~> 2.2.1)
-      mini_magick (~> 4.2)
+      carrierwave (>= 2.2.1)
+      mini_magick (>= 4.2)
     card-mod-collection (0.12.0)
       card (= 1.102.0)
     card-mod-comment (0.12.0)
@@ -103,9 +103,9 @@ PATH
       card-mod-tinymce_editor (= 0.12.0)
     card-mod-delayed_job (0.12.0)
       card (= 1.102.0)
-      daemons
+      daemons (>= 1.4)
       delayed_job_active_record (>= 4.1)
-      delayed_job_web
+      delayed_job_web (>= 1.4.4)
     card-mod-edit (0.12.0)
       card (= 1.102.0)
     card-mod-email (0.12.0)
@@ -118,7 +118,7 @@ PATH
       card-mod-content (= 0.12.0)
     card-mod-google_analytics (0.12.0)
       card (= 1.102.0)
-      staccato
+      staccato (>= 0.5.3)
     card-mod-help (0.12.0)
       card (= 1.102.0)
     card-mod-history (0.12.0)
@@ -144,24 +144,23 @@ PATH
       execjs (~> 2.7, != 2.8.0)
     card-mod-markdown (0.12.0)
       card (= 1.102.0)
-      kramdown
+      kramdown (>= 2.3)
     card-mod-monkey (0.12.0)
-      better_errors
+      better_errors (>= 2.9.1)
       card (= 1.102.0)
-      colorize
-      html2haml
-      pry-byebug
-      pry-rails
-      pry-rescue
-      pry-stack_explorer
-      rubocop
+      colorize (>= 0.8.1)
+      html2haml (>= 2.2)
+      pry-byebug (>= 3.9)
+      pry-rails (>= 0.3.9)
+      pry-rescue (>= 1.5.2)
+      pry-stack_explorer (>= 0.6.1)
+      rubocop (>= 1.17)
     card-mod-permissions (0.12.0)
       card (= 1.102.0)
     card-mod-platypus (0.12.0)
       card (= 1.102.0)
-      codeclimate-test-reporter
-      fog-aws
-      yard
+      fog-aws (>= 3.10)
+      yard (>= 0.9.26)
     card-mod-prosemirror_editor (0.12.0)
       card (= 1.102.0)
       card-mod-edit (= 0.12.0)
@@ -196,39 +195,35 @@ PATH
   remote: support
   specs:
     decko-cucumber (0.12.0)
-      capybara (>= 3.35)
-      capybara-puma
-      cucumber (>= 5)
-      cucumber-expressions (>= 8.3)
+      capybara-puma (>= 1.0)
       cucumber-rails (>= 2.3)
       database_cleaner (>= 2.0.1)
-      email_spec
-      launchy
-      rspec
+      email_spec (>= 2.2)
+      launchy (>= 2.5)
       simplecov (>= 0.21)
-      webdrivers
+      webdrivers (>= 4.6)
     decko-cypress (0.12.0)
-      cypress-on-rails (~> 1.4)
+      cypress-on-rails (>= 1.4)
     decko-profile (0.12.0)
-      ruby-prof
+      ruby-prof (>= 1.4.3)
     decko-rspec (0.12.0)
       i18n-tasks (>= 0.9.5)
-      minitest
-      nokogumbo
-      rails-controller-testing
-      rr
-      rspec
-      rspec-html-matchers (= 0.9.1)
+      minitest (>= 5.14.4)
+      nokogumbo (>= 2.0.5)
+      rails-controller-testing (>= 1.0.4)
+      rr (>= 3.0.5)
+      rspec (>= 3.10)
+      rspec-html-matchers (>= 0.9.4)
       rspec-rails (>= 5)
-      rubocop-rspec
+      rubocop-rspec (>= 2.4)
       simplecov (>= 0.21)
       spork (>= 0.9)
-      timecop
+      timecop (>= 0.9.4)
     decko-spring (0.12.0)
-      listen (= 3.0.6)
-      spring
-      spring-commands-cucumber
-      spring-commands-rspec
+      listen (>= 3.5.1)
+      spring (>= 2.1.1)
+      spring-commands-cucumber (>= 1.0.1)
+      spring-commands-rspec (>= 1.0.4)
 
 GEM
   remote: http://rubygems.org/
@@ -328,8 +323,6 @@ GEM
       mini_mime (>= 0.1.3)
       ssrf_filter (~> 1.0)
     childprocess (3.0.0)
-    codeclimate-test-reporter (1.0.7)
-      simplecov
     coderay (1.1.3)
     coffee-script (2.4.1)
       coffee-script-source
@@ -358,7 +351,6 @@ GEM
       cucumber-messages (~> 13.1, >= 13.1.0)
       sys-uname (~> 1.2, >= 1.2.1)
     cucumber-cucumber-expressions (10.3.0)
-    cucumber-expressions (8.3.0)
     cucumber-gherkin (15.0.2)
       cucumber-messages (~> 13.0, >= 13.0.1)
     cucumber-html-formatter (9.0.0)
@@ -472,9 +464,9 @@ GEM
       rexml
     launchy (2.5.0)
       addressable (~> 2.7)
-    listen (3.0.6)
-      rb-fsevent (>= 0.9.3)
-      rb-inotify (>= 0.9.7)
+    listen (3.5.1)
+      rb-fsevent (~> 0.10, >= 0.10.3)
+      rb-inotify (~> 0.9, >= 0.9.10)
     loofah (2.10.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
@@ -509,12 +501,12 @@ GEM
       middleware
       thor
       thread_safe
-    pry (0.14.1)
+    pry (0.13.1)
       coderay (~> 1.1)
       method_source (~> 1.0)
-    pry-byebug (3.8.0)
+    pry-byebug (3.9.0)
       byebug (~> 11.0)
-      pry (~> 0.10)
+      pry (~> 0.13.0)
     pry-rails (0.3.9)
       pry (>= 0.10.4)
     pry-rescue (1.5.2)
@@ -574,7 +566,7 @@ GEM
       json
     regexp_parser (2.1.1)
     rexml (3.2.5)
-    rr (3.0.4)
+    rr (3.0.5)
     rspec (3.10.0)
       rspec-core (~> 3.10.0)
       rspec-expectations (~> 3.10.0)
@@ -584,7 +576,7 @@ GEM
     rspec-expectations (3.10.1)
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.10.0)
-    rspec-html-matchers (0.9.1)
+    rspec-html-matchers (0.9.4)
       nokogiri (~> 1)
       rspec (>= 3.0.0.a, < 4)
     rspec-mocks (3.10.2)
