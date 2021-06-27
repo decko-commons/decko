@@ -5,16 +5,16 @@ require "../../decko_gem"
 DeckoGem.mod "monkey" do |s, d|
   s.summary = "dev support for mod developers (monkeys)"
   s.description = ""
-  d.depends_on ["colorize",           ">= 0.8.1"],
+  d.depends_on "colorize",
                # CODE GENERATION
-               ["html2haml",            ">= 2.2"],
+               "html2haml",
                # CODE STYLE
-               ["rubocop",             ">= 1.17"],
+               "rubocop",      # 0.89 introduced bugs.
                # ["rubocop-decko"],
                # DEBUGGING
-               ["better_errors",      ">= 2.9.1"],
-               ["pry-rails",          ">= 0.3.9"],
-               ["pry-rescue",         ">= 1.5.2"],
-               ["pry-stack_explorer", ">= 0.6.1"],
-               ["pry-byebug",           ">= 3.9"]
+               "better_errors",
+               "pry-rails",
+               "pry-rescue",
+               "pry-stack_explorer",
+               "pry-byebug"
 end

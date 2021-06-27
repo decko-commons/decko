@@ -127,6 +127,11 @@ end
 
 Then /^(?:|I )should see "([^"]*)"$/ do |text|
   expect(page).to have_content(text)
+  # this is preventing an upgrade to capybara 3, because there
+  # are a bunch of line breaks that our cuke expectations can't handle
+  #
+  # once we're at capybara 3.5 we can use `normalize_ws: true` (ws = white space)
+  # in have_content
 end
 
 Then /^(?:|I )should see in search "([^"]*)"$/ do |text|
