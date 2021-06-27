@@ -196,17 +196,13 @@ PATH
   remote: support
   specs:
     decko-cucumber (0.12.0)
-      capybara (>= 3.35)
-      capybara-puma
-      cucumber (>= 5)
-      cucumber-expressions (>= 8.3)
+      capybara-puma (>= 1.0)
       cucumber-rails (>= 2.3)
       database_cleaner (>= 2.0.1)
-      email_spec
-      launchy
-      rspec
+      email_spec (>= 2.2)
+      launchy (>= 2.5)
       simplecov (>= 0.21)
-      webdrivers
+      webdrivers (>= 4.6)
     decko-cypress (0.12.0)
       cypress-on-rails (~> 1.4)
     decko-profile (0.12.0)
@@ -358,7 +354,6 @@ GEM
       cucumber-messages (~> 13.1, >= 13.1.0)
       sys-uname (~> 1.2, >= 1.2.1)
     cucumber-cucumber-expressions (10.3.0)
-    cucumber-expressions (8.3.0)
     cucumber-gherkin (15.0.2)
       cucumber-messages (~> 13.0, >= 13.0.1)
     cucumber-html-formatter (9.0.0)
@@ -574,7 +569,7 @@ GEM
       json
     regexp_parser (2.1.1)
     rexml (3.2.5)
-    rr (3.0.4)
+    rr (3.0.5)
     rspec (3.10.0)
       rspec-core (~> 3.10.0)
       rspec-expectations (~> 3.10.0)
