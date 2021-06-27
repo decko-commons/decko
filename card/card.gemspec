@@ -33,7 +33,7 @@ DeckoGem.gem "card" do |s, d|
     ["sassc",                       ">= 2.0"],
     ["coffee-script",               ">= 2.4"],
     ["uglifier",                    ">= 4.2"],
-    ["sprockets",                   ">= 3.7"], # sprockets 4 requires new configuration
+    ["sprockets",                   "~> 3.7"], # sprockets 4 requires new configuration
     # pagination
     ["kaminari",                    ">= 1.0"],
     ["bootstrap4-kaminari-views",   ">= 1.0"],
