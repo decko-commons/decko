@@ -25,9 +25,9 @@ at_exit do
 end
 # frozen_string_literal: true
 
-Before("@javascript") do
-  @javascript = true
-end
+# Before("@javascript") do
+#   @javascript = true
+# end
 
 Capybara.configure do |config|
   config.match = :prefer_exact
