@@ -19,7 +19,7 @@ RSpec.describe Card::Set::Type::LayoutType do
 
   it "takes effect immediately when content changed" do
     layout = Card["Default Layout"]
-    expect(format_subject.show(nil, {})).to have_tag :body, with: { class: "d-flex" } do
+    expect(format_subject.show(nil, {})).to have_tag :body do
       without_tag :aside
     end
     Card::Auth.as_bot { layout.update_attributes! content: TMP_LAYOUT }
