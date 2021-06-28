@@ -2,6 +2,7 @@
 class CardController
   # controller error handling
   module Errors
+    # controller class method to handle top-level error rescuing
     module Rescue
       def rescue_from_class *klasses
         klasses.each do |klass|

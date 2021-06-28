@@ -3,6 +3,18 @@
 require "email_spec"
 require "email_spec/cucumber"
 
+Before do
+  Cardio.seed_test_db
+end
+
+at_exit do
+  Cardio.seed_test_db
+end
+
+Before("@javascript") do
+  @javascript = true
+end
+
 Capybara.configure do |config|
   config.match = :prefer_exact
 end
@@ -19,3 +31,9 @@ end
 After("@simulate-setup") do
   Card::Auth.simulate_setup! false
 end
+
+# Capybara.register_server :puma do |app, port, host, options={}|
+#   require "rack/handler/puma"
+#   options.merge! Host: host, Port: port, Threads: "0:1", workers: 0, daemon: false
+#   Rack::Handler::Puma.run app, **options
+# end
