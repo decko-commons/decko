@@ -126,7 +126,8 @@ When /^(?:|I )choose "([^"]*)"$/ do |field|
 end
 
 Then /^(?:|I )should see "([^"]*)"$/ do |text|
-  expect(page).to have_content(text)
+  expect(page).to have_content(text, normalize_ws: true)
+  # normalize_ws makes it overlook line breaks (ws = white space)
 end
 
 Then /^(?:|I )should see in search "([^"]*)"$/ do |text|
