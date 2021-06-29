@@ -153,7 +153,8 @@ end
 def fill_autocomplete field, options={}
   fill_in field, with: options[:with]
   page.execute_script %{ $('##{field}').trigger('focus').trigger('keydown') }
-  selector = %{ul.ui-autocomplete li.ui-menu-item div.ui-menu-item-wrapper:contains('#{options[:with]}'):first}
+  selector = "ul.ui-autocomplete li.ui-menu-item " \
+             "div.ui-menu-item-wrapper:contains('#{options[:with]}'):first"
   page.should have_selector("ul.ui-autocomplete li.ui-menu-item div.ui-menu-item-wrapper")
   page.execute_script "$(\"#{selector}\").trigger('mouseenter').click()"
   wait_for_ajax
