@@ -19,27 +19,27 @@ DeckoGem.gem "card" do |s, d|
 
   d.depends_on(
     ["cardname",             d.decko_version],
-    ["rake",                       "~> 13.0"],
+    ["rake",                       ">= 13.0"],
     ["sprockets-rails",             ">= 2.0"],
-    ["colorize",                    "~> 0.8"], # livelier cli outputs
+    ["colorize",                    ">= 0.8"], # livelier cli outputs
     # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     # MOVE TO MODS?
     # card-mod-format
-    ["haml",                        "~> 5.0"], # markup language used in view API
+    ["haml",                        ">= 5.0"], # markup language used in view API
     # card-mod-account
-    ["jwt",                         "~> 2.2"], # used in token.rb
+    ["jwt",                         ">= 2.2"], # used in token.rb
     # assets (JavaScript, CSS, etc)
-    ["coderay",                     "~> 1.1"],
-    ["sassc",                       "~> 2.0"],
-    ["coffee-script",               "~> 2.4"],
-    ["uglifier",                    "~> 4.2"],
+    ["coderay",                     ">= 1.1"],
+    ["sassc",                       ">= 2.0"],
+    ["coffee-script",               ">= 2.4"],
+    ["uglifier",                    ">= 4.2"],
     ["sprockets",                   "~> 3.7"], # sprockets 4 requires new configuration
     # pagination
-    ["kaminari",                    "~> 1.0"],
-    ["bootstrap4-kaminari-views",   "~> 1.0"],
+    ["kaminari",                    ">= 1.0"],
+    ["bootstrap4-kaminari-views",   ">= 1.0"],
     # other
-    ["diff-lcs",                    "~>  1.3"], # content diffs in histories
-    ["activerecord-import",         "~> 1.0"]
+    ["diff-lcs",                    ">= 1.3"], # content diffs in histories
+    ["activerecord-import",         ">= 1.0"]
   )
   %w[
     activerecord

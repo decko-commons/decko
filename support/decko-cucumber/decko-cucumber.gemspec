@@ -6,16 +6,11 @@ DeckoGem.gem "decko-cucumber" do |s, d|
   s.summary = "cucumber support for decko monkeys"
   s.description = ""
 
-  d.depends_on ["cucumber", "~> 3.1"],
-               "cucumber-rails",
-               "cucumber-expressions",
-               ["database_cleaner", "~> 1.5"], # used by cucumber for db transactions
-               "email_spec",
-               "launchy", # lets cucumber launch browser windows
-               ["capybara", "~> 2.18"], # see comments in web_steps.rb
-               "capybara-puma",
-               ["chromedriver-helper", "~> 2.1.0"],
-               "rspec",
-               ["selenium-webdriver", "3.141.0"],
-               ["simplecov", "~> 0.17.1"]
+  d.depends_on ["cucumber-rails",       ">= 2.3"],
+               ["database_cleaner",   ">= 2.0.1"], # resetting db between tests
+               ["email_spec",           ">= 2.2"], # for email-related tests
+               ["launchy",              ">= 2.5"], # lets cucumber launch browser windows
+               ["capybara-puma",        ">= 1.0"], # use puma server
+               ["webdrivers",           ">= 4.6"],
+               ["simplecov",           ">= 0.21"]
 end
