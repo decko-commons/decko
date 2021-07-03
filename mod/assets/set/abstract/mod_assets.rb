@@ -100,7 +100,8 @@ def ensure_manifest_groups_cards
 end
 
 def new_manifest_group group_name, config
-  type_id = config["remote"] ? ::Card::RemoteManifestGroupID : local_manifest_group_type_id
+  type_id =
+    config["remote"] ? ::Card::RemoteManifestGroupID : local_manifest_group_type_id
   ensure_item group_name, type_id
 end
 

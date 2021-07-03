@@ -22,6 +22,9 @@ end
 def find_or_create_mod_assets_card field_name, codename, type_id
   if Card::Codename.exists? codename
     Card.fetch codename.to_sym
+  elsif (card = Card.fetch [name, field_name])
+    card.update type_id: type_id, codename: codename
+    card
   else
     Card.create name: [name, field_name],
                 type_id: type_id,

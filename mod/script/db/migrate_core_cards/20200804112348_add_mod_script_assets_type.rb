@@ -25,5 +25,6 @@ class AddModScriptAssetsType < Cardio::Migration::Core
     delete_code_card :script_pointer_config
     delete_code_card :script_jquery
     delete_code_card :script_mods
+    delete_code_card :script_rules
   end
 end

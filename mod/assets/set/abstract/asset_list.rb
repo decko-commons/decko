@@ -53,7 +53,6 @@ def minimize?
   @minimize = true
 end
 
-
 def source_changed? since:
   difference = (relative_paths + item_names) - (relative_paths & item_names)
   difference.present? ||

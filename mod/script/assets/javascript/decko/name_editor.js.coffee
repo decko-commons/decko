@@ -1,16 +1,15 @@
 checkNameAfterTyping = null
 
 $(window).ready ->
-  $('body').on 'click', '.renamer-updater', ->
+  $('body').on 'click', '._renamer-updater', ->
     $(this).closest('form').find('#card_update_referers').val 'true'
 
-  $('body').on 'submit', '.edit_name-view .card-form, .name_form-view .card-form', ->
-    confirmer = $(this).find '.alert'
-    if confirmer.is ':hidden'
-      if $(this).find('#referers').val() > 0
-        $(this).find('.renamer-updater').show()
-
-      confirmer.show 'blind'
+  $('body').on 'submit', '._rename-form', ->
+    f = $(this)
+    confirm = f.find '.alert'
+    if confirm.is ':hidden'
+      referenceConfirm f
+      confirm.show 'blind'
       false
 
   $('body').on 'keyup', '.name-editor input', (event) ->
@@ -24,6 +23,14 @@ $(window).ready ->
           checkName(input)
           checkNameAfterTyping = null
         , 400
+
+referenceConfirm = (form)->
+  confirm = form.find '._rename-reference-confirm'
+  return unless confirm.data('referer-count') > 0
+  confirm.show()
+  btn = form.find '._renamer-updater'
+  btn.show()
+  btn.focus()
 
 checkName = (box) ->
   name = box.val()

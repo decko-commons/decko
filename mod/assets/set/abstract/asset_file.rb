@@ -64,8 +64,6 @@ format :html do
     end.join "\n"
   end
 
-
-
   def short_content
     fa_icon("exclamation-circle", class: "text-muted pr-2") +
       wrap_with(:span, "asset file", class: "text-muted")

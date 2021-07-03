@@ -34,4 +34,3 @@ format :html do
     javascript_include_tag card.machine_output_url
   end
 end
-
