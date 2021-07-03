@@ -1,5 +1,5 @@
 module Cardio
-  module Mod
+  class Mod
     class Loader
       class SetPatternLoader < Loader
         def template_class
