@@ -23,6 +23,7 @@ decko:
     - decko/navbox.js.coffee
     - decko/upload.js.coffee
     - decko/slot.js.coffee
+    - decko/decko.js.coffee
     - decko/modal.js.coffee
     - decko/overlay.js.coffee
     - decko/recaptcha.js.coffee
@@ -34,7 +35,6 @@ decko:
     - decko/nest_editor_name.js.coffee
     - decko/link_editor.js.coffee
     - decko/components.js.coffee
-    - decko/decko.js.coffee
     - decko/follow.js.coffee
     - decko/card_menu.js.coffee
     - decko/slot_ready.js.coffee

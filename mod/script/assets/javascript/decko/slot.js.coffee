@@ -1,4 +1,8 @@
 $.extend decko,
+  snakeCase: (str)->
+    str.replace /([a-z])([A-Z])/g, (match) -> match[0] + '_' +
+                match[1].toLowerCase()
+
   # returns full path with slot parameters
   slotPath: (path, slot)->
     params = decko.slotData(slot)
@@ -33,7 +37,7 @@ $.extend decko,
 
   slotParams: (raw, processed, prefix)->
     $.each raw, (key, value)->
-      cgiKey = prefix + '[' + snakeCase(key) + ']'
+      cgiKey = prefix + '[' + decko.snakeCase(key) + ']'
       if key == 'items'
         decko.slotParams value, processed, cgiKey
       else

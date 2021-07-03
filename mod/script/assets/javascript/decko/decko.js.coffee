@@ -89,9 +89,6 @@ setSlotMode = ($el, mode=null) ->
     $slotter.attr 'data-original-slotter-mode', $slotter.attr('slotter-mode')
     $slotter.attr 'data-slotter-mode', mode
 
-snakeCase = (str)->
-  str.replace /([a-z])([A-Z])/g, (match) -> match[0] + '_' +
-              match[1].toLowerCase()
 
 warn = (stuff) -> console.log stuff if console?
 
