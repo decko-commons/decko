@@ -101,11 +101,21 @@ decko_namespace = namespace :decko do
   desc "set symlink for assets"
   task update_assets_symlink: :environment do
     prepped_asset_path do |assets_path|
-      Cardio::Mod.dirs.each_assets_path do |mod, target|
+      Cardio::Mod.dirs.each_public_assets_path do |mod, target|
         link = File.join assets_path, mod
         FileUtils.rm_rf link
         FileUtils.ln_s target, link, force: true
       end
+    end
+  end
+
+  desc "install mods"
+  task mod_install: :environment do
+    Card.reset_script_machine
+    Card::Cache.reset_all
+    Cardio::Mod.dirs.mods.each do |mod|
+      mod.ensure_mod_card
+      Card::Cache.reset_all
     end
   end
 
