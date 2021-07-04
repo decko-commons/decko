@@ -40,6 +40,10 @@ class Card
         rendered = super
         rendered.is_a?(Array) ? output(rendered) : rendered
       end
+
+      def stylesheet_link_tag path
+        tag "link", href: path, media: "all", rel: "stylesheet", type: "text/css"
+      end
     end
   end
 end

@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 
 module Cardio
-  module Mod
+  class Mod
     # Cardio::Mod::Loader is used to load all part of a mod,
     # i.e. initializers, patterns, formats, chunks, layouts and sets
     # cards are not accessible at this point
