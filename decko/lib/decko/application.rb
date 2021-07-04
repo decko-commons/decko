@@ -10,10 +10,8 @@ module Decko
   class Application < Cardio::Application
     require "decko/engine"
 
-    card_environment_initializer
-
     initializer "decko.load_environment_config",
-                before: :load_environment_config, group: :all do
+                after: "card.load_environment_config", group: :all do
       paths["decko/config/environments"].existent.each do |environment|
         require environment
       end
