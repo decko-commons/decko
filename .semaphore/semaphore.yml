@@ -101,7 +101,8 @@ blocks:
             - RAILS_ENV=cypress bundle exec decko server -p 5002 -d
             - cd ~/decko/decko/spec
             - nvm use 10.10.0
-            - yarn install
+            - rm -rf node_modules
+            - yarn install --frozen-lockfile
             - yarn run cypress run --record --key 15efb149-d03c-410b-bb10-6d3b1a82958e
         - name: Cucumber
           commands:
