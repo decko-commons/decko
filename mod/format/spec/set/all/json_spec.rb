@@ -45,7 +45,6 @@ RSpec.describe Card::Set::All::Json do
         expect_view(:molecule, format: :json)
           .to include(basic_molecule.merge(links: ["http://xkcd.com", url("Z")],
                                            html_url: "http://json.com/external_link"))
-
       end
     end
 

@@ -5,7 +5,7 @@ require "../../decko_gem"
 DeckoGem.gem "decko-cucumber" do |s, d|
   s.summary = "cucumber support for decko monkeys"
   s.description = ""
-  
+
   d.depends_on ["cucumber-rails",       "~> 2.3"],
                ["database_cleaner",     "~> 2.0"], # resetting db between tests
                ["email_spec",           "~> 2.2"], # for email-related tests

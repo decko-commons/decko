@@ -7,7 +7,7 @@ end
 def google_analytics_key
   @google_analytics_key ||=
     Card::Rule.global_setting(:google_analytics_key) ||
-      Card.config.google_analytics_key
+    Card.config.google_analytics_key
 end
 
 def tracker

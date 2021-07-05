@@ -41,8 +41,7 @@ class CardController
     end
 
     def authenticate
-      puts "authenticators: #{authenticators}"
-      Card::Auth.signin_with **authenticators
+      Card::Auth.signin_with(**authenticators)
     end
 
     def authenticators
