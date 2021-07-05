@@ -3,6 +3,10 @@
 require "email_spec"
 require "email_spec/cucumber"
 
+World(RSpec::Matchers)
+require "rspec-html-matchers"
+World(RSpecHtmlMatchers)
+
 Before do
   Cardio.seed_test_db
 end
