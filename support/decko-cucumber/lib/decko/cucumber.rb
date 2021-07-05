@@ -1,3 +1,4 @@
+require "rspec"
 require "capybara-puma"
 require "capybara"
 require "database_cleaner"

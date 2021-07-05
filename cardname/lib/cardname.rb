@@ -83,7 +83,7 @@ class Cardname < String
     end
 
     def dangerous_methods
-      bang_methods = String.instance_methods.select { |m| m.to_s.ends_with?("!") }
+      bang_methods = String.instance_methods.select { |m| m.to_s.end_with?("!") }
       %i[replace concat clear].concat bang_methods
     end
 
