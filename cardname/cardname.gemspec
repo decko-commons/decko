@@ -12,6 +12,6 @@ DeckoGem.gem "cardname" do |s, _d|
     "lib/**/*"
   ]
 
-  s.add_dependency "activesupport", ">= 6"
-  s.add_dependency "htmlentities", ">= 4.3"
+  s.add_dependency "activesupport", "~> 6.1"
+  s.add_dependency "htmlentities", "~> 4.3"
 end
