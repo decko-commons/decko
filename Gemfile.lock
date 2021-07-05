@@ -200,6 +200,8 @@ PATH
       database_cleaner (~> 2.0)
       email_spec (~> 2.2)
       launchy (~> 2.5)
+      rspec (~> 3.10)
+      rspec-html-matchers (~> 0.9)
       simplecov (~> 0.21)
       webdrivers (~> 4.6)
     decko-cypress (0.12.0)
@@ -480,6 +482,7 @@ GEM
     mime-types-data (3.2021.0704)
     mini_magick (4.11.0)
     mini_mime (1.0.3)
+    mini_portile2 (2.5.3)
     minitest (5.14.4)
     multi_json (1.15.0)
     multi_test (0.1.2)
@@ -487,9 +490,8 @@ GEM
       ruby2_keywords (~> 0.0.1)
     mysql2 (0.5.3)
     nio4r (2.5.7)
-    nokogiri (1.11.7-x86_64-darwin)
-      racc (~> 1.4)
-    nokogiri (1.11.7-x86_64-linux)
+    nokogiri (1.11.7)
+      mini_portile2 (~> 2.5.0)
       racc (~> 1.4)
     nokogumbo (2.0.5)
       nokogiri (~> 1.8, >= 1.8.4)
@@ -676,8 +678,7 @@ GEM
     zeitwerk (2.4.2)
 
 PLATFORMS
-  x86_64-darwin-20
-  x86_64-linux
+  ruby
 
 DEPENDENCIES
   card!
@@ -695,4 +696,4 @@ DEPENDENCIES
   thin
 
 BUNDLED WITH
-   2.2.15
+   2.1.4

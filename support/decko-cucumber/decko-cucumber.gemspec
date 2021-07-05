@@ -12,5 +12,7 @@ DeckoGem.gem "decko-cucumber" do |s, d|
                ["launchy",              "~> 2.5"], # lets cucumber launch browser windows
                ["capybara-puma",        "~> 1.0"], # use puma server
                ["webdrivers",           "~> 4.6"],
+               ["rspec-html-matchers",  "~> 0.9"],
+               ["rspec",               "~> 3.10"],
                ["simplecov",           "~> 0.21"]
 end
