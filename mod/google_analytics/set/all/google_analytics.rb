@@ -4,6 +4,7 @@ event :track_page, before: :show_page, when: :track_page_from_server? do
   tracker.pageview tracker_options
 end
 
+# TODO: optimize so it doesn't keep doing lookup if there is no key.
 def google_analytics_key
   @google_analytics_key ||=
     Card::Rule.global_setting(:google_analytics_key) ||
@@ -16,7 +17,7 @@ end
 
 # can override to have separate keys for web and API
 def tracker_key
-  @tracker_key ||= google_analytics_key
+  google_analytics_key
 end
 
 def tracker_options
