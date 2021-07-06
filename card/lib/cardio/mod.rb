@@ -59,13 +59,58 @@ module Cardio
   #   - **set_pattern** for additional {Card::Set::Pattern set patterns},
   #     or types of sets.
   #   - **file** for fixed initial card content
-  module Mod
+  class Mod
+    attr_reader :name, :path, :index
+
+    def initialize name, path, index
+      @name = Mod.normalize_name name
+      @path = path
+      @index = index
+    end
+
+    def mod_card_name
+      "mod: #{name}"
+    end
+
+    def codename
+      "mod_#{name}"
+    end
+
+    def tmp_dir type
+      File.join Cardio.paths["tmp/#{type}"].first,
+                "mod#{'%03d' % (@index + 1)}-#{@name}"
+    end
+
+    def public_assets_path
+      File.join(@path, "public", "assets")
+    end
+
+    def assets_path
+      File.join(@path, "assets")
+    end
+
+    def ensure_mod_card
+      Card::Auth.as_bot do
+        card =
+          if Card::Codename.exists? codename
+            Card.fetch codename.to_sym
+          else
+            Card.create name: mod_card_name,
+                        type_id: Card::ModID,
+                        codename: codename
+          end
+        card.update type_id: Card::ModID
+        card.ensure_mod_script_card
+        card.ensure_mod_style_card
+      end
+    end
+
     class << self
       def load
         return if ENV["CARD_MODS"] == "none"
 
         if Card.take
-          Cardio::Mod::Loader.load_mods
+          Loader.load_mods
         else
           Rails.logger.warn "empty database"
         end
@@ -94,6 +139,10 @@ module Cardio
         Bundler.definition.specs.each_with_object({}) do |gem_spec, h|
           h[gem_spec.name] = gem_spec if gem_spec? gem_spec
         end
+      end
+
+      def normalize_name name
+        name.to_s.sub(/^card-mod-/, "")
       end
 
       private
