@@ -3,7 +3,7 @@ describe 'save change in bridge', () ->
     cy.login()
     cy.appScenario("bridge/save_changes")
 
-  specify"'save and close' updates main slot", () ->
+  specify "'save and close' updates main slot", () ->
     cy.visit_bridge("snow")
 
     cy.tinymce_set_content "white"
