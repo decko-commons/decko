@@ -11,6 +11,6 @@ describe 'reference', () ->
     cy.get("#card_name").clear().type "Srivigneshwar", delay: 0
     cy.get("button.renamer").click()
     cy.contains("Rename and Update").click()
-    cy.contains("Renaming").should("not.visible", wait: 20000)
+    cy.contains("Renaming").should("not.exist", wait: 20000)
     cy.main_slot().should "contain", "Srivigneshwar"
 
