@@ -88,7 +88,7 @@ class EngineInput
   end
 
   def simple_item?
-    @item.item_cards == [@item] # no pointer card
+    @item.item_cards == [@item] || @item.try(:self_machine_input?) # no pointer card
   end
 
   def pointer_item
@@ -172,9 +172,9 @@ end
 
 def run_engine input_card
   return unless direct_machine_input? input_card
-  if (cached = fetch_cache_card(input_card)) && cached.content?
-    return cached.content
-  end
+  # if (cached = fetch_cache_card(input_card)) && cached.content?
+  #  return cached.content
+  # end
 
   engine(input_from_card(input_card)).tap do |output|
     cache_output_part input_card, output
