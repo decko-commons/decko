@@ -1,6 +1,8 @@
 class CardController
   # RESTful action methods for card
   module Rest
+    include ActionController::HttpAuthentication::Token
+
     # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     #  PUBLIC METHODS
 
@@ -39,7 +41,15 @@ class CardController
     end
 
     def authenticate
-      Card::Auth.signin_with params
+      Card::Auth.signin_with(**authenticators)
+    end
+
+    def authenticators
+      { token: token_from_header || params[:token] }
+    end
+
+    def token_from_header
+      token_and_options(request)&.first
     end
 
     def load_card
