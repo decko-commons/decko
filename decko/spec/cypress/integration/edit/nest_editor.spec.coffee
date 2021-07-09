@@ -97,7 +97,7 @@ describe 'nest editor', () ->
       cy.get ".tab-pane-rules .card-slot.nest_rules-view", timeout: 15000
         .should "contain", "default"
         .contains ".alert", "nest name required"
-        .should "not.be.visible"
+        .should "not.exist"
 
       cy.get ".card-slot.RIGHT-Xhelp input#card_content"
         .type "help nana{enter}"
