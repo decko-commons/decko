@@ -10,11 +10,11 @@ include_set Abstract::MachineInput
 store_machine_output filetype: "css"
 
 machine_input do
-  compress_css format(:css)._render_core
+  compress format(:css)._render_core
 end
 
-def compress_css input
-  compress_css? ? SassC::Engine.new(input, style: :compressed).render : input
+def compress input
+  compress? ? SassC::Engine.new(input, style: :compressed).render : input
 rescue StandardError => e
   raise Card::Error, css_compression_error(e)
 end
@@ -35,7 +35,7 @@ def clean_html?
   false
 end
 
-def compress_css?
+def compress?
   true
   # !Rails.env.development?
 end

@@ -12,6 +12,14 @@ event :update_asset_list, :prepare_to_store, on: :save do
   self.db_content = relative_paths.join("\n")
 end
 
+def render_items_and_compress format
+  item_cards.map do |mcard|
+    js = mcard.format(format)._render_core
+    js = mcard.compress js if minimize?
+    "// #{mcard.name}\n#{js}"
+  end.join "\n"
+end
+
 def update_items!
   Card::Auth.as_bot do
     save!
@@ -58,3 +66,4 @@ def source_changed? since:
   difference.present? ||
     existing_source_paths.any? { |path| ::File.mtime(path) > since }
 end
+

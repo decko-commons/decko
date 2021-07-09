@@ -22,11 +22,7 @@ def css_constants
 end
 
 def standard_machine_input
-  item_cards.map do |mcard|
-    css = mcard.format(:css)._render_core
-    css = mcard.compress_css css if minimize?
-    "// #{mcard.name}\n#{css}"
-  end.join "\n"
+  render_items_and_compress :css
 end
 
 format :html do

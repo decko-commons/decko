@@ -4,7 +4,7 @@ require "coffee-script"
 
 include_set Abstract::AssetFile
 
-def compress_js?
+def compress?
   @minimize
 end
 

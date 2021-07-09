@@ -13,7 +13,7 @@ end
 
 def standard_machine_input
   js = format(:js)._render_core
-  js = compress_js js if compress_js?
+  js = compress js if compress?
   comment_with_source js
 end
 
@@ -21,7 +21,7 @@ def comment_with_source js
   "//#{name}\n#{js}"
 end
 
-def compress_js input
+def compress input
   Uglifier.compile input
 rescue StandardError => e
   # CoffeeScript is compiled in a view
@@ -39,7 +39,7 @@ def compression_error_message e
   end
 end
 
-def compress_js?
+def compress?
   Cardio.config.compress_javascript
 end
 

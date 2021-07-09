@@ -33,7 +33,7 @@ def new?
   false
 end
 
-def compress_js?
+def compress?
   @minimize
 end
 

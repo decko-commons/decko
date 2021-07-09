@@ -22,11 +22,7 @@ def javascript_constants
 end
 
 def standard_machine_input
-  item_cards.map do |mcard|
-    js = mcard.format(:js)._render_core
-    js = mcard.compress_js js if minimize?
-    "// #{mcard.name}\n#{js}"
-  end.join "\n"
+  render_items_and_compress :js
 end
 
 format :html do
