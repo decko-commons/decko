@@ -1,5 +1,5 @@
 module Cardio
-  module Mod
+  class Mod
     class LoadStrategy
       # The {TmpFiles} load strategy version for set modules
       class SetTmpFiles < LoadStrategy::TmpFiles

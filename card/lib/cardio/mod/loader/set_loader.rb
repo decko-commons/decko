@@ -1,5 +1,5 @@
 module Cardio
-  module Mod
+  class Mod
     class Loader
       # A SetLoader object loads all set modules for a list of mods.
       # The mods are given by a Mod::Dirs object.

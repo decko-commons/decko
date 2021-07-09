@@ -60,7 +60,7 @@ class Card
 
         card = Card[name]
         card.update! codename: nil
-        card.delete!
+        card.delete! update_referers: true
       end
 
       # create if card doesn't exist
