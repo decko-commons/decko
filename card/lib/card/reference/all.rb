@@ -64,7 +64,7 @@ class Card
 
       # delete references from this card
       def delete_references_out
-        raise "id required to delete references" if id.nil?
+        return unless id.present?
 
         Reference.where(referer_id: id).delete_all
       end
