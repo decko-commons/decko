@@ -1,6 +1,10 @@
 require "staccato"
 
 event :track_page, before: :show_page, when: :track_page_from_server? do
+  track_page!
+end
+
+def track_page!
   tracker.pageview tracker_options
 end
 
@@ -26,9 +30,8 @@ def tracker_options
     path: r.path,
     host: Env.host,
     title: name,
-    uid: Auth.current_id,
-    uip: r.remote_ip,
-    ni: 1, # non-interactive
+    user_id: Auth.current_id,
+    user_ip: r.remote_ip
   }
 end
 
