@@ -18,24 +18,4 @@ RSpec.describe Card::Set::Type::CoffeeScript do
         changed_out: "//coffee machine\n#{compressed_changed_coffee}" }
     end
   end
-
-  # it_behaves_like "machine input"  do
-  #   let(:create_machine_input_card) do
-  #     Card.gimme! "coffee input", type: :coffee_script, content: coffee
-  #   end
-  #   let(:create_another_machine_input_card) do
-  #     Card.gimme! "more coffee input", type: :coffee_script, content: changed_coffee
-  #   end
-  #   let(:create_machine_card) do
-  #     Card.gimme! "coffee machine+*script", type: :pointer
-  #   end
-  #   let(:card_content) do
-  #     { in:          coffee,
-  #       out:         "//coffee input\n#{compressed_coffee}",
-  #       changed_in:  changed_coffee,
-  #       changed_out: "//coffee input\n#{compressed_changed_coffee}",
-  #       added_out:   "//coffee input\n#{compressed_coffee}\n"\
-  #                    "//more coffee input\n#{compressed_changed_coffee}" }
-  #   end
-  # end
 end
