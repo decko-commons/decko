@@ -9,7 +9,7 @@ format :json do
   end
 
   def default_item_view
-    params[:item] || :name
+    :name
   end
 
   def max_depth
@@ -84,7 +84,7 @@ format :json do
   # NOCACHE because sometimes item_cards is dynamic.
   # could be safely cached for non-dynamic lists
   view :items, cache: :never do
-    listing item_cards, view: :atom
+    listing item_cards, view: (voo_items_view || :atom)
   end
 
   view :links do
