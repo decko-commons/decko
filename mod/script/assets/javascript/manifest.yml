@@ -42,4 +42,3 @@ decko:
     - decko/filter_links.js.coffee
     - decko/filter_items.js.coffee
     - decko/selectable_filtered_content.js.coffee
-
