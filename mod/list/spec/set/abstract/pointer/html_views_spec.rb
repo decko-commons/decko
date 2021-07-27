@@ -8,8 +8,7 @@ RSpec.describe Card::Set::Abstract::Pointer do
       pointer
     end
 
-    check_views_for_errors :core, :one_line_content, :input, :list, :autocomplete,
-                           :checkbox, :radio, :select, :multiselect
+    check_html_views_for_errors
   end
 
   describe "editors" do
