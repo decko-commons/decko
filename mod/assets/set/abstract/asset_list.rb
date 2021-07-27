@@ -66,4 +66,3 @@ def source_changed? since:
   difference.present? ||
     existing_source_paths.any? { |path| ::File.mtime(path) > since }
 end
-
