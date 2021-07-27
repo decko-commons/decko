@@ -57,13 +57,8 @@ def local
   @local = true
 end
 
-def minimize?
-  @minimize = true
-end
-
 def source_changed? since:
   difference = (relative_paths + item_names) - (relative_paths & item_names)
   difference.present? ||
     existing_source_paths.any? { |path| ::File.mtime(path) > since }
 end
-
