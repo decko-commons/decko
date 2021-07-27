@@ -9,7 +9,7 @@ module Cardio
           @_card_source_root = path
         else
           @_card_source_root ||= File.expand_path(
-            "../../../generators/card/#{generator_name}/templates", __FILE__
+            "../../../generators/#{generator_name}/templates", __FILE__
           )
         end
       end
