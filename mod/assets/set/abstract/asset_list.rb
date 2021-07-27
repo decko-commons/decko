@@ -18,8 +18,6 @@ def render_items_and_compress format
     js = mcard.compress js if minimize?
     "// #{mcard.name}\n#{js}"
   end.join "\n"
-rescue
-  binding.pry
 end
 
 def update_items!
