@@ -18,6 +18,8 @@ def render_items_and_compress format
     js = mcard.compress js if minimize?
     "// #{mcard.name}\n#{js}"
   end.join "\n"
+rescue
+  binding.pry
 end
 
 def update_items!
@@ -57,13 +59,8 @@ def local
   @local = true
 end
 
-def minimize?
-  @minimize = true
-end
-
 def source_changed? since:
   difference = (relative_paths + item_names) - (relative_paths & item_names)
   difference.present? ||
     existing_source_paths.any? { |path| ::File.mtime(path) > since }
 end
-
