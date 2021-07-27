@@ -110,7 +110,7 @@ def ensure_item field, type_id
   ensure_item_content item_name
 
   card = Card[item_name]
-  args = ensure_item_args field, type_id
+  args = ensure_item_args field, type_id, item_name
   return if item_already_coded? card, args
 
   ensure_item_save card, args
@@ -130,14 +130,15 @@ def ensure_item_save card, args
   if card
     card.update args
   else
-    Card.create args.merge(name: item_name)
+    Card.create! args
   end
 end
 
-def ensure_item_args field, type_id
+def ensure_item_args field, type_id, name
   {
     type_id: type_id,
-    codename: "#{mod_name}_group__#{field}"
+    codename: "#{mod_name}_group__#{field}",
+    name: name
   }
 end
 

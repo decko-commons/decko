@@ -89,19 +89,23 @@ module Cardio
       File.join(@path, "assets")
     end
 
-    def ensure_mod_card
+    def ensure_mod_installed
       Card::Auth.as_bot do
-        card =
-          if Card::Codename.exists? codename
-            Card.fetch codename.to_sym
-          else
-            Card.create name: mod_card_name,
-                        type_id: Card::ModID,
-                        codename: codename
-          end
-        card.update type_id: Card::ModID
+        card = ensure_mod_card
         card.ensure_mod_script_card
         card.ensure_mod_style_card
+      end
+    end
+
+    private
+
+    def ensure_mod_card
+      if Card::Codename.exists? codename
+        Card.fetch(codename.to_sym).tap do |card|
+          card.update type: :mod unless card.type_code == :mod
+        end
+      else
+        Card.create name: mod_card_name, type: :mod, codename: codename
       end
     end
 
