@@ -94,6 +94,7 @@ decko_namespace = namespace :decko do
       decko_namespace["migrate"].invoke
       decko_namespace["reset_tmp"].invoke
       Card::Cache.reset_all
+      decko_namespace["mod_install"].invoke
       decko_namespace["update_assets_symlink"].invoke
     end
   end
@@ -114,7 +115,7 @@ decko_namespace = namespace :decko do
     Card.reset_script_machine
     Card::Cache.reset_all
     Cardio::Mod.dirs.mods.each do |mod|
-      mod.ensure_mod_card
+      mod.ensure_mod_installed
       Card::Cache.reset_all
     end
   end
