@@ -101,9 +101,9 @@ module Cardio
 
     def ensure_mod_card
       if Card::Codename.exists? codename
-        Card.fetch(codename.to_sym).tap do |card|
-          card.update type: :mod unless card.type_code == :mod
-        end
+        card = Card.fetch codename.to_sym
+        card.update type: :mod unless card.type_code == :mod
+        card
       else
         Card.create name: mod_card_name, type: :mod, codename: codename
       end
