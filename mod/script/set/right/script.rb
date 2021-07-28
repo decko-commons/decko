@@ -4,9 +4,16 @@ def ok_to_read
   true
 end
 
-def update_if_source_file_changed
+def refresh_output force=false
   item_cards.each do |item_card|
-    item_card.try(:update_if_source_file_changed)
+    # puts "refreshing #{item_card.name}".yellow
+    item_card.try :refresh_output, force
+  end
+end
+
+def regenerate_machine_output
+  item_cards.each do |item_card|
+    item_card.try :regenerate_machine_output
   end
 end
 
