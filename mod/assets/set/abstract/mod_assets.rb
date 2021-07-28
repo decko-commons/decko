@@ -20,14 +20,6 @@ def manifest_path
   File.join(assets_path, "manifest.yml")
 end
 
-def remove_deprecated_items items
-  items.each do |deprecated_item|
-    next unless (item_card = Card.fetch(deprecated_item))
-    item_card.update codename: nil
-    item_card.delete
-  end
-end
-
 def expected_item_keys
   return [] unless assets_dir_exists?
 
@@ -152,7 +144,7 @@ end
 def update_if_source_file_changed
   update_items
   item_cards.each do |item_card|
-    item_card.try(:update_if_source_file_changed)
+    item_card.try :update_if_source_file_changed
   end
 end
 
@@ -160,5 +152,19 @@ def make_machine_output_coded verbose=false
   item_cards.each do |item_card|
     puts "coding machine output for #{item_card.name}" if verbose
     item_card.try(:make_machine_output_coded, mod_name)
+  end
+end
+
+def no_action?
+  new? && !assets_dir_exists?
+end
+
+private
+
+def remove_deprecated_items items
+  items.each do |deprecated_item|
+    next unless (item_card = Card.fetch(deprecated_item))
+    item_card.update codename: nil
+    item_card.delete
   end
 end
