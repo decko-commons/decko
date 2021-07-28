@@ -1,3 +1,5 @@
+require "cardio/mod/modfile_api"
+
 module Cardio
   class Mod
     # Loads the mod of a Modfile into a Mod::Dirs object

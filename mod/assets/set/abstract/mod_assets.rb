@@ -20,14 +20,6 @@ def manifest_path
   File.join(assets_path, "manifest.yml")
 end
 
-def remove_deprecated_items items
-  items.each do |deprecated_item|
-    next unless (item_card = Card.fetch(deprecated_item))
-    item_card.update codename: nil
-    item_card.delete
-  end
-end
-
 def expected_item_keys
   return [] unless assets_dir_exists?
 
@@ -82,7 +74,7 @@ def manifest_group_items group_name
 end
 
 def manifest_group_minimize? group_name
-  manifest.dig(group_name, "minimize")
+  manifest.dig group_name, "minimize"
 end
 
 def manifest
@@ -110,7 +102,7 @@ def ensure_item field, type_id
   ensure_item_content item_name
 
   card = Card[item_name]
-  args = ensure_item_args field, type_id
+  args = ensure_item_args field, type_id, item_name
   return if item_already_coded? card, args
 
   ensure_item_save card, args
@@ -130,28 +122,22 @@ def ensure_item_save card, args
   if card
     card.update args
   else
-    Card.create args.merge(name: item_name)
+    Card.create! args
   end
 end
 
-def ensure_item_args field, type_id
+def ensure_item_args field, type_id, name
   {
     type_id: type_id,
-    codename: "#{mod_name}_group__#{field}"
+    codename: "#{mod_name}_group__#{field}",
+    name: name
   }
-end
-
-def groups_changed?
-  expected_items = expected_item_keys
-  actual_items = item_keys
-  difference = (expected_items + actual_items) - (expected_items & actual_items)
-  difference.present?
 end
 
 def update_if_source_file_changed
   update_items
   item_cards.each do |item_card|
-    item_card.try(:update_if_source_file_changed)
+    item_card.try :update_if_source_file_changed
   end
 end
 
@@ -159,5 +145,26 @@ def make_machine_output_coded verbose=false
   item_cards.each do |item_card|
     puts "coding machine output for #{item_card.name}" if verbose
     item_card.try(:make_machine_output_coded, mod_name)
+  end
+end
+
+def no_action?
+  new? && !assets_dir_exists?
+end
+
+private
+
+# def groups_changed?
+#   expected_items = expected_item_keys
+#   actual_items = item_keys
+#   difference = (expected_items + actual_items) - (expected_items & actual_items)
+#   difference.present?
+# end
+
+def remove_deprecated_items items
+  items.each do |deprecated_item|
+    next unless (item_card = Card.fetch(deprecated_item))
+    item_card.update codename: nil
+    item_card.delete
   end
 end
