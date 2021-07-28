@@ -74,7 +74,7 @@ def manifest_group_items group_name
 end
 
 def manifest_group_minimize? group_name
-  manifest.dig(group_name, "minimize")
+  manifest.dig group_name, "minimize"
 end
 
 def manifest
