@@ -47,7 +47,7 @@ namespace :decko do
 
     def clean_machines
       puts "clean machines"
-      Card.reset_all_machines
+      Card::Machine.reset_all
       reseed_machine_output
       clean_inputs_and_outputs
     end

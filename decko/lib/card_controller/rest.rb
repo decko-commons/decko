@@ -35,7 +35,7 @@ class CardController
     private
 
     def setup
-      Card::Machine.refresh_script_and_style unless params[:explicit_file]
+      Card::Machine.refresh_assets unless params[:explicit_file]
       Card::Cache.renew
       Card::Env.reset controller: self
     end
