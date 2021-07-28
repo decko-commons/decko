@@ -42,7 +42,7 @@ def update_input_card
 end
 
 # regenerates the machine output if a source file of a input card has been changed
-def refresh_output force=false
+def refresh_output force: false
   puts "refreshing output: #{name}".yellow
   regenerate_machine_output if expire_outdated || force
 end

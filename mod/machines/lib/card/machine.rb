@@ -3,7 +3,7 @@ class Card
     REFRESHED = "MACHINE_ASSETS_REFRESHED".freeze
 
     class << self
-      def refresh_assets force=false
+      def refresh_assets force: false
         return unless force || refresh_assets?
 
         refresh_asset :script, force
@@ -11,7 +11,7 @@ class Card
       end
 
       def refresh_assets!
-        refresh_assets force=true
+        refresh_assets force: true
       end
 
       def reset_all
@@ -36,7 +36,7 @@ class Card
       end
 
       def refresh_asset asset_type, force
-        all_rule(asset_type)&.refresh_output force
+        all_rule(asset_type)&.refresh_output force: force
       end
 
       private

@@ -4,10 +4,10 @@ def ok_to_read
   true
 end
 
-def refresh_output force=false
+def refresh_output force: false
   item_cards.each do |item_card|
     # puts "refreshing #{item_card.name}".yellow
-    item_card.try :refresh_output, force
+    item_card.try :refresh_output, force: force
   end
 end
 

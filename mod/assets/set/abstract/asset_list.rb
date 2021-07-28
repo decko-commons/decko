@@ -2,7 +2,7 @@ include_set Abstract::ReadOnly
 include_set Abstract::Sources
 include_set Abstract::Items
 
-def refresh_output force=false
+def refresh_output force: false
   update_items! if refresh_output? || force
 end
 

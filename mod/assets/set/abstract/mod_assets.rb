@@ -134,10 +134,10 @@ def ensure_item_args field, type_id, name
   }
 end
 
-def refresh_output force=false
+def refresh_output force: false
   update_items
   item_cards.each do |item_card|
-    item_card.try :refresh_output, force
+    item_card.try :refresh_output, force: force
   end
 end
 
