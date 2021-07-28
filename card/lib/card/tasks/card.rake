@@ -102,11 +102,4 @@ namespace :card do
   task reset_cache: :environment do
     Card::Cache.reset_all
   end
-
-
-  task reset_machine_output: :environment do
-
-  end
-
-
 end

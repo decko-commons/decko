@@ -4,10 +4,14 @@ class Card
 
     class << self
       def refresh_assets force=false
-        return unless refresh_assets?
+        return unless force || refresh_assets?
 
         refresh_asset :script, force
         refresh_asset :style, force
+      end
+
+      def refresh_assets!
+        refresh_assets force=true
       end
 
       def reset_all
@@ -31,11 +35,11 @@ class Card
         end
       end
 
-      private
-
       def refresh_asset asset_type, force
         all_rule(asset_type)&.refresh_output force
       end
+
+      private
 
       def all_rule asset_type
         Card[[:all, asset_type]]

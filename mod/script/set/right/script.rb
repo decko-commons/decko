@@ -6,6 +6,7 @@ end
 
 def refresh_output force=false
   item_cards.each do |item_card|
+    # puts "refreshing #{item_card.name}".yellow
     item_card.try :refresh_output, force
   end
 end
