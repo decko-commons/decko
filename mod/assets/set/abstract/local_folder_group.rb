@@ -17,3 +17,7 @@ end
 def base_path
   left&.assets_path
 end
+
+def minimize?
+  @minimize = true
+end
