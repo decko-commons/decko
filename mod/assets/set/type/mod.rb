@@ -50,4 +50,3 @@ def fetch_mod_assets_card asset_type, type_id
     }
   end
 end
-

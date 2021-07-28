@@ -134,13 +134,6 @@ def ensure_item_args field, type_id, name
   }
 end
 
-def groups_changed?
-  expected_items = expected_item_keys
-  actual_items = item_keys
-  difference = (expected_items + actual_items) - (expected_items & actual_items)
-  difference.present?
-end
-
 def update_if_source_file_changed
   update_items
   item_cards.each do |item_card|
@@ -160,6 +153,13 @@ def no_action?
 end
 
 private
+
+# def groups_changed?
+#   expected_items = expected_item_keys
+#   actual_items = item_keys
+#   difference = (expected_items + actual_items) - (expected_items & actual_items)
+#   difference.present?
+# end
 
 def remove_deprecated_items items
   items.each do |deprecated_item|
