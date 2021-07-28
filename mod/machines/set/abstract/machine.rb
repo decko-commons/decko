@@ -123,17 +123,16 @@ def after_engine output
   file = Tempfile.new [id.to_s, ".#{filetype}"]
   file.write output
   file.rewind
-  Card::Auth.as_bot do
-    p = machine_output_card
-    p.file = file
-    p.save!
-  end
+  store_machine_output file
   file.close
   file.unlink
 end
 
-view :machine_output_url do
-  machine_output_url
+
+format do
+  view :machine_output_url do
+    machine_output_url
+  end
 end
 
 class << self
@@ -189,6 +188,7 @@ def input_from_card input_card
   end
 end
 
+# FIXME: this is wack. set the storage right the first time through. obviate
 def make_machine_output_coded mod=:machines
   update_machine_output
   Card::Auth.as_bot do
@@ -218,4 +218,25 @@ end
 def machine_output_path
   ensure_machine_output
   machine_output_card.file.path
+end
+
+private
+
+# TODO: make more methods private!
+
+def store_machine_output file
+  Card::Auth.as_bot do
+    moc = machine_output_card
+    prepare_coded_output moc
+    moc.file = file
+    moc.save!
+  end
+end
+
+def prepare_coded_output moc
+  return unless (dir = ENV["SEED_MACHINE_OUTPUT_TO"])
+  ENV["STORE_CODED_FILES"] = "true"
+  moc.storage_type = :coded
+  moc.mod = dir
+  moc.codename = machine_output_codename
 end
