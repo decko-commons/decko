@@ -134,10 +134,10 @@ def ensure_item_args field, type_id, name
   }
 end
 
-def update_if_source_file_changed
+def refresh_output force=false
   update_items
   item_cards.each do |item_card|
-    item_card.try :update_if_source_file_changed
+    item_card.try :refresh_output, force
   end
 end
 

@@ -112,7 +112,7 @@ decko_namespace = namespace :decko do
 
   desc "install mods"
   task mod_install: :environment do
-    Card.reset_script_machine
+    Card::Machine.reset_script
     Card::Cache.reset_all
     Cardio::Mod.dirs.mods.each do |mod|
       puts "ensuring #{mod.name} installed".green
