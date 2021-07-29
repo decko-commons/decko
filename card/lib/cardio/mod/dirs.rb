@@ -1,3 +1,5 @@
+require "cardio/mod/modfile_loader"
+
 module Cardio
   class Mod
     # Dirs objects are used to manage the load paths for card mods.

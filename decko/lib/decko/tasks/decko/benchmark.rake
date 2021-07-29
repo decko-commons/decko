@@ -16,7 +16,7 @@ end
 def regenerate benchmarker, all_field
   Card::Auth.as_bot do
     card = Card[:all, all_field]
-    Card.reset_all_machines
+    Card::Machine.reset_all
 
     card.machine_input_card.extended_item_cards.each do |i_card|
       puts i_card

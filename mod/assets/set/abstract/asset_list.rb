@@ -2,10 +2,12 @@ include_set Abstract::ReadOnly
 include_set Abstract::Sources
 include_set Abstract::Items
 
-def update_if_source_file_changed
-  return unless !output_updated_at || source_changed?(since: output_updated_at)
+def refresh_output force: false
+  update_items! if refresh_output? || force
+end
 
-  update_items!
+def refresh_output?
+  !output_updated_at || source_changed?(since: output_updated_at)
 end
 
 event :update_asset_list, :prepare_to_store, on: :save do
@@ -57,13 +59,8 @@ def local
   @local = true
 end
 
-def minimize?
-  @minimize = true
-end
-
 def source_changed? since:
   difference = (relative_paths + item_names) - (relative_paths & item_names)
   difference.present? ||
     existing_source_paths.any? { |path| ::File.mtime(path) > since }
 end
-
