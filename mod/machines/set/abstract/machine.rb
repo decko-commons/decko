@@ -128,7 +128,6 @@ def after_engine output
   file.unlink
 end
 
-
 format do
   view :machine_output_url do
     machine_output_url
