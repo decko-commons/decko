@@ -90,7 +90,7 @@ end
 
 def rename_as_descendant referers=true
   self.action = :update
-  referers ? update_referers : update_referer_references_out
+  referers ? update_referer_content : update_referer_references_out
   refresh_references_in
   refresh_references_out
   expire
