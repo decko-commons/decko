@@ -39,7 +39,7 @@ def files_base_dir_configuration_error
         "missing directory for file cache (default is `files` in deck root)"
 end
 
-# used in the indentifier
+# used in the identifier
 def file_dir
   if coded?
     ":#{codename}"
