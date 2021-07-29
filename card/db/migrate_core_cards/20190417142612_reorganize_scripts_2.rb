@@ -14,6 +14,6 @@ class ReorganizeScripts2 < Cardio::Migration::Core
       card.drop_item "script: load select2"
       card.save!
     end
-    Card.reset_all_machines
+    Card::Machine.reset_all
   end
 end
