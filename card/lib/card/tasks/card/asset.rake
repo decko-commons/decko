@@ -1,7 +1,7 @@
 namespace :card do
   namespace :asset do
     desc "reset style and script machine outputs"
-    task :reset do
+    task reset: :environment do
       Card::Machine.reset_all
     end
 
