@@ -235,7 +235,7 @@ end
 def prepare_coded_output moc
   return unless (dir = ENV["SEED_MACHINE_OUTPUT_TO"])
   ENV["STORE_CODED_FILES"] = "true"
-  moc.storage_type = :coded
+  moc.storage_type = moc.new_storage_type = :coded
   moc.mod = dir
   moc.codename = machine_output_codename
 end
