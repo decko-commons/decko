@@ -18,7 +18,7 @@ class Card
             self.anchorless = !respond_to?(:anchor_name)
             opts.each { |key, val| send "#{key}=", val }
           else
-            warn "no codename for pattern_code #{pattern_code}"
+            warn "no codename for pattern code: #{pattern_code}"
           end
         end
 
