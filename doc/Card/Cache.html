@@ -6,7 +6,7 @@
 <title>
   Class: Card::Cache
   
-    &mdash; Documentation by YARD 0.9.25
+    &mdash; Documentation by YARD 0.9.26
   
 </title>
 
@@ -100,7 +100,7 @@
   <dl>
     <dt>Defined in:</dt>
     <dd>card/lib/card/cache.rb<span class="defines">,<br />
-  card/lib/card/cache/temporary.rb,<br /> card/lib/card/cache/persistent.rb,<br /> card/lib/card/cache/prepopulate.rb</span>
+  card/lib/card/cache/all.rb,<br /> card/lib/card/cache/temporary.rb,<br /> card/lib/card/cache/card_class.rb,<br /> card/lib/card/cache/persistent.rb,<br /> card/lib/card/cache/prepopulate.rb,<br /> card/lib/card/cache/persistent_class.rb</span>
 </dd>
   </dl>
   
@@ -130,7 +130,7 @@ directly, because caching is automatically handled by Card#fetch</p>
 <p class="children">
   
     
-      <strong class="modules">Modules:</strong> <span class='object_link'><a href="Cache/Prepopulate.html" title="Card::Cache::Prepopulate (module)">Prepopulate</a></span>
+      <strong class="modules">Modules:</strong> <span class='object_link'><a href="Cache/All.html" title="Card::Cache::All (module)">All</a></span>, <span class='object_link'><a href="Cache/CardClass.html" title="Card::Cache::CardClass (module)">CardClass</a></span>, <span class='object_link'><a href="Cache/PersistentClass.html" title="Card::Cache::PersistentClass (module)">PersistentClass</a></span>, <span class='object_link'><a href="Cache/Prepopulate.html" title="Card::Cache::Prepopulate (module)">Prepopulate</a></span>
     
   
     
@@ -773,15 +773,15 @@ is provided – a <span class='object_link'><a href="Cache/Persistent.html" titl
       <pre class="lines">
 
 
-134
 135
 136
 137
 138
-139</pre>
+139
+140</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/cache.rb', line 134</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/cache.rb', line 135</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span> <span class='id identifier rubyid_opts'>opts</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span>
   <span class='ivar'>@klass</span> <span class='op'>=</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:class</span><span class='rbracket'>]</span>
@@ -873,12 +873,12 @@ is provided – a <span class='object_link'><a href="Cache/Persistent.html" titl
       <pre class="lines">
 
 
-127
 128
-129</pre>
+129
+130</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/cache.rb', line 127</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/cache.rb', line 128</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_hard'>hard</span>
   <span class='ivar'>@hard</span>
@@ -915,12 +915,12 @@ is provided – a <span class='object_link'><a href="Cache/Persistent.html" titl
       <pre class="lines">
 
 
-127
 128
-129</pre>
+129
+130</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/cache.rb', line 127</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/cache.rb', line 128</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_soft'>soft</span>
   <span class='ivar'>@soft</span>
@@ -1064,7 +1064,6 @@ is provided – a <span class='object_link'><a href="Cache/Persistent.html" titl
       <pre class="lines">
 
 
-115
 116
 117
 118
@@ -1073,10 +1072,11 @@ is provided – a <span class='object_link'><a href="Cache/Persistent.html" titl
 121
 122
 123
-124</pre>
+124
+125</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/cache.rb', line 115</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/cache.rb', line 116</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_obj_to_key'>obj_to_key</span> <span class='id identifier rubyid_obj'>obj</span>
   <span class='kw'>case</span> <span class='id identifier rubyid_obj'>obj</span>
@@ -1170,13 +1170,15 @@ on the persistent caches.</p>
 58
 59
 60
-61</pre>
+61
+62</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'card/lib/card/cache.rb', line 54</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_renew'>renew</span>
   <span class='kw'>return</span> <span class='kw'>if</span> <span class='id identifier rubyid_no_renewal'>no_renewal</span>
+
   <span class='id identifier rubyid_renew_persistent'>renew_persistent</span>
   <span class='id identifier rubyid_cache_by_class'>cache_by_class</span><span class='period'>.</span><span class='id identifier rubyid_each_value'>each_value</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_cache'>cache</span><span class='op'>|</span>
     <span class='id identifier rubyid_cache'>cache</span><span class='period'>.</span><span class='id identifier rubyid_soft'>soft</span><span class='period'>.</span><span class='id identifier rubyid_reset'>reset</span>
@@ -1203,15 +1205,15 @@ on the persistent caches.</p>
       <pre class="lines">
 
 
-63
 64
-65</pre>
+65
+66</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/cache.rb', line 63</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/cache.rb', line 64</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_renew_persistent'>renew_persistent</span>
-  <span class='const'><span class='object_link'><a href="../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="" title="Card::Cache (class)">Cache</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Cache/Persistent.html" title="Card::Cache::Persistent (class)">Persistent</a></span></span><span class='period'>.</span><span class='id identifier rubyid_renew'><span class='object_link'><a href="Cache/Persistent.html#renew-class_method" title="Card::Cache::Persistent.renew (method)">renew</a></span></span> <span class='kw'>if</span> <span class='id identifier rubyid_persistent_cache'>persistent_cache</span>
+  <span class='const'><span class='object_link'><a href="../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="" title="Card::Cache (class)">Cache</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Cache/Persistent.html" title="Card::Cache::Persistent (class)">Persistent</a></span></span><span class='period'>.</span><span class='id identifier rubyid_renew'><span class='object_link'><a href="Cache/Persistent.html#renew-instance_method" title="Card::Cache::Persistent#renew (method)">renew</a></span></span> <span class='kw'>if</span> <span class='id identifier rubyid_persistent_cache'>persistent_cache</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1243,13 +1245,13 @@ on the persistent caches.</p>
       <pre class="lines">
 
 
-68
 69
 70
-71</pre>
+71
+72</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/cache.rb', line 68</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/cache.rb', line 69</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_reset'>reset</span>
   <span class='id identifier rubyid_reset_hard'>reset_hard</span>
@@ -1285,14 +1287,14 @@ on the persistent caches.</p>
       <pre class="lines">
 
 
-74
 75
 76
 77
-78</pre>
+78
+79</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/cache.rb', line 74</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/cache.rb', line 75</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_reset_all'>reset_all</span>
   <span class='id identifier rubyid_reset_hard'>reset_hard</span>
@@ -1338,16 +1340,16 @@ Generally prefer <span class='object_link'><a href="#reset_all-class_method" tit
       <pre class="lines">
 
 
-84
 85
 86
 87
 88
 89
-90</pre>
+90
+91</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/cache.rb', line 84</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/cache.rb', line 85</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_reset_global'>reset_global</span>
   <span class='id identifier rubyid_cache_by_class'>cache_by_class</span><span class='period'>.</span><span class='id identifier rubyid_each_value'>each_value</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_cache'>cache</span><span class='op'>|</span>
@@ -1386,18 +1388,18 @@ Generally prefer <span class='object_link'><a href="#reset_all-class_method" tit
       <pre class="lines">
 
 
-93
 94
 95
 96
 97
-98</pre>
+98
+99</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/cache.rb', line 93</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/cache.rb', line 94</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_reset_hard'>reset_hard</span>
-  <span class='const'><span class='object_link'><a href="../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="" title="Card::Cache (class)">Cache</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Cache/Persistent.html" title="Card::Cache::Persistent (class)">Persistent</a></span></span><span class='period'>.</span><span class='id identifier rubyid_reset'><span class='object_link'><a href="Cache/Persistent.html#reset-class_method" title="Card::Cache::Persistent.reset (method)">reset</a></span></span> <span class='kw'>if</span> <span class='id identifier rubyid_persistent_cache'>persistent_cache</span>
+  <span class='const'><span class='object_link'><a href="../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="" title="Card::Cache (class)">Cache</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Cache/Persistent.html" title="Card::Cache::Persistent (class)">Persistent</a></span></span><span class='period'>.</span><span class='id identifier rubyid_reset'><span class='object_link'><a href="Cache/Persistent.html#reset-instance_method" title="Card::Cache::Persistent#reset (method)">reset</a></span></span> <span class='kw'>if</span> <span class='id identifier rubyid_persistent_cache'>persistent_cache</span>
   <span class='id identifier rubyid_cache_by_class'>cache_by_class</span><span class='period'>.</span><span class='id identifier rubyid_each_value'>each_value</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_cache'>cache</span><span class='op'>|</span>
     <span class='id identifier rubyid_cache'>cache</span><span class='period'>.</span><span class='id identifier rubyid_hard'>hard</span><span class='op'>&amp;.</span><span class='id identifier rubyid_reset'>reset</span>
   <span class='kw'>end</span>
@@ -1433,13 +1435,13 @@ Generally prefer <span class='object_link'><a href="#reset_all-class_method" tit
       <pre class="lines">
 
 
-107
 108
 109
-110</pre>
+110
+111</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/cache.rb', line 107</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/cache.rb', line 108</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_reset_other'>reset_other</span>
   <span class='const'><span class='object_link'><a href="../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Codename.html" title="Card::Codename (class)">Codename</a></span></span><span class='period'>.</span><span class='id identifier rubyid_reset_cache'><span class='object_link'><a href="Codename.html#reset_cache-class_method" title="Card::Codename.reset_cache (method)">reset_cache</a></span></span>
@@ -1475,12 +1477,12 @@ Generally prefer <span class='object_link'><a href="#reset_all-class_method" tit
       <pre class="lines">
 
 
-101
 102
-103</pre>
+103
+104</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/cache.rb', line 101</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/cache.rb', line 102</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_reset_soft'>reset_soft</span>
   <span class='id identifier rubyid_cache_by_class'>cache_by_class</span><span class='period'>.</span><span class='id identifier rubyid_each_value'>each_value</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_cache'>cache</span><span class='op'>|</span> <span class='id identifier rubyid_cache'>cache</span><span class='period'>.</span><span class='id identifier rubyid_soft'>soft</span><span class='period'>.</span><span class='id identifier rubyid_reset'>reset</span> <span class='rbrace'>}</span>
@@ -1536,13 +1538,13 @@ Generally prefer <span class='object_link'><a href="#reset_all-class_method" tit
       <pre class="lines">
 
 
-164
 165
 166
-167</pre>
+167
+168</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/cache.rb', line 164</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/cache.rb', line 165</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_delete'>delete</span> <span class='id identifier rubyid_key'>key</span>
   <span class='ivar'>@hard</span><span class='op'>&amp;.</span><span class='id identifier rubyid_delete'>delete</span> <span class='id identifier rubyid_key'>key</span>
@@ -1591,15 +1593,15 @@ Generally prefer <span class='object_link'><a href="#reset_all-class_method" tit
       <pre class="lines">
 
 
-177
 178
-179</pre>
+179
+180</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/cache.rb', line 177</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/cache.rb', line 178</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_exist?'>exist?</span> <span class='id identifier rubyid_key'>key</span>
-  <span class='ivar'>@soft</span><span class='period'>.</span><span class='id identifier rubyid_exist?'>exist?</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span> <span class='op'>||</span> <span class='lparen'>(</span><span class='ivar'>@hard</span><span class='op'>&amp;.</span><span class='id identifier rubyid_exist?'>exist?</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span><span class='rparen'>)</span>
+  <span class='ivar'>@soft</span><span class='period'>.</span><span class='id identifier rubyid_exist?'>exist?</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span> <span class='op'>||</span> <span class='ivar'>@hard</span><span class='op'>&amp;.</span><span class='id identifier rubyid_exist?'>exist?</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1646,12 +1648,12 @@ Generally prefer <span class='object_link'><a href="#reset_all-class_method" tit
       <pre class="lines">
 
 
-158
 159
-160</pre>
+160
+161</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/cache.rb', line 158</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/cache.rb', line 159</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_fetch'>fetch</span> <span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span>
   <span class='ivar'>@soft</span><span class='period'>.</span><span class='id identifier rubyid_fetch'>fetch</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span> <span class='lbrace'>{</span> <span class='ivar'>@hard</span> <span class='op'>?</span> <span class='ivar'>@hard</span><span class='period'>.</span><span class='id identifier rubyid_fetch'>fetch</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span> <span class='op'>:</span> <span class='kw'>yield</span> <span class='rbrace'>}</span>
@@ -1701,13 +1703,13 @@ Generally prefer <span class='object_link'><a href="#reset_all-class_method" tit
       <pre class="lines">
 
 
-143
 144
 145
-146</pre>
+146
+147</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/cache.rb', line 143</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/cache.rb', line 144</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_read'>read</span> <span class='id identifier rubyid_key'>key</span>
   <span class='ivar'>@soft</span><span class='period'>.</span><span class='id identifier rubyid_read'>read</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span> <span class='op'>||</span>
@@ -1743,13 +1745,13 @@ Generally prefer <span class='object_link'><a href="#reset_all-class_method" tit
       <pre class="lines">
 
 
-170
 171
 172
-173</pre>
+173
+174</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/cache.rb', line 170</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/cache.rb', line 171</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_reset'>reset</span>
   <span class='ivar'>@hard</span><span class='op'>&amp;.</span><span class='id identifier rubyid_reset'>reset</span>
@@ -1811,13 +1813,13 @@ Generally prefer <span class='object_link'><a href="#reset_all-class_method" tit
       <pre class="lines">
 
 
-151
 152
 153
-154</pre>
+154
+155</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/cache.rb', line 151</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/cache.rb', line 152</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_write'>write</span> <span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_value'>value</span>
   <span class='ivar'>@hard</span><span class='op'>&amp;.</span><span class='id identifier rubyid_write'>write</span> <span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_value'>value</span>
@@ -1833,9 +1835,9 @@ Generally prefer <span class='object_link'><a href="#reset_all-class_method" tit
 </div>
 
       <div id="footer">
-  Generated on Sun Oct 18 23:48:22 2020 by
+  Generated on Thu May 13 17:17:42 2021 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.25 (ruby-2.6.3).
+  0.9.26 (ruby-2.7.2).
 </div>
 
     </div>

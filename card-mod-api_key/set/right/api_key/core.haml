@@ -6,6 +6,6 @@
 
       = text_field_tag :current_api_key, card.content, readonly: true
     - else
-      %em No key.
+      %em= t('api_key_no_key')
   .api-key-generate-button
     = render_generate_button

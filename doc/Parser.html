@@ -6,7 +6,7 @@
 <title>
   Module: Parser
   
-    &mdash; Documentation by YARD 0.9.25
+    &mdash; Documentation by YARD 0.9.26
   
 </title>
 
@@ -158,14 +158,16 @@
 3
 4
 5
-6</pre>
+6
+7</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'decko/lib/decko/config/initializers/sedate_parser.rb', line 3</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_warn'>warn</span> <span class='id identifier rubyid_msg'>msg</span>
-  <span class='kw'>return</span> <span class='kw'>if</span> <span class='id identifier rubyid_msg'>msg</span> <span class='op'>=~</span> <span class='tstring'><span class='regexp_beg'>%r{</span><span class='tstring_content'>^warning: (?:parser/current|[\d\.]+-compliant syntax|please see)</span><span class='regexp_end'>}</span></span>
-  <span class='kw'>super</span>
+  <span class='kw'>super</span> <span class='kw'>unless</span> <span class='id identifier rubyid_msg'>msg</span><span class='period'>.</span><span class='id identifier rubyid_match?'>match?</span><span class='lparen'>(</span>
+    <span class='tstring'><span class='regexp_beg'>%r{</span><span class='tstring_content'>^warning: (?:parser/current|[\d.]+-compliant syntax|please see)</span><span class='regexp_end'>}</span></span>
+  <span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -177,9 +179,9 @@
 </div>
 
       <div id="footer">
-  Generated on Sun Oct 18 23:47:47 2020 by
+  Generated on Thu May 13 17:17:20 2021 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.25 (ruby-2.6.3).
+  0.9.26 (ruby-2.7.2).
 </div>
 
     </div>

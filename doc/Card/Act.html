@@ -6,7 +6,7 @@
 <title>
   Class: Card::Act
   
-    &mdash; Documentation by YARD 0.9.25
+    &mdash; Documentation by YARD 0.9.26
   
 </title>
 
@@ -1043,7 +1043,7 @@ timestamp is set by rails on create</p>
       <pre class="code"><span class="info file"># File 'card-mod-history/lib/card/act.rb', line 71</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_actor'>actor</span>
-  <span class='const'><span class='object_link'><a href="../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_fetch'>fetch</span> <span class='id identifier rubyid_actor_id'>actor_id</span>
+  <span class='const'><span class='object_link'><a href="../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_fetch'><span class='object_link'><a href="Fetch/CardClass.html#fetch-instance_method" title="Card::Fetch::CardClass#fetch (method)">fetch</a></span></span> <span class='id identifier rubyid_actor_id'>actor_id</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1102,7 +1102,7 @@ timestamp is set by rails on create</p>
       <pre class="code"><span class="info file"># File 'card-mod-history/lib/card/act.rb', line 77</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_card'>card</span>
-  <span class='const'><span class='object_link'><a href="../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_fetch'>fetch</span> <span class='id identifier rubyid_card_id'>card_id</span><span class='comma'>,</span> <span class='label'>look_in_trash:</span> <span class='kw'>true</span> <span class='comment'># , skip_modules: true
+  <span class='const'><span class='object_link'><a href="../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_fetch'><span class='object_link'><a href="Fetch/CardClass.html#fetch-instance_method" title="Card::Fetch::CardClass#fetch (method)">fetch</a></span></span> <span class='id identifier rubyid_card_id'>card_id</span><span class='comma'>,</span> <span class='label'>look_in_trash:</span> <span class='kw'>true</span> <span class='comment'># , skip_modules: true
 </span>
   <span class='comment'># FIXME: if the following is necessary, we need to document why.
 </span>  <span class='comment'># generally it&#39;s a very bad idea to have type-specific code here.
@@ -1161,7 +1161,7 @@ timestamp is set by rails on create</p>
       <pre class="code"><span class="info file"># File 'card-mod-history/lib/card/act.rb', line 110</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_draft?'>draft?</span>
-  <span class='id identifier rubyid_main_action'>main_action</span><span class='period'>.</span><span class='id identifier rubyid_draft'>draft</span>
+  <span class='id identifier rubyid_main_action'>main_action</span><span class='op'>&amp;.</span><span class='id identifier rubyid_draft'>draft</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1279,9 +1279,9 @@ timestamp is set by rails on create</p>
 </div>
 
       <div id="footer">
-  Generated on Sun Oct 18 23:48:25 2020 by
+  Generated on Thu May 13 17:17:43 2021 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.25 (ruby-2.6.3).
+  0.9.26 (ruby-2.7.2).
 </div>
 
     </div>

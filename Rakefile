@@ -26,12 +26,12 @@ task :release do
 end
 
 task :build_images do
-  system "docker pull phusion/passenger-full:latest"
+  # system "docker pull phusion/passenger-full:latest"
   system "cd docker/template; bundle update"
 
-  # TODO: add version-specific tags to images
-  DOCKER_IMAGES.each do |image|
-    system "cd docker; docker build -f repos/#{image}.dockerfile -t ethn/#{image} ."
+  DOCKER_IMAGES.each do |i|
+    system "cd docker; "\
+           "docker build -f repos/#{i}.dockerfile -t ethn/#{i} -t ethn/#{i}:v#{version} ."
   end
 end
 

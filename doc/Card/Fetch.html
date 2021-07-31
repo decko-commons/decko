@@ -6,7 +6,7 @@
 <title>
   Class: Card::Fetch
   
-    &mdash; Documentation by YARD 0.9.25
+    &mdash; Documentation by YARD 0.9.26
   
 </title>
 
@@ -99,8 +99,8 @@
   
   <dl>
     <dt>Defined in:</dt>
-    <dd>card/mod/core/lib/card/fetch.rb<span class="defines">,<br />
-  card/mod/core/lib/card/fetch/store.rb,<br /> card/mod/core/lib/card/fetch/results.rb,<br /> card/mod/core/lib/card/fetch/retrieve.rb</span>
+    <dd>card/lib/card/fetch.rb<span class="defines">,<br />
+  card/lib/card/fetch/all.rb,<br /> card/lib/card/fetch/store.rb,<br /> card/lib/card/fetch/results.rb,<br /> card/lib/card/fetch/retrieve.rb,<br /> card/lib/card/fetch/card_class.rb</span>
 </dd>
   </dl>
   
@@ -120,7 +120,7 @@
 <p class="children">
   
     
-      <strong class="modules">Modules:</strong> <span class='object_link'><a href="Fetch/Results.html" title="Card::Fetch::Results (module)">Results</a></span>, <span class='object_link'><a href="Fetch/Retrieve.html" title="Card::Fetch::Retrieve (module)">Retrieve</a></span>, <span class='object_link'><a href="Fetch/Store.html" title="Card::Fetch::Store (module)">Store</a></span>
+      <strong class="modules">Modules:</strong> <span class='object_link'><a href="Fetch/All.html" title="Card::Fetch::All (module)">All</a></span>, <span class='object_link'><a href="Fetch/CardClass.html" title="Card::Fetch::CardClass (module)">CardClass</a></span>, <span class='object_link'><a href="Fetch/Results.html" title="Card::Fetch::Results (module)">Results</a></span>, <span class='object_link'><a href="Fetch/Retrieve.html" title="Card::Fetch::Retrieve (module)">Retrieve</a></span>, <span class='object_link'><a href="Fetch/Store.html" title="Card::Fetch::Store (module)">Store</a></span>
     
   
     
@@ -233,29 +233,6 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#absolutize_mark-instance_method" title="#absolutize_mark (instance method)">#<strong>absolutize_mark</strong>  &#x21d2; Object </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'>
-</div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
       <a href="#initialize-instance_method" title="#initialize (instance method)">#<strong>initialize</strong>(*args)  &#x21d2; Fetch </a>
     
 
@@ -328,6 +305,29 @@
   <span class="summary_signature">
     
       <a href="#normalize_args-instance_method" title="#normalize_args (instance method)">#<strong>normalize_args</strong>(args)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#normalize_mark-instance_method" title="#normalize_mark (instance method)">#<strong>normalize_mark</strong>  &#x21d2; Object </a>
     
 
     
@@ -506,15 +506,13 @@
 11
 12
 13
-14
-15</pre>
+14</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/mod/core/lib/card/fetch.rb', line 11</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/fetch.rb', line 11</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span> <span class='op'>*</span><span class='id identifier rubyid_args'>args</span>
   <span class='id identifier rubyid_normalize_args'>normalize_args</span> <span class='id identifier rubyid_args'>args</span>
-  <span class='id identifier rubyid_absolutize_mark'>absolutize_mark</span>
   <span class='id identifier rubyid_validate_opts!'>validate_opts!</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -559,7 +557,7 @@
 10</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/mod/core/lib/card/fetch.rb', line 8</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/fetch.rb', line 8</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_card'>card</span>
   <span class='ivar'>@card</span>
@@ -601,7 +599,7 @@
 10</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/mod/core/lib/card/fetch.rb', line 8</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/fetch.rb', line 8</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_mark'>mark</span>
   <span class='ivar'>@mark</span>
@@ -643,7 +641,7 @@
 10</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/mod/core/lib/card/fetch.rb', line 8</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/fetch.rb', line 8</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_opts'>opts</span>
   <span class='ivar'>@opts</span>
@@ -661,39 +659,7 @@
 
     
       <div class="method_details first">
-  <h3 class="signature first" id="absolutize_mark-instance_method">
-  
-    #<strong>absolutize_mark</strong>  &#x21d2; <tt><span class='object_link'><a href="../Object.html" title="Object (class)">Object</a></span></tt> 
-  
-
-  
-
-  
-</h3><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-36
-37
-38
-39</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'card/mod/core/lib/card/fetch.rb', line 36</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_absolutize_mark'>absolutize_mark</span>
-  <span class='kw'>return</span> <span class='kw'>unless</span> <span class='id identifier rubyid_mark'>mark</span><span class='period'>.</span><span class='id identifier rubyid_name?'>name?</span> <span class='op'>&amp;&amp;</span> <span class='lparen'>(</span><span class='id identifier rubyid_supercard'>supercard</span> <span class='op'>=</span> <span class='id identifier rubyid_opts'>opts</span><span class='period'>.</span><span class='id identifier rubyid_dig'>dig</span><span class='lparen'>(</span><span class='symbol'>:new</span><span class='comma'>,</span> <span class='symbol'>:supercard</span><span class='rparen'>)</span><span class='rparen'>)</span>
-  <span class='ivar'>@mark</span> <span class='op'>=</span> <span class='id identifier rubyid_mark'>mark</span><span class='period'>.</span><span class='id identifier rubyid_absolute_name'>absolute_name</span> <span class='id identifier rubyid_supercard'>supercard</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="local_only?-instance_method">
+  <h3 class="signature first" id="local_only?-instance_method">
   
     #<strong>local_only?</strong>  &#x21d2; <tt>Boolean</tt> 
   
@@ -730,12 +696,12 @@
       <pre class="lines">
 
 
+22
 23
-24
-25</pre>
+24</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/mod/core/lib/card/fetch.rb', line 23</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/fetch.rb', line 22</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_local_only?'>local_only?</span>
   <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:local_only</span><span class='rbracket'>]</span>
@@ -783,12 +749,12 @@
       <pre class="lines">
 
 
-46
-47
-48</pre>
+49
+50
+51</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/mod/core/lib/card/fetch.rb', line 46</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/fetch.rb', line 49</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_look_in_trash?'>look_in_trash?</span>
   <span class='ivar'>@opts</span><span class='lbracket'>[</span><span class='symbol'>:look_in_trash</span><span class='rbracket'>]</span>
@@ -813,17 +779,55 @@
       <pre class="lines">
 
 
+30
 31
 32
 33
 34</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/mod/core/lib/card/fetch.rb', line 31</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/fetch.rb', line 30</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_normalize_args'>normalize_args</span> <span class='id identifier rubyid_args'>args</span>
   <span class='ivar'>@opts</span> <span class='op'>=</span> <span class='id identifier rubyid_args'>args</span><span class='period'>.</span><span class='id identifier rubyid_last'>last</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'>Hash</span><span class='rparen'>)</span> <span class='op'>?</span> <span class='id identifier rubyid_args'>args</span><span class='period'>.</span><span class='id identifier rubyid_pop'>pop</span> <span class='op'>:</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
   <span class='ivar'>@mark</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_id_or_name'><span class='object_link'><a href="Mark.html#id_or_name-instance_method" title="Card::Mark#id_or_name (method)">id_or_name</a></span></span> <span class='id identifier rubyid_args'>args</span>
+  <span class='id identifier rubyid_normalize_mark'>normalize_mark</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="normalize_mark-instance_method">
+  
+    #<strong>normalize_mark</strong>  &#x21d2; <tt><span class='object_link'><a href="../Object.html" title="Object (class)">Object</a></span></tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+36
+37
+38
+39
+40
+41</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'card/lib/card/fetch.rb', line 36</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_normalize_mark'>normalize_mark</span>
+  <span class='kw'>return</span> <span class='kw'>unless</span> <span class='id identifier rubyid_mark'>mark</span><span class='period'>.</span><span class='id identifier rubyid_name?'>name?</span>
+
+  <span class='id identifier rubyid_supercard'>supercard</span> <span class='op'>=</span> <span class='id identifier rubyid_opts'>opts</span><span class='period'>.</span><span class='id identifier rubyid_dig'>dig</span> <span class='symbol'>:new</span><span class='comma'>,</span> <span class='symbol'>:supercard</span>
+  <span class='ivar'>@mark</span> <span class='op'>=</span> <span class='id identifier rubyid_mark'>mark</span><span class='period'>.</span><span class='id identifier rubyid_absolute_name'>absolute_name</span> <span class='id identifier rubyid_supercard'>supercard</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span> <span class='kw'>if</span> <span class='id identifier rubyid_supercard'>supercard</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -845,14 +849,14 @@
       <pre class="lines">
 
 
+16
 17
 18
 19
-20
-21</pre>
+20</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/mod/core/lib/card/fetch.rb', line 17</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/fetch.rb', line 16</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_retrieve_or_new'>retrieve_or_new</span>
   <span class='id identifier rubyid_retrieve_existing'>retrieve_existing</span>
@@ -902,12 +906,12 @@
       <pre class="lines">
 
 
+26
 27
-28
-29</pre>
+28</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/mod/core/lib/card/fetch.rb', line 27</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/fetch.rb', line 26</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_skip_modules?'>skip_modules?</span>
   <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:skip_modules</span><span class='rbracket'>]</span>
@@ -955,12 +959,12 @@
       <pre class="lines">
 
 
-50
-51
-52</pre>
+53
+54
+55</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/mod/core/lib/card/fetch.rb', line 50</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/fetch.rb', line 53</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_skip_type_lookup?'>skip_type_lookup?</span>
   <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:skip_virtual</span><span class='rbracket'>]</span> <span class='op'>||</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:skip_type_lookup</span><span class='rbracket'>]</span> <span class='comment'># || opts[:new]
@@ -1008,16 +1012,18 @@
       <pre class="lines">
 
 
-41
-42
 43
-44</pre>
+44
+45
+46
+47</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/mod/core/lib/card/fetch.rb', line 41</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/fetch.rb', line 43</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_validate_opts!'>validate_opts!</span>
   <span class='kw'>return</span> <span class='kw'>unless</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:new</span><span class='rbracket'>]</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:skip_virtual</span><span class='rbracket'>]</span>
+
   <span class='id identifier rubyid_raise'>raise</span> <span class='const'><span class='object_link'><a href="../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Error.html" title="Card::Error (class)">Error</a></span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>fetch called with new args and skip_virtual</span><span class='tstring_end'>&quot;</span></span>
 <span class='kw'>end</span></pre>
     </td>
@@ -1030,9 +1036,9 @@
 </div>
 
       <div id="footer">
-  Generated on Sun Oct 18 23:48:31 2020 by
+  Generated on Thu May 13 17:17:42 2021 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.25 (ruby-2.6.3).
+  0.9.26 (ruby-2.7.2).
 </div>
 
     </div>

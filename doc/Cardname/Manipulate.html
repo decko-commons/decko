@@ -6,7 +6,7 @@
 <title>
   Module: Cardname::Manipulate
   
-    &mdash; Documentation by YARD 0.9.25
+    &mdash; Documentation by YARD 0.9.26
   
 </title>
 
@@ -267,12 +267,12 @@
       <pre class="lines">
 
 
-35
-36
-37</pre>
+37
+38
+39</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'cardname/lib/cardname/manipulate.rb', line 35</span>
+      <pre class="code"><span class="info file"># File 'cardname/lib/cardname/manipulate.rb', line 37</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_num_parts'>num_parts</span>
   <span class='id identifier rubyid_parts'>parts</span><span class='period'>.</span><span class='id identifier rubyid_length'>length</span>
@@ -301,13 +301,13 @@
       <pre class="lines">
 
 
-39
-40
 41
-42</pre>
+42
+43
+44</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'cardname/lib/cardname/manipulate.rb', line 39</span>
+      <pre class="code"><span class="info file"># File 'cardname/lib/cardname/manipulate.rb', line 41</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_prepend_joint'>prepend_joint</span>
   <span class='id identifier rubyid_joint'>joint</span> <span class='op'>=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_joint'>joint</span>
@@ -333,15 +333,15 @@
       <pre class="lines">
 
 
-44
-45
 46
 47
 48
-49</pre>
+49
+50
+51</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'cardname/lib/cardname/manipulate.rb', line 44</span>
+      <pre class="code"><span class="info file"># File 'cardname/lib/cardname/manipulate.rb', line 46</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_sub_in'>sub_in</span> <span class='id identifier rubyid_str'>str</span><span class='comma'>,</span> <span class='label'>with:</span>
   <span class='qsymbols_beg'>%i[</span><span class='tstring_content'>capitalize</span><span class='words_sep'> </span><span class='tstring_content'>downcase</span><span class='tstring_end'>]</span></span><span class='period'>.</span><span class='id identifier rubyid_product'>product</span><span class='lparen'>(</span><span class='qsymbols_beg'>%i[</span><span class='tstring_content'>pluralize</span><span class='words_sep'> </span><span class='tstring_content'>singularize</span><span class='tstring_end'>]</span></span><span class='rparen'>)</span>
@@ -387,7 +387,8 @@ keys are used for comparison</p>
 9
 10
 11
-12</pre>
+12
+13</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'cardname/lib/cardname/manipulate.rb', line 5</span>
@@ -398,6 +399,7 @@ keys are used for comparison</p>
   <span class='kw'>return</span> <span class='kw'>self</span> <span class='kw'>if</span> <span class='id identifier rubyid_old_name'>old_name</span><span class='period'>.</span><span class='id identifier rubyid_num_parts'>num_parts</span> <span class='op'>&gt;</span> <span class='id identifier rubyid_num_parts'>num_parts</span>
   <span class='kw'>return</span> <span class='id identifier rubyid_swap_part'>swap_part</span><span class='lparen'>(</span><span class='id identifier rubyid_old_name'>old_name</span><span class='comma'>,</span> <span class='id identifier rubyid_new_name'>new_name</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='id identifier rubyid_old_name'>old_name</span><span class='period'>.</span><span class='id identifier rubyid_simple?'>simple?</span>
   <span class='kw'>return</span> <span class='kw'>self</span> <span class='kw'>unless</span> <span class='id identifier rubyid_include?'>include?</span> <span class='id identifier rubyid_old_name'>old_name</span>
+
   <span class='id identifier rubyid_swap_all_subsequences'>swap_all_subsequences</span><span class='lparen'>(</span><span class='id identifier rubyid_old_name'>old_name</span><span class='comma'>,</span> <span class='id identifier rubyid_new_name'>new_name</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to_name'>to_name</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -420,7 +422,6 @@ keys are used for comparison</p>
       <pre class="lines">
 
 
-14
 15
 16
 17
@@ -429,10 +430,11 @@ keys are used for comparison</p>
 20
 21
 22
-23</pre>
+23
+24</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'cardname/lib/cardname/manipulate.rb', line 14</span>
+      <pre class="code"><span class="info file"># File 'cardname/lib/cardname/manipulate.rb', line 15</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_swap_part'>swap_part</span> <span class='id identifier rubyid_oldpart'>oldpart</span><span class='comma'>,</span> <span class='id identifier rubyid_newpart'>newpart</span>
   <span class='id identifier rubyid_ensure_simpleness'>ensure_simpleness</span> <span class='id identifier rubyid_oldpart'>oldpart</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Use &#39;swap&#39; to swap junctions</span><span class='tstring_end'>&quot;</span></span>
@@ -464,7 +466,6 @@ keys are used for comparison</p>
       <pre class="lines">
 
 
-25
 26
 27
 28
@@ -472,10 +473,12 @@ keys are used for comparison</p>
 30
 31
 32
-33</pre>
+33
+34
+35</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'cardname/lib/cardname/manipulate.rb', line 25</span>
+      <pre class="code"><span class="info file"># File 'cardname/lib/cardname/manipulate.rb', line 26</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_swap_piece'>swap_piece</span> <span class='id identifier rubyid_oldpiece'>oldpiece</span><span class='comma'>,</span> <span class='id identifier rubyid_newpiece'>newpiece</span>
   <span class='id identifier rubyid_oldpiece'>oldpiece</span> <span class='op'>=</span> <span class='id identifier rubyid_oldpiece'>oldpiece</span><span class='period'>.</span><span class='id identifier rubyid_to_name'>to_name</span>
@@ -484,6 +487,7 @@ keys are used for comparison</p>
   <span class='kw'>return</span> <span class='id identifier rubyid_swap_part'>swap_part</span> <span class='id identifier rubyid_oldpiece'>oldpiece</span><span class='comma'>,</span> <span class='id identifier rubyid_newpiece'>newpiece</span> <span class='kw'>if</span> <span class='id identifier rubyid_oldpiece'>oldpiece</span><span class='period'>.</span><span class='id identifier rubyid_simple?'>simple?</span>
   <span class='kw'>return</span> <span class='kw'>self</span> <span class='kw'>unless</span> <span class='id identifier rubyid_starts_with_parts?'>starts_with_parts?</span><span class='lparen'>(</span><span class='id identifier rubyid_oldpiece'>oldpiece</span><span class='rparen'>)</span>
   <span class='kw'>return</span> <span class='id identifier rubyid_newpiece'>newpiece</span> <span class='kw'>if</span> <span class='id identifier rubyid_oldpiece'>oldpiece</span><span class='period'>.</span><span class='id identifier rubyid_num_parts'>num_parts</span> <span class='op'>==</span> <span class='id identifier rubyid_num_parts'>num_parts</span>
+
   <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span> <span class='lbracket'>[</span><span class='id identifier rubyid_newpiece'>newpiece</span><span class='comma'>,</span> <span class='kw'>self</span><span class='lbracket'>[</span><span class='id identifier rubyid_oldpiece'>oldpiece</span><span class='period'>.</span><span class='id identifier rubyid_num_parts'>num_parts</span><span class='op'>..</span><span class='op'>-</span><span class='int'>1</span><span class='rbracket'>]</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_flatten'>flatten</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -496,9 +500,9 @@ keys are used for comparison</p>
 </div>
 
       <div id="footer">
-  Generated on Sun Oct 18 23:47:44 2020 by
+  Generated on Thu May 13 17:17:18 2021 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.25 (ruby-2.6.3).
+  0.9.26 (ruby-2.7.2).
 </div>
 
     </div>

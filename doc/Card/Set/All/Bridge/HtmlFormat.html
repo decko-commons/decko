@@ -6,7 +6,7 @@
 <title>
   Module: Card::Set::All::Bridge::HtmlFormat
   
-    &mdash; Documentation by YARD 0.9.25
+    &mdash; Documentation by YARD 0.9.26
   
 </title>
 
@@ -83,7 +83,7 @@
   
   <dl>
     <dt>Defined in:</dt>
-    <dd>card/tmpsets/set/mod014-card-mod-edit/all/bridge.rb</dd>
+    <dd>card/tmpsets/set/mod012-card-mod-edit/all/bridge.rb</dd>
   </dl>
   
 </div>
@@ -318,7 +318,7 @@
 70</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod014-card-mod-edit/all/bridge.rb', line 67</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod012-card-mod-edit/all/bridge.rb', line 67</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_breadcrumb_data'>breadcrumb_data</span> <span class='id identifier rubyid_title'>title</span><span class='comma'>,</span> <span class='id identifier rubyid_html_class'>html_class</span><span class='op'>=</span><span class='kw'>nil</span>
   <span class='id identifier rubyid_html_class'>html_class</span> <span class='op'>||=</span> <span class='id identifier rubyid_title'>title</span><span class='period'>.</span><span class='id identifier rubyid_underscore'>underscore</span>
@@ -356,7 +356,7 @@
 47</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod014-card-mod-edit/all/bridge.rb', line 38</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod012-card-mod-edit/all/bridge.rb', line 38</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_bridge_breadcrumbs'>bridge_breadcrumbs</span>
   <span class='heredoc_beg'>&lt;&lt;-HTML</span><span class='period'>.</span><span class='id identifier rubyid_strip_heredoc'>strip_heredoc</span>
@@ -398,7 +398,7 @@
 56</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod014-card-mod-edit/all/bridge.rb', line 49</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod012-card-mod-edit/all/bridge.rb', line 49</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_bridge_link_opts'>bridge_link_opts</span> <span class='id identifier rubyid_opts'>opts</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span>
   <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:&quot;data-slot-selector&quot;</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_bridge_slot_selector'>bridge_slot_selector</span>
@@ -433,7 +433,7 @@
 36</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod014-card-mod-edit/all/bridge.rb', line 34</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod012-card-mod-edit/all/bridge.rb', line 34</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_bridge_param'>bridge_param</span> <span class='id identifier rubyid_key'>key</span>
   <span class='id identifier rubyid_params'>params</span><span class='period'>.</span><span class='id identifier rubyid_dig'>dig</span><span class='lparen'>(</span><span class='symbol'>:bridge</span><span class='comma'>,</span> <span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span><span class='op'>&amp;.</span><span class='id identifier rubyid_to_sym'>to_sym</span> <span class='op'>||</span> <span class='id identifier rubyid_try'>try</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>default_bridge_</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_key'>key</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
@@ -464,7 +464,7 @@
 61</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod014-card-mod-edit/all/bridge.rb', line 58</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod012-card-mod-edit/all/bridge.rb', line 58</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_bridge_slot_selector'>bridge_slot_selector</span>
   <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>.bridge-main &gt; .overlay-container &gt; .card-slot._bottomlay-slot,</span><span class='tstring_end'>&quot;</span></span> \
@@ -495,7 +495,7 @@
 32</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod014-card-mod-edit/all/bridge.rb', line 30</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod012-card-mod-edit/all/bridge.rb', line 30</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_bridge_tab'>bridge_tab</span>
   <span class='ivar'>@bridge_tab</span> <span class='op'>||=</span> <span class='id identifier rubyid_bridge_param'>bridge_param</span> <span class='symbol'>:tab</span>
@@ -527,7 +527,7 @@
 28</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod014-card-mod-edit/all/bridge.rb', line 24</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod012-card-mod-edit/all/bridge.rb', line 24</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_bridge_tabs'>bridge_tabs</span>
   <span class='id identifier rubyid_wrap'>wrap</span> <span class='kw'>do</span>
@@ -559,7 +559,7 @@
 65</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod014-card-mod-edit/all/bridge.rb', line 63</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod012-card-mod-edit/all/bridge.rb', line 63</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_default_bridge_tab'>default_bridge_tab</span>
   <span class='id identifier rubyid_show_guide_tab?'>show_guide_tab?</span> <span class='op'>?</span> <span class='symbol'>:guide_tab</span> <span class='op'>:</span> <span class='symbol'>:engage_tab</span>
@@ -574,9 +574,9 @@
 </div>
 
       <div id="footer">
-  Generated on Sun Oct 18 23:47:58 2020 by
+  Generated on Thu May 13 17:17:25 2021 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.25 (ruby-2.6.3).
+  0.9.26 (ruby-2.7.2).
 </div>
 
     </div>

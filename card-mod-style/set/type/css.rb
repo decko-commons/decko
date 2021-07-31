@@ -9,7 +9,7 @@ include_set Abstract::MachineInput
 store_machine_output filetype: "css"
 
 machine_input do
-  compress_css format(format: :css)._render_core
+  compress_css format(:css)._render_core
 end
 
 def compress_css input

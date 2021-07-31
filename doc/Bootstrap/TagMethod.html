@@ -6,7 +6,7 @@
 <title>
   Class: Bootstrap::TagMethod
   
-    &mdash; Documentation by YARD 0.9.25
+    &mdash; Documentation by YARD 0.9.26
   
 </title>
 
@@ -87,6 +87,11 @@
   
   
   
+  <dl>
+      <dt>Includes:</dt>
+      <dd><span class='object_link'><a href="Content.html" title="Bootstrap::Content (module)">Content</a></span></dd>
+  </dl>
+  
   
 
   
@@ -94,12 +99,22 @@
   
   <dl>
     <dt>Defined in:</dt>
-    <dd>card-mod-bootstrap/lib/bootstrap/component.rb</dd>
+    <dd>card-mod-bootstrap/lib/bootstrap/tag_method.rb</dd>
   </dl>
   
 </div>
 
+<h2>Overview</h2><div class="docstring">
+  <div class="discussion">
+    <p>support html tag generation</p>
 
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
 
 
 
@@ -140,7 +155,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#call-instance_method" title="#call (instance method)">#<strong>call</strong>(*args, &amp;content_block)  &#x21d2; Object </a>
+      <a href="#call-instance_method" title="#call (instance method)">#<strong>call</strong>(*_args, &amp;content_block)  &#x21d2; Object </a>
     
 
     
@@ -234,6 +249,29 @@
         <li class="public ">
   <span class="summary_signature">
     
+      <a href="#respond_to_missing%3F-instance_method" title="#respond_to_missing? (instance method)">#<strong>respond_to_missing?</strong>(method, _include_private = false)  &#x21d2; Boolean </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
       <a href="#wrap-instance_method" title="#wrap (instance method)">#<strong>wrap</strong>(&amp;block)  &#x21d2; Object </a>
     
 
@@ -280,7 +318,13 @@
     </ul>
   
 
-<div id="constructor_details" class="method_details_list">
+
+  
+  
+  
+  
+  
+  <div id="constructor_details" class="method_details_list">
   <h2>Constructor Details</h2>
   
     <div class="method_details first">
@@ -308,8 +352,6 @@
       <pre class="lines">
 
 
-4
-5
 6
 7
 8
@@ -317,10 +359,12 @@
 10
 11
 12
-13</pre>
+13
+14
+15</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card-mod-bootstrap/lib/bootstrap/component.rb', line 4</span>
+      <pre class="code"><span class="info file"># File 'card-mod-bootstrap/lib/bootstrap/tag_method.rb', line 6</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span> <span class='id identifier rubyid_component'>component</span><span class='comma'>,</span> <span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='id identifier rubyid_html_class'>html_class</span><span class='comma'>,</span> <span class='id identifier rubyid_tag_opts'>tag_opts</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_tag_block'>tag_block</span>
   <span class='ivar'>@component</span> <span class='op'>=</span> <span class='id identifier rubyid_component'>component</span>
@@ -360,14 +404,18 @@
       <pre class="lines">
 
 
-42
-43
-44</pre>
+26
+27
+28
+29
+30</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card-mod-bootstrap/lib/bootstrap/component.rb', line 42</span>
+      <pre class="code"><span class="info file"># File 'card-mod-bootstrap/lib/bootstrap/tag_method.rb', line 26</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_method_missing'>method_missing</span> <span class='id identifier rubyid_method'>method</span><span class='comma'>,</span> <span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span>
+  <span class='kw'>return</span> <span class='kw'>super</span> <span class='kw'>unless</span> <span class='id identifier rubyid_respond_to_missing?'>respond_to_missing?</span> <span class='id identifier rubyid_method'>method</span>
+
   <span class='ivar'>@component</span><span class='period'>.</span><span class='id identifier rubyid_send'>send</span> <span class='id identifier rubyid_method'>method</span><span class='comma'>,</span> <span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -397,12 +445,12 @@
       <pre class="lines">
 
 
-56
-57
-58</pre>
+46
+47
+48</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card-mod-bootstrap/lib/bootstrap/component.rb', line 56</span>
+      <pre class="code"><span class="info file"># File 'card-mod-bootstrap/lib/bootstrap/tag_method.rb', line 46</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_append'>append</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span>
   <span class='ivar'>@append</span><span class='lbracket'>[</span><span class='op'>-</span><span class='int'>1</span><span class='rbracket'>]</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_block'>block</span>
@@ -415,7 +463,7 @@
       <div class="method_details ">
   <h3 class="signature " id="call-instance_method">
   
-    #<strong>call</strong>(*args, &amp;content_block)  &#x21d2; <tt><span class='object_link'><a href="../Object.html" title="Object (class)">Object</a></span></tt> 
+    #<strong>call</strong>(*_args, &amp;content_block)  &#x21d2; <tt><span class='object_link'><a href="../Object.html" title="Object (class)">Object</a></span></tt> 
   
 
   
@@ -427,8 +475,6 @@
       <pre class="lines">
 
 
-15
-16
 17
 18
 19
@@ -436,51 +482,17 @@
 21
 22
 23
-24
-25
-26
-27
-28
-29
-30
-31
-32
-33
-34
-35
-36
-37
-38
-39
-40</pre>
+24</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card-mod-bootstrap/lib/bootstrap/component.rb', line 15</span>
+      <pre class="code"><span class="info file"># File 'card-mod-bootstrap/lib/bootstrap/tag_method.rb', line 17</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_call'>call</span> <span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_content_block'>content_block</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_call'>call</span> <span class='op'>*</span><span class='id identifier rubyid__args'>_args</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_content_block'>content_block</span>
   <span class='id identifier rubyid_component'>component</span><span class='period'>.</span><span class='id identifier rubyid_content'>content</span><span class='period'>.</span><span class='id identifier rubyid_push'>push</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span><span class='period'>.</span><span class='id identifier rubyid_html_safe'>html_safe</span>
 
-  <span class='id identifier rubyid_content'>content</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span> <span class='op'>=</span> <span class='id identifier rubyid_content_block'>content_block</span><span class='period'>.</span><span class='id identifier rubyid_call'>call</span>
-  <span class='id identifier rubyid_wrappers'>wrappers</span> <span class='op'>=</span> <span class='ivar'>@wrap</span><span class='period'>.</span><span class='id identifier rubyid_pop'>pop</span>
-  <span class='kw'>if</span> <span class='id identifier rubyid_wrappers'>wrappers</span><span class='period'>.</span><span class='id identifier rubyid_present?'>present?</span>
-    <span class='kw'>while</span> <span class='id identifier rubyid_wrappers'>wrappers</span><span class='period'>.</span><span class='id identifier rubyid_present?'>present?</span> <span class='kw'>do</span>
-      <span class='id identifier rubyid_wrapper'>wrapper</span> <span class='op'>=</span> <span class='id identifier rubyid_wrappers'>wrappers</span><span class='period'>.</span><span class='id identifier rubyid_shift'>shift</span>
-      <span class='kw'>if</span> <span class='id identifier rubyid_wrapper'>wrapper</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span> <span class='const'>Symbol</span>
-        <span class='id identifier rubyid_send'>send</span> <span class='id identifier rubyid_wrapper'>wrapper</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_content_block'>content_block</span>
-      <span class='kw'>else</span>
-        <span class='id identifier rubyid_instance_exec'>instance_exec</span><span class='lparen'>(</span><span class='id identifier rubyid_content'>content</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_wrappers'>wrappers</span><span class='period'>.</span><span class='id identifier rubyid_shift'>shift</span><span class='rparen'>)</span>
-      <span class='kw'>end</span>
-    <span class='kw'>end</span>
-  <span class='kw'>else</span>
-    <span class='id identifier rubyid_add_content'>add_content</span> <span class='id identifier rubyid_content'>content</span>
-  <span class='kw'>end</span>
-
-  <span class='id identifier rubyid_collected_content'>collected_content</span> <span class='op'>=</span> <span class='ivar'>@content</span><span class='period'>.</span><span class='id identifier rubyid_pop'>pop</span>
-  <span class='id identifier rubyid_tag_name'>tag_name</span> <span class='op'>=</span> <span class='id identifier rubyid_opts'>opts</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='symbol'>:tag</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='id identifier rubyid_tag_name'>tag_name</span> <span class='op'>==</span> <span class='symbol'>:yield</span>
-  <span class='id identifier rubyid_add_content'>add_content</span> <span class='id identifier rubyid_content_tag'>content_tag</span><span class='lparen'>(</span><span class='id identifier rubyid_tag_name'>tag_name</span><span class='comma'>,</span> <span class='id identifier rubyid_collected_content'>collected_content</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='comma'>,</span> <span class='kw'>false</span><span class='rparen'>)</span>
-  <span class='ivar'>@append</span><span class='period'>.</span><span class='id identifier rubyid_pop'>pop</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_block'>block</span><span class='op'>|</span>
-    <span class='id identifier rubyid_add_content'>add_content</span> <span class='id identifier rubyid_instance_exec'>instance_exec</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
-  <span class='kw'>end</span>
+  <span class='id identifier rubyid_opts'>opts</span> <span class='op'>=</span> <span class='id identifier rubyid_process_content'>process_content</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='id identifier rubyid_content_block'>content_block</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_process_collected_content'>process_collected_content</span> <span class='id identifier rubyid_tag_name'>tag_name</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span>
+  <span class='id identifier rubyid_process_append'>process_append</span>
   <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span>
 <span class='kw'>end</span></pre>
     </td>
@@ -503,19 +515,72 @@
       <pre class="lines">
 
 
-46
-47
-48
-49
-50</pre>
+36
+37
+38
+39
+40</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card-mod-bootstrap/lib/bootstrap/component.rb', line 46</span>
+      <pre class="code"><span class="info file"># File 'card-mod-bootstrap/lib/bootstrap/tag_method.rb', line 36</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_prepend'>prepend</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span>
   <span class='id identifier rubyid_tmp'>tmp</span> <span class='op'>=</span> <span class='ivar'>@content</span><span class='period'>.</span><span class='id identifier rubyid_pop'>pop</span>
-  <span class='id identifier rubyid_instance_exec'>instance_exec</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span>
+  <span class='id identifier rubyid_instance_exec'>instance_exec</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
   <span class='ivar'>@content</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_tmp'>tmp</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="respond_to_missing?-instance_method">
+  
+    #<strong>respond_to_missing?</strong>(method, _include_private = false)  &#x21d2; <tt>Boolean</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+32
+33
+34</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'card-mod-bootstrap/lib/bootstrap/tag_method.rb', line 32</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_respond_to_missing?'>respond_to_missing?</span> <span class='id identifier rubyid_method'>method</span><span class='comma'>,</span> <span class='id identifier rubyid__include_private'>_include_private</span><span class='op'>=</span><span class='kw'>false</span>
+  <span class='ivar'>@component</span><span class='period'>.</span><span class='id identifier rubyid_respond_to?'>respond_to?</span> <span class='id identifier rubyid_method'>method</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -537,15 +602,15 @@
       <pre class="lines">
 
 
-52
-53
-54</pre>
+42
+43
+44</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card-mod-bootstrap/lib/bootstrap/component.rb', line 52</span>
+      <pre class="code"><span class="info file"># File 'card-mod-bootstrap/lib/bootstrap/tag_method.rb', line 42</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_wrap'>wrap</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span>
-  <span class='id identifier rubyid_instance_exec'>instance_exec</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span>
+  <span class='id identifier rubyid_instance_exec'>instance_exec</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -567,12 +632,12 @@
       <pre class="lines">
 
 
-60
-61
-62</pre>
+50
+51
+52</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card-mod-bootstrap/lib/bootstrap/component.rb', line 60</span>
+      <pre class="code"><span class="info file"># File 'card-mod-bootstrap/lib/bootstrap/tag_method.rb', line 50</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_wrapInner'>wrapInner</span> <span class='id identifier rubyid_tag'>tag</span><span class='op'>=</span><span class='kw'>nil</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span>
   <span class='ivar'>@wrap</span><span class='lbracket'>[</span><span class='op'>-</span><span class='int'>1</span><span class='rbracket'>]</span> <span class='op'>&lt;&lt;</span> <span class='lparen'>(</span><span class='id identifier rubyid_block_given?'>block_given?</span> <span class='op'>?</span> <span class='id identifier rubyid_block'>block</span> <span class='op'>:</span> <span class='id identifier rubyid_tag'>tag</span><span class='rparen'>)</span>
@@ -587,9 +652,9 @@
 </div>
 
       <div id="footer">
-  Generated on Sun Oct 18 23:48:29 2020 by
+  Generated on Thu May 13 17:17:45 2021 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.25 (ruby-2.6.3).
+  0.9.26 (ruby-2.7.2).
 </div>
 
     </div>

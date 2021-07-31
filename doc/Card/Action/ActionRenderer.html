@@ -6,7 +6,7 @@
 <title>
   Class: Card::Action::ActionRenderer
   
-    &mdash; Documentation by YARD 0.9.25
+    &mdash; Documentation by YARD 0.9.26
   
 </title>
 
@@ -488,16 +488,16 @@
       <pre class="lines">
 
 
-5
 6
 7
 8
 9
 10
-11</pre>
+11
+12</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card-mod-history/lib/card/action/action_renderer.rb', line 5</span>
+      <pre class="code"><span class="info file"># File 'card-mod-history/lib/card/action/action_renderer.rb', line 6</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span> <span class='id identifier rubyid_format'>format</span><span class='comma'>,</span> <span class='id identifier rubyid_action'>action</span><span class='comma'>,</span> <span class='id identifier rubyid_header'>header</span><span class='op'>=</span><span class='kw'>true</span><span class='comma'>,</span> <span class='id identifier rubyid_action_view'>action_view</span><span class='op'>=</span><span class='symbol'>:summary</span><span class='comma'>,</span> <span class='id identifier rubyid_hide_diff'>hide_diff</span><span class='op'>=</span><span class='kw'>false</span>
   <span class='ivar'>@format</span> <span class='op'>=</span> <span class='id identifier rubyid_format'>format</span>
@@ -534,16 +534,16 @@
       <pre class="lines">
 
 
-14
 15
 16
 17
 18
 19
-20</pre>
+20
+21</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card-mod-history/lib/card/action/action_renderer.rb', line 14</span>
+      <pre class="code"><span class="info file"># File 'card-mod-history/lib/card/action/action_renderer.rb', line 15</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_method_missing'>method_missing</span> <span class='id identifier rubyid_method_name'>method_name</span><span class='comma'>,</span> <span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span>
   <span class='kw'>if</span> <span class='id identifier rubyid_block_given?'>block_given?</span>
@@ -668,7 +668,6 @@
       <pre class="lines">
 
 
-41
 42
 43
 44
@@ -680,10 +679,11 @@
 50
 51
 52
-53</pre>
+53
+54</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card-mod-history/lib/card/action/action_renderer.rb', line 41</span>
+      <pre class="code"><span class="info file"># File 'card-mod-history/lib/card/action/action_renderer.rb', line 42</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_action_panel'>action_panel</span>
   <span class='id identifier rubyid_bs_panel'>bs_panel</span> <span class='kw'>do</span>
@@ -718,14 +718,14 @@
       <pre class="lines">
 
 
-67
 68
 69
 70
-71</pre>
+71
+72</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card-mod-history/lib/card/action/action_renderer.rb', line 67</span>
+      <pre class="code"><span class="info file"># File 'card-mod-history/lib/card/action/action_renderer.rb', line 68</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_content_diff'>content_diff</span>
   <span class='kw'>return</span> <span class='ivar'>@action</span><span class='period'>.</span><span class='id identifier rubyid_raw_view'>raw_view</span> <span class='kw'>if</span> <span class='ivar'>@action</span><span class='period'>.</span><span class='id identifier rubyid_action_type'>action_type</span> <span class='op'>==</span> <span class='symbol'>:delete</span>
@@ -752,14 +752,14 @@
       <pre class="lines">
 
 
-79
 80
 81
 82
-83</pre>
+83
+84</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card-mod-history/lib/card/action/action_renderer.rb', line 79</span>
+      <pre class="code"><span class="info file"># File 'card-mod-history/lib/card/action/action_renderer.rb', line 80</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_name_changes'>name_changes</span>
   <span class='kw'>return</span> <span class='id identifier rubyid_old_name'>old_name</span> <span class='kw'>unless</span> <span class='ivar'>@action</span><span class='period'>.</span><span class='id identifier rubyid_new_name?'>new_name?</span>
@@ -786,7 +786,6 @@
       <pre class="lines">
 
 
-55
 56
 57
 58
@@ -796,10 +795,11 @@
 62
 63
 64
-65</pre>
+65
+66</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card-mod-history/lib/card/action/action_renderer.rb', line 55</span>
+      <pre class="code"><span class="info file"># File 'card-mod-history/lib/card/action/action_renderer.rb', line 56</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_name_diff'>name_diff</span>
   <span class='kw'>if</span> <span class='ivar'>@action</span><span class='period'>.</span><span class='id identifier rubyid_card'>card</span> <span class='op'>==</span> <span class='ivar'>@format</span><span class='period'>.</span><span class='id identifier rubyid_card'>card</span>
@@ -807,7 +807,7 @@
   <span class='kw'>else</span>
     <span class='id identifier rubyid_link_to_view'>link_to_view</span><span class='lparen'>(</span>
       <span class='symbol'>:related</span><span class='comma'>,</span> <span class='id identifier rubyid_name_changes'>name_changes</span><span class='comma'>,</span>
-      <span class='label'>path:</span> <span class='lbrace'>{</span> <span class='label'>slot:</span> <span class='lbrace'>{</span> <span class='label'>items:</span> <span class='lbrace'>{</span> <span class='label'>view:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>history</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>nest_name:</span> <span class='ivar'>@action</span><span class='period'>.</span><span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span> <span class='rbrace'>}</span> <span class='rbrace'>}</span> <span class='rbrace'>}</span><span class='comma'>,</span>
+      <span class='label'>path:</span> <span class='lbrace'>{</span> <span class='label'>slot:</span> <span class='lbrace'>{</span> <span class='label'>items:</span> <span class='lbrace'>{</span> <span class='label'>view:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>history</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>nest_name:</span> <span class='ivar'>@action</span><span class='period'>.</span><span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span> <span class='rbrace'>}</span> <span class='rbrace'>}</span> <span class='rbrace'>}</span>
       <span class='comment'># &quot;data-slot-selector&quot; =&gt; &quot;.card-slot.history-view&quot;
 </span>    <span class='rparen'>)</span>
   <span class='kw'>end</span>
@@ -832,12 +832,12 @@
       <pre class="lines">
 
 
-89
 90
-91</pre>
+91
+92</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card-mod-history/lib/card/action/action_renderer.rb', line 89</span>
+      <pre class="code"><span class="info file"># File 'card-mod-history/lib/card/action/action_renderer.rb', line 90</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_new_name'>new_name</span>
   <span class='id identifier rubyid_title_in_context'>title_in_context</span> <span class='ivar'>@action</span><span class='period'>.</span><span class='id identifier rubyid_value'>value</span><span class='lparen'>(</span><span class='symbol'>:name</span><span class='rparen'>)</span>
@@ -862,12 +862,12 @@
       <pre class="lines">
 
 
-85
 86
-87</pre>
+87
+88</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card-mod-history/lib/card/action/action_renderer.rb', line 85</span>
+      <pre class="code"><span class="info file"># File 'card-mod-history/lib/card/action/action_renderer.rb', line 86</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_old_name'>old_name</span>
   <span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span> <span class='op'>=</span> <span class='ivar'>@action</span><span class='period'>.</span><span class='id identifier rubyid_previous_value'>previous_value</span> <span class='symbol'>:name</span><span class='rparen'>)</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_title_in_context'>title_in_context</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='rparen'>)</span>
@@ -892,7 +892,6 @@
       <pre class="lines">
 
 
-26
 27
 28
 29
@@ -905,10 +904,11 @@
 36
 37
 38
-39</pre>
+39
+40</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card-mod-history/lib/card/action/action_renderer.rb', line 26</span>
+      <pre class="code"><span class="info file"># File 'card-mod-history/lib/card/action/action_renderer.rb', line 27</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_render'>render</span>
   <span class='id identifier rubyid_classes'>classes</span> <span class='op'>=</span> <span class='ivar'>@format</span><span class='period'>.</span><span class='id identifier rubyid_classy'>classy</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>action-list</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
@@ -967,12 +967,12 @@
       <pre class="lines">
 
 
-22
 23
-24</pre>
+24
+25</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card-mod-history/lib/card/action/action_renderer.rb', line 22</span>
+      <pre class="code"><span class="info file"># File 'card-mod-history/lib/card/action/action_renderer.rb', line 23</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_respond_to_missing?'>respond_to_missing?</span> <span class='id identifier rubyid_method_name'>method_name</span><span class='comma'>,</span> <span class='id identifier rubyid__include_private'>_include_private</span><span class='op'>=</span><span class='kw'>false</span>
   <span class='ivar'>@format</span><span class='period'>.</span><span class='id identifier rubyid_respond_to?'>respond_to?</span> <span class='id identifier rubyid_method_name'>method_name</span>
@@ -997,14 +997,14 @@
       <pre class="lines">
 
 
-73
 74
 75
 76
-77</pre>
+77
+78</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card-mod-history/lib/card/action/action_renderer.rb', line 73</span>
+      <pre class="code"><span class="info file"># File 'card-mod-history/lib/card/action/action_renderer.rb', line 74</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_type_diff'>type_diff</span>
   <span class='kw'>return</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>unless</span> <span class='ivar'>@action</span><span class='period'>.</span><span class='id identifier rubyid_new_type?'>new_type?</span>
@@ -1021,9 +1021,9 @@
 </div>
 
       <div id="footer">
-  Generated on Sun Oct 18 23:48:29 2020 by
+  Generated on Thu May 13 17:17:46 2021 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.25 (ruby-2.6.3).
+  0.9.26 (ruby-2.7.2).
 </div>
 
     </div>

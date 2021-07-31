@@ -19,9 +19,7 @@ include SelectedAction
 format do
   view :source do
     file = card.attachment
-    return "" unless file.valid?
-
-    contextualize_path file.url
+    file.valid? ? contextualize_path(file.url) : ""
   end
 
   view :core do
@@ -37,9 +35,13 @@ format do
   def handle_source
     rescuing_file_source_error do
       source = _render_source
-      return "" if source.blank?
-
-      block_given? ? yield(source) : source
+      if source.blank?
+        ""
+      elsif block_given?
+        yield source
+      else
+        source
+      end
     end
   end
 

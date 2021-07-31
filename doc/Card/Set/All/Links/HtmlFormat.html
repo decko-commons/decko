@@ -6,7 +6,7 @@
 <title>
   Module: Card::Set::All::Links::HtmlFormat
   
-    &mdash; Documentation by YARD 0.9.25
+    &mdash; Documentation by YARD 0.9.26
   
 </title>
 
@@ -83,7 +83,7 @@
   
   <dl>
     <dt>Defined in:</dt>
-    <dd>card/tmpsets/set/mod010-standard/all/links.rb</dd>
+    <dd>card/tmpsets/set/mod008-card-mod-format/all/links.rb</dd>
   </dl>
   
 </div>
@@ -241,7 +241,7 @@ and it adds special handling of “remote” and “method” opts
 105</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod010-standard/all/links.rb', line 100</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod008-card-mod-format/all/links.rb', line 100</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_link_to'>link_to</span> <span class='id identifier rubyid_text'>text</span><span class='op'>=</span><span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span>
   <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:href</span><span class='rbracket'>]</span> <span class='op'>||=</span> <span class='id identifier rubyid_path'>path</span> <span class='id identifier rubyid_opts'>opts</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='symbol'>:path</span><span class='rparen'>)</span>
@@ -289,7 +289,7 @@ TODO: upgrade from (known/wanted)-card to (real/virtual/unknown)-card</p>
 115</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod010-standard/all/links.rb', line 110</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod008-card-mod-format/all/links.rb', line 110</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_link_to_card'>link_to_card</span> <span class='id identifier rubyid_cardish'>cardish</span><span class='comma'>,</span> <span class='id identifier rubyid_text'>text</span><span class='op'>=</span><span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span>
   <span class='id identifier rubyid_name'>name</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../../Name.html" title="Card::Name (class)">Name</a></span></span><span class='lbracket'>[</span><span class='id identifier rubyid_cardish'>cardish</span><span class='rbracket'>]</span>
@@ -335,7 +335,7 @@ the resource is internal or external</p>
 129</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod010-standard/all/links.rb', line 126</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod008-card-mod-format/all/links.rb', line 126</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_link_to_resource'>link_to_resource</span> <span class='id identifier rubyid_resource'>resource</span><span class='comma'>,</span> <span class='id identifier rubyid_text'>text</span><span class='op'>=</span><span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span>
   <span class='id identifier rubyid_add_resource_opts'>add_resource_opts</span> <span class='id identifier rubyid_opts'>opts</span><span class='comma'>,</span> <span class='id identifier rubyid_resource_type'>resource_type</span><span class='lparen'>(</span><span class='id identifier rubyid_resource'>resource</span><span class='rparen'>)</span>
@@ -377,7 +377,7 @@ the resource is internal or external</p>
 121</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod010-standard/all/links.rb', line 118</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod008-card-mod-format/all/links.rb', line 118</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_link_to_view'>link_to_view</span> <span class='id identifier rubyid_view'>view</span><span class='comma'>,</span> <span class='id identifier rubyid_text'>text</span><span class='op'>=</span><span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span>
   <span class='id identifier rubyid_slotterify'>slotterify</span> <span class='id identifier rubyid_opts'>opts</span>
@@ -393,9 +393,9 @@ the resource is internal or external</p>
 </div>
 
       <div id="footer">
-  Generated on Sun Oct 18 23:47:52 2020 by
+  Generated on Thu May 13 17:17:25 2021 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.25 (ruby-2.6.3).
+  0.9.26 (ruby-2.7.2).
 </div>
 
     </div>

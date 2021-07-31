@@ -6,7 +6,7 @@
 <title>
   Module: CarrierWave::CardMount
   
-    &mdash; Documentation by YARD 0.9.25
+    &mdash; Documentation by YARD 0.9.26
   
 </title>
 
@@ -323,7 +323,11 @@
 129
 130
 131
-132</pre>
+132
+133
+134
+135
+136</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'card-mod-carrierwave/lib/carrier_wave/card_mount.rb', line 16</span>
@@ -343,14 +347,17 @@
           on: :delete, when: proc { |c| !c.history? } do
       remove_</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_column'>column</span><span class='embexpr_end'>}</span><span class='tstring_content'>!
     end
+
     event :mark_remove_</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_column'>column</span><span class='embexpr_end'>}</span><span class='tstring_content'>_false_event, :finalize,
           on: :update do
       mark_remove_</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_column'>column</span><span class='embexpr_end'>}</span><span class='tstring_content'>_false
     end
+
     event :store_previous_changes_for_</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_column'>column</span><span class='embexpr_end'>}</span><span class='tstring_content'>_event, :store,
           on: :update, when: proc { |c| !c.history? } do
       store_previous_changes_for_</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_column'>column</span><span class='embexpr_end'>}</span><span class='tstring_content'>
     end
+
     event :remove_previously_stored_</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_column'>column</span><span class='embexpr_end'>}</span><span class='tstring_content'>_event, :finalize,
           on: :update, when: proc { |c| !c.history?} do
       remove_previously_stored_</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_column'>column</span><span class='embexpr_end'>}</span><span class='tstring_content'>
@@ -383,6 +390,7 @@
 
     def </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_column'>column</span><span class='embexpr_end'>}</span><span class='tstring_content'>=(new_file)
       return if new_file.blank?
+      self.selected_action_id = Time.now.to_i unless history?
       assign_file(new_file) { super }
     end
 
@@ -515,9 +523,9 @@
 </div>
 
       <div id="footer">
-  Generated on Sun Oct 18 23:47:47 2020 by
+  Generated on Thu May 13 17:17:20 2021 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.25 (ruby-2.6.3).
+  0.9.26 (ruby-2.7.2).
 </div>
 
     </div>

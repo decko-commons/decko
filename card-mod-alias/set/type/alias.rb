@@ -16,10 +16,12 @@ def alias?
   true
 end
 
+# @return [Card::Name] name to which card's name is aliased
 def target_name
   first_name
 end
 
+# @return [Card] card to which card is aliased
 def target_card
   first_card
 end

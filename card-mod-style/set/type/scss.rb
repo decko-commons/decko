@@ -2,7 +2,7 @@ include_set Type::Css
 
 format do
   view :core, cache: :never do
-    compile_scss(process_content(_render_raw))
+    compile_scss process_content(_render_raw)
   end
 
   def compile_scss scss, style=:expanded

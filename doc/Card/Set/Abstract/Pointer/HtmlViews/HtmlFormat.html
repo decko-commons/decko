@@ -6,7 +6,7 @@
 <title>
   Module: Card::Set::Abstract::Pointer::HtmlViews::HtmlFormat
   
-    &mdash; Documentation by YARD 0.9.25
+    &mdash; Documentation by YARD 0.9.26
   
 </title>
 
@@ -83,8 +83,8 @@
   
   <dl>
     <dt>Defined in:</dt>
-    <dd>card/tmpsets/set/mod013-navbar/abstract/pointer/html_views.rb<span class="defines">,<br />
-  card/tmpsets/set/mod005-pointer/abstract/02_pointer/html_views.rb</span>
+    <dd>card/tmpsets/set/mod030-card-mod-layout/abstract/pointer/html_views.rb<span class="defines">,<br />
+  card/tmpsets/set/mod009-card-mod-list/abstract/01_pointer/html_views.rb</span>
 </dd>
   </dl>
   
@@ -590,6 +590,8 @@
       <pre class="lines">
 
 
+96
+97
 98
 99
 100
@@ -599,12 +601,10 @@
 104
 105
 106
-107
-108
-109</pre>
+107</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod005-pointer/abstract/02_pointer/html_views.rb', line 98</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod009-card-mod-list/abstract/01_pointer/html_views.rb', line 96</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_add_item_modal_link'>add_item_modal_link</span>
   <span class='id identifier rubyid_modal_link'>modal_link</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Add Item</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
@@ -638,10 +638,10 @@
       <pre class="lines">
 
 
-115</pre>
+113</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod005-pointer/abstract/02_pointer/html_views.rb', line 115</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod009-card-mod-list/abstract/01_pointer/html_views.rb', line 113</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_add_item_overlay_link'>add_item_overlay_link</span><span class='semicolon'>;</span> <span class='kw'>end</span></pre>
     </td>
@@ -664,13 +664,13 @@
       <pre class="lines">
 
 
+70
+71
 72
-73
-74
-75</pre>
+73</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod005-pointer/abstract/02_pointer/html_views.rb', line 72</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod009-card-mod-list/abstract/01_pointer/html_views.rb', line 70</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_autocomplete_input'>autocomplete_input</span>
   <span class='id identifier rubyid_items'>items</span> <span class='op'>=</span> <span class='id identifier rubyid_items_for_input'>items_for_input</span>
@@ -696,12 +696,12 @@
       <pre class="lines">
 
 
-77
-78
-79</pre>
+75
+76
+77</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod005-pointer/abstract/02_pointer/html_views.rb', line 77</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod009-card-mod-list/abstract/01_pointer/html_views.rb', line 75</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_checkbox_input'>checkbox_input</span>
   <span class='id identifier rubyid_haml'>haml</span> <span class='symbol'>:checkbox_input</span><span class='comma'>,</span> <span class='label'>submit_on_change:</span> <span class='ivar'>@submit_on_change</span>
@@ -726,12 +726,12 @@
       <pre class="lines">
 
 
-48
-49
-50</pre>
+46
+47
+48</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod005-pointer/abstract/02_pointer/html_views.rb', line 48</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod009-card-mod-list/abstract/01_pointer/html_views.rb', line 46</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_default_input_type'>default_input_type</span>
   <span class='symbol'>:list</span>
@@ -768,16 +768,16 @@ end</p>
       <pre class="lines">
 
 
+58
+59
 60
 61
 62
 63
-64
-65
-66</pre>
+64</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod005-pointer/abstract/02_pointer/html_views.rb', line 60</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod009-card-mod-list/abstract/01_pointer/html_views.rb', line 58</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_list_input'>list_input</span> <span class='id identifier rubyid_args'>args</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span>
   <span class='id identifier rubyid_items'>items</span> <span class='op'>=</span> <span class='id identifier rubyid_items_for_input'>items_for_input</span> <span class='id identifier rubyid_args'>args</span><span class='lbracket'>[</span><span class='symbol'>:item_list</span><span class='rbracket'>]</span>
@@ -806,14 +806,14 @@ end</p>
       <pre class="lines">
 
 
+90
+91
 92
 93
-94
-95
-96</pre>
+94</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod005-pointer/abstract/02_pointer/html_views.rb', line 92</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod009-card-mod-list/abstract/01_pointer/html_views.rb', line 90</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_multiselect_input'>multiselect_input</span>
   <span class='id identifier rubyid_select_tag'>select_tag</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>pointer_multiselect-</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_unique_id'>unique_id</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
@@ -840,12 +840,12 @@ end</p>
       <pre class="lines">
 
 
-111
-112
-113</pre>
+109
+110
+111</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod005-pointer/abstract/02_pointer/html_views.rb', line 111</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod009-card-mod-list/abstract/01_pointer/html_views.rb', line 109</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_not_ids_value'>not_ids_value</span>
   <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_item_ids'>item_ids</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='symbol'>:to_s</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>,</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
@@ -870,16 +870,16 @@ end</p>
       <pre class="lines">
 
 
+115
+116
 117
 118
 119
 120
-121
-122
-123</pre>
+121</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod005-pointer/abstract/02_pointer/html_views.rb', line 117</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod009-card-mod-list/abstract/01_pointer/html_views.rb', line 115</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_one_line_content'>one_line_content</span>
   <span class='kw'>if</span> <span class='id identifier rubyid_count'>count</span> <span class='op'>==</span> <span class='int'>1</span>
@@ -908,12 +908,12 @@ end</p>
       <pre class="lines">
 
 
-81
-82
-83</pre>
+79
+80
+81</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod005-pointer/abstract/02_pointer/html_views.rb', line 81</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod009-card-mod-list/abstract/01_pointer/html_views.rb', line 79</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_radio_input'>radio_input</span>
   <span class='id identifier rubyid_haml'>haml</span> <span class='symbol'>:radio_input</span><span class='comma'>,</span> <span class='label'>submit_on_change:</span> <span class='ivar'>@submit_on_change</span>
@@ -938,15 +938,15 @@ end</p>
       <pre class="lines">
 
 
+83
+84
 85
 86
 87
-88
-89
-90</pre>
+88</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod005-pointer/abstract/02_pointer/html_views.rb', line 85</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod009-card-mod-list/abstract/01_pointer/html_views.rb', line 83</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_select_input'>select_input</span>
   <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>-- Select --</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span> <span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_merge'>merge</span> <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_options_hash'>options_hash</span>
@@ -974,14 +974,14 @@ end</p>
       <pre class="lines">
 
 
+19
+20
 21
 22
-23
-24
-25</pre>
+23</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod005-pointer/abstract/02_pointer/html_views.rb', line 21</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod009-card-mod-list/abstract/01_pointer/html_views.rb', line 19</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_standard_pointer_core'>standard_pointer_core</span>
   <span class='id identifier rubyid_with_paging'>with_paging</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_paging_args'>paging_args</span><span class='op'>|</span>
@@ -1008,12 +1008,12 @@ end</p>
       <pre class="lines">
 
 
-27
-28
-29</pre>
+25
+26
+27</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod005-pointer/abstract/02_pointer/html_views.rb', line 27</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod009-card-mod-list/abstract/01_pointer/html_views.rb', line 25</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_standard_pointer_items'>standard_pointer_items</span> <span class='id identifier rubyid_paging_args'>paging_args</span>
   <span class='id identifier rubyid_pointer_items'>pointer_items</span><span class='lparen'>(</span><span class='id identifier rubyid_paging_args'>paging_args</span><span class='period'>.</span><span class='id identifier rubyid_extract!'>extract!</span><span class='lparen'>(</span><span class='symbol'>:limit</span><span class='comma'>,</span> <span class='symbol'>:offset</span><span class='rparen'>)</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='id identifier rubyid_voo'>voo</span><span class='period'>.</span><span class='id identifier rubyid_separator'>separator</span> <span class='op'>||</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>\n</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
@@ -1038,12 +1038,12 @@ end</p>
       <pre class="lines">
 
 
-11
-12
-13</pre>
+9
+10
+11</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod005-pointer/abstract/02_pointer/html_views.rb', line 11</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod009-card-mod-list/abstract/01_pointer/html_views.rb', line 9</span>
 
 <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:core</span><span class='comma'>,</span> <span class='label'>cache:</span> <span class='symbol'>:never</span> <span class='kw'>do</span>
   <span class='id identifier rubyid_standard_pointer_core'>standard_pointer_core</span>
@@ -1068,12 +1068,12 @@ end</p>
       <pre class="lines">
 
 
-44
-45
-46</pre>
+42
+43
+44</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod005-pointer/abstract/02_pointer/html_views.rb', line 44</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod009-card-mod-list/abstract/01_pointer/html_views.rb', line 42</span>
 
 <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:input</span> <span class='kw'>do</span>
   <span class='id identifier rubyid__render_hidden_content_field'>_render_hidden_content_field</span> <span class='op'>+</span> <span class='kw'>super</span><span class='lparen'>(</span><span class='rparen'>)</span>
@@ -1098,14 +1098,14 @@ end</p>
       <pre class="lines">
 
 
+13
+14
 15
 16
-17
-18
-19</pre>
+17</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod005-pointer/abstract/02_pointer/html_views.rb', line 15</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod009-card-mod-list/abstract/01_pointer/html_views.rb', line 13</span>
 
 <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:item_cores</span><span class='comma'>,</span> <span class='label'>cache:</span> <span class='symbol'>:never</span> <span class='kw'>do</span>
   <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_known_item_cards'>known_item_cards</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_item'>item</span><span class='op'>|</span>
@@ -1132,12 +1132,12 @@ end</p>
       <pre class="lines">
 
 
-52
-53
-54</pre>
+50
+51
+52</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod005-pointer/abstract/02_pointer/html_views.rb', line 52</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod009-card-mod-list/abstract/01_pointer/html_views.rb', line 50</span>
 
 <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:list</span><span class='comma'>,</span> <span class='label'>cache:</span> <span class='symbol'>:never</span> <span class='kw'>do</span>
   <span class='id identifier rubyid_list_input'>list_input</span>
@@ -1167,7 +1167,7 @@ end</p>
 11</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod013-navbar/abstract/pointer/html_views.rb', line 9</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod030-card-mod-layout/abstract/pointer/html_views.rb', line 9</span>
 
 <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:nav_item</span> <span class='kw'>do</span>
   <span class='id identifier rubyid_nav_dropdown'>nav_dropdown</span>
@@ -1192,17 +1192,17 @@ end</p>
       <pre class="lines">
 
 
+29
+30
 31
 32
 33
 34
 35
-36
-37
-38</pre>
+36</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod005-pointer/abstract/02_pointer/html_views.rb', line 31</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod009-card-mod-list/abstract/01_pointer/html_views.rb', line 29</span>
 
 <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:one_line_content</span> <span class='kw'>do</span>
   <span class='id identifier rubyid_item_view'>item_view</span> <span class='op'>=</span> <span class='id identifier rubyid_implicit_item_view'>implicit_item_view</span>
@@ -1232,12 +1232,12 @@ end</p>
       <pre class="lines">
 
 
-40
-41
-42</pre>
+38
+39
+40</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod005-pointer/abstract/02_pointer/html_views.rb', line 40</span>
+      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod009-card-mod-list/abstract/01_pointer/html_views.rb', line 38</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_wrap_item'>wrap_item</span> <span class='id identifier rubyid_rendered'>rendered</span><span class='comma'>,</span> <span class='id identifier rubyid_item_view'>item_view</span>
   <span class='tstring'><span class='tstring_beg'>%(</span><span class='tstring_content'>&lt;div class=&quot;pointer-item item-</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_item_view'>item_view</span><span class='embexpr_end'>}</span><span class='tstring_content'>&quot;&gt;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_rendered'>rendered</span><span class='embexpr_end'>}</span><span class='tstring_content'>&lt;/div&gt;</span><span class='tstring_end'>)</span></span>
@@ -1252,9 +1252,9 @@ end</p>
 </div>
 
       <div id="footer">
-  Generated on Sun Oct 18 23:48:10 2020 by
+  Generated on Thu May 13 17:17:39 2021 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.25 (ruby-2.6.3).
+  0.9.26 (ruby-2.7.2).
 </div>
 
     </div>
