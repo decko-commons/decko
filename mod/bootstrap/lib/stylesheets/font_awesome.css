@@ -4588,8 +4588,8 @@ readers do not read off random characters that represent icons */
   font-style: normal;
   font-weight: 400;
   font-display: block;
-  src: url([[/assets/bootstrap/fonts/fa-brands-400.eot]]);
-  src: url([[/assets/bootstrap/fonts/fa-brands-400.eot?#iefix]]) format("embedded-opentype"), url([[/assets/bootstrap/fonts/fa-brands-400.woff2]]) format("woff2"), url([[/assets/bootstrap/fonts/fa-brands-400.woff]]) format("woff"), url([[/assets/bootstrap/fonts/fa-brands-400.ttf]]) format("truetype"), url([[/assets/bootstrap/fonts/fa-brands-400.svg#fontawesome]]) format("svg"); }
+  src: url([[/mod/bootstrap/assets/fonts/fa-brands-400.eot]]);
+  src: url([[/mod/bootstrap/assets/fonts/fa-brands-400.eot?#iefix]]) format("embedded-opentype"), url([[/mod/bootstrap/assets/fonts/fa-brands-400.woff2]]) format("woff2"), url([[/mod/bootstrap/assets/fonts/fa-brands-400.woff]]) format("woff"), url([[/mod/bootstrap/assets/fonts/fa-brands-400.ttf]]) format("truetype"), url([[/mod/bootstrap/assets/fonts/fa-brands-400.svg#fontawesome]]) format("svg"); }
 
 .fab {
   font-family: 'Font Awesome 5 Brands';
@@ -4599,8 +4599,8 @@ readers do not read off random characters that represent icons */
   font-style: normal;
   font-weight: 400;
   font-display: block;
-  src: url([[/assets/bootstrap/fonts/fa-regular-400.eot]]);
-  src: url([[/assets/bootstrap/fonts/fa-regular-400.eot?#iefix]]) format("embedded-opentype"), url([[/assets/bootstrap/fonts/fa-regular-400.woff2]]) format("woff2"), url([[/assets/bootstrap/fonts/fa-regular-400.woff]]) format("woff"), url([[/assets/bootstrap/fonts/fa-regular-400.ttf]]) format("truetype"), url([[/assets/bootstrap/fonts/fa-regular-400.svg#fontawesome]]) format("svg"); }
+  src: url([[/mod/bootstrap/assets/fonts/fa-regular-400.eot]]);
+  src: url([[/mod/bootstrap/assets/fonts/fa-regular-400.eot?#iefix]]) format("embedded-opentype"), url([[/mod/bootstrap/assets/fonts/fa-regular-400.woff2]]) format("woff2"), url([[/mod/bootstrap/assets/fonts/fa-regular-400.woff]]) format("woff"), url([[/mod/bootstrap/assets/fonts/fa-regular-400.ttf]]) format("truetype"), url([[/mod/bootstrap/assets/fonts/fa-regular-400.svg#fontawesome]]) format("svg"); }
 
 .far {
   font-family: 'FontAwesome';
@@ -4610,8 +4610,8 @@ readers do not read off random characters that represent icons */
   font-style: normal;
   font-weight: 900;
   font-display: block;
-  src: url([[/assets/bootstrap/fonts/fa-solid-900.eot]]);
-  src: url([[/assets/bootstrap/fonts/fa-solid-900.eot?#iefix]]) format("embedded-opentype"), url([[/assets/bootstrap/fonts/fa-solid-900.woff2]]) format("woff2"), url([[/assets/bootstrap/fonts/fa-solid-900.woff]]) format("woff"), url([[/assets/bootstrap/fonts/fa-solid-900.ttf]]) format("truetype"), url([[/assets/bootstrap/fonts/fa-solid-900.svg#fontawesome]]) format("svg"); }
+  src: url([[/mod/bootstrap/assets/fonts/fa-solid-900.eot]]);
+  src: url([[/mod/bootstrap/assets/fonts/fa-solid-900.eot?#iefix]]) format("embedded-opentype"), url([[/mod/bootstrap/assets/fonts/fa-solid-900.woff2]]) format("woff2"), url([[/mod/bootstrap/assets/fonts/fa-solid-900.woff]]) format("woff"), url([[/mod/bootstrap/assets/fonts/fa-solid-900.ttf]]) format("truetype"), url([[/mod/bootstrap/assets/fonts/fa-solid-900.svg#fontawesome]]) format("svg"); }
 
 .fa,
 .fas {
