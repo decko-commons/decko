@@ -4,8 +4,9 @@ namespace :card do
     task symlink: :environment do
       FileUtils.mkdir_p public_mod_dir unless File.exist? public_mod_dir
       Cardio::Mod.dirs.each_public_path do |mod, target|
-        puts "#{target} :: #{public_mod_dir(mod)}"
-        FileUtils.ln_sf target, public_mod_dir(mod)
+        link = public_mod_dir mod
+        FileUtils.rm_rf link
+        FileUtils.ln_sf target, link
       end
     end
 
