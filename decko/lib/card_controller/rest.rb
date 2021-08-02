@@ -24,8 +24,8 @@ class CardController
 
     # @deprecated
     def asset
-      body = "Decko installation error: missing asset symlinks"
-      Rails.logger.info "#{body}.\n  >>> Try `rake decko:update_assets_symlink`"
+      body = "Decko installation error: missing public directory symlinks"
+      Rails.logger.info "#{body}.\n  >>> Try `rake card:mod:symlink`"
       render body: body, status: 404
     end
 

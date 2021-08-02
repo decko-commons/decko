@@ -14,9 +14,9 @@ class AddModScriptAssetsType < Cardio::Migration::Core
   end
 
   def add_cardtypes
-    ensure_code_card name: "Mod script assets", type_id: Card::CardtypeID
-    ensure_code_card name: "Local script folder group", type_id: Card::CardtypeID
-    ensure_code_card name: "Local script manifest group", type_id: Card::CardtypeID
+    ensure_code_card name: "Mod script assets", type_code: :cardtype
+    ensure_code_card name: "Local script folder group", type_code: :cardtype
+    ensure_code_card name: "Local script manifest group", type_code: :cardtype
   end
 
   def delete_script_cards

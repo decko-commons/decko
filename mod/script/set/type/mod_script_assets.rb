@@ -1,7 +1,7 @@
 include_set Abstract::ModAssets
 
 def subpath
-  "javascript"
+  "script"
 end
 
 def local_folder_group_type_id

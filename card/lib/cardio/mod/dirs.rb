@@ -129,9 +129,9 @@ module Cardio
         end
       end
 
-      def each_public_assets_path
+      def each_public_path
         @mods.each do |mod|
-          path = mod.public_assets_path
+          path = mod.public_path
           next unless Dir.exist? path
 
           yield mod.name, path
