@@ -2,10 +2,10 @@ namespace :card do
   namespace :mod do
     desc "symlink from deck public/{modname} to mod's public directory"
     task symlink: :environment do
+      FileUtils.mkdir_p public_mod_dir unless File.exist? public_mod_dir
       Cardio::Mod.dirs.each_public_path do |mod, target|
-        link = File.join Rails.public_path, mod
-        FileUtils.rm_rf link
-        FileUtils.ln_s target, link, force: true
+        puts "#{target} :: #{public_mod_dir(mod)}"
+        FileUtils.ln_sf target, public_mod_dir(mod)
       end
     end
 
@@ -18,6 +18,11 @@ namespace :card do
         mod.ensure_mod_installed
         Card::Cache.reset_all
       end
+    end
+
+    def public_mod_dir subdir=nil
+      parts = [Rails.public_path, "mod", subdir].compact
+      File.join(*parts)
     end
   end
 end
