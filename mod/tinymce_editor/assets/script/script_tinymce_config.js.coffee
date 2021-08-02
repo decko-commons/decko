@@ -45,7 +45,7 @@ $.extend decko,
     decko.addNestPlugin(conf)
 
 
-    tinyMCE.baseURL = decko.path('mod/tinymce_editor/assets/tinymce')
+    tinyMCE.baseURL = decko.path('mod/tinymce_editor')
     tinyMCE.suffix = '.min'
     # "##{el_id}"
     # tinyMCE.get(el_id).remove() if $("##{el_id}")[0]? and tinyMCE.get(el_id)?
@@ -55,5 +55,3 @@ $.extend decko,
     if conf.plugins?  then conf.plugins += " nest"    else conf.plugins = "nest"
     # if conf.toolbar1? then conf.toolbar1 += " | nest" else conf.toolbar1 = "nest"
     conf.menu = { insert: { title: "Insert", items: "deckolink nest image | hr"}}
-
-
