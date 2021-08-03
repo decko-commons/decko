@@ -1,4 +1,4 @@
-version: v1.0
+raversion: v1.0
 name: Decko Standard
 agent:
   machine:
@@ -16,7 +16,7 @@ global_job_config:
   prologue:
     commands:
       - checkout # semaphore does git checkout and cds into decko
-      # - sem-version ruby 2.6.3 # because pry-stack_explorer doesn't work in 2.5
+      - sem-version ruby 2.6.3 # because pry-stack_explorer doesn't work in 2.5
       - sem-version ruby 3.0.1 # temporary
       - alias be='bundle exec'
       - git submodule init
