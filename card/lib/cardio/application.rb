@@ -12,41 +12,16 @@ require "bootstrap4-kaminari-views"
 module Cardio
   # handles config and path defaults
   class Application < Rails::Application
-    def self.card_environment_initializer
-      initializer "card.load_environment_config",
-                  before: :load_environment_config, group: :all do
-        paths["card/config/environments"].existent.each do |environment|
-          require environment
-        end
-      end
-    end
-    card_environment_initializer
-
     def config
       @config ||= super.tap do |config|
-        simple_configs config
         coded_configs config
       end
     end
 
     private
 
-    def simple_configs config
-      config_from_yaml.each_pair do |setting, value|
-        config.send "#{setting}=", *value
-      end
-    end
-
-    # TODO: many of these defaults should be in mods!
-    def config_from_yaml
-      YAML.load_file File.expand_path("defaults.yml", __dir__)
-    end
-
     def coded_configs config
       config.autoloader = :zeitwerk
-      config.i18n.enforce_available_locales = true
-      config.read_only = !ENV["DECKO_READ_ONLY"].nil?
-      config.load_strategy = (ENV["REPO_TMPSETS"] || ENV["TMPSETS"] ? :tmp_files : :eval)
       config.autoload_paths += Dir["#{Cardio.gem_root}/lib"]
       Paths.new(config).assign
       Cardio::Mod.each_path do |mod_path|
