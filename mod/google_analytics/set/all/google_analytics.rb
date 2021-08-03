@@ -1,32 +1,47 @@
 require "staccato"
 
-mattr_accessor :server_side_tracking_formats
-
-self.server_side_tracking_formats = %i[csv json]
-
-event :track_page, before: :show_page, when: :track_page? do
-  tracker.pageview path: Env.controller.request&.path, host: Env.host, title: name
+event :track_page, before: :show_page, when: :track_page_from_server? do
+  track_page!
 end
 
-def track_page?
-  google_analytics_key &&
-    Env.controller&.response_format&.in?(server_side_tracking_formats)
+def track_page!
+  tracker.pageview tracker_options
 end
 
-def tracker
-  return unless google_analytics_key
-
-  ::Staccato.tracker google_analytics_key # , nil, ssl: true
-end
-
+# TODO: optimize so it doesn't keep doing lookup if there is no key.
 def google_analytics_key
   @google_analytics_key ||=
     Card::Rule.global_setting(:google_analytics_key) ||
     Card.config.google_analytics_key
 end
 
+def tracker
+  tracker_key && ::Staccato.tracker(tracker_key) # , nil, ssl: true
+end
+
+# can override to have separate keys for web and API
+def tracker_key
+  google_analytics_key
+end
+
+def tracker_options
+  r = Env.controller.request
+  {
+    path: r.path,
+    host: Env.host,
+    title: name,
+    user_id: Auth.current_id,
+    user_ip: r.remote_ip
+  }
+end
+
+# for override
+def track_page_from_server?
+  false
+end
+
 format :html do
-  delegate :tracker, :google_analytics_key, to: :card
+  delegate :google_analytics_key, to: :card
 
   def views_in_head
     super << :google_analytics_snippet

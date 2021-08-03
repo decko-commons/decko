@@ -45,7 +45,7 @@ class MigrateCustomizedBootstrapSkin < Cardio::Migration::Core
 
     migrate_customizable_bootstrap_skin
 
-    # Card.reset_all_machines
+    # Card::Machine.reset_all
   end
 
   def migrate_customizable_bootstrap_skin

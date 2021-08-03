@@ -38,4 +38,6 @@ Decko.application.class.configure do
 
   config.rescue_all_in_controller = false
   config.raise_all_rendering_errors = true
+
+  config.paging_limit = 10
 end

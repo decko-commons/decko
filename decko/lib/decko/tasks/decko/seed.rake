@@ -6,7 +6,7 @@ namespace :decko do
     task update: :environment do
       ENV["STAMP_MIGRATIONS"] = "true"
       ENV["GENERATE_FIXTURES"] = "true"
-      %w[reseed update seed:clean seed:supplement seed:dump].each do |task|
+      %w[reseed update mod:install seed:clean seed:supplement seed:dump].each do |task|
         Rake::Task["decko:#{task}"].invoke
       end
     end
@@ -47,7 +47,7 @@ namespace :decko do
 
     def clean_machines
       puts "clean machines"
-      Card.reset_all_machines
+      Card::Machine.reset_all
       reseed_machine_output
       clean_inputs_and_outputs
     end
@@ -56,6 +56,9 @@ namespace :decko do
       machine_seed_names.each do |name|
         puts "coding machine output for #{name}"
         Card[name].make_machine_output_coded
+      end
+      Card.search(type_id: Card::ModScriptAssetsID) do |card|
+        card.make_machine_output_coded true
       end
     end
 
@@ -72,13 +75,17 @@ namespace :decko do
     end
 
     def reserved_output? name
-      (machine_seed_names.member? name.left_name.key) &&
+      machine_seed_member?(name) &&
         (name.right_name.key == :machine_output.cardname.key)
+    end
+
+    def machine_seed_member? name
+      machine_seed_names.member?(name.left_name.key) || name.match(/^mod:/)
     end
 
     def machine_seed_names
       @machine_seed_names ||=
-        [%i[all script], %i[all style], [:script_html5shiv_printshiv]].map do |name|
+        [%i[all style], [:script_html5shiv_printshiv]].map do |name|
           Card::Name[*name]
         end
     end

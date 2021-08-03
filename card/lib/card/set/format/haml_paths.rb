@@ -3,6 +3,7 @@ class Card
     module Format
       # methods for handling paths to HAML templates
       module HamlPaths
+        CORE_MODS = ::Set.new %w[core admin].freeze
         TEMPLATE_DIR = %w[template set].freeze
 
         delegate :tmp_files?, to: Cardio::Mod::LoadStrategy
@@ -60,11 +61,11 @@ class Card
         end
 
         def source_mod_dir modname, carddir
-          if (m = modname.match(/^card-mod-(?<shortname>.*)/))
-            "/mod/#{m[:shortname]}/set/"
-          else
-            "#{carddir}/mod/#{modname}/set/"
-          end
+          # TODO: handle non-standard mod dirs
+          dir = "/mod/#{modname}/set/"
+          return dir unless modname.in? CORE_MODS
+
+          "#{carddir}/#{dir}/"
         end
 
         def try_haml_template_path template_path, view, source_dir, ext="haml"

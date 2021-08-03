@@ -8,9 +8,10 @@ DOCKER_IMAGES = %w[base bundled mysql postgres sandbox].map { |name| "decko-#{na
 # developers.  Therefore they should contain only tasks for core developers.
 
 task :push_gems do
-  each_gem do |gem|
+  each_gem do |dir, gem|
+    gem ||= dir
     v = gem == :card ? DeckoGem.card_version : version
-    system %(cd #{gem}; #{push_gem gem, v})
+    system %(cd #{dir}; #{push_gem gem, v})
   end
 end
 
@@ -32,24 +33,25 @@ task :build_images do
   DOCKER_IMAGES.each do |i|
     system "cd docker; "\
            "docker build -f repos/#{i}.dockerfile -t ethn/#{i} -t ethn/#{i}:v#{version} ."
-    system "docker push ethn/#{image}"
+    system "docker push ethn/#{i}"
   end
 end
 
 #------ Support methods -----------
 
-def each_gem &block
+def each_gem
+  yield :cardname
   yield :card
-  Dir.each_child "mod", &block
+  Dir.each_child("mod") { |mod| yield "mod/#{mod}", "card-mod-#{mod}" }
   yield :decko
-  Dir.each_child "support", &block
+  Dir.each_child("support") { |lib| yield "support/#{lib}", lib }
 end
 
-def push_gem gem, version
+def push_gem gem, version, prefix=""
   %(
     rm *.gem
-    gem build #{gem}.gemspec
-    gem push #{gem}-#{version}.gem
+    gem build #{prefix}#{gem}.gemspec
+    gem push #{prefix}#{gem}-#{version}.gem
   )
 end
 
