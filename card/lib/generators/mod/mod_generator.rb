@@ -49,9 +49,7 @@ module Cardio
       end
 
       def public_dir
-        inside "public" do
-          empty_directory "assets"
-        end
+        empty_directory "public"
       end
     end
   end

@@ -2,7 +2,8 @@ namespace :card do
   namespace :mod do
     desc "symlink from deck public/{modname} to mod's public directory"
     task symlink: :environment do
-      FileUtils.mkdir_p public_mod_dir unless File.exist? public_mod_dir
+      FileUtils.rm_rf public_mod_dir
+      FileUtils.mkdir_p public_mod_dir
       Cardio::Mod.dirs.each_public_path do |mod, target|
         link = public_mod_dir mod
         FileUtils.rm_rf link
