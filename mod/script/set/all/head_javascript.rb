@@ -30,6 +30,10 @@ format :html do
     end
   end
 
+  view :javascript_include_tag, unknown: true, perms: :none do
+    "\n<!-- javascript_include_tag not overridden for #{card.name} -->\n"
+  end
+
   def decko_script_variables
     {
       "window.decko": { rootUrl: card_url("") },
