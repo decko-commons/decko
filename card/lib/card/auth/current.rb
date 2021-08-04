@@ -76,7 +76,7 @@ class Card
       end
 
       def session_user_key
-        "user_#{Cardio.database_name.underscore}".to_sym
+        "user_#{Cardio::Utils.database_name.underscore}".to_sym
       end
 
       private

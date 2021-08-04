@@ -80,7 +80,7 @@ module Patches
     module ConnectionAdapters
       module AbstractAdapter
         def match _string
-          raise Cardio.t(:lib_exception_not_implemented)
+          raise ::I18n.t(:lib_exception_not_implemented)
         end
 
         def cast_types
@@ -123,7 +123,7 @@ module Patches
       module ClassMethods
         def check_pending! connection=::ActiveRecord::Base.connection
           %i[structure core_cards deck deck_cards].each do |migration_type|
-            Cardio.schema_mode(migration_type) do |paths|
+            Cardio::Schema.mode(migration_type) do |paths|
               ::ActiveRecord::Migrator.migrations_paths = paths
               super
             end

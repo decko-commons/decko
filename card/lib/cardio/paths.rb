@@ -48,8 +48,6 @@ module Cardio
     end
 
     def add_initializer_paths
-      puts "add_initializers (config.root) #{config.root}"
-
       add_path "config/initializers", glob: "**/*.rb"
       add_initializers config.root
       Cardio::Mod.each_path do |mod_path|
