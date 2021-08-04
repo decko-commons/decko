@@ -1,12 +1,17 @@
+require "cardio/paths"
+
 module Cardio
+  # primary railtie for cards
   class Railtie < Rails::Railtie
     # TODO: make support mod-specific railties and
 
-    # handles config and path defaults
-    initializer "card.load_environment_config",
-                before: :load_environment_config, group: :all do |app|
-      app.config.paths["card/config/environments"].existent.each do |environment|
-        require environment
+    config.before_configuration do |app|
+      app.config.autoloader = :zeitwerk
+      app.config.autoload_paths += Dir["#{Cardio.gem_root}/lib"]
+      Paths.new(app.config).assign
+      Cardio::Mod.each_path do |mod_path|
+        app.config.autoload_paths += Dir["#{mod_path}/lib"]
+        app.config.watchable_dirs["#{mod_path}/set"] = %i[rb haml]
       end
     end
 
