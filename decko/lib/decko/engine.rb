@@ -3,7 +3,6 @@ require "decko"
 
 module Decko
   class Engine < ::Rails::Engine
-    paths.add "gem-assets",       with: "rails/assets"
     paths.add "config/routes.rb", with: "rails/engine-routes.rb"
     paths.add "lib/tasks", with: "#{::Decko.gem_root}/lib/decko/tasks",
                            glob: "**/*.rake"
