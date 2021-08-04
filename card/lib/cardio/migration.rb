@@ -28,28 +28,20 @@ module Cardio
       end
 
       def migration_paths mig_type=type
-        Cardio.migration_paths mig_type
-      end
-
-      def schema mig_type=type
-        Cardio.schema mig_type
+        Schema.migration_paths mig_type
       end
 
       def schema_suffix mig_type=type
-        Cardio.schema_suffix mig_type
+        Schema.suffix mig_type
       end
 
-      def schema_mode mig_type=type
-        Cardio.with_suffix mig_type do
-          paths = Cardio.migration_paths(type)
-          yield(paths)
-        end
+      def schema_mode mig_type=type, &block
+        Schema.mode mig_type, &block
       end
 
       def assume_migrated_upto_version
         schema_mode do
-          ActiveRecord::Schema.assume_migrated_upto_version schema,
-                                                            migration_paths
+          ActiveRecord::Schema.assume_migrated_upto_version schema, migration_paths
         end
       end
 
@@ -59,9 +51,11 @@ module Cardio
       end
     end
 
+    delegate :schema_mode, :migration_paths, to: :class
+
     def contentedly
       Card::Cache.reset_all
-      Cardio.schema_mode "" do
+      Schema.mode "" do
         Card::Auth.as_bot do
           yield
         ensure
@@ -101,7 +95,7 @@ module Cardio
       names_or_keys = Array(names_or_keys)
       Card::Mailer.perform_deliveries = false
 
-      Cardio::Migration::Import.new(data_path).merge only: names_or_keys
+      Migration::Import.new(data_path).merge only: names_or_keys
     end
 
     def merge_pristine_cards names_or_keys
@@ -119,14 +113,6 @@ module Cardio
 
     def data_path filename=nil
       self.class.data_path filename
-    end
-
-    def schema_mode
-      Cardio.schema_mode self.class.type
-    end
-
-    def migration_paths
-      Cardio.paths self.class.type
     end
 
     # Execute this migration in the named direction
