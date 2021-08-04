@@ -42,7 +42,7 @@ module Cardio
       end
 
       def migration_paths type
-        list = paths["db/migrate#{suffix type}"].to_a
+        list = Cardio.paths["db/migrate#{suffix type}"].to_a
         case type
         when :core_cards
           list += mod_migration_paths "migrate_core_cards"
