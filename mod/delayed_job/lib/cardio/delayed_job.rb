@@ -19,4 +19,4 @@ module Cardio
   end
 end
 
-Cardio.extend Delaying
+Cardio.extend Cardio::Delaying

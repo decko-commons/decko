@@ -40,18 +40,13 @@ module Cardio
       end
 
       def assume_migrated_upto_version
-        schema_mode do
-          ActiveRecord::Schema.assume_migrated_upto_version schema, migration_paths
-        end
+        Schema.assume_migrated_upto_version type
       end
 
       def data_path filename=nil
-        path = migration_paths.first
-        File.join([path, "data", filename].compact)
+        File.join([migration_paths.first, "data", filename].compact)
       end
     end
-
-    delegate :schema_mode, :migration_paths, to: :class
 
     def contentedly
       Card::Cache.reset_all
