@@ -9,4 +9,4 @@ require "cardio/application"
 require "decko/engine"
 
 # The application class from which decko applications inherit
-Decko::Application = Cardio::Application
+Decko::Application = Rails::Application

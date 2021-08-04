@@ -8,4 +8,5 @@ require "kaminari"
 
 require "bootstrap4-kaminari-views"
 
+# The application class from which card applications inherit
 Cardio::Application = Rails::Application
