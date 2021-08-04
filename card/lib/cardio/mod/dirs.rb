@@ -1,3 +1,5 @@
+require "cardio/mod/modfile_loader"
+
 module Cardio
   class Mod
     # Dirs objects are used to manage the load paths for card mods.
@@ -127,9 +129,9 @@ module Cardio
         end
       end
 
-      def each_public_assets_path
+      def each_public_path
         @mods.each do |mod|
-          path = mod.public_assets_path
+          path = mod.public_path
           next unless Dir.exist? path
 
           yield mod.name, path

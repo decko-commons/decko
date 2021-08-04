@@ -24,8 +24,8 @@ class CardController
 
     # @deprecated
     def asset
-      body = "Decko installation error: missing asset symlinks"
-      Rails.logger.info "#{body}.\n  >>> Try `rake decko:update_assets_symlink`"
+      body = "Decko installation error: missing public directory symlinks"
+      Rails.logger.info "#{body}.\n  >>> Try `rake card:mod:symlink`"
       render body: body, status: 404
     end
 
@@ -35,7 +35,7 @@ class CardController
     private
 
     def setup
-      Card::Machine.refresh_script_and_style unless params[:explicit_file]
+      Card::Machine.refresh_assets unless params[:explicit_file]
       Card::Cache.renew
       Card::Env.reset controller: self
     end

@@ -86,7 +86,9 @@ class Card
         end
 
         def standard_changing_arg card, key, value
-          card.send(key) != value unless value.is_a? ::File
+          return true if value.is_a? ::File
+
+          card.send(key) != value
         end
       end
     end

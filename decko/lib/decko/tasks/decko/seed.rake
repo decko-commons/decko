@@ -6,7 +6,7 @@ namespace :decko do
     task update: :environment do
       ENV["STAMP_MIGRATIONS"] = "true"
       ENV["GENERATE_FIXTURES"] = "true"
-      %w[reseed update mod_install seed:clean seed:supplement seed:dump].each do |task|
+      %w[reseed update mod:install seed:clean seed:supplement seed:dump].each do |task|
         Rake::Task["decko:#{task}"].invoke
       end
     end
@@ -47,7 +47,7 @@ namespace :decko do
 
     def clean_machines
       puts "clean machines"
-      Card.reset_all_machines
+      Card::Machine.reset_all
       reseed_machine_output
       clean_inputs_and_outputs
     end

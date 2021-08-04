@@ -70,7 +70,7 @@ decko_namespace = namespace :decko do
     end
 
     puts "set symlink for assets"
-    decko_namespace["update_assets_symlink"].invoke
+    decko_namespace["card:mod:symlink"].invoke
   end
 
   desc "reset with an empty tmp directory"
@@ -94,43 +94,13 @@ decko_namespace = namespace :decko do
       decko_namespace["migrate"].invoke
       decko_namespace["reset_tmp"].invoke
       Card::Cache.reset_all
-      decko_namespace["mod_install"].invoke
-      decko_namespace["update_assets_symlink"].invoke
+      Rake::Task["card:mod:install"].invoke
+      Rake::Task["card:mod:symlink"].invoke
     end
   end
 
-  desc "set symlink for assets"
-  task update_assets_symlink: :environment do
-    prepped_asset_path do |assets_path|
-      Cardio::Mod.dirs.each_public_assets_path do |mod, target|
-        link = File.join assets_path, mod
-        FileUtils.rm_rf link
-        FileUtils.ln_s target, link, force: true
-      end
-    end
-  end
-
-  desc "install mods"
-  task mod_install: :environment do
-    Card.reset_script_machine
-    Card::Cache.reset_all
-    Cardio::Mod.dirs.mods.each do |mod|
-      mod.ensure_mod_installed
-      Card::Cache.reset_all
-    end
-  end
-
-  def prepped_asset_path
-    return if Rails.root.to_s == Decko.gem_root # inside decko gem
-
-    assets_path = File.join Rails.public_path, "assets"
-    if File.symlink?(assets_path) || !File.directory?(assets_path)
-      FileUtils.rm_rf assets_path
-      FileUtils.mkdir assets_path
-    end
-    yield assets_path
-  end
-
+  alias_task "mod:symlink", "card:mod:symlink"
+  alias_task "mod:install", "card:mod:install"
   alias_task :migrate, "card:migrate"
 
   desc "insert existing card migrations into schema_migrations_cards to avoid re-migrating"

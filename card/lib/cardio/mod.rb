@@ -81,12 +81,12 @@ module Cardio
                 "mod#{'%03d' % (@index + 1)}-#{@name}"
     end
 
-    def public_assets_path
-      File.join(@path, "public", "assets")
+    def public_path
+      File.join @path, "public"
     end
 
     def assets_path
-      File.join(@path, "assets")
+      File.join @path, "assets"
     end
 
     def ensure_mod_installed
@@ -101,9 +101,9 @@ module Cardio
 
     def ensure_mod_card
       if Card::Codename.exists? codename
-        Card.fetch(codename.to_sym).tap do |card|
-          card.update type: :mod unless card.type_code == :mod
-        end
+        card = Card.fetch codename.to_sym
+        card.update type: :mod unless card.type_code == :mod
+        card
       else
         Card.create name: mod_card_name, type: :mod, codename: codename
       end

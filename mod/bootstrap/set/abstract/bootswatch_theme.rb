@@ -77,14 +77,14 @@ def after_engine output
   Card::Auth.as_bot { update! db_content: output }
 end
 
-# needed to make the refresh_script_and_style method work with these cards
+# needed to make the refresh_assets method work with these cards
 def source_files
   extended_input_cards.map do |i_card|
     i_card.try(:source_files)
   end.flatten.compact
 end
 
-# needed to make the refresh_script_and_style method work with these cards
+# needed to make the refresh_assets method work with these cards
 def existing_source_paths
   extended_input_cards.map do |i_card|
     i_card.try(:existing_source_paths)

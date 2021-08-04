@@ -2,7 +2,7 @@
 include_set Abstract::ModAssets
 
 def subpath
-  "stylesheets"
+  "style"
 end
 
 def local_folder_group_type_id

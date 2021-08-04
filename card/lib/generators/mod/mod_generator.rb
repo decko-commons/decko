@@ -22,8 +22,8 @@ module Cardio
 
       def assets_dir
         inside "assets" do
-          empty_directory "javascript"
-          empty_directory "stylesheets"
+          empty_directory "script"
+          empty_directory "style"
         end
       end
 
@@ -49,9 +49,7 @@ module Cardio
       end
 
       def public_dir
-        inside "public" do
-          empty_directory "assets"
-        end
+        empty_directory "public"
       end
     end
   end

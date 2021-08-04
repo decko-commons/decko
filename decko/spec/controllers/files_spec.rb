@@ -63,7 +63,8 @@ Decko::RestSpecHelper.describe_api do
     it "denies access" do
       get :asset, params: { mark: "/../../Gemfile" }
       expect(response.status).to eq(404)
-      expect(response.body).to eq("Decko installation error: missing asset symlinks")
+      expect(response.body)
+        .to eq("Decko installation error: missing public directory symlinks")
     end
   end
 end
