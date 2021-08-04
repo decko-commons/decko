@@ -17,6 +17,6 @@ module Cardio
       Cardio.config.delaying
     end
   end
-
-  Cardio.extend Delaying
 end
+
+Cardio.extend Delaying

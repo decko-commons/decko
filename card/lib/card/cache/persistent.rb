@@ -27,7 +27,7 @@ class Card
         @store = opts[:store]
         @klass = opts[:class]
         @class_key = @klass.to_s.to_name.key
-        @database = opts[:database] || Cardio::Utils.database_name
+        @database = opts[:database] || Cardio.database
       end
 
       # renew insures you're using the most current cache version by

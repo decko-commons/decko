@@ -31,5 +31,9 @@ module Cardio
     def cache
       @cache ||= ::Rails.cache
     end
+
+    def database
+      @database ||= config.database_configuration.dig Rails.env, "database"
+    end
   end
 end
