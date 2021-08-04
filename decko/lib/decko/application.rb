@@ -4,6 +4,7 @@ require "cardio/all"
 require "action_controller/railtie"
 require "decko/railtie"
 require "cardio/application"
+require "pry"
 
 # require_relative "config/initializers/sedate_parser"
 

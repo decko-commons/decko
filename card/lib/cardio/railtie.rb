@@ -8,6 +8,7 @@ module Cardio
     config.before_configuration do |app|
       app.config.autoloader = :zeitwerk
       app.config.autoload_paths += Dir["#{Cardio.gem_root}/lib"]
+      puts "assigning paths"
       Paths.new(app.config).assign
       Cardio::Mod.each_path do |mod_path|
         app.config.autoload_paths += Dir["#{mod_path}/lib"]

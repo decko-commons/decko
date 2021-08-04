@@ -16,6 +16,10 @@ module Decko
                 with: File.join(Decko.gem_root, "config/environments"),
                 glob: "#{Rails.env}.rb"
 
+      paths.add "decko/config/initializers",
+                with: File.join(Decko.gem_root, "config/initializers"),
+                glob: "**/*.rb"
+
       if paths["config/routes.rb"].existent.present?
         paths.add "config/routes.rb",
                   with: File.join(Decko.gem_root, "rails/application-routes.rb")
