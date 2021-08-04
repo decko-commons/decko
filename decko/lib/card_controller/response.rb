@@ -76,18 +76,6 @@ class CardController
       raise Card::Error, "tried to do soft redirect without a card"
     end
 
-    def asset_file_path filename
-      path = Decko::Engine.paths["gem-assets"].existent.first
-      path = File.join path, filename
-      validate_path filename, path
-      path
-    end
-
-    def validate_path filename, path
-      # for security, block relative paths
-      raise Card::Error::BadAddress if filename.include?("../") || !::File.exist?(path)
-    end
-
     # TODO: everything below should go in a separate file
     # below is about beginning (initialization).  above is about end (response)
     # Both this file and that would make sense as submodules of CardController

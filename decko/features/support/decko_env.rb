@@ -8,11 +8,11 @@ require "rspec-html-matchers"
 World(RSpecHtmlMatchers)
 
 Before do
-  Cardio.seed_test_db
+  Cardio::Utils.seed_test_db
 end
 
 at_exit do
-  Cardio.seed_test_db
+  Cardio::Utils.seed_test_db
 end
 
 Before("@javascript") do
