@@ -5,6 +5,13 @@ module Cardio
   class Railtie < Rails::Railtie
     # TODO: make support mod-specific railties and
 
+    initializer "card.load_environment_config",
+                before: :load_environment_config, group: :all do |app|
+      app.config.paths["card/config/environments"].existent.each do |environment|
+        require environment
+      end
+    end
+
     config.before_configuration do |app|
       app.config.autoloader = :zeitwerk
       app.config.autoload_paths += Dir["#{Cardio.gem_root}/lib"]

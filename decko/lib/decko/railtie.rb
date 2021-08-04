@@ -2,6 +2,13 @@ module Decko
   # decko configuration
   # also see cardio/railtie
   class Railtie < Rails::Railtie
+    initializer "decko.load_environment_config",
+                after: "card.load_environment_config", group: :all do |app|
+      app.config.paths["decko/config/environments"].existent.each do |environment|
+        require environment
+      end
+    end
+
     config.allow_concurrency = false
     config.assets.enabled = false
     config.assets.version = "1.0"
@@ -15,10 +22,6 @@ module Decko
       paths.add "decko/config/environments",
                 with: File.join(Decko.gem_root, "config/environments"),
                 glob: "#{Rails.env}.rb"
-
-      paths.add "decko/config/initializers",
-                with: File.join(Decko.gem_root, "config/initializers"),
-                glob: "**/*.rb"
 
       if paths["config/routes.rb"].existent.present?
         paths.add "config/routes.rb",
