@@ -1,4 +1,5 @@
 module Cardio
+  # railtie helper. needs refactoring.
   class Paths
     attr_reader :config, :paths
 
