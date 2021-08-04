@@ -12,7 +12,7 @@ class Card
       end
 
       def stamp_key
-        "#{Cardio.database_name}-stamp"
+        "#{Cardio::Utils.database_name}-stamp"
       end
 
       def renew

@@ -10,7 +10,7 @@ module Cardio
       @type = :deck
 
       def contentedly &block
-        Cardio.schema_mode :deck, &block
+        Schema.mode :deck, &block
       end
     end
   end
