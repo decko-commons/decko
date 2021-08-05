@@ -47,7 +47,7 @@ class Card
     def require_card_to_initialize!
       return if @card
 
-      raise Card::Error, Cardio.t(:lib_exception_init_without_card)
+      raise Card::Error, ::I18n.t(:lib_exception_init_without_card)
     end
 
     def include_set_format_modules
