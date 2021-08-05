@@ -3,10 +3,10 @@ require "decko"
 
 module Decko
   class Engine < ::Rails::Engine
-    paths.add "config/routes.rb", with: "rails/engine-routes.rb"
+    paths.add "config/routes.rb", with: "config/engine-routes.rb"
     paths.add "lib/tasks", with: "#{::Decko.gem_root}/lib/decko/tasks",
                            glob: "**/*.rake"
-    paths["lib/tasks"] << "#{::Cardio.gem_root}/lib/card/tasks"
+    paths["lib/tasks"] << "#{Cardio.gem_root}/lib/card/tasks"
     paths.add "decko/config/initializers",
               with: File.join(Decko.gem_root, "config/initializers"),
               glob: "**/*.rb"
@@ -32,12 +32,6 @@ module Decko
       ActiveSupport.on_load(:active_record) do
         ActiveRecord::Base.establish_connection(::Rails.env.to_sym)
       end
-      # ActiveSupport.on_load(:after_initialize) do
-      #   # require "card" if Cardio.load_card?
-      #   Card if Cardio.load_card?
-      # rescue ActiveRecord::StatementInvalid => e
-      #  ::Rails.logger.warn "database not available[#{::Rails.env}] #{e}"
-      # end
     end
   end
 end
