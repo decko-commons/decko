@@ -1,7 +1,7 @@
 def run_card_migration core_or_deck
   prepare_migration
   verbose = ENV["VERBOSE"] ? ENV["VERBOSE"] == "true" : true
-  Cardio.migrate core_or_deck, version, verbose
+  Cardio::Schema.migrate core_or_deck, version, verbose
 end
 
 def prepare_migration
@@ -41,7 +41,7 @@ namespace :card do
     task structure: :environment do
       ENV["SCHEMA"] ||= "#{Cardio.gem_root}/db/schema.rb"
       without_dumping do
-        Cardio.migrate :structure, version
+        Cardio::Schema.migrate :structure, version
       end
     end
 
@@ -62,7 +62,7 @@ namespace :card do
     def migrate_deck_structure
       require "cardio/migration/deck_structure"
       set_schema_path
-      Cardio.migrate :deck, version
+      Cardio::Schema.migrate :deck, version
       Rake::Task["db:_dump"].invoke # write schema.rb
       reset_column_information true
     end
@@ -87,7 +87,7 @@ namespace :card do
 
       ActiveRecord::Migration.verbose = verbose
       ActiveRecord::SchemaMigration.where(version: version.to_s).delete_all
-      Cardio.migrate :deck_cards, version
+      Cardio::Schema.migrate :deck_cards, version
     end
 
     # maybe we should move this to a method?
@@ -96,9 +96,9 @@ namespace :card do
       ENV["SCHEMA"] ||= "#{Cardio.gem_root}/db/schema.rb"
       Cardio.config.action_mailer.perform_deliveries = false
 
-      stamp_file = Cardio.schema_stamp_path(args[:type])
+      stamp_file = Cardio::Schema.stamp_path args[:type]
 
-      Cardio.schema_mode args[:type] do
+      Cardio::Schema.mode args[:type] do
         version = ActiveRecord::Migrator.current_version
         if version.to_i.positive? && (file = ::File.open(stamp_file, "w"))
           puts ">>  writing version: #{version} to #{stamp_file}"
