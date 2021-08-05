@@ -15,7 +15,7 @@ module Decko
       paths["config/environments"].unshift "#{Decko.gem_root}/config/environments"
 
       unless paths["config/routes.rb"].existent.present?
-        paths["config/routes.rb"] << "#{Decko.gem_root}/config/application-routes.rb"
+        paths["config/routes.rb"] << "#{Decko.gem_root}/config/application_routes.rb"
       end
     end
   end

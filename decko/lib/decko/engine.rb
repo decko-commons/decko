@@ -3,7 +3,7 @@ require "decko"
 
 module Decko
   class Engine < ::Rails::Engine
-    paths.add "config/routes.rb", with: "config/engine-routes.rb"
+    paths.add "config/routes.rb", with: "config/engine_routes.rb"
     paths.add "lib/tasks", with: "#{::Decko.gem_root}/lib/decko/tasks",
                            glob: "**/*.rake"
     paths["lib/tasks"] << "#{Cardio.gem_root}/lib/card/tasks"
@@ -20,7 +20,7 @@ module Decko
 
     initializer "engine.copy_configs",
                 before: "decko.engine.load_config_initializers" do
-      Engine.paths["lib/tasks"]     = Decko.paths["lib/tasks"]
+      Engine.paths["lib/tasks"] = Decko.paths["lib/tasks"]
       Engine.paths["config/routes.rb"] = Decko.paths["config/routes.rb"]
     end
 
