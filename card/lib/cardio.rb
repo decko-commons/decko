@@ -35,5 +35,13 @@ module Cardio
     def database
       @database ||= config.database_configuration.dig Rails.env, "database"
     end
+
+    def delaying! on=true
+      config.delaying = (on == true)
+    end
+
+    def delaying?
+      config.delaying
+    end
   end
 end

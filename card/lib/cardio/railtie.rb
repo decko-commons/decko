@@ -15,11 +15,24 @@ module Cardio
     config.before_configuration do |app|
       app.config.autoloader = :zeitwerk
       app.config.autoload_paths += Dir["#{Cardio.gem_root}/lib"]
+
+      paths = app.config.paths
+      paths["config/initializers"] << "#{Cardio.gem_root}/config/initializers"
+      paths.add "late/initializers", glob: "**/*.rb"
+
       Paths.new(app.config).assign
       Cardio::Mod.each_path do |mod_path|
         app.config.autoload_paths += Dir["#{mod_path}/lib"]
         app.config.watchable_dirs["#{mod_path}/set"] = %i[rb haml]
+
+        paths["config/initializers"] << "#{mod_path}/init/early"
+        paths["late/initializers"] << "#{mod_path}/init/late"
+        paths["config/locales"] << "#{mod_path}/locales"
       end
+
+      paths["app/models"] = []
+      paths["app/mailers"] = []
+      paths["app/controllers"] = []
     end
 
     # if you disable inline styles tinymce's formatting options stop working
