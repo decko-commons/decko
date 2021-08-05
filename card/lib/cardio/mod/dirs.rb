@@ -138,15 +138,6 @@ module Cardio
         end
       end
 
-      def each_assets_path
-        @mods.each do |mod|
-          path = mod.assets_path
-          next unless Dir.exist? path
-
-          yield mod.name, path
-        end
-      end
-
       private
 
       def load_from_modfile
