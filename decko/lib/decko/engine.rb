@@ -3,10 +3,10 @@ require "decko"
 
 module Decko
   class Engine < ::Rails::Engine
-    paths.add "config/routes.rb", with: "rails/engine-routes.rb"
+    paths.add "config/routes.rb", with: "config/engine-routes.rb"
     paths.add "lib/tasks", with: "#{::Decko.gem_root}/lib/decko/tasks",
                            glob: "**/*.rake"
-    paths["lib/tasks"] << "#{::Cardio.gem_root}/lib/card/tasks"
+    paths["lib/tasks"] << "#{Cardio.gem_root}/lib/card/tasks"
     paths.add "decko/config/initializers",
               with: File.join(Decko.gem_root, "config/initializers"),
               glob: "**/*.rb"
@@ -20,10 +20,6 @@ module Decko
 
     initializer "engine.copy_configs",
                 before: "decko.engine.load_config_initializers" do
-      # this code should all be in Decko somewhere, and it is now, gem-wize
-      # Ideally railties would do this for us; this is needed for both use cases
-      Engine.paths["request_log"]   = Decko.paths["request_log"]
-      Engine.paths["log"]           = Decko.paths["log"]
       Engine.paths["lib/tasks"]     = Decko.paths["lib/tasks"]
       Engine.paths["config/routes.rb"] = Decko.paths["config/routes.rb"]
     end
@@ -32,12 +28,6 @@ module Decko
       ActiveSupport.on_load(:active_record) do
         ActiveRecord::Base.establish_connection(::Rails.env.to_sym)
       end
-      # ActiveSupport.on_load(:after_initialize) do
-      #   # require "card" if Cardio.load_card?
-      #   Card if Cardio.load_card?
-      # rescue ActiveRecord::StatementInvalid => e
-      #  ::Rails.logger.warn "database not available[#{::Rails.env}] #{e}"
-      # end
     end
   end
 end
