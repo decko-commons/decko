@@ -1,27 +1,6 @@
-require "cardio/paths"
-
 module Cardio
   # primary railtie for cards
   class Railtie < Rails::Railtie
-    # TODO: make support mod-specific railties and
-
-    initializer "card.load_environment_config",
-                before: :load_environment_config, group: :all do |app|
-      app.config.paths["card/config/environments"].existent.each do |environment|
-        require environment
-      end
-    end
-
-    config.before_configuration do |app|
-      app.config.autoloader = :zeitwerk
-      app.config.autoload_paths += Dir["#{Cardio.gem_root}/lib"]
-      Paths.new(app.config).assign
-      Cardio::Mod.each_path do |mod_path|
-        app.config.autoload_paths += Dir["#{mod_path}/lib"]
-        app.config.watchable_dirs["#{mod_path}/set"] = %i[rb haml]
-      end
-    end
-
     # if you disable inline styles tinymce's formatting options stop working
     config.allow_inline_styles = true
     config.delaying = nil
@@ -92,5 +71,58 @@ module Cardio
     config.i18n.enforce_available_locales = true
     config.read_only = !ENV["DECKO_READ_ONLY"].nil?
     config.load_strategy = (ENV["REPO_TMPSETS"] || ENV["TMPSETS"] ? :tmp_files : :eval)
+
+    # TODO: support mod-specific railties
+
+    config.before_configuration do |app|
+      card_root = Cardio.gem_root
+
+      app.config.autoloader = :zeitwerk
+      app.config.autoload_paths += Dir["#{card_root}/lib"]
+
+      paths = app.config.paths
+      paths["config/environments"].unshift "#{card_root}/config/environments"
+
+      paths["config/initializers"] << "#{card_root}/config/initializers"
+      paths.add "late/initializers", glob: "**/*.rb"
+
+      paths.add "mod", with: "#{card_root}/mod"
+      paths["mod"] << "mod"
+      paths.add "files"
+
+      paths.add "db", with: "#{card_root}/db"
+      paths.add "db/seeds.rb", with: "#{card_root}/db/seeds.rb"
+      paths.add "db/migrate", with: "#{card_root}/db/migrate"
+      paths.add "db/migrate_core_cards", with: "#{card_root}/db/migrate_core_cards"
+
+      paths.add "db/migrate_deck", with: "db/migrate"
+      paths.add "db/migrate_deck_cards", with: "db/migrate"
+
+      Cardio::Mod.each_path do |mod_path|
+        app.config.autoload_paths += Dir["#{mod_path}/lib"]
+        app.config.watchable_dirs["#{mod_path}/set"] = %i[rb haml]
+
+        paths["config/initializers"] << "#{mod_path}/init/early"
+        paths["late/initializers"] << "#{mod_path}/init/late"
+        paths["config/locales"] << "#{mod_path}/locales"
+      end
+
+      paths["app/models"] = []
+      paths["app/mailers"] = []
+      paths["app/controllers"] = []
+    end
+
+    config.before_initialize do |app|
+      paths = app.config.paths
+      if app.config.load_strategy == :tmp_files
+        %w[set set_pattern].each do |dir|
+          if ENV["REPO_TMPSETS"]
+            paths.add "tmp/#{dir}", with: "#{Cardio.gem_root}/tmpsets/#{dir}"
+          else
+            paths.add "tmp/#{dir}"
+          end
+        end
+      end
+    end
   end
 end
