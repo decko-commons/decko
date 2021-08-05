@@ -70,7 +70,7 @@ module Cardio
 
     config.i18n.enforce_available_locales = true
     config.read_only = !ENV["DECKO_READ_ONLY"].nil?
-    config.load_strategy = ENV["REPO_TMPSETS"] || ENV["TMPSETS"] ? :tmp_files : :eval
+    config.load_strategy = (ENV["REPO_TMPSETS"] || ENV["TMPSETS"] ? :tmp_files : :eval)
 
     # TODO: support mod-specific railties
 
