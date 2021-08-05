@@ -2,9 +2,8 @@ module Cardio
   module Schema
     class << self
       def assume_migrated_upto_version type
-        mode type do
-          ActiveRecord::Schema.assume_migrated_upto_version version(type),
-                                                            migration_paths(type)
+        mode type do |paths|
+          ActiveRecord::Schema.assume_migrated_upto_version version(type), paths
         end
       end
 
@@ -35,7 +34,7 @@ module Cardio
       end
 
       def stamp_path type
-        root_dir = deck_migration?(type) ? root : gem_root
+        root_dir = deck_migration?(type) ? Cardio.root : Cardio.gem_root
         stamp_dir = ENV["SCHEMA_STAMP_PATH"] || File.join(root_dir, "db")
 
         File.join stamp_dir, "version#{suffix type}.txt"

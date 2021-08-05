@@ -96,7 +96,7 @@ module Cardio
       paths.add "db/migrate_core_cards", with: "#{card_root}/db/migrate_core_cards"
 
       paths.add "db/migrate_deck", with: "db/migrate"
-      paths.add "db/migrate_deck_cards", with: "db/migrate"
+      paths.add "db/migrate_deck_cards", with: "db/migrate_cards"
 
       Cardio::Mod.each_path do |mod_path|
         app.config.autoload_paths += Dir["#{mod_path}/lib"]
