@@ -9,11 +9,11 @@ module Decko
       end
     end
 
-    config.allow_concurrency = false
     config.assets.enabled = false
-    config.assets.version = "1.0"
+    config.assets.version = "1.0" # does the version matter if not enabled??
 
     config.before_configuration do |app|
+      app.config.allow_concurrency = false
       app.config.filter_parameters += [:password]
       app.config.autoload_paths += Dir["#{Decko.gem_root}/lib"]
 
