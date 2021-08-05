@@ -1,10 +1,14 @@
 # -*- encoding : utf-8 -*-
 
+require "cardio/delaying"
+
 ActiveSupport.on_load :after_card do
   Cardio::Mod.load
 end
 
 module Cardio
+  extend Delaying
+
   class << self
     delegate :application, :root, to: :Rails
     delegate :config, :paths, to: :application
