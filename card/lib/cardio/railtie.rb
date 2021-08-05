@@ -1,5 +1,3 @@
-require "cardio/paths"
-
 module Cardio
   # primary railtie for cards
   class Railtie < Rails::Railtie
@@ -13,14 +11,30 @@ module Cardio
     end
 
     config.before_configuration do |app|
+      card_root = Cardio.gem_root
+
       app.config.autoloader = :zeitwerk
-      app.config.autoload_paths += Dir["#{Cardio.gem_root}/lib"]
+      app.config.autoload_paths += Dir["#{card_root}/lib"]
 
       paths = app.config.paths
-      paths["config/initializers"] << "#{Cardio.gem_root}/config/initializers"
+      paths["config/initializers"] << "#{card_root}/config/initializers"
       paths.add "late/initializers", glob: "**/*.rb"
 
-      Paths.new(app.config).assign
+      paths.add "mod", "#{card_root}/mod"
+      paths["mod"] << "mod"
+      paths.add "files"
+
+      paths.add "db", "#{card_root}/db"
+      paths.add "db/seeds.rb", "#{card_root}/db/seeds.rb"
+      paths.add "db/migrate", "#{card_root}/db/migrate"
+      paths.add "db/migrate_core_cards", "#{card_root}/db/migrate_core_cards"
+
+      paths.add "db/migrate_deck", with: "db/migrate"
+      paths.add "db/migrate_deck_cards", with: "db/migrate"
+
+      paths.add "card/config/environments", glob: "#{Rails.env}.rb",
+                                            with: "#{card_root}/config/environments"
+
       Cardio::Mod.each_path do |mod_path|
         app.config.autoload_paths += Dir["#{mod_path}/lib"]
         app.config.watchable_dirs["#{mod_path}/set"] = %i[rb haml]
@@ -33,6 +47,18 @@ module Cardio
       paths["app/models"] = []
       paths["app/mailers"] = []
       paths["app/controllers"] = []
+    end
+
+    config.before_initialize do |app|
+      if app.config.load_strategy == :tmp_files
+        %w[set set_pattern].each do |dir|
+          if ENV["REPO_TMPSETS"]
+            paths.add "tmp/#{dir}", root: Cardio.gem_root, with: "tmpsets/#{dir}"
+          else
+            paths.add "tmp/#{dir}"
+          end
+        end
+      end
     end
 
     # if you disable inline styles tinymce's formatting options stop working
