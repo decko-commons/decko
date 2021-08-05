@@ -20,14 +20,14 @@ module Cardio
       paths["config/initializers"] << "#{card_root}/config/initializers"
       paths.add "late/initializers", glob: "**/*.rb"
 
-      paths.add "mod", "#{card_root}/mod"
+      paths.add "mod", with: "#{card_root}/mod"
       paths["mod"] << "mod"
       paths.add "files"
 
-      paths.add "db", "#{card_root}/db"
-      paths.add "db/seeds.rb", "#{card_root}/db/seeds.rb"
-      paths.add "db/migrate", "#{card_root}/db/migrate"
-      paths.add "db/migrate_core_cards", "#{card_root}/db/migrate_core_cards"
+      paths.add "db", with: "#{card_root}/db"
+      paths.add "db/seeds.rb", with: "#{card_root}/db/seeds.rb"
+      paths.add "db/migrate", with: "#{card_root}/db/migrate"
+      paths.add "db/migrate_core_cards", with: "#{card_root}/db/migrate_core_cards"
 
       paths.add "db/migrate_deck", with: "db/migrate"
       paths.add "db/migrate_deck_cards", with: "db/migrate"
@@ -130,6 +130,6 @@ module Cardio
 
     config.i18n.enforce_available_locales = true
     config.read_only = !ENV["DECKO_READ_ONLY"].nil?
-    config.load_strategy = (ENV["REPO_TMPSETS"] || ENV["TMPSETS"] ? :tmp_files : :eval)
+    config.load_strategy = (ENV["REPO_TMPSETS"] || ENV["TMPSETS"]) ? :tmp_files : :eval
   end
 end

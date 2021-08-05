@@ -1,4 +1,4 @@
-require File.expand_path("boot", __dir__)
+require File.expand_path "boot", __dir__
 
 require "decko/application"
 
