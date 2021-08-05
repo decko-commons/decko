@@ -20,10 +20,6 @@ module Decko
 
     initializer "engine.copy_configs",
                 before: "decko.engine.load_config_initializers" do
-      # this code should all be in Decko somewhere, and it is now, gem-wize
-      # Ideally railties would do this for us; this is needed for both use cases
-      Engine.paths["request_log"]   = Decko.paths["request_log"]
-      Engine.paths["log"]           = Decko.paths["log"]
       Engine.paths["lib/tasks"]     = Decko.paths["lib/tasks"]
       Engine.paths["config/routes.rb"] = Decko.paths["config/routes.rb"]
     end

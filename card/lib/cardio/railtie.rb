@@ -46,7 +46,7 @@ module Cardio
       if app.config.load_strategy == :tmp_files
         %w[set set_pattern].each do |dir|
           if ENV["REPO_TMPSETS"]
-            paths.add "tmp/#{dir}", root: Cardio.gem_root, with: "tmpsets/#{dir}"
+            paths.add "tmp/#{dir}", with: "#{Cardio.gem_root}/tmpsets/#{dir}"
           else
             paths.add "tmp/#{dir}"
           end
