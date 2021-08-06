@@ -13,7 +13,7 @@ module Decko
         c.autoload_paths += Dir["#{gem_root}/lib"]
 
         c.paths.tap do |p|
-          p["lib/tasks"].unshift "#{gem_root}/lib/tasks"
+          p["lib/tasks"].unshift "#{gem_root}/lib/decko/tasks"
 
           p["config/environments"].unshift "#{gem_root}/config/environments"
           p["config/initializers"].unshift "#{gem_root}/config/initializers"

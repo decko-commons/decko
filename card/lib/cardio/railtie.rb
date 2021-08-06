@@ -87,6 +87,8 @@ module Cardio
           p["config/initializers"] << "#{card_root}/config/initializers"
           p.add "late/initializers", glob: "**/*.rb"
 
+          p["lib/tasks"] << "#{card_root}/lib/card/tasks"
+
           p.add "mod", with: "#{card_root}/mod"
           p["mod"] << "mod"
           p.add "files"
