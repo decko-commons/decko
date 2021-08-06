@@ -6,7 +6,7 @@ class DeckoGem
 
   VERSION = File.open(File.expand_path("card/VERSION", __dir__)).read.chomp
   CARD_MINOR = { 0 => 90, 1 => 1000 }.freeze # can remove and hardcode after 1.0
-  RAILS_VERSION = "~> 6.1.3.1".freeze
+  RAILS_VERSION = "~> 6.1.4".freeze
   # reduce digits after 6.2 (mimemagic issue)
 
   class << self
@@ -75,7 +75,8 @@ class DeckoGem
   def mod name
     spec.name = "card-mod-#{name}"
     spec.metadata = standard_metadata.merge "card-mod" => name
-    spec.files = Dir["{db,file,lib,public,set,config,vendor}/**/*", "README.md"]
+    spec.files =
+      Dir["{assets,db,file,lib,public,set,config,init,locales,vendor}/**/*", "README.md"]
     spec.add_runtime_dependency "card", card_version
   end
 
