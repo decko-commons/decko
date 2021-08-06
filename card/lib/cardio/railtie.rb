@@ -77,49 +77,53 @@ module Cardio
     config.before_configuration do |app|
       card_root = Cardio.gem_root
 
-      app.config.autoloader = :zeitwerk
-      app.config.autoload_paths += Dir["#{card_root}/lib"]
+      app.config.tap do |c|
+        c.autoloader = :zeitwerk
+        c.autoload_paths += Dir["#{card_root}/lib"]
 
-      paths = app.config.paths
-      paths["config/environments"].unshift "#{card_root}/config/environments"
+        c.paths.tap do |p|
+          p["config/environments"].unshift "#{card_root}/config/environments"
 
-      paths["config/initializers"] << "#{card_root}/config/initializers"
-      paths.add "late/initializers", glob: "**/*.rb"
+          p["config/initializers"] << "#{card_root}/config/initializers"
+          p.add "late/initializers", glob: "**/*.rb"
 
-      paths.add "mod", with: "#{card_root}/mod"
-      paths["mod"] << "mod"
-      paths.add "files"
+          p.add "mod", with: "#{card_root}/mod"
+          p["mod"] << "mod"
+          p.add "files"
 
-      paths.add "db", with: "#{card_root}/db"
-      paths.add "db/seeds.rb", with: "#{card_root}/db/seeds.rb"
-      paths.add "db/migrate", with: "#{card_root}/db/migrate"
-      paths.add "db/migrate_core_cards", with: "#{card_root}/db/migrate_core_cards"
+          p.add "db", with: "#{card_root}/db"
+          p.add "db/seeds.rb", with: "#{card_root}/db/seeds.rb"
+          p.add "db/migrate", with: "#{card_root}/db/migrate"
+          p.add "db/migrate_core_cards", with: "#{card_root}/db/migrate_core_cards"
 
-      paths.add "db/migrate_deck", with: "db/migrate"
-      paths.add "db/migrate_deck_cards", with: "db/migrate_cards"
+          p.add "db/migrate_deck", with: "db/migrate"
+          p.add "db/migrate_deck_cards", with: "db/migrate_cards"
 
-      Cardio::Mod.each_path do |mod_path|
-        app.config.autoload_paths += Dir["#{mod_path}/lib"]
-        app.config.watchable_dirs["#{mod_path}/set"] = %i[rb haml]
+          Cardio::Mod.each_path do |mod_path|
+            app.config.autoload_paths += Dir["#{mod_path}/lib"]
+            app.config.watchable_dirs["#{mod_path}/set"] = %i[rb haml]
 
-        paths["config/initializers"] << "#{mod_path}/init/early"
-        paths["late/initializers"] << "#{mod_path}/init/late"
-        paths["config/locales"] << "#{mod_path}/locales"
+            p["config/initializers"] << "#{mod_path}/init/early"
+            p["late/initializers"] << "#{mod_path}/init/late"
+            p["config/locales"] << "#{mod_path}/locales"
+          end
+
+          p["app/models"] = []
+          p["app/mailers"] = []
+          p["app/controllers"] = []
+        end
       end
-
-      paths["app/models"] = []
-      paths["app/mailers"] = []
-      paths["app/controllers"] = []
     end
 
     config.before_initialize do |app|
-      paths = app.config.paths
-      if app.config.load_strategy == :tmp_files
-        %w[set set_pattern].each do |dir|
-          if ENV["REPO_TMPSETS"]
-            paths.add "tmp/#{dir}", with: "#{Cardio.gem_root}/tmpsets/#{dir}"
-          else
-            paths.add "tmp/#{dir}"
+      app.config.tap do |c|
+        if c.load_strategy == :tmp_files
+          %w[set set_pattern].each do |dir|
+            if ENV["REPO_TMPSETS"]
+              c.paths.add "tmp/#{dir}", with: "#{Cardio.gem_root}/tmpsets/#{dir}"
+            else
+              c.paths.add "tmp/#{dir}"
+            end
           end
         end
       end
