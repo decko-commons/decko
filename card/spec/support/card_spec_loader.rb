@@ -8,11 +8,7 @@ class CardSpecLoader
 
     def prefork
       Spork.prefork do
-        unless ENV["RAILS_ROOT"]
-          raise Card::Error, "No RAILS_ROOT given. Can't load environment."
-        end
-
-        require File.join ENV["RAILS_ROOT"], "config/environment"
+        require_environment
         load_shared_examples
         require File.expand_path("../../db/test_seed.rb", __dir__)
 
@@ -123,6 +119,21 @@ class CardSpecLoader
           Dir["#{shared_ex_dir}/**/*.rb"].sort.each { |f| require f }
         end
       end
+    end
+
+    def deck_root
+      root = ENV["DECK_ROOT"] || ENV["RAILS_ROOT"] || ENV["PWD"]
+      raise StandardError, "No DECK_ROOT given. Can't load environment." unless root
+      root
+    end
+
+    def require_environment
+      path = File.join deck_root, "config/environment.rb"
+      unless File.exist? path
+        raise StandardError, "Cannot find config/environment.rb in #{path}." \
+          "run rspec from deck root or use DECK_ROOT environmental variable."
+      end
+      require path
     end
   end
 end

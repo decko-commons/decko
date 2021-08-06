@@ -1,5 +1,7 @@
 # -*- encoding : utf-8 -*-
 
+require "active_support"
+require "active_support/core_ext/module/delegation"
 require "cardio/delaying"
 
 ActiveSupport.on_load :after_card do
