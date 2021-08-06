@@ -1,0 +1,23 @@
+en:
+  format_add_card: Add %{cardname}
+  format_bad_address: "404: Bad Address"
+  format_close: Close
+  format_configure_card: Configure %{cardname}
+  format_denial: Permission Denied
+  format_denied_task: to %{denied_task} this
+  format_invalid_json: invalid json
+  format_need_permission_task: "You need permission %{task}."
+  format_not_found_named: Could not find %{cardname}.
+  format_not_found_no_name: the card requested
+  format_not_numeric: "'%{content}' is not numeric"
+  format_or: "or"
+  format_please: Please
+  format_problems_name: Problems with %{cardname}
+  format_read_only: We are currently in read-only mode.  Please try again later.
+  format_server_error: "\nWagn Hitch!  Server Error. Yuck, sorry about that.\nTo tell us more and follow the fix,\nadd a support ticket at %{ticket_link}\n"
+  format_sorry: Sorry!
+  format_to_do_that: to do that
+  format_toggle_no: "no"
+  format_toggle_yes: "yes"
+  format_too_deep: Man, you're too deep.  (Too many levels of nests at a time)
+  format_unsupported_view: view (%{view}) not supported for %{cardname}
