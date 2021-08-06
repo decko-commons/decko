@@ -92,7 +92,7 @@ namespace :card do
 
     # maybe we should move this to a method?
     desc "write the version to a file (not usually called directly)"
-    task :stamp, :type do |_t, args|
+    task :stamp, [:type] => [:environment] do |_t, args|
       ENV["SCHEMA"] ||= "#{Cardio.gem_root}/db/schema.rb"
       Cardio.config.action_mailer.perform_deliveries = false
 
