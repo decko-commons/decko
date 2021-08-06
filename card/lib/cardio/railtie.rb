@@ -102,8 +102,8 @@ module Cardio
           p.add "db/migrate_deck_cards", with: "db/migrate_cards"
 
           Cardio::Mod.each_path do |mod_path|
-            app.config.autoload_paths += Dir["#{mod_path}/lib"]
-            app.config.watchable_dirs["#{mod_path}/set"] = %i[rb haml]
+            c.autoload_paths += Dir["#{mod_path}/lib"]
+            c.watchable_dirs["#{mod_path}/set"] = %i[rb haml]
 
             p["config/initializers"] << "#{mod_path}/init/early"
             p["late/initializers"] << "#{mod_path}/init/late"

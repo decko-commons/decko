@@ -1,0 +1,11 @@
+en:
+  api_key_not_found: no API key found
+  api_key_incorrect: API key mismatch
+  api_key_invalid: "Invalid API Key; must contain 20+ alphanumeric characters only"
+  api_key_label: "API Key"
+  api_key_generate: "Generate API Key"
+  api_key_regenerate: "Regenerate API Key"
+  api_key_generating: "Generating API Key"
+  api_key_taken: "API Key taken"
+  api_key_get_jwt_token: "get a JWT token"
+  api_key_no_key: "No key."

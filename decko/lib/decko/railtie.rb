@@ -1,9 +1,8 @@
 module Decko
-  # decko configuration
-  # also see cardio/railtie
+  # decko configuration (also see cardio/railtie)
   class Railtie < Rails::Railtie
     config.assets.enabled = false
-    config.assets.version = "1.0" # does the version matter if not enabled??
+    # config.assets.version = "1.0" # does the version matter if not enabled??
 
     config.before_configuration do |app|
       gem_root = Decko.gem_root
