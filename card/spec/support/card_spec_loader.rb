@@ -21,21 +21,6 @@ class CardSpecLoader
       end
     end
 
-    def deck_root
-      root = ENV["DECK_ROOT"] || ENV["RAILS_ROOT"] || ENV["PWD"]
-      raise StandardError, "No DECK_ROOT given. Can't load environment." unless root
-      root
-    end
-
-    def require_environment
-      path = File.join deck_root, "config/environment.rb"
-      unless File.exists? path
-        raise StandardError, "Cannot find config/environment.rb in #{path}." \
-          "run rspec from deck root or use DECK_ROOT environmental variable."
-      end
-      require path
-    end
-
     def each_run
       # This code will be run each time you run your specs.
       yield if block_given?
@@ -134,6 +119,21 @@ class CardSpecLoader
           Dir["#{shared_ex_dir}/**/*.rb"].sort.each { |f| require f }
         end
       end
+    end
+
+    def deck_root
+      root = ENV["DECK_ROOT"] || ENV["RAILS_ROOT"] || ENV["PWD"]
+      raise StandardError, "No DECK_ROOT given. Can't load environment." unless root
+      root
+    end
+
+    def require_environment
+      path = File.join deck_root, "config/environment.rb"
+      unless File.exist? path
+        raise StandardError, "Cannot find config/environment.rb in #{path}." \
+          "run rspec from deck root or use DECK_ROOT environmental variable."
+      end
+      require path
     end
   end
 end
