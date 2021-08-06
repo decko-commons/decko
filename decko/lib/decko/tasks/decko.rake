@@ -123,7 +123,6 @@ decko_namespace = namespace :decko do
     Rake::Task["db:create"].invoke
 
     puts "loading schema"
-
     Rake::Task["db:schema:load"].invoke
 
     load_task = "decko:load"

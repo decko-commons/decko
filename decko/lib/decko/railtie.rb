@@ -1,21 +1,26 @@
 module Decko
-  # decko configuration
-  # also see cardio/railtie
+  # decko configuration (also see cardio/railtie)
   class Railtie < Rails::Railtie
     config.assets.enabled = false
-    config.assets.version = "1.0" # does the version matter if not enabled??
+    # config.assets.version = "1.0" # does the version matter if not enabled??
 
     config.before_configuration do |app|
-      app.config.allow_concurrency = false
-      app.config.filter_parameters += [:password]
-      app.config.autoload_paths += Dir["#{Decko.gem_root}/lib"]
+      gem_root = Decko.gem_root
+      app.config.tap do |c|
+        c.allow_concurrency = false
+        c.filter_parameters += [:password]
+        c.autoload_paths += Dir["#{gem_root}/lib"]
 
-      paths = app.config.paths
+        c.paths.tap do |p|
+          p["lib/tasks"].unshift "#{gem_root}/lib/decko/tasks"
 
-      paths["config/environments"].unshift "#{Decko.gem_root}/config/environments"
+          p["config/environments"].unshift "#{gem_root}/config/environments"
+          p["config/initializers"].unshift "#{gem_root}/config/initializers"
 
-      unless paths["config/routes.rb"].existent.present?
-        paths["config/routes.rb"] << "#{Decko.gem_root}/config/application_routes.rb"
+          unless p["config/routes.rb"].existent.present?
+            p["config/routes.rb"] << "#{gem_root}/config/application_routes.rb"
+          end
+        end
       end
     end
   end
