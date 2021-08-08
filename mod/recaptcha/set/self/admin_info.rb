@@ -1,4 +1,4 @@
-add_to_basket :warnings, :recaptcha_config_issues
+basket[:warnings] << :recaptcha_config_issues
 
 def recaptcha_config_issues?
   RecaptchaCard.using_defaults?

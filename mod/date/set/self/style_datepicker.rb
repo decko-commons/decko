@@ -1,5 +1,5 @@
 include_set Abstract::CodeFile
-Self::StyleLibraries.add_item :style_datepicker
+basket[:style_libraries] << :style_datepicker
 
 def source_files
   %w[lib/stylesheets/tempusdominus.scss

@@ -48,7 +48,6 @@ class Card
   module Set
     include Event::Api
     include Trait
-    include Basket
     include Inheritance
 
     include Format
@@ -60,10 +59,22 @@ class Card
 
     mattr_accessor :modules, :traits
 
-    def self.reset_modules
-      self.modules = { base: [], base_format: {},
-                       nonbase: {}, nonbase_format: {},
-                       abstract: {}, abstract_format: {} }
+    class << self
+      def reset_modules
+        self.modules = {
+          base: [],     base_format: {},
+          nonbase: {},  nonbase_format: {},
+          abstract: {}, abstract_format: {}
+        }
+      end
+
+      def basket
+        @basket ||= {}
+      end
+    end
+
+    def basket
+      Set.basket
     end
 
     reset_modules

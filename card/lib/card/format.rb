@@ -89,5 +89,9 @@ class Card
     def to_sym
       Card::Format.format_sym self
     end
+
+    def basket
+      Set.basket
+    end
   end
 end
