@@ -83,11 +83,10 @@ module Cardio
 
         c.paths.tap do |p|
           p["config/environments"].unshift "#{card_root}/config/environments"
-
           p["config/initializers"] << "#{card_root}/config/initializers"
           p.add "late/initializers", glob: "**/*.rb"
 
-          p["lib/tasks"] << "#{card_root}/lib/card/tasks"
+          p["lib/tasks"] << "#{card_root}/lib/tasks"
 
           p.add "mod", with: "#{card_root}/mod"
           p["mod"] << "mod"
@@ -108,6 +107,7 @@ module Cardio
             p["config/initializers"] << "#{mod_path}/init/early"
             p["late/initializers"] << "#{mod_path}/init/late"
             p["config/locales"] << "#{mod_path}/locales"
+            p["lib/tasks"] << "#{mod_path}/lib/tasks"
           end
 
           p["app/models"] = []
