@@ -1,3 +1,3 @@
 include_set Abstract::CodeFile
 
-basket[:options] << "tinymce editor"
+basket[:list_input_options] << "tinymce editor"

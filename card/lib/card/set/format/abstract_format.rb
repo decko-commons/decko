@@ -12,6 +12,8 @@ class Card
         include HamlViews
         include Wrapper
 
+        delegate :basket, to: Set
+
         # _Views_ are the primary way that both sharks and monkeys interact with cards.
         # Sharks select views to use in _nests_.  Monkeys can define and tweak those
         # views. These docs will introduce the basics of view definition.
@@ -118,10 +120,6 @@ class Card
         # @return constant for set module (without format)
         def set_module
           Card.const_get name.split("::")[0..-2].join("::")
-        end
-
-        def basket
-          Set.basket
         end
       end
     end

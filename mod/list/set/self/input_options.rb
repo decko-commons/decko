@@ -1,6 +1,6 @@
 include_set Abstract::Pointer
 
-basket[:options] = [
+basket[:list_input_options] = [
   "radio",
   "checkbox",
   "select",
@@ -11,5 +11,5 @@ basket[:options] = [
 ]
 
 def content
-  basket[:options].to_pointer_content
+  basket[:list_input_options].to_pointer_content
 end

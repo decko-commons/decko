@@ -73,9 +73,7 @@ class Card
       end
     end
 
-    def basket
-      Set.basket
-    end
+    delegate :basket, to: Set
 
     reset_modules
 

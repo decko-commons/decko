@@ -1,4 +1,4 @@
-"calendar"
+basket[:list_input_options] << "calendar"
 
 format :html do
   def calendar_input

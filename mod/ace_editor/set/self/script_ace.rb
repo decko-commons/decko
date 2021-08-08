@@ -1,3 +1,3 @@
 include_set Abstract::CodeFile
 
-basket[:options] << "ace editor"
+basket[:list_input_options] << "ace editor"

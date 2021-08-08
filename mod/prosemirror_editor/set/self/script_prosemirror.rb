@@ -1,3 +1,3 @@
 include_set Abstract::CodeFile
 
-basket[:options] << "prosemirror editor"
+basket[:list_input_options] << "prosemirror editor"

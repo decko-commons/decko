@@ -4,9 +4,7 @@ class Card
       include Event::All
       include Pattern::All
 
-      def basket
-        Set.basket
-      end
+      delegate :basket, to: Set
     end
   end
 end

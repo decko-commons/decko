@@ -1,5 +1,5 @@
-basket[:options] << "text area"
-basket[:options] << "text field"
+basket[:list_input_options] << "text area"
+basket[:list_input_options] << "text field"
 
 format :html do
   def input_type
