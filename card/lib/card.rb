@@ -149,14 +149,14 @@ class Card < Cardio::Record
   self.action_specific_attributes = [
     :supercard,
     :superleft,
-    :action,
-    :current_action,
+    :action,                      # [Symbol] :create, :update, or :delete
+    :current_action,              # [Card::Action]
     :last_action_id_before_edit,
 
-    :skip,                        # skip event(s) for all cards in act
-    :skip_in_action,              # skip event for just this card
-    :trigger,                     # trigger event(s) for all cards in act
-    :trigger_in_action,           # trigger event for just this card
+    :skip,                        # [Array] skip event(s) for all cards in act
+    :skip_in_action,              # [Array] skip event for just this card
+    :trigger,                     # [Array] trigger event(s) for all cards in act
+    :trigger_in_action,           # [Array] trigger event for just this card
     :comment,                     # obviated soon
 
     # TODO: refactor following to use skip/trigger

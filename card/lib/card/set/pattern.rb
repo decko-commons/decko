@@ -2,8 +2,6 @@ class Card
   module Set
     class Pattern
       class << self
-        attr_reader :concrete
-
         def concrete
           @concrete ||= []
         end
@@ -12,7 +10,7 @@ class Card
           nonbase_loadables.each do |set_pattern|
             Set.const_remove_if_defined set_pattern.to_s.split("::").last
           end
-          self.concrete = []
+          @concrete = []
           @card_keys = @codes = @nonbase_codes = @ids = nil
         end
 
@@ -33,16 +31,16 @@ class Card
         def card_keys
           @card_keys ||=
             concrete.each_with_object({}) do |set_pattern, hash|
-              hash[Card.quick_fetch(set_pattern.pattern_code).key] = true
+              hash[set_pattern.pattern_id.cardname.key] = true
             end
         end
 
         def nonbase_codes
-          codes.tap { |list| list.delete :all }
+          @nonbase_codes ||= codes.tap { |list| list.delete :all }
         end
 
         def codes
-          concrete.map(&:pattern_code).push(:abstract).reverse
+          @codes ||= concrete.map(&:pattern_code).push(:abstract).reverse
         end
 
         def ids
