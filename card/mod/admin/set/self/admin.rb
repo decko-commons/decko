@@ -1,10 +1,10 @@
-# collect arrays of the form
+#  of the form
 # [task symbol, { execute_policy: block, stats_policy: block }]
-basket :tasks
+basket[:tasks] = []
 
 def run_task_from_task_basket task
   task = task.to_sym
-  task_data = tasks.find { |h| h[:name].to_sym == task.to_sym }
+  task_data = basket[:tasks].find { |h| h[:name].to_sym == task.to_sym }
   if !irreversibles_tasks_allowed? && task_data[:irreversible]
     not_allowed task_data[:stats][:link_text]
   elsif task_data
@@ -47,7 +47,7 @@ format :html do
     stats = card_stats
     stats += cache_stats
     stats += memory_stats
-    card.tasks.each do |task|
+    basket[:tasks].each do |task|
       stats += Array.wrap task[:stats]
     end
     table_content = stats.map { |args| stat_row(args) }

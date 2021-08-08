@@ -1,2 +1,2 @@
 include_set Abstract::CodeFile
-Self::StyleLibraries.add_item :material_icons
+basket[:style_libraries] << :material_icons
