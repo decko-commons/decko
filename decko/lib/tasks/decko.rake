@@ -103,7 +103,8 @@ decko_namespace = namespace :decko do
   alias_task "mod:install", "card:mod:install"
   alias_task :migrate, "card:migrate"
 
-  desc "insert existing card migrations into schema_migrations_cards to avoid re-migrating"
+  desc "insert existing card migrations into schema_migrations_cards " \
+       "to avoid re-migrating"
   task :assume_card_migrations do
     require "decko/engine"
     Cardio::Schema.assume_migrated_upto_version :core_cards
