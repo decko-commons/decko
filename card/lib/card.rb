@@ -140,13 +140,12 @@ class Card < Cardio::Record
   has_many :actions, -> { where(draft: [nil, false]).order :id }
   has_many :drafts, -> { where(draft: true).order :id }, class_name: :Action
 
-  cattr_accessor :set_patterns, :action_specific_attributes, :set_specific_attributes
+  cattr_accessor :action_specific_attributes, :set_specific_attributes
 
   class << self
     delegate :config, :paths, to: Cardio
   end
 
-  self.set_patterns = []
   self.action_specific_attributes = [
     :supercard,
     :superleft,

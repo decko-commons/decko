@@ -26,7 +26,7 @@ end
 
 def subclass_for_set
   current_set_pattern_code = pattern.codename
-  Card.set_patterns.find { |set| set.pattern_code == current_set_pattern_code }
+  Pattern.concrete.find { |set| set.pattern_code == current_set_pattern_code }
 end
 
 def junction_only?
