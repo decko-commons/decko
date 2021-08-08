@@ -7,7 +7,6 @@ class Card
       # Whenever you create a format block in a set module in a {Cardio::Mod mod}, you
       # create a format module that is extended with AbstractFormat.
       module AbstractFormat
-        include Set::Basket
         include ViewOpts
         include ViewDefinition
         include HamlViews
@@ -119,6 +118,10 @@ class Card
         # @return constant for set module (without format)
         def set_module
           Card.const_get name.split("::")[0..-2].join("::")
+        end
+
+        def basket
+          Set.basket
         end
       end
     end

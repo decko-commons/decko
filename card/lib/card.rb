@@ -123,8 +123,7 @@ class Card < Cardio::Record
   include Director::CardMethods
   include Name::All
   include Content::All
-  include Set::Event::All
-  include Set::Pattern::All
+  include Set::CardMethods
   include Cache::All
   include Director::All
   include Reference::All
