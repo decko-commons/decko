@@ -24,20 +24,21 @@ module Cardio
           Card::Set.clean_empty_modules
         end
 
-        # does not include abstract
-        def main_patterns
-          method = @no_all ? :nonbase_codes : :codes
-          Card::Set::Pattern.send method
+        def pattern_groups
+          groups = [:abstract, Card::Set::Pattern.nonbase_codes]
+          @no_all ? groups : groups.unshift(:all)
         end
 
         def each_file &block
-          # each_file_with_patterns :abstract, &block
-          each_file_with_patterns(*main_patterns, &block)
+          pattern_groups.each do |pattern_group|
+            each_file_with_patterns Array.wrap(pattern_group), &block
+          end
         end
 
-        def each_file_with_patterns *patterns, &block
+        def each_file_with_patterns patterns, &block
           each_mod_dir :set do |base_dir|
             patterns.each do |pattern|
+              puts "loading: #{base_dir}, #{pattern}"
               each_file_in_dir base_dir, pattern.to_s, &block
             end
           end
