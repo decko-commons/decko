@@ -34,7 +34,7 @@ format :html do
   def rules_and_options_by_set_pattern rule_opts_hash
     pattern_hash = a_set_pattern_hash rule_opts_hash
     empty = true
-    Card.set_patterns.reverse.map do |pattern|
+    Pattern.concrete.reverse.map do |pattern|
       pattern_hash[pattern].each do |rule_card, options|
         options.each do |option|
           yield rule_card, option
