@@ -17,7 +17,7 @@
 
 ## Basics
 
-Decko (formerly known as "Wagn") makes serious web development fun.
+Decko (formerly "Wagn") makes serious web development fun.
 
 Decko creators, or "Card Sharks", use Decko to create open community sites,
 private knowledge management sites, public proposal submission sites with

@@ -33,7 +33,7 @@ class Card
       end
 
       def default_type_code card
-        card.rule_card(:default)&.type_code
+        card.rule_card(:default, skip_modules: true)&.type_code
       end
 
       def mods_exist_for_key? mod_key

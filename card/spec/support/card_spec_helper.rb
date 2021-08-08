@@ -1,3 +1,5 @@
+require "coderay"
+
 %w[helper matchers].each do |load_dir|
   load_path = File.expand_path "../#{load_dir}/*.rb", __FILE__
   Dir[load_path].sort.each { |f| require f }
@@ -90,28 +92,25 @@ class Card
     end
 
     module ClassMethods
-      def check_views_for_errors *views
-        include_context_for views.flatten, "view without errors"
-      end
-
-      def check_format_for_view_errors format_module
-        check_views_for_errors(*views(format_module))
+      def check_format_for_view_errors format_sym
+        include_context_for views(format_sym).flatten, "view without errors", format_sym
       end
 
       def check_html_views_for_errors
-        html_format_class = described_class.const_get("HtmlFormat")
-        html_views = views html_format_class
+        html_views = views :html
         include_context_for html_views, "view without errors"
         include_context_for html_views, "view with valid html"
       end
 
-      def include_context_for views, context
+      def include_context_for views, context, format=:html
         views.each do |view|
-          include_context context, view
+          include_context context, view, format
         end
       end
 
-      def views format_module
+      def views format_sym
+        format_name = Card::Format.format_class_name format_sym
+        format_module = described_class.const_get(format_name)
         Card::Set::Format::AbstractFormat::ViewDefinition.views[format_module].keys
       end
     end

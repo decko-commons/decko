@@ -17,6 +17,7 @@ global_job_config:
     commands:
       - checkout # semaphore does git checkout and cds into decko
       - sem-version ruby 2.6.3 # because pry-stack_explorer doesn't work in 2.5
+      # - sem-version ruby 3.0.1 # temporary
       - alias be='bundle exec'
       - git submodule init
       # - git submodule status > substat.txt # needed for sem submodule caching
@@ -27,8 +28,8 @@ blocks:
     task:
       prologue:
         commands:
-          - cache restore bundle-gems-baseline
           # occasionally clear: `cache delete bundle-gems-baseline`
+          - cache restore bundle-gems-baseline
           - cache restore bundle-gems-$(checksum Gemfile.lock)
           - bundle install
           - cache store bundle-gems-$(checksum Gemfile.lock) ~/bundle
@@ -97,10 +98,11 @@ blocks:
       jobs:
         - name: Cypress
           commands:
-            - RAILS_ENV=test CYPRESS_DEV=true bundle exec decko server -p 5002 -d
+            - RAILS_ENV=cypress bundle exec decko server -p 5002 -d
             - cd ~/decko/decko/spec
-            - nvm use 10.10.0
-            - yarn install
+            - nvm use 15.7.0
+            - rm -rf node_modules
+            - yarn install --frozen-lockfile
             - yarn run cypress run --record --key 15efb149-d03c-410b-bb10-6d3b1a82958e
         - name: Cucumber
           commands:

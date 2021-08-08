@@ -1,6 +1,7 @@
 # -*- encoding : utf-8 -*-
 
 require "timecop"
+require "active_support/core_ext/numeric/time"
 
 # noinspection RubyResolve
 class SharedData
@@ -12,7 +13,7 @@ class SharedData
     "Big Brother", "Optic fan", "Sunglasses fan", "Narcissist"
   ].freeze
 
-  CARDTYPE_COUNT = 44
+  CARDTYPE_COUNT = 54
 
   class << self
     def create_user name, args
@@ -208,6 +209,10 @@ class SharedData
 
       ## --------- create templated permissions -------------
       create "Cardtype E+*type+*default"
+    end
+
+    def future_stamp
+      Time.zone.local 2020, 1, 1, 0, 0, 0
     end
 
     def notification_cards

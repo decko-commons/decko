@@ -9,7 +9,7 @@ format :json do
   end
 
   def default_item_view
-    params[:item] || :name
+    :name
   end
 
   def max_depth
@@ -41,7 +41,7 @@ format :json do
   def page_details obj
     return obj unless obj.is_a? Hash
 
-    obj.merge url: request_url, timestamp: Time.now.to_s
+    obj.merge url: request_url, requested_at: Time.now.to_s
   end
 
   view :status, unknown: true, perms: :none do
@@ -84,7 +84,7 @@ format :json do
   # NOCACHE because sometimes item_cards is dynamic.
   # could be safely cached for non-dynamic lists
   view :items, cache: :never do
-    listing item_cards, view: :atom
+    listing item_cards, view: (voo_items_view || :atom)
   end
 
   view :links do
@@ -155,7 +155,9 @@ format :json do
                links: _render_links,
                ancestors: _render_ancestors,
                html_url: path,
-               type: nest(card.type_card, view: :nucleus)
+               type: nest(card.type_card, view: :nucleus),
+               created_at: card.created_at,
+               updated_at: card.updated_at
   end
 end
 

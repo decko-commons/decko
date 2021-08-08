@@ -17,14 +17,20 @@ RSpec.describe Card::Set::All::Json do
       Card[:basic].format(:json).render :nucleus
     end
 
+    def basic_molecule
+      atom_values.merge items: [],
+                        links: [json_url("Z")],
+                        ancestors: [],
+                        type: basic_nucleus,
+                        html_url: "http://json.com/A",
+                        created_at: a_kind_of(Time),
+                        updated_at: a_kind_of(Time)
+    end
+
     context "with internal link" do
       it "has link url" do
         expect_view(:molecule, format: :json)
-          .to eq atom_values.merge items: [],
-                                   links: [json_url("Z")],
-                                   ancestors: [],
-                                   type: basic_nucleus,
-                                   html_url: "http://json.com/A"
+          .to include(basic_molecule)
       end
     end
 
@@ -37,11 +43,8 @@ RSpec.describe Card::Set::All::Json do
 
       it "has link urls" do
         expect_view(:molecule, format: :json)
-          .to eq atom_values.merge items: [],
-                                   links: ["http://xkcd.com", url("Z")],
-                                   ancestors: [],
-                                   type: basic_nucleus,
-                                   html_url: "http://json.com/external_link"
+          .to include(basic_molecule.merge(links: ["http://xkcd.com", url("Z")],
+                                           html_url: "http://json.com/external_link"))
       end
     end
 
@@ -52,11 +55,9 @@ RSpec.describe Card::Set::All::Json do
 
       it "has nests" do
         expect_view(:molecule, format: :json)
-          .to eq atom_values.merge items: [atom_values(Card["Z"])],
-                                   links: [],
-                                   ancestors: [],
-                                   type: basic_nucleus,
-                                   html_url: "http://json.com/B"
+          .to include(basic_molecule.merge(items: [atom_values(Card["Z"])],
+                                           links: [],
+                                           html_url: "http://json.com/B"))
       end
     end
   end

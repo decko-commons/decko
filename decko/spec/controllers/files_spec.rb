@@ -14,20 +14,20 @@ Decko::RestSpecHelper.describe_api do
         args = { params: { mark: @all_style.machine_output_card.name,
                            format: "css",
                            explicit_file: true } }
-        get :read, args
+        get :read, **args
         # output_card = Card[:all, :style, :machine_output]
         expect(response).to redirect_to(@all_style.machine_output_url)
-        get :read, args
+        get :read, **args
         expect(response.status).to eq(200)
         expect(response.content_type).to eq("text/css")
       end
     end
 
     context "js" do
-      let(:all_js) { Card[:all, :script] }
+      let(:decko_js) { Card[:script_group__decko] }
 
       it "has correct MIME type" do
-        get :read, params: { mark: all_js.machine_output_card.name, format: "js" }
+        get :read, params: { mark: decko_js.machine_output_card.name, format: "js" }
         expect(response.status).to eq 200
         expect(response.content_type).to match("text/javascript")
       end
@@ -63,7 +63,8 @@ Decko::RestSpecHelper.describe_api do
     it "denies access" do
       get :asset, params: { mark: "/../../Gemfile" }
       expect(response.status).to eq(404)
-      expect(response.body).to eq("Decko installation error: missing asset symlinks")
+      expect(response.body)
+        .to eq("Decko installation error: missing public directory symlinks")
     end
   end
 end

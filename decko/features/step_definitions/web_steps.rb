@@ -126,12 +126,8 @@ When /^(?:|I )choose "([^"]*)"$/ do |field|
 end
 
 Then /^(?:|I )should see "([^"]*)"$/ do |text|
-  expect(page).to have_content(text)
-  # this is preventing an upgrade to capybara 3, because there
-  # are a bunch of line breaks that our cuke expectations can't handle
-  #
-  # once we're at capybara 3.5 we can use `normalize_ws: true` (ws = white space)
-  # in have_content
+  expect(page).to have_content(text, normalize_ws: true)
+  # normalize_ws makes it overlook line breaks (ws = white space)
 end
 
 Then /^(?:|I )should see in search "([^"]*)"$/ do |text|
@@ -158,7 +154,8 @@ end
 def fill_autocomplete field, options={}
   fill_in field, with: options[:with]
   page.execute_script %{ $('##{field}').trigger('focus').trigger('keydown') }
-  selector = %{ul.ui-autocomplete li.ui-menu-item div.ui-menu-item-wrapper:contains('#{options[:with]}'):first}
+  selector = "ul.ui-autocomplete li.ui-menu-item " \
+             "div.ui-menu-item-wrapper:contains('#{options[:with]}'):first"
   page.should have_selector("ul.ui-autocomplete li.ui-menu-item div.ui-menu-item-wrapper")
   page.execute_script "$(\"#{selector}\").trigger('mouseenter').click()"
   wait_for_ajax

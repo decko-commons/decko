@@ -44,6 +44,14 @@ class Card
           raise ArgumentError, "unknown wrapper: #{wrapper}"
         end
       end
+
+      def send_wrapper_method method_name, opts
+        if method(method_name).arity.zero?
+          send method_name
+        else
+          send method_name, (opts || {})
+        end
+      end
     end
   end
 end

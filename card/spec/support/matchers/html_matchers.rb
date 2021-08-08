@@ -1,3 +1,5 @@
+require "coderay"
+
 module RSpecHtmlMatchers
   module SyntaxHighlighting
     %i[tag_presents? text_right? count_right?].each do |method_name|

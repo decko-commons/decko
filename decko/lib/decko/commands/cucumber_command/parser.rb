@@ -3,7 +3,7 @@
 require "optparse"
 
 module Decko
-  module Commands
+  class Commands
     class CucumberCommand
       class Parser < OptionParser
         class Flagger
@@ -34,7 +34,7 @@ module Decko
           super() do |parser|
             parser.banner = "Usage: decko cucumber [DECKO ARGS] -- [CUCUMBER ARGS]\n\n"
             parser.separator "\nDECKO ARGS"
-            opts[:env] = ["RAILS_ROOT=."]
+            opts[:env] = ["RAILS_ROOT=. RAILS_ENV=cucumber"]
             Flagger.new(parser, opts).add_flags
             parse_spring parser, opts
           end

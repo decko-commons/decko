@@ -1,3 +1,5 @@
+require "diff/lcs"
+
 class Card
   class Content
     class Diff

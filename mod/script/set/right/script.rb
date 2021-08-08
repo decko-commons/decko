@@ -1,18 +1,29 @@
-include_set Abstract::Machine
-
-store_machine_output filetype: "js"
+include_set Abstract::Pointer
 
 def ok_to_read
   true
 end
 
-view :javascript_include_tag do
-  %(
-    <script src="#{card.machine_output_url}" type="text/javascript"></script>
-  )
+def refresh_output force: false
+  item_cards.each do |item_card|
+    # puts "refreshing #{item_card.name}".yellow
+    item_card.try :refresh_output, force: force
+  end
+end
+
+def regenerate_machine_output
+  item_cards.each do |item_card|
+    item_card.try :regenerate_machine_output
+  end
 end
 
 format :html do
+  view :javascript_include_tag do
+    card.item_cards.map do |script|
+      script.format(:html).render :javascript_include_tag
+    end
+  end
+
   def raw_help_text
     "JavaScript (or CoffeeScript) for card's page."
   end

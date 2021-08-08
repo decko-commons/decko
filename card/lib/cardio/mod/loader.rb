@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 
 module Cardio
-  module Mod
+  class Mod
     # Cardio::Mod::Loader is used to load all part of a mod,
     # i.e. initializers, patterns, formats, chunks, layouts and sets
     # cards are not accessible at this point
@@ -28,7 +28,7 @@ module Cardio
         end
 
         def load_initializers
-          Cardio.config.paths["mod/config/initializers"].existent.sort.each do |init|
+          Cardio.config.paths["late/initializers"].existent.sort.each do |init|
             load init
           end
         end

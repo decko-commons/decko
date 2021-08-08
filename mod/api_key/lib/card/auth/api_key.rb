@@ -4,11 +4,11 @@ class Card
   module Auth
     # methods for setting current account
     module ApiKey
-      def signin_with opts={}
-        if opts[:token]
-          signin_with_token opts[:token]
-        elsif opts[:api_key]
-          signin_with_api_key opts[:api_key]
+      def signin_with token: nil, api_key: nil
+        if token
+          signin_with_token token
+        elsif api_key
+          signin_with_api_key api_key
         else
           signin_with_session
         end

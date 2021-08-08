@@ -1,0 +1,56 @@
+source "http://rubygems.org"
+
+gem "decko"<%= repo_path_constraint %>
+<%= %(gem "card", require: false#{repo_path_constraint}) if repo_path.present? %>
+
+# DATABASE
+# Decko currently supports MySQL (best tested), PostgreSQL (well tested), and SQLite
+# (not well tested).
+gem <%= database_gem_and_version %>
+
+
+# WEBSERVER
+# To run a simple deck at localhost:3000, you can use thin (recommended), unicorn,
+# or (Rails" default) Webrick
+gem "thin"
+# gem "unicorn"
+
+
+# CARD MODS
+# The easiest way to change card behaviors is with card mods. To install a mod:
+#
+#   1. add `gem "card-mod-MODNAME"` below
+#   2. run `bundle update` to install the code
+#   3. run `decko update` to make any needed changes to your deck
+#
+# The "defaults" includes a lot of functionality that is needed in standard decks.
+gem "card-mod-defaults"<%= repo_path_constraint :mod %>
+
+
+# BACKGROUND
+# A background gem is needed to run tasks like sending notifications in a background
+# process.
+# See https://github.com/decko-commons/decko/tree/master/card-mod-delayed_job
+# for additional configuration details.
+<%= "# " if shark? %>gem "card-mod-delayed_job"<%= repo_path_constraint :mod %>
+
+
+# MONKEYS
+# You can also create your own mods. Mod developers (or "Monkeys") will want some
+# additional gems to support development and testing.
+<%= "# " if shark? %>gem "card-mod-monkey", group: :development<%= repo_path_constraint :mod %>
+<%= "# " if shark? %>gem "decko-rspec", group: :test<%= repo_path_constraint :support %>
+<%= "# " if shark? %>gem "decko-cucumber", group: :cucumber<%= repo_path_constraint :support %>
+<%= "# " if shark? %>gem "decko-cypress", group: :cypress<%= repo_path_constraint :support %>
+<%= "# " if shark? %>gem "decko-profile", group: :profile<%= repo_path_constraint :support %>
+<%= "# " if shark? || !spring_install? %>gem "decko-spring"<%= repo_path_constraint :support %>
+
+<% if platypus? %>
+# PLATYPUSES
+# This mod is strongly recommended for platypuses – coders working on the decko core
+gem "card-mod-platypus"<%= repo_path_constraint :mod %>
+<% end %>
+
+# The following allows simple (non-gem) mods to specify gems via a Gemfile.
+# You may need to alter this code if you move such mods to an unconventional location.
+Dir.glob("mod/**/Gemfile").each { |gemfile| instance_eval File.read(gemfile) }

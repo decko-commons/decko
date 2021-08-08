@@ -1,0 +1,9 @@
+en:
+  recaptcha_captcha_keys: You are configured to use %{captcha_link}, but for that to work you need new %{recaptcha_link}.
+  recaptcha_captcha_temp: Your captcha is currently working with temporary settings. This is fine for a local installation, but you will need new %{recaptcha_link} if you want to make this site public.
+  recaptcha_howto_add: Add your keys to %{recaptcha_settings}
+  recaptcha_howto_add_keys: "How to add new recaptcha keys:"
+  recaptcha_howto_go: Go to %{captcha_card}
+  recaptcha_howto_register: Register your domain at %{recaptcha_link}
+  recaptcha_howto_turn_off: 'How to turn captcha off:'
+  recaptcha_howto_update: Update all *captcha rules to "no".

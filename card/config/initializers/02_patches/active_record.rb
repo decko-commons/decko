@@ -18,6 +18,27 @@ module Patches
   module ActiveRecord
     module Relation
       def pluck_in_batches *columns, batch_size: 1000
+        prepare_pluck_in_batches(
+          columns
+        ) do |batch_start, select_columns, id_index, remove_id_from_results|
+
+          loop do
+            items = pluck_in_batches_items batch_size, batch_start, select_columns
+            break if items.empty?
+
+            batch_start = pluck_in_batches_batch_start items, id_index
+            # Remove :id column if not in *columns
+            items.map! { |row| row[1..-1] } if remove_id_from_results
+            yield items
+
+            break if items.size < batch_size
+          end
+        end
+      end
+
+      private
+
+      def prepare_pluck_in_batches columns
         raise "There must be at least one column to pluck" if columns.empty?
 
         # the :id to start the query at
@@ -29,42 +50,37 @@ module Patches
 
         # Find index of :id in the array
         remove_id_from_results = false
-        id_index = columns.index(primary_key.to_sym)
+        id_index = columns.index primary_key.to_sym
 
         # :id is still needed to calculate offsets
         # add it to the front of the array and remove it when yielding
         if id_index.nil?
           id_index = 0
-          select_columns.unshift(primary_key)
+          select_columns.unshift primary_key
 
           remove_id_from_results = true
         end
 
-        loop do
-          relation = reorder(table[primary_key].asc).limit(batch_size)
-          relation = relation.where(table[primary_key].gt(batch_start)) if batch_start
-          items = relation.pluck(*select_columns)
+        yield batch_start, select_columns, id_index, remove_id_from_results
+      end
 
-          break if items.empty?
+      def pluck_in_batches_batch_start items, id_index
+        # Use the last id to calculate where to offset queries
+        last_item = items.last
+        last_item.is_a?(Array) ? last_item[id_index] : last_item
+      end
 
-          # Use the last id to calculate where to offset queries
-          last_item = items.last
-          batch_start = last_item.is_a?(Array) ? last_item[id_index] : last_item
-
-          # Remove :id column if not in *columns
-          items.map! { |row| row[1..-1] } if remove_id_from_results
-
-          yield items
-
-          break if items.size < batch_size
-        end
+      def pluck_in_batches_items batch_size, batch_start, select_columns
+        relation = reorder(table[primary_key].asc).limit(batch_size)
+        relation = relation.where(table[primary_key].gt(batch_start)) if batch_start
+        relation.pluck(*select_columns)
       end
     end
 
     module ConnectionAdapters
       module AbstractAdapter
         def match _string
-          raise Cardio.t(:lib_exception_not_implemented)
+          raise ::I18n.t(:lib_exception_not_implemented)
         end
 
         def cast_types
@@ -107,7 +123,7 @@ module Patches
       module ClassMethods
         def check_pending! connection=::ActiveRecord::Base.connection
           %i[structure core_cards deck deck_cards].each do |migration_type|
-            Cardio.schema_mode(migration_type) do |paths|
+            Cardio::Schema.mode(migration_type) do |paths|
               ::ActiveRecord::Migrator.migrations_paths = paths
               super
             end

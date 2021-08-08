@@ -2,7 +2,7 @@ class Card
   class Bootstrap
     # render components of bootstrap library
     class Component
-      extend ComponentClass
+      extend ComponentKlass
 
       def initialize context, *args, &block
         @context = context
