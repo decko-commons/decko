@@ -83,7 +83,6 @@ module Cardio
 
         c.paths.tap do |p|
           p["config/environments"].unshift "#{card_root}/config/environments"
-
           p["config/initializers"] << "#{card_root}/config/initializers"
           p.add "late/initializers", glob: "**/*.rb"
 
