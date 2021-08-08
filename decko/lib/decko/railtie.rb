@@ -14,8 +14,6 @@ module Decko
         c.autoload_paths += Dir["#{gem_root}/lib"]
 
         c.paths.tap do |p|
-          puts "decko railtie adding tasks"
-
           # if this directory is named lib/tasks, it will get run by decko/engine,
           # which currently breaks because of the aliases to card tasks, which
           # aren't available there.
