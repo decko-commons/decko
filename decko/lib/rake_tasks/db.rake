@@ -8,7 +8,7 @@ unless Rake::TaskManager.methods.include?(:redefine_task)
   module Rake
     module TaskManager
       def redefine_task task_class, args, &block
-        task_name, arg_names, deps = resolve_args(args)
+        task_name, _arg_names, deps = resolve_args(args)
         task_name = task_class.scope_name(@scope, task_name)
         deps = [deps] unless deps.respond_to?(:to_ary)
         deps = deps.map(&:to_s)
@@ -32,7 +32,8 @@ end
 
 namespace :db do
   namespace :fixtures do
-    desc "Load fixtures into the current environment's database.  Load specific fixtures using FIXTURES=x,y"
+    desc "Load fixtures into the current environment's database. " \
+         "Load specific fixtures using FIXTURES=x,y"
     task load: :environment do
       require "active_record/fixtures"
       fixture_path = File.join(Cardio.gem_root, "db", "seed", "test", "fixtures")
