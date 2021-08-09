@@ -164,8 +164,7 @@ def run_machine joint="\n"
 end
 
 def direct_machine_input? input_card
-  !input_card.collection? ||
-    input_card.respond_to?(:machine_input)
+  !input_card.collection? || input_card.respond_to?(:machine_input)
 end
 
 def run_engine input_card
