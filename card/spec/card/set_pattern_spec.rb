@@ -9,9 +9,10 @@ def it_generates opts
 end
 
 RSpec.describe Card::Set::Pattern do
-  specify ".in_load_order" do
-    expect(described_class.codes)
-      .to eq(%i[abstract all all_plus type star rstar rule right type_plus_right self])
+  specify "#grouped_codes" do
+    expect(described_class.grouped_codes).to eq(
+      [[:all], [:abstract], %i[all_plus type star rstar rule right type_plus_right self]]
+    )
   end
 end
 

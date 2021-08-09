@@ -5,10 +5,6 @@ module Cardio
       # The mods are given by a Mod::Dirs object.
       # SetLoader can use three different strategies to load the set modules.
       class SetLoader < Loader
-        def template_class
-          SetTemplate
-        end
-
         def initialize args={}
           @no_all = args.delete :no_all
           super load_strategy: args[:load_strategy], mod_dirs: args[:mod_dirs]
@@ -20,22 +16,26 @@ module Cardio
 
         def load
           super
-          # Card::Set.process_base_modules
           Card::Set.clean_empty_modules
         end
 
-        # does not include abstract
-        def main_patterns
-          method = @no_all ? :nonbase_codes : :codes
-          Card::Set::Pattern.send method
+        def template_class
+          SetTemplate
         end
 
         def each_file &block
-          # each_file_with_patterns :abstract, &block
-          each_file_with_patterns(*main_patterns, &block)
+          pattern_groups.each do |pattern_group|
+            each_file_with_patterns pattern_group, &block
+          end
         end
 
-        def each_file_with_patterns *patterns, &block
+        def pattern_groups
+          Card::Set::Pattern.grouped_codes with_all: !@no_all
+        end
+
+        private
+
+        def each_file_with_patterns patterns, &block
           each_mod_dir :set do |base_dir|
             patterns.each do |pattern|
               each_file_in_dir base_dir, pattern.to_s, &block
