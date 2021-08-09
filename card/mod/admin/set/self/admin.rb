@@ -1,7 +1,3 @@
-#  of the form
-# [task symbol, { execute_policy: block, stats_policy: block }]
-basket[:tasks] = []
-
 def run_task_from_task_basket task
   task = task.to_sym
   task_data = basket[:tasks].find { |h| h[:name].to_sym == task.to_sym }
