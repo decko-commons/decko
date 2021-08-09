@@ -33,6 +33,9 @@ class Card
     attr_reader :card, :parent, :main_opts, :modal_opts
     attr_accessor :form, :error_status, :rendered
 
+    delegate :basket, to: Set
+    delegate :session, :params, to: Env
+
     def self.view_caching?
       true
     end
@@ -66,16 +69,8 @@ class Card
       end
     end
 
-    def params
-      Env.params
-    end
-
     def controller
       @controller || Env[:controller] ||= CardController.new
-    end
-
-    def session
-      Env.session
     end
 
     def mime_type

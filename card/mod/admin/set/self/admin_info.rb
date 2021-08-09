@@ -1,11 +1,8 @@
-basket :warnings
-
+basket[:warnings] = [:no_email_delivery]
 # For each warning in the basket (eg :my_warning), the core view
 # will run a test by appending a question mark (eg #my_warning?).
 # If it fails it will generate a message by appending message
 # (eg #my_warning_message).
-
-add_to_basket :warnings, :no_email_delivery
 
 def no_email_delivery?
   Card.config.action_mailer.perform_deliveries == false
@@ -17,7 +14,7 @@ end
 
 format :html do
   view :core do
-    warnings = card.warnings.map do |warning|
+    warnings = basket[:warnings].map do |warning|
       card.send("#{warning}?") ? send("#{warning}_message") : nil
     end
     warnings.compact!
