@@ -1,4 +1,9 @@
 format :html do
+  # script_config basket is a hash where
+  #  - key is the codename of a card with javascript config (usually in json format)
+  #  - value is the name of a javascript method that handles the config
+  basket[:script_config] = {}
+
   def views_in_head
     super + %w[
       decko_script_variables
@@ -26,8 +31,12 @@ format :html do
 
   view :script_config_and_initiation, unknown: true, perms: :none do
     javascript_tag do
-      (mod_js_configs << trigger_slot_ready).join "\n\n"
+      (script_configs << trigger_slot_ready).join "\n\n"
     end
+  end
+
+  view :javascript_include_tag, unknown: true, perms: :none do
+    "\n<!-- javascript_include_tag not overridden for #{card.name} -->\n"
   end
 
   def decko_script_variables
@@ -62,8 +71,8 @@ format :html do
     "{ #{vars} }"
   end
 
-  def mod_js_configs
-    mod_js_config.map do |codename, js_decko_function|
+  def script_configs
+    basket[:script_config].map do |codename, js_decko_function|
       config_json = escape_javascript Card::Rule.global_setting(codename)
       "decko.#{js_decko_function}('#{config_json}')"
     end

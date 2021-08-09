@@ -7,10 +7,11 @@ module Cardio
       def create_mod
         inside mod_path do
           assets_dir
+          init_dir
           set_dir
           spec_dir
-          config_dir
-          public_dir
+          empty_directory "public"
+          empty_directory "locales"
         end
       end
 
@@ -41,15 +42,12 @@ module Cardio
         end
       end
 
-      def config_dir
-        inside "config" do
-          empty_directory "initializers"
-          empty_directory "locales"
+      def init_dir
+        inside "init" do
+          empty_directory "before"
+          empty_directory "early"
+          empty_directory "late"
         end
-      end
-
-      def public_dir
-        empty_directory "public"
       end
     end
   end

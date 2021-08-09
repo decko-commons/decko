@@ -1,4 +1,4 @@
-Self::InputOptions.add_to_basket :options, "calendar"
+basket[:list_input_options] << "calendar"
 
 format :html do
   def calendar_input

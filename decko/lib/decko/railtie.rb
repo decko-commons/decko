@@ -1,3 +1,5 @@
+require "cardio/railtie"
+
 module Decko
   # decko configuration (also see cardio/railtie)
   class Railtie < Rails::Railtie

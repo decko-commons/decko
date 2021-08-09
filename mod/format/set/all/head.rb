@@ -7,11 +7,6 @@ format do
 end
 
 format :html do
-  # add tuples containing a
-  #  - the codename of a card with javascript config (usually in json format)
-  #  - the name of a javascript method that handles the config
-  basket :mod_js_config
-
   view :head, unknown: true, perms: :none do
     views_in_head.map { |viewname| render viewname }.flatten.compact.join "\n"
   end

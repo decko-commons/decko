@@ -33,6 +33,9 @@ class Card
     attr_reader :card, :parent, :main_opts, :modal_opts
     attr_accessor :form, :error_status, :rendered
 
+    delegate :basket, to: Set
+    delegate :session, :params, to: Env
+
     def self.view_caching?
       true
     end
@@ -47,7 +50,7 @@ class Card
     def require_card_to_initialize!
       return if @card
 
-      raise Card::Error, Cardio.t(:lib_exception_init_without_card)
+      raise Card::Error, ::I18n.t(:lib_exception_init_without_card)
     end
 
     def include_set_format_modules
@@ -66,16 +69,8 @@ class Card
       end
     end
 
-    def params
-      Env.params
-    end
-
     def controller
       @controller || Env[:controller] ||= CardController.new
-    end
-
-    def session
-      Env.session
     end
 
     def mime_type

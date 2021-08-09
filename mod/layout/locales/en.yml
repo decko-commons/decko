@@ -1,0 +1,4 @@
+en:
+  layout_available_layouts: "Available Layouts: %{available_layouts}"
+  layout_unknown_layout: "Unknown layout: %{name}"
+  legacy_toc: Table of Contents

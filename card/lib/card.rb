@@ -123,8 +123,7 @@ class Card < Cardio::Record
   include Director::CardMethods
   include Name::All
   include Content::All
-  include Set::Event::All
-  include Set::Pattern::All
+  include Set::CardMethods
   include Cache::All
   include Director::All
   include Reference::All
@@ -140,24 +139,23 @@ class Card < Cardio::Record
   has_many :actions, -> { where(draft: [nil, false]).order :id }
   has_many :drafts, -> { where(draft: true).order :id }, class_name: :Action
 
-  cattr_accessor :set_patterns, :action_specific_attributes, :set_specific_attributes
+  cattr_accessor :action_specific_attributes, :set_specific_attributes
 
   class << self
     delegate :config, :paths, to: Cardio
   end
 
-  self.set_patterns = []
   self.action_specific_attributes = [
     :supercard,
     :superleft,
-    :action,
-    :current_action,
+    :action,                      # [Symbol] :create, :update, or :delete
+    :current_action,              # [Card::Action]
     :last_action_id_before_edit,
 
-    :skip,                        # skip event(s) for all cards in act
-    :skip_in_action,              # skip event for just this card
-    :trigger,                     # trigger event(s) for all cards in act
-    :trigger_in_action,           # trigger event for just this card
+    :skip,                        # [Array] skip event(s) for all cards in act
+    :skip_in_action,              # [Array] skip event for just this card
+    :trigger,                     # [Array] trigger event(s) for all cards in act
+    :trigger_in_action,           # [Array] trigger event for just this card
     :comment,                     # obviated soon
 
     # TODO: refactor following to use skip/trigger

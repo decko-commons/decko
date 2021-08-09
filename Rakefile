@@ -27,7 +27,7 @@ task :release do
 end
 
 task :build_images do
-  # system "docker pull phusion/passenger-full:latest"
+  system "docker pull phusion/passenger-full:latest"
   system "cd docker/template; bundle update"
 
   DOCKER_IMAGES.each do |i|

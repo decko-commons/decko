@@ -1,5 +1,4 @@
-Self::Admin.add_to_basket(
-  :tasks,
+basket[:tasks] << {
   name: :empty_trash,
   irreversible: true,
   execute_policy: -> { Card.empty_trash },
@@ -9,7 +8,7 @@ Self::Admin.add_to_basket(
     link_text: "empty trash",
     task: "empty_trash"
   }
-)
+}
 
 module ClassMethods
   def empty_trash

@@ -23,7 +23,7 @@ def count
 end
 
 def set_classes_with_rules
-  Card.set_patterns.reverse.map do |set_class|
+  Pattern.concrete.reverse.map do |set_class|
     rules = rules_for_set_class set_class
     [set_class, rules] unless rules.empty?
   end.compact
