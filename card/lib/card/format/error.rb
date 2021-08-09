@@ -47,7 +47,7 @@ class Card
         if card&.name.present?
           safe_name
         else
-          Cardio.t :lib_no_cardname
+          ::I18n.t :lib_no_cardname
         end
       end
 

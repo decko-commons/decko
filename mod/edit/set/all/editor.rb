@@ -1,5 +1,5 @@
-Self::InputOptions.add_to_basket :options, "text area"
-Self::InputOptions.add_to_basket :options, "text field"
+basket[:list_input_options] << "text area"
+basket[:list_input_options] << "text field"
 
 format :html do
   def input_type

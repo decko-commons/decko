@@ -1,12 +1,12 @@
 module Cardio
-  # Convenient extendable API for turning delaying on and off.
+  # easy access method for delay configuration
   module Delaying
     def delaying! on=true
-      Cardio.config.delaying = (on == true)
+      config.delaying = (on == true)
     end
 
     def delaying?
-      Cardio.config.delaying
+      config.delaying
     end
   end
 end

@@ -61,11 +61,7 @@ def rule_pattern_index
 end
 
 def pattern_index pattern_id
-  pattern_ids.index(pattern_id) || invalid_pattern_id(pattern_id)
-end
-
-def pattern_ids
-  @pattern_ids ||= set_patterns.map(&:pattern_id)
+  Pattern.ids.index(pattern_id) || invalid_pattern_id(pattern_id)
 end
 
 def invalid_pattern_id pattern_id

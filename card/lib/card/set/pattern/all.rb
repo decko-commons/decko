@@ -7,18 +7,18 @@ class Card
           defined? @patterns
         end
 
-        def all_patterns
-          @all_patterns ||= set_patterns.map { |sub| sub.new self }.compact
+        def concrete_patterns
+          @concrete_patterns ||= Pattern.concrete.map { |sub| sub.new self }.compact
         end
 
         # new cards do not
         def patterns
-          @patterns ||= (new_card? ? all_patterns[1..-1] : all_patterns)
+          @patterns ||= (new_card? ? concrete_patterns[1..-1] : concrete_patterns)
         end
 
         def reset_patterns
           # Rails.logger.info "resetting patterns: #{name}"
-          @patterns = @all_patterns = nil
+          @patterns = @concrete_patterns = nil
           @template = @virtual = nil
           @set_mods_loaded = @set_modules = @set_names = @rule_set_keys = nil
           @junction_only = nil # only applies to set cards
@@ -30,13 +30,14 @@ class Card
         end
 
         def set_modules
-          @set_modules ||= all_patterns[0..-2].reverse.map(&:module_list).flatten.compact
+          @set_modules ||=
+            concrete_patterns[0..-2].reverse.map(&:module_list).flatten.compact
         end
 
         def set_format_modules klass
           @set_format_modules ||= {}
           @set_format_modules[klass] =
-            all_patterns[0..-2].reverse.map do |pattern|
+            concrete_patterns[0..-2].reverse.map do |pattern|
               pattern.format_module_list klass
             end.flatten.compact
         end

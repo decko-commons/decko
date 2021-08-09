@@ -14,7 +14,7 @@ module Cardio
 
       def create_migration_file
         migration_type = options["core"] ? :core_cards : :deck_cards
-        mig_paths = Cardio.migration_paths(migration_type)
+        mig_paths = Schema.migration_paths migration_type
         raise "No migration directory for #{migration_type}" if mig_paths.blank?
 
         set_local_assigns!

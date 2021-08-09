@@ -14,7 +14,7 @@ class Card
         def register pattern_code, opts={}
           if (self.pattern_id = Card::Codename.id(pattern_code))
             self.pattern_code = pattern_code
-            Card.set_patterns.insert opts.delete(:index).to_i, self
+            Pattern.concrete.insert opts.delete(:index).to_i, self
             self.anchorless = !respond_to?(:anchor_name)
             opts.each { |key, val| send "#{key}=", val }
           else

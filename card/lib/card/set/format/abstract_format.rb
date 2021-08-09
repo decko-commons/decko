@@ -7,11 +7,12 @@ class Card
       # Whenever you create a format block in a set module in a {Cardio::Mod mod}, you
       # create a format module that is extended with AbstractFormat.
       module AbstractFormat
-        include Set::Basket
         include ViewOpts
         include ViewDefinition
         include HamlViews
         include Wrapper
+
+        delegate :basket, to: Set
 
         # _Views_ are the primary way that both sharks and monkeys interact with cards.
         # Sharks select views to use in _nests_.  Monkeys can define and tweak those

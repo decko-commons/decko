@@ -310,7 +310,7 @@ Style/IndentationConsistency:
     - 'card/mod/machines/spec/set/type/skin_spec.rb'
     - 'card/mod/standard/spec/set/rstar/rules_spec.rb'
     - 'card/spec/mailers/mailer_spec.rb'
-    - 'decko/lib/decko/tasks/cucumber.rake'
+    - 'decko/lib/tasks/cucumber.rake'
 
 # Offense count: 5
 # Cop supports --auto-correct.
