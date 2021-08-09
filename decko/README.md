@@ -242,7 +242,7 @@ We also have [API Docs][18] on Swaggerhub.
 And info about contributing to Decko is [right next door][24].
 
 
-[1]: https://decko.semaphoreci.com/badges/decko/branches/master.svg "Semaphore Build"
+[1]: https://decko.semaphoreci.com/badges/decko/branches/main.svg "Semaphore Build"
 [2]: https://decko.semaphoreci.com/projects/decko
 [3]: https://badge.fury.io/rb/decko.svg "Gem Version"
 [4]: https://badge.fury.io/rb/decko
@@ -261,11 +261,11 @@ And info about contributing to Decko is [right next door][24].
 [16]: https://decko.org/Syntax_Reference
 [17]: https://decko.org/troubleshooting
 [18]: https://app.swaggerhub.com/apis-docs/Decko/decko-api/0.8.0
-[19]: https://github.com/decko-commons/decko/blob/master/card/lib/card/mod.rb
-[20]: https://github.com/decko-commons/decko/blob/master/card/README.md
-[21]: https://github.com/decko-commons/decko/blob/master/card/lib/card.rb
-[22]: https://github.com/decko-commons/decko/blob/master/card/lib/card/set/format.rb
+[19]: https://github.com/decko-commons/decko/blob/main/card/lib/card/mod.rb
+[20]: https://github.com/decko-commons/decko/blob/main/card/README.md
+[21]: https://github.com/decko-commons/decko/blob/main/card/lib/card.rb
+[22]: https://github.com/decko-commons/decko/blob/main/card/lib/card/set/format.rb
 [23]: https://github.com/decko-commons/card-mods/
-[24]: https://github.com/decko-commons/decko/blob/master/CONTRIBUTING.md
+[24]: https://github.com/decko-commons/decko/blob/main/CONTRIBUTING.md
 [25]: https://img.shields.io/badge/License-GPLv3-blue.svg
 [26]: https://www.gnu.org/licenses/gpl-3.0
