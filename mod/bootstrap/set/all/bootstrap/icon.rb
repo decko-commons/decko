@@ -30,7 +30,7 @@ format :html do
       pushpin: "thumb-tack",
       globe: :globe,
       zoom_out: "search-minus",
-      close: :remove,
+      close: :times,
       check_circle: "check-circle",
       reorder: "align-justify",
       commenting: :comments
