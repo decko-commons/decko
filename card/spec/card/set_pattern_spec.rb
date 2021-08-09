@@ -11,10 +11,7 @@ end
 RSpec.describe Card::Set::Pattern do
   specify "#grouped_codes" do
     expect(described_class.grouped_codes).to eq(
-      [[:all],
-       [:abstract],
-       %i[all_plus type star rstar rule right type_plus_right self]
-      ]
+      [[:all], [:abstract], %i[all_plus type star rstar rule right type_plus_right self]]
     )
   end
 end

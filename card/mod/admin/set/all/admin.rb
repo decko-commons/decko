@@ -11,6 +11,6 @@ basket[:tasks] = []
 #     title: TITLE_STRING,
 #     count: -> { COUNT_CODE },
 #     link_text: LINK_STRING,
-#     task: 
+#     task:
 #   }
 # }
