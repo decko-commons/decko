@@ -33,7 +33,7 @@ task :build_images do
   DOCKER_IMAGES.each do |i|
     system "cd docker; "\
            "docker build -f repos/#{i}.dockerfile -t ethn/#{i} -t ethn/#{i}:v#{version} ."
-    system "docker push ethn/#{i}"
+    system "docker push ethn/#{i}:v#{version}"
   end
 end
 

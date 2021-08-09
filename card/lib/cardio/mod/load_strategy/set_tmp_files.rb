@@ -21,11 +21,17 @@ module Cardio
         end
 
         def load_tmp_files
-          mod_dirs.each_tmp(:set) do |set_tmp_dir|
-            Card::Set::Pattern.codes.each do |pattern|
-              pattern_dir = "#{set_tmp_dir}/#{pattern}"
-              Loader.load_dir "#{pattern_dir}/**" if Dir.exist? pattern_dir
+          pattern_groups.each do |pattern_group|
+            mod_dirs.each_tmp(:set) do |set_tmp_dir|
+              load_tmp_files_for_pattern pattern_group, set_tmp_dir
             end
+          end
+        end
+
+        def load_tmp_files_for_pattern pattern_group, set_tmp_dir
+          pattern_group.each do |pattern|
+            pattern_dir = "#{set_tmp_dir}/#{pattern}"
+            Loader.load_dir "#{pattern_dir}/**" if Dir.exist? pattern_dir
           end
         end
       end
