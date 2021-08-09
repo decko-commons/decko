@@ -14,9 +14,7 @@ module Cardio
         end
 
         def class_for_set_pattern strategy
-          return PatternTmpFiles if strategy == :tmp_files
-
-          Eval
+          strategy == :tmp_files ? PatternTmpFiles : Eval
         end
 
         def tmp_files?
@@ -25,7 +23,8 @@ module Cardio
       end
 
       attr_reader :loader
-      delegate :template_class, :each_file, :mod_dirs, :parts_from_path, to: :loader
+      delegate :template_class, :pattern_groups, :each_file, :mod_dirs, :parts_from_path,
+               to: :loader
 
       def initialize loader
         LoadStrategy.current = self.class
