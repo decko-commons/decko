@@ -3,7 +3,7 @@ format :html do
     # LOCALIZE
     "Register your domain at Google's [[http://google.com/recaptcha|reCAPTCHA service]] "\
     "and enter your site key and secret key below.<br>"\
-    "If you want to turn catchas off then change all [[*captcha|captcha rules]] to 'no'."
+    "If you want to turn captchas off then change all [[*captcha|captcha rules]] to 'no'."
   end
 
   # def instructions title, steps

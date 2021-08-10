@@ -44,7 +44,7 @@ format :html do
   end
 
   def slotify_overlay_link
-    overlay_menu_link "external-link-square", card: card
+    overlay_menu_link "external-link-square-alt", card: card
   end
 
   def close_overlay_link
