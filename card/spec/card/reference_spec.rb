@@ -66,7 +66,6 @@ RSpec.describe Card::Reference, as_bot: true do
     lew = create!("Lew", "likes [[watermelon]] and [[watermelon+seeds|seeds]]")
 
     watermelon = Card["watermelon"]
-    watermelon.update_referers = true
     watermelon.name = "grapefruit"
     watermelon.save!
     result = "likes [[grapefruit]] and [[grapefruit+seeds|seeds]]"
@@ -77,7 +76,6 @@ RSpec.describe Card::Reference, as_bot: true do
     card = Card["*sidebar+*self+*read"]
     old_refs = described_class.where(referee_id: Card::AdministratorID)
 
-    card.update_referers = true
     card.name = "*sidebar+*type+*read"
     card.save
 
@@ -95,7 +93,7 @@ RSpec.describe Card::Reference, as_bot: true do
                  "stores referee ids"
 
     watermelon = Card["watermelon"]
-    watermelon.update_referers = false
+    watermelon.skip = :update_referer_content
     watermelon.name = "grapefruit"
     watermelon.save!
 
@@ -113,7 +111,10 @@ RSpec.describe Card::Reference, as_bot: true do
     let(:x) { Card["X"] } # links to A+B
 
     def rename update_referers=true
-      Card["A+B"].update! name: "Peanut+Butter", update_referers: update_referers
+      args = { name: "Peanut+Butter" }
+      args[:skip] = :update_referer_content unless update_referers
+
+      Card["A+B"].update! args
     end
 
     it "updating referers can be opted into" do
@@ -176,13 +177,13 @@ RSpec.describe Card::Reference, as_bot: true do
 
   it "handles contextual names in Basic cards" do
     create_basic "basic w refs", "{{_+A}}"
-    Card["A"].update! name: "AAA", update_referers: true
+    Card["A"].update! name: "AAA"
     expect(Card["basic w refs"].content).to eq "{{_+AAA}}"
   end
 
   it "handles contextual names in Search cards" do
     create_search_type "search w refs", '{"name":"_+A"}'
-    Card["A"].update! name: "AAA", update_referers: true
+    Card["A"].update! name: "AAA"
     expect(Card["search w refs"].content).to eq '{"name":"_+AAA"}'
   end
 
