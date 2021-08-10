@@ -163,8 +163,7 @@ Decko::RestSpecHelper.describe_api do
     it "rename without update references should work" do
       f = Card.create! type: "Cardtype", name: "Apple"
       patch :update, xhr: true, params: { mark: "~#{f.id}",
-                                          card: { name: "Newt",
-                                                  update_referers: "false" } }
+                                          card: { name: "Newt" } }
       expect(assigns["card"].errors.empty?).not_to be_nil
       assert_response :success
       expect(Card["Newt"]).not_to be_nil

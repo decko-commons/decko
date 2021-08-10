@@ -47,7 +47,7 @@ RSpec.describe Card::Set::Type::SearchType do
     end
 
     it "updates query if referee changed" do
-      Card["Y"].update! name: "YYY", update_referers: true
+      Card["Y"].update! name: "YYY"
       expect(subject.content).to eq '{"name":"YYY"}'
     end
   end
