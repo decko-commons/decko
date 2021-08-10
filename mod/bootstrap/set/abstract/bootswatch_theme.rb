@@ -37,7 +37,7 @@
 # content which will trigger the updates of other machines that use this card.
 
 include_set Abstract::Machine
-include_set Type::Scss
+include_set Abstract::Scss
 include_set Abstract::CodeFile
 include_set Abstract::SkinBox
 
