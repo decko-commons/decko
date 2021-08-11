@@ -1,11 +1,10 @@
 # -*- encoding : utf-8 -*-
 
 shared_examples_for "machine input" do # |args|
-  subject(:input) do
-    myinput = create_machine_input_card
-    myinput
+  let :input do
+    create_machine_input_card
   end
-  #
+
   # let :create_machine_input_card do
   #   Card.gimme! args[:name], type: args[:type], content: args[:content]
   # end
@@ -22,14 +21,14 @@ shared_examples_for "machine input" do # |args|
   #   args.slice(:out, :changed_in, :changed_out).merge in: content
   # end
 
-  let!(:machine) do
+  let! :machine do
     f = create_machine_card
     f << create_machine_input_card
     f.putty
     f
   end
 
-  let(:more_input) do
+  let :more_input do
     moreinput = create_another_machine_input_card
     moreinput
   end
@@ -42,7 +41,7 @@ shared_examples_for "machine input" do # |args|
       expect(ca.machine_input_card.item_cards).to eq([])
     end
 
-    xit "updates output of machine card" do
+    it "updates output of machine card" do
       machine
       Card::Auth.as_bot { input.delete! }
       f = Card.gimme machine.name
@@ -51,11 +50,11 @@ shared_examples_for "machine input" do # |args|
     end
   end
 
-  xit "delivers machine input" do
+  it "delivers machine input" do
     expect(input.machine_input).to eq(card_content[:out])
   end
 
-  xcontext "when updated" do
+  context "when updated" do
     it "updates output of related machine card" do
       input.putty content: card_content[:changed_in]
       updated_machine = Card.gimme machine.name
@@ -64,7 +63,7 @@ shared_examples_for "machine input" do # |args|
     end
   end
 
-  xcontext "when added" do
+  context "when added" do
     it "updates output of related machine card" do
       if machine.is_a? Card::Set::Type::Pointer
         machine << more_input

@@ -3,7 +3,7 @@ class Card
     # Name-related Card class methods
     module CardClass
       def rename! oldname, newname
-        Card[oldname].update! name: newname, update_referers: true
+        Card[oldname].update! name: newname
       end
 
       def uniquify_name name, rename=:new

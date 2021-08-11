@@ -20,7 +20,7 @@ RSpec.describe Card::Set::All::NameEvents do
     actions_count_before = card.actions.count
     old_name = card.name
 
-    update! card.name, name: new_name, update_referers: true
+    update! card.name, name: new_name
     expect_action_added card, actions_count_before
     expect_old_name_cleared old_name
     expect_successful_rename card, attrs_before
@@ -66,7 +66,7 @@ RSpec.describe Card::Set::All::NameEvents do
   end
 
   it "wipes old references by default" do
-    update "Menu", name: "manure"
+    update "Menu", name: "manure", skip: :update_referer_content
     expect(Card["manure"].references_in.size).to eq(0)
   end
 
@@ -133,7 +133,7 @@ RSpec.describe Card::Set::All::NameEvents do
     end
 
     c = Card["Joe Card"]
-    c.update! name: "Card of Joe", update_referers: true
+    c.update! name: "Card of Joe"
     assert_equal "[[Card of Joe]]", Card["Admin Card"].content
   end
 
@@ -144,7 +144,7 @@ RSpec.describe Card::Set::All::NameEvents do
       Card.create! name: "Fruit+*type+*structure", content: "this [[Pit]]"
 
       assert_equal "this [[Pit]]", Card["Orange"].content
-      c.update! name: "Seed", update_referers: true
+      c.update! name: "Seed"
       assert_equal "this [[Seed]]", Card["Orange"].content
     end
   end
@@ -156,38 +156,38 @@ RSpec.describe Card::Set::All::NameEvents do
   context "with self references" do
     example "renaming card with self link should nothang" do
       pre_content = Card["self_aware"].content
-      update "self aware", name: "buttah", update_referers: true
+      update "self aware", name: "buttah"
       expect_card("Buttah").to have_content(pre_content)
     end
 
     it "renames card without updating references" do
       pre_content = Card["self_aware"].content
-      update "self aware", name: "Newt", update_referers: false
+      update "self aware", name: "Newt"
       expect_card("Newt").to have_content(pre_content)
     end
   end
 
   context "with references" do
     it "updates nests" do
-      update "Blue", name: "Red", update_referers: true
+      update "Blue", name: "Red"
       expect_card("blue includer 1").to have_content("{{Red}}")
       expect_card("blue includer 2").to have_content("{{Red|closed;other:stuff}}")
     end
 
     it "updates nests when renaming to plus" do
-      update "Blue", name: "blue includer 1+color", update_referers: true
+      update "Blue", name: "blue includer 1+color"
       expect_card("blue includer 1").to have_content("{{blue includer 1+color}}")
     end
 
     it "reference updates on case variants" do
-      update "Blue", name: "Red", update_referers: true
+      update "Blue", name: "Red"
       expect_card("blue linker 1").to have_content("[[Red]]")
       expect_card("blue linker 2").to have_content("[[Red]]")
     end
 
     it "handles link to and nest of same card" do
       update "blue linker 1", content: "[[Blue]] is {{Blue|name}}"
-      update "Blue", name: "Red", update_referers: true
+      update "Blue", name: "Red"
       expect_card("blue linker 1").to have_content("[[Red]] is {{Red|name}}")
     end
 

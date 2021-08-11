@@ -43,7 +43,7 @@ RSpec.describe Card::Dirty do
         test_event :integrate_with_delay, changed: :content do
           event_called :iwd_content
         end
-        Card["A"].update! name: "new name"
+        Card["A"].update! name: "new name", skip: :update_referer_content
         Delayed::Worker.new.work_off
         expect(@called_events).to eq(%i[i_name iwd_name])
       end

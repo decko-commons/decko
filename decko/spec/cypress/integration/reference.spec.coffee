@@ -10,7 +10,8 @@ describe 'reference', () ->
     cy.visit "/Vignesh?view=edit_name"
     cy.get("#card_name").clear().type "Srivigneshwar", delay: 0
     cy.get("button.renamer").click()
-    cy.contains("Rename and Update").click()
+    cy.on "window:confirm", (str) ->
+      expect(str).to.equal "Are you sure you want to rename?"
+      true
     cy.contains("Renaming").should("not.exist", wait: 20000)
     cy.main_slot().should "contain", "Srivigneshwar"
-
