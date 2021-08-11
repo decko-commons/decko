@@ -14,7 +14,6 @@ class AccountRequestsToSignups < Cardio::Migration::Core
     # rename Account Request to "Sign up"
     new_signup = Card[:account_request]
     new_signup.name = newname
-    new_signup.update_referers = true
     new_signup.codename = :signup
     new_signup.save!
 
@@ -22,7 +21,6 @@ class AccountRequestsToSignups < Cardio::Migration::Core
     thanks = Card[:thanks]
     if (signup_thanks = Card["#{old_signup.name}+#{thanks.name}"])
       signup_thanks.name = "#{new_signup.name}+#{Card[:type].name}+#{thanks.name}"
-      signup_thanks.update_referers = true
       signup_thanks.save!
     end
 
