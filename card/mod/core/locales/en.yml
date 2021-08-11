@@ -21,10 +21,9 @@ en:
   core_exception_almost_deleted: Narrowly averted deleting current file
   core_is_incomplete: is incomplete
   core_only_admins_codename: only admins can set codename
-  core_rename_and_update: "Rename and Update"
   core_renaming: "Renaming"
   core_rename: "Rename"
-  core_rename_confirm: "Are you sure you want to rename"
-  core_rename_reference_confirm:
-    This name is referred to at least %{count} time(s). You may choose to <em>update</em>
-    those references to use the new name."
+  core_rename_confirm: "Are you sure you want to rename?"
+
+  skip_update_referer_content:
+    do not update references to this name

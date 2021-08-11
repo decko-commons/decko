@@ -27,7 +27,7 @@ end
 
 def drop_asset asset_type, asset_card
   asset_card.update codename: nil
-  asset_card.delete update_referers: true
+  asset_card.delete
   all_rule(asset_type).drop_item! asset_card
 end
 

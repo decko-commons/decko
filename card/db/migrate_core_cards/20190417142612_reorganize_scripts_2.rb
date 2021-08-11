@@ -4,9 +4,7 @@ class ReorganizeScripts2 < Cardio::Migration::Core
   def up
     delete_code_card :script_card_menu
     if Card::Codename[:script_slot]
-      update_card! :script_slot, name: "script: decko",
-                                 codename: "script_decko",
-                                 update_referers: true
+      update_card! :script_slot, name: "script: decko", codename: "script_decko"
     end
     if (card = Card[:all, :script])
       card.drop_item "script: card menu"
