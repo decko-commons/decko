@@ -12,6 +12,6 @@ describe 'reference', () ->
     cy.get("button.renamer").click()
     cy.on "window:confirm", (str) ->
       expect(str).to.equal "Are you sure you want to rename?"
-      done()
+      true
     cy.contains("Renaming").should("not.exist", wait: 20000)
     cy.main_slot().should "contain", "Srivigneshwar"

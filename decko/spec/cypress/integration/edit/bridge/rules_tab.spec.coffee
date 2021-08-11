@@ -20,6 +20,6 @@ describe 'rules tab', () ->
 
     cy.on "window:confirm", (str) ->
       expect(str).to.contain "This rule will affect all cards"
-      true
+      done()
 
     cy.el("submit-overlay").click()
