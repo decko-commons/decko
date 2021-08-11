@@ -9,7 +9,7 @@ class AddSharkAndHelpDeskRole < Cardio::Migration::Core
     ensure_card "*account settings",
                 codename: "account_settings", type_id: Card::BasicID
 
-    update_card! "Decker Menu", name: "Shark Menu", update_referers: true
+    update_card! "Decker Menu", name: "Shark Menu"
     update_card! :ace, name: "*ace"
     update_card! "*google_analytics_key", name: "*google analytics key"
 

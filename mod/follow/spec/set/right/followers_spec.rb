@@ -38,7 +38,6 @@ RSpec.describe Card::Set::Right::Followers do
 
     it "recognizes card name changes" do
       card = Card["Look At Me"]
-      card.update_referers = true
       card.update! name: "Look away"
       expect(followers_of(card)).to eq ["Big Brother"]
     end
