@@ -33,10 +33,7 @@ describe 'save change in bridge', () ->
     cy.slot("snow", "edit_name_row").el("edit-link").click(force: true)
     cy.get(".name-editor > input[name='card[name]']").clear().type("rain")
     cy.get("button.renamer").click()
-    cy.contains("OK").click()
     cy.bridge().contains("Renaming").should("not.exist", wait: 20000)
     # cy.el("close-modal").click()
 
     cy.expect_main_title("rain")
-
-
