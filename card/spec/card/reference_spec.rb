@@ -110,9 +110,9 @@ RSpec.describe Card::Reference, as_bot: true do
   context "when renaming junction cards" do
     let(:x) { Card["X"] } # links to A+B
 
-    def rename update_referers=true
+    def rename updating_referers=true
       args = { name: "Peanut+Butter" }
-      args[:skip] = :update_referer_content unless update_referers
+      args[:skip] = :update_referer_content unless updating_referers
 
       Card["A+B"].update! args
     end
