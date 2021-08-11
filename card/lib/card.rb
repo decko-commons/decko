@@ -159,7 +159,6 @@ class Card < Cardio::Record
     :comment,                     # obviated soon
 
     # TODO: refactor following to use skip/trigger
-    :update_referers,             # wrong mechanism for this
     :update_all_users,            # if the above is wrong then this one too
     :silent_change                # and this probably too
   ]
