@@ -165,30 +165,3 @@ namespace :decko do
     end
   end
 end
-
-# desc "copy files from template database to standard mod and update cards"
-# task copy_mod_files: :environment do
-#   # mark mod files as mod files
-#   Card::Auth.as_bot do
-#     each_file_card  do |card|
-#       # make card a mod file card
-#       mod_name =
-#         card.left&.type_id == Card::SkinID ? "bootstrap" : "standard"
-#       card.update! storage_type: :coded,
-#                               mod: mod_name,
-#                               empty_ok: true
-#     end
-#   end
-# # end
-
-# def each_file_card
-#   Card.search(type: %w[in Image File], ne: "").each do |card|
-#     if card.coded? || card.codename == "new_file" ||
-#        card.codename == "new_image"
-#       puts "skipping #{card.name}: already in code"
-#     else
-#       puts "working on #{card.name}"
-#       yield card
-#     end
-#   end
-# end
