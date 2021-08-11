@@ -77,7 +77,7 @@ event :update_lexicon, :finalize, changed: :name, on: :save do
 end
 
 event :cascade_name_changes, :finalize, on: :update, changed: :name do
-  each_descendant { |d| d.rename_as_descendant update_referers }
+  each_descendant { |d| d.rename_as_descendant !skip_update_referers? }
 end
 
 protected

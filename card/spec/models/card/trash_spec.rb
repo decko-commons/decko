@@ -53,7 +53,7 @@ describe Card, "rename to trashed name" do
       @a = described_class["A"]
       @b = described_class["B"]
       @a.delete!  # trash
-      @b.update! name: "A", update_referers: true
+      @b.update! name: "A"
     end
   end
 

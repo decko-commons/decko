@@ -34,6 +34,14 @@ class Card
           @trigger_hash ||= hash_with_value trigger, true
         end
 
+        def skip_event? event
+          full_skip_hash.key? event.to_s
+        end
+
+        def trigger_event? event
+          full_trigger_hash.key? event.to_s
+        end
+
         private
 
         # "applies always means event can run

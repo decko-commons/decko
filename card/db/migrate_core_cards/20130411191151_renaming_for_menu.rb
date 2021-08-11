@@ -16,7 +16,6 @@ class RenamingForMenu < Cardio::Migration::Core
     renames.each do |oldname, newname|
       puts "updating: #{oldname}"
       c = Card[oldname]
-      c.update_referers = true
       c.name = newname
       c.save!
     end
