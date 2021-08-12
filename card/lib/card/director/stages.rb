@@ -26,6 +26,8 @@ class Card
           STAGE_INDEX[stage]
         when Integer
           stage
+        when nil
+          -1
         else
           raise Card::Error, "not a valid stage: #{stage}"
         end
