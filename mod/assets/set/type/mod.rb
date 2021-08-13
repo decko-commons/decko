@@ -13,6 +13,9 @@ def ensure_mod_asset_card asset_type, type_id
   return if asset_card.no_action?
   asset_card.save! if asset_card.new?
 
+  # TODO: optimize!
+  # this needs to be smarter so that it doesn't do a lot of "re" installing
+  # when things are already set up.
   asset_card.update_items
   if asset_card.item_cards.present?
     add_asset asset_type
