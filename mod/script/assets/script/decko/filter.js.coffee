@@ -59,7 +59,7 @@ decko.filter = (el) ->
     field.find("input, select").first().focus()
 
   @fieldValue = (field, value) ->
-    if typeof(value) == "object"
+    if typeof(value) == "object" && !Array.isArray(value)
       @compoundFieldValue field, value
     else
       @simpleFieldValue field, value

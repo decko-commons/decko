@@ -2245,7 +2245,7 @@
       return field.find("input, select").first().focus();
     };
     this.fieldValue = function(field, value) {
-      if (typeof value === "object") {
+      if (typeof value === "object" && !Array.isArray(value)) {
         return this.compoundFieldValue(field, value);
       } else {
         return this.simpleFieldValue(field, value);
