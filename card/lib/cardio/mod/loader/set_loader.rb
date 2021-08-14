@@ -16,7 +16,7 @@ module Cardio
 
         def load
           super
-          Card::Set.clean_empty_modules
+          Card::Set.finalize_load
         end
 
         def template_class
