@@ -104,7 +104,7 @@ class Card
     end
 
     def without_references &block
-      without_chunks Chunk::Nest, Chunk::Link, &block
+      without_chunks Chunk::Nest, Chunk::Link, Chunk::EscapedLiteral, &block
     end
 
     def without_chunks *chunk_classes
