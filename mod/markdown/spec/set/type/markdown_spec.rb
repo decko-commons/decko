@@ -17,8 +17,8 @@ RSpec.describe Card::Set::Type::Markdown do
     end
 
     it "handles escaped nests" do
-      expect(markdown_core('\{{B|link}}'))
-        .to eq('<p>{{B|link}}</p>')
+      expect(markdown_core("\\{{B|link}}"))
+        .to eq("<p>{{B|link}}</p>")
     end
   end
 end

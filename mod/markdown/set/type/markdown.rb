@@ -7,6 +7,10 @@ format :html do
     end
   end
 
+  def escape_literal literal
+    literal
+  end
+
   def input_type
     :ace_editor
   end
