@@ -89,7 +89,6 @@ class Card
       register_list :nest_only, [:Nest]
       register_list :query, [:QueryReference]
       register_list :stub, [:ViewStub]
-      register_list :references_keep_escaping,  %i[KeepEscapedLiteral Nest Link]
     end
   end
 end
