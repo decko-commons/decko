@@ -10,7 +10,7 @@ RSpec.describe Card::Content::Chunk::KeepEscapedLiteral do
       expect(apply_chunk('\{{A}}')).to eq('\\\\{{A}}')
     end
 
-    it "duplicates backslacses before links" do
+    it "duplicates backslashes before links" do
       expect(apply_chunk('\[[A]]')).to eq('\\\\[[A]]')
     end
 

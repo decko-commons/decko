@@ -12,7 +12,7 @@ class Card
       # Placeholders are numbers in double curly brackets like {{2}}.
       def safe_process_content override_content=nil, content_opts=nil, &block
         content_obj =
-          content_object override_content, chunk_list: :references_keep_escaping
+          content_object override_content, chunk_list: :references
         result = content_obj.without_references(&block)
         process_content result, content_opts
       end
