@@ -53,10 +53,9 @@ class Card
       def quick_renew
         return false unless quick_renew?
 
-        # Rails.logger.info "QUICK renewing: #{mark}, #{new_opts}"
         update_supercard
         opts_name = new_opts[:name]
-        assign_name (opts_name.present? ? opts_name : mark)
+        assign_name(opts_name.present? ? opts_name : mark)
         true
       end
 
