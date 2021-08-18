@@ -49,8 +49,8 @@ class Card
       end
 
       def finalize_load
-        basket.freeze
-        basket.each_value(&:freeze)
+        # basket.freeze
+        # basket.each_value(&:freeze)
         clean_empty_modules
       end
 
