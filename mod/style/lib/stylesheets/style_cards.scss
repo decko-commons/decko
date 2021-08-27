@@ -311,8 +311,8 @@ The below provides styles for aspects of decks not usually prioritized by skin d
 
 It includes basic styling for:
 
-  1. wagneer interface (sets, settings, rules)
-  2. editor interface (forms, fieldsets, menus, navbox, history)
+  1. shark interface (sets, settings, rules)
+  2. eagle interface (forms, fieldsets, menus, navbox, history)
   3. views that by definition alter default styling (closed, labeled)
   4. errors / warnings / notices
   5. key default content for new installs (home page, sidebar)
@@ -725,16 +725,6 @@ ul.action-list {
     }
   }
 }
-
-
-.SELF-wagneer_menu.d0-card-content {
-  > p {
-    margin-left: 6%;
-    text-indent: -6%;
-  }
-}
-
-
 
 /*-------------------------- */
 /*- SETS, SETTINGS, RULES  - */
