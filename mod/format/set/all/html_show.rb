@@ -13,7 +13,7 @@ format :html do
   def show_without_page_layout view, args
     @main = true if params[:is_main] || args[:main]
     args.delete(:layout)
-    view ||= args[:home_view] || :open # default_nest_view
+    view ||= args[:home_view] || default_page_view
     render! view, args
   end
 
