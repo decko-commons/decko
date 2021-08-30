@@ -18,6 +18,7 @@ class Cardname < String
   include Contextual
   include Predicates
   include Manipulate
+  include Danger
 
   OK4KEY_RE = '\p{Word}\*'
 
