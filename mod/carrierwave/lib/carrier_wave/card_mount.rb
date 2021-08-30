@@ -60,8 +60,13 @@ module CarrierWave
           "#{column}".to_sym
         end
 
-        alias_method :read_uploader, :read_attribute
-        alias_method :write_uploader, :write_attribute
+        def read_uploader *args
+          read_attribute *args
+        end
+
+        def write_uploader *args
+          write_attribute *args
+        end
 
         def #{column}=(new_file)
           return if new_file.blank?
@@ -110,21 +115,17 @@ module CarrierWave
           @#{column}_changed
         end
 
-        def serializable_hash(options=nil)
-          hash = {}
+        def serializable_hash(opts=nil)
+          except = opts&.dig(:except) && Array.wrap(opts[:except]).map(&:to_s)
+          only = opts&.dig(:only) && Array.wrap(opts[:only]).map(&:to_s)
 
-          except = options && options[:except] &&
-                   Array.wrap(options[:except]).map(&:to_s)
-          only   = options && options[:only]   &&
-                   Array.wrap(options[:only]).map(&:to_s)
-
-          self.class.uploaders.each do |column, uploader|
-            if (!only && !except) || (only && only.include?(column.to_s)) ||
+          self.class.uploaders.each_with_object(super(opts)) do |(column, uploader), hash|
+            if (!only && !except) || 
+               (only && only.include?(column.to_s)) ||
                (!only && except && !except.include?(column.to_s))
               hash[column.to_s] = _mounter(column).uploader.serializable_hash
             end
           end
-          super(options).merge(hash)
         end
       RUBY
     end

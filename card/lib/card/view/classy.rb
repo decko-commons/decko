@@ -129,7 +129,7 @@ class Card
       end
 
       def class_list type=:private
-        if type.in %i[private format_private public single_use]
+        if type.in? %i[private format_private public single_use]
           @class_list ||= {}
           @class_list[type] ||= {}
         else
