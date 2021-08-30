@@ -4,12 +4,13 @@ require "active_support/inflector"
 require "htmlentities"
 
 class Cardname < String
-  require_relative "cardname/parts"
-  require_relative "cardname/pieces"
-  require_relative "cardname/variants"
-  require_relative "cardname/contextual"
-  require_relative "cardname/predicates"
-  require_relative "cardname/manipulate"
+  require "cardname/parts"
+  require "cardname/pieces"
+  require "cardname/variants"
+  require "cardname/contextual"
+  require "cardname/predicates"
+  require "cardname/manipulate"
+  require "cardname/danger"
 
   include Parts
   include Pieces
@@ -17,6 +18,7 @@ class Cardname < String
   include Contextual
   include Predicates
   include Manipulate
+  include Danger
 
   OK4KEY_RE = '\p{Word}\*'
 
@@ -68,25 +70,6 @@ class Cardname < String
       @banned_re ||= /[#{Regexp.escape((banned_array + [joint])).join}]/
     end
 
-    # Sometimes the core rule "the key's key must be itself" (called "stable" below) is violated
-    # eg. it fails with singularize as uninflect method for Matthias -> Matthia -> Matthium
-    # Usually that means the name is a proper noun and not a plural.
-    # You can choose between two solutions:
-    # 1. don't uninflect if the uninflected key is not stable (stabilize = false)
-    # 2. uninflect until the key is stable (stabilize = true)
-    def stable_key name
-      key_one = name.send(uninflect)
-      key_two = key_one.send(uninflect)
-      return key_one unless key_one != key_two
-
-      stabilize ? stable_key(key_two) : name
-    end
-
-    def dangerous_methods
-      bang_methods = String.instance_methods.select { |m| m.to_s.end_with?("!") }
-      %i[replace concat clear].concat bang_methods
-    end
-
     def split_parts str
       str.split(/\s*#{JOINT_RE}\s*/, -1)
     end
@@ -110,13 +93,6 @@ class Cardname < String
     self
   end
 
-  dangerous_methods.each do |m|
-    define_method m do |*args, &block|
-      reset
-      super(*args, &block)
-    end
-  end
-
   def []= index, val
     p = parts
     p[index] = val
@@ -132,21 +108,11 @@ class Cardname < String
   end
 
   def == other
-    other_key =
+    key ==
       case
       when other.respond_to?(:key)     then other.key
       when other.respond_to?(:to_name) then other.to_name.key
       else                                  other.to_s
       end
-    other_key == key
-  end
-
-  private
-
-  def reset
-    self.class.reset_cache s
-    instance_variables.each do |var|
-      instance_variable_set var, nil
-    end
   end
 end
