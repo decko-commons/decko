@@ -1,5 +1,6 @@
 class Cardname
   module Danger
+    # methods that have the potential to confuse cardname cache prompt cache resets
     def self.dangerous_methods
       bang_methods = String.instance_methods.select { |m| m.to_s.end_with?("!") }
       %i[replace concat clear].concat bang_methods

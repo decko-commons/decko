@@ -46,8 +46,9 @@ class Cardname
       self.class.stabilize
     end
 
-    # Sometimes the core rule "the key's key must be itself" (called "stable" below) is violated
-    # eg. it fails with singularize as uninflect method for Matthias -> Matthia -> Matthium
+    # Sometimes the core rule "the key's key must be itself" (called "stable" below)
+    # is violated. For example,  it fails with singularize as uninflect method
+    # for Matthias -> Matthia -> Matthium
     # Usually that means the name is a proper noun and not a plural.
     # You can choose between two solutions:
     # 1. don't uninflect if the uninflected key is not stable (stabilize = false)

@@ -120,7 +120,7 @@ module CarrierWave
           only = opts&.dig(:only) && Array.wrap(opts[:only]).map(&:to_s)
 
           self.class.uploaders.each_with_object(super(opts)) do |(column, uploader), hash|
-            if (!only && !except) || 
+            if (!only && !except) ||
                (only && only.include?(column.to_s)) ||
                (!only && except && !except.include?(column.to_s))
               hash[column.to_s] = _mounter(column).uploader.serializable_hash

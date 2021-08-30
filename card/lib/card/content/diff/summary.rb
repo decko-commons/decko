@@ -117,12 +117,12 @@ class Card
           @chunks[index][:text] += @joint
         end
 
-        JOINT_REPLACEMENT = { added: :ellipis, deleted: :added }
+        JOINT_REPLACEMENT = { added: :ellipis, deleted: :added }.freeze
 
         def replace_with_joint index
           @chunks.pop
           return unless index.positive? &&
-            (previous_action = JOINT_REPLACEMENT[@chunks[index - 1][:action]])
+                        (previous_action = JOINT_REPLACEMENT[@chunks[index - 1][:action]])
 
           add_chunk_to_list @joint, previous_action
         end
