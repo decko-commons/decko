@@ -67,10 +67,6 @@ module Cardio
         text
       end
 
-      def simplecov_config
-        "" # TODO: add simplecov configs here
-      end
-
       def jasmine_yml prefix
         inside("javascripts/support") do
           template "#{prefix}_jasmine.yml.erb", "jasmine.yml"
