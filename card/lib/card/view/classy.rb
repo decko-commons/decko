@@ -141,7 +141,7 @@ class Card
                           subviews: :format_private,
                           nests: :public,
                           global: :public,
-                          single_use: :single_use }
+                          single_use: :single_use }.freeze
 
       # Translates scopes to the privacy types used to manage the class lists.
       # A #classy calls looks in the following class_lists:
