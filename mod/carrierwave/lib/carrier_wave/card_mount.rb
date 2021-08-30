@@ -29,8 +29,7 @@ module CarrierWave
           remove_#{column}!
         end
 
-        event :mark_remove_#{column}_false_event, :finalize,
-              on: :update do
+        event :mark_remove_#{column}_false_event, :finalize, on: :update do
           mark_remove_#{column}_false
         end
 
@@ -61,13 +60,8 @@ module CarrierWave
           "#{column}".to_sym
         end
 
-        def read_uploader *args
-          read_attribute *args
-        end
-
-        def write_uploader *args
-          write_attribute *args
-        end
+        alias_method :read_uploader, :read_attribute
+        alias_method :write_uploader, :write_attribute
 
         def #{column}=(new_file)
           return if new_file.blank?
