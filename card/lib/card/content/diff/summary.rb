@@ -7,21 +7,11 @@ class Card
           opts ||= {}
           @remaining_chars = opts[:length] || 50
           @joint = opts[:joint] || "..."
-
-          @summary = nil
           @chunks = []
-          @content_omitted = false
         end
 
         def rendered
-          @summary ||=
-            begin
-              truncate_overlap
-              @chunks.map do |chunk|
-                @content_omitted ||= chunk[:action] == :ellipsis
-                render_chunk chunk[:action], chunk[:text]
-              end.join
-            end
+          @rendered ||= render
         end
 
         def add text
@@ -43,6 +33,14 @@ class Card
         end
 
         private
+
+        def render
+          truncate_overlap
+          @chunks.map do |chunk|
+            @content_omitted ||= chunk[:action] == :ellipsis
+            render_chunk chunk[:action], chunk[:text]
+          end.join
+        end
 
         def add_chunk text, action
           return unless @remaining_chars.positive?
@@ -119,16 +117,14 @@ class Card
           @chunks[index][:text] += @joint
         end
 
+        JOINT_REPLACEMENT = { added: :ellipis, deleted: :added }.freeze
+
         def replace_with_joint index
           @chunks.pop
-          return unless index.positive?
+          return unless index.positive? &&
+                        (previous_action = JOINT_REPLACEMENT[@chunks[index - 1][:action]])
 
-          case @chunks[index - 1][:action]
-          when :added
-            add_chunk_to_list @joint, :ellipsis
-          when :deleted
-            add_chunk_to_list @joint, :added
-          end
+          add_chunk_to_list @joint, previous_action
         end
       end
     end
