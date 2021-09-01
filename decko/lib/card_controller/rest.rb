@@ -1,26 +1,7 @@
 class CardController
-  # RESTful action methods for card
+  # helper method for RESTful action methods for card
   module Rest
     include ActionController::HttpAuthentication::Token
-
-    # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    #  PUBLIC METHODS
-
-    def create
-      handle { card.save! }
-    end
-
-    def read
-      show
-    end
-
-    def update
-      card.new_card? ? create : handle { card.update! params[:card]&.to_unsafe_h }
-    end
-
-    def delete
-      handle { card.delete! }
-    end
 
     # @deprecated
     def asset
@@ -28,9 +9,6 @@ class CardController
       Rails.logger.info "#{body}.\n  >>> Try `rake card:mod:symlink`"
       render body: body, status: 404
     end
-
-    # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    #  PRIVATE METHODS
 
     private
 
