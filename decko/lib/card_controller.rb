@@ -26,20 +26,4 @@ class CardController < ActionController::Base
 
   rescue_from_class(*Card::Error::UserError.user_error_classes)
   rescue_from_class StandardError if rescue_all?
-
-  def create
-    handle { card.save! }
-  end
-
-  def read
-    show
-  end
-
-  def update
-    card.new_card? ? create : handle { card.update! params[:card]&.to_unsafe_h }
-  end
-
-  def delete
-    handle { card.delete! }
-  end
 end

@@ -3,6 +3,22 @@ class CardController
   module Rest
     include ActionController::HttpAuthentication::Token
 
+    def create
+      handle { card.save! }
+    end
+
+    def read
+      show
+    end
+
+    def update
+      card.new_card? ? create : handle { card.update! params[:card]&.to_unsafe_h }
+    end
+
+    def delete
+      handle { card.delete! }
+    end
+
     # @deprecated
     def asset
       body = "Decko installation error: missing public directory symlinks"
