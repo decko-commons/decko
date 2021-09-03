@@ -22,6 +22,7 @@ format :html do
   view :filtered_content, template: :haml, wrap: :slot
 
   view :filtered_results do
+    class_up "card-slot", "_filter-result-slot"
     wrap { render_core }
   end
 
