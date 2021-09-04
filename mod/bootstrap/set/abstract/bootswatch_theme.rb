@@ -36,9 +36,8 @@
 # To do that it is a machine itself and stores the generated machine output as its
 # content which will trigger the updates of other machines that use this card.
 
-include_set Abstract::Machine
-include_set Abstract::Scss
-include_set Abstract::CodeFile
+include_set Abstract::AssetInputter, input_format: :css, input_view: :core
+include_set Type::Scss
 include_set Abstract::SkinBox
 
 CONTENT_PARTS = %i[pre_variables variables post_variables stylesheets].freeze
@@ -56,6 +55,28 @@ POST_VARIABLES_CARD_NAMES = %i[
   style_mods
 ].freeze
 
+def content
+  CONTENT_PARTS.map do |n|
+    send "#{n}_content"
+  end.join "\n"
+end
+
+def item_names _args={}
+  (PRE_VARIABLES_CARD_NAMES + variables_card_names +
+    POST_VARIABLES_CARD_NAMES + stylesheets_card_names).compact.map do |n|
+    Card.fetch_name(n)
+  end.compact
+end
+
+format :html do
+  view :input do
+    # Localize
+    "Content is stored in file and can't be edited."
+  end
+end
+
+private
+
 # @return [Array<Card::Name,String>]
 def variables_card_names
   []
@@ -66,41 +87,18 @@ def stylesheets_card_names
   []
 end
 
-# reject cards that don't contribute directly to the content like skin or pointer cards
-def engine_input
-  extended_input_cards.select { |ca| ca.type_id.in? [Card::ScssID, Card::CssID] }
-end
-
-# Don't create "+*machine output" file card
-# instead save the the output as the card's content is
-def after_engine output
-  Card::Auth.as_bot { update! db_content: output }
-end
-
-# needed to make the refresh_assets method work with these cards
+# needed to make the refresh_script_and_style method work with these cards
 def source_files
-  extended_input_cards.map do |i_card|
+  item_cards.map do |i_card|
     i_card.try(:source_files)
   end.flatten.compact
 end
 
 # needed to make the refresh_assets method work with these cards
 def existing_source_paths
-  extended_input_cards.map do |i_card|
+  item_cards.map do |i_card|
     i_card.try(:existing_source_paths)
   end.flatten.compact
-end
-
-def extended_input_cards
-  input_names.map do |n|
-    Card.fetch(n).extended_item_cards
-  end.flatten.compact
-end
-
-def content
-  CONTENT_PARTS.map do |n|
-    send "#{n}_content"
-  end.join "\n"
 end
 
 def pre_variables_content
@@ -117,21 +115,6 @@ end
 
 def stylesheets_content
   load_content stylesheets_card_names
-end
-
-def input_names _args={}
-  (PRE_VARIABLES_CARD_NAMES + variables_card_names +
-    POST_VARIABLES_CARD_NAMES + stylesheets_card_names).compact.map do |n|
-    Card.fetch_name(n)
-  end.compact
-end
-
-def item_names _args={}
-  []
-end
-
-def item_cards _args={}
-  [self]
 end
 
 def load_content *names
@@ -156,3 +139,4 @@ def source_dir
     "#{mod_root :bootstrap}/vendor/bootswatch/dist/#{theme_name}", __FILE__
   )
 end
+

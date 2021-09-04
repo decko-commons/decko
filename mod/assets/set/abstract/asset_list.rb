@@ -51,10 +51,6 @@ def source_paths
   paths
 end
 
-def self_machine_input?
-  true
-end
-
 def local
   @local = true
 end

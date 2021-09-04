@@ -1,18 +1,13 @@
 module MachineInputClassMethods
-  attr_accessor :machines_cql
-
-  def machine_input_for args
-    @machines_cql = args
-  end
-
   def machine_input &block
     define_method :machine_input, block
   end
 end
 
+card_accessor :input_cache
+
 def self.included host_class
   host_class.extend(MachineInputClassMethods)
-  host_class.machines_cql = {}
   host_class.machine_input do
     format._render_raw
   end
@@ -42,25 +37,31 @@ end
 
 def self.define_update_event event_suffix, host_class
   host_class.event(
-    "after_machine_input_updated_#{event_suffix}".to_sym, :integrate,
+    "after_machine_input_updated_#{event_suffix}".to_sym, :finalize,
     on: :save
   ) do
-    expire_machine_cache
-    MachineInput.search_involved_machines(name, host_class)
-                .each do |item|
-      item.reset_machine_output if item.is_a? Machine
+    MachineInput.search_involved_machine_input_cards(name).each do |item|
+      item.update_input_cache
+    end
+    MachineInput.search_involved_machine_input_cards(name).each do |item|
+      item.run_machine
     end
   end
 end
 
-def self.search_involved_machines name, host_class
-  cql_statement =
-    { right_plus: [
-      { codename: "machine_input" },
-      { link_to: name }
-    ] }.merge(host_class.machines_cql)
-  Card.search(cql_statement)
+def self.search_involved_machines name
+  Card.search(link_to:  name).filter { |referer| referer.reponds_to?(:run_machine)}
 end
+
+def self.search_dependent_machine_input_cards name
+  Card.search(link_to:  name).filter { |referer| referer.reponds_to?(:update_input_cache)}
+end
+
+
+def update_input_cache
+
+end
+
 
 def expire_machine_cache
   Card.search(right_plus: [{ codename: "machine_input" }, { link_to: name }],

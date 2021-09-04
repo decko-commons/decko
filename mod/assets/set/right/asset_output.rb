@@ -21,10 +21,10 @@ end
 format do
   view :not_found do
     if update_machine_output_live?
-      Card::Cache.reset_all # FIXME: wow, this is overkill, no?
+      # Card::Cache.reset_all # FIXME: wow, this is overkill, no?
       root.error_status = 302
-      card.left.update_machine_output
-      card_path card.left.machine_output_url
+      card.left.update_file_output
+      card_path card.left.asset_output_url
     else
       super()
     end
@@ -32,7 +32,7 @@ format do
 
   def update_machine_output_live?
     case
-    when !card.left.is_a?(Abstract::Machine) then false # must be a machine
+    when !card.left.is_a?(Abstract::AssetOutputter) then false # must be a machine
     when card.left.locked?         then false # machine must not be running
     when card.new_card?            then true  # always update if new
     else

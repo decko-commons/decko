@@ -55,8 +55,7 @@ module MachineClassMethods
   end
 end
 
-card_accessor :machine_output, type: FileID
-card_accessor :machine_input, type: PointerID
+card_accessor :output_cache, type: FileID
 
 def before_engine; end
 
@@ -118,20 +117,10 @@ def engine input
   input
 end
 
-def after_engine output
-  filetype = output_config[:filetype]
-  file = Tempfile.new [id.to_s, ".#{filetype}"]
-  file.write output
-  file.rewind
-  store_machine_output file
-  file.close
-  file.unlink
-end
 
-format do
-  view :machine_output_url do
-    machine_output_url
-  end
+
+view :machine_output_url do
+  machine_output_url
 end
 
 class << self
@@ -163,16 +152,7 @@ def run_machine joint="\n"
   after_engine output
 end
 
-def direct_machine_input? input_card
-  !input_card.collection? || input_card.respond_to?(:machine_input)
-end
-
 def run_engine input_card
-  return unless direct_machine_input? input_card
-  # if (cached = fetch_cache_card(input_card)) && cached.content?
-  #  return cached.content
-  # end
-
   engine(input_from_card(input_card)).tap do |output|
     cache_output_part input_card, output
   end
@@ -191,31 +171,31 @@ def make_machine_output_coded mod=:machines
   update_machine_output
   Card::Auth.as_bot do
     ENV["STORE_CODED_FILES"] = "true"
-    machine_output_card.update! storage_type: :coded, mod: mod,
+    output_cache_card.update! storage_type: :coded, mod: mod,
                                 codename: machine_output_codename
     ENV["STORE_CODED_FILES"] = nil
   end
 end
 
 def machine_output_codename
-  machine_output_card.name.parts.map do |part|
+  output_cache_card.name.parts.map do |part|
     Card[part].codename&.to_s || Card[part].name.safe_key
   end.join "_"
 end
 
 def input_item_cards
-  machine_input_card.item_cards
+  item_cards
 end
 
 def machine_output_url
   ensure_machine_output
-  machine_output_card.file.url # (:default, timestamp: false)
+  output_cache_card.file.url # (:default, timestamp: false)
   # to get rid of additional number in url
 end
 
 def machine_output_path
   ensure_machine_output
-  machine_output_card.file.path
+  output_cache_card.file.path
 end
 
 private

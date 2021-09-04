@@ -1,7 +1,9 @@
 require "sassc"
-include_set Abstract::Machine
+include_set Abstract::AssetOutputter
 
-store_machine_output filetype: "css"
+def output_filetype
+  "css"
+end
 
 def ok_to_read
   true
