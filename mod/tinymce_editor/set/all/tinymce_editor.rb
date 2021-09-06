@@ -7,4 +7,3 @@ format :html do
                         id: unique_id
   end
 end
-F

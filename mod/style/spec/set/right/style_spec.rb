@@ -10,18 +10,16 @@ RSpec.describe Card::Set::Right::Style do
   let(:new_css)                { "#box{ display: none}\n"   }
   let(:compressed_new_css)     { "#box{display:none}\n"   }
 
-  it_behaves_like "asset pipeline", that_produces: :css do
+  it_behaves_like "asset outputter", that_produces: :css do
     let(:asset_outputter_card) do
       ensure_card "test my style+*style", type: :list, content: ""
     end
     let(:asset_inputter_card) do
       ensure_card "test css", type: :css, content: css
     end
-    let(:another_asset_inputter_card) do
-      ensure_card"more css", type: :css, content: new_css
+    let(:invalid_inputter_card) do
+      ensure_card "invalid test css", type: :plain_text, content: css
     end
-    let(:expected_input_items) { nil }
-    let(:input_type) { :css }
     let(:card_content) do
       { in: css,         out:     compressed_css,
         changed_in: changed_css, changed_out: compressed_changed_css,

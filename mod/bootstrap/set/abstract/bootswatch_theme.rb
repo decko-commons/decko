@@ -37,7 +37,7 @@
 # content which will trigger the updates of other machines that use this card.
 
 include_set Abstract::AssetInputter, input_format: :css, input_view: :core
-include_set Type::Scss
+include_set Abstract::Scss
 include_set Abstract::SkinBox
 
 CONTENT_PARTS = %i[pre_variables variables post_variables stylesheets].freeze

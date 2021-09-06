@@ -1,6 +1,5 @@
 # -*- encoding : utf-8 -*-
 
-
 require "sassc"
 require "benchmark"
 require "coderay"

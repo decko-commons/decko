@@ -1,39 +1,48 @@
+include_set Abstract::Lock
+
 card_accessor :asset_output, type: FileID
 
-event :update_asset_outputter_file, :finalize, on: :save do
-  update_file_output
+def output_filetype
+  output_format
+end
+
+event :update_asset_output_file, :finalize, on: :save do
+  update_asset_output
 end
 
 event :validate_asset_inputs, :validate, on: :save do
-  return unless (invalid_input = item_cards.find { |c| !c.respond_to?(:asset_input) })
-  errors.add :content, t(:assets_invalid_input, invalid_input: invalid_input.name)
+  return unless (invalid_input = item_cards.find { |c| !c.respond_to?(:ensure_asset_input) })
+  errors.add :content, t(:assets_invalid_input, input_name: invalid_input.name)
 end
 
-def update_file_output
-  store_output file_output
+def update_asset_output
+  lock do
+    store_output file_output
+  end
+end
+
+def update_asset_output_live
+  update_asset_output
+  card_path asset_output_url
 end
 
 def file_output joint="\n"
-  input_item_cards.map(&:asset_input).select(&:present?).join(joint)
+  input_item_cards.map(&:ensure_asset_input).compact.join(joint)
 end
 
 def store_output output
-  handle_file(output) do
+  handle_file(output) do |file|
     Card::Auth.as_bot do
       asset_output_card.update! file: file
     end
   end
 end
 
-def output_filetype
-  output_format
-end
-
 def handle_file output
   file = Tempfile.new [id.to_s, ".#{output_filetype}"]
   file.write output
   file.rewind
-  yield
+  yield file
   file.close
   file.unlink
 end
@@ -59,9 +68,8 @@ def asset_output_codename
 end
 
 def input_item_cards
-  item_cards
+  item_cards(known_only: true).reject(&:trash)
 end
-
 
 def asset_output_url
   # ensure_asset_output

@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-class BigMachineUpdate < Cardio::Migration::Core
+class DeathToMachines < Cardio::Migration::Core
   def up
     %i[machine_input
        machine_output
@@ -18,8 +18,8 @@ class BigMachineUpdate < Cardio::Migration::Core
       delete_code_card codename
     end
 
-    ensure_code_card :asset_input
-    ensure_code_card :asset_output
+    ensure_code_card "asset_input"
+    ensure_code_card "asset_output"
   end
 
 end
