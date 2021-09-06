@@ -1,40 +1,23 @@
 # -*- encoding : utf-8 -*-
 
-shared_examples_for "machine input" do # |args|
+shared_examples_for "asset inputter" do # |args|
   let :input do
     create_machine_input_card
   end
 
-  # let :create_machine_input_card do
-  #   Card.gimme! args[:name], type: args[:type], content: args[:content]
-  # end
-  #
-  # let :create_another_machine_input_card do
-  #   Card.gimme! "more #{args[:name]}", type: args[:type], content: args[:content]
-  # end
-  #
-  # let(:create_machine_card) do
-  #   Card.gimme! args[:machine], type: :pointer
-  # end
-  #
-  # let(:card_content) do
-  #   args.slice(:out, :changed_in, :changed_out).merge in: content
-  # end
-
-  let! :machine do
-    f = create_machine_card
-    f << create_machine_input_card
-    f.putty
+  let! :asset_outputter do
+    f = create_asset_outputter_card
+    f.add_item! input
     f
   end
 
   let :more_input do
-    moreinput = create_another_machine_input_card
+    moreinput = create_another_asset_inputter_card
     moreinput
   end
 
   context "when removed" do
-    it "updates machine_input card of machine card" do
+    it "triggers an asset output of related asset outputter" do
       machine
       Card::Auth.as_bot { input.delete! }
       ca = Card.gimme machine.name
