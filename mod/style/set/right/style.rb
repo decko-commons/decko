@@ -12,7 +12,7 @@ end
 format do
   # turn off autodetection of uri's
   def chunk_list
-    :nest_only
+    :references
   end
 end
 

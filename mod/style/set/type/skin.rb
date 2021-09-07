@@ -1,3 +1,11 @@
-include_set Abstract::AssetInputter
+include_set Abstract::AssetInputter, input_format: :css, input_view: :concat
 include_set Abstract::SkinBox
-include_set Pointer
+include_set List
+
+format :css do
+  view :concat do
+    card.item_cards.map do |item|
+      item.respond_to?(:asset_input) ? item.asset_input : nest(item, view: :core)
+    end.join("\n")
+  end
+end

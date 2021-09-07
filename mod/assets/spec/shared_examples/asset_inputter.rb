@@ -8,7 +8,7 @@ shared_examples_for "asset inputter" do |args|
   end
 
   let :input do
-    create_asset_inputter_card
+    create_asset_inputter_card.name.card
   end
 
   let :more_input do
@@ -17,15 +17,15 @@ shared_examples_for "asset inputter" do |args|
 
   context "when updated" do
     it "updates output of related asset outputter" do
-      input.name.card.update! content: card_content[:changed_in]
-      expect(read_asset_output).to eq(card_content[:changed_out])
+      input.update! content: card_content[:changed_in]
+      expect(outputter_file_content).to eq(card_content[:changed_out])
     end
   end
 
   context "when removed" do
     it "updates asset output card", as_bot: true do
       input.name.card.delete!
-      expect(read_asset_output).to eq("")
+      expect(outputter_file_content).to eq("")
     end
   end
 
@@ -33,27 +33,27 @@ shared_examples_for "asset inputter" do |args|
     expect(input.asset_input).to eq(card_content[:out])
   end
 
-  def read_asset_output
-    path = asset_outputter.name.card.asset_output_path
-    File.read(path)
-  end
-
   context "when added" do
     it "updates output of related asset outputter" do
       asset_outputter.add_item! more_input
       out = card_content[:added_out] || ([card_content[:out]] * 2).join("\n")
-      expect(read_asset_output).to eq(out)
+      expect(outputter_file_content).to eq(out)
     end
   end
 
-  context "a non-existent card was added as item and now created" do
-    it "updates #{args[:that_produces]} file", as_bot: true do
-      asset_outputter.update! content: "[[non-existent input]]"
-      ensure_card "non-existent input",
-                  type: args[:that_produces],
-                  content: card_content[:changed_in]
-      out = card_content[:changed_out].gsub(input.name, "non-existent input")
-      expect(read_asset_output).to eq(out)
-    end
+  def outputter_file_content
+    path = asset_outputter.name.card.asset_output_path
+    File.read(path)
   end
+
+  # context "a non-existent card was added as item and now created" do
+  #   it "updates #{args[:that_produces]} file", as_bot: true do
+  #     asset_outputter.update! content: "[[non-existent input]]"
+  #     ensure_card "non-existent input",
+  #                 type: args[:that_produces],
+  #                 content: card_content[:changed_in]
+  #     out = card_content[:changed_out].gsub(input.name, "non-existent input")
+  #     expect(read_asset_output).to eq(out)
+  #   end
+  # end
 end
