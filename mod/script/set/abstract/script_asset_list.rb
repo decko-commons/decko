@@ -1,9 +1,11 @@
-include_set Abstract::Machine
-include_set Abstract::MachineInput
+include_set Abstract::AssetInputter, input_format: :js
 include_set Abstract::AssetList
 
-machine_input { standard_machine_input }
-store_machine_output filetype: "js"
+format :js do
+  view :core do
+    render_items_and_compress :js
+  end
+end
 
 def new_asset_constants path
   if path.ends_with? ".js.coffee"
@@ -21,12 +23,8 @@ def javascript_constants
   { type_id: JavaScriptID, set_module: Abstract::AssetJavaScript }
 end
 
-def standard_machine_input
-  render_items_and_compress :js
-end
-
 format :html do
   view :javascript_include_tag do
-    javascript_include_tag card.machine_output_url
+    javascript_include_tag card.asset_output_url
   end
 end

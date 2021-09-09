@@ -1,1 +1,2 @@
-include_set Abstract::CodePointer, basket_name: :style_mods
+include_set Abstract::AssetInputter, input_format: :scss
+

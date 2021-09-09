@@ -7,7 +7,7 @@ Cardio.application.class.configure do
 
   config.eager_load = false
 
-  config.machine_refresh = :eager
+  config.asset_refresh = :eager
   config.compress_javascript = false
 
   # In the development environment your application's code is reloaded on

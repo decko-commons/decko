@@ -6,10 +6,17 @@ RSpec.describe Card::Set::Type::CoffeeScript do
   let(:changed_coffee)            { 'alert "Hello"  ' }
   let(:compressed_changed_coffee) { '(function(){alert("Hello")}).call(this);' }
 
-  it_behaves_like "content machine", that_produces: :js do
-    let(:machine_card) do
-      Card.gimme! "coffee machine", type: Card::CoffeeScriptID,
-                                    content: coffee
+  def create_coffee_card name, content
+    ensure_card name, type: Card::CoffeeScriptID, content: content
+  end
+
+  it_behaves_like "asset inputter", that_produces: :js   do
+    let(:create_asset_inputter_card) do
+      create_coffee_card"coffee inputter", coffee
+    end
+    let(:create_another_asset_inputter_card) { create_coffee_card"more coffeee", changed_coffee }
+    let(:create_outputter_card) do
+      ensure_card "coffee machine", type: :pointer
     end
     let(:card_content) do
       { in: coffee,

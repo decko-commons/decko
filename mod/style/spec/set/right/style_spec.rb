@@ -10,18 +10,16 @@ RSpec.describe Card::Set::Right::Style do
   let(:new_css)                { "#box{ display: none}\n"   }
   let(:compressed_new_css)     { "#box{display:none}\n"   }
 
-  it_behaves_like "pointer machine", that_produces: :css do
-    let(:machine_card) do
-      Card.gimme! "test my style+*style", type: :pointer, content: ""
+  it_behaves_like "asset outputter", that_produces: :css do
+    let(:asset_outputter_card) do
+      ensure_card "test my style+*style", type: :list, content: ""
     end
-    let(:machine_input_card) do
-      Card.gimme! "test css", type: :css, content: css
+    let(:asset_inputter_card) do
+      ensure_card "test css", type: :css, content: css
     end
-    let(:another_machine_input_card) do
-      Card.gimme! "more css", type: :css, content: new_css
+    let(:invalid_inputter_card) do
+      ensure_card "invalid test css", type: :plain_text, content: css
     end
-    let(:expected_input_items) { nil }
-    let(:input_type) { :css }
     let(:card_content) do
       { in: css,         out:     compressed_css,
         changed_in: changed_css, changed_out: compressed_changed_css,

@@ -3,45 +3,42 @@
 require "coderay"
 require "uglifier"
 
-def self.included host_class
-  host_class.include_set Abstract::Machine
-  host_class.include_set Abstract::MachineInput
+include_set Abstract::AssetInputter, input_format: :js
 
-  host_class.machine_input { standard_machine_input }
-  host_class.store_machine_output filetype: "js"
-end
+format :js do
+  view :core do
+    js = format(:js)._render_core
+    js = compress js if compress?
+    comment_with_source js
+  end
 
-def standard_machine_input
-  js = format(:js)._render_core
-  js = compress js if compress?
-  comment_with_source js
-end
+  def comment_with_source js
+    "//#{name}\n#{js}"
+  end
 
-def comment_with_source js
-  "//#{name}\n#{js}"
-end
+  def compress input
+    Uglifier.compile input
+  rescue StandardError => e
+    # CoffeeScript is compiled in a view
+    # If there is a CoffeeScript syntax error we get the rescued view here
+    # and the error that the rescued view is no valid Javascript
+    # To get the original error we have to refer to Card::Error.current
+    raise Card::Error, compression_error_message(e)
+  end
 
-def compress input
-  Uglifier.compile input
-rescue StandardError => e
-  # CoffeeScript is compiled in a view
-  # If there is a CoffeeScript syntax error we get the rescued view here
-  # and the error that the rescued view is no valid Javascript
-  # To get the original error we have to refer to Card::Error.current
-  raise Card::Error, compression_error_message(e)
-end
+  def compression_error_message e
+    if Card::Error.current
+      Card::Error.current.message
+    else
+      "JavaScript::SyntaxError (#{name}): #{e.message}"
+    end
+  end
 
-def compression_error_message e
-  if Card::Error.current
-    Card::Error.current.message
-  else
-    "JavaScript::SyntaxError (#{name}): #{e.message}"
+  def compress?
+    Cardio.config.compress_javascript
   end
 end
 
-def compress?
-  Cardio.config.compress_javascript
-end
 
 def clean_html?
   false

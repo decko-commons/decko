@@ -25,7 +25,8 @@ def ensure_mod_asset_card asset_type, type_id
 end
 
 def add_asset asset_type
-  all_rule(asset_type).add_item! codename_for(asset_type).to_sym
+  target = asset_type == Card[:style_mods] ? Card[:style_mods] : all_rule(asset_type)
+  target.add_item! codename_for(asset_type).to_sym
 end
 
 def drop_asset asset_type, asset_card
