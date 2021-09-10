@@ -1,5 +1,5 @@
 def cql_content
-  { referred_to_by: "_"}
+  { referred_to_by: "_" }
 end
 
 def item_cards args={}
