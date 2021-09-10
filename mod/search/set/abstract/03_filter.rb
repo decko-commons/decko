@@ -23,7 +23,7 @@ format :html do
 
   view :filtered_results do
     class_up "card-slot", "_filter-result-slot"
-    wrap { render search_result_view }
+    wrap { render_core }
   end
 
   view :selectable_filtered_content, template: :haml, cache: :never
