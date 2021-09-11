@@ -43,12 +43,16 @@ def item_ids args={}
   item_names(args).map(&:card_id).compact
 end
 
+def item_cards args={}
+  standard_item_cards args
+end
+
 # @return [Array] list of Card objects
 # @param args [Hash] see #item_names for additional options
 # @option args [String] :complete keyword to use in searching among items
 # @option args [True/False] :known_only if true, return only known cards
 # @option args [String] :type name of type to be used for unknown cards
-def item_cards args={}
+def standard_item_cards args={}
   return item_cards_search(args) if args[:complete]
   return known_item_cards(args) if args[:known_only]
 
