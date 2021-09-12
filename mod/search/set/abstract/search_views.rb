@@ -3,10 +3,6 @@ format do
     _render search_result_view
   end
 
-  def chunk_list
-    :query
-  end
-
   def search_result_view
     case search_with_params
     when Exception              then :search_error
