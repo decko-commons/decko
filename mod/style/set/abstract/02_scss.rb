@@ -1,8 +1,12 @@
 include_set Abstract::Css
 
 format :css do
+  view :compiled do
+    compile_scss _render_core
+  end
+
   view :core do
-    compile_scss process_content(_render_raw)
+    process_content(_render_raw)
   end
 
   def compile_scss scss, style=:expanded

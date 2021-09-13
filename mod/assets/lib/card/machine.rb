@@ -6,8 +6,14 @@ class Card
       def refresh_assets force: false
         return unless force || refresh_assets?
 
-        refresh_asset :script, force
+        refresh_script_assets
         refresh_asset :style, force
+      end
+
+      def refresh_script_assets
+        Card.search type_id: Card::ModScriptAssetsID do |card|
+          # card.update_asset_output
+        end
       end
 
       def refresh_assets!
@@ -15,38 +21,19 @@ class Card
       end
 
       def reset_all
-        Auth.as_bot do
-          Card.search(right: { codename: "machine_output" }).each do |card|
-            card.update_columns trash: true
-            card.expire
-          end
-        end
-        reset_virtual_machine_cache
       end
 
       def reset_script
-        Auth.as_bot do
-          card = Card[:all, :script, :machine_output]
-          if card
-            card.update_columns trash: true
-            card.expire
-            reset_virtual_machine_cache
-          end
-        end
       end
 
       def refresh_asset asset_type, force
-        all_rule(asset_type)&.refresh_output force: force
+        # all_rule(asset_type)&.refresh_output force: force
       end
 
       private
 
       def all_rule asset_type
         Card[[:all, asset_type]]
-      end
-
-      def reset_virtual_machine_cache
-        Virtual.where(right_id: MachineCacheID).delete_all
       end
 
       def refresh_assets?

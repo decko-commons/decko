@@ -36,7 +36,7 @@
 # To do that it is a machine itself and stores the generated machine output as its
 # content which will trigger the updates of other machines that use this card.
 
-include_set Abstract::AssetInputter, input_format: :css, input_view: :core
+include_set Abstract::AssetInputter, input_format: :css, input_view: :compiled
 include_set Abstract::Scss
 include_set Abstract::SkinBox
 
@@ -50,9 +50,7 @@ PRE_VARIABLES_CARD_NAMES = %i[
 POST_VARIABLES_CARD_NAMES = %i[
   bootstrap_core
   style_cards
-  style_bootstrap_cards
-  style_libraries
-  style_mods
+  mod_style
 ].freeze
 
 def content
@@ -118,7 +116,7 @@ def stylesheets_content
 end
 
 def load_content *names
-  cards = names.flatten.map { |n| Card.fetch(n)&.extended_item_cards }
+  cards = names.flatten.map { |n| Card.fetch(n)&.extended_item_cards } # TODO
   cards.flatten.compact.map(&:content).join "\n"
 end
 

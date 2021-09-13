@@ -6,9 +6,9 @@ require "uglifier"
 include_set Abstract::AssetInputter, input_format: :js
 
 format :js do
-  view :core do
-    js = format(:js)._render_core
-    js = compress js if compress?
+  view :compress do
+    js = _render_core
+    js = compress js
     comment_with_source js
   end
 

@@ -3,7 +3,7 @@ include_set Abstract::AssetList
 
 format :css do
   view :core do
-    render_items_and_compress :css
+    card.render_items_and_compress :css
   end
 end
 
@@ -25,6 +25,6 @@ end
 
 format :html do
   view :stylesheet_include_tag do
-    stylesheet_include_tag card.machine_output_url
+    stylesheet_include_tag card.asset_output_url
   end
 end

@@ -49,6 +49,10 @@ format :css do
     %{\n@import url("#{_render_url}");\n}
   end
 
+  view :compiled do
+    compress _render_core
+  end
+
   view :compressed do
     compress _render_core
   end

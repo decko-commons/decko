@@ -11,11 +11,12 @@ event :update_asset_output_file, :finalize, on: :save do
 end
 
 event :validate_asset_inputs, :validate, on: :save do
-  return unless (invalid_input = item_cards.find { |c| !c.respond_to?(:ensure_asset_input) })
+  return unless (invalid_input = item_cards.find { |c| !c.respond_to?(:asset_input_content) })
   errors.add :content, t(:assets_invalid_input, input_name: invalid_input.name)
 end
 
 def update_asset_output
+  puts "update_asset_output called: #{name}"
   lock do
     store_output file_output
   end
@@ -27,7 +28,7 @@ def update_asset_output_live
 end
 
 def file_output joint="\n"
-  input_item_cards.map(&:ensure_asset_input).compact.join(joint)
+  input_item_cards.map(&:asset_input_content).compact.join(joint)
 end
 
 def store_output output

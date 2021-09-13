@@ -143,28 +143,6 @@ end
 
 include_set Abstract::Lock
 
-def run_machine joint="\n"
-  before_engine
-  output =
-    input_item_cards.map do |input_card|
-      run_engine input_card
-    end.select(&:present?).join(joint)
-  after_engine output
-end
-
-def run_engine input_card
-  engine(input_from_card(input_card)).tap do |output|
-    cache_output_part input_card, output
-  end
-end
-
-def input_from_card input_card
-  if input_card.respond_to? :machine_input
-    input_card.machine_input
-  else
-    input_card.format._render_raw
-  end
-end
 
 # FIXME: this is wack. set the storage right the first time through. obviate
 def make_machine_output_coded mod=:machines
@@ -187,16 +165,6 @@ def input_item_cards
   item_cards
 end
 
-def machine_output_url
-  ensure_machine_output
-  output_cache_card.file.url # (:default, timestamp: false)
-  # to get rid of additional number in url
-end
-
-def machine_output_path
-  ensure_machine_output
-  output_cache_card.file.path
-end
 
 private
 

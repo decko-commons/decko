@@ -1,9 +1,9 @@
-include_set Abstract::AssetInputter, input_format: :js
+include_set Abstract::AssetOutputter, output_format: :js
 include_set Abstract::AssetList
 
 format :js do
   view :core do
-    render_items_and_compress :js
+    card.render_items_and_compress :js
   end
 end
 

@@ -56,3 +56,4 @@ end
 def customize_theme?
   Env.params[:customize].present? && (@theme = Env.params[:theme]).present?
 end
+
