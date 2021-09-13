@@ -50,7 +50,7 @@ def ensure_update_items
   if manifest_exists?
     ensure_manifest_groups_cards
   else
-    ensure_item local_group_name, local_folder_group_type_id
+    ensure_assets_group_card local_group_name, local_folder_group_type_id
   end
 end
 
@@ -94,26 +94,26 @@ end
 def new_manifest_group group_name, config
   type_id =
     config["remote"] ? ::Card::RemoteManifestGroupID : local_manifest_group_type_id
-  ensure_item group_name, type_id
+  ensure_assets_group_card group_name, type_id
 end
 
-def ensure_item field, type_id
+def ensure_assets_group_card field, type_id
   item_name = "#{name}+#{field}"
-  ensure_item_content item_name
+  ensure_group_card_is_added item_name
 
   card = Card[item_name]
   args = ensure_item_args field, type_id, item_name
   return if item_already_coded? card, args
 
   ensure_item_save card, args
-  card.try :update_machine_output
+  # card.try :update_asset_output
 end
 
 def item_already_coded? card, args
   card&.type_id == args[:type_id] && card.codename == args[:codename]
 end
 
-def ensure_item_content item_name
+def ensure_group_card_is_added item_name
   @old_items.delete item_name.to_name.key
   add_item item_name
 end

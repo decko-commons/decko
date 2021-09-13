@@ -71,8 +71,8 @@ format :html do
         count: solid_cache_count, unit: " cards",
         link_text: "clear solid cache",
         task: "clear_solid_cache" },
-      { title: "machine cache",
-        count: machine_cache_count, unit: " cards",
+      { title: "asset cache",
+        count: asset_input_cache_count, unit: " cards",
         link_text: "clear machine cache",
         task: "clear_machine_cache" }
     ]
@@ -117,8 +117,8 @@ format :html do
     Card.search right: { codename: "solid_cache" }, return: "count"
   end
 
-  def machine_cache_count
-    Card::Virtual.where(right_id: MachineCacheID).count
+  def asset_input_cache_count
+    Card.where(right_id: AssetInputCacheID).count
   end
 
   def delete_sessions_link months

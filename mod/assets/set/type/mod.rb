@@ -1,3 +1,5 @@
+include_set List
+
 def ensure_mod_script_card
   ensure_mod_asset_card :script, Card::ModScriptAssetsID
 end
@@ -11,7 +13,7 @@ private
 def ensure_mod_asset_card asset_type, type_id
   asset_card = fetch_mod_assets_card asset_type, type_id
   return if asset_card.no_action?
-  asset_card.save! if asset_card.new?
+  asset_card.save! if asset_card.new? || asset_card.codename.blank?
 
   # TODO: optimize!
   # this needs to be smarter so that it doesn't do a lot of "re" installing
@@ -20,12 +22,14 @@ def ensure_mod_asset_card asset_type, type_id
   if asset_card.item_cards.present?
     add_asset asset_type
   else
+    puts "Drop: #{asset_card.name}"
     drop_asset asset_type, asset_card
   end
 end
 
 def add_asset asset_type
-  all_rule(asset_type).add_item! codename_for(asset_type).to_sym
+  target = asset_type == :style ? Card[:mod_style] : all_rule(asset_type)
+  target.add_item! codename_for(asset_type).to_sym
 end
 
 def drop_asset asset_type, asset_card

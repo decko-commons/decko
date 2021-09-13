@@ -1,0 +1,14 @@
+bootstrap_decko:
+  items:
+    - style_boostrap_cards.scss
+
+libraries:
+  items:
+    - font_awesome.css
+    - material_icons.css
+    - bootstrap_colorpicker.scss
+    - ../../vendor/select2/dist/css/select2.css
+    - select2_bootstrap.scss
+    - ../../vendor/bootstrap-colorpicker/src/sass/_colorpicker.scss
+
+

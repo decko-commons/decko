@@ -15,9 +15,9 @@ event :update_asset_list, :prepare_to_store, on: :save do
 end
 
 def render_items_and_compress format
-  item_cards.map do |mcard|
+  item_cards.compact.map do |mcard|
     js = mcard.format(format)._render_core
-    js = mcard.compress js if minimize?
+    # js = mcard.compress js if minimize?
     "// #{mcard.name}\n#{js}"
   end.join "\n"
 end
@@ -51,10 +51,6 @@ def source_paths
   paths
 end
 
-def self_machine_input?
-  true
-end
-
 def local
   @local = true
 end
@@ -63,4 +59,9 @@ def source_changed? since:
   difference = (relative_paths + item_names) - (relative_paths & item_names)
   difference.present? ||
     existing_source_paths.any? { |path| ::File.mtime(path) > since }
+end
+
+def input_item_cards
+  item_cards # we create virtual cards for manifest groups, hence we have
+  # to override the default which rejects virtual cards.
 end

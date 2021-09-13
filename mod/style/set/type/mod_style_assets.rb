@@ -1,4 +1,4 @@
-
+include_set Abstract::AssetInputter, input_format: :css
 include_set Abstract::ModAssets
 
 def subpath
