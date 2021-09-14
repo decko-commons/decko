@@ -13,9 +13,7 @@ end
 
 def item_type
   type = cql_hash[:type]
-  return if type.is_a?(Array) || type.is_a?(Hash)
-
-  type
+  type unless type.is_a?(Array) || type.is_a?(Hash)
 end
 
 # for override, eg when required subqueries are known to be missing
