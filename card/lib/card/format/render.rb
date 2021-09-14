@@ -42,7 +42,7 @@ class Card
       end
 
       def wrap_and_render view
-        current_view view { with_wrapper { final_render view } }
+        current_view(view) { with_wrapper { final_render view } }
       rescue StandardError => e
         rescue_view e, view
       end
