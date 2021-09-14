@@ -39,6 +39,7 @@ class Card
       end
 
       def rescue_view e, view
+        binding.pry
         method = loud_error? ? :loud_error : :quiet_error
         send method, e, view
       end
