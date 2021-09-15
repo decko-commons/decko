@@ -6,16 +6,22 @@ format :html do
 
   def show_with_page_layout view, args
     main!
+    layout = page_layout view
     args = main_render_args view, args
-    if explicit_modal_wrapper?(view) && page_layout.to_sym != :modal
+    if explicit_modal_wrapper?(view) && layout.to_sym != :modal
       render_outside_of_layout view, args
     else
-      render_with_layout view, page_layout, args
+      render_with_layout view, layout, args
     end
   end
 
-  def page_layout
-    params[:layout] || layout_name_from_rule || :default
+  def page_layout view
+    params[:layout] || layout_for_view(view) || layout_name_from_rule || :default
+  end
+
+  # for override
+  def layout_for_view _view
+    nil
   end
 
   def render_with_layout view, layout, args={}
@@ -54,7 +60,7 @@ format :html do
   end
 
   def render_outside_of_layout view, args
-    body = render_with_layout nil, page_layout, {}
+    body = render_with_layout nil, page_layout(view), {}
     body_with_modal body, render!(view, args)
   end
 
