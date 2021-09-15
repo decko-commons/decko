@@ -92,6 +92,8 @@ module Cardio
           p["mod"] << "mod"
           p.add "files"
 
+          p.add "lib/graph_q_l/types/query.rb"
+
           p.add "db", with: "#{card_root}/db"
           p.add "db/seeds.rb", with: "#{card_root}/db/seeds.rb"
           p.add "db/migrate", with: "#{card_root}/db/migrate"
@@ -104,6 +106,8 @@ module Cardio
             c.autoload_paths += Dir["#{mod_path}/lib"]
             c.watchable_dirs["#{mod_path}/set"] = %i[rb haml]
 
+            p["lib/graph_q_l/types/query.rb"] <<
+              "#{mod_path}/lib/graph_q_l/types/query.rb"
             p["config/initializers"] << "#{mod_path}/init/early"
             p["late/initializers"] << "#{mod_path}/init/late"
             p["config/locales"] << "#{mod_path}/locales"

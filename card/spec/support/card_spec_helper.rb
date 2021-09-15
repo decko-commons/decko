@@ -5,6 +5,10 @@ require "coderay"
   Dir[load_path].sort.each { |f| require f }
 end
 
+Cardio::Mod.dirs.each "spec/support" do |support_dir|
+  Dir["#{support_dir}/**/*.rb"].sort.each { |f| require f }
+end
+
 class Card
   # to be included in  RSpec::Core::ExampleGroup
   module SpecHelper
