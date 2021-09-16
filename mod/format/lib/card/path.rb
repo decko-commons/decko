@@ -35,7 +35,8 @@ class Card
     end
 
     def standard
-      base + extension + query
+      anch = anchor
+      base + extension + query + anch
     end
 
     def base
@@ -73,6 +74,11 @@ class Card
     def extension
       extension = opts.delete :format
       extension ? ".#{extension}" : ""
+    end
+
+    def anchor
+      anchor = opts.delete :anchor
+      anchor ? "##{anchor}" : ""
     end
 
     def query
