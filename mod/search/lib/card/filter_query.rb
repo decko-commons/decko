@@ -25,7 +25,7 @@ class Card
           @filter_cql[cql_key] << val
         end
       else
-        send("#{key}_cql", value)
+        try "#{key}_cql", value
       end
     end
 
