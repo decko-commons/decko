@@ -28,7 +28,7 @@ class Card
         elsif opts[:skip_virtual]
           return nil
         else
-          assign_name_from_mark
+          assign_name mark
         end
         yield
       end
@@ -53,9 +53,9 @@ class Card
       def quick_renew
         return false unless quick_renew?
 
-        # Rails.logger.info "QUICK renewing: #{mark}, #{new_opts}"
         update_supercard
-        assign_name_from_mark
+        opts_name = new_opts[:name]
+        assign_name(opts_name.present? ? opts_name : mark)
         true
       end
 
@@ -123,11 +123,11 @@ class Card
         @new_opts ||= opts[:new]
       end
 
-      def assign_name_from_mark
+      def assign_name requested
         return if opts[:local_only]
-        return unless mark&.to_s != card.name
+        return unless requested&.to_s != card.name
 
-        card.name = mark.to_s
+        card.name = requested.to_s
       end
     end
   end

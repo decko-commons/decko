@@ -61,8 +61,8 @@ $(window).ready ->
     f = targetFilter this
     if f.widget.length
       f.restrict filterableData(this)
-    e.preventDefault()
-    e.stopPropagation()
+      e.preventDefault()
+      e.stopPropagation()
 
   $('body').on 'click', '._filter-link', (e) ->
     f = filterFor this

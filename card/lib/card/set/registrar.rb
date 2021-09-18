@@ -48,6 +48,14 @@ class Card
         base_modules.clear
       end
 
+      def finalize_load
+        # basket.freeze
+        # basket.each_value(&:freeze)
+        clean_empty_modules
+      end
+
+      private
+
       def clean_empty_modules
         clean_empty_module_from_hash modules[:nonbase]
         modules[:nonbase_format].each_value do |hash|
@@ -61,8 +69,6 @@ class Card
           hash.delete mod_name if modlist.empty?
         end
       end
-
-      private
 
       # makes sets ready for dynamic loading via #include_set_modules
       def register_set_of_type set_module, set_type

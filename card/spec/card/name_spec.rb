@@ -104,8 +104,8 @@ RSpec.describe Card::Name do
         expect(described_class.new(25)).to eq "25"
       end
 
-      it "doesn't interpret symbols and integers in arrays" do
-        expect(described_class.new(["A", :no_codename, 5])).to eq "A+no_codename+5"
+      it "does interpret symbols and integers in arrays" do
+        expect { described_class.new ["A", :no_codename, 5] }.to raise_error
       end
 
       it "interprets ~ as id" do
