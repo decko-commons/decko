@@ -14,9 +14,7 @@ class Card
 
         nest = Card::Format::Nest.new self, cardish, view_opts, format_opts
         nest.prepare do |subformat, view|
-          rendered = count_chars do
-            subformat.render view, view_opts
-          end
+          rendered = count_chars { subformat.render view, view_opts }
           block_given? ? yield(rendered, view) : rendered
         end
       end
