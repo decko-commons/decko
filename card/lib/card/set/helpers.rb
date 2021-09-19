@@ -19,6 +19,10 @@ class Card
         Pattern.find(pattern_code).anchor_parts_count
       end
 
+      def set_format_type_key
+        abstract_set? ? :abstract_format : :nonbase_format
+      end
+
       def set_name_parts
         @set_name_parts ||= name.split "::"
       end
