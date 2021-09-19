@@ -72,7 +72,7 @@ class Card
         const_get Card::Format.format_class_name(format_sym)
       end
 
-      def test_set_including
+      def test_set
         # rubocop:disable Lint/Eval
         ::Card::Set::Self.const_remove_if_defined :TestSet
         eval <<-RUBY
