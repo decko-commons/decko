@@ -36,7 +36,7 @@ class Card
 
       # load set into card object
       def with_set set
-        modules_for_set(set).each do |modul|
+        set.modules.each do |modul|
           singleton_class.send :include, modul
         end
         yield set if block_given?
@@ -46,7 +46,7 @@ class Card
       # load set into a card's format object
       def format_with_set set, format_type=:base
         format = format format_type
-        set.format_modules_for_set(format_type).each do |modul|
+        set.format_modules(format_type).each do |modul|
           next if format.is_a? modul
           format.singleton_class.send :include, modul
         end

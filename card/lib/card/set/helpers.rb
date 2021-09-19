@@ -58,7 +58,7 @@ class Card
         end
       end
 
-      def format_modules_for_set format_sym
+      def format_modules format_sym
         type_key = set_format_type_key
         if !type_key || type_key == :base_format
           [format_module(format_sym)]
