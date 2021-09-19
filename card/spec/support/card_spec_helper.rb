@@ -113,8 +113,12 @@ class Card
       end
 
       def views format_sym
-        format_name = Card::Format.format_class_name format_sym
-        format_module = described_class.const_get(format_name)
+        described_class.format_modules(format_sym).map do |format_module|
+          views_for_module format_module
+        end.flatten
+      end
+
+      def views_for_module format_module
         Card::Set::Format::AbstractFormat::ViewDefinition.views[format_module].keys
       end
     end
