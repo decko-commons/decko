@@ -54,7 +54,7 @@ class Card
         elsif abstract_set?
           [test_set]
         else
-          Card::Set.modules[:nonbase][shortname]
+          Set.modules[:nonbase][shortname] || []
         end
       end
 
