@@ -112,25 +112,8 @@ class Card
         end
       end
 
-      def format_modules format_sym
-        type_key = described_class.try :set_format_type_key
-        return [format_module(format_sym)] unless type_key
-        # described class is not a set; it's probably a submodule
-        # like Card::Set::Type::MyType::SubModule
-        # return only the submodule's format module
-
-        format_class = Card::Format.format_class format: format_sym
-        Card::Set.modules[type_key][format_class][described_class.shortname]
-        # described class is a set, so find all applicable format modules for set,
-        # including submodules
-      end
-
-      def format_module format_sym
-        described_class.const_get Card::Format.format_class_name(format_sym)
-      end
-
       def views format_sym
-        format_modules(format_sym).map do |format_module|
+        described_class.format_modules_for_set(format_sym).map do |format_module|
           views_for_module format_module
         end.flatten
       end
