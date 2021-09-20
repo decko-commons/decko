@@ -83,7 +83,7 @@ class Card
       def test_set
         # rubocop:disable Lint/Eval
         ::Card::Set::Self.const_remove_if_defined :TestSet
-        eval <<-RUBY, __FILE__, __LINE__
+        eval <<-RUBY, binding, __FILE__, __LINE__ + 1
           class ::Card::Set::Self
             module TestSet
               extend Card::Set
