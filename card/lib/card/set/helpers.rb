@@ -24,7 +24,13 @@ class Card
       end
 
       def set_type_key
-        all_set? ? :base : (abstract_set? ? :abstract : :nonbase)
+        if all_set?
+          :base
+        elsif abstract_set?
+          :abstract
+        else
+          :nonbase
+        end
       end
 
       def set_name_parts
@@ -77,11 +83,11 @@ class Card
       def test_set
         # rubocop:disable Lint/Eval
         ::Card::Set::Self.const_remove_if_defined :TestSet
-        eval <<-RUBY
+        eval <<-RUBY, __FILE__, __LINE__
           class ::Card::Set::Self
             module TestSet
               extend Card::Set
-              include_set #{self.name}
+              include_set #{name}
             end
           end
         RUBY
