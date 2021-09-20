@@ -37,7 +37,7 @@ class Card
       # load set into card object
       def with_set set
         set.modules.each do |modul|
-          singleton_class.send :include, modul
+          singleton_class.include modul
         end
         yield set if block_given?
         self
@@ -48,7 +48,7 @@ class Card
         format = format format_type
         set.format_modules(format_type).each do |modul|
           next if format.is_a? modul
-          format.singleton_class.send :include, modul
+          format.singleton_class.include modul
         end
         block_given? ? yield(format) : format
       end
