@@ -30,8 +30,8 @@ class Card
       Card["A"].with_set(described_class)
     end
 
-    def format_subject format=:html
-      card_subject.format_with_set(described_class, format)
+    def format_subject format=:html, &block
+      card_subject.format_with_set described_class, format, &block
     end
 
     def expect_content
