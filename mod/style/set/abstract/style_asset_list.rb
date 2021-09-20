@@ -1,9 +1,11 @@
-include_set Abstract::AssetInputter, input_format: :css
+# A list of styles defined by a manifest group or a "style" asset folder.
+# Usually part of a mod_style_assets card
+include_set Abstract::AssetInputter, input_format: :scss
 include_set Abstract::AssetList
 
-format :css do
+format :scss do
   view :core do
-    card.render_items_and_compress :css
+    card.render_items_and_compress :scss
   end
 end
 

@@ -32,7 +32,6 @@ def update_asset_input
   puts "update_asset_input called: #{name}"
   return unless Codename.exists? :asset_input # otherwise the migration that adds the asset_input card fails
 
-  # binding.pry
   asset_input_card.update content: render_asset_input_content
   update_referers_after_input_changed
 end

@@ -1,6 +1,6 @@
 bootstrap_decko:
   items:
-    - style_boostrap_cards.scss
+    - style_bootstrap_cards.scss
 
 libraries:
   items:

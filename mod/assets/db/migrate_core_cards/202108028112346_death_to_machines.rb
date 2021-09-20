@@ -45,7 +45,6 @@ class DeathToMachines < Cardio::Migration::Core
        style_select2_bootstrap
        style_libraries
        script_html5shiv_printshiv
-       style_mods
        smartmenu_css
        smartmenu_js].each do |codename|
       delete_code_card codename

@@ -44,6 +44,7 @@ def new_asset_file_card path, name=::File.basename(path)
   asset_card.minimize if @minimize
   asset_card.local if @local
   asset_card.base_path = base_path
+  asset_card.files_must_exist!
   asset_card
 end
 

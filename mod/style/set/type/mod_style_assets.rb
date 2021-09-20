@@ -1,4 +1,7 @@
-include_set Abstract::AssetInputter, input_format: :css
+# card, that lists all styles that belong to one mod, for example:
+# "mod: bootstrap+*style"
+
+include_set Abstract::AssetInputter, input_format: :scss
 include_set Abstract::ModAssets
 
 def subpath

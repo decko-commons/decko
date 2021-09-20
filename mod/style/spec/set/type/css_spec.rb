@@ -29,5 +29,10 @@ RSpec.describe Card::Set::Type::Css do
         changed_in: changed_css, changed_out: compressed_changed_css }
     end
   end
+
+  specify "core view in scss format" do
+    rendered = render_card :core, { content: "{}", type: :css} , format: :scss
+    expect(rendered).to eq "{}"
+  end
 end
 

@@ -50,7 +50,7 @@ PRE_VARIABLES_CARD_NAMES = %i[
 POST_VARIABLES_CARD_NAMES = %i[
   bootstrap_core
   style_cards
-  mod_style
+  style_mods
 ].freeze
 
 def content
@@ -71,6 +71,11 @@ format :html do
     # Localize
     "Content is stored in file and can't be edited."
   end
+end
+
+def theme_name
+  /^(.+)_skin$/.match(codename)&.capture(0) ||
+    /^(.+)[ _][sS]kin/.match(name)&.capture(0)&.downcase
 end
 
 private
@@ -125,11 +130,6 @@ def scss_from_theme_file file
                    ::File.exist?(path)
 
   ::File.read path
-end
-
-def theme_name
-  /^(.+)_skin$/.match(codename)&.capture(0) ||
-    /^(.+)[ _][sS]kin/.match(name)&.capture(0)&.downcase
 end
 
 def source_dir
