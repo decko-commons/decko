@@ -57,9 +57,9 @@ class Card
     extend I18nScope
     extend Registrar
 
-    mattr_accessor :modules, :traits, :basket
-
     class << self
+      attr_accessor :modules, :traits, :basket
+
       def reset
         self.modules = {
           base: [],     base_format: {},
