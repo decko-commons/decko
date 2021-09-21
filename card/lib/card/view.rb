@@ -27,6 +27,7 @@ class Card
     extend View::Cache::ClassMethods
 
     attr_reader :format, :parent, :card
+    attr_accessor :interior
 
     class << self
       # @return [Symbol] viewname as Symbol
