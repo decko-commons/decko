@@ -4,7 +4,7 @@ format :html do
                          type: "button" }.freeze
 
   wrapper :overlay do |opts|
-    class_up "card-slot", "_overlay d0-card-overlay bg-body"
+    class_up "card-slot", "_overlay d0-card-overlay bg-body", :single_use
     @content_body = true
     voo.hide! :menu
     overlay_frame true, overlay_header(opts[:title]), opts[:slot] do
