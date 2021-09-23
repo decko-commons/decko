@@ -88,7 +88,7 @@ jQuery.fn.extend
   isMainOrMainModal: ->
     el = $(this)
     el = el.findOriginSlot("modal") if el.closest(".modal")[0]
-    el.isMain()
+    el && el.isMain()
 
   findSlot: (selector) ->
     if selector == "modal-origin"
