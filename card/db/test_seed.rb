@@ -216,7 +216,7 @@ class SharedData
     end
 
     def notification_cards
-      Timecop.freeze(Cardio.future_stamp - 1.day) do
+      Timecop.freeze(future_stamp - 1.day) do
         # fwiw Timecop is apparently limited by ruby Time object,
         # which goes only to 2037 and back to 1900 or so.
         #  whereas DateTime can represent all dates.
