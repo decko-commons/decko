@@ -725,7 +725,7 @@
       if (el.closest(".modal")[0]) {
         el = el.findOriginSlot("modal");
       }
-      return el.isMain();
+      return el && el.isMain();
     },
     findSlot: function(selector) {
       var parent_slot, target_slot;
@@ -2473,9 +2473,9 @@
       f = targetFilter(this);
       if (f.widget.length) {
         f.restrict(filterableData(this));
+        e.preventDefault();
+        return e.stopPropagation();
       }
-      e.preventDefault();
-      return e.stopPropagation();
     });
     $('body').on('click', '._filter-link', function(e) {
       var f, filter_data, link;
