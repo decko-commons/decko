@@ -9,7 +9,7 @@ format :html do
   def edit_form
     voo.hide :edit_type_row
     form_opts = edit_form_opts.reverse_merge success: edit_success
-    card_form(:update, form_opts) do
+    card_form :update, form_opts do
       [
         edit_view_hidden,
         _render_edit_type_row(home_view: :edit_type_row),
