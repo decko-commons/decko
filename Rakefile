@@ -32,8 +32,18 @@ task :build_images do
 
   DOCKER_IMAGES.each do |i|
     system "cd docker; "\
-           "docker build -f repos/#{i}.dockerfile -t ethn/#{i} -t ethn/#{i}:v#{version} ."
+           "docker build -f repos/#{i}.dockerfile "\
+           "-t ethn/#{i} -t ethn/#{i}:latest -t ethn/#{i}:v#{version} ."
     system "docker push ethn/#{i}:v#{version}"
+  end
+end
+
+task :retag_latest do
+  DOCKER_IMAGES.each do |i|
+    i = "ethn/#{i}"
+    system "docker pull #{i}:v#{version}"
+    system "docker tag #{i}:v#{version} #{i}:latest"
+    system "docker push #{i}:latest"
   end
 end
 
