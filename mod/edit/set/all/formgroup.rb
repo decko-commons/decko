@@ -1,5 +1,5 @@
 format :html do
-  # a formgroup has a label, an input and help text
+  # a formgroup has a label (with helptext) and an input
   def formgroup title, opts={}, &block
     input = opts[:input]
     wrap_with :div, formgroup_div_args(opts[:class]) do
@@ -27,10 +27,14 @@ format :html do
   end
 
   def formgroup_help text=nil
-    return unless voo&.show?(:help) && text.present?
+    return unless voo&.show?(:help) && text != false
 
     class_up "help-text", "help-block"
-    voo.help = text if voo && text.to_s != "true"
+    formgroup_voo_help text
     _render_help
+  end
+
+  def formgroup_voo_help text
+    voo.help = text if voo && text.present? && text.to_s != "true"
   end
 end
