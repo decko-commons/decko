@@ -12,7 +12,14 @@ format :html do
   end
 
   view :new_image, perms: :create, unknown: true, cache: :never do
-    new_view_frame_and_form new_image_form_opts
+    voo.buttons_view = :new_image_buttons
+    framed_create_form success: { tinymce_id: Env.params[:tinymce_id], view: :open }
+  end
+
+  view :new_image_buttons do
+    button_formgroup do
+      [standard_save_button(no_origin_update: true, class: "_change-create-to-update")]
+    end
   end
 
   def nest_image_editor editor_mode
@@ -27,18 +34,6 @@ format :html do
 
     image_name = nest_name.to_name.right
     @nest_snippet = Card::Reference::NestParser.new_image image_name
-  end
-
-  def new_image_form_opts
-    { buttons: new_image_buttons,
-      success: { tinymce_id: Env.params[:tinymce_id],
-                 view: :open } }
-  end
-
-  def new_image_buttons
-    button_formgroup do
-      [standard_save_button(no_origin_update: true, class: "_change-create-to-update")]
-    end
   end
 end
 
