@@ -14,14 +14,18 @@ format :html do
                 "data-slot-error-selector": ".card-slot"
   end
 
-  view :new_fields, unknown: :true, cache: :never do
+  view :simple_new, perms: :create, unknown: true, cache: :never do
+    create_form
+  end
+
+  view :new_fields, perms: :create, unknown: :true, cache: :never do
     wrap_with :div, class: "w-100" do
       [
         new_view_hidden,
         new_view_name,
         new_view_type,
         _render_content_formgroups,
-        render(voo.buttons_view || :new_buttons)
+        _render(voo.buttons_view || :new_buttons)
       ]
     end
   end
@@ -34,7 +38,7 @@ format :html do
     end
   end
 
-  def create_form form_opts
+  def create_form form_opts={}
     with_create_context do
       card_form :create, form_opts do
         create_form_with_alert_guide
