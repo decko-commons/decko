@@ -1,8 +1,7 @@
 format :html do
-  view :nest_image, unknown: true, cache: :never,
-                    wrap: {
-                      slot: { class: "_overlay d0-card-overlay card nodblclick" }
-                    } do
+  view :nest_image,
+       unknown: true, cache: :never,
+       wrap: {slot: { class: "_overlay d0-card-overlay card nodblclick" } } do
     nest_image_editor :overlay
   end
 
@@ -12,7 +11,14 @@ format :html do
   end
 
   view :new_image, perms: :create, unknown: true, cache: :never do
-    new_view_frame_and_form new_image_form_opts
+    voo.buttons_view = :new_image_buttons
+    framed_create_form success: { tinymce_id: Env.params[:tinymce_id], view: :open }
+  end
+
+  view :new_image_buttons do
+    button_formgroup do
+      [standard_save_button(no_origin_update: true, class: "_change-create-to-update")]
+    end
   end
 
   def nest_image_editor editor_mode
@@ -28,41 +34,25 @@ format :html do
     image_name = nest_name.to_name.right
     @nest_snippet = Card::Reference::NestParser.new_image image_name
   end
-
-  def new_image_form_opts
-    { buttons: new_image_buttons,
-      success: { tinymce_id: Env.params[:tinymce_id],
-                 view: :open } }
-  end
-
-  def new_image_buttons
-    button_formgroup do
-      [standard_save_button(no_origin_update: true, class: "_change-create-to-update")]
-    end
-  end
 end
 
 format :js do
   view :change_create_to_update, unknown: true do
-    tm_id = if Env.params[:tinymce_id].present?
-              "\"#{Env.params[:tinymce_id]}\""
-            else
-              '$(".tinymce-textarea").attr("id")'
-            end
-    <<-JAVASCRIPT.strip_heredoc
-      nest.changeCreateToUpdate(#{tm_id});
-    JAVASCRIPT
+    "nest.changeCreateToUpdate(#{tinymce_id});"
   end
 
   view :open_nest_editor, unknown: true do
-    tm_id = if Env.params[:tinymce_id].present?
-              "\"#{Env.params[:tinymce_id]}\""
-            else
-              '$(".tinymce-textarea").attr("id")'
-            end
     <<-JAVASCRIPT.strip_heredoc
-      tm = tinymce.get(#{tm_id});
+      tm = tinymce.get(#{tinymce_id});
       nest.insertNest(tm, "{{+#{card.name.tag}|view: content; size: medium}}");
     JAVASCRIPT
+  end
+
+  def tinymce_id
+    if Env.params[:tinymce_id].present?
+      "\"#{Env.params[:tinymce_id]}\""
+    else
+      '$(".tinymce-textarea").attr("id")'
+    end
   end
 end
