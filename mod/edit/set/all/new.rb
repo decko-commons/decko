@@ -18,7 +18,7 @@ format :html do
     create_form
   end
 
-  view :new_fields, perms: :create, unknown: :true, cache: :never do
+  view :new_fields, perms: :create, unknown: true, cache: :never do
     wrap_with :div, class: "w-100" do
       [
         new_view_hidden,
@@ -93,6 +93,7 @@ format :html do
   end
 
   def new_in_modal_success; end
+
   def new_view_hidden; end
 
   # NAME HANDLING

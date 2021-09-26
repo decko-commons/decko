@@ -1,7 +1,7 @@
 format :html do
   view :nest_image,
        unknown: true, cache: :never,
-       wrap: {slot: { class: "_overlay d0-card-overlay card nodblclick" } } do
+       wrap: { slot: { class: "_overlay d0-card-overlay card nodblclick" } } do
     nest_image_editor :overlay
   end
 

@@ -1,8 +1,8 @@
 def guide_card
-  guide_card = rule_card(:guide)
+  guide_card = rule_card :guide
   return unless guide_card
 
-  guide_card = guide_card.first_card if guide_card.type_id == Card::PointerID
+  guide_card = guide_card.first_card if guide_card.type_id == PointerID
   guide_card if guide_card.ok?(:read)
 end
 
@@ -35,21 +35,11 @@ format :html do
     "<span class='d-none'>#{edit_link}</span>#{guide_text}"
   end
 
-  def raw_guide_text
-    false
-  end
-
   def guide_text
-    return "" unless (raw = raw_guide_text) || (guide_card = card.guide_card)
+    return "" unless (guide_card = card.guide_card)
 
     with_nest_mode :normal do
-      if raw
-        process_content raw_guide_text, chunk_list: :references
-        # render guide text with current card's format
-        # so current card's context is used in guide card nests
-      else
-        nest guide_card, view: :core
-      end
+      nest guide_card, view: :core
     end
   end
 end

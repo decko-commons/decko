@@ -3,16 +3,20 @@ format :html do
   def formgroup title, opts={}, &block
     input = opts[:input]
     wrap_with :div, formgroup_div_args(opts[:class]) do
-      [formgroup_label(input, title, opts[:help]), editor_wrap(input, &block)]
+      [formgroup_label(input, title, opts[:help]),
+       editor_wrap(input, &block)]
     end
   end
 
   def formgroup_label input, title, help
-    fgtitle = voo&.show?(:title) && title
-    fghelp = voo&.show(:help) && formgroup_help_text(help)
-    return unless fgtitle.present? || fghelp.present?
+    parts = [formgroup_title(title), formgroup_help(help)].compact
+    return unless parts.present?
 
-    form.label (input || :content), raw([fgtitle, fghelp].compact.join("\n"))
+    form.label (input || :content), raw(parts.join("\n"))
+  end
+
+  def formgroup_title title
+    title if voo&.show?(:title) && title.present?
   end
 
   def formgroup_div_args html_class
@@ -22,8 +26,8 @@ format :html do
     div_args
   end
 
-  def formgroup_help_text text=nil
-    return "" if text == false
+  def formgroup_help text=nil
+    return unless voo&.show?(:help) && text.present?
 
     class_up "help-text", "help-block"
     voo.help = text if voo && text.to_s != "true"
