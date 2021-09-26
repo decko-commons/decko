@@ -1,13 +1,11 @@
 module ClassMethods
   def default_type_id
-    @@default_type_id ||= Card[:all].fetch(:default, skip_modules: true).type_id
+    @default_type_id ||= Card.fetch_type_id %i[all default]
   end
 end
 
 def type_card
-  return if type_id.nil?
-
-  Card.quick_fetch type_id.to_i
+  Card.quick_fetch type_id.to_i unless type_id.nil?
 end
 
 def type_code

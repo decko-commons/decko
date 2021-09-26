@@ -95,7 +95,7 @@ format :html do
   private
 
   def overlay_framer slot, header, slot_opts, &block
-    class_up "card-slot", "_overlay"
+    class_up "card-slot", "_overlay", :single_use
     with_frame slot, header, slot_opts, &block
   end
 end

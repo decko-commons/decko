@@ -481,10 +481,12 @@ body.mceContentBody {
 
 .item-box {
   display: inline-block;
-  min-width: 260px;
-  width: 15%;
   padding: 10px 1%;
   vertical-align: top;
+}
+
+.box {
+  width: 320px;
 }
 
 .box-top {
