@@ -1,8 +1,7 @@
 format :html do
-  view :nest_image, unknown: true, cache: :never,
-                    wrap: {
-                      slot: { class: "_overlay d0-card-overlay card nodblclick" }
-                    } do
+  view :nest_image,
+       unknown: true, cache: :never,
+       wrap: {slot: { class: "_overlay d0-card-overlay card nodblclick" } } do
     nest_image_editor :overlay
   end
 
@@ -39,25 +38,21 @@ end
 
 format :js do
   view :change_create_to_update, unknown: true do
-    tm_id = if Env.params[:tinymce_id].present?
-              "\"#{Env.params[:tinymce_id]}\""
-            else
-              '$(".tinymce-textarea").attr("id")'
-            end
-    <<-JAVASCRIPT.strip_heredoc
-      nest.changeCreateToUpdate(#{tm_id});
-    JAVASCRIPT
+    "nest.changeCreateToUpdate(#{tinymce_id});"
   end
 
   view :open_nest_editor, unknown: true do
-    tm_id = if Env.params[:tinymce_id].present?
-              "\"#{Env.params[:tinymce_id]}\""
-            else
-              '$(".tinymce-textarea").attr("id")'
-            end
     <<-JAVASCRIPT.strip_heredoc
-      tm = tinymce.get(#{tm_id});
+      tm = tinymce.get(#{tinymce_id});
       nest.insertNest(tm, "{{+#{card.name.tag}|view: content; size: medium}}");
     JAVASCRIPT
+  end
+
+  def tinymce_id
+    if Env.params[:tinymce_id].present?
+      "\"#{Env.params[:tinymce_id]}\""
+    else
+      '$(".tinymce-textarea").attr("id")'
+    end
   end
 end

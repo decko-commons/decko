@@ -5,9 +5,7 @@ module ClassMethods
 end
 
 def type_card
-  return if type_id.nil?
-
-  Card.quick_fetch type_id.to_i
+  Card.quick_fetch type_id.to_i unless type_id.nil?
 end
 
 def type_code

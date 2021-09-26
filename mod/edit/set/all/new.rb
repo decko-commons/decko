@@ -14,12 +14,13 @@ format :html do
                 "data-slot-error-selector": ".card-slot"
   end
 
-  view :new_fields do
+  view :new_fields, unknown: :true, cache: :never do
     wrap_with :div, class: "w-100" do
       [
+        new_view_hidden,
         new_view_name,
         new_view_type,
-        render_content_formgroups,
+        _render_content_formgroups,
         render(voo.buttons_view || :new_buttons)
       ]
     end
@@ -63,7 +64,7 @@ format :html do
 
   def create_form_with_alert_guide
     wrap_with :div, class: "d-flex justify-content-between" do
-      [render_new_fields, (alert_guide if voo.show?(:guide))]
+      [_render_new_fields, (alert_guide if voo.show?(:guide))]
     end
   end
 
@@ -88,6 +89,7 @@ format :html do
   end
 
   def new_in_modal_success; end
+  def new_view_hidden; end
 
   # NAME HANDLING
 
