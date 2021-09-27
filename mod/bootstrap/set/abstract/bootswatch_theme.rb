@@ -78,6 +78,13 @@ def theme_name
     /^(.+)[ _][sS]kin/.match(name)&.capture(0)&.downcase
 end
 
+def scss_from_theme_file file
+  return "" unless (path = ::File.join(source_dir, "_#{file}.scss")) &&
+    ::File.exist?(path)
+
+  ::File.read path
+end
+
 private
 
 # @return [Array<Card::Name,String>]
@@ -123,13 +130,6 @@ end
 def load_content *names
   cards = names.flatten.map { |n| Card.fetch(n)&.extended_item_cards } # TODO
   cards.flatten.compact.map(&:content).join "\n"
-end
-
-def scss_from_theme_file file
-  return "" unless (path = ::File.join(source_dir, "_#{file}.scss")) &&
-                   ::File.exist?(path)
-
-  ::File.read path
 end
 
 def source_dir

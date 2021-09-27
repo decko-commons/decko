@@ -15,19 +15,19 @@ RSpec.describe Card::Set::Type::Skin do
   end
 
   let! :outputter do
-    ensure_card "style with skin+*style",
+    ensure_card "A+*self+*style",
                 type: :pointer, content: "[[test skin]]"
   end
 
   context "when item added" do
-    it "updates output of related machine card" do
+    it "updates output of related asset outputter card" do
       skin.name.card.add_item! item
       expect(outputter_file_content).to eq(compressed_css)
     end
   end
 
   context "when item changed", as_bot: true do
-    it "updates output of related machine card" do
+    it "updates output of related asset outputter card" do
       skin.name.card.add_item! item
       item.name.card.update! content: changed_css
 

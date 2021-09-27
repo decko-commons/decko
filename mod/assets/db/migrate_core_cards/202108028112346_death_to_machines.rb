@@ -21,8 +21,6 @@ class DeathToMachines < Cardio::Migration::Core
       card.update_column :codename, ""
     end
 
-
-
     %i[machine_input
        machine_output
        machine_cache
