@@ -40,6 +40,7 @@ class Card
         heir: [
           :main,           # format object is page's "main" object (Boolean)
           :home_view,      # view for slot to return to when no view specified
+          :buttons_view,
           :edit_structure, # use a different structure for editing (Array)
           :cql,            # contextual cql alterations for search cards (Hash)
           :action_id,      # a Card::Action id (Integer)

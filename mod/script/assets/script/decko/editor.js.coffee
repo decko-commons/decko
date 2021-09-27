@@ -28,8 +28,10 @@ jQuery.fn.extend
   setContentFields: (selector, fn) ->
     $.each @find(selector), ->
       $(this).setContentField(fn)
+  contentField: ->
+    @closest('.card-editor').find '.d0-card-content'
   setContentField: (fn) ->
-    field = @closest('.card-editor').find('.d0-card-content')
+    field = @contentField()
     init_val = field.val() # tinymce-jquery overrides val();
     # that's why we're not using it.
     new_val = fn.call this
