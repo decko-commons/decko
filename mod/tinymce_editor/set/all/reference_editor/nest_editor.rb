@@ -169,7 +169,7 @@ format :html do
   def unknown_nest_content
     voo.hide! :guide
     voo.show! :new_type_formgroup
-    new_view_frame_and_form buttons: new_image_buttons,
-                            success: { tinymce_id: Env.params[:tinymce_id] }
+    voo.buttons_view = :new_image_buttons
+    framed_create_form success: { tinymce_id: Env.params[:tinymce_id] }
   end
 end
