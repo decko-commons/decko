@@ -10,9 +10,5 @@ bootstrap:
     - ../../vendor/bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js
     - script_colorpicker.js.coffee
 
-pointer:
-  items:
-    - script_pointer_config.js.coffee
-    - script_pointer_list_editor.js.coffee
 
 
