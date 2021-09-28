@@ -18,7 +18,7 @@ end
 def update_asset_output
   puts "update_asset_output called: #{name}"
   lock do
-    store_output file_output
+    store_output input_from_item_cards
   end
 end
 
@@ -27,9 +27,10 @@ def update_asset_output_live
   card_path asset_output_url
 end
 
-def file_output joint="\n"
+def input_from_item_cards joint="\n"
   input_item_cards.map(&:asset_input_content).compact.join(joint)
 end
+
 
 def store_output output
   handle_file(output) do |file|
@@ -52,12 +53,11 @@ view :asset_output_url do
   asset_output_url
 end
 
-def make_machine_output_coded mod=:machines
-  update_machine_output
+def make_asset_output_coded mod=:assets
   Card::Auth.as_bot do
     ENV["STORE_CODED_FILES"] = "true"
     asset_output_card.update! storage_type: :coded, mod: mod,
-                                codename: asset_output_codename_codename
+                              codename: asset_output_codename
     ENV["STORE_CODED_FILES"] = nil
   end
 end

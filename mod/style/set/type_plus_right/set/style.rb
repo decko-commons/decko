@@ -44,6 +44,14 @@ event :customize_theme, :prepare_to_validate, on: :update, when: :customize_them
   self.content = "[[#{skin_name}]]"
 end
 
+event :update_theme_input, :finalize,
+      before: :update_asset_output_file, changed: :content do
+  item_cards.each do |theme_card|
+    next unless theme_card.respond_to? :theme_name
+    theme_card.update_asset_input
+  end
+end
+
 def free_skin_name
   name = "#{@theme} skin customized"
   if Card.exist?(name)

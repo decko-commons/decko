@@ -13,7 +13,6 @@ namespace :card do
 
     desc "install all mods"
     task install: :environment do
-      Card::Machine.reset_script
       Card::Cache.reset_all
       puts "installing card mods".green
       Cardio::Mod.dirs.mods.each do |mod|

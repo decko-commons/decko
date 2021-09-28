@@ -42,16 +42,8 @@ include_set Abstract::SkinBox
 
 CONTENT_PARTS = %i[pre_variables variables post_variables stylesheets].freeze
 
-PRE_VARIABLES_CARD_NAMES = %i[
-  style_jquery_ui_smoothness
-  bootstrap_functions
-].freeze
-
-POST_VARIABLES_CARD_NAMES = %i[
-  bootstrap_core
-  style_cards
-  style_mods
-].freeze
+PRE_VARIABLES_CARD_NAMES = %i[bootstrap_functions].freeze
+POST_VARIABLES_CARD_NAMES = %i[bootstrap_core style_mods].freeze
 
 def content
   CONTENT_PARTS.map do |n|

@@ -2,6 +2,14 @@
 
 class DeathToMachines < Cardio::Migration::Core
   def up
+    ["simple skin",
+     "themeless bootstrap skin",
+     "style: traditional",
+     "style: common",
+     "style: glyphicons"].each do |old_skin|
+      delete_card old_skin
+    end
+
     ensure_code_card "*asset input"
     ensure_code_card "*asset output"
 
@@ -12,9 +20,13 @@ class DeathToMachines < Cardio::Migration::Core
     end
 
     Card[:all, :style].item_cards.each do |card|
-      next unless card.type_id == Card::ModStyleAssetsID
+      next unless card.left&.type_id == Card::ModID && card.right&.codename == :style
       Card[:all, :style].drop_item! card
      end
+
+    Card.search type_id: ["in", Card::ModScriptAssetsID, Card::ModStyleAssetsID] do |card|
+      card.update type_id: Card::ListID
+    end
 
     Card.search right: { codename: "machine_output" } do |card|
       next unless card.codename.present?
@@ -44,9 +56,15 @@ class DeathToMachines < Cardio::Migration::Core
        style_libraries
        script_html5shiv_printshiv
        smartmenu_css
-       smartmenu_js].each do |codename|
+       smartmenu_js
+       mod_script_assets
+       mod_style_assets
+       style_bootstrap_compatible
+       style_right_sidebar].each do |codename|
       delete_code_card codename
     end
+
+
 
   end
 

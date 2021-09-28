@@ -5,7 +5,7 @@ def subpath
 end
 
 def update_asset_output
-  item_cards.map do |icard|
+  outputter_cards.map do |icard|
     icard.update_asset_output
   end
 end
@@ -18,10 +18,8 @@ def local_manifest_group_type_id
   ::Card::LocalScriptManifestGroupID
 end
 
-format :html do
-  view :javascript_include_tag do
-    card.item_cards.map do |icard|
-      nest icard, view: :javascript_include_tag
-    end.join("\n")
+def outputter_cards
+  item_cards.select do |item|
+    item.is_a? Abstract::AssetOutputter
   end
 end

@@ -28,3 +28,18 @@ format :html do
     javascript_include_tag card.asset_output_url
   end
 end
+
+
+def refresh_asset
+  return unless asset_output_needs_refresh?
+
+  update_asset_output
+end
+
+def asset_output_needs_refresh?
+  !asset_output_updated_at || source_changed?(since: asset_output_updated_at)
+end
+
+def asset_output_updated_at
+  asset_output_card&.file_updated_at
+end

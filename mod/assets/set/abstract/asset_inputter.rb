@@ -50,5 +50,18 @@ def input_view
   :core
 end
 
+def asset_input_updated_at
+  asset_input_card&.updated_at
+end
+
+def refresh_asset
+  return unless asset_input_needs_refresh?
+  update_asset_input
+end
+
+def asset_input_needs_refresh?
+  false
+end
+
 
 

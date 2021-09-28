@@ -1,4 +1,4 @@
-include_set Abstract::Pointer
+include_set Type::List
 
 def ok_to_read
   true
@@ -8,12 +8,6 @@ def refresh_output force: false
   item_cards.each do |item_card|
     # puts "refreshing #{item_card.name}".yellow
     item_card.try :refresh_output, force: force
-  end
-end
-
-def regenerate_machine_output
-  item_cards.each do |item_card|
-    item_card.try :regenerate_machine_output
   end
 end
 

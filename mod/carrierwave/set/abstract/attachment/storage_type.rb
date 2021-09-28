@@ -169,3 +169,11 @@ end
 def unknown_storage_type type
   t :carrierwave_unknown_storage_type, new_storage_type: type
 end
+
+def file_updated_at
+  if coded?
+    File.mtime file.path
+  else
+    updated_at
+  end
+end

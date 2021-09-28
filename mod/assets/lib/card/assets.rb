@@ -3,31 +3,27 @@ class Card
     REFRESHED = "ASSETS_REFRESHED".freeze
 
     class << self
+      def inputter_types
+        [
+          LocalScriptFolderGroupID,
+          LocalScriptManifestGroupID,
+          JavaScriptID,
+          CoffeeScriptID,
+          CssID,
+          ScssID,
+          LocalStyleFolderGroupID,
+          LocalStyleManifestGroupID
+        ]
+      end
+
       def refresh_assets force: false
         return unless force || refresh_assets?
 
-        # refresh_script_assets
-        # refresh_style_assets
+        asset_inputters.each(&:refresh_asset)
       end
 
-      def refresh_script_assets
-        active_script_cards do |script_outputter|
-          script_outputter.update_asset_output
-        end
-      end
-
-      def refresh_style_assets
-        style_rule_cards.each do |style_outputter|
-          style_outputter.update_asset_output
-        end
-      end
-
-      def active_script_cards
-        Card.search type_id: ["in", LocalScriptFolderGroupID,LocalScriptManifestGroupID]
-      end
-
-      def style_rule_cards
-        Card.search left: { type_id: SetID }, right_id: StyleID
+      def asset_inputters
+        Card.search type_id: inputter_types.unshift("in")
       end
 
       def active_theme_cards
@@ -35,6 +31,15 @@ class Card
         Card.search(referred_to_by: style_rule).select do |theme|
           theme.respond_to? :theme_name
         end
+      end
+
+      def asset_outputters
+        outputters =
+          Card.search(left: { type_id: Card::ModID }, right: { codename: "script" })
+              .map(&:outputter_cards)
+              .flatten
+        outputters << Card[:all, :style]
+        outputters
       end
 
       private

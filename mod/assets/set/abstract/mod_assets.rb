@@ -1,4 +1,5 @@
 include_set Abstract::Pointer
+include_set Abstract::ReadOnly
 
 def mod_name
   left&.codename.to_s.sub(/^mod_/, "")
@@ -141,10 +142,10 @@ def refresh_output force: false
   end
 end
 
-def make_machine_output_coded verbose=false
+def make_asset_output_coded verbose=false
   item_cards.each do |item_card|
-    puts "coding machine output for #{item_card.name}" if verbose
-    item_card.try(:make_machine_output_coded, mod_name)
+    puts "coding asset output for #{item_card.name}" if verbose
+    item_card.try(:make_asset_output_coded, mod_name)
   end
 end
 
