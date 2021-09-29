@@ -6,6 +6,7 @@ format do
   end
 
   def compile_scss scss, style=:expanded
+    return scss if Rails.env.development?
     SassC::Engine.new(scss, style: style).render
   rescue SassC::SyntaxError => e
     raise Card::Error,
