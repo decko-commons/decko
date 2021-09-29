@@ -1,5 +1,5 @@
 %div.filtered-list-editor
-  %ul.pointer-list.filtered-list-review._pointer-filtered-list.list-group.vertical.nopadding
+  %ul.pointer-list.filtered-list-review._pointer-filtered-list.list-group.vertical.p-0
     - card.item_cards(context: :raw).each do |item_card|
       %li._filtered-list-item.clearfix{ data: item_card.format.wrap_data(false) }
         %span._handle.float-left.m-2
@@ -13,9 +13,4 @@
   %br
   .clearfix
     = add_item_modal_link
--# "data-target": "#modal-filtered-list"
--# = modal_slot "filtered-list", "modal-lg"
 
-// note: passing item and filter card because in some cases (eg Dataset+Metric on wikirate)
-// the link was losing set-identifying information (type of left)
-// would be preferable to have a more general solution to retain set-identifying info.
