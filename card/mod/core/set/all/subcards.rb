@@ -1,3 +1,7 @@
+def card
+  self
+end
+
 event :reject_empty_subcards, :prepare_to_validate do
   subcards.each_with_key do |subcard, key|
     next unless subcard.new? && subcard.unfilled?

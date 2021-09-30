@@ -58,6 +58,7 @@ class Card
 
       def define_trait_card trait, opts
         define_method "#{trait}_card" do
+          # opts = opts.clone.merge supercard: card
           fetch trait.to_sym, new: opts.clone, eager_cache: true
         end
       end
