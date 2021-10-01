@@ -4,7 +4,7 @@
     .modal-content
       .modal-header.clearfix
         = title
-        = menu
+        = menu if voo.show? :menu
       .modal-body
         = body
       - if footer.present?
