@@ -14,7 +14,7 @@ format :html do
                 "data-slot-error-selector": ".card-slot"
   end
 
-  view :simple_new, perms: :create, unknown: true, cache: :never do
+  view :simple_new, perms: :create, unknown: true, wrap: :slot, cache: :never do
     create_form
   end
 

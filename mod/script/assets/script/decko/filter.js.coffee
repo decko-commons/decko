@@ -9,11 +9,19 @@ decko.filter = (el) ->
     else
       $(el).closest("._filtered-content").find "._filter-widget"
 
+
+  # the filter form includes the below
+  @form = @widget.find "._filter-form"
+
+  # one-click filter links
+  @quickFilter = @widget.find "._quick-filter"
+
+  # include filters field, more-fields dropdown, and reset button
   @activeContainer = @widget.find "._filter-container"
+
+  # the "More Filters" Dropdown
   @dropdown = @widget.find "._add-filter-dropdown"
   @dropdownItems = @widget.find "._filter-category-select"
-  @form = @widget.find "._filter-form"
-  @quickFilter = @widget.find "._quick-filter"
 
   @showWithStatus = (status) ->
     f = this
@@ -23,11 +31,10 @@ decko.filter = (el) ->
         f.activate item.data("category")
 
   @reset = () ->
-    # @clear()
-    @dropdownItems.show()
     @restrict @form.find("._reset-filter").data("reset")
 
   @clear = () ->
+    @dropdownItems.show()
     @activeContainer.find(".input-group").remove()
 
   @activate = (category, value) ->
@@ -83,11 +90,10 @@ decko.filter = (el) ->
     # only has effect if there is a data-options-card value
 
   @initSelectField = (field) ->
-    field.find("select").select2(
+    field.find("select").select2
       containerCssClass: ":all:"
       width: "auto"
       dropdownAutoWidth: "true"
-    )
 
   @activeField = (category) ->
     @activeContainer.find("._filter-input-#{category}")
@@ -95,6 +101,7 @@ decko.filter = (el) ->
   @isActive = (category) ->
     @activeField(category).length
 
+  # clear filter and use restrictions in data
   @restrict = (data) ->
     @clear()
     for key of data

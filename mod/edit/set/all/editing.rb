@@ -38,9 +38,7 @@ format :html do
 
   view :edit_buttons do
     button_formgroup do
-      wrap_with "div", class: "d-flex" do
-        [standard_submit_button, edit_cancel_button, delete_button]
-      end
+      [standard_submit_button, edit_cancel_button, delete_button]
     end
   end
 
