@@ -7,7 +7,7 @@ format :html do
         [
           edit_view_hidden,
           _render_content_formgroups,
-          _render_edit_inline_buttons
+          _render(voo.buttons_view || :edit_inline_buttons)
         ]
       end
     end
@@ -19,9 +19,7 @@ format :html do
 
   view :edit_inline_buttons do
     button_formgroup do
-      wrap_with "div", class: "d-flex" do
-        [standard_save_button, cancel_in_place_button, delete_button]
-      end
+      [standard_save_button, cancel_in_place_button, delete_button]
     end
   end
 
