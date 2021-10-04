@@ -13,7 +13,7 @@ format :html do
     end
   end
 
-  before(:content_with_edit_button) do
+  before :content_with_edit_button do
     prepare_content_slot
   end
 
@@ -64,8 +64,7 @@ format :html do
       [
         naming { render_header },
         render_flash,
-        wrap_body { render_titled_content },
-        render_comment_box(optional: :hide)
+        wrap_body { render_titled_content }
       ]
     end
   end
@@ -91,9 +90,7 @@ format :html do
     toggle_logic
     @toggle_mode = :open
     @content_body = true
-    frame do
-      [_render_open_content, render_comment_box(optional: :hide)]
-    end
+    frame { _render_open_content }
   end
 
   view :closed do

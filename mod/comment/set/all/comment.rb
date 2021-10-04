@@ -78,6 +78,7 @@ format do
   end
 
   def comment_submit_button
-    submit_button text: "Comment", type: :submit, disable_with: "Commenting"
+    submit_button text: "Comment", type: :submit, disable_with: "Commenting",
+                  situation: "outline-primary"
   end
 end

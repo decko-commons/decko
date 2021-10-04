@@ -42,5 +42,8 @@ $(window).ready ->
     $(event.target).closest('form').submit()
     false
 
+  $("body").on "click", "._popover_link", (event) ->
+    event.preventDefault();
+
 
 
