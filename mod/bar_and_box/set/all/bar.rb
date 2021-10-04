@@ -8,16 +8,18 @@ format :html do
 
   before :bar do
     class_up "bar", card.safe_set_keys
-    voo.hide! :bar_collapse_link
-    voo.hide :edit_link, :full_page_link, :bridge_link
   end
 
   view :bar, unknown: :unknown_bar do
     voo.hide :bar_middle
-    voo.hide :bar_bottom # needed for toggle
     class_up_bar_sides(voo.show?(:bar_middle))
     # NOTE: above cannot be in `before`, because before blocks run before viz processing
-    wrap { haml :bar }
+    wrap do
+      voo.hide! :bar_collapse_link
+      voo.hide :edit_link, :full_page_link, :bridge_link
+      voo.hide :bar_bottom # needed for toggle
+      haml :bar
+    end
   end
 
   bar_cols 9, 3
@@ -30,12 +32,14 @@ format :html do
 
   before :expanded_bar do
     class_up "bar", card.safe_set_keys
-    voo.hide! :bar_expand_link
   end
 
   view :expanded_bar do
     class_up_bar_sides(false)
-    wrap { haml :expanded_bar }
+    wrap do
+      voo.hide! :bar_expand_link
+      haml :expanded_bar
+    end
   end
 
   def class_up_bar_sides middle
