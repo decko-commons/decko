@@ -1281,9 +1281,9 @@ body.right-sidebar, body.left-sidebar, body.two-sidebar {
   }
 }
 
-.rename-button-form-group {
-  display: flex;
-  .btn {
-    margin-right: 1rem;
-  }
+.button-form-group {
+  display: flex
+}
+.rename-button-form-group .btn {
+  margin-right: 1rem;
 }

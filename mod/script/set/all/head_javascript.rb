@@ -77,4 +77,8 @@ format :html do
       "decko.#{js_decko_function}('#{config_json}')"
     end
   end
+
+  def javascript_include_tag *args
+    "\n<!-- #{card.name} -->#{super}"
+  end
 end
