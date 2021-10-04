@@ -1,11 +1,8 @@
-view :titled, unknown: true do
-  voo.show :comment_box
-  super()
-end
-
-view :open, unknown: true do
-  voo.show :comment_box
-  super()
+%i[open open_content titled titled_content].each do |viewname|
+  view viewname, unknown: true do
+    voo.show :comment_box
+    super()
+  end
 end
 
 view :core, unknown: true do
