@@ -16,15 +16,17 @@ format :js do
     "//#{name}\n#{js}"
   end
 
-  def compress input
-    Uglifier.compile input
-  rescue StandardError => e
-    # CoffeeScript is compiled in a view
-    # If there is a CoffeeScript syntax error we get the rescued view here
-    # and the error that the rescued view is no valid Javascript
-    # To get the original error we have to refer to Card::Error.current
-    raise Card::Error, compression_error_message(e)
-  end
+def compress input
+  return input if Rails.env.development?
+
+  Uglifier.compile input
+rescue StandardError => e
+  # CoffeeScript is compiled in a view
+  # If there is a CoffeeScript syntax error we get the rescued view here
+  # and the error that the rescued view is no valid Javascript
+  # To get the original error we have to refer to Card::Error.current
+  raise Card::Error, compression_error_message(e)
+end
 
   def compression_error_message e
     if Card::Error.current
