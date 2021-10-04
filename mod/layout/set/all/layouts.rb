@@ -1,5 +1,5 @@
 format :html do
-  attr_reader :interior
+  delegate :interior, to: :voo
 
   def layout_nest
     wrap_main { interior }

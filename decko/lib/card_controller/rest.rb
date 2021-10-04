@@ -1,10 +1,7 @@
 class CardController
-  # RESTful action methods for card
+  # helper method for RESTful action methods for card
   module Rest
     include ActionController::HttpAuthentication::Token
-
-    # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    #  PUBLIC METHODS
 
     def create
       handle { card.save! }
@@ -28,9 +25,6 @@ class CardController
       Rails.logger.info "#{body}.\n  >>> Try `rake card:mod:symlink`"
       render body: body, status: 404
     end
-
-    # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    #  PRIVATE METHODS
 
     private
 

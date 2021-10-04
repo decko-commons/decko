@@ -546,6 +546,12 @@ div.search-result-list .search-result-item {
   padding-left: 15px;
 }
 
+.one-line-pointer-list {
+  div.pointer-item {
+    display: inline-block
+  }
+}
+
 ul.pointer {
   margin: 0px;
   padding: 0px;
@@ -1003,7 +1009,7 @@ $bridge-line-color: $border-color;
   > .d0-card-frame
   > .d0-card-content {
     overflow-y: scroll;
-    height: 100%;
+    height: calc(100% - 2em);
     padding: 1rem 1.5rem; // px-4
   }
 }

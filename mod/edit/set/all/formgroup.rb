@@ -1,23 +1,22 @@
 format :html do
-  # a formgroup has a label, an input and help text
+  # a formgroup has a label (with helptext) and an input
   def formgroup title, opts={}, &block
+    input = opts[:input]
     wrap_with :div, formgroup_div_args(opts[:class]) do
-      formgroup_body title, opts, &block
+      [formgroup_label(input, title, opts[:help]),
+       editor_wrap(input, &block)]
     end
   end
 
-  def formgroup_body title, opts, &block
-    label = formgroup_label opts[:input], title
-    editor_body = editor_wrap opts[:input], &block
-    help_text = formgroup_help_text opts[:help]
-    "#{label}<div>#{help_text} #{editor_body}</div>"
+  def formgroup_label input, title, help
+    parts = [formgroup_title(title), formgroup_help(help)].compact
+    return unless parts.present?
+
+    form.label (input || :content), raw(parts.join("\n"))
   end
 
-  def formgroup_label input, title
-    return if voo&.hide?(:title) || title.blank?
-
-    label_type = input || :content
-    form.label label_type, title
+  def formgroup_title title
+    title if voo&.show?(:title) && title.present?
   end
 
   def formgroup_div_args html_class
@@ -27,11 +26,15 @@ format :html do
     div_args
   end
 
-  def formgroup_help_text text=nil
-    return "" if text == false
+  def formgroup_help text=nil
+    return unless voo&.show?(:help) && text != false
 
     class_up "help-text", "help-block"
-    voo.help = text if voo && text.to_s != "true"
+    formgroup_voo_help text
     _render_help
+  end
+
+  def formgroup_voo_help text
+    voo.help = text if voo && text.present? && text.to_s != "true"
   end
 end

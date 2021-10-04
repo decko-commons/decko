@@ -79,7 +79,7 @@ RSpec.describe Card::Set::All::Trash do
   end
 
   describe "event: validate_delete" do
-    it "certain 'all rules' should be indestructable" do
+    it "certain 'all rules' should be indestructible" do
       rule = "*all+*default"
       expect { Card[rule].delete! }
         .to raise_error(/is an indestructible rule/)
