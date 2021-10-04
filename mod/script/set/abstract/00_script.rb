@@ -22,6 +22,8 @@ def comment_with_source js
 end
 
 def compress input
+  return input if Rails.env.development?
+
   Uglifier.compile input
 rescue StandardError => e
   # CoffeeScript is compiled in a view

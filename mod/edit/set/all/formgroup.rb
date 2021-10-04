@@ -1,4 +1,13 @@
 format :html do
+  view :read_form do
+    edit_field_configs.map do |field, args|
+      args[:view] = :read_formgroup
+      nest field, args
+    end
+  end
+
+  view :read_formgroup, template: :haml, unknown: true, wrap: :slot
+
   # a formgroup has a label (with helptext) and an input
   def formgroup title, opts={}, &block
     input = opts[:input]
