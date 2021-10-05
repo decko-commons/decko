@@ -17,6 +17,7 @@ namespace :card do
       puts "installing card mods".green
       Cardio::Mod.dirs.mods.each do |mod|
         mod.ensure_mod_installed
+        Card::Assets.refresh_assets
         Card::Cache.reset_all
       end
     end

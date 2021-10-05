@@ -6,3 +6,7 @@ format :html do
     list_group card.item_names
   end
 end
+
+def last_file_change
+  paths.map { |path| ::File.mtime(path) }.max
+end

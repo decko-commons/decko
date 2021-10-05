@@ -22,6 +22,9 @@ def update_asset_output
   end
 end
 
+def update_if_outdated
+end
+
 def update_asset_output_live
   update_asset_output
   card_path asset_output_url

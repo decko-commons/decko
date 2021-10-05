@@ -20,6 +20,11 @@ class Card
         return unless force || refresh_assets?
 
         asset_inputters.each(&:refresh_asset)
+        generate_asset_output_files if force
+      end
+
+      def generate_asset_output_files
+        asset_outputters.each(&:update_asset_output)
       end
 
       def asset_inputters

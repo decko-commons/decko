@@ -1,6 +1,6 @@
 # A list of styles defined by a manifest group or a "style" asset folder.
 # Usually part of a mod_style_assets card
-include_set Abstract::AssetList
+include_set Abstract::AssetGroup
 
 def asset_input_content
   format(:scss).render_core
