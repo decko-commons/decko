@@ -52,7 +52,6 @@ namespace :decko do
     end
 
     def make_asset_output_coded
-      puts "coding asset output for *all+*style"
       Card::Assets.asset_outputters.each do |card|
         puts "coding asset output for #{card.name}"
         card.make_asset_output_coded

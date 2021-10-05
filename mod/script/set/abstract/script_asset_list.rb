@@ -1,5 +1,9 @@
-include_set Abstract::AssetOutputter, output_format: :js
 include_set Abstract::AssetList
+
+
+def asset_input_content
+  format(:js).render_core
+end
 
 format :js do
   view :core do

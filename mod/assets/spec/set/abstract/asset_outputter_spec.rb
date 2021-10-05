@@ -13,6 +13,7 @@ RSpec.describe Card::Set::Abstract::AssetOutputter do
       Card[:script_group__decko, :asset_output].delete
 
       card = Card[:script_group__decko]
+      # card.update_asset_output
       card.make_asset_output_coded :script
       expect(File).to be_exist(path)
     end

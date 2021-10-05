@@ -1,7 +1,10 @@
 # A list of styles defined by a manifest group or a "style" asset folder.
 # Usually part of a mod_style_assets card
-include_set Abstract::AssetInputter, input_format: :scss
 include_set Abstract::AssetList
+
+def asset_input_content
+  format(:scss).render_core
+end
 
 format :scss do
   view :core do

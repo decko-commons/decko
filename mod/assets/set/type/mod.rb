@@ -15,24 +15,20 @@ def ensure_mod_asset_card asset_type
   return if asset_card.no_action?
   asset_card.save! if asset_card.new? || asset_card.codename.blank?
 
-  # TODO: optimize!
-  # this needs to be smarter so that it doesn't do a lot of "re" installing
-  # when things are already set up.
-  asset_card.update_items
-  if asset_card.item_cards.present?
-    add_asset asset_type
+  if asset_card.has_content?
+    add_mod_asset_card asset_type
   else
     puts "Drop: #{asset_card.name}"
-    drop_asset asset_type, asset_card
+    drop_mod_asset_card asset_type, asset_card
   end
 end
 
-def add_asset asset_type
+def add_mod_asset_card asset_type
   target = asset_type == :style ? Card[:style_mods] : all_rule(asset_type)
   target.add_item! codename_for(asset_type).to_sym
 end
 
-def drop_asset asset_type, asset_card
+def drop_mod_asset_card asset_type, asset_card
   asset_card.update codename: nil
   asset_card.delete
   all_rule(asset_type).drop_item! asset_card

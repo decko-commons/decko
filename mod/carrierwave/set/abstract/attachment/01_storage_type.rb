@@ -1,5 +1,12 @@
 attr_writer :bucket, :new_storage_type
 
+event :stash_storage_type, :initialize, on: :update do
+  @new_storage_type = @storage_type
+  # we can't update the storage type until carrierwave has used the old storage type
+  # to load the file we are updating
+  @storage_type = nil
+end
+
 event :storage_type_change, :store, on: :update, when: :storage_type_changed? do
   # carrierwave stores file if @cache_id is not nil
   attachment.cache_stored_file!
@@ -50,6 +57,7 @@ end
 def storage_type
   @storage_type ||=
     new_card? ? storage_type_from_config : storage_type_from_content
+
 end
 
 def deprecated_mod_file?
@@ -120,14 +128,7 @@ def storage_type_changed?
 end
 
 def storage_type= value
-  known_storage_type? value
-  if @action == :update # && storage_type != value
-    # we cant update the storage type directly here
-    # if we do then the uploader doesn't find the file we want to update
-    @new_storage_type = value
-  else
-    @storage_type = value
-  end
+  @storage_type = value
 end
 
 def with_storage_options opts={}
