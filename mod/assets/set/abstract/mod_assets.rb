@@ -1,4 +1,42 @@
 include_set Abstract::Pointer
+include_set Abstract::ReadOnly
+
+def input_item_cards
+  local_group_cards
+end
+
+# group cards that don't refer to remote sources
+def local_group_cards
+  if manifest_exists?
+    local_manifest_group_cards
+  else
+    local_folder_group_card
+  end
+end
+
+def remote_group_urls
+  return unless manifest_exists?
+  manifest_group_items "remote"
+end
+
+def local_folder_group_card
+  return unless assets_path
+  card = new_assets_group_card local_group_name,
+                               local_folder_group_type_id
+  card.assets_path = assets_path
+  card
+end
+
+def local_manifest_group_cards
+  with_manifest_groups do |group_name, config|
+    next if remote_group?(name, config)
+    new_local_manifest_group_card group_name, config
+  end
+end
+
+def has_content?
+  assets_path
+end
 
 def mod_name
   left&.codename.to_s.sub(/^mod_/, "")
@@ -20,44 +58,12 @@ def manifest_path
   File.join(assets_path, "manifest.yml")
 end
 
-def expected_item_keys
-  return [] unless assets_dir_exists?
-
-  if manifest_exists?
-    manifest.keys.map { |group_key| "#{name}+#{group_key}".to_name.key }
-  else
-    ["#{name}+#{local_group_name}".to_name.key]
-  end
-end
-
 def local_group_name
   "local"
 end
 
-def update_items
-  # return unless groups_changed?
-
-  delete_unused_items do
-    self.content = ""
-    return unless assets_dir_exists?
-
-    ensure_update_items
-    save!
-  end
-end
-
-def ensure_update_items
-  if manifest_exists?
-    ensure_manifest_groups_cards
-  else
-    ensure_item local_group_name, local_folder_group_type_id
-  end
-end
-
-def delete_unused_items
-  @old_items = ::Set.new item_keys
-  yield
-  remove_deprecated_items @old_items
+def remote_group? name, config
+  name == "remote" || config["remote"]
 end
 
 def assets_dir_exists?
@@ -87,46 +93,19 @@ def with_manifest_groups
   end
 end
 
-def ensure_manifest_groups_cards
-  with_manifest_groups { |group_name, config| new_manifest_group group_name, config }
+def new_local_manifest_group group_name
+  card = new_assets_group_card group_name, local_manifest_group_type_id
+  card.relative_paths = manifest_group_items(group_name)
+  card
 end
 
-def new_manifest_group group_name, config
-  type_id =
-    config["remote"] ? ::Card::RemoteManifestGroupID : local_manifest_group_type_id
-  ensure_item group_name, type_id
+def new_assets_group_card group_name, type_id
+  item_name = "#{name}+group: #{group_name}"
+  card = Card.new group_card_args(group_name, type_id, item_name)
+  card
 end
 
-def ensure_item field, type_id
-  item_name = "#{name}+#{field}"
-  ensure_item_content item_name
-
-  card = Card[item_name]
-  args = ensure_item_args field, type_id, item_name
-  return if item_already_coded? card, args
-
-  ensure_item_save card, args
-  card.try :update_machine_output
-end
-
-def item_already_coded? card, args
-  card&.type_id == args[:type_id] && card.codename == args[:codename]
-end
-
-def ensure_item_content item_name
-  @old_items.delete item_name.to_name.key
-  add_item item_name
-end
-
-def ensure_item_save card, args
-  if card
-    card.update args
-  else
-    Card.create! args
-  end
-end
-
-def ensure_item_args field, type_id, name
+def group_card_args field, type_id, name
   {
     type_id: type_id,
     codename: "#{mod_name}_group__#{field}",
@@ -141,11 +120,22 @@ def refresh_output force: false
   end
 end
 
-def make_machine_output_coded verbose=false
+def make_asset_output_coded verbose=false
   item_cards.each do |item_card|
-    puts "coding machine output for #{item_card.name}" if verbose
-    item_card.try(:make_machine_output_coded, mod_name)
+    puts "coding asset output for #{item_card.name}" if verbose
+    item_card.try(:make_asset_output_coded, mod_name)
   end
+end
+
+def source_changed?
+  last_source_update =
+    [manifest_updated_at, local_manifest_group_cards.map(&:last_file_change)].flatten.max
+  last_source_update > updated_at
+end
+
+def manifest_updated_at
+  return unless manifest_exists?
+  File.mtime(manifest_path)
 end
 
 def no_action?
@@ -160,11 +150,3 @@ private
 #   difference = (expected_items + actual_items) - (expected_items & actual_items)
 #   difference.present?
 # end
-
-def remove_deprecated_items items
-  items.each do |deprecated_item|
-    next unless (item_card = Card.fetch(deprecated_item))
-    item_card.update codename: nil
-    item_card.delete
-  end
-end

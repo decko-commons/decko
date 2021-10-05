@@ -5,3 +5,6 @@ format :html do
     end
   end
 end
+
+basket[:list_input_options] << "prosemirror editor"
+basket[:script_config][:prose_mirror] = "setProseMirrorConfig"
