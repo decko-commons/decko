@@ -1,9 +1,16 @@
-include_set Abstract::Machine
-include_set Abstract::MachineInput
+# A list of styles defined by a manifest group or a "style" asset folder.
+# Usually part of a mod_style_assets card
 include_set Abstract::AssetList
 
-machine_input { standard_machine_input }
-store_machine_output filetype: "css"
+def asset_input_content
+  format(:scss).render_core
+end
+
+format :scss do
+  view :core do
+    card.render_items_and_compress :scss
+  end
+end
 
 def new_asset_constants path
   if path.ends_with? ".scss"
@@ -21,12 +28,9 @@ def css_constants
   { type_id: CssID, set_module: Abstract::AssetCss }
 end
 
-def standard_machine_input
-  render_items_and_compress :css
-end
-
 format :html do
   view :stylesheet_include_tag do
-    stylesheet_include_tag card.machine_output_url
+    stylesheet_include_tag card.asset_output_url
   end
 end
+

@@ -1,10 +1,5 @@
-def group_name
-  codename.to_s.sub(/^.+__/, "")
-end
-
-def relative_paths
-  paths
-end
+attr_accessor :group_name
+attr_accessor :relative_paths
 
 format :html do
   view :core do
