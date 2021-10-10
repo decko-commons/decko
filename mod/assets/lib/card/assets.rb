@@ -5,14 +5,10 @@ class Card
     class << self
       def inputter_types
         [
-          LocalScriptFolderGroupID,
-          LocalScriptManifestGroupID,
           JavaScriptID,
           CoffeeScriptID,
           CssID,
-          ScssID,
-          LocalStyleFolderGroupID,
-          LocalStyleManifestGroupID
+          ScssID
         ]
       end
 
@@ -41,7 +37,6 @@ class Card
       def asset_outputters
         outputters =
           Card.search(left: { type_id: Card::ModID }, right: { codename: "script" })
-              .map(&:outputter_cards)
               .flatten
         outputters << Card[:all, :style]
         outputters
