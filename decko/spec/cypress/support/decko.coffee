@@ -9,9 +9,11 @@ Cypress.Commands.add "main_slot", () =>
   cy.get("#main > .card-slot")
 
 # click the edit icon
-Cypress.Commands.add "click_edit",  { prevSubject: 'element'}, (subject) =>
+Cypress.Commands.add "click_edit", { prevSubject: 'element'}, (subject) =>
   cy.wrap(subject).find(".card-menu > a.edit-link").click(force: true)
 
+Cypress.Commands.add "bar", (cardname) =>
+  cy.get(".bar-view").find ".bar[data-card-name='#{cardname}']'"
 
 Cypress.Commands.add "expect_main_title", (text) =>
   cy.get("#main > .card-slot > .d0-card-header > .d0-card-header-title .card-title")
