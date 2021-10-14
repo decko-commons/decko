@@ -78,10 +78,16 @@ Cypress.Commands.add "follow", (card, user="Joe_Admin") =>
     url: "/update/#{card}+*self+#{user}+*follow?card%5Bcontent%5D=%5B%5B%2Aalways%5D%5D"
 
 Cypress.Commands.add "ensure", (name, args={}) =>
-  cy.app("cards/ensure", name: name, args: args)
+  cy.app "cards/ensure", name: name, args: args
 
 Cypress.Commands.add "delete", (name) =>
-  cy.app("cards/delete", name)
+  cy.app "cards/delete", name
 
 Cypress.Commands.add "update", (name, content) =>
-  cy.app("cards/update", name: name, content: content)
+  cy.app "cards/update", name: name, content: content
+
+Cypress.Commands.add "editor", (field) =>
+  cy.get ".card-editor.RIGHT-#{field} .content-editor"
+
+Cypress.Commands.add "closeFilter", (field) =>
+  cy.get(".filter-in-filter-form ._filter-input-#{field} ._delete-filter-input").click()
