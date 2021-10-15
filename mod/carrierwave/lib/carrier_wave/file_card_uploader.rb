@@ -212,10 +212,6 @@ module CarrierWave
         action_id_stand_in
     end
 
-    def reset_action_id
-      @action_id = nil
-    end
-
     # delegate carrierwave's fog config methods to bucket configuration
     CONFIG_OPTIONS.each do |name|
       define_method("fog_#{name}") { bucket_config name }
