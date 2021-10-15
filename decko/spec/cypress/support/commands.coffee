@@ -33,10 +33,8 @@ Cypress.Commands.add "el", prevSubject: "optional", (subject, id) =>
 Cypress.Commands.add "elem",  (id) =>
   cy.get("[data-cy=#{id}]")
 
-
 Cypress.Commands.add "child",prevSubject: "element", (subject, id) =>
   subject.find("[data-cy=#{id}]")
-
 
 Cypress.Commands.add "tinymce_set_content", (text) =>
   cy.tinymce (ed) ->
@@ -70,10 +68,8 @@ Cypress.Commands.add "tinymce_content", () =>
     cy.window().then (win) ->
       win.tinymce.get(id).getContent()
 
-
-
-Cypress.Commands.add "app_login", (user="Joe Admin") =>
-  cy.app("login", user)
+#Cypress.Commands.add "app_login", (user="Joe Admin") =>
+#  cy.app("login", user)
 
 Cypress.Commands.add "login", (email="joe@admin.com", password="joe_pass") =>
   # cy.setCookie("user_testdeck_test", "11862")

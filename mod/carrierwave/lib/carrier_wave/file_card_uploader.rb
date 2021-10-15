@@ -206,9 +206,14 @@ module CarrierWave
     end
 
     def action_id
-      model.selected_content_action_id ||
+      @action_id ||=
+        model.selected_content_action_id ||
         model.last_content_action_id ||
         action_id_stand_in
+    end
+
+    def reset_action_id
+      @action_id = nil
     end
 
     # delegate carrierwave's fog config methods to bucket configuration
