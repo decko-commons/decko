@@ -43,6 +43,7 @@ RSpec.describe Card::Set::Abstract::Attachment::Cloud do
         # local
         expect(file_card.db_content).to eq "~#{file_path}"
 
+        file_card.file.reset_action_id
         # cloud
         file_card.update! storage_type: :cloud
         expect(file_card.db_content).to eq("(test_bucket)/#{file_path}")
