@@ -15,6 +15,8 @@ module Cardio
     config.recaptcha_minimum_score = 0.5
 
     config.google_analytics_key = nil
+    config.google_analytics_tracker_key = nil
+    config.google_analytics_four_key = nil
 
     config.override_host = nil
     config.override_protocol = nil

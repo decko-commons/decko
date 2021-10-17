@@ -11,7 +11,7 @@ RSpec.describe Card::Set::Abstract::Attachment::Cloud do
     end
 
     def file_path
-      "#{file_card.id}/#{file_card.last_action_id}.txt"
+      "#{file_card.id}/#{file_card.last_content_action_id}.txt"
     end
 
     describe "db_content" do
