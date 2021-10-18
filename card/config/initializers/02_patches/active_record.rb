@@ -18,31 +18,30 @@ module Patches
   module ActiveRecord
     module Relation
       def pluck_in_batches *columns, batch_size: 1000
-        prepare_pluck_in_batches(
-          columns
-        ) do |batch_start, select_columns, id_index, remove_id_from_results|
+        batch_start = nil
+        select_columns, id_index, remove_id = prepare_batch_pluck columns
 
-          loop do
-            items = pluck_in_batches_items batch_size, batch_start, select_columns
-            break if items.empty?
+        loop do
+          items = pluck_in_batches_items batch_size, batch_start, select_columns
+          break if items.empty?
 
-            batch_start = pluck_in_batches_batch_start items, id_index
-            # Remove :id column if not in *columns
-            items.map! { |row| row[1..-1] } if remove_id_from_results
-            yield items
+          batch_start = pluck_in_batches_batch_start items, id_index
+          cleaned_batch_items items, remove_id
+          yield items
 
-            break if items.size < batch_size
-          end
+          break if items.size < batch_size
         end
       end
 
       private
 
-      def prepare_pluck_in_batches columns
-        raise "There must be at least one column to pluck" if columns.empty?
+      # Remove :id column if not in *columns
+      def cleaned_batch_items items, remove_id
+        items.map! { |row| row[1..-1] } if remove_id
+      end
 
-        # the :id to start the query at
-        batch_start = nil
+      def prepare_batch_pluck columns
+        raise "There must be at least one column to pluck" if columns.empty?
 
         # It's cool. We're only taking in symbols
         # no deep clone needed
@@ -61,7 +60,7 @@ module Patches
           remove_id_from_results = true
         end
 
-        yield batch_start, select_columns, id_index, remove_id_from_results
+        [select_columns, id_index, remove_id_from_results]
       end
 
       def pluck_in_batches_batch_start items, id_index
