@@ -26,8 +26,8 @@ module Patches
           break if items.empty?
 
           batch_start = pluck_in_batches_batch_start items, id_index
-
-          yield cleaned_batch_items(items, remove_id)
+          cleaned_batch_items items, remove_id
+          yield items
 
           break if items.size < batch_size
         end
