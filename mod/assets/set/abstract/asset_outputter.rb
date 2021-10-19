@@ -10,7 +10,7 @@ event :update_asset_output_file, :finalize, on: :save do
   update_asset_output
 end
 
-event :validate_asset_inputs, :validate, on: :save do
+event :validate_asset_inputs, :validate, on: :save, skip: :allowed do
   return unless (invalid_input = item_cards.find { |c| !c.respond_to?(:asset_input_content) })
   errors.add :content, t(:assets_invalid_input, input_name: invalid_input.name)
 end
@@ -57,7 +57,7 @@ view :asset_output_url do
 end
 
 def make_asset_output_coded mod=:assets
-  Card::Auth.as_bot do
+    Card::Auth.as_bot do
     ENV["STORE_CODED_FILES"] = "true"
     asset_output_card.update! storage_type: :coded, mod: mod,
                               codename: asset_output_codename

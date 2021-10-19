@@ -93,7 +93,7 @@ def with_manifest_groups
   end
 end
 
-def new_local_manifest_group group_name
+def new_local_manifest_group_card group_name
   card = new_assets_group_card group_name, local_manifest_group_type_id
   card.relative_paths = manifest_group_items(group_name)
   card
@@ -140,6 +140,10 @@ end
 
 def no_action?
   new? && !assets_dir_exists?
+end
+
+def input_item_cards
+  item_cards
 end
 
 private

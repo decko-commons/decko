@@ -17,4 +17,11 @@ RSpec.describe Card::Set::Abstract::ModAssets do
   specify "javascript_include_tag view" do
     expect_view(:javascript_include_tag, card: script).to include("<script src=").twice
   end
+
+  it "updates assets" do
+    card = Card["mod: script+*script"]
+    card.update_asset_output
+    card.make_asset_output_coded
+    card.asset_output_card.file.should be
+  end
 end

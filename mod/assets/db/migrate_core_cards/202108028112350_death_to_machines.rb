@@ -2,6 +2,22 @@
 
 class DeathToMachines < Cardio::Migration::Core
   def up
+    Card.search right: { codename: "machine_output" } do |card|
+      next unless card.codename.present?
+      card.update_column :codename, ""
+      card.delete!
+    end
+
+    Card.search type_id: ["in", Card::LocalScriptManifestGroupID, Card::LocalStyleManifestGroupID,
+                          Card::LocalScriptFolderGroupID, Card::LocalStyleFolderGroupID] do |card|
+      Card.search left_id: card.id do |field|
+        field.update_column :codename, ""
+        field.delete
+      end
+      card.update_column :codename, ""
+      card.delete! skip: :asset_input_changed_on_delete
+    end
+
     ["simple skin",
      "themeless bootstrap skin",
      "style: traditional",
@@ -12,6 +28,7 @@ class DeathToMachines < Cardio::Migration::Core
 
     ensure_code_card "*asset input"
     ensure_code_card "*asset output"
+
 
     Card.search right: { codename: "machine_cache" } do |card|
       if card[0..1]
@@ -25,13 +42,9 @@ class DeathToMachines < Cardio::Migration::Core
      end
 
     Card.search type_id: ["in", Card::ModScriptAssetsID, Card::ModStyleAssetsID] do |card|
-      card.update type_id: Card::ListID
+     card.update! type_id: Card::ListID, skip: [:validate_asset_inputs, :update_asset_output_file]
     end
-
-    Card.search right: { codename: "machine_output" } do |card|
-      next unless card.codename.present?
-      card.update_column :codename, ""
-    end
+    Card::Cache.reset_all
 
     %i[machine_input
        machine_output
@@ -63,9 +76,5 @@ class DeathToMachines < Cardio::Migration::Core
        style_right_sidebar].each do |codename|
       delete_code_card codename
     end
-
-
-
   end
-
 end

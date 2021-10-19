@@ -1,5 +1,9 @@
-include_set Abstract::ModAssets
 include_set Abstract::AssetOutputter, output_format: :js
+include_set Abstract::ModAssets
+
+def make_asset_output_code
+  super mod_name
+end
 
 def subpath
   "script"
@@ -14,7 +18,7 @@ def local_manifest_group_type_id
 end
 
 def refresh_asset
-  return unless asset_output_needs_refresh?
+  # return unless asset_output_needs_refresh?
 
   update_asset_output
 end
