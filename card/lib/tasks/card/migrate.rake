@@ -33,6 +33,44 @@ def without_dumping
 end
 
 namespace :card do
+  desc "migrate structure and cards"
+  task migrate: :environment do
+    ENV["NO_RAILS_CACHE"] = "true"
+    ENV["SCHEMA"] ||= "#{Cardio.gem_root}/db/schema.rb"
+
+    stamp = ENV["STAMP_MIGRATIONS"]
+
+    puts "migrating structure"
+    Rake::Task["card:migrate:structure"].invoke
+    Rake::Task["card:migrate:stamp"].invoke :structure if stamp
+
+    puts "migrating deck structure"
+    Rake::Task["card:migrate:deck_structure"].execute
+    if stamp
+      Rake::Task["card:migrate:stamp"].reenable
+      Rake::Task["card:migrate:stamp"].invoke :core_cards
+    end
+
+    puts "migrating core cards"
+    Card::Cache.reset_all
+    # not invoke because we don't want to reload environment
+    Rake::Task["card:migrate:core_cards"].execute
+    if stamp
+      Rake::Task["card:migrate:stamp"].reenable
+      Rake::Task["card:migrate:stamp"].invoke :core_cards
+    end
+
+    puts "migrating deck cards"
+    # not invoke because we don't want to reload environment
+    Rake::Task["card:migrate:deck_cards"].execute
+    if stamp
+      Rake::Task["card:migrate:stamp"].reenable
+      Rake::Task["card:migrate:stamp"].invoke :deck_cards
+    end
+
+    Card::Cache.reset_all
+  end
+
   namespace :migrate do
     desc "migrate cards"
     task cards: %i[core_cards deck_cards]
