@@ -26,7 +26,7 @@ module Cardio
         @commands ||= {
           rails:  %w[generate destroy plugin benchmarker profiler
                      console dbconsole application runner],
-          rake:   %w[seed reseed load update],
+          rake:   %w[seed reseed load update merge],
           custom: %w[new rspec jasmine version help]
         }
       end
@@ -38,6 +38,9 @@ module Cardio
       @args = args
       @command = self.class.aliases[args.first] || args.first
       ENV["PRY_RESCUE_RAILS"] = "1" if rescue?
+
+      puts "HANDLER = #{handler}"
+
       @args.shift unless handler == :rails
     end
 
