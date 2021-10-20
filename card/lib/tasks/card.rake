@@ -1,3 +1,5 @@
+require "optparse"
+
 namespace :card do
   def importer
     @importer ||= Cardio::Migration::Import.new Cardio::Migration.data_path
@@ -6,7 +8,16 @@ namespace :card do
   desc "merge import card data that was updated since the last push into " \
        "the the database"
   task merge: :environment do
-    importer.merge
+    options = {}
+    o = OptionParser.new
+
+    o.banner = "Usage: rake user:create [options]"
+    o.on("-m MOD", "--mod MOD") { |mod| options[:mod] = mod }
+    args = o.order!(ARGV) {}
+    o.parse! args
+    puts "modimod: #{options[:mod]}"
+    # importer.merge
+    exit 0
   end
 
   desc "merge all import card data into the the database"
@@ -58,44 +69,6 @@ namespace :card do
 
     importer.pull card, opts.merge(remote: ENV["from"])
     exit # without exit the card argument is treated as second rake task
-  end
-
-  desc "migrate structure and cards"
-  task migrate: :environment do
-    ENV["NO_RAILS_CACHE"] = "true"
-    ENV["SCHEMA"] ||= "#{Cardio.gem_root}/db/schema.rb"
-
-    stamp = ENV["STAMP_MIGRATIONS"]
-
-    puts "migrating structure"
-    Rake::Task["card:migrate:structure"].invoke
-    Rake::Task["card:migrate:stamp"].invoke :structure if stamp
-
-    puts "migrating deck structure"
-    Rake::Task["card:migrate:deck_structure"].execute
-    if stamp
-      Rake::Task["card:migrate:stamp"].reenable
-      Rake::Task["card:migrate:stamp"].invoke :core_cards
-    end
-
-    puts "migrating core cards"
-    Card::Cache.reset_all
-    # not invoke because we don't want to reload environment
-    Rake::Task["card:migrate:core_cards"].execute
-    if stamp
-      Rake::Task["card:migrate:stamp"].reenable
-      Rake::Task["card:migrate:stamp"].invoke :core_cards
-    end
-
-    puts "migrating deck cards"
-    # not invoke because we don't want to reload environment
-    Rake::Task["card:migrate:deck_cards"].execute
-    if stamp
-      Rake::Task["card:migrate:stamp"].reenable
-      Rake::Task["card:migrate:stamp"].invoke :deck_cards
-    end
-
-    Card::Cache.reset_all
   end
 
   desc "reset cache"
