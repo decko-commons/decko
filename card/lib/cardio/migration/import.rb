@@ -64,11 +64,11 @@ module Cardio
       private
 
       def update &block
-        ImportData.update(@data_path, &block)
+        ImportData.update @data_path, &block
       end
 
       def importer
-        @importer ||= ImportData.new(@data_path)
+        @importer ||= ImportData.new @data_path
       end
 
       # Returns an array of hashes with card attributes

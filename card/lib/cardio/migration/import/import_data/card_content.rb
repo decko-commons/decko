@@ -5,7 +5,7 @@ module Cardio
         # handles card content for import
         module CardContent
           def card_content data
-            File.read(content_path(data))
+            File.read content_path(data)
           end
 
           def content_changed? data
