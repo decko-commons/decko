@@ -1,5 +1,0 @@
-en:
-  alias_target_must_be_simple: "must be aliased to a single, valid simple card"
-  alias_must_be_simple: "must be a simple (not a compound) card"
-  alias_cards_no_children: "Alias cards can't have children"
-  alias_redirect_former_name: "redirect former name to new one"

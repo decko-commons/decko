@@ -1,5 +1,11 @@
 namespace :card do
   namespace :mod do
+    task list: :environment do
+      Cardio::Mod.dirs.mods.each do |mod|
+        puts "#{mod.name}: #{mod.path}"
+      end
+    end
+
     desc "symlink from deck public/{modname} to mod's public directory"
     task symlink: :environment do
       FileUtils.rm_rf public_mod_dir
