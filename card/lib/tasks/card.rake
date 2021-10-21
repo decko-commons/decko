@@ -10,11 +10,10 @@ namespace :card do
   task merge: :environment do
     options = {}
     o = OptionParser.new
-
-    #o.banner = "Usage: rake card:merge [options]"
-    # o.on("-m MOD", "--mod MOD") { |mod| options[:mod] = mod }
-    #args = o.order!(ARGV) {}
-    #o.parse! args
+    o.banner = "Usage: rake card:merge [options]"
+    o.on("-m MOD", "--mod MOD") { |mod| options[:mod] = mod }
+    args = o.order!(ARGV) {}
+    o.parse! args
     Cardio::Mod::Data.new(**options).merge
     exit 0
   end

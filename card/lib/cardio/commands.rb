@@ -38,9 +38,6 @@ module Cardio
       @args = args
       @command = self.class.aliases[args.first] || args.first
       ENV["PRY_RESCUE_RAILS"] = "1" if rescue?
-
-      puts "HANDLER = #{handler}"
-
       @args.shift unless handler == :rails
     end
 

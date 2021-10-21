@@ -41,7 +41,7 @@ module Cardio
       def mod_data mod
         environments.map do |env|
           filename = File.join mod.data_path, "#{env}.yml"
-          YAML.load_file filename if File.exists? filename
+          YAML.load_file filename if File.exist? filename
         end.compact
       end
 
