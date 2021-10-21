@@ -124,9 +124,12 @@
         return $(this).setContentField(fn);
       });
     },
+    contentField: function() {
+      return this.closest('.card-editor').find('.d0-card-content');
+    },
     setContentField: function(fn) {
       var field, init_val, new_val;
-      field = this.closest('.card-editor').find('.d0-card-content');
+      field = this.contentField();
       init_val = field.val();
       new_val = fn.call(this);
       field.val(new_val);
@@ -2088,7 +2091,7 @@
       $(event.target).closest('form').submit();
       return false;
     });
-    return $('body').on("change", "._edit-item", function(event) {
+    $('body').on("change", "._edit-item", function(event) {
       var cb;
       cb = $(event.target);
       if (cb.is(":checked")) {
@@ -2098,6 +2101,9 @@
       }
       $(event.target).closest('form').submit();
       return false;
+    });
+    return $("body").on("click", "._popover_link", function(event) {
+      return event.preventDefault();
     });
   });
 
@@ -2184,17 +2190,241 @@
 
 }).call(this);
 
+// pointer_config.js.coffee
+(function() {
+  var permissionsContent, pointerContent;
+
+  $.extend(decko.editorContentFunctionMap, {
+    'select.pointer-select': function() {
+      return pointerContent(this.val());
+    },
+    'select.pointer-multiselect': function() {
+      return pointerContent(this.val());
+    },
+    '.pointer-radio-list': function() {
+      return pointerContent(this.find('input:checked').val());
+    },
+    '.pointer-list-ul': function() {
+      return pointerContent(this.find('input').map(function() {
+        return $(this).val();
+      }));
+    },
+    '.pointer-link-list-ul': function() {
+      return decko.linkListContent(this.find('.input-group'));
+    },
+    '._nest-list-ul': function() {
+      return decko.nestListContent(this.find('.input-group'));
+    },
+    '.pointer-checkbox-list': function() {
+      return pointerContent(this.find('input:checked').map(function() {
+        return $(this).val();
+      }));
+    },
+    '.pointer-select-list': function() {
+      return pointerContent(this.find('.pointer-select select').map(function() {
+        return $(this).val();
+      }));
+    },
+    '._pointer-filtered-list': function() {
+      return pointerContent(this.find('._filtered-list-item').map(function() {
+        return $(this).data('cardName');
+      }));
+    },
+    '._pointer-list': function() {
+      return pointerContent(this.find('._pointer-item').map(function() {
+        return $(this).val();
+      }));
+    },
+    '.perm-editor': function() {
+      return permissionsContent(this);
+    }
+  });
+
+  decko.editorInitFunctionMap['.pointer-list-editor'] = function() {
+    this.sortable({
+      handle: '.handle',
+      cancel: ''
+    });
+    return decko.initPointerList(this.find('input'));
+  };
+
+  decko.editorInitFunctionMap['._pointer-filtered-list'] = function() {
+    return this.sortable({
+      handle: '._handle',
+      cancel: ''
+    });
+  };
+
+  $.extend(decko, {
+    initPointerList: function(input) {
+      return decko.initAutoCardPlete(input);
+    },
+    initAutoCardPlete: function(input) {
+      var optionsCard, path;
+      optionsCard = input.data('options-card');
+      if (!optionsCard) {
+        return;
+      }
+      path = optionsCard + '.json?view=name_match';
+      return input.autocomplete({
+        source: decko.slotPath(path)
+      });
+    },
+    pointerContent: function(vals) {
+      var list;
+      list = $.map($.makeArray(vals), function(v) {
+        if (v) {
+          return '[[' + v + ']]';
+        }
+      });
+      return $.makeArray(list).join("\n");
+    },
+    linkListContent: function(input_groups) {
+      var list, vals;
+      vals = input_groups.map(function() {
+        var title, v;
+        v = $(this).find('input._reference').val();
+        title = $(this).find('input._title').val();
+        if (title.length > 0) {
+          v += "|" + title;
+        }
+        return v;
+      });
+      list = $.map($.makeArray(vals), function(v) {
+        if (v) {
+          return '[[' + v + ']]';
+        }
+      });
+      return $.makeArray(list).join("\n");
+    },
+    nestListContent: function(input_groups) {
+      var list, vals;
+      vals = input_groups.map(function() {
+        var options, v;
+        v = $(this).find('input._reference').val();
+        options = $(this).find('input._nest-options').val();
+        if (options.length > 0) {
+          v += "|" + options;
+        }
+        return v;
+      });
+      list = $.map($.makeArray(vals), function(v) {
+        if (v) {
+          return '{{' + v + '}}';
+        }
+      });
+      return $.makeArray(list).join("\n");
+    }
+  });
+
+  pointerContent = function(vals) {
+    return decko.pointerContent(vals);
+  };
+
+  permissionsContent = function(ed) {
+    var groups, indivs;
+    if (ed.find('#inherit').is(':checked')) {
+      return '_left';
+    }
+    groups = ed.find('.perm-group input:checked').map(function() {
+      return $(this).val();
+    });
+    indivs = ed.find('.perm-indiv input').map(function() {
+      return $(this).val();
+    });
+    return pointerContent($.makeArray(groups).concat($.makeArray(indivs)));
+  };
+
+}).call(this);
+
+// pointer_list_editor.js.coffee
+(function() {
+  $(window).ready(function() {
+    $('body').on('click', '._pointer-item-add', function(event) {
+      decko.addPointerItem(this);
+      return event.preventDefault();
+    });
+    $('body').on('keydown', '.pointer-item-text', function(event) {
+      if (event.key === 'Enter') {
+        decko.addPointerItem(this);
+        return event.preventDefault();
+      }
+    });
+    $('body').on('keyup', '.pointer-item-text', function(_event) {
+      return decko.updateAddItemButton(this);
+    });
+    return $('body').on('click', '.pointer-item-delete', function() {
+      var item, list;
+      item = $(this).closest('li');
+      list = item.closest('ul');
+      if (list.find('.pointer-li').length > 1) {
+        item.remove();
+      } else {
+        item.find('input').val('');
+      }
+      return decko.updateAddItemButton(list);
+    });
+  });
+
+  decko.slotReady(function(slot) {
+    return slot.find('.pointer-list-editor').each(function() {
+      return decko.updateAddItemButton(this);
+    });
+  });
+
+  $.extend(decko, {
+    addPointerItem: function(el) {
+      var newInput, slot;
+      slot = $(el).slot();
+      slot.trigger("slotDestroy");
+      newInput = decko.nextPointerInput(decko.lastPointerItem(el));
+      newInput.val('');
+      slot.trigger("slotReady");
+      decko.initializeEditors(slot);
+      newInput.first().focus();
+      decko.updateAddItemButton(el);
+      return decko.initPointerList(newInput);
+    },
+    nextPointerInput: function(lastItem) {
+      var all_empty, i, input, lastInputs, len, newItem;
+      lastInputs = lastItem.find('input');
+      all_empty = true;
+      for (i = 0, len = lastInputs.length; i < len; i++) {
+        input = lastInputs[i];
+        all_empty = all_empty && $(input).val() === '';
+      }
+      if (all_empty) {
+        return lastInputs;
+      }
+      newItem = lastItem.clone();
+      lastItem.after(newItem);
+      newItem.attr("data-index", parseInt(lastItem.attr("data-index") + 1));
+      return newItem.find('input');
+    },
+    lastPointerItem: function(el) {
+      return $(el).closest('.content-editor').find('.pointer-li:last');
+    },
+    updateAddItemButton: function(el) {
+      var button, disabled;
+      button = $(el).closest('.content-editor').find('._pointer-item-add');
+      disabled = decko.lastPointerItem(el).find('input').val() === '';
+      return button.prop('disabled', disabled);
+    }
+  });
+
+}).call(this);
+
 // filter.js.coffee
 (function() {
   decko.filter = function(el) {
     var closest_widget;
     closest_widget = $(el).closest("._filter-widget");
     this.widget = closest_widget.length ? closest_widget : $(el).closest("._filtered-content").find("._filter-widget");
+    this.form = this.widget.find("._filter-form");
+    this.quickFilter = this.widget.find("._quick-filter");
     this.activeContainer = this.widget.find("._filter-container");
     this.dropdown = this.widget.find("._add-filter-dropdown");
     this.dropdownItems = this.widget.find("._filter-category-select");
-    this.form = this.widget.find("._filter-form");
-    this.quickFilter = this.widget.find("._quick-filter");
     this.showWithStatus = function(status) {
       var f;
       f = this;
@@ -2207,10 +2437,10 @@
       });
     };
     this.reset = function() {
-      this.dropdownItems.show();
       return this.restrict(this.form.find("._reset-filter").data("reset"));
     };
     this.clear = function() {
+      this.dropdownItems.show();
       return this.activeContainer.find(".input-group").remove();
     };
     this.activate = function(category, value) {
