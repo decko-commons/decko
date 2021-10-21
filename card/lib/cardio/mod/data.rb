@@ -4,6 +4,9 @@ DATA_ENVIRONMENTS = %i[production development test].freeze
 
 module Cardio
   class Mod
+    # handle data in data directory of mods
+    # (list of card attributes)
+    # https://docs.google.com/document/d/13K_ynFwfpHwc3t5gnLeAkZJZHco1wK063nJNYwU8qfc/edit#
     class Data
       include Card::Model::SaveHelper
 
