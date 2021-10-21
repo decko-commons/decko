@@ -89,6 +89,10 @@ module Cardio
       File.join @path, "assets"
     end
 
+    def data_path
+      File.join @path, "data"
+    end
+
     def ensure_mod_installed
       Card::Auth.as_bot do
         card = ensure_mod_card
