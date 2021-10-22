@@ -17,6 +17,10 @@ namespace :card do
       end
     end
 
+    task missing: :environment do
+      puts Cardio::Mod.missing.map(&:name).join("\n").yellow
+    end
+
     task uninstall: :environment do
       Cardio::Mod.ensure_uninstalled
     end

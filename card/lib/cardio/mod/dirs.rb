@@ -99,8 +99,8 @@ module Cardio
 
       def subpaths *subdirs
         @mods.each_with_object({}) do |mod, hash|
-          path = mod.subpath *subdirs
-          hash[mod.name] = path if Dir.exist? path
+          path = mod.subpath(*subdirs)
+          hash[mod.name] = path if path
         end
       end
 

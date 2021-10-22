@@ -24,7 +24,6 @@ RSpec.describe Card::Set::Self::Head do
            :mod_bootstrap_script_bootstrap_machine_output/bootstrap.js
            :mod_bootstrap_script_pointer_machine_output/bootstrap.js
            :mod_date_script_datepicker_machine_output/date.js
-           :mod_prosemirror_editor_script_local_machine_output/prosemirror_editor.js
            :mod_tinymce_editor_script_local_machine_output/tinymce_editor.js]
           .each do |src|
             is_expected.to have_tag(:script, with: { src: "/files/#{src}" })
