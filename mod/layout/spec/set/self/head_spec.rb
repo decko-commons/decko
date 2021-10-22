@@ -13,8 +13,9 @@ RSpec.describe Card::Set::Self::Head do
     end
 
     it "has a favicon" do
-      is_expected.to have_tag(:link, with: { rel: "shortcut icon",
-                                             href: "/files/:favicon/standard-small.png" })
+      favpath = "/files/:favicon/standard-small.png"
+      is_expected
+        .to have_tag(:link, with: { rel: "shortcut icon", href: favpath })
     end
 
     it "has a main javascript tag" do

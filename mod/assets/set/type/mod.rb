@@ -1,5 +1,5 @@
 def modname
-  codename.to_s.gsub /^mod_/, ""
+  codename.to_s.gsub(/^mod_/, "")
 end
 
 def ensure_mod_script_card
