@@ -22,7 +22,6 @@ RSpec.describe Card::Set::Self::Head do
         %w[:mod_script_script_decko_machine_output/script.js
            :mod_ace_editor_script_local_machine_output/ace_editor.js
            :mod_bootstrap_script_bootstrap_machine_output/bootstrap.js
-           :mod_bootstrap_script_pointer_machine_output/bootstrap.js
            :mod_date_script_datepicker_machine_output/date.js
            :mod_tinymce_editor_script_local_machine_output/tinymce_editor.js]
           .each do |src|

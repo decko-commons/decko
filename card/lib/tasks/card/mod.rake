@@ -1,9 +1,7 @@
 namespace :card do
   namespace :mod do
     task list: :environment do
-      Cardio.mods.each do |mod|
-        puts "#{mod.name}: #{mod.path}"
-      end
+      Cardio.mods.each { |m| puts "#{m.name}: #{m.path}".green }
     end
 
     desc "symlink from deck public/{modname} to mod's public directory"
@@ -18,7 +16,7 @@ namespace :card do
     end
 
     task missing: :environment do
-      puts Cardio::Mod.missing.map(&:name).join("\n").yellow
+      Cardio::Mod.missing.each { |m| puts m.modname.yellow }
     end
 
     task uninstall: :environment do
