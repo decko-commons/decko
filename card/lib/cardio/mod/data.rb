@@ -30,7 +30,7 @@ module Cardio
 
       # @return [Array <String>]
       def paths
-        hash = Dirs.subpaths "data"
+        hash = Mod.dirs.subpaths "data"
         @mod ? [hash[@mod]] : hash.values
       end
 
