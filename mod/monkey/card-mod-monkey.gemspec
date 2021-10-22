@@ -16,6 +16,5 @@ DeckoGem.mod "monkey" do |s, d|
                ["pry-rails",            "~> 0.3"],
                ["pry-rescue",           "~> 1.5"],
                ["pry-stack_explorer",   "~> 0.6"],
-               ["pry-byebug",           "~> 3.9"],
-               ["capybara",                "> 2"]
+               ["pry-byebug",           "~> 3.9"]
 end

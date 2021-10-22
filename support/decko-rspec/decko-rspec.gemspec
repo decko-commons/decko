@@ -16,7 +16,8 @@ DeckoGem.gem "decko-rspec" do |s, d|
                ["rubocop-rspec",            "~> 2.4"],
                ["simplecov",               "~> 0.21"],
                ["spork",                    "~> 0.9"],
-               ["timecop",                  "~> 0.9"]
+               ["timecop",                  "~> 0.9"],
+               ["capybara",                    "> 2"]
   # following might be needed to get Jasmine going again?
   # ["phantomjs", "1.9.7.1"], # locked because 1.9.8.0 is breaking
   #  "sprockets",              # just so above works
