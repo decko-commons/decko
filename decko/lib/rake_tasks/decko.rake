@@ -99,8 +99,9 @@ decko_namespace = namespace :decko do
     end
   end
 
-  alias_task "mod:symlink", "card:mod:symlink"
-  alias_task "mod:install", "card:mod:install"
+  %i[list symlink missing uninstall install].each do |task|
+    alias_task "mod:#{task}", "card:mod:#{task}"
+  end
   alias_task :migrate, "card:migrate"
 
   desc "insert existing card migrations into schema_migrations_cards " \
