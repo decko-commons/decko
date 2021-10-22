@@ -12,6 +12,11 @@ module Cardio
         deps.each { |spec| @dirs.add_gem_mod spec.name, spec.full_gem_path }
       end
 
+      # load all gem mods
+      def gem_mods
+        @dirs.load_from_gemfile
+      end
+
       private
 
       def unknown_gem_mod! name
