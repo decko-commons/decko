@@ -25,25 +25,21 @@ module Cardio
       # list of card attribute hashes
       # @return [Array <Hash>]
       def items
-        mods.map { |mod| mod_data mod }.flatten
+        paths.map { |mod_path| mod_items mod_path }.flatten
       end
 
-      # @return [Array <Card::Mod>]
-      def mods
-        mod_candidates.select { |m| Dir.exist? m.data_path }
+      # @return [Array <String>]
+      def paths
+        hash = Dirs.subpaths "data"
+        @mod ? [hash[@mod]] : hash.values
       end
 
       private
 
-      # @return [Array <Card::Mod>]
-      def mod_candidates
-        @mod ? [Mod.dirs.fetch_mod(@mod)].compact : Mod.dirs.mods
-      end
-
       # @return [Array <Hash>]
-      def mod_data mod
+      def mod_items mod_path
         environments.map do |env|
-          filename = File.join mod.data_path, "#{env}.yml"
+          filename = File.join mod_path, "#{env}.yml"
           YAML.load_file filename if File.exist? filename
         end.compact
       end

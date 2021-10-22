@@ -97,6 +97,13 @@ module Cardio
         fetch_mod(mod_name)&.path
       end
 
+      def subpaths *subdirs
+        @mods.each_with_object({}) do |mod, hash|
+          path = mod.subpath *subdirs
+          hash[mod.name] = path if Dir.exist? path
+        end
+      end
+
       def fetch_mod mod_name
         @mods_by_name[Mod.normalize_name(mod_name)]
       end
@@ -129,12 +136,9 @@ module Cardio
         end
       end
 
-      def each_public_path
-        @mods.each do |mod|
-          path = mod.public_path
-          next unless Dir.exist? path
-
-          yield mod.name, path
+      def each_subpath *subdirs
+        subpaths(*subdirs).each do |mod_name, subpath|
+          yield mod_name, subpath
         end
       end
 

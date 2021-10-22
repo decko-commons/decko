@@ -76,21 +76,13 @@ module Cardio
       "mod_#{name}"
     end
 
+    def subpath *subdirs
+      File.join [@path] + subdirs
+    end
+
     def tmp_dir type
       File.join Cardio.paths["tmp/#{type}"].first,
                 "mod#{'%03d' % (@index + 1)}-#{@name}"
-    end
-
-    def public_path
-      File.join @path, "public"
-    end
-
-    def assets_path
-      File.join @path, "assets"
-    end
-
-    def data_path
-      File.join @path, "data"
     end
 
     def ensure_mod_installed
@@ -98,6 +90,7 @@ module Cardio
         card = ensure_mod_card
         card.ensure_mod_script_card
         card.ensure_mod_style_card
+        Card::Cache.reset_all
       end
     end
 
@@ -114,6 +107,28 @@ module Cardio
     end
 
     class << self
+      def missing_mods
+        Card.search(type: :mod).reject do |mod_card|
+          Dirs.fetch_by_name mod_card.codename
+        end
+      end
+
+      def ensure_uninstalled
+        missing_mods.each do |mod_card|
+          Card::Auth.as_bot do
+            Card[:all, :style].drop_item mod_card
+            mod_card.delete!
+          end
+        end
+      end
+
+      def ensure_installed
+        Card::Machine.reset_script
+        Card::Cache.reset_all
+        puts "installing card mods".green
+        Cardio.mods.each(&:ensure_mod_installed)
+      end
+
       def load
         return if ENV["CARD_MODS"] == "none"
 

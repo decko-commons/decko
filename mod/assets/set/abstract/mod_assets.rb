@@ -5,27 +5,21 @@ def mod_name
 end
 
 def mod
-  @mod ||= Cardio::Mod.dirs.fetch_mod(mod_name)
+  @mod ||= Cardio::Mod.dirs.fetch_mod mod_name
 end
 
 def assets_path
-  return unless mod&.assets_path.present?
-
-  File.join mod&.assets_path, subpath
+  @assets_path ||= mod&.subpath "assets", subpath
 end
 
 def manifest_path
-  return unless assets_path
-
-  File.join(assets_path, "manifest.yml")
+  @manifest_path ||= mod&.subpath "assets", subpath, "manifest.yml"
 end
 
 def expected_item_keys
-  return [] unless assets_dir_exists?
-
-  if manifest_exists?
+  if manifest_path
     manifest.keys.map { |group_key| "#{name}+#{group_key}".to_name.key }
-  else
+  elsif assets_path
     ["#{name}+#{local_group_name}".to_name.key]
   end
 end
@@ -39,7 +33,7 @@ def update_items
 
   delete_unused_items do
     self.content = ""
-    return unless assets_dir_exists?
+    return unless assets_path
 
     ensure_update_items
     save!
@@ -47,7 +41,7 @@ def update_items
 end
 
 def ensure_update_items
-  if manifest_exists?
+  if manifest_path
     ensure_manifest_groups_cards
   else
     ensure_item local_group_name, local_folder_group_type_id
@@ -58,15 +52,6 @@ def delete_unused_items
   @old_items = ::Set.new item_keys
   yield
   remove_deprecated_items @old_items
-end
-
-def assets_dir_exists?
-  path = assets_path
-  path && Dir.exist?(path)
-end
-
-def manifest_exists?
-  manifest_path && File.exist?(manifest_path)
 end
 
 def manifest_group_items group_name
@@ -149,7 +134,7 @@ def make_machine_output_coded verbose=false
 end
 
 def no_action?
-  new? && !assets_dir_exists?
+  new? && !assets_path
 end
 
 private
