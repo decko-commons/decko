@@ -138,6 +138,12 @@ module Cardio
         end
       end
 
+      def load_from_gemfile
+        Cardio::Mod.gem_specs.each do |mod_name, mod_spec|
+          add_gem_mod mod_name, mod_spec.full_gem_path
+        end
+      end
+
       private
 
       def load_from_modfile
@@ -152,12 +158,6 @@ module Cardio
       def load_from_dir
         Dir.entries(@current_path).sort.each do |filename|
           add_mod filename unless filename.match?(/^\./)
-        end
-      end
-
-      def load_from_gemfile
-        Cardio::Mod.gem_specs.each do |mod_name, mod_spec|
-          add_gem_mod mod_name, mod_spec.full_gem_path
         end
       end
     end
