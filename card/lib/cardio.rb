@@ -41,5 +41,9 @@ module Cardio
     def database
       @database ||= config.database_configuration.dig Rails.env, "database"
     end
+
+    def mods
+      Mod.dirs.mods
+    end
   end
 end

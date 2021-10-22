@@ -1,3 +1,7 @@
+def modname
+  codename.to_s.gsub /^mod_/, ""
+end
+
 def ensure_mod_script_card
   ensure_mod_asset_card :script, Card::ModScriptAssetsID
 end
