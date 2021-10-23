@@ -144,7 +144,6 @@ PATH
     card-mod-monkey (0.13.4)
       better_errors (~> 2.9)
       card (= 1.103.4)
-      colorize (~> 0.8)
       html2haml (~> 2.2)
       pry-byebug (~> 3.9)
       pry-rails (~> 0.3)
