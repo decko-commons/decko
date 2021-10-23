@@ -26,7 +26,7 @@ module Cardio
         @commands ||= {
           rails:  %w[generate destroy plugin benchmarker profiler
                      console dbconsole application runner],
-          rake:   %w[seed reseed load update],
+          rake:   %w[seed reseed load update merge],
           custom: %w[new rspec jasmine version help]
         }
       end

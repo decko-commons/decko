@@ -7,9 +7,7 @@ DeckoGem.mod "defaults" do |s, d|
                    :carrierwave, :comment, :date, :delayed_job, :follow,
                    :help, :history, :integrate, :layout,
                    :list, :machines, :markdown, :permissions, :recaptcha,
-                   :rules, :search, :tinymce_editor,
-                   # expecting to move following out of defaults:
-                   :alias, :google_analytics, :legacy, :prosemirror_editor
+                   :rules, :search, :tinymce_editor
   s.summary = "Default decko mods"
   s.description = ""
 end

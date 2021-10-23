@@ -97,6 +97,13 @@ module Cardio
         fetch_mod(mod_name)&.path
       end
 
+      def subpaths *subdirs
+        @mods.each_with_object({}) do |mod, hash|
+          path = mod.subpath(*subdirs)
+          hash[mod.name] = path if path
+        end
+      end
+
       def fetch_mod mod_name
         @mods_by_name[Mod.normalize_name(mod_name)]
       end
@@ -129,12 +136,15 @@ module Cardio
         end
       end
 
-      def each_public_path
-        @mods.each do |mod|
-          path = mod.public_path
-          next unless Dir.exist? path
+      def each_subpath *subdirs
+        subpaths(*subdirs).each do |mod_name, subpath|
+          yield mod_name, subpath
+        end
+      end
 
-          yield mod.name, path
+      def load_from_gemfile
+        Cardio::Mod.gem_specs.each do |mod_name, mod_spec|
+          add_gem_mod mod_name, mod_spec.full_gem_path
         end
       end
 
@@ -152,12 +162,6 @@ module Cardio
       def load_from_dir
         Dir.entries(@current_path).sort.each do |filename|
           add_mod filename unless filename.match?(/^\./)
-        end
-      end
-
-      def load_from_gemfile
-        Cardio::Mod.gem_specs.each do |mod_name, mod_spec|
-          add_gem_mod mod_name, mod_spec.full_gem_path
         end
       end
     end
