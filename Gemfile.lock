@@ -139,6 +139,7 @@ PATH
       execjs (~> 2.7, != 2.8.0)
     card-mod-markdown (0.13.4)
       card (= 1.103.4)
+      card-mod-ace_editor (= 0.13.4)
       kramdown (~> 2.3)
     card-mod-monkey (0.13.4)
       better_errors (~> 2.9)
@@ -685,4 +686,4 @@ DEPENDENCIES
   thin
 
 BUNDLED WITH
-   2.2.15
+   2.2.28
