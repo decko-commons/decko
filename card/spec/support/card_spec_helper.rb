@@ -113,9 +113,10 @@ class Card
       end
 
       def views format_sym
-        described_class.format_modules(format_sym).map do |format_module|
-          views_for_module format_module
-        end.flatten
+        described_class
+          .format_modules(format_sym, test: false).map do |format_module|
+            views_for_module format_module
+          end.flatten
       end
 
       def views_for_module format_module

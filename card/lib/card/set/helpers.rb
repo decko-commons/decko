@@ -64,12 +64,12 @@ class Card
         end
       end
 
-      def format_modules format_sym
+      def format_modules format_sym, test: true
         type_key = set_format_type_key
         if !type_key || type_key == :base_format
           [format_module(format_sym)]
         elsif abstract_set?
-          [test_set.format_module(format_sym)]
+          [(test ? test_set : self).format_module(format_sym)]
         else
           format_class = Card::Format.format_class format: format_sym
           Card::Set.modules[type_key][format_class][shortname] || []
