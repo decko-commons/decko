@@ -1,5 +1,5 @@
 <!--
-# @title README - mod: Platypus
+# @title README - mod: platypus
 -->
 
 # Platypus mod

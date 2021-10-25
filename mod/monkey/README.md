@@ -1,5 +1,5 @@
 <!--
-# @title README - mod: Monkey
+# @title README - mod: monkey
 -->
 
 # Monkey mod

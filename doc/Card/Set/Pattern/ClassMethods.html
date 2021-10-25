@@ -1041,11 +1041,11 @@
 <span class='kw'>def</span> <span class='id identifier rubyid_register'>register</span> <span class='id identifier rubyid_pattern_code'>pattern_code</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span>
   <span class='kw'>if</span> <span class='lparen'>(</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_pattern_id'>pattern_id</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../Codename.html" title="Card::Codename (class)">Codename</a></span></span><span class='period'>.</span><span class='id identifier rubyid_id'><span class='object_link'><a href="../../Codename.html#id-class_method" title="Card::Codename.id (method)">id</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_pattern_code'>pattern_code</span><span class='rparen'>)</span><span class='rparen'>)</span>
     <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_pattern_code'>pattern_code</span> <span class='op'>=</span> <span class='id identifier rubyid_pattern_code'>pattern_code</span>
-    <span class='const'><span class='object_link'><a href="../../../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_set_patterns'>set_patterns</span><span class='period'>.</span><span class='id identifier rubyid_insert'>insert</span> <span class='id identifier rubyid_opts'>opts</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='symbol'>:index</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to_i'>to_i</span><span class='comma'>,</span> <span class='kw'>self</span>
+    <span class='const'><span class='object_link'><a href="../Pattern.html" title="Card::Set::Pattern (class)">Pattern</a></span></span><span class='period'>.</span><span class='id identifier rubyid_concrete'><span class='object_link'><a href="../Pattern.html#concrete-class_method" title="Card::Set::Pattern.concrete (method)">concrete</a></span></span><span class='period'>.</span><span class='id identifier rubyid_insert'>insert</span> <span class='id identifier rubyid_opts'>opts</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='symbol'>:index</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to_i'>to_i</span><span class='comma'>,</span> <span class='kw'>self</span>
     <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_anchorless'>anchorless</span> <span class='op'>=</span> <span class='op'>!</span><span class='id identifier rubyid_respond_to?'>respond_to?</span><span class='lparen'>(</span><span class='symbol'>:anchor_name</span><span class='rparen'>)</span>
     <span class='id identifier rubyid_opts'>opts</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_val'>val</span><span class='op'>|</span> <span class='id identifier rubyid_send'>send</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_key'>key</span><span class='embexpr_end'>}</span><span class='tstring_content'>=</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_val'>val</span> <span class='rbrace'>}</span>
   <span class='kw'>else</span>
-    <span class='id identifier rubyid_warn'>warn</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>no codename for pattern_code </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_pattern_code'>pattern_code</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+    <span class='id identifier rubyid_warn'>warn</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>no codename for pattern code: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_pattern_code'>pattern_code</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
   <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -1058,9 +1058,9 @@
 </div>
 
       <div id="footer">
-  Generated on Thu May 13 17:17:19 2021 by
+  Generated on Sun Oct 24 23:17:27 2021 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.26 (ruby-2.7.2).
+  0.9.26 (ruby-2.7.3).
 </div>
 
     </div>
