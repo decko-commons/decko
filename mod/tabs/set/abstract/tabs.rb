@@ -109,7 +109,8 @@ format :html do
   end
 
   def wrapped_tab_title_info info
-    return unless (info ||= tab_space)
+    info ||= tab_space
+    return unless info
 
     klass = css_classes "count-number", "clearfix"
     wrap_with :span, info, class: klass
@@ -117,7 +118,7 @@ format :html do
 
   # TODO: handle mapped icon tagging
   # for override
-  def mapped_icon_tag
+  def mapped_icon_tag _key
     ""
   end
 end

@@ -1,6 +1,7 @@
 class Card
+  # tab object, handles tab configuration for view :tabs
   class Tab
-    attr_reader :format, :name, :label, :content, :button_attrib
+    attr_reader :format, :name
 
     class << self
       def tab_objects format, tab_hash, active_name, klass=nil
@@ -43,22 +44,22 @@ class Card
       wrap_with :div, content, pane_attr
     end
 
-    private
-
-    def config_hash?
-      @config.is_a? Hash
-    end
-
-    def label
-      @label ||= (config_hash? && @config[:title]) || name
+    def button_attrib
+      @button_attrib ||= (config_hash? && @config[:button_attr]) || {}
     end
 
     def content
       @content ||= config_hash? ? @config[:content] : @config
     end
 
-    def button_attrib
-      @button_attrib ||= (config_hash? && @config[:button_attr]) || {}
+    def label
+      @label ||= (config_hash? && @config[:title]) || name
+    end
+
+    private
+
+    def config_hash?
+      @config.is_a? Hash
     end
 
     def tab_button_link

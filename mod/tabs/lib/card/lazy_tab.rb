@@ -1,4 +1,5 @@
 class Card
+  # lazy-loading tabs. Tab panel content doesn't load until tab is visited.
   class LazyTab < Tab
     def url
       @url ||= (config_hash? && @config[:path]) || format.path(view: view)
