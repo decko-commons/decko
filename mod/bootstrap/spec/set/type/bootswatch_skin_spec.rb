@@ -19,6 +19,7 @@ RSpec.describe Card::Set::Type::BootswatchSkin do
   end
 
   it "adds bootswatch styles to asset output" do
+    Card::Assets.refresh_assets force: true
     style_with_customized_theme.update_asset_output
     expect(generated_css).to include YETI_THEME_CSS
   end

@@ -1,5 +1,4 @@
 attr_accessor :group_name
-attr_accessor :relative_paths
 
 format :html do
   view :core do
@@ -7,6 +6,3 @@ format :html do
   end
 end
 
-def last_file_change
-  paths.map { |path| ::File.mtime(path) }.max
-end

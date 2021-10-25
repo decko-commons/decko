@@ -1,5 +1,7 @@
 require "sassc"
-include_set Abstract::AssetOutputter
+
+include_set Abstract::Css
+include_set Abstract::AssetOutputter, output_format: :css
 
 def output_filetype
   "css"

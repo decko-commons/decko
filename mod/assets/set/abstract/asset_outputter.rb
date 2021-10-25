@@ -34,7 +34,6 @@ def input_from_item_cards joint="\n"
   input_item_cards.map(&:asset_input_content).compact.join(joint)
 end
 
-
 def store_output output
   handle_file(output) do |file|
     Card::Auth.as_bot do

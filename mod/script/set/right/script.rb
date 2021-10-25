@@ -4,13 +4,6 @@ def ok_to_read
   true
 end
 
-def refresh_output force: false
-  item_cards.each do |item_card|
-    # puts "refreshing #{item_card.name}".yellow
-    item_card.try :refresh_output, force: force
-  end
-end
-
 format :html do
   view :javascript_include_tag do
     card.item_cards.map do |script|

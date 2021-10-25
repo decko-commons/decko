@@ -1,6 +1,4 @@
-# -*- encoding : utf-8 -*-
-
-RSpec.describe Card::Set::Right::Style do
+RSpec.describe Card::Set::TypePlusRight::Set::Style do
   #  describe "#delet"
   #  it "deletes tempfile"
   let(:css)                    { "#box { display: block }"  }
@@ -12,7 +10,7 @@ RSpec.describe Card::Set::Right::Style do
 
   it_behaves_like "asset outputter", that_produces: :css do
     let(:asset_outputter_card) do
-      ensure_card "test my style+*style", type: :list, content: ""
+      ensure_card "test my style+*self+*style", type: :list, content: ""
     end
     let(:asset_inputter_card) do
       ensure_card "test css", type: :css, content: css

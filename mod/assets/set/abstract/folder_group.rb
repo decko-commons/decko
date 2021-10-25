@@ -1,4 +1,4 @@
-attr_accessor :assets_paths
+attr_accessor :assets_path
 attr_accessor :group_name
 
 def paths
@@ -11,10 +11,6 @@ def relative_paths
   return [] unless (path = assets_path)
 
   Dir.children path
-end
-
-def item_name_to_path name
-  ::File.join base_path, name
 end
 
 def base_path

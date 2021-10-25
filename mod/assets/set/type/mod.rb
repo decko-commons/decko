@@ -1,3 +1,7 @@
+# TODO We can't detect file removal for folder group
+# TODO Update seed data
+# TODO minimize
+
 include_set List
 
 def ensure_mod_script_card
@@ -17,6 +21,7 @@ def ensure_mod_asset_card asset_type
 
   if asset_card.has_content?
     add_mod_asset_card asset_type
+    asset_card.refresh_asset
   else
     puts "Drop: #{asset_card.name}"
     drop_mod_asset_card asset_type, asset_card
@@ -25,7 +30,7 @@ end
 
 def add_mod_asset_card asset_type
   target = asset_type == :style ? Card[:style_mods] : all_rule(asset_type)
-  target.add_item! codename_for(asset_type).to_sym
+  target.add_item! codename_for(asset_type)
 end
 
 def drop_mod_asset_card asset_type, asset_card
@@ -35,7 +40,7 @@ def drop_mod_asset_card asset_type, asset_card
 end
 
 def codename_for asset_type
-  "#{codename}_#{asset_type}"
+  [codename, asset_type]
 end
 
 def all_rule asset_type

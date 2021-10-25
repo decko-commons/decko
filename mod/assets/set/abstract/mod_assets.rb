@@ -1,7 +1,8 @@
 include_set Abstract::Pointer
 include_set Abstract::ReadOnly
 
-def input_item_cards
+def item_cards args={}
+  # binding.pry
   local_group_cards
 end
 
@@ -10,28 +11,28 @@ def local_group_cards
   if manifest_exists?
     local_manifest_group_cards
   else
-    local_folder_group_card
+    [folder_group_card]
+  end
+end
+
+def folder_group_card
+  return unless assets_path
+  card = new_assets_group_card local_group_name,
+                               folder_group_type_id
+  card.assets_path = assets_path
+  card
+end
+
+def local_manifest_group_cards
+  manifest.map do |group_name, config|
+    next if remote_group?(name, config)
+    new_local_manifest_group_card group_name
   end
 end
 
 def remote_group_urls
   return unless manifest_exists?
   manifest_group_items "remote"
-end
-
-def local_folder_group_card
-  return unless assets_path
-  card = new_assets_group_card local_group_name,
-                               local_folder_group_type_id
-  card.assets_path = assets_path
-  card
-end
-
-def local_manifest_group_cards
-  with_manifest_groups do |group_name, config|
-    next if remote_group?(name, config)
-    new_local_manifest_group_card group_name, config
-  end
 end
 
 def has_content?
@@ -87,15 +88,9 @@ def manifest
   @manifest ||= YAML.load_file manifest_path
 end
 
-def with_manifest_groups
-  manifest.each_pair do |key, config|
-    yield key, config
-  end
-end
-
 def new_local_manifest_group_card group_name
   card = new_assets_group_card group_name, local_manifest_group_type_id
-  card.relative_paths = manifest_group_items(group_name)
+  card.group_name = group_name
   card
 end
 
@@ -113,24 +108,14 @@ def group_card_args field, type_id, name
   }
 end
 
-def refresh_output force: false
-  update_items
-  item_cards.each do |item_card|
-    item_card.try :refresh_output, force: force
-  end
-end
+def source_changed? since:
+  source_updates =
+    manifest_exists? ? [manifest_updated_at, local_manifest_group_cards.map(&:last_file_change)].flatten :
+        folder_group_card&.paths&.map { |path| File.mtime(path) }
 
-def make_asset_output_coded verbose=false
-  item_cards.each do |item_card|
-    puts "coding asset output for #{item_card.name}" if verbose
-    item_card.try(:make_asset_output_coded, mod_name)
-  end
-end
+  return unless source_updates
 
-def source_changed?
-  last_source_update =
-    [manifest_updated_at, local_manifest_group_cards.map(&:last_file_change)].flatten.max
-  last_source_update > updated_at
+  source_updates.max > since
 end
 
 def manifest_updated_at
@@ -142,15 +127,3 @@ def no_action?
   new? && !assets_dir_exists?
 end
 
-def input_item_cards
-  item_cards
-end
-
-private
-
-# def groups_changed?
-#   expected_items = expected_item_keys
-#   actual_items = item_keys
-#   difference = (expected_items + actual_items) - (expected_items & actual_items)
-#   difference.present?
-# end

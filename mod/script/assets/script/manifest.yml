@@ -44,8 +44,3 @@ decko:
     - decko/filter_links.js.coffee
     - decko/filter_items.js.coffee
     - decko/selectable_filtered_content.js.coffee
-
-pointer:
-  items:
-    - script_pointer_config.js.coffee
-    - script_pointer_list_editor.js.coffee

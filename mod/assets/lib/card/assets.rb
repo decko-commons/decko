@@ -8,7 +8,7 @@ class Card
           JavaScriptID,
           CoffeeScriptID,
           CssID,
-          ScssID
+          ScssID,
         ]
       end
 
@@ -24,7 +24,8 @@ class Card
       end
 
       def asset_inputters
-        Card.search type_id: inputter_types.unshift("in")
+        Card.search(type_id: inputter_types.unshift("in")) +
+          Card.search(left: { type_id: Card::ModID }, right: { codename: "style" })
       end
 
       def active_theme_cards

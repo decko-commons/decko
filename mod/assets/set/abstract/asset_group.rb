@@ -2,8 +2,8 @@ include_set Abstract::ReadOnly
 include_set Abstract::Sources
 include_set Abstract::Items
 
-event :update_asset_list, :prepare_to_store, on: :save do
-  self.db_content = relative_paths.join("\n")
+def virtual?
+  new?
 end
 
 def render_items_and_compress format
@@ -14,12 +14,10 @@ def render_items_and_compress format
   end.join "\n"
 end
 
-def item_name_to_path name
-  name
-end
-
-def fetch_item_card name, _args={}
-  new_asset_file_card item_name_to_path(name)
+def item_cards args={}
+  relative_paths.map do |path|
+    new_asset_file_card path
+  end
 end
 
 def new_asset_file_card path, name=::File.basename(path)
@@ -42,9 +40,7 @@ def local
 end
 
 def source_changed? since:
-  difference = (relative_paths + item_names) - (relative_paths & item_names)
-  difference.present? ||
-    existing_source_paths.any? { |path| ::File.mtime(path) > since }
+  existing_source_paths.any? { |path| ::File.mtime(path) > since }
 end
 
 def input_item_cards
@@ -54,4 +50,8 @@ end
 
 def asset_input_needs_refresh?
   !asset_input_updated_at || source_changed?(since: asset_input_updated_at)
+end
+
+def last_file_change
+  paths.map { |path| ::File.mtime(path) }.max
 end

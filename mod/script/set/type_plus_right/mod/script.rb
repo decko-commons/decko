@@ -9,7 +9,7 @@ def subpath
   "script"
 end
 
-def local_folder_group_type_id
+def folder_group_type_id
   ::Card::LocalScriptFolderGroupID
 end
 

@@ -8,7 +8,7 @@ def subpath
   "style"
 end
 
-def local_folder_group_type_id
+def folder_group_type_id
   ::Card::LocalStyleFolderGroupID
 end
 
@@ -22,4 +22,12 @@ format :html do
       nest icard, view: :stylesheet_include_tag
     end.join("\n")
   end
+end
+
+def asset_input_needs_refresh?
+  !asset_input_updated_at || source_changed?(since: asset_input_updated_at)
+end
+
+def asset_input_updated_at
+  asset_input_card&.updated_at
 end
