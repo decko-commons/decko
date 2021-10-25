@@ -1,7 +1,3 @@
-require "colorize"
-# require "html2haml"
-# require "sprockets"
-# require "phantomjs"
 require "better_errors"
 require "binding_of_caller"
 require "pry-byebug"

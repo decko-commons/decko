@@ -15,6 +15,8 @@ module Cardio
     config.recaptcha_minimum_score = 0.5
 
     config.google_analytics_key = nil
+    config.google_analytics_tracker_key = nil
+    config.google_analytics_four_key = nil
 
     config.override_host = nil
     config.override_protocol = nil
@@ -93,6 +95,7 @@ module Cardio
           p.add "files"
 
           p.add "lib/graph_q_l/types/query.rb"
+          p.add "mod-data"
 
           p.add "db", with: "#{card_root}/db"
           p.add "db/seeds.rb", with: "#{card_root}/db/seeds.rb"
@@ -112,6 +115,7 @@ module Cardio
             p["late/initializers"] << "#{mod_path}/init/late"
             p["config/locales"] << "#{mod_path}/locales"
             p["lib/tasks"] << "#{mod_path}/lib/tasks"
+            p["mod-data"] << "#{mod_path}/data"
           end
 
           p["app/models"] = []

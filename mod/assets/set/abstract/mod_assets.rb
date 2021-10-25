@@ -44,19 +44,15 @@ def mod_name
 end
 
 def mod
-  @mod ||= Cardio::Mod.dirs.fetch_mod(mod_name)
+  @mod ||= Cardio::Mod.dirs.fetch_mod mod_name
 end
 
 def assets_path
-  return unless mod&.assets_path.present?
-
-  File.join mod&.assets_path, subpath
+  @assets_path ||= mod&.subpath "assets", subpath
 end
 
 def manifest_path
-  return unless assets_path
-
-  File.join(assets_path, "manifest.yml")
+  @manifest_path ||= mod&.subpath "assets", subpath, "manifest.yml"
 end
 
 def local_group_name
@@ -65,15 +61,6 @@ end
 
 def remote_group? name, config
   name == "remote" || config["remote"]
-end
-
-def assets_dir_exists?
-  path = assets_path
-  path && Dir.exist?(path)
-end
-
-def manifest_exists?
-  manifest_path && File.exist?(manifest_path)
 end
 
 def manifest_group_items group_name
@@ -124,6 +111,6 @@ def manifest_updated_at
 end
 
 def no_action?
-  new? && !assets_dir_exists?
+  new? && !assets_path
 end
 
