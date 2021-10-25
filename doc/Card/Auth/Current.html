@@ -596,7 +596,7 @@
 
 <span class='kw'>def</span> <span class='id identifier rubyid_current_roles'>current_roles</span>
   <span class='ivar'>@current_roles</span> <span class='op'>||=</span> <span class='lbracket'>[</span><span class='const'><span class='object_link'><a href="../../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_fetch_name'><span class='object_link'><a href="../Fetch/CardClass.html#fetch_name-instance_method" title="Card::Fetch::CardClass#fetch_name (method)">fetch_name</a></span></span><span class='lparen'>(</span><span class='symbol'>:anyone_signed_in</span><span class='rparen'>)</span><span class='comma'>,</span>
-                      <span class='id identifier rubyid_current'>current</span><span class='period'>.</span><span class='id identifier rubyid_fetch'>fetch</span><span class='lparen'>(</span><span class='symbol'>:roles</span><span class='rparen'>)</span><span class='op'>&amp;.</span><span class='id identifier rubyid_item_names'>item_names</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_flatten'>flatten</span><span class='period'>.</span><span class='id identifier rubyid_compact'>compact</span>
+                      <span class='id identifier rubyid_current'>current</span><span class='period'>.</span><span class='id identifier rubyid_fetch'>fetch</span><span class='lparen'>(</span><span class='symbol'>:roles</span><span class='rparen'>)</span><span class='op'>&amp;.</span><span class='id identifier rubyid_item_names'><span class='object_link'><a href="../../top-level-namespace.html#item_names-instance_method" title="#item_names (method)">item_names</a></span></span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_flatten'>flatten</span><span class='period'>.</span><span class='id identifier rubyid_compact'>compact</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -765,7 +765,7 @@ return [Session]</p>
       <pre class="code"><span class="info file"># File 'card/lib/card/auth/current.rb', line 78</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_session_user_key'>session_user_key</span>
-  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>user_</span><span class='embexpr_beg'>#{</span><span class='const'><span class='object_link'><a href="../../Cardio.html" title="Cardio (module)">Cardio</a></span></span><span class='period'>.</span><span class='id identifier rubyid_database_name'><span class='object_link'><a href="../../Cardio/Utils.html#database_name-instance_method" title="Cardio::Utils#database_name (method)">database_name</a></span></span><span class='period'>.</span><span class='id identifier rubyid_underscore'>underscore</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='period'>.</span><span class='id identifier rubyid_to_sym'>to_sym</span>
+  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>user_</span><span class='embexpr_beg'>#{</span><span class='const'><span class='object_link'><a href="../../Cardio.html" title="Cardio (module)">Cardio</a></span></span><span class='period'>.</span><span class='id identifier rubyid_database'><span class='object_link'><a href="../../Cardio.html#database-class_method" title="Cardio.database (method)">database</a></span></span><span class='period'>.</span><span class='id identifier rubyid_underscore'>underscore</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='period'>.</span><span class='id identifier rubyid_to_sym'>to_sym</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -964,9 +964,9 @@ return [Session]</p>
 </div>
 
       <div id="footer">
-  Generated on Thu May 13 17:17:16 2021 by
+  Generated on Sun Oct 24 22:47:46 2021 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.26 (ruby-2.7.2).
+  0.9.26 (ruby-2.7.3).
 </div>
 
     </div>

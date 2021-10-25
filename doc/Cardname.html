@@ -91,7 +91,7 @@
   
   <dl>
       <dt>Includes:</dt>
-      <dd><span class='object_link'><a href="Cardname/Contextual.html" title="Cardname::Contextual (module)">Contextual</a></span>, <span class='object_link'><a href="Cardname/Manipulate.html" title="Cardname::Manipulate (module)">Manipulate</a></span>, <span class='object_link'><a href="Cardname/Parts.html" title="Cardname::Parts (module)">Parts</a></span>, <span class='object_link'><a href="Cardname/Pieces.html" title="Cardname::Pieces (module)">Pieces</a></span>, <span class='object_link'><a href="Cardname/Predicates.html" title="Cardname::Predicates (module)">Predicates</a></span>, <span class='object_link'><a href="Cardname/Variants.html" title="Cardname::Variants (module)">Variants</a></span></dd>
+      <dd><span class='object_link'><a href="Cardname/Contextual.html" title="Cardname::Contextual (module)">Contextual</a></span>, <span class='object_link'><a href="Cardname/Danger.html" title="Cardname::Danger (module)">Danger</a></span>, <span class='object_link'><a href="Cardname/Manipulate.html" title="Cardname::Manipulate (module)">Manipulate</a></span>, <span class='object_link'><a href="Cardname/Parts.html" title="Cardname::Parts (module)">Parts</a></span>, <span class='object_link'><a href="Cardname/Pieces.html" title="Cardname::Pieces (module)">Pieces</a></span>, <span class='object_link'><a href="Cardname/Predicates.html" title="Cardname::Predicates (module)">Predicates</a></span>, <span class='object_link'><a href="Cardname/Variants.html" title="Cardname::Variants (module)">Variants</a></span></dd>
   </dl>
   
   
@@ -102,7 +102,7 @@
   <dl>
     <dt>Defined in:</dt>
     <dd>cardname/lib/cardname.rb<span class="defines">,<br />
-  cardname/lib/cardname/parts.rb,<br /> cardname/lib/cardname/pieces.rb,<br /> cardname/lib/cardname/variants.rb,<br /> cardname/lib/cardname/contextual.rb,<br /> cardname/lib/cardname/manipulate.rb,<br /> cardname/lib/cardname/predicates.rb</span>
+  cardname/lib/cardname/parts.rb,<br /> cardname/lib/cardname/danger.rb,<br /> cardname/lib/cardname/pieces.rb,<br /> cardname/lib/cardname/variants.rb,<br /> cardname/lib/cardname/contextual.rb,<br /> cardname/lib/cardname/manipulate.rb,<br /> cardname/lib/cardname/predicates.rb</span>
 </dd>
   </dl>
   
@@ -116,7 +116,7 @@
 <p class="children">
   
     
-      <strong class="modules">Modules:</strong> <span class='object_link'><a href="Cardname/Contextual.html" title="Cardname::Contextual (module)">Contextual</a></span>, <span class='object_link'><a href="Cardname/Manipulate.html" title="Cardname::Manipulate (module)">Manipulate</a></span>, <span class='object_link'><a href="Cardname/Parts.html" title="Cardname::Parts (module)">Parts</a></span>, <span class='object_link'><a href="Cardname/Pieces.html" title="Cardname::Pieces (module)">Pieces</a></span>, <span class='object_link'><a href="Cardname/Predicates.html" title="Cardname::Predicates (module)">Predicates</a></span>, <span class='object_link'><a href="Cardname/Variants.html" title="Cardname::Variants (module)">Variants</a></span>
+      <strong class="modules">Modules:</strong> <span class='object_link'><a href="Cardname/Contextual.html" title="Cardname::Contextual (module)">Contextual</a></span>, <span class='object_link'><a href="Cardname/Danger.html" title="Cardname::Danger (module)">Danger</a></span>, <span class='object_link'><a href="Cardname/Manipulate.html" title="Cardname::Manipulate (module)">Manipulate</a></span>, <span class='object_link'><a href="Cardname/Parts.html" title="Cardname::Parts (module)">Parts</a></span>, <span class='object_link'><a href="Cardname/Pieces.html" title="Cardname::Pieces (module)">Pieces</a></span>, <span class='object_link'><a href="Cardname/Predicates.html" title="Cardname::Predicates (module)">Predicates</a></span>, <span class='object_link'><a href="Cardname/Variants.html" title="Cardname::Variants (module)">Variants</a></span>
     
   
     
@@ -274,29 +274,6 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#dangerous_methods-class_method" title="dangerous_methods (class method)">.<strong>dangerous_methods</strong>  &#x21d2; Object </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'>
-</div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
       <a href="#new-class_method" title="new (class method)">.<strong>new</strong>(obj)  &#x21d2; Object </a>
     
 
@@ -381,29 +358,6 @@
 
   
     <span class="summary_desc"><div class='inline'>
-</div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#stable_key-class_method" title="stable_key (class method)">.<strong>stable_key</strong>(name)  &#x21d2; Object </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'><p>Sometimes the core rule “the key’s key must be itself” (called “stable” below) is violated eg.</p>
 </div></span>
   
 </li>
@@ -595,6 +549,17 @@
   
   
   
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="Cardname/Danger.html" title="Cardname::Danger (module)">Danger</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="Cardname/Danger.html#dangerous_methods-class_method" title="Cardname::Danger.dangerous_methods (method)">dangerous_methods</a></span></p>
+
+  
+  
+  
+  
+  
+  
+  
+  
   <h3 class="inherited">Methods included from <span class='object_link'><a href="Cardname/Manipulate.html" title="Cardname::Manipulate (module)">Manipulate</a></span></h3>
   <p class="inherited"><span class='object_link'><a href="Cardname/Manipulate.html#num_parts-instance_method" title="Cardname::Manipulate#num_parts (method)">#num_parts</a></span>, <span class='object_link'><a href="Cardname/Manipulate.html#prepend_joint-instance_method" title="Cardname::Manipulate#prepend_joint (method)">#prepend_joint</a></span>, <span class='object_link'><a href="Cardname/Manipulate.html#sub_in-instance_method" title="Cardname::Manipulate#sub_in (method)">#sub_in</a></span>, <span class='object_link'><a href="Cardname/Manipulate.html#swap-instance_method" title="Cardname::Manipulate#swap (method)">#swap</a></span>, <span class='object_link'><a href="Cardname/Manipulate.html#swap_part-instance_method" title="Cardname::Manipulate#swap_part (method)">#swap_part</a></span>, <span class='object_link'><a href="Cardname/Manipulate.html#swap_piece-instance_method" title="Cardname::Manipulate#swap_piece (method)">#swap_piece</a></span></p>
 
@@ -681,12 +646,12 @@
       <pre class="lines">
 
 
-99
-100
-101</pre>
+82
+83
+84</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'cardname/lib/cardname.rb', line 99</span>
+      <pre class="code"><span class="info file"># File 'cardname/lib/cardname.rb', line 82</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span> <span class='id identifier rubyid_str'>str</span>
   <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_cache'>cache</span><span class='lbracket'>[</span><span class='id identifier rubyid_str'>str</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='kw'>super</span> <span class='id identifier rubyid_str'>str</span><span class='period'>.</span><span class='id identifier rubyid_strip'>strip</span><span class='period'>.</span><span class='id identifier rubyid_encode'>encode</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>UTF-8</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
@@ -729,12 +694,12 @@
       <pre class="lines">
 
 
-97
-98
-99</pre>
+80
+81
+82</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'cardname/lib/cardname.rb', line 97</span>
+      <pre class="code"><span class="info file"># File 'cardname/lib/cardname.rb', line 80</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_key'>key</span>
   <span class='ivar'>@key</span>
@@ -766,12 +731,12 @@
       <pre class="lines">
 
 
-67
-68
-69</pre>
+69
+70
+71</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'cardname/lib/cardname.rb', line 67</span>
+      <pre class="code"><span class="info file"># File 'cardname/lib/cardname.rb', line 69</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_banned_re'>banned_re</span>
   <span class='ivar'>@banned_re</span> <span class='op'>||=</span> <span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>[</span><span class='embexpr_beg'>#{</span><span class='const'>Regexp</span><span class='period'>.</span><span class='id identifier rubyid_escape'>escape</span><span class='lparen'>(</span><span class='lparen'>(</span><span class='id identifier rubyid_banned_array'>banned_array</span> <span class='op'>+</span> <span class='lbracket'>[</span><span class='id identifier rubyid_joint'>joint</span><span class='rbracket'>]</span><span class='rparen'>)</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='embexpr_end'>}</span><span class='tstring_content'>]</span><span class='regexp_end'>/</span></span>
@@ -796,12 +761,12 @@
       <pre class="lines">
 
 
-34
-35
-36</pre>
+36
+37
+38</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'cardname/lib/cardname.rb', line 34</span>
+      <pre class="code"><span class="info file"># File 'cardname/lib/cardname.rb', line 36</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_cache'>cache</span>
   <span class='ivar'>@cache</span> <span class='op'>||=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
@@ -826,47 +791,15 @@
       <pre class="lines">
 
 
-45
-46
-47</pre>
+47
+48
+49</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'cardname/lib/cardname.rb', line 45</span>
+      <pre class="code"><span class="info file"># File 'cardname/lib/cardname.rb', line 47</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_cached_name'>cached_name</span> <span class='id identifier rubyid_str'>str</span>
   <span class='id identifier rubyid_cache'>cache</span><span class='lbracket'>[</span><span class='id identifier rubyid_str'>str</span><span class='rbracket'>]</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="dangerous_methods-class_method">
-  
-    .<strong>dangerous_methods</strong>  &#x21d2; <tt><span class='object_link'><a href="Object.html" title="Object (class)">Object</a></span></tt> 
-  
-
-  
-
-  
-</h3><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-85
-86
-87
-88</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'cardname/lib/cardname.rb', line 85</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_dangerous_methods'>dangerous_methods</span>
-  <span class='id identifier rubyid_bang_methods'>bang_methods</span> <span class='op'>=</span> <span class='const'>String</span><span class='period'>.</span><span class='id identifier rubyid_instance_methods'>instance_methods</span><span class='period'>.</span><span class='id identifier rubyid_select'>select</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_m'>m</span><span class='op'>|</span> <span class='id identifier rubyid_m'>m</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='period'>.</span><span class='id identifier rubyid_ends_with?'>ends_with?</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>!</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='rbrace'>}</span>
-  <span class='qsymbols_beg'>%i[</span><span class='tstring_content'>replace</span><span class='words_sep'> </span><span class='tstring_content'>concat</span><span class='words_sep'> </span><span class='tstring_content'>clear</span><span class='tstring_end'>]</span></span><span class='period'>.</span><span class='id identifier rubyid_concat'>concat</span> <span class='id identifier rubyid_bang_methods'>bang_methods</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -888,15 +821,15 @@
       <pre class="lines">
 
 
-38
-39
 40
 41
 42
-43</pre>
+43
+44
+45</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'cardname/lib/cardname.rb', line 38</span>
+      <pre class="code"><span class="info file"># File 'cardname/lib/cardname.rb', line 40</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_new'>new</span> <span class='id identifier rubyid_obj'>obj</span>
   <span class='kw'>return</span> <span class='id identifier rubyid_obj'>obj</span> <span class='kw'>if</span> <span class='id identifier rubyid_obj'>obj</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span>
@@ -947,14 +880,14 @@
       <pre class="lines">
 
 
-61
-62
 63
 64
-65</pre>
+65
+66
+67</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'cardname/lib/cardname.rb', line 61</span>
+      <pre class="code"><span class="info file"># File 'cardname/lib/cardname.rb', line 63</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_nothing_banned?'>nothing_banned?</span>
   <span class='kw'>return</span> <span class='ivar'>@nothing_banned</span> <span class='kw'>unless</span> <span class='ivar'>@nothing_banned</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
@@ -981,12 +914,12 @@
       <pre class="lines">
 
 
-49
-50
-51</pre>
+51
+52
+53</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'cardname/lib/cardname.rb', line 49</span>
+      <pre class="code"><span class="info file"># File 'cardname/lib/cardname.rb', line 51</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_reset_cache'>reset_cache</span> <span class='id identifier rubyid_str'>str</span><span class='op'>=</span><span class='kw'>nil</span>
   <span class='id identifier rubyid_str'>str</span> <span class='op'>?</span> <span class='id identifier rubyid_cache'>cache</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='id identifier rubyid_str'>str</span><span class='rparen'>)</span> <span class='op'>:</span> <span class='ivar'>@cache</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
@@ -1011,68 +944,15 @@
       <pre class="lines">
 
 
-90
-91
-92</pre>
+73
+74
+75</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'cardname/lib/cardname.rb', line 90</span>
+      <pre class="code"><span class="info file"># File 'cardname/lib/cardname.rb', line 73</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_split_parts'>split_parts</span> <span class='id identifier rubyid_str'>str</span>
   <span class='id identifier rubyid_str'>str</span><span class='period'>.</span><span class='id identifier rubyid_split'>split</span><span class='lparen'>(</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>\s*</span><span class='embexpr_beg'>#{</span><span class='const'><span class='object_link'><a href="#JOINT_RE-constant" title="Cardname::JOINT_RE (constant)">JOINT_RE</a></span></span><span class='embexpr_end'>}</span><span class='tstring_content'>\s*</span><span class='regexp_end'>/</span></span><span class='comma'>,</span> <span class='op'>-</span><span class='int'>1</span><span class='rparen'>)</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="stable_key-class_method">
-  
-    .<strong>stable_key</strong>(name)  &#x21d2; <tt><span class='object_link'><a href="Object.html" title="Object (class)">Object</a></span></tt> 
-  
-
-  
-
-  
-</h3><div class="docstring">
-  <div class="discussion">
-    <p>Sometimes the core rule “the key’s key must be itself” (called “stable” below) is violated
-eg. it fails with singularize as uninflect method for Matthias -&gt; Matthia -&gt; Matthium
-Usually that means the name is a proper noun and not a plural.
-You can choose between two solutions:
-1. don’t uninflect if the uninflected key is not stable (stabilize = false)
-2. uninflect until the key is stable (stabilize = true)</p>
-
-
-  </div>
-</div>
-<div class="tags">
-  
-
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-77
-78
-79
-80
-81
-82
-83</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'cardname/lib/cardname.rb', line 77</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_stable_key'>stable_key</span> <span class='id identifier rubyid_name'>name</span>
-  <span class='id identifier rubyid_key_one'>key_one</span> <span class='op'>=</span> <span class='id identifier rubyid_name'>name</span><span class='period'>.</span><span class='id identifier rubyid_send'>send</span><span class='lparen'>(</span><span class='id identifier rubyid_uninflect'>uninflect</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_key_two'>key_two</span> <span class='op'>=</span> <span class='id identifier rubyid_key_one'>key_one</span><span class='period'>.</span><span class='id identifier rubyid_send'>send</span><span class='lparen'>(</span><span class='id identifier rubyid_uninflect'>uninflect</span><span class='rparen'>)</span>
-  <span class='kw'>return</span> <span class='id identifier rubyid_key_one'>key_one</span> <span class='kw'>unless</span> <span class='id identifier rubyid_key_one'>key_one</span> <span class='op'>!=</span> <span class='id identifier rubyid_key_two'>key_two</span>
-
-  <span class='id identifier rubyid_stabilize'>stabilize</span> <span class='op'>?</span> <span class='id identifier rubyid_stable_key'>stable_key</span><span class='lparen'>(</span><span class='id identifier rubyid_key_two'>key_two</span><span class='rparen'>)</span> <span class='op'>:</span> <span class='id identifier rubyid_name'>name</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1094,16 +974,16 @@ You can choose between two solutions:
       <pre class="lines">
 
 
-53
-54
 55
 56
 57
 58
-59</pre>
+59
+60
+61</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'cardname/lib/cardname.rb', line 53</span>
+      <pre class="code"><span class="info file"># File 'cardname/lib/cardname.rb', line 55</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_stringify'>stringify</span> <span class='id identifier rubyid_obj'>obj</span>
   <span class='kw'>if</span> <span class='id identifier rubyid_obj'>obj</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'>Array</span><span class='rparen'>)</span>
@@ -1138,12 +1018,12 @@ You can choose between two solutions:
       <pre class="lines">
 
 
-126
-127
-128</pre>
+102
+103
+104</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'cardname/lib/cardname.rb', line 126</span>
+      <pre class="code"><span class="info file"># File 'cardname/lib/cardname.rb', line 102</span>
 
 <span class='kw'>def</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_val'>val</span>
   <span class='id identifier rubyid_replace'>replace</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_parts'>parts</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_val'>val</span><span class='rparen'>)</span>
@@ -1168,27 +1048,25 @@ You can choose between two solutions:
       <pre class="lines">
 
 
-134
-135
-136
-137
-138
-139
-140
-141
-142</pre>
+110
+111
+112
+113
+114
+115
+116
+117</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'cardname/lib/cardname.rb', line 134</span>
+      <pre class="code"><span class="info file"># File 'cardname/lib/cardname.rb', line 110</span>
 
 <span class='kw'>def</span> <span class='op'>==</span> <span class='id identifier rubyid_other'>other</span>
-  <span class='id identifier rubyid_other_key'>other_key</span> <span class='op'>=</span>
+  <span class='id identifier rubyid_key'>key</span> <span class='op'>==</span>
     <span class='kw'>case</span>
     <span class='kw'>when</span> <span class='id identifier rubyid_other'>other</span><span class='period'>.</span><span class='id identifier rubyid_respond_to?'>respond_to?</span><span class='lparen'>(</span><span class='symbol'>:key</span><span class='rparen'>)</span>     <span class='kw'>then</span> <span class='id identifier rubyid_other'>other</span><span class='period'>.</span><span class='id identifier rubyid_key'>key</span>
     <span class='kw'>when</span> <span class='id identifier rubyid_other'>other</span><span class='period'>.</span><span class='id identifier rubyid_respond_to?'>respond_to?</span><span class='lparen'>(</span><span class='symbol'>:to_name</span><span class='rparen'>)</span> <span class='kw'>then</span> <span class='id identifier rubyid_other'>other</span><span class='period'>.</span><span class='id identifier rubyid_to_name'>to_name</span><span class='period'>.</span><span class='id identifier rubyid_key'>key</span>
     <span class='kw'>else</span>                                  <span class='id identifier rubyid_other'>other</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span>
     <span class='kw'>end</span>
-  <span class='id identifier rubyid_other_key'>other_key</span> <span class='op'>==</span> <span class='id identifier rubyid_key'>key</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1210,14 +1088,14 @@ You can choose between two solutions:
       <pre class="lines">
 
 
-120
-121
-122
-123
-124</pre>
+96
+97
+98
+99
+100</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'cardname/lib/cardname.rb', line 120</span>
+      <pre class="code"><span class="info file"># File 'cardname/lib/cardname.rb', line 96</span>
 
 <span class='kw'>def</span> <span class='op'>[]=</span> <span class='id identifier rubyid_index'>index</span><span class='comma'>,</span> <span class='id identifier rubyid_val'>val</span>
   <span class='id identifier rubyid_p'>p</span> <span class='op'>=</span> <span class='id identifier rubyid_parts'>parts</span>
@@ -1248,12 +1126,12 @@ You can choose between two solutions:
       <pre class="lines">
 
 
-103
-104
-105</pre>
+86
+87
+88</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'cardname/lib/cardname.rb', line 103</span>
+      <pre class="code"><span class="info file"># File 'cardname/lib/cardname.rb', line 86</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_s'>s</span>
   <span class='ivar'>@s</span> <span class='op'>||=</span> <span class='const'>String</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span> <span class='kw'>self</span>
@@ -1278,12 +1156,12 @@ You can choose between two solutions:
       <pre class="lines">
 
 
-109
-110
-111</pre>
+92
+93
+94</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'cardname/lib/cardname.rb', line 109</span>
+      <pre class="code"><span class="info file"># File 'cardname/lib/cardname.rb', line 92</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_to_name'>to_name</span>
   <span class='kw'>self</span>
@@ -1298,9 +1176,9 @@ You can choose between two solutions:
 </div>
 
       <div id="footer">
-  Generated on Thu May 13 17:17:42 2021 by
+  Generated on Sun Oct 24 22:47:54 2021 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.26 (ruby-2.7.2).
+  0.9.26 (ruby-2.7.3).
 </div>
 
     </div>

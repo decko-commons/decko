@@ -721,13 +721,13 @@
       <pre class="lines">
 
 
-81
-82
 83
-84</pre>
+84
+85
+86</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/director/act_direction.rb', line 81</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/director/act_direction.rb', line 83</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_add'>add</span> <span class='id identifier rubyid_director'>director</span>
   <span class='comment'># Rails.logger.debug &quot;added: #{director.card.name}&quot;.green
@@ -753,14 +753,14 @@
       <pre class="lines">
 
 
-75
-76
 77
 78
-79</pre>
+79
+80
+81</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/director/act_direction.rb', line 75</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/director/act_direction.rb', line 77</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_card'>card</span> <span class='id identifier rubyid_name'>name</span>
   <span class='id identifier rubyid_directors'>directors</span><span class='period'>.</span><span class='id identifier rubyid_values'>values</span><span class='period'>.</span><span class='id identifier rubyid_find'>find</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_dir'>dir</span><span class='op'>|</span>
@@ -787,14 +787,14 @@
       <pre class="lines">
 
 
-86
-87
 88
 89
-90</pre>
+90
+91
+92</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/director/act_direction.rb', line 86</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/director/act_direction.rb', line 88</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_card_changed'>card_changed</span> <span class='id identifier rubyid_old_card'>old_card</span>
   <span class='kw'>return</span> <span class='kw'>unless</span> <span class='lparen'>(</span><span class='id identifier rubyid_director'>director</span> <span class='op'>=</span> <span class='ivar'>@directors</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span> <span class='id identifier rubyid_old_card'>old_card</span><span class='rparen'>)</span>
@@ -821,8 +821,6 @@
       <pre class="lines">
 
 
-28
-29
 30
 31
 32
@@ -832,10 +830,12 @@
 36
 37
 38
-39</pre>
+39
+40
+41</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/director/act_direction.rb', line 28</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/director/act_direction.rb', line 30</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_clear'>clear</span>
   <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_act_card'>act_card</span> <span class='op'>=</span> <span class='kw'>nil</span>
@@ -869,15 +869,15 @@
       <pre class="lines">
 
 
-99
-100
 101
 102
 103
-104</pre>
+104
+105
+106</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/director/act_direction.rb', line 99</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/director/act_direction.rb', line 101</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_deep_delete'>deep_delete</span> <span class='id identifier rubyid_director'>director</span>
   <span class='id identifier rubyid_director'>director</span><span class='period'>.</span><span class='id identifier rubyid_subdirectors'>subdirectors</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_subdir'>subdir</span><span class='op'>|</span>
@@ -905,15 +905,15 @@
       <pre class="lines">
 
 
-92
-93
 94
 95
 96
-97</pre>
+97
+98
+99</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/director/act_direction.rb', line 92</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/director/act_direction.rb', line 94</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_delete'>delete</span> <span class='id identifier rubyid_director'>director</span>
   <span class='kw'>return</span> <span class='kw'>unless</span> <span class='ivar'>@directors</span>
@@ -971,13 +971,13 @@
       <pre class="lines">
 
 
-41
-42
 43
-44</pre>
+44
+45
+46</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/director/act_direction.rb', line 41</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/director/act_direction.rb', line 43</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_expire'>expire</span>
   <span class='id identifier rubyid_expirees'>expirees</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_expiree'>expiree</span><span class='op'>|</span> <span class='const'><span class='object_link'><a href="../../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_expire'><span class='object_link'><a href="../Cache/CardClass.html#expire-instance_method" title="Card::Cache::CardClass#expire (method)">expire</a></span></span> <span class='id identifier rubyid_expiree'>expiree</span> <span class='rbrace'>}</span>
@@ -1003,12 +1003,12 @@
       <pre class="lines">
 
 
-46
-47
-48</pre>
+48
+49
+50</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/director/act_direction.rb', line 46</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/director/act_direction.rb', line 48</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_expirees'>expirees</span>
   <span class='ivar'>@expirees</span> <span class='op'>||=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
@@ -1033,17 +1033,17 @@
       <pre class="lines">
 
 
-50
-51
 52
 53
 54
 55
 56
-57</pre>
+57
+58
+59</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/director/act_direction.rb', line 50</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/director/act_direction.rb', line 52</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_fetch'>fetch</span> <span class='id identifier rubyid_card'>card</span><span class='comma'>,</span> <span class='id identifier rubyid_parent'>parent</span><span class='op'>=</span><span class='kw'>nil</span>
   <span class='kw'>return</span> <span class='id identifier rubyid_directors'>directors</span><span class='lbracket'>[</span><span class='id identifier rubyid_card'>card</span><span class='rbracket'>]</span> <span class='kw'>if</span> <span class='id identifier rubyid_directors'>directors</span><span class='lbracket'>[</span><span class='id identifier rubyid_card'>card</span><span class='rbracket'>]</span>
@@ -1096,12 +1096,12 @@
       <pre class="lines">
 
 
-59
-60
-61</pre>
+61
+62
+63</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/director/act_direction.rb', line 59</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/director/act_direction.rb', line 61</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_include?'>include?</span> <span class='id identifier rubyid_name'>name</span>
   <span class='id identifier rubyid_directors'>directors</span><span class='period'>.</span><span class='id identifier rubyid_keys'>keys</span><span class='period'>.</span><span class='id identifier rubyid_any?'>any?</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_card'>card</span><span class='op'>|</span> <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_key'>key</span> <span class='op'>==</span> <span class='id identifier rubyid_name'>name</span><span class='period'>.</span><span class='id identifier rubyid_to_name'>to_name</span><span class='period'>.</span><span class='id identifier rubyid_key'>key</span> <span class='rbrace'>}</span>
@@ -1149,12 +1149,12 @@
       <pre class="lines">
 
 
-63
-64
-65</pre>
+65
+66
+67</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/director/act_direction.rb', line 63</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/director/act_direction.rb', line 65</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_include_id?'>include_id?</span> <span class='id identifier rubyid_id'>id</span>
   <span class='id identifier rubyid_directors'>directors</span><span class='period'>.</span><span class='id identifier rubyid_keys'>keys</span><span class='period'>.</span><span class='id identifier rubyid_any?'>any?</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_card'>card</span><span class='op'>|</span> <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span> <span class='op'>==</span> <span class='id identifier rubyid_id'>id</span> <span class='rbrace'>}</span>
@@ -1179,15 +1179,15 @@
       <pre class="lines">
 
 
-24
-25
-26</pre>
+26
+27
+28</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/director/act_direction.rb', line 24</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/director/act_direction.rb', line 26</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_need_act'>need_act</span>
-  <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_act'>act</span> <span class='op'>||=</span> <span class='const'><span class='object_link'><a href="../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Act.html" title="Card::Act (class)">Act</a></span></span><span class='period'>.</span><span class='id identifier rubyid_create'><span class='object_link'><a href="CardClass.html#create-instance_method" title="Card::Director::CardClass#create (method)">create</a></span></span> <span class='label'>ip_address:</span> <span class='const'><span class='object_link'><a href="../Env.html" title="Card::Env (module)">Env</a></span></span><span class='period'>.</span><span class='id identifier rubyid_ip'>ip</span>
+  <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_act'>act</span> <span class='op'>||=</span> <span class='const'><span class='object_link'><a href="../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'>Act</span><span class='period'>.</span><span class='id identifier rubyid_create'>create</span> <span class='label'>ip_address:</span> <span class='const'><span class='object_link'><a href="../Env.html" title="Card::Env (module)">Env</a></span></span><span class='period'>.</span><span class='id identifier rubyid_ip'>ip</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1209,16 +1209,16 @@
       <pre class="lines">
 
 
-67
-68
 69
 70
 71
 72
-73</pre>
+73
+74
+75</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/director/act_direction.rb', line 67</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/director/act_direction.rb', line 69</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_new_director'>new_director</span> <span class='id identifier rubyid_card'>card</span><span class='comma'>,</span> <span class='id identifier rubyid_parent'>parent</span>
   <span class='kw'>if</span> <span class='op'>!</span><span class='id identifier rubyid_parent'>parent</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_act_card'>act_card</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_act_card'>act_card</span> <span class='op'>!=</span> <span class='id identifier rubyid_card'>card</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_running_act?'>running_act?</span>
@@ -1253,15 +1253,19 @@
 19
 20
 21
-22</pre>
+22
+23
+24</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'card/lib/card/director/act_direction.rb', line 16</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_run_act'>run_act</span> <span class='id identifier rubyid_card'>card</span>
-  <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_act_card'>act_card</span> <span class='op'>=</span> <span class='id identifier rubyid_card'>card</span>
-  <span class='comment'># add new_director(card)
-</span>  <span class='kw'>yield</span>
+  <span class='const'><span class='object_link'><a href="../Lexicon.html" title="Card::Lexicon (module)">Lexicon</a></span></span><span class='period'>.</span><span class='id identifier rubyid_rescuing'><span class='object_link'><a href="../Lexicon.html#rescuing-class_method" title="Card::Lexicon.rescuing (method)">rescuing</a></span></span> <span class='kw'>do</span>
+    <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_act_card'>act_card</span> <span class='op'>=</span> <span class='id identifier rubyid_card'>card</span>
+    <span class='comment'># add new_director(card)
+</span>    <span class='kw'>yield</span>
+  <span class='kw'>end</span>
 <span class='kw'>ensure</span>
   <span class='id identifier rubyid_clear'>clear</span>
 <span class='kw'>end</span></pre>
@@ -1308,12 +1312,12 @@
       <pre class="lines">
 
 
-106
-107
-108</pre>
+108
+109
+110</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/director/act_direction.rb', line 106</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/director/act_direction.rb', line 108</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_running_act?'>running_act?</span>
   <span class='id identifier rubyid_act_director'>act_director</span><span class='op'>&amp;.</span><span class='id identifier rubyid_running?'>running?</span>
@@ -1338,12 +1342,12 @@
       <pre class="lines">
 
 
-110
-111
-112</pre>
+112
+113
+114</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/director/act_direction.rb', line 110</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/director/act_direction.rb', line 112</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_to_s'>to_s</span>
   <span class='id identifier rubyid_act_director'>act_director</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span>
@@ -1358,9 +1362,9 @@
 </div>
 
       <div id="footer">
-  Generated on Thu May 13 17:17:19 2021 by
+  Generated on Sun Oct 24 22:47:50 2021 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.26 (ruby-2.7.2).
+  0.9.26 (ruby-2.7.3).
 </div>
 
     </div>
