@@ -1,5 +1,5 @@
 <!--
-# @title README - mod: API key
+# @title README - mod: api key
 -->
 # API Key mod
 Enable Decko users to perform authorized web requests associated with their account
