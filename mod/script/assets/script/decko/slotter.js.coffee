@@ -63,7 +63,7 @@
 #
 #
 $(window).ready ->
-  $('body').on 'ajax:success', '.slotter', (event, data, c, d) ->
+  $('body').on 'ajax:success', '.slotter', (event, data) ->
     $(this).slotterSuccess event, data
 
   $('body').on 'ajax:error', '.slotter', (event, xhr) ->
