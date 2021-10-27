@@ -94,7 +94,7 @@ format :html do
   end
 
   def tab_title_icon fieldcode
-    mapped_icon_tag fieldcode
+    tab_icon_tag fieldcode
   end
 
   def tab_title_label fieldcode
@@ -116,9 +116,8 @@ format :html do
     wrap_with :span, info, class: klass
   end
 
-  # TODO: handle mapped icon tagging
-  # for override
-  def mapped_icon_tag _key
-    ""
+  # TODO: handle mapped icon tagging in decko
+  def tab_icon_tag key
+    try :mapped_icon_tag, key
   end
 end
