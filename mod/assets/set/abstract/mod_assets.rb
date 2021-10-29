@@ -2,7 +2,6 @@ include_set Abstract::Pointer
 include_set Abstract::ReadOnly
 
 def item_cards args={}
-  # binding.pry
   local_group_cards
 end
 
@@ -25,9 +24,9 @@ end
 
 def local_manifest_group_cards
   manifest.map do |group_name, config|
-    next if remote_group?(name, config)
+    next if remote_group?(group_name, config)
     new_local_manifest_group_card group_name
-  end
+  end.compact
 end
 
 def remote_group_urls
@@ -47,6 +46,11 @@ def mod
   @mod ||= Cardio::Mod.dirs.fetch_mod mod_name
 end
 
+def manifest_exists?
+  @manifest_exists = !!manifest_path if @manifest_exists.nil?
+  @manifest_exists
+end
+
 def assets_path
   @assets_path ||= mod&.subpath "assets", subpath
 end
@@ -59,8 +63,8 @@ def local_group_name
   "local"
 end
 
-def remote_group? name, config
-  name == "remote" || config["remote"]
+def remote_group? name, _config
+  name == "remote" # || config["remote"]
 end
 
 def manifest_group_items group_name
@@ -72,7 +76,28 @@ def manifest_group_minimize? group_name
 end
 
 def manifest
-  @manifest ||= YAML.load_file manifest_path
+  @manifest ||= load_manifest
+end
+
+def load_manifest
+  manifest = YAML.load_file manifest_path
+  validate_manifest manifest
+  manifest
+end
+
+def validate_manifest manifest
+  if (remote_index = manifest.keys.find_index("remote")) && remote_index > 0
+    raise_manifest_error "only the first group can be a remote group"
+  end
+  manifest.each do |name, config|
+    if !config["items"]
+      raise_manifest_error "no items section in group \"#{name}\""
+    end
+  end
+end
+
+def raise_manifest_error msg
+  raise Card::Error, "invalid manifest format in #{manifest_path}: #{msg}"
 end
 
 def new_local_manifest_group_card group_name

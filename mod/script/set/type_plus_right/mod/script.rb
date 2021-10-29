@@ -18,7 +18,7 @@ def local_manifest_group_type_id
 end
 
 def refresh_asset
-  # return unless asset_output_needs_refresh?
+  return unless asset_output_needs_refresh?
 
   update_asset_output
 end
@@ -36,6 +36,16 @@ format :html do
     [card.remote_group_urls, local_url].flatten.compact.map do |url|
       javascript_include_tag url
     end.join "\n"
+  end
+
+
+  def remote_include_tags
+    remote_items = manifest_group_items "remote"
+    return unless remote_items
+
+    remote_items.map do |args|
+      javascript_include_tag args.delete("src"), args
+    end
   end
 
   def local_url

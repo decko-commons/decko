@@ -10,10 +10,6 @@ format :html do
   end
 end
 
-format :js do
-
-end
-
 format do
   view :core do
     compile_coffee _render_raw

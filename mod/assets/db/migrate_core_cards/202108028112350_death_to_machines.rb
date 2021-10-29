@@ -41,8 +41,10 @@ class DeathToMachines < Cardio::Migration::Core
       Card[:all, :style].drop_item! card
      end
 
-    Card.search type_id: ["in", Card::ModScriptAssetsID, Card::ModStyleAssetsID] do |card|
-     card.update! type_id: Card::ListID, skip: [:validate_asset_inputs, :update_asset_output_file]
+    if Card::Codename.exists? "mod_script_assets"
+      Card.search type_id: ["in", Card::ModScriptAssetsID, Card::ModStyleAssetsID] do |card|
+        card.update! type_id: Card::ListID, skip: [:validate_asset_inputs, :update_asset_output_file]
+      end
     end
     Card::Cache.reset_all
 

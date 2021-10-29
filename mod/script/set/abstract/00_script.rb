@@ -8,25 +8,25 @@ include_set Abstract::AssetInputter, input_format: :js
 format :js do
   view :compress do
     js = _render_core
-    js = compress js
+    js = compress js if compress?
     comment_with_source js
   end
 
   def comment_with_source js
-    "//#{name}\n#{js}"
+    "//#{card.name}\n#{js}"
   end
 
-def compress input
-  return input if Rails.env.development?
+  def compress input
+    return input if Rails.env.development?
 
-  Uglifier.compile input
-rescue StandardError => e
-  # CoffeeScript is compiled in a view
-  # If there is a CoffeeScript syntax error we get the rescued view here
-  # and the error that the rescued view is no valid Javascript
-  # To get the original error we have to refer to Card::Error.current
-  raise Card::Error, compression_error_message(e)
-end
+    Uglifier.compile input
+  rescue StandardError => e
+    # CoffeeScript is compiled in a view
+    # If there is a CoffeeScript syntax error we get the rescued view here
+    # and the error that the rescued view is no valid Javascript
+    # To get the original error we have to refer to Card::Error.current
+    raise Card::Error, compression_error_message(e)
+  end
 
   def compression_error_message e
     if Card::Error.current
@@ -40,7 +40,6 @@ end
     Cardio.config.compress_javascript
   end
 end
-
 
 def clean_html?
   false

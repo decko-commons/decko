@@ -8,9 +8,7 @@ end
 
 def render_items_and_compress format
   item_cards.compact.map do |mcard|
-    js = mcard.format(format)._render_core
-    # js = mcard.compress js if minimize?
-    "// #{mcard.name}\n#{js}"
+    mcard.format(format)._render_compress
   end.join "\n"
 end
 

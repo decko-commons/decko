@@ -71,7 +71,7 @@ def asset_output_codename
 end
 
 def input_item_cards
-  item_cards(known_only: true).reject(&:trash)
+  item_cards(known_only: true).compact.reject(&:trash)
 end
 
 def asset_output_url
