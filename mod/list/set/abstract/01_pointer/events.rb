@@ -26,8 +26,7 @@ event :standardize_items, :prepare_to_validate,
 end
 
 def still_pointer?
-  type_id == PointerID
-  # Card.new(type_id: type_id).is_a? Abstract::Pointer
+  type_id.in? [PointerID, ListID]
 end
 
 def changed_item_names

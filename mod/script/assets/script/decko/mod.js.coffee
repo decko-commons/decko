@@ -17,10 +17,10 @@ window.decko ||= {} #needed to run w/o *head.  eg. jasmine
 #  initfunc()
 
 $(window).ready ->
-  document.on 'click', '._stop_propagation', (event)->
+  $(document).on 'click', '._stop_propagation', (event)->
     event.stopPropagation()
 
-  document.on 'click', '._prevent_default', (event)->
+  $(document).on 'click', '._prevent_default', (event)->
     event.preventDefault()
 
   $('body').on 'mouseenter', 'a[data-hover-text]', ->
