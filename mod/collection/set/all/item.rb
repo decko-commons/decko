@@ -21,9 +21,8 @@ def item_count args={}
   item_names(args).size
 end
 
-def items_to_content array
-  items = array.map { |i| standardize_item i }.reject(&:blank?)
-  self.content = items.to_pointer_content
+def standardize_content value
+  Array.wrap(value) { |i| standardize_item i }.reject(&:blank?).to_pointer_content
 end
 
 def standardize_item item
@@ -35,23 +34,19 @@ def include_item? item
 end
 
 def add_item item
-  return if include_item? item
-
-  items_to_content(items_strings << item)
+  self.content = (items_strings << item) unless include_item? item
 end
 
 def drop_item item
   item = Card::Name[item]
-  return unless include_item? item
-
-  items_to_content(item_names.reject { |i| i == item })
+  self.content = (item_names.reject { |i| i == item }) if include_item? item
 end
 
 def insert_item index, name
   new_names = item_names
   new_names.delete name
   new_names.insert index, name
-  items_to_content new_names
+  self.content = new_names
 end
 
 def replace_item old, new
