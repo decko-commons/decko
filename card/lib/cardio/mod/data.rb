@@ -17,8 +17,10 @@ module Cardio
       def merge
         Card::Mailer.perform_deliveries = false
         Card::Auth.as_bot do
-          # puts Rails.env
-          items.each { |item| ensure_card item }
+          items.each do |item|
+            card = ensure_card item
+            puts "merged #{card.name}".green
+          end
         end
       end
 
