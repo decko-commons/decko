@@ -8,9 +8,8 @@ def item_options
   nest_chunks.map(&:raw_options)
 end
 
-def items_to_content array
-  items = array.map { |i| standardize_item i }.reject(&:blank?)
-  self.content = items.join("\n")
+def standardize_content value
+  Array.wrap(value).map { |i| standardize_item i }.reject(&:blank?).join "\n"
 end
 
 format do
