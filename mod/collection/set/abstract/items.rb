@@ -76,7 +76,7 @@ end
 # set card content based on array and save card
 # @param array [Array] list of strings/names (Cardish)
 def items= array
-  self.content = array
+  items_to_content array
   save!
 end
 
@@ -92,7 +92,8 @@ end
 def add_item cardish, allow_duplicates=false
   return if !allow_duplicates && include_item?(cardish)
 
-  self.content = (item_strings << cardish)
+  items = item_strings << cardish
+  items_to_content items
 end
 
 # append item to list and save card
@@ -105,7 +106,7 @@ end
 # @param cardish [String, Card::Name] item to drop
 def drop_item cardish
   drop_item_name = Card::Name[cardish]
-  self.content = (item_names.reject { |item_name| item_name == drop_item_name })
+  items_to_content(item_names.reject { |item_name| item_name == drop_item_name })
 end
 
 # remove item from list and save card
@@ -122,7 +123,7 @@ def insert_item index, name
   new_names = item_names
   new_names.delete name
   new_names.insert index, name
-  self.content = new_names
+  items_to_content new_names
 end
 
 # insert item into list at specified location and save

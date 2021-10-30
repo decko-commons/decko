@@ -8,7 +8,7 @@ class Card
       alias_method :raw_content, :content # DEPRECATED!
 
       def content= value
-        self.db_content = standardize_content value
+        self.db_content = standardize_content(value)
       end
 
       def content?
