@@ -15,7 +15,6 @@ namespace :card do
     args = o.order!(ARGV) {}
     o.parse! args
     Cardio::Mod::Data.new(**options).merge
-    exit 0
   end
 
   desc "merge all import card data into the the database"
