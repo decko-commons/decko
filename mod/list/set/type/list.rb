@@ -2,7 +2,7 @@ include_set Abstract::Pointer
 
 def each_reference_out
   item_names.each do |name|
-    yield(name, Card::Content::Chunk::Link::CODE)
+    yield name, Card::Content::Chunk::Link::CODE
   end
 end
 
