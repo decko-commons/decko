@@ -21,8 +21,7 @@ RSpec.describe Card::Set::Right::Followers do
     it "renders a pointer list of followers" do
       card = Card.fetch "All Eyes on me"
       view = card.followers_card.format.render_raw
-      expect(view.split("\n").sort)
-        .to eq ["[[Big Brother]]", "[[John]]", "[[Sara]]"]
+      expect(view.split("\n").sort).to eq ["Big Brother", "John", "Sara"]
     end
   end
 
