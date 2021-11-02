@@ -50,8 +50,7 @@ RSpec.describe Card::Set::All::Export do
       it "contains cards in the pointer card and its children" do
         export = export_pointer("[[T]]", :skin)
         expect(export).to include(
-          a_hash_including(name: "skin export card", type: "Skin",
-                           content: "[[T]]"),
+          a_hash_including(name: "skin export card", type: "Skin", content: "T"),
           a_hash_including(name: "T", type: "RichText", content: "Theta")
         )
       end
