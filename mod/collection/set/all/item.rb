@@ -31,6 +31,8 @@ end
 
 def standardize_item item
   Card::Name[item]
+rescue Card::Error::NotFound
+  item
 end
 
 def include_item? item

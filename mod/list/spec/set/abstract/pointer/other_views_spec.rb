@@ -129,7 +129,7 @@ RSpec.describe Card::Set::Abstract::Pointer do
           json_export(type: :skin, content: [elbert.name]),
           { name: "normal pointer",
             type: "Skin",
-            content: "[[Elbert Hubbard]]" },
+            content: "Elbert Hubbard" },
           { name: "Elbert Hubbard",
             type: "RichText",
             content: "Do not take life too seriously." }

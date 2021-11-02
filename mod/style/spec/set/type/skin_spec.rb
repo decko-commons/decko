@@ -57,7 +57,7 @@ describe Card::Set::Type::Skin do
       path = updated_machine.machine_output_path
       expect(File.read(path)).to eq(compressed_new_css)
       expect(updated_machine.machine_input_card.content)
-        .to include("[[skin item]]")
+        .to include("skin item")
       expect(Card.search(link_to: "skin item"))
         .to include(updated_machine.machine_input_card)
     end

@@ -207,3 +207,7 @@ end
 def strip_item item
   item.gsub(/\[\[|\]\]/, "").strip
 end
+
+def each_reference_out
+  item_names.each { |name| yield name, Card::Content::Chunk::Link::CODE }
+end

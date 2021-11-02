@@ -5,7 +5,7 @@ class Card
       def content
         structured_content || standard_content
       end
-      alias_method :raw_content, :content # DEPRECATED!
+      # alias_method :raw_content, :content # DEPRECATED!
 
       def content= value
         self.db_content = standardize_content value
