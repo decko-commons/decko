@@ -62,18 +62,18 @@ RSpec.describe Card::Rule::All do
 
     it "retrieves Set based value" do
       follow "Joe User", "*always"
-      expect(preference).to eq("[[*always]]")
+      expect(preference).to eq("*always")
     end
 
     it "retrieves user independent Set based value" do
       follow "*all", "*always"
-      expect(preference).to eq("[[*always]]")
+      expect(preference).to eq("*always")
     end
 
     it "user-specific value overwrites user-independent value" do
       follow "Joe User", "*never"
       follow "*all", "*always"
-      expect(preference).to eq("[[*never]]")
+      expect(preference).to eq("*never")
     end
 
     describe "#all_user_ids_with_rule_for" do
