@@ -10,8 +10,10 @@ format :html do
                                        title: :new_in_modal_title,
                                        menu: :new_modal_menu } } do
     voo.buttons_view ||= :new_in_modal_buttons
-    create_form "data-slot-selector": "modal-origin",
-                "data-slot-error-selector": ".card-slot"
+    wrap do
+      create_form "data-slot-selector": "modal-origin",
+                  "data-slot-error-selector": ".card-slot"
+    end
   end
 
   view :simple_new, perms: :create, unknown: true, wrap: :slot, cache: :never do
