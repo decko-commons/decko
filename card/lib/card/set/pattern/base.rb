@@ -4,12 +4,12 @@ class Card
       # class from which set patterns inherit
       class Base
         extend ClassMethods
-        delegate :pattern_code, :pattern, :anchorless?, :anchor_part_counts, to: :class
+        delegate :pattern_code, :pattern, :anchorless?, :anchor_parts_count, to: :class
 
         def initialize card
           return if anchorless?
 
-          @anchor_name = anchor_name(card).to_name
+          @anchor_name = self.class.anchor_name(card).to_name
           @anchor_id = find_anchor_id card
         end
 
