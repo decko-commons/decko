@@ -54,7 +54,7 @@ end
 private
 
 def ensure_type_id lookup
-  return if lookup == :skip || (type_id && (lookup != force))
+  return if lookup == :skip || (type_id && (lookup != :force))
 
   new_type_id = type_id_from_code || type_id_from_template
 
