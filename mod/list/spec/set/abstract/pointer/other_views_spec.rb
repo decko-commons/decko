@@ -87,7 +87,7 @@ RSpec.describe Card::Set::Abstract::Pointer do
           json_export(type: :pointer, content: [elbert.name, elbert_punchline.name]),
           { name: "normal pointer",
             type: "Pointer",
-            content: "[[Elbert Hubbard]]\n[[Elbert Hubbard+punchline]]" },
+            content: "Elbert Hubbard\nElbert Hubbard+punchline" },
           { name: "Elbert Hubbard",
             type: "RichText",
             content: "Do not take life too seriously." },
@@ -102,10 +102,10 @@ RSpec.describe Card::Set::Abstract::Pointer do
           json_export(content: [elbert_container.name, elbert_punchline.name]),
           { name: "normal pointer",
             type: "Pointer",
-            content: "[[elbert container]]\n[[Elbert Hubbard+punchline]]" },
+            content: "elbert container\nElbert Hubbard+punchline" },
           { name: "elbert container",
             type: "Pointer",
-            content: "[[Elbert Hubbard]]" },
+            content: "Elbert Hubbard" },
           { name: "Elbert Hubbard",
             type: "RichText",
             content: "Do not take life too seriously." },
@@ -118,7 +118,7 @@ RSpec.describe Card::Set::Abstract::Pointer do
       it "stops if the depth count > 10" do
         expect_hash_list(
           json_export(name: "normal pointer", content: "normal pointer"),
-          name: "normal pointer", type: "Pointer", content: "[[normal pointer]]"
+          name: "normal pointer", type: "Pointer", content: "normal pointer"
         )
       end
     end
@@ -129,7 +129,7 @@ RSpec.describe Card::Set::Abstract::Pointer do
           json_export(type: :skin, content: [elbert.name]),
           { name: "normal pointer",
             type: "Skin",
-            content: "[[Elbert Hubbard]]" },
+            content: "Elbert Hubbard" },
           { name: "Elbert Hubbard",
             type: "RichText",
             content: "Do not take life too seriously." }
