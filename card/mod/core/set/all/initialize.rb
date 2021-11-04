@@ -39,7 +39,6 @@ def initialize args={}
       super args # ActiveRecord #initialize
     end
   end
-  self
 end
 
 def handle_set_modules args
@@ -49,11 +48,9 @@ def handle_set_modules args
 end
 
 def handle_type args
-  type_lookup = args[:type_lookup]
   @supercard = args.delete :supercard
-
   yield
-  type_id_from_template if type_lookup == :force || (!type_id && type_lookup != :skip)
+  ensure_type_id args[:type_lookup]
 end
 
 def initial_name name
