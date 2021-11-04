@@ -1,6 +1,6 @@
 class Card
   module Set
-    class Pattern
+    module Pattern
       # pattern-related Card instance methods
       module All
         def patterns?

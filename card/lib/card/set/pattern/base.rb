@@ -1,10 +1,11 @@
 class Card
   module Set
-    class Pattern
+    module Pattern
       # class from which set patterns inherit
       class Base
         extend ClassMethods
-        delegate :pattern_code, :pattern, :anchorless?, :anchor_parts_count, to: :class
+        delegate :pattern_code, :pattern, :anchorless?, :anchor_parts_count,
+                 :assigns_type, to: :class
 
         def initialize card
           return if anchorless?
