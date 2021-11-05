@@ -18,7 +18,7 @@ RSpec.describe Card::Set::All::Export do
       it "contains cards in the pointer card and its children" do
         expect(export_pointer(%w[T A+B])).to include(
           a_hash_including(name: "pointer export card", type: "Pointer",
-                           content: "[[T]]\n[[A+B]]"),
+                           content: "T\nA+B"),
           a_hash_including(name: "T", type: "RichText", content: "Theta"),
           a_hash_including(name: "A+B", type: "RichText", content: "AlphaBeta")
         )
@@ -28,9 +28,9 @@ RSpec.describe Card::Set::All::Export do
         inner_pointer = create "inner pointer", type: :pointer, content: "T"
         expect(export_pointer([inner_pointer.name, "A+B"])).to include(
           a_hash_including(name: "pointer export card", type: "Pointer",
-                           content: "[[inner pointer]]\n[[A+B]]"),
+                           content: "inner pointer\nA+B"),
           a_hash_including(name: "inner pointer", type: "Pointer",
-                           content: "[[T]]"),
+                           content: "T"),
           a_hash_including(name: "T", type: "RichText", content: "Theta"),
           a_hash_including(name: "A+B", type: "RichText", content: "AlphaBeta")
         )
@@ -41,7 +41,7 @@ RSpec.describe Card::Set::All::Export do
           .to include(
             a_hash_including(name: "pointer export card",
                              type: "Pointer",
-                             content: "[[pointer export card]]")
+                             content: "pointer export card")
           )
       end
     end
@@ -50,8 +50,7 @@ RSpec.describe Card::Set::All::Export do
       it "contains cards in the pointer card and its children" do
         export = export_pointer("[[T]]", :skin)
         expect(export).to include(
-          a_hash_including(name: "skin export card", type: "Skin",
-                           content: "[[T]]"),
+          a_hash_including(name: "skin export card", type: "Skin", content: "T"),
           a_hash_including(name: "T", type: "RichText", content: "Theta")
         )
       end
