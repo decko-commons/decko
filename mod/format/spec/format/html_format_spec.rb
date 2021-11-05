@@ -11,7 +11,6 @@ RSpec.describe Card::Format::HtmlFormat do
     end
 
     specify "nests in multi edit" do
-      puts view(:edit, card: { type: "Book" })
       expect(view(:edit, card: { type: "Book" })).to have_tag "fieldset" do
         with_tag "div.content-editor" do
           with_tag "textarea", name: "card[subcards][+illustrator][content]"
