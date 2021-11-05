@@ -4,6 +4,23 @@ module ClassMethods
   end
 end
 
+event :validate_type_change, :validate, on: :update, changed: :type_id do
+  return unless (c = dup) && c.action == :create && !c.valid?
+
+  errors.add :type, t(:core_error_cant_change_errors,
+                      name: name,
+                      type_id: type_id,
+                      error_messages: c.errors.full_messages)
+end
+
+event :validate_type, :validate, changed: :type_id, on: :save do
+  errors.add :type, t(:core_error_no_such_type) unless type_name
+
+  if (rt = structure) && rt.assigns_type? && type_id != rt.type_id
+    errors.add :type, t(:core_error_hard_templated, name: name, type_name: rt.type_name)
+  end
+end
+
 def type_card
   Card.quick_fetch type_id.to_i unless type_id.nil?
 end
@@ -34,26 +51,30 @@ def type_id= card_or_id
   write_card_or_id :type_id, card_or_id
 end
 
-def type_id_from_template
-  return unless name && (t = template)
+private
 
-  reset_patterns # still necessary even with new template handling?
-  self.type_id = t.type_id
+def ensure_type_id lookup
+  return if lookup == :skip || (type_id && (lookup != :force))
+
+  old_type_id = type_id
+
+  new_type_id = type_id_from_code || type_id_from_template
+
+  reset_patterns if new_type_id != old_type_id
+  self.type_id = new_type_id
 end
 
-event :validate_type_change, :validate, on: :update, changed: :type_id do
-  return unless (c = dup) && c.action == :create && !c.valid?
+def type_id_from_code
+  return if simple?
+  patterns.each do |p|
+    next unless p.assigns_type && (module_key = p.module_key)
 
-  errors.add :type, t(:core_error_cant_change_errors,
-                      name: name,
-                      type_id: type_id,
-                      error_messages: c.errors.full_messages)
-end
-
-event :validate_type, :validate, changed: :type_id, on: :save do
-  errors.add :type, t(:core_error_no_such_type) unless type_name
-
-  if (rt = structure) && rt.assigns_type? && type_id != rt.type_id
-    errors.add :type, t(:core_error_hard_templated, name: name, type_name: rt.type_name)
+    type_id = Card::Set::Type.assignment[module_key]
+    return type_id if type_id
   end
+  nil
+end
+
+def type_id_from_template
+  name && template&.type_id
 end

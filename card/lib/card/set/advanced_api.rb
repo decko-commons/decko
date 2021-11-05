@@ -2,6 +2,11 @@ class Card
   module Set
     # advanced set module API
     module AdvancedApi
+      def assign_type_id type_id, module_key=nil
+        module_key ||= shortname
+        Type.assignment[module_key] = type_id
+      end
+
       def setting_opts opts
         extend Card::Setting
         register_setting opts
