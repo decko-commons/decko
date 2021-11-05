@@ -3,7 +3,10 @@ module CoreExtensions
     def to_pointer_content
       map do |item|
         item = item.to_s.strip
-        item =~ /^\[\[.+\]\]$/ ? item : "[[#{item}]]"
+        item.gsub!(/^\[\[/, "")
+        item.gsub!(/\]\]$/, "")
+        item
+        # item =~ /^\[\[.+\]\]$/ ? item : "[[#{item}]]"
       end.join "\n"
     end
 

@@ -21,8 +21,9 @@ format :html do
   end
 
   def unknown_link text
-    path_opts = voo.type ? { card: { type: voo.type } } : {}
-    link_to_view :new_in_modal, text, path: path_opts, class: classy("unknown-link")
+    link_to_view :new_in_modal, text,
+                 path: (voo.type ? { card: { type: voo.type } } : {}),
+                 class: classy("unknown-link")
   end
 
   def unknown_icon
