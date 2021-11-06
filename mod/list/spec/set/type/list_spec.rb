@@ -5,7 +5,7 @@ RSpec.describe Card::Set::Type::List do
     content = "A\n[[+B]]\n[[C]]"
     card = create_list "test", content
     refs = Card::Reference.where(referer_id: card.id).pluck(:referee_key, :ref_type)
-    expect(card.content).to eq content
+    expect(card.content).to eq "A\n+B\nC"
     expect(refs).to contain_exactly %w[a L], %w[b P], %w[c L], %w[test+b L]
   end
 

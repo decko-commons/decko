@@ -1,11 +1,5 @@
 include_set Abstract::Pointer
 
-def each_reference_out
-  item_names.each do |name|
-    yield(name, Card::Content::Chunk::Link::CODE)
-  end
-end
-
 format :html do
   view :view_list do
     %i[info_bar bar box closed titled labeled].map do |view|

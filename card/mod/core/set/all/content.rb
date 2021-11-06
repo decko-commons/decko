@@ -1,5 +1,5 @@
 event :set_content, :store, on: :save do
-  self.db_content = prepare_db_content
+  self.content = prepare_db_content
   @selected_action_id = @selected_content = nil
   clear_drafts
 end
@@ -37,6 +37,8 @@ end
 
 def prepare_db_content
   cont = standard_db_content || "" # necessary?
+
+  # TODO: move this html-specific code somewhere more appropriate
   clean_html? ? Card::Content.clean!(cont) : cont
 end
 

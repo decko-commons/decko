@@ -9,7 +9,7 @@ DeckoGem.mod "defaults" do |s, d|
                    :date, :delayed_job, :follow,
                    :help, :history, :integrate, :layout,
                    :list, :markdown, :permissions, :recaptcha,
-                   :rules, :search, :tinymce_editor
+                   :rules, :search, :tabs, :tinymce_editor
   s.summary = "Default decko mods"
   s.description = ""
 end
