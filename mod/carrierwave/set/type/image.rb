@@ -21,7 +21,7 @@ format do
     render_core size: :icon
   end
 
-  view :source do
+  view :source, unknown: :blank do
     return card.content if card.web?
 
     image = selected_version
