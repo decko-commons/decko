@@ -77,9 +77,3 @@ $.extend decko,
   toggleShade: (shadeSlot) ->
     shadeSlot.find('.shade-content').slideToggle 1000
     shadeSlot.find('.glyphicon').toggleClass 'glyphicon-triangle-right glpyphicon-triangle-bottom'
-
-
-
-
-
-

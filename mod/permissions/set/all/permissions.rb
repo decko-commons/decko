@@ -21,10 +21,14 @@ end
 #      trait: :account      would fetch this card plus a tag codenamed :account
 #      trait: :roles, new: {} would initialize a new card with default ({})
 # options.
+#
+#
+require 'pry'
 
 def ok? action
   @ok ||= {}
   aok = @ok[Auth.as_id] ||= {}
+  binding.pry if action.blank?
   if (cached = aok[action])
     cached
   else
