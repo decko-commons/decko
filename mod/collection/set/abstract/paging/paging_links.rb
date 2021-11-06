@@ -47,10 +47,8 @@ class PagingLinks
 
   def right_part
     parts = [next_page_link]
-    if @total <= MAX_PAGES && @total > @window_end
-      parts.unshift direct_page_link(@total)
-      parts.unshift ellipse if @total > @window_end + 1
-    end
+    parts.unshift direct_page_link(@total) if @total <= MAX_PAGES && @total > @window_end
+    parts.unshift ellipse if @total > @window_end + 1
     parts
   end
 
