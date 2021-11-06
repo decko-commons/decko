@@ -33,14 +33,18 @@ end
 
 format :html do
   view :javascript_include_tag do
-    [card.remote_group_urls, local_url].flatten.compact.map do |url|
-      javascript_include_tag url
-    end.join "\n"
+    [remote_include_tags, local_include_tag].flatten.compact.join "\n"
   end
 
+  def local_include_tag
+    return unless local_url
+
+    javascript_include_tag local_url
+  end
 
   def remote_include_tags
-    remote_items = manifest_group_items "remote"
+    binding.pry
+    remote_items = card.manifest_group_items "remote"
     return unless remote_items
 
     remote_items.map do |args|

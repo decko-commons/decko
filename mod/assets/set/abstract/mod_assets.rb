@@ -68,7 +68,7 @@ def remote_group? name, _config
 end
 
 def manifest_group_items group_name
-  manifest.dig(group_name, "items") || []
+  manifest&.dig(group_name, "items") || []
 end
 
 def manifest_group_minimize? group_name
@@ -80,6 +80,7 @@ def manifest
 end
 
 def load_manifest
+  return unless manifest_exists?
   manifest = YAML.load_file manifest_path
   validate_manifest manifest
   manifest
