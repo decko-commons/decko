@@ -64,7 +64,7 @@ format :html do
     standard_errors voo.title
   end
 
-  view :not_found do
+  view :not_found, cache: :never do
     voo.hide! :menu
     voo.title = "Not Found"
     frame do
