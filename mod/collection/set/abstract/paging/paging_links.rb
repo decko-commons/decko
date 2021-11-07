@@ -2,6 +2,8 @@
 
 # render paging links
 class PagingLinks
+  MAX_PAGES = 100
+
   def initialize total_pages, current_page
     @total = total_pages
     @current = current_page
@@ -44,11 +46,10 @@ class PagingLinks
   end
 
   def right_part
-    [
-      (ellipse if @total > @window_end + 1),
-      (direct_page_link @total if @total > @window_end),
-      next_page_link
-    ].compact
+    parts = [next_page_link]
+    parts.unshift direct_page_link(@total) if @total <= MAX_PAGES && @total > @window_end
+    parts.unshift ellipse if @total > @window_end + 1
+    parts
   end
 
   def previous_page_link
