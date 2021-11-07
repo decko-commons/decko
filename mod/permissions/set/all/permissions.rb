@@ -23,7 +23,6 @@ end
 # options.
 #
 #
-require 'pry'
 
 def ok? action
   @ok ||= {}

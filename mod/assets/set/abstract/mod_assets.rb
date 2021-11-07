@@ -1,7 +1,7 @@
 include_set Abstract::Pointer
 include_set Abstract::ReadOnly
 
-def item_cards args={}
+def item_cards args = {}
   local_group_cards
 end
 
@@ -47,7 +47,7 @@ def mod
 end
 
 def manifest_exists?
-  @manifest_exists = !!manifest_path if @manifest_exists.nil?
+  @manifest_exists = !manifest_path.nil? if @manifest_exists.nil?
   @manifest_exists
 end
 
@@ -87,13 +87,11 @@ def load_manifest
 end
 
 def validate_manifest manifest
-  if (remote_index = manifest.keys.find_index("remote")) && remote_index > 0
+  if (remote_index = manifest.keys.find_index("remote")) && remote_index.positive?
     raise_manifest_error "only the first group can be a remote group"
   end
   manifest.each do |name, config|
-    if !config["items"]
-      raise_manifest_error "no items section in group \"#{name}\""
-    end
+    raise_manifest_error "no items section in group \"#{name}\"" unless config["items"]
   end
 end
 
@@ -123,8 +121,11 @@ end
 
 def source_changed? since:
   source_updates =
-    manifest_exists? ? [manifest_updated_at, local_manifest_group_cards.map(&:last_file_change)].flatten :
-        folder_group_card&.paths&.map { |path| File.mtime(path) }
+    if manifest_exists?
+      [manifest_updated_at, local_manifest_group_cards.map(&:last_file_change)].flatten
+    else
+      folder_group_card&.paths&.map { |path| File.mtime(path) }
+    end
 
   return unless source_updates
 

@@ -24,13 +24,14 @@ def update_referers_after_input_changed
   puts "dependent inputters for #{name}: #{dependent_asset_inputters}"
   puts "outputters: #{outputters}"
 
-  dependent_asset_inputters.each &:update_asset_input
-  outputters.each &:update_asset_output
+  dependent_asset_inputters.each(&:update_asset_input)
+  outputters.each(&:update_asset_output)
 end
 
 def update_asset_input
   puts "update_asset_input called: #{name}"
-  return unless Codename.exists? :asset_input # otherwise the migration that adds the asset_input card fails
+  return unless Codename.exists? :asset_input
+  # otherwise the migration that adds the asset_input card fails
 
   asset_input_card.update content: render_asset_input_content
   update_referers_after_input_changed
@@ -62,6 +63,3 @@ end
 def asset_input_needs_refresh?
   false
 end
-
-
-
