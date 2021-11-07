@@ -61,10 +61,10 @@ RSpec.describe Card::Set::Pattern::All do
     end
   end
 
-  describe "#rule_set_keys" do
+  describe "#rule_lookup_keys" do
     it "returns correct set names for new cards" do
       card = Card.new name: "AnewCard"
-      expect(card.rule_set_keys).to eq(["#{Card::BasicID}+type", "all"])
+      expect(card.rule_lookup_keys).to eq(["#{Card::BasicID}+type", "all"])
     end
   end
 
