@@ -70,8 +70,6 @@ def type_id_from_template
   name && template&.type_id
 end
 
-private
-
 def normalize_type_attributes args
   new_type_id = extract_type_id! args unless args.delete(:type_lookup) == :skip
   args[:type_id] = new_type_id if new_type_id
