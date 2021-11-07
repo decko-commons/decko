@@ -53,7 +53,7 @@ class Card
 
       def assign_trait_type trait, type
         return unless type && (parts = trait_module_key_parts trait)
-        assign_type_id type.card_id, normalize_const(parts)
+        assign_type type, normalize_const(parts)
       end
 
       def trait_module_key_parts trait
