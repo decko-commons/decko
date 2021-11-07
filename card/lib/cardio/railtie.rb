@@ -60,7 +60,7 @@ module Cardio
 
     config.persistent_cache = true
     config.prepopulate_cache = false
-    config.machine_refresh = :cautious
+    config.asset_refresh = :cautious
     config.compress_javascript = true
 
     config.allow_irreversible_admin_tasks = false
