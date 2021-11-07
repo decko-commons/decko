@@ -54,16 +54,25 @@ end
 private
 
 def ensure_type_id lookup
-  return if lookup == :skip || (type_id && (lookup != force))
+  return if lookup == :skip || (type_id && (lookup != :force))
+
+  old_type_id = type_id
 
   new_type_id = type_id_from_code || type_id_from_template
 
-  reset_patterns if new_type_id != type_id
+  reset_patterns if new_type_id != old_type_id
   self.type_id = new_type_id
 end
 
 def type_id_from_code
+  return if simple?
+  patterns.each do |p|
+    next unless p.assigns_type && (module_key = p.module_key)
 
+    type_id = Card::Set::Type.assignment[module_key]
+    return type_id if type_id
+  end
+  nil
 end
 
 def type_id_from_template
