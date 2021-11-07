@@ -33,7 +33,6 @@ namespace :card do
     yield op if block_given?
     args = op.order!(ARGV) {}
     op.parse! args
-
     options
   end
 end

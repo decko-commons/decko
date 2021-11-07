@@ -10,8 +10,9 @@ module Cardio
         @env = env || :production
       end
 
-      def yaml
-        Card[@name].format(:yaml).show :export
+      # @return array of
+      def items
+        [Card[@name].format(:yaml).render(:export)]
       end
 
       def filename
@@ -19,13 +20,24 @@ module Cardio
       end
 
       def out
-        @mod ? dump : puts(yaml)
+        @mod ? dump : puts(items)
       end
 
       def dump
-        File.open filename, "w" do |file|
-          file.write yaml
+        File.open filename, "r+" do |file|
+          raw = file.read
+          puts "OLD/raw: #{raw}"
+          old_items = YAML.load raw
+          file.write merge(old_items).to_yaml
         end
+      end
+
+      private
+
+      def merge old_items
+        puts "OLD: #{old_items}"
+        puts "NEW: #{items}"
+        items + ["woot"]
       end
 
       # @return Path

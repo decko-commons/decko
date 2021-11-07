@@ -2,14 +2,26 @@ def cast
   real? ? { id: id } : { name: name, type_id: type_id, content: db_content }
 end
 
+def export_hash
+  {
+    name: export_name,
+    type: type_name.codename_or_string,
+    codename: codename,
+    content: export_content
+  }
+end
+
+def export_name
+  simple? ? name.s : name.part_names.map(&:codename_or_string)
+end
+
+def export_content
+  db_content
+end
+
 format :data do
   view :export do
-    {
-      name: card.name.to_s,
-      type: export_type,
-      codename: card.codename,
-      content: card.db_content
-    }
+    card.export_hash
   end
 
   view :core, unknown: true do
@@ -85,12 +97,5 @@ format :data do
                type: nest(card.type_card, view: :nucleus),
                created_at: card.created_at,
                updated_at: card.updated_at
-  end
-
-  private
-
-  def export_type
-    tc = card.type_card
-    tc.codename || tc.name
   end
 end

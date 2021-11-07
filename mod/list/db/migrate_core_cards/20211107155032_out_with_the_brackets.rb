@@ -6,7 +6,7 @@ class OutWithTheBrackets < Cardio::Migration
     list_type_ids = %i[pointer list].map(&:card_id)
     ["[[", "]]"].each do |brackets|
       Card.where(type_id: list_type_ids).in_batches.update_all(
-        db_content: "REPLACE(db_content, '#{brackets}', '')"
+        "db_content = REPLACE(db_content, '#{brackets}', '')"
       )
     end
   end
