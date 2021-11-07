@@ -1,6 +1,6 @@
 class Card
   module Set
-    # ActiveCard support: accessing plus cards as attributes
+    # accessing plus cards as attributes
     module Trait
       def card_accessor *args
         options = args.extract_options!
