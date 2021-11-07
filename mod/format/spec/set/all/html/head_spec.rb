@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-describe Card::Set::All::Head do
+describe Card::Set::All::Html::Head do
   specify "view head" do
     expect_view(:head).to have_tag("title"), "A - WikiRate"
     expect_view(:head).to have_tag("link")

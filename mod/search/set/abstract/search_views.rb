@@ -13,21 +13,6 @@ format do
   end
 end
 
-format :json do
-  def items_for_export
-    return [] if card.content.empty? || unexportable_tag?(card.name.tag_name.key)
-
-    card.item_cards
-  end
-
-  # avoid running the search from +:content_options (huge results)
-  # and +:structure (errors)
-  # TODO: make this configurable in set mods
-  def unexportable_tag? tag_key
-    %i[content_options structure].map { |code| code.cardname.key }.include? tag_key
-  end
-end
-
 format :rss do
   view :feed_body do
     case raw_feed_items
