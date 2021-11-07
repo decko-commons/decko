@@ -116,7 +116,7 @@ class Card
       def supercard_might_change_type?
         # ...via type_plus_right rule
         sc = new_opts[:supercard]
-        @force_type_lookup = sc&.new? && (sc.type_id != sc.default_type_id)
+        @force_type_lookup = sc&.new? && (sc.type_id != Card.default_type_id)
       end
 
       def new_opts

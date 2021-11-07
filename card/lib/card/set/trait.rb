@@ -1,6 +1,6 @@
 class Card
   module Set
-    # ActiveCard support: accessing plus cards as attributes
+    # accessing plus cards as attributes
     module Trait
       def card_accessor *args
         options = args.extract_options!
@@ -45,8 +45,22 @@ class Card
           define_trait_card trait, new_opts
           define_trait_reader trait if options[:reader]
           define_trait_writer trait if options[:writer]
+          assign_trait_type trait, options[:type]
 
           mod_traits[trait.to_sym] = options
+        end
+      end
+
+      def assign_trait_type trait, type
+        return unless type && (parts = trait_module_key_parts trait)
+        assign_type_id type.card_id, normalize_const(parts)
+      end
+
+      def trait_module_key_parts trait
+        if all_set?
+          [:right, trait]
+        elsif type_set?
+          [:type_plus_right, set_name_parts.last, trait]
         end
       end
 

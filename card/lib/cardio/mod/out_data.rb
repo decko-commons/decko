@@ -11,20 +11,22 @@ module Cardio
       end
 
       def yaml
-        Card::Auth.as_bot do
-          Card[@name].to_yaml
-        end
+        Card[@name].format(:yaml).show :export
       end
 
       def filename
         File.join mod_path, "#{@env}.yml"
       end
 
-      def dump
+      def out
+        @mod ? dump : puts(yaml)
       end
 
-
-
+      def dump
+        File.open filename, "w" do |file|
+          file.write yaml
+        end
+      end
 
       # @return Path
       def mod_path
