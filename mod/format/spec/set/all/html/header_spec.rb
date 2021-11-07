@@ -1,4 +1,4 @@
-RSpec.describe Card::Set::All::Header do
+RSpec.describe Card::Set::All::Html::Header do
   check_html_views_for_errors
 
   def view_with_show view, show
