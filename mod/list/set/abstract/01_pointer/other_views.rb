@@ -58,18 +58,6 @@ format :json do
     params[:max_depth] || 1
   end
 
-  def items_for_export
-    card.item_cards
-  end
-
-  def essentials
-    return {} if depth > max_depth
-
-    card.item_cards.map do |item|
-      nest item, view: :essentials
-    end
-  end
-
   view :links do
     []
   end
