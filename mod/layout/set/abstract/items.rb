@@ -1,5 +1,5 @@
 format :html do
   view :nav_item do
-    nav_dropdown
+    wrap_with_nav_item { nav_dropdown }
   end
 end

@@ -30,6 +30,10 @@ class Card
       def codename
         Codename[card_id]
       end
+
+      def codename_or_string
+        codename || s
+      end
     end
   end
 end

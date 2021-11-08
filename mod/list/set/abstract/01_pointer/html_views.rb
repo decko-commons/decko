@@ -44,10 +44,6 @@ format :html do
     list_input
   end
 
-  # view :nav_item do
-  #   nav_dropdown
-  # end
-
   def list_input args={}
     items = items_for_input args[:item_list]
     extra_class = "pointer-list-ul"
