@@ -22,7 +22,6 @@ def extend_item_list items, list, book
 
   if item.collection?
     # keep items in order
-    binding.pry if item.item_cards.include? nil
     items.unshift(*item.item_cards)
   else  # no further level of items
     list << item

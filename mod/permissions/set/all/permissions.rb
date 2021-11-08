@@ -27,7 +27,6 @@ end
 def ok? action
   @ok ||= {}
   aok = @ok[Auth.as_id] ||= {}
-  binding.pry if action.blank?
   if (cached = aok[action])
     cached
   else

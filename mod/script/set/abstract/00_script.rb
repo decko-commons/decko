@@ -6,9 +6,8 @@ require "uglifier"
 include_set Abstract::AssetInputter, input_format: :js
 
 format :js do
-  view :compress do
-    js = _render_core
-    js = compress js if compress?
+  view :compressed do
+    js = compress(_render_core)
     comment_with_source js
   end
 
@@ -17,7 +16,7 @@ format :js do
   end
 
   def compress input
-    return input if Rails.env.development?
+    return input unless compress?
 
     Uglifier.compile input
   rescue StandardError => e
@@ -37,7 +36,7 @@ format :js do
   end
 
   def compress?
-    Cardio.config.compress_javascript
+    Cardio.config.compress_assets
   end
 end
 

@@ -43,7 +43,6 @@ format :html do
   end
 
   def remote_include_tags
-    binding.pry
     remote_items = card.manifest_group_items "remote"
     return unless remote_items
 

@@ -8,11 +8,11 @@ end
 
 def render_items_and_compress format
   item_cards.compact.map do |mcard|
-    mcard.format(format)._render_compress
+    mcard.format(format)._render_compressed
   end.join "\n"
 end
 
-def item_cards args={}
+def item_cards _args={}
   relative_paths.map do |path|
     new_asset_file_card path
   end

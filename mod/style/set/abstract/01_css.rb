@@ -50,7 +50,7 @@ format :css do
   end
 
   view :compiled do
-    compress _render_core
+    _render_core
   end
 
   view :compressed do
@@ -76,8 +76,7 @@ format :css do
   end
 
   def compress?
-    true
-    # !Rails.env.development?
+    Cardio.config.compress_assets
   end
 end
 

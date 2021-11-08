@@ -8,7 +8,9 @@ end
 
 format :scss do
   view :core do
-    card.render_items_and_compress :scss
+    card.item_cards.compact.map do |mcard|
+      mcard.format(:scss)._render_core
+    end.join "\n"
   end
 end
 

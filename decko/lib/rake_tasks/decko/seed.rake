@@ -49,6 +49,7 @@ namespace :decko do
 
     def refresh_assets
       puts "refresh assets"
+      Cardio.config.compress_assets = true
       Card::Assets.refresh_assets force: true
       make_asset_output_coded
     end

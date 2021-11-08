@@ -36,7 +36,7 @@
 # To do that it is a machine itself and stores the generated machine output as its
 # content which will trigger the updates of other machines that use this card.
 
-include_set Abstract::AssetInputter, input_format: :css, input_view: :compiled
+include_set Abstract::AssetInputter, input_format: :css, input_view: :compressed
 include_set Abstract::Scss
 include_set Abstract::SkinBox
 
