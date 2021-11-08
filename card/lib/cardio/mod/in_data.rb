@@ -8,7 +8,7 @@ module Cardio
     class InData
       include Card::Model::SaveHelper
 
-      def initialize mod:, env: nil
+      def initialize mod: nil, env: nil
         @mod = mod
         @env = env
       end
