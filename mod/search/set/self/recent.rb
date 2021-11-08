@@ -27,9 +27,3 @@ format :rss do
     render_blank
   end
 end
-
-format :json do
-  def items_for_export
-    card.item_cards limit: 20
-  end
-end
