@@ -58,6 +58,16 @@ class Card
         def include_module? set
           singleton_class&.include? set
         end
+
+        def each_type_assigning_module_key
+          return if simple?
+
+          patterns.each do |p|
+            next unless p.assigns_type && (module_key = p.module_key)
+
+            yield module_key
+          end
+        end
       end
     end
   end

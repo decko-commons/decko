@@ -27,7 +27,7 @@ module Cardio
         File.open filename, "r+" do |file|
           raw = file.read
           puts "OLD/raw: #{raw}"
-          old_items = YAML.load raw
+          old_items = YAML.safe_load raw
           file.write merge(old_items).to_yaml
         end
       end

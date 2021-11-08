@@ -1,5 +1,6 @@
 # -*- encoding : utf-8 -*-
 
+# base class for rendering in YAML (Yet Another Markup Language)
 class Card
   class Format
     class YamlFormat < DataFormat

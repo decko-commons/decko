@@ -64,10 +64,7 @@ def ensure_type_id lookup
 end
 
 def type_id_from_code
-  return if simple?
-  patterns.each do |p|
-    next unless p.assigns_type && (module_key = p.module_key)
-
+  each_type_assigning_module_key do |module_key|
     type_id = Card::Set::Type.assignment[module_key]
     return type_id if type_id
   end

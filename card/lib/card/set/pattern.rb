@@ -1,5 +1,7 @@
 class Card
   module Set
+    # Each deck can have countless sets of cards, each of which follows one of a small
+    # list of patterns. This module provides methods for managing those patterns.
     module Pattern
       class << self
         # Pattern classes all the patterns except for Abstract.

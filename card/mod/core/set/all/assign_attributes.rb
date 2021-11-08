@@ -72,8 +72,6 @@ def stash_set_specific_attributes args
   end
 end
 
-
-
 # 'set' refers to the noun not the verb
 def set_specific
   @set_specific ||= {}

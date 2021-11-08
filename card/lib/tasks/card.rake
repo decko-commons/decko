@@ -10,7 +10,7 @@ namespace :card do
     i: :items,
     o: :"only-items",
     c: :cql
-  }
+  }.freeze
 
   desc "import card data from mod yaml"
   task in: :environment do
@@ -34,8 +34,6 @@ namespace :card do
   task reset_cache: :environment do
     Card::Cache.reset_all
   end
-
-  
 
   def card_options
     options = {}

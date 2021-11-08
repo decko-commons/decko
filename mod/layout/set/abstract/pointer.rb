@@ -1,10 +1,9 @@
 include_set Abstract::Items
 
 format :html do
-  def navbar_items view: :nav_item, link_class: nil
+  def navbar_items view: :nav_item, **_args
     card.item_cards.map do |item_card|
-      item = nest item_card, view: view
-      view == :nav_item ? wrap_with_nav_item(item) : item
+      nest item_card, view: view
     end
   end
 end
