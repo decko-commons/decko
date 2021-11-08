@@ -10,21 +10,35 @@ module Cardio
         @env = env || :production
       end
 
-      def yaml
-        Card::Auth.as_bot do
-          Card[@name].to_yaml
-        end
+      # @return array of
+      def items
+        [Card[@name].format(:yaml).render(:export)]
       end
 
       def filename
         File.join mod_path, "#{@env}.yml"
       end
 
-      def dump
+      def out
+        @mod ? dump : puts(items)
       end
 
+      def dump
+        File.open filename, "r+" do |file|
+          raw = file.read
+          puts "OLD/raw: #{raw}"
+          old_items = YAML.safe_load raw
+          file.write merge(old_items).to_yaml
+        end
+      end
 
+      private
 
+      def merge old_items
+        puts "OLD: #{old_items}"
+        puts "NEW: #{items}"
+        items + ["woot"]
+      end
 
       # @return Path
       def mod_path

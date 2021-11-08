@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 
 card_accessor :email
-card_accessor :password
+card_accessor :password, type: :number
 card_accessor :salt
 card_accessor :status
 

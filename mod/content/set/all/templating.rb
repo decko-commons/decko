@@ -24,10 +24,6 @@ def template
   end
 end
 
-def default_type_id
-  Card.default_type_id
-end
-
 def new_card_template
   default = rule_card :default, skip_modules: true
   return default unless (structure = dup_structure default&.type_id)
@@ -39,7 +35,7 @@ end
 
 def dup_structure type_id
   dup_card = dup
-  dup_card.type_id = type_id || default_type_id
+  dup_card.type_id = type_id || Card.default_type_id
   dup_card.structure_rule_card
 end
 
