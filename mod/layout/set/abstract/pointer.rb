@@ -5,8 +5,4 @@ format :html do
       view == :nav_item ? wrap_with_nav_item(item) : item
     end
   end
-
-  view :nav_item do
-    nav_dropdown
-  end
 end
