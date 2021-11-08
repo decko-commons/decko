@@ -1,6 +1,6 @@
 class Card
   module Set
-    class Pattern
+    module Pattern
       # pattern-related Card instance methods
       module All
         def patterns?
@@ -20,7 +20,7 @@ class Card
           # Rails.logger.info "resetting patterns: #{name}"
           @patterns = @concrete_patterns = nil
           @template = @virtual = nil
-          @set_mods_loaded = @set_modules = @set_names = @rule_set_keys = nil
+          @set_mods_loaded = @set_modules = @set_names = @rule_lookup_keys = nil
           @junction_only = nil # only applies to set cards
           true
         end
@@ -51,12 +51,21 @@ class Card
           patterns.map(&:module_key).include? set_module.shortname
         end
 
-        def rule_set_keys
-          @rule_set_keys ||= patterns.map(&:rule_set_key).compact
+        def rule_lookup_keys
+          @rule_lookup_keys ||= patterns.map(&:rule_lookup_key).compact
         end
 
         def include_module? set
           singleton_class&.include? set
+        end
+
+        def each_type_assigning_module_key
+          patterns.each do |p|
+            next unless p.assigns_type
+
+            module_key = p.module_key
+            yield module_key if module_key
+          end
         end
       end
     end

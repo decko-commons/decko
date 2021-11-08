@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-RSpec.describe Card::Set::All::HtmlWrapper do
+RSpec.describe Card::Set::All::Html::Wrap do
   context "with full wrapping" do
     let(:ocslot)  { Card["A"].format }
 

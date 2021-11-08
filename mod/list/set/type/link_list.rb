@@ -1,4 +1,4 @@
-include_set Abstract::Pointer
+include_set Abstract::Items
 
 def raw_item_strings content
   reference_chunks(content).map(&:referee_name)

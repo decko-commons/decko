@@ -3,10 +3,10 @@
 
   $(window).ready(function() {
     var firstShade;
-    $('body').on('click', '._stop_propagation', function(event) {
+    $(document).on('click', '._stop_propagation', function(event) {
       return event.stopPropagation();
     });
-    $('body').on('click', '._prevent_default', function(event) {
+    $(document).on('click', '._prevent_default', function(event) {
       return event.preventDefault();
     });
     $('body').on('mouseenter', 'a[data-hover-text]', function() {
@@ -1204,7 +1204,7 @@
 
 (function() {
   $(window).ready(function() {
-    $('body').on('ajax:success', '.slotter', function(event, data, c, d) {
+    $('body').on('ajax:success', '.slotter', function(event, data) {
       return $(this).slotterSuccess(event, data);
     });
     $('body').on('ajax:error', '.slotter', function(event, xhr) {
