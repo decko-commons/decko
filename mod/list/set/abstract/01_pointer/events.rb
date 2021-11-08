@@ -14,26 +14,6 @@ def item_to_insert
   Env.params["insert_item"]
 end
 
-# If a card's type and content are updated in the same action, the new module
-# will override the old module's events and functions. But this event is only
-# on pointers -- other type cards do not have this event,
-# Therefore if something is changed from a pointer and its content is changed
-# in the same action, this event will be run and will treat the content like
-# it' still pointer content.  The "when" clause helps with that (but is a hack)
-# event :standardize_items, :prepare_to_validate,
-#       on: :save, changed: :content, when: :still_pointer? do
-#   items_to_content item_strings
-# end
-#
-# def still_pointer?
-#   type_id.in? [PointerID, ListID]
-# end
-
-def standardize_content value
-  value = item_strings(content: value) unless value.is_a? Array
-  super value
-end
-
 def changed_item_names
   dropped_item_names + added_item_names
 end
