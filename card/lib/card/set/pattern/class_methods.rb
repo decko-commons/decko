@@ -1,6 +1,6 @@
 class Card
   module Set
-    class Pattern
+    module Pattern
       # methods for Set::Pattern classes
       module ClassMethods
         attr_accessor :pattern_code, :pattern_id, :junction_only,
@@ -12,7 +12,7 @@ class Card
         end
 
         def register pattern_code, opts={}
-          if (self.pattern_id = Card::Codename.id(pattern_code))
+          if (self.pattern_id = Card::Codename.id pattern_code)
             self.pattern_code = pattern_code
             Pattern.concrete.insert opts.delete(:index).to_i, self
             self.anchorless = !respond_to?(:anchor_name)
@@ -31,7 +31,7 @@ class Card
         end
 
         def pattern
-          Card.fetch(pattern_id, skip_modules: true).name
+          pattern_id.cardname
         end
 
         def pattern_applies? card
@@ -44,7 +44,7 @@ class Card
 
         def module_key anchor_codes
           return pattern_code.to_s.camelize if anchorless?
-          return unless anchor_codes # is this not an error?
+          return unless anchor_codes # not all anchors have codenames
 
           ([pattern_code] + anchor_codes).map { |code| code.to_s.camelize }.join "::"
         end

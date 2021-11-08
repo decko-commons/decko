@@ -18,7 +18,7 @@ shared_examples_for "notifications" do
 
     example "for a updated card" do
       expect(list_of_changes(updated))
-        .to include("new content: [[changed content]]",
+        .to include("new content: changed content",
                     "new cardtype: Pointer",
                     "new name: Updated card")
     end

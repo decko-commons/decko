@@ -9,6 +9,11 @@ def count
   item_strings.size
 end
 
+def standardize_content value
+  value = item_strings(content: value) unless value.is_a? Array
+  super value
+end
+
 def each_item_name_with_options _content=nil
   item_names.each { |name| yield name, {} }
 end

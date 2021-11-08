@@ -1,4 +1,4 @@
-RSpec.describe Card::Set::All::HtmlShow do
+RSpec.describe Card::Set::All::Html::Show do
   describe "show with layout" do
     let(:show) { Card["stacks"].format.show nil, {} }
 
