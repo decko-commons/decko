@@ -39,16 +39,10 @@ format do
   end
 
   def env_search_param param
-    enforcing_legal_limit param do
-      val = Env.params[param]
-      val.to_i if focal? && val.present?
-    end
-  end
-
-  def enforcing_legal_limit param
-    yield.tap do |val|
-      enforce_legal_limit! val if param == :limit
-    end
+    val = Env.params[param]
+    val = val.to_i if focal? && val.present?
+    enforce_legal_limit! val
+    val
   end
 
   def enforce_legal_limit! val
