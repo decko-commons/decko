@@ -76,13 +76,5 @@ class Card
     def code
       Card::Codename[card_id]
     end
-
-    def setting?
-      Set::Type::Setting.member_names[key]
-    end
-
-    def set?
-      Set::Pattern.card_keys[tag_name.key]
-    end
   end
 end
