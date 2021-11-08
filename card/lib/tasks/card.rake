@@ -1,6 +1,17 @@
 require "optparse"
 
 namespace :card do
+  TASK_OPTIONS = {
+    m: :mod,
+    n: %i[name mark],
+    e: :env,
+    h: :help,
+    u: :url,
+    i: :items,
+    o: :"only-items",
+    c: :cql
+  }
+
   desc "import card data from mod yaml"
   task in: :environment do
     options = card_options do |op|
@@ -23,6 +34,8 @@ namespace :card do
   task reset_cache: :environment do
     Card::Cache.reset_all
   end
+
+  
 
   def card_options
     options = {}
