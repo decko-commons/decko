@@ -1,8 +1,8 @@
 # -*- encoding : utf-8 -*-
 
-# base class for rendering in YAML (Yet Another Markup Language)
 class Card
   class Format
+    # base class for rendering in YAML (Yet Another Markup Language)
     class YamlFormat < DataFormat
       register :yaml
       register :yml

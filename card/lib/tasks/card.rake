@@ -26,8 +26,11 @@ namespace :card do
     options = card_options do |op|
       op.banner = "Usage: rake card:out mark [options]"
     end
-    Cardio::Mod::OutData.new(**options).dump
-    exit 0
+    result = Cardio::Mod::OutData.new(**options).out
+    exit 0 if result == :success
+
+    puts "ERROR in card:out\n  #{result}".red
+    exit 1
   end
 
   desc "reset cache"

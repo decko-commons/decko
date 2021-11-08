@@ -3,12 +3,10 @@ def cast
 end
 
 def export_hash
-  {
-    name: export_name,
-    type: type_name.codename_or_string,
-    codename: codename,
-    content: export_content
-  }
+  h = { name: export_name, type: type_name.codename_or_string }
+  h[:codename] = codename if codename.present?
+  h[:content] = export_content if export_content.present?
+  h
 end
 
 def export_name
@@ -16,7 +14,7 @@ def export_name
 end
 
 def export_content
-  db_content
+  structure ? nil : db_content
 end
 
 format :data do

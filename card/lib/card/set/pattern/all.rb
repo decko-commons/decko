@@ -60,12 +60,11 @@ class Card
         end
 
         def each_type_assigning_module_key
-          return if simple?
-
           patterns.each do |p|
-            next unless p.assigns_type && (module_key = p.module_key)
+            next unless p.assigns_type
 
-            yield module_key
+            module_key = p.module_key
+            yield module_key if module_key
           end
         end
       end
