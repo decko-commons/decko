@@ -4,10 +4,11 @@ module Cardio
     # (list of card attributes)
     # https://docs.google.com/document/d/13K_ynFwfpHwc3t5gnLeAkZJZHco1wK063nJNYwU8qfc/edit#
     class OutData
-      def initialize mod: nil, name:, env: nil
-        @mod = mod
-        @name = name
-        @env = env || :production
+      def initialize **args
+        @mod = args[:mod]
+        @name = args[:name]
+        @env = args[:env] || :production
+        @item = args[:item]
       end
 
       # @return [Array <Hash>]
@@ -37,6 +38,24 @@ module Cardio
       end
 
       private
+
+      def cards
+        if @name
+          cards_from_name
+        end
+      end
+
+      def cards_from_name
+        card = Card[@name]
+        case @item
+        when :only
+          card.item_cards
+        when true
+          [card] + card.item_cards
+        else
+          [card]
+        end
+      end
 
       def output_hash
         if target.present?
@@ -74,8 +93,6 @@ module Cardio
 
         YAML.safe_load File.read(filename), [Symbol]
       end
-
-
 
       # @return Path
       def mod_path
