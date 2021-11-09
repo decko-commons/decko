@@ -7,13 +7,14 @@ module Cardio
       def initialize **args
         @mod = args[:mod]
         @name = args[:name]
-        @env = args[:env] || :production
-        @item = args[:item]
+        @cql = args[:cql]
+        @env = args[:env] || Rails.env
+        @items = args[:items]
       end
 
       # @return [Array <Hash>]
-      def items
-        @items ||= [Card[@name].format(:yaml).render(:export)]
+      def new_data
+        @new_data ||= cards.map(&:export_hash)
       end
 
       # @return [String] -- MOD_DIR/data/ENVIRONMENT.yml
@@ -23,10 +24,11 @@ module Cardio
 
       # if output mod given,
       def out
-        @mod ? dump : puts(items.to_yaml.yellow)
+        @mod ? dump : puts(new_data.to_yaml.yellow)
         :success
-      rescue Card::Error::DataContextError => e
-        Rails.logger.info "Could not output data:\n  #{e.message}"
+      rescue Card::Error::NotFound => e
+        e.message
+      rescue JSON::ParseError => e
         e.message
       end
 
@@ -42,12 +44,16 @@ module Cardio
       def cards
         if @name
           cards_from_name
+        elsif @cql
+          Card.search JSON.parse(@cql).reverse_merge(limit: 0)
+        else
+          raise Card::Error::NotFound, "must specify either name (-n) or CQL (-c)"
         end
       end
 
       def cards_from_name
-        card = Card[@name]
-        case @item
+        card = main_card
+        case @items
         when :only
           card.item_cards
         when true
@@ -57,17 +63,21 @@ module Cardio
         end
       end
 
+      def main_card
+        Card.fetch(@name) || raise(Card::Error::NotFound, "card not found: #{@mod}")
+      end
+
       def output_hash
         if target.present?
           merge_data
           target
         else
-          items
+          new_data
         end
       end
 
       def merge_data
-        items.each do |item|
+        new_data.each do |item|
           if (index = target_index item)
             target[index] = item
           else
@@ -97,7 +107,7 @@ module Cardio
       # @return Path
       def mod_path
         Mod.dirs.subpaths("data")[@mod] ||
-          raise(Card::Error::DataContextError, "no data directory found for mod: #{@mod}")
+          raise(Card::Error::NotFound, "no data directory found for mod: #{@mod}")
       end
     end
   end
