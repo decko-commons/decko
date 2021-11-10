@@ -2,21 +2,19 @@ def cast
   real? ? { id: id } : { name: name, type_id: type_id, content: db_content }
 end
 
-def export_hash subfields=[]
+def export_hash field_tags: []
   { name: export_name, type: type_name.codename_or_string }.tap do |h|
     h[:codename] = codename if codename.present?
     h[:content] = export_content if export_content.present?
-    if subfields.present?
-      subfield_hash = export_subfields subfields
-      h[:subfields] = subfield_hash if subfield_hash.present?
-    end
+    export_subfields h, field_tags if field_tags.present?
   end
 end
 
-def export_subfields codenames
-  codenames.each_with_object({}) do |codename, hash|
-    subcontent = fetch(codename)&.export_content
-    hash[codename] = subcontent if subcontent
+def export_subfields export_hash, marks
+  marks.each do |mark|
+    next unless (subcontent = [name, mark].card&.export_content)
+    export_hash[:subfields] ||= {}
+    export_hash[:subfields][mark] = subcontent
   end
 end
 

@@ -24,7 +24,7 @@ namespace :card do
       add_opt :c, :cql, "export cards found by CQL (in JSON format)"
       add_opt :m, :mod, "output yaml to data/environment.yml file in mod"
       add_opt :e, :env, "environment to dump to (default is current env)"
-      add_opt :s, :subfields, "comma-separated list of field codes"
+      add_opt :t, :field_tags, "comma-separated list of field tag marks"
     end
     result = Cardio::Mod::OutData.new(**options).out
     exit 0 if result == :success
@@ -43,7 +43,7 @@ namespace :card do
   end
 
   def add_opt letter, key, desc
-    op.on "-#{letter}", "--#{key} #{key.to_s.upcase}", desc do |val|
+    op.on "-#{letter}", "--#{key.to_s.tr "_", "-"} #{key.to_s.upcase}", desc do |val|
       options[key] = val
     end
   end

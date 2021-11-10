@@ -10,17 +10,17 @@ module Cardio
         @cql = args[:cql]
         @env = args[:env] || Rails.env
         @items = args[:items]
-        @subfields = args[:subfields]
+        @field_tags = args[:field_tags]
       end
 
       # @return [Array <Hash>]
       def new_data
-        @new_data ||= cards.map { |c| c.export_hash subfield_codes }
+        @new_data ||= cards.map { |c| c.export_hash field_tags: field_tag_marks }
       end
 
-      def subfield_codes
-        @subfield_codes ||= @subfields.split(",").map do |mark|
-          mark.strip.card&.codename
+      def field_tag_marks
+        @field_tag_marks ||= @field_tags.to_s.split(",").map do |mark|
+          mark.strip.card&.export_name
         end
       end
 
