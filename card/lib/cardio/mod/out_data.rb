@@ -10,11 +10,18 @@ module Cardio
         @cql = args[:cql]
         @env = args[:env] || Rails.env
         @items = args[:items]
+        @subfields = args[:subfields]
       end
 
       # @return [Array <Hash>]
       def new_data
-        @new_data ||= cards.map(&:export_hash)
+        @new_data ||= cards.map { |c| c.export_hash subfield_codes }
+      end
+
+      def subfield_codes
+        @subfield_codes ||= @subfields.split(",").map do |mark|
+          mark.strip.card&.codename
+        end
       end
 
       # @return [String] -- MOD_DIR/data/ENVIRONMENT.yml
@@ -28,7 +35,7 @@ module Cardio
         :success
       rescue Card::Error::NotFound => e
         e.message
-      rescue JSON::ParseError => e
+      rescue JSON::ParserError => e
         e.message
       end
 

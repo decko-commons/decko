@@ -1,21 +1,11 @@
 require "optparse"
 
 namespace :card do
-  TASK_OPTIONS = {
-    m: :mod,
-    n: %i[name mark],
-    e: :env,
-    h: :help,
-    u: :url,
-    i: :items,
-    o: :"only-items",
-    c: :cql
-  }.freeze
-
   desc "import card data from mod yaml"
   task in: :environment do
-    parse_options :in do |op|
-
+    parse_options :in do
+      add_opt :m, :mod, "only merge cards in given mod"
+      add_opt :e, :env, "environment of yaml source (default is current env)"
     end
     Cardio::Mod::InData.new(**options).merge
     exit 0
@@ -23,7 +13,7 @@ namespace :card do
 
   desc "export card data to mod yaml"
   task out: :environment do
-    parse_options :out do |op|
+    parse_options :out do
       add_opt :n, :name, "export card with name/mark (handles : and ~ prefixes)"
       op.on "-i", "--items", "also export card items (with -n)" do
         options[:items] = true
@@ -34,7 +24,7 @@ namespace :card do
       add_opt :c, :cql, "export cards found by CQL (in JSON format)"
       add_opt :m, :mod, "output yaml to data/environment.yml file in mod"
       add_opt :e, :env, "environment to dump to (default is current env)"
-
+      add_opt :s, :subfields, "comma-separated list of field codes"
     end
     result = Cardio::Mod::OutData.new(**options).out
     exit 0 if result == :success
@@ -63,9 +53,10 @@ namespace :card do
   end
 
   def parse_options task
-    op.banner = "Usage: rake card:#{task} [options]"
-    yield op if block_given?
+    op.banner = "Usage: rake card:#{task} -- [options]"
+    yield if block_given?
     args = op.order!(ARGV) {}
+    args << "-h" if args.empty?
     op.parse! args
   end
 end
