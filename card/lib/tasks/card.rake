@@ -56,7 +56,7 @@ namespace :card do
     op.banner = "Usage: rake card:#{task} -- [options]"
     yield if block_given?
     args = op.order!(ARGV) {}
-    args << "-h" if args.empty?
+    # args << "-h" if args.empty?
     op.parse! args
   end
 end

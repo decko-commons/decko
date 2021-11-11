@@ -20,7 +20,7 @@ module Cardio
 
       def field_tag_marks
         @field_tag_marks ||= @field_tags.to_s.split(",").map do |mark|
-          mark.strip.card&.export_name
+          mark.strip.cardname.codename_or_string
         end
       end
 
