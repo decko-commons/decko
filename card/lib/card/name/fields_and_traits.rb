@@ -33,6 +33,8 @@ class Card
         end
       end
 
+      # name is relative name containing only the rightmost part
+      # @return [True/False]
       def field_only?
         relative? && stripped.to_name.parts.reject(&:blank?).first == parts.last
       end
