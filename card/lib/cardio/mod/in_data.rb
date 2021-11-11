@@ -18,7 +18,7 @@ module Cardio
         Card::Auth.as_bot do
           items.each do |item|
             card = ensure_card item
-            puts "merged #{card.name}".green
+            puts "in deck: #{card.name}".green
           end
         end
       end
