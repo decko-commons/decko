@@ -8,10 +8,11 @@ module Cardio
     class Eat
       include Card::Model::SaveHelper
 
-      def initialize mod: nil, env: nil, user: nil
+      def initialize mod: nil, env: nil, user: nil, verbose: nil
         @mod = mod
         @env = env
         @user_id = user&.card_id
+        @verbose = !verbose.nil?
       end
 
       def up
@@ -19,11 +20,11 @@ module Cardio
         Card::Auth.as_bot do
           items.each do |item|
             track do
-              # FIXME: should not have to clear cache or handle delayed jobs.
-              # Without this relationship metrics are not getting added correctly.
-              Card::Cache.reset
-              Delayed::Worker.new.work_off
-
+              # # FIXME: should not have to clear cache or handle delayed jobs.
+              # # Without this relationship metrics are not getting added correctly.
+              # Card::Cache.reset
+              # Delayed::Worker.new.work_off
+              #
               current_user item.delete(:user)
               ensure_card item
             end
@@ -51,10 +52,10 @@ module Cardio
 
       def track
         card = yield
-        puts "eaten: #{card.name}".green
+        puts "eaten: #{card.name}".green if @verbose
       rescue StandardError => e
         puts e.message.red
-        puts e.backtrace.join("\n")
+        puts e.backtrace.join("\n") if @verbose
       end
 
       def mod_paths path

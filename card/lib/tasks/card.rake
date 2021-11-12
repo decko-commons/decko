@@ -7,6 +7,7 @@ namespace :card do
       add_opt :m, :mod, "only merge cards in given mod"
       add_opt :e, :env, "environment of yaml source (default is current env)"
       add_opt :u, :user, "user to credit unless specified (otherwise uses Decko Bot)"
+      flag_opt :v, :verbose, "progress info and error backtraces"
     end
     Cardio::Mod::Eat.new(**options).up
     exit 0
@@ -16,8 +17,8 @@ namespace :card do
   task barf: :environment do
     parse_options :out do
       add_opt :n, :name, "export card with name/mark (handles : and ~ prefixes)"
-      item_opt :i, :items, "also export card items (with -n)", true
-      item_opt :o, :only_items, "also export card items (with -n)", :only
+      flag_opt :i, :items, "also export card items (with -n)"
+      flag_opt :o, :only_items, "also export card items (with -n)", items: :only
       add_opt :c, :cql, "export cards found by CQL (in JSON format)"
       add_opt :m, :mod, "output yaml to data/environment.yml file in mod"
       add_opt :e, :env, "environment to dump to (default is current env)"
@@ -39,8 +40,9 @@ namespace :card do
     @options ||= {}
   end
 
-  def item_opt letter, key, desc, val
-    op.on("-#{letter}", "--#{key.to_s.tr '_', '-'}", desc) { options[:items] = val }
+  def flag_opt letter, key, desc, hash=nil
+    hash ||= { key => true }
+    op.on("-#{letter}", "--#{key.to_s.tr '_', '-'}", desc) { options.merge! hash }
   end
 
   def add_opt letter, key, desc
