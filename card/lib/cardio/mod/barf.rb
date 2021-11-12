@@ -3,7 +3,7 @@ module Cardio
     # export data to data directory of mods
     # (list of card attributes)
     # https://docs.google.com/document/d/13K_ynFwfpHwc3t5gnLeAkZJZHco1wK063nJNYwU8qfc/edit#
-    class OutData
+    class Barf
       def initialize **args
         @mod = args[:mod]
         @name = args[:name]

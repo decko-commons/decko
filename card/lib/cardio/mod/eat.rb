@@ -5,22 +5,28 @@ module Cardio
     # import data from data directory of mods
     # (list of card attributes)
     # https://docs.google.com/document/d/13K_ynFwfpHwc3t5gnLeAkZJZHco1wK063nJNYwU8qfc/edit#
-    class InData
+    class Eat
       include Card::Model::SaveHelper
 
-      def initialize mod: nil, env: nil
+      def initialize mod: nil, env: nil, user: nil
         @mod = mod
         @env = env
+        @user_id = user&.card_id
       end
 
-      def merge
+      def up
         Card::Mailer.perform_deliveries = false
         Card::Auth.as_bot do
           items.each do |item|
-            card = ensure_card item
-            Card::Cache.reset
-            Delayed::Worker.new.work_off
-            puts "in deck: #{card.name}".green
+            track do
+              # FIXME: should not have to clear cache or handle delayed jobs.
+              # Without this relationship metrics are not getting added correctly.
+              Card::Cache.reset
+              Delayed::Worker.new.work_off
+
+              current_user item.delete(:user)
+              ensure_card item
+            end
           end
         end
       end
@@ -38,6 +44,18 @@ module Cardio
       end
 
       private
+
+      def current_user item_user
+        Card::Auth.current_id = item_user&.card_id || @user_id || Card::WagnBotID
+      end
+
+      def track
+        card = yield
+        puts "eaten: #{card.name}".green
+      rescue StandardError => e
+        puts e.message.red
+        puts e.backtrace.join("\n")
+      end
 
       def mod_paths path
         return [path] if path && File.exist?(path)
