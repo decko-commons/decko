@@ -18,6 +18,8 @@ module Cardio
         Card::Auth.as_bot do
           items.each do |item|
             card = ensure_card item
+            Card::Cache.reset
+            Delayed::Worker.new.work_off
             puts "in deck: #{card.name}".green
           end
         end
