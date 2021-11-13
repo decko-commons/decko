@@ -1,7 +1,7 @@
 include_set Abstract::Pointer
 include_set Abstract::ReadOnly
 
-def item_cards args = {}
+def item_cards _args={}
   local_group_cards
 end
 

@@ -1,6 +1,4 @@
-# TODO We can't detect file removal for folder group
-# TODO Update seed data
-# TODO minimize
+# TODO: We can't detect file removal for folder group
 
 include_set List
 

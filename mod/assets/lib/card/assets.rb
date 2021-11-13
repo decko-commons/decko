@@ -1,4 +1,5 @@
 class Card
+  # Provides methods to refresh script and style assets
   module Assets
     REFRESHED = "ASSETS_REFRESHED".freeze
 
@@ -8,7 +9,7 @@ class Card
           JavaScriptID,
           CoffeeScriptID,
           CssID,
-          ScssID,
+          ScssID
         ]
       end
 
@@ -25,7 +26,7 @@ class Card
 
       def asset_inputters
         Card.search(type_id: inputter_types.unshift("in")) +
-          Card.search(left: { type_id: Card::ModID }, right: { codename: ["in", "style", "script"] })
+          Card.search(left: { type_id: Card::ModID }, right: { codename: %w[in style script] })
       end
 
       def active_theme_cards

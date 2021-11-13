@@ -16,9 +16,11 @@ format :js do
   end
 
   def compress input
-    return input unless compress?
+    compress? ? try_compress(input) : input
+  end
 
-    Uglifier.compile input
+  def try_compress input
+    Uglifier.compile(input)
   rescue StandardError => e
     # CoffeeScript is compiled in a view
     # If there is a CoffeeScript syntax error we get the rescued view here

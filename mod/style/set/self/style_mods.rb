@@ -4,4 +4,3 @@ include_set Abstract::AssetInputter, input_format: :scss
 def dependent_asset_inputters
   Card::Assets.active_theme_cards
 end
-

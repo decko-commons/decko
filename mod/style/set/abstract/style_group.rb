@@ -35,4 +35,3 @@ format :html do
     stylesheet_include_tag card.asset_output_url
   end
 end
-

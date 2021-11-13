@@ -68,8 +68,21 @@ class DeathToMachines < Cardio::Migration::Core
        mod_script_assets
        mod_style_assets
        style_bootstrap_compatible
-       style_right_sidebar].each do |codename|
+       style_right_sidebar
+       style_bootstrap_mixins
+       style_bootstrap_breakpoints
+       script_bootstrap
+       script_select2
+       script_datepicker
+       script_jquery_helper
+       style_jquery_ui_smoothness
+       style_cards].each do |codename|
       delete_code_card codename
+    end
+
+    %w[cerulean cosmo cyborg darkly flatly journal lumen paper readable sandstone simplex
+           slate spacelab superhero united yeti bootstrap_default].each do |theme|
+       delete_code_card "theme_#{theme}"
     end
   end
 
@@ -86,8 +99,11 @@ class DeathToMachines < Cardio::Migration::Core
      "themeless bootstrap skin",
      "style: traditional",
      "style: common",
-     "style: glyphicons"].each do |old_skin|
-      delete_card old_skin
+     "style: glyphicons",
+     "classic bootstrap skin+*colors",
+     "classic bootstrap skin+*variables",
+     "style: classic cards"].each do |doomed|
+      delete_card doomed
     end
   end
 
@@ -102,4 +118,5 @@ class DeathToMachines < Cardio::Migration::Core
       card.delete! skip: :asset_input_changed_on_delete
     end
   end
+
 end

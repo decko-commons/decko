@@ -10,11 +10,13 @@ RSpec.describe Card::Set::Type::CoffeeScript do
     ensure_card name, type: Card::CoffeeScriptID, content: content
   end
 
-  it_behaves_like "asset inputter", that_produces: :js   do
+  it_behaves_like "asset inputter", that_produces: :js do
     let(:create_asset_inputter_card) do
-      create_coffee_card"coffee inputter", coffee
+      create_coffee_card "coffee inputter", coffee
     end
-    let(:create_another_asset_inputter_card) { create_coffee_card"more coffeee", changed_coffee }
+    let(:create_another_asset_inputter_card) do
+      create_coffee_card"more coffeee", changed_coffee
+    end
     let(:create_outputter_card) do
       ensure_card "coffee machine", type: :pointer
     end

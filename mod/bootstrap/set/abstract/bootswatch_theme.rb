@@ -72,7 +72,7 @@ end
 
 def scss_from_theme_file file
   return "" unless (path = ::File.join(source_dir, "_#{file}.scss")) &&
-    ::File.exist?(path)
+                   ::File.exist?(path)
 
   ::File.read path
 end
@@ -129,4 +129,3 @@ def source_dir
     "#{mod_root :bootstrap}/vendor/bootswatch/dist/#{theme_name}", __FILE__
   )
 end
-

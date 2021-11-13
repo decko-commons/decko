@@ -57,7 +57,6 @@ end
 def storage_type
   @storage_type ||=
     new_card? ? storage_type_from_config : storage_type_from_content
-
 end
 
 def deprecated_mod_file?
@@ -157,10 +156,9 @@ end
 
 def validate_temporary_storage_type_change type=nil
   return unless type ||= @new_storage_type
+
   raise Error, unknown_storage_type(type) unless known_storage_type? type
-  if type == :coded && codename.blank?
-    raise Error, "codename needed for storage type :coded"
-  end
+  raise Error, "codename needed for storage type :coded" if coded_without_codename? type
 end
 
 def known_storage_type? type=storage_type
@@ -169,6 +167,10 @@ end
 
 def unknown_storage_type type
   t :carrierwave_unknown_storage_type, new_storage_type: type
+end
+
+def coded_without_codename? type
+  type == :coded && codename.blank?
 end
 
 def file_updated_at

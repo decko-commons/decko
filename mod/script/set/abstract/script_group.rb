@@ -25,4 +25,3 @@ end
 def javascript_constants
   { type_id: JavaScriptID, set_module: Abstract::AssetJavaScript }
 end
-

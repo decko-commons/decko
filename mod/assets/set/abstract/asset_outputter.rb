@@ -31,7 +31,7 @@ def update_asset_output_live
   card_path asset_output_url
 end
 
-def input_from_item_cards joint = "\n"
+def input_from_item_cards joint="\n"
   input_item_cards.map(&:asset_input_content).compact.join(joint)
 end
 
@@ -56,7 +56,7 @@ view :asset_output_url do
   asset_output_url
 end
 
-def make_asset_output_coded mod = :assets
+def make_asset_output_coded mod=:assets
   Card::Auth.as_bot do
     ENV["STORE_CODED_FILES"] = "true"
     asset_output_card.update! storage_type: :coded, mod: mod,

@@ -58,7 +58,11 @@ format :css do
   end
 
   def compress input
-    compress? ? SassC::Engine.new(input, style: :compressed).render : input
+    compress? ? try_compress(input) : input
+  end
+
+  def try_compress input
+    SassC::Engine.new(input, style: :compressed).render
   rescue StandardError => e
     raise Card::Error, css_compression_error(e)
   end
