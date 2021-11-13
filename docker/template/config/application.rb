@@ -38,8 +38,8 @@ module DockerDeck
       domain: ENV["DECKO_SMTP_DOMAIN"] || ENV["DECKO_SMTP_ADDRESS"],
       user_name: ENV["DECKO_SMTP_USER"],
       password: ENV["DECKO_SMTP_PASSWORD"],
-      authentication: :login,
-      port: 465,
+      authentication: ENV["DECKO_SMTP_AUTHENTICATION"],
+      port: ENV["DECKO_SMTP_PORT"],
       enable_starttls_auto: false,
       ssl: true,
       tls: true

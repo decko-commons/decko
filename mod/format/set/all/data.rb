@@ -2,11 +2,26 @@ def cast
   real? ? { id: id } : { name: name, type_id: type_id, content: db_content }
 end
 
-def export_hash
-  h = { name: export_name, type: type_name.codename_or_string }
-  h[:codename] = codename if codename.present?
-  h[:content] = export_content if export_content.present?
-  h
+def export_hash field_tags: []
+  export_name_and_type do |h|
+    h[:codename] = codename if codename.present?
+    h[:content] = export_content if export_content.present?
+    export_subfields h, field_tags if field_tags.present?
+  end
+end
+
+def export_name_and_type
+  { name: export_name, type: type_name.codename_or_string }.tap do |hash|
+    yield hash
+  end
+end
+
+def export_subfields export_hash, marks
+  marks.each do |mark|
+    next unless (subcontent = [name, mark].card&.export_content)
+    export_hash[:subfields] ||= {}
+    export_hash[:subfields][mark] = subcontent
+  end
 end
 
 def export_name
