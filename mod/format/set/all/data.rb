@@ -3,10 +3,16 @@ def cast
 end
 
 def export_hash field_tags: []
-  { name: export_name, type: type_name.codename_or_string }.tap do |h|
+  export_name_and_type do |h|
     h[:codename] = codename if codename.present?
     h[:content] = export_content if export_content.present?
     export_subfields h, field_tags if field_tags.present?
+  end
+end
+
+def export_name_and_type
+  { name: export_name, type: type_name.codename_or_string }.tap do |hash|
+    yield hash
   end
 end
 
