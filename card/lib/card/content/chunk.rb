@@ -89,6 +89,7 @@ class Card
       register_list :nest_only, [:Nest]
       register_list :query, [:QueryReference]
       register_list :stub, [:ViewStub]
+      register_list :none, []
     end
   end
 end
