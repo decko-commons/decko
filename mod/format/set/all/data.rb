@@ -3,25 +3,17 @@ def cast
 end
 
 def export_hash field_tags: []
-  export_name_and_type do |h|
-    h[:codename] = codename if codename.present?
-    h[:content] = export_content if export_content.present?
-    export_subfields h, field_tags if field_tags.present?
-  end
+  { name: export_name,
+    type: type_name.codename_or_string,
+    codename: codename,
+    content: export_content,
+    subfields: export_subfields(field_tags) }.compact_blank
 end
 
-def export_name_and_type
-  { name: export_name, type: type_name.codename_or_string }.tap do |hash|
-    yield hash
-  end
-end
-
-def export_subfields export_hash, marks
-  marks.each do |mark|
-    next unless (subcontent = [name, mark].card&.export_content)
-    export_hash[:subfields] ||= {}
-    export_hash[:subfields][mark] = subcontent
-  end
+def export_subfields marks
+  marks.each_with_object({}) do |mark, hash|
+    hash[mark] = [name, mark].card&.export_content
+  end.compact_blank
 end
 
 def export_name
