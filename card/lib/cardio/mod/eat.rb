@@ -1,3 +1,5 @@
+require "timecop"
+
 DATA_ENVIRONMENTS = %i[production development test].freeze
 
 module Cardio
@@ -26,7 +28,9 @@ module Cardio
               # Delayed::Worker.new.work_off
               #
               current_user item.delete(:user)
-              ensure_card item
+              time_machine item.delete(:time) do
+                ensure_card item
+              end
             end
           end
         end
@@ -45,6 +49,17 @@ module Cardio
       end
 
       private
+
+      def time_machine value, &block
+        return yield unless value.present?
+        Timecop.freeze Time.at(time_integer(value)), &block
+      end
+
+      def time_integer value
+        return value unless value.match?(/^[+-]/)
+
+        eval "#{Time.now.to_i} #{value}"
+      end
 
       def current_user item_user
         Card::Auth.current_id = item_user&.card_id || @user_id || Card::WagnBotID
@@ -68,8 +83,21 @@ module Cardio
       def mod_items mod_path
         environments.map do |env|
           filename = File.join mod_path, "#{env}.yml"
-          YAML.load_file filename if File.exist? filename
+          next unless File.exist? filename
+
+          handle_files mod_path do
+            YAML.load_file filename
+          end
         end.compact
+      end
+
+      def handle_files mod_path
+        items = yield
+        items.each do |item|
+          next unless (filename = item[:file])
+
+          item[:file] = File.open File.join(mod_path, "files", filename)
+        end
       end
 
       # @return [Array <Symbol>]
