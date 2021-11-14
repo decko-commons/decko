@@ -14,7 +14,7 @@ namespace :card do
   end
 
   desc "export card data to mod yaml"
-  task barf: :environment do
+  task poop: :environment do
     parse_options :out do
       add_opt :n, :name, "export card with name/mark (handles : and ~ prefixes)"
       flag_opt :i, :items, "also export card items (with -n)"
@@ -24,10 +24,10 @@ namespace :card do
       add_opt :e, :env, "environment to dump to (default is current env)"
       add_opt :t, :field_tags, "comma-separated list of field tag marks"
     end
-    result = Cardio::Mod::Barf.new(**options).out
+    result = Cardio::Mod::Poop.new(**options).out
     exit 0 if result == :success
 
-    puts "ERROR in card:barf\n  #{result}".red
+    puts "ERROR in card:poop\n  #{result}".red
     exit 1
   end
 
