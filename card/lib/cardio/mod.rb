@@ -68,7 +68,7 @@ module Cardio
 
     def initialize name, path, index
       @name = Mod.normalize_name name
-      @path = path
+      @path = required_path path
       @index = index
     end
 
@@ -100,6 +100,12 @@ module Cardio
     end
 
     private
+
+    def required_path path
+      return path if File.exist? path
+
+      raise Card::Error::NotFound, "mod not found: #{@name}"
+    end
 
     def ensure_card
       if Card::Codename.exists? codename
