@@ -88,9 +88,6 @@ class Card
     class CodenameNotFound < NotFound
     end
 
-    class DataContextError < NotFound
-    end
-
     # two editors altering the same card at once
     class EditConflict < UserError
       self.status_code = 409

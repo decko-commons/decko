@@ -1,4 +1,4 @@
-return unless Cardio.config.active_job.queue_adapter == :delayed_job
+Cardio.config.active_job.queue_adapter = :delayed_job
 
 Cardio.config.tap do |cc|
   cc.delaying = true unless cc.delaying == false
