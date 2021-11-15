@@ -1,4 +1,4 @@
-MOD_FILE_DIR = "file".freeze
+MOD_FILE_DIR = "data/files".freeze
 
 def store_dir
   will_become_coded? ? coded_dir(@new_mod) : upload_dir
@@ -15,7 +15,7 @@ end
 
 # place for files of mod file cards
 def coded_dir new_mod=nil
-  dir = File.join mod_dir(new_mod), MOD_FILE_DIR, codename.to_s
+  dir = File.join mod_dir(new_mod), MOD_FILE_DIR
   FileUtils.mkdir_p(dir) unless File.directory?(dir)
   dir
 end
