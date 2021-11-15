@@ -145,7 +145,7 @@ module CarrierWave
 
     def filename
       if model.coded?
-        "#{model.type_code}#{extension}"
+        "#{model.codename}#{extension}"
       else
         "#{action_id}#{extension}"
       end

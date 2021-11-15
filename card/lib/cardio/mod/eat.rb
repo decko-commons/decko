@@ -35,16 +35,23 @@ module Cardio
       # list of card attribute hashes
       # @return [Array <Hash>]
       def items
-        paths.map { |mod_path| mod_items mod_path }.flatten
-      end
-
-      # @return [Array <String>]
-      def paths
-        hash = Mod.dirs.subpaths "data"
-        @mod ? mod_paths(hash[@mod]) : hash.values
+        mods_with_data.map { |mod| mod_items mod }.flatten
       end
 
       private
+
+      # @return [Array <Cardio::Mod>]
+      def mods_with_data
+        paths = Mod.dirs.subpaths "data"
+        mod_names = @mod ? ensure_mod_data(paths) : paths.keys
+        mod_names.map { |mod_name| Mod.fetch mod_name }
+      end
+
+      def ensure_mod_path paths
+        return [@mod] if paths[@mod]
+
+        raise "no data directory found for mod #{@mod}".red
+      end
 
       def time_machine value, &block
         return yield unless value.present?
@@ -76,22 +83,21 @@ module Cardio
         puts e.backtrace.join("\n") if @verbose
       end
 
-      def mod_paths path
-        return [path] if path && File.exist?(path)
-
-        raise "no data directory found for mod #{@mod}".red
-      end
-
       # @return [Array <Hash>]
-      def mod_items mod_path
+      def mod_items mod
         environments.map do |env|
-          filename = File.join mod_path, "#{env}.yml"
-          next unless File.exist? filename
+          next unless (items = items_for_environment mod, env)
 
-          each_card_hash YAML.load_file(filename) do |hash|
-            handle_file hash, mod_path
+          each_card_hash items do |hash|
+            handle_file mod, hash
           end
         end.compact
+      end
+
+      def items_for_environment mod, env
+        return unless (filename = mod.subpath "data/#{env}.yml")
+
+        YAML.load_file filename
       end
 
       def each_card_hash items
@@ -102,10 +108,12 @@ module Cardio
         items
       end
 
-      def handle_file hash, mod_path
+      def handle_file mod, hash
         return unless (filename = hash[:file])
 
-        hash[:file] = File.open File.join(mod_path, "files", filename)
+        hash[:file] = File.open mod.subpath("data/files", filename)
+        hash[:mod] = mod.name if hash[:storage_type] == :coded
+        # hash.merge! storage_type: :coded, mod: mod.name, file: file
       end
 
       # @return [Array <Symbol>]
