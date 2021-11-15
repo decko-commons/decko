@@ -18,6 +18,7 @@ module Cardio
       end
 
       def up
+        Card::Cache.reset_all
         Card::Mailer.perform_deliveries = false
         Card::Auth.as_bot do
           items.each do |item|
@@ -52,9 +53,15 @@ module Cardio
       end
 
       def time_integer value
-        return value unless value.match?(/^[+-]/)
-
-        eval "#{Time.now.to_i} #{value}", binding, __FILE__, __LINE__
+        case value
+        when /^[+-]\d+$/
+          # plus or minus an integer (safe to eval)
+          eval "#{Time.now.to_i} #{value}", binding, __FILE__, __LINE__
+        when Integer
+          value
+        else
+          raise TypeError, "invalid time value: #{value}. accepts int, +int, and -int"
+        end
       end
 
       def current_user item_user

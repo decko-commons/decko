@@ -31,6 +31,7 @@ module Cardio
 
       # if output mod given,
       def out
+        Card::Cache.reset_all
         @mod ? dump : puts(new_data.to_yaml.yellow)
         :success
       rescue Card::Error::NotFound => e
