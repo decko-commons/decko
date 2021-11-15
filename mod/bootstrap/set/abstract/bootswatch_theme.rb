@@ -120,7 +120,7 @@ def stylesheets_content
 end
 
 def load_content *names
-  cards = names.flatten.map { |n| Card.fetch(n)&.extended_item_cards } # TODO
+  cards = names.flatten.map { |n| puts n; Card.fetch(n)&.extended_item_cards } # TODO
   cards.flatten.compact.map(&:content).join "\n"
 end
 

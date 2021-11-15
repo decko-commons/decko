@@ -15,7 +15,7 @@ end
 def item_cards _args={}
   relative_paths.map do |path|
     new_asset_file_card path
-  end
+  end.compact
 end
 
 def new_asset_file_card path, name=::File.basename(path)

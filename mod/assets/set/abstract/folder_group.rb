@@ -10,7 +10,13 @@ end
 def relative_paths
   return [] unless (path = assets_path)
 
-  Dir.children path
+  Dir.chdir(path) do
+    Dir.glob search_path
+  end
+end
+
+def search_path
+  File.join "**", "*.{#{valid_file_extensions.join(",")}}"
 end
 
 def base_path

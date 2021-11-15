@@ -14,6 +14,10 @@ format :scss do
   end
 end
 
+def valid_file_extensions
+  %w[css scss]
+end
+
 def new_asset_constants path
   if path.ends_with? ".scss"
     scss_constants

@@ -92,6 +92,9 @@ def validate_manifest manifest
   end
   manifest.each do |name, config|
     raise_manifest_error "no items section in group \"#{name}\"" unless config["items"]
+    unless config["items"].is_a? Array
+      raise_manifest_error "items section \"#{name}\" must contain a list"
+    end
   end
 end
 

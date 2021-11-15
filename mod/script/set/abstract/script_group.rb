@@ -25,3 +25,7 @@ end
 def javascript_constants
   { type_id: JavaScriptID, set_module: Abstract::AssetJavaScript }
 end
+
+def valid_file_extensions
+  %w[js coffee]
+end
