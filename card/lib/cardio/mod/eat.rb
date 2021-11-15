@@ -22,11 +22,6 @@ module Cardio
         Card::Auth.as_bot do
           items.each do |item|
             track do
-              # # FIXME: should not have to clear cache or handle delayed jobs.
-              # # Without this relationship metrics are not getting added correctly.
-              # Card::Cache.reset
-              # Delayed::Worker.new.work_off
-              #
               current_user item.delete(:user)
               time_machine item.delete(:time) do
                 ensure_card item
@@ -52,13 +47,14 @@ module Cardio
 
       def time_machine value, &block
         return yield unless value.present?
+
         Timecop.freeze Time.at(time_integer(value)), &block
       end
 
       def time_integer value
         return value unless value.match?(/^[+-]/)
 
-        eval "#{Time.now.to_i} #{value}"
+        eval "#{Time.now.to_i} #{value}", binding, __FILE__, __LINE__
       end
 
       def current_user item_user
@@ -85,19 +81,24 @@ module Cardio
           filename = File.join mod_path, "#{env}.yml"
           next unless File.exist? filename
 
-          handle_files mod_path do
-            YAML.load_file filename
+          each_card_hash YAML.load_file(filename) do |hash|
+            handle_file hash, mod_path
           end
         end.compact
       end
 
-      def handle_files mod_path
-        items = yield
+      def each_card_hash items
         items.each do |item|
-          next unless (filename = item[:file])
-
-          item[:file] = File.open File.join(mod_path, "files", filename)
+          yield item
+          item[:subfields]&.values&.each { |val| yield val if val.is_a? Hash }
         end
+        items
+      end
+
+      def handle_file hash, mod_path
+        return unless (filename = hash[:file])
+
+        hash[:file] = File.open File.join(mod_path, "files", filename)
       end
 
       # @return [Array <Symbol>]
