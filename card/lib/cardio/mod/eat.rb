@@ -43,11 +43,11 @@ module Cardio
       # @return [Array <Cardio::Mod>]
       def mods_with_data
         paths = Mod.dirs.subpaths "data"
-        mod_names = @mod ? ensure_mod_data(paths) : paths.keys
+        mod_names = @mod ? ensure_mod_data_path(paths) : paths.keys
         mod_names.map { |mod_name| Mod.fetch mod_name }
       end
 
-      def ensure_mod_path paths
+      def ensure_mod_data_path paths
         return [@mod] if paths[@mod]
 
         raise "no data directory found for mod #{@mod}".red
@@ -109,11 +109,16 @@ module Cardio
       end
 
       def handle_file mod, hash
-        return unless (filename = hash[:file])
+        attachment_keys.each do |key|
+          next unless (filename = hash[key.to_sym])
 
-        hash[:file] = File.open mod.subpath("data/files", filename)
-        hash[:mod] = mod.name if hash[:storage_type] == :coded
-        # hash.merge! storage_type: :coded, mod: mod.name, file: file
+          hash[key.to_sym] = File.open mod.subpath("data/files", filename)
+          hash[:mod] = mod.name if hash[:storage_type] == :coded
+        end
+      end
+
+      def attachment_keys
+        @attachment_keys ||= Card.uploaders.keys
       end
 
       # @return [Array <Symbol>]
