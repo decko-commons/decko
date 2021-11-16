@@ -5,7 +5,8 @@ RSpec.describe Card::Set::Abstract::ModAssets do
 
   it "has two groups" do
     expect(style.item_names)
-      .to eq ["mod: bootstrap+*style+group: bootstrap_decko", "mod: bootstrap+*style+group: libraries"]
+      .to eq ["mod: bootstrap+*style+group: bootstrap_decko",
+              "mod: bootstrap+*style+group: libraries"]
   end
 
   specify "core view" do
@@ -18,7 +19,7 @@ RSpec.describe Card::Set::Abstract::ModAssets do
     card = Card[:all, :style]
     # Card::Assets.refresh_assets
     Card["mod: bootstrap"].ensure_mod_style_card
-    input = Card["mod: bootstrap+*style+asset input"]
+    # input = Card["mod: bootstrap+*style+asset input"]
     card.update_asset_output
     card.make_asset_output_coded
     content = card.asset_output_card.file.file.read

@@ -21,7 +21,7 @@ def ensure_mod_asset_card asset_type
   return if asset_card.no_action?
   asset_card.save! if asset_card.new? || asset_card.codename.blank?
 
-  if asset_card.has_content?
+  if asset_card.content?
     add_mod_asset_card asset_type
     asset_card.refresh_asset
   else
