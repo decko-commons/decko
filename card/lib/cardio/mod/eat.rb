@@ -88,16 +88,26 @@ module Cardio
         environments.map do |env|
           next unless (items = items_for_environment mod, env)
 
-          each_card_hash items do |hash|
-            handle_file mod, hash
+          if items.first.is_a? String
+            items = items.map do |filename|
+              items_for_environment mod, env, filename
+            end.flatten
           end
+          interpret_items mod, items
         end.compact
       end
 
-      def items_for_environment mod, env
-        return unless (filename = mod.subpath "data/#{env}.yml")
+      def interpret_items mod, items
+        each_card_hash items do |hash|
+          handle_file mod, hash
+        end
+      end
 
-        YAML.load_file filename
+      def items_for_environment mod, env, filename=nil
+        source = "#{env}#{'/' if filename.present?}#{filename}.yml"
+        return unless (path = mod.subpath "data", source)
+
+        YAML.load_file path
       end
 
       def each_card_hash items
