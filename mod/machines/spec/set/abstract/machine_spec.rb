@@ -5,7 +5,7 @@ RSpec.describe Card::Set::Abstract::Machine do
     it "creates coded file" do
       mod_path = Cardio::Mod.dirs.path "script"
       path = File.join mod_path,
-                       "file", "mod_script_script_decko_machine_output", "file.js"
+                       "data/files/mod_script_script_decko_machine_output/file.js"
       expect(File).to be_exist(path),
                       "Decko should be shipped with generated script files"
 
