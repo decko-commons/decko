@@ -85,21 +85,23 @@ module Cardio
 
       # @return [Array <Hash>]
       def mod_items mod
-        environments.map do |env|
-          next unless (items = items_for_environment mod, env)
+        environments.map { |env| items_for_environment mod, env }.compact
+      end
 
-          if items.first.is_a? String
-            items.map! { |filename| items_for_environment mod, env, filename }.flatten
-          end
-          interpret_items mod, items
-        end.compact
+      def items_for_environment mod, env
+        return unless (items = items_from_yaml mod, env)
+
+        if items.first.is_a? String
+          items.map! { |filename| items_from_yaml mod, env, filename }
+        end
+        interpret_items mod, items
       end
 
       def interpret_items mod, items
-        each_card_hash items { |hash| handle_attachments mod, hash }
+        each_card_hash(items) { |hash| handle_attachments mod, hash }
       end
 
-      def items_for_environment mod, env, filename=nil
+      def items_from_yaml mod, env, filename=nil
         source = "#{env}#{'/' if filename.present?}#{filename}.yml"
         return unless (path = mod.subpath "data", source)
 
@@ -115,11 +117,15 @@ module Cardio
       end
 
       def handle_attachments mod, hash
-        attachment_keys.each do |key|
-          next unless (filename = hash[key])
-
+        attachments hash do |key, filename|
           hash[key] = mod_file mod, filename
           hash[:mod] = mod.name if hash[:storage_type] == :coded
+        end
+      end
+
+      def attachments hash
+        attachment_keys.each do |key|
+          yield key, hash[key] if hash.key? key
         end
       end
 
