@@ -50,7 +50,7 @@ RSpec.describe Card::Set::Type::Scss do
   describe "scss format" do
     it "doesn't compile scss in core view" do
       content = "$white: #fff;\np { background: $white; }"
-      rendered = render_card :core, { content: content, type: :css }, format: :scss
+      rendered = render_card :core, { content: content, type: :css }, { format: :scss }
       expect(rendered).to eq content
     end
   end

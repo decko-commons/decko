@@ -2,21 +2,13 @@
 
 class DeathToMachines < Cardio::Migration::Core
   DEPRECATED_CODE_NAMES = %i[
-    machine_input
-    machine_output
-    machine_cache
+    machine_input machine_output machine_cache
     style_media
-    style_prosemirror
-    script_prosemirror
-    script_prosemirror_config
-    script_ace
-    script_ace_config
-    script_datepicker_config
-    style_datepicker
-    script_tinymce
-    script_tinymce_config
-    script_load_select2
-    style_select2
+    style_prosemirror script_prosemirror script_prosemirror_config
+    script_ace script_ace_config
+    script_datepicker_config style_datepicker
+    script_tinymce script_tinymce_config
+    script_load_select2 style_select2 script_select2
     style_bootstrap_cards
     font_awesome
     material_icons
@@ -24,8 +16,7 @@ class DeathToMachines < Cardio::Migration::Core
     style_select2_bootstrap
     style_libraries
     script_html5shiv_printshiv
-    smartmenu_css
-    smartmenu_js
+    smartmenu_css smartmenu_js
     mod_script_assets
     mod_style_assets
     style_bootstrap_compatible
@@ -33,11 +24,21 @@ class DeathToMachines < Cardio::Migration::Core
     style_bootstrap_mixins
     style_bootstrap_breakpoints
     script_bootstrap
-    script_select2
     script_datepicker
     script_jquery_helper
     style_jquery_ui_smoothness
     style_cards
+  ].freeze
+
+  DEPRECATED_CARD_NAMES = [
+     "simple skin",
+     "themeless bootstrap skin",
+     "style: traditional",
+     "style: common",
+     "style: glyphicons",
+     "classic bootstrap skin+*colors",
+     "classic bootstrap skin+*variables",
+     "style: classic cards"
   ].freeze
 
   def up
@@ -65,10 +66,10 @@ class DeathToMachines < Cardio::Migration::Core
   private
 
   def update_mod_asset_type_id
-    if Card::Codename.exists? "mod_script_assets"
-      Card.search type_id: ["in", Card::ModScriptAssetsID, Card::ModStyleAssetsID] do |card|
-        card.update! type_id: Card::ListID, skip: [:validate_asset_inputs, :update_asset_output_file]
-      end
+    return unless Card::Codename.exists? "mod_script_assets"
+
+    Card.search type_id: ["in", Card::ModScriptAssetsID, Card::ModStyleAssetsID] do |card|
+      card.update! type_id: Card::ListID, skip: %i[validate_asset_inputs update_asset_output_file]
     end
   end
 
@@ -84,8 +85,9 @@ class DeathToMachines < Cardio::Migration::Core
       delete_code_card codename
     end
 
-    %w[cerulean cosmo cyborg darkly flatly journal lumen paper readable sandstone simplex
-           slate spacelab superhero united yeti bootstrap_default].each do |theme|
+    %w[cerulean cosmo cyborg darkly flatly journal lumen
+       paper readable sandstone simplex
+       slate spacelab superhero united yeti bootstrap_default].each do |theme|
       delete_code_card "theme_#{theme}"
     end
   end
@@ -99,21 +101,17 @@ class DeathToMachines < Cardio::Migration::Core
   end
 
   def delete_old_style_cards
-    ["simple skin",
-     "themeless bootstrap skin",
-     "style: traditional",
-     "style: common",
-     "style: glyphicons",
-     "classic bootstrap skin+*colors",
-     "classic bootstrap skin+*variables",
-     "style: classic cards"].each do |doomed|
+    DEPRECATED_CARD_NAMES.each do |doomed|
       delete_card doomed
     end
   end
 
   def delete_group_card
-    Card.search type_id: ["in", Card::LocalScriptManifestGroupID, Card::LocalStyleManifestGroupID,
-                          Card::LocalScriptFolderGroupID, Card::LocalStyleFolderGroupID] do |card|
+    Card.search type_id: ["in",
+                          Card::LocalScriptManifestGroupID,
+                          Card::LocalStyleManifestGroupID,
+                          Card::LocalScriptFolderGroupID,
+                          Card::LocalStyleFolderGroupID] do |card|
       Card.search left_id: card.id do |field|
         field.update_column :codename, ""
         field.delete
@@ -122,5 +120,4 @@ class DeathToMachines < Cardio::Migration::Core
       card.delete! skip: :asset_input_changed_on_delete
     end
   end
-
 end
