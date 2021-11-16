@@ -30,7 +30,7 @@ RSpec.describe Card::Set::Abstract::Attachment::Coded do
       create_file_card :coded, test_file, codename: "mod_file", mod: "test_mod"
     end
 
-    let(:file_path) { File.join mod_path, "file", "mod_file", "file.txt" }
+    let(:file_path) { File.join mod_path, "data/files/mod_file/file.txt" }
 
     it "stores correct identifier (:<codename>/<mod_name>.<ext>)" do
       expect(file_card.db_content)
@@ -78,13 +78,14 @@ RSpec.describe Card::Set::Abstract::Attachment::Coded do
         file_card.update! file: test_file(2), storage_type: :coded
         expect(file_card.storage_type).to eq(:coded)
         expect(file_card.db_content).to eq(":#{file_card.codename}/test_mod.txt")
-        expect(file_card.attachment.path).to match(%r{test_mod/file/mod_file/file.txt$})
+        expect(file_card.attachment.path)
+          .to match(%r{test_mod/data/files/mod_file/file.txt$})
         expect(File.read(file_card.attachment.path).strip).to eq "file2"
       end
     end
 
     context "when changing from local to coded" do
-      let(:file_path) { File.join mod_path, "file", "mod_file", "file.txt" }
+      let(:file_path) { File.join mod_path, "data/files/mod_file/file.txt" }
       let(:file_card) { create_file_card :local }
 
       it "copies file to mod" do
