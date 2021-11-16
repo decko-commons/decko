@@ -43,11 +43,11 @@ module Cardio
       # @return [Array <Cardio::Mod>]
       def mods_with_data
         paths = Mod.dirs.subpaths "data"
-        mod_names = @mod ? ensure_mod_data(paths) : paths.keys
+        mod_names = @mod ? ensure_mod_data_path(paths) : paths.keys
         mod_names.map { |mod_name| Mod.fetch mod_name }
       end
 
-      def ensure_mod_path paths
+      def ensure_mod_data_path paths
         return [@mod] if paths[@mod]
 
         raise "no data directory found for mod #{@mod}".red
@@ -88,16 +88,22 @@ module Cardio
         environments.map do |env|
           next unless (items = items_for_environment mod, env)
 
-          each_card_hash items do |hash|
-            handle_file mod, hash
+          if items.first.is_a? String
+            items.map! { |filename| items_for_environment mod, env, filename }.flatten
           end
+          interpret_items mod, items
         end.compact
       end
 
-      def items_for_environment mod, env
-        return unless (filename = mod.subpath "data/#{env}.yml")
+      def interpret_items mod, items
+        each_card_hash items { |hash| handle_attachments mod, hash }
+      end
 
-        YAML.load_file filename
+      def items_for_environment mod, env, filename=nil
+        source = "#{env}#{'/' if filename.present?}#{filename}.yml"
+        return unless (path = mod.subpath "data", source)
+
+        YAML.load_file path
       end
 
       def each_card_hash items
@@ -108,12 +114,21 @@ module Cardio
         items
       end
 
-      def handle_file mod, hash
-        return unless (filename = hash[:file])
+      def handle_attachments mod, hash
+        attachment_keys.each do |key|
+          next unless (filename = hash[key])
 
-        hash[:file] = File.open mod.subpath("data/files", filename)
-        hash[:mod] = mod.name if hash[:storage_type] == :coded
-        # hash.merge! storage_type: :coded, mod: mod.name, file: file
+          hash[key] = data_file mod, filename
+          hash[:mod] = mod.name if hash[:storage_type] == :coded
+        end
+      end
+
+      def data_file mod, filename
+        File.open mod.subpath("data/files", filename)
+      end
+
+      def attachment_keys
+        @attachment_keys ||= Card.uploaders.keys
       end
 
       # @return [Array <Symbol>]
