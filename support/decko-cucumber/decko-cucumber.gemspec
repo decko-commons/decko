@@ -10,7 +10,7 @@ DeckoGem.gem "decko-cucumber" do |s, d|
                ["cucumber-create-meta", "!= 6.0.3"],
                ["database_cleaner",       "~> 2.0"], # resetting db between tests
                ["email_spec",             "~> 2.2"], # for email-related tests
-               ["launchy",                "~> 2.5"], # lets cucumber launch browser windows
+               ["launchy",                "~> 2.5"], # lets cucumber launch browser
                ["capybara-puma",          "~> 1.0"], # use puma server
                ["webdrivers",             "~> 4.6"],
                ["rspec-html-matchers",    "~> 0.9"],
