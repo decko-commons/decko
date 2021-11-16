@@ -69,7 +69,8 @@ class DeathToMachines < Cardio::Migration::Core
     return unless Card::Codename.exists? "mod_script_assets"
 
     Card.search type_id: ["in", Card::ModScriptAssetsID, Card::ModStyleAssetsID] do |card|
-      card.update! type_id: Card::ListID, skip: %i[validate_asset_inputs update_asset_output_file]
+      card.update! type_id: Card::ListID,
+                   skip: %i[validate_asset_inputs update_asset_output_file]
     end
   end
 
