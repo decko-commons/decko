@@ -33,9 +33,9 @@ module Cardio
         def items_for_environment mod, env
           return unless (items = items_from_yaml mod, env)
 
-          if items.first.is_a? String
-            items = items.map { |filename| items_from_yaml mod, env, filename }.flatten
-          end
+          items = items.map do |item|
+            item.is_a?(String) ? items_from_yaml(mod, env, item) : item
+          end.flatten
           interpret_items mod, items
         end
 

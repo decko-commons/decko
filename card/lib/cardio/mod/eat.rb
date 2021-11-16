@@ -23,7 +23,7 @@ module Cardio
         Card::Mailer.perform_deliveries = false
         Card::Auth.as_bot do
           edibles.each do |edible|
-            track do
+            track edible do
               current_user edible.delete(:user)
               time_machine edible.delete(:time) do
                 ensure_card edible
@@ -35,7 +35,8 @@ module Cardio
 
       private
 
-      def track
+      def track edible
+        puts "eat: #{edible}" if @verbose
         card = yield
         puts "eaten: #{card.name}".green if @verbose
       rescue StandardError => e
