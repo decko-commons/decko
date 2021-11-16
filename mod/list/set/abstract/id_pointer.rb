@@ -19,3 +19,7 @@ end
 def item_names args={}
   item_ids(args).map(&:cardname).compact
 end
+
+def export_content
+  item_names.join "\n"
+end

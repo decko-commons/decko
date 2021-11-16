@@ -118,12 +118,12 @@ module Cardio
         attachment_keys.each do |key|
           next unless (filename = hash[key])
 
-          hash[key] = data_file mod, filename
+          hash[key] = mod_file mod, filename
           hash[:mod] = mod.name if hash[:storage_type] == :coded
         end
       end
 
-      def data_file mod, filename
+      def mod_file mod, filename
         File.open mod.subpath("data/files", filename)
       end
 
