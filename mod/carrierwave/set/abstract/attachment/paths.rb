@@ -1,4 +1,4 @@
-MOD_FILE_DIR = "file".freeze
+MOD_FILE_DIR = "data/files".freeze
 
 def store_dir
   will_become_coded? ? coded_dir(@new_mod) : upload_dir
