@@ -34,7 +34,7 @@ def remote_group_urls
   manifest_group_items "remote"
 end
 
-def has_content?
+def content?
   assets_path
 end
 
@@ -140,4 +140,3 @@ end
 def no_action?
   new? && !assets_path
 end
-

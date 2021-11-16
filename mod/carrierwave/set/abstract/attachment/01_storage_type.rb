@@ -1,4 +1,5 @@
 attr_writer :bucket, :new_storage_type
+attr_writer :storage_type
 
 event :stash_storage_type, :initialize, on: :update do
   @new_storage_type = @storage_type
@@ -126,10 +127,6 @@ def storage_type_changed?
   @new_bucket || (@new_storage_type && @new_storage_type != storage_type) || @new_mod
 end
 
-def storage_type= value
-  @storage_type = value
-end
-
 def with_storage_options opts={}
   old_values = stash_and_set_storage_options opts
   validate_temporary_storage_type_change opts[:storage_type]
@@ -156,7 +153,10 @@ end
 
 def validate_temporary_storage_type_change type=nil
   return unless type ||= @new_storage_type
+  raise_error_if_type_invalid type
+end
 
+def raise_error_if_type_invalid type
   raise Error, unknown_storage_type(type) unless known_storage_type? type
   raise Error, "codename needed for storage type :coded" if coded_without_codename? type
 end
