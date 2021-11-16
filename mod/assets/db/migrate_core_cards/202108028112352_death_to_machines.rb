@@ -1,6 +1,45 @@
 # -*- encoding : utf-8 -*-
 
 class DeathToMachines < Cardio::Migration::Core
+  DEPRECATED_CODE_NAMES = %i[
+    machine_input
+    machine_output
+    machine_cache
+    style_media
+    style_prosemirror
+    script_prosemirror
+    script_prosemirror_config
+    script_ace
+    script_ace_config
+    script_datepicker_config
+    style_datepicker
+    script_tinymce
+    script_tinymce_config
+    script_load_select2
+    style_select2
+    style_bootstrap_cards
+    font_awesome
+    material_icons
+    style_bootstrap_colorpicker
+    style_select2_bootstrap
+    style_libraries
+    script_html5shiv_printshiv
+    smartmenu_css
+    smartmenu_js
+    mod_script_assets
+    mod_style_assets
+    style_bootstrap_compatible
+    style_right_sidebar
+    style_bootstrap_mixins
+    style_bootstrap_breakpoints
+    script_bootstrap
+    script_select2
+    script_datepicker
+    script_jquery_helper
+    style_jquery_ui_smoothness
+    style_cards
+  ].freeze
+
   def up
     delete_machine_output_cards
     delete_group_card
@@ -41,48 +80,13 @@ class DeathToMachines < Cardio::Migration::Core
   end
 
   def delete_deprecated_code_cards
-    %i[machine_input
-       machine_output
-       machine_cache
-       style_media
-       style_prosemirror
-       script_prosemirror
-       script_prosemirror_config
-       script_ace
-       script_ace_config
-       script_datepicker_config
-       style_datepicker
-       script_tinymce
-       script_tinymce_config
-       script_load_select2
-       style_select2
-       style_bootstrap_cards
-       font_awesome
-       material_icons
-       style_bootstrap_colorpicker
-       style_select2_bootstrap
-       style_libraries
-       script_html5shiv_printshiv
-       smartmenu_css
-       smartmenu_js
-       mod_script_assets
-       mod_style_assets
-       style_bootstrap_compatible
-       style_right_sidebar
-       style_bootstrap_mixins
-       style_bootstrap_breakpoints
-       script_bootstrap
-       script_select2
-       script_datepicker
-       script_jquery_helper
-       style_jquery_ui_smoothness
-       style_cards].each do |codename|
+    DEPRECATED_CODE_NAMES.each do |codename|
       delete_code_card codename
     end
 
     %w[cerulean cosmo cyborg darkly flatly journal lumen paper readable sandstone simplex
            slate spacelab superhero united yeti bootstrap_default].each do |theme|
-       delete_code_card "theme_#{theme}"
+      delete_code_card "theme_#{theme}"
     end
   end
 
