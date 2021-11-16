@@ -89,18 +89,14 @@ module Cardio
           next unless (items = items_for_environment mod, env)
 
           if items.first.is_a? String
-            items = items.map do |filename|
-              items_for_environment mod, env, filename
-            end.flatten
+            items.map! { |filename| items_for_environment mod, env, filename }.flatten
           end
           interpret_items mod, items
         end.compact
       end
 
       def interpret_items mod, items
-        each_card_hash items do |hash|
-          handle_file mod, hash
-        end
+        each_card_hash items { |hash| handle_attachments mod, hash }
       end
 
       def items_for_environment mod, env, filename=nil
@@ -118,13 +114,17 @@ module Cardio
         items
       end
 
-      def handle_file mod, hash
+      def handle_attachments mod, hash
         attachment_keys.each do |key|
-          next unless (filename = hash[key.to_sym])
+          next unless (filename = hash[key])
 
-          hash[key.to_sym] = File.open mod.subpath("data/files", filename)
+          hash[key] = data_file mod, filename
           hash[:mod] = mod.name if hash[:storage_type] == :coded
         end
+      end
+
+      def data_file mod, filename
+        File.open mod.subpath("data/files", filename)
       end
 
       def attachment_keys
