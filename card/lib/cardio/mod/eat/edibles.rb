@@ -35,7 +35,7 @@ module Cardio
 
           items = items.map do |item|
             item.is_a?(String) ? items_from_yaml(mod, env, item) : item
-          end.flatten
+          end.flatten.compact
           interpret_items mod, items
         end
 

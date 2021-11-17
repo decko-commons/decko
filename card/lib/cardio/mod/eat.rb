@@ -35,9 +35,9 @@ module Cardio
 
       private
 
-      def track edible
+      def track _edible
         rescuing do
-          puts "eat: #{edible}" if @verbose
+          # puts "eat: #{edible}" if @verbose
           card = yield
           puts "eaten: #{card.name}".green if @verbose
         end
