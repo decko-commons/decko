@@ -95,10 +95,12 @@ module Cardio
       end
 
       def target_index new_item
-        target.find_index do |target_item|
-          new_code = new_item[:codename]
-          (new_code.present? && new_code == target_item[:codename]) ||
-            target_item[:name].to_name == new_item[:name].to_name
+        new_code = new_item[:codename]
+        new_name = new_item[:name].to_name
+        target.find_index do |t|
+          t.is_a?(Hash) &&
+            ((new_code.present? && (new_code == t[:codename])) ||
+              (t[:name].to_name == new_name))
         end
       end
 

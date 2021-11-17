@@ -95,7 +95,7 @@ format :html do
     opts[:href] ||= path opts.delete(:path)
     text = raw(text || opts[:href])
     interpret_data_opts_to_link_to opts
-    wrap_with :a, text, opts
+    content_tag :a, text, opts
   end
 
   # in HTML, #link_to_card adds special css classes indicated whether a
