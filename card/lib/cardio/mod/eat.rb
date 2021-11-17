@@ -36,9 +36,15 @@ module Cardio
       private
 
       def track edible
-        puts "eat: #{edible}" if @verbose
-        card = yield
-        puts "eaten: #{card.name}".green if @verbose
+        rescuing do
+          puts "eat: #{edible}" if @verbose
+          card = yield
+          puts "eaten: #{card.name}".green if @verbose
+        end
+      end
+
+      def rescuing
+        yield
       rescue StandardError => e
         puts e.message.red
         puts e.backtrace.join("\n") if @verbose
