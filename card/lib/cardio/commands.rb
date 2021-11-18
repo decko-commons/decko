@@ -1,11 +1,11 @@
 require "English"
 require "colorize"
-require "cardio/commands/calls"
+require "cardio/commands/custom"
 
 module Cardio
   # manage different types of commands that can be run via bin/card (and bin/decko)
   class Commands
-    include Calls
+    include Custom
     
     attr_reader :command, :args
 
@@ -29,7 +29,9 @@ module Cardio
         dbconsole: { desc: "start a database console", group: :monkey, alias: :db },
         runner: { desc: "run code in app environment", group: :monkey, alias: :r },
         rspec: { desc: "run rspec tests", group: :monkey, alias: :rs, via: :call },
-        generate: { desc: "generate templated code", group: :monkey, alias: :g }
+        generate: { desc: "generate templated code", group: :monkey, alias: :g },
+        poop: { desc: "export card data to mod yaml", group: :monkey, via: :rake },
+        eat: { desc: "ingest card data from mod yaml", group: :monkey, via: :rake }
       }
     end
 
@@ -40,7 +42,7 @@ module Cardio
     #    benchmarker  See how fast a piece of code runs
     #    profiler     Get profile information from a piece of code
     #    plugin       Install a plugin
-    #    jasmin
+    #    jasmine
 
     def initialize args
       @args = args
@@ -104,7 +106,7 @@ module Cardio
     # runs all commands in "rake" list
     def run_rake
       require "cardio/commands/rake_command"
-      RakeCommand.new("#{gem}:#{command}", args).run
+      RakeCommand.new(gem, command, args).run
     end
 
     # ~~~~~~~~~~~~~~~~~~~~~ catch-all -------------- #

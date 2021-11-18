@@ -3,7 +3,7 @@ require "cardio/version"
 
 module Cardio
   class Commands
-    module Calls
+    module Custom
       private
 
       def run_new
@@ -26,10 +26,10 @@ module Cardio
         RspecCommand.new(args).run
       end
 
-      def run_jasmine
-        require "cardio/commands/rake_command"
-        RakeCommand.new("spec:javascript", envs: "test").run
-      end
+      # def run_jasmine
+      #   require "cardio/commands/rake_command"
+      #   RakeCommand.new("spec:javascript", envs: "test").run
+      # end
 
       def run_help
         puts "Usage:"
@@ -55,7 +55,6 @@ module Cardio
         alt = conf[:alias] ? "(or #{conf[:alias].to_s.light_cyan})" : ""
         "    " + command.to_s.ljust(12).light_cyan + alt.ljust(8) + conf[:desc]
       end
-
     end
   end
 end
