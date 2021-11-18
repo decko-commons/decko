@@ -21,9 +21,8 @@ module Cardio
 
         def initialize command, opts
           super() do |parser|
-            parser.banner = "Usage: decko #{command} [options]\n\n" \
-                            "Run decko:#{command} task on the production "\
-                            " database specified in config/database.yml\n\n"
+            parser.banner = "Usage: #{Commands.gem} #{command} [options]\n\n" \
+                            "Runs `rake decko:#{Commands.gem}` task."
             parser_ons parser, command do |env_array|
               opts[:envs] = env_array
             end
