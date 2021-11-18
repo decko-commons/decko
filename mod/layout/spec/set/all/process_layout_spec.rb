@@ -36,7 +36,7 @@ RSpec.describe Card::Set::All::ProcessLayout do
     it "renders card credit" do
       expect(open_view).to have_tag "footer" do
         with_tag "svg"
-        with_tag "a", text: "Decko v#{Card::Version.release}"
+        with_tag "a", text: "Decko v#{Cardio::Version.release}"
       end
     end
   end
