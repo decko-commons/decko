@@ -76,7 +76,7 @@ module Cardio
       end
 
       def main_card
-        Card.fetch(@name) || raise(Card::Error::NotFound, "card not found: #{@mod}")
+        Card.fetch(@name) || raise(Card::Error::NotFound, "card not found: #{@name}")
       end
 
       def output_hash
