@@ -1,0 +1,4 @@
+---
+- :name: Search
+  :type: :cardtype
+  :codename: :search_type
