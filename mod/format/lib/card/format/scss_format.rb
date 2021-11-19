@@ -2,6 +2,7 @@
 
 class Card
   class Format
+    # Scss format
     class ScssFormat < CssFormat
       register :scss
 

@@ -1,3 +1,4 @@
+// mod.js.coffee
 (function() {
   window.decko || (window.decko = {});
 
@@ -76,6 +77,7 @@
 
 }).call(this);
 
+// editor.js.coffee
 (function() {
   $.extend(decko, {
     initializeEditors: function(range, map) {
@@ -154,6 +156,7 @@
 
 }).call(this);
 
+// name_editor.js.coffee
 (function() {
   var checkName, checkNameAfterTyping;
 
@@ -211,6 +214,7 @@
 
 }).call(this);
 
+// autosave.js.coffee
 (function() {
   jQuery.fn.extend({
     autosave: function() {
@@ -259,6 +263,7 @@
 
 }).call(this);
 
+// doubleclick.js.coffee
 (function() {
   var doubleClickActive, doubleClickActiveMap, doubleClickApplies, triggerDoubleClickEditingOn;
 
@@ -307,6 +312,7 @@
 
 }).call(this);
 
+// layout.js.coffee
 (function() {
   var containerClass, doubleSidebar, sidebarToggle, singleSidebar, toggleButton, wrapDeckoLayout, wrapSidebarToggle;
 
@@ -408,6 +414,7 @@
 
 }).call(this);
 
+// navbox.js.coffee
 (function() {
   var formatNavboxItem, formatNavboxSelectedItem, navboxItem, navboxSelect, navboxize;
 
@@ -522,6 +529,7 @@
 
 }).call(this);
 
+// upload.js.coffee
 (function() {
   $.extend(decko, {
     upload_file: function(fileupload) {
@@ -588,6 +596,7 @@
 
 }).call(this);
 
+// slot.js.coffee
 (function() {
   $.extend(decko, {
     snakeCase: function(str) {
@@ -835,6 +844,7 @@
 
 }).call(this);
 
+// decko.js.coffee
 (function() {
   var setSlotMode, warn;
 
@@ -956,6 +966,7 @@
 
 }).call(this);
 
+// modal.js.coffee
 (function() {
   var addModalDialogClasses, openModalIfPresent;
 
@@ -1106,6 +1117,7 @@
 
 }).call(this);
 
+// overlay.js.coffee
 (function() {
   jQuery.fn.extend({
     overlaySlot: function() {
@@ -1172,6 +1184,7 @@
 
 }).call(this);
 
+// recaptcha.js.coffee
 (function() {
   jQuery.fn.extend({
     updateRecaptchaToken: function(event) {
@@ -1202,6 +1215,7 @@
 
 }).call(this);
 
+// slotter.js.coffee
 (function() {
   $(window).ready(function() {
     $('body').on('ajax:success', '.slotter', function(event, data) {
@@ -1424,6 +1438,7 @@
 
 }).call(this);
 
+// bridge.js.coffee
 (function() {
   decko.slotReady(function(slot, slotter) {
     var links;
@@ -1470,6 +1485,7 @@
 
 }).call(this);
 
+// nest_editor.js.coffee
 (function() {
   $(document).ready(function() {
     $('body').on('click', 'button._nest-apply', function() {
@@ -1673,11 +1689,13 @@
 
 }).call(this);
 
+// nest_editor_rules.js.coffee
 (function() {
 
 
 }).call(this);
 
+// nest_editor_options.js.coffee
 (function() {
   $(document).ready(function() {
     $('body').on('keyup', 'input._nest-option-value', function() {
@@ -1805,6 +1823,7 @@
 
 }).call(this);
 
+// nest_editor_name.js.coffee
 (function() {
   var nestNameTimeout;
 
@@ -1940,6 +1959,7 @@
 
 }).call(this);
 
+// link_editor.js.coffee
 (function() {
   $(document).ready(function() {
     return $('body').on('click', 'button._link-apply', function() {
@@ -2024,6 +2044,7 @@
 
 }).call(this);
 
+// components.js.coffee
 (function() {
   var submitAfterTyping;
 
@@ -2088,6 +2109,7 @@
 
 }).call(this);
 
+// follow.js.coffee
 (function() {
   $(window).ready(function() {
     $('body').on('click', '.btn-item', function() {
@@ -2117,6 +2139,7 @@
 
 }).call(this);
 
+// card_menu.js.coffee
 (function() {
   var detectMobileBrowser;
 
@@ -2150,6 +2173,7 @@
 
 }).call(this);
 
+// slot_ready.js.coffee
 (function() {
   decko.slotReady(function(slot) {
     slot.find('._disappear').delay(5000).animate({
@@ -2166,6 +2190,7 @@
 
 }).call(this);
 
+// pointer_config.js.coffee
 (function() {
   var permissionsContent, pointerContent;
 
@@ -2312,6 +2337,7 @@
 
 }).call(this);
 
+// pointer_list_editor.js.coffee
 (function() {
   $(window).ready(function() {
     $('body').on('click', '._pointer-item-add', function(event) {
@@ -2388,6 +2414,7 @@
 
 }).call(this);
 
+// filter.js.coffee
 (function() {
   decko.filter = function(el) {
     var closest_widget;
@@ -2603,6 +2630,7 @@
 
 }).call(this);
 
+// filter_links.js.coffee
 (function() {
   decko.slotReady(function(slot) {
     return slot.find("._filter-widget").each(function() {
@@ -2699,6 +2727,7 @@
 
 }).call(this);
 
+// filter_items.js.coffee
 (function() {
   var addSelectedButton, addSelectedButtonUrl, arrayFromField, deselectAllLink, filterBox, newFilteredListContent, prefilteredData, prefilteredIds, prefilteredNames, selectFilteredItem, selectedBin, selectedData, selectedIds, selectedNames, trackSelectedIds, updateAfterSelection, updateSelectedCount, updateSelectedSectionVisibility, updateUnselectedCount;
 
@@ -2867,6 +2896,7 @@
 
 }).call(this);
 
+// selectable_filtered_content.js.coffee
 (function() {
   $(window).ready(function() {
     return $("body").on("click", "._selectable-filtered-content .bar-body", function(e) {

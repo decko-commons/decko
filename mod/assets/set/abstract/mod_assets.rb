@@ -34,7 +34,7 @@ def remote_group_urls
   manifest_group_items "remote"
 end
 
-def has_content?
+def content?
   assets_path
 end
 
@@ -43,7 +43,7 @@ def mod_name
 end
 
 def mod
-  @mod ||= Cardio::Mod.dirs.fetch_mod mod_name
+  @mod ||= Cardio::Mod.fetch mod_name
 end
 
 def manifest_exists?
@@ -143,4 +143,3 @@ end
 def no_action?
   new? && !assets_path
 end
-

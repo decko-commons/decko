@@ -31,8 +31,7 @@ RSpec.describe Card::Set::Type::Css do
   end
 
   specify "core view in scss format" do
-    rendered = render_card :core, { content: "{}", type: :css} , format: :scss
+    rendered = render_card :core, { content: "{}", type: :css }, { format: :scss }
     expect(rendered).to eq "{}"
   end
 end
-

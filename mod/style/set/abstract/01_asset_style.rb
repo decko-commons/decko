@@ -7,4 +7,3 @@ include_set Abstract::AssetFile
 def compress?
   @minimize
 end
-

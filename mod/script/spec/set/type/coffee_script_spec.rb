@@ -15,7 +15,7 @@ RSpec.describe Card::Set::Type::CoffeeScript do
       create_coffee_card "coffee inputter", coffee
     end
     let(:create_another_asset_inputter_card) do
-      create_coffee_card"more coffeee", changed_coffee
+      create_coffee_card "more coffeee", changed_coffee
     end
     let(:create_outputter_card) do
       ensure_card "coffee machine", type: :pointer
