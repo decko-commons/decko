@@ -180,6 +180,7 @@ class Card
       @subdirectors.clear
       @stage = nil
       @action = nil
+      @running = false
     end
 
     def appoint card

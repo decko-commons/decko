@@ -56,7 +56,7 @@ format :html do
   def debug_or_machine_path setting, debug_lambda, machine_path_lambda
     return unless (asset_card = param_or_rule_card setting)
     debug_path(setting, asset_card, &debug_lambda) ||
-      machine_path_lambda.call(asset_card.machine_output_url)
+      machine_path_lambda.call(asset_card.asset_output_url)
   end
 
   def debug_path setting, asset_card
