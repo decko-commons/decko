@@ -64,19 +64,26 @@ module Cardio
       end
 
       def cards_from_name
-        card = main_card
         case @items
         when :only
-          card.item_cards
+          item_cards
         when true
-          [card] + card.item_cards
+          main_cards + item_cards
         else
-          [card]
+          main_cards
         end
       end
 
-      def main_card
-        Card.fetch(@name) || raise(Card::Error::NotFound, "card not found: #{@name}")
+      def item_cards
+        main_cards.map { |mc| mc.item_cards }.flatten
+      end
+
+      def main_cards
+        @main_cards ||= @name.split(",").map { |n| require_card n }
+      end
+
+      def require_card name
+        Card.fetch(name) || raise(Card::Error::NotFound, "card not found: #{name}")
       end
 
       def output_hash
