@@ -4,23 +4,28 @@ require "cardio/commands"
 
 module Decko
   class Commands < Cardio::Commands
-    extend Cardio::Commands::Accessors
+    def map
+      @map ||= super.merge(
+        server: { desc: "start a local web server", group: :shark, alias: :s },
+        cucumber: { desc: "run cucumber tests", group: :monkey, alias: :cc, via: :call}
+      )
+    end
 
-    commands[:rails] << (aliases["s"] = "server")
-    commands[:custom] << (aliases["cc"] = "cucumber")
+    def generator_requirement
+      "decko/generators"
+    end
+
+    def gem
+      "decko"
+    end
 
     def run_cucumber
       require "decko/commands/cucumber_command"
       CucumberCommand.new(args).run
     end
 
-    def rake_prefix
-      "decko"
-    end
-
-    def run_rails
-      require "decko/generators" if command == "generate"
-      super
+    def run_version
+      puts "Decko #{Cardio::Version.release}".light_cyan
     end
 
     new(ARGV).run

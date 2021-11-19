@@ -1,7 +1,11 @@
 module Cardio
   class Mod
-    # export data to data directory of mods
-    # (list of card attributes)
+    # POOP (or Plain Old OutPut) is our nickname for our standard card YAML,
+    # used to define cards associated with mods.
+    #
+    # Monkeys throw it around, and Sharks can eat it (if you believe this guy:
+    # https://www.youtube.com/watch?v=VvEa4NSqw7I).
+    #
     # https://docs.google.com/document/d/13K_ynFwfpHwc3t5gnLeAkZJZHco1wK063nJNYwU8qfc/edit#
     class Poop
       def initialize **args
@@ -72,7 +76,7 @@ module Cardio
       end
 
       def main_card
-        Card.fetch(@name) || raise(Card::Error::NotFound, "card not found: #{@mod}")
+        Card.fetch(@name) || raise(Card::Error::NotFound, "card not found: #{@name}")
       end
 
       def output_hash
