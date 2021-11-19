@@ -7,7 +7,7 @@ namespace :decko do
       ENV["STAMP_MIGRATIONS"] = "true"
       ENV["GENERATE_FIXTURES"] = "true"
       %w[reseed update
-         mod:uninstall mod:install
+         mod:uninstall mod:install seed:make_asset_output_coded
          seed:clean seed:supplement seed:dump].each do |task|
         Rake::Task["decko:#{task}"].invoke
       end
@@ -26,7 +26,7 @@ namespace :decko do
       # change actors so we can delete unwanted user cards that made changes
       Card::Act.update_all actor_id: Card::WagnBotID
       delete_ignored_cards
-      refresh_assets
+      # refresh_assets
       # clean_unwanted_cards
       Card.empty_trash
     end
@@ -51,14 +51,10 @@ namespace :decko do
       puts "refresh assets"
       Cardio.config.compress_assets = true
       Card::Assets.refresh_assets force: true
-      make_asset_output_coded
     end
 
-    def make_asset_output_coded
-      Card::Assets.asset_outputters.each do |card|
-        puts "coding asset output for #{card.name}"
-        card.make_asset_output_coded
-      end
+    task make_asset_output_coded: :environment do
+      Card::Assets.make_output_coded
     end
 
     # def clean_files

@@ -75,7 +75,6 @@ format :html do
         link_text: "regenerate styles",
         task: "regenerate_styles" },
       { title: "script assets",
-        count: Card::Assets.script_inputters, unit: "script cards",
         link_text: "regenerate scripts",
         task: "regenerate_scripts" }
     ]

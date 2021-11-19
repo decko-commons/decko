@@ -20,6 +20,13 @@ class Card
         generate_asset_output_files if force
       end
 
+      def make_output_coded
+        asset_outputters.each do |card|
+          puts "coding asset output for #{card.name}"
+          card.make_asset_output_coded
+        end
+      end
+
       def generate_asset_output_files
         asset_outputters.each(&:update_asset_output)
       end
@@ -37,12 +44,17 @@ class Card
         end
       end
 
+      def script_outputters
+        Card.search(left: { type_id: Card::ModID }, right: { codename: "script" })
+            .flatten
+      end
+
+      def style_outputters
+        [Card[:all, :style]]
+      end
+
       def asset_outputters
-        outputters =
-          Card.search(left: { type_id: Card::ModID }, right: { codename: "script" })
-              .flatten
-        outputters << Card[:all, :style]
-        outputters
+        script_outputters + style_outputters
       end
 
       private
