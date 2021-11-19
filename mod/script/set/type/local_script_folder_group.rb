@@ -1,2 +1,2 @@
-include_set Abstract::LocalFolderGroup
-include_set Abstract::ScriptAssetList
+include_set Abstract::FolderGroup
+include_set Abstract::ScriptGroup

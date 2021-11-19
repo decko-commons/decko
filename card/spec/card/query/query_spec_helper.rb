@@ -1,6 +1,8 @@
 module QuerySpecHelper
   # CARDS_MATCHING_TWO = ["42", "Joe User", "One+Two", "One+Two+Three", "Two"].freeze
-  CARDS_MATCHING_TWO = ["42", "Joe User", "Two"].freeze
+  CARDS_MATCHING_TWO = ["42", "Joe User", "Two", "classic bootstrap skin+*asset input", "yeti skin+*asset input",
+                        "style: mods+*asset input", "mod: style+*style+*asset input",
+                        "mod: bootstrap+*style+*asset input"].freeze
 
   module Fasten
     def each_fasten &block

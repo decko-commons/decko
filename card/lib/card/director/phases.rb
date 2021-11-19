@@ -16,6 +16,7 @@ class Card
 
       def prepare_for_phases
         @card.prepare_for_phases unless running?
+        @card.identify_action
         @running = true
         @subdirectors.each(&:prepare_for_phases)
       end
