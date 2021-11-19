@@ -18,7 +18,7 @@ private
 
 def extend_item_list items, list, book
   item = items.shift
-  return if already_extended? item, book
+  return if already_extended?(item, book)
 
   if item.collection?
     # keep items in order

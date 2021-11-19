@@ -21,15 +21,15 @@ describe Card::Set::Type::JavaScript do
       .to have_tag :script, with: { src: "/js_test_card.js" }
   end
 
-  it_behaves_like "content machine", that_produces: :js do
-    let(:machine_card) do
-      Card.gimme! "test javascript", type: :java_script, content: js
+  it_behaves_like "asset inputter", that_produces: :js  do
+    let(:create_asset_inputter_card) { js_card }
+    let(:create_another_asset_inputter_card) { dummy_css "more test css" }
+    let(:create_asset_outputter_card) do
+      ensure_card "script with js+*style", type: :list
     end
     let(:card_content) do
-      { in: js,
-        out: comment_with_source(compressed_js),
-        changed_in: changed_js,
-        changed_out: comment_with_source(compressed_changed_js) }
+      { in:         js,         out:         compressed_js,
+        changed_in: changed_js, changed_out: omment_with_source(compressed_changed_js) }
     end
   end
 end
