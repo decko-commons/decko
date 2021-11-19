@@ -3,7 +3,7 @@ require "optparse"
 namespace :card do
   desc "ingest card data from mod yaml"
   task eat: :environment do
-    parse_options :in do
+    parse_options :eat do
       add_opt :m, :mod, "only merge cards in given mod"
       add_opt :e, :env, "environment of yaml source (default is current env)"
       add_opt :u, :user, "user to credit unless specified (otherwise uses Decko Bot)"
@@ -15,7 +15,7 @@ namespace :card do
 
   desc "export card data to mod yaml"
   task poop: :environment do
-    parse_options :out do
+    parse_options :poop do
       add_opt :n, :name, "export card with name/mark (handles : and ~ prefixes)"
       flag_opt :i, :items, "also export card items (with -n)"
       flag_opt :o, :only_items, "also export card items (with -n)", items: :only
