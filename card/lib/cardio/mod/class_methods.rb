@@ -17,14 +17,16 @@ module Cardio
         @dirs ||= Mod::Dirs.new Cardio.paths["mod"].existent
       end
 
+      def fetch mod_name
+        dirs.fetch_mod mod_name
+      end
+
       def normalize_name name
         name.to_s.sub(/^card-mod-/, "")
       end
 
       def missing
-        Card.search(type: :mod).reject do |mod_card|
-          dirs.fetch_mod mod_card.modname
-        end
+        Card.search(type: :mod).reject { |mod_card| fetch mod_card.modname }
       end
 
       def ensure_uninstalled
