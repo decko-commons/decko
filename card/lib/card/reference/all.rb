@@ -21,7 +21,7 @@ class Card
       end
 
       def referer_cards_from_references references
-        references.map(&:referer_id).uniq.map(&Card.method(:fetch)).compact
+        references.map(&:referer_id).uniq.map(&:card).compact
       end
 
       # cards that self refers to
