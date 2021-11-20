@@ -1,0 +1,10 @@
+---
+- :name: CSS
+  :type: :cardtype
+  :codename: :css
+- :name: SCSS
+  :type: :cardtype
+  :codename: :scss
+- :name: Skin
+  :type: :cardtype
+  :codename: :skin

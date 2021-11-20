@@ -73,7 +73,7 @@ blocks:
           commands:
             - be decko new platypus --platypus
             - cd platypus
-            - be decko seed --test
+            - env RAILS_ENV=test bundle exec decko seed # --test
             - be decko rspec
       epilogue:
         commands:
@@ -95,7 +95,7 @@ blocks:
           - chmod +x ./cc-test-reporter
           - be decko new platypus --platypus
           - cd platypus
-          - be decko seed --test
+          - env RAILS_ENV=test bundle exec decko seed # --test
 
       jobs:
         - name: Cypress
