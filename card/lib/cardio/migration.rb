@@ -1,8 +1,9 @@
 # -*- encoding : utf-8 -*-
+require "pry"
 
 module Cardio
   class Migration < ActiveRecord::Migration[4.2]
-    include Card::Model::SaveHelper
+    include Card::Model::SaveHelper unless ENV["NO_CARD_LOAD"]
     @type = :deck_cards
 
     class << self
@@ -49,6 +50,7 @@ module Cardio
     end
 
     def contentedly
+      return yield if ENV["NO_CARD_LOAD"]
       Card::Cache.reset_all
       Schema.mode "" do
         Card::Auth.as_bot do
@@ -111,7 +113,7 @@ module Cardio
     end
 
     # Execute this migration in the named direction
-    # copied from ActiveRecord to wrap 'up' in 'contentendly'
+    # copied from ActiveRecord to wrap 'up' in 'contentedly'
     def exec_migration conn, direction
       @connection = conn
       if respond_to?(:change)
