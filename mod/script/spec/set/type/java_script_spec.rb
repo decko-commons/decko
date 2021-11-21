@@ -25,19 +25,21 @@ RSpec.describe Card::Set::Type::JavaScript do
       .to have_tag :script, with: { src: "/js_test_card.js" }
   end
 
-  it_behaves_like "asset inputter", that_produces: :js  do
-    let(:create_asset_inputter_card) { js_card }
-    let(:create_another_asset_inputter_card) { create_js_card "more js", compressed_changed_js}
-    let(:create_asset_outputter_card) do
-      mod_card = ensure_card "mod: script test", type: :mod
-      ensure_card [mod_card.name, :script], type: :list
-    end
-    let(:card_content) do
-      { in:         js,
-        out:         comment_with_source(compressed_js),
-        added_out:   "#{comment_with_source(compressed_js)}\n// more js\n#{compressed_changed_js}",
-        changed_in: changed_js,
-        changed_out: comment_with_source(compressed_changed_js) }
-    end
-  end
+
+  # script outputters can't be changed with cards
+  # it_behaves_like "asset inputter", that_produces: :js  do
+  #   let(:create_asset_inputter_card) { js_card }
+  #   let(:create_another_asset_inputter_card) { create_js_card "more js", compressed_changed_js}
+  #   let(:create_asset_outputter_card) do
+  #     mod_card = ensure_card "mod: script test", type: :mod
+  #     ensure_card [mod_card.name, :script], type: :list
+  #   end
+  #   let(:card_content) do
+  #     { in:         js,
+  #       out:         comment_with_source(compressed_js),
+  #       added_out:   "#{comment_with_source(compressed_js)}\n// more js\n#{compressed_changed_js}",
+  #       changed_in: changed_js,
+  #       changed_out: comment_with_source(compressed_changed_js) }
+  #   end
+  # end
 end
