@@ -1,5 +1,4 @@
 # -*- encoding : utf-8 -*-
-require "pry"
 
 module Cardio
   class Migration < ActiveRecord::Migration[4.2]

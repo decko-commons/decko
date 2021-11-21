@@ -23,6 +23,8 @@ def reset_column_information mod=false
   Cardio::Record.descendants.each(&:reset_column_information)
 end
 
+# FIXME: too general
+# intent is to find Record classes; this gets a lot more.
 def load_mod_lib
   Dir.glob(Cardio.root.join("mod/*/lib/*.rb")).sort.each { |x| require x }
 end
