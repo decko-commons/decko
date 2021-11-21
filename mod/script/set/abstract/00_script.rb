@@ -12,7 +12,7 @@ format :js do
   end
 
   def comment_with_source js
-    "//#{card.name}\n#{js}"
+    "// #{card.name}\n#{js}"
   end
 
   def compress input

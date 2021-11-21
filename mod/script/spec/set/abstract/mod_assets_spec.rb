@@ -5,7 +5,7 @@ RSpec.describe Card::Set::Abstract::ModAssets do
 
   it "has two groups" do
     expect(script.item_names)
-      .to eq ["mod: script+*script+jquery", "mod: script+*script+decko"]
+      .to eq ["mod: script+*script+group: jquery", "mod: script+*script+group: decko"]
   end
 
   specify "core view" do

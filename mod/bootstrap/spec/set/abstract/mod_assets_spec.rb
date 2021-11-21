@@ -10,7 +10,7 @@ RSpec.describe Card::Set::Abstract::ModAssets do
   end
 
   specify "core view" do
-    expect_view(:core, card: script)
+    expect_view(:core, card: style)
       .to include("mod: bootstrap+*style+group: bootstrap_decko")
       .and include("mod: bootstrap+*style+group: libraries")
   end
@@ -23,8 +23,8 @@ RSpec.describe Card::Set::Abstract::ModAssets do
     card.update_asset_output
     card.make_asset_output_coded
     content = card.asset_output_card.file.file.read
-    content.should include "// style_bootstrap_cards.scss"
-    content.should include "// font_awesome.css"
-    content.should include "// style_cards.scss"
+    content.should include "#forgot-password input#email" # from style_bootstrap_cards.scss'
+    content.should include "font-family:fontAwesome;" # from font-awesome.css
+    content.should include "._rename-reference-confirm" # from style_cards.scss"
   end
 end

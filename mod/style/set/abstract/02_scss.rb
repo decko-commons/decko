@@ -20,6 +20,11 @@ format :css do
 end
 
 format :scss do
+
+  view :labeled do
+    "//#{card.name}\n#{_render_core}"
+  end
+
   view :core do
     process_content _render_raw
   end

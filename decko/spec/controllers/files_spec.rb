@@ -24,7 +24,7 @@ Decko::RestSpecHelper.describe_api do
     end
 
     context "js" do
-      let(:decko_js) { Card[:script_group__decko] }
+      let(:decko_js) { Card[:mod_script, :script] }
 
       it "has correct MIME type" do
         get :read, params: { mark: decko_js.asset_output_card.name, format: "js" }

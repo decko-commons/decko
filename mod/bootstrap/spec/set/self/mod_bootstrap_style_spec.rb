@@ -2,7 +2,7 @@
 
 RSpec.describe Card::Set::Self do
   specify "asset input" do
-    card = Card[:mod_bootstrap_style]
+    card = Card[:mod_bootstrap, :style]
     card.update_asset_input
     expect(card.asset_input).to include ".navbox-form"
   end

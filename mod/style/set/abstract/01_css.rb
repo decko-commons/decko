@@ -54,7 +54,20 @@ format :css do
   end
 
   view :compressed do
-    compress _render_core
+    compress(_render_core)
+  end
+
+  def comment_with_source css
+    "// #{card.name}\n#{css}"
+  end
+
+  def compress input
+    compress? ? try_compress(input) : input
+  end
+
+  view :compressed do
+    css = compress _render_core
+    # comment_with_source css
   end
 
   def compress input

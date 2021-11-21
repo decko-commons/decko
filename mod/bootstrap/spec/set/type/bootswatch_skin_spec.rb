@@ -2,7 +2,7 @@
 
 RSpec.describe Card::Set::Type::BootswatchSkin do
   CUSTOM_CSS = "body{background-color:#123}".freeze
-  YETI_THEME_CSS = "background-color: #f6f6f6;".freeze
+  YETI_THEME_CSS = "background-color:#f6f6f6;".freeze
 
   let(:customized_skin) do
     Card::Env.params[:theme] = "yeti"
@@ -19,7 +19,6 @@ RSpec.describe Card::Set::Type::BootswatchSkin do
   end
 
   it "adds bootswatch styles to asset output" do
-    Card::Assets.refresh_assets force: true
     style_with_customized_theme.update_asset_output
     expect(generated_css).to include YETI_THEME_CSS
   end

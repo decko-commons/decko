@@ -22,7 +22,7 @@ RSpec.describe Card::Set::Type::Css do
     let(:create_asset_inputter_card) { dummy_css }
     let(:create_another_asset_inputter_card) { dummy_css "more test css" }
     let(:create_asset_outputter_card) do
-      ensure_card "style with css+*style", type: :list
+      ensure_card "A+*self+*style", type: :list
     end
     let(:card_content) do
       { in:         css,         out:         compressed_css,

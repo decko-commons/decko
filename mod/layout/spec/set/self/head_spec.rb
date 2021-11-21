@@ -37,7 +37,7 @@ RSpec.describe Card::Set::Self::Head do
     it "has a main stylesheets link" do
       is_expected.to have_tag(
         :link, with: { rel: "stylesheet", media: "all", type: "text/css",
-                       href: "/files/:all_style_machine_output/machines.css" }
+                       href: "/files/:all_style_asset_output/assets.css" }
       )
     end
 

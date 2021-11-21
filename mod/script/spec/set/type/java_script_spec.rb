@@ -13,7 +13,7 @@ RSpec.describe Card::Set::Type::JavaScript do
   let(:js_card) { create_js_card "js test card", js }
 
   def comment_with_source content, source="js test card"
-    "//#{source}\n#{content}"
+    "// #{source}\n#{content}"
   end
 
   specify "js core view" do
@@ -35,7 +35,7 @@ RSpec.describe Card::Set::Type::JavaScript do
     let(:card_content) do
       { in:         js,
         out:         comment_with_source(compressed_js),
-        added_out:   "#{comment_with_source(compressed_js)}\n//more js\n#{compressed_changed_js}",
+        added_out:   "#{comment_with_source(compressed_js)}\n// more js\n#{compressed_changed_js}",
         changed_in: changed_js,
         changed_out: comment_with_source(compressed_changed_js) }
     end

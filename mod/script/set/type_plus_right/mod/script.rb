@@ -47,7 +47,8 @@ format :html do
     return unless remote_items
 
     remote_items.map do |args|
-      javascript_include_tag args.delete("src"), args
+      tag_args = args.clone
+      javascript_include_tag tag_args.delete("src"), tag_args
     end
   end
 

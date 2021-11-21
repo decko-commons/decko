@@ -29,7 +29,7 @@ RSpec.describe Card::Set::Type::Scss do
     let(:create_asset_inputter_card) { scss_card }
     let(:create_another_asset_inputter_card) { scss_card "more css" }
     let(:create_asset_outputter_card) do
-      ensure_card "style with scss+*style", type: :list
+      ensure_card "A+*self+*style", type: :list
     end
     let(:card_content) do
       { in:         scss,         out:         scss,

@@ -2,16 +2,21 @@ include_set Abstract::Pointer
 include_set Abstract::ReadOnly
 
 def item_cards _args={}
-  super + local_group_cards
+  local_group_cards
+end
+
+def item_names args={}
+  local_group_cards.map { |c| c.name }
 end
 
 # group cards that don't refer to remote sources
 def local_group_cards
-  if manifest_exists?
-    local_manifest_group_cards
-  else
-    [folder_group_card].compact
-  end
+  @local_group_cards ||=
+    if manifest_exists?
+      local_manifest_group_cards
+    else
+      [folder_group_card].compact
+    end
 end
 
 def folder_group_card
