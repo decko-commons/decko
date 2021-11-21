@@ -25,3 +25,5 @@ decko.slotReady(function(slot) {
     return false;
   });
 });
+
+alert("hello")

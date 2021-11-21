@@ -58,6 +58,7 @@ end
 
 format :html do
   view :input do
+    # Localize
     "Content is stored in file and can't be edited."
   end
 
