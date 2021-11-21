@@ -12,6 +12,7 @@ end
 
 event :validate_asset_inputs, :validate, on: :save, skip: :allowed do
   return unless (invalid_input = find_invalid_input)
+
   errors.add :content, t(:assets_invalid_input, input_name: invalid_input.name)
 end
 

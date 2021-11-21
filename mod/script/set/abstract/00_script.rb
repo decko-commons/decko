@@ -3,7 +3,7 @@
 require "coderay"
 require "uglifier"
 
-include_set Abstract::AssetInputter, input_format: :js
+include_set Abstract::AssetInputter, input_format: :js, input_view: :compressed
 
 format :js do
   view :compressed do

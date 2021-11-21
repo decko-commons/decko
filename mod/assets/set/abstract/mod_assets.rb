@@ -2,7 +2,7 @@ include_set Abstract::Pointer
 include_set Abstract::ReadOnly
 
 def item_cards _args={}
-  local_group_cards
+  super + local_group_cards
 end
 
 # group cards that don't refer to remote sources
@@ -10,7 +10,7 @@ def local_group_cards
   if manifest_exists?
     local_manifest_group_cards
   else
-    [folder_group_card]
+    [folder_group_card].compact
   end
 end
 

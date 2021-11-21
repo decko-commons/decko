@@ -1,14 +1,18 @@
 # -*- encoding : utf-8 -*-
 
-describe Card::Set::Type::JavaScript do
+RSpec.describe Card::Set::Type::JavaScript do
   let(:js)                    { 'alert( "Hi" );'    }
   let(:compressed_js)         { 'alert("Hi");'      }
   let(:changed_js)            { 'alert( "Hello" );' }
   let(:compressed_changed_js) { 'alert("Hello");'   }
 
-  let(:js_card) { Card.new name: "js test card", type: :java_script, content: js }
+  def create_js_card name, content
+    ensure_card name, type: Card::JavaScriptID, content: content
+  end
 
-  def comment_with_source content, source="test javascript"
+  let(:js_card) { create_js_card "js test card", js }
+
+  def comment_with_source content, source="js test card"
     "//#{source}\n#{content}"
   end
 
@@ -23,13 +27,17 @@ describe Card::Set::Type::JavaScript do
 
   it_behaves_like "asset inputter", that_produces: :js  do
     let(:create_asset_inputter_card) { js_card }
-    let(:create_another_asset_inputter_card) { dummy_css "more test css" }
+    let(:create_another_asset_inputter_card) { create_js_card "more js", compressed_changed_js}
     let(:create_asset_outputter_card) do
-      ensure_card "script with js+*style", type: :list
+      mod_card = ensure_card "mod: script test", type: :mod
+      ensure_card [mod_card.name, :script], type: :list
     end
     let(:card_content) do
-      { in:         js,         out:         compressed_js,
-        changed_in: changed_js, changed_out: omment_with_source(compressed_changed_js) }
+      { in:         js,
+        out:         comment_with_source(compressed_js),
+        added_out:   "#{comment_with_source(compressed_js)}\n//more js\n#{compressed_changed_js}",
+        changed_in: changed_js,
+        changed_out: comment_with_source(compressed_changed_js) }
     end
   end
 end
