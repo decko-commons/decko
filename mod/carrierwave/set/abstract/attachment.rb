@@ -79,6 +79,9 @@ end
 
 def assign_set_specific_attributes
   # reset content if we really have something to upload
+
+  storage_type
+  mod
   self.content = nil if set_specific[attachment_name].present?
   super
 end
