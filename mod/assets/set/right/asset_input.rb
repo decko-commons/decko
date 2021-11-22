@@ -1,8 +1,8 @@
-# include_set Abstract::VirtualCache
+include_set Abstract::VirtualCache
 
-# def generate_virtual_content
-#  left.content
-# end
+def generate_virtual_content
+  left.render_asset_input_content
+end
 
 def history?
   false
