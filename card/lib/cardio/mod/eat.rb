@@ -1,5 +1,7 @@
 require "timecop"
 
+require "pry"
+
 DATA_ENVIRONMENTS = %i[production development test].freeze
 
 module Cardio
@@ -35,17 +37,19 @@ module Cardio
 
       private
 
-      def track _edible
-        rescuing do
+      def track edible
+        rescuing edible do
           # puts "eat: #{edible}" if @verbose
           card = yield
-          puts "eaten: #{card.name}".green if @verbose
+          puts "eaten: #{card.name}".green # if @verbose
         end
       end
 
-      def rescuing
+      def rescuing edible
         yield
       rescue StandardError => e
+        binding.pry
+        puts edible
         puts e.message.red
         puts e.backtrace.join("\n") if @verbose
       end
