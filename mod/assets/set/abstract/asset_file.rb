@@ -8,6 +8,12 @@ def source_paths
   end
 end
 
+def files_must_exist!
+  source_paths.select do |path|
+    raise Card::Error, "couldn't locate asset file: #{path}" if unknown_file? path
+  end
+end
+
 def source_files
   [db_content]
 end
@@ -31,18 +37,6 @@ end
 
 def new?
   false
-end
-
-def compress?
-  @minimize
-end
-
-def minimize
-  @minimze = true
-end
-
-def local
-  @local = true
 end
 
 format do

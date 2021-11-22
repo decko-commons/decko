@@ -1,5 +1,5 @@
 event :change_bucket_if_read_only, :initialize,
-      on: :update, when: :change_bucket_if_read_only? do
+      on: :update, after: :stash_storage_type, when: :change_bucket_if_read_only? do
   @new_storage_type = storage_type_from_config
 end
 

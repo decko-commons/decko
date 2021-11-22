@@ -59,7 +59,7 @@ class Card
         return unless delete_code_card? name
 
         card = Card[name]
-        card.update! codename: nil
+        card.update! codename: ""
         card.delete!
       end
 
