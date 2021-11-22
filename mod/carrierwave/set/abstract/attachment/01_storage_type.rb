@@ -2,10 +2,14 @@ attr_writer :bucket, :new_storage_type
 attr_writer :storage_type
 
 event :stash_storage_type, :initialize, on: :update do
-  @new_storage_type = @storage_type
-  # we can't update the storage type until carrierwave has used the old storage type
-  # to load the file we are updating
-  @storage_type = nil
+  if storage_type_from_content != @storage_type
+    # we can't update the storage type until carrierwave has used the old storage type
+    # to load the file we are updating
+    @new_storage_type = @storage_type
+    @storage_type = storage_type_from_content
+  elsif coded? && !@new_mod
+    @new_storage_type = storage_type_from_config
+  end
 end
 
 event :storage_type_change, :store, on: :update, when: :storage_type_changed? do
@@ -103,28 +107,29 @@ def invalid_storage_type! type
 end
 
 def storage_type_from_content
-  case content
-  when /^\(/          then :cloud
-  when %r{/^https?:/} then :web
-  when /^~/           then :local
-  when /^:/           then :coded
-  else
-    if deprecated_mod_file?
-      :coded
+  @storage_type_from_content ||=
+    case content
+    when /^\(/          then :cloud
+    when %r{/^https?:/} then :web
+    when /^~/           then :local
+    when /^:/           then :coded
     else
-      storage_type_from_config
+      if deprecated_mod_file?
+        :coded
+      else
+        storage_type_from_config
+      end
     end
-  end
 end
 
 def update_storage_attributes
   @mod = @new_mod if @new_mod
   @bucket = @new_bucket if @new_bucket
-  @storage_type = @new_storage_type
+  @storage_type = @new_storage_type if @new_storage_type
 end
 
 def storage_type_changed?
-  @new_bucket || (@new_storage_type && @new_storage_type != storage_type) || @new_mod
+  @new_bucket || @new_storage_type || @new_mod
 end
 
 def with_storage_options opts={}

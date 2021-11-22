@@ -49,6 +49,7 @@ namespace :decko do
 
     def refresh_assets
       puts "refresh assets"
+      Card.search(right: "*asset input").map(&:delete)
       Cardio.config.compress_assets = true
       Card::Assets.refresh_assets force: true
     end
