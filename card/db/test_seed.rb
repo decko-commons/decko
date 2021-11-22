@@ -13,7 +13,7 @@ class SharedData
     "Big Brother", "Optic fan", "Sunglasses fan", "Narcissist"
   ].freeze
 
-  CARDTYPE_COUNT = 54
+  CARDTYPE_COUNT = 52
 
   class << self
     def create_user name, args
