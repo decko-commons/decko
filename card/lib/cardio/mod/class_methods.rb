@@ -39,10 +39,10 @@ module Cardio
       end
 
       def ensure_installed
-        Card::Machine.reset_script
         Card::Cache.reset_all
         puts "installing card mods".green
         Cardio.mods.each(&:ensure)
+        Card::Assets.refresh_assets force: true
       end
 
       def dependencies name, nickname=true
