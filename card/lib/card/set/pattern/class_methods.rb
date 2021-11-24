@@ -12,14 +12,10 @@ class Card
         end
 
         def register pattern_code, opts={}
-          if (self.pattern_id = Card::Codename.id pattern_code)
-            self.pattern_code = pattern_code
-            Pattern.concrete.insert opts.delete(:index).to_i, self
-            self.anchorless = !respond_to?(:anchor_name)
-            opts.each { |key, val| send "#{key}=", val }
-          else
-            warn "no codename for pattern code: #{pattern_code}"
-          end
+          self.pattern_code = pattern_code
+          Pattern.concrete.insert opts.delete(:index).to_i, self
+          self.anchorless = !respond_to?(:anchor_name)
+          opts.each { |key, val| send "#{key}=", val }
         end
 
         def junction_only?
