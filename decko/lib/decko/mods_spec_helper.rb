@@ -1,5 +1,7 @@
 # -*- encoding : utf-8 -*-
 
+puts "decko/mods_spec_helper"
+
 require "cardio" # only for card_gem_root
 require File.join Cardio.gem_root, "spec/support/card_spec_loader.rb"
 require "simplecov"
@@ -13,10 +15,6 @@ CardSpecLoader.prefork do
   end
   #  Cardio::Seed.test_path = File.dirname(__FILE__) + '/../fixtures'
   CardSpecLoader.rspec_config
-end
-
-CardSpecLoader.each_run do
-  # This code will be run each time you run your specs.
 end
 
 CardSpecLoader.helper
