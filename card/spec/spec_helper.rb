@@ -1,5 +1,7 @@
 # -*- encoding : utf-8 -*-
 
+puts "card/spec/spec_helper"
+
 $LOAD_PATH.unshift File.expand_path(
   "../../mod/platypus/vendor/capybara-select2/lib", __dir__
 )
@@ -9,6 +11,7 @@ require File.expand_path("support/card_spec_loader.rb", __dir__)
 CardSpecLoader.init
 
 require "rr"
+require "simplecov"
 
 CardSpecLoader.prefork do
   Cardio::Seed.test_path = File.expand_path("../db/seed/test/fixtures", __dir__)
@@ -29,11 +32,6 @@ CardSpecLoader.prefork do
   Card["*all+*style"].ensure_machine_output
   # Card["*all+*script"].ensure_machine_output
   (ie9 = Card[:script_html5shiv_printshiv]) && ie9.ensure_machine_output
-end
-
-CardSpecLoader.each_run do
-  # This code will be run each time you run your specs.
-  require "simplecov"
 end
 
 CardSpecLoader.helper
