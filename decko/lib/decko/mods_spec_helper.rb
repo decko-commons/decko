@@ -1,7 +1,5 @@
 # -*- encoding : utf-8 -*-
 
-puts "decko/mods_spec_helper"
-
 require "cardio" # only for card_gem_root
 require File.join Cardio.gem_root, "spec/support/card_spec_loader.rb"
 require "simplecov"

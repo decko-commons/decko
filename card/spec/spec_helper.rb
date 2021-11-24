@@ -11,7 +11,7 @@ require File.expand_path("support/card_spec_loader.rb", __dir__)
 CardSpecLoader.init
 
 require "rr"
-require "simplecov"
+
 
 CardSpecLoader.prefork do
   Cardio::Seed.test_path = File.expand_path("../db/seed/test/fixtures", __dir__)
@@ -33,6 +33,8 @@ CardSpecLoader.prefork do
   # Card["*all+*script"].ensure_machine_output
   (ie9 = Card[:script_html5shiv_printshiv]) && ie9.ensure_machine_output
 end
+
+require "simplecov"
 
 CardSpecLoader.helper
 

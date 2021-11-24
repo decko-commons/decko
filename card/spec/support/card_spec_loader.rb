@@ -1,5 +1,3 @@
-
-puts "spec/support/card_spec_loader.rb"
 class CardSpecLoader
   class << self
     def init
@@ -72,8 +70,6 @@ class CardSpecLoader
 
     def before_config config
       config.before do |example|
-
-        puts "before in CSL"
         metadata = example.metadata
         Cardio.delaying! :off
         CardSpecLoader.example_signin metadata
