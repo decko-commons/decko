@@ -21,11 +21,6 @@ class CardSpecLoader
       end
     end
 
-    def each_run
-      # This code will be run each time you run your specs.
-      yield if block_given?
-    end
-
     def joe_user_id
       @joe_user_id ||= "joe_user".card_id
     end
