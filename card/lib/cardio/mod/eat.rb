@@ -3,6 +3,7 @@ require "timecop"
 require "pry"
 
 DATA_ENVIRONMENTS = %i[production development test].freeze
+ENV["STORE_CODED_FILES"] = "true"
 
 module Cardio
   class Mod
