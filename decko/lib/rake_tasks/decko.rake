@@ -114,22 +114,17 @@ decko_namespace = namespace :decko do
 
   def seed with_cache_reset: true
     ENV["SCHEMA"] ||= "#{Cardio.gem_root}/db/schema.rb"
-    # FIXME: this should be an option, but should not happen on standard
-    # creates!
-    puts "Card before drop: #{Object.const_defined? :Card}"
+    # FIXME: this should be an option, but should not happen on standard creates!
     begin
       Rake::Task["db:drop"].invoke
     rescue StandardError
       puts "not dropped"
     end
 
-
     puts "creating"
-    puts "Card before create: #{Object.const_defined? :Card}"
     Rake::Task["db:create"].invoke
 
     puts "loading schema"
-    puts "Card before schema load: #{Object.const_defined? :Card}"
     Rake::Task["db:schema:load"].invoke
 
     load_task = "decko:load"
