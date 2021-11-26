@@ -1,7 +1,5 @@
 # -*- encoding : utf-8 -*-
 
-puts "card/spec/spec_helper"
-
 $LOAD_PATH.unshift File.expand_path(
   "../../mod/platypus/vendor/capybara-select2/lib", __dir__
 )
