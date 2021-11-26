@@ -12,7 +12,6 @@ CardSpecLoader.init
 
 require "rr"
 
-
 CardSpecLoader.prefork do
   Cardio::Seed.test_path = File.expand_path("../db/seed/test/fixtures", __dir__)
 
