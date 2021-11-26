@@ -15,10 +15,6 @@ CardSpecLoader.prefork do
   CardSpecLoader.rspec_config
 end
 
-CardSpecLoader.each_run do
-  # This code will be run each time you run your specs.
-end
-
 CardSpecLoader.helper
 
 Decko::ModsSpecHelper = :needs_a_value_so_spring_loader_is_happy
