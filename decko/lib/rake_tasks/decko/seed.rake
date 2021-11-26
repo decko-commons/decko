@@ -26,7 +26,8 @@ namespace :decko do
       # change actors so we can delete unwanted user cards that made changes
       Card::Act.update_all actor_id: Card::WagnBotID
       delete_ignored_cards
-      # refresh_assets
+      refresh_assets
+      Card::Assets.make_output_coded
       # clean_unwanted_cards
       Card.empty_trash
     end
@@ -49,7 +50,10 @@ namespace :decko do
 
     def refresh_assets
       puts "refresh assets"
-      Card.search(right: "*asset input").map(&:delete)
+      Card::Auth.as_bot do
+        Card.where(right_id: Card.fetch_id(:asset_input)).delete_all
+      end
+      Card::Cache.reset_all
       Cardio.config.compress_assets = true
       Card::Assets.refresh_assets force: true
     end
