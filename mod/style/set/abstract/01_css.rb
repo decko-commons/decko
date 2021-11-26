@@ -50,7 +50,7 @@ format :css do
   end
 
   view :compiled do
-    _render_core
+    compile(_render_core, :nested)
   end
 
   view :compressed do
@@ -62,19 +62,10 @@ format :css do
   end
 
   def compress input
-    compress? ? try_compress(input) : input
+    compress? ? compile(input) : compile(input, :nested)
   end
 
-  view :compressed do
-    css = compress _render_core
-    # comment_with_source css
-  end
-
-  def compress input
-    compress? ? try_compress(input) : input
-  end
-
-  def try_compress input
+  def compile input, style=:compressed
     SassC::Engine.new(input, style: :compressed).render
   rescue StandardError => e
     raise Card::Error, css_compression_error(e)
