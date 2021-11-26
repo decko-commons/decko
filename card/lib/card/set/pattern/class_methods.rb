@@ -3,8 +3,7 @@ class Card
     module Pattern
       # methods for Set::Pattern classes
       module ClassMethods
-        attr_accessor :pattern_code, :pattern_id, :junction_only,
-                      :assigns_type, :anchorless
+        attr_accessor :pattern_code, :junction_only, :assigns_type, :anchorless
         attr_writer :anchor_parts_count
 
         def new card
@@ -26,6 +25,11 @@ class Card
           anchorless
         end
 
+        def pattern_id
+          pattern_code.card_id
+        end
+
+        # TODO: change to #name or #pattern_name
         def pattern
           pattern_id.cardname
         end
