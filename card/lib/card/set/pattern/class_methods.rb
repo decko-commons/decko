@@ -3,8 +3,7 @@ class Card
     module Pattern
       # methods for Set::Pattern classes
       module ClassMethods
-        attr_accessor :pattern_code, :pattern_id, :junction_only,
-                      :assigns_type, :anchorless
+        attr_accessor :pattern_code, :junction_only, :assigns_type, :anchorless
         attr_writer :anchor_parts_count
 
         def new card
@@ -12,14 +11,10 @@ class Card
         end
 
         def register pattern_code, opts={}
-          if (self.pattern_id = Card::Codename.id pattern_code)
-            self.pattern_code = pattern_code
-            Pattern.concrete.insert opts.delete(:index).to_i, self
-            self.anchorless = !respond_to?(:anchor_name)
-            opts.each { |key, val| send "#{key}=", val }
-          else
-            warn "no codename for pattern code: #{pattern_code}"
-          end
+          self.pattern_code = pattern_code
+          Pattern.concrete.insert opts.delete(:index).to_i, self
+          self.anchorless = !respond_to?(:anchor_name)
+          opts.each { |key, val| send "#{key}=", val }
         end
 
         def junction_only?
@@ -30,6 +25,11 @@ class Card
           anchorless
         end
 
+        def pattern_id
+          pattern_code.card_id
+        end
+
+        # TODO: change to #name or #pattern_name
         def pattern
           pattern_id.cardname
         end
