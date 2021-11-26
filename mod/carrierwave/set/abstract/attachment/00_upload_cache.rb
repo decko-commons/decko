@@ -63,7 +63,7 @@ end
 
 event :delete_cached_upload_file_on_update, :integrate,
       on: :update, when: :save_preliminary_upload? do
-  return unless  (action = Card::Action.fetch(@action_id_of_cached_upload))
+  return unless (action = Card::Action.fetch(@action_id_of_cached_upload))
 
   delete_files_for_action action
   action.delete
