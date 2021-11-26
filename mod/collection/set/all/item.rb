@@ -40,7 +40,7 @@ def include_item? item
 end
 
 def add_item item
-  self.content = (items_strings << item) unless include_item? item
+  self.content = (item_strings << item) unless include_item? item
 end
 
 def drop_item item
