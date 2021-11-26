@@ -66,10 +66,12 @@ RSpec.describe Card::Set::Abstract::Attachment::Coded do
 
     it "changes storage type to default" do
       with_storage_config :local do
-        file_card.update! file: test_file(2)
-        expect(file_card.storage_type).to eq :local
-        expect(file_card.db_content)
-          .to eq("~#{file_card.id}/#{file_card.last_action_id}.txt")
+        file_card
+        card = file_card.refresh true
+        card.update! file: test_file(2)
+        expect(card.storage_type).to eq :local
+        expect(card.db_content)
+          .to eq("~#{card.id}/#{card.last_action_id}.txt")
       end
     end
 
