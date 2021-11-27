@@ -18,11 +18,11 @@ private
 
 def extend_item_list items, list, book
   item = items.shift
-  return if already_extended? item, book
+  return if already_extended?(item, book)
 
   if item.collection?
     # keep items in order
-    items.unshift(*item.item_cards)
+    items.unshift(*item.item_cards.compact)
   else  # no further level of items
     list << item
   end

@@ -1,6 +1,4 @@
 RSpec.describe Card::Set::Abstract::Attachment::Coded do
-  ENV["STORE_CODED_FILES"] = "true"
-
   let :mod_path do
     deck_mod_path = Cardio.paths["mod"].existent.last
     File.join deck_mod_path, "test_mod"
@@ -13,11 +11,13 @@ RSpec.describe Card::Set::Abstract::Attachment::Coded do
   before do
     FileUtils.mkdir_p mod_path
     Cardio::Mod.dirs.add_mod "test_mod"
+    ENV["STORE_CODED_FILES"] = "true"
   end
 
   after do
     FileUtils.rm_rf mod_path
     Cardio::Mod.dirs.delete_mod "test_mod"
+    ENV["STORE_CODED_FILES"] = nil
   end
 
   specify "view: source" do
@@ -66,10 +66,12 @@ RSpec.describe Card::Set::Abstract::Attachment::Coded do
 
     it "changes storage type to default" do
       with_storage_config :local do
-        file_card.update! file: test_file(2)
-        expect(file_card.storage_type).to eq :local
-        expect(file_card.db_content)
-          .to eq("~#{file_card.id}/#{file_card.last_action_id}.txt")
+        file_card
+        card = file_card.refresh true
+        card.update! file: test_file(2)
+        expect(card.storage_type).to eq :local
+        expect(card.db_content)
+          .to eq("~#{card.id}/#{card.last_action_id}.txt")
       end
     end
 
