@@ -131,7 +131,6 @@ end
 
 private
 
-
 def new_local_manifest_group_card group_name
   card = new_assets_group_card group_name, local_manifest_group_type_id
   card.group_name = group_name
@@ -146,9 +145,9 @@ end
 
 def validate_manifest_item name, config
   raise_manifest_error "no items section in group \"#{name}\"" unless config["items"]
-  unless config["items"].is_a? Array
-    raise_manifest_error "items section \"#{name}\" must contain a list"
-  end
+  return if config["items"].is_a? Array
+
+  raise_manifest_error "items section \"#{name}\" must contain a list"
 end
 
 def raise_manifest_error msg

@@ -168,6 +168,8 @@ module CarrierWave
     # @option opts [String] mod
     # @option opts [Symbol] bucket
     def db_content opts={}
+      # binding.pry if model.name.match?(/yeti.*mage/)
+
       model.with_storage_options opts do
         return model.content if model.web?
         return "" unless file.present?
