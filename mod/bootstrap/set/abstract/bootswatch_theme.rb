@@ -20,8 +20,8 @@
 # is taken from files.
 # The bootswatch theme content is taken directly from the files in the bootswatch
 # submodule. For the rest we use code file cards.
-# Cards of type "customized bootswatch skin" have the same structure but make the variables
-# and stylesheets part editable.
+# Cards of type "customized bootswatch skin" have the same structure but make the
+# variables and stylesheets part editable.
 #
 # Bootswatch theme cards are machine cards for the following reason.
 # Machine cards usually store all involved input cards of all nested levels in
@@ -120,7 +120,9 @@ def stylesheets_content
 end
 
 def load_content *names
-  cards = names.flatten.map { |n| puts n; Card.fetch(n)&.extended_item_cards } # TODO
+  cards = names.flatten.map do |n|
+    Card.fetch(n)&.extended_item_cards
+  end
   cards.flatten.compact.map(&:content).join "\n"
 end
 
