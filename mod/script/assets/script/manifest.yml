@@ -1,7 +1,17 @@
+remote:
+  items:
+    - src: https://code.jquery.com/jquery-3.6.0.min.js
+      integrity: sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=
+      crossorigin: anonymous
+    - src: https://cdnjs.cloudflare.com/ajax/libs/jquery-ujs/1.2.0/rails.min.js
+      integrity: sha512-7JCF1tm2gqb7ddeKwz64uEhSx9f/Eu+90/LQ26ymVJlkrrOI7C1JR0KUHLi4FASyVwkuAekBNsMfCWJm1l9bHQ=="
+      crossorigin: anonymous
+      referrerpolicy: no-referrer
+
 jquery:
   items:
-    - ../../vendor/jquery_rails/vendor/assets/javascripts/jquery3.js
-    - ../../vendor/jquery_rails/vendor/assets/javascripts/jquery_ujs.js
+    # - ../../vendor/jquery_rails/vendor/assets/javascripts/jquery3.js
+    # - ../../vendor/jquery_rails/vendor/assets/javascripts/jquery_ujs.js
     # jquery-ui includes all interaction components, the dialog and the autocomplete widget
     # and all dependencies for those
     # decko depends on autocomplete, sortable, jquery.autosize and jquery.fileupload
