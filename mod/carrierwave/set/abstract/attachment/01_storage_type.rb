@@ -1,7 +1,7 @@
 attr_writer :bucket, :new_storage_type
 
 event :update_storage, :store, on: :update, when: :storage_changed? do
-  send "#{attachment_name}=", current.attachment.file unless attaching?
+  send "#{attachment_name}=", current.attachment.file unless @attaching
   write_identifier
 end
 

@@ -77,13 +77,10 @@ def empty_ok?
   @empty_ok
 end
 
-def attaching?
-  @attaching ||= set_specific[attachment_name].present?
-end
-
 def assign_set_specific_attributes
+  @attaching = set_specific[attachment_name].present?
   # reset content if we really have something to upload
-  self.content = nil if attaching?
+  self.content = nil if @attaching
   super
 end
 
