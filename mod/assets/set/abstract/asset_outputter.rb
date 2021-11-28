@@ -21,7 +21,7 @@ def find_invalid_input
 end
 
 def update_asset_output
-  puts "update_asset_output called: #{name}"
+  # puts "update_asset_output called: #{name}"
   lock do
     store_output input_from_item_cards
   end
