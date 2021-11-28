@@ -168,21 +168,19 @@ module CarrierWave
     # @option opts [String] mod
     # @option opts [Symbol] bucket
     def db_content opts={}
-      model.with_storage_options opts do
-        return model.content if model.web?
-        return "" unless file.present?
+      raise "got opts: #{opts} for db_content" if opts.present?
+      return model.content if model.web?
+      return "" unless file.present?
 
-        "%s/%s" % [file_dir, url_filename]
-      end
+      "%s/%s" % [file_dir, url_filename]
     end
 
     def url_filename opts={}
-      model.with_storage_options opts do
-        if model.coded?
-          "#{model.mod}#{extension}"
-        else
-          "#{action_id}#{extension}"
-        end
+      raise "got opts: #{opts} for url_filename" if opts.present?
+      if model.coded?
+        "#{model.mod}#{extension}"
+      else
+        "#{action_id}#{extension}"
       end
     end
 
@@ -206,8 +204,7 @@ module CarrierWave
     end
 
     def action_id
-      @action_id ||=
-        model.selected_content_action_id ||
+      model.selected_content_action_id ||
         model.last_content_action_id ||
         action_id_stand_in
     end
@@ -230,7 +227,7 @@ module CarrierWave
     # used as action_id in the filename
     # if card is not #actionable?
     def action_id_stand_in
-      Time.now.to_i
+      @action_id_stand_in ||= Time.now.to_i
     end
 
     def storage

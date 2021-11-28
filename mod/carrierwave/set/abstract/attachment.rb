@@ -24,7 +24,7 @@ end
 event :validate_file_exist, :validate, on: :create do
   return if empty_ok?
 
-  if will_be_stored_as == :web
+  if web?
     errors.add "url is missing" if content.blank?
   elsif !attachment.file.present?
     errors.add attachment_name, "is missing"
@@ -79,6 +79,8 @@ end
 
 def assign_set_specific_attributes
   # reset content if we really have something to upload
+  # storage_type
+  # mod
   self.content = nil if set_specific[attachment_name].present?
   super
 end

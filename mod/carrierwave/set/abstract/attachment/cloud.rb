@@ -1,6 +1,8 @@
+attr_writer :bucket
+
 event :change_bucket_if_read_only, :initialize,
       on: :update, when: :change_bucket_if_read_only? do
-  @new_storage_type = storage_type_from_config
+  @storage_type = storage_type_from_config
 end
 
 event :validate_storage_type_update, :validate, on: :update, when: :cloud? do
@@ -9,7 +11,7 @@ event :validate_storage_type_update, :validate, on: :update, when: :cloud? do
   #   storage type if a new file is provided
   #   i.e. `update storage_type: :local` fails but
   #        `update storage_type: :local, file: [file handle]` is ok
-  return unless storage_type_changed? && !attachment_is_changing?
+  return unless storage_changed? && !attachment_is_changing?
 
   errors.add :storage_type, t(:carrierwave_moving_files_is_not_supported)
 end
@@ -126,12 +128,4 @@ end
 
 def change_bucket_if_read_only?
   cloud? && bucket_config[:read_only] && attachment_is_changing?
-end
-
-def bucket= value
-  if @action == :update
-    @new_bucket = value
-  else
-    @bucket = value
-  end
 end
