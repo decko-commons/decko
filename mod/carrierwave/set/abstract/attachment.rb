@@ -78,7 +78,7 @@ def empty_ok?
 end
 
 def attaching?
-  set_specific[attachment_name].present?
+  @attaching ||= set_specific[attachment_name].present?
 end
 
 def assign_set_specific_attributes

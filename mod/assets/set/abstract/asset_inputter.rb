@@ -57,8 +57,7 @@ def asset_input_updated_at
 end
 
 def refresh_asset
-  return unless asset_input_needs_refresh?
-  update_asset_input
+  update_asset_input if asset_input_needs_refresh?
 end
 
 def asset_input_needs_refresh?

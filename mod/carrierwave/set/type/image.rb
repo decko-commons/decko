@@ -22,7 +22,6 @@ format do
   end
 
   view :source, unknown: :blank do
-    # binding.pry
     return card.content if card.web?
 
     image = selected_version

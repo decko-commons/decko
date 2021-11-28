@@ -20,7 +20,7 @@ end
 private
 
 def uncode?
-  (@explicit_storage_type != :coded) && !mod && current.coded?
+  (@explicit_storage_type != :coded) && !set_specific[:mod].present? && current.coded?
 end
 
 def storage_type_error error_name
