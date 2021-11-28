@@ -206,8 +206,7 @@ module CarrierWave
     end
 
     def action_id
-      @action_id ||=
-        model.selected_content_action_id ||
+      model.selected_content_action_id ||
         model.last_content_action_id ||
         action_id_stand_in
     end
@@ -230,7 +229,7 @@ module CarrierWave
     # used as action_id in the filename
     # if card is not #actionable?
     def action_id_stand_in
-      Time.now.to_i
+      @action_id_stand_in ||= Time.now.to_i
     end
 
     def storage
