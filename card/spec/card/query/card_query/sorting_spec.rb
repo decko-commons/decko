@@ -21,11 +21,7 @@ RSpec.describe Card::Query::CardQuery::Sorting do
 
   it "plays nice with match" do
     expect(run_query(match: "two", not: { match: "42" }).sort)
-      .to eq(cards_matching_two.sort - ["42",
-                                   "classic bootstrap skin+*asset input",
-                                   "yeti skin+*asset input",
-                                   "style: mods+*asset input",
-                                   "mod: bootstrap+*style+*asset input"])
+      .to eq(cards_matching_two.sort - ["42"])
   end
 
   it "sorts by plus card content" do

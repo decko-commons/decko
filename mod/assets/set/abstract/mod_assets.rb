@@ -5,8 +5,8 @@ def item_cards _args={}
   local_group_cards
 end
 
-def item_names args={}
-  local_group_cards.map { |c| c.name }
+def item_names _args={}
+  local_group_cards.map(&:name)
 end
 
 # group cards that don't refer to remote sources
@@ -21,8 +21,7 @@ end
 
 def folder_group_card
   return unless assets_path
-  card = new_assets_group_card local_group_name,
-                               folder_group_type_id
+  card = new_assets_group_card local_group_name, folder_group_type_id
   card.assets_path = assets_path
   card
 end
@@ -96,27 +95,8 @@ def validate_manifest manifest
     raise_manifest_error "only the first group can be a remote group"
   end
   manifest.each do |name, config|
-    raise_manifest_error "no items section in group \"#{name}\"" unless config["items"]
-    unless config["items"].is_a? Array
-      raise_manifest_error "items section \"#{name}\" must contain a list"
-    end
+    validate_manifest_item name, config
   end
-end
-
-def raise_manifest_error msg
-  raise Card::Error, "invalid manifest format in #{manifest_path}: #{msg}"
-end
-
-def new_local_manifest_group_card group_name
-  card = new_assets_group_card group_name, local_manifest_group_type_id
-  card.group_name = group_name
-  card
-end
-
-def new_assets_group_card group_name, type_id
-  item_name = "#{name}+group: #{group_name}"
-  card = Card.new group_card_args(group_name, type_id, item_name)
-  card
 end
 
 def group_card_args field, type_id, name
@@ -147,4 +127,29 @@ end
 
 def no_action?
   new? && !assets_path
+end
+
+private
+
+def new_local_manifest_group_card group_name
+  card = new_assets_group_card group_name, local_manifest_group_type_id
+  card.group_name = group_name
+  card
+end
+
+def new_assets_group_card group_name, type_id
+  item_name = "#{name}+group: #{group_name}"
+  card = Card.new group_card_args(group_name, type_id, item_name)
+  card
+end
+
+def validate_manifest_item name, config
+  raise_manifest_error "no items section in group \"#{name}\"" unless config["items"]
+  return if config["items"].is_a? Array
+
+  raise_manifest_error "items section \"#{name}\" must contain a list"
+end
+
+def raise_manifest_error msg
+  raise Card::Error, "invalid manifest format in #{manifest_path}: #{msg}"
 end

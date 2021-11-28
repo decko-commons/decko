@@ -16,7 +16,7 @@ def relative_paths
 end
 
 def search_path
-  File.join "**", "*.{#{valid_file_extensions.join(",")}}"
+  File.join "**", "*.{#{valid_file_extensions.join(',')}}"
 end
 
 def base_path

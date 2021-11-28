@@ -18,9 +18,7 @@ def local_manifest_group_type_id
 end
 
 def refresh_asset
-  return unless asset_output_needs_refresh?
-
-  update_asset_output
+  update_asset_output if asset_output_needs_refresh?
 end
 
 def asset_output_needs_refresh?

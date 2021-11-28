@@ -7,7 +7,8 @@ RSpec.describe Card::Set::Abstract::AssetOutputter do
       path = File.join mod_path,
                        "data", "files", "mod_script_script_asset_output", "file.js"
       expect(File).to be_exist(path),
-                      "Decko should be shipped with generated script file. Couldn't find #{path}"
+                      "Decko should be shipped with generated script file. " \
+                      "Couldn't find #{path}"
 
       File.delete path
       Card[:mod_script, :script, :asset_output].delete

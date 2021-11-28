@@ -20,7 +20,6 @@ format :css do
 end
 
 format :scss do
-
   view :labeled do
     "//#{card.name}\n#{_render_core}"
   end

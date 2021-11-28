@@ -21,20 +21,21 @@ event :asset_input_changed_on_delete, :finalize, on: :delete, before: :clear_ref
 end
 
 def update_referers_after_input_changed
-  puts "dependent inputters for #{name}: #{dependent_asset_inputters}"
-  puts "outputters: #{outputters}"
+  # puts "dependent inputters for #{name}: #{dependent_asset_inputters}"
+  # puts "outputters: #{outputters}"
 
   dependent_asset_inputters.each(&:update_asset_input)
   outputters.each(&:update_asset_output)
 end
 
 def update_asset_input
-  puts "update_asset_input called: #{name}"
   return unless Codename.exists? :asset_input
   # otherwise the migration that adds the asset_input card fails
 
-  asset_input_card.update content: render_asset_input_content
-  update_referers_after_input_changed
+  Card::Auth.as_bot do
+    asset_input_card.update content: render_asset_input_content
+    update_referers_after_input_changed
+  end
 end
 
 def asset_input_content
@@ -56,8 +57,7 @@ def asset_input_updated_at
 end
 
 def refresh_asset
-  return unless asset_input_needs_refresh?
-  update_asset_input
+  update_asset_input if asset_input_needs_refresh?
 end
 
 def asset_input_needs_refresh?
