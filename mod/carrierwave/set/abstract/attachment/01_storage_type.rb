@@ -64,30 +64,6 @@ def storage_type
     new_card? ? storage_type_from_config : storage_type_from_content
 end
 
-def deprecated_mod_file?
-  content && (lines = content.split("\n")) && lines.size == 4
-end
-
-def mod
-  @mod ||= coded? && mod_from_content
-end
-
-def mod_from_content
-  if (m = content.match %r{^:[^/]+/([^.]+)})
-    m[1] # current mod_file format
-  else
-    mod_from_deprecated_content
-  end
-end
-
-# old format is still used in card_changes
-def mod_from_deprecated_content
-  return if content.match?(/^~/)
-  return unless (lines = content.split("\n")) && lines.size == 4
-
-  lines.last
-end
-
 def storage_type_from_config
   valid_storage_type ENV["FILE_STORAGE"] || Cardio.config.file_storage
 end
