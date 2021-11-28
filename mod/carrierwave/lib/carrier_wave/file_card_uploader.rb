@@ -167,16 +167,14 @@ module CarrierWave
     # @option opts [Symbol] storage_type
     # @option opts [String] mod
     # @option opts [Symbol] bucket
-    def db_content opts={}
-      raise "got opts: #{opts} for db_content" if opts.present?
+    def db_content
       return model.content if model.web?
       return "" unless file.present?
 
       "%s/%s" % [file_dir, url_filename]
     end
 
-    def url_filename opts={}
-      raise "got opts: #{opts} for url_filename" if opts.present?
+    def url_filename
       if model.coded?
         "#{model.mod}#{extension}"
       else

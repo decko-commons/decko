@@ -11,7 +11,7 @@ end
 # we need a card id for the path so we have to update db_content when we have
 # an id
 event :correct_identifier, :finalize, on: :create, when: proc { |c| !c.web? } do
-  update_column(:db_content, attachment.db_content)
+  update_column :db_content, attachment.db_content
   expire
 end
 
@@ -77,11 +77,13 @@ def empty_ok?
   @empty_ok
 end
 
+def attaching?
+  set_specific[attachment_name].present?
+end
+
 def assign_set_specific_attributes
   # reset content if we really have something to upload
-  # storage_type
-  # mod
-  self.content = nil if set_specific[attachment_name].present?
+  self.content = nil if attaching?
   super
 end
 

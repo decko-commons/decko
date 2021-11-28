@@ -1,7 +1,7 @@
 MOD_FILE_DIR = "data/files".freeze
 
 event :uncode_attachment_storage, :initialize, on: :update, when: :uncode? do
-  @storage_type = storage_type_from_config
+  @storage_type = storage_type_from_config unless @explicit_storage_type
 end
 
 event :validate_coded_storage_type, :validate, on: :save, when: :coded? do
@@ -20,7 +20,7 @@ end
 private
 
 def uncode?
-  coded? && mod == current.mod
+  (@explicit_storage_type != :coded) && !mod && current.coded?
 end
 
 def storage_type_error error_name
@@ -52,13 +52,10 @@ def mod_dir new_mod=nil
 end
 
 def deprecated_mod_file?
-  content && (lines = content.split("\n")) && lines.size == 4
+  content.present? && !content.match?(/^~/) && content.split("\n")&.size == 4
 end
 
 # old format is still used in card_changes
 def mod_from_deprecated_content
-  return if content.match?(/^~/)
-  return unless (lines = content.split("\n")) && lines.size == 4
-
-  lines.last
+  content.split("\n").last if deprecated_mod_file?
 end

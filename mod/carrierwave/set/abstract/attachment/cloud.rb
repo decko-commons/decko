@@ -5,17 +5,6 @@ event :change_bucket_if_read_only, :initialize,
   @storage_type = storage_type_from_config
 end
 
-event :validate_storage_type_update, :validate, on: :update, when: :cloud? do
-  # FIXME: make it possible to retrieve the file from cloud storage
-  #   to store it somewhere else. Currently, it only works to change the
-  #   storage type if a new file is provided
-  #   i.e. `update storage_type: :local` fails but
-  #        `update storage_type: :local, file: [file handle]` is ok
-  return unless storage_changed? && !attachment_is_changing?
-
-  errors.add :storage_type, t(:carrierwave_moving_files_is_not_supported)
-end
-
 def bucket
   @bucket ||= cloud? && (new_card_bucket || bucket_from_content || bucket_from_config)
 end

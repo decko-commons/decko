@@ -1,16 +1,7 @@
 attr_writer :bucket, :new_storage_type
-attr_writer :storage_type
 
 event :update_storage, :store, on: :update, when: :storage_changed? do
-  # carrierwave stores file if @cache_id is not nil
-  attachment.cache_stored_file!
-  # attachment.retrieve_from_cache!(attachment.cache_name)
-  # update_storage_attributes
-  # next line might be necessary to move files to cloud
-
-  # make sure that we get the new identifier
-  # otherwise action_id will return wrong id for new identifier
-  db_content_will_change!
+  send "#{attachment_name}=", current.attachment.file unless attaching?
   write_identifier
 end
 
@@ -46,9 +37,13 @@ def remote_storage?
   cloud? || web?
 end
 
+def storage_type= value
+  @explicit_storage_type = true
+  @storage_type = value&.to_sym
+end
+
 def storage_type
-  @storage_type ||=
-    new_card? ? storage_type_from_config : storage_type_from_content
+  @storage_type ||= new_card? ? storage_type_from_config : storage_type_from_content
 end
 
 def storage_type_from_config
