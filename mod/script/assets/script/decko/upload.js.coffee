@@ -1,10 +1,10 @@
 $.extend decko,
   upload_file: (fileupload) ->
-  # for file as a subcard in a form,
-  # excess parameters are included in the request which cause errors.
-  # only the file, type_id and attachment_card_name are needed
-  # attachment_card_name is the original card name,
-  # ex: card[subcards][+logo][image], card[file]
+    # for file as a subcard in a form,
+    # excess parameters are included in the request which cause errors.
+    # only the file, type_id and attachment_card_name are needed
+    # attachment_card_name is the original card name,
+    # ex: card[subcards][+logo][image], card[file]
     $(fileupload).on 'fileuploadsubmit', (e,data) ->
       $_this = $(this)
       card_name = $_this.siblings(".attachment_card_name:first").attr("name")
