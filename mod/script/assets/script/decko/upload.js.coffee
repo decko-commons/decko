@@ -36,6 +36,7 @@ $.extend decko,
                   'value="preview_editor" name="view">'
     data.submit()
     editor.find('.choose-file').hide()
+    editor.find(".file-upload").prop "disabled", true
     editor.find('.extra_upload_param').remove()
 
   progressallFile: (e, data) ->
@@ -51,6 +52,7 @@ $(window).ready ->
   $('body').on 'click', '.cancel-upload', ->
     editor = $(this).closest '.card-editor'
     editor.find('.choose-file').show()
+    editor.find(".file-upload").prop "disabled", false
     editor.find('.chosen-file').empty()
     editor.find('.progress').show()
     editor.find('#progress .progress-bar').css('width', '0%')
