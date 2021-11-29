@@ -100,4 +100,6 @@ def file_updated_at
   else
     updated_at
   end
+rescue Errno::ENOENT # no file at path
+  nil
 end
