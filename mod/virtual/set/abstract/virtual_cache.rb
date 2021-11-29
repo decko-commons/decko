@@ -13,7 +13,11 @@ def followable?
 end
 
 def db_content
-  Card::Virtual.fetch_content(self)
+  Card::Virtual.fetch_content self
+end
+
+def updated_at
+  Card::Virtual.find_by_card(self)&.updated_at
 end
 
 # called to refresh the virtual content
@@ -23,7 +27,7 @@ def generate_virtual_content
 end
 
 event :save_virtual_content, :prepare_to_store, on: :save, changed: :content do
-  Card::Virtual.create_or_update(self, attributes["db_content"])
+  Card::Virtual.create_or_update self, attributes["db_content"]
   abort :success
 end
 

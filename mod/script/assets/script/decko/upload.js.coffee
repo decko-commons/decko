@@ -29,6 +29,8 @@ $.extend decko,
   chooseFile: (e, data) ->
     data.form.find('button[type=submit]').attr('disabled',true)
     editor = $(this).closest '.card-editor'
+    editor.find(".file-upload").prop "disabled", false
+
     $('#progress').show()
     editor.append '<input type="hidden" class="extra_upload_param" ' +
                   'value="true" name="attachment_upload">'
@@ -36,6 +38,7 @@ $.extend decko,
                   'value="preview_editor" name="view">'
     data.submit()
     editor.find('.choose-file').hide()
+    editor.find(".file-upload").prop "disabled", true
     editor.find('.extra_upload_param').remove()
 
   progressallFile: (e, data) ->
