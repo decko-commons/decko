@@ -18,8 +18,8 @@ RSpec.describe Card::Set::TypePlusRight::Mod::Script do
     end
 
     it "contains local file" do
-      script_card.
-        should match(%r{<script src="/files/(:[\w_]+|~[\d]+)/[\d\w]+.js"></script>})
+      script_card
+        .should match %r{<script src="/files/(:[\w_]+|~[\d]+)/[\d\w]+.js"></script>}
     end
   end
 end
