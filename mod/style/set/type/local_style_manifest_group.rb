@@ -1,2 +1,2 @@
 include_set Abstract::LocalManifestGroup
-include_set Abstract::StyleAssetList
+include_set Abstract::StyleGroup
