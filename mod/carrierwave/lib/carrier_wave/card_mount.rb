@@ -70,6 +70,7 @@ module CarrierWave
 
         def #{column}=(new_file)
           return if new_file.blank?
+          set_specific.delete :#{column}
           self.selected_action_id = Time.now.to_i unless history?
           assign_file(new_file) { super }
         end
