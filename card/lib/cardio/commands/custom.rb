@@ -52,8 +52,8 @@ module Cardio
 
       # formats command string for help text
       def command_help command, conf
-        alt = conf[:alias] ? "(or #{conf[:alias].to_s.light_cyan})" : ""
-        "    " + command.to_s.ljust(12).light_cyan + alt.ljust(8) + conf[:desc]
+        alt = conf[:alias] ? "(or #{conf[:alias]})" : ""
+        "    " + command.to_s.ljust(12).light_cyan + alt.ljust(10) + conf[:desc]
       end
     end
   end

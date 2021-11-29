@@ -42,6 +42,7 @@ event :assign_attachment_on_update, :initialize,
 end
 
 def assign_attachment file, original_filename
+  @attaching = true
   send "#{attachment_name}=", file
   write_identifier
   @current_action&.update! comment: original_filename
@@ -76,7 +77,7 @@ def upload_cache_card
 end
 
 def preliminary_upload?
-  Card::Env && Card::Env.params[:attachment_upload]
+  Card::Env.params[:attachment_upload]
 end
 
 def save_preliminary_upload?

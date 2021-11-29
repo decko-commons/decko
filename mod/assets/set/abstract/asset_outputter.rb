@@ -1,6 +1,6 @@
 include_set Abstract::Lock
 
-card_accessor :asset_output, type: FileID
+card_accessor :asset_output, type: :file
 
 def output_filetype
   output_format
@@ -21,7 +21,7 @@ def find_invalid_input
 end
 
 def update_asset_output
-  puts "update_asset_output called: #{name}"
+  # puts "update_asset_output called: #{name}"
   lock do
     store_output input_from_item_cards
   end
@@ -39,7 +39,7 @@ end
 def store_output output
   handle_file(output) do |file|
     Card::Auth.as_bot do
-      asset_output_card.update! file: file
+      asset_output_card.update file: file
     end
   end
 end
@@ -47,9 +47,8 @@ end
 def handle_file output
   file = Tempfile.new [id.to_s, ".#{output_filetype}"]
   file.write output
-  file.rewind
-  yield file
   file.close
+  yield file
   file.unlink
 end
 

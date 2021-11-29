@@ -167,22 +167,18 @@ module CarrierWave
     # @option opts [Symbol] storage_type
     # @option opts [String] mod
     # @option opts [Symbol] bucket
-    def db_content opts={}
-      model.with_storage_options opts do
-        return model.content if model.web?
-        return "" unless file.present?
+    def db_content
+      return model.content if model.web?
+      return "" unless file.present?
 
-        "%s/%s" % [file_dir, url_filename]
-      end
+      "%s/%s" % [file_dir, url_filename]
     end
 
-    def url_filename opts={}
-      model.with_storage_options opts do
-        if model.coded?
-          "#{model.mod}#{extension}"
-        else
-          "#{action_id}#{extension}"
-        end
+    def url_filename
+      if model.coded?
+        "#{model.mod}#{extension}"
+      else
+        "#{action_id}#{extension}"
       end
     end
 
@@ -207,8 +203,8 @@ module CarrierWave
 
     def action_id
       model.selected_content_action_id ||
-      model.last_content_action_id ||
-      action_id_stand_in
+        model.last_content_action_id ||
+        action_id_stand_in
     end
 
     # delegate carrierwave's fog config methods to bucket configuration

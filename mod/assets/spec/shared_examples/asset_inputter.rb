@@ -2,7 +2,7 @@
 
 shared_examples_for "asset inputter" do |_args|
   before do
-    #Cardio.config.compress_assets = true
+    # Cardio.config.compress_assets = true
   end
 
   let! :asset_outputter do

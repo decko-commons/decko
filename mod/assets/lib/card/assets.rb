@@ -21,10 +21,7 @@ class Card
       end
 
       def make_output_coded
-        asset_outputters.each do |card|
-          puts "coding asset output for #{card.name}"
-          card.make_asset_output_coded
-        end
+        asset_outputters.each(&:make_asset_output_coded)
       end
 
       def generate_asset_output_files
@@ -33,8 +30,7 @@ class Card
 
       def asset_inputters
         Card.search(type_id: inputter_types.unshift("in")) +
-          Card.search(left: { type_id: Card::ModID },
-                      right: { codename: %w[in style script] })
+          Card.search(left: { type: :mod }, right: { codename: %w[in style script] })
       end
 
       def active_theme_cards
