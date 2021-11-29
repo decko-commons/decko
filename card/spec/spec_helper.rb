@@ -1,7 +1,5 @@
 # -*- encoding : utf-8 -*-
 
-puts "card/spec/spec_helper"
-
 $LOAD_PATH.unshift File.expand_path(
   "../../mod/platypus/vendor/capybara-select2/lib", __dir__
 )
@@ -28,9 +26,9 @@ CardSpecLoader.prefork do
     end
   end
 
-  Card["*all+*style"].ensure_machine_output
+  # Card["*all+*style"].ensure_machine_output
   # Card["*all+*script"].ensure_machine_output
-  (ie9 = Card[:script_html5shiv_printshiv]) && ie9.ensure_machine_output
+  # (ie9 = Card[:script_html5shiv_printshiv]) && ie9.ensure_machine_output
 end
 
 require "simplecov"

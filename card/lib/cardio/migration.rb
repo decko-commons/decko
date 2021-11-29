@@ -43,8 +43,22 @@ module Cardio
         Schema.assume_migrated_upto_version type
       end
 
+      def assume_current
+        Schema.assume_migrated_upto_version type, current_version
+      end
+
       def data_path filename=nil
         File.join([migration_paths.first, "data", filename].compact)
+      end
+
+      private
+
+      def current_version
+        migration_context { |mc| mc.migrations.last.version }
+      end
+
+      def migration_context &block
+        Schema.migration_context type, &block
       end
     end
 
