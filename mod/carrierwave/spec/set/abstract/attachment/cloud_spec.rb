@@ -53,9 +53,11 @@ RSpec.describe Card::Set::Abstract::Attachment::Cloud do
     end
 
     it "copies file to local file system" do
-      # not yet supported
-      expect { Card[file_card.name].update!(storage_type: :local) }
-        .to raise_error(ActiveRecord::RecordInvalid)
+      file_card
+      file_card.update! storage_type: :local
+      fc = file_card.refresh true
+      expect(fc.content).to match(/^~/)
+      expect(fc.file.read.strip).to eq("file1")
     end
   end
 

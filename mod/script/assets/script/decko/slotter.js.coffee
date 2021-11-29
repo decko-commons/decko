@@ -236,7 +236,7 @@ jQuery.fn.extend
       )
       return false
 
-    widget = input.data 'blueimpFileupload' #jQuery UI widget
+    widget = input.data 'wblueimpFileupload' #jQuery UI widget
 
     # browsers that can't do ajax uploads use iframe
     unless widget._isXHRUpload(widget.options)
