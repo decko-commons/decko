@@ -77,7 +77,7 @@ def upload_cache_card
 end
 
 def preliminary_upload?
-  Card::Env&.params[:attachment_upload]
+  Card::Env.params[:attachment_upload]
 end
 
 def save_preliminary_upload?

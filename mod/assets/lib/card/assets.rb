@@ -21,10 +21,7 @@ class Card
       end
 
       def make_output_coded
-        asset_outputters.each do |card|
-          # puts "coding asset output for #{card.name}"
-          card.make_asset_output_coded
-        end
+        asset_outputters.each(&:make_asset_output_coded)
       end
 
       def generate_asset_output_files
