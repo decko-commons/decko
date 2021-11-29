@@ -7,8 +7,8 @@ Cardio.application.class.configure do
 
   config.eager_load = false
 
-  config.machine_refresh = :eager
-  config.compress_javascript = false
+  config.asset_refresh = :eager
+  config.compress_assets = false
 
   # In the development environment your application's code is reloaded on
   # every request.  This slows down response time but is perfect for development
