@@ -114,8 +114,7 @@ decko_namespace = namespace :decko do
 
   def seed with_cache_reset: true
     ENV["SCHEMA"] ||= "#{Cardio.gem_root}/db/schema.rb"
-    # FIXME: this should be an option, but should not happen on standard
-    # creates!
+    # FIXME: this should be an option, but should not happen on standard creates!
     begin
       Rake::Task["db:drop"].invoke
     rescue StandardError
