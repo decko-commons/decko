@@ -10,9 +10,7 @@ end
 def relative_paths
   return [] unless (path = assets_path)
 
-  Dir.chdir(path) do
-    Dir.glob search_path
-  end
+  Dir.chdir(path) { Dir.glob(search_path).sort }
 end
 
 def search_path
