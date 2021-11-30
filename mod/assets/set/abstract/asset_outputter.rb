@@ -39,7 +39,16 @@ end
 def store_output output
   handle_file(output) do |file|
     Card::Auth.as_bot do
-      asset_output_card.update file: file
+      # FIXME: this is definitely not how we want to do this.
+      # problem is that file object is getting stashed in set_specific attributes,
+      # and then reassigned later. This causes problems in cases where a single
+      # card (eg *all+*style) is updated by multiple inputters, because the old file arg
+      # sticks around in the set specific stash and then reemerges after it's been
+      # unlinked. we need a more general solution
+      # (error reproducible eg when running card:mod:install on wikirate)
+      aoc = asset_output_card
+      aoc.update file: file
+      aoc.set_specific.delete :file
     end
   end
 end
