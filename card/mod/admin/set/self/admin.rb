@@ -17,8 +17,8 @@ event :admin_tasks, :initialize, on: :update do
   when :repair_references    then Card::Reference.repair_all
   when :repair_permissions   then Card.repair_all_permissions
   when :clear_solid_cache    then Card.clear_solid_cache
-  when :regenerate_styles    then Card::Assets.refresh_styles
-  when :regenerate_scripts   then Card::Assets.refresh_scripts
+  when :regenerate_assets    then Card::Assets.refresh_assets
+  # when :regenerate_scripts   then Card::Assets.refresh_scripts
   when :clear_history
     not_allowed "clear history" unless irreversibles_tasks_allowed?
     Card::Action.delete_old
@@ -72,11 +72,11 @@ format :html do
         link_text: "clear solid cache",
         task: "clear_solid_cache" },
       { title: "style assets",
-        link_text: "regenerate styles",
-        task: "regenerate_styles" },
-      { title: "script assets",
-        link_text: "regenerate scripts",
-        task: "regenerate_scripts" }
+        link_text: "regenerate styles and scripts",
+        task: "regenerate_assets" } # ,
+      # { title: "script assets",
+      #   link_text: "regenerate scripts",
+      #   task: "regenerate_scripts" }
     ]
     # return stats unless Card.config.view_cache#
     # stats << { title: "view cache",
