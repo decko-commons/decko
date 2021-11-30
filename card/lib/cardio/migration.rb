@@ -45,6 +45,10 @@ module Cardio
 
       def assume_current
         Schema.assume_migrated_upto_version type, current_version
+        # inserting = (versions - migrated).select { |v| v <= current_version }
+        #
+        # require "pry"
+        # binding.pry
       end
 
       def data_path filename=nil
@@ -55,6 +59,14 @@ module Cardio
 
       def current_version
         migration_context { |mc| mc.migrations.last.version }
+      end
+
+      def versions
+        migration_context.migrations.map(&:version)
+      end
+
+      def migrated_versions
+        migration_context.get_all_versions
       end
 
       def migration_context &block
