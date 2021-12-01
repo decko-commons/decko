@@ -115,7 +115,7 @@ def source_changed? since:
       folder_group_card&.paths&.map { |path| File.mtime(path) }
     end
 
-  return unless source_updates
+  return unless source_updates.present?
 
   source_updates.max > since
 end
