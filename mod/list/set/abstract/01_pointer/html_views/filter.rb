@@ -43,7 +43,7 @@ format :html do
   end
 
   def default_filter_card
-    fcard = card.options_rule_card || Card[:all]
+    fcard = card.options_card
     return fcard if fcard.respond_to? :cql_hash
 
     fcard.fetch :referred_to_by, new: {}
