@@ -13,26 +13,24 @@ def followable?
 end
 
 def db_content
-  Card::Virtual.fetch_content self
+  Virtual.fetch(self)&.content
 end
 
 def updated_at
-  Card::Virtual.find_by_card(self)&.updated_at
+  Virtual.fetch(self)&.updated_at
 end
 
-# called to refresh the virtual content
-# the default way is to use the card's template content
-def generate_virtual_content
-  template&.db_content
+def virtual_content
+  attributes["db_content"]
 end
 
 event :save_virtual_content, :prepare_to_store, on: :save, changed: :content do
-  Card::Virtual.create_or_update self, attributes["db_content"]
+  Virtual.save self, attributes["db_content"]
   abort :success
 end
 
 event :delete_virtual_content, :prepare_to_store, on: :delete do
-  Card::Virtual.find_by_card(self)&.delete
+  Virtual.delete self
   abort :success
 end
 

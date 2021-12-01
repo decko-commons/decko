@@ -40,11 +40,12 @@ end
 def option_names_from_items
   o_card = options_card
   limit = o_card.try(:default_limit).to_i
-  o_card.item_names context: name, limit: limit
+  context_name = right_type? ? nil : name
+  o_card.item_names context: context_name, limit: limit
 end
 
 def options_card
-  rule_card(:content_options) || right_type_options || Card[:all]
+  @options_card ||= rule_card(:content_options) || right_type_options || Card[:all]
 end
 
 def options_card_name
@@ -54,9 +55,13 @@ end
 private
 
 def right_type_options
-  r = right
-  r.fetch(:type) if r&.type_id == CardtypeID
+  Card.fetch [right.name, :type, :by_name] if right_type?
 end
+
+def right_type?
+  right&.type_id == CardtypeID
+end
+
 
 format do
   delegate :options_card, :options_card_name, to: :card
