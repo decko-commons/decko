@@ -4,12 +4,10 @@ def virtual?
   new?
 end
 
-def history?
-  false
-end
-
-def followable?
-  false
+# the content to be cached
+# (can be overridden)
+def virtual_content
+  attributes["db_content"]
 end
 
 def db_content
@@ -20,11 +18,7 @@ def updated_at
   Virtual.fetch(self)&.updated_at
 end
 
-def virtual_content
-  attributes["db_content"]
-end
-
-event :save_virtual_content, :prepare_to_store, on: :save, changed: :content do
+event :save_virtual_content, :prepare_to_store, on: :save do
   Virtual.save self
   abort :success
 end
@@ -32,6 +26,18 @@ end
 event :delete_virtual_content, :prepare_to_store, on: :delete do
   Virtual.delete self
   abort :success
+end
+
+# TODO: confirm that the following are needed (and if so, explain why)
+# in theory, if we always abort, we'll never trigger history/follow events,
+# and we'll never have a card to delete, no?
+
+def history?
+  false
+end
+
+def followable?
+  false
 end
 
 def delete
