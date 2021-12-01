@@ -10,10 +10,10 @@ def option_cards
   Card::FollowOption.cards.compact
 end
 
-def options_rule_card
+def options_card
   Card.new(
     name: "follow_options_card",
-    type_code: :pointer,
+    type: :list,
     content: option_cards.map { |oc| "[[#{oc.name}]]" }.join("\n")
   )
 end

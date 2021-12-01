@@ -90,8 +90,6 @@ module Cardio
         ActiveRecord::SchemaMigration.table_name = old_table_name
         ActiveRecord::SchemaMigration.reset_column_information
       end
-
-
     end
   end
 end
