@@ -29,10 +29,6 @@ def option_cards
   end
 end
 
-def options_rule_card
-  rule_card :content_options
-end
-
 def standard_option_names
   if json_options?
     options_hash.values.map(&:to_name)
@@ -48,17 +44,22 @@ def option_names_from_items
 end
 
 def options_card
-  options_rule_card || Card[:all]
+  rule_card(:content_options) || right_type_options || Card[:all]
 end
 
 def options_card_name
-  options_rule_card&.name&.url_key || ":all"
+  options_card&.name&.url_key
+end
+
+private
+
+def right_type_options
+  r = right
+  r.fetch(:type) if r&.type_id == CardtypeID
 end
 
 format do
-  def options_card_name
-    card.options_card_name
-  end
+  delegate :options_card, :options_card_name, to: :card
 end
 
 format :html do

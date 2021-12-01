@@ -44,7 +44,11 @@ module Cardio
       end
 
       def assume_current
-        Schema.assume_migrated_upto_version type, current_version
+        migration_context do |mc|
+          versions = mc.migrations.map(&:version)
+          migrated = mc.get_all_versions
+          mark_as_migrated versions - migrated
+        end
       end
 
       def data_path filename=nil
@@ -53,8 +57,13 @@ module Cardio
 
       private
 
-      def current_version
-        migration_context { |mc| mc.migrations.last.version }
+      def mark_as_migrated versions
+        sql = connection.send :insert_versions_sql, versions
+        connection.execute sql
+      end
+
+      def connection
+        ActiveRecord::Base.connection
       end
 
       def migration_context &block

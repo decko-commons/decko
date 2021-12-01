@@ -155,7 +155,7 @@ end
 # TODO: support type_code and type_id. (currently type)
 # uses name, because its most common use is from CQL
 def item_type
-  opt = options_rule_card
+  opt = options_card
   # FIXME: need better recursion prevention
   return if !opt || opt == self
 

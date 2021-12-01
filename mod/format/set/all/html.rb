@@ -13,4 +13,13 @@ format :html do
       link_to_card card.type_name, nil, class: "navbar-link"
     end
   end
+
+  def default_nest_view
+    :titled
+    # card.rule(:default_html_view) || :titled
+  end
+
+  def default_item_view
+    :bar
+  end
 end
