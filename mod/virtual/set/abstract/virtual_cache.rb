@@ -25,7 +25,7 @@ def virtual_content
 end
 
 event :save_virtual_content, :prepare_to_store, on: :save, changed: :content do
-  Virtual.save self, attributes["db_content"]
+  Virtual.save self
   abort :success
 end
 
