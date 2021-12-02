@@ -37,7 +37,8 @@ class DeathToMachines < Cardio::Migration::Core
   ].freeze
 
   def up
-    delete_machine_output_cards
+    delete_machine_cards "machine output"
+    delete_machine_cards "machine input"
     delete_group_card
     delete_old_style_cards
 
@@ -88,8 +89,8 @@ class DeathToMachines < Cardio::Migration::Core
     end
   end
 
-  def delete_machine_output_cards
-    Card.search right: { codename: "machine_output" } do |card|
+  def delete_machine_cards codename
+    Card.search right: { codename: codename } do |card|
       next unless card.codename.present?
       card.update_column :codename, ""
       card.delete!
