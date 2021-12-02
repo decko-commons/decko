@@ -90,8 +90,7 @@ class DeathToMachines < Cardio::Migration::Core
   end
 
   def delete_machine_cards codename
-    Card.search right: { codename: codename } do |card|
-      next unless card.codename.present?
+    Card.search right: codename do |card|
       card.update_column :codename, ""
       card.delete!
     end
