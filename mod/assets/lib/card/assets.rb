@@ -4,6 +4,8 @@ class Card
     REFRESHED = "ASSETS_REFRESHED".freeze
 
     class << self
+      # FIXME: if we need this (not sure we do? see below), these types should probably
+      # be in a basket so that monkeys can add them.
       def inputter_types
         [
           JavaScriptID,
@@ -16,21 +18,20 @@ class Card
       def refresh_assets force: false
         return unless force || refresh_assets?
 
-        asset_inputters.each(&:refresh_asset)
+        inputters = standard_inputters
+
+        # typically nonstandard inputters are standard cards, so their events
+        # should manage normal (non-forced) refreshing.
+        # (standard_inputters, by contrast, are in code, so this refreshing is
+        # needed eg in development mode to detect changes)
+        inputters += nonstandard_inputters if force
+        inputters.each(&:refresh_asset)
+
         generate_asset_output_files if force
       end
 
       def make_output_coded
         asset_outputters.each(&:make_asset_output_coded)
-      end
-
-      def generate_asset_output_files
-        asset_outputters.each(&:update_asset_output)
-      end
-
-      def asset_inputters
-        Card.search(type_id: inputter_types.unshift("in")) +
-          Card.search(left: { type: :mod }, right: { codename: %w[in style script] })
       end
 
       def active_theme_cards
@@ -40,9 +41,14 @@ class Card
         end
       end
 
+      private
+
+      def generate_asset_output_files
+        asset_outputters.each(&:update_asset_output)
+      end
+
       def script_outputters
-        Card.search(left: { type_id: Card::ModID }, right: { codename: "script" })
-            .flatten
+        Card.search(left: { type: :mod }, right_id: ScriptID).flatten
       end
 
       def style_outputters
@@ -53,7 +59,18 @@ class Card
         script_outputters + style_outputters
       end
 
-      private
+      # MOD+:style and MOD+:script cards, which represent the assets in MOD/assets/style
+      # and MOD/assets/script directories respectively
+      def standard_inputters
+        @standard_inputter_ids ||=
+          Card.search left: { type: :mod }, right_id: [StyleID, ScriptID], return: :id
+        @standard_inputter_ids.map(&:card)
+      end
+
+      # standalone cards, NOT in mod assets directories
+      def nonstandard_inputters
+        Card.search type_id: inputter_types.unshift("in")
+      end
 
       def refresh_assets?
         case Cardio.config.asset_refresh

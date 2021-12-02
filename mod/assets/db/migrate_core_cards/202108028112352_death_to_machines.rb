@@ -37,18 +37,14 @@ class DeathToMachines < Cardio::Migration::Core
   ].freeze
 
   def up
-    delete_machine_output_cards
+    delete_machine_cards :machine_output
+    delete_machine_cards :machine_input
+    delete_machine_cards :machine_cache
     delete_group_card
     delete_old_style_cards
 
     ensure_code_card "*asset input"
     ensure_code_card "*asset output"
-
-    Card.search right: { codename: "machine_cache" } do |card|
-      if card[0..1]
-        # card[0..1].delete
-      end
-    end
 
     drop_all_style_items
     update_mod_asset_type_id
@@ -88,9 +84,8 @@ class DeathToMachines < Cardio::Migration::Core
     end
   end
 
-  def delete_machine_output_cards
-    Card.search right: { codename: "machine_output" } do |card|
-      next unless card.codename.present?
+  def delete_machine_cards codename
+    Card.search right: codename do |card|
       card.update_column :codename, ""
       card.delete!
     end
