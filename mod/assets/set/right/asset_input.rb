@@ -1,6 +1,6 @@
 include_set Abstract::VirtualCache
 
-def generate_virtual_content
+def virtual_content
   left.render_asset_input_content
 end
 

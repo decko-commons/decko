@@ -21,7 +21,7 @@ shared_examples_for "asset inputter" do |_args|
 
   context "when updated" do
     it "updates output of related asset outputter" do
-      input.update! content: card_content[:changed_in]
+      input.name.card.update! content: card_content[:changed_in]
       expect(outputter_file_content).to eq(card_content[:changed_out])
     end
   end

@@ -40,13 +40,13 @@ format do
 
   def env_search_param param
     val = Env.params[param]
-    val = val.to_i if focal? && val.present?
-    enforce_legal_limit! val
-    val
+    return unless focal? && val.present?
+
+    legal_search_param val.to_i
   end
 
-  def enforce_legal_limit! val
-    return if Card::Auth.signed_in? || !val || val <= MAX_ANONYMOUS_SEARCH_PARAM
+  def legal_search_param val
+    return val if Card::Auth.signed_in? || val <= MAX_ANONYMOUS_SEARCH_PARAM
 
     raise Card::Error::PermissionDenied,
           "limit parameter exceeds maximum for anonymous users " \
