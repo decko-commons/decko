@@ -62,7 +62,6 @@ def right_type?
   right&.type_id == CardtypeID
 end
 
-
 format do
   delegate :options_card, :options_card_name, to: :card
 end
