@@ -37,8 +37,8 @@ class DeathToMachines < Cardio::Migration::Core
   ].freeze
 
   def up
-    delete_machine_cards "machine output"
-    delete_machine_cards "machine input"
+    delete_machine_cards "machine_output"
+    delete_machine_cards "machine_input"
     delete_group_card
     delete_old_style_cards
 
