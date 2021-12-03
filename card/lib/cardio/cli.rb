@@ -1,4 +1,5 @@
 require "rbconfig"
+require "colorize"
 require "cardio/script_loader"
 
 # If we are inside a Decko application this method performs an exec and thus

@@ -76,7 +76,7 @@ end
 # set card content based on array and save card
 # @param array [Array] list of strings/names (Cardish)
 def items= array
-  items_to_content array
+  self.content = array
   save!
 end
 
@@ -92,8 +92,7 @@ end
 def add_item cardish, allow_duplicates=false
   return if !allow_duplicates && include_item?(cardish)
 
-  items = item_strings << cardish
-  items_to_content items
+  self.content = (item_strings << cardish)
 end
 
 # append item to list and save card
@@ -106,7 +105,7 @@ end
 # @param cardish [String, Card::Name] item to drop
 def drop_item cardish
   drop_item_name = Card::Name[cardish]
-  items_to_content(item_names.reject { |item_name| item_name == drop_item_name })
+  self.content = (item_names.reject { |item_name| item_name == drop_item_name })
 end
 
 # remove item from list and save card
@@ -123,7 +122,7 @@ def insert_item index, name
   new_names = item_names
   new_names.delete name
   new_names.insert index, name
-  items_to_content new_names
+  self.content = new_names
 end
 
 # insert item into list at specified location and save
@@ -156,7 +155,7 @@ end
 # TODO: support type_code and type_id. (currently type)
 # uses name, because its most common use is from CQL
 def item_type
-  opt = options_rule_card
+  opt = options_card
   # FIXME: need better recursion prevention
   return if !opt || opt == self
 

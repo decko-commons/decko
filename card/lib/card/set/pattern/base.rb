@@ -1,19 +1,21 @@
 class Card
   module Set
-    class Pattern
+    module Pattern
       # class from which set patterns inherit
       class Base
         extend ClassMethods
+        delegate :pattern_code, :pattern, :anchorless?, :anchor_parts_count,
+                 :assigns_type, to: :class
 
         def initialize card
-          return if self.class.anchorless?
+          return if anchorless?
 
           @anchor_name = self.class.anchor_name(card).to_name
           @anchor_id = find_anchor_id card
         end
 
         def find_anchor_id card
-          self.class.try(:anchor_id, card) || Card.fetch_id(@anchor_name)
+          self.class.try(:anchor_id, card) || @anchor_name.card_id
         end
 
         def module_key
@@ -53,16 +55,8 @@ class Card
           end
         end
 
-        def anchor_parts_count
-          self.class.anchor_parts_count
-        end
-
-        def pattern
-          @pattern ||= self.class.pattern
-        end
-
         def to_s
-          self.class.anchorless? ? pattern.s : "#{@anchor_name}+#{pattern}"
+          anchorless? ? pattern.s : "#{@anchor_name}+#{pattern}"
         end
 
         def inspect
@@ -70,15 +64,15 @@ class Card
         end
 
         def safe_key
-          caps_part = self.class.pattern_code.to_s.tr(" ", "_").upcase
-          self.class.anchorless? ? caps_part : "#{caps_part}-#{@anchor_name.safe_key}"
+          caps_part = pattern_code.to_s.tr(" ", "_").upcase
+          anchorless? ? caps_part : "#{caps_part}-#{@anchor_name.safe_key}"
         end
 
-        def rule_set_key
-          if self.class.anchorless?
-            self.class.pattern_code.to_s
+        def rule_lookup_key
+          if anchorless?
+            pattern_code.to_s
           elsif @anchor_id
-            "#{@anchor_id}+#{self.class.pattern_code}"
+            "#{@anchor_id}+#{pattern_code}"
           end
         end
       end

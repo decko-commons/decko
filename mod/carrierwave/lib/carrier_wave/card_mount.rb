@@ -53,6 +53,7 @@ module CarrierWave
         end
 
         def store_attachment!
+          set_specific.delete :#{column}
           store_#{column}!
         end
 

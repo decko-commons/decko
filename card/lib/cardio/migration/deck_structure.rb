@@ -1,5 +1,7 @@
 # -*- encoding : utf-8 -*-
 
+# ENV["NO_CARD_LOAD"] = "true"
+
 require "cardio/migration"
 
 module Cardio

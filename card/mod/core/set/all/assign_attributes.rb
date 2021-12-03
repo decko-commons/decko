@@ -38,6 +38,7 @@ def prepare_assignment_params args
 end
 
 def prepare_assignment_args args
+  @set_specific = {}
   return {} unless args
 
   args = args.symbolize_keys
@@ -66,42 +67,9 @@ def refresh_set_modules
 end
 
 def stash_set_specific_attributes args
-  @set_specific = {}
   Card.set_specific_attributes.each do |key|
     set_specific[key] = args.delete(key) if args.key?(key)
   end
-end
-
-def normalize_type_attributes args
-  new_type_id = extract_type_id! args unless args.delete(:type_lookup) == :skip
-  args[:type_id] = new_type_id if new_type_id
-end
-
-def extract_type_id! args={}
-  case
-  when (type_id = args.delete(:type_id)&.to_i)
-    type_id.zero? ? nil : type_id
-  when (type_code = args.delete(:type_code)&.to_sym)
-    type_id_from_codename type_code
-  when (type_name = args.delete :type)
-    type_id_from_cardname type_name
-  end
-end
-
-def type_id_from_codename type_code
-  type_id_or_error(type_code) { Card::Codename.id type_code }
-end
-
-def type_id_from_cardname type_name
-  type_id_or_error(type_name) { type_name.card_id }
-end
-
-def type_id_or_error val
-  type_id = yield
-  return type_id if type_id
-
-  errors.add :type, "#{val} is not a known type."
-  nil
 end
 
 # 'set' refers to the noun not the verb

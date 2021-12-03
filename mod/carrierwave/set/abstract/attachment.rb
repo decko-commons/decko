@@ -11,7 +11,7 @@ end
 # we need a card id for the path so we have to update db_content when we have
 # an id
 event :correct_identifier, :finalize, on: :create, when: proc { |c| !c.web? } do
-  update_column(:db_content, attachment.db_content)
+  update_column :db_content, attachment.db_content
   expire
 end
 
@@ -24,7 +24,7 @@ end
 event :validate_file_exist, :validate, on: :create do
   return if empty_ok?
 
-  if will_be_stored_as == :web
+  if web?
     errors.add "url is missing" if content.blank?
   elsif !attachment.file.present?
     errors.add attachment_name, "is missing"
@@ -54,7 +54,7 @@ def original_filename
 end
 
 def unfilled?
-  !attachment.present? && !save_preliminary_upload? && !subcards? && blank_content?
+  !attachment.present? && !save_preliminary_upload? && super
 end
 
 def attachment_changed?
@@ -78,8 +78,9 @@ def empty_ok?
 end
 
 def assign_set_specific_attributes
+  @attaching = set_specific[attachment_name].present?
   # reset content if we really have something to upload
-  self.content = nil if set_specific[attachment_name].present?
+  self.content = nil if @attaching
   super
 end
 

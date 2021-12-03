@@ -1,7 +1,5 @@
-MOD_FILE_DIR = "file".freeze
-
 def store_dir
-  will_become_coded? ? coded_dir(@new_mod) : upload_dir
+  coded? ? coded_dir : upload_dir
 end
 
 def retrieve_dir
@@ -11,22 +9,6 @@ end
 # place for files of regular file cards
 def upload_dir
   id ? "#{files_base_dir}/#{id}" : tmp_upload_dir
-end
-
-# place for files of mod file cards
-def coded_dir new_mod=nil
-  dir = File.join mod_dir(new_mod), MOD_FILE_DIR, codename.to_s
-  FileUtils.mkdir_p(dir) unless File.directory?(dir)
-  dir
-end
-
-def mod_dir new_mod=nil
-  mod_name = new_mod || mod
-  dir = Cardio::Mod.dirs.path(mod_name) || (mod_name.to_sym == :test && "test")
-
-  raise Error, "can't find mod \"#{mod_name}\"" unless dir
-
-  dir
 end
 
 def files_base_dir

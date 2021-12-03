@@ -9,7 +9,6 @@ describe Card::Set::Self::InputOptions do
         "filtered list",
         "list",
         "multiselect",
-        "prosemirror editor",
         "radio",
         "select",
         "tinymce editor",

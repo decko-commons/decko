@@ -1,53 +1,59 @@
 require "English"
+require "colorize"
+require "cardio/commands/custom"
 
 module Cardio
-  # manage different types of commands that can be run via bin/card and bin/decko
+  # manage different types of commands that can be run via bin/card (and bin/decko)
   class Commands
+    include Custom
+    
     attr_reader :command, :args
 
-    # class methods for commands
-    # (basically simulates cattr_reader, which isn't available here)
-    module Accessors
-      def aliases
-        @aliases ||= {
-          "rs" => "rspec",
-          "jm" => "jasmine",
-          "g"  => "generate",
-          "d"  => "destroy",
-          "c"  => "console",
-          "db" => "dbconsole",
-          "r"  => "runner",
-          "v"  => "version",
-          "h"  => "help"
-        }
-      end
+    class << self
+      attr_accessor :current
 
-      def commands
-        @commands ||= {
-          rails:  %w[generate destroy plugin benchmarker profiler
-                     console dbconsole application runner],
-          rake:   %w[seed reseed load update],
-          custom: %w[new rspec jasmine version help]
-        }
+      def gem
+        current&.gem
       end
     end
 
-    extend Accessors
+    def map
+      @map ||= {
+        new: { desc: "create a new deck", group: :shark, via: :call },
+        seed: { desc: "populate a database", group: :shark, via: :rake },
+        update: { desc: "run data updates", group: :shark, alias: :u, via: :rake },
+        version: { desc: "#{gem} gem version", group: :shark, alias: :v, via: :call },
+        help: { desc: "show this text", group: :shark, alias: :h, via: :call},
+
+        console: { desc: "start a ruby console", group: :monkey, alias: :c },
+        dbconsole: { desc: "start a database console", group: :monkey, alias: :db },
+        runner: { desc: "run code in app environment", group: :monkey, alias: :r },
+        rspec: { desc: "run rspec tests", group: :monkey, alias: :rs, via: :call },
+        generate: { desc: "generate templated code", group: :monkey, alias: :g },
+        poop: { desc: "export card data to mod yaml", group: :monkey, via: :rake },
+        eat: { desc: "ingest card data from mod yaml", group: :monkey, via: :rake }
+      }
+    end
+
+    # TODO: review the following. see if any work well enough to include
+    #
+    #    application  Generate the Rails application code
+    #    destroy      Undo code generated with "generate" (short-cut alias: "d")
+    #    benchmarker  See how fast a piece of code runs
+    #    profiler     Get profile information from a piece of code
+    #    plugin       Install a plugin
+    #    jasmine
 
     def initialize args
       @args = args
-      @command = self.class.aliases[args.first] || args.first
+      @command = command_for_key args.first&.to_sym
       ENV["PRY_RESCUE_RAILS"] = "1" if rescue?
       @args.shift unless handler == :rails
+      Commands.current = self
     end
 
-    def rescue?
-      args.delete "--rescue"
-    end
-
-    def handler
-      commands = self.class.commands
-      @handler ||= commands.keys.find { |k| commands[k].include? command }
+    def gem
+      "card"
     end
 
     def run
@@ -56,65 +62,59 @@ module Cardio
         run_rails
       when :rake
         run_rake
-      when :custom
+      when :call
         send "run_#{command}"
-      else
-        unrecognized
+      when :unknown
+        unknown_error
       end
       exit 0
     end
 
+    private
+
+    def command_for_key key
+      return :help unless key
+      return key if map.key? key
+
+      map.each { |k, v| return k if v[:alias] == key }
+      @unknown = true
+      key
+    end
+
+    def rescue?
+      args.delete "--rescue"
+    end
+
+    def config
+      map[command]
+    end
+
+    def handler
+      @handler ||= @unknown ? :unknown : (config[:via] || :rails)
+    end
+
     # runs all commands in "rails" list
     def run_rails
+      require generator_requirement if command == :generate
       require "rails/commands"
+    end
+
+    def generator_requirement
+      "cardio/generators"
     end
 
     # runs all commands in "rake" list
     def run_rake
       require "cardio/commands/rake_command"
-      RakeCommand.new("#{rake_prefix}:#{command}", args).run
-    end
-
-    def rake_prefix
-      "card"
-    end
-
-    # ~~~~~~~~~ CUSTOM COMMANDS ~~~~~~~~~~~~ #
-
-    def run_help
-      puts File.read(File.expand_path("../commands/USAGE", __FILE__))
-    end
-
-    def run_new
-      if ["-h", "--help"].include? args.first
-        require "cardio/commands/application"
-      else
-        puts "Can't initialize a new deck within the directory of another, " \
-         "please change to a non-deck directory first.\n"
-        puts "Type 'decko' for help."
-        exit 1
-      end
-    end
-
-    def run_version
-      require "card/version"
-      puts "Decko #{Card::Version.release}"
-    end
-
-    def run_rspec
-      require "cardio/commands/rspec_command"
-      RspecCommand.new(args).run
-    end
-
-    def run_jasmine
-      require "cardio/commands/rake_command"
-      RakeCommand.new("spec:javascript", envs: "test").run
+      RakeCommand.new(gem, command, args).run
     end
 
     # ~~~~~~~~~~~~~~~~~~~~~ catch-all -------------- #
 
-    def unrecognized
-      puts "Error: Command not recognized: #{command}"
+    def unknown_error
+      puts "----------------------------------------------\n" \
+           "ERROR: Command not recognized: #{command}\n" \
+           "----------------------------------------------\n".red
       run_help
       exit 1
     end
