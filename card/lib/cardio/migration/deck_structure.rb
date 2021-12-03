@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-ENV["NO_CARD_LOAD"] = "true"
+# ENV["NO_CARD_LOAD"] = "true"
 
 require "cardio/migration"
 
