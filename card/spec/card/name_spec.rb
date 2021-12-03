@@ -31,25 +31,6 @@ RSpec.describe Card::Name do
     end
   end
 
-  describe "trait_name?" do
-    it "returns true for content codename" do
-      expect("bazoinga+*right+*structure".to_name).to(
-        be_trait_name(:structure)
-      )
-    end
-
-    it "handles arrays" do
-      structure =
-        "bazoinga+*right+*structure".to_name.trait_name?(:structure, :default)
-      expect(structure).to be_truthy
-    end
-
-    it "returns false for non-template" do
-      structure = "bazoinga+*right+nontent".to_name.trait_name?(:structure)
-      expect(structure).to be_falsey
-    end
-  end
-
   describe "#absolute" do
     it "does session user substitution" do
       expect("_user".to_name.absolute("A")).to eq(Card::Auth.current.name)
