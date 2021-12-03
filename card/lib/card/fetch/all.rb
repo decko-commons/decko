@@ -3,10 +3,10 @@ class Card
     # fetch-related Card instance methods
     module All
       # fetching from the context of a card
-      def fetch fields, opts={}
+      def fetch field_marks, opts={}
         opts[:new][:supercard] = self if opts[:new]
-        Array.wrap(fields).inject(self) do |card, field|
-          Card.fetch card.name.field(field), opts
+        Array.wrap(field_marks).inject(self) do |card, mark|
+          Card.fetch card.name.field(mark.cardname), opts
         end
       end
 
