@@ -80,7 +80,7 @@ format :html do
   #   frame do
   #     # with_nest_mode :edit do
   #     nested_fields.map do |name, _options|
-  #       nest Card.fetch(name.to_name.trait(:self)),
+  #       nest Card.fetch(name.to_name.field(:self)),
   #            view: :titled, title: name, rule_view: view,
   #            hide: :set_label, show: :rule_navbar
   #     end
