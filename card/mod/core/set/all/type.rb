@@ -16,8 +16,9 @@ end
 event :validate_type, :validate, changed: :type_id, on: :save do
   errors.add :type, t(:core_error_no_such_type) unless type_name
 
-  if (rt = structure) && rt.assigns_type? && type_id != rt.type_id
-    errors.add :type, t(:core_error_hard_templated, name: name, type_name: rt.type_name)
+  if structure.assigns_type? && type_id != structure.type_id
+    errors.add :type,
+               t(:core_error_hard_templated, name: name, type_name: structure.type_name)
   end
 end
 
