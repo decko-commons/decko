@@ -1,13 +1,13 @@
 def is_template?
   return @is_template unless @is_template.nil?
 
-  @is_template = name.right_name.codename.in? %i[structure default]
+  @is_template = name.right_name&.codename&.in? %i[structure default]
 end
 
 def is_structure?
   return @is_structure unless @is_structure.nil?
 
-  @is_structure = name.right_name.codename == :structure
+  @is_structure = name.right_name&.codename == :structure
 end
 
 def template
