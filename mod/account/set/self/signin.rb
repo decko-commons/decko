@@ -206,7 +206,7 @@ format :html do
   end
 
   def signin_field name
-    nest_name = "".to_name.trait(name)
+    nest_name = "".to_name.field(name)
     [nest_name, { title: name.to_s, view: "titled",
                   nest_name: nest_name, skip_perms: true }]
   end
