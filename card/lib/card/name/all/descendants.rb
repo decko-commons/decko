@@ -6,12 +6,12 @@ class Card
         # NOTE: for all these helpers, method returns *all* fields/children/descendants.
         # (Not just those current user has permission to read.)
 
-        def fields
-          field_ids.map { |id| Card[id] }
+        def field_cards
+          field_ids.map { |id| id.card }
         end
 
         def field_names
-          field_ids.map { |id| Card::Name[id] }
+          field_ids.map { |id| id.cardname }
         end
 
         def field_ids

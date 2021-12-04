@@ -13,7 +13,7 @@ class Card
       include SaveArguments
 
       def with_user user_name, &block
-        Card::Auth.with(current_id: Card.fetch_id(user_name), &block)
+        Card::Auth.with(current_id: user_name.card_id, &block)
       end
 
       def create_card name_or_args, content_or_args=nil
