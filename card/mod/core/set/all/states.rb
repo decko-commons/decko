@@ -15,7 +15,7 @@
 
 module ClassMethods
   def real? mark
-    quick_fetch(mark).present?
+    id(mark).present?
   end
   alias_method :exist?, :real?
   alias_method :exists?, :real?

@@ -11,6 +11,10 @@ class Card
         end
       end
 
+      def subcard? card_name
+        subcards.card(card_name).present?
+      end
+
       def subfield field_name
         subcards.field field_name
       end
@@ -30,20 +34,6 @@ class Card
       def expire_subcards
         subcards.clear
       end
-
-      # phase_method :attach_subcard, before: :store do |name_or_card, args=nil|
-      # TODO: handle differently in different stages
-      # def add_subcard name_or_card, args={}
-      #   subcards.add name_or_card, args
-      # end
-      # alias_method :attach_subcard, :add_subcard
-      #
-      # def add_subcard! name_or_card, args={}
-      #   subcard = subcards.add name_or_card, args
-      #   subcard.director.reset_stage
-      #   subcard
-      # end
-      # alias_method :attach_subcard!, :add_subcard!
 
       # phase_method :attach_subfield, before: :approve do |name_or_card, args=nil|
       def attach_subfield name_or_card, args={}
