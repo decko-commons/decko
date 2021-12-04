@@ -5,7 +5,7 @@ event :update_referer_content, :finalize, on: :update, changed: :name, skip: :al
 
     card.skip_event! :validate_renaming, :check_permissions
     card.content = card.replace_references name_before_act, name
-    attach_subcard card
+    subcard card
   end
 end
 

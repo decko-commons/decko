@@ -2,8 +2,8 @@ class Card
   class Subcards
     # subcard-related Card instance methods
     module All
-      def subcard card_name
-        subcards.card card_name
+      def subcard card_name, args={}
+        subcards.card(card_name) || subcards.add(card_name, args)
       end
 
       def subfield field_name
@@ -28,17 +28,17 @@ class Card
 
       # phase_method :attach_subcard, before: :store do |name_or_card, args=nil|
       # TODO: handle differently in different stages
-      def add_subcard name_or_card, args={}
-        subcards.add name_or_card, args
-      end
-      alias_method :attach_subcard, :add_subcard
-
-      def add_subcard! name_or_card, args={}
-        subcard = subcards.add name_or_card, args
-        subcard.director.reset_stage
-        subcard
-      end
-      alias_method :attach_subcard!, :add_subcard!
+      # def add_subcard name_or_card, args={}
+      #   subcards.add name_or_card, args
+      # end
+      # alias_method :attach_subcard, :add_subcard
+      #
+      # def add_subcard! name_or_card, args={}
+      #   subcard = subcards.add name_or_card, args
+      #   subcard.director.reset_stage
+      #   subcard
+      # end
+      # alias_method :attach_subcard!, :add_subcard!
 
       # phase_method :attach_subfield, before: :approve do |name_or_card, args=nil|
       def attach_subfield name_or_card, args={}
@@ -80,10 +80,6 @@ class Card
         subfield(field_name)&.content&.present?
       end
 
-      def deep_clear_subcards
-        subcards.deep_clear
-      end
-
       def handle_subcard_errors
         subcards.each do |subcard|
           subcard.errors.each do |error|
@@ -92,6 +88,8 @@ class Card
           subcard.errors.clear
         end
       end
+
+      private
 
       def subcard_error subcard, error
         msg = error.message
