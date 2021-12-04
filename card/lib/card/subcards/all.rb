@@ -3,7 +3,12 @@ class Card
     # subcard-related Card instance methods
     module All
       def subcard card_name, args={}
-        subcards.card(card_name) || subcards.add(card_name, args)
+        if (sc = subcards.card card_name)
+          sc.assign_attributes args
+          sc
+        else
+          subcards.add card_name, args
+        end
       end
 
       def subfield field_name
