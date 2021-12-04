@@ -11,6 +11,10 @@ def ok_to_read
   true
 end
 
+def make_asset_output_coded
+  super ENV["STYLE_OUTPUT_MOD"]
+end
+
 format do
   # turn off autodetection of uri's
   def chunk_list
