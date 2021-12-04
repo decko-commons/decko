@@ -186,7 +186,7 @@ def each_field_as_bot &block
   # (because of *type plus right)
   # skip if name is updated because will already be resaved
   Auth.as_bot do
-    fields.compact.each(&block)
+    field_cards.compact.each(&block)
   end
 end
 
