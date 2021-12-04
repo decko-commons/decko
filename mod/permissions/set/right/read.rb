@@ -29,7 +29,7 @@ def update_read_rules_of_set_members
 end
 
 def member_has_overriding_rule? member
-  pattern_index(Card.fetch_id(member.read_rule_class)) < rule_pattern_index
+  pattern_index(member.read_rule_class.card_id) < rule_pattern_index
 end
 
 # cards with this card as a read_rule_id
