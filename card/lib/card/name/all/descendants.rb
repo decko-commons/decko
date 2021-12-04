@@ -7,11 +7,11 @@ class Card
         # (Not just those current user has permission to read.)
 
         def field_cards
-          field_ids.map { |id| id.card }
+          field_ids.map(&:card)
         end
 
         def field_names
-          field_ids.map { |id| id.cardname }
+          field_ids.map(&:cardname)
         end
 
         def field_ids

@@ -65,7 +65,8 @@ view :asset_output_url do
   asset_output_url
 end
 
-def make_asset_output_coded mod=:assets
+def make_asset_output_coded mod
+  mod ||= :assets
   Card::Auth.as_bot do
     ENV["STORE_CODED_FILES"] = "true"
     asset_output_card.update! storage_type: :coded, mod: mod,
