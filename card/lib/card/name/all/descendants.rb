@@ -19,6 +19,8 @@ class Card
         end
 
         def each_child
+          return unless id
+
           sql = "(left_id = #{id} or right_id = #{id}) and trash is false"
           Card.where(sql).each do |card|
             card.include_set_modules
