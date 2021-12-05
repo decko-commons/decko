@@ -39,7 +39,7 @@ end
 def replace_references old_name, new_name
   cont = content_object
   cont.find_chunks(:Reference).each do |chunk|
-    next unless replace_reference chunk, old_name, new_name
+    replace_reference chunk, old_name, new_name
   end
   cont.to_s
 end
