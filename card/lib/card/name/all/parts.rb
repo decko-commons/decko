@@ -58,7 +58,7 @@ class Card
         # after_store forces it to save the subcard first
         # and callback afterwards
         def with_id_after_store subcard
-          add_subcard subcard
+          subcard subcard
           subcard.director.after_store { |card| yield card.id }
         end
       end
