@@ -19,7 +19,7 @@ end
 event :verify_and_activate, :prepare_to_validate, on: :update, trigger: :required do
   activatable do
     verifying_token :verify_and_activate_success, :verify_and_activate_failure
-    add_subcard(accounted)&.try :activate_accounted
+    subcard(accounted)&.try :activate_accounted
   end
 end
 
