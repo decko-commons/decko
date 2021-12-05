@@ -590,7 +590,6 @@ es:
       set:
         mirrored_list:
           cardtype_right: debe tener un nombre de cardtype como parte derecha
-          conflict_item_type: el nombre entra en conflicto con elementos de la lista' tipo; eliminar contenido primero
           only_type_allowed: "%{cardname} tiene un tipo de tarjeta incorrecto; solo cartas de tipo %{cardtype} están permitidos"
         mirror_list:
           cardtype_right: debe tener un nombre de tipo de tarjeta como parte derecha
