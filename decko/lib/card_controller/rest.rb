@@ -43,7 +43,7 @@ class CardController
     end
 
     def token_from_header
-      token_and_options(request)&.first
+      token_and_options(request)&.first if request
     end
 
     def load_card

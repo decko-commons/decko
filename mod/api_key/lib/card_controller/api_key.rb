@@ -6,7 +6,7 @@ class CardController
     end
 
     def api_key_from_header
-      request.headers["X-API-Key"]
+      request.headers["X-API-Key"] if request
     end
   end
 end
