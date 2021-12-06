@@ -110,21 +110,21 @@ RSpec.describe Card::Subcards do
 
   describe "#add" do
     it "adds a subcard" do
-      card.add_subcard "sub", content: "sub content"
+      card.subcard "sub", content: "sub content"
       card.save!
       expect_card("sub").to have_db_content "sub content"
     end
 
     it "takes the changes of the last subcard call" do
-      card.add_subcard "sub", content: "sub content 1"
-      card.add_subcard "sub", content: "sub content 2"
+      card.subcard "sub", content: "sub content 1"
+      card.subcard "sub", content: "sub content 2"
       card.save!
       expect_card("sub").to have_db_content "sub content 2"
     end
 
     it "attribute changes to left card are possible", as_bot: true do
       create_with_event "left part+right part", :prepare_to_store do
-        add_subcard "left part", type_id: Card::PhraseID
+        subcard "left part", type_id: Card::PhraseID
       end
       expect_card("left part").to have_type Card::PhraseID
       expect_card("left part+right part").to have_left_id "left part".card_id
