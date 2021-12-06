@@ -39,11 +39,13 @@ class CardController
     end
 
     def authenticators
+      return {} unless request
+
       { token: token_from_header || params[:token] }
     end
 
     def token_from_header
-      token_and_options(request)&.first if request
+      token_and_options(request)&.first
     end
 
     def load_card
