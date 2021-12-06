@@ -1,8 +1,8 @@
 include_set Abstract::BootswatchTheme
 
-card_accessor :colors
-card_accessor :variables
-card_accessor :stylesheets
+card_accessor :colors, type: :scss
+card_accessor :variables, type: :scss
+card_accessor :stylesheets, type: :skin
 
 def top_level_item_cards
   cards = PRE_VARIABLES_CARD_NAMES.map { |n| Card[n] }
