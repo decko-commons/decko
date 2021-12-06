@@ -128,5 +128,5 @@ end
 
 def delete_as_subcard subcard
   subcard.trash = true
-  add_subcard subcard
+  subcard subcard
 end

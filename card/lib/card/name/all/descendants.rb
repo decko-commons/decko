@@ -18,12 +18,14 @@ class Card
           child_ids :left
         end
 
-        def each_child &block
+        def each_child
           return unless id
 
-          Card.where(
-            "(left_id = #{id} or right_id = #{id}) and trash is false"
-          ).each(&block)
+          sql = "(left_id = #{id} or right_id = #{id}) and trash is false"
+          Card.where(sql).each do |card|
+            card.include_set_modules
+            yield card
+          end
         end
 
         # eg, A+B is a child of A and B
