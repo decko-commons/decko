@@ -5,12 +5,11 @@ class Card
       # user has "root" permissions
       # @return [true/false]
       def always_ok?
-        usr_id = as_id
-        case usr_id
-        when Card::WagnBotID then true # cannot disable
-        when nil             then false
+        case as_id
+        when WagnBotID then true # cannot disable
+        when nil       then false
         else
-          always_ok_? usr_id
+          always_ok_cached?
         end
       end
 
@@ -53,9 +52,9 @@ class Card
       def always_ok_cached?
         always = always_cache
         if always[as_id].nil?
-          update_always_cache usr_id, admin?
+          update_always_cache as_id, admin?
         else
-          always[usr_id]
+          always[as_id]
         end
       end
 
