@@ -23,7 +23,7 @@ class Card
       end
 
       def card_id
-        Card.fetch_id self
+        Lexicon.id self
       end
 
       # @return [Symbol] codename of card with name
