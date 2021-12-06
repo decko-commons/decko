@@ -25,7 +25,7 @@ end
 
 event :clear_roles_cache, :prepare_to_store, before: :store_in_session do
   clear_roles
-  Auth.update_always_cache Auth.as_id, nil
+  Auth.update_always_cache nil
 end
 
 format :html do
