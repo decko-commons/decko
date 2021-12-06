@@ -10,11 +10,9 @@ class Card
         when Card::WagnBotID then true # cannot disable
         when nil             then false
         else
-          always_ok_usr_id? usr_id
+          always_ok_? usr_id
         end
       end
-
-
 
       # list of names of cardtype cards that current user has perms to create
       # @return [Array of strings]
@@ -34,9 +32,9 @@ class Card
       end
 
       # test whether user is an administrator
-      # @param user_id [Integer]
+      # @param user_mark [Cardish]
       # @return [true/false]
-      def admin? user_mark
+      def admin? user_mark=nil
         user_mark ||= as_id
         has_role? Card::AdministratorID, user_mark
       end
@@ -51,9 +49,8 @@ class Card
       private
 
       # specified user has root permission
-      # @param usr_id [Integer]
       # @return [true/false]
-      def always_ok_from_cache?
+      def always_ok_cached?
         always = always_cache
         if always[as_id].nil?
           update_always_cache usr_id, admin?
