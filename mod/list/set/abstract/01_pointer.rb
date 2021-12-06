@@ -20,7 +20,7 @@ end
 
 def replace_references old_name, new_name
   item_strings.map do |string|
-    if string.match /^[:~]/
+    if string.match?(/^[:~]/)
       string
     else
       string.to_name.swap old_name, new_name
