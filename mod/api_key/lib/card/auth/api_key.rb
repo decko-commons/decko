@@ -32,7 +32,7 @@ class Card
       end
 
       def api_act?
-        Env.controller&.try(:authenticators)&.values.compact.present?
+        Env.controller&.try(:authenticators)&.values&.compact.present?
       end
     end
   end
