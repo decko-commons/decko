@@ -30,6 +30,13 @@ class Card
       def find_account_by_api_key api_key
         find_account_by :api_key, api_key.strip
       end
+
+      def api_act?
+        return true if Env.params[:token] || Env.params[:api_key]
+        return false unless (c = Env.controller)
+
+        c.token_from_header || c.api_key_from_header
+      end
     end
   end
 end

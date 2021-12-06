@@ -46,7 +46,7 @@ end
 
 event :customize_theme, :prepare_to_validate, on: :update, when: :customize_theme? do
   skin_name = free_skin_name
-  add_subcard skin_name, type_id: CustomizedBootswatchSkinID
+  subcard skin_name, type_id: CustomizedBootswatchSkinID
   self.content = "[[#{skin_name}]]"
 end
 
