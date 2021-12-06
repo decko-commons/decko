@@ -45,6 +45,14 @@ class Card
         Card[user_mark].all_enabled_roles.include? role_id
       end
 
+      def update_always_cache value
+        always = always_cache
+        always = always.dup if always.frozen?
+        always[as_id] = value
+        Card.cache.write "ALWAYS", always
+        value
+      end
+
       private
 
       # specified user has root permission
@@ -52,18 +60,10 @@ class Card
       def always_ok_cached?
         always = always_cache
         if always[as_id].nil?
-          update_always_cache as_id, admin?
+          update_always_cache admin?
         else
           always[as_id]
         end
-      end
-
-      def update_always_cache value
-        always = always_cache
-        always = always.dup if always.frozen?
-        always[as_id] = value
-        Card.cache.write "ALWAYS", always
-        value
       end
 
       def always_cache
