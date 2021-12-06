@@ -187,7 +187,7 @@ RSpec.describe "Card::Director" do
       def define_test_event stage, subcard
         test_event stage, on: :create do
           yield name
-          add_subcard "112v" if subcard && name == "11"
+          subcard "112v" if subcard && name == "11"
         end
       end
 
@@ -290,7 +290,7 @@ RSpec.describe "Card::Director" do
                                   trigger: -> { Card.create! name: "main" } do
         case name
         when "main"
-          add_subcard "subby", "+sub2" => { subcards: { "AARGH" => { "+sub4" => "hi" } } }
+          subcard "subby", "+sub2" => { subcards: { "AARGH" => { "+sub4" => "hi" } } }
           expect(test).not_to be_sub(director)
         when "subby+sub2"
           expect(test).to be_sub(director)
