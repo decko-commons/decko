@@ -150,7 +150,7 @@ end
 def prepare_new_side side, side_id, sidename
   return unless side_id == -1 || !Card[side_id]&.real?
 
-  sidecard = Director.card(sidename) || add_subcard(sidename)
+  sidecard = Director.card(sidename) || subcard(sidename)
   send "#{side}_id=", sidecard
 end
 
@@ -158,6 +158,6 @@ def prepare_obstructed_side side, side_id, sidename
   return unless side_id && side_id == id
 
   clear_name sidename
-  send "#{side}_id=", add_subcard(sidename)
+  send "#{side}_id=", subcard(sidename)
   true
 end
