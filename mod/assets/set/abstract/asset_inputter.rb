@@ -63,3 +63,9 @@ end
 def asset_input_needs_refresh?
   false
 end
+
+format :html do
+  def edit_success
+    { reload: true }
+  end
+end
