@@ -51,7 +51,7 @@ namespace :decko do
     def refresh_assets
       puts "refresh assets"
       Card::Auth.as_bot do
-        Card.where(right_id: Card.fetch_id(:asset_input)).delete_all
+        Card.where(right_id: :asset_input.card_id).delete_all
       end
       Card::Cache.reset_all
       Cardio.config.compress_assets = true
