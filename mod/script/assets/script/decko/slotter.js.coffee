@@ -114,27 +114,17 @@ jQuery.fn.extend
         form.append input
       input.val value
 
-  slotterSuccess: (event, data) ->
+  slotterSuccess: (event, responseData) ->
     unless @hasClass("slotter")
       console.log "warning: slotterSuccess called on non-slotter element #{this}"
       return
 
     return if event.slotSuccessful
 
-    if @data("reload")
-      window.location.reload(true)
-
-    if @data("update-modal-origin")
-      @updateModalOrigin()
-
-    if @data("update-origin")
-      @updateOrigin()
-
     if @data('original-slotter-mode')
       @attr 'data-slotter-mode', @data('original-slotter-mode')
 
-    mode = @data("slotter-mode")
-    @showSuccessResponse data, mode
+    @showSuccessResponse responseData, @data("slotter-mode")
 
     if @hasClass "_close-overlay"
       @removeOverlay()
@@ -152,19 +142,17 @@ jQuery.fn.extend
 
     event.slotSuccessful = true
 
-  showSuccessResponse: (data, mode) ->
-    if mode == "silent-success"
-      return
-    else if mode == "update-modal-origin"
-      @updateModalOrigin()
-    else if mode == "update-origin"
-      @updateOrigin()
-    else if data.redirect
-      window.location = data.redirect
-    else if data.reload
+  showSuccessResponse: (responseData, mode) ->
+    if responseData.redirect
+      window.location = responseData.redirect
+    else if responseData.reload
       window.location.reload(true)
     else
-      @updateSlot data, mode
+      switch mode
+        when "silent-success" then return
+        when "update-modal-origin" then @updateModalOrigin()
+        when "update-origin" then @updateOrigin()
+        else @updateSlot responseData, mode
 
   showErrorResponse: (status, result) ->
     if status == 403 #permission denied
