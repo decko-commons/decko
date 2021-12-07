@@ -32,10 +32,7 @@ class Card
       end
 
       def api_act?
-        return true if Env.params[:token] || Env.params[:api_key]
-        return false unless (c = Env.controller)
-
-        c.token_from_header || c.api_key_from_header
+        Env.controller&.try(:authenticators)&.values&.compact.present?
       end
     end
   end
