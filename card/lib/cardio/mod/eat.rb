@@ -48,11 +48,12 @@ module Cardio
 
       def rescuing edible
         yield
-      rescue StandardError => e
-        # binding.pry
-        puts edible
-        puts e.message.red
-        puts e.backtrace.join("\n") if @verbose
+      # rescue StandardError => e
+      #   # binding.pry
+      #   puts edible
+      #   puts e.message.red
+      #   puts e.backtrace.join("\n") if @verbose
+      #
       end
 
       def current_user item_user
