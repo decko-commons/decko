@@ -33,10 +33,6 @@ class Cardname < String
   JOINT_RE = Regexp.escape joint
 
   class << self
-    def cache
-      @cache ||= {}
-    end
-
     def new obj
       return obj if obj.is_a? self.class
 
@@ -44,20 +40,8 @@ class Cardname < String
       cached_name(str) || super(str)
     end
 
-    def cached_name str
-      cache[str]
-    end
-
     def reset_cache str=nil
       str ? cache.delete(str) : @cache = {}
-    end
-
-    def stringify obj
-      if obj.is_a?(Array)
-        obj.map(&:to_s) * joint
-      else
-        obj.to_s
-      end
     end
 
     def nothing_banned?
@@ -73,6 +57,24 @@ class Cardname < String
     def split_parts str
       str.split(/\s*#{JOINT_RE}\s*/, -1)
     end
+
+    def cache
+      @cache ||= {}
+    end
+
+    private
+
+    def cached_name str
+      cache[str]
+    end
+
+    def stringify obj
+      if obj.is_a?(Array)
+        obj.map(&:to_s) * joint
+      else
+        obj.to_s
+      end
+    end
   end
 
   # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -84,7 +86,7 @@ class Cardname < String
   end
 
   def s
-    @s ||= String.new self
+    String.new self
   end
   alias_method :to_s, :s
   alias_method :to_str, :s
@@ -104,7 +106,7 @@ class Cardname < String
   end
 
   def key
-    @key ||= part_keys.join(self.class.joint)
+    @key ||= part_keys.join(self.class.joint).freeze
   end
 
   def == other
