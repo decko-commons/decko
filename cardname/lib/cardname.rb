@@ -89,7 +89,7 @@ class Cardname < String
   end
   alias_method :to_s, :s
   alias_method :to_str, :s
-  alias_method :dup, :clone
+  # alias_method :dup, :clone
 
   def to_name
     self
