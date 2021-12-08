@@ -15,7 +15,7 @@ class Cardname
     end
 
     def url_key
-      @url_key ||= part_names.map do |part_name|
+      part_names.map do |part_name|
         stripped = part_name.decoded.gsub(/[^#{OK4KEY_RE}]+/, " ").strip
         stripped.gsub(/[\s_]+/, "_")
       end * self.class.joint
@@ -25,7 +25,7 @@ class Cardname
     # but the key is no longer unique.
     # For example "A-XB" and "A+*B" have the same safe_key
     def safe_key
-      @safe_key ||= key.tr("*", "X").tr self.class.joint, "-"
+      key.tr("*", "X").tr self.class.joint, "-"
     end
 
     def decoded

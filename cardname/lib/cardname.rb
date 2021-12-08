@@ -10,7 +10,6 @@ class Cardname < String
   require "cardname/contextual"
   require "cardname/predicates"
   require "cardname/manipulate"
-  require "cardname/danger"
 
   include Parts
   include Pieces
@@ -18,7 +17,6 @@ class Cardname < String
   include Contextual
   include Predicates
   include Manipulate
-  include Danger
 
   OK4KEY_RE = '\p{Word}\*'
 
@@ -37,11 +35,11 @@ class Cardname < String
       return obj if obj.is_a? self.class
 
       str = stringify(obj)
-      cached_name(str) || super(str)
+      cache[str] ||= super(str)
     end
 
-    def reset_cache str=nil
-      str ? cache.delete(str) : @cache = {}
+    def reset_cache
+      @cache = {}
     end
 
     def nothing_banned?
@@ -64,9 +62,6 @@ class Cardname < String
 
     private
 
-    def cached_name str
-      cache[str]
-    end
 
     def stringify obj
       if obj.is_a?(Array)
@@ -82,7 +77,11 @@ class Cardname < String
   attr_reader :key
 
   def initialize str
-    self.class.cache[str] = super str.strip.encode("UTF-8")
+    super str
+    strip!
+    encode! "UTF-8"
+    key # populates and freezes @key
+    freeze
   end
 
   def s
@@ -90,6 +89,7 @@ class Cardname < String
   end
   alias_method :to_s, :s
   alias_method :to_str, :s
+  alias_method :dup, :clone
 
   def to_name
     self
@@ -106,7 +106,7 @@ class Cardname < String
   end
 
   def key
-    @key ||= part_keys.join(self.class.joint).freeze
+    @key ||= generate_key.freeze
   end
 
   def == other
@@ -114,7 +114,15 @@ class Cardname < String
       case
       when other.respond_to?(:key)     then other.key
       when other.respond_to?(:to_name) then other.to_name.key
-      else                                  other.to_s
+      else                                  other.to_s.to_name.key
       end
+  end
+
+  private
+
+  def generate_key
+    part_names # populates @part_names and @simple
+    decoded # populates @decoded
+    @simple ? simple_key : part_keys.join(self.class.joint)
   end
 end

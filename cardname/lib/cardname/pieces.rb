@@ -8,7 +8,15 @@ class Cardname
     #   "A+B+C+D".to_name.pieces
     #   # => ["A", "B", "C", "D", "A+B", "A+B+C", "A+B+C+D"]
     def pieces
-      @pieces ||= simple? ? [self] : (parts + junction_pieces)
+      simple? ? [self] : (parts + junction_pieces)
+    end
+
+    def piece_names
+      pieces.map(&:to_name)
+    end
+
+    def ancestors
+      pieces.reject { |p| p == self }
     end
 
     private
