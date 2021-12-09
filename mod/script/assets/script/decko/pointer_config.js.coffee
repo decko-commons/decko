@@ -45,8 +45,7 @@ $.extend decko,
     input.autocomplete { source: decko.slotPath(path) }
 
   pointerContent: (vals) ->
-    list = $.map $.makeArray(vals), (v) -> if v then '[[' + v + ']]'
-    $.makeArray(list).join "\n"
+    $.makeArray(vals).join "\n"
 
   linkListContent: (input_groups) ->
     vals = input_groups.map( ->

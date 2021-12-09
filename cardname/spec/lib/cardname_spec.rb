@@ -82,7 +82,7 @@ RSpec.describe Cardname do
       before do
         name_class = "".to_name.class
         name_class.stabilize = true
-        name_class.reset_cache
+        name_class.reset
       end
 
       it "uninflects until key is stable" do
@@ -94,7 +94,7 @@ RSpec.describe Cardname do
       before do
         name_class = "".to_name.class
         name_class.stabilize = false
-        name_class.reset_cache
+        name_class.reset
       end
 
       it "does not uninflect unstable names" do
@@ -156,66 +156,25 @@ RSpec.describe Cardname do
     end
   end
 
-  describe "dangerous methods" do
-    RSpec::Matchers.define :have_attributes do |expected|
-      match do |obj|
-        expected.all? do |method, val|
-          obj.send(method) == val
-        end
-      end
+  describe "frozenness prevents" do
+    it "replace" do
+      expect { "A".to_name.replace("B") }.to raise_error(FrozenError)
     end
 
-    def name_with_cached_props str
-      str.to_name.tap do |name|
-        name.key
-        name.parts
-      end
+    example "#gsub!" do
+      expect { "AxxB".to_name.gsub!("xx", "B") }.to raise_error(FrozenError)
     end
 
-    def expect_changed_props args
-      aggregate_failures do
-        args.each do |method, val|
-          expect(name.send(method)).to eq val
-        end
-      end
+    example "[]=" do
+      expect { "A+B".to_name[0] = "C+E" }.to raise_error(FrozenError)
     end
 
-    describe "#replace" do
-      it "updates key and parts" do
-        name = name_with_cached_props "A"
-        name.replace("B")
-        expect(name).to have_attributes key: "b", parts: ["B"]
-      end
-
-      it "invalidates cache" do
-        name = name_with_cached_props "A"
-        name.replace("B")
-        expect(described_class.cached_name("A")).to be_nil
-      end
+    example "<<" do
+      expect { "A+B".to_name << "C+E" }.to raise_error(FrozenError)
     end
 
-    example "#gsub! update key and parts" do
-      name = name_with_cached_props "AxxA"
-      name.gsub!("xx", "B")
-      expect(name).to have_attributes key: "aba", parts: ["ABA"]
-    end
-
-    example "[]= replaces part" do
-      name = name_with_cached_props "a+b"
-      name[0] = "c+e"
-      expect(name.parts).to eq %w[c e b]
-    end
-
-    example "<< adds part" do
-      name = name_with_cached_props "a+b"
-      name << "c+e"
-      expect(name.parts).to eq %w[a b c e]
-    end
-
-    example "#next! updates key and parts" do
-      name = name_with_cached_props "abc1"
-      name.next!
-      expect(name).to have_attributes key: "abc2", parts: ["abc2"]
+    example "#next!" do
+      expect { "abc1".to_name.next! }.to raise_error(FrozenError)
     end
   end
 end

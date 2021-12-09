@@ -21,7 +21,8 @@ class CardController
 
     def explicit_mark mark
       # we should find the place where we produce these bad urls
-      mark.valid_encoding? ? mark : mark.force_encoding("ISO-8859-1").encode("UTF-8")
+      # mark.valid_encoding? ? mark : mark.force_encoding("ISO-8859-1").encode("UTF-8")
+      mark
     end
 
     def implicit_mark
