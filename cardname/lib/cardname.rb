@@ -10,7 +10,6 @@ class Cardname < String
   require "cardname/contextual"
   require "cardname/predicates"
   require "cardname/manipulate"
-  require "cardname/danger"
 
   include Parts
   include Pieces
@@ -18,7 +17,6 @@ class Cardname < String
   include Contextual
   include Predicates
   include Manipulate
-  include Danger
 
   OK4KEY_RE = '\p{Word}\*'
 
@@ -33,31 +31,15 @@ class Cardname < String
   JOINT_RE = Regexp.escape joint
 
   class << self
-    def cache
-      @cache ||= {}
-    end
-
     def new obj
       return obj if obj.is_a? self.class
 
       str = stringify(obj)
-      cached_name(str) || super(str)
+      cache[str] ||= super(str)
     end
 
-    def cached_name str
-      cache[str]
-    end
-
-    def reset_cache str=nil
-      str ? cache.delete(str) : @cache = {}
-    end
-
-    def stringify obj
-      if obj.is_a?(Array)
-        obj.map(&:to_s) * joint
-      else
-        obj.to_s
-      end
+    def reset
+      @cache = {}
     end
 
     def nothing_banned?
@@ -73,6 +55,20 @@ class Cardname < String
     def split_parts str
       str.split(/\s*#{JOINT_RE}\s*/, -1)
     end
+
+    def cache
+      @cache ||= {}
+    end
+
+    private
+
+    def stringify obj
+      if obj.is_a?(Array)
+        obj.map(&:to_s) * joint
+      else
+        obj.to_s
+      end
+    end
   end
 
   # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -80,14 +76,19 @@ class Cardname < String
   attr_reader :key
 
   def initialize str
-    self.class.cache[str] = super str.strip.encode("UTF-8")
+    super str
+    strip!
+    encode! "UTF-8"
+    key # populates and freezes @key
+    freeze
   end
 
   def s
-    @s ||= String.new self
+    String.new self
   end
   alias_method :to_s, :s
   alias_method :to_str, :s
+  # alias_method :dup, :clone
 
   def to_name
     self
@@ -104,7 +105,7 @@ class Cardname < String
   end
 
   def key
-    @key ||= part_keys.join(self.class.joint)
+    @key ||= generate_key.freeze
   end
 
   def == other
@@ -112,7 +113,15 @@ class Cardname < String
       case
       when other.respond_to?(:key)     then other.key
       when other.respond_to?(:to_name) then other.to_name.key
-      else                                  other.to_s
+      else                                  other.to_s.to_name.key
       end
+  end
+
+  private
+
+  def generate_key
+    part_names # populates @part_names and @simple
+    decoded # populates @decoded
+    @simple ? simple_key : part_keys.join(self.class.joint)
   end
 end
