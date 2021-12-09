@@ -3,7 +3,6 @@ class Cardname
   # methods that end with _name return name objects
   # the same methods without _name return strings
   module Parts
-    attr_reader :parts, :part_keys, :simple
     alias_method :to_a, :parts
 
     # PARTS
@@ -77,10 +76,6 @@ class Cardname
 
     def right_key
       right_name&.key
-    end
-
-    def [] *args
-      self.class.new part_names[*args]
     end
 
     private

@@ -38,7 +38,7 @@ class Cardname < String
       cache[str] ||= super(str)
     end
 
-    def reset_cache
+    def reset
       @cache = {}
     end
 
@@ -61,7 +61,6 @@ class Cardname < String
     end
 
     private
-
 
     def stringify obj
       if obj.is_a?(Array)

@@ -82,7 +82,7 @@ RSpec.describe Cardname do
       before do
         name_class = "".to_name.class
         name_class.stabilize = true
-        name_class.reset_cache
+        name_class.reset
       end
 
       it "uninflects until key is stable" do
@@ -94,7 +94,7 @@ RSpec.describe Cardname do
       before do
         name_class = "".to_name.class
         name_class.stabilize = false
-        name_class.reset_cache
+        name_class.reset
       end
 
       it "does not uninflect unstable names" do
