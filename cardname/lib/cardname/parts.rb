@@ -44,7 +44,7 @@ class Cardname
     end
 
     def parent_names
-      simple? ? [] : part_names
+      simple? ? [] : [left_name, right_name]
     end
 
     def parents
