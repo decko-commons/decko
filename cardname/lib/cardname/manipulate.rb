@@ -38,6 +38,10 @@ class Cardname
       parts.length
     end
 
+    def [] *args
+      self.class.new part_names[*args]
+    end
+
     def prepend_joint
       joint = self.class.joint
       self =~ /^#{Regexp.escape joint}/ ? self : (joint + self)
