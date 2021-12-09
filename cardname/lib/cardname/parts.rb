@@ -3,8 +3,6 @@ class Cardname
   # methods that end with _name return name objects
   # the same methods without _name return strings
   module Parts
-    alias_method :to_a, :parts
-
     # PARTS
     def part_names
       @part_names ||= generate_part_names
@@ -13,6 +11,7 @@ class Cardname
     def parts
       part_names.map(&:s)
     end
+    alias_method :to_a, :parts
 
     def part_keys
       part_names.map(&:key)
