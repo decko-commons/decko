@@ -114,9 +114,7 @@ def detect_illegal_compound_names
 end
 
 def changing_existing_tag_to_compound?
-  return false unless changing_name_to_compound?
-
-  name_in_use_as_tag?
+  changing_name_to_compound? && name_in_use_as_tag?
 end
 
 def name_in_use_as_tag?

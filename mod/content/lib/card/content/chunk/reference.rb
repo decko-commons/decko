@@ -27,14 +27,19 @@ class Card
         private
 
         def replace_name_reference old_name, new_name
-          @referee_card = nil
-          @referee_name = nil
-          if name.is_a? Content
-            name.find_chunks(:Reference).each do |chunk|
-              chunk.replace_reference old_name, new_name
-            end
-          else
+          @referee_card = @referee_name = nil
+          replacing_content_object name, old_name, new_name do
             @name = name.to_name.swap old_name, new_name
+          end
+        end
+
+        def replacing_content_object obj, old_name, new_name
+          if obj.is_a? Content
+            obj.find_chunks(:Reference).each do |chunk|
+              chunk.swap_name old_name, new_name
+            end
+          elsif obj.present?
+            yield
           end
         end
 
