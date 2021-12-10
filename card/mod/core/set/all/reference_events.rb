@@ -3,9 +3,7 @@ event :update_referer_content, :finalize, on: :update, changed: :name, skip: :al
   referers.each do |card|
     next if card.structure
 
-    card.skip_event! :validate_renaming, :check_permissions
     card.content = card.replace_references name_before_act, name
-    subcard card
   end
 end
 
@@ -39,7 +37,7 @@ end
 def replace_references old_name, new_name
   cont = content_object
   cont.find_chunks(:Reference).each do |chunk|
-    replace_reference chunk, old_name, new_name
+    chunk.replace_reference old_name, new_name
   end
   cont.to_s
 end
@@ -52,13 +50,9 @@ end
 
 private
 
-def replace_reference chunk, old_name, new_name
-  return unless (old = chunk.referee_name) && (new = old.swap old_name, new_name)
-
-  chunk.referee_name = chunk.replace_reference old_name, new_name
-  update_reference old.key, new.key
-end
-
-def update_reference old_key, new_key
-  Reference.where(referee_key: old_key).update_all referee_key: new_key
-end
+# def replace_reference chunk, old_name, new_name
+#   return unless (old = chunk.referee_name) && (new = old.swap old_name, new_name)
+#
+#   chunk.referee_name = chunk.replace_reference old_name, new_name
+#   update_reference old.key, new.key
+# end
