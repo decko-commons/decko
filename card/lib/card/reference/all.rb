@@ -77,8 +77,6 @@ class Card
         update_references_out
       end
 
-      private
-
       # replace references in card content
       def swap_names old_name, new_name
         cont = content_object
@@ -87,6 +85,8 @@ class Card
         end
         cont.to_s
       end
+
+      private
 
       def with_normalized_referee referee_name
         return unless referee_name # eg commented nest has no referee_name
