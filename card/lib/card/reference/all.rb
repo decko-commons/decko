@@ -62,16 +62,6 @@ class Card
         Reference.mass_insert reference_values_array(ref_hash)
       end
 
-      def update_references_to old_name, new_name
-        return if structure
-
-        self.content = swap_names old_name, new_name
-        return if !db_content_changed? || Director.include_id?(id)
-
-        update_column :db_content, db_content
-        update_references_out
-      end
-
       # replace references in card content
       def swap_names old_name, new_name
         cont = content_object

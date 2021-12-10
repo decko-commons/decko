@@ -1,6 +1,11 @@
+# when content changes, update references to other cards
+event :refresh_references_out, :finalize, on: :save, changed: :content do
+  update_references_out
+end
+
 # on rename, update names in cards that refer to self by name (as directed)
 event :update_referer_content, :finalize, on: :update, changed: :name, skip: :allowed do
-  referers.each { |card| card.update_references_to name_before_act, name }
+  referers.each { |r| r.update_references_to name_before_act, name }
   each_descendant { |d| d.rename_as_descendant !skip_update_referers? }
 end
 
@@ -17,11 +22,6 @@ end
 event :refresh_references_in, :finalize, changed: :name, on: :save do
   Reference.unmap_referees id if action == :update && skip_update_referers?
   Reference.map_referees key, id
-end
-
-# when content changes, update references to other cards
-event :refresh_references_out, :finalize, on: :save, changed: :content do
-  update_references_out
 end
 
 # clean up reference table when card is deleted
@@ -43,6 +43,16 @@ def rename_as_descendant referers=true
   refresh_references_out
   expire
   Card::Lexicon.update self
+end
+
+def update_references_to old_name, new_name
+  return if structure
+
+  self.content = swap_names old_name, new_name
+  return if !db_content_changed? # prevents loops
+
+  update_column :db_content, db_content
+  update_references_out
 end
 
 private
