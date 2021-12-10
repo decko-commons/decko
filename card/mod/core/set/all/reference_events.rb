@@ -1,12 +1,7 @@
 # on rename, update names in cards that refer to self by name (as directed)
 event :update_referer_content, :finalize, on: :update, changed: :name, skip: :allowed do
-  referers.each do |card|
-    next if card.structure
-
-    card.skip_event! :validate_renaming, :check_permissions
-    card.content = card.replace_references name_before_act, name
-    subcard card
-  end
+  referers.each { |card| card.update_references_to name_before_act, name }
+  each_descendant { |d| d.rename_as_descendant !skip_update_referers? }
 end
 
 # on rename, when NOT updating referer content, update references to ensure
@@ -35,30 +30,24 @@ event :clear_references, :finalize, on: :delete do
   Reference.unmap_referees id
 end
 
-# replace references in card content
-def replace_references old_name, new_name
-  cont = content_object
-  cont.find_chunks(:Reference).each do |chunk|
-    replace_reference chunk, old_name, new_name
-  end
-  cont.to_s
-end
-
 protected
 
 def skip_update_referers?
   skip_event? :update_referer_content
 end
 
-private
-
-def replace_reference chunk, old_name, new_name
-  return unless (old = chunk.referee_name) && (new = old.swap old_name, new_name)
-
-  chunk.referee_name = chunk.replace_reference old_name, new_name
-  update_reference old.key, new.key
+def rename_as_descendant referers=true
+  self.action = :update
+  referers ? update_referer_content : update_referer_references_out
+  refresh_references_in
+  refresh_references_out
+  expire
+  Card::Lexicon.update self
 end
 
-def update_reference old_key, new_key
-  Reference.where(referee_key: old_key).update_all referee_key: new_key
+private
+
+# delete references from this card
+def delete_references_out
+  Reference.where(referer_id: id).delete_all if id.present?
 end
