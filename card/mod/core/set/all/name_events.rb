@@ -77,7 +77,7 @@ event :update_lexicon, :finalize, changed: :name, on: :save do
 end
 
 event :cascade_name_changes, :finalize, on: :update, changed: :name do
-  each_descendant { |d| d.rename_as_descendant !skip_update_referers? }
+
 end
 
 protected
@@ -88,14 +88,6 @@ def rename_as_trash_obstacle
   save!
 end
 
-def rename_as_descendant referers=true
-  self.action = :update
-  referers ? update_referer_content : update_referer_references_out
-  refresh_references_in
-  refresh_references_out
-  expire
-  Card::Lexicon.update self
-end
 
 private
 

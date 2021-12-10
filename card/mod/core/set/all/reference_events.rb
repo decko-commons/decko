@@ -1,6 +1,7 @@
 # on rename, update names in cards that refer to self by name (as directed)
 event :update_referer_content, :finalize, on: :update, changed: :name, skip: :allowed do
   referers.each { |card| card.update_references_to name_before_act, name }
+  each_descendant { |d| d.rename_as_descendant !skip_update_referers? }
 end
 
 # on rename, when NOT updating referer content, update references to ensure
@@ -33,4 +34,20 @@ protected
 
 def skip_update_referers?
   skip_event? :update_referer_content
+end
+
+def rename_as_descendant referers=true
+  self.action = :update
+  referers ? update_referer_content : update_referer_references_out
+  refresh_references_in
+  refresh_references_out
+  expire
+  Card::Lexicon.update self
+end
+
+private
+
+# delete references from this card
+def delete_references_out
+  Reference.where(referer_id: id).delete_all if id.present?
 end

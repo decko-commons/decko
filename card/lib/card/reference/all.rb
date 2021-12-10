@@ -62,16 +62,11 @@ class Card
         Reference.mass_insert reference_values_array(ref_hash)
       end
 
-      # delete references from this card
-      def delete_references_out
-        Reference.where(referer_id: id).delete_all if id.present?
-      end
-
       def update_references_to old_name, new_name
         return if structure
 
         self.content = swap_names old_name, new_name
-        return unless db_content_changed?
+        return if !db_content_changed? || Director.include_id?(id)
 
         update_column :db_content, db_content
         update_references_out
@@ -139,7 +134,7 @@ class Card
       end
 
       # Partial references are needed to track references to virtual cards.
-      # For example a link to virual card [[A+*self]] won't have a referee_id,
+      # For example a link to virtual card [[A+*self]] won't have a referee_id,
       # but when A's name is changed we have to find and update that link.
       def interpret_partial_references ref_hash, referee_name
         return if referee_name.simple?
