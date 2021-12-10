@@ -1,10 +1,6 @@
 # on rename, update names in cards that refer to self by name (as directed)
 event :update_referer_content, :finalize, on: :update, changed: :name, skip: :allowed do
-  referers.each do |card|
-    next if card.structure
-
-    card.content = card.replace_references name_before_act, name
-  end
+  referers.each { |card| card.update_references_to name_before_act, name }
 end
 
 # on rename, when NOT updating referer content, update references to ensure
@@ -33,26 +29,8 @@ event :clear_references, :finalize, on: :delete do
   Reference.unmap_referees id
 end
 
-# replace references in card content
-def replace_references old_name, new_name
-  cont = content_object
-  cont.find_chunks(:Reference).each do |chunk|
-    chunk.replace_reference old_name, new_name
-  end
-  cont.to_s
-end
-
 protected
 
 def skip_update_referers?
   skip_event? :update_referer_content
 end
-
-private
-
-# def replace_reference chunk, old_name, new_name
-#   return unless (old = chunk.referee_name) && (new = old.swap old_name, new_name)
-#
-#   chunk.referee_name = chunk.replace_reference old_name, new_name
-#   update_reference old.key, new.key
-# end

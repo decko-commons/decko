@@ -36,7 +36,7 @@ class Card
         def replacing_content_object obj, old_name, new_name
           if obj.is_a? Content
             obj.find_chunks(:Reference).each do |chunk|
-              chunk.replace_reference old_name, new_name
+              chunk.swap_name old_name, new_name
             end
           elsif obj.present?
             yield

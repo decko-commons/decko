@@ -67,7 +67,26 @@ class Card
         Reference.where(referer_id: id).delete_all if id.present?
       end
 
+      def update_references_to old_name, new_name
+        return if structure
+
+        self.content = swap_names old_name, new_name
+        return unless db_content_changed?
+
+        update_column :db_content, db_content
+        update_references_out
+      end
+
       private
+
+      # replace references in card content
+      def swap_names old_name, new_name
+        cont = content_object
+        cont.find_chunks(:Reference).each do |chunk|
+          chunk.swap_name old_name, new_name
+        end
+        cont.to_s
+      end
 
       def with_normalized_referee referee_name
         return unless referee_name # eg commented nest has no referee_name

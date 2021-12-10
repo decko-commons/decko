@@ -32,7 +32,7 @@ class Card
           link_text ? { title: link_text } : {}
         end
 
-        def replace_reference old_name, new_name
+        def swap_name old_name, new_name
           replace_name_reference old_name, new_name
           replace_link_text old_name, new_name
           link_text_syntax = "|#{@link_text}" if @link_text.present?
