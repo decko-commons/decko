@@ -4,17 +4,21 @@ class Card
   # a Reference is a directional relationship from one card (the referer)
   # to another (the referee).
   class Reference < Cardio::Record
+    # card that refers
+    def referer
+      Card[referer_id]
+    end
+
+    # card that is referred to
+    def referee
+      Card[referee_id]
+    end
+
     class << self
       # bulk insert improves performance considerably
       # array takes form [ [referer_id, referee_id, referee_key, ref_type], ...]
       def mass_insert array
-        return if array.empty?
-
-        value_statements = array.map { |values| "\n(#{values.join ', '})" }
-        sql = "INSERT into card_references "\
-              "(referer_id, referee_id, referee_key, ref_type) "\
-              "VALUES #{value_statements.join ', '}"
-        Card.connection.execute sql
+        Card.connection.execute mass_insert_sql(array) if array.present?
       end
 
       # map existing reference to name to card via id
@@ -27,22 +31,10 @@ class Card
         where(referee_id: referee_id).update_all referee_id: nil
       end
 
-      # find all references to missing (eg deleted) cards and reset them
-      def unmap_if_referee_missing
-        joins(
-          "LEFT JOIN cards ON card_references.referee_id = cards.id"
-        ).where(
-          "(cards.id IS NULL OR cards.trash IS TRUE) AND referee_id IS NOT NULL"
-        ).update_all referee_id: nil
-      end
-
-      # remove all references from missing (eg deleted) cards
-      def delete_if_referer_missing
-        joins(
-          "LEFT JOIN cards ON card_references.referer_id = cards.id"
-        ).where(
-          "cards.id IS NULL"
-        ).pluck_in_batches(:id) do |group_ids|
+      # remove reference to and from missing cards
+      def clean
+        missing(:referee_id).where("referee_id IS NOT NULL").update_all referee_id: nil
+        missing(:referer_id).pluck_in_batches(:id) do |group_ids|
           # used to be .delete_all here, but that was failing on large dbs
           Rails.logger.info "deleting batch of references"
           where("id in (#{group_ids.join ','})").delete_all
@@ -52,34 +44,37 @@ class Card
       # repair references one by one (delete, create, delete, create...)
       # slower, but better than #recreate_all for use on running sites
       def repair_all
-        delete_if_referer_missing
-        Card.where(trash: false).find_each do |card|
-          Rails.logger.info "updating references from #{card}"
-          card.include_set_modules
-          card.update_references_out
-        end
+        clean
+        each_card(&:update_references_out)
       end
 
       # delete all references, then recreate them one by one
       # faster than #repair_all, but not recommended for use on running sites
       def recreate_all
         delete_all
+        each_card(&:create_references_out)
+      end
+
+      private
+
+      # find all references to or from missing (eg deleted) cards
+      def missing field
+        joins("LEFT JOIN cards ON card_references.#{field} = cards.id")
+          .where("(cards.id IS NULL OR cards.trash IS TRUE)")
+      end
+
+      def each_card
         Card.where(trash: false).find_each do |card|
-          Rails.logger.info "updating references from #{card}"
-          card.include_set_modules
-          card.create_references_out
+          Rails.logger.debug "references from #{card.name}"
+          yield card.include_set_modules
         end
       end
-    end
 
-    # card that refers
-    def referer
-      Card[referer_id]
-    end
-
-    # card that is referred to
-    def referee
-      Card[referee_id]
+      def mass_insert_sql array
+        value_statements = array.map { |values| "\n(#{values.join ', '})" }
+        "INSERT into card_references (referer_id, referee_id, referee_key, ref_type) " \
+        "VALUES #{value_statements.join ', '}"
+      end
     end
   end
 end
