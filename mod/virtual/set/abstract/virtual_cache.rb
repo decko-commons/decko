@@ -25,7 +25,7 @@ end
 
 event :delete_virtual_content, :prepare_to_store, on: :delete do
   Virtual.delete self
-  abort :success
+  abort :success unless real?
 end
 
 # TODO: confirm that the following are needed (and if so, explain why)
