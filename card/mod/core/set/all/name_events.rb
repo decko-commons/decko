@@ -76,10 +76,6 @@ event :update_lexicon, :finalize, changed: :name, on: :save do
   Card::Lexicon.send lexicon_action, self
 end
 
-event :cascade_name_changes, :finalize, on: :update, changed: :name do
-
-end
-
 protected
 
 def rename_as_trash_obstacle
@@ -87,7 +83,6 @@ def rename_as_trash_obstacle
   rename_in_trash_without_callbacks
   save!
 end
-
 
 private
 

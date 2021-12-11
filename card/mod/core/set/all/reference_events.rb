@@ -49,7 +49,7 @@ def update_references_to old_name, new_name
   return if structure
 
   self.content = swap_names old_name, new_name
-  return if !db_content_changed? # prevents loops
+  return unless db_content_changed? # prevents loops
 
   update_column :db_content, db_content
   update_references_out
