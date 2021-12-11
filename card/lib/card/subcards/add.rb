@@ -53,6 +53,7 @@ class Card
 
       def new_by_card card
         card.supercard = @context_card
+        card.update_superleft card.name
         @keys << card.key
         Card.write_to_soft_cache card
         card.director = @context_card.director.subdirectors.add card

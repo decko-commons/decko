@@ -63,6 +63,7 @@ class Card
         return unless (sc = new_opts[:supercard])
 
         @card.supercard = sc
+        @card.update_superleft @card.name
       end
 
       def quick_renew?
