@@ -50,7 +50,7 @@ class Card
 
       def supercard=card
         @supercard = card
-        @superleft = name.field_of?(card.name) && card
+        @superleft = name.field_of?(card.name) ? card : nil
       end
 
       def update_subcard_names new_name, name_to_replace=nil
