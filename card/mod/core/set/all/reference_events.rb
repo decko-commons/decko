@@ -5,7 +5,7 @@ end
 
 # on rename, update names in cards that refer to self by name (as directed)
 event :update_referer_content, :finalize, on: :update, changed: :name, skip: :allowed do
-  referers.each { |r| r.update_references_to name_before_act, name }
+  referers.each { |r| r.replace_references name_before_act, name }
   each_descendant { |d| d.rename_as_descendant !skip_update_referers? }
 end
 
@@ -45,10 +45,12 @@ def rename_as_descendant referers=true
   Card::Lexicon.update self
 end
 
-def update_references_to old_name, new_name
-  return if structure
+def replace_references old_name, new_name
+  self.content_quietly = swap_names(old_name, new_name) unless structure
+end
 
-  self.content = swap_names old_name, new_name
+def content_quietly= new_content
+  self.content = new_content
   return unless db_content_changed? # prevents loops
 
   update_column :db_content, db_content
