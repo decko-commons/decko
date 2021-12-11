@@ -149,37 +149,13 @@ RSpec.describe Card::Subcards do
     end
   end
 
+  # TODO: move to a more appropriate place (renaming no longer uses subcards)
   describe "handle_subcard_errors" do
     let(:referee) { Card["T"] }
 
     it "deals with renaming, even when children have content changing" do
-      Card.create! name: "A+alias", content: "[[A]]"
+      Card.create! name: "A+alias", content: "A"
       expect { Card["A"].update! name: "AABAA" }.not_to raise_error
-    end
-
-    def with_subcard_validation_error_in_rename
-      with_test_events do
-        test_event :finalize, on: :update do
-          errors.add :content, "referer error!" if name == "X" # X refers to T
-        end
-
-        yield
-      end
-    end
-
-    it "works on rename (update)" do
-      with_subcard_validation_error_in_rename do
-        expect(referee.update(name: "Tea")).to eq(false)
-        expect(referee.errors[:X].first).to match(/referer error/)
-      end
-    end
-
-    it "works on rename (update!)" do
-      with_subcard_validation_error_in_rename do
-        expect { referee.update! name: "Tea" }
-          .to raise_error(ActiveRecord::RecordInvalid)
-        expect(referee.errors[:X].first).to match(/referer error/)
-      end
     end
   end
 end
