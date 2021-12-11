@@ -4,9 +4,7 @@ class Card
       attr_accessor :act, :act_card
 
       def act_director
-        return unless act_card
-
-        act_card.director
+        act_card&.director
       end
 
       def directors

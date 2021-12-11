@@ -79,6 +79,8 @@ class Cardname < String
     super str
     strip!
     encode! "UTF-8"
+    part_names # populates @part_names and @simple
+    decoded # populates @decoded
     key # populates and freezes @key
     freeze
   end
@@ -120,8 +122,6 @@ class Cardname < String
   private
 
   def generate_key
-    part_names # populates @part_names and @simple
-    decoded # populates @decoded
     @simple ? simple_key : part_keys.join(self.class.joint)
   end
 end
