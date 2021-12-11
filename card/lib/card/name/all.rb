@@ -47,8 +47,9 @@ class Card
         end
       end
 
-      def update_superleft cardname
-        @superleft = @supercard if cardname.field_of? @supercard.name
+      def update_superleft newname=nil
+        newname ||= name
+        @superleft = @supercard if newname.field_of? @supercard.name
       end
 
       def update_subcard_names new_name, name_to_replace=nil
