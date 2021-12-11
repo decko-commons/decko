@@ -147,7 +147,6 @@ class Card < Cardio::Record
   end
 
   self.action_specific_attributes = [
-    :supercard,
     :superleft,
     :action,                      # [Symbol] :create, :update, or :delete
     :current_action,              # [Card::Action]
@@ -167,7 +166,7 @@ class Card < Cardio::Record
   attr_accessor(*action_specific_attributes)
 
   self.action_specific_attributes +=
-    %i[skip_hash full_skip_hash trigger_hash full_trigger_hash]
+    %i[supercard skip_hash full_skip_hash trigger_hash full_trigger_hash]
 
   define_callbacks :select_action, :show_page, :act
 
