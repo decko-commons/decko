@@ -4,17 +4,21 @@ class Card
   # a Reference is a directional relationship from one card (the referer)
   # to another (the referee).
   class Reference < Cardio::Record
+    # card that refers
+    def referer
+      Card[referer_id]
+    end
+
+    # card that is referred to
+    def referee
+      Card[referee_id]
+    end
+
     class << self
       # bulk insert improves performance considerably
       # array takes form [ [referer_id, referee_id, referee_key, ref_type], ...]
       def mass_insert array
-        return if array.empty?
-
-        value_statements = array.map { |values| "\n(#{values.join ', '})" }
-        sql = "INSERT into card_references "\
-              "(referer_id, referee_id, referee_key, ref_type) "\
-              "VALUES #{value_statements.join ', '}"
-        Card.connection.execute sql
+        Card.connection.execute mass_insert_sql(array) if array.present?
       end
 
       # map existing reference to name to card via id
@@ -50,30 +54,26 @@ class Card
         delete_all
         each_card(&:create_references_out)
       end
-    end
 
-    # card that refers
-    def referer
-      Card[referer_id]
-    end
+      private
 
-    # card that is referred to
-    def referee
-      Card[referee_id]
-    end
+      # find all references to or from missing (eg deleted) cards
+      def missing field
+        joins("LEFT JOIN cards ON card_references.#{field} = cards.id")
+          .where("(cards.id IS NULL OR cards.trash IS TRUE)")
+      end
 
-    private
+      def each_card
+        Card.where(trash: false).find_each do |card|
+          Rails.logger.debug "references from #{card.name}"
+          yield card.include_set_modules
+        end
+      end
 
-    # find all references to or from missing (eg deleted) cards
-    def missing field
-      joins("LEFT JOIN cards ON card_references.#{field} = cards.id")
-        .where("(cards.id IS NULL OR cards.trash IS TRUE)")
-    end
-
-    def each_card
-      Card.where(trash: false).find_each do |card|
-        Rails.logger.debug "references from #{card.name}"
-        yield card.include_set_modules
+      def mass_insert_sql array
+        value_statements = array.map { |values| "\n(#{values.join ', '})" }
+        "INSERT into card_references (referer_id, referee_id, referee_key, ref_type) " \
+        "VALUES #{value_statements.join ', '}"
       end
     end
   end
