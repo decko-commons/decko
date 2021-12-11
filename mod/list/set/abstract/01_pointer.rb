@@ -18,7 +18,7 @@ def each_item_name_with_options _content=nil
   item_names.each { |name| yield name, {} }
 end
 
-def replace_references old_name, new_name
+def swap_names old_name, new_name
   item_strings.map do |string|
     if string.match?(/^[:~]/)
       string

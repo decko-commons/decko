@@ -32,7 +32,7 @@ class Card
           link_text ? { title: link_text } : {}
         end
 
-        def replace_reference old_name, new_name
+        def swap_name old_name, new_name
           replace_name_reference old_name, new_name
           replace_link_text old_name, new_name
           link_text_syntax = "|#{@link_text}" if @link_text.present?
@@ -122,11 +122,7 @@ class Card
         end
 
         def replace_link_text old_name, new_name
-          if @link_text.is_a?(Content)
-            @link_text.find_chunks(:Reference).each do |chunk|
-              chunk.replace_reference old_name, new_name
-            end
-          elsif @link_text.present?
+          replacing_content_object @link_text, old_name, new_name do
             @link_text = old_name.to_name.sub_in(@link_text, with: new_name)
           end
         end
