@@ -23,11 +23,11 @@ format :html do
   view :new_fields, perms: :create, unknown: true, cache: :never do
     wrap true, class: "w-100" do
       [
-          new_view_hidden,
-          new_view_name,
-          new_view_type,
-          _render_content_formgroups,
-          _render(voo.buttons_view || :new_buttons)
+        new_view_hidden,
+        new_view_name,
+        new_view_type,
+        _render_content_formgroups,
+        _render(voo.buttons_view || :new_buttons)
       ]
     end
   end
