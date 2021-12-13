@@ -26,9 +26,8 @@ format :html do
                               view: :edit_form,
                               assign: true,
                               slot: { show: :type_form }),
-                   class: "live-type-field slotter",
-                   'data-remote': true,
-                   'data-slot-selector': ".card-slot.edit_form-view"
+                   class: "_live-type-field",
+                   'data-remote': true
   end
 
   view :type_formgroup do

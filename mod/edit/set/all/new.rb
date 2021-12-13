@@ -9,6 +9,10 @@ format :html do
                       wrap: { modal: { footer: "", size: :edit_modal_size,
                                        title: :new_in_modal_title,
                                        menu: :new_modal_menu } } do
+    _render_new_in_modal_form
+  end
+
+  view :new_in_modal_form, perms: :create, unknown: true, cache: :never do
     voo.buttons_view ||= :new_in_modal_buttons
     wrap do
       create_form "data-slot-selector": "modal-origin",
@@ -153,8 +157,8 @@ format :html do
 
   view :new_type_formgroup do
     wrap_type_formgroup do
-      type_field class: "type-field live-type-field",
-                 href: path(view: :new),
+      type_field class: "type-field _live-type-field",
+                 href: path(view: :new_in_modal_form),
                  "data-remote" => true
     end
   end
