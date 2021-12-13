@@ -23,7 +23,6 @@ de:
   core_only_admins_codename: nur Administratoren können Codenamen festlegen
   core_renaming: "Wird umbenannt"
   core_rename: "Umbenennen"
-  core_rename_confirm: "Sind Sie sicher, dass Sie die Karte umbenennen wollen?
-
+  core_rename_confirm: "Sind Sie sicher, dass Sie die Karte umbenennen wollen?"
   skip_update_referer_content:
     Verweise auf diesen Namen nicht aktualisieren
