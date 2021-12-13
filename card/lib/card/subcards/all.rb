@@ -32,8 +32,12 @@ class Card
         end
       end
 
+      def subfield? field_name
+        subcards.field(field_name).present?
+      end
+
       def field? tag
-        field(tag) || subfield(tag)
+        field(tag) || subfield?(tag)
       end
 
       def drop_subcard name_or_card
