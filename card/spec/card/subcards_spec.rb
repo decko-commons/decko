@@ -58,30 +58,30 @@ RSpec.describe Card::Subcards do
     end
   end
 
-  describe "#add_subfield" do
+  describe "#subfield" do
     def local_content name
       Card.fetch(name, new: {}, local_only: true).content
     end
 
     it "works with string" do
-      card.add_subfield "sub", content: "this is a sub"
+      card.subfield "sub", content: "this is a sub"
       expect(local_content("#{card.name}+sub")).to eq "this is a sub"
     end
 
     it "works with codename" do
-      card.add_subfield :phrase, content: "this is a sub"
+      card.subfield :phrase, content: "this is a sub"
       expect(local_content("A+phrase")).to eq "this is a sub"
     end
   end
 
   describe "#subfield" do
     it "works with string" do
-      card.add_subfield "sub", content: "this is a sub"
+      card.subfield "sub", content: "this is a sub"
       expect(card.subfield("sub").content).to eq "this is a sub"
     end
 
     it "works with codename" do
-      card.add_subfield :phrase, content: "this is a sub"
+      card.subfield :phrase, content: "this is a sub"
       expect(card.subfield(":phrase").content).to eq "this is a sub"
     end
 
@@ -134,16 +134,14 @@ RSpec.describe Card::Subcards do
   describe "two levels of subcards" do
     it "creates cards with subcards with subcards", as_bot: true do
       create_with_event "test", :validate do
-        add_subfield("first-level")
-        subfield("first-level").add_subfield "second-level", content: "yeah"
+        subfield("first-level").subfield "second-level", content: "yeah"
       end
       expect_card("test+first-level+second-level").to have_db_content "yeah"
     end
 
     it "creates cards with subcards with subcards using codenames", as_bot: true do
       create_with_event "test", :validate do
-        add_subfield :children
-        subfield(:children).add_subfield :title, content: "yeah"
+        subfield(:children).subfield :title, content: "yeah"
       end
       expect_card("test+*child+*title").to have_db_content "yeah"
     end
