@@ -3,8 +3,7 @@
 RSpec.describe Card::Reference::All do
   it "replaces references should work on nests inside links" do
     card = Card.create! name: "ref test", content: "[[test_card|test{{test}}]]"
-    assert_equal "[[test_card|test{{best}}]]",
-                 card.replace_references("test", "best")
+    assert_equal "[[test_card|test{{best}}]]", card.swap_names("test", "best")
   end
 
   describe "#referers" do
@@ -50,8 +49,7 @@ RSpec.describe Card::Reference::All do
       expect(Card["X"].content).to eq("[[AAA]] [[AAA+B]] [[T]]")
     end
 
-    # FIXME: following should pass!
-    xit "handles reference loops" do
+    it "handles reference loops" do
       Card["A"].update! content: "[[A+B]] refers to me"
       Card["A+B"].update! content: "[[A]] refers to me, too"
       Card["A"].update! name: "AAA"
