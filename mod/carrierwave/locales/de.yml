@@ -1,5 +1,5 @@
 de:
-  carrierwave_add_item: %{attachment_name} hinzufügen...
+  carrierwave_add_item: "%{attachment_name} hinzufügen..."
   carrierwave_codename_needed_for_storage: Codename erforderlich für Speichertyp coded
   carrierwave_delete: Löschen
   carrierwave_download: Download %{title}

@@ -1,8 +1,8 @@
 de:
-  format_add_card: %{cardname} hinzufügen
+  format_add_card: "%{cardname} hinzufügen"
   format_bad_address: "404: Ungültige Adresse"
   format_close: Schließen
-  format_configure_card: %{cardname} konfigurieren
+  format_configure_card: "%{cardname} konfigurieren"
   format_denial: Erlaubnis abgelehnt
   format_denied_task: to %{denied_task} this
   format_invalid_json: ungültiges json
