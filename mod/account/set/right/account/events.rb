@@ -1,11 +1,11 @@
 #### ON CREATE
 
 event :set_default_salt, :prepare_to_validate, on: :create do
-  add_subfield(:salt).generate
+  subfield(:salt).generate
 end
 
 event :set_default_status, :prepare_to_validate, on: :create do
-  add_subfield :status, content: (accounted&.try(:default_account_status) || "active")
+  subfield :status, content: (accounted&.try(:default_account_status) || "active")
 end
 
 # ON UPDATE
@@ -47,7 +47,7 @@ end
 # NOTE: this only works in the context of an action.
 # if run independently, it will not activate an account
 event :activate_account do
-  add_subfield :status, content: "active"
+  subfield :status, content: "active"
   trigger_event! :send_welcome_email
 end
 
