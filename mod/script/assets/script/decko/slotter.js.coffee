@@ -115,14 +115,12 @@ jQuery.fn.extend
       input.val value
 
   slotterSuccess: (event, responseData) ->
+    debugger
     unless @hasClass("slotter")
       console.log "warning: slotterSuccess called on non-slotter element #{this}"
       return
 
     return if event.slotSuccessful
-
-    if @data('original-slotter-mode')
-      @attr 'data-slotter-mode', @data('original-slotter-mode')
 
     @showSuccessResponse responseData, @data("slotter-mode")
 
@@ -139,6 +137,11 @@ jQuery.fn.extend
       $slot = @findSlot @data("update-foreign-slot")
       reload_url = @data("update-foreign-slot-url")
       $slot.reloadSlot reload_url
+
+    if @data('original-slotter-mode')
+      @attr 'data-slotter-mode', @data('original-slotter-mode')
+    if @data('original-slot-selector')
+      @attr 'data-slot-selector', @data('original-slot-selector')
 
     event.slotSuccessful = true
 
@@ -188,12 +191,13 @@ jQuery.fn.extend
 
   registerAsOrigin: (type, slot) ->
     if slot.hasClass("_modal-slot")
-      slot = slot.find(".modal-body .card-slot")
+      slot = slot.find(".modal-body")  # put the origin slot id on the modal-body instead
+                                        # of on the slot, so that it survives slot reloads
     slot.attr("data-#{type}-origin-slot-id", @closest(".card-slot").data("slot-id"))
 
-  updateSlot: (data, mode) ->
+  updateSlot: (newContent, mode) ->
     mode ||= "replace"
-    @setSlotContent data, mode, $(this)
+    @setSlotContent newContent, mode, $(this)
 
   # close modal or overlay
   closeOnSuccess: (type) ->
