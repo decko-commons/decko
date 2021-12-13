@@ -19,6 +19,10 @@ class Card
         end
       end
 
+      def subcard_content card_name
+        subcards.card(card_name)&.content
+      end
+
       def subcard? card_name
         subcards.card(card_name).present?
       end
@@ -30,6 +34,10 @@ class Card
         else
           subcards.add_field field_name, args
         end
+      end
+
+      def subfield_content field_name
+        subcards.field(field_name)&.content
       end
 
       def subfield? field_name
