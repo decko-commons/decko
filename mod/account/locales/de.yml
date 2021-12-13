@@ -1,0 +1,114 @@
+:account:
+  set:
+    right:
+      account:
+        events:
+          sorry_email_reset: Entschuldigung, %{error_msg}. Please check your email for a new password reset link.
+      email:
+        error_invalid_address: ungültige Adresse
+        search_email_duplicate: E-Mail-Duplikat? (%{content})
+        error_not_unique: existiert bereits
+        deny_email_restricted: E-Mail-Adresse ist nur für Administratoren und den Accountinhaber sichtbar
+      password:
+        encrypted: verschlüsselt
+        password_length: mindestens 4 Zeichen
+      salt:
+        private_data: Private data
+      stats:
+        field: Field
+        cache_value: Cache Val
+        db_value: Database Val
+        cache_db_compare: Cache/DB Comparison
+        cached_card: Cached Card Inspect
+        db_card: Database Card Inspect
+      status:
+        deny_not_change_own_account: Du bist nicht berechtigt den Status deines eigenen Accounts zu ändern.
+      api_key:
+        private_data: Private data
+        error_token_not_found: kein Token gefunden
+        error_token_expired: Token abgelaufen
+        error_incorrect_token: Token passt nicht
+        exception_bad_expiration: ungültiger Wert für Ablaufdatum (z.B. '%{example}')
+    self:
+      account_links:
+        sign_up: Registrieren
+        sign_in: Anmelden
+        invite: Einladen
+        sign_out: Abmelden
+      signin:
+        sign_in_title: Anmelden
+        sign_in: Anmelden
+        or_sign_up: '...oder registrieren!'
+        reset_password: PASSWORT ZURÜCKSETZEN
+        forgot_password: Passwort vergessen
+        reset_my_password: Setze mein Passwort zurück
+        check_email: Sie erhalten in Kürze eine E-Mail mit einem Link um ihr Passwort zurück zu setzen.
+        error_unknown_email: Unbekannte E-Mail-Adresse.
+        error_not_active: Entschuldigung, der Account ist nicht aktiviert.
+        error_wrong_password: Falsches Passwort
+        error_blank: fehlt
+        email_missing: E-Mail-Addresse fehlt
+        password_missing: Passwort fehlt
+        error_not_active: nicht aktiviert
+        error_not_recognized: unbekannt
+    type:
+      signup:
+        views:
+          sign_up: Registrieren
+          invite: Einladen
+          missing_account: "ERROR: Signup-Karte ohne Account"
+        send_invite: Sende Einladung
+        first_last_help: üblicherweise Vor- und Nachname
+        signed_up_on: "%{name} hat sich registriert am %{date}"
+        was_signed_up_on: "%{name} wurde registriert am %{date}"
+        send: Senden
+        resend: Wieder senden
+        verification: Eine E-Mail zur Verifikation wurde verschickt.
+        verification_to: Eine E-Mail zur Verifikation wurde gesendet an %{email}.
+        action_verify_email: "%{action} Verifikations-E-Maill"
+        approve_without: Akzeptieren ohne Verifikation
+        deny_delete: Ablehnen und löschen
+        field_manip_abort: keine Feldänderungen während der Aktivierung
+        no_account_abort: kein Account verknüpft mit %{name}
+        illegal_approval_abort: ungültige Genehmigung
+        check_email_reset: Please check your email for a new password reset link.
+        errors_message: Sorry, %{item}. %{message}
+      user:
+        help_first_last: üblicherweise Vor- und Nachname
+        welcome: Willkommen, Decker!
+        get_started: Um loszulegen, erstelle einen Account.
+        email_off: "WARNING: E-Mail-Versand ist deaktiviert. Ändere die Einstellung in %{path} um bei neuen Registrierungen Benachrichtigungen zu senden."
+        set_up: Anlegen
+        setting_up: Lege an
+
+de:
+  account_check_email: Prüfen Sie Ihre E-Mail auf einen Link zum Zurücksetzen Ihres Passworts
+  account_deny_email_restricted: E-Mail-Adresse ist nur für Administratoren und Kontoinhaber
+  account_deny_not_change_own_account: den Status des eigenen Kontos ändern
+  account_email_missing: E-Mail darf nicht frei bleiben
+  account_encrypted: verschlüssel
+  account_error_blank: darf nicht frei bleiben
+  account_error_invalid_address: muss eine gültige Adresse sein
+  account_error_not_active: Sorry, dieses Konto ist nicht aktiviert
+  account_error_not_recognized: unbekannt
+  account_error_not_unique: muss eindeutig sein
+  account_error_token_expired: abgelaufenes Token
+  account_error_unknown_email: unbekannte E-Mail-Adresse
+  account_error_wrong_password: Falsches Passwort
+  account_exception_bad_expiration: unzulässiger Verfallswert (z.B. '%{example}')
+  account_forgot_password: Passwort vergessen
+  account_invite: Einladen
+  account_missing_account: "FEHLER: Registrierkarte ohne Konto"
+  account_or_sign_up: '...oder registrieren!'
+  account_password_length: muss mindestens 4 Zeichen lang sein
+  account_password_missing: Passwort muss angegeben werden
+  account_private_data: Private Daten
+  account_reset_my_password: Passwort zurücksetzen
+  account_reset_password: PASSWORT ZURÜCKSETZEN
+  account_search_email_duplicate: E-Mail-Duplikat? (%{content})
+  account_sign_in: Anmelden
+  account_sign_in_title: Anmelden
+  account_sign_out: Abmelden
+  account_sign_up: Registrieren
+  account_sorry_email_reset:
+    Sorry, %{error_msg}. Bitte prüfen Sie Ihre E-Mail auf einen neuen Link zum Zurücksetzen des Passworts.
