@@ -45,16 +45,6 @@ $(window).ready ->
   $('body').on 'click', 'button.redirecter', ->
     window.location = $(this).attr('href')
 
-  $('body').on  "change", '.live-type-field', ->
-    $this = $(this)
-
-    setSlotMode($this)
-    $this.data 'params', $(this).closest('form').serialize()
-    $this.data 'url', $(this).attr 'href'
-
-  $('body').on 'change', '.edit-type-field', ->
-    $(this).closest('form').submit()
-
   $('body').on 'mouseenter', '[hover_content]', ->
     $(this).attr 'hover_restore', $(this).html()
     $(this).html $(this).attr( 'hover_content' )
@@ -83,11 +73,6 @@ decko.slotReady (slot) ->
 #     #ajaxEnabled: false
 #   }
 
-setSlotMode = ($el, mode=null) ->
-  $slotter =  $el.closest(".slotter")
-  if $slotter.length && $slotter.attr('data-slotter-mode')
-    $slotter.attr 'data-original-slotter-mode', $slotter.attr('slotter-mode')
-    $slotter.attr 'data-slotter-mode', mode
 
 
 warn = (stuff) -> console.log stuff if console?
