@@ -1,0 +1,13 @@
+de:
+  carrierwave_add_item: "%{attachment_name} hinzufügen..."
+  carrierwave_codename_needed_for_storage: Codename erforderlich für Speichertyp coded
+  carrierwave_delete: Löschen
+  carrierwave_download: Download %{title}
+  carrierwave_error_invalid_storage_type: "%{type} ist keine gültige Dateispeicheroption"
+  carrierwave_file_error: Dateifehler
+  carrierwave_is_missing: fehlt
+  carrierwave_mod_argument_needed_to_save: mod-Argument erforderlich um Karte als coded zu speichern.
+  carrierwave_moving_files_is_not_supported: verschieben von Dateien aus einer Cloud wird nicht unterstützt
+  carrierwave_replace_item: Ersetze %{attachment_name}...
+  carrierwave_unknown_storage_type: unbekannter Speichertyp %{new_storage_type}
+  carrierwave_url_is_missing: Url fehlt
