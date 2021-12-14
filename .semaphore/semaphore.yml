@@ -75,12 +75,16 @@ blocks:
             - be decko new platypus --platypus
             - cd platypus
             - env RAILS_ENV=test bundle exec decko seed # --test
-            - be decko rspec
+            - be decko rspec -s -- --format RspecJunitFormatter --out junit.xml --format documentation
       epilogue:
-        commands:
-          - cd -
-          - ./cc-test-reporter format-coverage --output "coverage/codeclimate.$SEMAPHORE_JOB_ID.json" -t simplecov
-          - aws s3 cp "coverage/codeclimate.$SEMAPHORE_JOB_ID.json" "s3://deckodev-test/$SEMAPHORE_PROJECT_NAME/$SEMAPHORE_GIT_BRANCH/coverage/$SEMAPHORE_WORKFLOW_ID/"
+        on_pass:
+          commands:
+            - cd -
+            - ./cc-test-reporter format-coverage --output "coverage/codeclimate.$SEMAPHORE_JOB_ID.json" -t simplecov
+            - aws s3 cp "coverage/codeclimate.$SEMAPHORE_JOB_ID.json" "s3://deckodev-test/$SEMAPHORE_PROJECT_NAME/$SEMAPHORE_GIT_BRANCH/coverage/$SEMAPHORE_WORKFLOW_ID/"
+        always:
+          commands:
+            - test-results publish junit.xml
 
   - name: Integration Tests
     task:
@@ -109,13 +113,17 @@ blocks:
             - yarn run cypress run --record --key 15efb149-d03c-410b-bb10-6d3b1a82958e
         - name: Cucumber
           commands:
-            - RAILS_ENV=cucumber bundle exec decko cucumber
+            - RAILS_ENV=cucumber bundle exec decko cucumber -- --format junit --out ~/cuke-reports
 
       epilogue:
-        commands:
-          - cd ~/decko
-          - ./cc-test-reporter format-coverage --output "coverage/codeclimate.$SEMAPHORE_JOB_ID.json" -t simplecov
-          - aws s3 cp "coverage/codeclimate.$SEMAPHORE_JOB_ID.json" "s3://deckodev-test/$SEMAPHORE_PROJECT_NAME/$SEMAPHORE_GIT_BRANCH/coverage/$SEMAPHORE_WORKFLOW_ID/"
+        always:
+          commands:
+            - test-results publish ~/cuke-reports/*.xml
+        on_pass:
+          commands:
+            - cd ~/decko
+            - ./cc-test-reporter format-coverage --output "coverage/codeclimate.$SEMAPHORE_JOB_ID.json" -t simplecov
+            - aws s3 cp "coverage/codeclimate.$SEMAPHORE_JOB_ID.json" "s3://deckodev-test/$SEMAPHORE_PROJECT_NAME/$SEMAPHORE_GIT_BRANCH/coverage/$SEMAPHORE_WORKFLOW_ID/"
 
   - name: Coverage Report
     task:
