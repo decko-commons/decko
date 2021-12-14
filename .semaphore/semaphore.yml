@@ -54,37 +54,6 @@ blocks:
             - cd monkey
             - be decko seed
 
-  - name: Unit Tests
-    task:
-      env_vars:
-        - name: REPO_TMPSETS
-          value: "true"
-      prologue:
-        commands:
-          - sem-service start mysql
-          - git submodule update
-          - cache restore bundle-gems-$(checksum Gemfile.lock)
-          - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
-          - chmod +x ./cc-test-reporter
-          - ./cc-test-reporter before-build
-          - bundle install
-
-      jobs:
-        - name: RSpec
-          commands:
-            - be decko new platypus --platypus
-            - cd platypus
-            - env RAILS_ENV=test bundle exec decko seed # --test
-            - be decko rspec -s -- --format RspecJunitFormatter --out junit.xml --format documentation
-      epilogue:
-        on_pass:
-          commands:
-            - cd -
-            - ./cc-test-reporter format-coverage --output "coverage/codeclimate.$SEMAPHORE_JOB_ID.json" -t simplecov
-            - aws s3 cp "coverage/codeclimate.$SEMAPHORE_JOB_ID.json" "s3://deckodev-test/$SEMAPHORE_PROJECT_NAME/$SEMAPHORE_GIT_BRANCH/coverage/$SEMAPHORE_WORKFLOW_ID/"
-        always:
-          commands:
-            - test-results publish junit.xml
 
   - name: Integration Tests
     task:
@@ -125,6 +94,37 @@ blocks:
             - ./cc-test-reporter format-coverage --output "coverage/codeclimate.$SEMAPHORE_JOB_ID.json" -t simplecov
             - aws s3 cp "coverage/codeclimate.$SEMAPHORE_JOB_ID.json" "s3://deckodev-test/$SEMAPHORE_PROJECT_NAME/$SEMAPHORE_GIT_BRANCH/coverage/$SEMAPHORE_WORKFLOW_ID/"
 
+  - name: Unit Tests
+    task:
+      env_vars:
+        - name: REPO_TMPSETS
+          value: "true"
+      prologue:
+        commands:
+          - sem-service start mysql
+          - git submodule update
+          - cache restore bundle-gems-$(checksum Gemfile.lock)
+          - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+          - chmod +x ./cc-test-reporter
+          - ./cc-test-reporter before-build
+          - bundle install
+
+      jobs:
+        - name: RSpec
+          commands:
+            - be decko new platypus --platypus
+            - cd platypus
+            - env RAILS_ENV=test bundle exec decko seed # --test
+            - be decko rspec -s -- --format RspecJunitFormatter --out junit.xml --format documentation
+      epilogue:
+        on_pass:
+          commands:
+            - cd -
+            - ./cc-test-reporter format-coverage --output "coverage/codeclimate.$SEMAPHORE_JOB_ID.json" -t simplecov
+            - aws s3 cp "coverage/codeclimate.$SEMAPHORE_JOB_ID.json" "s3://deckodev-test/$SEMAPHORE_PROJECT_NAME/$SEMAPHORE_GIT_BRANCH/coverage/$SEMAPHORE_WORKFLOW_ID/"
+        always:
+          commands:
+            - test-results publish junit.xml
   - name: Coverage Report
     task:
       jobs:
