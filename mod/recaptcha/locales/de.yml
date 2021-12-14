@@ -1,0 +1,10 @@
+de:
+  recaptcha_link_text: Recaptcha-Schlüssel
+  recaptcha_captcha_keys: Laut Einstellungen wird %{captcha_link} benutzt, aber damit das funktioniert, benötigen sie neue %{recaptcha_link}.
+  recaptcha_captcha_temp: Ihr Captcha läuft im Moment mit temporären Einstellungen. Für eine lokale Installation ist das in Ordnung, aber Sie werden einen neuen %{recaptcha_link} brauchen, wenn Sie diese Seite veröffentlichen.
+  recaptcha_howto_add: Fügen Sie ihre Schlüssel zu %{recaptcha_settings} hinzu.
+  recaptcha_howto_add_keys: "Wie man neue Recaptcha-Schlüssel hinzufügt:"
+  recaptcha_howto_go: Gehe zu %{captcha_card}
+  recaptcha_howto_register: Registriere Sie ihre Domain bei %{recaptcha_link}
+  recaptcha_howto_turn_off: 'Wie man Captchas ausschaltet:'
+  recaptcha_howto_update: Setze alle *captcha-Regel auf "nein".
