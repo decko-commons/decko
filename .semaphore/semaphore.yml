@@ -75,12 +75,16 @@ blocks:
             - be decko new platypus --platypus
             - cd platypus
             - env RAILS_ENV=test bundle exec decko seed # --test
-            - be decko rspec
+            - be decko rspec -- --format RspecJunitFormatter --out junit.xml --format documentation
       epilogue:
-        commands:
-          - cd -
-          - ./cc-test-reporter format-coverage --output "coverage/codeclimate.$SEMAPHORE_JOB_ID.json" -t simplecov
-          - aws s3 cp "coverage/codeclimate.$SEMAPHORE_JOB_ID.json" "s3://deckodev-test/$SEMAPHORE_PROJECT_NAME/$SEMAPHORE_GIT_BRANCH/coverage/$SEMAPHORE_WORKFLOW_ID/"
+        on_pass:
+          commands:
+            - cd -
+            - ./cc-test-reporter format-coverage --output "coverage/codeclimate.$SEMAPHORE_JOB_ID.json" -t simplecov
+            - aws s3 cp "coverage/codeclimate.$SEMAPHORE_JOB_ID.json" "s3://deckodev-test/$SEMAPHORE_PROJECT_NAME/$SEMAPHORE_GIT_BRANCH/coverage/$SEMAPHORE_WORKFLOW_ID/"
+        always:
+          commands:
+            - test-results publish junit.xml
 
   - name: Integration Tests
     task:
