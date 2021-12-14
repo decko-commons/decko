@@ -110,7 +110,7 @@ blocks:
             - nvm use 15.7.0
             - rm -rf node_modules
             - yarn install --frozen-lockfile
-            - yarn run cypress run --record --key 15efb149-d03c-410b-bb10-6d3b1a82958e
+            - yarn run cypress run --record --key 15efb149-d03c-410b-bb10-6d3b1a82958e --reporter junit --reporter-options "mochaFile=~/cy-reports/cypress-output-[hash].xml"
         - name: Cucumber
           commands:
             - RAILS_ENV=cucumber bundle exec decko cucumber -- --format junit --out ~/cuke-reports
@@ -119,6 +119,7 @@ blocks:
         always:
           commands:
             - test-results publish ~/cuke-reports/*.xml
+            - test-results publish ~/cy-reports/*.xml
         on_pass:
           commands:
             - cd ~/decko
