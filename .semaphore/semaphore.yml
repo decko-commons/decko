@@ -85,7 +85,7 @@ blocks:
         always:
           commands:
             - test-results publish junit.xml
-            -
+
   - name: Integration Tests
     task:
       env_vars:
