@@ -75,7 +75,7 @@ blocks:
             - be decko new platypus --platypus
             - cd platypus
             - env RAILS_ENV=test bundle exec decko seed # --test
-            - be decko rspec -- --format RspecJunitFormatter --out junit.xml --format documentation
+            - be decko rspec -s -- --format RspecJunitFormatter --out junit.xml --format documentation
       epilogue:
         on_pass:
           commands:
