@@ -8,12 +8,7 @@
 
 # authentication event
 event :signin, :validate, on: :update do
-  email = subfield :email
-  email &&= email.content
-  pword = subfield :password
-  pword &&= pword.content
-
-  authenticate_or_abort email, pword
+  authenticate_or_abort subfield_content(:email), subfield_content(:password)
 end
 
 # abort after successful signin (do not save card)
@@ -36,7 +31,7 @@ event :send_reset_password_token, before: :signin, on: :update, trigger: :requir
 end
 
 def email_from_subfield
-  @email_from_subfield ||= subfield(:email)&.content
+  @email_from_subfield ||= subfield_content(:email)
 end
 
 def ok_to_read
