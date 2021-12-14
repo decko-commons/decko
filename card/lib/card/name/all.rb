@@ -7,7 +7,7 @@ class Card
 
       # TODO: use delegations and include more name functions
       delegate :simple?, :compound?, :junction?, to: :name
-
+      attr_reader :supercard
       def name
         @name ||= left_id ? Lexicon.lex_to_name([left_id, right_id]) : super.to_name
       end
@@ -47,8 +47,9 @@ class Card
         end
       end
 
-      def update_superleft cardname
-        @superleft = @supercard if cardname.field_of? @supercard.name
+      def update_superleft newname=nil
+        newname ||= name
+        @superleft = @supercard if newname.field_of? @supercard.name
       end
 
       def update_subcard_names new_name, name_to_replace=nil
