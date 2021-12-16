@@ -6,7 +6,7 @@ class Card
   # etc.) Since we're supposed to have an actual _left_ by the integrate_with_delay
   # stage, it's not clear that they're needed. But if we revisit and find they _are_
   # needed, then we clearly need to make sure that they are fully restored. At a bare
-  # minumum, they need to include set modules.
+  # minimum they would need to include set modules.
   def serializable_attributes
     self.class.action_specific_attributes + set_specific.keys - %i[supercard superleft]
   end
