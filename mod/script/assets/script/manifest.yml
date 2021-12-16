@@ -34,6 +34,7 @@ decko:
     - decko/upload.js.coffee
     - decko/slot.js.coffee
     - decko/decko.js.coffee
+    - decko/type_editor.js.coffee
     - decko/modal.js.coffee
     - decko/overlay.js.coffee
     - decko/recaptcha.js.coffee
