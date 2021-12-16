@@ -68,6 +68,11 @@ class Card
       end
     end
 
+    # sometimes Object#card_id interferes with default ActiveRecord attribute def
+    def card_id
+      _read_attribute "card_id"
+    end
+
     # each action is associated with on and only one card
     # @return [Card]
     def card
