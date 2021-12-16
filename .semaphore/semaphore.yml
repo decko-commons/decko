@@ -114,14 +114,15 @@ blocks:
         - name: Cucumber
           commands:
             - RAILS_ENV=cucumber bundle exec decko cucumber -- --format junit --out /home/semaphore/reports
-            - cd ~/decko
-            - ./cc-test-reporter format-coverage --output "coverage/codeclimate.$SEMAPHORE_JOB_ID.json" -t simplecov
-            - aws s3 cp "coverage/codeclimate.$SEMAPHORE_JOB_ID.json" "s3://deckodev-test/$SEMAPHORE_PROJECT_NAME/$SEMAPHORE_GIT_BRANCH/coverage/$SEMAPHORE_WORKFLOW_ID/"
 
       epilogue:
         always:
           commands:
             - test-results publish /home/semaphore/reports/*.xml
+            - cd ~/decko
+            - ./cc-test-reporter format-coverage --output "coverage/codeclimate.$SEMAPHORE_JOB_ID.json" -t simplecov
+            - aws s3 cp "coverage/codeclimate.$SEMAPHORE_JOB_ID.json" "s3://deckodev-test/$SEMAPHORE_PROJECT_NAME/$SEMAPHORE_GIT_BRANCH/coverage/$SEMAPHORE_WORKFLOW_ID/"
+
 
   - name: Coverage Report
     task:
