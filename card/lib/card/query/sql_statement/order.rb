@@ -19,12 +19,12 @@ class Card
         def order
           full_syntax do
             dirs = order_directives
-            "ORDER BY #{order_directives.join ', '}" if dirs.present?
+            "ORDER BY #{dirs.join ', '}" if dirs.present?
           end
         end
 
         def order_directives
-          return unless @mods[:sort]
+          return if @mods[:sort].blank?
 
           Array.wrap(@mods[:sort]).map do |order_key|
             order_directive order_key
