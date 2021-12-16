@@ -72,6 +72,11 @@ class Card
       Card.fetch actor_id
     end
 
+    # sometimes Object#card_id interferes with default ActiveRecord attribute def
+    def card_id
+      _read_attribute "card_id"
+    end
+
     # the act's primary card
     # @return [Card]
     def card
