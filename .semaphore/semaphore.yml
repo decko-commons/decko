@@ -26,41 +26,43 @@ global_job_config:
       - git submodule init
       # - git submodule status > substat.txt # needed for sem submodule caching
       # - ruby .semaphore/submodules.rb restore # restore submodules from sem cache
+
       - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
       - chmod +x ./cc-test-reporter
 
-      # without the following, code climate gets the merge sha
+      # without the following, code climate uses the merge sha for PRS, which leads
+      # to coverage report failures.
       - if [ $SEMAPHORE_GIT_PR_SHA ]; then GIT_COMMIT_SHA=$SEMAPHORE_GIT_PR_SHA; fi;
 
 blocks:
-  - name: Smoke
-    task:
-      prologue:
-        commands:
-          # occasionally clear: `cache delete bundle-gems-baseline`
-          - cache restore bundle-gems-baseline
-          - cache restore bundle-gems-$(checksum Gemfile.lock)
-          - bundle install
-          - cache store bundle-gems-$(checksum Gemfile.lock) ~/bundle
-          - cache store bundle-gems-baseline ~/bundle
-
-          - sem-service start mysql
-          - git submodule update card/db/seed
-
-      jobs:
-        - name: New Shark and Monkey Decks
-          commands:
-            # NEW SHARK DECK
-            - be decko new shark
-            - cd shark
-            - be decko seed
-
-            - cd .. # note: faster than making a separate job.
-
-            # NEW MONKEY DECK
-            - be decko new monkey --monkey
-            - cd monkey
-            - be decko seed
+#  - name: Smoke
+#    task:
+#      prologue:
+#        commands:
+#          # occasionally clear: `cache delete bundle-gems-baseline`
+#          - cache restore bundle-gems-baseline
+#          - cache restore bundle-gems-$(checksum Gemfile.lock)
+#          - bundle install
+#          - cache store bundle-gems-$(checksum Gemfile.lock) ~/bundle
+#          - cache store bundle-gems-baseline ~/bundle
+#
+#          - sem-service start mysql
+#          - git submodule update card/db/seed
+#
+#      jobs:
+#        - name: New Shark and Monkey Decks
+#          commands:
+#            # NEW SHARK DECK
+#            - be decko new shark
+#            - cd shark
+#            - be decko seed
+#
+#            - cd .. # note: faster than making a separate job.
+#
+#            # NEW MONKEY DECK
+#            - be decko new monkey --monkey
+#            - cd monkey
+#            - be decko seed
 
   - name: Unit Tests
     task:
@@ -87,46 +89,46 @@ blocks:
           commands:
             - cd -
             - ./cc-test-reporter format-coverage --output "coverage/codeclimate.$SEMAPHORE_JOB_ID.json" -t simplecov
-            - aws s3 cp "coverage/codeclimate.$SEMAPHORE_JOB_ID.json" $S3PATH
+            - aws s3 cp "coverage/codeclimate.$SEMAPHORE_JOB_ID.json" $S3_PATH
         always:
           commands:
             - test-results publish junit.xml
 
-  - name: Integration Tests
-    task:
-      env_vars:
-        - name: REPO_TMPSETS
-          value: "true"
-      prologue:
-        commands:
-          - sem-service start mysql
-          - git submodule update
-          - cache restore bundle-gems-$(checksum Gemfile.lock)
-          - be decko new platypus --platypus
-          - cd platypus
-          - env RAILS_ENV=test bundle exec decko seed # --test
-
-      jobs:
-        - name: Cypress
-          commands:
-            - RAILS_ENV=cypress bundle exec decko server -p 5002 &
-            - cd ~/decko/decko/spec
-            - nvm use 15.7.0
-            - rm -rf node_modules
-            - yarn install --frozen-lockfile
-            - yarn run cypress run --record --key 15efb149-d03c-410b-bb10-6d3b1a82958e --reporter junit --reporter-options "mochaFile=/home/semaphore/reports/cypress-output-[hash].xml"
-            - pkill -2 -f puma
-        - name: Cucumber
-          commands:
-            - RAILS_ENV=cucumber bundle exec decko cucumber -- --format junit --out /home/semaphore/reports
-
-      epilogue:
-        always:
-          commands:
-            - test-results publish /home/semaphore/reports/*.xml
-            - cd ~/decko
-            - ./cc-test-reporter format-coverage --output "coverage/codeclimate.$SEMAPHORE_JOB_ID.json" -t simplecov
-            - aws s3 cp "coverage/codeclimate.$SEMAPHORE_JOB_ID.json" $S3_PATH
+#  - name: Integration Tests
+#    task:
+#      env_vars:
+#        - name: REPO_TMPSETS
+#          value: "true"
+#      prologue:
+#        commands:
+#          - sem-service start mysql
+#          - git submodule update
+#          - cache restore bundle-gems-$(checksum Gemfile.lock)
+#          - be decko new platypus --platypus
+#          - cd platypus
+#          - env RAILS_ENV=test bundle exec decko seed # --test
+#
+#      jobs:
+#        - name: Cypress
+#          commands:
+#            - RAILS_ENV=cypress bundle exec decko server -p 5002 &
+#            - cd ~/decko/decko/spec
+#            - nvm use 15.7.0
+#            - rm -rf node_modules
+#            - yarn install --frozen-lockfile
+#            - yarn run cypress run --record --key 15efb149-d03c-410b-bb10-6d3b1a82958e --reporter junit --reporter-options "mochaFile=/home/semaphore/reports/cypress-output-[hash].xml"
+#            - pkill -2 -f puma
+#        - name: Cucumber
+#          commands:
+#            - RAILS_ENV=cucumber bundle exec decko cucumber -- --format junit --out /home/semaphore/reports
+#
+#      epilogue:
+#        always:
+#          commands:
+#            - test-results publish /home/semaphore/reports/*.xml
+#            - cd ~/decko
+#            - ./cc-test-reporter format-coverage --output "coverage/codeclimate.$SEMAPHORE_JOB_ID.json" -t simplecov
+#            - aws s3 cp "coverage/codeclimate.$SEMAPHORE_JOB_ID.json" $S3_PATH
 
 
   - name: Coverage Report
