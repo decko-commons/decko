@@ -167,11 +167,11 @@ class Card
   # one failed integration event should not harm others.
   def rescuing_integration
     yield
-  # rescue StandardError => e
-  #   # puts "integration error: #{e.message}".red
-  #   Card::Error.report e, self
-  # ensure
-  #   true
+  rescue StandardError => e
+    # puts "integration error: #{e.message}".red
+    Card::Error.report e, self
+  ensure
+    true
   end
 
   def log_event_call event
