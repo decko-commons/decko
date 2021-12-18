@@ -10,6 +10,9 @@ global_job_config:
       value: "~/bundle/"
     - name: DECKO_REPO_PATH
       value: "~/decko"
+    - name: S3_PATH
+      value: ""
+
   secrets:
     - name: s3-credentials
     - name: code-climate
@@ -23,6 +26,15 @@ global_job_config:
       - git submodule init
       # - git submodule status > substat.txt # needed for sem submodule caching
       # - ruby .semaphore/submodules.rb restore # restore submodules from sem cache
+
+      - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+      - chmod +x ./cc-test-reporter
+
+      # without the following, code climate uses git to get git details.
+      # Semaphore uses the merge sha for PRS, so this leads to coverage report failures.
+      - if [ $SEMAPHORE_GIT_PR_SHA ]; then export GIT_COMMIT_SHA=$SEMAPHORE_GIT_PR_SHA; fi;
+
+      - export S3_PATH="s3://deckodev-test/$SEMAPHORE_PROJECT_NAME/$SEMAPHORE_GIT_BRANCH/coverage/$SEMAPHORE_WORKFLOW_ID/"
 
 blocks:
   - name: Smoke
@@ -64,8 +76,6 @@ blocks:
           - sem-service start mysql
           - git submodule update
           - cache restore bundle-gems-$(checksum Gemfile.lock)
-          - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
-          - chmod +x ./cc-test-reporter
           - ./cc-test-reporter before-build
           - bundle install
 
@@ -81,7 +91,7 @@ blocks:
           commands:
             - cd -
             - ./cc-test-reporter format-coverage --output "coverage/codeclimate.$SEMAPHORE_JOB_ID.json" -t simplecov
-            - aws s3 cp "coverage/codeclimate.$SEMAPHORE_JOB_ID.json" "s3://deckodev-test/$SEMAPHORE_PROJECT_NAME/$SEMAPHORE_GIT_BRANCH/coverage/$SEMAPHORE_WORKFLOW_ID/"
+            - aws s3 cp "coverage/codeclimate.$SEMAPHORE_JOB_ID.json" $S3_PATH
         always:
           commands:
             - test-results publish junit.xml
@@ -96,8 +106,6 @@ blocks:
           - sem-service start mysql
           - git submodule update
           - cache restore bundle-gems-$(checksum Gemfile.lock)
-          - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
-          - chmod +x ./cc-test-reporter
           - be decko new platypus --platypus
           - cd platypus
           - env RAILS_ENV=test bundle exec decko seed # --test
@@ -122,7 +130,7 @@ blocks:
             - test-results publish /home/semaphore/reports/*.xml
             - cd ~/decko
             - ./cc-test-reporter format-coverage --output "coverage/codeclimate.$SEMAPHORE_JOB_ID.json" -t simplecov
-            - aws s3 cp "coverage/codeclimate.$SEMAPHORE_JOB_ID.json" "s3://deckodev-test/$SEMAPHORE_PROJECT_NAME/$SEMAPHORE_GIT_BRANCH/coverage/$SEMAPHORE_WORKFLOW_ID/"
+            - aws s3 cp "coverage/codeclimate.$SEMAPHORE_JOB_ID.json" $S3_PATH
 
 
   - name: Coverage Report
@@ -130,11 +138,7 @@ blocks:
       jobs:
         - name: CodeClimate Coverage
           commands:
-            - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
-            - chmod +x ./cc-test-reporter
-            # SEMAPHORE_GIT_BRANCH is the destination branch when it's a PR.
-            # in those cases we probably want SEMAPHORE_GIT_PR_BRANCH.
-            - aws s3 sync "s3://deckodev-test/$SEMAPHORE_PROJECT_NAME/$SEMAPHORE_GIT_BRANCH/coverage/$SEMAPHORE_WORKFLOW_ID/" coverage/
+            - aws s3 sync $S3_PATH coverage/
             - ./cc-test-reporter sum-coverage --output - --parts $(ls -1 coverage/ | wc -l) coverage/codeclimate.*.json > coverage/codeclimate.json
             - ./cc-test-reporter upload-coverage
 after_pipeline:
