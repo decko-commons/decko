@@ -10,6 +10,8 @@ Cardio.application.class.configure do
   config.asset_refresh = :eager
   config.compress_assets = false
 
+  config.sql_comments = true
+
   # In the development environment your application's code is reloaded on
   # every request.  This slows down response time but is perfect for development
   # since you don't have to restart the web server when you make code changes.
