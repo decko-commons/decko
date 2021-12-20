@@ -28,7 +28,7 @@ class Card
 
         def normalize_value val
           case val
-          when Integer, Float, Hash, Symbol, NilClass then val
+          when Integer, Float, Hash, Symbol, NilClass, ActiveRecord::Relation then val
           when String                                 then normalize_string_value val
           when Array                                  then normalize_array_value val
           else raise Error::BadQuery, "Invalid value type: #{val.class} (#{val.inspect})"
