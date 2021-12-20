@@ -57,7 +57,7 @@ module Cardio
     config.encoding = "utf-8"
     config.request_logger = false
     config.performance_logger = false
-    config.sql_comments = true
+    config.sql_comments = false
 
     config.file_storage = :local
     config.file_buckets = {}
