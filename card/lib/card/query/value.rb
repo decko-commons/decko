@@ -32,9 +32,10 @@ class Card
 
       def parse_value value
         case value
-        when Array           then parse_array_value value.clone
-        when nil             then ["is", nil]
-        else                      ["=", parse_simple_value(value)]
+        when Array                  then parse_array_value value.clone
+        when ActiveRecord::Relation then ["in", value]
+        when nil                    then ["is", nil]
+        else                             ["=", parse_simple_value(value)]
         end
       end
 
@@ -48,7 +49,8 @@ class Card
         when String, Integer then value
         when Symbol          then value.to_s
         when nil             then nil
-        else raise Error::BadQuery, "Invalid property value: #{value.inspect}"
+        else
+          raise Error::BadQuery, "Invalid property value: #{value.inspect}"
         end
       end
 
@@ -66,9 +68,10 @@ class Card
 
       def sqlize v
         case v
-        when Query then v.to_sql
-        when Array then sqlize_array v
-        when nil   then "NULL"
+        when Query                  then v.to_sql
+        when ActiveRecord::Relation then "(#{v.to_sql})"
+        when Array                  then sqlize_array v
+        when nil                    then "NULL"
         else quote(v.to_s)
         end
       end
