@@ -42,7 +42,6 @@ format :html do
   delegate :guide_card, to: :card
 end
 
-
 private
 
 def determine_guide_card

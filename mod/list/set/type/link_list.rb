@@ -34,6 +34,8 @@ format :html do
     items = items_for_input args[:item_list]
     extra_class = "pointer-link-list-ul"
     ul_classes = classy "pointer-list-editor", extra_class
-    haml :link_list_input, items: items, ul_classes: ul_classes, options_card: :all.card # options_card_name
+    haml :link_list_input,
+         items: items, ul_classes: ul_classes,
+         options_card: :all.card # options_card_name
   end
 end
