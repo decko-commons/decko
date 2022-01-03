@@ -51,7 +51,7 @@ class Card
 
       def check_skipped_stage stage
         return unless before? previous_stage_index(stage)
-        
+
         raise Card::Error, "stage #{previous_stage_symbol stage} was " \
                            "skipped for card #{@card}"
       end
