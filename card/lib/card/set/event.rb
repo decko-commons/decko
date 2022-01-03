@@ -176,7 +176,7 @@ class Card
 
   def log_event_call event
     Rails.logger.debug "#{name}: #{event}"
-    puts "#{name}: #{event}"
+    # puts "#{name}: #{event}"
     # puts "#{Card::Director.to_s}".green
   end
 end
