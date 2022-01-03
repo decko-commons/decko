@@ -1,9 +1,5 @@
 def guide_card
-  guide_card = rule_card :guide
-  return unless guide_card
-
-  guide_card = guide_card.first_card if guide_card.type_id == PointerID
-  guide_card if guide_card.ok?(:read)
+  @guide_card ||= determine_guide_card
 end
 
 format :html do
@@ -29,17 +25,29 @@ format :html do
   private
 
   def prepend_guide_edit_link guide_text
-    return unless (rule_card = card.help_rule_card)
+    return guide_text unless guide_card.ok?(:update)
 
-    edit_link = with_nest_mode(:normal) { nest(rule_card, view: :edit_link) }
+    edit_link = with_nest_mode(:normal) { nest(guide_card, view: :edit_link) }
     "<span class='d-none'>#{edit_link}</span>#{guide_text}"
   end
 
   def guide_text
-    return "" unless (guide_card = card.guide_card)
+    return "" unless guide_card
 
     with_nest_mode :normal do
       nest guide_card, view: :core
     end
   end
+
+  delegate :guide_card, to: :card
+end
+
+private
+
+def determine_guide_card
+  guide_card = rule_card :guide
+  return unless guide_card
+
+  guide_card = guide_card.first_card if guide_card.type_id == PointerID
+  guide_card if guide_card.ok?(:read)
 end
