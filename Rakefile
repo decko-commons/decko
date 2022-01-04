@@ -34,7 +34,7 @@ task :build_images do
     system "cd docker; "\
            "docker build -f repos/#{i}.dockerfile "\
            "-t ethn/#{i} -t ethn/#{i}:latest -t ethn/#{i}:v#{version} ."
-    system "docker push -a ethn/#{i}:v#{version} "
+    system "docker push ethn/#{i} --all-tags"
   end
 end
 
