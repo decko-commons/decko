@@ -14,12 +14,12 @@ class Card
         @anyone_can[task]
       end
 
-      def view_for_unknown _view
+      def view_for_unknown setting_view
         if main?
           root.error_status = 404
           :not_found
         else
-          :unknown
+          setting_view || :unknown
         end
       end
 

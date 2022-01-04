@@ -80,7 +80,7 @@ format :css do
     if Card::Error.current
       Card::Error.current.message
     else
-      "Sass::SyntaxError (#{name}): #{error.message}"
+      "Sass::SyntaxError (#{card.name}): #{error.message}"
     end
   end
 
