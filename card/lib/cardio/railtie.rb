@@ -3,7 +3,6 @@ module Cardio
   class Railtie < Rails::Railtie
     # if you disable inline styles tinymce's formatting options stop working
     config.allow_inline_styles = true
-    config.delaying = nil
     config.token_expiry = 2.days
 
     config.recaptcha_public_key = nil  # deprecated; use recaptcha_site_key instead
@@ -32,6 +31,9 @@ module Cardio
     config.space_last_in_multispace = true
     config.closed_search_limit = 10
     config.paging_limit = 20
+
+    config.delaying = false
+    config.active_job.queue_adapter = :delayed_job
 
     config.non_createable_types = %w[
       signup

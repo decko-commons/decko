@@ -76,7 +76,7 @@ format :html do
     focal? ? loud_denial : quiet_denial
   end
 
-  def view_for_unknown view
+  def view_for_unknown setting_view
     main? && ok?(:create) ? :new : super
   end
 

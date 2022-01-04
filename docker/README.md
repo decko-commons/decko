@@ -54,6 +54,15 @@ Docker gives you a lot of power to manipulate the containers, and you can consul
 - `docker compose exec app bash` # open a bash shell to the app container 
 - `docker compose exec db bash` # open a bash shell to the database container
 
+### Upgrading
+
+To update an existing docker site to use a more recent docker image:
+
+- `docker pull IMAGE:latest`
+- `docker compose down`
+- `docker compose up -d`
+- `docker compose exec app bash`
+
 ## For Monkeys
 
 Increased support for monkeys who want to use Docker when developing is coming soon.  The idea is to create options for `decko new` that will create the basic structure (Dockerfile, etc) to use docker containers in all stages of site creation.
