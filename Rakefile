@@ -34,7 +34,7 @@ task :build_images do
     system "cd docker; "\
            "docker build -f repos/#{i}.dockerfile "\
            "-t ethn/#{i} -t ethn/#{i}:latest -t ethn/#{i}:v#{version} ."
-    system "docker push ethn/#{i}:v#{version}"
+    system "docker push -a ethn/#{i}:v#{version} "
   end
 end
 
@@ -43,7 +43,7 @@ task :retag_latest do
     i = "ethn/#{i}"
     system "docker pull #{i}:v#{version}"
     system "docker tag #{i}:v#{version} #{i}:latest"
-    system "docker push #{i}:latest"
+    system "docker push -a #{i}:latest"
   end
 end
 
