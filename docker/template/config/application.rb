@@ -11,13 +11,6 @@ module DockerDeck
     # Decko inherits most Ruby-on-Rails configuration options.
     # See http://guides.rubyonrails.org/configuring.html
 
-    # BACKGROUND
-    # Decko lets you run some card events (like follower notifications) in the
-    # background. This is off by default but can be turned on by changing the
-    # `delaying` setting to `true`
-    config.active_job.queue_adapter = :delayed_job
-    config.delaying = false
-
     # CACHING
     # determines caching mechanism.  options include: file_store, memory_store,
     # mem_cache_store, dalli_store...

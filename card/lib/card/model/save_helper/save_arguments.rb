@@ -72,8 +72,8 @@ class Card
             case key.to_s
             when /^\+/
               changing_field_arg key, value
-            when "name"
-              card.name.to_s != value
+            when /name$/
+              card.send(key).to_s != value
             else
               standard_changing_arg card, key, value
             end
