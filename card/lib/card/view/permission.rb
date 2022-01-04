@@ -34,11 +34,11 @@ class Card
       def alter_unknown
         return if card.known?
 
-        setting = setting :unknown
-        return if setting&.to_s == "true" # requested view supports unknown
+        unknown_setting = setting :unknown
+        return if unknown_setting&.to_s == "true" # requested view supports unknown
 
-        setting_view = (unknown || setting)&.to_sym
-        format.view_for_unknown setting_view
+        configured_view = (unknown || unknown_setting)&.to_sym
+        format.view_for_unknown configured_view
       end
 
       def denial
