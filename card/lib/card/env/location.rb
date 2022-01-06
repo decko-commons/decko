@@ -1,8 +1,6 @@
 class Card
   module Env
     module Location
-      delegate :dec
-
       # card_path    makes a relative path site-absolute (if not already)
       # card_url     makes it a full url (if not already)
 
