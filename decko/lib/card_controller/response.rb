@@ -54,7 +54,8 @@ class CardController
       # Card::Cache.renew
       @card = success.target
       require_card_for_soft_redirect!
-      self.params = Card::Env[:params] = soft_redirect_params
+      self.params = soft_redirect_params
+      Card::Env.reset self
       load_action
       show
     end
