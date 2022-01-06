@@ -13,11 +13,15 @@ class Card
       end
 
       def assign_host c
-        Card.config.override_host || c.request.env["HTTP_HOST"]
+        c.request.env["HTTP_HOST"]
       end
 
       def assign_protocol c
-        Card.config.override_protocol || c.request.protocol
+        c.request.protocol
+      end
+
+      def assign_origin c
+        "#{protocol}#{c.request.host_with_port}"
       end
     end
   end

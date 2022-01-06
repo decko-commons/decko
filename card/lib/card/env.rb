@@ -10,9 +10,11 @@ class Card
     extend Serialization
 
     class << self
+      # TODO: upgrade to lazy loading
       def reset args={}
         @env = { main_name: nil }
         return self unless (c = args[:controller])
+
 
         self[:controller] = c
         self[:session]    = c.request.session
@@ -22,6 +24,7 @@ class Card
         self[:html]       = assign_html(c)
         self[:host]       = assign_host(c)
         self[:protocol]   = assign_protocol(c)
+        self[:origin]     = assign_origin(c)
         self
       end
 
