@@ -4,50 +4,19 @@ class Card
   #
   # Env can differ for each request; Card.config should not.
   module Env
+    extend Standard
     extend LocationHistory
     extend SlotOptions
     extend Serialization
 
     class << self
       attr_accessor :controller, :main_name, :params
+      attr_writer :session
 
-      # TODO: upgrade to lazy loading
       def reset controller=nil
         @controller = controller
         @params = controller&.params || {}
-        @main_name = @session = nil
-      end
-
-      def request
-        controller&.request
-      end
-
-      def session
-        @session ||= request&.session || {}
-      end
-
-      def ip
-        request&.remote_ip
-      end
-
-      def ajax?
-        request&.xhr? || params[:simulate_xhr]
-      end
-
-      def html?
-        !controller || params[:format]&.in?([nil, "html"])
-      end
-
-      def host
-        request&.host
-      end
-
-      def origin
-        Cardio.config.deck_origin || "#{protocol}#{request&.host_with_port}"
-      end
-
-      def protocol
-        request&.protocl
+        @session = @success = nil
       end
 
       def with_params hash

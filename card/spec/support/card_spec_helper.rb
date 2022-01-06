@@ -22,7 +22,8 @@ class Card
     include Rails::Dom::Testing::Assertions::SelectorAssertions
 
     def login_as user
-      Card::Auth.signin user
+      Env.session = @request&.session
+      Auth.signin user
     end
 
     def card_subject
