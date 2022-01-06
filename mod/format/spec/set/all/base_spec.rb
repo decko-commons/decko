@@ -18,9 +18,7 @@ RSpec.describe Card::Set::All::Base do
       end
 
       it "handles more than one variant" do
-        name = render_content(
-          "{{Sunglasses|name; variant: singular, upcase}}"
-        )
+        name = render_content "{{Sunglasses|name; variant: singular, upcase}}"
         expect(name).to eq("SUNGLASS")
       end
     end
@@ -29,9 +27,9 @@ RSpec.describe Card::Set::All::Base do
     it("linkname") { expect(render_card(:linkname)).to eq("Tempo_Rary") }
 
     it "url" do
-      Card::Env[:protocol] = "http://"
-      Card::Env[:host]     = "eric.skippy.com"
-      expect(render_card(:url)).to eq("http://eric.skippy.com/Tempo_Rary")
+      Cardio.with_config deck_origin: "http://eric.skippy.com" do
+        expect(render_card(:url)).to eq("http://eric.skippy.com/Tempo_Rary")
+      end
     end
 
     it :raw do
