@@ -2,6 +2,7 @@ require File.expand_path "boot", __dir__
 require "decko/application"
 
 module DockerDeck
+  # main deck application object
   class Application < Decko::Application
     # Decko inherits most Ruby-on-Rails configuration options.
     # See http://guides.rubyonrails.org/configuring.html

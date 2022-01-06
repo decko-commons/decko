@@ -140,8 +140,7 @@ describe Card::Set::Type::EmailTemplate::EmailConfig do
       Cardio.with_config deck_origin: "http://www.fake.com" do
         is_expected.to include 'Card link(<a class="known-card" '\
                                'href="http://www.fake.com/A">' \
-                               '<span class="card-title" title="A">A' \
-                               '</span></a>)'
+                               '<span class="card-title" title="A">A</span></a>)'
       end
     end
   end
