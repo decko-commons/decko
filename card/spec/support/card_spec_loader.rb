@@ -77,7 +77,7 @@ class CardSpecLoader
 
         Card::Cache.restore
         Card::Env.reset
-        Card::Env[:params] = metadata[:params] if metadata[:params]
+        Card::Env.params = metadata[:params] if metadata[:params]
       end
     end
 
