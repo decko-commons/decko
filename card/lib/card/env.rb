@@ -16,7 +16,7 @@ class Card
       def reset controller=nil
         @controller = controller
         @params = controller&.params || {}
-        @session = @success = nil
+        @session = @success = @serialized = nil
       end
 
       def with_params hash
