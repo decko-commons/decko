@@ -9,25 +9,21 @@ class Card
     extend Serialization
 
     class << self
-      attr_accessor :controller, :main_name
-      attr_writer :params
+      attr_accessor :controller, :main_name, :params
 
       # TODO: upgrade to lazy loading
       def reset controller=nil
         @controller = controller
-        @main_name = @session = @params = nil
+        @params = controller&.params || {}
+        @main_name = @session = nil
       end
 
       def request
         controller&.request
       end
 
-      def params
-        @params ||= controller&.params || {}
-      end
-
       def session
-        @session ||= request&.session
+        @session ||= request&.session || {}
       end
 
       def ip
