@@ -32,7 +32,7 @@ class Card
       end
 
       def deck_origin
-        Cardio.config.deck_origin
+        Cardio.config.deck_origin || Env.origin
       end
 
       private

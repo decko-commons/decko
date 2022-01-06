@@ -19,6 +19,10 @@ class Card
       def assign_protocol c
         c.request.protocol
       end
+
+      def assign_origin c
+        "#{protocol}#{c.request.host_with_port}"
+      end
     end
   end
 end
