@@ -64,7 +64,7 @@ class CardController
 
     # TODO: refactor this away this when new layout handling is ready
     def record_as_main
-      Card::Env[:main_name] = params[:main] || card&.name || ""
+      Card::Env.main_name = params[:main] || card&.name || ""
     end
 
     def refresh_card
