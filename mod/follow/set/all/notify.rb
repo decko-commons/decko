@@ -7,7 +7,7 @@ event :silence_notifications, :initialize, when: :silence_notifications? do
 end
 
 def silence_notifications?
-  !(Card::Env[:controller] || force_notifications)
+  !(Card::Env.controller || force_notifications)
 end
 
 event :notify_followers_after_save,

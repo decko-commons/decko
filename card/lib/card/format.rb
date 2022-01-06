@@ -70,7 +70,7 @@ class Card
     end
 
     def controller
-      @controller || Env[:controller] ||= CardController.new
+      @controller || Env.controller ||= CardController.new
     end
 
     def mime_type

@@ -3,12 +3,22 @@ class Card
     # serializing environment (eg for delayed jobs)
     module Serialization
       SERIALIZABLE_ATTRIBUTES = ::Set.new %i[
-        main_name params ip ajax html host protocol salt
+        main_name params ip ajax html host protocol origin
       ]
+
+      SERIALIZABLE_ATTRIBUTES.each do |attrib|
+        define_method attrib do
+          if @serialized&.key? attrib
+            @serialized[attrib]
+          else
+            super()
+          end
+        end
+      end
 
       # @param serialized_env [Hash]
       def with serialized_env
-        tmp_env = serialize if @env
+        tmp_env = serialize
         @env ||= {}
         @env.update serialized_env
         yield
@@ -17,7 +27,9 @@ class Card
       end
 
       def serialize
-        @env.select { |k, _v| SERIALIZABLE_ATTRIBUTES.include?(k) }
+        @serialized = SERIALIZABLE_ATTRIBUTES.each_with_object({}) do |attr, hash|
+          hash[attr] = send attr
+        end
       end
     end
   end
