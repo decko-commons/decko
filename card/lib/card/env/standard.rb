@@ -19,7 +19,7 @@ class Card
       alias_method :ajax?, :ajax
 
       def html
-        !controller || params[:format]&.in?([nil, "html"])
+        !controller || params[:format].in?([nil, "html"])
       end
       alias_method :html?, :html
 
