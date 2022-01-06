@@ -31,7 +31,7 @@ class CardController
     def setup
       Card::Assets.refresh_assets unless params[:explicit_file]
       Card::Cache.renew
-      Card::Env.reset controller: self
+      Card::Env.reset self
     end
 
     def authenticate
