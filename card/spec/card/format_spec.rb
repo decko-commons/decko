@@ -31,11 +31,8 @@ describe Card::Format do
   end
 
   describe "format helpers and link building" do
-    before do
-      # should be a way to get these defaults in these tests
-      Card::Env[:host] = "//test.host"
-      Card::Env[:protocol] = "http:"
-    end
+    before { Cardio.config.deck_origin = "http://test.host" }
+    after { Cardio.config.deck_origin = nil }
 
     let(:card) { Card["Home"] }
     let(:text_format) { card.format(:text) }
