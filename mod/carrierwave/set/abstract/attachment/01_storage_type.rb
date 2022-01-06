@@ -46,40 +46,6 @@ def storage_type
   @storage_type ||= new_card? ? storage_type_from_config : storage_type_from_content
 end
 
-def storage_type_from_config
-  valid_storage_type ENV["FILE_STORAGE"] || Cardio.config.file_storage
-end
-
-def valid_storage_type storage_type
-  storage_type.to_sym.tap do |type|
-    invalid_storage_type! type unless type.in? valid_storage_type_list
-  end
-end
-
-def valid_storage_type_list
-  CarrierWave::FileCardUploader::STORAGE_TYPES
-end
-
-def invalid_storage_type! type
-  raise Card::Error, t(:carrierwave_error_invalid_storage_type, type: type)
-end
-
-def storage_type_from_content
-  @storage_type_from_content ||=
-    case content
-    when /^\(/          then :cloud
-    when %r{/^https?:/} then :web
-    when /^~/           then :local
-    when /^:/           then :coded
-    else
-      if deprecated_mod_file?
-        :coded
-      else
-        storage_type_from_config
-      end
-    end
-end
-
 def storage_changed?
   (storage_type != current.storage_type) ||
     (bucket != current.bucket) ||
@@ -102,4 +68,49 @@ def file_updated_at
   end
 rescue Errno::ENOENT # no file at path
   nil
+end
+
+private
+
+def storage_type_from_config
+  storage = Cardio.config.file_storage
+  # valid_storage_type(storage) && configured_storage_type(storage) && storage
+  valid_storage_type(storage) && storage
+end
+
+# FIXME: storage type should really be validated at load time:
+
+def valid_storage_type storage_type
+  return true if storage_type.in? CarrierWave::FileCardUploader::STORAGE_TYPES
+
+  raise Card::Error, t(:carrierwave_error_invalid_storage_type, type: type)
+end
+
+# TODO: finish this idea:
+# def configured_storage_type storage_type
+#   case storage_type
+#   when :local
+#     # require existent files directory with write permissions
+#   when :cloud
+#     unless Cardio.config.deck_host
+#       raise Card::Error, t(:carrierwave_error_host_required)
+#     end
+#   end
+#   storage_type
+# end
+
+def storage_type_from_content
+  @storage_type_from_content ||=
+    case content
+    when /^\(/          then :cloud
+    when %r{/^https?:/} then :web
+    when /^~/           then :local
+    when /^:/           then :coded
+    else
+      if deprecated_mod_file?
+        :coded
+      else
+        storage_type_from_config
+      end
+    end
 end
