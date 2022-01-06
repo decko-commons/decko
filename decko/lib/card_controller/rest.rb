@@ -31,7 +31,7 @@ class CardController
     def setup
       Card::Assets.refresh_assets unless params[:explicit_file]
       Card::Cache.renew
-      Card::Env.reset controller: self
+      Card::Env.reset self
     end
 
     def authenticate
@@ -64,7 +64,7 @@ class CardController
 
     # TODO: refactor this away this when new layout handling is ready
     def record_as_main
-      Card::Env[:main_name] = params[:main] || card&.name || ""
+      Card::Env.main_name = params[:main] || card&.name || ""
     end
 
     def refresh_card
