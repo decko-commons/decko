@@ -4,7 +4,7 @@ class Card
     module SlotOptions
       def slot_opts
         # FIXME:  upgrade to safe parameters
-        self[:slot_opts] ||= interpret_slot_options
+        @slot_opts ||= interpret_slot_options
       end
 
       private

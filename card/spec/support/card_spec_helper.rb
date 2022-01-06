@@ -22,7 +22,6 @@ class Card
     include Rails::Dom::Testing::Assertions::SelectorAssertions
 
     def login_as user
-      Card::Env[:session] = @request.session if @request
       Card::Auth.signin user
     end
 
