@@ -45,5 +45,13 @@ module Cardio
     def mods
       Mod.dirs.mods
     end
+
+    def with_config tmp
+      keep = tmp.keys.each_with_object({}) { |k, h| h[k] = config.send k }
+      tmp.each { |k, v| config.send "#{k}=", v }
+      yield
+    ensure
+      keep.each { |k, v| config.send "#{k}=", v }
+    end
   end
 end

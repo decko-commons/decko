@@ -4,37 +4,19 @@ class Card
   #
   # Env can differ for each request; Card.config should not.
   module Env
+    extend Standard
     extend LocationHistory
-    extend RequestAssignments
     extend SlotOptions
     extend Serialization
 
     class << self
-      def reset args={}
-        @env = { main_name: nil }
-        return self unless (c = args[:controller])
+      attr_accessor :controller, :main_name, :params
+      attr_writer :session
 
-        self[:controller] = c
-        self[:session]    = c.request.session
-        self[:params]     = c.params
-        self[:ip]         = c.request.remote_ip
-        self[:ajax]       = assign_ajax(c)
-        self[:html]       = assign_html(c)
-        self[:host]       = assign_host(c)
-        self[:protocol]   = assign_protocol(c)
-        self
-      end
-
-      def [] key
-        @env[key.to_sym]
-      end
-
-      def []= key, value
-        @env[key.to_sym] = value
-      end
-
-      def params
-        self[:params] ||= {} # .with_indifferent_access
+      def reset controller=nil
+        @controller = controller
+        @params = controller&.params || {}
+        @session = @success = @serialized = nil
       end
 
       def with_params hash
@@ -42,7 +24,7 @@ class Card
         params.merge! hash
         yield
       ensure
-        self[:params] = old_params
+        @params = old_params
       end
 
       def hash hashish
@@ -53,42 +35,20 @@ class Card
         end
       end
 
-      def session
-        self[:session] ||= {}
-      end
-
       def reset_session
         if session.is_a? Hash
-          self[:session] = {}
+          @session = {}
         else
-          self[:controller]&.reset_session
+          controller&.reset_session
         end
       end
 
       def success cardname=nil
-        self[:success] ||= Env::Success.new(cardname, params[:success])
+        @success ||= Env::Success.new(cardname, params[:success])
       end
 
       def localhost?
-        self[:host]&.match?(/^localhost/)
-      end
-
-      def ajax?
-        self[:ajax]
-      end
-
-      def html?
-        !self[:controller] || self[:html]
-      end
-
-      private
-
-      def method_missing method_id, *args
-        case args.length
-        when 0 then self[method_id]
-        when 1 then self[method_id] = args[0]
-        else super
-        end
+        host&.match?(/^localhost/)
       end
     end
   end
