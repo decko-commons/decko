@@ -5,7 +5,6 @@ class Card
   # Env can differ for each request; Card.config should not.
   module Env
     extend LocationHistory
-    extend RequestAssignments
     extend SlotOptions
     extend Serialization
 
