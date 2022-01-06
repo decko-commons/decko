@@ -10,34 +10,49 @@ class Card
     extend Serialization
 
     class << self
+      attr_accessor :controller, :main_name
+      attr_writer :params
+
       # TODO: upgrade to lazy loading
-      def reset args={}
-        @env = { main_name: nil }
-        return self unless (c = args[:controller])
-
-
-        self[:controller] = c
-        self[:session]    = c.request.session
-        self[:params]     = c.params
-        self[:ip]         = c.request.remote_ip
-        self[:ajax]       = assign_ajax(c)
-        self[:html]       = assign_html(c)
-        self[:host]       = assign_host(c)
-        self[:protocol]   = assign_protocol(c)
-        self[:origin]     = assign_origin(c)
-        self
+      def reset controller=nil
+        @controller = controller
+        @main_name = @session = @params = nil
       end
 
-      def [] key
-        @env[key.to_sym]
-      end
-
-      def []= key, value
-        @env[key.to_sym] = value
+      def request
+        controller&.request
       end
 
       def params
-        self[:params] ||= {} # .with_indifferent_access
+        @params ||= controller&.params || {}
+      end
+
+      def session
+        @session ||= request&.session
+      end
+
+      def ip
+        request&.remote_ip
+      end
+
+      def ajax?
+        request&.xhr? || params[:simulate_xhr]
+      end
+
+      def html?
+        !controller || params[:format]&.in?([nil, "html"])
+      end
+
+      def host
+        request&.host
+      end
+
+      def origin
+        Cardio.config.deck_origin || "#{protocol}#{request&.host_with_port}"
+      end
+
+      def protocol
+        request&.protocl
       end
 
       def with_params hash
@@ -45,7 +60,7 @@ class Card
         params.merge! hash
         yield
       ensure
-        self[:params] = old_params
+        @params = old_params
       end
 
       def hash hashish
@@ -56,42 +71,20 @@ class Card
         end
       end
 
-      def session
-        self[:session] ||= {}
-      end
-
       def reset_session
         if session.is_a? Hash
-          self[:session] = {}
+          @session = {}
         else
-          self[:controller]&.reset_session
+          controller&.reset_session
         end
       end
 
       def success cardname=nil
-        self[:success] ||= Env::Success.new(cardname, params[:success])
+        @success ||= Env::Success.new(cardname, params[:success])
       end
 
       def localhost?
-        self[:host]&.match?(/^localhost/)
-      end
-
-      def ajax?
-        self[:ajax]
-      end
-
-      def html?
-        !self[:controller] || self[:html]
-      end
-
-      private
-
-      def method_missing method_id, *args
-        case args.length
-        when 0 then self[method_id]
-        when 1 then self[method_id] = args[0]
-        else super
-        end
+        host&.match?(/^localhost/)
       end
     end
   end

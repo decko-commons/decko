@@ -17,7 +17,7 @@ class Card
       end
 
       def card_url rel
-        rel.match?(/^https?:/) ? rel : "#{deck_origin}#{card_path rel}"
+        rel.match?(/^https?:/) ? rel : "#{Env.origin}#{card_path rel}"
       end
 
       def cardname_from_url url
@@ -31,16 +31,12 @@ class Card
         Cardio.config.relative_url_root
       end
 
-      def deck_origin
-        Cardio.config.deck_origin || Env.origin
-      end
-
       private
 
       def cardname_from_url_regexp
-        return unless deck_origin
+        return unless Env.origin
 
-        %r{#{Regexp.escape deck_origin}/(?<mark>[^?]+)}
+        %r{#{Regexp.escape Env.origin}/(?<mark>[^?]+)}
       end
 
       extend Location # allows calls on Location constant, eg Location.card_url
