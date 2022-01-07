@@ -1,3 +1,5 @@
+require "delayed_job_active_record"
+
 Cardio.config.tap do |cc|
   Delayed::Worker.tap do |dw|
     dw.delay_jobs = cc.delaying
