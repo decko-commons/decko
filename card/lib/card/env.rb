@@ -4,43 +4,28 @@ class Card
   #
   # Env can differ for each request; Card.config should not.
   module Env
-    extend Standard
     extend LocationHistory
     extend SlotOptions
+    extend Support
+    extend Serializable
     extend Serialization
 
     class << self
       attr_accessor :controller, :main_name, :params
       attr_writer :session
 
+      def request
+        controller&.request
+      end
+
+      def session
+        @session ||= request&.session || {}
+      end
+
       def reset controller=nil
         @controller = controller
         @params = controller&.params || {}
         @session = @success = @serialized = @slot_opts = nil
-      end
-
-      def with_params hash
-        old_params = params.clone
-        params.merge! hash
-        yield
-      ensure
-        @params = old_params
-      end
-
-      def hash hashish
-        case hashish
-        when Hash then hashish.clone
-        when ActionController::Parameters then hashish.to_unsafe_h
-        else {}
-        end
-      end
-
-      def reset_session
-        if session.is_a? Hash
-          @session = {}
-        else
-          controller&.reset_session
-        end
       end
 
       def success cardname=nil
