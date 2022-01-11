@@ -137,11 +137,11 @@ describe Card::Set::Type::EmailTemplate::EmailConfig do
     end
 
     it "renders absolute urls" do
-      Card::Env[:protocol] = "http://"
-      Card::Env[:host] = "www.fake.com"
-      is_expected.to include 'Card link(<a class="known-card" '\
-                             'href="http://www.fake.com/A">' \
-                             '<span class="card-title" title="A">A</span></a>)'
+      Cardio.with_config deck_origin: "http://www.fake.com" do
+        is_expected.to include 'Card link(<a class="known-card" '\
+                               'href="http://www.fake.com/A">' \
+                               '<span class="card-title" title="A">A</span></a>)'
+      end
     end
   end
 
@@ -196,14 +196,15 @@ describe Card::Set::Type::EmailTemplate::EmailConfig do
     end
 
     it "handles inline image nests in html message  in core view" do
-      Card::Env[:host] = "http://testhost"
-      yeti_img = "http://testhost/files/:yeti_skin_image/bootstrap-medium.png"
-      update_field "*html message", content: "Triggered by {{:yeti_skin_image|core}}"
-      mail = email.format.mail context_card
-      expect(mail.parts.size).to eq 2
-      expect(mail.parts[0].mime_type).to eq "text/plain"
-      expect(mail.parts[1].mime_type).to eq "text/html"
-      expect(mail.parts[1].body.raw_source).to have_tag(:img, with: { src: yeti_img })
+      Cardio.with_config deck_origin: "http://testhost" do
+        yeti_img = "http://testhost/files/:yeti_skin_image/bootstrap-medium.png"
+        update_field "*html message", content: "Triggered by {{:yeti_skin_image|core}}"
+        mail = email.format.mail context_card
+        expect(mail.parts.size).to eq 2
+        expect(mail.parts[0].mime_type).to eq "text/plain"
+        expect(mail.parts[1].mime_type).to eq "text/html"
+        expect(mail.parts[1].body.raw_source).to have_tag(:img, with: { src: yeti_img })
+      end
     end
 
     it "handles inline image nests in html message" do
