@@ -56,8 +56,8 @@ RSpec.describe Card::Set::All::Account do
       Card::Auth.signin jadmin.id
       # simulate login to get correct from address
 
-      Card::Env[:params] = { email: { subject: "Hey Joe!",
-                                      message: "Come on in." } }
+      # Card::Env[:params] = { email: { subject: "Hey Joe!",
+      #                                 message: "Come on in." } }
       Card.create! name: "Joe New",
                    type_id: Card::UserID,
                    "+*account" => { "+*email" => "joe@new.com" }
