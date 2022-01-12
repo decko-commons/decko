@@ -36,8 +36,13 @@ $.extend nest,
   openEditorForTm: (tm, params, overlay_view, modal_view) ->
     params += "&tinymce_id=#{tm.id}"
     slot = $("##{tm.id}").closest(".card-slot")
+    editor = $("##{tm.id}").closest(".card-editor")
     slotter = $("##{tm.id}")
-    card = if slot[0] then $(slot[0]).attr('data-card-name') else ":update"
+
+    card = (editor[0] and $(editor[0]).attr('card_name')) or
+           (slot[0] and $(slot[0]).attr('data-card-name')) or ":update"
+    if card.length == 0
+      card = ":update"
     nest.request(card, overlay_view, modal_view, slotter, params)
 
   # called by TinyMCE
