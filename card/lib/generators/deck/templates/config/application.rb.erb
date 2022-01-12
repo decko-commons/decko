@@ -4,55 +4,75 @@ require "decko/application"
 
 module <%= app_const_base %>
   class Application < Decko::Application
-    config.performance_logger = nil
-
     # Decko inherits most Ruby-on-Rails configuration options.
     # See http://guides.rubyonrails.org/configuring.html
 
     # EMAIL
-    # Email is not turned on by default.  To turn it on, you need to change the
-    # following to `true` and then add configuration specific to your site.
-    # Learn more:
+    # Outgoing email, which is used by a lot of account processes (signup,
+    # forgot password, notifications, etc) is not turned on by default.
+    # To turn it on, you need to change the following to `true` and add
+    # configuration specific to your site.
+    #
+    # Learn more about Rails email configuration:
     #  https://guides.rubyonrails.org/configuring.html#configuring-action-mailer
-
+    #
     config.action_mailer.perform_deliveries = false
     # config.action_mailer.delivery_method  = ...
     # config.action_mailer.smtp_settings    = ...
-
-    # Example configuration for mailcatcher, a simple smtp server.
-    # See http://mailcatcher.me for more information
+    #
+    # Example configuration for mailcatcher, a simple development-friendly
+    # smtp server (but not an option for production sites):
+    #
     # config.action_mailer.delivery_method = :smtp
     # config.action_mailer.smtp_settings = { address: "localhost", port: 1025 }
-
-
-    # BACKGROUND
-    # Decko lets you run some card events (like follower notifications) in the
-    # background. This is off by default but can be turned on by changing the
-    # `delaying` setting to `true`
-    config.active_job.queue_adapter = :delayed_job
-    config.delaying = false
-
+    #
+    # Learn more about mailcatcher:
+    #   http://mailcatcher.me for more information
 
     # CACHING
+    # Cards make heavy use of caching to improve performance. Caching storage
+    # options include: file_store (default), memory_store, mem_cache_store...
+    #
     # config.cache_store = :file_store, "tmp/cache"
-    # determines caching mechanism.  options include: file_store, memory_store,
-    # mem_cache_store...
     #
     # for production, we highly recommend memcache
-    # here's a sample configuration for use with the dalli gem
+    # here's a sample configuration for use with the "dalli" gem
+    # (which you can install by adding `gem "dalli"` to your Gemfile and then
+    # running `bundle install`.
+    #
     # config.cache_store = :mem_cache_store, []
-
+    #
+    # Learn more about Rails caching configuration:
+    #   https://guides.rubyonrails.org/caching_with_rails.html#cache-stores
 
     # FILES
-    # config.paths["files"] = "files"
-    # directory in which uploaded files are actually stored. (eg Image and File cards)
-
+    # Some card content (eg for Image and File cards) is stored in files
+    # rather than in the database.
+    #
+    # Most will want to set file_storage to use either :local or :cloud.
+    #
+    # By default storage is set to :local, and files are stored in the "files"
+    # directory in the deck root.
+    #
     # config.file_storage = :local
-    # File storage options (see http://decko.org/file_storage_options)
-    # options include: local, cloud, web, coded
-    # defaults to local
-    # For cloud storage use the following config options and add the corresponding fog gem
-    # for your cloud service. For example for AWS add "fog-aws" to your Gemfile.
+    # config.paths["files"] = "files"
+    #
+    <% if platypus? %>
+    config.file_buckets = {
+      test_bucket: {
+        provider: "AWS",
+        aws_access_key_id: ENV["TEST_BUCKET_AWS_ACCESS_KEY_ID"],
+        aws_secret_access_key: ENV["TEST_BUCKET_AWS_SECRET_ACCESS_KEY"],
+        region: "us-east-1"
+      }
+    }
+    <% else %>
+    # For cloud storage use the following config options and add the
+    # corresponding fog gem for your cloud service. For example for AWS add
+    # `gem "fog-aws"` to your Gemfile. IMPORTANT: also see protocol and host
+    # below.
+    #
+    # config.file_storage = :cloud
     # config.file_default_bucket = :my_bucket
     # config.file_buckets = {
     #   my_bucket: {
@@ -63,7 +83,7 @@ module <%= app_const_base %>
     #        aws_access_key_id: "key",                # required
     #        aws_secret_access_key: "secret-key",     # required
     #        use_iam_profile: true,             # optional, defaults to false
-    #        region: "eu-central-1",                   # optional, defaults to "us-east-1"
+    #        region: "eu-central-1",                  # optional, defaults to "us-east-1"
     #        host: "s3.example.com",                  # optional, defaults to nil
     #        endpoint: "https://s3.example.com:8080"  # optional, defaults to nil
     #     },
@@ -76,32 +96,31 @@ module <%= app_const_base %>
     #                                        # option is needed
     #   }
     # }
+    #
+    # Learn more about file storage options:
+    #   http://decko.org/file_storage_options)
+    <% end %>
+
+    # ORIGIN AND RELATIVE_ROOT
+    # The following option is used when generating absolute links and
+    # are necessary when using cloud file storage, especially when using
+    # commands (like `decko update`) in a non-web context.
+    #
+    # Without it your generated CSS (which is stored on the cloud) will not
+    # be able to find permanent resources (which are stored with the deck).
+    # This usually shows up as broken icons.
+    #
+    # config.deck_origin = "https://mysite.com"
+    #
+    # If your deck is not at the url's root but in a subdirectory, such as
+    # mysite.com/mydeck, then you must configure the relative_url_root:
+    #
+    # config.relative_url_root = "/mydeck"
 
     # MISCELLANEOUS
+    # You can use the following to disallow creating, updating, and deleting
+    # cards:
+    #
     # config.read_only = true
-    # defaults to false
-    # disallows creating, updating, and deleting cards.
-
-    # config.paths["mod"] << "my-mod-dir"
-    # add a new directory for code customizations, or "mods"
-
-    # config.allow_inline_styles = false
-    # don't strip style attributes (not recommended)
-
-    # config.override_host = "example.com"
-    # overrides host auto-detected from web requests
-
-    # config.override_protocol = "https"
-    # overrides protocol auto-detected from web requests
-    <% if platypus? %>
-    config.file_buckets = {
-      test_bucket: {
-        provider: "AWS",
-        aws_access_key_id: ENV["TEST_BUCKET_AWS_ACCESS_KEY_ID"],
-        aws_secret_access_key: ENV["TEST_BUCKET_AWS_SECRET_ACCESS_KEY"],
-        region: "us-east-1"
-      }
-    }
-    <% end %>
   end
 end
