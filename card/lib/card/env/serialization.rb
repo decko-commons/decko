@@ -11,11 +11,10 @@ class Card
       # @param serialized_env [Hash]
       def with serialized_env
         tmp_env = serialize
-        @env ||= {}
-        @env.update serialized_env
+        @serialized.update serialized_env
         yield
       ensure
-        @env.update tmp_env if tmp_env
+        @serialized.update tmp_env if tmp_env
       end
 
       # supercede serializable methods when serialized values are available

@@ -4,7 +4,7 @@ RSpec.describe Card::Env do
   describe "slot_opts" do
     it "allows only shark keys" do
       described_class.with_params slot: { bogus: "block", title: "captain" } do
-        described_class.slot_opts == { title: "captain" }
+        expect(described_class.slot_opts).to eq(title: "captain")
       end
     end
   end
