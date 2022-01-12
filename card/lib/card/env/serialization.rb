@@ -2,12 +2,8 @@ class Card
   module Env
     # serializing environment (eg for delayed jobs)
     module Serialization
-      def self.serializables
-        Serializable.instance_methods + %i[main_name params]
-      end
-
       def serialize
-        @serialized = Serialization.serializables.each_with_object({}) do |attr, hash|
+        @serialized = Serializable.instance_methods.each_with_object({}) do |attr, hash|
           hash[attr] = send attr
         end
       end
@@ -26,7 +22,7 @@ class Card
       #
       # note - at present this must be done manually when adding serializable methods
       # in mods.
-      serializables.each do |attrib|
+      Serializable.instance_methods.each do |attrib|
         define_method attrib do
           @serialized&.key?(attrib) ? @serialized[attrib] : super()
         end

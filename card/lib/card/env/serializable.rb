@@ -3,6 +3,8 @@ class Card
     # These methods are all handled in serialization and are thus preserved for the
     # integrate_with_delay phase
     module Serializable
+      attr_reader :main_name, :params
+
       def ip
         request&.remote_ip
       end
