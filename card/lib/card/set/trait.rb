@@ -60,7 +60,7 @@ class Card
         if all_set?
           [:right, trait]
         elsif type_set?
-          [:type_plus_right, set_name_parts.last, trait]
+          [:type_plus_right, set_name_parts[3], trait]
         end
       end
 
