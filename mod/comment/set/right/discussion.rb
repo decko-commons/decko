@@ -10,5 +10,7 @@ view :core, unknown: true do
 end
 
 view :input do
-  in_multi_card_editor? ? comment_box : super()
+  return super() unless in_multi_card_editor?
+
+  [with_nest_mode(:normal) { render_core hide: :comment_box }, comment_box]
 end
