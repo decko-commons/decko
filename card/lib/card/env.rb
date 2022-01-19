@@ -11,8 +11,8 @@ class Card
     extend Serialization
 
     class << self
-      attr_accessor :controller, :main_name, :params
-      attr_writer :session
+      attr_accessor :controller
+      attr_writer :session, :main_name, :params
 
       def request
         controller&.request
