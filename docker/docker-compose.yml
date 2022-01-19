@@ -56,9 +56,10 @@ services:
       # DECKO_FILE_ENDPOINT:       # eg https://nyc3.digitaloceanspaces.com
 
       # ~~ OUTGOING EMAIL ~~
+      # see https://guides.rubyonrails.org/action_mailer_basics.html#action-mailer-configuration
+
       # DECKO_SMTP_ADDRESS
       # DECKO_SMTP_DOMAIN
-      # DECKO_SMTP_ADDRESS
       # DECKO_SMTP_USER
       # DECKO_SMTP_PASSWORD
       # DECKO_SMTP_AUTHENTICATION
