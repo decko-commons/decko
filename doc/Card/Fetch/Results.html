@@ -6,7 +6,7 @@
 <title>
   Module: Card::Fetch::Results
   
-    &mdash; Documentation by YARD 0.9.26
+    &mdash; Documentation by YARD 0.9.27
   
 </title>
 
@@ -1119,7 +1119,7 @@
 <span class='kw'>def</span> <span class='id identifier rubyid_supercard_might_change_type?'>supercard_might_change_type?</span>
   <span class='comment'># ...via type_plus_right rule
 </span>  <span class='id identifier rubyid_sc'>sc</span> <span class='op'>=</span> <span class='id identifier rubyid_new_opts'>new_opts</span><span class='lbracket'>[</span><span class='symbol'>:supercard</span><span class='rbracket'>]</span>
-  <span class='ivar'>@force_type_lookup</span> <span class='op'>=</span> <span class='id identifier rubyid_sc'>sc</span><span class='op'>&amp;.</span><span class='id identifier rubyid_new?'>new?</span> <span class='op'>&amp;&amp;</span> <span class='lparen'>(</span><span class='id identifier rubyid_sc'>sc</span><span class='period'>.</span><span class='id identifier rubyid_type_id'>type_id</span> <span class='op'>!=</span> <span class='id identifier rubyid_sc'>sc</span><span class='period'>.</span><span class='id identifier rubyid_default_type_id'>default_type_id</span><span class='rparen'>)</span>
+  <span class='ivar'>@force_type_lookup</span> <span class='op'>=</span> <span class='id identifier rubyid_sc'>sc</span><span class='op'>&amp;.</span><span class='id identifier rubyid_new?'>new?</span> <span class='op'>&amp;&amp;</span> <span class='lparen'>(</span><span class='id identifier rubyid_sc'>sc</span><span class='period'>.</span><span class='id identifier rubyid_type_id'>type_id</span> <span class='op'>!=</span> <span class='const'><span class='object_link'><a href="../../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_default_type_id'>default_type_id</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1250,7 +1250,7 @@
   <span class='kw'>return</span> <span class='kw'>unless</span> <span class='lparen'>(</span><span class='id identifier rubyid_sc'>sc</span> <span class='op'>=</span> <span class='id identifier rubyid_new_opts'>new_opts</span><span class='lbracket'>[</span><span class='symbol'>:supercard</span><span class='rbracket'>]</span><span class='rparen'>)</span>
 
   <span class='ivar'>@card</span><span class='period'>.</span><span class='id identifier rubyid_supercard'>supercard</span> <span class='op'>=</span> <span class='id identifier rubyid_sc'>sc</span>
-  <span class='ivar'>@card</span><span class='period'>.</span><span class='id identifier rubyid_update_superleft'>update_superleft</span> <span class='ivar'>@card</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span>
+  <span class='ivar'>@card</span><span class='period'>.</span><span class='id identifier rubyid_update_superleft'>update_superleft</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1306,9 +1306,9 @@
 </div>
 
       <div id="footer">
-  Generated on Sun Oct 24 23:17:22 2021 by
+  Generated on Fri Jan 21 16:01:41 2022 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.26 (ruby-2.7.3).
+  0.9.27 (ruby-3.0.1).
 </div>
 
     </div>
