@@ -10,17 +10,15 @@ module Cardio
   #
   #     decko generate card:mod MOD_NAME
   #
-  # This will create the following directories:
+  # This will create a directory following the pattern `DECK_NAME/mod/MOD_NAME`. This
+  # directory contains all the specifications of your mod. By default that includes
+  # a README.md file and the following subdirectories:
   #
-  #     DECK_NAME/mod/MOD_NAME
-  #     DECK_NAME/mod/MOD_NAME/lib
-  #     DECK_NAME/mod/MOD_NAME/public
-  #     DECK_NAME/mod/MOD_NAME/set
-  #
-  # The lib directory contains libraries, of course. And files in the public directory
-  # are public and served directly.
-  #
-  # But in most mods, the focal point is the *set* directory.
+  # - **assets** - for JavaScript, CSS, and variants (CoffeeScript, SCSS, etc)
+  # - **lib** - for standard code libraries
+  # - **public** - accessible via the web at DECK_URL_ROOT/mod/MOD_NAME/
+  # - **set** - the mod's focal point where card sets are configured (see below)
+  # - **spec** - for rspec tests
   #
   # ## Set Modules
   #
