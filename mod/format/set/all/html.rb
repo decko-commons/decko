@@ -15,8 +15,7 @@ format :html do
   end
 
   def default_nest_view
-    :titled
-    # card.rule(:default_html_view) || :titled
+    Cardio.config.default_html_view
   end
 
   def default_item_view
