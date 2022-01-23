@@ -31,6 +31,7 @@ module Cardio
 
     config.delaying = false
     config.active_job.queue_adapter = :delayed_job
+    config.default_html_view = :titled
 
     config.non_createable_types = %w[
       signup
