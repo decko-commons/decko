@@ -56,12 +56,15 @@ Docker gives you a lot of power to manipulate the containers, and you can consul
 
 ### Upgrading
 
-To update an existing docker site to use a more recent docker image:
+To update an existing docker site to use a more recent decko docker image:
 
-- `docker pull IMAGE:latest`
-- `docker compose down`
-- `docker compose up -d`
-- `docker compose exec app bash`
+1. `docker compose pull app`
+2. `docker compose down`
+3. `docker compose up -d`
+4. `docker compose exec app decko update`
+
+For some upgrades, it may be necessary to repeat steps two and three to restart things 
+after running the update.
 
 ## For Monkeys
 

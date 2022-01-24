@@ -2,6 +2,7 @@ version: "3.7"
 
 services:
   app:
+    # ~~ DOCKER IMAGE ~~
     # Use one of the following three out-of-the-box images or add your own image
     # and uncommment the build command if using your own Dockerfile
     image: ethn/decko-mysql:latest
@@ -17,7 +18,7 @@ services:
     volumes:
       # The following assumes there is a "files" subdirectory inside the directory
       # running docker compose. Comment it out if using cloud storage
-      - ./files:/deck/filesk
+      - ./files:/deck/files
 
       # Uncomment to use your own database config in config/database.yml
       # -  ./config/database.yml:/deck/config/database.yml
@@ -28,24 +29,41 @@ services:
       # Uncomment to add mods in mods
       #-  ./mods:/deck/mods
 
-      # INSTALLING YOUR OWN GEMS
+      # ~~ INSTALLING YOUR OWN GEMS ~~
       # Uncomment the following two lines if using bundle install to install your own gems
       # (eg with ethn/decko-base). You can do so with the command
       # `docker compose exec app bundle install`
       # For these gems to persist, we recommend using docker volumes, which entails
       # uncommenting the following AND the lines in the volume section at the bottom.
       # - gems:/gems
-      # - assets_dir:/deck/public/assets
+      # - public_mod_dir:/deck/public/mod
 
-    # environment:
-      # DECKO_FILE_STORAGE: AWS      # use AWS for AWS-compatible services like
-      #                              # Digital Ocean (DO)
-      # DECKO_FILE_BUCKET:           # AWS bucket, DO space, etc
-      # DECKO_FILE_KEY:              # public access key
-      # DECKO_FILE_SECRET:           # secret key (do not share!)
-      # DECKO_FILE_REGION:           # eg nyc3
-      # DECKO_FILE_HOST:             # eg nyc3.digitaloceanspaces.com
-      # DECKO_FILE_ENDPOINT:         # eg https://nyc3.digitaloceanspaces.com
+    environment:
+      DECKO_READ_ONLY: false       # disable creating, updating, deleting cards
+
+      # DECKO_ORIGIN: https://mysite.com # necessary when using cloud hosting
+
+      # DECKO_RELATIVE_URL_ROOT: mydeck  # if deck is not at url root
+
+      # ~~ FILE STORAGE ~~
+      # DECKO_FILE_STORAGE: AWS    # use AWS for AWS-compatible services like
+      #                            # S3 or Digital Ocean (DO)
+      # DECKO_FILE_BUCKET:         # S3 bucket, DO space, etc
+      # DECKO_FILE_KEY:            # public access key
+      # DECKO_FILE_SECRET:         # secret key (do not share!)
+      # DECKO_FILE_REGION:         # eg nyc3
+      # DECKO_FILE_HOST:           # eg nyc3.digitaloceanspaces.com
+      # DECKO_FILE_ENDPOINT:       # eg https://nyc3.digitaloceanspaces.com
+
+      # ~~ OUTGOING EMAIL ~~
+      # see https://guides.rubyonrails.org/action_mailer_basics.html#action-mailer-configuration
+
+      # DECKO_SMTP_ADDRESS
+      # DECKO_SMTP_DOMAIN
+      # DECKO_SMTP_USER
+      # DECKO_SMTP_PASSWORD
+      # DECKO_SMTP_AUTHENTICATION
+      # DECKO_SMTP_PORT
 
   db:
     # Comment out the following lines if using postgres
@@ -68,4 +86,4 @@ volumes:
   # Uncomment the following two lines if using bundle install to install your own gems
   # (eg with ethn/decko-base)
   # gems:
-  # assets_dir:
+  # public_mod_dir:

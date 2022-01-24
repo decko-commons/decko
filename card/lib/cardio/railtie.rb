@@ -17,9 +17,6 @@ module Cardio
     config.google_analytics_tracker_key = nil
     config.google_analytics_four_key = nil
 
-    config.override_host = nil
-    config.override_protocol = nil
-
     config.no_authentication = false
     config.files_web_path = "files"
 
@@ -34,6 +31,7 @@ module Cardio
 
     config.delaying = false
     config.active_job.queue_adapter = :delayed_job
+    config.default_html_view = :titled
 
     config.non_createable_types = %w[
       signup
@@ -64,7 +62,8 @@ module Cardio
     config.file_storage = :local
     config.file_buckets = {}
     config.file_default_bucket = nil
-    config.protocol_and_host = nil
+
+    config.deck_origin = nil
 
     config.rich_text_editor = :tinymce
 

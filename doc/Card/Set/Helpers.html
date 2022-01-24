@@ -6,7 +6,7 @@
 <title>
   Module: Card::Set::Helpers
   
-    &mdash; Documentation by YARD 0.9.26
+    &mdash; Documentation by YARD 0.9.27
   
 </title>
 
@@ -624,7 +624,7 @@
 <span class='kw'>def</span> <span class='id identifier rubyid_num_set_parts'>num_set_parts</span> <span class='id identifier rubyid_pattern_code'>pattern_code</span>
   <span class='kw'>return</span> <span class='int'>1</span> <span class='kw'>if</span> <span class='id identifier rubyid_pattern_code'>pattern_code</span> <span class='op'>==</span> <span class='symbol'>:abstract</span>
 
-  <span class='const'><span class='object_link'><a href="Pattern.html" title="Card::Set::Pattern (class)">Pattern</a></span></span><span class='period'>.</span><span class='id identifier rubyid_find'><span class='object_link'><a href="Pattern.html#find-class_method" title="Card::Set::Pattern.find (method)">find</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_pattern_code'>pattern_code</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_anchor_parts_count'>anchor_parts_count</span>
+  <span class='const'><span class='object_link'><a href="Pattern.html" title="Card::Set::Pattern (module)">Pattern</a></span></span><span class='period'>.</span><span class='id identifier rubyid_find'><span class='object_link'><a href="Pattern.html#find-class_method" title="Card::Set::Pattern.find (method)">find</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_pattern_code'>pattern_code</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_anchor_parts_count'>anchor_parts_count</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -885,7 +885,7 @@
 
 <span class='kw'>def</span> <span class='id identifier rubyid_test_set'>test_set</span>
   <span class='comment'># rubocop:disable Lint/Eval
-</span>  <span class='op'>::</span><span class='const'><span class='object_link'><a href="../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Set.html" title="Card::Set (module)">Set</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Self.html" title="Card::Set::Self (class)">Self</a></span></span><span class='period'>.</span><span class='id identifier rubyid_const_remove_if_defined'>const_remove_if_defined</span> <span class='symbol'>:TestSet</span>
+</span>  <span class='op'>::</span><span class='const'><span class='object_link'><a href="../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Set.html" title="Card::Set (module)">Set</a></span></span><span class='op'>::</span><span class='const'>Self</span><span class='period'>.</span><span class='id identifier rubyid_const_remove_if_defined'>const_remove_if_defined</span> <span class='symbol'>:TestSet</span>
   <span class='id identifier rubyid_eval'>eval</span> <span class='heredoc_beg'>&lt;&lt;-RUBY</span><span class='comma'>,</span> <span class='id identifier rubyid_binding'>binding</span><span class='comma'>,</span> <span class='kw'>__FILE__</span><span class='comma'>,</span> <span class='kw'>__LINE__</span> <span class='op'>+</span> <span class='int'>1</span>
 <span class='tstring_content'>    class ::Card::Set::Self
       module TestSet
@@ -894,7 +894,7 @@
       end
     end
 </span><span class='heredoc_end'>  RUBY
-</span>  <span class='op'>::</span><span class='const'><span class='object_link'><a href="../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Set.html" title="Card::Set (module)">Set</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Self.html" title="Card::Set::Self (class)">Self</a></span></span><span class='op'>::</span><span class='const'>TestSet</span>
+</span>  <span class='op'>::</span><span class='const'><span class='object_link'><a href="../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Set.html" title="Card::Set (module)">Set</a></span></span><span class='op'>::</span><span class='const'>Self</span><span class='op'>::</span><span class='const'>TestSet</span>
   <span class='comment'># rubocop:enable Lint/Eval
 </span><span class='kw'>end</span></pre>
     </td>
@@ -937,9 +937,9 @@
 </div>
 
       <div id="footer">
-  Generated on Sun Oct 24 23:17:21 2021 by
+  Generated on Fri Jan 21 16:01:40 2022 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.26 (ruby-2.7.3).
+  0.9.27 (ruby-3.0.1).
 </div>
 
     </div>
