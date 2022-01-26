@@ -10,8 +10,8 @@ def silence_notifications?
   !(Card::Env.controller || force_notifications)
 end
 
-event :notify_followers_after_save,
-      :integrate_with_delay, on: :save, when: :notable_change? do
+event :notify_followers_after_save, :integrate_with_delay,
+      on: :save, priority: 20, when: :notable_change? do
   notify_followers
 end
 
