@@ -141,11 +141,11 @@ module Cardio
     end
 
     def self.require_mod_gem mod_name
-      require mod_name.name.to_s.gsub("-", "/")
+      require mod_name.name.to_s.tr("-", "/")
     rescue LoadError
+      # not all mod gems have an autorequire file
     end
 
-    Cardio::Mod.gem_specs.values.each { |mod_name| require_mod_gem mod_name }
+    Cardio::Mod.gem_specs.each_value { |mod_name| require_mod_gem mod_name }
   end
 end
-
