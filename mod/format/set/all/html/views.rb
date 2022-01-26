@@ -69,6 +69,7 @@ format :html do
     end
   end
 
+  # unlike unknown: true, unknown: (same view) can be overridden
   view :labeled, unknown: :labeled do
     @content_body = true
     wrap(true, class: "row") do
