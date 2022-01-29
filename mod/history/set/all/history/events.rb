@@ -90,7 +90,8 @@ event :finalize_act, after: :finalize_action, when: :act_card? do
   Card::Director.act.update! card_id: id
 end
 
-event :remove_empty_act, :integrate_with_delay_final, when: :remove_empty_act? do
+event :remove_empty_act, :integrate_with_delay_final,
+      priority: 100, when: :remove_empty_act? do
   # Card::Director.act.delete
   # Card::Director.act = nil
 end
