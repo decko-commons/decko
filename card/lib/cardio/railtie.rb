@@ -5,10 +5,6 @@ module Cardio
     config.allow_inline_styles = true
     config.token_expiry = 2.days
 
-    config.google_analytics_key = nil
-    config.google_analytics_tracker_key = nil
-    config.google_analytics_four_key = nil
-
     config.no_authentication = false
     config.files_web_path = "files"
 
@@ -16,11 +12,7 @@ module Cardio
     config.max_depth = 20
     config.email_defaults = nil
 
-    config.acts_per_page = 10
     config.space_last_in_multispace = true
-    config.closed_search_limit = 10
-    config.paging_limit = 20
-
     config.delaying = false
     config.active_job.queue_adapter = :delayed_job
     config.default_html_view = :titled
