@@ -16,6 +16,7 @@ $.extend decko,
       opts = { dropdownAutoWidth: "true", containerCssClass: ":all:", width: "auto" }
 
       elem.attr "id", decko.uniqSelect2Id(elem.attr("id"))
+
       if elem.hasClass("tags")
         opts.tags = "true"
       if elem.data("minimum-results-for-search")?
