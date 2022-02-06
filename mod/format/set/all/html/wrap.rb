@@ -9,7 +9,6 @@ format :html do
   end
 
   wrapper :slot do |opts|
-    class_up "card-slot", opts[:class] if opts[:class]
     attrib = slot_attributes true, opts
     method_wrap(:wrap_with, :div, attrib) { interior }
   end
@@ -94,7 +93,7 @@ format :html do
     list = slot ? ["card-slot"] : []
     list += ["#{@current_view}-view", card.safe_set_keys]
     list << "STRUCTURE-#{voo.structure.to_name.key}" if voo&.structure
-    classy list
+      classy list
   end
 
   def wrap_body &block
