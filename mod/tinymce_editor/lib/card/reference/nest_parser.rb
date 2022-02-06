@@ -17,7 +17,7 @@ class Card
 
 
       def self.new_image name
-        OpenStruct.new(name: name, field?: true,
+        OpenStruct.new(name: name, field?: false,
                        view: "content",
                        options: [%i[size medium]],
                        item_options: [],
