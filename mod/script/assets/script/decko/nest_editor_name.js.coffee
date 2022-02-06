@@ -1,11 +1,17 @@
 nestNameTimeout = null
 
 $(document).ready ->
+  toggle = false;
   $('body').on 'click', '._nest-field-toggle', () ->
     if $(this).is(':checked')
       nest.addPlus()
     else
       nest.removePlus()
+    if toggle
+      nest.addPlus()
+    else
+      nest.removePlus()
+    toggle = !toggle
 
   $('body').on 'input', 'input._nest-name', (event) ->
     nest.nameChanged()
