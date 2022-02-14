@@ -26,8 +26,9 @@ module Decko
         @opts[:env].join " "
       end
 
+      # use implicit features unless feature made explicit (in FIRST arg!)
       def feature_args
-        feature_paths.join(" ") if !@cucumber_args.first&.match /^\s*[^-]/
+        feature_paths.join(" ") unless @cucumber_args.first&.match?(/^\s*[^-]/)
       end
 
       def require_args
