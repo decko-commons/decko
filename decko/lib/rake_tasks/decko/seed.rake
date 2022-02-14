@@ -7,7 +7,7 @@ namespace :decko do
       ENV["STAMP_MIGRATIONS"] = "true"
       ENV["GENERATE_FIXTURES"] = "true"
       %w[reseed update
-         mod:uninstall mod:install seed:make_asset_output_coded
+         seed:make_asset_output_coded
          seed:clean seed:supplement seed:dump].each do |task|
         Rake::Task["decko:#{task}"].invoke
       end
