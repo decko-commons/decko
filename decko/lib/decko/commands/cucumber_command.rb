@@ -17,7 +17,7 @@ module Decko
       def command
         @cmd ||=
           "#{env_args} #{@opts[:executer] || 'bundle exec'} " \
-          "cucumber #{require_args} #{feature_args}"
+          "cucumber #{require_args} #{feature_args} #{@cucumber_args.shelljoin}"
       end
 
       private
@@ -27,11 +27,7 @@ module Decko
       end
 
       def feature_args
-        if @cucumber_args.empty?
-          feature_paths.join(" ")
-        else
-          @cucumber_args.shelljoin
-        end
+        feature_paths.join(" ") if !@cucumber_args.first&.match /^\s*[^-]/
       end
 
       def require_args
