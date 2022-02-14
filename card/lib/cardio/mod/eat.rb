@@ -1,5 +1,4 @@
 require "timecop"
-
 require "pry"
 
 DATA_ENVIRONMENTS = %i[production development test].freeze
@@ -42,7 +41,7 @@ module Cardio
         rescuing edible do
           # puts "eat: #{edible}" if @verbose
           card = yield
-          puts "eaten: #{card.name}".green # if @verbose
+          puts "eaten: #{card.name}".green if @verbose
         end
       end
 
