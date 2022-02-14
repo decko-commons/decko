@@ -52,7 +52,7 @@ class Card
         subcards.remove name_or_card
       end
 
-      def drop_subfield name_or_card
+      def drop_field name_or_card
         subcards.remove_field name_or_card
       end
 
