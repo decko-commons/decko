@@ -71,9 +71,9 @@ class Card
         @key
       end
 
-      def field tag, opts={}
-        Card.fetch name.field(tag), opts
-      end
+      # def field tag, opts={}
+      #   Card.fetch name.field(tag), opts
+      # end
 
       private
 
