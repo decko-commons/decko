@@ -25,6 +25,7 @@ class Card
       # @option opts [String] :database
       def initialize opts
         @store = opts[:store]
+        @file_cache = @store.is_a? ActiveSupport::Cache::FileStore
         @klass = opts[:class]
         @class_key = @klass.to_s.to_name.key
         @database = opts[:database] || Cardio.database
@@ -72,7 +73,9 @@ class Card
       # @param key [String]
       # @return [String]
       def full_key key
-        "#{prefix}/#{key}"
+        fk = "#{prefix}/#{key}"
+        fk.tr! "*", "X" if @file_cache # save for windows fs
+        fk
       end
 
       def read key
