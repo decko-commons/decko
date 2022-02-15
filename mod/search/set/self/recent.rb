@@ -26,7 +26,6 @@ format :rss do
   end
 end
 
-
 # *Strat 1: WHERE EXISTS*
 # ~~~~~~~~~~~~~~~~~~~~~~~
 # SELECT `card_acts`.* FROM `card_acts` WHERE EXISTS (
