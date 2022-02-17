@@ -1,11 +1,17 @@
 nestNameTimeout = null
 
 $(document).ready ->
+  toggle = false;
   $('body').on 'click', '._nest-field-toggle', () ->
     if $(this).is(':checked')
       nest.addPlus()
     else
       nest.removePlus()
+    if toggle
+      nest.addPlus()
+    else
+      nest.removePlus()
+    toggle = !toggle
 
   $('body').on 'input', 'input._nest-name', (event) ->
     nest.nameChanged()
@@ -31,7 +37,7 @@ $.extend nest,
     if nest.isField() then "+#{name}" else name
 
   isField: ->
-    $('._nest-field-toggle').is(":checked")
+    $('.show-prefix > ._field-indicator').length > 0
 
   addPlus: () ->
     new_val = $("._nest-preview").val().replace(/^\{\{\+?/, "{{+")
@@ -49,6 +55,9 @@ $.extend nest,
   contentTabSlot: () ->
     $("._nest-editor .tab-pane-content > .card-slot")
 
+  tabPanel: ()  ->
+    $("._nest-editor .tab-panel")
+
   emptyNameAlert: (show) ->
     if show
       $("._empty-nest-name-alert").removeClass("d-none")
@@ -56,6 +65,10 @@ $.extend nest,
       $("._empty-nest-name-alert:not(.d-none)").addClass("d-none")
 
   updateNameRelatedTabs: () ->
+    if nest.name().length > 0
+      nest.tabPanel().show()
+    else
+      nest.tabPanel().hide()
     nest.updateRulesTab()
     nest.updateContentTab()
 
