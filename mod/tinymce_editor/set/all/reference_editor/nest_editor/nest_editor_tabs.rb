@@ -1,11 +1,28 @@
 format :html do
   def nest_editor_tabs
     tab_hash = {}
-    tab_hash[:content] = nest_content_tab if voo.show? :content_tab
+    # tab_hash[:content] = nest_content_tab if voo.show? :content_tab
     tab_hash.merge! view: haml(:_basics, snippet: nest_snippet),
                     options: haml(:_options, snippet: nest_snippet),
                     rules: nest_rules_tab
-    tabs tab_hash, default_active_tab
+
+
+    tabs tab_hash, default_active_tab, panel_attr: { class: "nest-options" }
+  end
+
+  def image_nest_editor_tabs snippet
+    # tab_hash[:content] = nest_content_tab if voo.show? :content_tab
+    tab_hash = { content: image_content_tab(snippet),
+                 options: haml(:_image_options, snippet: snippet) }
+
+
+    tabs tab_hash, :content, panel_attr: { class: "nest-options" }
+  end
+
+  def image_content_tab snippet
+    wrap true do
+      nest(snippet.name, view: :new_image, type: :image, hide: :guide)
+    end
   end
 
   def show_content_tab?

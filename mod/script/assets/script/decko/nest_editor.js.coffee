@@ -5,6 +5,9 @@ $(document).ready ->
     else
       nest.applyNestToTinymceEditor($(this).data("tinymce-id"), $(this).data("tm-snippet-start"), $(this).data("tm-snippet-size"))
 
+  $('body').on 'click', 'button._image_nest-apply', () ->
+    nest.applyNestToTinymceEditor($(this).data("tinymce-id"), $(this).data("tm-snippet-start"), $(this).data("tm-snippet-size"))
+
   $('body').on 'click', 'button._change-create-to-update', () ->
     tm_id = $(this).closest("form").find("#success_tinymce_id").val()
     nest.changeCreateToUpdate(tm_id)

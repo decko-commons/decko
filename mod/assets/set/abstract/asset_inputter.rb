@@ -34,7 +34,6 @@ def update_asset_input
 
   Card::Auth.as_bot do
     asset_input_card.update content: render_asset_input_content
-    Card::Cache.reset_all
     update_referers_after_input_changed
   end
 end

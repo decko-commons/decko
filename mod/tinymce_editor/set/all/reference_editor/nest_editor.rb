@@ -27,10 +27,13 @@ format :html do
     end
   end
 
-  def nest_editor editor_mode
+  def nest_editor editor_mode, ref_type= :nest, title="Nest", editor=nil
     @tm_snippet_editor_mode = editor_mode
     voo.hide :content_tab unless show_content_tab?
-    haml :reference_editor, ref_type: :nest, editor_mode: @tm_snippet_editor_mode,
+    haml :reference_editor, title: title,
+                            editor: editor || ref_type,
+                            ref_type: ref_type,
+                            editor_mode: @tm_snippet_editor_mode,
                             apply_opts: nest_apply_opts,
                             snippet: nest_snippet
   end
@@ -90,10 +93,8 @@ format :html do
     voo.hide! :cancel_button
     add_name_context
     with_nest_mode :edit do
-      frame do
-        [
-          render_edit_inline
-        ]
+      wrap true do
+        render_edit_inline
       end
     end
   end
@@ -102,6 +103,9 @@ format :html do
     voo.hide! :guide
     voo.show! :new_type_formgroup
     voo.buttons_view = :new_image_buttons
-    framed_create_form success: { tinymce_id: Env.params[:tinymce_id] }
+    wrap true do
+      create_form  success: { tinymce_id: Env.params[:tinymce_id] }
+    end
+    # framed_create_form
   end
 end

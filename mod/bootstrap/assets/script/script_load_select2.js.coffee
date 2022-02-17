@@ -10,7 +10,9 @@ decko.slotDestroy (slot) ->
 
 $.extend decko,
   initSelect2: (elem) ->
-    if elem.length > 1
+    if elem.length == 0
+      return
+    else if elem.length > 1
       decko.initSelect2($(single_el)) for single_el in elem
     else
       opts = { dropdownAutoWidth: "true", containerCssClass: ":all:", width: "auto" }
@@ -19,6 +21,8 @@ $.extend decko,
 
       if elem.hasClass("tags")
         opts.tags = "true"
+      if elem.data("placeholder")
+        opts.placeholder = elem.data("placeholder")
       if elem.data("minimum-results-for-search")?
         opts.minimumResultsForSearch = elem.data("minimum-results-for-search")
       elem.select2(opts)

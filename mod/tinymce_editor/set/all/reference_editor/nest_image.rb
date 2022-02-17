@@ -12,7 +12,7 @@ format :html do
 
   view :new_image, perms: :create, unknown: true, cache: :never do
     voo.buttons_view = :new_image_buttons
-    framed_create_form success: { tinymce_id: Env.params[:tinymce_id], view: :open }
+    create_form success: { tinymce_id: Env.params[:tinymce_id], view: :open }
   end
 
   view :new_image_buttons do
@@ -23,7 +23,7 @@ format :html do
 
   def nest_image_editor editor_mode
     adapt_reference_editor_for_images
-    nest_editor editor_mode
+    nest_editor editor_mode, :nest, "Image", "image_nest"
   end
 
   def adapt_reference_editor_for_images

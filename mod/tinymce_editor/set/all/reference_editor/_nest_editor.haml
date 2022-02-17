@@ -1,5 +1,5 @@
 .form-group
-  %label{:for => "nest_name"} Name
+  %label{:for => "nest_name"} Card
   = help_link "text", "title"
   .input-group{class: [snippet.field? ? "show-prefix" : "hide-prefix"]}
     .input-group-prepend._field-indicator
@@ -9,6 +9,7 @@
                      "data-left-name" => card.name,
                      "data-left-type" => card.left_type_for_nest_editor_set_selection
     .input-group-append
-      .btn.btn-primary._nest-field-toggle
+      .btn.btn-secondary._nest-field-toggle
         +
+
 = nest_editor_tabs

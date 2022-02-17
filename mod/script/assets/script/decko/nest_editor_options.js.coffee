@@ -32,15 +32,11 @@ $.extend nest,
     elem.removeClass("_template") #.removeClass("_#{name}-template").addClass("_#{name}")
 
   addRow: (template) ->
-    select_tag = template.find("select:not(._no-select2)")
-    select_tag.select2("destroy")
-    select_tag.removeAttr("data-select2-id")
-    double = template.clone()
-    #double = template.cloneSelect2(true, true)
+    double = template.clone(false)
+    template.after(double)
+    select_tag = template.find("select._nest-option-name")
     decko.initSelect2(select_tag)
     nest.showTemplate template
-    template.after(double)
-    decko.initSelect2(double.find("select"))
 
   removeRow: (row) ->
     name = row.find("._nest-option-name").val()
@@ -50,7 +46,7 @@ $.extend nest,
 
   addItemsOptions: (button) ->
     container = button.closest("._configure-items")
-    next = container.cloneSelect2(true)
+    next = container.clone(true)
     title = button.text()
     newtitle = title.substr(4)
     button.replaceWith($("<label>#{newtitle.charAt(0).toUpperCase() + newtitle.slice(1)}<label>"))
@@ -94,21 +90,20 @@ $.extend nest,
       if $(sel).val() != name
         $(sel).find("option[value=#{name}]").attr "disabled", active
       # $(sel).find("option[value=#{val}]").removeAttr "disabled"
-      decko.initSelect2($(sel))
+      # decko.initSelect2($(sel))
 
   setOptionValueField: (optionNameEl, optionName) ->
-    debugger
     optionsRow = $(optionNameEl).closest("._nest-option-row")
     templates = optionsRow.closest("._nest-options").find("._templates")
     template = templates.find("._nest-option-template-#{optionName}")
     if template.length == 0
       template = templates.find("._nest-option-template-default")
-
-      debugger
     valueCol = optionsRow.find("._nest-option-value-col")
     valueCol.empty()
 
-    valueField = template.cloneSelect2(true)
+    valueField = template.clone(true)
+
+    decko.initSelect2(valueField.find("select"))
     valueCol.append valueField
 
   toNestSyntax: (opts) ->

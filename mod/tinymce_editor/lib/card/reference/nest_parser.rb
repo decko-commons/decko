@@ -21,16 +21,20 @@ class Card
                        view: "content",
                        options: [%i[size medium]],
                        item_options: [],
-                       raw: "{{+#{name}|view: content; size: medium}}")
+                       raw: "{{#{name}|view: content; size: medium}}")
       end
 
       def field?
         @field
       end
 
-      def initialize nest_string, _default_view, default_item_view
+      def option_value name
+        options.find  { |(key, value)| key == name }&.second
+      end
+
+      def initialize nest_string
         @raw = nest_string
-        @default_item_view = default_item_view
+        # @default_item_view = default_item_view
         nest = Card::Content::Chunk::Nest.new nest_string, nil
         init_name nest.name
         extract_item_options nest.options
