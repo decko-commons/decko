@@ -14,8 +14,8 @@ def parse_content
   JSON.parse content
 end
 
-def item_names _args={}
-  parse_content.keys.map(&:to_name)
+def raw_item_strings content
+  JSON.parse(content).keys
 end
 
 def item_values
