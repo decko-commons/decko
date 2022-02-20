@@ -14,7 +14,7 @@ def parse_content
   JSON.parse content
 end
 
-def item_names
+def item_names _args
   parse_content.keys
 end
 
