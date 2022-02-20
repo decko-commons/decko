@@ -6,7 +6,6 @@ format :html do
                     options: haml(:_options, snippet: nest_snippet),
                     rules: nest_rules_tab
 
-
     tabs tab_hash, default_active_tab, panel_attr: { class: "nest-options" }
   end
 
@@ -14,7 +13,6 @@ format :html do
     # tab_hash[:content] = nest_content_tab if voo.show? :content_tab
     tab_hash = { content: image_content_tab(snippet),
                  options: haml(:_image_options, snippet: snippet) }
-
 
     tabs tab_hash, :content, panel_attr: { class: "nest-options" }
   end

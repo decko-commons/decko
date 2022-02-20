@@ -15,7 +15,6 @@ class Card
                        raw: "{{+ }}")
       end
 
-
       def self.new_image name
         OpenStruct.new(name: name, field?: false,
                        view: "content",
@@ -29,7 +28,7 @@ class Card
       end
 
       def option_value name
-        options.find  { |(key, value)| key == name }&.second
+        options.find  { |(key, _value)| key == name }&.second
       end
 
       def initialize nest_string
@@ -48,11 +47,11 @@ class Card
         @name = @field ? name.to_s[1..-1] : name
       end
 
-      def extract_options options
+      def extract_options options, item_options=false
         applicable_options(options).each_with_object([]) do |key, res|
           if key.in? %i[show hide]
             res.concat viz_values(key, options)
-          elsif key == :view
+          elsif key == :view && !item_options
             @view = options[key]
           else
             res << [key, options[key]]
@@ -73,7 +72,7 @@ class Card
         item_options = options[:items]
         while item_options
           next_item_options = item_options[:items]
-          @item_options << extract_options(item_options)
+          @item_options << extract_options(item_options, true)
           item_options = next_item_options
         end
         # @item_options << default_item_options

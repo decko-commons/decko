@@ -13,7 +13,7 @@ format :html do
 
   view :modal_pill_rule_list, cache: :never, wrap: { slot: { class: "rule-list" } } do
     # wrap class: "rule-list" do
-      pill_rule_list setting_list_from_params, true
+    pill_rule_list setting_list_from_params, true
     # end
   end
 
@@ -26,7 +26,8 @@ format :html do
   def pill_rule_list settings, open_rule_in_modal=false
     list_items =
       settings.map do |setting|
-        rule_list_item setting, open_rule_in_modal ? :rule_nest_editor_link : :rule_bridge_link
+        rule_list_item setting,
+                       open_rule_in_modal ? :rule_nest_editor_link : :rule_bridge_link
       end
     bridge_pills list_items
   end

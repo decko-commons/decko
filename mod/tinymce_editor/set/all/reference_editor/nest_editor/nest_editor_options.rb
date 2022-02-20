@@ -3,7 +3,8 @@ format :html do
     "form-control"
   end
 
-  def nest_option_name_select selected=nil, level=0, include_view_option=true, template=false
+  def nest_option_name_select selected=nil, level=0,
+                              include_view_option=true, template=false
     classes = "#{nest_option_classes} _nest-option-name"
     classes += " _new-row" unless selected
     classes += " _no-select2" if template
@@ -19,7 +20,7 @@ format :html do
     options.delete :view unless include_view_option
     options_for_select(
       options, disabled: nest_option_name_disabled(selected, level),
-      selected: selected
+               selected: selected
     )
   end
 
@@ -56,7 +57,8 @@ format :html do
 
   def nest_option_value_default_template
     text_field_tag "value", nil,
-                   class: "_nest-option-template-default _nest-option-value #{nest_option_classes}",
+                   class: "_nest-option-template-default _nest-option-value "\
+                          "#{nest_option_classes}",
                    id: nil
   end
 
@@ -73,11 +75,12 @@ format :html do
   end
 
   def nest_show_and_hide_select_template
-    nest_option_value_select_tag [:show, :hide], options_for_select(all_views)
+    nest_option_value_select_tag %i[show hide], options_for_select(all_views)
   end
 
   def nest_option_value_select_tag option_names, options
-    wrap_classes = Array.wrap(option_names).map  { |name| "_nest-option-template-#{name}" }.join " "
+    wrap_classes =
+      Array.wrap(option_names).map  { |name| "_nest-option-template-#{name}" }.join " "
     wrap_with :div, class: wrap_classes do
       select_tag :size, options,
                  class: "_no-select2 _nest-option-value #{nest_option_classes}"

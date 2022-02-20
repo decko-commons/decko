@@ -15,17 +15,18 @@ format :html do
     return filter_text.html_safe unless set_options
     wrap_with :div, class: "form-group" do
     [content_tag(:label, "Set"),
-     set_select_tag(set_options)]
+      set_select_tag(set_options)]
     end
   end
 
   def setting_select selected=nil
-    wrap_with :div, class: "form-group" do [
-      content_tag(:label, "Settings"),
-      select_tag(:group, grouped_options_for_select(setting_options, selected),
-                 class: "_submit-on-select form-control",
-                 "data-select2-id": "#{unique_id}-#{Time.now.to_i}")
-    ]
+    wrap_with :div, class: "form-group" do
+      [
+        content_tag(:label, "Settings"),
+        select_tag(:group, grouped_options_for_select(setting_options, selected),
+                   class: "_submit-on-select form-control",
+                   "data-select2-id": "#{unique_id}-#{Time.now.to_i}")
+      ]
     end
   end
 

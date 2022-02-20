@@ -27,7 +27,7 @@ format :html do
     end
   end
 
-  def nest_editor editor_mode, ref_type= :nest, title="Nest", editor=nil
+  def nest_editor editor_mode, ref_type=:nest, title="Nest", editor=nil
     @tm_snippet_editor_mode = editor_mode
     voo.hide :content_tab unless show_content_tab?
     haml :reference_editor, title: title,
@@ -104,7 +104,7 @@ format :html do
     voo.show! :new_type_formgroup
     voo.buttons_view = :new_image_buttons
     wrap true do
-      create_form  success: { tinymce_id: Env.params[:tinymce_id] }
+      create_form success: { tinymce_id: Env.params[:tinymce_id] }
     end
     # framed_create_form
   end

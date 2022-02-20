@@ -30,8 +30,6 @@ format :html do
     nest_name = card.autoname("image01")
     voo.show! :content_tab
     @nest_content_tab = nest(nest_name, view: :new_image, type: :image, hide: :guide)
-
-    #image_name = nest_name.to_name.right
     @nest_snippet = Card::Reference::NestParser.new_image nest_name
   end
 end

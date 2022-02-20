@@ -29,7 +29,7 @@ class Card
 
       private
 
-      def create_or_update(card)
+      def create_or_update card
         if (virt = find_by_card card)
           virt.update(card.virtual_content)
           virt

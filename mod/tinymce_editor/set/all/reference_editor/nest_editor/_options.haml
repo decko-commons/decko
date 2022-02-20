@@ -5,7 +5,7 @@
   - snippet.item_options.each_with_index do |options, i|
     .options-container._configure-items
       %label
-        = "#{'sub' * i} items".strip.capitalize
+        = "#{'sub' * i} item options".strip.capitalize
       = haml_partial :options_select, template: false, level: i + 1, data: options, view_selectable: true
   .options-container._configure-items
     = button_tag "Add #{'sub' * snippet.item_options.size}item options", situation: "secondary", class: "_configure-items-button btn-sm"
