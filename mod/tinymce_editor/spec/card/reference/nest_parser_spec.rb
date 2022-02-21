@@ -2,7 +2,7 @@
 
 RSpec.describe Card::Reference::NestParser do
   def parse nest
-    described_class.new nest, :titled, :bar
+    described_class.new nest
   end
 
   context "with field" do
@@ -23,7 +23,12 @@ RSpec.describe Card::Reference::NestParser do
 
     specify "#options" do
       expect(parser.options)
-        .to eq [[:view, "open"], [:show, "menu"], [:show, "toggle"], [:wrap, "slot"]]
+        .to eq [[:show, "menu"], [:show, "toggle"], [:wrap, "slot"]]
+    end
+
+    specify "#view" do
+      expect(parser.view)
+        .to eq "open"
     end
 
     specify "#item_options" do
@@ -48,7 +53,12 @@ RSpec.describe Card::Reference::NestParser do
 
     specify "#options" do
       expect(parser.options)
-        .to eq [[:view, "open"], [:show, "menu"]]
+        .to eq [[:show, "menu"]]
+    end
+
+    specify "#view" do
+      expect(parser.view)
+        .to eq "open"
     end
   end
 end
