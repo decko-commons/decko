@@ -1,12 +1,20 @@
-.options-container.p-2.border-bottom
-  = haml_partial :options_select, template: false, level: 0, data: snippet.options
-- snippet.item_options.each_with_index do |options, i|
-  .options-container.p-2.border-bottom._configure-items
-    %h6
-      = "#{'sub' * i} items"
-    = haml_partial :options_select, template: false, level: i + 1, data: options
-.options-container.p-2.border-bottom._configure-items
-  = button_tag "Configure #{'sub' * snippet.item_options.size}items", situation: "secondary", class: "_configure-items-button btn-sm"
-  = haml_partial :options_select, template: true, level: snippet.item_options.size + 1, data: default_nest_editor_item_options
+._nest-options
+  .options-container
+    %label Options
+    = haml_partial :options_select, template: false, level: 0, data: snippet.options, view_selectable: false
+  - snippet.item_options.each_with_index do |options, i|
+    .options-container._configure-items
+      %label
+        = "#{'sub' * i} item options".strip.capitalize
+      = haml_partial :options_select, template: false, level: i + 1, data: options, view_selectable: true
+  .options-container._configure-items
+    = button_tag "Add #{'sub' * snippet.item_options.size}item options", situation: "secondary", class: "_configure-items-button btn-sm"
+    = haml_partial :options_select, template: true, level: snippet.item_options.size + 1, data: default_nest_editor_item_options, view_selectable: true
 
+  ._templates.d-none
+
+    = nest_option_value_default_template
+    = nest_size_select_template
+    = nest_view_select_template
+    = nest_show_and_hide_select_template
 

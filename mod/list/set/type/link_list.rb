@@ -1,4 +1,5 @@
 include_set Abstract::Items
+include_set Abstract::ReferenceList
 
 def raw_item_strings content
   reference_chunks(content).map(&:referee_name)
@@ -7,12 +8,6 @@ end
 def item_titles default_to_name=true
   reference_chunks.map do |chunk|
     chunk.options[:title] || (default_to_name ? chunk.referee_name : nil)
-  end
-end
-
-format do
-  def chunk_list
-    :references
   end
 end
 

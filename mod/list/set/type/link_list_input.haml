@@ -1,0 +1,21 @@
+.nest-form-header
+  = haml_partial :reference_list_input_row,
+                 name_field: header_field("Link target"),
+                 options_field: header_field("Link text"),
+                 postfix: "}}",
+                 prefix: "{{",
+                 show_edit_button: false
+%ul{class: ul_classes}
+  - items.each.with_index do |(reference, title), index|
+    %li.pointer-li.mb-2._nest-form{"data-index": index}
+      = haml_partial :reference_list_input_row,
+                     name_field: text_field_tag("pointer_item", reference, class: "_reference pointer-item-text form-control group-text-middle", "data-options-card": options_card),
+                     options_field: text_field_tag("pointer_item_title", title, class: "_title pointer-item-text form-control group-text-middle"),
+                     prefix: "[[",
+                     postfix: "]]",
+                     show_edit_button: false
+
+%span.input-group
+  %button._pointer-item-add.btn.btn-secondary{ type: "submit" }
+    = icon_tag "add"
+    add another
