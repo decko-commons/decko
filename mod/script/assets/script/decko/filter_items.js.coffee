@@ -40,9 +40,14 @@ newFilteredListContent = (el) ->
   $.map(prefilteredIds(el).concat(selectedIds el), (id) -> "~" + id).join "\n"
 
 addSelectedButtonUrl = (btn, content) ->
-  view = btn.slot().data("slot")["view"]
-  card_args = { content: content, type: "Pointer" }
-  query = { assign: true, view: view, card: card_args }
+  slot = btn.slot()
+  view = slot.data("slot")["view"]
+  query =
+    assign: true
+    view: view
+    card:
+      content: content
+      type_id: slot.data("cardTypeId")
   path_base = btn.attr("href") + "&" + $.param(query)
   decko.slotPath path_base, btn.slot()
 
