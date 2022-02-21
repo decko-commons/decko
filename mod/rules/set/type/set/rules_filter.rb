@@ -14,8 +14,10 @@ format :html do
   def set_select set_options
     return filter_text.html_safe unless set_options
     wrap_with :div, class: "form-group" do
-    [content_tag(:label, "Set"),
-      set_select_tag(set_options)]
+      [
+        content_tag(:label, "Set"),
+        set_select_tag(set_options)
+      ]
     end
   end
 

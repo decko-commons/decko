@@ -37,7 +37,6 @@ RSpec.describe Card::Set::All::ReferenceEditor::NestEditor do
       expect_view(:nest_editor).to have_tag "div.nest_editor-view" do
         with_name "", true
         with_tag "div.options-container" do
-          #option_row :view, :titled
           empty_row
         end
         with_tag "div.options-container" do
