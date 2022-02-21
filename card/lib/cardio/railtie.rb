@@ -5,18 +5,6 @@ module Cardio
     config.allow_inline_styles = true
     config.token_expiry = 2.days
 
-    config.recaptcha_public_key = nil  # deprecated; use recaptcha_site_key instead
-    config.recaptcha_private_key = nil # deprecated; use recaptcha_secret_key instead
-
-    config.recaptcha_proxy = nil
-    config.recaptcha_site_key = nil
-    config.recaptcha_secret_key = nil
-    config.recaptcha_minimum_score = 0.5
-
-    config.google_analytics_key = nil
-    config.google_analytics_tracker_key = nil
-    config.google_analytics_four_key = nil
-
     config.no_authentication = false
     config.files_web_path = "files"
 
@@ -24,11 +12,7 @@ module Cardio
     config.max_depth = 20
     config.email_defaults = nil
 
-    config.acts_per_page = 10
     config.space_last_in_multispace = true
-    config.closed_search_limit = 10
-    config.paging_limit = 20
-
     config.delaying = false
     config.active_job.queue_adapter = :delayed_job
     config.default_html_view = :titled
@@ -147,5 +131,12 @@ module Cardio
         end
       end
     end
+
+    def self.require_mod_gem mod_name
+      require mod_name.name.to_s.tr("-", "/")
+    rescue LoadError
+    end
+
+    Cardio::Mod.gem_specs.each_value { |mod_name| require_mod_gem mod_name }
   end
 end
