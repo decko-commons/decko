@@ -24,9 +24,10 @@ class Card
         end
 
         def order_directives
-          return if @mods[:sort].blank?
+          # return if @mods[:sort].blank?
+          order_config = @mods[:sort].blank? ? "update" : @mods[:sort]
 
-          Array.wrap(@mods[:sort]).map do |order_key|
+          Array.wrap(order_config).map do |order_key|
             order_directive order_key
           end
         end
