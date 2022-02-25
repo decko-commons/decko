@@ -23,7 +23,7 @@ class Card
             if fasten == :direct
               @superquery.table_alias
             else
-              "#{table_prefix}#{root.table_seq unless root?}#{@table_suffix}"
+              "#{table_prefix}#{root.table_seq}#{@table_suffix}"
             end
           end
         end
