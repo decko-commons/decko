@@ -1,4 +1,4 @@
-card_accessor :asset_input, type_id: Card::PlainTextID
+card_accessor :asset_input, type: :plain_text
 
 def dependent_asset_inputters
   referers_responding_to :asset_input
