@@ -46,7 +46,11 @@ class Card
       end
 
       def sql
-        @sql ||= Query::SqlStatement.new(self).build.to_s
+        @sql ||= sql_statement.build.to_s
+      end
+
+      def sql_statement
+        SqlStatement.new self
       end
 
       def root
