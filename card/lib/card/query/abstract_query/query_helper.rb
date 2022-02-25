@@ -23,15 +23,13 @@ class Card
             if fasten == :direct
               @superquery.table_alias
             else
-              "#{table_prefix}#{next_table_suffix}"
+              "#{table_prefix}#{root.table_seq}#{@table_suffix}"
             end
           end
         end
 
-        def next_table_suffix
-          return root.next_table_suffix unless root?
-
-          @table_suffix = (@table_suffix || -1) + 1
+        def table_seq
+          @table_seq = @table_seq ? (@table_seq + 1) : 0
         end
 
         def fld field_name
