@@ -97,7 +97,7 @@ class Card
       def init_root_vars
         ROOT_VAR_DEFAULTS.each do |varname, default|
           val = root_var_value varname, default
-          val.symbolize_keys! if varname == :vars
+          val = val.symbolize_keys if varname == :vars
           instance_variable_set "@#{varname}", val
         end
       end
@@ -107,13 +107,6 @@ class Card
           @statement.delete(varname) || default
         else
           root.send varname
-        end
-      end
-
-      def init_query_vars
-        if (v = @statement.delete :vars) then v.symbolize_keys
-        elsif @superquery                then @superquery.vars
-        else                                  {}
         end
       end
     end
