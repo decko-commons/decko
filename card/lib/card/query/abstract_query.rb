@@ -17,7 +17,9 @@ class Card
       include QueryHelper
       include Tie
 
-      attr_reader :statement, :mods, :conditions, :vars,
+      ROOT_VAR_DEFAULTS = { vars: {}, table_suffix: "" }.freeze
+
+      attr_reader :statement, :mods, :conditions, :vars, :table_suffix,
                   :subqueries, :superquery, :comment, :negate
       attr_accessor :joins, :conditions_on_join
 
@@ -29,21 +31,8 @@ class Card
 
         @statement = statement.clone
         init_instance_vars :context, :superquery, :fasten, :negate
-        @vars = init_query_vars
+        init_root_vars
         table_alias
-      end
-
-      def init_instance_vars *varnames
-        varnames.each do |varname|
-          instance_variable_set "@#{varname}", (@statement.delete(varname) || nil)
-        end
-      end
-
-      def init_query_vars
-        if (v = @statement.delete :vars) then v.symbolize_keys
-        elsif @superquery                then @superquery.vars
-        else                                  {}
-        end
       end
 
       def interpret hash
@@ -57,11 +46,17 @@ class Card
       end
 
       def sql
-        @sql ||= Query::SqlStatement.new(self).build.to_s
+        @sql ||= sql_statement.build.to_s
+      end
+
+      def sql_statement
+        SqlStatement.new self
       end
 
       def root
-        @root ||= @superquery ? @superquery.root : self
+        return @root unless @root.nil?
+
+        @root = @superquery ? @superquery.root : self
       end
 
       def root?
@@ -89,6 +84,30 @@ class Card
                    when fasten == :direct then superquery.depth
                    else                        superquery.depth + 1
                    end
+      end
+
+      private
+
+      def init_instance_vars *varnames
+        varnames.each do |varname|
+          instance_variable_set "@#{varname}", (@statement.delete(varname) || nil)
+        end
+      end
+
+      def init_root_vars
+        ROOT_VAR_DEFAULTS.each do |varname, default|
+          val = root_var_value varname, default
+          val = val.symbolize_keys if varname == :vars
+          instance_variable_set "@#{varname}", val
+        end
+      end
+
+      def root_var_value varname, default
+        if root?
+          @statement.delete(varname) || default
+        else
+          root.send varname
+        end
       end
     end
   end
