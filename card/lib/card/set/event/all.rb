@@ -1,8 +1,16 @@
 class Card
   module Set
     class Event
-      # card methods for testing event applicability
+      # card methods for scheduling events and testing event applicability
       module All
+        def schedule event
+          @scheduled ||= {}
+          return if @scheduled[event.to_sym]
+
+          send :"#{event}_with_delay"
+          @scheduled[event.to_sym] = true
+        end
+
         include SkipAndTrigger
 
         def event_applies? event
