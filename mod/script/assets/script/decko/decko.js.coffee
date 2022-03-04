@@ -32,6 +32,9 @@ jQuery.fn.extend {
     report.html message
     report.show 'drop', 750
     setTimeout (->report.hide 'drop', 750), 3000
+
+  findCard: (id) ->
+    @find("[data-card-id='" + id + "']")
 }
 
 #~~~~~ ( EVENTS )
