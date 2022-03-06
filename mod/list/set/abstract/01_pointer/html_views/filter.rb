@@ -13,9 +13,7 @@ format :html do
     with_nest_mode :normal do
       class_up "card-slot", filtered_list_slot_class
       with_class_up "card-slot", filtered_list_slot_class do
-        wrap do
-          haml :filtered_list_input
-        end
+        wrap { haml :filtered_list_input }
       end
     end
   end

@@ -36,10 +36,10 @@
 
               // ADD FILTER DROPDOWN
               .dropdown._add-filter-dropdown.mr-2
-                %button.btn.btn-sm.btn-primary.dropdown-toggle{"aria-expanded": "false",
-                                                               "aria-haspopup": "true",
-                                                               "data-toggle": "dropdown",
-                                                               type: "button" }
+                %button.btn.btn-sm.btn-primary._filter-dropdown.dropdown-toggle{"aria-expanded": "false",
+                                                                                "aria-haspopup": "true",
+                                                                                "data-toggle": "dropdown",
+                                                                                type: "button" }
                   More Filters
                 .dropdown-menu
                   - categories.each do |key, category|

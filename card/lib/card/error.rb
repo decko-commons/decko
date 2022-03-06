@@ -1,5 +1,12 @@
 # -*- encoding : utf-8 -*-
 
+class StandardError
+  def report
+    Rails.logger.info "exception = #{self.class}: #{message}"
+    Rails.logger.debug backtrace[0..20].join("\n")
+  end
+end
+
 class Card
   # exceptions and errors.
   # (arguably most of these should be Card::Exception)
@@ -27,11 +34,6 @@ class Card
 
     def backtrace
       @backtrace || super
-    end
-
-    def report
-      Rails.logger.info "exception = #{self.class}: #{message}"
-      Rails.logger.debug backtrace.join("\n")
     end
 
     def card_message_text
