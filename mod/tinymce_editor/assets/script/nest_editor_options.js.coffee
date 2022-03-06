@@ -139,19 +139,22 @@ $.extend nest,
 
   options: () ->
     options = []
-    for ele in $("._options-select:not(._template")
-      options.push nest.extractOptions($(ele))
     view = $("._view-select").val()
-    if view.length > 0
-      options[0].view = [view]
+    for ele in $("._options-select:not(._template")
+      extractedOptions = nest.extractOptions($(ele), view)
+      view = null  # view is for first level
+      options.push extractedOptions
+
+
     level_options = options.map (opts) ->
                       nest.toNestSyntax(opts)
-
     level_options.join "|"
 
   # extract options for one item level
-  extractOptions: (ele) ->
+  extractOptions: (ele, view) ->
     options = {}
+    if view? && view.length > 0
+      options.view = [view]
     nest.addOption(options, $(row)) for row in ele.find("._nest-option-row:not(.template)")
     options
 
