@@ -13,7 +13,9 @@ format :html do
 
   def link_editor editor_mode
     @tm_snippet_editor_mode = editor_mode
-    haml :reference_editor, ref_type: :link, editor_mode: @tm_snippet_editor_mode,
+    haml :reference_editor, title: "Link",
+                            editor: :link,
+                            ref_type: :link, editor_mode: @tm_snippet_editor_mode,
                             apply_opts: link_apply_opts, snippet: link_snippet
   end
 

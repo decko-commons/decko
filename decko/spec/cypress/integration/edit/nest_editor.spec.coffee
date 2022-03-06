@@ -35,11 +35,11 @@ describe 'nest editor', () ->
       .click()
     cy.get "#nest_name"
       .type "NaNa"
-    cy.contains "button", "Configure items"
+    cy.contains "button", "Add item options"
       .click()
 
-    cy.contains "h6", "items"
-    cy.contains "button", "Configure subitems"
+    cy.contains "label", "Item options"
+    cy.contains "button", "Add subitem options"
 
     cy.get("._options-select").eq(0).as("options")
     cy.get("._options-select").eq(1).as("itemoptions")
@@ -139,9 +139,9 @@ describe 'nest editor', () ->
       cy.get "#nest_name"
         .type "NaNa"
 
-      cy.contains "button", "Configure items"
+      cy.contains "button", "Add item options"
         .click()
-      cy.contains "button", "Configure subitems"
+      cy.contains "button", "Add subitem options"
         .click()
       cy.get("._options-select").eq(0).as("options")
       cy.get("._options-select").eq(1).as("itemoptions")

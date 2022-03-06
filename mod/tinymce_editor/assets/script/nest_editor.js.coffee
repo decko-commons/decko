@@ -5,6 +5,9 @@ $(document).ready ->
     else
       nest.applyNestToTinymceEditor($(this).data("tinymce-id"), $(this).data("tm-snippet-start"), $(this).data("tm-snippet-size"))
 
+  $('body').on 'click', 'button._image_nest-apply', () ->
+    nest.applyNestToTinymceEditor($(this).data("tinymce-id"), $(this).data("tm-snippet-start"), $(this).data("tm-snippet-size"))
+
   $('body').on 'click', 'button._change-create-to-update', () ->
     tm_id = $(this).closest("form").find("#success_tinymce_id").val()
     nest.changeCreateToUpdate(tm_id)
@@ -19,7 +22,6 @@ $(document).ready ->
       $(this).closest(".slotter"),
       "index=#{form.data('index')}&tm_snippet_raw=#{encoded_nest}"
     )
-
 
 window.nest ||= {}
 
@@ -36,8 +38,13 @@ $.extend nest,
   openEditorForTm: (tm, params, overlay_view, modal_view) ->
     params += "&tinymce_id=#{tm.id}"
     slot = $("##{tm.id}").closest(".card-slot")
+    editor = $("##{tm.id}").closest(".card-editor")
     slotter = $("##{tm.id}")
-    card = if slot[0] then $(slot[0]).attr('data-card-name') else ":update"
+
+    card = (editor[0] and $(editor[0]).attr('card_name')) or
+           (slot[0] and $(slot[0]).attr('data-card-name')) or ":update"
+    if card.length == 0
+      card = ":update"
     nest.request(card, overlay_view, modal_view, slotter, params)
 
   # called by TinyMCE
@@ -60,7 +67,7 @@ $.extend nest,
   request: (card, overlay_view, modal_view, slotter, params) ->
     slot = $(".bridge-sidebar > ._overlay-container-placeholder > .card-slot")
 
-    if slot[0]
+    if false #slot[0]
       view = overlay_view
       mode = "overlay"
     else
@@ -135,7 +142,6 @@ $.extend nest,
     row.find("._nest-options").val(nest.options())
     decko.updateAddItemButton(row)
 
-
   applySnippet: (snippet_type, tinymce_id, start, size) ->
     content = $("._#{snippet_type}-preview").val()
     editor = tinymce.get(tinymce_id)
@@ -159,7 +165,7 @@ $.extend nest,
       editor.insertContent content
 
   updatePreview: (new_val) ->
-    new_val = "{{#{nest.name()}|#{nest.options()}}}" unless new_val?
+    new_val = "{{ #{nest.name()}|#{nest.options()} }}" unless new_val?
     preview = $("._nest-preview")
     preview.val new_val
     preview.data("nest-options", nest.options())
