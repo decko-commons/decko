@@ -5,9 +5,9 @@ RSpec.describe Card::Set::All::ReferenceEditor::NestImage do
     check_html_views_for_errors
 
     it "finds next new image card", as_bot: true do
-      ensure_card "A+image01"
+      ensure_card "image01"
       rendered = Card["A"].format.render(:nest_image)
-      expect(rendered).to have_tag "span.card-title", with: { title: "A+image02" }
+      expect(rendered).to have_tag "#file_card_name", with: { value: "image02" }
     end
   end
 end

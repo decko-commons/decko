@@ -115,7 +115,6 @@ jQuery.fn.extend
       input.val value
 
   slotterSuccess: (event, responseData) ->
-    # debugger
     unless @hasClass("slotter")
       console.log "warning: slotterSuccess called on non-slotter element #{this}"
       return
