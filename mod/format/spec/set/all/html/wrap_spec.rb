@@ -27,5 +27,10 @@ RSpec.describe Card::Set::All::Html::Wrap do
           end
         end
     end
+
+    it "adds extra css classes" do
+      expect_view(:nest_rules, card: "A+*self")
+        .to have_tag "div.card-slot.rule-list"
+    end
   end
 end
