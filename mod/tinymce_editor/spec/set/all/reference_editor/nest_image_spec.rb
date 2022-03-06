@@ -7,7 +7,7 @@ RSpec.describe Card::Set::All::ReferenceEditor::NestImage do
     it "finds next new image card", as_bot: true do
       ensure_card "image01"
       rendered = Card["A"].format.render(:nest_image)
-      expect(rendered).to have_tag "._nest-name", with: { value: "image02" }
+      expect(rendered).to have_tag "#file_card_name", with: { value: "image02" }
     end
   end
 end
