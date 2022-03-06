@@ -35,7 +35,7 @@ format do
 
   # TODO: move this into a nest once popovers are stub safe
   def label_description
-    return unless (desc = card.field :description)
+    return unless (desc = card.fetch :description)
 
     desc.format.render_core
   end
