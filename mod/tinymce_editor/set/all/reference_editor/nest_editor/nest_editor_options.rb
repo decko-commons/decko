@@ -16,7 +16,7 @@ format :html do
   end
 
   def nest_option_name_select_options selected, level, include_view_option=true
-    options = ["--"] + Card::Reference::NestParser::NEST_OPTIONS.dup
+    options = [""] + Card::Reference::NestParser::NEST_OPTIONS.dup
     options.delete :view unless include_view_option
     options_for_select(
       options, disabled: nest_option_name_disabled(selected, level),
@@ -45,8 +45,14 @@ format :html do
                "data-placeholder": "Select view"
   end
 
-  def nest_size_select
-    select_tag :size, size_select_options(:medium), class: "_nest-option-value"
+  def image_view_select selected
+    select_tag :view, options_for_select(view_list.unshift(nil), selected: selected),
+               class: "tags _image-view-select",
+               "data-placeholder": "Select view"
+  end
+
+  def image_size_select
+    select_tag :size, size_select_options(:medium), class: "_image-size-select"
   end
 
   def nest_option_value_select value=nil
@@ -63,7 +69,7 @@ format :html do
   end
 
   def size_select_options selected=:medium
-    options_for_select(%w[small medium large original], selected: selected)
+    options_for_select(%w[icon small medium large original], selected: selected)
   end
 
   def nest_size_select_template

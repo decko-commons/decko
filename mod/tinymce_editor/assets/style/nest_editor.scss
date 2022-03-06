@@ -12,4 +12,20 @@
   .nest-options .nav {
     justify-content: flex-end;
   }
+
+  .options-container {
+    word-break: break-all;
+    ._configure-items-button {
+      white-space: normal;
+      word-break: normal;
+    }
+  }
+}
+
+li.select2-results__option svg {
+  max-height: 15px;
+  min-height: 15px;
+  max-width: 15px;
+  min-width: 15px;
+  margin: 0;
 }

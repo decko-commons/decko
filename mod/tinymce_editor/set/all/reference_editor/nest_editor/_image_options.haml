@@ -1,15 +1,8 @@
 .form-group
-  %label{:for => "nest_name"} Name
-  = help_link "text", "title"
-  = text_field_tag "nest_name", snippet.name, class: "form-control _nest-name",
-                     "data-left-name" => card.name,
-                     "data-left-type" => card.left_type_for_nest_editor_set_selection
-
-.form-group
   %label View
   = help_link "text", "title"
-  = nest_view_select snippet.view
+  = image_view_select snippet.view
 
 .form-group
   %label Size
-  = nest_size_select
+  = image_size_select

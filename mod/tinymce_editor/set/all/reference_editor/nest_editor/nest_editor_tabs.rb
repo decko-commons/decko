@@ -11,15 +11,27 @@ format :html do
 
   def image_nest_editor_tabs snippet
     # tab_hash[:content] = nest_content_tab if voo.show? :content_tab
-    tab_hash = { content: image_content_tab(snippet),
-                 options: haml(:_image_options, snippet: snippet) }
+    tab_hash = { upload: image_content_tab(snippet),
+                 select: haml(:_image_find, snippet: snippet),
+                 options: haml(:_image_options, snippet: snippet),
+                 preview: image_preview_tab(snippet)}
 
     tabs tab_hash, :content, panel_attr: { class: "nest-options" }
   end
 
   def image_content_tab snippet
+    nest(snippet.name, view: :new_image, type: :image, hide: :guide)
+  end
+
+  def image_find_tab snippet
     wrap true do
       nest(snippet.name, view: :new_image, type: :image, hide: :guide)
+    end
+  end
+
+  def image_preview_tab snippet
+    wrap true do
+      nest(snippet.name, view: :core, type: :image, hide: :guide)
     end
   end
 

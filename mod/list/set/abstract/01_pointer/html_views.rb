@@ -57,7 +57,7 @@ format :html do
   end
 
   def autocomplete_input
-    haml :autocomplete_input, item: items_for_input.first, options_card: options_card_name
+    autocomplete_field items_for_input.first, options_card_name
   end
 
   def checkbox_input
