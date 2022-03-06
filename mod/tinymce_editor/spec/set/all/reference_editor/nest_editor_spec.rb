@@ -28,7 +28,7 @@ RSpec.describe Card::Set::All::ReferenceEditor::NestEditor do
 
     def empty_row
       with_tag "div._nest-option-row" do
-        with_tag :option, with: { value: "--" }
+        with_tag :option, with: { value: "" }
         with_tag "input._nest-option-value", with: { disabled: :disabled }
       end
     end

@@ -14,7 +14,7 @@ format :html do
     tab_hash = { upload: image_content_tab(snippet),
                  select: haml(:_image_find, snippet: snippet),
                  options: haml(:_image_options, snippet: snippet),
-                 preview: image_preview_tab(snippet)}
+                 preview: image_preview_tab(snippet) }
 
     tabs tab_hash, :content, panel_attr: { class: "nest-options" }
   end

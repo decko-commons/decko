@@ -40,12 +40,11 @@ decko.slotReady (slot) ->
         containerCssClass: 'select2-navbox-autocomplete'
         dropdownCssClass: 'select2-navbox-dropdown'
         width: "100%!important"
-      debugger
       nest.updateImageName(slot.find(".new_image-view .new_fields-view .submit-button"))
 
-prepareItems = (results) ->
+prepareItems = (response) ->
   items = []
-  $.each results['goto'], (index, val) ->
+  $.each response['result'], (index, val) ->
     i = imageItem(id: val[0], icon: val[1], text: val[0])
     items.push i
 
@@ -74,7 +73,6 @@ window.nest ||= {}
 
 $.extend nest,
   updateImageName: (container) ->
-    debugger
     name = container.slot().data("cardName");
     nameSelect = container.closest(".tab-content").find("._image-name")
     option = new Option(name, name, true, true);
