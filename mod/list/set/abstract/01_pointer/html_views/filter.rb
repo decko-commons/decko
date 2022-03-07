@@ -22,8 +22,9 @@ format :html do
   view :add_selected_link, cache: :never, unknown: true do
     link_to "Add Selected",
             path: { filter_card: params[:filter_card] },
-            class: "_add-selected slotter _close-modal btn btn-primary disabled",
+            class: "_add-selected _close-modal btn btn-primary disabled",
             data: { "slot-selector": ".#{params[:slot_selector]}",
+                    "item-view": implicit_item_view,
                     "item-selector": ".#{params[:item_selector]}",
                     remote: true }
   end
