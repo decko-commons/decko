@@ -77,8 +77,11 @@ class FilterBox
     @addSelectedButton.slot()
 
   addSelected:->
+    submit = @sourceSlot().find(".submit-button")
+    submit.attr "disabled", true
     for cardId in @selectedIds()
       @addSelectedCard cardId
+    submit.attr "disabled", false
 
   addSelectedCard: (cardId) ->
     slot = @sourceSlot()
@@ -90,7 +93,8 @@ class FilterBox
 
   addSelectedUrl: (cardId) ->
     view = @addSelectedButton.data "itemView"
-    decko.path "~#{cardId}/#{view}?slot[wrap]=filtered_list_item"
+    wrap = @addSelectedButton.data "itemWrap"
+    decko.path "~#{cardId}/#{view}?slot[wrap]=#{wrap}"
 
   trackSelectedIds: ->
     ids = @prefilteredIds().concat @selectedIds()
@@ -118,6 +122,7 @@ class FilterBox
     @box.find("._selected-items").html count
     @deselectAllLink.attr "disabled", count == 0
     if count > 0
+      # note: anchor tags don't support disabled attribute, so we have to use classes
       @addSelectedButton.removeClass "disabled"
     else
       @addSelectedButton.addClass "disabled"

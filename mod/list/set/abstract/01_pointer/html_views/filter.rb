@@ -9,6 +9,14 @@ format :html do
 
   view :filter_items, unknown: true, wrap: :slot, template: :haml
 
+  def filtered_item_view
+    implicit_item_view
+  end
+
+  def filtered_item_wrap
+    :filtered_list_item
+  end
+
   def filtered_list_input
     with_nest_mode :normal do
       class_up "card-slot", filtered_list_slot_class
@@ -24,7 +32,8 @@ format :html do
             path: { filter_card: params[:filter_card] },
             class: "_add-selected _close-modal btn btn-primary disabled",
             data: { "slot-selector": ".#{params[:slot_selector]}",
-                    "item-view": implicit_item_view,
+                    "item-view": filtered_item_view,
+                    "item-wrap": filtered_item_wrap,
                     "item-selector": ".#{params[:item_selector]}",
                     remote: true }
   end
