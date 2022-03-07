@@ -11,15 +11,24 @@ format :html do
     pill_rule_list setting_list_from_params
   end
 
+  view :modal_pill_rule_list, cache: :never, wrap: { slot: { class: "rule-list" } } do
+    # wrap class: "rule-list" do
+    pill_rule_list setting_list_from_params, true
+    # end
+  end
+
   def quick_edit_rule_list settings
     list_tag class: "nav nav-pills flex-column bridge-pills" do
       settings.map { |setting| rule_list_item setting, :quick_edit }
     end
   end
 
-  def pill_rule_list settings
+  def pill_rule_list settings, open_rule_in_modal=false
     list_items =
-      settings.map { |setting| rule_list_item setting, :rule_bridge_link }
+      settings.map do |setting|
+        rule_list_item setting,
+                       open_rule_in_modal ? :rule_nest_editor_link : :rule_bridge_link
+      end
     bridge_pills list_items
   end
 
