@@ -1,0 +1,5 @@
+.form-group
+  %label{:for => "nest_name"} Name
+  = help_link "text", "title"
+  = # autocomplete_field snippet.name, "image+*type+by name",  "form-control _autocomplete _nest-name _image-name"
+  = select_tag "image-name-select", "", class: "_image-card-select _image-name"

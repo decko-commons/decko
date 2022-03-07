@@ -8,7 +8,7 @@ format :html do
   end
 
   view :nest_rules, cache: :never, unknown: true, wrap: :slot do
-    filtered_rule_list :quick_edit_rule_list, :field_related_rules, :related, mark: ""
+    filtered_rule_list :modal_pill_rule_list, :field_related_rules, :related, mark: ""
   end
 
   view :modal_nest_rules, cache: :never, unknown: true,

@@ -27,12 +27,20 @@ format :html do
     end
   end
 
+  view :rule_nest_editor_link, unknown: true do
+    pill_rule_link :modal_rule
+  end
+
   view :rule_bridge_link, unknown: true do
+    pill_rule_link :overlay_rule
+  end
+
+  def pill_rule_link target_view
     opts = bridge_link_opts(class: "edit-rule-link nav-link",
                             "data-toggle": "pill",
                             "data-cy": "#{setting_title.to_name.key}-pill")
     opts[:path].delete(:layout)
-    link_to_view(:overlay_rule, (setting_title + short_help_text), opts)
+    link_to_view(target_view, (setting_title + short_help_text), opts)
   end
 
   def edit_link_view
