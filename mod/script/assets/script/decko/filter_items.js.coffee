@@ -4,129 +4,131 @@
 $(window).ready ->
 # add all selected items
   $("body").on "click", "._filter-items ._add-selected", ->
-    btn = $(this)
-    content = newFilteredListContent btn
-    btn.attr "href", addSelectedButtonUrl(btn, content)
+    filterBox(this).updateAddSelectedUrl()
 
   # select all visible filtered items
   $("body").on "click", "._select-all", ->
-    filterBox($(this)).find("._unselected input._checkbox-list-checkbox").each ->
-      selectFilteredItem $(this)
+    filterBox(this).selectAll()
     $(this).prop "checked", false
-    updateAfterSelection $(this)
 
   # deselect all selected items
   $("body").on "click", "._deselect-all", ->
-    filterBox($(this)).find("._selected input._checkbox-list-checkbox").each ->
-      $(this).slot().remove()
+    filterBox(this).deselectAll()
     $(this).prop "checked", true
-    updateAfterSelection $(this)
 
   $("body").on "click", "._filter-items ._unselected input._checkbox-list-checkbox", ->
-    selectFilteredItem $(this)
-    updateAfterSelection $(this)
+    filterBox(this).selectAndUpdate this
 
   $("body").on "click", "._filter-items ._selected input._checkbox-list-checkbox", ->
-    bin = selectedBin $(this)
-    $(this).slot().remove()
-    updateAfterSelection bin
+    filterBox(this).deselectAndUpdate this
 
+  # this is inside the list, not the filter box.  move elsewhere?
   $('body').on 'click', '._filtered-list-item-delete', ->
     $(this).closest('li').remove()
 
-# TODO: make this object oriented!
+filterBox = (el) -> new FilterBox el
 
-newFilteredListContent = (el) ->
-  $.map(prefilteredIds(el).concat(selectedIds el), (id) -> "~" + id).join "\n"
+class FilterBox
+  constructor: (el) ->
+    @box = $(el).closest "._filter-items" # the ui box
+    @bin = @box.find "._selected-bin"
+    @selected_items = @box.find "._selected-item-list"
+    @help_text = @box.find "._filter-help"
 
-addSelectedButtonUrl = (btn, content) ->
-  slot = btn.slot()
-  query =
-    assign: true
-    view: slot.data("slot")["view"]
-    card:
-      content: content
-      type_id: slot.data("cardTypeId")
-  path = btn.attr("href") + "&" + $.param(query)
-  decko.slotPath path, slot
+    # this button contains the data about the form that opened the filter-items interface.
+    @addSelectedButton = @box.find "._add-selected"
+    @deselectAllLink = @box.find "._deselect-all"
 
-updateAfterSelection = (el) ->
-  trackSelectedIds el
-  f = new decko.filter(filterBox(el).find('._filter-widget'))
-  f.update()
-  updateSelectedCount el
-  updateUnselectedCount el
+  selectAll:->
+    t = this
+    @box.find("._unselected input._checkbox-list-checkbox").each -> t.select this
+    @update()
 
-updateSelectedCount = (el) ->
-  count = selectedBin(el).children().length
-  filterBox(el).find("._selected-items").html count
-  deselectAllLink(el).attr "disabled", count == 0
-  if count > 0
-    addSelectedButton(el).removeClass("disabled")
-  else
-    addSelectedButton(el).addClass("disabled")
+  deselectAll:->
+    t = this
+    @box.find("._selected input._checkbox-list-checkbox").each -> t.deselect this
+    @update()
 
-  updateSelectedSectionVisibility el, count > 0
+  select: (checkbox) ->
+    checkbox = $(checkbox)
+    checkbox.prop "checked", true
+    @bin.append checkbox.slot()
 
-updateSelectedSectionVisibility = (el, items_present) ->
-  box = filterBox el
-  selected_items = box.find "._selected-item-list"
-  help_text = box.find "._filter-help"
-  if items_present
-    selected_items.show()
-    help_text.hide()
-  else
-    selected_items.hide()
-    help_text.show()
+  deselect: (checkbox) ->
+    $(checkbox).slot().remove()
 
-updateUnselectedCount = (el) ->
-  box = filterBox(el)
-  count = box.find("._search-checkbox-list").children().length
-  box.find("._unselected-items").html count
-  box.find("._select-all").attr "disabled", count > 0
+  selectAndUpdate: (checkbox) ->
+    @select checkbox
+    @update()
 
-selectFilteredItem = (checkbox) ->
-  checkbox.prop "checked", true
-  selectedBin(checkbox).append checkbox.slot()
+  deselectAndUpdate: (checkbox) ->
+    @deselect checkbox
+    @update()
 
-selectedBin = (el) ->
-  filterBox(el).find "._selected-bin"
+  update:->
+    @trackSelectedIds()
+    f = new decko.filter @box.find('._filter-widget')
+    f.update()
+    @updateSelectedCount()
+    @updateUnselectedCount()
 
-filterBox = (el) ->
-  el.closest "._filter-items"
+  updateAddSelectedUrl: ()->
+    @addSelectedButton.attr "href", @addSelectedUrl()
 
-# this button contains the data about the form that opened the filter-items interface.
-# the itemSelector
-addSelectedButton = (el) ->
-  filterBox(el).find("._add-selected")
+  newContent: ->
+    t = this
+    $.map(t.prefilteredIds().concat(t.selectedIds()), (id) -> "~" + id).join "\n"
 
-deselectAllLink = (el) ->
-  filterBox(el).find("._deselect-all")
+  sourceSlot: ->
+    @addSelectedButton.slot()
 
-selectedIds = (el) ->
-  selectedData el, "cardId"
+  addSelectedUrl: ->
+    slot = @sourceSlot()
+    query =
+      assign: true
+      view: slot.data("slot")["view"]
+      card:
+        content: @newContent()
+        type_id: slot.data("cardTypeId")
+    path = @addSelectedButton.attr("href") + "&" + $.param(query)
+    decko.slotPath path, slot
 
-prefilteredIds = (el) ->
-  prefilteredData el, "cardId"
+  trackSelectedIds: ->
+    ids = @prefilteredIds().concat @selectedIds()
+    @box.find("._not-ids").val ids.toString()
 
-prefilteredNames = (el) ->
-  prefilteredData el, "cardName"
+  prefilteredIds:-> @prefilteredData "cardId"
+  prefilteredNames:-> @prefilteredData "cardName"
 
-prefilteredData = (el, field) ->
-  btn = addSelectedButton el
-  selector = btn.data "itemSelector"
-  arrayFromField btn.slot().find(selector), field
+  prefilteredData: (field) ->
+    selector = @addSelectedButton.data "itemSelector"
+    @arrayFromField @sourceSlot().find(selector), field
 
-selectedNames = (el) ->
-  selectedData el, "cardName"
+  selectedIds:-> @selectedData "cardId"
+  selectedNames:-> @selectedData "cardName"
+  selectedData: (field) -> @arrayFromField @bin.children(), field
+  arrayFromField: (rows, field) -> rows.map( -> $(this).data field ).toArray()
 
-selectedData = (el, field) ->
-  arrayFromField selectedBin(el).children(), field
+  updateUnselectedCount: ->
+    count = @box.find("._search-checkbox-list").children().length
+    @box.find("._unselected-items").html count
+    @box.find("._select-all").attr "disabled", count > 0
 
-arrayFromField = (rows, field) ->
-  rows.map( -> $(this).data field ).toArray()
+  updateSelectedCount: ->
+    count = @bin.children().length
+    @box.find("._selected-items").html count
+    @deselectAllLink.attr "disabled", count == 0
+    if count > 0
+      @addSelectedButton.removeClass "disabled"
+    else
+      @addSelectedButton.addClass "disabled"
 
-trackSelectedIds = (el) ->
-  ids = prefilteredIds(el).concat selectedIds(el)
-  box = filterBox el
-  box.find("._not-ids").val ids.toString()
+    @updateSelectedSectionVisibility count > 0
+
+  updateSelectedSectionVisibility: (items_present) ->
+    if items_present
+      @selected_items.show()
+      @help_text.hide()
+    else
+      @selected_items.hide()
+      @help_text.show()
