@@ -75,7 +75,7 @@ describe 'nest editor', () ->
     cy.tinymce_content()
       .should "eq", "<p>{{ +NaNa|view: titled; title: T|view: bar; show: guide }}{{ crafted|view: bar; hide: guide }}</p>"
 
-  specify.only "nest rules editor", () ->
+  specify "nest rules editor", () ->
     cy.ensure "nests", ""
     cy.delete "NaNa+*right+*help"
     cy.visit_bridge "nests"
