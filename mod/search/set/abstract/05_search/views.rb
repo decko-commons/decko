@@ -48,14 +48,16 @@ format :json do
     complete_or_match_search limit: AUTOCOMPLETE_LIMIT
   end
 
-  def complete_or_match_search limit: AUTOCOMPLETE_LIMIT, start_only: false, additional_cql: {}
+  def complete_or_match_search limit: AUTOCOMPLETE_LIMIT, start_only: false,
+                               additional_cql: {}
     starts_with = complete_search limit: limit, additional_cql: additional_cql
     return starts_with if start_only
 
     remaining_slots = limit - starts_with.size
     return starts_with if remaining_slots.zero?
 
-    starts_with + match_search(not_names: starts_with, limit: remaining_slots, additional_cql: additional_cql)
+    starts_with + match_search(not_names: starts_with, limit: remaining_slots,
+                               additional_cql: additional_cql)
   end
 
   def complete_search limit: AUTOCOMPLETE_LIMIT, additional_cql: {}

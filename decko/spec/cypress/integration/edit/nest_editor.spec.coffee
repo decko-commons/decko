@@ -75,7 +75,7 @@ describe 'nest editor', () ->
     cy.tinymce_content()
       .should "eq", "<p>{{ +NaNa|view: titled; title: T|view: bar; show: guide }}{{ crafted|view: bar; hide: guide }}</p>"
 
-  specify "nest rules editor", () ->
+  specify.only "nest rules editor", () ->
     cy.ensure "nests", ""
     cy.delete "NaNa+*right+*help"
     cy.visit_bridge "nests"
@@ -95,8 +95,14 @@ describe 'nest editor', () ->
         .contains ".alert", "nest name required"
         .should "not.exist"
 
-#      cy.get ".card-slot.RIGHT-Xhelp input#card_content"
-#        .type "help nana{enter}"
+    cy.get("select._submit-on-select").eq(1).select2("All")
+    cy.contains("a.edit-rule-link", "help").click()
+    cy.contains("Define rule")
+    cy.get(".rule-type-field").select2("PlainText")
+    cy.get(":nth-child(2) > .card-editor > .editor > #card_content").type "help nana{enter}"
+    cy.contains("All \"+NaNa\" cards on \"RichText\" cards").click()
+    cy.contains("Save and Close").click()
+
 #      cy.contains "undo", timeout: 10000
 #      cy.get ".card-slot.RIGHT-Xhelp .form-control-feedback"
 #        .should "contain", "All \"+NaNa\" cards"
@@ -114,18 +120,24 @@ describe 'nest editor', () ->
 #        .should "not.contain", "undo"
 
 
-#    cy.visit "RichText+NaNa+*type plus right+*help"
-#    cy.expect_main_content "help nana"
+    cy.visit "RichText+NaNa+*type plus right+*help"
+    cy.expect_main_content "help nana"
 
   specify "nest image editor", () ->
     cy.ensure "nests", ""
     cy.visit_bridge "nests"
     open_image_editor()
-    cy.get(".modal")
-      # .should "contain", "nests+image01"
-      # .should "contain", "Add Image"
+    # cy.get(".modal ._nest-editor").within () ->
+    cy.contains("select").click()
+    cy.get("select._image-card-select").searchAndSelect2("*log", "*logo")
+    cy.contains("options").click()
+    cy.get("select._image-view-select").select2("titled")
+    cy.get("select._image-size-select").select2("small")
+    cy.contains("Apply and Close").click()
+    cy.tinymce_content()
+      .should "eq", "<p>{{ *logo | view: titled; size: small }}</p>"
 
-    # TODO: figure out how to attach images
+    # TODO: figure out how to upload images
 
   specify "nest list editor", () ->
       cy.visit("new/nest_list")
