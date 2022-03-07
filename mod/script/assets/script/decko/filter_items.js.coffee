@@ -3,8 +3,9 @@
 
 $(window).ready ->
 # add all selected items
-  $("body").on "click", "._filter-items ._add-selected", ->
-    filterBox(this).updateAddSelectedUrl()
+  $("body").on "click", "._filter-items ._add-selected", (event) ->
+    $(this).closest('.modal').modal "hide"
+    filterBox(this).addSelected()
 
   # select all visible filtered items
   $("body").on "click", "._select-all", ->
@@ -72,26 +73,24 @@ class FilterBox
     @updateSelectedCount()
     @updateUnselectedCount()
 
-  updateAddSelectedUrl: ()->
-    @addSelectedButton.attr "href", @addSelectedUrl()
-
-  newContent: ->
-    t = this
-    $.map(t.prefilteredIds().concat(t.selectedIds()), (id) -> "~" + id).join "\n"
-
   sourceSlot: ->
     @addSelectedButton.slot()
 
-  addSelectedUrl: ->
+  addSelected:->
+    for cardId in @selectedIds()
+      @addSelectedCard cardId
+
+  addSelectedCard: (cardId) ->
     slot = @sourceSlot()
-    query =
-      assign: true
-      view: slot.data("slot")["view"]
-      card:
-        content: @newContent()
-        type_id: slot.data("cardTypeId")
-    path = @addSelectedButton.attr("href") + "&" + $.param(query)
-    decko.slotPath path, slot
+    $.ajax
+      url: @addSelectedUrl(cardId)
+      type: 'GET'
+      success: (html) -> slot.find("._filtered-list").append html
+      error: (_jqXHR, textStatus)-> slot.notify "error: #{textStatus}", "error"
+
+  addSelectedUrl: (cardId) ->
+    view = @addSelectedButton.data "itemView"
+    decko.path "~#{cardId}/#{view}?slot[wrap]=filtered_list_item"
 
   trackSelectedIds: ->
     ids = @prefilteredIds().concat @selectedIds()

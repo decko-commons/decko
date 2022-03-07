@@ -24,6 +24,7 @@ format :html do
             path: { filter_card: params[:filter_card] },
             class: "_add-selected _close-modal btn btn-primary disabled",
             data: { "slot-selector": ".#{params[:slot_selector]}",
+                    "item-view": implicit_item_view,
                     "item-selector": ".#{params[:item_selector]}",
                     remote: true }
   end

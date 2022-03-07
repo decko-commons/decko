@@ -57,7 +57,7 @@ describe 'editing pointers', () ->
       cy.get("input._select-all").click()
       # cy.contains(/select\s+0\s+following/)
       cy.get("._add-selected").click().should("not.contain", "input._select-all")
-      cy.get("._pointer-filtered-list")
+      cy.get("._filtered-list")
         .should("contain", "Joe Admin")
         .should("contain", "Joe User")
         .should("contain", "Joe Camel")
@@ -65,7 +65,7 @@ describe 'editing pointers', () ->
       cy.get("._add-item-link").click()
       cy.get("input[name='Big Brother']").click()
       cy.get("._add-selected").click()
-      cy.get("._pointer-filtered-list")
+      cy.get("._filtered-list")
         .should("contain", "Joe Camel")
         .should("contain", "Big Brother")
         .should("not.contain", "u1")
@@ -76,7 +76,7 @@ describe 'editing pointers', () ->
 #    cy.get("._add-item-link").click()
 #    cy.get(".checkbox-side").first().click()
 #    cy.get("._add-selected").click()
-#    cy.get("._pointer-filtered-list")
+#    cy.get("._filtered-list")
 #      .should("contain", "Joe Admin")
 
 
