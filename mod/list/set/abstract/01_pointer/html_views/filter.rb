@@ -24,7 +24,7 @@ format :html do
 
   def filtered_list_input
     with_nest_mode :normal do
-      wrap { haml :filtered_list_input }
+      haml :filtered_list_input
     end
   end
 
@@ -41,11 +41,16 @@ format :html do
     { "slot-selector": "modal-origin",
       "item-view": filtered_item_view,
       "item-wrap": filtered_item_wrap,
+      "duplicates-ok": ("true" if duplicates_ok?),
       "item-selector": "._filtered-list-item" }
   end
 
+  def duplicates_ok?
+    false
+  end
+
   def not_ids_value
-    card.item_ids.map(&:to_s).join(",")
+    duplicates_ok? ? "" : card.item_ids.map(&:to_s).join(",")
   end
 
   view :add_selected_link, unknown: true do

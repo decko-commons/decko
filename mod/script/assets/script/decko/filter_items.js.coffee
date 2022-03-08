@@ -42,35 +42,38 @@ class FilterBox
   selectAll:->
     t = this
     @box.find("._unselected input._checkbox-list-checkbox").each -> t.select this
-    @update()
+    @updateOnSelect()
 
   deselectAll:->
     t = this
     @box.find("._selected input._checkbox-list-checkbox").each -> t.deselect this
-    @update()
+    @updateOnSelect()
 
   select: (checkbox) ->
     checkbox = $(checkbox)
-    checkbox.prop "checked", true
-    @bin.append checkbox.slot()
+    item = checkbox.slot()
+    item.after item.clone() if @duplicatesOk()
+    @bin.append item
 
   deselect: (checkbox) ->
     $(checkbox).slot().remove()
 
   selectAndUpdate: (checkbox) ->
     @select checkbox
-    @update()
+    @updateOnSelect()
 
   deselectAndUpdate: (checkbox) ->
     @deselect checkbox
-    @update()
+    @updateOnSelect()
 
-  update:->
-    @trackSelectedIds()
-    f = new decko.filter @box.find('._filter-widget')
-    f.update()
+  updateOnSelect:->
+    debugger
+    unless @duplicatesOk()
+      @trackSelectedIds()
+      f = new decko.filter @box.find('._filter-widget')
+      f.update()
+      @updateUnselectedCount()
     @updateSelectedCount()
-    @updateUnselectedCount()
 
   # box has slot selector and refers to source slot
   sourceSlot: -> @box.slot()
@@ -87,6 +90,7 @@ class FilterBox
     $.ajax
       url: @addSelectedUrl(cardId)
       type: 'GET'
+      async: false # make sure cards are added before we submit form
       success: (html) -> slot.find("._filtered-list").append html
       error: (_jqXHR, textStatus)-> slot.notify "error: #{textStatus}", "error"
 
@@ -95,12 +99,15 @@ class FilterBox
     wrap = @box.data "itemWrap"
     decko.path "~#{cardId}/#{view}?slot[wrap]=#{wrap}"
 
+  duplicatesOk: ->
+    @box.data "duplicatesOk"
+
   trackSelectedIds: ->
     ids = @prefilteredIds().concat @selectedIds()
     @box.find("._not-ids").val ids.toString()
 
   prefilteredIds:-> @prefilteredData "cardId"
-  prefilteredNames:-> @prefilteredData "cardName"
+  # prefilteredNames:-> @prefilteredData "cardName"
 
   prefilteredData: (field) ->
     items = @sourceSlot().find @box.data("itemSelector")
