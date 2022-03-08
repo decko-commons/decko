@@ -27,9 +27,9 @@ $(window).ready ->
   $('body').on 'click', '._filtered-list-item-delete', ->
     $(this).closest('li').remove()
 
-filterBox = (el) -> new FilterBox el
+filterBox = (el) -> new FilterItemsBox el
 
-class FilterBox
+class FilterItemsBox
   constructor: (el) ->
     @box = $(el).closest "._filter-items" # the ui box
     @bin = @box.find "._selected-bin"
@@ -53,6 +53,7 @@ class FilterBox
     checkbox = $(checkbox)
     item = checkbox.slot()
     item.after item.clone() if @duplicatesOk()
+    checkbox.prop "checked", true
     @bin.append item
 
   deselect: (checkbox) ->
@@ -67,7 +68,6 @@ class FilterBox
     @updateOnSelect()
 
   updateOnSelect:->
-    debugger
     unless @duplicatesOk()
       @trackSelectedIds()
       f = new decko.filter @box.find('._filter-widget')
