@@ -3,7 +3,7 @@ $(window).ready ->
     $this = $(this)
 
     setSlotMode($this)
-    debugger
+
     $this.data 'params', $this.closest('form').serialize()
     $this.data 'url', $this.attr 'href'
 
