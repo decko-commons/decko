@@ -9,6 +9,11 @@ format :html do
 
   view :filter_items, unknown: true, wrap: :slot, template: :haml
 
+  # for override
+  def allow_duplicates?
+    false
+  end
+
   def filtered_item_view
     implicit_item_view
   end
@@ -19,23 +24,32 @@ format :html do
 
   def filtered_list_input
     with_nest_mode :normal do
-      class_up "card-slot", filtered_list_slot_class
-      with_class_up "card-slot", filtered_list_slot_class do
-        wrap { haml :filtered_list_input }
-      end
+      wrap { haml :filtered_list_input }
     end
   end
 
-  # NOCACHE because params alter view
-  view :add_selected_link, cache: :never, unknown: true do
-    link_to "Add Selected",
-            path: { filter_card: params[:filter_card] },
-            class: "_add-selected _close-modal btn btn-primary disabled",
-            data: { "slot-selector": ".#{params[:slot_selector]}",
-                    "item-view": filtered_item_view,
-                    "item-wrap": filtered_item_wrap,
-                    "item-selector": ".#{params[:item_selector]}",
-                    remote: true }
+  def add_item_modal_link
+    modal_link "Add Item",
+               size: :large,
+               class: "btn btn-sm btn-outline-secondary _add-item-link",
+               path: { view: :filter_items_modal,
+                       slot: { hide: [:modal_footer] },
+                       filter: { not_ids: not_ids_value } }
+  end
+
+  def filter_items_config
+    { "slot-selector": "modal-origin",
+      "item-view": filtered_item_view,
+      "item-wrap": filtered_item_wrap,
+      "item-selector": "._filtered-list-item" }
+  end
+
+  def not_ids_value
+    card.item_ids.map(&:to_s).join(",")
+  end
+
+  view :add_selected_link, unknown: true do
+    button_tag "Add Selected", class: "_add-selected btn btn-primary", disabled: true
   end
 
   def filtered_list_item item_card
@@ -61,11 +75,5 @@ format :html do
     return unless params[:filter_card]
 
     Card.fetch params[:filter_card], new: {}
-  end
-
-  # currently actually used as a class
-  # (because we don't have api to override slot's id)
-  def filtered_list_slot_class
-    @filtered_list_slot_class ||= "filtered-list-#{unique_id}"
   end
 end

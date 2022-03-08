@@ -36,7 +36,6 @@ class FilterBox
     @selected_items = @box.find "._selected-item-list"
     @help_text = @box.find "._filter-help"
 
-    # this button contains the data about the form that opened the filter-items interface.
     @addSelectedButton = @box.find "._add-selected"
     @deselectAllLink = @box.find "._deselect-all"
 
@@ -73,8 +72,8 @@ class FilterBox
     @updateSelectedCount()
     @updateUnselectedCount()
 
-  sourceSlot: ->
-    @addSelectedButton.slot()
+  # box has slot selector and refers to source slot
+  sourceSlot: -> @box.slot()
 
   addSelected:->
     submit = @sourceSlot().find(".submit-button")
@@ -92,8 +91,8 @@ class FilterBox
       error: (_jqXHR, textStatus)-> slot.notify "error: #{textStatus}", "error"
 
   addSelectedUrl: (cardId) ->
-    view = @addSelectedButton.data "itemView"
-    wrap = @addSelectedButton.data "itemWrap"
+    view = @box.data "itemView"
+    wrap = @box.data "itemWrap"
     decko.path "~#{cardId}/#{view}?slot[wrap]=#{wrap}"
 
   trackSelectedIds: ->
@@ -104,8 +103,8 @@ class FilterBox
   prefilteredNames:-> @prefilteredData "cardName"
 
   prefilteredData: (field) ->
-    selector = @addSelectedButton.data "itemSelector"
-    @arrayFromField @sourceSlot().find(selector), field
+    items = @sourceSlot().find @box.data("itemSelector")
+    @arrayFromField items, field
 
   selectedIds:-> @selectedData "cardId"
   selectedNames:-> @selectedData "cardName"
@@ -121,11 +120,7 @@ class FilterBox
     count = @bin.children().length
     @box.find("._selected-items").html count
     @deselectAllLink.attr "disabled", count == 0
-    if count > 0
-      # note: anchor tags don't support disabled attribute, so we have to use classes
-      @addSelectedButton.removeClass "disabled"
-    else
-      @addSelectedButton.addClass "disabled"
+    @addSelectedButton.attr "disabled", count == 0
 
     @updateSelectedSectionVisibility count > 0
 
