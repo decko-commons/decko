@@ -63,6 +63,7 @@ describe 'editing pointers', () ->
         .should("contain", "Joe Camel")
 
       cy.get("._add-item-link").click()
+      cy.contains(".sort-in-filter-form").find("select").select2("Alphabetical")
       cy.get("input[name='Big Brother']").click()
       cy.get("._add-selected").click()
       cy.get("._filtered-list")
