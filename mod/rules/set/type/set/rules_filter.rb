@@ -5,7 +5,7 @@ format :html do
              "data-slot-selector": ".card-slot.rule-list",
              class: classy("nodblclick slotter form-inline slim-select2 m-2") do
       output [
-        label_tag(:view, icon_tag("filter_list"), class: "mr-2"),
+        label_tag(:view, icon_tag("filter_list"), class: "me-2"),
         setting_select(selected_setting),
         set_select(set_options)
       ].flatten

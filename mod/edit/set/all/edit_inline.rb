@@ -44,7 +44,7 @@ format :html do
   end
 
   def edit_inline_link view=:edit_inline, align: :left
-    align = align == :left ? "ml-2" : "ml-auto"
+    align = align == :left ? "ms-2" : "ms-auto"
     link_to_view view, menu_icon, class: "#{align} edit-link", "data-cy": "edit-link"
   end
 

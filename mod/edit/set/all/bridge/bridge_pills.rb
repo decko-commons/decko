@@ -39,7 +39,7 @@ format :html do
   end
 
   def bridge_pill_section tab_name, title, items
-    wrap_with(:h6, title, class: "ml-1 mt-3") +
+    wrap_with(:h6, title, class: "ms-1 mt-3") +
       wrap_each_with(:li, class: BRIDGE_PILL_LI_CLASSES) do
         bridge_pill_items(items, tab_name)
       end.html_safe

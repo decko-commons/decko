@@ -16,7 +16,7 @@ format :html do
 
   def alert_close_button
     wrap_with :button, type: "button", "data-dismiss": "alert",
-                       class: "close", "aria-label": "Close" do
+                       class: "btn-close", "aria-label": "Close" do
       wrap_with :span, "&times;", "aria-hidden" => true
     end
   end

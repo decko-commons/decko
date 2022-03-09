@@ -4,8 +4,8 @@ class Card
       # Used for the bridge
       class BridgeActRenderer < RelativeActRenderer
         def title
-          wrap_with(:div, left_title, class: "mr-2") +
-            wrap_with(:div, right_title, class: "ml-auto act-summary")
+          wrap_with(:div, left_title, class: "me-2") +
+            wrap_with(:div, right_title, class: "ms-auto act-summary")
         end
 
         def left_title
