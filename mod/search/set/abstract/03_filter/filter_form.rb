@@ -93,9 +93,12 @@ format :html do
   end
 
   view :sort_formgroup, cache: :never do
+    options = sort_options
+    current = current_sort
     select_tag "sort",
-               options_for_select(sort_options, current_sort),
+               options_for_select(options, current),
                class: "pointer-select _filter-sort form-control",
+               include_blank: ("--" unless options.values.include? current),
                "data-minimum-results-for-search": "Infinity"
   end
 end

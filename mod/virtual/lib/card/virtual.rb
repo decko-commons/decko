@@ -7,7 +7,6 @@ class Card
   class Virtual < Cardio::Record
     def update new_content
       content == new_content ? touch : update!(content: new_content)
-
       new_content
     end
 

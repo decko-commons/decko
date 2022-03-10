@@ -15,7 +15,7 @@ $.extend decko.editorContentFunctionMap,
       pointerContent @find('input:checked').map( -> $(this).val() )
     '.pointer-select-list': ->
       pointerContent @find('.pointer-select select').map( -> $(this).val() )
-    '._pointer-filtered-list': ->
+    '._filtered-list': ->
       pointerContent @find('._filtered-list-item').map( -> $(this).data('cardName') )
     '._pointer-list': ->
       pointerContent @find('._pointer-item').map( -> $(this).val() )
@@ -31,7 +31,7 @@ decko.editorInitFunctionMap['.pointer-list-editor'] = ->
   @sortable({handle: '.handle', cancel: ''})
   decko.initPointerList @find('input')
 
-decko.editorInitFunctionMap['._pointer-filtered-list'] = ->
+decko.editorInitFunctionMap['._filtered-list'] = ->
   @sortable({handle: '._handle', cancel: ''})
 
 $.extend decko,
