@@ -20,10 +20,12 @@ class Card
       def save card
         virt = find_by_card card
         virt ? virt.update(card.virtual_content) : create(card)
+        cache.write card.key, virt
       end
 
       def delete card
         find_by_card(card)&.delete
+        cache.delete card.key
       end
 
       private
