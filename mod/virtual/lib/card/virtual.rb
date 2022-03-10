@@ -19,7 +19,7 @@ class Card
 
       def save card
         virt = find_by_card card
-        virt ? virt.update(card.virtual_content) : create(card)
+        virt ? virt.update(card.virtual_content) : (virt = create card)
         cache.write card.key, virt
       end
 
