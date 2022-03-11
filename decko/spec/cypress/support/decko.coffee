@@ -65,6 +65,12 @@ Cypress.Commands.add "select2", { prevSubject: "element" }, (subject, value) =>
   cy.wrap(subject).siblings(".select2-container").click()
   #else
   #  cy.wrap(subject).find(".select2-container").click()
+
+  cy.root().get("span.select2-results").contains(value).click()
+
+Cypress.Commands.add "searchAndSelect2", { prevSubject: "element" }, (subject, type, value) =>
+  cy.wrap(subject).siblings(".select2-container").click()
+  cy.root().get(".select2-dropdown > .select2-search > .select2-search__field").type(type)
   cy.root().get("span.select2-results").contains(value).click()
 
 Cypress.Commands.add "unfollow", (card, user="Joe_Admin") =>
