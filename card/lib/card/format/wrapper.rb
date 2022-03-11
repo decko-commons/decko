@@ -49,7 +49,7 @@ class Card
         if method(method_name).arity.zero?
           send method_name
         else
-          send method_name, (opts || {})
+          send method_name, (opts&.clone || {})
         end
       end
     end

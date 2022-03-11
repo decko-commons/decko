@@ -118,7 +118,7 @@ this._delay(function(){n===this.counter&&this.refreshPositions(!s)})},_clear:fun
 			function setWidth() {
 				var width;
 				var style = window.getComputedStyle ? window.getComputedStyle(ta, null) : false;
-				
+
 				if (style) {
 
 					width = ta.getBoundingClientRect().width;
@@ -153,7 +153,7 @@ this._delay(function(){n===this.counter&&this.refreshPositions(!s)})},_clear:fun
 				$.each(typographyStyles, function(i,val){
 					styles[val] = $ta.css(val);
 				});
-				
+
 				$(mirror).css(styles).attr('wrap', $ta.attr('wrap'));
 
 				setWidth();
@@ -181,8 +181,8 @@ this._delay(function(){n===this.counter&&this.refreshPositions(!s)})},_clear:fun
 				}
 
 				if (!ta.value && options.placeholder) {
-					// If the textarea is empty, copy the placeholder text into 
-					// the mirror control and use that for sizing so that we 
+					// If the textarea is empty, copy the placeholder text into
+					// the mirror control and use that for sizing so that we
 					// don't end up with placeholder getting trimmed.
 					mirror.value = ($ta.attr("placeholder") || '');
 				} else {
