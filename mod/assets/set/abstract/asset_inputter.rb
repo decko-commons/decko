@@ -33,7 +33,7 @@ def update_asset_input
   # otherwise the migration that adds the asset_input card fails
 
   Card::Auth.as_bot do
-    asset_input_card.update content: render_asset_input_content
+    asset_input_card.update({})
     update_referers_after_input_changed
   end
 end
