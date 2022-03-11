@@ -18,17 +18,24 @@ class Card
       end
 
       def save card
-        virt = find_by_card card
-        virt ? virt.update(card.virtual_content) : (virt = create card)
-        cache.write card.key, virt
+        cache.write card.key, create_or_update(card)
       end
 
       def delete card
-        find_by_card(card)&.delete
         cache.delete card.key
+        find_by_card(card)&.delete
       end
 
       private
+
+      def create_or_update card
+        if (virt = find_by_card card)
+          virt.update(card.virtual_content)
+          virt
+        else
+          create(card)
+        end
+      end
 
       def cache
         Card::Cache[Virtual]
