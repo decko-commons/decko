@@ -9,40 +9,7 @@ formatImageCardSelectedItem = (i) ->
     return i.text
   '<span class="navbox-item-value ml-1">' + i.text + '</span>'
 
-
-decko.slotReady (slot) ->
-  slotData = slot.data("slot")
-  if slotData? && slotData["show"]? && slotData["show"].includes "preview_redirect"
-    tabPanel = slot.closest(".tab-panel")
-    tabPanel.find(".tab-li-preview a").tab("show")
-    nest.updateImagePreview(slot)
-
-  if slot.hasClass("modal_nest_image-view")
-    imageSelect = slot.find('._image-card-select')
-    if imageSelect.length > 0
-      imageSelect.select2
-        escapeMarkup: (markup) ->
-          markup
-        minimumInputLength: 0
-        maximumSelectionSize: 1
-        ajax:
-          delay: 200
-          url: decko.path ':search.json'
-          data: (params) ->
-            query: { keyword: params.term }
-            view: "image_complete"
-          processResults: (data) ->
-            results: prepareItems(data)
-          cache: true
-        templateResult: formatImageCardItem
-        templateSelection: formatImageCardSelectedItem
-        multiple: false
-        containerCssClass: 'select2-navbox-autocomplete'
-        dropdownCssClass: 'select2-navbox-dropdown'
-        width: "100%!important"
-      nest.updateImageName(slot.find(".new_image-view .new_fields-view .submit-button"))
-
-prepareItems = (response) ->
+prepareImageItems = (response) ->
   items = []
   $.each response['result'], (index, val) ->
     i = imageItem(id: val[0], icon: val[1], text: val[0])
@@ -55,6 +22,20 @@ imageItem = (data) ->
   data.icon ||= data.prefix
   data.label ||= '<strong class="highlight">' + data.text + '</strong>'
   data
+
+decko.slotReady (slot) ->
+  slotData = slot.data("slot")
+  if slotData? && slotData["show"]? && slotData["show"].includes "preview_redirect"
+    tabPanel = slot.closest(".tab-panel")
+    tabPanel.find(".tab-li-preview a").tab("show")
+    nest.updateImagePreview(slot)
+
+  if slot.hasClass("modal_nest_image-view")
+    imageSelect = slot.find('._image-card-select')
+    if imageSelect.length > 0
+      decko.initSelect2Autocomplete(imageSelect, "image_complete",
+        prepareImageItems, formatImageCardItem, formatImageCardSelectedItem)
+      nest.updateImageName(slot.find(".new_image-view .new_fields-view .submit-button"))
 
 $(document).ready ->
   $('body').on 'select2:select', '._image-name', () ->

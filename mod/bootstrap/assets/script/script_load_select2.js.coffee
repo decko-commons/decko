@@ -1,7 +1,7 @@
 $.fn.select2.defaults.set("theme", "bootstrap")
 
 decko.slotReady (slot) ->
-  slot.find('select:not(._no-select2)').each (_i) ->
+  slot.find('select:not(._no-select2):not(._select2autocomplete)').each (_i) ->
     decko.initSelect2($(this))
 
 decko.slotDestroy (slot) ->

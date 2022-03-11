@@ -44,7 +44,7 @@ format :html do
 end
 
 format :json do
-  view :complete, cache: :never do
+  view :navbox_complete, cache: :never do
     term = term_param
     exact = Card.fetch term, new: {}
 
@@ -54,6 +54,13 @@ format :json do
       add: add_item(exact),
       new: new_item_of_type(exact),
       goto: goto_items(term, exact)
+    }
+  end
+
+  view :complete, cache: :never do
+    items = complete_or_match_search start_only: Card.config.navbox_match_start_only
+    {
+      result: items
     }
   end
 

@@ -5,9 +5,10 @@
     .input-group-prepend._field-indicator
       .input-group-text.text-muted
         +
-    = text_field_tag "nest_name", snippet.name, class: "form-control _nest-name",
+    = text_field_tag "nest_name", snippet.name, class: "form-control _nest-name _autocomplete ",
                      "data-left-name" => card.name,
-                     "data-left-type" => card.left_type_for_nest_editor_set_selection
+                     "data-left-type" => card.left_type_for_nest_editor_set_selection,
+                     "data-options-card": [:all, :by_name].to_name
     .input-group-append
       .btn.btn-secondary._nest-field-toggle
         +

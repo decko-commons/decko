@@ -9,7 +9,7 @@
   - items.each.with_index do |(reference, title), index|
     %li.pointer-li.mb-2._nest-form{"data-index": index}
       = haml_partial :reference_list_input_row,
-                     name_field: name_autocomplete_field(reference, extra_classes: "_reference pointer-item-text form-control group-text-middle"),
+                     name_field: name_autocomplete_field(reference, "_reference pointer-item-text form-control group-text-middle"),
                      options_field: text_field_tag("pointer_item_title", title, class: "_title _nest-options pointer-item-text form-control group-text-middle"),
                      prefix: "{{",
                      postfix: "}}",
