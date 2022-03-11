@@ -7,7 +7,8 @@ format :html do
 
   def name_autocomplete_field item, extra_classes=""
     # select_tag "autocomplete_#{card.key}", "", class: "_select2autocomplete"
-    text_field_tag 'pointer_item', item, class: "pointer-item-text form-control _autocomplete #{extra_classes}",
-                                                "data-options-card": [:all, :by_name].to_name
+    text_field_tag "pointer_item", item,
+                   class: "pointer-item-text form-control _autocomplete #{extra_classes}",
+                   "data-options-card": %i[all by_name].to_name
   end
 end
