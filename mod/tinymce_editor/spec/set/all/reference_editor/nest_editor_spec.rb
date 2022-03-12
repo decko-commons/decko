@@ -24,13 +24,11 @@ RSpec.describe Card::Set::All::ReferenceEditor::NestEditor do
           with_tag "div.input-group-text.text-muted"
         end
       end
-      with_field_checkbox field
     end
 
     def empty_row
       with_tag "div._nest-option-row" do
-        with_tag :option, with: { value: "--" }
-        with_tag :option, with: { value: :view, disabled: :disabled }
+        with_tag :option, with: { value: "" }
         with_tag "input._nest-option-value", with: { disabled: :disabled }
       end
     end
@@ -39,12 +37,11 @@ RSpec.describe Card::Set::All::ReferenceEditor::NestEditor do
       expect_view(:nest_editor).to have_tag "div.nest_editor-view" do
         with_name "", true
         with_tag "div.options-container" do
-          option_row :view, :titled
           empty_row
         end
         with_tag "div.options-container" do
           without_tag :h6, /items/
-          with_tag :button, "Configure items"
+          with_tag :button, "Add item options"
           empty_row
         end
       end
@@ -56,15 +53,17 @@ RSpec.describe Card::Set::All::ReferenceEditor::NestEditor do
             } do
       expect_view(:nest_editor).to have_tag "div.nest_editor-view" do
         with_name "hi", true
+        with_tag "._view-select" do
+          with_tag :option, with: {  value: :open }
+        end
         with_tag "div.options-container" do
-          option_row :view, :open
           option_row :show, :menu
           option_row :show, :toggle
           empty_row
         end
         with_tag "div.options-container" do
-          with_tag :h6, /items/
-          without_tag :button, "Configure items"
+          with_tag :label, /Item options/
+          without_tag :button, "Add item options"
           option_row :view, :titled
           empty_row
         end
@@ -75,15 +74,17 @@ RSpec.describe Card::Set::All::ReferenceEditor::NestEditor do
             params: { tm_snippet_raw: "{{hi|view: open; show: menu, toggle}}" } do
       expect_view(:nest_editor).to have_tag "div.nest_editor-view" do
         with_name "hi", false
+        with_tag "._view-select" do
+          with_tag :option, with: {  value: :open }
+        end
         with_tag "div.options-container" do
-          option_row :view, :open
           option_row :show, :menu
           option_row :show, :toggle
           empty_row
         end
         with_tag "div.options-container" do
-          without_tag :h6, /items/
-          with_tag :button, "Configure items"
+          without_tag :label, /Item  options/
+          with_tag :button, "Add item options"
         end
       end
     end

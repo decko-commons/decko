@@ -38,12 +38,6 @@ $.extend decko,
   initPointerList: (input) ->
     decko.initAutoCardPlete input
 
-  initAutoCardPlete: (input) ->
-    optionsCard = input.data 'options-card'
-    return unless !!optionsCard
-    path = optionsCard + '.json?view=name_match'
-    input.autocomplete { source: decko.slotPath(path) }
-
   pointerContent: (vals) ->
     $.makeArray(vals).join "\n"
 
