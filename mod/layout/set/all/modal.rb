@@ -1,6 +1,6 @@
 format :html do
   MODAL_SIZE = { small: "sm", medium: nil, large: "lg", full: "full" }.freeze
-  MODAL_CLOSE_OPTS = { "data-dismiss": "modal",
+  MODAL_CLOSE_OPTS = { "data-bs-dismiss": "modal",
                        "data-cy": "close-modal" }.freeze
 
   wrapper :modal do |opts={}|
@@ -66,7 +66,7 @@ format :html do
   view :modal_footer, unknown: true do
     button_tag "Close",
                class: "btn-xs _close-modal float-end",
-               "data-dismiss" => "modal"
+               "data-bs-dismiss" => "modal"
   end
 
   view :modal_link do
@@ -111,7 +111,7 @@ format :html do
   def close_modal_window
     link_to icon_tag(:close), path: "",
                               class: "_close-modal btn-close",
-                              "data-dismiss": "modal"
+                              "data-bs-dismiss": "modal"
   end
 
   def pop_out_modal_window

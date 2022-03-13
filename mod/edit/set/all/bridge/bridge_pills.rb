@@ -19,7 +19,7 @@ format :html do
   end
 
   def bridge_pill_item_opts breadcrumb, extra_opts, text
-    opts = bridge_link_opts.merge("data-toggle": "pill")
+    opts = bridge_link_opts.merge("data-bs-toggle": "pill")
     opts.merge! breadcrumb_data(breadcrumb)
 
     if extra_opts

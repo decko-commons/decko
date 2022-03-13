@@ -1,4 +1,4 @@
-$.fn.select2.defaults.set("theme", "bootstrap")
+$.fn.select2.defaults.set("theme", "bootstrap-5")
 
 decko.slotReady (slot) ->
   slot.find('select:not(._no-select2)').each (_i) ->
@@ -13,7 +13,10 @@ $.extend decko,
     if elem.length > 1
       decko.initSelect2($(single_el)) for single_el in elem
     else
-      opts = { dropdownAutoWidth: "true", containerCssClass: ":all:", width: "auto" }
+      opts = {
+        dropdownAutoWidth: "true",
+        containerCssClass: ":all:",
+        width: "auto"}
 
       elem.attr "id", decko.uniqSelect2Id(elem.attr("id"))
       if elem.hasClass("tags")

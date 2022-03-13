@@ -133,8 +133,8 @@ class Card
 
       def accordion_expand_options
         {
-          "data-toggle" => "collapse",
-          "data-target" => ".#{collapse_id}",
+          "data-bs-toggle" => "collapse",
+          "data-bs-target" => ".#{collapse_id}",
           "aria-expanded" => true,
           "aria-controls" => collapse_id
         }

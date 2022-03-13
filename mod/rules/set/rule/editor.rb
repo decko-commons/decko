@@ -29,7 +29,7 @@ format :html do
 
   view :rule_bridge_link, unknown: true do
     opts = bridge_link_opts(class: "edit-rule-link nav-link",
-                            "data-toggle": "pill",
+                            "data-bs-toggle": "pill",
                             "data-cy": "#{setting_title.to_name.key}-pill")
     opts[:path].delete(:layout)
     link_to_view(:overlay_rule, (setting_title + short_help_text), opts)

@@ -1,6 +1,6 @@
 format :html do
   OVERLAY_CLOSE_OPTS = { class: "_close-overlay btn-sm",
-                         "data-dismiss": "overlay",
+                         "data-bs-dismiss": "overlay",
                          type: "button" }.freeze
 
   wrapper :overlay do |opts|
@@ -48,7 +48,7 @@ format :html do
   end
 
   def close_overlay_link
-    overlay_menu_link :close, path: "#", "data-dismiss": "overlay"
+    overlay_menu_link :close, path: "#", "data-bs-dismiss": "overlay"
   end
 
   def overlay_close_button link_text="Close", opts={}

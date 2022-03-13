@@ -63,7 +63,7 @@ describe 'nest editor', () ->
       .click()
     cy.tinymce_content()
       .should "eq", "<p>{{Na|view: titled; title: T|view: bar}}</p>"
-    cy.contains("[data-dismiss=overlay]", "Close").click()
+    cy.contains("[data-bs-dismiss=overlay]", "Close").click()
 
     type_nest("{{handcrafted{cursor}|view: special}}")
     open_nest_editor()

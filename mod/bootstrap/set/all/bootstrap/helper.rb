@@ -56,7 +56,7 @@ format :html do
 
   def popover_opts text, title, opts
     add_class opts, "ps-1 text-muted-link _popover_link"
-    opts.merge! path: "#", "data-toggle": "popover",
+    opts.merge! path: "#", "data-bs-toggle": "popover",
                 "data-trigger": :focus, "data-content": text
     opts["data-title"] = title if title
     opts
