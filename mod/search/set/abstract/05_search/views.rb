@@ -48,22 +48,24 @@ format :json do
     complete_or_match_search limit: AUTOCOMPLETE_LIMIT
   end
 
-  def complete_or_match_search limit: AUTOCOMPLETE_LIMIT, start_only: false
-    starts_with = complete_search limit: limit
+  def complete_or_match_search limit: AUTOCOMPLETE_LIMIT, start_only: false,
+                               additional_cql: {}
+    starts_with = complete_search limit: limit, additional_cql: additional_cql
     return starts_with if start_only
 
     remaining_slots = limit - starts_with.size
     return starts_with if remaining_slots.zero?
 
-    starts_with + match_search(not_names: starts_with, limit: remaining_slots)
+    starts_with + match_search(not_names: starts_with, limit: remaining_slots,
+                               additional_cql: additional_cql)
   end
 
-  def complete_search limit: AUTOCOMPLETE_LIMIT
-    card.search name_cql(limit).merge(complete_cql)
+  def complete_search limit: AUTOCOMPLETE_LIMIT, additional_cql: {}
+    card.search name_cql(limit).merge(complete_cql).merge(additional_cql)
   end
 
-  def match_search limit: AUTOCOMPLETE_LIMIT, not_names: []
-    card.search name_cql(limit).merge(match_cql(not_names))
+  def match_search limit: AUTOCOMPLETE_LIMIT, not_names: [], additional_cql: {}
+    card.search name_cql(limit).merge(match_cql(not_names)).merge(additional_cql)
   end
 
   def name_cql limit
@@ -71,7 +73,7 @@ format :json do
   end
 
   def complete_cql
-    { complete: term_param }
+    term_param.present? ? { complete: term_param } : {}
   end
 
   def match_cql not_names

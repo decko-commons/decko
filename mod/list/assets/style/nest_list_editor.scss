@@ -1,0 +1,15 @@
+.input-nest-syntax {
+  background-color: $input-bg;
+  font-weight: 200;
+  font-size: 1.3rem;
+  padding-top: 0.1rem;
+  padding-bottom: 0.1rem;
+}
+
+.nest-form-header .input-group {
+  height: 2rem;
+
+  .input-group-text, .input-group-prepend, .input-group-append {
+    visibility: hidden;
+  }
+}

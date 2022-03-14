@@ -9,7 +9,6 @@ format :html do
   end
 
   wrapper :slot do |opts|
-    class_up "card-slot", opts[:class] if opts[:class]
     attrib = slot_attributes true, opts
     method_wrap(:wrap_with, :div, attrib) { interior }
   end
