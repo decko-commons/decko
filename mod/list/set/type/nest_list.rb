@@ -1,4 +1,5 @@
 include_set Abstract::Items
+include_set Abstract::ReferenceList
 
 def raw_item_strings content
   reference_chunks(content).map(&:referee_raw_name)
@@ -10,12 +11,6 @@ end
 
 def items_content array
   standardized_items(array).join "\n"
-end
-
-format do
-  def chunk_list
-    :references
-  end
 end
 
 format :html do

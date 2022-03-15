@@ -6,9 +6,13 @@ format :html do
   end
 
   view :view_list do
-    %i[bar box info_bar open closed titled labeled content content_panel].map do |v|
+    view_list.map do |v|
       wrap_with :p, [content_tag(:h3, v), render(v, show: :menu)]
     end.flatten.join ""
+  end
+
+  def view_list
+    %i[content titled labeled bar box open closed info_bar content_panel]
   end
 
   def demo_view
