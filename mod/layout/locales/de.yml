@@ -1,0 +1,4 @@
+de:
+  layout_available_layouts: "Verfügbare Layouts: %{available_layouts}"
+  layout_unknown_layout: "Unbekanntes Layout: %{name}"
+  legacy_toc: Inhaltsverzeichnis

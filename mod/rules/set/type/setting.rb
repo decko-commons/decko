@@ -1,14 +1,3 @@
-# require "json"
-
-def self.member_names
-  @@member_names ||= Card.search(
-    { type_id: SettingID, return: "key" },
-    "all setting cards"
-  ).each_with_object({}) do |card_key, hash|
-    hash[card_key] = true
-  end
-end
-
 format :data do
   view :core do
     cql = { left: { type: SetID },

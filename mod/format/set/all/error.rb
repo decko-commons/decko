@@ -50,7 +50,7 @@ format do
   end
 
   def unsupported_view_error_message view
-    t(:format_unsupported_view, view: view, cardname: card.name)
+    t :format_unsupported_view, view: view, cardname: card.name
   end
 end
 

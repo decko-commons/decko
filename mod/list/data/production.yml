@@ -1,0 +1,13 @@
+---
+- :name: List
+  :type: :cardtype
+  :codename: :list
+- :name: Pointer
+  :type: :cardtype
+  :codename: :pointer
+- :name: Nest list
+  :type: :cardtype
+  :codename: :nest_list
+- :name: Link list
+  :type: :cardtype
+  :codename: :link_list

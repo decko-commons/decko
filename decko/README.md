@@ -20,8 +20,7 @@
 Decko (formerly "Wagn") makes serious web development fun.
 
 Decko creators, or "Card Sharks", use Decko to create open community sites,
-private knowledge management sites, public proposal submission sites with
-private back-ends for review, project management systems, wikis, blogs,
+private knowledge management sites, project management systems, wikis, blogs,
 journals, forums, and more.
 
 Install Decko, open a webpage, and get started. With Decko's wiki-inspired

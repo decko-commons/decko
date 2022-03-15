@@ -1,0 +1,4 @@
+---
+- :name: Notification template
+  :type: :cardtype
+  :codename: :notification_template

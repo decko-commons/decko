@@ -8,7 +8,6 @@ format :html do
     super + %w[
       decko_script_variables
       head_javascript
-      html5shiv_tag
       script_config_and_initiation
     ]
   end
@@ -23,10 +22,6 @@ format :html do
 
   view :head_javascript, unknown: true, cache: :never, perms: :none do
     Array.wrap(head_javascript_paths).reject(&:empty?).join("\n")
-  end
-
-  view :html5shiv_tag, unknown: true, perms: :none do
-    nest :script_html5shiv_printshiv, view: :script_tag
   end
 
   view :script_config_and_initiation, unknown: true, perms: :none do
@@ -76,5 +71,9 @@ format :html do
       config_json = escape_javascript Card::Rule.global_setting(codename)
       "decko.#{js_decko_function}('#{config_json}')"
     end
+  end
+
+  def javascript_include_tag *args
+    "\n<!-- #{card.name} -->#{super}"
   end
 end

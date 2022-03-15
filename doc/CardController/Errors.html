@@ -6,7 +6,7 @@
 <title>
   Module: CardController::Errors
   
-    &mdash; Documentation by YARD 0.9.26
+    &mdash; Documentation by YARD 0.9.27
   
 </title>
 
@@ -98,7 +98,17 @@
 <div class="tags">
   
 
-</div>
+</div><h2>Defined Under Namespace</h2>
+<p class="children">
+  
+    
+      <strong class="modules">Modules:</strong> <span class='object_link'><a href="Errors/Rescue.html" title="CardController::Errors::Rescue (module)">Rescue</a></span>
+    
+  
+    
+  
+</p>
+
 
 
 
@@ -206,15 +216,15 @@
       <pre class="lines">
 
 
-26
 27
 28
 29
 30
-31</pre>
+31
+32</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decko/lib/card_controller/errors.rb', line 26</span>
+      <pre class="code"><span class="info file"># File 'decko/lib/card_controller/errors.rb', line 27</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_debug_exception?'>debug_exception?</span> <span class='id identifier rubyid_e'>e</span>
   <span class='op'>!</span><span class='id identifier rubyid_e'>e</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Card/Error.html" title="Card::Error (class)">Error</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Card/Error/UserError.html" title="Card::Error::UserError (class)">UserError</a></span></span><span class='rparen'>)</span> <span class='op'>&amp;&amp;</span>
@@ -242,16 +252,16 @@
       <pre class="lines">
 
 
-17
 18
 19
 20
 21
 22
-23</pre>
+23
+24</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decko/lib/card_controller/errors.rb', line 17</span>
+      <pre class="code"><span class="info file"># File 'decko/lib/card_controller/errors.rb', line 18</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_handle_exception'>handle_exception</span> <span class='id identifier rubyid_exception'>exception</span>
   <span class='id identifier rubyid_raise'>raise</span> <span class='id identifier rubyid_exception'>exception</span> <span class='kw'>if</span> <span class='id identifier rubyid_debug_exception?'>debug_exception?</span><span class='lparen'>(</span><span class='id identifier rubyid_exception'>exception</span><span class='rparen'>)</span>
@@ -270,9 +280,9 @@
 </div>
 
       <div id="footer">
-  Generated on Thu May 13 17:17:18 2021 by
+  Generated on Fri Jan 21 16:01:43 2022 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.26 (ruby-2.7.2).
+  0.9.27 (ruby-3.0.1).
 </div>
 
     </div>

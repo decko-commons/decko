@@ -18,12 +18,15 @@ class Card
       module Order
         def order
           full_syntax do
-            "ORDER BY #{order_directives.join ', '}"
+            dirs = order_directives
+            "ORDER BY #{dirs.join ', '}" if dirs.present?
           end
         end
 
         def order_directives
-          Array.wrap(order_config).map do |order_key|
+          return if @mods[:sort].blank?
+
+          Array.wrap(@mods[:sort]).map do |order_key|
             order_directive order_key
           end
         end
@@ -57,10 +60,6 @@ class Card
           else
             safe_sql @mods[:dir]
           end
-        end
-
-        def order_config
-          @mods[:sort].blank? ? "update" : @mods[:sort]
         end
       end
     end

@@ -93,9 +93,8 @@ class Card
 
         def id_from_val val
           case val
-          when Integer then val
-          when String  then Card.fetch_id(val) || -999
-          when Symbol  then Card::Codename.id(val) || -999
+          when Integer         then val
+          when String, Symbol  then val.card_id || -999
           end
         end
       end

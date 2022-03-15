@@ -28,15 +28,9 @@ class Card
         Card::Cache[Lexicon]
       end
 
-      def add card
-        lex = card.lex
-        cache.write card.id.to_s, lex
-        cache.write cache_key(lex), card.id
-      end
-
       def update card
         add card
-        cache.delete cache_key(card.lex_before_act)
+        expire_lex card.lex_before_act
       end
 
       # def delete card
@@ -50,7 +44,36 @@ class Card
         lex.map { |side_id| name side_id or return }.join(Card::Name.joint).to_name
       end
 
+      # this is to address problems whereby renaming errors leave the lexicon broken.
+      # NEEDS TESTING
+      def rescuing
+        @act_lexes = []
+        @act_ids = []
+        yield
+      rescue StandardError => e
+        @act_lexes.each { |lex| expire_lex lex }
+        @act_ids.each { |id| expire_id id }
+        @act_lexes = @act_ids = nil
+        raise e
+      end
+
       private
+
+      def add card
+        lex = card.lex
+        @act_lexes << lex
+        @act_ids << card.id
+        cache.write card.id.to_s, lex
+        cache.write cache_key(lex), card.id
+      end
+
+      def expire_lex lex
+        cache.delete cache_key(lex)
+      end
+
+      def expire_id id
+        cache.delete id.to_s
+      end
 
       def id_to_lex id
         cache.fetch id.to_s do

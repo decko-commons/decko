@@ -1,9 +1,10 @@
 module Cardio
   module Schema
     class << self
-      def assume_migrated_upto_version type
-        mode type do |paths|
-          ActiveRecord::Schema.assume_migrated_upto_version version(type), paths
+      def assume_migrated_upto_version type, version=nil
+        mode type do |_paths|
+          version ||= version type
+          ActiveRecord::Schema.assume_migrated_upto_version version
         end
       end
 
@@ -53,6 +54,13 @@ module Cardio
         list.flatten
       end
 
+      def migration_context type
+        with_suffix type do
+          yield ActiveRecord::MigrationContext.new(migration_paths(type),
+                                                   ActiveRecord::SchemaMigration)
+        end
+      end
+
       private
 
       def deck_migration? type
@@ -81,13 +89,6 @@ module Cardio
         ActiveRecord::Base.schema_migrations_table_name = old_table_name
         ActiveRecord::SchemaMigration.table_name = old_table_name
         ActiveRecord::SchemaMigration.reset_column_information
-      end
-
-      def migration_context type
-        with_suffix type do
-          yield ActiveRecord::MigrationContext.new(migration_paths(type),
-                                                   ActiveRecord::SchemaMigration)
-        end
       end
     end
   end

@@ -114,13 +114,12 @@ class Card
 
       # make mod ready to include in base (non-set-specific) format classes
       def register_all_set_format format_class, mod
-        add_to_array_val modules[:base_format], format_class, mod
+        add_to_array_val Set.modules[:base_format], format_class, mod
       end
 
       def register_standard_set_format format_class, mod
-        format_type = abstract_set? ? :abstract_format : :nonbase_format
         # ready to include dynamically in set members' format singletons
-        format_hash = modules[format_type][format_class] ||= {}
+        format_hash = Set.modules[set_format_type_key][format_class] ||= {}
         add_to_array_val format_hash, shortname, mod
       end
 

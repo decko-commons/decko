@@ -75,7 +75,7 @@ class Card
           def define_wrap_with_method wrapper_name, wrapper_method_name
             class_exec(self) do |_format|
               define_method "wrap_with_#{wrapper_name}" do |*args, &interior|
-                @interior, opts = interior ? [interior.call, args.first] : args
+                voo.interior, opts = interior ? [interior.call, args.first] : args
                 send_wrapper_method wrapper_method_name, opts
               end
             end

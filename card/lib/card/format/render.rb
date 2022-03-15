@@ -8,11 +8,9 @@ class Card
         voo = View.new self, view, view_options, @voo
         with_voo voo do
           voo.process do |final_view|
-            final_render final_view
+            wrap_and_render final_view
           end
         end
-      rescue StandardError => e
-        rescue_view e, view
       end
 
       def with_voo voo
@@ -38,13 +36,15 @@ class Card
       end
 
       def final_render view
-        current_view(view) do
-          with_wrapper do
-            method = view_method view
-            rendered = final_render_call method
-            add_debug_info view, method, rendered
-          end
-        end
+        method = view_method view
+        rendered = final_render_call method
+        add_debug_info view, method, rendered
+      end
+
+      def wrap_and_render view
+        current_view(view) { with_wrapper { final_render view } }
+      rescue StandardError => e
+        rescue_view e, view
       end
 
       def final_render_call method

@@ -1,10 +1,7 @@
 class CardController
-  # RESTful action methods for card
+  # helper method for RESTful action methods for card
   module Rest
     include ActionController::HttpAuthentication::Token
-
-    # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    #  PUBLIC METHODS
 
     def create
       handle { card.save! }
@@ -29,15 +26,12 @@ class CardController
       render body: body, status: 404
     end
 
-    # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    #  PRIVATE METHODS
-
     private
 
     def setup
-      Card::Machine.refresh_assets unless params[:explicit_file]
+      Card::Assets.refresh_assets unless params[:explicit_file]
       Card::Cache.renew
-      Card::Env.reset controller: self
+      Card::Env.reset self
     end
 
     def authenticate
@@ -45,6 +39,8 @@ class CardController
     end
 
     def authenticators
+      return {} unless request
+
       { token: token_from_header || params[:token] }
     end
 
@@ -68,7 +64,7 @@ class CardController
 
     # TODO: refactor this away this when new layout handling is ready
     def record_as_main
-      Card::Env[:main_name] = params[:main] || card&.name || ""
+      Card::Env.main_name = params[:main] || card&.name || ""
     end
 
     def refresh_card

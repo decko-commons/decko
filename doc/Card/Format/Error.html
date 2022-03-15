@@ -6,7 +6,7 @@
 <title>
   Module: Card::Format::Error
   
-    &mdash; Documentation by YARD 0.9.26
+    &mdash; Documentation by YARD 0.9.27
   
 </title>
 
@@ -359,7 +359,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#view_for_unknown-instance_method" title="#view_for_unknown (instance method)">#<strong>view_for_unknown</strong>(_view)  &#x21d2; Object </a>
+      <a href="#view_for_unknown-instance_method" title="#view_for_unknown (instance method)">#<strong>view_for_unknown</strong>(setting_view)  &#x21d2; Object </a>
     
 
     
@@ -479,7 +479,7 @@
   <span class='kw'>if</span> <span class='id identifier rubyid_card'>card</span><span class='op'>&amp;.</span><span class='id identifier rubyid_name'>name</span><span class='period'>.</span><span class='id identifier rubyid_present?'>present?</span>
     <span class='id identifier rubyid_safe_name'>safe_name</span>
   <span class='kw'>else</span>
-    <span class='const'><span class='object_link'><a href="../../Cardio.html" title="Cardio (module)">Cardio</a></span></span><span class='period'>.</span><span class='id identifier rubyid_t'><span class='object_link'><a href="../../Cardio/Utils.html#t-instance_method" title="Cardio::Utils#t (method)">t</a></span></span> <span class='symbol'>:lib_no_cardname</span>
+    <span class='op'>::</span><span class='const'>I18n</span><span class='period'>.</span><span class='id identifier rubyid_t'>t</span> <span class='symbol'>:lib_no_cardname</span>
   <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -511,8 +511,8 @@
       <pre class="code"><span class="info file"># File 'card/lib/card/format/error.rb', line 70</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_log_error'>log_error</span> <span class='id identifier rubyid_e'>e</span>
-  <span class='const'>Rails</span><span class='period'>.</span><span class='id identifier rubyid_logger'>logger</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span> <span class='id identifier rubyid_e'>e</span><span class='period'>.</span><span class='id identifier rubyid_message'>message</span>
-  <span class='const'>Rails</span><span class='period'>.</span><span class='id identifier rubyid_logger'>logger</span><span class='period'>.</span><span class='id identifier rubyid_debug'>debug</span> <span class='id identifier rubyid_e'>e</span><span class='period'>.</span><span class='id identifier rubyid_backtrace'>backtrace</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>\n</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+  <span class='const'><span class='object_link'><a href="../../Rails.html" title="Rails (module)">Rails</a></span></span><span class='period'>.</span><span class='id identifier rubyid_logger'>logger</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span> <span class='id identifier rubyid_e'>e</span><span class='period'>.</span><span class='id identifier rubyid_message'>message</span>
+  <span class='const'><span class='object_link'><a href="../../Rails.html" title="Rails (module)">Rails</a></span></span><span class='period'>.</span><span class='id identifier rubyid_logger'>logger</span><span class='period'>.</span><span class='id identifier rubyid_debug'>debug</span> <span class='id identifier rubyid_e'>e</span><span class='period'>.</span><span class='id identifier rubyid_backtrace'>backtrace</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>\n</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -842,7 +842,7 @@
       <div class="method_details ">
   <h3 class="signature " id="view_for_unknown-instance_method">
   
-    #<strong>view_for_unknown</strong>(_view)  &#x21d2; <tt><span class='object_link'><a href="../../Object.html" title="Object (class)">Object</a></span></tt> 
+    #<strong>view_for_unknown</strong>(setting_view)  &#x21d2; <tt><span class='object_link'><a href="../../Object.html" title="Object (class)">Object</a></span></tt> 
   
 
   
@@ -866,12 +866,12 @@
     <td>
       <pre class="code"><span class="info file"># File 'card/lib/card/format/error.rb', line 17</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_view_for_unknown'>view_for_unknown</span> <span class='id identifier rubyid__view'>_view</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_view_for_unknown'>view_for_unknown</span> <span class='id identifier rubyid_setting_view'>setting_view</span>
   <span class='kw'>if</span> <span class='id identifier rubyid_main?'>main?</span>
     <span class='id identifier rubyid_root'><span class='object_link'><a href="../../top-level-namespace.html" title="Top Level Namespace (root)">root</a></span></span><span class='period'>.</span><span class='id identifier rubyid_error_status'>error_status</span> <span class='op'>=</span> <span class='int'>404</span>
     <span class='symbol'>:not_found</span>
   <span class='kw'>else</span>
-    <span class='symbol'>:unknown</span>
+    <span class='id identifier rubyid_setting_view'>setting_view</span> <span class='op'>||</span> <span class='symbol'>:unknown</span>
   <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -884,9 +884,9 @@
 </div>
 
       <div id="footer">
-  Generated on Thu May 13 17:17:16 2021 by
+  Generated on Fri Jan 21 16:01:41 2022 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.26 (ruby-2.7.2).
+  0.9.27 (ruby-3.0.1).
 </div>
 
     </div>

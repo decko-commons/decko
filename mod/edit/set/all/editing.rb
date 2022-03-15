@@ -38,9 +38,7 @@ format :html do
 
   view :edit_buttons do
     button_formgroup do
-      wrap_with "div", class: "d-flex" do
-        [standard_submit_button, edit_cancel_button, delete_button]
-      end
+      [standard_submit_button, edit_cancel_button, delete_button]
     end
   end
 
@@ -82,7 +80,7 @@ format :html do
   #   frame do
   #     # with_nest_mode :edit do
   #     nested_fields.map do |name, _options|
-  #       nest Card.fetch(name.to_name.trait(:self)),
+  #       nest Card.fetch(name.to_name.field(:self)),
   #            view: :titled, title: name, rule_view: view,
   #            hide: :set_label, show: :rule_navbar
   #     end

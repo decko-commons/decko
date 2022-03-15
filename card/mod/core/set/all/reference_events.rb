@@ -1,12 +1,12 @@
+# when content changes, update references to other cards
+event :refresh_references_out, :finalize, on: :save, changed: :content do
+  update_references_out
+end
+
 # on rename, update names in cards that refer to self by name (as directed)
 event :update_referer_content, :finalize, on: :update, changed: :name, skip: :allowed do
-  referers.each do |card|
-    next if card.structure
-
-    card.skip_event! :validate_renaming, :check_permissions
-    card.content = card.replace_references name_before_act, name
-    attach_subcard card
-  end
+  referers.each { |r| r.replace_references name_before_act, name }
+  each_descendant { |d| d.rename_as_descendant !skip_update_referers? }
 end
 
 # on rename, when NOT updating referer content, update references to ensure
@@ -24,24 +24,10 @@ event :refresh_references_in, :finalize, changed: :name, on: :save do
   Reference.map_referees key, id
 end
 
-# when content changes, update references to other cards
-event :refresh_references_out, :finalize, on: :save, changed: :content do
-  update_references_out
-end
-
 # clean up reference table when card is deleted
 event :clear_references, :finalize, on: :delete do
   delete_references_out
   Reference.unmap_referees id
-end
-
-# replace references in card content
-def replace_references old_name, new_name
-  cont = content_object
-  cont.find_chunks(:Reference).each do |chunk|
-    next unless replace_reference chunk, old_name, new_name
-  end
-  cont.to_s
 end
 
 protected
@@ -50,15 +36,30 @@ def skip_update_referers?
   skip_event? :update_referer_content
 end
 
-private
-
-def replace_reference chunk, old_name, new_name
-  return unless (old = chunk.referee_name) && (new = old.swap old_name, new_name)
-
-  chunk.referee_name = chunk.replace_reference old_name, new_name
-  update_reference old.key, new.key
+def rename_as_descendant referers=true
+  self.action = :update
+  referers ? update_referer_content : update_referer_references_out
+  # refresh_references_in
+  # refresh_references_out
+  expire
+  Card::Lexicon.update self
 end
 
-def update_reference old_key, new_key
-  Reference.where(referee_key: old_key).update_all referee_key: new_key
+def replace_references old_name, new_name
+  self.content_quietly = swap_names(old_name, new_name) unless structure
+end
+
+def content_quietly= new_content
+  self.content = new_content
+  return unless db_content_changed? # prevents loops
+
+  update_column :db_content, db_content
+  update_references_out
+end
+
+private
+
+# delete references from this card
+def delete_references_out
+  Reference.where(referer_id: id).delete_all if id.present?
 end

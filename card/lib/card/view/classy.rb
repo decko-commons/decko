@@ -24,9 +24,7 @@ class Card
       #    :single_use  the same as :nests but is removed after the first use
       #    :global      always everywhere
       def class_up klass, classier, scope=:subviews
-        klass = klass.to_s
-
-        storage_voo(scope).add_extra_classes klass, classier, scope
+        storage_voo(scope).add_extra_classes klass.to_s, classier, scope
       end
 
       def class_down klass, classier
@@ -55,10 +53,8 @@ class Card
       end
 
       def add_extra_classes key, classier, scope
-        type = class_list_type scope
-
-        class_list(type)[key] =
-          [class_list(type)[key], classier].flatten.compact.join(" ")
+        list = class_list class_list_type(scope)
+        list[key] = [list[key], classier].flatten.compact.join " "
       end
 
       # remove classes everywhere where they are visible for the given scope
@@ -83,9 +79,7 @@ class Card
 
       def extra_classes klass
         klass = klass.first if klass.is_a?(Array)
-        klass = klass.to_s
-
-        deep_extra_classes klass, :self
+        deep_extra_classes klass.to_s, :self
       end
 
       # recurse through voos and formats to find all extra classes
@@ -135,14 +129,19 @@ class Card
       end
 
       def class_list type=:private
-        case type
-        when :private, :format_private, :public, :single_use
-          @class_list ||= {}
-          @class_list[type] ||= {}
-        else
+        unless type.in? %i[private format_private public single_use]
           raise ArgumentError, "#{type} not a valid class list"
         end
+        @class_list ||= {}
+        @class_list[type] ||= {}
       end
+
+      CLASS_LIST_TYPE = { view: :private,
+                          format: :format_private,
+                          subviews: :format_private,
+                          nests: :public,
+                          global: :public,
+                          single_use: :single_use }.freeze
 
       # Translates scopes to the privacy types used to manage the class lists.
       # A #classy calls looks in the following class_lists:
@@ -150,18 +149,7 @@ class Card
       #    format_private - the same voo and all parent voos in the same format
       #    public - in all voos in all parent formats
       def class_list_type scope
-        case scope
-        when :view
-          :private
-        when :format, :subviews
-          :format_private
-        when :nests, :global
-          :public
-        when :single_use
-          :single_use
-        else
-          raise ArgumentError, "invalid class_up scope: #{scope}"
-        end
+        CLASS_LIST_TYPE[scope] || raise(ArgumentError, "invalid class_up scope: #{scope}")
       end
     end
   end

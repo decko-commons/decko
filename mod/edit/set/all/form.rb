@@ -31,8 +31,8 @@ format :html do
   end
 
   def wrap_content_formgroup &block
-    formgroup("Content", input: :content, help: false,
-                         class: classy("card-editor"), &block)
+    formgroup "Content", input: :content, help: false,
+                         class: classy("card-editor"), &block
   end
 
   def button_formgroup &block
@@ -121,15 +121,15 @@ format :html do
     "<p><em>Uneditable; content is #{structured} without nests</em></p>"
   end
 
-  # @param [Hash|Array] fields either an array with field names and/or field
-  # cards or a hash with the fields as keys and a hash with nest options as
-  # values
-  def process_edit_fields fields
-    fields.map do |field, opts|
-      field_nest field, opts
-    end.join "\n"
-  end
-  ###
+  # # @param [Hash|Array] fields either an array with field names and/or field
+  # # cards or a hash with the fields as keys and a hash with nest options as
+  # # values
+  # def process_edit_fields fields
+  #   fields.map do |field, opts|
+  #     field_nest field, opts
+  #   end.join "\n"
+  # end
+  # ###
 
   # If you use subfield cards to render a form for a new card
   # then the subfield cards should be created on the new card not the existing

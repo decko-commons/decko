@@ -26,9 +26,8 @@ format :html do
                               view: :edit_form,
                               assign: true,
                               slot: { show: :type_form }),
-                   class: "live-type-field slotter",
-                   'data-remote': true,
-                   'data-slot-selector': ".card-slot.edit_form-view"
+                   class: "_live-type-field",
+                   'data-remote': true
   end
 
   view :type_formgroup do
@@ -95,16 +94,10 @@ format :html do
 
     visible_cardtype_groups.each_pair.with_object(groups) do |(name, items), grps|
       if name == "Custom"
-        custom_grouped_types grps
+        groups[name] = custom_types
       else
         standard_grouped_types grps, name, items
       end
-    end
-  end
-
-  def custom_grouped_types groups
-    Auth.createable_types.each do |type|
-      groups["Custom"] << type unless ::Card::Set::Self::Cardtype::GROUP_MAP[type]
     end
   end
 
@@ -115,6 +108,6 @@ format :html do
   end
 
   def visible_cardtype_groups
-    ::Card::Set::Self::Cardtype::GROUP
+    All::CardtypeGroups::GROUP
   end
 end

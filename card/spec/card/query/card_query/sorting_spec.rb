@@ -20,8 +20,8 @@ RSpec.describe Card::Query::CardQuery::Sorting do
   end
 
   it "plays nice with match" do
-    expect(run_query(match: "two", not: { match: "42" }))
-      .to eq(cards_matching_two - ["42"])
+    expect(run_query(match: "two", not: { match: "42" }).sort)
+      .to eq(cards_matching_two.sort - ["42"])
   end
 
   it "sorts by plus card content" do

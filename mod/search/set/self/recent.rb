@@ -6,12 +6,10 @@ view :title do
 end
 
 def recent_acts
-  action_relation = qualifying_actions.where "card_acts.id = card_act_id"
-  Act.where("EXISTS (#{action_relation.to_sql})").order id: :desc
-end
-
-def qualifying_actions
-  Action.all_viewable.where "draft is not true"
+  Act.joins(ar_actions: :ar_card).distinct
+     .where(Query::CardQuery.viewable_sql)
+     .where("draft is not true")
+     .order id: :desc
 end
 
 format :html do
@@ -28,8 +26,30 @@ format :rss do
   end
 end
 
-format :json do
-  def items_for_export
-    card.item_cards limit: 20
-  end
-end
+# *Strat 1: WHERE EXISTS*
+# ~~~~~~~~~~~~~~~~~~~~~~~
+# SELECT `card_acts`.* FROM `card_acts` WHERE EXISTS (
+#   SELECT `card_actions`.*
+#   FROM `card_actions`
+#   INNER JOIN `cards` ON `cards`.`id` = `card_actions`.`card_id`
+#   WHERE (draft is not true)
+#   AND (card_acts.id = card_act_id)
+# ) ORDER BY `card_acts`.`id` DESC LIMIT 20;
+#
+#
+# *Strat 2: INNER JOIN*
+# ~~~~~~~~~~~~~~~~~~~~~
+# SELECT DISTINCT `card_acts`.* FROM `card_acts`
+# JOIN `card_actions` ON card_acts.id = card_act_id
+# JOIN `cards` ON `cards`.`id` = `card_actions`.`card_id`
+# WHERE (draft is not true)
+# ORDER BY `card_acts`.`id` DESC LIMIT 20;
+
+# 11:33
+# first run times:
+# mysql 5.7:
+# - strat 1: 0.22 sec (possibly in cache already?)
+# - strat 2: 3min 17 sec
+# mysql 8.0
+# - strat 1: 2min 1 sec
+# - strat 2: 0.01 sec

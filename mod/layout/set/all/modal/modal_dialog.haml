@@ -1,10 +1,10 @@
-#modal-container.modal.fade._modal-slot{role: "dialog", "data-backdrop": "static"}
-  -# .modal-dialog
+#modal-container.modal.fade._modal-slot{ role: "dialog" }
+  //, "data-backdrop": "static"}
   %div{class: classes}
     .modal-content
       .modal-header.clearfix
         = title
-        = menu
+        = menu if voo.show? :menu
       .modal-body
         = body
       - if footer.present?

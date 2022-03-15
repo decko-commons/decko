@@ -6,7 +6,7 @@
 <title>
   Class: Card::Director
   
-    &mdash; Documentation by YARD 0.9.26
+    &mdash; Documentation by YARD 0.9.27
   
 </title>
 
@@ -113,9 +113,9 @@
 
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
-    <p>Directs the symphony of a card <span class='object_link'><a href="Act.html" title="Card::Act (class)"><strong>act</strong></a></span>.</p>
+    <p>Directs the symphony of a card <strong>act</strong>.</p>
 
-<p>Each act is divided into <span class='object_link'><a href="Action.html" title="Card::Action (class)"><strong>actions</strong></a></span>: one action for each card.
+<p>Each act is divided into <strong>actions</strong>: one action for each card.
 There are three action types: <em>create</em>, <em>update</em>, and <em>delete</em>.</p>
 
 <p>Each action is divided into three <strong>phases</strong>: <em>validation</em>, <em>storage</em>, and
@@ -1362,12 +1362,12 @@ is executed BEFORE the supercard’s store stage.</p>
       <pre class="lines">
 
 
-191
 192
-193</pre>
+193
+194</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/director.rb', line 191</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/director.rb', line 192</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_abort'>abort</span>
   <span class='ivar'>@abort</span> <span class='op'>=</span> <span class='kw'>true</span>
@@ -1392,14 +1392,14 @@ is executed BEFORE the supercard’s store stage.</p>
       <pre class="lines">
 
 
-185
 186
 187
 188
-189</pre>
+189
+190</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/director.rb', line 185</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/director.rb', line 186</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_appoint'>appoint</span> <span class='id identifier rubyid_card'>card</span>
   <span class='id identifier rubyid_reset_stage'>reset_stage</span>
@@ -1432,7 +1432,8 @@ is executed BEFORE the supercard’s store stage.</p>
 180
 181
 182
-183</pre>
+183
+184</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'card/lib/card/director.rb', line 177</span>
@@ -1443,6 +1444,7 @@ is executed BEFORE the supercard’s store stage.</p>
   <span class='ivar'>@subdirectors</span><span class='period'>.</span><span class='id identifier rubyid_clear'>clear</span>
   <span class='ivar'>@stage</span> <span class='op'>=</span> <span class='kw'>nil</span>
   <span class='ivar'>@action</span> <span class='op'>=</span> <span class='kw'>nil</span>
+  <span class='ivar'>@running</span> <span class='op'>=</span> <span class='kw'>false</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1570,14 +1572,14 @@ is executed BEFORE the supercard’s store stage.</p>
       <pre class="lines">
 
 
-202
 203
 204
 205
-206</pre>
+206
+207</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/director.rb', line 202</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/director.rb', line 203</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_main_director'>main_director</span>
   <span class='kw'>return</span> <span class='kw'>self</span> <span class='kw'>if</span> <span class='id identifier rubyid_main?'>main?</span>
@@ -1627,15 +1629,15 @@ is executed BEFORE the supercard’s store stage.</p>
       <pre class="lines">
 
 
-195
 196
 197
 198
 199
-200</pre>
+200
+201</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/director.rb', line 195</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/director.rb', line 196</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_need_act'>need_act</span>
   <span class='id identifier rubyid_act_director'>act_director</span> <span class='op'>=</span> <span class='id identifier rubyid_main_director'>main_director</span>
@@ -1693,16 +1695,16 @@ is executed BEFORE the supercard’s store stage.</p>
       <pre class="lines">
 
 
-217
 218
 219
 220
 221
 222
-223</pre>
+223
+224</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/director.rb', line 217</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/director.rb', line 218</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_replace_card'>replace_card</span> <span class='id identifier rubyid_card'>card</span>
   <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_action'>action</span> <span class='op'>=</span> <span class='ivar'>@card</span><span class='period'>.</span><span class='id identifier rubyid_action'>action</span>
@@ -1731,17 +1733,17 @@ is executed BEFORE the supercard’s store stage.</p>
       <pre class="lines">
 
 
-208
 209
 210
 211
 212
 213
 214
-215</pre>
+215
+216</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/director.rb', line 208</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/director.rb', line 209</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_to_s'>to_s</span> <span class='id identifier rubyid_level'>level</span><span class='op'>=</span><span class='int'>1</span>
   <span class='id identifier rubyid_str'>str</span> <span class='op'>=</span> <span class='ivar'>@card</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='period'>.</span><span class='id identifier rubyid_clone'>clone</span>
@@ -1801,14 +1803,14 @@ is executed BEFORE the supercard’s store stage.</p>
       <pre class="lines">
 
 
-225
 226
 227
 228
-229</pre>
+229
+230</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/director.rb', line 225</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/director.rb', line 226</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_update_card'>update_card</span> <span class='id identifier rubyid_card'>card</span>
   <span class='id identifier rubyid_old_card'>old_card</span> <span class='op'>=</span> <span class='ivar'>@card</span>
@@ -1825,9 +1827,9 @@ is executed BEFORE the supercard’s store stage.</p>
 </div>
 
       <div id="footer">
-  Generated on Thu May 13 17:17:43 2021 by
+  Generated on Fri Jan 21 16:01:46 2022 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.26 (ruby-2.7.2).
+  0.9.27 (ruby-3.0.1).
 </div>
 
     </div>

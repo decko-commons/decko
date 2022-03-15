@@ -70,7 +70,6 @@ class AddSharkAndHelpDeskRole < Cardio::Migration::Core
      "*google_analytics_key+*self",
      "*admin info+*self",
      "*admin settings+*self",
-     "*google_analytics_key+*self",
      "*recaptcha settings+*self",
      "Cardtype+description+*type plus right"].each do |set|
       delete_card [set, :delete]

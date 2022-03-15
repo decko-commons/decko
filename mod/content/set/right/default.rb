@@ -23,7 +23,7 @@ format :html do
   end
 
   def visible_cardtype_groups
-    hash = ::Card::Set::Self::Cardtype::GROUP.slice("Text",  "Data", "Upload")
+    hash = All::CardtypeGroups::GROUP.slice("Text",  "Data", "Upload")
     hash["Organize"] = ["List", "Pointer", "Link list", "Nest list"]
     hash
   end

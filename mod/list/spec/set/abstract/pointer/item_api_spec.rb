@@ -55,19 +55,19 @@ RSpec.describe Card::Set::Abstract::Pointer do
 
     it "add to empty ref list" do
       pointer.add_item "John"
-      expect(pointer.content).to eq("[[John]]")
+      expect(pointer.content).to eq("John")
     end
 
     it "add to existing ref list" do
       pointer.content = "[[Jane]]"
       pointer.add_item "John"
-      expect(pointer.content).to eq("[[Jane]]\n[[John]]")
+      expect(pointer.content).to eq("Jane\nJohn")
     end
 
     it "not add duplicate entries" do
       pointer.content = "[[Jane]]"
       pointer.add_item "Jane"
-      expect(pointer.content).to eq("[[Jane]]")
+      expect(pointer.content).to eq("Jane")
     end
   end
 
@@ -78,12 +78,12 @@ RSpec.describe Card::Set::Abstract::Pointer do
 
     it "remove the link" do
       pointer.drop_item "Jane"
-      expect(pointer.content).to eq("[[John]]")
+      expect(pointer.content).to eq("John")
     end
 
     it "not fail on non-existent reference" do
       pointer.drop_item "Bigfoot"
-      expect(pointer.content).to eq("[[Jane]]\n[[John]]")
+      expect(pointer.content).to eq("Jane\nJohn")
     end
 
     it "remove the last link" do

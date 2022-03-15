@@ -6,7 +6,7 @@
 <title>
   Module: Card::Content::All
   
-    &mdash; Documentation by YARD 0.9.26
+    &mdash; Documentation by YARD 0.9.27
   
 </title>
 
@@ -166,8 +166,6 @@
     
 
     
-      (also: #raw_content)
-    
   </span>
   
   
@@ -201,7 +199,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
+    <span class="summary_desc"><div class='inline'><p>alias_method :raw_content, :content # DEPRECATED!.</p>
 </div></span>
   
 </li>
@@ -513,10 +511,6 @@
   
 
   
-    <span class="aliases">Also known as:
-    <span class="names"><span id='raw_content-instance_method'>raw_content</span></span>
-    </span>
-  
 
   
 </h3><table class="source_code">
@@ -549,7 +543,17 @@
   
 
   
-</h3><table class="source_code">
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>alias_method :raw_content, :content # DEPRECATED!</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
@@ -563,7 +567,7 @@
       <pre class="code"><span class="info file"># File 'card/lib/card/content/all.rb', line 10</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_content='>content=</span> <span class='id identifier rubyid_value'>value</span>
-  <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_db_content'>db_content</span> <span class='op'>=</span> <span class='id identifier rubyid_standardize_content'>standardize_content</span><span class='lparen'>(</span><span class='id identifier rubyid_value'>value</span><span class='rparen'>)</span>
+  <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_db_content'>db_content</span> <span class='op'>=</span> <span class='id identifier rubyid_standardize_content'>standardize_content</span> <span class='id identifier rubyid_value'>value</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -729,7 +733,7 @@
       <pre class="code"><span class="info file"># File 'card/lib/card/content/all.rb', line 50</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_nests?'>nests?</span>
-  <span class='id identifier rubyid_content_object'>content_object</span><span class='period'>.</span><span class='id identifier rubyid_has_chunk?'>has_chunk?</span> <span class='const'><span class='object_link'><a href="../Content.html" title="Card::Content (class)">Content</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Chunk.html" title="Card::Content::Chunk (module)">Chunk</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Chunk/Nest.html" title="Card::Content::Chunk::Nest (class)">Nest</a></span></span>
+  <span class='id identifier rubyid_content_object'>content_object</span><span class='period'>.</span><span class='id identifier rubyid_has_chunk?'>has_chunk?</span> <span class='const'><span class='object_link'><a href="../Content.html" title="Card::Content (class)">Content</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Chunk.html" title="Card::Content::Chunk (module)">Chunk</a></span></span><span class='op'>::</span><span class='const'>Nest</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -849,7 +853,7 @@
       <pre class="code"><span class="info file"># File 'card/lib/card/content/all.rb', line 22</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_standardize_content'>standardize_content</span> <span class='id identifier rubyid_value'>value</span>
-  <span class='id identifier rubyid_value'>value</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'>Array</span><span class='rparen'>)</span> <span class='op'>?</span> <span class='id identifier rubyid_value'>value</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>\n</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='op'>:</span> <span class='id identifier rubyid_value'>value</span>
+  <span class='id identifier rubyid_value'>value</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'>Array</span><span class='rparen'>)</span> <span class='op'>?</span> <span class='id identifier rubyid_items_content'>items_content</span><span class='lparen'>(</span><span class='id identifier rubyid_value'>value</span><span class='rparen'>)</span> <span class='op'>:</span> <span class='id identifier rubyid_value'>value</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -891,9 +895,9 @@
 </div>
 
       <div id="footer">
-  Generated on Thu May 13 17:17:15 2021 by
+  Generated on Fri Jan 21 16:01:40 2022 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.26 (ruby-2.7.2).
+  0.9.27 (ruby-3.0.1).
 </div>
 
     </div>

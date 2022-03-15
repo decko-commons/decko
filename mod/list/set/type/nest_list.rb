@@ -1,4 +1,5 @@
 include_set Abstract::Items
+include_set Abstract::ReferenceList
 
 def raw_item_strings content
   reference_chunks(content).map(&:referee_raw_name)
@@ -8,15 +9,8 @@ def item_options
   nest_chunks.map(&:raw_options)
 end
 
-def items_to_content array
-  items = array.map { |i| standardize_item i }.reject(&:blank?)
-  self.content = items.join("\n")
-end
-
-format do
-  def chunk_list
-    :references
-  end
+def items_content array
+  standardized_items(array).join "\n"
 end
 
 format :html do

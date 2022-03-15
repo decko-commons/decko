@@ -3,14 +3,10 @@ describe Card::Set::All::Path do
     format.path(*args)
   end
 
-  def with_complex_env
-    Card.config.relative_url_root = "/root"
-    Card::Env[:protocol] = "http://"
-    Card::Env[:host] = "mydomain.com"
-    yield
-    Card.config.relative_url_root = nil
-    Card::Env[:protocol] = nil
-    Card::Env[:host] = nil
+  def with_complex_env &block
+    Cardio.with_config deck_origin: "http://mydomain.com",
+                       relative_url_root: "/root",
+                       &block
   end
 
   context "when in base format" do

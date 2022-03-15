@@ -100,7 +100,7 @@ class Card
   # self/bar.rb
   #
   #     event :met_a_foo_at_the_bar, :prepare_to_store, on: :update do
-  #       add_subcard "foo"
+  #       subcard "foo"
   #     end
   #
   # And then you run `Card[:bar].update!({})`.
@@ -180,6 +180,7 @@ class Card
       @subdirectors.clear
       @stage = nil
       @action = nil
+      @running = false
     end
 
     def appoint card

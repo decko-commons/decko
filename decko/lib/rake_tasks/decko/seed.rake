@@ -6,7 +6,7 @@ namespace :decko do
     task update: :environment do
       ENV["STAMP_MIGRATIONS"] = "true"
       ENV["GENERATE_FIXTURES"] = "true"
-      %w[reseed update mod:install seed:clean seed:supplement seed:dump].each do |task|
+      %w[reseed update seed:clean seed:supplement seed:dump].each do |task|
         Rake::Task["decko:#{task}"].invoke
       end
     end
@@ -24,7 +24,8 @@ namespace :decko do
       # change actors so we can delete unwanted user cards that made changes
       Card::Act.update_all actor_id: Card::WagnBotID
       delete_ignored_cards
-      clean_machines
+      refresh_assets
+      Card::Assets.make_output_coded
       # clean_unwanted_cards
       Card.empty_trash
     end
@@ -41,53 +42,22 @@ namespace :decko do
       end
     end
 
-    task clean_machines: :environment do
-      clean_machines
+    task refresh_assets: :environment do
+      refresh_assets
     end
 
-    def clean_machines
-      puts "clean machines"
-      Card::Machine.reset_all
-      reseed_machine_output
-      clean_inputs_and_outputs
-    end
-
-    def reseed_machine_output
-      machine_seed_names.each do |name|
-        puts "coding machine output for #{name}"
-        Card[name].make_machine_output_coded
+    def refresh_assets
+      puts "refresh assets"
+      Card::Auth.as_bot do
+        Card.where(right_id: :asset_input.card_id).delete_all
       end
-      Card.search(type_id: Card::ModScriptAssetsID) do |card|
-        card.make_machine_output_coded true
-      end
+      Card::Cache.reset_all
+      Cardio.config.compress_assets = true
+      Card::Assets.refresh_assets force: true
     end
 
-    def clean_inputs_and_outputs
-      # FIXME: can this be associated with the machine module somehow?
-      %w[machine_input machine_output machine_cache].each do |codename|
-        Card.search(right: { codename: codename }).each do |card|
-          FileUtils.rm_rf File.join("files", card.id.to_s), secure: true
-          next if reserved_output? card.name
-
-          card.delete!
-        end
-      end
-    end
-
-    def reserved_output? name
-      machine_seed_member?(name) &&
-        (name.right_name.key == :machine_output.cardname.key)
-    end
-
-    def machine_seed_member? name
-      machine_seed_names.member?(name.left_name.key) || name.match(/^mod:/)
-    end
-
-    def machine_seed_names
-      @machine_seed_names ||=
-        [%i[all style], [:script_html5shiv_printshiv]].map do |name|
-          Card::Name[*name]
-        end
+    task make_asset_output_coded: :environment do
+      Card::Assets.make_output_coded
     end
 
     # def clean_files

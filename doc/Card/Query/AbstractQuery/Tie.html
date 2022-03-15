@@ -6,7 +6,7 @@
 <title>
   Module: Card::Query::AbstractQuery::Tie
   
-    &mdash; Documentation by YARD 0.9.26
+    &mdash; Documentation by YARD 0.9.27
   
 </title>
 
@@ -566,17 +566,15 @@ context dependent.</p>
 96
 97
 98
-99
-100</pre>
+99</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'card/lib/card/query/abstract_query/tie.rb', line 94</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_id_from_val'>id_from_val</span> <span class='id identifier rubyid_val'>val</span>
   <span class='kw'>case</span> <span class='id identifier rubyid_val'>val</span>
-  <span class='kw'>when</span> <span class='const'>Integer</span> <span class='kw'>then</span> <span class='id identifier rubyid_val'>val</span>
-  <span class='kw'>when</span> <span class='const'>String</span>  <span class='kw'>then</span> <span class='const'><span class='object_link'><a href="../../../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_fetch_id'><span class='object_link'><a href="../../Fetch/CardClass.html#fetch_id-instance_method" title="Card::Fetch::CardClass#fetch_id (method)">fetch_id</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_val'>val</span><span class='rparen'>)</span> <span class='op'>||</span> <span class='op'>-</span><span class='int'>999</span>
-  <span class='kw'>when</span> <span class='const'>Symbol</span>  <span class='kw'>then</span> <span class='const'><span class='object_link'><a href="../../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../Codename.html" title="Card::Codename (class)">Codename</a></span></span><span class='period'>.</span><span class='id identifier rubyid_id'><span class='object_link'><a href="../../Codename.html#id-class_method" title="Card::Codename.id (method)">id</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_val'>val</span><span class='rparen'>)</span> <span class='op'>||</span> <span class='op'>-</span><span class='int'>999</span>
+  <span class='kw'>when</span> <span class='const'>Integer</span>         <span class='kw'>then</span> <span class='id identifier rubyid_val'>val</span>
+  <span class='kw'>when</span> <span class='const'>String</span><span class='comma'>,</span> <span class='const'>Symbol</span>  <span class='kw'>then</span> <span class='id identifier rubyid_val'>val</span><span class='period'>.</span><span class='id identifier rubyid_card_id'>card_id</span> <span class='op'>||</span> <span class='op'>-</span><span class='int'>999</span>
   <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -1006,9 +1004,9 @@ context dependent.</p>
 </div>
 
       <div id="footer">
-  Generated on Thu May 13 17:17:19 2021 by
+  Generated on Fri Jan 21 16:01:44 2022 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.26 (ruby-2.7.2).
+  0.9.27 (ruby-3.0.1).
 </div>
 
     </div>

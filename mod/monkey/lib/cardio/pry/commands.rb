@@ -18,7 +18,7 @@ module Cardio
       alias_command "hg", "hist -T 20 -G", desc: "Up to 20 commands matching expression"
       alias_command "hG", "hist -G", desc: "Commands matching expression ever used"
       alias_command "hr", "hist -r", desc: "hist -r <command number> to run a command"
-      alias_command "clear", "break --delete-all", desc: "remove all break points"
+      # alias_command "clear", "break --delete-all", desc: "remove all break points"
 
       # Hit Enter to repeat last command
       ::Pry::Commands.command(/^$/, "repeat last command") do

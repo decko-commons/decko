@@ -13,7 +13,7 @@ class SharedData
     "Big Brother", "Optic fan", "Sunglasses fan", "Narcissist"
   ].freeze
 
-  CARDTYPE_COUNT = 54
+  CARDTYPE_COUNT = 44
 
   class << self
     def create_user name, args
@@ -153,9 +153,6 @@ class SharedData
       create_pointer "items",
                      content: ["Parry Hotter", "42", "Stam Broker", "First",
                                "yeti skin+image", "*all+*script+*machine output"]
-      # Card['*all+*style' ].ensure_machine_output
-      # Card['*all+*script'].ensure_machine_output
-      # (ie9 = Card[:script_html5shiv_printshiv]) && ie9.ensure_machine_output
     end
 
     def user_and_role_cards
@@ -216,7 +213,7 @@ class SharedData
     end
 
     def notification_cards
-      Timecop.freeze(Cardio.future_stamp - 1.day) do
+      Timecop.freeze(future_stamp - 1.day) do
         # fwiw Timecop is apparently limited by ruby Time object,
         # which goes only to 2037 and back to 1900 or so.
         #  whereas DateTime can represent all dates.

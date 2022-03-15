@@ -1,0 +1,11 @@
+de:
+  api_key_not_found: keineb API-Schlüssel gefunden
+  api_key_incorrect: API-Schlüssel stimmt nicht überein
+  api_key_invalid: "Ungültiger API-Schlüssel; darf nur 20+ alphanumerische Zeichen enthalten"
+  api_key_label: "API-Schlüssel"
+  api_key_generate: "API-Schlüssel erzeugen"
+  api_key_regenerate: "API-Schlüssel neu erzeugen"
+  api_key_generating: "API-Schlüssel wird erzeugt"
+  api_key_taken: "API-Schlüssel vergeben"
+  api_key_get_jwt_token: "ein JWT-Token abrufen"
+  api_key_no_key: "Kein Schlüssel."

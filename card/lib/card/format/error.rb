@@ -14,12 +14,12 @@ class Card
         @anyone_can[task]
       end
 
-      def view_for_unknown _view
+      def view_for_unknown setting_view
         if main?
           root.error_status = 404
           :not_found
         else
-          :unknown
+          setting_view || :unknown
         end
       end
 
@@ -56,20 +56,14 @@ class Card
       end
 
       def loud_error e, view
-        log_error e if focal? && voo.root?
+        e.report if focal? && voo.root?
         card.errors.add "#{view} view", rendering_error(e, view) if card.errors.empty?
         raise e
       end
 
       def quiet_error e, view
-        # TODO: unify with Card::Error#report
-        log_error e
+        e.report
         rendering_error e, view
-      end
-
-      def log_error e
-        Rails.logger.info e.message
-        Rails.logger.debug e.backtrace.join("\n")
       end
 
       def rendering_error exception, view

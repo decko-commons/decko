@@ -57,25 +57,23 @@ class Card
     extend I18nScope
     extend Registrar
 
-    mattr_accessor :modules, :traits
-
     class << self
-      def reset_modules
+      attr_accessor :modules, :traits, :basket
+
+      def reset
         self.modules = {
           base: [],     base_format: {},
           nonbase: {},  nonbase_format: {},
           abstract: {}, abstract_format: {}
         }
-      end
 
-      def basket
-        @basket ||= {}
+        self.basket = {}
       end
     end
 
     delegate :basket, to: Set
 
-    reset_modules
+    reset
 
     # SET MODULE API
     #

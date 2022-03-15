@@ -1,13 +1,23 @@
+remote:
+  items:
+    - src: https://code.jquery.com/jquery-3.6.0.min.js
+      integrity: sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=
+      crossorigin: anonymous
+    - src: https://cdnjs.cloudflare.com/ajax/libs/jquery-ujs/1.2.0/rails.min.js
+      integrity: sha512-7JCF1tm2gqb7ddeKwz64uEhSx9f/Eu+90/LQ26ymVJlkrrOI7C1JR0KUHLi4FASyVwkuAekBNsMfCWJm1l9bHQ==
+      crossorigin: anonymous
+      referrerpolicy: no-referrer
+
 jquery:
   items:
-    - ../../vendor/jquery_rails/vendor/assets/javascripts/jquery3.js
-    - ../../vendor/jquery_rails/vendor/assets/javascripts/jquery_ujs.js
+    # - ../../vendor/jquery_rails/vendor/assets/javascripts/jquery3.js
+    # - ../../vendor/jquery_rails/vendor/assets/javascripts/jquery_ujs.js
     # jquery-ui includes all interaction components, the dialog and the autocomplete widget
     # and all dependencies for those
     # decko depends on autocomplete, sortable, jquery.autosize and jquery.fileupload
     # the dialog widget is not used in decko but in wikirate
     # don't know if iframe-transport is needed but it used to be there
-    - jquery-ui.js
+    - jquery-ui.min.js
     - jquery.autosize.js
     - ../../vendor/jquery_file_upload/js/jquery.fileupload.js
     - ../../vendor/jquery_file_upload/js/jquery.iframe-transport.js
@@ -24,20 +34,18 @@ decko:
     - decko/upload.js.coffee
     - decko/slot.js.coffee
     - decko/decko.js.coffee
+    - decko/type_editor.js.coffee
     - decko/modal.js.coffee
     - decko/overlay.js.coffee
     - decko/recaptcha.js.coffee
     - decko/slotter.js.coffee
     - decko/bridge.js.coffee
-    - decko/nest_editor.js.coffee
-    - decko/nest_editor_rules.js.coffee
-    - decko/nest_editor_options.js.coffee
-    - decko/nest_editor_name.js.coffee
-    - decko/link_editor.js.coffee
     - decko/components.js.coffee
     - decko/follow.js.coffee
     - decko/card_menu.js.coffee
     - decko/slot_ready.js.coffee
+    - decko/pointer_config.js.coffee
+    - decko/pointer_list_editor.js.coffee
     - decko/filter.js.coffee
     - decko/filter_links.js.coffee
     - decko/filter_items.js.coffee

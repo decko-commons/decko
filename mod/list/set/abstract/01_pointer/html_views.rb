@@ -22,7 +22,7 @@ format :html do
   view :one_line_content do
     item_view = implicit_item_view
     item_view = item_view == "name" ? "name" : "link"
-    wrap_with :div, class: "pointer-list" do
+    wrap_with :div, class: "pointer-list one-line-pointer-list" do
       # limit to first 10 items to optimize
       pointer_items(view: item_view, limit: 10, offset: 0).join ", "
     end
@@ -44,10 +44,6 @@ format :html do
     list_input
   end
 
-  # view :nav_item do
-  #   nav_dropdown
-  # end
-
   def list_input args={}
     items = items_for_input args[:item_list]
     extra_class = "pointer-list-ul"
@@ -61,7 +57,7 @@ format :html do
   end
 
   def autocomplete_input
-    haml :autocomplete_input, item: items_for_input.first, options_card: options_card_name
+    autocomplete_field items_for_input.first, options_card_name
   end
 
   def checkbox_input
@@ -84,25 +80,6 @@ format :html do
                options_for_select(card.options_hash, card.item_names),
                multiple: true, class: "pointer-multiselect form-control"
   end
-
-  def add_item_modal_link
-    modal_link "Add Item",
-               size: :large,
-               class: "btn btn-sm btn-outline-secondary _add-item-link",
-               path: { view: :filter_items_modal,
-                       item: implicit_item_view,
-                       filter_card: filter_card.name,
-                       slot_selector: filtered_list_slot_class,
-                       item_selector: "_filtered-list-item",
-                       slot: { hide: [:modal_footer] },
-                       filter: { not_ids: not_ids_value } }
-  end
-
-  def not_ids_value
-    card.item_ids.map(&:to_s).join(",")
-  end
-
-  def add_item_overlay_link; end
 
   def one_line_content
     if count == 1

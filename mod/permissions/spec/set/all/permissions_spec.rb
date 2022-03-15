@@ -71,7 +71,7 @@ RSpec.describe Card::Set::All::Permissions do
         expect(Card::Auth.always_ok?).to eq(true)
         Card.create! name: "Hidden"
         Card.create name: "Hidden+*self+*read", type: "Pointer",
-                    content: "[[Anyone Signed In]]"
+                    content: "Anyone Signed In"
       end
 
       Card::Auth.as(:anonymous) do
@@ -95,7 +95,7 @@ RSpec.describe Card::Set::All::Permissions do
       Card::Auth.as_bot do
         (1..3).map do |num|
           Card.create name: "c#{num}+*self+*update", type: "Pointer",
-                      content: "[[u#{num}]]"
+                      content: "u#{num}"
         end
 
         Card::Cache.renew
@@ -123,7 +123,7 @@ RSpec.describe Card::Set::All::Permissions do
 
         (1..3).each do |num|
           Card.create name: "c#{num}+*self+*read", type: "Pointer",
-                      content: "[[r#{num}]]"
+                      content: "r#{num}"
         end
       end
 
@@ -144,7 +144,7 @@ RSpec.describe Card::Set::All::Permissions do
       Card::Auth.as_bot do
         (1..3).each do |num|
           Card.create name: "c#{num}+*self+*update", type: "Pointer",
-                      content: "[[r#{num}]]"
+                      content: "r#{num}"
         end
 
         @u3.fetch(:roles, new: {}).items = [@r1]
@@ -193,9 +193,9 @@ RSpec.describe Card::Set::All::Permissions do
       before do
         Card::Auth.as_bot do
           Card.create! name: "*structure+*right+*create", type: "Pointer",
-                       content: "[[Anyone Signed In]]"
+                       content: "Anyone Signed In"
           Card.create! name: "*self+*right+*create",      type: "Pointer",
-                       content: "[[Anyone Signed In]]"
+                       content: "Anyone Signed In"
         end
       end
 
@@ -220,7 +220,7 @@ RSpec.describe Card::Set::All::Permissions do
       # set up cards of type TestType, 2 with nil reader, 1 with role1 reader
       Card::Auth.as_bot do
         [@c1, @c2, @c3].each { |c| c.update content: "WeirdWord" }
-        Card.create(name: "c1+*self+*read", type: "Pointer", content: "[[u1]]")
+        Card.create(name: "c1+*self+*read", type: "Pointer", content: "u1")
       end
 
       Card::Auth.as(@u1) do
@@ -237,7 +237,7 @@ RSpec.describe Card::Set::All::Permissions do
       # set up cards of type TestType, 2 with nil reader, 1 with role1 reader
       Card::Auth.as_bot do
         [@c1, @c2, @c3].each { |c| c.update content: "WeirdWord" }
-        Card.create(name: "c1+*self+*read", type: "Pointer", content: "[[r3]]")
+        Card.create(name: "c1+*self+*read", type: "Pointer", content: "r3")
       end
 
       Card::Auth.as(@u1) do
@@ -332,7 +332,7 @@ RSpec.describe Card::Set::All::Permissions do
   it "create read rule as subcard" do
     Card::Auth.as_bot do
       Card.create! name: "read rule test",
-                   subcards: { "+*self+*read" => { content: "[[Administrator]]" } }
+                   subcards: { "+*self+*read" => { content: "Administrator" } }
       expect(Card["read rule test"].read_rule_class)
         .to eq("*self")
       rule_id = "read rule test+*self+*read".card_id
@@ -344,7 +344,7 @@ RSpec.describe Card::Set::All::Permissions do
   describe "cardtypes and permissions" do
     specify "cardtype b has create role r1" do
       expect(Card["Cardtype B+*type+*create"])
-        .to have_db_content("[[r3]]").and have_type(:pointer)
+        .to have_db_content("r3").and have_type(:pointer)
     end
 
     example "changing cardtype needs new cardtype's create permission", with_user: "u2" do

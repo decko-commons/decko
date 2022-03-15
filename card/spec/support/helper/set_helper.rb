@@ -34,12 +34,11 @@ class Card
         with_set create_dynamic_set(&block)
       end
 
-      alias_method :self_set_with, :set_with
-
       # load set into card object
       def with_set set
-        set = include_set_in_test_set(set) if set.abstract_set?
-        singleton_class.send :include, set
+        set.modules.each do |modul|
+          singleton_class.include modul
+        end
         yield set if block_given?
         self
       end
@@ -47,11 +46,9 @@ class Card
       # load set into a card's format object
       def format_with_set set, format_type=:base
         format = format format_type
-        with_set set do |extended_set|
-          format_class = set_format_class(extended_set, format_type)
-          unless format.is_a? format_class
-            format.singleton_class.send :include, format_class
-          end
+        set.format_modules(format_type).each do |modul|
+          next if format.is_a? modul
+          format.singleton_class.include modul
         end
         block_given? ? yield(format) : format
       end
@@ -59,21 +56,6 @@ class Card
       def set_format_class set, format_type
         format_class = Card::Format.format_class_name format_type
         set.const_get format_class
-      end
-
-      def include_set_in_test_set set
-        # rubocop:disable Lint/Eval
-        ::Card::Set::Self.const_remove_if_defined :TestSet
-        eval <<-RUBY
-          class ::Card::Set::Self
-            module TestSet
-              extend Card::Set
-              include_set #{set}
-            end
-          end
-        RUBY
-        ::Card::Set::Self::TestSet
-        # rubocop:enable Lint/Eval
       end
 
       private

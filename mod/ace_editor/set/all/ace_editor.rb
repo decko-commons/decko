@@ -1,3 +1,6 @@
+basket[:list_input_options] << "ace editor"
+basket[:script_config][:ace] = "setAceConfig"
+
 format :html do
   def ace_editor_input
     text_area :content, rows: 5,

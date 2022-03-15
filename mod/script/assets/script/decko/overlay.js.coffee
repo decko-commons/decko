@@ -13,9 +13,6 @@ jQuery.fn.extend
         $("._overlay-origin").removeClass("_overlay-origin")
         @replaceOverlay(overlay)
     else
-      #@find(".tinymce-textarea").each ->
-      #  tinymce.remove("##{$(this).attr("id")}")
-      #  #tinyMCE.execCommand('mceRemoveControl', false, $(this).attr("id"))
       if @parent().hasClass("_overlay-container-placeholder")
         @parent().addClass("overlay-container")
       else

@@ -20,7 +20,7 @@ format :html do
     end
   end
 
-  # overridden in Abstact::Pointer to render dropdown
+  # overridden in Abstract::Items to render dropdown
   view :nav_item do
     wrap_with_nav_item link_view(class: "nav-link")
   end

@@ -30,6 +30,10 @@ class Card
       def find_account_by_api_key api_key
         find_account_by :api_key, api_key.strip
       end
+
+      def api_act?
+        Env.controller&.try(:authenticators)&.values&.compact.present?
+      end
     end
   end
 end

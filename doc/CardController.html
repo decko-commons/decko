@@ -6,7 +6,7 @@
 <title>
   Class: CardController
   
-    &mdash; Documentation by YARD 0.9.26
+    &mdash; Documentation by YARD 0.9.27
   
 </title>
 
@@ -87,6 +87,11 @@
 
   
   
+  <dl>
+      <dt>Extended by:</dt>
+      <dd><span class='object_link'><a href="CardController/Errors/Rescue.html" title="CardController::Errors::Rescue (module)">Errors::Rescue</a></span></dd>
+  </dl>
+  
   
   
   <dl>
@@ -102,7 +107,7 @@
   <dl>
     <dt>Defined in:</dt>
     <dd>decko/lib/card_controller.rb<span class="defines">,<br />
-  decko/lib/card_controller/mark.rb,<br /> decko/lib/card_controller/rest.rb,<br /> decko/lib/card_controller/errors.rb,<br /> decko/lib/card_controller/response.rb,<br /> card-mod-alias/lib/card_controller/aliasing.rb</span>
+  decko/lib/card_controller/mark.rb,<br /> decko/lib/card_controller/rest.rb,<br /> decko/lib/card_controller/errors.rb,<br /> decko/lib/card_controller/response.rb</span>
 </dd>
   </dl>
   
@@ -122,7 +127,7 @@
 <p class="children">
   
     
-      <strong class="modules">Modules:</strong> <span class='object_link'><a href="CardController/Aliasing.html" title="CardController::Aliasing (module)">Aliasing</a></span>, <span class='object_link'><a href="CardController/Errors.html" title="CardController::Errors (module)">Errors</a></span>, <span class='object_link'><a href="CardController/Mark.html" title="CardController::Mark (module)">Mark</a></span>, <span class='object_link'><a href="CardController/Response.html" title="CardController::Response (module)">Response</a></span>, <span class='object_link'><a href="CardController/Rest.html" title="CardController::Rest (module)">Rest</a></span>
+      <strong class="modules">Modules:</strong> <span class='object_link'><a href="CardController/Errors.html" title="CardController::Errors (module)">Errors</a></span>, <span class='object_link'><a href="CardController/Mark.html" title="CardController::Mark (module)">Mark</a></span>, <span class='object_link'><a href="CardController/Response.html" title="CardController::Response (module)">Response</a></span>, <span class='object_link'><a href="CardController/Rest.html" title="CardController::Rest (module)">Rest</a></span>
     
   
     
@@ -168,63 +173,17 @@
 
 
 
-  
-    <h2>
-      Class Method Summary
-      <small><a href="#" class="summary_toggle">collapse</a></small>
-    </h2>
-
-    <ul class="summary">
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#rescue_all%3F-class_method" title="rescue_all? (class method)">.<strong>rescue_all?</strong>  &#x21d2; Boolean </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
 
   
-    <span class="summary_desc"><div class='inline'>
-</div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#rescue_from_class-class_method" title="rescue_from_class (class method)">.<strong>rescue_from_class</strong>(*klasses)  &#x21d2; Object </a>
-    
-
-    
-  </span>
   
   
   
   
   
+  <h2>Method Summary</h2>
   
-  
-
-  
-    <span class="summary_desc"><div class='inline'>
-</div></span>
-  
-</li>
-
-      
-    </ul>
-  
-
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="CardController/Errors/Rescue.html" title="CardController::Errors::Rescue (module)">Errors::Rescue</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="CardController/Errors/Rescue.html#rescue_all%3F-instance_method" title="CardController::Errors::Rescue#rescue_all? (method)">rescue_all?</a></span>, <span class='object_link'><a href="CardController/Errors/Rescue.html#rescue_from_class-instance_method" title="CardController::Errors::Rescue#rescue_from_class (method)">rescue_from_class</a></span></p>
 
   
   
@@ -235,7 +194,7 @@
   
   
   <h3 class="inherited">Methods included from <span class='object_link'><a href="Card/Env/Location.html" title="Card::Env::Location (module)">Card::Env::Location</a></span></h3>
-  <p class="inherited"><span class='object_link'><a href="Card/Env/Location.html#card_path-instance_method" title="Card::Env::Location#card_path (method)">#card_path</a></span>, <span class='object_link'><a href="Card/Env/Location.html#card_url-instance_method" title="Card::Env::Location#card_url (method)">#card_url</a></span>, <span class='object_link'><a href="Card/Env/Location.html#cardname_from_url-instance_method" title="Card::Env::Location#cardname_from_url (method)">#cardname_from_url</a></span>, <span class='object_link'><a href="Card/Env/Location.html#protocol_and_host-instance_method" title="Card::Env::Location#protocol_and_host (method)">#protocol_and_host</a></span></p>
+  <p class="inherited"><span class='object_link'><a href="Card/Env/Location.html#card_path-instance_method" title="Card::Env::Location#card_path (method)">#card_path</a></span>, <span class='object_link'><a href="Card/Env/Location.html#card_url-instance_method" title="Card::Env::Location#card_url (method)">#card_url</a></span>, <span class='object_link'><a href="Card/Env/Location.html#cardname_from_url-instance_method" title="Card::Env::Location#cardname_from_url (method)">#cardname_from_url</a></span>, <span class='object_link'><a href="Card/Env/Location.html#relative_url_root-instance_method" title="Card::Env::Location#relative_url_root (method)">#relative_url_root</a></span></p>
 
   
   
@@ -277,6 +236,7 @@
   
   
   
+  
   <div id="instance_attr_details" class="attr_details">
     <h2>Instance Attribute Details</h2>
     
@@ -307,12 +267,12 @@
       <pre class="lines">
 
 
-17
 18
-19</pre>
+19
+20</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decko/lib/card_controller.rb', line 17</span>
+      <pre class="code"><span class="info file"># File 'decko/lib/card_controller.rb', line 18</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_card'>card</span>
   <span class='ivar'>@card</span>
@@ -325,105 +285,12 @@
   </div>
 
 
-  <div id="class_method_details" class="method_details_list">
-    <h2>Class Method Details</h2>
-
-    
-      <div class="method_details first">
-  <h3 class="signature first" id="rescue_all?-class_method">
-  
-    .<strong>rescue_all?</strong>  &#x21d2; <tt>Boolean</tt> 
-  
-
-  
-
-  
-</h3><div class="docstring">
-  <div class="discussion">
-    
-
-
-  </div>
-</div>
-<div class="tags">
-  
-<p class="tag_title">Returns:</p>
-<ul class="return">
-  
-    <li>
-      
-      
-        <span class='type'>(<tt>Boolean</tt>)</span>
-      
-      
-      
-    </li>
-  
-</ul>
-
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-10
-11
-12</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'decko/lib/card_controller/errors.rb', line 10</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_rescue_all?'>rescue_all?</span>
-  <span class='const'><span class='object_link'><a href="Cardio.html" title="Cardio (module)">Cardio</a></span></span><span class='period'>.</span><span class='id identifier rubyid_config'>config</span><span class='period'>.</span><span class='id identifier rubyid_rescue_all_in_controller'>rescue_all_in_controller</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="rescue_from_class-class_method">
-  
-    .<strong>rescue_from_class</strong>(*klasses)  &#x21d2; <tt><span class='object_link'><a href="Object.html" title="Object (class)">Object</a></span></tt> 
-  
-
-  
-
-  
-</h3><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-4
-5
-6
-7
-8</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'decko/lib/card_controller/errors.rb', line 4</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_rescue_from_class'>rescue_from_class</span> <span class='op'>*</span><span class='id identifier rubyid_klasses'>klasses</span>
-  <span class='id identifier rubyid_klasses'>klasses</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_klass'>klass</span><span class='op'>|</span>
-    <span class='id identifier rubyid_rescue_from'>rescue_from</span><span class='lparen'>(</span><span class='id identifier rubyid_klass'>klass</span><span class='rparen'>)</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_exception'>exception</span><span class='op'>|</span> <span class='id identifier rubyid_handle_exception'>handle_exception</span> <span class='id identifier rubyid_exception'>exception</span> <span class='rbrace'>}</span>
-  <span class='kw'>end</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-  </div>
-
 </div>
 
       <div id="footer">
-  Generated on Thu May 13 17:17:43 2021 by
+  Generated on Fri Jan 21 16:01:47 2022 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.26 (ruby-2.7.2).
+  0.9.27 (ruby-3.0.1).
 </div>
 
     </div>

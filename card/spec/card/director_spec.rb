@@ -187,7 +187,7 @@ RSpec.describe "Card::Director" do
       def define_test_event stage, subcard
         test_event stage, on: :create do
           yield name
-          add_subcard "112v" if subcard && name == "11"
+          subcard "112v" if subcard && name == "11"
         end
       end
 
@@ -274,8 +274,8 @@ RSpec.describe "Card::Director" do
     it "load type_plus_right set module", as_bot: true do
       in_stage :prepare_to_validate, on: :create, for: "single card",
                                      trigger: :create_single_card do
-        u_card = attach_subfield "a user", type_id: Card::UserID
-        f_card = u_card.attach_subfield "*follow"
+        u_card = subfield "a user", type_id: Card::UserID
+        f_card = u_card.subfield "*follow"
         expect(f_card.set_modules).to include(Card::Set::TypePlusRight::User::Follow)
       end
     end
@@ -290,7 +290,7 @@ RSpec.describe "Card::Director" do
                                   trigger: -> { Card.create! name: "main" } do
         case name
         when "main"
-          add_subcard "subby", "+sub2" => { subcards: { "AARGH" => { "+sub4" => "hi" } } }
+          subcard "subby", "+sub2" => { subcards: { "AARGH" => { "+sub4" => "hi" } } }
           expect(test).not_to be_sub(director)
         when "subby+sub2"
           expect(test).to be_sub(director)

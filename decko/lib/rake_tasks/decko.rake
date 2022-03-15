@@ -94,13 +94,15 @@ decko_namespace = namespace :decko do
       decko_namespace["migrate"].invoke
       decko_namespace["reset_tmp"].invoke
       Card::Cache.reset_all
+      Rake::Task["card:mod:uninstall"].invoke
       Rake::Task["card:mod:install"].invoke
       Rake::Task["card:mod:symlink"].invoke
     end
   end
 
-  alias_task "mod:symlink", "card:mod:symlink"
-  alias_task "mod:install", "card:mod:install"
+  %i[list symlink missing uninstall install].each do |task|
+    alias_task "mod:#{task}", "card:mod:#{task}"
+  end
   alias_task :migrate, "card:migrate"
 
   desc "insert existing card migrations into schema_migrations_cards " \
@@ -112,8 +114,7 @@ decko_namespace = namespace :decko do
 
   def seed with_cache_reset: true
     ENV["SCHEMA"] ||= "#{Cardio.gem_root}/db/schema.rb"
-    # FIXME: this should be an option, but should not happen on standard
-    # creates!
+    # FIXME: this should be an option, but should not happen on standard creates!
     begin
       Rake::Task["db:drop"].invoke
     rescue StandardError

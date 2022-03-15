@@ -23,7 +23,7 @@ RSpec.describe Card::Subcards::All do
         it "processes all cards in one transaction" do
           with_test_events do
             test_event :validate, on: :create, for: "main card" do
-              add_subcard("sub card")
+              subcard("sub card")
             end
 
             test_event :finalize, on: :create, for: "main card" do
@@ -44,8 +44,7 @@ RSpec.describe Card::Subcards::All do
           it "director.delay! processes subcards in separate transaction" do
             with_test_events do
               test_event :validate, on: :create, for: "main card" do
-                sc = add_subcard("sub card")
-                sc.director.delay!
+                subcard("sub card").director.delay!
               end
 
               test_event :finalize, on: :create, for: "main card" do
@@ -78,7 +77,7 @@ RSpec.describe Card::Subcards::All do
           with_test_events do
             test_event :integrate_with_delay, on: :create, for: "main card" do
               Card.create! name: "sub create card"
-              add_subcard("sub card")
+              subcard "sub card"
             end
 
             test_event :finalize, on: :create, for: "main card" do

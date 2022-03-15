@@ -1,6 +1,6 @@
 FOLLOWER_IDS_CACHE_KEY = "FOLLOWER_IDS".freeze
 
-card_accessor :followers
+card_accessor :followers, type: :list
 
 event :cache_expired_for_type_change, :store, on: :update, changed: %i[type_id name] do
   act_card&.schedule_preference_expiration

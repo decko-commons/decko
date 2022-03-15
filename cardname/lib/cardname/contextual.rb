@@ -34,7 +34,8 @@ class Cardname
       name_from(*from).s
     end
 
-    # if possible, relativize name into one beginning with a "+".  The new name must absolutize back to the correct
+    # if possible, relativize name into one beginning with a "+".
+    # The new name must absolutize back to the correct
     # original name in the context of "from"
     def name_from *from
       return self unless (remaining = remove_context(*from))

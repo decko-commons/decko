@@ -1,8 +1,10 @@
 include_set Abstract::AccountField
 include_set Abstract::Pointer
 
-def input_type
-  :radio
+format :html do
+  def input_type
+    :radio
+  end
 end
 
 def option_names

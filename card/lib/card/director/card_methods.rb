@@ -12,7 +12,6 @@ class Card
 
       def prepare_for_phases
         reset_patterns
-        identify_action
         include_set_modules
       end
 

@@ -1,8 +1,6 @@
 RSpec.shared_context "json context", shared_context: :json do
-  before do
-    Card::Env[:host] = "json.com"
-    Card::Env[:protocol] = "http://"
-  end
+  before { Card.config.deck_origin = "http://json.com" }
+  after { Card.config.deck_origin = nil }
 
   let(:root) { "http://json.com" }
 

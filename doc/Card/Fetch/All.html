@@ -6,7 +6,7 @@
 <title>
   Module: Card::Fetch::All
   
-    &mdash; Documentation by YARD 0.9.26
+    &mdash; Documentation by YARD 0.9.27
   
 </title>
 
@@ -116,7 +116,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#fetch-instance_method" title="#fetch (instance method)">#<strong>fetch</strong>(traits, opts = {})  &#x21d2; Object </a>
+      <a href="#fetch-instance_method" title="#fetch (instance method)">#<strong>fetch</strong>(field_marks, opts = {})  &#x21d2; Object </a>
     
 
     
@@ -194,7 +194,7 @@
       <div class="method_details first">
   <h3 class="signature first" id="fetch-instance_method">
   
-    #<strong>fetch</strong>(traits, opts = {})  &#x21d2; <tt><span class='object_link'><a href="../../Object.html" title="Object (class)">Object</a></span></tt> 
+    #<strong>fetch</strong>(field_marks, opts = {})  &#x21d2; <tt><span class='object_link'><a href="../../Object.html" title="Object (class)">Object</a></span></tt> 
   
 
   
@@ -226,10 +226,10 @@
     <td>
       <pre class="code"><span class="info file"># File 'card/lib/card/fetch/all.rb', line 6</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_fetch'>fetch</span> <span class='id identifier rubyid_traits'>traits</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_fetch'>fetch</span> <span class='id identifier rubyid_field_marks'>field_marks</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span>
   <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:new</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='symbol'>:supercard</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='kw'>self</span> <span class='kw'>if</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:new</span><span class='rbracket'>]</span>
-  <span class='const'>Array</span><span class='period'>.</span><span class='id identifier rubyid_wrap'>wrap</span><span class='lparen'>(</span><span class='id identifier rubyid_traits'>traits</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_inject'>inject</span><span class='lparen'>(</span><span class='kw'>self</span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_card'>card</span><span class='comma'>,</span> <span class='id identifier rubyid_trait'>trait</span><span class='op'>|</span>
-    <span class='const'><span class='object_link'><a href="../../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_fetch'><span class='object_link'><a href="CardClass.html#fetch-instance_method" title="Card::Fetch::CardClass#fetch (method)">fetch</a></span></span> <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span><span class='period'>.</span><span class='id identifier rubyid_trait'>trait</span><span class='lparen'>(</span><span class='id identifier rubyid_trait'>trait</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span>
+  <span class='const'>Array</span><span class='period'>.</span><span class='id identifier rubyid_wrap'>wrap</span><span class='lparen'>(</span><span class='id identifier rubyid_field_marks'>field_marks</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_inject'>inject</span><span class='lparen'>(</span><span class='kw'>self</span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_card'>card</span><span class='comma'>,</span> <span class='id identifier rubyid_mark'>mark</span><span class='op'>|</span>
+    <span class='const'><span class='object_link'><a href="../../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_fetch'><span class='object_link'><a href="CardClass.html#fetch-instance_method" title="Card::Fetch::CardClass#fetch (method)">fetch</a></span></span> <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span><span class='period'>.</span><span class='id identifier rubyid_field'>field</span><span class='lparen'>(</span><span class='id identifier rubyid_mark'>mark</span><span class='period'>.</span><span class='id identifier rubyid_cardname'>cardname</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span>
   <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -324,9 +324,9 @@
 </div>
 
       <div id="footer">
-  Generated on Thu May 13 17:17:15 2021 by
+  Generated on Fri Jan 21 16:01:40 2022 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.26 (ruby-2.7.2).
+  0.9.27 (ruby-3.0.1).
 </div>
 
     </div>

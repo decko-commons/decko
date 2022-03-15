@@ -6,7 +6,7 @@
 <title>
   Class: Card::Reference
   
-    &mdash; Documentation by YARD 0.9.26
+    &mdash; Documentation by YARD 0.9.27
   
 </title>
 
@@ -69,14 +69,14 @@
   <dl>
     <dt>Inherits:</dt>
     <dd>
-      <span class="inheritName"><span class='object_link'><a href="../ApplicationRecord.html" title="ApplicationRecord (class)">ApplicationRecord</a></span></span>
+      <span class="inheritName"><span class='object_link'><a href="../Cardio/Record.html" title="Cardio::Record (class)">Cardio::Record</a></span></span>
       
         <ul class="fullTree">
           <li><span class='object_link'><a href="../Object.html" title="Object (class)">Object</a></span></li>
           
             <li class="next">ActiveRecord::Base</li>
           
-            <li class="next"><span class='object_link'><a href="../ApplicationRecord.html" title="ApplicationRecord (class)">ApplicationRecord</a></span></li>
+            <li class="next"><span class='object_link'><a href="../Cardio/Record.html" title="Cardio::Record (class)">Cardio::Record</a></span></li>
           
             <li class="next">Card::Reference</li>
           
@@ -99,7 +99,7 @@
   <dl>
     <dt>Defined in:</dt>
     <dd>card/lib/card/reference.rb<span class="defines">,<br />
-  card/lib/card/reference/all.rb,<br /> card-mod-tinymce_editor/lib/card/reference/nest_parser.rb</span>
+  card/lib/card/reference/all.rb</span>
 </dd>
   </dl>
   
@@ -116,19 +116,13 @@ to another (the referee).</p>
 <div class="tags">
   
 
-</div><div id="subclasses">
-  <h2>Direct Known Subclasses</h2>
-  <p class="children"><span class='object_link'><a href="Content/Chunk/Nest.html" title="Card::Content::Chunk::Nest (class)">Content::Chunk::Nest</a></span></p>
-</div>
-<h2>Defined Under Namespace</h2>
+</div><h2>Defined Under Namespace</h2>
 <p class="children">
   
     
       <strong class="modules">Modules:</strong> <span class='object_link'><a href="Reference/All.html" title="Card::Reference::All (module)">All</a></span>
     
   
-    
-      <strong class="classes">Classes:</strong> <span class='object_link'><a href="Reference/NestParser.html" title="Card::Reference::NestParser (class)">NestParser</a></span>
     
   
 </p>
@@ -150,7 +144,7 @@ to another (the referee).</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#delete_if_referer_missing-class_method" title="delete_if_referer_missing (class method)">.<strong>delete_if_referer_missing</strong>  &#x21d2; Object </a>
+      <a href="#clean-class_method" title="clean (class method)">.<strong>clean</strong>  &#x21d2; Object </a>
     
 
     
@@ -164,7 +158,7 @@ to another (the referee).</p>
   
 
   
-    <span class="summary_desc"><div class='inline'><p>remove all references from missing (eg deleted) cards.</p>
+    <span class="summary_desc"><div class='inline'><p>remove reference to and from missing cards.</p>
 </div></span>
   
 </li>
@@ -265,29 +259,6 @@ to another (the referee).</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#unmap_if_referee_missing-class_method" title="unmap_if_referee_missing (class method)">.<strong>unmap_if_referee_missing</strong>  &#x21d2; Object </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'><p>find all references to missing (eg deleted) cards and reset them.</p>
-</div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
       <a href="#unmap_referees-class_method" title="unmap_referees (class method)">.<strong>unmap_referees</strong>(referee_id)  &#x21d2; Object </a>
     
 
@@ -380,9 +351,9 @@ to another (the referee).</p>
 
     
       <div class="method_details first">
-  <h3 class="signature first" id="delete_if_referer_missing-class_method">
+  <h3 class="signature first" id="clean-class_method">
   
-    .<strong>delete_if_referer_missing</strong>  &#x21d2; <tt><span class='object_link'><a href="../Object.html" title="Object (class)">Object</a></span></tt> 
+    .<strong>clean</strong>  &#x21d2; <tt><span class='object_link'><a href="../Object.html" title="Object (class)">Object</a></span></tt> 
   
 
   
@@ -390,7 +361,7 @@ to another (the referee).</p>
   
 </h3><div class="docstring">
   <div class="discussion">
-    <p>remove all references from missing (eg deleted) cards</p>
+    <p>remove reference to and from missing cards</p>
 
 
   </div>
@@ -404,29 +375,23 @@ to another (the referee).</p>
       <pre class="lines">
 
 
+35
+36
+37
+38
+39
 40
 41
-42
-43
-44
-45
-46
-47
-48
-49
-50</pre>
+42</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/reference.rb', line 40</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/reference.rb', line 35</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_delete_if_referer_missing'>delete_if_referer_missing</span>
-  <span class='id identifier rubyid_joins'>joins</span><span class='lparen'>(</span>
-    <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>LEFT JOIN cards ON card_references.referer_id = cards.id</span><span class='tstring_end'>&quot;</span></span>
-  <span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_where'>where</span><span class='lparen'>(</span>
-    <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>cards.id IS NULL</span><span class='tstring_end'>&quot;</span></span>
-  <span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_pluck_in_batches'>pluck_in_batches</span><span class='lparen'>(</span><span class='symbol'>:id</span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_group_ids'>group_ids</span><span class='op'>|</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_clean'>clean</span>
+  <span class='id identifier rubyid_missing'>missing</span><span class='lparen'>(</span><span class='symbol'>:referee_id</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_where'>where</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>referee_id IS NOT NULL</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_update_all'>update_all</span> <span class='label'>referee_id:</span> <span class='kw'>nil</span>
+  <span class='id identifier rubyid_missing'>missing</span><span class='lparen'>(</span><span class='symbol'>:referer_id</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_pluck_in_batches'>pluck_in_batches</span><span class='lparen'>(</span><span class='symbol'>:id</span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_group_ids'>group_ids</span><span class='op'>|</span>
     <span class='comment'># used to be .delete_all here, but that was failing on large dbs
-</span>    <span class='const'>Rails</span><span class='period'>.</span><span class='id identifier rubyid_logger'>logger</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>deleting batch of references</span><span class='tstring_end'>&quot;</span></span>
+</span>    <span class='const'><span class='object_link'><a href="../Rails.html" title="Rails (module)">Rails</a></span></span><span class='period'>.</span><span class='id identifier rubyid_logger'>logger</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>deleting batch of references</span><span class='tstring_end'>&quot;</span></span>
     <span class='id identifier rubyid_where'>where</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>id in (</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_group_ids'>group_ids</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>,</span><span class='tstring_end'>&#39;</span></span><span class='embexpr_end'>}</span><span class='tstring_content'>)</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_delete_all'>delete_all</span>
   <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
@@ -460,12 +425,12 @@ to another (the referee).</p>
       <pre class="lines">
 
 
-21
-22
-23</pre>
+25
+26
+27</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/reference.rb', line 21</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/reference.rb', line 25</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_map_referees'>map_referees</span> <span class='id identifier rubyid_referee_key'>referee_key</span><span class='comma'>,</span> <span class='id identifier rubyid_referee_id'>referee_id</span>
   <span class='id identifier rubyid_where'>where</span><span class='lparen'>(</span><span class='label'>referee_key:</span> <span class='id identifier rubyid_referee_key'>referee_key</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_update_all'>update_all</span> <span class='label'>referee_id:</span> <span class='id identifier rubyid_referee_id'>referee_id</span>
@@ -501,27 +466,15 @@ array takes form [ [referer_id, referee_id, referee_key, ref_type], …]</p>
       <pre class="lines">
 
 
-10
-11
-12
-13
-14
-15
-16
-17
-18</pre>
+20
+21
+22</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/reference.rb', line 10</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/reference.rb', line 20</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_mass_insert'>mass_insert</span> <span class='id identifier rubyid_array'>array</span>
-  <span class='kw'>return</span> <span class='kw'>if</span> <span class='id identifier rubyid_array'>array</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span>
-
-  <span class='id identifier rubyid_value_statements'>value_statements</span> <span class='op'>=</span> <span class='id identifier rubyid_array'>array</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_values'>values</span><span class='op'>|</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>\n(</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_values'>values</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>, </span><span class='tstring_end'>&#39;</span></span><span class='embexpr_end'>}</span><span class='tstring_content'>)</span><span class='tstring_end'>&quot;</span></span> <span class='rbrace'>}</span>
-  <span class='id identifier rubyid_sql'>sql</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>INSERT into card_references </span><span class='tstring_end'>&quot;</span></span>\
-        <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>(referer_id, referee_id, referee_key, ref_type) </span><span class='tstring_end'>&quot;</span></span>\
-        <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>VALUES </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_value_statements'>value_statements</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>, </span><span class='tstring_end'>&#39;</span></span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
-  <span class='const'><span class='object_link'><a href="../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_connection'>connection</span><span class='period'>.</span><span class='id identifier rubyid_execute'>execute</span> <span class='id identifier rubyid_sql'>sql</span>
+  <span class='const'><span class='object_link'><a href="../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_connection'>connection</span><span class='period'>.</span><span class='id identifier rubyid_execute'>execute</span> <span class='id identifier rubyid_mass_insert_sql'>mass_insert_sql</span><span class='lparen'>(</span><span class='id identifier rubyid_array'>array</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='id identifier rubyid_array'>array</span><span class='period'>.</span><span class='id identifier rubyid_present?'>present?</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -554,25 +507,17 @@ faster than #repair_all, but not recommended for use on running sites</p>
       <pre class="lines">
 
 
-65
-66
-67
-68
-69
-70
-71
-72</pre>
+53
+54
+55
+56</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/reference.rb', line 65</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/reference.rb', line 53</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_recreate_all'>recreate_all</span>
   <span class='id identifier rubyid_delete_all'>delete_all</span>
-  <span class='const'><span class='object_link'><a href="../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_where'>where</span><span class='lparen'>(</span><span class='label'>trash:</span> <span class='kw'>false</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_find_each'>find_each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_card'>card</span><span class='op'>|</span>
-    <span class='const'>Rails</span><span class='period'>.</span><span class='id identifier rubyid_logger'>logger</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>updating references from </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_card'>card</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
-    <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_include_set_modules'>include_set_modules</span>
-    <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_create_references_out'>create_references_out</span>
-  <span class='kw'>end</span>
+  <span class='id identifier rubyid_each_card'>each_card</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='symbol'>:create_references_out</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -605,73 +550,17 @@ slower, but better than #recreate_all for use on running sites</p>
       <pre class="lines">
 
 
-54
-55
-56
-57
-58
-59
-60
-61</pre>
+46
+47
+48
+49</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/reference.rb', line 54</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/reference.rb', line 46</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_repair_all'>repair_all</span>
-  <span class='id identifier rubyid_delete_if_referer_missing'>delete_if_referer_missing</span>
-  <span class='const'><span class='object_link'><a href="../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_where'>where</span><span class='lparen'>(</span><span class='label'>trash:</span> <span class='kw'>false</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_find_each'>find_each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_card'>card</span><span class='op'>|</span>
-    <span class='const'>Rails</span><span class='period'>.</span><span class='id identifier rubyid_logger'>logger</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>updating references from </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_card'>card</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
-    <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_include_set_modules'>include_set_modules</span>
-    <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_update_references_out'>update_references_out</span>
-  <span class='kw'>end</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="unmap_if_referee_missing-class_method">
-  
-    .<strong>unmap_if_referee_missing</strong>  &#x21d2; <tt><span class='object_link'><a href="../Object.html" title="Object (class)">Object</a></span></tt> 
-  
-
-  
-
-  
-</h3><div class="docstring">
-  <div class="discussion">
-    <p>find all references to missing (eg deleted) cards and reset them</p>
-
-
-  </div>
-</div>
-<div class="tags">
-  
-
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-31
-32
-33
-34
-35
-36
-37</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/reference.rb', line 31</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_unmap_if_referee_missing'>unmap_if_referee_missing</span>
-  <span class='id identifier rubyid_joins'>joins</span><span class='lparen'>(</span>
-    <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>LEFT JOIN cards ON card_references.referee_id = cards.id</span><span class='tstring_end'>&quot;</span></span>
-  <span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_where'>where</span><span class='lparen'>(</span>
-    <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>(cards.id IS NULL OR cards.trash IS TRUE) AND referee_id IS NOT NULL</span><span class='tstring_end'>&quot;</span></span>
-  <span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_update_all'>update_all</span> <span class='label'>referee_id:</span> <span class='kw'>nil</span>
+  <span class='id identifier rubyid_clean'>clean</span>
+  <span class='id identifier rubyid_each_card'>each_card</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='symbol'>:update_references_out</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -703,12 +592,12 @@ slower, but better than #recreate_all for use on running sites</p>
       <pre class="lines">
 
 
-26
-27
-28</pre>
+30
+31
+32</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/reference.rb', line 26</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/reference.rb', line 30</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_unmap_referees'>unmap_referees</span> <span class='id identifier rubyid_referee_id'>referee_id</span>
   <span class='id identifier rubyid_where'>where</span><span class='lparen'>(</span><span class='label'>referee_id:</span> <span class='id identifier rubyid_referee_id'>referee_id</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_update_all'>update_all</span> <span class='label'>referee_id:</span> <span class='kw'>nil</span>
@@ -749,12 +638,12 @@ slower, but better than #recreate_all for use on running sites</p>
       <pre class="lines">
 
 
-81
-82
-83</pre>
+13
+14
+15</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/reference.rb', line 81</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/reference.rb', line 13</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_referee'>referee</span>
   <span class='const'><span class='object_link'><a href="../Card.html" title="Card (class)">Card</a></span></span><span class='lbracket'>[</span><span class='id identifier rubyid_referee_id'>referee_id</span><span class='rbracket'>]</span>
@@ -789,12 +678,12 @@ slower, but better than #recreate_all for use on running sites</p>
       <pre class="lines">
 
 
-76
-77
-78</pre>
+8
+9
+10</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/reference.rb', line 76</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/reference.rb', line 8</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_referer'>referer</span>
   <span class='const'><span class='object_link'><a href="../Card.html" title="Card (class)">Card</a></span></span><span class='lbracket'>[</span><span class='id identifier rubyid_referer_id'>referer_id</span><span class='rbracket'>]</span>
@@ -809,9 +698,9 @@ slower, but better than #recreate_all for use on running sites</p>
 </div>
 
       <div id="footer">
-  Generated on Thu May 13 17:17:43 2021 by
+  Generated on Fri Jan 21 16:01:46 2022 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.26 (ruby-2.7.2).
+  0.9.27 (ruby-3.0.1).
 </div>
 
     </div>

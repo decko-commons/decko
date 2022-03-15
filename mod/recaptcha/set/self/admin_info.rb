@@ -22,6 +22,6 @@ format :html do
   end
 
   def add_recaptcha_keys_link
-    Card[:recaptcha_settings]&.format&.edit_link link_text: t(:recaptcha_captcha_keys)
+    Card[:recaptcha_settings]&.format&.edit_link link_text: t(:recaptcha_link_text)
   end
 end

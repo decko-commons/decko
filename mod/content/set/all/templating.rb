@@ -1,13 +1,13 @@
 def is_template?
   return @is_template unless @is_template.nil?
 
-  @is_template = name.trait_name? :structure, :default
+  @is_template = name.right_name&.codename&.in? %i[structure default]
 end
 
 def is_structure?
   return @is_structure unless @is_structure.nil?
 
-  @is_structure = name.trait_name? :structure
+  @is_structure = name.right_name&.codename == :structure
 end
 
 def template
@@ -22,31 +22,6 @@ def template
       structure_rule_card
     end
   end
-end
-
-def default_type_id
-  Card.default_type_id
-end
-
-def new_card_template
-  default = rule_card :default, skip_modules: true
-  return default unless (structure = dup_structure default&.type_id)
-
-  @virtual = true if compound?
-  self.type_id = structure.type_id if assign_type_to?(structure)
-  structure
-end
-
-def dup_structure type_id
-  dup_card = dup
-  dup_card.type_id = type_id || default_type_id
-  dup_card.structure_rule_card
-end
-
-def assign_type_to? structure
-  return if type_id == structure.type_id
-
-  structure.assigns_type?
 end
 
 def assigns_type?
@@ -67,4 +42,25 @@ def structure_rule_card
   return unless (card = rule_card :structure, skip_modules: true)
 
   card.db_content&.strip == "_self" ? nil : card
+end
+
+private
+
+def new_card_template
+  default = rule_card :default, skip_modules: true
+  return default unless (structure = dup_structure default&.type_id)
+
+  @virtual = true if compound?
+  self.type_id = structure.type_id if assign_type_to?(structure)
+  structure
+end
+
+def dup_structure type_id
+  dup_card = dup
+  dup_card.type_id = type_id || Card.default_type_id
+  dup_card.structure_rule_card
+end
+
+def assign_type_to? structure
+  type_id == structure.type_id && structure.assigns_type?
 end

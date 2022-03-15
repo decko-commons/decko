@@ -1,6 +1,9 @@
 class Card
   module Set
     class Type < Pattern::Base
+      cattr_accessor :assignment
+      self.assignment = {}
+
       def initialize card
         super
         # support type inheritance

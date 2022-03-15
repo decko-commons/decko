@@ -140,6 +140,7 @@ class Card < Cardio::Record
   has_many :drafts, -> { where(draft: true).order :id }, class_name: :Action
 
   cattr_accessor :action_specific_attributes, :set_specific_attributes
+  alias_method :card_id, :id
 
   class << self
     delegate :config, :paths, to: Cardio

@@ -6,7 +6,7 @@ AllCops:
     - "card/db/schema.rb"
     - "mod/*/{lib,assets}/{style,stylesheets}/*.css"
     - "mod/*/{lib,assets}/{script,javascript}/*.js"
-    - "mod/*/{file,public,vendor}/**/*"
+    - "mod/*/{data/files,public,vendor}/**/*"
 
 Layout/DotPosition:
   EnforcedStyle: leading

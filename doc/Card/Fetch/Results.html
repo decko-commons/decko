@@ -6,7 +6,7 @@
 <title>
   Module: Card::Fetch::Results
   
-    &mdash; Documentation by YARD 0.9.26
+    &mdash; Documentation by YARD 0.9.27
   
 </title>
 
@@ -116,7 +116,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#assign_name_from_mark-instance_method" title="#assign_name_from_mark (instance method)">#<strong>assign_name_from_mark</strong>  &#x21d2; Object </a>
+      <a href="#assign_name-instance_method" title="#assign_name (instance method)">#<strong>assign_name</strong>(requested)  &#x21d2; Object </a>
     
 
     
@@ -537,9 +537,9 @@
 
     
       <div class="method_details first">
-  <h3 class="signature first" id="assign_name_from_mark-instance_method">
+  <h3 class="signature first" id="assign_name-instance_method">
   
-    #<strong>assign_name_from_mark</strong>  &#x21d2; <tt><span class='object_link'><a href="../../Object.html" title="Object (class)">Object</a></span></tt> 
+    #<strong>assign_name</strong>(requested)  &#x21d2; <tt><span class='object_link'><a href="../../Object.html" title="Object (class)">Object</a></span></tt> 
   
 
   
@@ -561,11 +561,11 @@
     <td>
       <pre class="code"><span class="info file"># File 'card/lib/card/fetch/results.rb', line 126</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_assign_name_from_mark'>assign_name_from_mark</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_assign_name'>assign_name</span> <span class='id identifier rubyid_requested'>requested</span>
   <span class='kw'>return</span> <span class='kw'>if</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:local_only</span><span class='rbracket'>]</span>
-  <span class='kw'>return</span> <span class='kw'>unless</span> <span class='id identifier rubyid_mark'>mark</span><span class='op'>&amp;.</span><span class='id identifier rubyid_to_s'>to_s</span> <span class='op'>!=</span> <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span>
+  <span class='kw'>return</span> <span class='kw'>unless</span> <span class='id identifier rubyid_requested'>requested</span><span class='op'>&amp;.</span><span class='id identifier rubyid_to_s'>to_s</span> <span class='op'>!=</span> <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span>
 
-  <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span> <span class='op'>=</span> <span class='id identifier rubyid_mark'>mark</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span>
+  <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span> <span class='op'>=</span> <span class='id identifier rubyid_requested'>requested</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -924,9 +924,9 @@
 <span class='kw'>def</span> <span class='id identifier rubyid_quick_renew'>quick_renew</span>
   <span class='kw'>return</span> <span class='kw'>false</span> <span class='kw'>unless</span> <span class='id identifier rubyid_quick_renew?'>quick_renew?</span>
 
-  <span class='comment'># Rails.logger.info &quot;QUICK renewing: #{mark}, #{new_opts}&quot;
-</span>  <span class='id identifier rubyid_update_supercard'>update_supercard</span>
-  <span class='id identifier rubyid_assign_name_from_mark'>assign_name_from_mark</span>
+  <span class='id identifier rubyid_update_supercard'>update_supercard</span>
+  <span class='id identifier rubyid_opts_name'>opts_name</span> <span class='op'>=</span> <span class='id identifier rubyid_new_opts'>new_opts</span><span class='lbracket'>[</span><span class='symbol'>:name</span><span class='rbracket'>]</span>
+  <span class='id identifier rubyid_assign_name'>assign_name</span><span class='lparen'>(</span><span class='id identifier rubyid_opts_name'>opts_name</span><span class='period'>.</span><span class='id identifier rubyid_present?'>present?</span> <span class='op'>?</span> <span class='id identifier rubyid_opts_name'>opts_name</span> <span class='op'>:</span> <span class='id identifier rubyid_mark'>mark</span><span class='rparen'>)</span>
   <span class='kw'>true</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -1119,7 +1119,7 @@
 <span class='kw'>def</span> <span class='id identifier rubyid_supercard_might_change_type?'>supercard_might_change_type?</span>
   <span class='comment'># ...via type_plus_right rule
 </span>  <span class='id identifier rubyid_sc'>sc</span> <span class='op'>=</span> <span class='id identifier rubyid_new_opts'>new_opts</span><span class='lbracket'>[</span><span class='symbol'>:supercard</span><span class='rbracket'>]</span>
-  <span class='ivar'>@force_type_lookup</span> <span class='op'>=</span> <span class='id identifier rubyid_sc'>sc</span><span class='op'>&amp;.</span><span class='id identifier rubyid_new?'>new?</span> <span class='op'>&amp;&amp;</span> <span class='lparen'>(</span><span class='id identifier rubyid_sc'>sc</span><span class='period'>.</span><span class='id identifier rubyid_type_id'>type_id</span> <span class='op'>!=</span> <span class='id identifier rubyid_sc'>sc</span><span class='period'>.</span><span class='id identifier rubyid_default_type_id'>default_type_id</span><span class='rparen'>)</span>
+  <span class='ivar'>@force_type_lookup</span> <span class='op'>=</span> <span class='id identifier rubyid_sc'>sc</span><span class='op'>&amp;.</span><span class='id identifier rubyid_new?'>new?</span> <span class='op'>&amp;&amp;</span> <span class='lparen'>(</span><span class='id identifier rubyid_sc'>sc</span><span class='period'>.</span><span class='id identifier rubyid_type_id'>type_id</span> <span class='op'>!=</span> <span class='const'><span class='object_link'><a href="../../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_default_type_id'>default_type_id</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1250,7 +1250,7 @@
   <span class='kw'>return</span> <span class='kw'>unless</span> <span class='lparen'>(</span><span class='id identifier rubyid_sc'>sc</span> <span class='op'>=</span> <span class='id identifier rubyid_new_opts'>new_opts</span><span class='lbracket'>[</span><span class='symbol'>:supercard</span><span class='rbracket'>]</span><span class='rparen'>)</span>
 
   <span class='ivar'>@card</span><span class='period'>.</span><span class='id identifier rubyid_supercard'>supercard</span> <span class='op'>=</span> <span class='id identifier rubyid_sc'>sc</span>
-  <span class='ivar'>@card</span><span class='period'>.</span><span class='id identifier rubyid_update_superleft'>update_superleft</span> <span class='ivar'>@card</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span>
+  <span class='ivar'>@card</span><span class='period'>.</span><span class='id identifier rubyid_update_superleft'>update_superleft</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1292,7 +1292,7 @@
   <span class='kw'>elsif</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:skip_virtual</span><span class='rbracket'>]</span>
     <span class='kw'>return</span> <span class='kw'>nil</span>
   <span class='kw'>else</span>
-    <span class='id identifier rubyid_assign_name_from_mark'>assign_name_from_mark</span>
+    <span class='id identifier rubyid_assign_name'>assign_name</span> <span class='id identifier rubyid_mark'>mark</span>
   <span class='kw'>end</span>
   <span class='kw'>yield</span>
 <span class='kw'>end</span></pre>
@@ -1306,9 +1306,9 @@
 </div>
 
       <div id="footer">
-  Generated on Thu May 13 17:17:16 2021 by
+  Generated on Fri Jan 21 16:01:41 2022 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.26 (ruby-2.7.2).
+  0.9.27 (ruby-3.0.1).
 </div>
 
     </div>

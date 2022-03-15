@@ -12,18 +12,18 @@ RSpec.describe Card::Format::HtmlFormat do
 
     specify "nests in multi edit" do
       expect(view(:edit, card: { type: "Book" })).to have_tag "fieldset" do
-        have_tag 'div[class~="prosemirror-editor"]' do
-          have_tag "input[name=?]", name: "card[subcards][+illustrator][content]"
+        with_tag "div.content-editor" do
+          with_tag "textarea", name: "card[subcards][+illustrator][content]"
         end
       end
     end
 
     specify "titled" do
       expect(view(:titled, card: "A+B")).to have_tag 'div[class~="titled-view"]' do
-        have_tag 'div[class~="d0-card-header"]' do
-          have_tag 'span[class~="card-title"]'
+        with_tag 'div[class~="d0-card-header"]' do
+          with_tag 'span[class~="card-title"]'
         end
-        have_tag 'div[class~="d0-card-body d0-card-content"]', "AlphaBeta"
+        with_tag 'div[class~="d0-card-body d0-card-content"]', "AlphaBeta"
       end
     end
 

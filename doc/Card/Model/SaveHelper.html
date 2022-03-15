@@ -6,7 +6,7 @@
 <title>
   Module: Card::Model::SaveHelper
   
-    &mdash; Documentation by YARD 0.9.26
+    &mdash; Documentation by YARD 0.9.27
   
 </title>
 
@@ -81,7 +81,7 @@
   
   <dl>
     <dt>Included in:</dt>
-    <dd><span class='object_link'><a href="../../Cardio/Migration.html" title="Cardio::Migration (class)">Cardio::Migration</a></span></dd>
+    <dd><span class='object_link'><a href="../../Cardio/Migration.html" title="Cardio::Migration (class)">Cardio::Migration</a></span>, <span class='object_link'><a href="../../Cardio/Mod/Eat.html" title="Cardio::Mod::Eat (class)">Cardio::Mod::Eat</a></span></dd>
   </dl>
   
 
@@ -821,7 +821,7 @@ to resolve name conflicts)</p>
   <span class='kw'>return</span> <span class='kw'>unless</span> <span class='id identifier rubyid_delete_code_card?'>delete_code_card?</span> <span class='id identifier rubyid_name'>name</span>
 
   <span class='id identifier rubyid_card'>card</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../Card.html" title="Card (class)">Card</a></span></span><span class='lbracket'>[</span><span class='id identifier rubyid_name'>name</span><span class='rbracket'>]</span>
-  <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_update!'>update!</span> <span class='label'>codename:</span> <span class='kw'>nil</span>
+  <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_update!'>update!</span> <span class='label'>codename:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span>
   <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_delete!'>delete!</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -1175,7 +1175,7 @@ is converted to pointer format.</p>
       <pre class="code"><span class="info file"># File 'card/lib/card/model/save_helper.rb', line 15</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_with_user'>with_user</span> <span class='id identifier rubyid_user_name'>user_name</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span>
-  <span class='const'><span class='object_link'><a href="../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Auth.html" title="Card::Auth (module)">Auth</a></span></span><span class='period'>.</span><span class='id identifier rubyid_with'><span class='object_link'><a href="../Auth/Proxy.html#with-instance_method" title="Card::Auth::Proxy#with (method)">with</a></span></span><span class='lparen'>(</span><span class='label'>current_id:</span> <span class='const'><span class='object_link'><a href="../../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_fetch_id'><span class='object_link'><a href="../Fetch/CardClass.html#fetch_id-instance_method" title="Card::Fetch::CardClass#fetch_id (method)">fetch_id</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_user_name'>user_name</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
+  <span class='const'><span class='object_link'><a href="../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Auth.html" title="Card::Auth (module)">Auth</a></span></span><span class='period'>.</span><span class='id identifier rubyid_with'><span class='object_link'><a href="../Auth/Proxy.html#with-instance_method" title="Card::Auth::Proxy#with (method)">with</a></span></span><span class='lparen'>(</span><span class='label'>current_id:</span> <span class='id identifier rubyid_user_name'>user_name</span><span class='period'>.</span><span class='id identifier rubyid_card_id'>card_id</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1187,9 +1187,9 @@ is converted to pointer format.</p>
 </div>
 
       <div id="footer">
-  Generated on Thu May 13 17:17:18 2021 by
+  Generated on Fri Jan 21 16:01:42 2022 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.26 (ruby-2.7.2).
+  0.9.27 (ruby-3.0.1).
 </div>
 
     </div>

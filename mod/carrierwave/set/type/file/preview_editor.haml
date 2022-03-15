@@ -1,19 +1,15 @@
 .chosen-file
   %input{ name: cached_upload_card_name, type: "hidden", value: card.selected_action_id }
-  %table.table.table-striped{ role: "presentation" }
-    %tbody.files
-      %tr.template-download.fade.show
-        %td
-          %span.preview
-            = preview
-        %td
-          %p.name
-            = card.original_filename
-        %td
-          %span.size
-            = number_to_human_size card.attachment.size
-        %td.float-right
-          %button.btn.btn-danger.delete.cancel-upload{ "data-type": "DELETE" }
-            = icon_tag :delete
-            %span
-              = preview_editor_delete_text
+  .d-flex
+    = preview
+    .d-flex.flex-column.justify-content-between.ml-2.w-100
+      %div
+        %p.name
+          = card.original_filename
+        %span.size
+          = number_to_human_size card.attachment.size
+      .align-self-end
+        %button.btn.btn-danger.delete.cancel-upload{ "data-type": "DELETE" }
+          = icon_tag :delete
+          %span
+            = preview_editor_delete_text

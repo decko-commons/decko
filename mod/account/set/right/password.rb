@@ -8,10 +8,7 @@ def ok_to_read
   own_account? || super
 end
 
-event :encrypt_password, :store,
-      on: :save, changed: :content,
-      when: proc { !Card::Env[:no_password_encryptions] } do
-  # no_password_encryptions = hack for import - fix with api for ignoring events
+event :encrypt_password, :store, on: :save, changed: :content do
   salt = left&.salt
   self.content = Auth.encrypt content, salt
 

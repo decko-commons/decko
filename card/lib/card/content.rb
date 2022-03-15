@@ -114,6 +114,14 @@ class Card
       unstash_chunks processed, stash
     end
 
+    def strip_nests
+      strip_chunks Chunk::Nest
+    end
+
+    def strip_chunks chunk_type
+      chunks.reject! { |c| c.is_a? chunk_type }
+    end
+
     private
 
     def interpret_chunk_type chunk_type

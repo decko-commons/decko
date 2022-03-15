@@ -15,7 +15,7 @@ end
 
 def recaptcha_on?
   recaptcha_keys? &&
-    Env[:controller] &&
+    Env.controller &&
     !Auth.signed_in? &&
     !Auth.always_ok? &&
     !Auth.needs_setup? &&
@@ -49,7 +49,7 @@ end
 
 event :recaptcha, :validate, when: :validate_recaptcha? do
   handle_recaptcha_config_errors do
-    Env[:recaptcha_used] = true
+    :captcha.card.used!
     human?
   end
 end
@@ -66,7 +66,7 @@ def handle_recaptcha_config_errors
 end
 
 def validate_recaptcha?
-  !@supercard && !Env[:recaptcha_used] && recaptcha_on?
+  !@supercard && !:captcha.card.used? && recaptcha_on?
 end
 
 format :html do

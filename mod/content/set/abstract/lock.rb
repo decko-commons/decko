@@ -2,7 +2,7 @@ def lock
   was_already_locked = locked?
   return if was_already_locked
 
-  Auth.as_bot do
+  Card::Auth.as_bot do
     lock!
     yield
   end

@@ -1,9 +1,11 @@
 
 if ENV["<%= 'REPO_' if platypus? %>TMPSETS"] && ENV["COVERAGE"] != "false"
   SimpleCov.start do
-    def add_mod_group modname
-      mod_dir = /(card-mod-)?#{Regexp.escape modname}/
-      add_group "Mod: #{modname}", %r{(^|card-mod-|mod/|/tmp.*/.*/mod\d{3}-)#{mod_dir}}
+    def add_mod_groups dir_pattern
+      Dir[dir_pattern].each do |path|
+        modname = File.basename path
+        add_group "Mod: #{modname}", %r{(mod/|mod\d{3}-)#{modname}}
+      end
     end
     <% if platypus? %>
     root "<%= expanded_repo_path %>"
@@ -16,15 +18,9 @@ if ENV["<%= 'REPO_' if platypus? %>TMPSETS"] && ENV["COVERAGE"] != "false"
     add_group "Cardname", "cardname"
     add_group "Decko", "decko"
 
-    Dir["#{root}/{card/mod/*,card-mod-*}"].each do |path|
-      match = path.match %r{/card[-/]mod[-/](?<modname>.*)$}
-      add_mod_group match[:modname]
-    end
+    add_mod_groups "#{root}/{card/,}/mod/*"
     <% else %>
-    Dir["mod/*"].each do |path|
-      modname = path.gsub "mod/", ""
-      add_mod_group modname
-    end
+    add_mod_groups "mod/*"
     <% end %>
     add_filter "/spec/"
     add_filter "/features/"

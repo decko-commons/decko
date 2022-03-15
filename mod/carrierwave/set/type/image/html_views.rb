@@ -3,7 +3,7 @@ format :html do
 
   # core HTML image view.
   view :core do
-    return card.attachment.read if card.svg?
+    return card.attachment.read.html_safe if card.svg?
 
     with_valid_source do |source|
       image_tag source, alt: card.name

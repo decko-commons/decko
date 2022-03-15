@@ -1,8 +1,7 @@
-return unless Cardio.config.active_job.queue_adapter == :delayed_job
+require "delayed_job_active_record"
+require "delayed_job_web"
 
 Cardio.config.tap do |cc|
-  cc.delaying = true unless cc.delaying == false
-
   Delayed::Worker.tap do |dw|
     dw.delay_jobs = cc.delaying
     dw.max_attempts = 1
@@ -11,3 +10,8 @@ Cardio.config.tap do |cc|
 end
 
 Cardio.extend Cardio::DelayedJob
+
+DelayedJobWeb.use Rack::Auth::Basic do |email, password|
+  account = Card::Auth.authenticate email, password
+  Card::Auth.admin? account&.left_id
+end

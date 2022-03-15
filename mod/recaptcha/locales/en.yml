@@ -1,4 +1,5 @@
 en:
+  recaptcha_link_text: recaptcha keys
   recaptcha_captcha_keys: You are configured to use %{captcha_link}, but for that to work you need new %{recaptcha_link}.
   recaptcha_captcha_temp: Your captcha is currently working with temporary settings. This is fine for a local installation, but you will need new %{recaptcha_link} if you want to make this site public.
   recaptcha_howto_add: Add your keys to %{recaptcha_settings}

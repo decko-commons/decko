@@ -6,7 +6,7 @@
 <title>
   Module: Cardname::Manipulate
   
-    &mdash; Documentation by YARD 0.9.26
+    &mdash; Documentation by YARD 0.9.27
   
 </title>
 
@@ -102,6 +102,29 @@
     </h2>
 
     <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#[]-instance_method" title="#[] (instance method)">#<strong>[]</strong>(*args)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+</div></span>
+  
+</li>
+
       
         <li class="public ">
   <span class="summary_signature">
@@ -253,7 +276,37 @@
 
     
       <div class="method_details first">
-  <h3 class="signature first" id="num_parts-instance_method">
+  <h3 class="signature first" id="[]-instance_method">
+  
+    #<strong>[]</strong>(*args)  &#x21d2; <tt><span class='object_link'><a href="../Object.html" title="Object (class)">Object</a></span></tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+41
+42
+43</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'cardname/lib/cardname/manipulate.rb', line 41</span>
+
+<span class='kw'>def</span> <span class='op'>[]</span> <span class='op'>*</span><span class='id identifier rubyid_args'>args</span>
+  <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span> <span class='id identifier rubyid_part_names'>part_names</span><span class='lbracket'>[</span><span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='rbracket'>]</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="num_parts-instance_method">
   
     #<strong>num_parts</strong>  &#x21d2; <tt><span class='object_link'><a href="../Object.html" title="Object (class)">Object</a></span></tt> 
   
@@ -301,13 +354,13 @@
       <pre class="lines">
 
 
-41
-42
-43
-44</pre>
+45
+46
+47
+48</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'cardname/lib/cardname/manipulate.rb', line 41</span>
+      <pre class="code"><span class="info file"># File 'cardname/lib/cardname/manipulate.rb', line 45</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_prepend_joint'>prepend_joint</span>
   <span class='id identifier rubyid_joint'>joint</span> <span class='op'>=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_joint'>joint</span>
@@ -333,15 +386,15 @@
       <pre class="lines">
 
 
-46
-47
-48
-49
 50
-51</pre>
+51
+52
+53
+54
+55</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'cardname/lib/cardname/manipulate.rb', line 46</span>
+      <pre class="code"><span class="info file"># File 'cardname/lib/cardname/manipulate.rb', line 50</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_sub_in'>sub_in</span> <span class='id identifier rubyid_str'>str</span><span class='comma'>,</span> <span class='label'>with:</span>
   <span class='qsymbols_beg'>%i[</span><span class='tstring_content'>capitalize</span><span class='words_sep'> </span><span class='tstring_content'>downcase</span><span class='tstring_end'>]</span></span><span class='period'>.</span><span class='id identifier rubyid_product'>product</span><span class='lparen'>(</span><span class='qsymbols_beg'>%i[</span><span class='tstring_content'>pluralize</span><span class='words_sep'> </span><span class='tstring_content'>singularize</span><span class='tstring_end'>]</span></span><span class='rparen'>)</span>
@@ -500,9 +553,9 @@ keys are used for comparison</p>
 </div>
 
       <div id="footer">
-  Generated on Thu May 13 17:17:18 2021 by
+  Generated on Fri Jan 21 16:01:43 2022 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.26 (ruby-2.7.2).
+  0.9.27 (ruby-3.0.1).
 </div>
 
     </div>

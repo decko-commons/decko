@@ -7,19 +7,3 @@ include_set Abstract::AssetFile
 def compress?
   @minimize
 end
-
-format :css do
-  view :source do
-    if @local
-      card.machine_output_url
-    else
-      source
-    end
-  end
-end
-
-format :html do
-  view :stylesheet_include_tag do
-    stylesheet_include_tag card.machine_output_url
-  end
-end

@@ -1,12 +1,13 @@
 format :html do
   view :edit_inline, perms: :update, unknown: true, cache: :never, wrap: :slot do
+    add_name_context
     voo.hide :name_formgroup, :type_formgroup
     with_nest_mode :edit do
       card_form :update, success: edit_success do
         [
           edit_view_hidden,
           _render_content_formgroups,
-          _render_edit_inline_buttons
+          _render(voo.buttons_view || :edit_inline_buttons)
         ]
       end
     end
@@ -18,9 +19,7 @@ format :html do
 
   view :edit_inline_buttons do
     button_formgroup do
-      wrap_with "div", class: "d-flex" do
-        [standard_save_button, cancel_in_place_button, delete_button]
-      end
+      [standard_save_button, cancel_in_place_button, delete_button]
     end
   end
 

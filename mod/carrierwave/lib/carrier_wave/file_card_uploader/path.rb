@@ -7,7 +7,7 @@ module CarrierWave
     # path-related methods for uploader
     module Path
       def local_url opts={}
-        "%s/%s/%s" % [local_url_base(opts), file_dir, full_filename(url_filename(opts))]
+        "%s/%s/%s" % [local_url_base(opts), file_dir, full_filename(url_filename)]
       end
 
       def local_url_base opts={}

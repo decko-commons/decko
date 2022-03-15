@@ -1,4 +1,5 @@
 basket[:list_input_options] << "calendar"
+basket[:script_config][:datepicker] = "setDatepickerConfig"
 
 format :html do
   def calendar_input

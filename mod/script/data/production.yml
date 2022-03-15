@@ -1,0 +1,7 @@
+---
+- :name: CoffeeScript
+  :type: :cardtype
+  :codename: :coffee_script
+- :name: JavaScript
+  :type: :cardtype
+  :codename: :java_script

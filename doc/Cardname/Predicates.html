@@ -6,7 +6,7 @@
 <title>
   Module: Cardname::Predicates
   
-    &mdash; Documentation by YARD 0.9.26
+    &mdash; Documentation by YARD 0.9.27
   
 </title>
 
@@ -110,8 +110,6 @@
     
 
     
-      (also: #junction?)
-    
   </span>
   
   
@@ -183,8 +181,6 @@
     
 
     
-      (also: #simple)
-    
   </span>
   
   
@@ -195,7 +191,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
+    <span class="summary_desc"><div class='inline'><p>True if name has only one part.</p>
 </div></span>
   
 </li>
@@ -265,10 +261,6 @@
   
 
   
-    <span class="aliases">Also known as:
-    <span class="names"><span id='junction?-instance_method'>junction?</span></span>
-    </span>
-  
 
   
 </h3><div class="docstring">
@@ -304,12 +296,12 @@
       <pre class="lines">
 
 
-9
 10
-11</pre>
+11
+12</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'cardname/lib/cardname/predicates.rb', line 9</span>
+      <pre class="code"><span class="info file"># File 'cardname/lib/cardname/predicates.rb', line 10</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_compound?'>compound?</span>
   <span class='op'>!</span><span class='id identifier rubyid_simple?'>simple?</span>
@@ -448,15 +440,11 @@
   
 
   
-    <span class="aliases">Also known as:
-    <span class="names"><span id='simple-instance_method'>simple</span></span>
-    </span>
-  
 
   
 </h3><div class="docstring">
   <div class="discussion">
-    
+    <p>Returns true if name has only one part.</p>
 
 
   </div>
@@ -473,6 +461,10 @@
       
       
       
+        &mdash;
+        <div class='inline'><p>true if name has only one part</p>
+</div>
+      
     </li>
   
 </ul>
@@ -483,15 +475,17 @@
       <pre class="lines">
 
 
-3
 4
-5</pre>
+5
+6
+7</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'cardname/lib/cardname/predicates.rb', line 3</span>
+      <pre class="code"><span class="info file"># File 'cardname/lib/cardname/predicates.rb', line 4</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_simple?'>simple?</span>
-  <span class='ivar'>@simple</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span> <span class='op'>?</span> <span class='lparen'>(</span><span class='ivar'>@simple</span> <span class='op'>=</span> <span class='id identifier rubyid_parts'>parts</span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span> <span class='op'>&lt;=</span> <span class='int'>1</span><span class='rparen'>)</span> <span class='op'>:</span> <span class='ivar'>@simple</span>
+  <span class='id identifier rubyid_part_names'>part_names</span> <span class='kw'>if</span> <span class='ivar'>@simple</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
+  <span class='ivar'>@simple</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -627,9 +621,9 @@
 </div>
 
       <div id="footer">
-  Generated on Thu May 13 17:17:18 2021 by
+  Generated on Fri Jan 21 16:01:43 2022 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.26 (ruby-2.7.2).
+  0.9.27 (ruby-3.0.1).
 </div>
 
     </div>

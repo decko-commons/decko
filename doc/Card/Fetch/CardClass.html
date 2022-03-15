@@ -6,7 +6,7 @@
 <title>
   Module: Card::Fetch::CardClass
   
-    &mdash; Documentation by YARD 0.9.26
+    &mdash; Documentation by YARD 0.9.27
   
 </title>
 
@@ -166,29 +166,6 @@ and “virtual” card construction</p>
   <span class="summary_signature">
     
       <a href="#fetch_from_cast-instance_method" title="#fetch_from_cast (instance method)">#<strong>fetch_from_cast</strong>(cast)  &#x21d2; Card </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'>
-</div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#fetch_id-instance_method" title="#fetch_id (instance method)">#<strong>fetch_id</strong>(*mark_parts)  &#x21d2; Integer </a>
     
 
     
@@ -489,7 +466,7 @@ The final argument can be a Hash to set the following options
       <pre class="code"><span class="info file"># File 'card/lib/card/fetch/card_class.rb', line 28</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_fetch'>fetch</span> <span class='op'>*</span><span class='id identifier rubyid_args'>args</span>
-  <span class='id identifier rubyid_f'>f</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Fetch.html" title="Card::Fetch (class)">Fetch</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="../Fetch.html#initialize-instance_method" title="Card::Fetch#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_f'>f</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../Fetch.html" title="Card::Fetch (class)">Fetch</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="../Fetch.html#initialize-instance_method" title="Card::Fetch#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_f'>f</span><span class='period'>.</span><span class='id identifier rubyid_retrieve_or_new'>retrieve_or_new</span>
 <span class='kw'>rescue</span> <span class='const'>ActiveModel</span><span class='op'>::</span><span class='const'>RangeError</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid__e'>_e</span>
   <span class='const'><span class='object_link'><a href="../../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span> <span class='label'>name:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>card id out of range: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_f'>f</span><span class='period'>.</span><span class='id identifier rubyid_mark'>mark</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
@@ -545,85 +522,9 @@ The final argument can be a Hash to set the following options
     <td>
       <pre class="code"><span class="info file"># File 'card/lib/card/fetch/card_class.rb', line 56</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_fetch_from_cast'>fetch_from_cast</span> <span class='id identifier rubyid_cast'>cast</span>
-  <span class='id identifier rubyid_fetch_args'>fetch_args</span> <span class='op'>=</span> <span class='id identifier rubyid_cast'>cast</span><span class='lbracket'>[</span><span class='symbol'>:id</span><span class='rbracket'>]</span> <span class='op'>?</span> <span class='lbracket'>[</span><span class='id identifier rubyid_cast'>cast</span><span class='lbracket'>[</span><span class='symbol'>:id</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_to_i'>to_i</span><span class='rbracket'>]</span> <span class='op'>:</span> <span class='lbracket'>[</span><span class='id identifier rubyid_cast'>cast</span><span class='lbracket'>[</span><span class='symbol'>:name</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='lbrace'>{</span> <span class='label'>new:</span> <span class='id identifier rubyid_cast'>cast</span> <span class='rbrace'>}</span><span class='rbracket'>]</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_fetch_from_cast'>fetch_from_cast</span> <span class='id identifier rubyid_cast'><span class='object_link'><a href="../../top-level-namespace.html#cast-instance_method" title="#cast (method)">cast</a></span></span>
+  <span class='id identifier rubyid_fetch_args'>fetch_args</span> <span class='op'>=</span> <span class='id identifier rubyid_cast'><span class='object_link'><a href="../../top-level-namespace.html#cast-instance_method" title="#cast (method)">cast</a></span></span><span class='lbracket'>[</span><span class='symbol'>:id</span><span class='rbracket'>]</span> <span class='op'>?</span> <span class='lbracket'>[</span><span class='id identifier rubyid_cast'><span class='object_link'><a href="../../top-level-namespace.html#cast-instance_method" title="#cast (method)">cast</a></span></span><span class='lbracket'>[</span><span class='symbol'>:id</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_to_i'>to_i</span><span class='rbracket'>]</span> <span class='op'>:</span> <span class='lbracket'>[</span><span class='id identifier rubyid_cast'><span class='object_link'><a href="../../top-level-namespace.html#cast-instance_method" title="#cast (method)">cast</a></span></span><span class='lbracket'>[</span><span class='symbol'>:name</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='lbrace'>{</span> <span class='label'>new:</span> <span class='id identifier rubyid_cast'><span class='object_link'><a href="../../top-level-namespace.html#cast-instance_method" title="#cast (method)">cast</a></span></span> <span class='rbrace'>}</span><span class='rbracket'>]</span>
   <span class='id identifier rubyid_fetch'>fetch</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_fetch_args'>fetch_args</span><span class='rparen'>)</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="fetch_id-instance_method">
-  
-    #<strong>fetch_id</strong>(*mark_parts)  &#x21d2; <tt>Integer</tt> 
-  
-
-  
-
-  
-</h3><div class="docstring">
-  <div class="discussion">
-    
-
-
-  </div>
-</div>
-<div class="tags">
-  <p class="tag_title">Parameters:</p>
-<ul class="param">
-  
-    <li>
-      
-        <span class='name'>mark_parts</span>
-      
-      
-        <span class='type'></span>
-      
-      
-      
-        &mdash;
-        <div class='inline'><ul>
-  <li>see #fetch</li>
-</ul>
-</div>
-      
-    </li>
-  
-</ul>
-
-<p class="tag_title">Returns:</p>
-<ul class="return">
-  
-    <li>
-      
-      
-        <span class='type'>(<tt>Integer</tt>)</span>
-      
-      
-      
-    </li>
-  
-</ul>
-
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-76
-77
-78
-79</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/fetch/card_class.rb', line 76</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_fetch_id'>fetch_id</span> <span class='op'>*</span><span class='id identifier rubyid_mark_parts'>mark_parts</span>
-  <span class='id identifier rubyid_mark'>mark</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Fetch.html" title="Card::Fetch (class)">Fetch</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="../Fetch.html#initialize-instance_method" title="Card::Fetch#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_mark_parts'>mark_parts</span><span class='rparen'>)</span><span class='op'>&amp;.</span><span class='id identifier rubyid_mark'><span class='object_link'><a href="../Fetch.html#mark-instance_method" title="Card::Fetch#mark (method)">mark</a></span></span>
-  <span class='id identifier rubyid_mark'>mark</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'>Integer</span><span class='rparen'>)</span> <span class='op'>?</span> <span class='id identifier rubyid_mark'>mark</span> <span class='op'>:</span> <span class='id identifier rubyid_quick_fetch'>quick_fetch</span><span class='lparen'>(</span><span class='id identifier rubyid_mark'>mark</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='rparen'>)</span><span class='op'>&amp;.</span><span class='id identifier rubyid_id'>id</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -689,18 +590,18 @@ The final argument can be a Hash to set the following options
       <pre class="lines">
 
 
+77
+78
+79
+80
+81
+82
 83
 84
-85
-86
-87
-88
-89
-90
-91</pre>
+85</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/fetch/card_class.rb', line 83</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/fetch/card_class.rb', line 77</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_fetch_name'>fetch_name</span> <span class='op'>*</span><span class='id identifier rubyid_mark'>mark</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span>
   <span class='kw'>if</span> <span class='lparen'>(</span><span class='id identifier rubyid_card'>card</span> <span class='op'>=</span> <span class='id identifier rubyid_quick_fetch'>quick_fetch</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_mark'>mark</span><span class='rparen'>)</span><span class='rparen'>)</span>
@@ -775,12 +676,12 @@ The final argument can be a Hash to set the following options
       <pre class="lines">
 
 
-95
-96
-97</pre>
+89
+90
+91</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/fetch/card_class.rb', line 95</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/fetch/card_class.rb', line 89</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_fetch_type_id'>fetch_type_id</span> <span class='op'>*</span><span class='id identifier rubyid_mark'>mark</span>
   <span class='id identifier rubyid_fetch'>fetch</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_mark'>mark</span><span class='comma'>,</span> <span class='label'>skip_modules:</span> <span class='kw'>true</span><span class='rparen'>)</span><span class='op'>&amp;.</span><span class='id identifier rubyid_type_id'>type_id</span>
@@ -824,7 +725,8 @@ The following methods optimize fetching of specific attributes</p>
 69
 70
 71
-72</pre>
+72
+73</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'card/lib/card/fetch/card_class.rb', line 65</span>
@@ -832,9 +734,10 @@ The following methods optimize fetching of specific attributes</p>
 <span class='kw'>def</span> <span class='id identifier rubyid_id'>id</span> <span class='id identifier rubyid_cardish'>cardish</span>
   <span class='kw'>case</span> <span class='id identifier rubyid_cardish'>cardish</span>
   <span class='kw'>when</span> <span class='const'>Integer</span> <span class='kw'>then</span> <span class='id identifier rubyid_cardish'>cardish</span>
-  <span class='kw'>when</span> <span class='const'><span class='object_link'><a href="../../Card.html" title="Card (class)">Card</a></span></span> <span class='kw'>then</span> <span class='id identifier rubyid_cardish'>cardish</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span>
-  <span class='kw'>when</span> <span class='const'>Symbol</span> <span class='kw'>then</span> <span class='const'><span class='object_link'><a href="../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Codename.html" title="Card::Codename (class)">Codename</a></span></span><span class='period'>.</span><span class='id identifier rubyid_id'><span class='object_link'><a href="../Codename.html#id-class_method" title="Card::Codename.id (method)">id</a></span></span> <span class='id identifier rubyid_cardish'>cardish</span>
-  <span class='kw'>else</span> <span class='id identifier rubyid_fetch_id'>fetch_id</span> <span class='id identifier rubyid_cardish'>cardish</span>
+  <span class='kw'>when</span> <span class='const'><span class='object_link'><a href="../../Card.html" title="Card (class)">Card</a></span></span>    <span class='kw'>then</span> <span class='id identifier rubyid_cardish'>cardish</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span>
+  <span class='kw'>when</span> <span class='const'>Symbol</span>  <span class='kw'>then</span> <span class='const'><span class='object_link'><a href="../Codename.html" title="Card::Codename (class)">Codename</a></span></span><span class='period'>.</span><span class='id identifier rubyid_id'><span class='object_link'><a href="../Codename.html#id-class_method" title="Card::Codename.id (method)">id</a></span></span> <span class='id identifier rubyid_cardish'>cardish</span>
+  <span class='kw'>when</span> <span class='const'>String</span>  <span class='kw'>then</span> <span class='const'><span class='object_link'><a href="../Lexicon.html" title="Card::Lexicon (module)">Lexicon</a></span></span><span class='period'>.</span><span class='id identifier rubyid_id'><span class='object_link'><a href="../Lexicon.html#id-class_method" title="Card::Lexicon.id (method)">id</a></span></span> <span class='id identifier rubyid_cardish'>cardish</span>
+  <span class='kw'>else</span> <span class='id identifier rubyid_quick_fetch'>quick_fetch</span><span class='lparen'>(</span><span class='id identifier rubyid_cardish'>cardish</span><span class='rparen'>)</span><span class='op'>&amp;.</span><span class='id identifier rubyid_id'>id</span>
   <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -1040,20 +943,20 @@ card hash</li>
       <pre class="lines">
 
 
+101
+102
+103
+104
+105
+106
 107
 108
 109
 110
-111
-112
-113
-114
-115
-116
-117</pre>
+111</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/fetch/card_class.rb', line 107</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/fetch/card_class.rb', line 101</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_uri_fetch'>uri_fetch</span> <span class='id identifier rubyid_params'>params</span>
   <span class='id identifier rubyid_card_opts'>card_opts</span> <span class='op'>=</span> <span class='id identifier rubyid_uri_fetch_opts'>uri_fetch_opts</span> <span class='id identifier rubyid_params'>params</span>
@@ -1076,9 +979,9 @@ card hash</li>
 </div>
 
       <div id="footer">
-  Generated on Thu May 13 17:17:17 2021 by
+  Generated on Fri Jan 21 16:01:42 2022 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.26 (ruby-2.7.2).
+  0.9.27 (ruby-3.0.1).
 </div>
 
     </div>

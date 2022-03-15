@@ -1,2 +1,2 @@
 include_set Abstract::LocalManifestGroup
-include_set Abstract::ScriptAssetList
+include_set Abstract::ScriptGroup

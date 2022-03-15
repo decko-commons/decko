@@ -38,7 +38,6 @@ class UserDataToCards < Cardio::Migration::Core
     Card[oldname].update! name: newname
 
     puts "importing all user details (for those not in trash) into +*account attributes"
-    Card::Env[:no_password_encryptions] = true
     User.all.each do |user|
       base = Card[user.card_id]
       next unless base && !base.trash

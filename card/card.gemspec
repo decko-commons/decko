@@ -39,7 +39,9 @@ DeckoGem.gem "card" do |s, d|
     ["bootstrap4-kaminari-views",   "~> 1.0"],
     # other
     ["diff-lcs",                    "~> 1.4"], # content diffs in histories
-    ["activerecord-import",         "~> 1.1"]
+    ["activerecord-import",         "~> 1.1"],
+    # temporary. bad version(s)
+    ["zeitwerk",                  "!= 2.5.0"]
   )
   %w[
     activerecord

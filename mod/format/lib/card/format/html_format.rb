@@ -19,15 +19,6 @@ class Card
         @focal ||= show_layout? ? main? : depth.zero?
       end
 
-      def default_nest_view
-        # FIXME: not sure this makes sense as a rule...
-        card.rule(:default_html_view) || :titled
-      end
-
-      def default_item_view
-        :bar
-      end
-
       def escape_literal literal
         "<span>#{literal}</span>"
       end

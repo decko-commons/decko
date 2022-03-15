@@ -6,7 +6,7 @@
 <title>
   Module: Card::Reference::All
   
-    &mdash; Documentation by YARD 0.9.26
+    &mdash; Documentation by YARD 0.9.27
   
 </title>
 
@@ -150,29 +150,6 @@ which handles id-based reference tracking.</p>
 
   
     <span class="summary_desc"><div class='inline'><p>interpret references from this card’s content and insert entries in reference table.</p>
-</div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#delete_references_out-instance_method" title="#delete_references_out (instance method)">#<strong>delete_references_out</strong>  &#x21d2; Object </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'><p>delete references from this card.</p>
 </div></span>
   
 </li>
@@ -342,6 +319,29 @@ which handles id-based reference tracking.</p>
         <li class="public ">
   <span class="summary_signature">
     
+      <a href="#swap_names-instance_method" title="#swap_names (instance method)">#<strong>swap_names</strong>(old_name, new_name)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>replace references in card content.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
       <a href="#update_references_out-instance_method" title="#update_references_out (instance method)">#<strong>update_references_out</strong>  &#x21d2; Object </a>
     
 
@@ -418,50 +418,6 @@ insert entries in reference table</p>
   <span class='kw'>return</span> <span class='kw'>if</span> <span class='id identifier rubyid_ref_hash'>ref_hash</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span>
 
   <span class='const'><span class='object_link'><a href="../Reference.html" title="Card::Reference (class)">Reference</a></span></span><span class='period'>.</span><span class='id identifier rubyid_mass_insert'><span class='object_link'><a href="../Reference.html#mass_insert-class_method" title="Card::Reference.mass_insert (method)">mass_insert</a></span></span> <span class='id identifier rubyid_reference_values_array'>reference_values_array</span><span class='lparen'>(</span><span class='id identifier rubyid_ref_hash'>ref_hash</span><span class='rparen'>)</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="delete_references_out-instance_method">
-  
-    #<strong>delete_references_out</strong>  &#x21d2; <tt><span class='object_link'><a href="../../Object.html" title="Object (class)">Object</a></span></tt> 
-  
-
-  
-
-  
-</h3><div class="docstring">
-  <div class="discussion">
-    <p>delete references from this card</p>
-
-
-  </div>
-</div>
-<div class="tags">
-  
-
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-66
-67
-68
-69
-70</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/reference/all.rb', line 66</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_delete_references_out'>delete_references_out</span>
-  <span class='id identifier rubyid_raise'>raise</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>id required to delete references</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='id identifier rubyid_id'>id</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
-
-  <span class='const'><span class='object_link'><a href="../Reference.html" title="Card::Reference (class)">Reference</a></span></span><span class='period'>.</span><span class='id identifier rubyid_where'>where</span><span class='lparen'>(</span><span class='label'>referer_id:</span> <span class='id identifier rubyid_id'>id</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_delete_all'>delete_all</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -682,7 +638,7 @@ insert entries in reference table</p>
       <pre class="code"><span class="info file"># File 'card/lib/card/reference/all.rb', line 23</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_referer_cards_from_references'>referer_cards_from_references</span> <span class='id identifier rubyid_references'>references</span>
-  <span class='id identifier rubyid_references'>references</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='symbol'>:referer_id</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_uniq'>uniq</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='const'><span class='object_link'><a href="../../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_method'>method</span><span class='lparen'>(</span><span class='symbol'>:fetch</span><span class='rparen'>)</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_compact'>compact</span>
+  <span class='id identifier rubyid_references'>references</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='symbol'>:referer_id</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_uniq'>uniq</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='symbol'>:card</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_compact'>compact</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -723,6 +679,54 @@ insert entries in reference table</p>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_referers'>referers</span>
   <span class='id identifier rubyid_referer_cards_from_references'>referer_cards_from_references</span> <span class='id identifier rubyid_references_in'>references_in</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="swap_names-instance_method">
+  
+    #<strong>swap_names</strong>(old_name, new_name)  &#x21d2; <tt><span class='object_link'><a href="../../Object.html" title="Object (class)">Object</a></span></tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>replace references in card content</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+66
+67
+68
+69
+70
+71
+72</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'card/lib/card/reference/all.rb', line 66</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_swap_names'>swap_names</span> <span class='id identifier rubyid_old_name'>old_name</span><span class='comma'>,</span> <span class='id identifier rubyid_new_name'>new_name</span>
+  <span class='id identifier rubyid_cont'>cont</span> <span class='op'>=</span> <span class='id identifier rubyid_content_object'>content_object</span>
+  <span class='id identifier rubyid_cont'>cont</span><span class='period'>.</span><span class='id identifier rubyid_find_chunks'>find_chunks</span><span class='lparen'>(</span><span class='symbol'>:Reference</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_chunk'>chunk</span><span class='op'>|</span>
+    <span class='id identifier rubyid_chunk'>chunk</span><span class='period'>.</span><span class='id identifier rubyid_swap_name'>swap_name</span> <span class='id identifier rubyid_old_name'>old_name</span><span class='comma'>,</span> <span class='id identifier rubyid_new_name'>new_name</span>
+  <span class='kw'>end</span>
+  <span class='id identifier rubyid_cont'>cont</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -776,9 +780,9 @@ insert entries in reference table</p>
 </div>
 
       <div id="footer">
-  Generated on Thu May 13 17:17:16 2021 by
+  Generated on Fri Jan 21 16:01:41 2022 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.26 (ruby-2.7.2).
+  0.9.27 (ruby-3.0.1).
 </div>
 
     </div>

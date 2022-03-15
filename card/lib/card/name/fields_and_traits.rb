@@ -12,14 +12,9 @@ class Card
       end
 
       # @return [Card::Name]
-      def field_name tag_name
-        case tag_name
-        when Symbol
-          trait_name tag_name
-        else
-          tag_name = tag_name.to_s[1..-1] if tag_name.to_s[0] == "+"
-          [self, tag_name].to_name
-        end
+      def field_name tag
+        tag = tag.to_s[1..-1] if !tag.is_a?(Symbol) && tag.to_s[0] == "+"
+        [self, tag].to_name
       end
 
       # @return [True/False]
@@ -29,37 +24,18 @@ class Card
         if context.present?
           absolute_name(context).left_name.key == context.to_name.key
         else
-          s.match(/^\s*\+[^+]+$/).present?
+          s.match?(/^\s*\+[^+]+$/)
         end
       end
 
+      # name is relative name containing only the rightmost part
+      # @return [True/False]
       def field_only?
         relative? && stripped.to_name.parts.reject(&:blank?).first == parts.last
       end
 
       def relative_field_name tag_name
         field_name(tag_name).name_from self
-      end
-
-      # @return [String]
-      def trait tag_code
-        name = trait_name tag_code
-        name.s
-      end
-
-      # @return [Card::Name]
-      def trait_name tag_code
-        Card::Name[self, tag_code.to_sym]
-      end
-
-      # @return [True/False]
-      def trait_name? *traitlist
-        return false unless compound?
-
-        right_key = right_name.key
-        traitlist.any? do |codename|
-          Card::Codename.name(codename)&.key == right_key
-        end
       end
     end
   end

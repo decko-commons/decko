@@ -1,105 +1,65 @@
+require "optparse"
+
 namespace :card do
-  def importer
-    @importer ||= Cardio::Migration::Import.new Cardio::Migration.data_path
-  end
-
-  desc "merge import card data that was updated since the last push into " \
-       "the the database"
-  task merge: :environment do
-    importer.merge
-  end
-
-  desc "merge all import card data into the the database"
-  task merge_all: :environment do
-    importer.merge all: true
-  end
-
-  desc "add card to import data"
-  task pull: :environment do
-    pull_card
-  end
-
-  desc "add card and all nested cards to import data"
-  task deep_pull: :environment do
-    pull_card deep: true
-  end
-
-  desc "add nested cards to import data (not the card itself)"
-  task deep_pull_items: :environment do
-    pull_card items_only: true
-  end
-
-  # be rake card:pull_export from=live
-  desc "add items of the export card to import data"
-  task pull_export: :environment do
-    importer.pull "export", items_only: true, remote: ENV["from"]
-  end
-
-  desc "add a new card to import data"
-  task add: :environment do
-    _task, name, type, codename = ARGV
-    importer.add_card name: name, type: type || "Basic", codename: codename
-    exit
-  end
-
-  desc "register remote for importing card data"
-  task add_remote: :environment do
-    _task, name, url = ARGV
-    raise "no name given" unless name.present?
-    raise "no url given" unless url.present?
-
-    importer.add_remote name, url
-    exit
-  end
-
-  def pull_card opts={}
-    _task, card = ARGV
-    raise "no card given" unless card.present?
-
-    importer.pull card, opts.merge(remote: ENV["from"])
-    exit # without exit the card argument is treated as second rake task
-  end
-
-  desc "migrate structure and cards"
-  task migrate: :environment do
-    ENV["NO_RAILS_CACHE"] = "true"
-    ENV["SCHEMA"] ||= "#{Cardio.gem_root}/db/schema.rb"
-
-    stamp = ENV["STAMP_MIGRATIONS"]
-
-    puts "migrating structure"
-    Rake::Task["card:migrate:structure"].invoke
-    Rake::Task["card:migrate:stamp"].invoke :structure if stamp
-
-    puts "migrating deck structure"
-    Rake::Task["card:migrate:deck_structure"].execute
-    if stamp
-      Rake::Task["card:migrate:stamp"].reenable
-      Rake::Task["card:migrate:stamp"].invoke :core_cards
+  desc "ingest card data from mod yaml"
+  task eat: :environment do
+    parse_options :eat do
+      add_opt :m, :mod, "only merge cards in given mod"
+      add_opt :e, :env, "environment of yaml source (default is current env)"
+      add_opt :u, :user, "user to credit unless specified (otherwise uses Decko Bot)"
+      flag_opt :v, :verbose, "progress info and error backtraces"
     end
+    Cardio::Mod::Eat.new(**options).up
+    exit 0
+  end
 
-    puts "migrating core cards"
-    Card::Cache.reset_all
-    # not invoke because we don't want to reload environment
-    Rake::Task["card:migrate:core_cards"].execute
-    if stamp
-      Rake::Task["card:migrate:stamp"].reenable
-      Rake::Task["card:migrate:stamp"].invoke :core_cards
+  desc "export card data to mod yaml"
+  task poop: :environment do
+    parse_options :poop do
+      add_opt :n, :name, "export card with name/mark (handles : and ~ prefixes)"
+      flag_opt :i, :items, "also export card items (with -n)"
+      flag_opt :o, :only_items, "also export card items (with -n)", items: :only
+      add_opt :c, :cql, "export cards found by CQL (in JSON format)"
+      add_opt :m, :mod, "output yaml to data/environment.yml file in mod"
+      add_opt :e, :env, "environment to dump to (default is current env)"
+      add_opt :t, :field_tags, "comma-separated list of field tag marks"
     end
+    result = Cardio::Mod::Poop.new(**options).out
+    exit 0 if result == :success
 
-    puts "migrating deck cards"
-    # not invoke because we don't want to reload environment
-    Rake::Task["card:migrate:deck_cards"].execute
-    if stamp
-      Rake::Task["card:migrate:stamp"].reenable
-      Rake::Task["card:migrate:stamp"].invoke :deck_cards
-    end
-
-    Card::Cache.reset_all
+    puts "ERROR in card:poop\n  #{result}".red
+    exit 1
   end
 
   desc "reset cache"
   task reset_cache: :environment do
     Card::Cache.reset_all
+  end
+
+  def options
+    @options ||= {}
+  end
+
+  def flag_opt letter, key, desc, hash=nil
+    hash ||= { key => true }
+    op.on("-#{letter}", "--#{key.to_s.tr '_', '-'}", desc) { options.merge! hash }
+  end
+
+  def add_opt letter, key, desc
+    op.on "-#{letter}", "--#{key.to_s.tr '_', '-'} #{key.to_s.upcase}", desc do |val|
+      options[key] = val
+    end
+  end
+
+  def op
+    @op ||= OptionParser.new
+  end
+
+  def parse_options task
+    op.banner = "Usage: rake card:#{task} -- [options]"
+    yield if block_given?
+    args = op.order!(ARGV) {}
+    # args << "-h" if args.empty?
+    op.parse! args
   end
 end

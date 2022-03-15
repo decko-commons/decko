@@ -76,7 +76,7 @@ class Card
           # this is not necessarily text, sometimes objects for json
         end
 
-        def replace_reference old_name, new_name
+        def swap_name old_name, new_name
           replace_name_reference old_name, new_name
           nest_body = [@name.to_s, @opt_lists].compact * "|"
           @text = "{{#{nest_body}}}"

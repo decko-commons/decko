@@ -14,7 +14,7 @@ format do
   def template_link_set_name
     name = voo.nest_name.to_name
     if name.absolute?
-      name.trait_name :self
+      name.field_name :self
     else
       template_link_set_name_for_relative_name name
     end
@@ -24,9 +24,9 @@ format do
     name = name.stripped.gsub(/^\+/, "")
 
     if (type = on_type_set)
-      [type, name].to_name.trait_name :type_plus_right
+      [type, name].to_name.field_name :type_plus_right
     else
-      name.to_name.trait_name :right
+      name.to_name.field_name :right
     end
   end
 

@@ -29,8 +29,7 @@ module CarrierWave
           remove_#{column}!
         end
 
-        event :mark_remove_#{column}_false_event, :finalize,
-              on: :update do
+        event :mark_remove_#{column}_false_event, :finalize, on: :update do
           mark_remove_#{column}_false
         end
 
@@ -54,6 +53,7 @@ module CarrierWave
         end
 
         def store_attachment!
+          set_specific.delete :#{column}
           store_#{column}!
         end
 
@@ -116,21 +116,17 @@ module CarrierWave
           @#{column}_changed
         end
 
-        def serializable_hash(options=nil)
-          hash = {}
+        def serializable_hash(opts=nil)
+          except = opts&.dig(:except) && Array.wrap(opts[:except]).map(&:to_s)
+          only = opts&.dig(:only) && Array.wrap(opts[:only]).map(&:to_s)
 
-          except = options && options[:except] &&
-                   Array.wrap(options[:except]).map(&:to_s)
-          only   = options && options[:only]   &&
-                   Array.wrap(options[:only]).map(&:to_s)
-
-          self.class.uploaders.each do |column, uploader|
-            if (!only && !except) || (only && only.include?(column.to_s)) ||
+          self.class.uploaders.each_with_object(super(opts)) do |(column, uploader), hash|
+            if (!only && !except) ||
+               (only && only.include?(column.to_s)) ||
                (!only && except && !except.include?(column.to_s))
               hash[column.to_s] = _mounter(column).uploader.serializable_hash
             end
           end
-          super(options).merge(hash)
         end
       RUBY
     end

@@ -1,0 +1,16 @@
+---
+- :name: "*Ace"
+  :codename: ace
+  :type: json
+  :content: |
+    {
+      "default": {
+      "showGutter": true,
+      "theme": "ace/theme/github",
+      "printMargin": false,
+      "tabSize": 2,
+      "useSoftTabs": true,
+      "maxLines": 30
+      }
+    }
+

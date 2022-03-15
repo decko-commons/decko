@@ -8,8 +8,6 @@ module SelectedAction
   end
 
   def last_content_action_id
-    return super if temporary_storage_type_change?
-
     # find action id from content (saves lookups)
     db_content.to_s.split(%r{[/.]})[-2]
   end

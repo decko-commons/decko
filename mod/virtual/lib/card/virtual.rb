@@ -6,52 +6,52 @@ class Card
   # the card_virtuals table.
   class Virtual < Cardio::Record
     def update new_content
-      update! content: new_content
+      content == new_content ? touch : update!(content: new_content)
       new_content
     end
 
     class << self
-      def create card, virtual_content=nil
-        validate_card card
-        virtual_content ||= block_given? ? yield : card.generate_virtual_content
-        create! left_id: left_id(card),
-                right_id: right_id(card),
-                left_key: card.name.left_key,
-                content: virtual_content
-      end
-
-      def create_or_update card, virtual_content
-        if (virtual_card = find_by_card(card))
-          virtual_card.update virtual_content
-        else
-          create card, virtual_content
+      def fetch card
+        cache.fetch card.key do
+          find_by_card(card) || create(card)
         end
       end
 
-      def fetch_content card, &block
-        find_content_by_card(card) || create(card, &block).content
+      def save card
+        cache.write card.key, create_or_update(card)
       end
 
-      def fetch card, &block
-        find_by_card(card) || create(card, &block)
+      def delete card
+        cache.delete card.key
+        find_by_card(card)&.delete
       end
 
-      def refresh card
-        virtual = find_by_card(card)
-        return create(card) unless virtual
+      private
 
-        virtual.update card.generate_virtual_content
+      def create_or_update card
+        if (virt = find_by_card card)
+          virt.update(card.virtual_content)
+          virt
+        else
+          create(card)
+        end
       end
 
-      def find_content_by_card card
-        where_card(card)&.pluck(:content)&.first
+      def cache
+        Card::Cache[Virtual]
+      end
+
+      def create card
+        validate_card card
+        create! left_id: left_id(card),
+                right_id: right_id(card),
+                left_key: card.name.left_key,
+                content: card.virtual_content
       end
 
       def find_by_card card
         where_card(card).take
       end
-
-      private
 
       def where_card card
         query = { right_id: right_id(card) }

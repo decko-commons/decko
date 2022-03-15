@@ -48,18 +48,18 @@ def clear_roles
   @parties = @all_roles = @all_active_roles = @read_rules = nil
 end
 
-def with_clear_roles
-  a = @parties
-  b = @all_roles
-  c = @all_active_roles
-  d = @read_rules
-  yield
-ensure
-  @parties = a
-  @all_roles = b
-  @all_active_roles = c
-  @read_rules = d
-end
+# def with_clear_roles
+#   a = @parties
+#   b = @all_roles
+#   c = @all_active_roles
+#   d = @read_rules
+#   yield
+# ensure
+#   @parties = a
+#   @all_roles = b
+#   @all_active_roles = c
+#   @read_rules = d
+# end
 
 def all_enabled_roles
   @all_active_roles ||= (id == AnonymousID ? [] : enabled_role_ids)

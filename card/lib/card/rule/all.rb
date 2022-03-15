@@ -64,9 +64,9 @@ class Card
       end
 
       def rule_id_lookup lookup_hash, cache_suffix, fallback_suffix=nil
-        rule_set_keys.each do |rule_set_key|
-          rule_id = lookup_hash["#{rule_set_key}+#{cache_suffix}"]
-          rule_id ||= fallback_suffix && lookup_hash["#{rule_set_key}+#{fallback_suffix}"]
+        rule_lookup_keys.each do |lookup_key|
+          rule_id = lookup_hash["#{lookup_key}+#{cache_suffix}"]
+          rule_id ||= fallback_suffix && lookup_hash["#{lookup_key}+#{fallback_suffix}"]
           return rule_id if rule_id
         end
         nil

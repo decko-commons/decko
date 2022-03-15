@@ -1,0 +1,23 @@
+de:
+  format_add_card: "%{cardname} hinzufügen"
+  format_bad_address: "404: Ungültige Adresse"
+  format_close: Schließen
+  format_configure_card: "%{cardname} konfigurieren"
+  format_denial: Erlaubnis abgelehnt
+  format_denied_task: to %{denied_task} this
+  format_invalid_json: ungültiges json
+  format_need_permission_task: "Sie brauchen Erlaubnis %{task}."
+  format_not_found_named: Konnte %{cardname} nicht finden.
+  format_not_found_no_name: die angeforderte Karte
+  format_not_numeric: "'%{content}' ist nicht numerisch"
+  format_or: "oder"
+  format_please: Bitte
+  format_problems_name: Probleme mit %{cardname}
+  format_read_only: Wir sind derzeit im Nur-Lese-Modus. Bitte versuchen Sie es später noch einmal.
+  format_server_error: "\nServer Fehler. Ups, entschuldige bitte.\nUm uns den Fehler mitzuteilen und über eine Lösung informiert zu werden,\nerstelle ein Support-Ticket %{ticket_link}\n"
+  format_sorry: Sorry!
+  format_to_do_that: um das zu tun
+  format_toggle_no: "nein"
+  format_toggle_yes: "ja"
+  format_too_deep: Du bist zu tief.  (Zu viele verschachtelte Nester aufeinmal)
+  format_unsupported_view: Ansicht (%{view}) wird nicht unterstützt für %{cardname}

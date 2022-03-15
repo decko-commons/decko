@@ -4,9 +4,9 @@
     <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>
-  Module: Decko::Commands
+  Class: Decko::Commands
   
-    &mdash; Documentation by YARD 0.9.26
+    &mdash; Documentation by YARD 0.9.27
   
 </title>
 
@@ -59,12 +59,30 @@
         <div class="clear"></div>
       </div>
 
-      <div id="content"><h1>Module: Decko::Commands
+      <div id="content"><h1>Class: Decko::Commands
   
   
   
 </h1>
 <div class="box_info">
+  
+  <dl>
+    <dt>Inherits:</dt>
+    <dd>
+      <span class="inheritName"><span class='object_link'><a href="../Cardio/Commands.html" title="Cardio::Commands (class)">Cardio::Commands</a></span></span>
+      
+        <ul class="fullTree">
+          <li><span class='object_link'><a href="../Object.html" title="Object (class)">Object</a></span></li>
+          
+            <li class="next"><span class='object_link'><a href="../Cardio/Commands.html" title="Cardio::Commands (class)">Cardio::Commands</a></span></li>
+          
+            <li class="next">Decko::Commands</li>
+          
+        </ul>
+        <a href="#" class="inheritanceTree">show all</a>
+      
+    </dd>
+  </dl>
   
 
   
@@ -79,7 +97,7 @@
   <dl>
     <dt>Defined in:</dt>
     <dd>decko/lib/decko/commands.rb<span class="defines">,<br />
-  decko/lib/decko/commands/command.rb,<br /> decko/lib/decko/commands/rake_command.rb,<br /> decko/lib/decko/commands/rspec_command.rb,<br /> decko/lib/decko/commands/cucumber_command.rb,<br /> decko/lib/decko/commands/rake_command/parser.rb,<br /> decko/lib/decko/commands/rspec_command/parser.rb,<br /> decko/lib/decko/commands/cucumber_command/parser.rb</span>
+  decko/lib/decko/commands/cucumber_command.rb,<br /> decko/lib/decko/commands/cucumber_command/parser.rb</span>
 </dd>
   </dl>
   
@@ -91,7 +109,7 @@
     
   
     
-      <strong class="classes">Classes:</strong> <span class='object_link'><a href="Commands/Command.html" title="Decko::Commands::Command (class)">Command</a></span>, <span class='object_link'><a href="Commands/CucumberCommand.html" title="Decko::Commands::CucumberCommand (class)">CucumberCommand</a></span>, <span class='object_link'><a href="Commands/RakeCommand.html" title="Decko::Commands::RakeCommand (class)">RakeCommand</a></span>, <span class='object_link'><a href="Commands/RspecCommand.html" title="Decko::Commands::RspecCommand (class)">RspecCommand</a></span>
+      <strong class="classes">Classes:</strong> <span class='object_link'><a href="Commands/CucumberCommand.html" title="Decko::Commands::CucumberCommand (class)">CucumberCommand</a></span>
     
   
 </p>
@@ -101,10 +119,15 @@
 
 
 
+  <h2>Instance Attribute Summary</h2>
+  
+  <h3 class="inherited">Attributes inherited from <span class='object_link'><a href="../Cardio/Commands.html" title="Cardio::Commands (class)">Cardio::Commands</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="../Cardio/Commands.html#args-instance_method" title="Cardio::Commands#args (method)">#args</a></span>, <span class='object_link'><a href="../Cardio/Commands.html#command-instance_method" title="Cardio::Commands#command (method)">#command</a></span></p>
+
 
   
     <h2>
-      Class Method Summary
+      Instance Method Summary
       <small><a href="#" class="summary_toggle">collapse</a></small>
     </h2>
 
@@ -113,7 +136,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#run_cucumber-class_method" title="run_cucumber (class method)">.<strong>run_cucumber</strong>  &#x21d2; Object </a>
+      <a href="#gem-instance_method" title="#gem (instance method)">#<strong>gem</strong>  &#x21d2; Object </a>
     
 
     
@@ -136,7 +159,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#run_db_task-class_method" title="run_db_task (class method)">.<strong>run_db_task</strong>(command)  &#x21d2; Object </a>
+      <a href="#generator_requirement-instance_method" title="#generator_requirement (instance method)">#<strong>generator_requirement</strong>  &#x21d2; Object </a>
     
 
     
@@ -159,7 +182,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#run_jasmine-class_method" title="run_jasmine (class method)">.<strong>run_jasmine</strong>  &#x21d2; Object </a>
+      <a href="#map-instance_method" title="#map (instance method)">#<strong>map</strong>  &#x21d2; Object </a>
     
 
     
@@ -182,7 +205,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#run_new-class_method" title="run_new (class method)">.<strong>run_new</strong>  &#x21d2; Object </a>
+      <a href="#run_cucumber-instance_method" title="#run_cucumber (instance method)">#<strong>run_cucumber</strong>  &#x21d2; Object </a>
     
 
     
@@ -205,7 +228,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#run_rspec-class_method" title="run_rspec (class method)">.<strong>run_rspec</strong>  &#x21d2; Object </a>
+      <a href="#run_version-instance_method" title="#run_version (instance method)">#<strong>run_version</strong>  &#x21d2; Object </a>
     
 
     
@@ -229,15 +252,38 @@
   
 
 
+  
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Methods inherited from <span class='object_link'><a href="../Cardio/Commands.html" title="Cardio::Commands (class)">Cardio::Commands</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="../Cardio/Commands.html#gem-class_method" title="Cardio::Commands.gem (method)">gem</a></span>, <span class='object_link'><a href="../Cardio/Commands.html#initialize-instance_method" title="Cardio::Commands#initialize (method)">#initialize</a></span>, <span class='object_link'><a href="../Cardio/Commands.html#run-instance_method" title="Cardio::Commands#run (method)">#run</a></span></p>
 
-  <div id="class_method_details" class="method_details_list">
-    <h2>Class Method Details</h2>
+  
+  
+  
+  
+  
+  <div id="constructor_details" class="method_details_list">
+  <h2>Constructor Details</h2>
+  
+    <p class="notice">This class inherits a constructor from <span class='object_link'><a href="../Cardio/Commands.html#initialize-instance_method" title="Cardio::Commands#initialize (method)">Cardio::Commands</a></span></p>
+  
+</div>
+
+
+  <div id="instance_method_details" class="method_details_list">
+    <h2>Instance Method Details</h2>
 
     
       <div class="method_details first">
-  <h3 class="signature first" id="run_cucumber-class_method">
+  <h3 class="signature first" id="gem-instance_method">
   
-    .<strong>run_cucumber</strong>  &#x21d2; <tt><span class='object_link'><a href="../Object.html" title="Object (class)">Object</a></span></tt> 
+    #<strong>gem</strong>  &#x21d2; <tt><span class='object_link'><a href="../Object.html" title="Object (class)">Object</a></span></tt> 
   
 
   
@@ -249,17 +295,113 @@
       <pre class="lines">
 
 
-52
-53
-54
-55</pre>
+18
+19
+20</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decko/lib/decko/commands.rb', line 52</span>
+      <pre class="code"><span class="info file"># File 'decko/lib/decko/commands.rb', line 18</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_gem'>gem</span>
+  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>decko</span><span class='tstring_end'>&quot;</span></span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="generator_requirement-instance_method">
+  
+    #<strong>generator_requirement</strong>  &#x21d2; <tt><span class='object_link'><a href="../Object.html" title="Object (class)">Object</a></span></tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+14
+15
+16</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'decko/lib/decko/commands.rb', line 14</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_generator_requirement'>generator_requirement</span>
+  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>decko/generators</span><span class='tstring_end'>&quot;</span></span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="map-instance_method">
+  
+    #<strong>map</strong>  &#x21d2; <tt><span class='object_link'><a href="../Object.html" title="Object (class)">Object</a></span></tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+7
+8
+9
+10
+11
+12</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'decko/lib/decko/commands.rb', line 7</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_map'>map</span>
+  <span class='ivar'>@map</span> <span class='op'>||=</span> <span class='kw'>super</span><span class='period'>.</span><span class='id identifier rubyid_merge'>merge</span><span class='lparen'>(</span>
+    <span class='label'>server:</span> <span class='lbrace'>{</span> <span class='label'>desc:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>start a local web server</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>group:</span> <span class='symbol'>:shark</span><span class='comma'>,</span> <span class='label'>alias:</span> <span class='symbol'>:s</span> <span class='rbrace'>}</span><span class='comma'>,</span>
+    <span class='label'>cucumber:</span> <span class='lbrace'>{</span> <span class='label'>desc:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>run cucumber tests</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>group:</span> <span class='symbol'>:monkey</span><span class='comma'>,</span> <span class='label'>alias:</span> <span class='symbol'>:cc</span><span class='comma'>,</span> <span class='label'>via:</span> <span class='symbol'>:call</span><span class='rbrace'>}</span>
+  <span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="run_cucumber-instance_method">
+  
+    #<strong>run_cucumber</strong>  &#x21d2; <tt><span class='object_link'><a href="../Object.html" title="Object (class)">Object</a></span></tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+22
+23
+24
+25</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'decko/lib/decko/commands.rb', line 22</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_run_cucumber'>run_cucumber</span>
   <span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>decko/commands/cucumber_command</span><span class='tstring_end'>&quot;</span></span>
-  <span class='const'><span class='object_link'><a href="Commands/CucumberCommand.html" title="Decko::Commands::CucumberCommand (class)">CucumberCommand</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Commands/CucumberCommand.html#initialize-instance_method" title="Decko::Commands::CucumberCommand#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='const'>ARGV</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_run'><span class='object_link'><a href="Commands/Command.html#run-instance_method" title="Decko::Commands::Command#run (method)">run</a></span></span>
+  <span class='const'><span class='object_link'><a href="Commands/CucumberCommand.html" title="Decko::Commands::CucumberCommand (class)">CucumberCommand</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Commands/CucumberCommand.html#initialize-instance_method" title="Decko::Commands::CucumberCommand#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_run'><span class='object_link'><a href="../Cardio/Commands/Command.html#run-instance_method" title="Cardio::Commands::Command#run (method)">run</a></span></span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -267,9 +409,9 @@
 </div>
     
       <div class="method_details ">
-  <h3 class="signature " id="run_db_task-class_method">
+  <h3 class="signature " id="run_version-instance_method">
   
-    .<strong>run_db_task</strong>(command)  &#x21d2; <tt><span class='object_link'><a href="../Object.html" title="Object (class)">Object</a></span></tt> 
+    #<strong>run_version</strong>  &#x21d2; <tt><span class='object_link'><a href="../Object.html" title="Object (class)">Object</a></span></tt> 
   
 
   
@@ -281,125 +423,15 @@
       <pre class="lines">
 
 
-57
-58
-59
-60</pre>
+27
+28
+29</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decko/lib/decko/commands.rb', line 57</span>
+      <pre class="code"><span class="info file"># File 'decko/lib/decko/commands.rb', line 27</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_run_db_task'>run_db_task</span> <span class='id identifier rubyid_command'>command</span>
-  <span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>decko/commands/rake_command</span><span class='tstring_end'>&quot;</span></span>
-  <span class='const'><span class='object_link'><a href="Commands/RakeCommand.html" title="Decko::Commands::RakeCommand (class)">RakeCommand</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Commands/RakeCommand.html#initialize-instance_method" title="Decko::Commands::RakeCommand#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>decko:</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_command'>command</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='const'>ARGV</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_run'><span class='object_link'><a href="Commands/RakeCommand.html#run-instance_method" title="Decko::Commands::RakeCommand#run (method)">run</a></span></span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="run_jasmine-class_method">
-  
-    .<strong>run_jasmine</strong>  &#x21d2; <tt><span class='object_link'><a href="../Object.html" title="Object (class)">Object</a></span></tt> 
-  
-
-  
-
-  
-</h3><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-62
-63
-64
-65</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'decko/lib/decko/commands.rb', line 62</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_run_jasmine'>run_jasmine</span>
-  <span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>decko/commands/rake_command</span><span class='tstring_end'>&quot;</span></span>
-  <span class='const'><span class='object_link'><a href="Commands/RakeCommand.html" title="Decko::Commands::RakeCommand (class)">RakeCommand</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Commands/RakeCommand.html#initialize-instance_method" title="Decko::Commands::RakeCommand#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>spec:javascript</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>envs:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>test</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_run'><span class='object_link'><a href="Commands/RakeCommand.html#run-instance_method" title="Decko::Commands::RakeCommand#run (method)">run</a></span></span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="run_new-class_method">
-  
-    .<strong>run_new</strong>  &#x21d2; <tt><span class='object_link'><a href="../Object.html" title="Object (class)">Object</a></span></tt> 
-  
-
-  
-
-  
-</h3><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-36
-37
-38
-39
-40
-41
-42
-43
-44
-45</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'decko/lib/decko/commands.rb', line 36</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_run_new'>run_new</span>
-  <span class='kw'>if</span> <span class='const'>ARGV</span><span class='period'>.</span><span class='id identifier rubyid_first'>first</span><span class='period'>.</span><span class='id identifier rubyid_in?'>in?</span><span class='lparen'>(</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>-h</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>--help</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='rparen'>)</span>
-    <span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>decko/commands/application</span><span class='tstring_end'>&quot;</span></span>
-  <span class='kw'>else</span>
-    <span class='id identifier rubyid_puts'>puts</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Can&#39;t initialize a new deck within the directory of another, </span><span class='tstring_end'>&quot;</span></span> \
-     <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>please change to a non-deck directory first.\n</span><span class='tstring_end'>&quot;</span></span>
-    <span class='id identifier rubyid_puts'>puts</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Type &#39;decko&#39; for help.</span><span class='tstring_end'>&quot;</span></span>
-    <span class='id identifier rubyid_exit'>exit</span><span class='lparen'>(</span><span class='int'>1</span><span class='rparen'>)</span>
-  <span class='kw'>end</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="run_rspec-class_method">
-  
-    .<strong>run_rspec</strong>  &#x21d2; <tt><span class='object_link'><a href="../Object.html" title="Object (class)">Object</a></span></tt> 
-  
-
-  
-
-  
-</h3><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-47
-48
-49
-50</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'decko/lib/decko/commands.rb', line 47</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_run_rspec'>run_rspec</span>
-  <span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>decko/commands/rspec_command</span><span class='tstring_end'>&quot;</span></span>
-  <span class='const'><span class='object_link'><a href="Commands/RspecCommand.html" title="Decko::Commands::RspecCommand (class)">RspecCommand</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Commands/RspecCommand.html#initialize-instance_method" title="Decko::Commands::RspecCommand#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='const'>ARGV</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_run'><span class='object_link'><a href="Commands/Command.html#run-instance_method" title="Decko::Commands::Command#run (method)">run</a></span></span>
+<span class='kw'>def</span> <span class='id identifier rubyid_run_version'>run_version</span>
+  <span class='id identifier rubyid_puts'>puts</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Decko </span><span class='embexpr_beg'>#{</span><span class='const'><span class='object_link'><a href="../Cardio.html" title="Cardio (module)">Cardio</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Cardio/Version.html" title="Cardio::Version (module)">Version</a></span></span><span class='period'>.</span><span class='id identifier rubyid_release'><span class='object_link'><a href="../Cardio/Version.html#release-class_method" title="Cardio::Version.release (method)">release</a></span></span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='period'>.</span><span class='id identifier rubyid_light_cyan'>light_cyan</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -411,9 +443,9 @@
 </div>
 
       <div id="footer">
-  Generated on Thu May 13 17:17:15 2021 by
+  Generated on Fri Jan 21 16:01:46 2022 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.26 (ruby-2.7.2).
+  0.9.27 (ruby-3.0.1).
 </div>
 
     </div>

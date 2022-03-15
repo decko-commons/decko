@@ -43,7 +43,7 @@ class Card
       end
 
       # set current from token, api_key, or session
-      def signin_with _opts={}
+      def signin_with opts={}
         if opts[:token]
           signin_with_token opts[:token]
         else

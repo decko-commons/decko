@@ -6,7 +6,7 @@
 <title>
   Module: Card::Name::NameVariants
   
-    &mdash; Documentation by YARD 0.9.26
+    &mdash; Documentation by YARD 0.9.27
   
 </title>
 
@@ -198,6 +198,29 @@
         <li class="public ">
   <span class="summary_signature">
     
+      <a href="#codename_or_string-instance_method" title="#codename_or_string (instance method)">#<strong>codename_or_string</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
       <a href="#standard-instance_method" title="#standard (instance method)">#<strong>standard</strong>  &#x21d2; Card::Name </a>
     
 
@@ -303,7 +326,7 @@
       <pre class="code"><span class="info file"># File 'card/lib/card/name/name_variants.rb', line 25</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_card_id'>card_id</span>
-  <span class='const'><span class='object_link'><a href="../../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_fetch_id'><span class='object_link'><a href="../Fetch/CardClass.html#fetch_id-instance_method" title="Card::Fetch::CardClass#fetch_id (method)">fetch_id</a></span></span> <span class='kw'>self</span>
+  <span class='const'><span class='object_link'><a href="../Lexicon.html" title="Card::Lexicon (module)">Lexicon</a></span></span><span class='period'>.</span><span class='id identifier rubyid_id'><span class='object_link'><a href="../Lexicon.html#id-class_method" title="Card::Lexicon.id (method)">id</a></span></span> <span class='kw'>self</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -361,6 +384,36 @@
 
 <span class='kw'>def</span> <span class='id identifier rubyid_codename'>codename</span>
   <span class='const'><span class='object_link'><a href="../Codename.html" title="Card::Codename (class)">Codename</a></span></span><span class='lbracket'>[</span><span class='id identifier rubyid_card_id'>card_id</span><span class='rbracket'>]</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="codename_or_string-instance_method">
+  
+    #<strong>codename_or_string</strong>  &#x21d2; <tt><span class='object_link'><a href="../../Object.html" title="Object (class)">Object</a></span></tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+34
+35
+36</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'card/lib/card/name/name_variants.rb', line 34</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_codename_or_string'>codename_or_string</span>
+  <span class='id identifier rubyid_codename'>codename</span> <span class='op'>||</span> <span class='id identifier rubyid_s'>s</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -465,9 +518,9 @@
 </div>
 
       <div id="footer">
-  Generated on Thu May 13 17:17:18 2021 by
+  Generated on Fri Jan 21 16:01:42 2022 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.26 (ruby-2.7.2).
+  0.9.27 (ruby-3.0.1).
 </div>
 
     </div>

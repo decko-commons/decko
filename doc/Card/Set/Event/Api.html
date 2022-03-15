@@ -6,7 +6,7 @@
 <title>
   Module: Card::Set::Event::Api
   
-    &mdash; Documentation by YARD 0.9.26
+    &mdash; Documentation by YARD 0.9.27
   
 </title>
 
@@ -100,8 +100,8 @@ with <span class='object_link'><a href="../../Format.html" title="Card::Format (
 action has three phases, each phase has three stages, and each stage has many
 events.</p>
 
-<p>Events are defined in set modules in <span class='object_link'><a href="../../../Cardio/Mod.html" title="Cardio::Mod (module)"><strong>mods</strong></a></span>. Learn more about
-<span class='object_link'><a href="../../../Cardio/Mod.html" title="Cardio::Mod (module)">set modules</a></span>.</p>
+<p>Events are defined in set modules in <span class='object_link'><a href="../../../Cardio/Mod.html" title="Cardio::Mod (class)"><strong>mods</strong></a></span>. Learn more about
+<span class='object_link'><a href="../../../Cardio/Mod.html" title="Cardio::Mod (class)">set modules</a></span>.</p>
 
 <p>A simple event definition looks something like this:</p>
 
@@ -444,7 +444,7 @@ event to fire.</p>
       <pre class="code"><span class="info file"># File 'card/lib/card/set/event.rb', line 72</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_event'>event</span> <span class='id identifier rubyid_event'>event</span><span class='comma'>,</span> <span class='id identifier rubyid_stage_or_opts'>stage_or_opts</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_final'>final</span>
-  <span class='const'><span class='object_link'><a href="../Event.html" title="Card::Set::Event (class)">Event</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="../Event.html#initialize-instance_method" title="Card::Set::Event#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_event'>event</span><span class='comma'>,</span> <span class='id identifier rubyid_stage_or_opts'>stage_or_opts</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='comma'>,</span> <span class='kw'>self</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_final'>final</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_register'><span class='object_link'><a href="../Event.html#register-instance_method" title="Card::Set::Event#register (method)">register</a></span></span>
+  <span class='const'><span class='object_link'><a href="../Event.html" title="Card::Set::Event (class)">Event</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="../Event.html#initialize-instance_method" title="Card::Set::Event#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_event'>event</span><span class='comma'>,</span> <span class='kw'>self</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_register'><span class='object_link'><a href="../Event.html#register-instance_method" title="Card::Set::Event#register (method)">register</a></span></span> <span class='id identifier rubyid_stage_or_opts'>stage_or_opts</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_final'>final</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -456,9 +456,9 @@ event to fire.</p>
 </div>
 
       <div id="footer">
-  Generated on Thu May 13 17:17:15 2021 by
+  Generated on Fri Jan 21 16:01:40 2022 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.26 (ruby-2.7.2).
+  0.9.27 (ruby-3.0.1).
 </div>
 
     </div>

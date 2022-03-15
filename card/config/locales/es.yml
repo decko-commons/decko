@@ -4,7 +4,7 @@
 #
 #  key name prefixes:
 #    'exception_' begins key of text to be used in a raised exception
-#    'error_' begins key of text to be added to an error list (usuallly)
+#    'error_' begins key of text to be added to an error list (usually)
 #    'search_' begins key of text to be used in CQL search comment
 #    'deny_' begins key of text to be used in denying action due to permissions
 #    (Not all key names begin with a prefix. In the absence of a prefix,
@@ -15,7 +15,7 @@
 #    translation lookup occurs, relative to the root of the 'card' gem,
 #    with slashes replaced by dots and the final .rb extension omitted.
 #    So, a scope might be
-#      'lib.card.format.render' or 'mod.01_core.set.all.permisssions'
+#      'lib.card.format.render' or 'mod.01_core.set.all.permissions'
 #    Although there isn't a common prefix for all scopes, scopes begin
 #    with either 'lib.card' or 'mod.0d_modname' and these patterns are
 #    sufficiently distinctive that key collisions with translations
@@ -590,7 +590,6 @@ es:
       set:
         mirrored_list:
           cardtype_right: debe tener un nombre de cardtype como parte derecha
-          conflict_item_type: el nombre entra en conflicto con elementos de la lista' tipo; eliminar contenido primero
           only_type_allowed: "%{cardname} tiene un tipo de tarjeta incorrecto; solo cartas de tipo %{cardtype} están permitidos"
         mirror_list:
           cardtype_right: debe tener un nombre de tipo de tarjeta como parte derecha

@@ -14,7 +14,7 @@ en:
   format_please: Please
   format_problems_name: Problems with %{cardname}
   format_read_only: We are currently in read-only mode.  Please try again later.
-  format_server_error: "\nWagn Hitch!  Server Error. Yuck, sorry about that.\nTo tell us more and follow the fix,\nadd a support ticket at %{ticket_link}\n"
+  format_server_error: "\nServer Error. Yuck, sorry about that.\nTo tell us more and follow the fix,\nadd a support ticket at %{ticket_link}\n"
   format_sorry: Sorry!
   format_to_do_that: to do that
   format_toggle_no: "no"

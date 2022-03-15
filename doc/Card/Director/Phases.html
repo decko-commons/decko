@@ -6,7 +6,7 @@
 <title>
   Module: Card::Director::Phases
   
-    &mdash; Documentation by YARD 0.9.26
+    &mdash; Documentation by YARD 0.9.27
   
 </title>
 
@@ -275,7 +275,6 @@
       <pre class="lines">
 
 
-42
 43
 44
 45
@@ -284,10 +283,11 @@
 48
 49
 50
-51</pre>
+51
+52</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/director/phases.rb', line 42</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/director/phases.rb', line 43</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_integration_phase'>integration_phase</span>
   <span class='kw'>return</span> <span class='kw'>if</span> <span class='ivar'>@abort</span>
@@ -376,13 +376,15 @@
 18
 19
 20
-21</pre>
+21
+22</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'card/lib/card/director/phases.rb', line 17</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_prepare_for_phases'>prepare_for_phases</span>
   <span class='ivar'>@card</span><span class='period'>.</span><span class='id identifier rubyid_prepare_for_phases'>prepare_for_phases</span> <span class='kw'>unless</span> <span class='id identifier rubyid_running?'>running?</span>
+  <span class='ivar'>@card</span><span class='period'>.</span><span class='id identifier rubyid_identify_action'>identify_action</span>
   <span class='ivar'>@running</span> <span class='op'>=</span> <span class='kw'>true</span>
   <span class='ivar'>@subdirectors</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='symbol'>:prepare_for_phases</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
@@ -417,17 +419,17 @@ because it is called by an “around” callback</p>
       <pre class="lines">
 
 
-33
 34
 35
 36
 37
 38
 39
-40</pre>
+40
+41</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/director/phases.rb', line 33</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/director/phases.rb', line 34</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_storage_phase'>storage_phase</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span>
   <span class='id identifier rubyid_catch_up_to_stage'>catch_up_to_stage</span> <span class='symbol'>:prepare_to_store</span>
@@ -457,16 +459,16 @@ because it is called by an “around” callback</p>
       <pre class="lines">
 
 
-23
 24
 25
 26
 27
 28
-29</pre>
+29
+30</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/director/phases.rb', line 23</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/director/phases.rb', line 24</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_validation_phase'>validation_phase</span>
   <span class='id identifier rubyid_run_stage'>run_stage</span> <span class='symbol'>:initialize</span>
@@ -538,9 +540,9 @@ because it is called by an “around” callback</p>
 </div>
 
       <div id="footer">
-  Generated on Thu May 13 17:17:17 2021 by
+  Generated on Fri Jan 21 16:01:42 2022 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.26 (ruby-2.7.2).
+  0.9.27 (ruby-3.0.1).
 </div>
 
     </div>

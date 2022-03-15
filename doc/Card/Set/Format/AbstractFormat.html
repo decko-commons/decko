@@ -6,7 +6,7 @@
 <title>
   Module: Card::Set::Format::AbstractFormat
   
-    &mdash; Documentation by YARD 0.9.26
+    &mdash; Documentation by YARD 0.9.27
   
 </title>
 
@@ -73,7 +73,7 @@
   
   <dl>
       <dt>Includes:</dt>
-      <dd><span class='object_link'><a href="../Basket.html" title="Card::Set::Basket (module)">Basket</a></span>, <span class='object_link'><a href="AbstractFormat/HamlViews.html" title="Card::Set::Format::AbstractFormat::HamlViews (module)">HamlViews</a></span>, <span class='object_link'><a href="AbstractFormat/ViewDefinition.html" title="Card::Set::Format::AbstractFormat::ViewDefinition (module)">ViewDefinition</a></span>, <span class='object_link'><a href="AbstractFormat/ViewOpts.html" title="Card::Set::Format::AbstractFormat::ViewOpts (module)">ViewOpts</a></span>, <span class='object_link'><a href="AbstractFormat/Wrapper.html" title="Card::Set::Format::AbstractFormat::Wrapper (module)">Wrapper</a></span></dd>
+      <dd><span class='object_link'><a href="AbstractFormat/HamlViews.html" title="Card::Set::Format::AbstractFormat::HamlViews (module)">HamlViews</a></span>, <span class='object_link'><a href="AbstractFormat/ViewDefinition.html" title="Card::Set::Format::AbstractFormat::ViewDefinition (module)">ViewDefinition</a></span>, <span class='object_link'><a href="AbstractFormat/ViewOpts.html" title="Card::Set::Format::AbstractFormat::ViewOpts (module)">ViewOpts</a></span>, <span class='object_link'><a href="AbstractFormat/Wrapper.html" title="Card::Set::Format::AbstractFormat::Wrapper (module)">Wrapper</a></span></dd>
   </dl>
   
   
@@ -92,9 +92,7 @@
 
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
-    <p>AbstractFormat manages the basic format API, including API to define a <span class='object_link'><a href="#view-instance_method" title="Card::Set::Format::AbstractFormat#view (method)">#view</a></span>.
-Whenever you create a format block in a set module in a <span class='object_link'><a href="../../../Cardio/Mod.html" title="Cardio::Mod (module)">mod</a></span>, you
-create a format module that is extended with AbstractFormat.</p>
+    <p>AbstractFormat extends all format classes</p>
 
 
   </div>
@@ -119,7 +117,7 @@ create a format module that is extended with AbstractFormat.</p>
   
   <h3 class="inherited">Constants included
      from <span class='object_link'><a href="HamlPaths.html" title="Card::Set::Format::HamlPaths (module)">HamlPaths</a></span></h3>
-  <p class="inherited"><span class='object_link'><a href="HamlPaths.html#TEMPLATE_DIR-constant" title="Card::Set::Format::HamlPaths::TEMPLATE_DIR (constant)">HamlPaths::TEMPLATE_DIR</a></span>, <span class='object_link'><a href="HamlPaths.html#TMPSET_REGEXP-constant" title="Card::Set::Format::HamlPaths::TMPSET_REGEXP (constant)">HamlPaths::TMPSET_REGEXP</a></span></p>
+  <p class="inherited"><span class='object_link'><a href="HamlPaths.html#CORE_MODS-constant" title="Card::Set::Format::HamlPaths::CORE_MODS (constant)">HamlPaths::CORE_MODS</a></span>, <span class='object_link'><a href="HamlPaths.html#TEMPLATE_DIR-constant" title="Card::Set::Format::HamlPaths::TEMPLATE_DIR (constant)">HamlPaths::TEMPLATE_DIR</a></span>, <span class='object_link'><a href="HamlPaths.html#TMPSET_REGEXP-constant" title="Card::Set::Format::HamlPaths::TMPSET_REGEXP (constant)">HamlPaths::TMPSET_REGEXP</a></span></p>
 
   
   
@@ -326,17 +324,6 @@ create a format module that is extended with AbstractFormat.</p>
   
   
   
-  
-  
-  
-  
-  
-  
-  
-  
-  <h3 class="inherited">Methods included from <span class='object_link'><a href="../Basket.html" title="Card::Set::Basket (module)">Basket</a></span></h3>
-  <p class="inherited"><span class='object_link'><a href="../Basket.html#abstract_basket-instance_method" title="Card::Set::Basket#abstract_basket (method)">#abstract_basket</a></span>, <span class='object_link'><a href="../Basket.html#add_to_basket-instance_method" title="Card::Set::Basket#add_to_basket (method)">#add_to_basket</a></span>, <span class='object_link'><a href="../Basket.html#basket-instance_method" title="Card::Set::Basket#basket (method)">#basket</a></span>, <span class='object_link'><a href="../Basket.html#unshift_basket-instance_method" title="Card::Set::Basket#unshift_basket (method)">#unshift_basket</a></span></p>
-
 
   <div id="instance_method_details" class="method_details_list">
     <h2>Instance Method Details</h2>
@@ -367,12 +354,12 @@ create a format module that is extended with AbstractFormat.</p>
       <pre class="lines">
 
 
-90
 91
-92</pre>
+92
+93</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/set/format/abstract_format.rb', line 90</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/set/format/abstract_format.rb', line 91</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_before'>before</span> <span class='id identifier rubyid_view'>view</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span>
   <span class='id identifier rubyid_define_method'>define_method</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>_before_</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_view'>view</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span>
@@ -424,12 +411,12 @@ create a format module that is extended with AbstractFormat.</p>
       <pre class="lines">
 
 
-120
 121
-122</pre>
+122
+123</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/set/format/abstract_format.rb', line 120</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/set/format/abstract_format.rb', line 121</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_set_module'>set_module</span>
   <span class='const'><span class='object_link'><a href="../../../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_const_get'>const_get</span> <span class='id identifier rubyid_name'>name</span><span class='period'>.</span><span class='id identifier rubyid_split'>split</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>::</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='lbracket'>[</span><span class='int'>0</span><span class='op'>..</span><span class='op'>-</span><span class='int'>2</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>::</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
@@ -452,7 +439,7 @@ create a format module that is extended with AbstractFormat.</p>
   <div class="discussion">
     <p>Defines a setting method that can be used in all formats. Example:</p>
 
-<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_format'>format</span> <span class='kw'>do</span>
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_format'><span class='object_link'><a href="../../../top-level-namespace.html#format-instance_method" title="#format (method)">format</a></span></span> <span class='kw'>do</span>
   <span class='id identifier rubyid_setting'>setting</span> <span class='symbol'>:cols</span>
   <span class='id identifier rubyid_cols'>cols</span> <span class='int'>5</span><span class='comma'>,</span> <span class='int'>7</span>
 
@@ -493,16 +480,16 @@ create a format module that is extended with AbstractFormat.</p>
       <pre class="lines">
 
 
-106
 107
 108
 109
 110
 111
-112</pre>
+112
+113</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/set/format/abstract_format.rb', line 106</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/set/format/abstract_format.rb', line 107</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_setting'>setting</span> <span class='id identifier rubyid_name'>name</span>
   <span class='const'><span class='object_link'><a href="../../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../Set.html" title="Card::Set (module)">Set</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Format.html" title="Card::Set::Format (module)">Format</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="" title="Card::Set::Format::AbstractFormat (module)">AbstractFormat</a></span></span><span class='period'>.</span><span class='id identifier rubyid_send'>send</span> <span class='symbol'>:define_method</span><span class='comma'>,</span> <span class='id identifier rubyid_name'>name</span> <span class='kw'>do</span> <span class='op'>|</span><span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='op'>|</span>
@@ -541,12 +528,12 @@ create a format module that is extended with AbstractFormat.</p>
       <pre class="lines">
 
 
-115
 116
-117</pre>
+117
+118</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/set/format/abstract_format.rb', line 115</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/set/format/abstract_format.rb', line 116</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_source_location'>source_location</span>
   <span class='id identifier rubyid_set_module'>set_module</span><span class='period'>.</span><span class='id identifier rubyid_source_location'>source_location</span>
@@ -629,7 +616,7 @@ given permission for the card viewed.</li>
 the only supported value.  See <span class='object_link'><a href="AbstractFormat/HamlViews.html" title="Card::Set::Format::AbstractFormat::HamlViews (module)">HamlViews</a></span></p>
   </li>
   <li><strong>:unknown</strong> [True/False, Symbol]. Configures handling of “unknown” cards.
-(See <span class='object_link'><a href="../All/States.html" title="Card::Set::All::States (module)">card states</a></span>). Supported values:
+(See card states). Supported values:
     <ul>
       <li><em>true</em> render view even if card is unknown</li>
       <li><em>false</em> default unknown handling (depends on context, create permissions,
@@ -653,13 +640,13 @@ wrappers and wrapper options. See <span class='object_link'><a href="AbstractFor
       <pre class="lines">
 
 
-76
 77
 78
-79</pre>
+79
+80</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/set/format/abstract_format.rb', line 76</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/set/format/abstract_format.rb', line 77</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_view'>view</span> <span class='id identifier rubyid_viewname'>viewname</span><span class='comma'>,</span> <span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span>
   <span class='id identifier rubyid_def_opts'>def_opts</span> <span class='op'>=</span> <span class='id identifier rubyid_process_view_opts'>process_view_opts</span> <span class='id identifier rubyid_viewname'>viewname</span><span class='comma'>,</span> <span class='id identifier rubyid_args'>args</span>
@@ -695,15 +682,15 @@ wrappers and wrapper options. See <span class='object_link'><a href="AbstractFor
       <pre class="lines">
 
 
-82
 83
 84
 85
 86
-87</pre>
+87
+88</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/set/format/abstract_format.rb', line 82</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/set/format/abstract_format.rb', line 83</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_view_for_override'>view_for_override</span> <span class='id identifier rubyid_viewname'>viewname</span>
   <span class='comment'># LOCALIZE
@@ -721,9 +708,9 @@ wrappers and wrapper options. See <span class='object_link'><a href="AbstractFor
 </div>
 
       <div id="footer">
-  Generated on Thu May 13 17:17:19 2021 by
+  Generated on Fri Jan 21 16:01:44 2022 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.26 (ruby-2.7.2).
+  0.9.27 (ruby-3.0.1).
 </div>
 
     </div>

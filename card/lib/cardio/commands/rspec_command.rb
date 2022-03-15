@@ -24,6 +24,8 @@ module Cardio
       end
 
       def coverage
+        return if @opts[:simplecov]
+
         # no coverage if rspec was started with file argument
         return unless @opts[:files] || @rspec_args.any?
 

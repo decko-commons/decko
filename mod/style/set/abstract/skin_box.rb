@@ -22,9 +22,7 @@ format :html do
   end
 
   view :box_middle do
-    return unless card.field(:image)
-
-    field_nest(:image, view: :full_width, size: :large)
+    field_nest :image, view: :full_width, size: :large if card.fetch :image
   end
 
   def select_button target=parent.card

@@ -20,13 +20,13 @@ Cardio.application.class.configure do
   config.serve_static_files = defined?(Rails::Server)
 
   # Compress JavaScripts and CSS
-  config.assets.compress = true
-
-  # Don't fallback to assets pipeline if a precompiled asset is missed
-  config.assets.compile = false
-
-  # Generate digests for assets URLs
-  config.assets.digest = true
+  # config.assets.compress = true
+  #
+  # # Don't fallback to assets pipeline if a precompiled asset is missed
+  # config.assets.compile = false
+  #
+  # # Generate digests for assets URLs
+  # config.assets.digest = true
 
   # Defaults to Rails.root.join("public/assets")
   # config.assets.manifest = File.join(Decko.gem_root, "public/assets")
@@ -51,8 +51,8 @@ Cardio.application.class.configure do
   # config.action_controller.asset_host = "http://assets.example.com"
 
   # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
-  config.assets.precompile += %w[application-all.css application-print.css barebones.css
-                                 html5shiv-printshiv.js]
+  # config.assets.precompile += %w[application-all.css application-print.css barebones.css
+  #                                html5shiv-printshiv.js]
 
   # Disable delivery errors, bad email addresses will be ignored
   # config.action_mailer.raise_delivery_errors = false

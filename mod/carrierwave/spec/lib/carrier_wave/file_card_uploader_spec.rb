@@ -13,12 +13,6 @@ RSpec.describe CarrierWave::FileCardUploader do
         expect(subject.attachment.db_content)
           .to eq ":logo/standard.svg"
       end
-
-      it "handles storage options" do
-        subject.last_action_id
-        expect(subject.attachment.db_content(storage_type: :local))
-          .to eq "~#{subject.id}/#{subject.last_action_id}.svg"
-      end
     end
 
     context "local file" do
@@ -27,21 +21,6 @@ RSpec.describe CarrierWave::FileCardUploader do
       it "returns correct identifier" do
         expect(subject.attachment.db_content)
           .to eq "~#{subject.id}/#{subject.last_action_id}.txt"
-      end
-
-      it "handles storage options" do
-        db_content =
-          subject.attachment.db_content(storage_type: :coded, mod: "test_mod")
-        expect(db_content).to eq ":file_card_codename/test_mod.txt"
-      end
-
-      it "without codename fails for storage option :coded" do
-        subject.codename = nil
-        expect do
-          subject.attachment.db_content(storage_type: :coded, mod: "test_mod")
-        end.to raise_error(
-          Card::Error, "codename needed for storage type :coded"
-        )
       end
     end
 

@@ -17,10 +17,10 @@ window.decko ||= {} #needed to run w/o *head.  eg. jasmine
 #  initfunc()
 
 $(window).ready ->
-  $('body').on 'click', '._stop_propagation', (event)->
+  $(document).on 'click', '._stop_propagation', (event)->
     event.stopPropagation()
 
-  $('body').on 'click', '._prevent_default', (event)->
+  $(document).on 'click', '._prevent_default', (event)->
     event.preventDefault()
 
   $('body').on 'mouseenter', 'a[data-hover-text]', ->
@@ -77,9 +77,3 @@ $.extend decko,
   toggleShade: (shadeSlot) ->
     shadeSlot.find('.shade-content').slideToggle 1000
     shadeSlot.find('.glyphicon').toggleClass 'glyphicon-triangle-right glpyphicon-triangle-bottom'
-
-
-
-
-
-

@@ -9,9 +9,11 @@ Cypress.Commands.add "main_slot", () =>
   cy.get("#main > .card-slot")
 
 # click the edit icon
-Cypress.Commands.add "click_edit",  { prevSubject: 'element'}, (subject) =>
+Cypress.Commands.add "click_edit", { prevSubject: 'element'}, (subject) =>
   cy.wrap(subject).find(".card-menu > a.edit-link").click(force: true)
 
+Cypress.Commands.add "bar", (cardname) =>
+  cy.get(".bar-view").find ".bar[data-card-name='#{cardname}']"
 
 Cypress.Commands.add "expect_main_title", (text) =>
   cy.get("#main > .card-slot > .d0-card-header > .d0-card-header-title .card-title")
@@ -63,6 +65,12 @@ Cypress.Commands.add "select2", { prevSubject: "element" }, (subject, value) =>
   cy.wrap(subject).siblings(".select2-container").click()
   #else
   #  cy.wrap(subject).find(".select2-container").click()
+
+  cy.root().get("span.select2-results").contains(value).click()
+
+Cypress.Commands.add "searchAndSelect2", { prevSubject: "element" }, (subject, type, value) =>
+  cy.wrap(subject).siblings(".select2-container").click()
+  cy.root().get(".select2-dropdown > .select2-search > .select2-search__field").type(type)
   cy.root().get("span.select2-results").contains(value).click()
 
 Cypress.Commands.add "unfollow", (card, user="Joe_Admin") =>
@@ -76,10 +84,16 @@ Cypress.Commands.add "follow", (card, user="Joe_Admin") =>
     url: "/update/#{card}+*self+#{user}+*follow?card%5Bcontent%5D=%5B%5B%2Aalways%5D%5D"
 
 Cypress.Commands.add "ensure", (name, args={}) =>
-  cy.app("cards/ensure", name: name, args: args)
+  cy.app "cards/ensure", name: name, args: args
 
 Cypress.Commands.add "delete", (name) =>
-  cy.app("cards/delete", name)
+  cy.app "cards/delete", name
 
 Cypress.Commands.add "update", (name, content) =>
-  cy.app("cards/update", name: name, content: content)
+  cy.app "cards/update", name: name, content: content
+
+Cypress.Commands.add "editor", (field) =>
+  cy.get ".card-editor.RIGHT-#{field} .content-editor"
+
+Cypress.Commands.add "closeFilter", (field) =>
+  cy.get(".filter-in-filter-form ._filter-input-#{field} ._delete-filter-input").click()

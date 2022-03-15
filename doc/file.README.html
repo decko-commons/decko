@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>
-  File: README - mod: follow
+  File: README - Decko on Docker
   
-    &mdash; Documentation by YARD 0.9.26
+    &mdash; Documentation by YARD 0.9.27
   
 </title>
 
@@ -37,7 +37,7 @@
         <div id="menu">
   
     <a href="_index.html">Index</a> &raquo; 
-    <span class="title">File: README - mod: follow</span>
+    <span class="title">File: README - Decko on Docker</span>
   
 </div>
 
@@ -57,260 +57,91 @@
         <div class="clear"></div>
       </div>
 
-      <div id="content"><div id='filecontents'><h1 id="follow">Follow</h1>
+      <div id="content"><div id='filecontents'>
+<h1 id="decko-on-docker">Decko on Docker</h1>
 
-<p>Follow sets cards, get notified when any card in the set changes.</p>
+<p>Docker (no relation to Decko) is a set of tools for organizing software into packages
+called containers. Decko maintains several Docker images to support installing,
+developing, deploying, and maintaining Decko decks.</p>
 
-<h2 id="sets">Sets</h2>
+<p>The biggest advantage of using Docker is that you needn’t give a moments thought to installing dependencies (other than Docker itself). The decko app containers already have imagemagick, memcached, passenger, node, and nginx installed and configured and ready to go. And the “Decko Chambers”</p>
 
-<p>Cards ruling notifications include:</p>
+<p>To use the following, you will
+need <a href="https://docs.docker.com/get-docker/">Docker installed</a> (and for most use cases you
+will also want <a href="https://docs.docker.com/compose/install/">Docker compose</a>).</p>
 
-<h3 id="follow-preferences-or-follow-rules">Follow preferences (or follow rules)</h3>
+<h2 id="sandbox">Sandbox</h2>
 
-<table>
-  <thead>
-    <tr>
-      <th style="text-align: center">name</th>
-      <th style="text-align: center">type</th>
-      <th style="text-align: center">content</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td style="text-align: center">[Set]+[User]+:follow</td>
-      <td style="text-align: center">Pointer</td>
-      <td style="text-align: center">list of follow options</td>
-    </tr>
-  </tbody>
-</table>
+<p>If you just want to give Decko a quick try without worrying about saving your work, you
+can install a sandbox with the following command:</p>
 
-<p>Each rule determines cases in which the <em>User</em> should be notified about changes to the <em>Set</em>.</p>
+<p><code>docker run -dp 4444:80 ethn/decko-sandbox</code></p>
 
-<p>These cards have special permission handling, granting full permission to the <em>User</em>.</p>
+<p>That will install a fully operational, seeded deck that will be available on a browser on
+port 4444 of the host server. For example, if you are running this command on your local
+computer, you should be able to see the deck at <code>http://localhost:4444</code>.</p>
 
-<p>Special views include:</p>
+<p>Note: in the sandbox, all the data is stored inside the docker container; when the
+container is gone, so is the data. <strong><em>You should NOT keep any valuable data in a sandbox
+deck</em></strong>.</p>
 
-<ul>
-  <li><em>follow_item</em></li>
-  <li><em>follow_status</em></li>
-</ul>
+<h2 id="decko-chambers">Decko Chambers</h2>
 
-<h3 id="follow-options">Follow options</h3>
+<p>A second set of handy Docker images is intended for folks who want standard decks <em>and
+don’t need to write mod code</em>. If you’re not sure whether you need mods this is a good way
+to get started with Decko. If you later decide you need mods, it’s straightforward to
+upgrade.</p>
 
-<table>
-  <thead>
-    <tr>
-      <th style="text-align: center">name</th>
-      <th style="text-align: center">type</th>
-      <th style="text-align: center">content</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td style="text-align: center">*<em>optionname</em></td>
-      <td style="text-align: center">Basic</td>
-      <td style="text-align: center">(blank)</td>
-    </tr>
-  </tbody>
-</table>
+<p>The most straightforward way to install decko chambers is with decko compose.</p>
 
-<p>Each follow preference can point to one or more of the following follow options.</p>
-
-<ul>
-  <li><em>always:</em> notify user after every create, update, and delete</li>
-  <li><em>never:</em> do not notify user</li>
-  <li><em>created:</em> notify user when a card is created</li>
-  <li><em>edited:</em> notify user when a card is created or updated</li>
-</ul>
-
-<h3 id="follow-dashboard">Follow dashboard</h3>
-
-<table>
-  <thead>
-    <tr>
-      <th style="text-align: center">name</th>
-      <th style="text-align: center">type</th>
-      <th style="text-align: center">content</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td style="text-align: center">[User]+:follow</td>
-      <td style="text-align: center">Pointer(virtual)</td>
-      <td style="text-align: center">list of sets</td>
-    </tr>
-  </tbody>
-</table>
-
-<p>Core view shows Follow and Ignore tabs.  Each tab has a list of the 
-user’s preferences in <code>follow_item</code> view. Navigate to this card via the
-card submenu (<code>account &gt; follow</code>).</p>
-
-<p>Special views include:
-- <em>follow_tab</em>
-- <em>ignore_tab</em></p>
-
-<h3 id="follow-suggestions">Follow suggestions</h3>
-
-<table>
-  <thead>
-    <tr>
-      <th style="text-align: center">name</th>
-      <th style="text-align: center">type</th>
-      <th style="text-align: center">content</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td style="text-align: center">:follow_suggestions</td>
-      <td style="text-align: center">Pointer</td>
-      <td style="text-align: center">list of follow settings</td>
-    </tr>
-  </tbody>
-</table>
-
-<p>This advanced global setting lets sharks determine what suggestions will appear on the
-follow dashboard.  Any item not currently followed will be suggested.</p>
-
-<p>Each suggestion can take the form of either <code>[Set]</code> or <code>[Set]+[Follow Option]</code>.</p>
-
-<h3 id="following-status">Following status</h3>
-
-<table>
-  <thead>
-    <tr>
-      <th style="text-align: center">name</th>
-      <th style="text-align: center">type</th>
-      <th style="text-align: center">content</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td style="text-align: center">+:following</td>
-      <td style="text-align: center">Pointer(virtual)</td>
-      <td style="text-align: center">card’s follow status for current user</td>
-    </tr>
-  </tbody>
-</table>
-
-<p>With this card, users can see and/or edit whether they are following the 
-card in question.</p>
-
-<p>This view is seen via the “follow” item in the main card menu or via
-<code>activity &gt; follow</code> in the submenu.</p>
-
-<p>Special views include:
-- <em>core</em> a follow edit interface if signed in
-- <em>status</em></p>
-
-<h3 id="followers">Followers</h3>
-
-<table>
-  <thead>
-    <tr>
-      <th style="text-align: center">name</th>
-      <th style="text-align: center">type</th>
-      <th style="text-align: center">content</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td style="text-align: center">+:followers</td>
-      <td style="text-align: center">Pointer(virtual)</td>
-      <td style="text-align: center">list of users</td>
-    </tr>
-  </tbody>
-</table>
-
-<p>User who are following the card in question.</p>
-
-<p>(not integrated into interface)</p>
-
-<h3 id="email-template">Email template</h3>
-
-<table>
-  <thead>
-    <tr>
-      <th style="text-align: center">name</th>
-      <th style="text-align: center">type</th>
-      <th style="text-align: center">content</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td style="text-align: center">follower notification email</td>
-      <td style="text-align: center">Email Template</td>
-      <td style="text-align: center">(nested email config)</td>
-    </tr>
-  </tbody>
-</table>
-
-<p>The <em>to</em> field is handled automatically. All other fields can be sharked.</p>
-
-<p>Useful views added by this mod include:</p>
-
-<ul>
-  <li><em>list_of_changes</em> (updates coming soon)</li>
-  <li><em>subedits:</em> (updates coming soon)</li>
-  <li><em>followed:</em> label of set followed</li>
-  <li><em>unfollow_url:</em> link to remove the following rule that led to this email</li>
-</ul>
-
-<h3 id="follow-fields">Follow fields</h3>
-
-<table>
-  <thead>
-    <tr>
-      <th style="text-align: center">name</th>
-      <th style="text-align: center">type</th>
-      <th style="text-align: center">content</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td style="text-align: center">[Set]+:follow_fields</td>
-      <td style="text-align: center">Pointer (rule)</td>
-      <td style="text-align: center">list of fields</td>
-    </tr>
-  </tbody>
-</table>
-
-<p>These rules rules are advanced configuration that let sharks determine which of a card’s fields
-are automatically followed when a user follow that card.</p>
-
-<p>The default value is <code>:includes</code>, which means that nested cards are followed by default.</p>
-
-<h2 id="lib">Lib</h2>
-
-<h3 id="cardfollowerstash">Card::FollowerStash</h3>
-
-<p>A class for stashing followers of a given card.</p>
-
-<h3 id="cardfollowoption">Card::FollowOption</h3>
-
-<p>A module for tracking and grouping follow options and their processing code.</p>
-
-<h2 id="todo">TODO</h2>
-<ul>
-  <li>review / address follow references in:
+<ol>
+  <li>Make a directory for your deck and copy <a href="docker-compose.yml">docker-compose.yml</a> into it.</li>
+  <li>Edit the file and choose:
     <ul>
-      <li>rich_html/
-        <ul>
-          <li>menu</li>
-          <li>toolbar</li>
-        </ul>
-      </li>
-      <li>all/rules</li>
+      <li>A database engine. Default is MySQL, but you can choose PostgreSQL with a little commenting / uncommenting.</li>
+      <li>File storage (eg for uploaded files and images). Default is to store files on the host. For that to work, you’ll only need to make a directory named <code>files</code> in your deck directory. See comments if you’d prefer cloud storage.</li>
     </ul>
   </li>
+  <li>Run the following:
+    <ul>
+      <li><code>docker compose up -d</code> # this creates your volumes, starts your containers, etc.</li>
+      <li><code>docker compose exec app decko seed</code> # this creates and seeds your decko database</li>
+    </ul>
+  </li>
+</ol>
+
+<p>As with the sandbox this will by default make a site available on port 4444, though that too can be configured in the docker-compose.yml file.</p>
+
+<p>Docker gives you a lot of power to manipulate the containers, and you can consult their excellent documentation to learn more.  (We highly recommend the docker tutorial.) But here are a few crucial commands:</p>
+
+<ul>
+  <li><code>docker compose down</code> # shut down the containers</li>
+  <li><code>docker compose exec app bash</code> # open a bash shell to the app container</li>
+  <li><code>docker compose exec db bash</code> # open a bash shell to the database container</li>
 </ul>
 
+<h3 id="upgrading">Upgrading</h3>
+
+<p>To update an existing docker site to use a more recent docker image:</p>
+
+<ul>
+  <li><code>docker pull IMAGE:latest</code></li>
+  <li><code>docker compose down</code></li>
+  <li><code>docker compose up -d</code></li>
+  <li><code>docker compose exec app bash</code></li>
+</ul>
+
+<h2 id="for-monkeys">For Monkeys</h2>
+
+<p>Increased support for monkeys who want to use Docker when developing is coming soon.  The idea is to create options for <code>decko new</code> that will create the basic structure (Dockerfile, etc) to use docker containers in all stages of site creation.</p>
+
+<p>In the meantime, you can get a sense of how that would look by looking at how the Dockerfile is structured in the docker directory in the decko repo.</p>
 </div></div>
 
       <div id="footer">
-  Generated on Thu May 13 17:17:14 2021 by
+  Generated on Fri Jan 21 16:01:39 2022 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.26 (ruby-2.7.2).
+  0.9.27 (ruby-3.0.1).
 </div>
 
     </div>

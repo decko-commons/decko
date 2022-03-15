@@ -3,10 +3,6 @@ format do
     _render search_result_view
   end
 
-  def chunk_list
-    :query
-  end
-
   def search_result_view
     case search_with_params
     when Exception              then :search_error
@@ -14,21 +10,6 @@ format do
     when nest_mode == :template then :raw
     else                         :card_list
     end
-  end
-end
-
-format :json do
-  def items_for_export
-    return [] if card.content.empty? || unexportable_tag?(card.name.tag_name.key)
-
-    card.item_cards
-  end
-
-  # avoid running the search from +:content_options (huge results)
-  # and +:structure (errors)
-  # TODO: make this configurable in set mods
-  def unexportable_tag? tag_key
-    %i[content_options structure].map { |code| code.cardname.key }.include? tag_key
   end
 end
 

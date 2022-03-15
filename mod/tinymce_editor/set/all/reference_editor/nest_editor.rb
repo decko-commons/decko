@@ -27,42 +27,15 @@ format :html do
     end
   end
 
-  def nest_editor editor_mode
+  def nest_editor editor_mode, ref_type=:nest, title="Nest", editor=nil
     @tm_snippet_editor_mode = editor_mode
     voo.hide :content_tab unless show_content_tab?
-    haml :reference_editor, ref_type: :nest, editor_mode: @tm_snippet_editor_mode,
+    haml :reference_editor, title: title,
+                            editor: editor || ref_type,
+                            ref_type: ref_type,
+                            editor_mode: @tm_snippet_editor_mode,
                             apply_opts: nest_apply_opts,
                             snippet: nest_snippet
-  end
-
-  def nest_editor_tabs
-    tab_hash = {}
-    tab_hash[:content] = nest_content_tab if voo.show? :content_tab
-    tab_hash.merge! options: haml(:_options, snippet: nest_snippet),
-                    rules: nest_rules_tab,
-                    help: haml(:_help)
-    tabs tab_hash, default_active_tab
-  end
-
-  def show_content_tab?
-    !card.is_structure?
-  end
-
-  def default_active_tab
-    voo.show?(:content_tab) ? :content : :options
-  end
-
-  def nest_content_tab
-    name_dependent_slot do
-      @nest_content_tab || nest(card.name.field(nest_snippet.name),
-                                view: :nest_content, hide: :guide)
-    end
-  end
-
-  def nest_rules_tab
-    name_dependent_slot do
-      nest(set_name_for_nest_rules, view: :nest_rules)
-    end
   end
 
   def name_dependent_slot
@@ -91,8 +64,7 @@ format :html do
 
   def nest_snippet
     @nest_snippet ||=
-      Card::Reference::NestParser.new params[:tm_snippet_raw],
-                                      default_nest_view, default_item_view
+      Card::Reference::NestParser.new params[:tm_snippet_raw]
   end
 
   def set_name_for_nest_rules
@@ -105,63 +77,24 @@ format :html do
   end
 
   def default_nest_editor_item_options
-    [[:view, default_item_view]]
+    []
+    # [[:view, default_item_view]]
   end
 
-  def nest_option_name_select selected=nil, level=0
-    classes = "form-control form-control-sm _nest-option-name"
-    classes += " _new-row" unless selected
-    select_tag "nest_option_name_#{unique_id}",
-               nest_option_name_select_options(selected, level),
-               class: classes, id: nil
-    # id: nil ensures that select2 generates its own unique identifier
-    # that ensures that we can clone this tag without breaking select2
-  end
-
-  def nest_option_name_select_options selected, level
-    options = selected ? [] : ["--"]
-    options += Card::Reference::NestParser::NEST_OPTIONS
-    options_for_select(
-      options, disabled: nest_option_name_disabled(selected, level),
-               selected: selected
-    )
-  end
-
-  def nest_option_name_disabled selected, level
-    disabled = nest_option_name_disabled_options level
-    disabled = disabled&.map(&:first)
-    disabled&.delete selected if selected
-    disabled
-  end
-
-  def nest_option_name_disabled_options level
-    if level.zero?
-      nest_snippet.options
-    else
-      nest_snippet.item_options[level - 1] || default_nest_editor_item_options
-    end
+  def demo
+    _render_demo
   end
 
   def nest_apply_opts
     apply_tm_snippet_data nest_snippet
   end
 
-  def nest_option_value_select value=nil
-    # select_tag "nest_option_value_#{unique_id}"
-    text_field_tag "value", value,
-                   class: "_nest-option-value form-control form-control-sm",
-                   disabled: !value,
-                   id: nil
-  end
-
   def known_nest_content
     voo.hide! :cancel_button
     add_name_context
     with_nest_mode :edit do
-      frame do
-        [
-          render_edit_inline
-        ]
+      wrap true do
+        render_edit_inline
       end
     end
   end
@@ -169,7 +102,10 @@ format :html do
   def unknown_nest_content
     voo.hide! :guide
     voo.show! :new_type_formgroup
-    new_view_frame_and_form buttons: new_image_buttons,
-                            success: { tinymce_id: Env.params[:tinymce_id] }
+    voo.buttons_view = :new_image_buttons
+    wrap true do
+      create_form success: { tinymce_id: Env.params[:tinymce_id] }
+    end
+    # framed_create_form
   end
 end

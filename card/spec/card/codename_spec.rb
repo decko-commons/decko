@@ -12,7 +12,7 @@ RSpec.describe Card::Codename, "Codename" do
     expect(described_class[card_id]).to eq(@codename)
   end
 
-  it "makes cards indestructable" do
+  it "makes cards indestructible" do
     Card::Auth.as_bot do
       card = Card[@codename]
       card.delete

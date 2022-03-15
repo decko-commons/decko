@@ -88,7 +88,7 @@ jQuery.fn.extend
   isMainOrMainModal: ->
     el = $(this)
     el = el.findOriginSlot("modal") if el.closest(".modal")[0]
-    el.isMain()
+    el && el.isMain()
 
   findSlot: (selector) ->
     if selector == "modal-origin"
@@ -148,8 +148,8 @@ jQuery.fn.extend
   slotMark: ->
     if @data('cardId') then "~#{@data('cardId')}" else @data("cardName")
 
-  setSlotContent: (val, mode, $slotter) ->
-    v = $(val)[0] && $(val) || val
+  setSlotContent: (newContent, mode, $slotter) ->
+    v = $(newContent)[0] && $(newContent) || newContent
 
     if typeof(v) == "string"
       # Needed to support "TEXT: result" pattern in success (eg deleting nested cards)

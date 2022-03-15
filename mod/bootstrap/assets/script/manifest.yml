@@ -1,18 +1,19 @@
-bootstrap:
-  minimize: true
+remote:
   items:
     # full version of select2 is needed to support containerCssClass config option
     # which we need for select2_bootstrap to work properly
-    - ../../vendor/select2/dist/js/select2.full.min.js
+    - src: https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.1/js/select2.full.min.js
+      integrity: sha512-Y4+u+T/6DpDb2AkTrxs3eJiN9o/u+l8pLNt0lSRKnJe2wIDVCwd7N8afy+70Pmr5FtmoX5IXmwK6H7Jlb8Nx8A==
+      referrerpolicy: no-referrer
+      crossorigin: anonymous
+
+bootstrap:
+  items:
     - ../../vendor/bootstrap/dist/js/bootstrap.bundle.js
     - bootstrap_modal_decko.js
     - script_load_select2.js.coffee
     - ../../vendor/bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js
     - script_colorpicker.js.coffee
 
-pointer:
-  items:
-    - script_pointer_config.js.coffee
-    - script_pointer_list_editor.js.coffee
 
 

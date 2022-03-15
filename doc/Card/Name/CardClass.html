@@ -6,7 +6,7 @@
 <title>
   Module: Card::Name::CardClass
   
-    &mdash; Documentation by YARD 0.9.26
+    &mdash; Documentation by YARD 0.9.27
   
 </title>
 
@@ -191,7 +191,7 @@
       <pre class="code"><span class="info file"># File 'card/lib/card/name/card_class.rb', line 5</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_rename!'>rename!</span> <span class='id identifier rubyid_oldname'>oldname</span><span class='comma'>,</span> <span class='id identifier rubyid_newname'>newname</span>
-  <span class='const'><span class='object_link'><a href="../../Card.html" title="Card (class)">Card</a></span></span><span class='lbracket'>[</span><span class='id identifier rubyid_oldname'>oldname</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_update!'>update!</span> <span class='label'>name:</span> <span class='id identifier rubyid_newname'>newname</span><span class='comma'>,</span> <span class='label'>update_referers:</span> <span class='kw'>true</span>
+  <span class='const'><span class='object_link'><a href="../../Card.html" title="Card (class)">Card</a></span></span><span class='lbracket'>[</span><span class='id identifier rubyid_oldname'>oldname</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_update!'>update!</span> <span class='label'>name:</span> <span class='id identifier rubyid_newname'>newname</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -221,12 +221,14 @@
 14
 15
 16
-17</pre>
+17
+18</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'card/lib/card/name/card_class.rb', line 9</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_uniquify_name'>uniquify_name</span> <span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='id identifier rubyid_rename'>rename</span><span class='op'>=</span><span class='symbol'>:new</span>
+  <span class='id identifier rubyid_name'>name</span> <span class='op'>=</span> <span class='id identifier rubyid_name'>name</span><span class='period'>.</span><span class='id identifier rubyid_to_name'>to_name</span>
   <span class='kw'>return</span> <span class='id identifier rubyid_name'>name</span> <span class='kw'>unless</span> <span class='const'><span class='object_link'><a href="../../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_exists?'>exists?</span> <span class='id identifier rubyid_name'>name</span>
 
   <span class='id identifier rubyid_uniq_name'>uniq_name</span> <span class='op'>=</span> <span class='id identifier rubyid_generate_alternative_name'>generate_alternative_name</span> <span class='id identifier rubyid_name'>name</span>
@@ -245,9 +247,9 @@
 </div>
 
       <div id="footer">
-  Generated on Thu May 13 17:17:17 2021 by
+  Generated on Fri Jan 21 16:01:42 2022 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.26 (ruby-2.7.2).
+  0.9.27 (ruby-3.0.1).
 </div>
 
     </div>

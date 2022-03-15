@@ -1,0 +1,3 @@
+de:
+  bootstrap_cannot_source_theme: kann die Quelle für das Theme %{theme_name} nicht finden
+  bootstrap_not_valid_theme: kein gültiges Theme %{theme_name}

@@ -1,3 +1,8 @@
+def format opts={}
+  opts = { format: opts.to_sym } if [Symbol, String].member? opts.class
+  Card::Format.new self, opts
+end
+
 format do
   def show view, args
     view ||= :core
@@ -129,11 +134,5 @@ format do
     card.item_cards(limit: 0).map do |item_card|
       subformat(item_card)._render_core
     end.inspect
-  end
-
-  # DEPRECATED
-  view :naked do
-    Rails.logger.info "DEPRECATED: naked view (used with #{card.name} card)"
-    render_core
   end
 end

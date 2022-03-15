@@ -1,0 +1,1288 @@
+/*!
+ * Decko: [[https://decko.org]]
+ * Copyright 2015 Grass Commons and other contributors; Licensed GPL
+ */
+
+/*
+This minimal CSS is needed for basic Decko functionality.
+
+Without the following, menus will be barely usable, "closed" view will not appear on one line,
+and certain hidden information will show up.
+
+Note that this CSS is taken from code so that it will be updated automatically with releases.
+If you don't want certain rules, you may:
+  (a) override them, or
+  (b) choose not to include this card in your Skin
+
+Choosing (b) will mean your CSS will not be affected by automated updates.
+*/
+
+/*-- yellows --*/
+$d-yellow-1: #ffd;
+
+/* -- resets -- */
+
+.d0-card-frame,
+.d0-card-body,
+.ALL {
+  overflow: inherit;
+  white-space: normal;
+}
+
+/* NOTE: we recommend against styling ".d0-card-slot", which is heavily used by javascript */
+
+/* --  hidden info -- */
+
+.ui-loader,
+.card-notice,
+.new-current-revision-id,
+.editor .revision-navigation,
+.editor .autosave-alert,
+.hidden-alert,
+.btn._renamer-updater,
+._rename-reference-confirm,
+.confirm_update_all-view,
+.follow-updater,
+.admin-error-message {
+  display: none
+}
+
+/* Help text */
+.help-text {
+  color: $text-muted
+}
+
+.guide-line-number {
+  display: inline-block;
+  background: #000;
+  color: $white;
+  border-radius: 100%;
+  width: 21px;
+  height: 21px;
+  font-size: 61%;
+  text-align: center;
+  padding-top: 3px;
+  font-weight: bold;
+  margin-left: -1.7rem;
+  position: relative;
+  top: -5px;
+  left: -4px;
+}
+
+.guide-line {
+  border-left: 1px solid $border-color;
+}
+
+.rule-section {
+  padding-left: 20px;
+  margin-left: 12px;
+  margin-right: 5px;
+  h4 {
+    position: relative;
+    top: -4px;
+  }
+}
+
+/* -- d0-card-frames and menus--*/
+
+.card-slot {
+  position: relative;
+}
+
+.d0-card-frame {
+  .d0-card-frame-title {
+    // display: inline-block;
+    overflow: hidden;
+    span.header-icon {
+      margin: 0px 5px;
+    }
+
+  }
+  .toggler {
+    display: inline-block;
+    position: relative;
+  }
+  .type-info {
+    margin-right: 10px;
+  }
+}
+
+.card-subheader {
+  width: 100%;
+}
+
+.card-menu {
+  position: absolute;
+  right: 8px;
+  top: 5px;
+}
+
+.d0-card-content, .titled-view > .d0-card-header {
+  > .card-menu {
+    top: 0px;
+  }
+}
+
+.with-menu {
+  padding-right: 12px;
+}
+
+.d0-card-frame-title {
+  margin-right: 3px;
+}
+
+.dropdown-menu {
+  z-index: 1005;
+}
+
+.ui-front {
+  z-index: 2000!important;
+}
+
+.navbar-divide {
+  margin-left: 30px;
+  border-left: 1px solid;
+}
+
+.card-subheader {
+  height: 30px;
+  text-align: left;
+  font-size: 13px;
+  padding: 6px 15px 3px 15px;
+  > .card-title.panel-title {
+    font-size: 13px;
+  }
+}
+
+.nav-logo {
+  max-width: 75px;
+  max-height: 75px;
+}
+
+/*-- closed and labeled views --*/
+
+.closed-view {
+  position: relative;
+  > .d0-card-frame {
+    white-space: nowrap;
+    //padding-right: 30px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    position: static;
+    width:100%;
+    > .d0-card-header{
+      // float: left;
+    }
+  }
+
+  .d0-card-frame {
+    display: inline-block;
+  }
+}
+.closed-content {
+  margin-top: 2px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+
+  table, thead, tbody, tr, th, td, p, h1, h2, h3, h4, h5, h6, ul, li, pre, ol, div, span, a, blockquote, img, label, i {
+    display: inline;
+    white-space: nowrap;
+    float: none;
+  }
+  br, hr, input, textarea, object, :after, :before {
+    display: none;
+  }
+}
+
+.labeled-view:hover .card-menu {
+  display: inline-block;
+}
+
+/* -- change view --*/
+
+.change-view {
+  clear: both;
+  .last-update {
+    float:right;
+    text-align: right;
+    a {
+      white-space: nowrap;
+    }
+  }
+}
+
+.titled-view > .d0-card-header {
+  border-bottom: 1px solid $border-color;
+  padding-bottom: 0.1em;
+  margin-bottom: 1em;
+
+  > .d0-card-header-title > .card-title {
+    font-size: $h1-font-size;
+    color: $headings-color;
+  }
+}
+
+.d0-card-content {
+  .d0-card-header > .d0-card-header-title > .card-title {
+    font-size: $h2-font-size;
+    color: $headings-color;
+  }
+  .bar-bottom .d0-card-header > .d0-card-header-title > .card-title {
+    font-size: $h3-font-size;
+    color: $headings-color;
+  }
+}
+
+
+/* -- file upload -- */
+.fileupload-buttonbar .btn, .fileupload-buttonbar .toggle {
+  margin-bottom: 5px;
+}
+.fileinput-button {
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+}
+.fileinput-button input {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 0;
+  opacity: 0;
+  -ms-filter: 'alpha(opacity=0)';
+  font-size: 200px;
+  direction: ltr;
+  cursor: pointer;
+}
+
+
+/* -- template-editor (editing template rule inclusions inline) -- */
+
+.template_editor-view > div {
+  float: left;
+}
+.template-editor-close {
+  float: right;
+}
+.template_link-view {
+  display: inline;
+}
+
+.navbox-item-label {
+  float: left;
+  position: relative;
+}
+.navbox-item-value mark {
+  padding: 0.2em 0;
+}
+
+
+/*-- misc --*/
+.card-editor {
+  white-space: normal;
+  padding-bottom: 15px;
+}
+pre,
+.TYPE-plain_text.d0-card-content,
+.SELF-Xhead.d0-card-content {
+  white-space: pre-wrap;       /* css-3 */
+  white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+  white-space: -pre-wrap;      /* Opera 4-6 */
+  white-space: -o-pre-wrap;    /* Opera 7 */
+  word-wrap: break-word;       /* Internet Explorer 5.5+ */
+}
+.unknown-view a {
+  display: inline;
+}
+
+.SELF-Xstat > .d0-card-content {
+  table {
+    width: 100%;
+  }
+  tr:nth-child(even) {
+    background: $gray-300;
+  }
+}
+
+
+/*
+The below provides styles for aspects of decks not usually prioritized by skin designers.
+
+It includes basic styling for:
+
+  1. shark interface (sets, settings, rules)
+  2. eagle interface (forms, fieldsets, menus, navbox, history)
+  3. views that by definition alter default styling (closed, labeled)
+  4. errors / warnings / notices
+  5. key default content for new installs (home page, sidebar)
+
+Most colors are greyscale; any that aren't are explained with comments beginning with "NOTGREY"
+
+Note that this CSS is taken from code so that it will be updated automatically with releases.
+If you don't want certain rules, you may (a) override them, or (b) choose not to include this card
+in your skin.  Choosing (b) will mean your CSS will not be affected by automated updates.
+*/
+
+/* -- resets -- */
+
+.d0-card-frame {
+  text-align: left;
+  font-weight: normal;
+  font-style: normal;
+}
+
+
+/*-------------------- */
+/*- DYNAMIC ELEMENTS - */
+/*-------------------- */
+
+/* navboxes */
+
+.navbox-item-label {
+  font-size: 10px;
+  width: 50px;
+  padding: 3px 0 3px 5px;
+}
+
+.ui-menu-item {
+  .glyphicon {
+    float: left;
+    font-size: 10px;
+    padding: 3px 0 3px 0px;
+  }
+}
+
+
+/*-------------------- */
+/*- ONE-LINE VIEWS   - */
+/*-------------------- */
+
+.closed-view.panel {
+  margin: 0;
+  width: 100%;
+}
+.closed-content {
+  table, tbody, tr, th, td, p, h1, h2, h3, h4, h5, h6, ul, li, pre, ol, div, span, a, blockquote, img {
+    font-size: 1em;
+    margin: 0 6px 0 0;
+    padding: 0;
+    border:  0;
+  }
+  a {
+    margin: 0;
+  }
+  img {
+    max-height: 1em;
+    width: auto;
+  }
+}
+
+.labeled-view {
+  padding: 5px 0;
+  max-width: 100%;
+  .labeled-content {
+    font-weight: bold;
+    .pointer-list,
+    .pointer-item,
+    .search-result-list,
+    .search-result-item {
+      font-size: 1em;
+      padding: 0;
+      text-indent: 0;
+    }
+  }
+}
+
+/*-------------------- */
+/*- EDIT INTERFACE   - */
+/*-------------------- */
+
+textarea,
+.content-editor > input[type=text],
+.content-editor > input[type=password],
+.name-editor input {
+  width: 97.5%;
+}
+/* width + padding = 99.5%, which leaves 0.5% for the borders.  This is imprecise, but borders can't be specified as a percentage */
+
+textarea {
+  max-height: 500px;
+}
+.name-editor.known-name input {
+  border: 3px solid $red; /* NOTGREY - red for warning */
+}
+.name-messages {
+  font-style: italic;
+  background: $d-yellow-1;  /* NOTGREY - yellow for highlighting */
+}
+
+/* -- template-editor (editing template rule inclusions inline) -- */
+
+.template-editor-main {
+  width: 85%;
+}
+.template-editor-left,
+.template-editor-right {
+  width: 5%;
+  text-align: center;
+  font-size: 3em;
+  line-height: 2em;
+  white-space: nowrap;
+}
+
+.pointer-list-editor {
+  margin: 0px;
+  padding: 0px;
+  li {
+    list-style: none;
+    white-space: nowrap;
+  }
+
+  .input-group-btn {
+    .btn {
+      border-bottom-width: 1px;
+    }
+  }
+
+  ._pointer-item-add {
+    margin-top: 10px;
+  }
+
+  .input-group-addon.handle {
+    padding-left: 1px;
+    padding-right: 1px;
+
+    .glyphicon-option-vertical.left {
+      margin-right: -7px;
+    }
+    .glyphicon-option-vertical.right {
+      margin-left: -7px;
+    }
+  }
+}
+
+._filter-widget {
+  .input-group.sort-input-group, ._filter-container > .input-group {
+    width: auto !important;
+  }
+  select {
+    min-width: 30%;
+    max-width: 100%;
+  }
+}
+
+._filtering ._filterable {
+  cursor: pointer;
+  &:hover {
+    background-color: #fafafa;
+  }
+}
+._filter-link {
+  cursor: pointer;
+}
+
+.checkbox-list-item {
+  > .checkbox-side {
+    width: 32px;
+    min-width: 32px;
+  }
+  > .item-view-side {
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+  }
+}
+
+.new-account-link {
+  text-align: center;
+}
+
+.form-group .signup-link {
+  display: inline;
+}
+
+/* links to create missing cards */
+
+a.unknown-link {
+  color: $text-muted;
+  font-variant: small-caps;
+  &:hover {
+    color: $primary;
+  }
+}
+
+/*-------------------- */
+/*- Lists            - */
+/*-------------------- */
+
+.pointer-radio-list, .filtered-list-review {
+  list-style-type: none;
+}
+
+/*-------------------- */
+/*- SEARCH & POINTER - */
+/*-------------------- */
+
+
+div.pointer-list,
+div.search-result-list {
+  list-style: none;
+  padding: 5px 0;
+  margin: 0;
+  .closed-view > .d0-card-frame {
+    margin-bottom: 0;
+  }
+}
+div.pointer-list .pointer-item,
+div.search-result-list .search-result-item {
+  margin: 0;
+}
+.search-result-item.item-link,
+.pointer-item.item-link,
+.search-result-item.item-name,
+.pointer-item.item-name {
+  text-indent: -15px;
+  padding-left: 15px;
+}
+
+.one-line-pointer-list {
+  div.pointer-item {
+    display: inline-block
+  }
+}
+
+ul.pointer {
+  margin: 0px;
+  padding: 0px;
+}
+
+/*-------------------- */
+/*- HISTORY          - */
+/*-------------------- */
+
+$diff-green: #41ad41;
+$diff-red: #ff5050;
+$diff-red-bg: lighten($diff-red, 30%);
+$diff-green-bg: lighten($diff-green, 50%);
+
+.history-slot {
+  overflow: hidden;
+  clear: both;
+}
+
+.deleted-mark {
+  color: $diff-red;
+}
+
+.added-mark {
+  color: $diff-green;
+}
+
+.diff-deleted {
+  text-decoration: line-through;
+  color: $diff-red;
+  background: $diff-red-bg;
+  img {
+    border: 2px solid $diff-red;
+  }
+}
+.diff-added {
+  color: $diff-green;
+  background: $diff-green-bg;
+  text-decoration: none;
+  img {
+    margin: 0px 4px 0px 4px;
+    border: 2px solid $diff-green;
+  }
+}
+
+ul.action-list {
+  list-style-type: none;
+  padding-left: 15px;
+  li {
+    border: 1px solid $border-color;
+  }
+  li:before {
+    font-family: 'Material Icons';
+    font-weight: normal;
+    font-style: normal;
+    display: inline-block;
+    line-height: 1;
+    text-transform: none;
+    letter-spacing: normal;
+    word-wrap: normal;
+    white-space: nowrap;
+    direction: ltr;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    -moz-osx-font-smoothing: grayscale;
+    font-feature-settings: 'liga';
+
+
+    float: left;
+    margin-top: 8px;
+    margin-left: -2rem;
+    font-size: 120%;
+    padding-left: 4px;
+    max-height: 30px;
+  }
+
+  li.update:before {
+    content: "edit";
+    color: $gray-600;
+  }
+
+  li.create:before {
+    content: "add_circle";
+    color: $diff-green;
+
+  }
+
+  li.delete:before {
+    content: "remove_circle";
+    color: $diff-red;
+  }
+
+  li.draft:before {
+    content: "build";
+    color: $gray-600;
+  }
+}
+
+
+/*-------------------- */
+/*- ERRORS / NOTICES - */
+/*-------------------- */
+
+/* FIXME - following should be consolidated / simplified */
+
+.exception p {
+  margin: 15px;
+}
+
+.card-notice {
+  background: $white;
+  font-weight: bold;
+  font-style: italic;
+  text-align: center;
+  margin: 0 0 4px 0;
+
+  .card-error-msg {
+    text-align: left;
+  }
+}
+
+#credit, /* these are both deprecated */
+.flash-notice {
+  color: #333;
+  font-size: 1.1em;
+  background: $white;
+  border: 1px solid $gray-600;
+  margin-bottom: 15px;
+  padding: 5px;
+  text-align: center;
+}
+
+.conflict-view {
+  text-align: left;
+  border: 1px solid $gray-400;
+  padding: 10px;
+  margin-top: 12px;
+}
+
+
+/*-------------------------- */
+/*- KEY DEFAULT CONTENT    - */
+/*-------------------------- */
+
+.SELF-home-original.d0-card-content {
+  ul {
+    list-style-type: none;
+    margin: 1em;
+    padding: 0;
+  }
+  li {
+    padding: .8em;
+    margin: 0;
+    background: $gray-300;
+  }
+  li:nth-child(even) {
+    background: $gray-400;
+  }
+  aside {
+    float: right;
+    border: 1px solid $gray-600;
+    background: white;
+    width: 33%;
+    padding: 1em;
+    margin: 36px 16px 2px 5px;
+    overflow: auto;
+    border-radius: 18px;
+    -moz-border-radius: 18px;
+    text-align: center;
+    h2 {
+      font-size: .9em;
+      padding: 0;
+      margin: 5px;
+    }
+    p {
+      font-size: .8em;
+    }
+  }
+}
+
+/*-------------------------- */
+/*- SETS, SETTINGS, RULES  - */
+/*-------------------------- */
+
+
+
+.setting-klass,
+.rule-setting {
+  font-weight: bold;
+}
+
+.rule-set {
+  white-space: nowrap;
+}
+
+.closed-rule {
+  height: 30px;
+  .rule-content {
+    width: 350px;
+  }
+}
+
+.rule-content-container {
+  max-width: 350px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: inherit;
+  background: inherit;
+  white-space: nowrap;
+}
+.rule-content-container {
+  .closed-content,
+  .closed-content .pointer-list,
+  .closed-content .search-list {
+    margin: 0;
+  }
+}
+.rule-setting {
+  padding-top: 4px;
+}
+.open-rule > .rule-setting {
+  width: 28%;
+  float: left;
+}
+.open-rule .d0-card-body {
+  clear: both;
+}
+.open-rule .rule-instruction {
+  float: right;
+  text-align: left;
+  max-width: 68%;
+}
+.edit-rule,
+.set-list{
+  .set-editor {
+    ul {
+      list-style-type: none;
+    }
+    .current-set-label {
+      font-weight: bold;
+    }
+  }
+  .edit-button-area {
+    clear: both;
+    padding-top: 5px;
+  }
+}
+.attention {
+  border: 3px solid red;
+}
+
+.rule-delete-section {
+  float: right;
+}
+
+
+a.setting-link {
+  font-style: italic;
+  margin-left: 2%;
+  font-weight: normal;
+  color: $black;
+  white-space: nowrap;
+}
+h2.set-label {
+  padding-bottom: 10px;
+}
+
+.TYPE_PLUS_RIGHT-user-Xfollow .tab-pane {
+  margin-top: 15px;
+}
+
+/*------- permissions ------------------*/
+
+.perm-editor {
+  margin-left: 40px;
+}
+
+.perm-section {
+  margin-bottom: 20px;
+}
+.perm-section h5 {
+  margin: 0 0 10px 0;
+}
+
+/*-------------------------- */
+/*- MISCELLANEOUS          - */
+/*-------------------------- */
+
+.ui-menu-icons .ui-menu-item a {
+  padding-left: 0;
+}
+
+.ui-icon {
+  background-image: url([[/mod/style/jquery-ui-smoothness/ui-icons_454545_256x240.png]])
+}
+
+/* note said this is o non-ie browsers do better with image floats.  looks over-specified.
+html>body .open-view {
+  width: auto;
+}
+*/
+
+/* the following classes are here because they're scheduled for deprecation */
+.faint {
+  color: $gray-400;
+}
+.VIEW-type {
+  font-style: italic;
+  font-size: .85em;
+}
+
+.RIGHT-Xperformance_log.open-view {
+  font-size: 12px;
+  .panel-group {
+    margin-bottom: 0;
+  }
+  .panel-body {
+    padding: 0px 0px 0px 15px;
+  }
+  .panel-title {
+    font-size: 14px;
+  }
+}
+
+a.external-link {
+  // color: $warning;
+  &:after {
+    content: "\f360";
+    font-weight: 900;
+    right: -2px;
+    position: relative;
+    bottom: 4px;
+    font-family: fontAwesome;
+    font-size: 8px;
+    text-decoration: none !important;
+    display: inline;
+  }
+}
+
+a.external-link,
+.closed-content a.external-link {
+  padding-right: 2px !important;
+}
+
+/*-------------------------- */
+/*- Overlay                - */
+/*-------------------------- */
+
+.overlay-container {
+  position: relative;
+}
+
+.d0-card-overlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+
+  > .d0-card-frame {
+    height: 100%;
+    width: 100%;
+
+    > .d0-card-header {
+      padding: 0.25rem 0.25rem 0.25rem 1.25rem;
+      .title {
+        font-weight: bold;
+        text-transform: capitalize;
+      }
+      .card-title {
+        margin-bottom: 0;
+      }
+    }
+  }
+}
+
+._prototype {
+  display: none!important;
+}
+
+._filter_container .input-group-btn .btn {
+  height: 100%;
+}
+
+
+// Editor
+.w-50px {
+  width: 50px;
+}
+
+.w-75px {
+  width: 75px;
+}
+
+a.bridge-link, a.edit-link {
+  color: $text-muted;
+}
+
+// Bridge
+._modal-stack {
+  z-index: 1010;
+}
+
+.modal-header .card-title {
+  margin-bottom: 0;
+}
+
+.modal-dialog.no-gaps > .modal-content {
+  > .modal-body {
+    padding: 0;
+  }
+  > .modal-header > nav > ol.breadcrumb {
+    margin-bottom: 0;
+    padding: 0.2rem 0.3rem;
+  }
+}
+
+$bridge-line-color: $border-color;
+
+.bridge-sidebar {
+  background-color: darken($body-bg, 15%);
+  padding-left: 0;
+  padding-right: 0;
+  min-height: calc(100vh - 90px);
+
+  .guide-text {
+    padding: 15px;
+    background-color: $body-bg;
+  }
+}
+
+.bg-body {
+  background-color: $body-bg !important;
+}
+
+.bridge-main {
+  border-right: 1px solid $bridge-line-color;
+  padding-left: 0;
+  padding-right: 0;
+  > ._overlay-container-placeholder > .bridge-view {
+    padding-top: 10px;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+  > .overlay-container > .bridge-view {
+    padding-top: 0px;
+  }
+}
+
+.overlay-container {
+  .card-slot.overlay_rule-view {
+    border-left: 5px solid $primary;
+  }
+
+  .d0-card-overlay
+  > .d0-card-frame
+  > .d0-card-content {
+    overflow-y: scroll;
+    height: calc(100% - 2em);
+    padding: 1rem 1.5rem; // px-4
+  }
+}
+
+.d0-card-overlay > .d0-card-frame > .d0-card-header {
+  border-bottom: 1px solid $bridge-line-color;
+  padding-left: -15px!important;
+  padding-right: -15px!important;
+}
+
+.bridge-pills {
+  .help-text {
+    font-size: 0.8rem;
+  }
+  > .nav-item {
+    padding: 0;
+    > a {
+      color: inherit
+    }
+    background-color: $body-bg;
+    border: 1px solid $nav-tabs-border-color;
+    border-left: 3px solid $nav-tabs-border-color;
+    margin-bottom: -1px;
+
+    &:hover, &.active, &:focus {
+      border-left-color: $nav-pills-link-active-bg;
+    }
+  }
+}
+
+.rule-item {
+  h5 {
+    font-weight: bold;
+  }
+  background-color: $list-group-bg;
+  border: 1px solid $list-group-border-color;
+  border-left: 5px solid $list-group-border-color;
+  margin-bottom: -1px;
+  padding: 5px;
+  &:hover, &.active {
+    border-left-color: $list-group-active-bg;
+  }
+}
+
+.btn-reduced-padding {
+  padding: 0.1rem 0.2rem;
+}
+
+// reduce bottom margins
+.card-slot.set-info {
+  .form-group {
+    margin-bottom: 0.3rem;
+    label {
+      margin-bottom: 0.2rem;
+    }
+  }
+  p {
+    margin-bottom: 0.5rem;
+  }
+}
+
+
+.nav-pills .nav-link.active .help-text {
+  color: lighten($primary, 40%);
+}
+
+.overlay-container {
+  height: 100%;
+  overflow: auto;
+}
+
+.help-text.rule-instruction > div p:last-child {
+  margin-bottom: 0;
+}
+
+.bridge {
+  .perm-editor {
+    margin-left: 0;
+  }
+
+  .set-editor {
+    ul {
+      background: $white;
+      padding-left: 0;
+      margin-left: 15px;
+
+      &:first-child {
+        margin-left: 0;
+      }
+    }
+    li.radio {
+      padding: 10px 0px 0px 15px;
+      border-left: 1px solid $bridge-line-color;
+      border-top: 1px solid $bridge-line-color;
+      margin-top: 10px;
+    }
+  }
+
+  .bridge-sidebar {
+    .history_tab-view > div {
+      margin: 0.5rem;
+    }
+    .d0-card-header-title > .card-title {
+      font-size: 1rem;
+    }
+    .nav-link {
+      padding: 0.5rem 0.5rem;
+    }
+  }
+}
+
+.input-group-prepend._field-indicator .input-group-text {
+  font-size: 1.3rem;
+  line-height: 1;
+  font-weight: bold;
+  border-right: none;
+  border-left: none;
+  background: $input-bg;
+}
+
+.input-group.show-prefix {
+  border-left: 1px solid $input-border-color;
+  > input {
+    border-left: none;
+  }
+}
+
+.input-group.hide-prefix {
+  border-left: 1px solid $input-border-color;
+  > input {
+    border-left: none;
+  }
+  > .input-group-prepend {
+    margin-right: 0;
+    > .input-group-text {
+      display: none;
+    }
+  }
+}
+
+.text-muted-link {
+  color: $text-muted;
+}
+
+._template {
+  display: none;
+}
+
+.background-modal {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 900;
+  outline: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+// decko logo
+
+[id^='svg-card-'] use{ // all cards
+  fill: $primary;
+}
+
+[id^='svg-card-']:nth-child(even) use { // even cards
+  fill: $secondary;
+}
+
+.act-summary {
+  min-width: 27px;
+}
+
+footer .separator {
+  padding-left: 2px;
+  padding-right: 2px;
+}
+
+body.right-sidebar, body.left-sidebar, body.two-sidebar {
+  article, #primary {
+    margin: 0 1% 3em 1%;
+    float: left;
+    width: 67%;
+  }
+
+  aside, #secondary {
+    margin: 0 1% 3em 1%;
+    float: right;
+    width: 28%;
+  }
+
+  footer {
+    clear:both;
+    text-align: center;
+    padding: 1em;
+  }
+}
+
+@media print {
+  article, #primary {
+    width: 100%;
+    float: none;
+    margin: 0;
+  }
+
+  aside, #secondary, footer {
+    display: none;
+  }
+}
+
+.RIGHT-Xenabled_role.edit_inline-view .pointer-checkbox-list {
+  #pointer-checkbox-anyone_signed_in {
+    display: none;
+  }
+}
+
+.edit_inline-view.RIGHT-Xenabled_role .card-editor {
+  padding-bottom: 0;
+}
+
+.alert {
+  &.guide {
+    margin-left: 20px;
+    width: 40%;
+  }
+}
+.alert-heading.error {
+  margin-bottom: 30px;
+}
+
+.one-line {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow-x: hidden;
+}
+
+.filter-section-icon {
+  width: 25px;
+  color: #6c757d;
+  float: left;
+  padding: 0.5rem;
+}
+
+.tm-icon {
+  color: #000;
+}
+
+/*----- move to api key mod ------*/
+
+.api-key-core {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  padding: 1em;
+  .current-api-key {
+    width: 50%;
+    input {
+      width: 100%;
+      font-family: monospace;
+      font-size: 1.3rem;
+      border: 1px solid  transparent;
+      box-shadow: none;
+      background-color: lightyellow;
+    }
+  }
+  .current-api-key:hover input {
+    border: 1px solid #DDD;
+  }
+}
+
+.button-form-group {
+  display: flex
+}
+.rename-button-form-group .btn {
+  margin-right: 1rem;
+}

@@ -1,2 +1,2 @@
-include_set Abstract::LocalFolderGroup
-include_set Abstract::StyleAssetList
+include_set Abstract::FolderGroup
+include_set Abstract::StyleGroup

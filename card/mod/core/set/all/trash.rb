@@ -18,8 +18,7 @@ module ClassMethods
     Card::Action.delete_cardless
     Card::Change.delete_actionless
     Card::Act.delete_actionless
-    Card::Reference.unmap_if_referee_missing
-    Card::Reference.delete_if_referer_missing
+    Card::Reference.clean
   end
 
   # deletes any file not associated with a real card.
@@ -128,5 +127,5 @@ end
 
 def delete_as_subcard subcard
   subcard.trash = true
-  add_subcard subcard
+  subcard subcard
 end

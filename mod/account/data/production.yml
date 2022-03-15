@@ -1,0 +1,10 @@
+---
+- :name: User
+  :type: :cardtype
+  :codename: :user
+- :name: Role
+  :type: :cardtype
+  :codename: :role
+- :name: Sign up
+  :type: :cardtype
+  :codename: :signup

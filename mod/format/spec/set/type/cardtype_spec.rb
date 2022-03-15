@@ -14,8 +14,8 @@ RSpec.describe Card::Set::Type::Cardtype do
     end
 
     it "handles params" do
-      expect(render_content("{{RichText|add_button;params:_project=_self}}"))
-        .to have_tag('a[href="/type/RichText?_project=Tempo+Rary+2&view=new_in_modal"]')
+      expect(render_content("{{RichText|add_button;params:_dataset=_self}}"))
+        .to have_tag('a[href="/type/RichText?_dataset=Tempo+Rary+2&view=new_in_modal"]')
     end
   end
 end

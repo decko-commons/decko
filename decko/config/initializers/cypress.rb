@@ -1,5 +1,6 @@
 if defined?(CypressOnRails)
   require "simplecov"
+  SimpleCov.start
 
   CypressOnRails.configure do |c|
     c.cypress_folder = File.join Decko.gem_root, "spec", "cypress"

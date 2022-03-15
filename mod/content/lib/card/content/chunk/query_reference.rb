@@ -81,7 +81,7 @@ class Card
           "<##{self.class}:n[#{@name}] p[#{@process_chunk}] txt:#{@text}>"
         end
 
-        def replace_reference old_name, new_name
+        def swap_name old_name, new_name
           replace_name_reference old_name, new_name
           @text = "\"#{@name}\""
         end

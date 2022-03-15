@@ -1,7 +1,7 @@
 */{lib,format,chunk}/**/*.rb
-{card,decko}/mod/*/{lib,format,chunk}/**/*.rb
+{card/mod,decko/mod,mod/*}/*/{lib,format,chunk}/**/*.rb
 card/tmpsets/set*/**/*.rb
-- */*.md *.md GPL LICENSE card/VERSION
+- mod/*/*.md */*.md *.md GPL LICENSE card/VERSION
 --exclude .*/vendor/.*
 --markup markdown
 --markup-provider=kramdown

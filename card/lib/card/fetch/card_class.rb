@@ -26,7 +26,7 @@ class Card
       #      new: { opts for Card#new }  Return a new card when not found
       # @return [Card]
       def fetch *args
-        f = Card::Fetch.new(*args)
+        f = Fetch.new(*args)
         f.retrieve_or_new
       rescue ActiveModel::RangeError => _e
         Card.new name: "card id out of range: #{f.mark}"
@@ -65,17 +65,11 @@ class Card
       def id cardish
         case cardish
         when Integer then cardish
-        when Card then cardish.id
-        when Symbol then Card::Codename.id cardish
-        else fetch_id cardish
+        when Card    then cardish.id
+        when Symbol  then Codename.id cardish
+        when String  then Lexicon.id cardish
+        else quick_fetch(cardish)&.id
         end
-      end
-
-      # @param mark_parts - see #fetch
-      # @return [Integer]
-      def fetch_id *mark_parts
-        mark = Card::Fetch.new(*mark_parts)&.mark
-        mark.is_a?(Integer) ? mark : quick_fetch(mark.to_s)&.id
       end
 
       # @param mark - see #fetch

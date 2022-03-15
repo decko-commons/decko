@@ -138,13 +138,13 @@ def set_ace_editor_content name, content
   end
 end
 
-def set_pm_editor_content name, content
-  find_editor ".prosemirror-editor > [name='#{name}']" do |editors|
-    content = escape_quotes content
-    editor_id = editors.first.first(:xpath, ".//..")[:id]
-    page.execute_script "$('##{editor_id} .ProseMirror').text('#{content}')"
-  end
-end
+# def set_pm_editor_content name, content
+#   find_editor ".prosemirror-editor > [name='#{name}']" do |editors|
+#     content = escape_quotes content
+#     editor_id = editors.first.first(:xpath, ".//..")[:id]
+#     page.execute_script "$('##{editor_id} .ProseMirror').text('#{content}')"
+#   end
+# end
 
 def set_tinymce_editor_content name, content
   wait_for_iframe_load

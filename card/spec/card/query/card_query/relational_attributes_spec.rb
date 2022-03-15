@@ -119,7 +119,7 @@ RSpec.describe Card::Query::CardQuery::RelationalAttributes do
           # this is a weak test, since it gives the name, but different sorting
           # mechanisms in other db setups
           # was having it return *account in some cases and 'A' in others
-          expect(run_query(edited_by: "Decko Bot", name: "A")).to eq(%w[A])
+          expect(run_query(edited_by: "Decko Bot", name: "*all")).to eq(%w[*all])
         end
 
         it "fails gracefully if user isn't there" do

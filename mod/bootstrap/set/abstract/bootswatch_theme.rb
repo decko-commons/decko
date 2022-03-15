@@ -20,8 +20,8 @@
 # is taken from files.
 # The bootswatch theme content is taken directly from the files in the bootswatch
 # submodule. For the rest we use code file cards.
-# Cards of type "customized bootswatch skin" have the same structure but make the variables
-# and stylesheets part editable.
+# Cards of type "customized bootswatch skin" have the same structure but make the
+# variables and stylesheets part editable.
 #
 # Bootswatch theme cards are machine cards for the following reason.
 # Machine cards usually store all involved input cards of all nested levels in
@@ -36,25 +36,48 @@
 # To do that it is a machine itself and stores the generated machine output as its
 # content which will trigger the updates of other machines that use this card.
 
-include_set Abstract::Machine
+include_set Abstract::AssetInputter, input_format: :css, input_view: :compressed
 include_set Abstract::Scss
-include_set Abstract::CodeFile
 include_set Abstract::SkinBox
 
 CONTENT_PARTS = %i[pre_variables variables post_variables stylesheets].freeze
 
-PRE_VARIABLES_CARD_NAMES = %i[
-  style_jquery_ui_smoothness
-  bootstrap_functions
-].freeze
+PRE_VARIABLES_CARD_NAMES = %i[bootstrap_functions].freeze
+POST_VARIABLES_CARD_NAMES = %i[bootstrap_core style_mods].freeze
 
-POST_VARIABLES_CARD_NAMES = %i[
-  bootstrap_core
-  style_cards
-  style_bootstrap_cards
-  style_libraries
-  style_mods
-].freeze
+def content
+  CONTENT_PARTS.map do |n|
+    send "#{n}_content"
+  end.join "\n"
+end
+
+def item_names _args={}
+  (PRE_VARIABLES_CARD_NAMES + variables_card_names +
+    POST_VARIABLES_CARD_NAMES + stylesheets_card_names).compact.map do |n|
+    Card.fetch_name(n)
+  end.compact
+end
+
+format :html do
+  view :input do
+    # Localize
+    "Content is stored in file and can't be edited."
+  end
+end
+
+def theme_name
+  /^(.+)_skin$/.match(codename)&.capture(0) ||
+    /^(.+)[ _][sS]kin/.match(name)&.capture(0)&.downcase
+end
+
+def scss_from_theme_file file
+  return "" unless (path = ::File.join(source_dir, "_#{file}.scss")) &&
+                   ::File.exist?(path)
+
+  ::File.read path
+end
+
+private
 
 # @return [Array<Card::Name,String>]
 def variables_card_names
@@ -66,41 +89,18 @@ def stylesheets_card_names
   []
 end
 
-# reject cards that don't contribute directly to the content like skin or pointer cards
-def engine_input
-  extended_input_cards.select { |ca| ca.type_id.in? [Card::ScssID, Card::CssID] }
-end
-
-# Don't create "+*machine output" file card
-# instead save the the output as the card's content is
-def after_engine output
-  Card::Auth.as_bot { update! db_content: output }
-end
-
-# needed to make the refresh_assets method work with these cards
+# needed to make the refresh_script_and_style method work with these cards
 def source_files
-  extended_input_cards.map do |i_card|
+  item_cards.map do |i_card|
     i_card.try(:source_files)
   end.flatten.compact
 end
 
 # needed to make the refresh_assets method work with these cards
 def existing_source_paths
-  extended_input_cards.map do |i_card|
+  item_cards.map do |i_card|
     i_card.try(:existing_source_paths)
   end.flatten.compact
-end
-
-def extended_input_cards
-  input_names.map do |n|
-    Card.fetch(n).extended_item_cards
-  end.flatten.compact
-end
-
-def content
-  CONTENT_PARTS.map do |n|
-    send "#{n}_content"
-  end.join "\n"
 end
 
 def pre_variables_content
@@ -119,36 +119,11 @@ def stylesheets_content
   load_content stylesheets_card_names
 end
 
-def input_names _args={}
-  (PRE_VARIABLES_CARD_NAMES + variables_card_names +
-    POST_VARIABLES_CARD_NAMES + stylesheets_card_names).compact.map do |n|
-    Card.fetch_name(n)
-  end.compact
-end
-
-def item_names _args={}
-  []
-end
-
-def item_cards _args={}
-  [self]
-end
-
 def load_content *names
-  cards = names.flatten.map { |n| Card.fetch(n)&.extended_item_cards }
+  cards = names.flatten.map do |n|
+    Card.fetch(n)&.extended_item_cards
+  end
   cards.flatten.compact.map(&:content).join "\n"
-end
-
-def scss_from_theme_file file
-  return "" unless (path = ::File.join(source_dir, "_#{file}.scss")) &&
-                   ::File.exist?(path)
-
-  ::File.read path
-end
-
-def theme_name
-  /^(.+)_skin$/.match(codename)&.capture(0) ||
-    /^(.+)[ _][sS]kin/.match(name)&.capture(0)&.downcase
 end
 
 def source_dir

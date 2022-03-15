@@ -60,6 +60,7 @@ format :html do
   end
 
   # TODO: research and generalize
+  # LOCALIZE
   # this does not look specific to following!
   view :errors, perms: :none do
     return unless card.errors.any?

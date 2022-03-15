@@ -6,7 +6,7 @@
 <title>
   Module: Card::Name::All
   
-    &mdash; Documentation by YARD 0.9.26
+    &mdash; Documentation by YARD 0.9.27
   
 </title>
 
@@ -118,6 +118,39 @@
 
 
 
+
+  <h2>Instance Attribute Summary <small><a href="#" class="summary_toggle">collapse</a></small></h2>
+  <ul class="summary">
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#supercard-instance_method" title="#supercard (instance method)">#<strong>supercard</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+      <span class="note title readonly">readonly</span>
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Returns the value of attribute supercard.</p>
+</div></span>
+  
+</li>
+
+    
+  </ul>
 
 
 
@@ -340,7 +373,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#update_superleft-instance_method" title="#update_superleft (instance method)">#<strong>update_superleft</strong>(cardname)  &#x21d2; Object </a>
+      <a href="#update_superleft-instance_method" title="#update_superleft (instance method)">#<strong>update_superleft</strong>(newname = nil)  &#x21d2; Object </a>
     
 
     
@@ -373,7 +406,7 @@
   
   
   <h3 class="inherited">Methods included from <span class='object_link'><a href="All/Descendants.html" title="Card::Name::All::Descendants (module)">Descendants</a></span></h3>
-  <p class="inherited"><span class='object_link'><a href="All/Descendants.html#child_ids-instance_method" title="Card::Name::All::Descendants#child_ids (method)">#child_ids</a></span>, <span class='object_link'><a href="All/Descendants.html#each_child-instance_method" title="Card::Name::All::Descendants#each_child (method)">#each_child</a></span>, <span class='object_link'><a href="All/Descendants.html#each_descendant-instance_method" title="Card::Name::All::Descendants#each_descendant (method)">#each_descendant</a></span>, <span class='object_link'><a href="All/Descendants.html#field_ids-instance_method" title="Card::Name::All::Descendants#field_ids (method)">#field_ids</a></span>, <span class='object_link'><a href="All/Descendants.html#field_names-instance_method" title="Card::Name::All::Descendants#field_names (method)">#field_names</a></span>, <span class='object_link'><a href="All/Descendants.html#fields-instance_method" title="Card::Name::All::Descendants#fields (method)">#fields</a></span></p>
+  <p class="inherited"><span class='object_link'><a href="All/Descendants.html#child_ids-instance_method" title="Card::Name::All::Descendants#child_ids (method)">#child_ids</a></span>, <span class='object_link'><a href="All/Descendants.html#each_child-instance_method" title="Card::Name::All::Descendants#each_child (method)">#each_child</a></span>, <span class='object_link'><a href="All/Descendants.html#each_descendant-instance_method" title="Card::Name::All::Descendants#each_descendant (method)">#each_descendant</a></span>, <span class='object_link'><a href="All/Descendants.html#field_cards-instance_method" title="Card::Name::All::Descendants#field_cards (method)">#field_cards</a></span>, <span class='object_link'><a href="All/Descendants.html#field_ids-instance_method" title="Card::Name::All::Descendants#field_ids (method)">#field_ids</a></span>, <span class='object_link'><a href="All/Descendants.html#field_names-instance_method" title="Card::Name::All::Descendants#field_names (method)">#field_names</a></span></p>
 
   
   
@@ -385,6 +418,53 @@
   
   <h3 class="inherited">Methods included from <span class='object_link'><a href="All/Parts.html" title="Card::Name::All::Parts (module)">Parts</a></span></h3>
   <p class="inherited"><span class='object_link'><a href="All/Parts.html#left-instance_method" title="Card::Name::All::Parts#left (method)">#left</a></span>, <span class='object_link'><a href="All/Parts.html#left_id=-instance_method" title="Card::Name::All::Parts#left_id= (method)">#left_id=</a></span>, <span class='object_link'><a href="All/Parts.html#left_or_new-instance_method" title="Card::Name::All::Parts#left_or_new (method)">#left_or_new</a></span>, <span class='object_link'><a href="All/Parts.html#right-instance_method" title="Card::Name::All::Parts#right (method)">#right</a></span>, <span class='object_link'><a href="All/Parts.html#right_id=-instance_method" title="Card::Name::All::Parts#right_id= (method)">#right_id=</a></span>, <span class='object_link'><a href="All/Parts.html#tag-instance_method" title="Card::Name::All::Parts#tag (method)">#tag</a></span>, <span class='object_link'><a href="All/Parts.html#trunk-instance_method" title="Card::Name::All::Parts#trunk (method)">#trunk</a></span></p>
+
+  <div id="instance_attr_details" class="attr_details">
+    <h2>Instance Attribute Details</h2>
+    
+      
+      <span id=""></span>
+      <div class="method_details first">
+  <h3 class="signature first" id="supercard-instance_method">
+  
+    #<strong>supercard</strong>  &#x21d2; <tt><span class='object_link'><a href="../../Object.html" title="Object (class)">Object</a></span></tt>  <span class="extras">(readonly)</span>
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Returns the value of attribute supercard.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+10
+11
+12</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'card/lib/card/name/all.rb', line 10</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_supercard'>supercard</span>
+  <span class='ivar'>@supercard</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
 
 
   <div id="instance_method_details" class="method_details_list">
@@ -486,12 +566,12 @@
       <pre class="lines">
 
 
-73
 74
-75</pre>
+75
+76</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/name/all.rb', line 73</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/name/all.rb', line 74</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_field'>field</span> <span class='id identifier rubyid_tag'>tag</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span>
   <span class='const'><span class='object_link'><a href="../../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_fetch'><span class='object_link'><a href="../Fetch/CardClass.html#fetch-instance_method" title="Card::Fetch::CardClass#fetch (method)">fetch</a></span></span> <span class='id identifier rubyid_name'>name</span><span class='period'>.</span><span class='id identifier rubyid_field'>field</span><span class='lparen'>(</span><span class='id identifier rubyid_tag'>tag</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span>
@@ -546,7 +626,6 @@
       <pre class="lines">
 
 
-62
 63
 64
 65
@@ -555,10 +634,11 @@
 68
 69
 70
-71</pre>
+71
+72</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/name/all.rb', line 62</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/name/all.rb', line 63</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_key='>key=</span> <span class='id identifier rubyid_newkey'>newkey</span>
   <span class='kw'>return</span> <span class='kw'>if</span> <span class='id identifier rubyid_newkey'>newkey</span> <span class='op'>==</span> <span class='id identifier rubyid_key'>key</span>
@@ -690,16 +770,16 @@
       <pre class="lines">
 
 
-54
 55
 56
 57
 58
 59
-60</pre>
+60
+61</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/name/all.rb', line 54</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/name/all.rb', line 55</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_update_subcard_names'>update_subcard_names</span> <span class='id identifier rubyid_new_name'>new_name</span><span class='comma'>,</span> <span class='id identifier rubyid_name_to_replace'>name_to_replace</span><span class='op'>=</span><span class='kw'>nil</span>
   <span class='kw'>return</span> <span class='kw'>unless</span> <span class='ivar'>@subcards</span>
@@ -716,7 +796,7 @@
       <div class="method_details ">
   <h3 class="signature " id="update_superleft-instance_method">
   
-    #<strong>update_superleft</strong>(cardname)  &#x21d2; <tt><span class='object_link'><a href="../../Object.html" title="Object (class)">Object</a></span></tt> 
+    #<strong>update_superleft</strong>(newname = nil)  &#x21d2; <tt><span class='object_link'><a href="../../Object.html" title="Object (class)">Object</a></span></tt> 
   
 
   
@@ -730,13 +810,15 @@
 
 50
 51
-52</pre>
+52
+53</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'card/lib/card/name/all.rb', line 50</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_update_superleft'>update_superleft</span> <span class='id identifier rubyid_cardname'>cardname</span>
-  <span class='ivar'>@superleft</span> <span class='op'>=</span> <span class='ivar'>@supercard</span> <span class='kw'>if</span> <span class='id identifier rubyid_cardname'>cardname</span><span class='period'>.</span><span class='id identifier rubyid_field_of?'>field_of?</span> <span class='ivar'>@supercard</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_update_superleft'>update_superleft</span> <span class='id identifier rubyid_newname'>newname</span><span class='op'>=</span><span class='kw'>nil</span>
+  <span class='id identifier rubyid_newname'>newname</span> <span class='op'>||=</span> <span class='id identifier rubyid_name'>name</span>
+  <span class='ivar'>@superleft</span> <span class='op'>=</span> <span class='ivar'>@supercard</span> <span class='kw'>if</span> <span class='id identifier rubyid_newname'>newname</span><span class='period'>.</span><span class='id identifier rubyid_field_of?'>field_of?</span> <span class='ivar'>@supercard</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -748,9 +830,9 @@
 </div>
 
       <div id="footer">
-  Generated on Thu May 13 17:17:15 2021 by
+  Generated on Fri Jan 21 16:01:40 2022 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.26 (ruby-2.7.2).
+  0.9.27 (ruby-3.0.1).
 </div>
 
     </div>

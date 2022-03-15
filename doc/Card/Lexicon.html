@@ -6,7 +6,7 @@
 <title>
   Module: Card::Lexicon
   
-    &mdash; Documentation by YARD 0.9.26
+    &mdash; Documentation by YARD 0.9.27
   
 </title>
 
@@ -116,29 +116,6 @@ name for simple cards, [left_id, right_id] for compound cards.</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#add-class_method" title="add (class method)">.<strong>add</strong>(card)  &#x21d2; Object </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'>
-</div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
       <a href="#cache-class_method" title="cache (class method)">.<strong>cache</strong>  &#x21d2; Object </a>
     
 
@@ -231,6 +208,29 @@ name for simple cards, [left_id, right_id] for compound cards.</p>
         <li class="public ">
   <span class="summary_signature">
     
+      <a href="#rescuing-class_method" title="rescuing (class method)">.<strong>rescuing</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>this is to address problems whereby renaming errors leave the lexicon broken.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
       <a href="#update-class_method" title="update (class method)">.<strong>update</strong>(card)  &#x21d2; Object </a>
     
 
@@ -261,41 +261,7 @@ name for simple cards, [left_id, right_id] for compound cards.</p>
 
     
       <div class="method_details first">
-  <h3 class="signature first" id="add-class_method">
-  
-    .<strong>add</strong>(card)  &#x21d2; <tt><span class='object_link'><a href="../Object.html" title="Object (class)">Object</a></span></tt> 
-  
-
-  
-
-  
-</h3><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-31
-32
-33
-34
-35</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/lexicon.rb', line 31</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_add'>add</span> <span class='id identifier rubyid_card'>card</span>
-  <span class='id identifier rubyid_lex'>lex</span> <span class='op'>=</span> <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_lex'>lex</span>
-  <span class='id identifier rubyid_cache'>cache</span><span class='period'>.</span><span class='id identifier rubyid_write'>write</span> <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='comma'>,</span> <span class='id identifier rubyid_lex'>lex</span>
-  <span class='id identifier rubyid_cache'>cache</span><span class='period'>.</span><span class='id identifier rubyid_write'>write</span> <span class='id identifier rubyid_cache_key'>cache_key</span><span class='lparen'>(</span><span class='id identifier rubyid_lex'>lex</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="cache-class_method">
+  <h3 class="signature first" id="cache-class_method">
   
     .<strong>cache</strong>  &#x21d2; <tt><span class='object_link'><a href="../Object.html" title="Object (class)">Object</a></span></tt> 
   
@@ -409,14 +375,14 @@ end</p>
       <pre class="lines">
 
 
-47
-48
-49
-50
-51</pre>
+41
+42
+43
+44
+45</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/lexicon.rb', line 47</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/lexicon.rb', line 41</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_lex_to_name'>lex_to_name</span> <span class='id identifier rubyid_lex'>lex</span>
   <span class='kw'>return</span> <span class='id identifier rubyid_lex'>lex</span> <span class='kw'>unless</span> <span class='id identifier rubyid_lex'>lex</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span> <span class='const'>Array</span>
@@ -488,6 +454,61 @@ end</p>
 </div>
     
       <div class="method_details ">
+  <h3 class="signature " id="rescuing-class_method">
+  
+    .<strong>rescuing</strong>  &#x21d2; <tt><span class='object_link'><a href="../Object.html" title="Object (class)">Object</a></span></tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>this is to address problems whereby renaming errors leave the lexicon broken.
+NEEDS TESTING</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'card/lib/card/lexicon.rb', line 49</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_rescuing'>rescuing</span>
+  <span class='ivar'>@act_lexes</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
+  <span class='ivar'>@act_ids</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
+  <span class='kw'>yield</span>
+<span class='kw'>rescue</span> <span class='const'>StandardError</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_e'>e</span>
+  <span class='ivar'>@act_lexes</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_lex'>lex</span><span class='op'>|</span> <span class='id identifier rubyid_expire_lex'>expire_lex</span> <span class='id identifier rubyid_lex'>lex</span> <span class='rbrace'>}</span>
+  <span class='ivar'>@act_ids</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_id'>id</span><span class='op'>|</span> <span class='id identifier rubyid_expire_id'>expire_id</span> <span class='id identifier rubyid_id'>id</span> <span class='rbrace'>}</span>
+  <span class='ivar'>@act_lexes</span> <span class='op'>=</span> <span class='ivar'>@act_ids</span> <span class='op'>=</span> <span class='kw'>nil</span>
+  <span class='id identifier rubyid_raise'>raise</span> <span class='id identifier rubyid_e'>e</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
   <h3 class="signature " id="update-class_method">
   
     .<strong>update</strong>(card)  &#x21d2; <tt><span class='object_link'><a href="../Object.html" title="Object (class)">Object</a></span></tt> 
@@ -502,17 +523,17 @@ end</p>
       <pre class="lines">
 
 
-37
-38
-39
-40</pre>
+31
+32
+33
+34</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/lexicon.rb', line 37</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/lexicon.rb', line 31</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_update'>update</span> <span class='id identifier rubyid_card'>card</span>
   <span class='id identifier rubyid_add'>add</span> <span class='id identifier rubyid_card'>card</span>
-  <span class='id identifier rubyid_cache'>cache</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span> <span class='id identifier rubyid_cache_key'>cache_key</span><span class='lparen'>(</span><span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_lex_before_act'>lex_before_act</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_expire_lex'>expire_lex</span> <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_lex_before_act'>lex_before_act</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -524,9 +545,9 @@ end</p>
 </div>
 
       <div id="footer">
-  Generated on Thu May 13 17:17:15 2021 by
+  Generated on Fri Jan 21 16:01:40 2022 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.26 (ruby-2.7.2).
+  0.9.27 (ruby-3.0.1).
 </div>
 
     </div>

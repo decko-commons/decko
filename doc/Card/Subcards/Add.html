@@ -6,7 +6,7 @@
 <title>
   Module: Card::Subcards::Add
   
-    &mdash; Documentation by YARD 0.9.26
+    &mdash; Documentation by YARD 0.9.27
   
 </title>
 
@@ -521,13 +521,13 @@
       <pre class="lines">
 
 
+73
+74
 75
-76
-77
-78</pre>
+76</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/subcards/add.rb', line 75</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/subcards/add.rb', line 73</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize_by_attributes'>initialize_by_attributes</span> <span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='id identifier rubyid_attributes'>attributes</span>
   <span class='id identifier rubyid_attributes'>attributes</span><span class='lbracket'>[</span><span class='symbol'>:supercard</span><span class='rbracket'>]</span> <span class='op'>||=</span> <span class='ivar'>@context_card</span>
@@ -553,18 +553,18 @@
       <pre class="lines">
 
 
+63
+64
 65
 66
 67
 68
 69
 70
-71
-72
-73</pre>
+71</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/subcards/add.rb', line 65</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/subcards/add.rb', line 63</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_new_by_attributes'>new_by_attributes</span> <span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='id identifier rubyid_attributes'>attributes</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span>
   <span class='id identifier rubyid_attributes'>attributes</span> <span class='op'>=</span> <span class='id identifier rubyid_attributes'>attributes</span><span class='op'>&amp;.</span><span class='id identifier rubyid_symbolize_keys'>symbolize_keys</span> <span class='op'>||</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
@@ -602,18 +602,14 @@
 58
 59
 60
-61
-62
-63</pre>
+61</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'card/lib/card/subcards/add.rb', line 54</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_new_by_card'>new_by_card</span> <span class='id identifier rubyid_card'>card</span>
   <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_supercard'>supercard</span> <span class='op'>=</span> <span class='ivar'>@context_card</span>
-  <span class='kw'>if</span> <span class='op'>!</span><span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span><span class='period'>.</span><span class='id identifier rubyid_simple?'>simple?</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span><span class='period'>.</span><span class='id identifier rubyid_field_of?'>field_of?</span><span class='lparen'>(</span><span class='ivar'>@context_card</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span><span class='rparen'>)</span>
-    <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_superleft'>superleft</span> <span class='op'>=</span> <span class='ivar'>@context_card</span>
-  <span class='kw'>end</span>
+  <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_update_superleft'>update_superleft</span> <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span>
   <span class='ivar'>@keys</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_key'>key</span>
   <span class='const'><span class='object_link'><a href="../../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_write_to_soft_cache'><span class='object_link'><a href="../Cache/CardClass.html#write_to_soft_cache-instance_method" title="Card::Cache::CardClass#write_to_soft_cache (method)">write_to_soft_cache</a></span></span> <span class='id identifier rubyid_card'>card</span>
   <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_director'>director</span> <span class='op'>=</span> <span class='ivar'>@context_card</span><span class='period'>.</span><span class='id identifier rubyid_director'>director</span><span class='period'>.</span><span class='id identifier rubyid_subdirectors'>subdirectors</span><span class='period'>.</span><span class='id identifier rubyid_add'>add</span> <span class='id identifier rubyid_card'>card</span>
@@ -629,9 +625,9 @@
 </div>
 
       <div id="footer">
-  Generated on Thu May 13 17:17:16 2021 by
+  Generated on Fri Jan 21 16:01:41 2022 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.26 (ruby-2.7.2).
+  0.9.27 (ruby-3.0.1).
 </div>
 
     </div>

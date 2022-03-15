@@ -4,9 +4,7 @@ class Card
       attr_accessor :act, :act_card
 
       def act_director
-        return unless act_card
-
-        act_card.director
+        act_card&.director
       end
 
       def directors
@@ -14,9 +12,11 @@ class Card
       end
 
       def run_act card
-        self.act_card = card
-        # add new_director(card)
-        yield
+        Lexicon.rescuing do
+          self.act_card = card
+          # add new_director(card)
+          yield
+        end
       ensure
         clear
       end

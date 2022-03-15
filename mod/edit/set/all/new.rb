@@ -2,30 +2,49 @@ format :html do
   delegate :autoname?, to: :card
 
   view :new, perms: :create, unknown: true, cache: :never do
-    new_view_frame_and_form new_form_opts
-  end
-
-  view :new_content_form, wrap: :slot, unknown: true, cache: :never do
-    with_nest_mode :edit do
-      create_form
-    end
+    framed_create_form new_form_opts
   end
 
   view :new_in_modal, perms: :create, unknown: true, cache: :never,
                       wrap: { modal: { footer: "", size: :edit_modal_size,
                                        title: :new_in_modal_title,
                                        menu: :new_modal_menu } } do
-    _render_new_content_form
+    voo.buttons_view ||= :new_in_modal_buttons
+    wrap do
+      create_form "data-slot-selector": "modal-origin",
+                  "data-slot-error-selector": ".card-slot"
+    end
   end
 
-  def create_form
-    form_opts = new_in_modal_form_opts.reverse_merge(success: new_in_modal_success)
-    buttons = form_opts.delete(:buttons) || _render_new_buttons
+  view :simple_new, perms: :create, unknown: true, wrap: :slot, cache: :never do
+    create_form
+  end
 
-    voo.title ||= new_view_title if new_name_prompt?
-    voo.show :help
-    card_form(:create, form_opts) do
-      create_form_with_alert_guide buttons
+  view :new_fields, perms: :create, unknown: true, cache: :never do
+    wrap true, class: "w-100" do
+      [
+        new_view_hidden,
+        new_view_name,
+        new_view_type,
+        _render_content_formgroups,
+        _render(voo.buttons_view || :new_buttons)
+      ]
+    end
+  end
+
+  def with_create_context
+    with_nest_mode :edit do
+      voo.title ||= new_view_title if new_name_prompt?
+      voo.show :help
+      yield
+    end
+  end
+
+  def create_form form_opts={}
+    with_create_context do
+      card_form :create, form_opts do
+        create_form_with_alert_guide
+      end
     end
   end
 
@@ -39,45 +58,27 @@ format :html do
     end
   end
 
-  def new_view_frame_and_form form_opts={}
-    buttons = form_opts.delete(:buttons) || _render_new_buttons
-    form_opts = form_opts.reverse_merge(success: new_success)
+  def framed_create_form form_opts={}
+    form_opts.reverse_merge! success: new_success
 
-    with_nest_mode :edit do
-      voo.title ||= new_view_title if new_name_prompt?
-      voo.show :help
+    with_create_context do
       frame_and_form :create, form_opts do
-        create_form_with_alert_guide buttons
+        create_form_with_alert_guide
       end
     end
   end
 
-  def create_form_with_alert_guide buttons
+  def create_form_with_alert_guide
     wrap_with :div, class: "d-flex justify-content-between" do
-      [(wrap_with(:div, class: "w-100") do
-        [
-          new_view_hidden,
-          new_view_name,
-          new_view_type,
-          _render_content_formgroups,
-          buttons
-        ]
-      end),
-       (alert_guide if voo.show?(:guide))]
+      [_render_new_fields, (alert_guide if voo.show?(:guide))]
     end
-  end
-
-  def new_view_hidden; end
-
-  def new_in_modal_form_opts
-    { "data-slot-selector": "modal-origin", "data-slot-error-selector": ".card-slot",
-      buttons: _render_new_in_modal_buttons }
   end
 
   def new_form_opts
     { "data-main-success": JSON(redirect: true) }
   end
 
+  # LOCALIZE
   def new_view_title
     output(
       "New",
@@ -94,6 +95,8 @@ format :html do
   end
 
   def new_in_modal_success; end
+
+  def new_view_hidden; end
 
   # NAME HANDLING
 
@@ -150,34 +153,32 @@ format :html do
 
   view :new_type_formgroup do
     wrap_type_formgroup do
-      type_field class: "type-field live-type-field",
-                 href: path(view: :new),
+      type_field class: "type-field _live-type-field slotter",
+                 href: path(view: :new_fields),
                  "data-remote" => true
     end
   end
 
   view :new_buttons do
     button_formgroup do
-      [standard_create_button, standard_cancel_button(cancel_button_new_args)]
+      [standard_create_button, standard_cancel_button(href: cancel_create_path)]
     end
   end
 
   view :new_in_modal_buttons do
+    class_up "button-form-group", "d-flex"
     button_formgroup do
-      wrap_with "div", class: "d-flex" do
-        [standard_save_and_close_button(text: "Submit"), modal_cancel_button]
-      end
+      [standard_save_and_close_button(text: "Submit"), modal_cancel_button]
     end
   end
 
   # path to redirect to after canceling a new form
-  def cancel_button_new_args
-    href = case
-           when main?          then path_to_previous
-           when voo&.home_view then path(view: voo.home_view)
-           else                     path(view: :unknown)
-           end
-    { href: href }
+  def cancel_create_path
+    if main?
+      path_to_previous
+    else
+      path view: (voo&.home_view || :unknown)
+    end
   end
 
   def standard_create_button

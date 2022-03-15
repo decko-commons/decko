@@ -6,7 +6,7 @@
 <title>
   Module: Card::Env::Serialization
   
-    &mdash; Documentation by YARD 0.9.26
+    &mdash; Documentation by YARD 0.9.27
   
 </title>
 
@@ -99,24 +99,6 @@
   
 
 </div>
-  
-    <h2>
-      Constant Summary
-      <small><a href="#" class="constants_summary_toggle">collapse</a></small>
-    </h2>
-
-    <dl class="constants">
-      
-        <dt id="SERIALIZABLE_ATTRIBUTES-constant" class="">SERIALIZABLE_ATTRIBUTES =
-          
-        </dt>
-        <dd><pre class="code"><span class='op'>::</span><span class='const'>Set</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span> <span class='qsymbols_beg'>%i[</span><span class='words_sep'>
-  </span><span class='tstring_content'>main_name</span><span class='words_sep'> </span><span class='tstring_content'>params</span><span class='words_sep'> </span><span class='tstring_content'>ip</span><span class='words_sep'> </span><span class='tstring_content'>ajax</span><span class='words_sep'> </span><span class='tstring_content'>html</span><span class='words_sep'> </span><span class='tstring_content'>host</span><span class='words_sep'> </span><span class='tstring_content'>protocol</span><span class='words_sep'> </span><span class='tstring_content'>salt</span><span class='words_sep'>
-</span><span class='tstring_end'>]</span></span></pre></dd>
-      
-    </dl>
-  
-
 
 
 
@@ -201,15 +183,19 @@
       <pre class="lines">
 
 
-19
-20
-21</pre>
+5
+6
+7
+8
+9</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/env/serialization.rb', line 19</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/env/serialization.rb', line 5</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_serialize'>serialize</span>
-  <span class='ivar'>@env</span><span class='period'>.</span><span class='id identifier rubyid_select'>select</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_k'>k</span><span class='comma'>,</span> <span class='id identifier rubyid__v'>_v</span><span class='op'>|</span> <span class='const'><span class='object_link'><a href="#SERIALIZABLE_ATTRIBUTES-constant" title="Card::Env::Serialization::SERIALIZABLE_ATTRIBUTES (constant)">SERIALIZABLE_ATTRIBUTES</a></span></span><span class='period'>.</span><span class='id identifier rubyid_include?'>include?</span><span class='lparen'>(</span><span class='id identifier rubyid_k'>k</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
+  <span class='ivar'>@serialized</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Serializable.html" title="Card::Env::Serializable (module)">Serializable</a></span></span><span class='period'>.</span><span class='id identifier rubyid_instance_methods'>instance_methods</span><span class='period'>.</span><span class='id identifier rubyid_each_with_object'>each_with_object</span><span class='lparen'>(</span><span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_attr'>attr</span><span class='comma'>,</span> <span class='id identifier rubyid_hash'>hash</span><span class='op'>|</span>
+    <span class='id identifier rubyid_hash'>hash</span><span class='lbracket'>[</span><span class='id identifier rubyid_attr'>attr</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_send'>send</span> <span class='id identifier rubyid_attr'>attr</span>
+  <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -256,25 +242,23 @@
       <pre class="lines">
 
 
-10
-11
 12
 13
 14
 15
 16
-17</pre>
+17
+18</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/env/serialization.rb', line 10</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/env/serialization.rb', line 12</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_with'>with</span> <span class='id identifier rubyid_serialized_env'>serialized_env</span>
-  <span class='id identifier rubyid_tmp_env'>tmp_env</span> <span class='op'>=</span> <span class='id identifier rubyid_serialize'>serialize</span> <span class='kw'>if</span> <span class='ivar'>@env</span>
-  <span class='ivar'>@env</span> <span class='op'>||=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
-  <span class='ivar'>@env</span><span class='period'>.</span><span class='id identifier rubyid_update'>update</span> <span class='id identifier rubyid_serialized_env'>serialized_env</span>
+  <span class='id identifier rubyid_tmp_env'>tmp_env</span> <span class='op'>=</span> <span class='id identifier rubyid_serialize'>serialize</span>
+  <span class='ivar'>@serialized</span><span class='period'>.</span><span class='id identifier rubyid_update'>update</span> <span class='id identifier rubyid_serialized_env'>serialized_env</span>
   <span class='kw'>yield</span>
 <span class='kw'>ensure</span>
-  <span class='ivar'>@env</span><span class='period'>.</span><span class='id identifier rubyid_update'>update</span> <span class='id identifier rubyid_tmp_env'>tmp_env</span> <span class='kw'>if</span> <span class='id identifier rubyid_tmp_env'>tmp_env</span>
+  <span class='ivar'>@serialized</span><span class='period'>.</span><span class='id identifier rubyid_update'>update</span> <span class='id identifier rubyid_tmp_env'>tmp_env</span> <span class='kw'>if</span> <span class='id identifier rubyid_tmp_env'>tmp_env</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -286,9 +270,9 @@
 </div>
 
       <div id="footer">
-  Generated on Thu May 13 17:17:17 2021 by
+  Generated on Fri Jan 21 16:01:42 2022 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.26 (ruby-2.7.2).
+  0.9.27 (ruby-3.0.1).
 </div>
 
     </div>

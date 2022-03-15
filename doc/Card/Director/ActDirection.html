@@ -6,7 +6,7 @@
 <title>
   Module: Card::Director::ActDirection
   
-    &mdash; Documentation by YARD 0.9.26
+    &mdash; Documentation by YARD 0.9.27
   
 </title>
 
@@ -689,17 +689,13 @@
 
 6
 7
-8
-9
-10</pre>
+8</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'card/lib/card/director/act_direction.rb', line 6</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_act_director'>act_director</span>
-  <span class='kw'>return</span> <span class='kw'>unless</span> <span class='id identifier rubyid_act_card'>act_card</span>
-
-  <span class='id identifier rubyid_act_card'>act_card</span><span class='period'>.</span><span class='id identifier rubyid_director'>director</span>
+  <span class='id identifier rubyid_act_card'>act_card</span><span class='op'>&amp;.</span><span class='id identifier rubyid_director'>director</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -941,12 +937,12 @@
       <pre class="lines">
 
 
-12
-13
-14</pre>
+10
+11
+12</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/director/act_direction.rb', line 12</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/director/act_direction.rb', line 10</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_directors'>directors</span>
   <span class='ivar'>@directors</span> <span class='op'>||=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
@@ -1187,7 +1183,7 @@
       <pre class="code"><span class="info file"># File 'card/lib/card/director/act_direction.rb', line 24</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_need_act'>need_act</span>
-  <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_act'>act</span> <span class='op'>||=</span> <span class='const'><span class='object_link'><a href="../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Act.html" title="Card::Act (class)">Act</a></span></span><span class='period'>.</span><span class='id identifier rubyid_create'><span class='object_link'><a href="CardClass.html#create-instance_method" title="Card::Director::CardClass#create (method)">create</a></span></span> <span class='label'>ip_address:</span> <span class='const'><span class='object_link'><a href="../Env.html" title="Card::Env (module)">Env</a></span></span><span class='period'>.</span><span class='id identifier rubyid_ip'>ip</span>
+  <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_act'>act</span> <span class='op'>||=</span> <span class='const'><span class='object_link'><a href="../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'>Act</span><span class='period'>.</span><span class='id identifier rubyid_create'>create</span> <span class='label'>ip_address:</span> <span class='const'><span class='object_link'><a href="../Env.html" title="Card::Env (module)">Env</a></span></span><span class='period'>.</span><span class='id identifier rubyid_ip'><span class='object_link'><a href="../Env/Serializable.html#ip-instance_method" title="Card::Env::Serializable#ip (method)">ip</a></span></span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1247,6 +1243,8 @@
       <pre class="lines">
 
 
+14
+15
 16
 17
 18
@@ -1256,12 +1254,14 @@
 22</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/director/act_direction.rb', line 16</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/director/act_direction.rb', line 14</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_run_act'>run_act</span> <span class='id identifier rubyid_card'>card</span>
-  <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_act_card'>act_card</span> <span class='op'>=</span> <span class='id identifier rubyid_card'>card</span>
-  <span class='comment'># add new_director(card)
-</span>  <span class='kw'>yield</span>
+  <span class='const'><span class='object_link'><a href="../Lexicon.html" title="Card::Lexicon (module)">Lexicon</a></span></span><span class='period'>.</span><span class='id identifier rubyid_rescuing'><span class='object_link'><a href="../Lexicon.html#rescuing-class_method" title="Card::Lexicon.rescuing (method)">rescuing</a></span></span> <span class='kw'>do</span>
+    <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_act_card'>act_card</span> <span class='op'>=</span> <span class='id identifier rubyid_card'>card</span>
+    <span class='comment'># add new_director(card)
+</span>    <span class='kw'>yield</span>
+  <span class='kw'>end</span>
 <span class='kw'>ensure</span>
   <span class='id identifier rubyid_clear'>clear</span>
 <span class='kw'>end</span></pre>
@@ -1358,9 +1358,9 @@
 </div>
 
       <div id="footer">
-  Generated on Thu May 13 17:17:19 2021 by
+  Generated on Fri Jan 21 16:01:43 2022 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.26 (ruby-2.7.2).
+  0.9.27 (ruby-3.0.1).
 </div>
 
     </div>

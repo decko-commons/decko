@@ -6,24 +6,26 @@ class Card
         # NOTE: for all these helpers, method returns *all* fields/children/descendants.
         # (Not just those current user has permission to read.)
 
-        def fields
-          field_ids.map { |id| Card[id] }
+        def field_cards
+          field_ids.map(&:card)
         end
 
         def field_names
-          field_ids.map { |id| Card::Name[id] }
+          field_ids.map(&:cardname)
         end
 
         def field_ids
           child_ids :left
         end
 
-        def each_child &block
+        def each_child
           return unless id
 
-          Card.where(
-            "(left_id = #{id} or right_id = #{id}) and trash is false"
-          ).each(&block)
+          sql = "(left_id = #{id} or right_id = #{id}) and trash is false"
+          Card.where(sql).find_each do |card|
+            card.include_set_modules
+            yield card
+          end
         end
 
         # eg, A+B is a child of A and B

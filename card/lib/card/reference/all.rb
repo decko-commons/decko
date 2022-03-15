@@ -21,7 +21,7 @@ class Card
       end
 
       def referer_cards_from_references references
-        references.map(&:referer_id).uniq.map(&Card.method(:fetch)).compact
+        references.map(&:referer_id).uniq.map(&:card).compact
       end
 
       # cards that self refers to
@@ -62,11 +62,13 @@ class Card
         Reference.mass_insert reference_values_array(ref_hash)
       end
 
-      # delete references from this card
-      def delete_references_out
-        return unless id.present?
-
-        Reference.where(referer_id: id).delete_all
+      # replace references in card content
+      def swap_names old_name, new_name
+        cont = content_object
+        cont.find_chunks(:Reference).each do |chunk|
+          chunk.swap_name old_name, new_name
+        end
+        cont.to_s
       end
 
       private
@@ -122,7 +124,7 @@ class Card
       end
 
       # Partial references are needed to track references to virtual cards.
-      # For example a link to virual card [[A+*self]] won't have a referee_id,
+      # For example a link to virtual card [[A+*self]] won't have a referee_id,
       # but when A's name is changed we have to find and update that link.
       def interpret_partial_references ref_hash, referee_name
         return if referee_name.simple?

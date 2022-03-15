@@ -20,7 +20,7 @@ module Cardio
 
           p = Card.paths[path]
           FileUtils.rm_rf p.first, secure: true if p.existent.first
-          Dir.mkdir p.first
+          FileUtils.mkdir_p p.first
         end
 
         def rewrite_tmp_files?

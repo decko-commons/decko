@@ -1,0 +1,7 @@
+---
+- :name: Mod
+  :type: :cardtype
+  :codename: :mod
+- :name: Cardtype
+  :type: :cardtype
+  :codename: :cardtype

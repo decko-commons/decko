@@ -6,7 +6,7 @@
 <title>
   Module: Cardname::Variants
   
-    &mdash; Documentation by YARD 0.9.26
+    &mdash; Documentation by YARD 0.9.27
   
 </title>
 
@@ -242,12 +242,12 @@
       <pre class="lines">
 
 
-29
-30
-31</pre>
+31
+32
+33</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'cardname/lib/cardname/variants.rb', line 29</span>
+      <pre class="code"><span class="info file"># File 'cardname/lib/cardname/variants.rb', line 31</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_decoded'>decoded</span>
   <span class='ivar'>@decoded</span> <span class='op'>||=</span> <span class='id identifier rubyid_s'>s</span><span class='period'>.</span><span class='id identifier rubyid_index'>index</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>&amp;</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='op'>?</span> <span class='const'>HTMLEntities</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='period'>.</span><span class='id identifier rubyid_decode'>decode</span><span class='lparen'>(</span><span class='id identifier rubyid_s'>s</span><span class='rparen'>)</span> <span class='op'>:</span> <span class='id identifier rubyid_s'>s</span>
@@ -284,15 +284,15 @@ For example “A-XB” and “A+</em>B” have the same safe_key</p>
       <pre class="lines">
 
 
-25
-26
-27</pre>
+27
+28
+29</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'cardname/lib/cardname/variants.rb', line 25</span>
+      <pre class="code"><span class="info file"># File 'cardname/lib/cardname/variants.rb', line 27</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_safe_key'>safe_key</span>
-  <span class='ivar'>@safe_key</span> <span class='op'>||=</span> <span class='id identifier rubyid_key'>key</span><span class='period'>.</span><span class='id identifier rubyid_tr'>tr</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>*</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>X</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_tr'>tr</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_joint'>joint</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>-</span><span class='tstring_end'>&quot;</span></span>
+  <span class='id identifier rubyid_key'>key</span><span class='period'>.</span><span class='id identifier rubyid_tr'>tr</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>*</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>X</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_tr'>tr</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_joint'>joint</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>-</span><span class='tstring_end'>&quot;</span></span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -314,8 +314,6 @@ For example “A-XB” and “A+</em>B” have the same safe_key</p>
       <pre class="lines">
 
 
-3
-4
 5
 6
 7
@@ -324,10 +322,12 @@ For example “A-XB” and “A+</em>B” have the same safe_key</p>
 10
 11
 12
-13</pre>
+13
+14
+15</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'cardname/lib/cardname/variants.rb', line 3</span>
+      <pre class="code"><span class="info file"># File 'cardname/lib/cardname/variants.rb', line 5</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_simple_key'>simple_key</span>
   <span class='kw'>return</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='id identifier rubyid_empty?'>empty?</span>
@@ -337,7 +337,7 @@ For example “A-XB” and “A+</em>B” have the same safe_key</p>
     <span class='period'>.</span><span class='id identifier rubyid_gsub'>gsub</span><span class='lparen'>(</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>[^</span><span class='embexpr_beg'>#{</span><span class='const'><span class='object_link'><a href="../Cardname.html#OK4KEY_RE-constant" title="Cardname::OK4KEY_RE (constant)">OK4KEY_RE</a></span></span><span class='embexpr_end'>}</span><span class='tstring_content'>]+</span><span class='regexp_end'>/</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>_</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
     <span class='period'>.</span><span class='id identifier rubyid_split'>split</span><span class='lparen'>(</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>_+</span><span class='regexp_end'>/</span></span><span class='rparen'>)</span>
     <span class='period'>.</span><span class='id identifier rubyid_reject'>reject</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='symbol'>:empty?</span><span class='rparen'>)</span>
-    <span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_key'>key</span><span class='op'>|</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_stable_key'>stable_key</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
+    <span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_key'>key</span><span class='op'>|</span> <span class='id identifier rubyid_stable_key'>stable_key</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
     <span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>_</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -360,12 +360,12 @@ For example “A-XB” and “A+</em>B” have the same safe_key</p>
       <pre class="lines">
 
 
-33
-34
-35</pre>
+35
+36
+37</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'cardname/lib/cardname/variants.rb', line 33</span>
+      <pre class="code"><span class="info file"># File 'cardname/lib/cardname/variants.rb', line 35</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_to_sym'>to_sym</span>
   <span class='id identifier rubyid_s'>s</span><span class='period'>.</span><span class='id identifier rubyid_to_sym'>to_sym</span>
@@ -390,18 +390,18 @@ For example “A-XB” and “A+</em>B” have the same safe_key</p>
       <pre class="lines">
 
 
-15
-16
 17
 18
 19
-20</pre>
+20
+21
+22</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'cardname/lib/cardname/variants.rb', line 15</span>
+      <pre class="code"><span class="info file"># File 'cardname/lib/cardname/variants.rb', line 17</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_url_key'>url_key</span>
-  <span class='ivar'>@url_key</span> <span class='op'>||=</span> <span class='id identifier rubyid_part_names'>part_names</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_part_name'>part_name</span><span class='op'>|</span>
+  <span class='id identifier rubyid_part_names'>part_names</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_part_name'>part_name</span><span class='op'>|</span>
     <span class='id identifier rubyid_stripped'>stripped</span> <span class='op'>=</span> <span class='id identifier rubyid_part_name'>part_name</span><span class='period'>.</span><span class='id identifier rubyid_decoded'>decoded</span><span class='period'>.</span><span class='id identifier rubyid_gsub'>gsub</span><span class='lparen'>(</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>[^</span><span class='embexpr_beg'>#{</span><span class='const'><span class='object_link'><a href="../Cardname.html#OK4KEY_RE-constant" title="Cardname::OK4KEY_RE (constant)">OK4KEY_RE</a></span></span><span class='embexpr_end'>}</span><span class='tstring_content'>]+</span><span class='regexp_end'>/</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'> </span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_strip'>strip</span>
     <span class='id identifier rubyid_stripped'>stripped</span><span class='period'>.</span><span class='id identifier rubyid_gsub'>gsub</span><span class='lparen'>(</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>[\s_]+</span><span class='regexp_end'>/</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>_</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
   <span class='kw'>end</span> <span class='op'>*</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_joint'>joint</span>
@@ -416,9 +416,9 @@ For example “A-XB” and “A+</em>B” have the same safe_key</p>
 </div>
 
       <div id="footer">
-  Generated on Thu May 13 17:17:17 2021 by
+  Generated on Fri Jan 21 16:01:42 2022 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.26 (ruby-2.7.2).
+  0.9.27 (ruby-3.0.1).
 </div>
 
     </div>

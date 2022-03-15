@@ -22,7 +22,7 @@ module Cardio
 
         def reload_sets
           Card::Set::Pattern.reset
-          Card::Set.reset_modules
+          Card::Set.reset
           SetPatternLoader.new.load
           SetLoader.new(no_all: true).load
         end

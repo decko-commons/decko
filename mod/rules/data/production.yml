@@ -1,0 +1,7 @@
+---
+- :name: Setting
+  :type: :cardtype
+  :codename: :setting
+- :name: Set
+  :type: :cardtype
+  :codename: :set

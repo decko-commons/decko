@@ -1,6 +1,6 @@
 <!--
 # @title README - mod: account
 -->
-# account
+# Account mod
 
 Create and manage accounts with cards. 

@@ -13,21 +13,23 @@ RSpec.describe Card::Set::Self::Head do
     end
 
     it "has a favicon" do
-      is_expected.to have_tag(:link, with: { rel: "shortcut icon",
-                                             href: "/files/:favicon/standard-small.png" })
+      favpath = "/files/:favicon/standard-small.png"
+      is_expected
+        .to have_tag(:link, with: { rel: "shortcut icon", href: favpath })
     end
 
     it "has a main javascript tag" do
       aggregate_failures do
-        %w[:mod_script_script_decko_machine_output/script.js
-           :mod_ace_editor_script_local_machine_output/ace_editor.js
-           :mod_bootstrap_script_bootstrap_machine_output/bootstrap.js
-           :mod_bootstrap_script_pointer_machine_output/bootstrap.js
-           :mod_date_script_datepicker_machine_output/date.js
-           :mod_prosemirror_editor_script_local_machine_output/prosemirror_editor.js
-           :mod_tinymce_editor_script_local_machine_output/tinymce_editor.js]
+        %w[https://code.jquery.com/jquery-3.6.0.min.js
+           https://cdnjs.cloudflare.com/ajax/libs/jquery-ujs/1.2.0/rails.min.js
+           /files/:mod_script_script_asset_output/script.js
+           /files/:mod_ace_editor_script_asset_output/ace_editor.js
+           /files/:mod_bootstrap_script_asset_output/bootstrap.js
+           /files/:mod_date_script_asset_output/date.js
+           /files/:mod_tinymce_editor_script_asset_output/tinymce_editor.js
+           /files/:mod_rules_script_asset_output/rules.js]
           .each do |src|
-            is_expected.to have_tag(:script, with: { src: "/files/#{src}" })
+            is_expected.to have_tag(:script, with: { src: src })
           end
       end
     end
@@ -35,7 +37,7 @@ RSpec.describe Card::Set::Self::Head do
     it "has a main stylesheets link" do
       is_expected.to have_tag(
         :link, with: { rel: "stylesheet", media: "all", type: "text/css",
-                       href: "/files/:all_style_machine_output/machines.css" }
+                       href: "/files/:all_style_asset_output/assets.css" }
       )
     end
 

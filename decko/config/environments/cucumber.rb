@@ -6,7 +6,7 @@ Decko.application.class.configure do
 
   config.eager_load = false
 
-  config.machine_refresh = :never
+  config.asset_refresh = :never
 
   # IMPORTANT: Setting config.cache_classes to false is known to
   # break Cucumber's use_transactional_fixtures method.

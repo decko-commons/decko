@@ -19,7 +19,7 @@ class Card
       # @return [rendered diff]
       # compare action's cardtype value with previous cardtype value
       def cardtype_diff opts={}
-        return unless new_type?
+        return unless card && new_type?
 
         diff_object(:cardtype, opts).complete
       end

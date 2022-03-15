@@ -1,7 +1,14 @@
 class Card
   # attributes that ActiveJob can handle
+  #
+  # supercard and superleft are excluded, because it caused issues to have them in
+  # delayed job but not fully restored (set modules not included, attributes not retained,
+  # etc.) Since we're supposed to have an actual _left_ by the integrate_with_delay
+  # stage, it's not clear that they're needed. But if we revisit and find they _are_
+  # needed, then we clearly need to make sure that they are fully restored. At a bare
+  # minimum they would need to include set modules.
   def serializable_attributes
-    self.class.action_specific_attributes + set_specific.keys
+    self.class.action_specific_attributes + set_specific.keys - %i[supercard superleft]
   end
 
   module Set
@@ -21,7 +28,8 @@ class Card
         end
 
         def with_delay? opts
-          DELAY_STAGES.include?(opts[:after]) || DELAY_STAGES.include?(opts[:before])
+          opts.delete(:delay) ||
+            DELAY_STAGES.intersect?([opts[:after], opts[:before]].to_set)
         end
 
         def define_delayed_event_method

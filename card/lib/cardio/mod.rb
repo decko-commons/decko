@@ -1,3 +1,5 @@
+require "cardio/mod/class_methods"
+
 module Cardio
   # A Card Mod (short for "module" or "modification") is a discrete piece of Decko
   # functionality. Mods are how the Decko community develops and shares code.
@@ -8,17 +10,15 @@ module Cardio
   #
   #     decko generate card:mod MOD_NAME
   #
-  # This will create the following directories:
+  # This will create a directory following the pattern `DECK_NAME/mod/MOD_NAME`. This
+  # directory contains all the specifications of your mod. By default that includes
+  # a README.md file and the following subdirectories:
   #
-  #     DECK_NAME/mod/MOD_NAME
-  #     DECK_NAME/mod/MOD_NAME/lib
-  #     DECK_NAME/mod/MOD_NAME/public
-  #     DECK_NAME/mod/MOD_NAME/set
-  #
-  # The lib directory contains libraries, of course. And files in the public directory
-  # are public and served directly.
-  #
-  # But in most mods, the focal point is the *set* directory.
+  # - **assets** - for JavaScript, CSS, and variants (CoffeeScript, SCSS, etc)
+  # - **lib** - for standard code libraries
+  # - **public** - accessible via the web at DECK_URL_ROOT/mod/MOD_NAME/
+  # - **set** - the mod's focal point where card sets are configured (see below)
+  # - **spec** - for rspec tests
   #
   # ## Set Modules
   #
@@ -60,11 +60,13 @@ module Cardio
   #     or types of sets.
   #   - **file** for fixed initial card content
   class Mod
+    extend ClassMethods
+
     attr_reader :name, :path, :index
 
     def initialize name, path, index
       @name = Mod.normalize_name name
-      @path = path
+      @path = required_path path
       @index = index
     end
 
@@ -76,104 +78,40 @@ module Cardio
       "mod_#{name}"
     end
 
+    def subpath *parts
+      path = File.join [@path] + parts
+      path if File.exist? path
+    end
+
     def tmp_dir type
       File.join Cardio.paths["tmp/#{type}"].first,
                 "mod#{'%03d' % (@index + 1)}-#{@name}"
     end
 
-    def public_path
-      File.join @path, "public"
-    end
-
-    def assets_path
-      File.join @path, "assets"
-    end
-
-    def ensure_mod_installed
+    def ensure
       Card::Auth.as_bot do
-        card = ensure_mod_card
+        card = ensure_card
         card.ensure_mod_script_card
         card.ensure_mod_style_card
+        Card::Cache.reset_all
       end
     end
 
     private
 
-    def ensure_mod_card
+    def required_path path
+      return path if File.exist? path
+
+      raise Card::Error::NotFound, "mod not found: #{@name}"
+    end
+
+    def ensure_card
       if Card::Codename.exists? codename
         card = Card.fetch codename.to_sym
         card.update type: :mod unless card.type_code == :mod
         card
       else
         Card.create name: mod_card_name, type: :mod, codename: codename
-      end
-    end
-
-    class << self
-      def load
-        return if ENV["CARD_MODS"] == "none"
-
-        if Card.take
-          Loader.load_mods
-        else
-          Rails.logger.warn "empty database"
-        end
-      end
-
-      # @return an array of Rails::Path objects
-      def dirs
-        @dirs ||= Mod::Dirs.new(Cardio.paths["mod"].existent)
-      end
-
-      def dependencies name, nickname=true
-        return unless (spec = gem_spec name, nickname)
-
-        deps = spec&.dependencies || []
-        dep_names = deps.map { |dep| dependencies dep.name, false }
-        (dep_names << spec).flatten.compact.uniq
-      end
-
-      def each_path &block
-        each_simple_path(&block)
-        each_gem_path(&block)
-      end
-
-      # @return [Hash] in the form{ modname(String) => Gem::Specification }
-      def gem_specs
-        Bundler.definition.specs.each_with_object({}) do |gem_spec, h|
-          h[gem_spec.name] = gem_spec if gem_spec? gem_spec
-        end
-      end
-
-      def normalize_name name
-        name.to_s.sub(/^card-mod-/, "")
-      end
-
-      private
-
-      def gem_spec name, nickname=true
-        name = "card-mod-#{name}" if nickname && !name.match?(/^card-mod/)
-        spec = Gem::Specification.stubs_for(name)&.first
-        gem_spec?(spec) ? spec : nil
-      end
-
-      def each_simple_path &block
-        Cardio.paths["mod"].each do |mods_path|
-          Dir.glob("#{mods_path}/*").each(&block)
-        end
-      end
-
-      def each_gem_path
-        gem_specs.each_value do |spec|
-          yield spec.full_gem_path
-        end
-      end
-
-      # @return [True/False]
-      def gem_spec? spec
-        return unless spec
-
-        spec.name.match?(/^card-mod-/) || spec.metadata["card-mod"].present?
       end
     end
   end

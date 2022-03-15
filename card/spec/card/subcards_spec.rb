@@ -58,30 +58,30 @@ RSpec.describe Card::Subcards do
     end
   end
 
-  describe "#add_subfield" do
+  describe "#subfield" do
     def local_content name
       Card.fetch(name, new: {}, local_only: true).content
     end
 
     it "works with string" do
-      card.add_subfield "sub", content: "this is a sub"
+      card.subfield "sub", content: "this is a sub"
       expect(local_content("#{card.name}+sub")).to eq "this is a sub"
     end
 
     it "works with codename" do
-      card.add_subfield :phrase, content: "this is a sub"
+      card.subfield :phrase, content: "this is a sub"
       expect(local_content("A+phrase")).to eq "this is a sub"
     end
   end
 
   describe "#subfield" do
     it "works with string" do
-      card.add_subfield "sub", content: "this is a sub"
+      card.subfield "sub", content: "this is a sub"
       expect(card.subfield("sub").content).to eq "this is a sub"
     end
 
     it "works with codename" do
-      card.add_subfield :phrase, content: "this is a sub"
+      card.subfield :phrase, content: "this is a sub"
       expect(card.subfield(":phrase").content).to eq "this is a sub"
     end
 
@@ -110,21 +110,21 @@ RSpec.describe Card::Subcards do
 
   describe "#add" do
     it "adds a subcard" do
-      card.add_subcard "sub", content: "sub content"
+      card.subcard "sub", content: "sub content"
       card.save!
       expect_card("sub").to have_db_content "sub content"
     end
 
     it "takes the changes of the last subcard call" do
-      card.add_subcard "sub", content: "sub content 1"
-      card.add_subcard "sub", content: "sub content 2"
+      card.subcard "sub", content: "sub content 1"
+      card.subcard "sub", content: "sub content 2"
       card.save!
       expect_card("sub").to have_db_content "sub content 2"
     end
 
     it "attribute changes to left card are possible", as_bot: true do
       create_with_event "left part+right part", :prepare_to_store do
-        add_subcard "left part", type_id: Card::PhraseID
+        subcard "left part", type_id: Card::PhraseID
       end
       expect_card("left part").to have_type Card::PhraseID
       expect_card("left part+right part").to have_left_id "left part".card_id
@@ -134,52 +134,26 @@ RSpec.describe Card::Subcards do
   describe "two levels of subcards" do
     it "creates cards with subcards with subcards", as_bot: true do
       create_with_event "test", :validate do
-        add_subfield("first-level")
-        subfield("first-level").add_subfield "second-level", content: "yeah"
+        subfield("first-level").subfield "second-level", content: "yeah"
       end
       expect_card("test+first-level+second-level").to have_db_content "yeah"
     end
 
     it "creates cards with subcards with subcards using codenames", as_bot: true do
       create_with_event "test", :validate do
-        add_subfield :children
-        subfield(:children).add_subfield :title, content: "yeah"
+        subfield(:children).subfield :title, content: "yeah"
       end
       expect_card("test+*child+*title").to have_db_content "yeah"
     end
   end
 
+  # TODO: move to a more appropriate place (renaming no longer uses subcards)
   describe "handle_subcard_errors" do
     let(:referee) { Card["T"] }
 
     it "deals with renaming, even when children have content changing" do
-      Card.create! name: "A+alias", content: "[[A]]"
+      Card.create! name: "A+alias", content: "A"
       expect { Card["A"].update! name: "AABAA" }.not_to raise_error
-    end
-
-    def with_subcard_validation_error_in_rename
-      with_test_events do
-        test_event :finalize, on: :update do
-          errors.add :content, "referer error!" if name == "X" # X refers to T
-        end
-
-        yield
-      end
-    end
-
-    it "works on rename (update)" do
-      with_subcard_validation_error_in_rename do
-        expect(referee.update(name: "Tea")).to eq(false)
-        expect(referee.errors[:X].first).to match(/referer error/)
-      end
-    end
-
-    it "works on rename (update!)" do
-      with_subcard_validation_error_in_rename do
-        expect { referee.update! name: "Tea" }
-          .to raise_error(ActiveRecord::RecordInvalid)
-        expect(referee.errors[:X].first).to match(/referer error/)
-      end
     end
   end
 end

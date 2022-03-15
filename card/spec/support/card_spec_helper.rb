@@ -5,6 +5,10 @@ require "coderay"
   Dir[load_path].sort.each { |f| require f }
 end
 
+Cardio::Mod.dirs.each "spec/support" do |support_dir|
+  Dir["#{support_dir}/**/*.rb"].sort.each { |f| require f }
+end
+
 class Card
   # to be included in  RSpec::Core::ExampleGroup
   module SpecHelper
@@ -18,16 +22,16 @@ class Card
     include Rails::Dom::Testing::Assertions::SelectorAssertions
 
     def login_as user
-      Card::Env[:session] = @request.session if @request
-      Card::Auth.signin user
+      Env.session = @request&.session
+      Auth.signin user
     end
 
     def card_subject
       Card["A"].with_set(described_class)
     end
 
-    def format_subject format=:html
-      card_subject.format_with_set(described_class, format)
+    def format_subject format=:html, &block
+      card_subject.format_with_set described_class, format, &block
     end
 
     def expect_content
@@ -109,8 +113,13 @@ class Card
       end
 
       def views format_sym
-        format_name = Card::Format.format_class_name format_sym
-        format_module = described_class.const_get(format_name)
+        described_class
+          .format_modules(format_sym, test: false).map do |format_module|
+            views_for_module format_module
+          end.flatten
+      end
+
+      def views_for_module format_module
         Card::Set::Format::AbstractFormat::ViewDefinition.views[format_module].keys
       end
     end

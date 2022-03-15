@@ -40,6 +40,7 @@ class Card
         heir: [
           :main,           # format object is page's "main" object (Boolean)
           :home_view,      # view for slot to return to when no view specified
+          :buttons_view,
           :edit_structure, # use a different structure for editing (Array)
           :cql,            # contextual cql alterations for search cards (Hash)
           :action_id,      # a Card::Action id (Integer)
@@ -50,20 +51,21 @@ class Card
           :help,           # cue text when editing
           :structure,      # overrides the content of the card
           :title,          # overrides the name of the card
-          :variant,        # override the canonical version of the name with a different
-          # variant
+          :variant,        # override the standard name with a different variant
           :input_type,     # inline_nests makes a form within standard content (Symbol)
           :type,           # set the default type of new cards
           :size,           # set an image size
-          # (also used for character limit in one_line_content)
-          :params,         # parameters for add button.  deprecated!
+          #                    (also used for character limit in one_line_content)
           :items,          # options for items (Hash)
           :cache,          # change view cache behaviour
           #                    (Symbol<:always, :standard, :never>)
           :edit,           # edit mode
           #                    (Symbol<:inline, :standard, :full>)
           :separator,      # item separator in certain lists
-          :filter
+          :filter,
+
+          # DEPRECATED
+          :params          # parameters for add button
         ],
         none: [
           :skip_perms,     # do not check permissions for this view (Boolean)

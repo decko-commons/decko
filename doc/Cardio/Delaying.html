@@ -6,7 +6,7 @@
 <title>
   Module: Cardio::Delaying
   
-    &mdash; Documentation by YARD 0.9.26
+    &mdash; Documentation by YARD 0.9.27
   
 </title>
 
@@ -90,7 +90,7 @@
 
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
-    <p>Convenient extendable API for turning delaying on and off.</p>
+    <p>easy access method for delay configuration</p>
 
 
   </div>
@@ -191,7 +191,7 @@
       <pre class="code"><span class="info file"># File 'card/lib/cardio/delaying.rb', line 4</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_delaying!'>delaying!</span> <span class='id identifier rubyid_on'>on</span><span class='op'>=</span><span class='kw'>true</span>
-  <span class='const'><span class='object_link'><a href="../Cardio.html" title="Cardio (module)">Cardio</a></span></span><span class='period'>.</span><span class='id identifier rubyid_config'>config</span><span class='period'>.</span><span class='id identifier rubyid_delaying'>delaying</span> <span class='op'>=</span> <span class='lparen'>(</span><span class='id identifier rubyid_on'>on</span> <span class='op'>==</span> <span class='kw'>true</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_config'>config</span><span class='period'>.</span><span class='id identifier rubyid_delaying'>delaying</span> <span class='op'>=</span> <span class='lparen'>(</span><span class='id identifier rubyid_on'>on</span> <span class='op'>==</span> <span class='kw'>true</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -244,7 +244,7 @@
       <pre class="code"><span class="info file"># File 'card/lib/cardio/delaying.rb', line 8</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_delaying?'>delaying?</span>
-  <span class='const'><span class='object_link'><a href="../Cardio.html" title="Cardio (module)">Cardio</a></span></span><span class='period'>.</span><span class='id identifier rubyid_config'>config</span><span class='period'>.</span><span class='id identifier rubyid_delaying'>delaying</span>
+  <span class='id identifier rubyid_config'>config</span><span class='period'>.</span><span class='id identifier rubyid_delaying'>delaying</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -256,9 +256,9 @@
 </div>
 
       <div id="footer">
-  Generated on Thu May 13 17:17:15 2021 by
+  Generated on Fri Jan 21 16:01:40 2022 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.26 (ruby-2.7.2).
+  0.9.27 (ruby-3.0.1).
 </div>
 
     </div>

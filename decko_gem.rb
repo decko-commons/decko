@@ -1,11 +1,10 @@
 # -*- encoding : utf-8 -*-
+require_relative "card/lib/cardio/version"
 
 # Helper methods for gem specs and gem-related tasks
 class DeckoGem
   attr_reader :spec
 
-  VERSION = File.open(File.expand_path("card/VERSION", __dir__)).read.chomp
-  CARD_MINOR = { 0 => 90, 1 => 1000 }.freeze # can remove and hardcode after 1.0
   RAILS_VERSION = "~> 6.1.4".freeze
   # reduce digits after 6.2 (mimemagic issue)
 
@@ -24,29 +23,11 @@ class DeckoGem
     end
 
     def decko_version
-      VERSION
+      Cardio::Version.release
     end
 
     def card_version
-      @card_version ||= [1, minor, point].compact.map(&:to_s).join "."
-    end
-
-    private
-
-    def bits
-      @bits ||= decko_version.split(".").map(&:to_i)
-    end
-
-    def major
-      bits[0]
-    end
-
-    def minor
-      CARD_MINOR[major] + bits[1]
-    end
-
-    def point
-      bits[2]
+      Cardio::Version.card_release
     end
   end
 
@@ -75,8 +56,9 @@ class DeckoGem
   def mod name
     spec.name = "card-mod-#{name}"
     spec.metadata = standard_metadata.merge "card-mod" => name
-    spec.files =
-      Dir["{assets,db,file,lib,public,set,config,init,locales,vendor}/**/*", "README.md"]
+    spec.files = Dir[
+      "{assets,config,data,db,file,init,lib,locales,public,set,vendor}/**/*", "README.md"
+    ]
     spec.add_runtime_dependency "card", card_version
   end
 

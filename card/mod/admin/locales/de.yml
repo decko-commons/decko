@@ -1,0 +1,4 @@
+de:
+  admin_warn: ADMINISTRATOR WARNUNG
+  admin_email_off:
+    E-Mail-Versand ist ausgeschaltet. Ändere die Einstellungen in %{path}, damit Benachrichtigungen verschickt werden, wenn sich neue Nutzer registrieren.

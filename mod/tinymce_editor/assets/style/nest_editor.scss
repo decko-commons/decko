@@ -1,0 +1,31 @@
+._nest-editor {
+  .card-body .form {
+    padding: 1.5rem 2rem 1rem 2rem;
+    .tab-content {
+      padding-top:  2rem;
+    }
+  }
+  .preview {
+    padding: 0.5rem 1rem;
+
+  }
+  .nest-options .nav {
+    justify-content: flex-end;
+  }
+
+  .options-container {
+    word-break: break-all;
+    ._configure-items-button {
+      white-space: normal;
+      word-break: normal;
+    }
+  }
+}
+
+li.select2-results__option svg {
+  max-height: 15px;
+  min-height: 15px;
+  max-width: 15px;
+  min-width: 15px;
+  margin: 0;
+}

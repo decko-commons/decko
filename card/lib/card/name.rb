@@ -19,7 +19,7 @@ class Card
         case cardish
         when Card             then cardish.name
         when Symbol, Integer  then Card.fetch_name(cardish)
-        when Array            then smart_compose cardish
+        when Array            then compose cardish
         when String, NilClass then new cardish
         else
           raise ArgumentError, "#{cardish.class} not supported as name identifier"
@@ -40,7 +40,7 @@ class Card
         str = str.to_s
 
         if !validated_parts && str.include?(joint)
-          compose Cardname.split_parts(str)
+          string_compose Cardname.split_parts(str)
         elsif (id = Card.id_from_string str)  # handles ~[id] and :[codename]
           Card.name_from_id_from_string id, str
         else
@@ -49,15 +49,15 @@ class Card
       end
 
       # interprets symbols/integers as codenames/ids
-      def smart_compose parts
+      def compose parts
         new_from_parts(parts) { |part| self[part] }
       end
 
-      def compose parts
+      private
+
+      def string_compose parts
         new_from_parts(parts) { |part| new part }
       end
-
-      private
 
       def new_from_parts parts, &block
         name_parts = parts.flatten.map(&block)
@@ -75,14 +75,6 @@ class Card
 
     def code
       Card::Codename[card_id]
-    end
-
-    def setting?
-      Set::Type::Setting.member_names[key]
-    end
-
-    def set?
-      Set::Pattern.card_keys[tag_name.key]
     end
   end
 end

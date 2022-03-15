@@ -22,10 +22,9 @@ RSpec.describe Card::Set::Type::CustomizedBootswatchSkin do
 
   example "update old skin", as_bot: true do
     create_skin "old skin", content: ["bootstrap default skin", "custom css"]
-    card = Card["old skin"]
-    card.update! type_id: Card::CustomizedBootswatchSkinID
+    Card["old skin"].update! type_id: Card::CustomizedBootswatchSkinID
 
     expect_card("old skin")
-      .to have_a_field(:stylesheets).refering_to "custom css"
+      .to have_a_field(:stylesheets).pointing_to "custom css"
   end
 end

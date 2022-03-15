@@ -49,7 +49,9 @@ class Card
         # because they can get changed after.  current solution is a compromise.
         # @return [Hash]
         def slot_options
-          normalized_options.merge(view: requested_view).slice(*Options.slot_keys)
+          normalized_options.merge(view: requested_view)
+                            .merge(normalized_visibility_options)
+                            .slice(*Options.slot_keys)
         end
 
         # ACCESSOR_HELPERS

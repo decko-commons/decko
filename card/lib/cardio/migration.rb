@@ -2,7 +2,7 @@
 
 module Cardio
   class Migration < ActiveRecord::Migration[4.2]
-    include Card::Model::SaveHelper
+    include Card::Model::SaveHelper unless ENV["NO_CARD_LOAD"]
     @type = :deck_cards
 
     class << self
@@ -43,12 +43,36 @@ module Cardio
         Schema.assume_migrated_upto_version type
       end
 
+      def assume_current
+        migration_context do |mc|
+          versions = mc.migrations.map(&:version)
+          migrated = mc.get_all_versions
+          mark_as_migrated versions - migrated
+        end
+      end
+
       def data_path filename=nil
         File.join([migration_paths.first, "data", filename].compact)
+      end
+
+      private
+
+      def mark_as_migrated versions
+        sql = connection.send :insert_versions_sql, versions
+        connection.execute sql
+      end
+
+      def connection
+        ActiveRecord::Base.connection
+      end
+
+      def migration_context &block
+        Schema.migration_context type, &block
       end
     end
 
     def contentedly
+      return yield if ENV["NO_CARD_LOAD"]
       Card::Cache.reset_all
       Schema.mode "" do
         Card::Auth.as_bot do
@@ -111,7 +135,7 @@ module Cardio
     end
 
     # Execute this migration in the named direction
-    # copied from ActiveRecord to wrap 'up' in 'contentendly'
+    # copied from ActiveRecord to wrap 'up' in 'contentedly'
     def exec_migration conn, direction
       @connection = conn
       if respond_to?(:change)

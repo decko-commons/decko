@@ -1,10 +1,10 @@
 $.extend decko,
   upload_file: (fileupload) ->
-# for file as a subcard in a form,
-# excess parameters are included in the request which cause errors.
-# only the file, type_id and attachment_card_name are needed
-# attachment_card_name is the original card name,
-# ex: card[subcards][+logo][image], card[file]
+    # for file as a subcard in a form,
+    # excess parameters are included in the request which cause errors.
+    # only the file, type_id and attachment_card_name are needed
+    # attachment_card_name is the original card name,
+    # ex: card[subcards][+logo][image], card[file]
     $(fileupload).on 'fileuploadsubmit', (e,data) ->
       $_this = $(this)
       card_name = $_this.siblings(".attachment_card_name:first").attr("name")
@@ -36,6 +36,7 @@ $.extend decko,
                   'value="preview_editor" name="view">'
     data.submit()
     editor.find('.choose-file').hide()
+    # editor.find(".file-upload").prop "disabled", true
     editor.find('.extra_upload_param').remove()
 
   progressallFile: (e, data) ->
@@ -51,7 +52,13 @@ $(window).ready ->
   $('body').on 'click', '.cancel-upload', ->
     editor = $(this).closest '.card-editor'
     editor.find('.choose-file').show()
+    # editor.find(".file-upload").prop "disabled", false
     editor.find('.chosen-file').empty()
     editor.find('.progress').show()
     editor.find('#progress .progress-bar').css('width', '0%')
     editor.find('#progress').hide()
+
+  $('body').on "submit", "form", ->
+    uploader = $(this).find ".file-upload[type=file]"
+    if uploader[0]
+      uploader.prop "disabled", true

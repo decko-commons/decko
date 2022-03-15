@@ -12,7 +12,7 @@ format :html do
   def name_form success_view=nil
     card_form({ action: :update, id: card.id },
               { "data-main-success": JSON(redirect: true, view: ""),
-                "data-update-origin": "true",
+                "data-slotter-mode": "update-origin",
                 class: "_rename-form",
                 success: edit_name_success(success_view) }) do
       [_render_name_formgroup,

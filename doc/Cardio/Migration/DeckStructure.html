@@ -6,7 +6,7 @@
 <title>
   Class: Cardio::Migration::DeckStructure
   
-    &mdash; Documentation by YARD 0.9.26
+    &mdash; Documentation by YARD 0.9.27
   
 </title>
 
@@ -169,7 +169,7 @@ in your deck</p>
   
   
   <h3 class="inherited">Methods inherited from <span class='object_link'><a href="../Migration.html" title="Cardio::Migration (class)">Cardio::Migration</a></span></h3>
-  <p class="inherited"><span class='object_link'><a href="../Migration.html#assume_migrated_upto_version-class_method" title="Cardio::Migration.assume_migrated_upto_version (method)">assume_migrated_upto_version</a></span>, <span class='object_link'><a href="../Migration.html#data_path-class_method" title="Cardio::Migration.data_path (method)">data_path</a></span>, <span class='object_link'><a href="../Migration.html#data_path-instance_method" title="Cardio::Migration#data_path (method)">#data_path</a></span>, <span class='object_link'><a href="../Migration.html#down-instance_method" title="Cardio::Migration#down (method)">#down</a></span>, <span class='object_link'><a href="../Migration.html#exec_migration-instance_method" title="Cardio::Migration#exec_migration (method)">#exec_migration</a></span>, <span class='object_link'><a href="../Migration.html#find_unused_name-class_method" title="Cardio::Migration.find_unused_name (method)">find_unused_name</a></span>, <span class='object_link'><a href="../Migration.html#import_cards-instance_method" title="Cardio::Migration#import_cards (method)">#import_cards</a></span>, <span class='object_link'><a href="../Migration.html#import_json-instance_method" title="Cardio::Migration#import_json (method)">#import_json</a></span>, <span class='object_link'><a href="../Migration.html#merge_cards-instance_method" title="Cardio::Migration#merge_cards (method)">#merge_cards</a></span>, <span class='object_link'><a href="../Migration.html#merge_pristine_cards-instance_method" title="Cardio::Migration#merge_pristine_cards (method)">#merge_pristine_cards</a></span>, <span class='object_link'><a href="../Migration.html#migration_paths-class_method" title="Cardio::Migration.migration_paths (method)">migration_paths</a></span>, <span class='object_link'><a href="../Migration.html#migration_paths-instance_method" title="Cardio::Migration#migration_paths (method)">#migration_paths</a></span>, <span class='object_link'><a href="../Migration.html#read_json-instance_method" title="Cardio::Migration#read_json (method)">#read_json</a></span>, <span class='object_link'><a href="../Migration.html#schema-class_method" title="Cardio::Migration.schema (method)">schema</a></span>, <span class='object_link'><a href="../Migration.html#schema_mode-class_method" title="Cardio::Migration.schema_mode (method)">schema_mode</a></span>, <span class='object_link'><a href="../Migration.html#schema_mode-instance_method" title="Cardio::Migration#schema_mode (method)">#schema_mode</a></span>, <span class='object_link'><a href="../Migration.html#schema_suffix-class_method" title="Cardio::Migration.schema_suffix (method)">schema_suffix</a></span>, <span class='object_link'><a href="../Migration.html#type-class_method" title="Cardio::Migration.type (method)">type</a></span>, <span class='object_link'><a href="../Migration.html#update_machine_output-instance_method" title="Cardio::Migration#update_machine_output (method)">#update_machine_output</a></span></p>
+  <p class="inherited"><span class='object_link'><a href="../Migration.html#assume_current-class_method" title="Cardio::Migration.assume_current (method)">assume_current</a></span>, <span class='object_link'><a href="../Migration.html#assume_migrated_upto_version-class_method" title="Cardio::Migration.assume_migrated_upto_version (method)">assume_migrated_upto_version</a></span>, <span class='object_link'><a href="../Migration.html#data_path-class_method" title="Cardio::Migration.data_path (method)">data_path</a></span>, <span class='object_link'><a href="../Migration.html#data_path-instance_method" title="Cardio::Migration#data_path (method)">#data_path</a></span>, <span class='object_link'><a href="../Migration.html#down-instance_method" title="Cardio::Migration#down (method)">#down</a></span>, <span class='object_link'><a href="../Migration.html#exec_migration-instance_method" title="Cardio::Migration#exec_migration (method)">#exec_migration</a></span>, <span class='object_link'><a href="../Migration.html#find_unused_name-class_method" title="Cardio::Migration.find_unused_name (method)">find_unused_name</a></span>, <span class='object_link'><a href="../Migration.html#import_cards-instance_method" title="Cardio::Migration#import_cards (method)">#import_cards</a></span>, <span class='object_link'><a href="../Migration.html#import_json-instance_method" title="Cardio::Migration#import_json (method)">#import_json</a></span>, <span class='object_link'><a href="../Migration.html#merge_cards-instance_method" title="Cardio::Migration#merge_cards (method)">#merge_cards</a></span>, <span class='object_link'><a href="../Migration.html#merge_pristine_cards-instance_method" title="Cardio::Migration#merge_pristine_cards (method)">#merge_pristine_cards</a></span>, <span class='object_link'><a href="../Migration.html#migration_paths-class_method" title="Cardio::Migration.migration_paths (method)">migration_paths</a></span>, <span class='object_link'><a href="../Migration.html#read_json-instance_method" title="Cardio::Migration#read_json (method)">#read_json</a></span>, <span class='object_link'><a href="../Migration.html#schema_mode-class_method" title="Cardio::Migration.schema_mode (method)">schema_mode</a></span>, <span class='object_link'><a href="../Migration.html#schema_suffix-class_method" title="Cardio::Migration.schema_suffix (method)">schema_suffix</a></span>, <span class='object_link'><a href="../Migration.html#type-class_method" title="Cardio::Migration.type (method)">type</a></span>, <span class='object_link'><a href="../Migration.html#update_machine_output-instance_method" title="Cardio::Migration#update_machine_output (method)">#update_machine_output</a></span></p>
 
   
   
@@ -224,15 +224,15 @@ in your deck</p>
       <pre class="lines">
 
 
-12
-13
-14</pre>
+14
+15
+16</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/cardio/migration/deck_structure.rb', line 12</span>
+      <pre class="code"><span class="info file"># File 'card/lib/cardio/migration/deck_structure.rb', line 14</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_contentedly'>contentedly</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span>
-  <span class='const'><span class='object_link'><a href="../../Cardio.html" title="Cardio (module)">Cardio</a></span></span><span class='period'>.</span><span class='id identifier rubyid_schema_mode'><span class='object_link'><a href="../Schema.html#schema_mode-instance_method" title="Cardio::Schema#schema_mode (method)">schema_mode</a></span></span> <span class='symbol'>:deck</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span>
+  <span class='const'><span class='object_link'><a href="../Schema.html" title="Cardio::Schema (module)">Schema</a></span></span><span class='period'>.</span><span class='id identifier rubyid_mode'><span class='object_link'><a href="../Schema.html#mode-class_method" title="Cardio::Schema.mode (method)">mode</a></span></span> <span class='symbol'>:deck</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -244,9 +244,9 @@ in your deck</p>
 </div>
 
       <div id="footer">
-  Generated on Thu May 13 17:17:45 2021 by
+  Generated on Fri Jan 21 16:01:49 2022 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.26 (ruby-2.7.2).
+  0.9.27 (ruby-3.0.1).
 </div>
 
     </div>

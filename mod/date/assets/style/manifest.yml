@@ -1,0 +1,4 @@
+datepicker:
+  items:
+    - tempusdominus.scss
+    - ../../vendor/tempusdominus/src/sass/_tempusdominus-bootstrap-4.scss

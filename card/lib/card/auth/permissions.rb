@@ -5,37 +5,12 @@ class Card
       # user has "root" permissions
       # @return [true/false]
       def always_ok?
-        usr_id = as_id
-        case usr_id
-        when Card::WagnBotID then true # cannot disable
-        when nil             then false
+        case as_id
+        when WagnBotID then true # cannot disable
+        when nil       then false
         else
-          always_ok_usr_id? usr_id
+          always_ok_cached?
         end
-      end
-
-      # specified user has root permission
-      # @param usr_id [Integer]
-      # @return [true/false]
-      def always_ok_usr_id? usr_id, force_cache_update=false
-        always = always_cache
-        if always[usr_id].nil? || force_cache_update
-          update_always_cache usr_id, admin?(usr_id)
-        else
-          always[usr_id]
-        end
-      end
-
-      def update_always_cache usr_id, value
-        always = always_cache
-        always = always.dup if always.frozen?
-        always[usr_id] = value
-        Card.cache.write "ALWAYS", always
-        value
-      end
-
-      def always_cache
-        Card.cache.read("ALWAYS") || {}
       end
 
       # list of names of cardtype cards that current user has perms to create
@@ -56,16 +31,43 @@ class Card
       end
 
       # test whether user is an administrator
-      # @param user_id [Integer]
+      # @param user_mark [Cardish]
       # @return [true/false]
-      def admin? user_id
-        has_role? user_id, Card::AdministratorID
+      def admin? user_mark=nil
+        user_mark ||= as_id
+        has_role? Card::AdministratorID, user_mark
       end
 
-      def has_role? user_id, role_id
-        return false unless user_id && role_id
+      def has_role? role_mark, user_mark=nil
+        user_mark ||= as_id
+        return false unless (role_id = role_mark&.card_id)
 
-        Card[user_id].all_enabled_roles.include? role_id
+        Card[user_mark].all_enabled_roles.include? role_id
+      end
+
+      def update_always_cache value
+        always = always_cache
+        always = always.dup if always.frozen?
+        always[as_id] = value
+        Card.cache.write "ALWAYS", always
+        value
+      end
+
+      private
+
+      # specified user has root permission
+      # @return [true/false]
+      def always_ok_cached?
+        always = always_cache
+        if always[as_id].nil?
+          update_always_cache admin?
+        else
+          always[as_id]
+        end
+      end
+
+      def always_cache
+        Card.cache.read("ALWAYS") || {}
       end
     end
   end

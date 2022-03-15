@@ -2,7 +2,7 @@ def standardize_items
   super unless content == "_left"
 end
 
-def options_rule_card
+def options_card
   Card[:cards_with_account]
 end
 

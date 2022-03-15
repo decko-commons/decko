@@ -6,7 +6,7 @@
 <title>
   Class: Card::Content::Diff::LCS::Processor
   
-    &mdash; Documentation by YARD 0.9.26
+    &mdash; Documentation by YARD 0.9.27
   
 </title>
 
@@ -525,16 +525,16 @@
       <pre class="lines">
 
 
-7
-8
 9
 10
 11
 12
-13</pre>
+13
+14
+15</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/content/diff/l_c_s/processor.rb', line 7</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/content/diff/l_c_s/processor.rb', line 9</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span> <span class='id identifier rubyid_old_words'>old_words</span><span class='comma'>,</span> <span class='id identifier rubyid_new_words'>new_words</span><span class='comma'>,</span> <span class='id identifier rubyid_old_excludees'>old_excludees</span><span class='comma'>,</span> <span class='id identifier rubyid_new_excludees'>new_excludees</span>
   <span class='ivar'>@adds</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
@@ -570,15 +570,15 @@
       <pre class="lines">
 
 
-90
-91
 92
 93
 94
-95</pre>
+95
+96
+97</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/content/diff/l_c_s/processor.rb', line 90</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/content/diff/l_c_s/processor.rb', line 92</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_add_new_excludees'>add_new_excludees</span>
   <span class='ivar'>@excludees</span><span class='lbracket'>[</span><span class='symbol'>:new</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_scan_and_record'>scan_and_record</span><span class='lparen'>(</span><span class='ivar'>@adds</span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_element'>element</span><span class='op'>|</span>
@@ -606,15 +606,15 @@
       <pre class="lines">
 
 
-83
-84
 85
 86
 87
-88</pre>
+88
+89
+90</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/content/diff/l_c_s/processor.rb', line 83</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/content/diff/l_c_s/processor.rb', line 85</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_del_old_excludees'>del_old_excludees</span>
   <span class='ivar'>@excludees</span><span class='lbracket'>[</span><span class='symbol'>:old</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_scan_and_record'>scan_and_record</span><span class='lparen'>(</span><span class='ivar'>@dels</span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_element'>element</span><span class='op'>|</span>
@@ -642,8 +642,6 @@
       <pre class="lines">
 
 
-41
-42
 43
 44
 45
@@ -652,10 +650,12 @@
 48
 49
 50
-51</pre>
+51
+52
+53</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/content/diff/l_c_s/processor.rb', line 41</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/content/diff/l_c_s/processor.rb', line 43</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_handle_action'>handle_action</span> <span class='id identifier rubyid_action'>action</span>
   <span class='kw'>case</span> <span class='id identifier rubyid_action'>action</span>
@@ -711,14 +711,14 @@
       <pre class="lines">
 
 
-35
-36
 37
 38
-39</pre>
+39
+40
+41</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/content/diff/l_c_s/processor.rb', line 35</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/content/diff/l_c_s/processor.rb', line 37</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_handle_action?'>handle_action?</span> <span class='id identifier rubyid_word_action'>word_action</span><span class='comma'>,</span> <span class='id identifier rubyid_prev_action'>prev_action</span>
   <span class='lparen'>(</span><span class='id identifier rubyid_prev_action'>prev_action</span> <span class='op'>==</span> <span class='id identifier rubyid_word_action'>word_action</span><span class='rparen'>)</span> <span class='op'>||</span>
@@ -745,12 +745,12 @@
       <pre class="lines">
 
 
-31
-32
-33</pre>
+33
+34
+35</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/content/diff/l_c_s/processor.rb', line 31</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/content/diff/l_c_s/processor.rb', line 33</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_interpret_action'>interpret_action</span> <span class='id identifier rubyid_prev_actn'>prev_actn</span><span class='comma'>,</span> <span class='id identifier rubyid_word_actn'>word_actn</span>
   <span class='id identifier rubyid_handle_action?'>handle_action?</span><span class='lparen'>(</span><span class='id identifier rubyid_word_actn'>word_actn</span><span class='comma'>,</span> <span class='id identifier rubyid_prev_actn'>prev_actn</span><span class='rparen'>)</span> <span class='op'>?</span> <span class='id identifier rubyid_handle_action'>handle_action</span><span class='lparen'>(</span><span class='id identifier rubyid_word_actn'>word_actn</span><span class='rparen'>)</span> <span class='op'>:</span> <span class='id identifier rubyid_write_all'>write_all</span>
@@ -775,13 +775,13 @@
       <pre class="lines">
 
 
-115
-116
 117
-118</pre>
+118
+119
+120</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/content/diff/l_c_s/processor.rb', line 115</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/content/diff/l_c_s/processor.rb', line 117</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_minus'>minus</span> <span class='id identifier rubyid_old_element'>old_element</span>
   <span class='ivar'>@dels</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_old_element'>old_element</span>
@@ -807,13 +807,13 @@
       <pre class="lines">
 
 
-110
-111
 112
-113</pre>
+113
+114
+115</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/content/diff/l_c_s/processor.rb', line 110</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/content/diff/l_c_s/processor.rb', line 112</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_plus'>plus</span> <span class='id identifier rubyid_new_element'>new_element</span>
   <span class='ivar'>@adds</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_new_element'>new_element</span>
@@ -839,8 +839,6 @@
       <pre class="lines">
 
 
-97
-98
 99
 100
 101
@@ -850,10 +848,12 @@
 105
 106
 107
-108</pre>
+108
+109
+110</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/content/diff/l_c_s/processor.rb', line 97</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/content/diff/l_c_s/processor.rb', line 99</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_process_element'>process_element</span> <span class='id identifier rubyid_old_element'>old_element</span><span class='comma'>,</span> <span class='id identifier rubyid_new_element'>new_element</span><span class='comma'>,</span> <span class='id identifier rubyid_action'>action</span>
   <span class='kw'>case</span> <span class='id identifier rubyid_action'>action</span>
@@ -887,13 +887,13 @@
       <pre class="lines">
 
 
-26
-27
 28
-29</pre>
+29
+30
+31</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/content/diff/l_c_s/processor.rb', line 26</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/content/diff/l_c_s/processor.rb', line 28</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_process_word'>process_word</span> <span class='id identifier rubyid_word'>word</span><span class='comma'>,</span> <span class='id identifier rubyid_prev_action'>prev_action</span>
   <span class='id identifier rubyid_prev_action'>prev_action</span> <span class='op'>?</span> <span class='id identifier rubyid_interpret_action'>interpret_action</span><span class='lparen'>(</span><span class='id identifier rubyid_prev_action'>prev_action</span><span class='comma'>,</span> <span class='id identifier rubyid_word'>word</span><span class='period'>.</span><span class='id identifier rubyid_action'>action</span><span class='rparen'>)</span> <span class='op'>:</span> <span class='id identifier rubyid_write_excludees'>write_excludees</span>
@@ -919,8 +919,6 @@
       <pre class="lines">
 
 
-15
-16
 17
 18
 19
@@ -928,10 +926,12 @@
 21
 22
 23
-24</pre>
+24
+25
+26</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/content/diff/l_c_s/processor.rb', line 15</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/content/diff/l_c_s/processor.rb', line 17</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_run'>run</span> <span class='id identifier rubyid_result'>result</span>
   <span class='ivar'>@result</span> <span class='op'>=</span> <span class='id identifier rubyid_result'>result</span>
@@ -963,15 +963,15 @@
       <pre class="lines">
 
 
-70
-71
 72
 73
 74
-75</pre>
+75
+76
+77</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/content/diff/l_c_s/processor.rb', line 70</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/content/diff/l_c_s/processor.rb', line 72</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_write_adds'>write_adds</span>
   <span class='kw'>return</span> <span class='kw'>if</span> <span class='ivar'>@adds</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span>
@@ -999,14 +999,14 @@
       <pre class="lines">
 
 
-53
-54
 55
 56
-57</pre>
+57
+58
+59</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/content/diff/l_c_s/processor.rb', line 53</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/content/diff/l_c_s/processor.rb', line 55</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_write_all'>write_all</span>
   <span class='id identifier rubyid_write_dels'>write_dels</span>
@@ -1033,15 +1033,15 @@
       <pre class="lines">
 
 
-63
-64
 65
 66
 67
-68</pre>
+68
+69
+70</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/content/diff/l_c_s/processor.rb', line 63</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/content/diff/l_c_s/processor.rb', line 65</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_write_dels'>write_dels</span>
   <span class='kw'>return</span> <span class='kw'>if</span> <span class='ivar'>@dels</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span>
@@ -1069,14 +1069,14 @@
       <pre class="lines">
 
 
-77
-78
 79
 80
-81</pre>
+81
+82
+83</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/content/diff/l_c_s/processor.rb', line 77</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/content/diff/l_c_s/processor.rb', line 79</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_write_excludees'>write_excludees</span>
   <span class='kw'>while</span> <span class='lparen'>(</span><span class='id identifier rubyid_ex'>ex</span> <span class='op'>=</span> <span class='ivar'>@excludees</span><span class='lbracket'>[</span><span class='symbol'>:new</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_next'>next</span><span class='rparen'>)</span>
@@ -1103,12 +1103,12 @@
       <pre class="lines">
 
 
-59
-60
-61</pre>
+61
+62
+63</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/content/diff/l_c_s/processor.rb', line 59</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/content/diff/l_c_s/processor.rb', line 61</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_write_unchanged'>write_unchanged</span> <span class='id identifier rubyid_text'>text</span>
   <span class='ivar'>@result</span><span class='period'>.</span><span class='id identifier rubyid_write_unchanged_chunk'>write_unchanged_chunk</span> <span class='id identifier rubyid_text'>text</span>
@@ -1123,9 +1123,9 @@
 </div>
 
       <div id="footer">
-  Generated on Thu May 13 17:17:45 2021 by
+  Generated on Fri Jan 21 16:01:49 2022 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.26 (ruby-2.7.2).
+  0.9.27 (ruby-3.0.1).
 </div>
 
     </div>
