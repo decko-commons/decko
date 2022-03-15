@@ -12,9 +12,7 @@ end
 
 def select_action_by_params params
   action = nth_action(params[:rev]) || action_from_id(params[:rev_id])
-  return unless action
-
-  select_action action.id
+  select_action action.id if action
 end
 
 def select_action action_id

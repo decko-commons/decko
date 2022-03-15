@@ -25,7 +25,7 @@ format :html do
   end
 
   def slot_attributes slot, slot_attr
-    { id: slot_id, class: wrap_classes(slot), data: wrap_data }.tap do |hash|
+    { id: slot_id, class: wrap_classes(slot), data: wrap_data(true) }.tap do |hash|
       add_class hash, slot_attr.delete(:class)
       hash.deep_merge! slot_attr
     end
@@ -35,11 +35,12 @@ format :html do
     "#{card.name.safe_key}-#{@current_view}-view"
   end
 
-  def wrap_data slot=true
+  def wrap_data slot=false
     with_slot_data slot do
       {
         "card-id": card.id,
         "card-name": slot_cardname,
+        "card-type-id": card.type_id,
         "card-link-name": card.name.url_key,
         "slot-id": SecureRandom.hex(10)
       }

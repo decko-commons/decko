@@ -34,7 +34,7 @@ class Card
       private
 
       def cardname_from_url_regexp
-        return unless Env.origin
+        return unless Env.origin.present?
 
         %r{#{Regexp.escape Env.origin}/(?<mark>[^?]+)}
       end

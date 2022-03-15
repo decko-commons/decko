@@ -115,7 +115,7 @@ jQuery.fn.extend
       input.val value
 
   slotterSuccess: (event, responseData) ->
-    debugger
+    # debugger
     unless @hasClass("slotter")
       console.log "warning: slotterSuccess called on non-slotter element #{this}"
       return
@@ -127,7 +127,7 @@ jQuery.fn.extend
     if @hasClass "_close-overlay"
       @removeOverlay()
     if @hasClass "_close-modal"
-      @closest('.modal').modal('hide')
+      @closest('.modal').modal "hide"
 
     # should scroll to top after clicking on new page
     if @hasClass "card-paging-link"

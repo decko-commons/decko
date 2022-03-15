@@ -33,14 +33,14 @@ module DockerDeck
           provider: "fog/aws",
           directory: ENV["DECKO_FILE_BUCKET"],
           subdirectory: "files",
-          credentials: credentials.merge(
+          credentials: {
             provider: "AWS",
             host: ENV["DECKO_FILE_HOST"],
             endpoint: ENV["DECKO_FILE_ENDPOINT"],
             aws_access_key_id: ENV["DECKO_FILE_KEY"],
             aws_secret_access_key: ENV["DECKO_FILE_SECRET"],
             region: ENV["DECKO_FILE_REGION"]
-          ),
+          },
           attributes: { "Cache-Control" => "max-age=#{365.day.to_i}" },
           public: true,
           read_only: false

@@ -26,14 +26,14 @@ RSpec.describe Card::Set::Type::BootswatchSkin do
   context "when item added to stylesheets pointer" do
     it "updates output of related asset output card", as_bot: true do
       create "new_style", type: :css, content: CUSTOM_CSS
-      customized_skin.field(:stylesheets).add_item! "new_style"
+      customized_skin.fetch(:stylesheets).add_item! "new_style"
       expect(generated_css).to include CUSTOM_CSS
     end
   end
 
   context "when stylesheets item content changed" do
     it "updates output of related asset output card", as_bot: true do
-      customized_skin.field(:bootswatch).update! content: CUSTOM_CSS
+      customized_skin.fetch(:bootswatch).update! content: CUSTOM_CSS
       expect(generated_css).to include CUSTOM_CSS
     end
   end

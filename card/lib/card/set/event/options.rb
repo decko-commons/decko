@@ -4,7 +4,7 @@ class Card
       module Options
         def validate_conditions
           @opts.each do |key, val|
-            next if key.in? %i[stage before after around]
+            next if key.in? %i[stage before after around delay]
 
             validate_condition_name key
             validate_condition_value key, val

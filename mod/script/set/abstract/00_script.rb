@@ -71,8 +71,8 @@ format :html do
   end
 
   view :core do
-    script = card.format(:js).render_core
-    process_content highlight(script)
+    # script = card.format(:js).render_core
+    process_content highlight(render_raw)
   end
 
   view :javascript_include_tag do

@@ -1,16 +1,7 @@
-%div.filtered-list-editor
-  %ul.pointer-list.filtered-list-review._pointer-filtered-list.list-group.vertical.p-0
+.filtered-list-editor
+  %ul.pointer-list.filtered-list-review._filtered-list.list-group.vertical.p-0
     - card.item_cards(context: :raw).each do |item_card|
-      %li._filtered-list-item.clearfix{ data: item_card.format.wrap_data(false) }
-        %span._handle.float-left.m-2
-          = icon_tag :reorder
-        - nest_item item_card do |rendered, view|
-          %span{ class: "item-#{view} float-left w-75"}
-            = rendered
-        %span.filtered-list-item-button
-          %button._filtered-list-item-delete.btn.btn-secondary.btn-sm.m-2{:type => "button"}
-            = icon_tag :remove
+      = nest_item item_card, view: filtered_item_view, wrap: filtered_item_wrap
   %br
   .clearfix
     = add_item_modal_link
-

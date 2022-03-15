@@ -1,5 +1,4 @@
 require "timecop"
-
 require "pry"
 
 DATA_ENVIRONMENTS = %i[production development test].freeze
@@ -40,9 +39,9 @@ module Cardio
 
       def track edible
         rescuing edible do
-          # puts "eat: #{edible}" if @verbose
+          # puts "eating: #{edible}" if @verbose
           card = yield
-          puts "eaten: #{card.name}".green # if @verbose
+          puts "eaten: #{card.name}".green if @verbose
         end
       end
 
@@ -52,7 +51,7 @@ module Cardio
         # binding.pry
         puts edible
         puts e.message.red
-        puts e.backtrace.join("\n") if @verbose
+        puts e.backtrace[0..10].join("\n") if @verbose
       end
 
       def current_user item_user

@@ -28,7 +28,8 @@ class Card
         end
 
         def with_delay? opts
-          DELAY_STAGES.include?(opts[:after]) || DELAY_STAGES.include?(opts[:before])
+          opts.delete(:delay) ||
+            DELAY_STAGES.intersect?([opts[:after], opts[:before]].to_set)
         end
 
         def define_delayed_event_method

@@ -45,14 +45,14 @@ class Card
       end
 
       def field? tag
-        field(tag) || subfield?(tag)
+        fetch(tag) || subfield?(tag)
       end
 
       def drop_subcard name_or_card
         subcards.remove name_or_card
       end
 
-      def drop_subfield name_or_card
+      def drop_field name_or_card
         subcards.remove_field name_or_card
       end
 

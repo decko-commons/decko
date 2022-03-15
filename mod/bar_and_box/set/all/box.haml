@@ -1,5 +1,5 @@
 - box_classes = css_classes classy("box"), card.safe_set_keys
-.card.nodblclick{ class: box_classes, data: wrap_data(false) }
+.card.nodblclick{ class: box_classes, data: wrap_data }
   - if voo.show? :box_top
     .card-header.text-center{class: classy("box-top")}
       = render :box_top
