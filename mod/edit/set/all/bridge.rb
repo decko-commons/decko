@@ -5,6 +5,8 @@ BRIDGE_TABS = { "Account" => :account_tab,
                 "Related" => :related_tab,
                 "Rules" => :rules_tab }.freeze
 
+BRIDGE_TAB_NAMES = BRIDGE_TABS.invert.freeze
+
 format :html do
   wrapper :bridge do
     class_up "modal-dialog", "no-gaps"
@@ -16,7 +18,9 @@ format :html do
 
   def bridge_tabs
     wrap do
-      tabs(visible_bridge_tabs, bridge_tab, load: :lazy) { _render bridge_tab }
+      tabs(visible_bridge_tabs, BRIDGE_TAB_NAMES[bridge_tab], load: :lazy) do
+        _render bridge_tab
+      end
     end
   end
 

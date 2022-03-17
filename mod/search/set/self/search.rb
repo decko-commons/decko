@@ -44,7 +44,7 @@ format :html do
 end
 
 format :json do
-  view :complete, cache: :never do
+  view :navbox_complete, cache: :never do
     term = term_param
     exact = Card.fetch term, new: {}
 
@@ -54,6 +54,19 @@ format :json do
       add: add_item(exact),
       new: new_item_of_type(exact),
       goto: goto_items(term, exact)
+    }
+  end
+
+  view :complete, cache: :never do
+    items = complete_or_match_search start_only: Card.config.navbox_match_start_only
+    {
+      result: items
+    }
+  end
+
+  view :image_complete, cache: :never do
+    {
+      result: image_items
     }
   end
 
@@ -73,8 +86,9 @@ format :json do
     [exact.name, "new/#{exact.name.url_key}"]
   end
 
-  def goto_items term, exact
-    goto_names = complete_or_match_search start_only: Card.config.navbox_match_start_only
+  def goto_items term, exact, additional_cql: {}
+    goto_names = complete_or_match_search start_only: Card.config.navbox_match_start_only,
+                                          additional_cql: additional_cql
     goto_names.unshift exact.name if add_exact_to_goto_names? exact, goto_names
     goto_names.map do |name|
       [name, name.to_name.url_key, h(highlight(name, term, sanitize: false))]
@@ -86,10 +100,21 @@ format :json do
   end
 
   def term_param
+    return nil unless query_params
+
     term = query_params[:keyword]
     if (term =~ /^\+/) && (main = params["main"])
       term = main + term
     end
     term
+  end
+
+  def image_items
+    image_names =
+      complete_or_match_search start_only: Card.config.navbox_match_start_only,
+                               additional_cql: { type_id: Card::ImageID }
+    image_names.map do |name|
+      [name, h(card.format("html").nest(name, view: :core, size: :icon))]
+    end
   end
 end

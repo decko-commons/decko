@@ -1,6 +1,6 @@
 // The original select2 bootstrap is overriden here to make it work with bootstrap 4
 // using this
-// https://github.com/angel-vladov/select2-bootstrap-theme/blob/master/src/select2-bootstrap.scss
+// https://raw.githubusercontent.com/angel-vladov/select2-theme-bootstrap4/master/src/select2-bootstrap.scss
 //
 // We used this gist before:
 // https://gist.github.com/DaleMckeown/82995dcc482650f130a708f11a66a2a6
@@ -468,7 +468,7 @@ $s2bs-form-control-transition: $input-transition !default;
     .select2-selection__arrow {
       position: absolute;
       bottom: 0;
-      right: $s2bs-padding-base-horizontal / 2;
+      right: $s2bs-padding-base-horizontal;
       top: 0;
       width: $s2bs-caret-width-base;
 
@@ -479,7 +479,7 @@ $s2bs-form-control-transition: $input-transition !default;
         height: 0;
         left: 0;
         margin-left: -$s2bs-caret-width-base;
-        margin-top: -$s2bs-caret-width-base/2;
+        margin-top: -$s2bs-caret-width-base * .5;
         position: absolute;
         top: 50%;
         width: 0;
@@ -539,7 +539,7 @@ $s2bs-form-control-transition: $input-transition !default;
       border-radius: $s2bs-selection-choice-border-radius;
       cursor: default;
       float: left;
-      margin: calc(#{$s2bs-padding-base-vertical} - 1px) 0 0 $s2bs-padding-base-horizontal/2;
+      margin: calc(#{$s2bs-padding-base-vertical} - 1px) 0 0 ($s2bs-padding-base-horizontal * .5);
       padding: 0 $s2bs-padding-base-vertical;
     }
 
@@ -563,7 +563,7 @@ $s2bs-form-control-transition: $input-transition !default;
       cursor: pointer;
       display: inline-block;
       font-weight: bold;
-      margin-right: $s2bs-padding-base-vertical / 2;
+      margin-right: $s2bs-padding-base-vertical * .5;
 
       &:hover {
         color: $s2bs-remove-choice-hover-color;
@@ -617,7 +617,7 @@ $s2bs-form-control-transition: $input-transition !default;
     .select2-selection__choice {
       font-size: $s2bs-font-size-small;
       line-height: $s2bs-line-height-small;
-      margin: calc(#{$s2bs-padding-small-vertical} - 1px) 0 0 $s2bs-padding-small-horizontal/2;
+      margin: calc(#{$s2bs-padding-small-vertical} - 1px) 0 0 ($s2bs-padding-small-horizontal * .5);
       padding: 0 $s2bs-padding-small-vertical;
     }
 
@@ -650,7 +650,7 @@ $s2bs-form-control-transition: $input-transition !default;
         border-width: $s2bs-caret-width-large $s2bs-caret-width-large 0 $s2bs-caret-width-large;
         margin-left: -$s2bs-caret-width-large;
         margin-left: -$s2bs-padding-large-vertical;
-        margin-top: -$s2bs-caret-width-large/2;
+        margin-top: -$s2bs-caret-width-large * .5;
       }
     }
   }
@@ -665,7 +665,7 @@ $s2bs-form-control-transition: $input-transition !default;
       font-size: $s2bs-font-size-large;
       line-height: $s2bs-line-height-large;
       border-radius: $s2bs-selection-choice-border-radius;
-      margin: calc(#{$s2bs-padding-large-vertical} - 1px) 0 0 $s2bs-padding-large-horizontal/2;
+      margin: calc(#{$s2bs-padding-large-vertical} - 1px) 0 0 ($s2bs-padding-large-horizontal * .5);
       padding: 0 $s2bs-padding-large-vertical;
     }
 
@@ -745,7 +745,7 @@ $s2bs-form-control-transition: $input-transition !default;
 
       .select2-selection__choice {
         margin-left: 0;
-        margin-right: $s2bs-padding-base-horizontal/2;
+        margin-right: $s2bs-padding-base-horizontal * .5;
       }
 
       .select2-selection__choice__remove {
@@ -807,7 +807,7 @@ $s2bs-form-control-transition: $input-transition !default;
  * Select2 widgets in Bootstrap Input Groups
  *
  * @see https://getbootstrap.com/docs/4.0/components/input-group/
- * @see https://github.com/twbs/bootstrap/blob/v4.0.0-beta.2/scss/_input-group.scss
+ * @see https://github.com/twbs/bootstrap/blob/v4.4.1/scss/_input-group.scss
  */
 
 /**
@@ -815,19 +815,14 @@ $s2bs-form-control-transition: $input-transition !default;
  */
 
 .input-group > .select2-hidden-accessible {
-  &:first-child + .select2-container--bootstrap > .selection > .select2-selection,
-  &:first-child + .select2-container--bootstrap > .selection > .select2-selection.form-control {
-    @include border-right-radius(0);
-  }
-
-  &:not(:first-child) + .select2-container--bootstrap:not(:last-child) > .selection > .select2-selection,
-  &:not(:first-child) + .select2-container--bootstrap:not(:last-child) > .selection > .select2-selection.form-control {
-    border-radius: 0;
-  }
-
-  &:not(:first-child):not(:last-child) + .select2-container--bootstrap:last-child > .selection > .select2-selection,
-  &:not(:first-child):not(:last-child) + .select2-container--bootstrap:last-child > .selection > .select2-selection.form-control {
+  &:not(:first-child) + .select2-container--bootstrap > .selection > .select2-selection,
+  &:not(:first-child) + .select2-container--bootstrap > .selection > .select2-selection.form-control {
     @include border-left-radius(0);
+  }
+
+  + .select2-container--bootstrap:not(:last-child) > .selection > .select2-selection,
+  + .select2-container--bootstrap:not(:last-child) > .selection > .select2-selection.form-control {
+    @include border-right-radius(0);
   }
 }
 
@@ -862,7 +857,7 @@ $s2bs-form-control-transition: $input-transition !default;
    * Multi Select2's height which - depending on how many elements have been selected -
    * may grow taller than its initial size.
    *
-   * @see https://github.com/twbs/bootstrap/blob/v4.0.0-beta.2/scss/_input-group.scss
+   * @see https://github.com/twbs/bootstrap/blob/v4.4.1/scss/_input-group.scss
    */
 
   &,

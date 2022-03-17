@@ -2,8 +2,9 @@
   - if data
     - data.each do |name, value|
       = haml_partial :options_select_row, template: false, name: name,
-                                          level: level, value: value
-  = haml_partial :options_select_row, template: false, name: nil, level: level,
-                                      value: nil
-  = haml_partial :options_select_row, template: true, name: nil, level: level,
-                                      value: nil
+                                          level: level, value: value, view_selectable: view_selectable
+  = haml_partial :options_select_row, template: template, name: nil, level: level,
+                                      value: nil, view_selectable: view_selectable
+  - if !template
+    = haml_partial :options_select_row, template: true, name: nil, level: level,
+                                        value: nil, view_selectable: view_selectable
