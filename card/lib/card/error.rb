@@ -1,9 +1,11 @@
 # -*- encoding : utf-8 -*-
 
 class StandardError
+  MAX_BACKTRACE_LINES = 20
+
   def report
     Rails.logger.info "exception = #{self.class}: #{message}"
-    Rails.logger.debug backtrace[0..20].join("\n")
+    Rails.logger.debug backtrace[0..MAX_BACKTRACE_LINES].join("\n")
   end
 end
 
