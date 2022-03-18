@@ -89,7 +89,6 @@ class FilterItemsBox
     slot = @sourceSlot()
     $.ajax
       url: @addSelectedUrl(cardId)
-      type: 'GET'
       async: false # make sure cards are added before we submit form
       success: (html) -> slot.find("._filtered-list").append html
       error: (_jqXHR, textStatus)-> slot.notify "error: #{textStatus}", "error"
