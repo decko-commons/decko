@@ -1,4 +1,5 @@
 ACTS_PER_PAGE = 25
+MAX_ACTS_TO_SCAN = 10_000
 
 view :title do
   voo.title ||= "Recent Changes"
@@ -6,10 +7,17 @@ view :title do
 end
 
 def recent_acts
-  Act.joins(ar_actions: :ar_card).distinct
-     .where(Query::CardQuery.viewable_sql)
-     .where("draft is not true")
-     .order id: :desc
+  limiting_scan do
+    Act.joins(ar_actions: :ar_card).distinct
+       .where(Query::CardQuery.viewable_sql)
+       .where("draft is not true")
+       .order id: :desc
+  end
+end
+
+def limiting_scan
+  min_id = Card::Act.maximum(:id) - MAX_ACTS_TO_SCAN
+  min_id.positive? ? yield.where("card_acts.id > #{min_id}") : yield
 end
 
 format :html do

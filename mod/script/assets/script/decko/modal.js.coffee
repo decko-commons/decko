@@ -15,6 +15,10 @@ $(window).ready ->
   $('body').on 'click', '.submit-modal', ->
     $(this).closest('.modal-content').find('form').submit()
 
+  $('body').on 'click', '._close-modal-now', ->
+    $(this).closest('.modal').modal "hide"
+
+
 openModalIfPresent = (mslot) ->
   modal_content = mslot.find(".modal-content")
   if modal_content.length > 0 && modal_content.html().length > 0
