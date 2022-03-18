@@ -1,9 +1,7 @@
 decko.addEditor(
   '.ace-editor-textarea',
-  ->
-    decko.initAce $(this),
-  ->
-    aceEditorContent this[0]
+  -> decko.initAce $(this),
+  -> aceEditorContent this[0]
 )
 
 $.extend decko,
@@ -23,9 +21,6 @@ $.extend decko,
       tabSize: 2
       useSoftTabs: true
       maxLines: 30
-      #    hard_conf = {
-      #      mode: "ace/mode/" + mode
-      #    }
     #user_conf = if decko.aceConfig? then decko.aceConfig else {}
     # $.extend conf, user_conf['default'], user_conf[mode] #, hard_conf
     editor.setOptions conf
@@ -48,6 +43,7 @@ $.extend decko,
     editor = ace.edit(editDiv[0])
     editor.getSession().setValue textarea.val()
     decko.configAceEditor(editor, mode)
+    textarea.data "ace", editor
     return
 
 aceEditorContent = (element) ->
