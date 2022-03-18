@@ -22,7 +22,7 @@ $.extend decko,
       printMargin: false
       tabSize: 2
       useSoftTabs: true
-      # maxLines: 30
+      maxLines: 30
       #    hard_conf = {
       #      mode: "ace/mode/" + mode
       #    }
