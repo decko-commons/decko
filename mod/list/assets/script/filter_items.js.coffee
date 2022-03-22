@@ -1,6 +1,11 @@
 # FILTERED LIST / ITEMS INTERFACE
 # (fancy pointer ui)
 
+decko.itemAdded = (func)->
+  $('document').ready ->
+    $('body').on 'itemAdded', '._filtered-list-item', (e) ->
+      func.call this, $(this)
+
 $(window).ready ->
 # add all selected items
   $("body").on "click", "._filter-items ._add-selected", (event) ->
@@ -28,6 +33,8 @@ $(window).ready ->
     $(this).closest('li').remove()
 
 filterBox = (el) -> new FilterItemsBox el
+
+
 
 class FilterItemsBox
   constructor: (el) ->
@@ -87,12 +94,17 @@ class FilterItemsBox
 
   addSelectedCard: (cardId) ->
     slot = @sourceSlot()
+    fib = this
     $.ajax
       url: @addSelectedUrl(cardId)
-      type: 'GET'
       async: false # make sure cards are added before we submit form
-      success: (html) -> slot.find("._filtered-list").append html
+      success: (html) -> fib.addItem slot, $(html)
       error: (_jqXHR, textStatus)-> slot.notify "error: #{textStatus}", "error"
+
+  addItem: (slot, item)->
+    slot.find("._filtered-list").append item
+    item.trigger "itemAdded"
+    true
 
   addSelectedUrl: (cardId) ->
     view = @box.data "itemView"

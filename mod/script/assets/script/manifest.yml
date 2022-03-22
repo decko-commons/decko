@@ -44,9 +44,6 @@ decko:
     - decko/follow.js.coffee
     - decko/card_menu.js.coffee
     - decko/slot_ready.js.coffee
-    - decko/pointer_config.js.coffee
-    - decko/pointer_list_editor.js.coffee
     - decko/filter.js.coffee
     - decko/filter_links.js.coffee
-    - decko/filter_items.js.coffee
     - decko/selectable_filtered_content.js.coffee
