@@ -112,7 +112,7 @@ Useful views added by this mod include:
 These rules rules are advanced configuration that let sharks determine which of a card’s fields
 are automatically followed when a user follow that card.
 
-The default value is `:includes`, which means that nested cards are followed by default.
+The default value is `:nests`, which means that nested cards are followed by default.
 
 ## Lib
 
