@@ -7,7 +7,6 @@ $(window).ready ->
     $(e.target).removeClass('load')
     $.ajax
       url: url
-      type: 'GET'
       success: (html) ->
         $(tab_id).append(html)
         decko.contentLoaded($(tab_id), $(this))
