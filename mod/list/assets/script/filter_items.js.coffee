@@ -1,10 +1,17 @@
 # FILTERED LIST / ITEMS INTERFACE
 # (fancy pointer ui)
 
-decko.itemAdded = (func)->
-  $('document').ready ->
-    $('body').on 'itemAdded', '._filtered-list-item', (e) ->
-      func.call this, $(this)
+$.extend decko,
+  itemAdded: (func)->
+    $('document').ready ->
+      $('body').on 'itemAdded', '._filtered-list-item', (e) ->
+        func.call this, $(this)
+
+  itemsAdded: (func)->
+    $('document').ready ->
+      $('body').on 'itemsAdded', '.card-slot', (e) ->
+        func.call this, $(this)
+
 
 $(window).ready ->
 # add all selected items
@@ -88,9 +95,9 @@ class FilterItemsBox
   addSelected:->
     submit = @sourceSlot().find(".submit-button")
     submit.attr "disabled", true
-    for cardId in @selectedIds()
-      @addSelectedCard cardId
+    @addSelectedCard cardId for cardId in @selectedIds()
     submit.attr "disabled", false
+    @sourceSlot().trigger "itemsAdded"
 
   addSelectedCard: (cardId) ->
     slot = @sourceSlot()
