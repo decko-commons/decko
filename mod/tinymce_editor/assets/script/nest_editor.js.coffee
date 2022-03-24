@@ -82,7 +82,6 @@ $.extend nest,
       url = "/#{card}?view=#{view}&#{params}"
       $.ajax
         url: url
-        type: 'GET'
         success: (html) ->
           slot.setSlotContent html, mode, slotter
 
