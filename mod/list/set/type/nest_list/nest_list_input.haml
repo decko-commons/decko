@@ -2,9 +2,8 @@
   - items.each.with_index do |(reference, title), index|
     %li.pointer-li.mb-1._nest-form{"data-index": index}
       %span.input-group
-        .input-group-prepend.handle
-          %span.input-group-text
-            = icon_tag :reorder
+        %span.input-group-text.handle
+          = icon_tag :reorder
         %span.input-group-text.text-muted.group-text-left
           {{
         = text_field_tag "pointer_item", reference, class: "_reference pointer-item-text form-control group-text-middle"
@@ -13,14 +12,12 @@
         = text_field_tag "pointer_item_title", title, class: "_title _nest-options pointer-item-text form-control group-text-middle"
         %span.input-group-text.text-muted.group-text-right
           }}
-        .input-group-append
-          %span.input-group-text.p-0
-            %button.btn.btn-secondary._open-nest-editor{ type: "button"}
-              = icon_tag :edit
-        .input-group-append
-          %span.input-group-text.p-0
-            %button.pointer-item-delete.btn.btn-secondary{ type: "button"}
-              = icon_tag :remove
+        %span.input-group-text.p-0
+          %button.btn.btn-secondary._open-nest-editor{ type: "button"}
+            = icon_tag :edit
+        %span.input-group-text.p-0
+          %button.pointer-item-delete.btn.btn-secondary{ type: "button"}
+            = icon_tag :remove
 
 %span.input-group
   %button._pointer-item-add.btn.btn-secondary{ type: "submit" }

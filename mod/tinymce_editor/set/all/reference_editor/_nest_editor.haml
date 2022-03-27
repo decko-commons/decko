@@ -2,9 +2,8 @@
   .form-row.align-items-center.mb-4.ms-1
     .col-9
       .input-group{class: [snippet.field? ? "show-prefix" : "hide-prefix"]}
-        .input-group-prepend._field-indicator
-          .input-group-text.text-muted
-            +
+        .input-group-text.text-muted._field-indicator
+          +
         = text_field_tag "nest_name", snippet.name, class: "form-control _nest-name",
                          "data-left-name" => card.name,
                          "data-left-type" => card.left_type_for_nest_editor_set_selection,

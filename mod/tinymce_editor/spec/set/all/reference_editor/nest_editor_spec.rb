@@ -20,9 +20,7 @@ RSpec.describe Card::Set::All::ReferenceEditor::NestEditor do
       prefix_class = field ? "show-prefix" : "hide-prefix"
       with_tag ".input-group.#{prefix_class}" do
         with_tag "input#nest_name", with: { value: name }
-        with_tag "div.input-group-prepend._field-indicator" do
-          with_tag "div.input-group-text.text-muted"
-        end
+        with_tag "div.input-group-text.text-muted._field-indicator"
       end
       with_field_checkbox field
     end

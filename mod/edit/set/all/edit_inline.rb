@@ -35,7 +35,7 @@ format :html do
   end
 
   def edit_row_fixed_width title, content, edit_view, width=50
-    class_up "card-slot", "d-flex"
+    class_up "card-slot", "d-flex form-group"
     wrap do
       ["<label class='w-#{width}px'>#{title}</label>",
        content,
