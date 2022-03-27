@@ -1,26 +1,14 @@
 $(window).ready ->
   navbox = $('._navbox')
-  navbox.select2
-    placeholder: navbox.attr("placeholder")
-    escapeMarkup: (markup) ->
-      markup
-    minimumInputLength: 1
-    maximumSelectionSize: 1
-    ajax:
-      delay: 200
-      url: decko.path ':search.json'
-      data: (params) ->
-        query: { keyword: params.term }
-        view: "complete"
-      processResults: (data) ->
-        results: navboxize(data)
-      cache: true
-    templateResult: formatNavboxItem
-    templateSelection: formatNavboxSelectedItem
-    multiple: true
-    containerCssClass: 'select2-navbox-autocomplete'
-    dropdownCssClass: 'select2-navbox-dropdown'
-    width: "100%!important"
+  decko.initSelect2Autocomplete(navbox, "navbox_complete",
+    navboxize, formatNavboxItem, formatNavboxSelectedItem,
+    {
+      minimumInputLength: 1
+      multiple: true
+      containerCssClass: 'select2-navbox-autocomplete'
+      dropdownCssClass: 'select2-navbox-dropdown'
+      width: "100%!important"
+    })
 
   navbox.on "select2:select", (e) ->
     navboxSelect(e)

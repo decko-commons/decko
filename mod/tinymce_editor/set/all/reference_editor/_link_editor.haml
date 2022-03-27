@@ -3,7 +3,10 @@
     .input-group{class: [snippet.field? ? "show-prefix" : "hide-prefix"]}
       .input-group-text.text-muted._field-indicator
         +
-      = text_field_tag "link_name", snippet.name, class: "form-control _link-target", placeholder: "URL or Card name"
+      = text_field_tag "link_name", snippet.name,
+        class: "form-control _link-target _autocomplete",
+        placeholder: "URL or Card name",
+        "data-options-card": [:all, :by_name].to_name
 
   .col-3
     = check_box_tag :field, "field", snippet.field?,

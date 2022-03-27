@@ -3,26 +3,33 @@ format :html do
     form_tag path(path_opts.merge(view: view)),
              remote: true, method: "get", role: "filter",
              "data-slot-selector": ".card-slot.rule-list",
-             class: classy("nodblclick slotter form-inline slim-select2 m-2") do
+             class: classy("nodblclick slotter") do
       output [
-        label_tag(:view, icon_tag("filter_list"), class: "me-2"),
-        setting_select(selected_setting),
-        set_select(set_options)
+        set_select(set_options),
+        setting_select(selected_setting)
       ].flatten
     end
   end
 
   def set_select set_options
     return filter_text.html_safe unless set_options
-
-    [content_tag(:span, "rules that apply to set ...", class: "mx-2 small"),
-     set_select_tag(set_options)]
+    wrap_with :div, class: "form-group" do
+      [
+        content_tag(:label, "Set"),
+        set_select_tag(set_options)
+      ]
+    end
   end
 
   def setting_select selected=nil
-    select_tag(:group, grouped_options_for_select(setting_options, selected),
-               class: "_submit-on-select form-control",
-               "data-select2-id": "#{unique_id}-#{Time.now.to_i}")
+    wrap_with :div, class: "form-group" do
+      [
+        content_tag(:label, "Settings"),
+        select_tag(:group, grouped_options_for_select(setting_options, selected),
+                   class: "_submit-on-select form-control",
+                   "data-select2-id": "#{unique_id}-#{Time.now.to_i}")
+      ]
+    end
   end
 
   def filter_text

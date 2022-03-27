@@ -1,16 +1,14 @@
-.form
-  .form-row.align-items-center.mb-4.ms-1
-    .col-9
-      .input-group{class: [snippet.field? ? "show-prefix" : "hide-prefix"]}
-        .input-group-text.text-muted._field-indicator
-          +
-        = text_field_tag "nest_name", snippet.name, class: "form-control _nest-name",
-                         "data-left-name" => card.name,
-                         "data-left-type" => card.left_type_for_nest_editor_set_selection,
-                         placeholder: "Card name"
-    .col-3
-      = check_box_tag :field, "field", snippet.field?,
-                      class: "_nest-field-toggle", id: "nest-editor-field"
-      %label.form-check-label{for: "nest-editor-field"} field
+.form-group
+  %label{:for => "nest_name"} Card
+  = help_link t(:tinymce_editor_nest_editor_card_help_text), t(:tinymce_editor_nest_editor_card_help_title)
+  .input-group{class: [snippet.field? ? "show-prefix" : "hide-prefix"]}
+    .input-group-text.text-muted._field-indicator
+      +
+    = text_field_tag "nest_name", snippet.name, class: "form-control _nest-name _autocomplete ",
+                     "data-left-name" => card.name,
+                     "data-left-type" => card.left_type_for_nest_editor_set_selection,
+                     "data-options-card": [:all, :by_name].to_name
+    .input-group-text.btn.btn-secondary._nest-field-toggle
+      +
 
-  = nest_editor_tabs
+= nest_editor_tabs

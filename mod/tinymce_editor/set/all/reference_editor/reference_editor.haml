@@ -1,18 +1,20 @@
 %div._nest-editor
-  .nest-header.d-flex.ms-2
+  .card-header.d-flex
     %h5.mt-1
-      = ref_type.capitalize
+      = title
     .ms-auto
-      = link_to fa_icon(:close), path: "#", "data-bs-dismiss": editor_mode, class: "text-dark p-1 ms-1"
+      = link_to fa_icon(:close), path: "#", "data-dismiss": editor_mode, class: "text-dark p-1 ml-1"
 
-  .form
-    = haml_partial "#{ref_type}_editor", snippet: snippet
+  .card-body
+    .form
+      = haml_partial "#{editor}_editor", snippet: snippet
 
   .card-footer.p-0
     .preview.mx-1.my-1.form-control-feedback
+      Syntax preview
       = text_field_tag "preview", snippet.raw, class: "_#{ref_type}-preview w-100 text-muted", readonly: true
     %hr.mt-1.mb-1
-    .form-group-inline.d-flex.justify-content-center.py-2
-      = button_tag (modal_tm_snippet_editor? ? "Apply and Close" : "Apply"), apply_opts.merge(class: "_#{ref_type}-apply btn-sm me-3")
-      %a.border-light.text-dark.btn.btn-sm.btn-outline-secondary{"data-bs-dismiss": editor_mode, href: "#"}
+    .form-group-inline.d-flex.justify-content-center.py-3
+      = button_tag (modal_tm_snippet_editor? ? "Apply and Close" : "Apply"), apply_opts.merge(class: "_#{ref_type}-apply btn-sm mr-3")
+      %a.border-light.text-dark.btn.btn-sm.btn-secondary{"data-dismiss": editor_mode, href: "#"}
         = modal_tm_snippet_editor? ? "Cancel" : "Close"
