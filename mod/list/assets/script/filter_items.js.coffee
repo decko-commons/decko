@@ -52,6 +52,7 @@ class FilterItemsBox
 
     @addSelectedButton = @box.find "._add-selected"
     @deselectAllLink = @box.find "._deselect-all"
+    @config = @box.data()
 
   selectAll:->
     t = this
@@ -114,12 +115,9 @@ class FilterItemsBox
     true
 
   addSelectedUrl: (cardId) ->
-    view = @box.data "itemView"
-    wrap = @box.data "itemWrap"
-    decko.path "~#{cardId}/#{view}?slot[wrap]=#{wrap}"
+    decko.path "~#{cardId}/#{@config.itemView}?slot[wrap]=#{@config.itemWrap}"
 
-  duplicatesOk: ->
-    @box.data "duplicatesOk"
+  duplicatesOk: -> @config.itemDuplicable
 
   trackSelectedIds: ->
     ids = @prefilteredIds().concat @selectedIds()
