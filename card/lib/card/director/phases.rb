@@ -46,10 +46,10 @@ class Card
         @card.restore_changes_information
         run_stage :integrate
         run_stage :after_integrate
-        @card.expire
         run_stage :integrate_with_delay
       ensure
         @card.clear_changes_information unless @abort
+        @card.expire
       end
     end
   end
