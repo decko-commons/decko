@@ -49,6 +49,7 @@ class Card
         run_stage :integrate_with_delay
       ensure
         @card.clear_changes_information unless @abort
+        @card.expire
       end
     end
   end
