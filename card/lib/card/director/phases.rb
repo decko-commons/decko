@@ -37,7 +37,6 @@ class Card
         run_stage :finalize
         raise ActiveRecord::RecordInvalid, @card if @card.errors.any?
       ensure
-        @card.expire
         @from_trash = nil
       end
 
@@ -47,6 +46,7 @@ class Card
         @card.restore_changes_information
         run_stage :integrate
         run_stage :after_integrate
+        @card.expire
         run_stage :integrate_with_delay
       ensure
         @card.clear_changes_information unless @abort
