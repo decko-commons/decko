@@ -37,6 +37,7 @@ class Card
         run_stage :finalize
         raise ActiveRecord::RecordInvalid, @card if @card.errors.any?
       ensure
+        @card.expire
         @from_trash = nil
       end
 
