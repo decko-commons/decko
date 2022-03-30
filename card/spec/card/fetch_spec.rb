@@ -99,7 +99,7 @@ RSpec.describe Card::Fetch do
       # Card.cache.dump # should be empty
       Card.cache.soft.reset
       expect(Card.cache.soft.store.keys).to eq([])
-
+      Cardio.delaying!
       Card::Auth.as_bot do
         a = Card.fetch("A")
         expect(a).to be_instance_of(Card)
@@ -121,6 +121,7 @@ RSpec.describe Card::Fetch do
         # expect(Card.cache).to receive(:delete).with('x').exactly(2).times
         # expect(Card.cache).to receive(:delete).with('y').exactly(2).times
         a.save!
+        Cardio.delaying!
       end
     end
 
