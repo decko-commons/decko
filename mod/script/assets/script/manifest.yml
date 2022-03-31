@@ -30,7 +30,6 @@ decko:
     - decko/autosave.js.coffee
     - decko/doubleclick.js.coffee
     - decko/layout.js.coffee
-    - decko/navbox.js.coffee
     - decko/upload.js.coffee
     - decko/slot.js.coffee
     - decko/decko.js.coffee
@@ -47,3 +46,9 @@ decko:
     - decko/filter.js.coffee
     - decko/filter_links.js.coffee
     - decko/selectable_filtered_content.js.coffee
+    - decko/filter_items.js.coffee
+    - decko/pointer_config.js.coffee
+    - decko/pointer_list_editor.js.coffee
+    - decko/autocomplete.js.coffee
+    - decko/script_rules.js.coffee
+    - decko/navbox.js.coffee
