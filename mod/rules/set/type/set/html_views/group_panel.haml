@@ -5,7 +5,7 @@
     %h5.mb-0
       = link_to (t("rules_#{group_key}") || group_key.to_s),
                 href: "##{collapse_id}",
-                "data-toggle": "collapse",   "aria-expanded": "false",
+                "data-bs-toggle": "collapse",   "aria-expanded": "false",
                 "data-parent": "#accordion", "aria-controls": collapse_id
 .panel-collapse.collapse{ id: collapse_id,
                           role: "tabpanel",

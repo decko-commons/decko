@@ -14,8 +14,8 @@ RSpec.describe Card::Bootstrap::Component::Carousel do
 
     expect(carousel).to have_tag "div.carousel.slide#csID", "data-ride" => "carousel" do
       with_tag "ol.carousel-indicators" do
-        with_tag "li.active", with: { "data-target" => "##{id}", "data-slide-to" => "0" }
-        with_tag "li", with: { "data-target" => "##{id}", "data-slide-to" => "1" }
+        with_tag "li.active", with: { "data-bs-target" => "##{id}", "data-slide-to" => "0" }
+        with_tag "li", with: { "data-bs-target" => "##{id}", "data-slide-to" => "1" }
       end
       with_tag "div.carousel-inner", role: "listbox" do
         with_tag "div.carousel-item.active" do
