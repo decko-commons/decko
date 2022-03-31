@@ -35,7 +35,7 @@ format :html do
                path: {
                  view: :filter_items_modal,
                  slot: { hide: [:modal_footer] },
-                 filter: { not_ids: not_ids_value },
+                 filter: filter_items_default_filter,
                  # each key value below is there to help support new cards configured
                  # by type_plus_right sets. do not remove without testing that case
                  # (not currently covered by specs)
@@ -43,6 +43,10 @@ format :html do
                  filter_card: filter_card.name,
                  filter_items: filter_item_config
                }
+  end
+
+  def filter_items_default_filter
+    { not_ids: not_ids_value }
   end
 
   def filter_items_data
