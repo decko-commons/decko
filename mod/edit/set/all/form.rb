@@ -2,7 +2,7 @@ format :html do
   # FIELDSET VIEWS
 
   # sometimes multiple card formgroups, sometimes just one
-  view :content_formgroups, cache: :never do
+  view :content_formgroups, unknown: true, cache: :never do
     wrap_with :fieldset, edit_slot, class: classy("card-editor", "editor")
   end
 
