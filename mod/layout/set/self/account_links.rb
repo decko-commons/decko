@@ -36,7 +36,7 @@ format :html do
                  path: { action: :new, mark: :signup }
   end
 
-  view :sign_in, link_options(:signed_in?) do
+  view :sign_in, link_options(:not_signed_in?) do
     link_to_card :signin, account_link_text(:sign_in),
                  class: nav_link_class("signin-link")
   end
@@ -87,8 +87,12 @@ format :html do
     "nav-link #{classy(type)}"
   end
 
+  def not_signed_in?
+    !Auth.signed_in?
+  end
+
   def show_signup_link?
-    !Auth.signed_in? && Card.new(type_id: SignupID).ok?(:create)
+    not_signed_in? && Card.new(type: :sign_up).ok?(:create)
   end
 
   def show_invite_link?

@@ -151,6 +151,7 @@ format :html do
   end
 
   view :signin_buttons do
+    class_up "button-form-group", "signin-buttons justify-content-between"
     button_formgroup do
       [signin_button, signup_link, reset_password_link]
     end
@@ -186,10 +187,9 @@ format :html do
   end
 
   def reset_password_link
-    link = link_to_view :edit, t(:account_reset_password),
-                        path: { slot: { hide: :bridge_link } }
-    # FIXME: inline styling
-    raw("<div style='float:right'>#{link}</div>")
+    link_to_view :edit, t(:account_reset_password),
+                 path: { slot: { hide: :bridge_link } },
+                 class: "btn btn-secondary btn-reset-password"
   end
 
   def edit_view_hidden
