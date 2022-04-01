@@ -549,3 +549,16 @@ body.mceContentBody {
     }
   }
 }
+
+
+/*------ bootstrap 5 --------*/
+
+.modal-header .btn-close {
+  background: none;
+}
+
+$s2bs5-group-color: $form-select-color !important;
+
+.form-group {
+  margin-bottom: 1rem;
+}

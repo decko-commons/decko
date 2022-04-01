@@ -68,7 +68,7 @@ class Card
       link_to label, button_attrib.merge(
         path: "##{tab_id}",
         role: "tab",
-        "data-toggle" => "tab",
+        "data-bs-toggle" => "tab",
         "data-tab-name" => name
       )
     end

@@ -5,15 +5,13 @@ format :html do
   end
 
   view :navbar do
-    # FIXME: not bootstrap class here.
-    class_up "navbox-form", "form-inline"
     render_core
   end
 
   view :core do
     form_tag path(mark: :search), method: "get", role: "search",
                                   class: classy("navbox-form", "nodblclick") do
-      wrap_with :div, class: "form-group w-100" do
+      wrap_with :div, class: "w-100" do
         render_navbox
       end
     end

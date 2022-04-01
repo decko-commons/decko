@@ -38,7 +38,7 @@ format :html do
       <<-HTML
         <div class="card-header" role="tab" id="heading-#{collapse_id}">
           <h5 class="mb-0">
-            <a data-toggle="collapse" data-parent="#accordion-#{collapse_id}" \
+            <a data-bs-toggle="collapse" data-parent="#accordion-#{collapse_id}" \
                href="##{collapse_id}" aria-expanded="true" \
                aria-controls="#{collapse_id}">
               #{title}
