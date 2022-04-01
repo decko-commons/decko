@@ -5,6 +5,8 @@ def ok_to_read
 end
 
 format :html do
+  delegate :signed_in?, to: Card::Auth
+
   view :core, cache: :never do
     status_class = Auth.signed_in? ? "logged-in" : "logged-out"
     wrap_with :div, id: "logging", class: status_class do
@@ -24,36 +26,34 @@ format :html do
     end
   end
 
-  def self.link_options opts={}, &block
-    options = { denial: :blank, cache: :never }.merge opts
-    options[:perms] = block if block_given?
-    options.clone
+  def self.link_options perms
+    { denial: :blank, cache: :never, perms: perms }
   end
 
-  view :sign_up, link_options(&:show_signup_link?) do
+  view :sign_up, link_options(:show_signup_link?) do
     link_to_card :signup, account_link_text(:sign_up),
                  class: nav_link_class("signup-link"),
                  path: { action: :new, mark: :signup }
   end
 
-  view(:sign_in, link_options { !Auth.signed_in? }) do
+  view :sign_in, link_options(:not_signed_in?) do
     link_to_card :signin, account_link_text(:sign_in),
                  class: nav_link_class("signin-link")
   end
 
-  view(:sign_out, link_options { Auth.signed_in? }) do
+  view :sign_out, link_options(:signed_in?) do
     link_to_card :signin, account_link_text(:sign_out),
                  class: nav_link_class("signout-link"),
                  path: { action: :delete }
   end
 
-  view :invite, link_options(&:show_invite_link?) do
+  view :invite, link_options(:show_invite_link?) do
     link_to_card :signup, account_link_text(:invite),
                  class: nav_link_class("invite-link"),
                  path: { action: :new, mark: :signup }
   end
 
-  view(:my_card, link_options { Auth.signed_in? }) do
+  view :my_card, link_options(:signed_in?) do
     can_disable_roles? ? interactive_roles_dropdown : simple_roles_dropdown
   end
 
@@ -87,8 +87,12 @@ format :html do
     "nav-link #{classy(type)}"
   end
 
+  def not_signed_in?
+    !Auth.signed_in?
+  end
+
   def show_signup_link?
-    !Auth.signed_in? && Card.new(type_id: SignupID).ok?(:create)
+    not_signed_in? && Card.new(type: :sign_up).ok?(:create)
   end
 
   def show_invite_link?
