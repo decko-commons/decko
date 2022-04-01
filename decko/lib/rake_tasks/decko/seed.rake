@@ -8,6 +8,7 @@ namespace :decko do
       ENV["GENERATE_FIXTURES"] = "true"
       %w[reseed update seed:clean seed:supplement seed:dump].each do |task|
         Rake::Task["decko:#{task}"].invoke
+        puts "after #{task}: #{'yeti skin+*asset input'.card_id}".yellow
       end
     end
 
