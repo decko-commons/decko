@@ -12,8 +12,8 @@ class FollowLink
   def modal_link icon=false
     opts = link_opts.merge(
       "data-path": link_opts[:path],
-      "data-toggle": "modal",
-      "data-target": "#modal-#{card.name.safe_key}",
+      "data-bs-toggle": "modal",
+      "data-bs-target": "#modal-#{card.name.safe_key}",
       class: css_classes("follow-link", link_opts[:class])
     )
     link_to render_link_text(icon), opts
