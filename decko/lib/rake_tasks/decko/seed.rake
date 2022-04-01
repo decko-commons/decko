@@ -24,7 +24,6 @@ namespace :decko do
       # change actors so we can delete unwanted user cards that made changes
       Card::Act.update_all actor_id: Card::WagnBotID
       delete_ignored_cards
-      refresh_assets
       Card::Assets.make_output_coded
       # clean_unwanted_cards
       Card.empty_trash
