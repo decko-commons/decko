@@ -104,7 +104,7 @@ de:
   account_password_missing: Passwort muss angegeben werden
   account_private_data: Private Daten
   account_reset_my_password: Passwort zurücksetzen
-  account_reset_password: PASSWORT ZURÜCKSETZEN
+  account_reset_password: Password Zurücksetzen
   account_search_email_duplicate: E-Mail-Duplikat? (%{content})
   account_sign_in: Anmelden
   account_sign_in_title: Anmelden

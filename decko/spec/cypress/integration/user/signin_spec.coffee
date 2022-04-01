@@ -11,7 +11,7 @@ describe "/*signin", () =>
       .should "have.attr", "href", "/new/Sign_up"
 
   it "links to reset password", ->
-    cy.contains "RESET PASSWORD"
+    cy.contains "Reset Password"
       .should "have.attr", "href", "/*signin?slot%5Bhide%5D%5B%5D=bridge_link&view=edit"
 
   it "requires email", ->

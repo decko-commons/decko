@@ -8,6 +8,8 @@ class Card
     #         # only render if user has permission to update card
     #         view :myview, perms: :update do...
     module Permission
+      CRUD = ::Set.new(%i[create read update delete]).freeze
+
       def view_perms
         @view_perms = setting(:perms) || :read
       end
@@ -47,11 +49,17 @@ class Card
         format.view_for_denial requested_view, task
       end
 
+      def crud? task
+        task.in? CRUD
+      end
+
       def denied_task
-        if view_perms.is_a? Proc
-          :read unless view_perms.call(format)  # read isn't quite right
-        else
-          Array.wrap(view_perms).find { |task| !format.ok? task }
+        Array.wrap(view_perms).find do |task|
+          if crud? task
+            !format.ok? task
+          else
+            !format.send task
+          end
         end
       end
     end
