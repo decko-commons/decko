@@ -3,7 +3,9 @@ include_set Abstract::Accountable
 attr_accessor :email
 
 format :html do
-  view :setup, unknown: true, perms: ->(_fmt) { Auth.needs_setup? } do
+  delegate :needs_setup?, to: Card::Auth
+
+  view :setup, unknown: true, perms: :needs_setup? do
     with_nest_mode :edit do
       voo.title = "Your deck is ready to go!" # LOCALIZE
       voo.show! :help
