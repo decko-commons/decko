@@ -92,7 +92,7 @@ format :html do
   end
 
   def show_signup_link?
-    not_signed_in? && Card.new(type: :sign_up).ok?(:create)
+    not_signed_in? && Card.new(type: :signup).ok?(:create)
   end
 
   def show_invite_link?
