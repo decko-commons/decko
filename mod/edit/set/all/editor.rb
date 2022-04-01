@@ -29,7 +29,7 @@ format :html do
     nil
   end
 
-  view :input, unknown: true do
+  view :input, unknown: true, cache: :never do
     try(input_method(input_type)) ||
       input_defined_by_card ||
       send(input_method(default_input_type))
