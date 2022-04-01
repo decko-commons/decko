@@ -25,7 +25,7 @@ namespace :card do
 
     desc "install all mods"
     task install: :environment do
-      Cardio.config.compress_assets = true
+      Cardio.config.compress_assets = true # should not be here, imo #efm
       Cardio::Mod.ensure_installed
     end
 

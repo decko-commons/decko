@@ -32,17 +32,20 @@ module Cardio
       def ensure_uninstalled
         missing.each do |mod_card|
           Card::Auth.as_bot do
-            Card[:all, :style].drop_item mod_card
             delete_auto_installed_cards mod_card
           end
         end
       end
 
       def ensure_installed
-        Card::Cache.reset_all
-        puts "installing card mods".green
-        Cardio.mods.each(&:ensure)
-        Card::Assets.refresh_assets force: true
+        Card::Auth.as_bot do
+          Card::Cache.reset_all
+          puts "installing card mods".green
+          ensure_asset_lists do |hash|
+            puts "ensuring mod and asset cards"
+            Cardio.mods.each { |mod| ensure_asset_cards mod.ensure_card, hash }
+          end
+        end
       end
 
       def dependencies name, nickname=true
@@ -66,6 +69,23 @@ module Cardio
       end
 
       private
+
+      def ensure_asset_cards modcard, hash
+        %i[script style].each do |asset_type|
+          hash[asset_type] << modcard.ensure_mod_asset_card(asset_type)
+        end
+      end
+
+      def ensure_asset_lists
+        hash = { script: [], style: [] }
+        yield hash
+        puts "updating asset lists"
+        Card[:all, :script].update! content: hash[:script].compact
+        Card[:style_mods].update! content: hash[:style].compact
+
+        puts "refreshing assets"
+        Card::Assets.refresh_assets force: true
+      end
 
       # it would be nice if this were easier...
       def delete_auto_installed_cards mod_card

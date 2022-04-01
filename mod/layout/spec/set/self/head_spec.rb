@@ -26,8 +26,7 @@ RSpec.describe Card::Set::Self::Head do
            /files/:mod_ace_editor_script_asset_output/ace_editor.js
            /files/:mod_bootstrap_script_asset_output/bootstrap.js
            /files/:mod_date_script_asset_output/date.js
-           /files/:mod_tinymce_editor_script_asset_output/tinymce_editor.js
-           /files/:mod_rules_script_asset_output/rules.js]
+           /files/:mod_tinymce_editor_script_asset_output/tinymce_editor.js]
           .each do |src|
             is_expected.to have_tag(:script, with: { src: src })
           end

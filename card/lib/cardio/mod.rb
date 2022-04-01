@@ -71,7 +71,7 @@ module Cardio
     end
 
     def mod_card_name
-      "mod: #{name}"
+      "mod: #{name.tr '_', ' '}"
     end
 
     def codename
@@ -88,12 +88,13 @@ module Cardio
                 "mod#{'%03d' % (@index + 1)}-#{@name}"
     end
 
-    def ensure
-      Card::Auth.as_bot do
-        card = ensure_card
-        card.ensure_mod_script_card
-        card.ensure_mod_style_card
-        Card::Cache.reset_all
+    def ensure_card
+      if Card::Codename.exists? codename
+        card = Card.fetch codename.to_sym
+        card.update type: :mod unless card.type_code == :mod
+        card
+      else
+        Card.create name: mod_card_name, type: :mod, codename: codename
       end
     end
 
@@ -103,16 +104,6 @@ module Cardio
       return path if File.exist? path
 
       raise Card::Error::NotFound, "mod not found: #{@name}"
-    end
-
-    def ensure_card
-      if Card::Codename.exists? codename
-        card = Card.fetch codename.to_sym
-        card.update type: :mod unless card.type_code == :mod
-        card
-      else
-        Card.create name: mod_card_name, type: :mod, codename: codename
-      end
     end
   end
 end
