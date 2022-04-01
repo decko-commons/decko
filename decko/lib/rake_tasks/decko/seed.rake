@@ -8,6 +8,7 @@ namespace :decko do
       ENV["GENERATE_FIXTURES"] = "true"
       %w[reseed update seed:clean seed:supplement seed:dump].each do |task|
         Rake::Task["decko:#{task}"].invoke
+        puts "after #{task}: #{'yeti skin+*asset input'.card_id}".yellow
       end
     end
 
@@ -24,6 +25,7 @@ namespace :decko do
       # change actors so we can delete unwanted user cards that made changes
       Card::Act.update_all actor_id: Card::WagnBotID
       delete_ignored_cards
+      refresh_assets
       Card::Assets.make_output_coded
       # clean_unwanted_cards
       Card.empty_trash
