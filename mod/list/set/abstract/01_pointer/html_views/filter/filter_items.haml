@@ -1,11 +1,11 @@
-._filter-items.container-fluid.nodblclick._noFilterUrlUpdates{ data: filter_items_config }
+._filter-items.container-fluid.nodblclick._noFilterUrlUpdates{ data: filter_items_data }
   .row
     = nest filter_card, view: :filter_form
     ._unselected.col-6.border.mt-2.px-0
       = nest filter_card, view: :select_item,
                           items: { view: implicit_item_view },
                           cql: { limit: 10 }
-    ._selected.col-6.border.mt-2.pl-0.pr-0
+    ._selected.col-6.border.mt-2.ps-0.pe-0
       .selected-box
         .card-header
           %h5

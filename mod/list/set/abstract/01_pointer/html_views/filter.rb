@@ -32,25 +32,43 @@ format :html do
     modal_link (text || "Add Item"),
                size: :large,
                class: "btn btn-sm btn-outline-secondary _add-item-link",
-               path: { view: :filter_items_modal,
-                       slot: { hide: [:modal_footer] },
-                       filter: { not_ids: not_ids_value } }
+               path: {
+                 view: :filter_items_modal,
+                 slot: { hide: [:modal_footer] },
+                 filter: filter_items_default_filter,
+                 # each key value below is there to help support new cards configured
+                 # by type_plus_right sets. do not remove without testing that case
+                 # (not currently covered by specs)
+                 type: :list.cardname,
+                 filter_card: filter_card.name,
+                 filter_items: filter_item_config
+               }
   end
 
-  def filter_items_config
-    { "slot-selector": "modal-origin",
-      "item-view": filtered_item_view,
-      "item-wrap": filtered_item_wrap,
-      "duplicates-ok": ("true" if duplicates_ok?),
-      "item-selector": "._filtered-list-item" }
+  def filter_items_default_filter
+    { not_ids: not_ids_value }
   end
 
-  def duplicates_ok?
+  def filter_items_data
+    {
+      "slot-selector": "modal-origin",
+      "item-selector": "._filtered-list-item",
+      item: filter_item_config
+    }
+  end
+
+  def filter_item_config
+    %i[view wrap duplicable].each_with_object({}) do |key, hash|
+      hash[key] = params.dig(:filter_items, key) || send("filtered_item_#{key}")
+    end
+  end
+
+  def filtered_item_duplicable
     false
   end
 
   def not_ids_value
-    duplicates_ok? ? "" : card.item_ids.map(&:to_s).join(",")
+    filtered_item_duplicable ? "" : card.item_ids.map(&:to_s).join(",")
   end
 
   view :add_selected_link, unknown: true do
@@ -77,7 +95,7 @@ format :html do
   end
 
   def filter_card_from_params
-    return unless params[:filter_card]
+    return unless params[:filter_card]&.present?
 
     Card.fetch params[:filter_card], new: {}
   end

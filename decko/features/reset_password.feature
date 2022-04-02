@@ -10,7 +10,7 @@ Feature: Reset password
   Scenario: Resetting password
     When I go to the homepage
     And I follow "Sign in"
-    And I follow "RESET PASSWORD"
+    And I follow "Reset Password"
     And I enter "joe@user.com" into "*email" in modal
     And I press "Reset my password"
     And I wait 4 seconds
