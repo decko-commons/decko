@@ -2,15 +2,13 @@
   %label{:for => "nest_name"} Card
   = help_link t(:tinymce_editor_nest_editor_card_help_text), t(:tinymce_editor_nest_editor_card_help_title)
   .input-group{class: [snippet.field? ? "show-prefix" : "hide-prefix"]}
-    .input-group-prepend._field-indicator
-      .input-group-text.text-muted
-        +
+    .input-group-text.text-muted._field-indicator
+      +
     = text_field_tag "nest_name", snippet.name, class: "form-control _nest-name _autocomplete ",
                      "data-left-name" => card.name,
                      "data-left-type" => card.left_type_for_nest_editor_set_selection,
                      "data-options-card": [:all, :by_name].to_name
-    .input-group-append
-      .btn.btn-secondary._nest-field-toggle
-        +
+    .input-group-text.btn.btn-secondary._nest-field-toggle
+      +
 
 = nest_editor_tabs
