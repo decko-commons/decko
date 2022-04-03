@@ -74,8 +74,8 @@ format :html do
   def split_button_toggle
     wrap_with :a,
               href: "#",
-              class: "nav-link pl-0 dropdown-toggle dropdown-toggle-split",
-              "data-toggle" => "dropdown",
+              class: "nav-link ps-0 dropdown-toggle dropdown-toggle-split",
+              "data-bs-toggle" => "dropdown",
               "aria-haspopup" => "true",
               "aria-expanded" => "false" do
       '<span class="sr-only">Toggle Dropdown</span>'

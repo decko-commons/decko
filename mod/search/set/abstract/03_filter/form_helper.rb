@@ -38,9 +38,7 @@ format :html do
 
   def range_sign side
     dir = side == :from ? "right" : "left"
-    wrap_with :span, class: "input-group-prepend" do
-      fa_icon("chevron-circle-#{dir}", class: "input-group-text")
-    end
+    fa_icon("chevron-circle-#{dir}", class: "input-group-text")
   end
 
   def sub_text_filter field, subfield, default={}, opts={}
