@@ -1,0 +1,12 @@
+---
+- :name:
+  - friends
+  - :right
+  - :default
+  :type: :list
+- :name:
+  - friends
+  - :right
+  - :content_options
+  :type: :search_type
+  :content: '{"type":"User"}'

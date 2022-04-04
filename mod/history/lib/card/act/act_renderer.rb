@@ -36,7 +36,7 @@ class Card
           row xs: [10, 2] do
             column do
               html title
-              tag(:span, "text-muted pl-1 badge") { summary }
+              tag(:span, "text-muted ps-1 badge") { summary }
             end
             column act_links, class: "text-right"
           end
@@ -133,8 +133,8 @@ class Card
 
       def accordion_expand_options
         {
-          "data-toggle" => "collapse",
-          "data-target" => ".#{collapse_id}",
+          "data-bs-toggle" => "collapse",
+          "data-bs-target" => ".#{collapse_id}",
           "aria-expanded" => true,
           "aria-controls" => collapse_id
         }
@@ -175,7 +175,7 @@ class Card
       def rollback_link
         return unless @card.ok? :update
 
-        wrap_with :div, class: "act-link collapse #{collapse_id} float-right" do
+        wrap_with :div, class: "act-link collapse #{collapse_id} float-end" do
           content_tag(:small, revert_link)
 
           # link_to "Save as current",
