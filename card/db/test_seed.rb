@@ -24,21 +24,6 @@ class SharedData
       cardtype_cards
 
       # for template stuff
-      create "UserForm+*type+*structure", "{{+name}} {{+age}} {{+description}}"
-
-      Card::Auth.signin "joe_user"
-      create "JoeLater", "test"
-      create "JoeNow", "test"
-
-      Card::Auth.signin Card::WagnBotID
-
-      create "Book+*type+*structure", "by {{+author}}, design by {{+illustrator}}"
-      create_book "Iliad"
-
-      create_author "Darles Chickens"
-      create_author "Stam Broker"
-      create_book "Parry Hotter"
-      create_book "50 grades of shy"
 
       ## --------- Fruit: creatable by anyone but not readable ---
       Card.create! name: "Fruit+*type+*create", type: "Pointer", content: "[[Anyone]]"

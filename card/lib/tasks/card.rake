@@ -27,7 +27,7 @@ namespace :card do
     result = Cardio::Mod::Plant.new(**options).out
     exit 0 if result == :success
 
-    puts "ERROR in card:poop\n  #{result}".red
+    puts "ERROR in card:plant\n  #{result}".red
     exit 1
   end
 

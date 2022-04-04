@@ -1,5 +1,3 @@
-- :name: Author
-  :type: :cardtype
 - :name: Fruit
   :type: :cardtype
 - :name: self aware
@@ -23,7 +21,4 @@
 - :name: Cardtype F
   :type: :cardtype
   :codename: :cardtype_f
-- :name: UserForm
-  :type: :cardtype
-- :name: Book
-  :type: :cardtype
+
