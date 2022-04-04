@@ -1,6 +1,6 @@
 format :html do
   OVERLAY_CLOSE_OPTS = { class: "_close-overlay btn-sm",
-                         "data-dismiss": "overlay",
+                         "data-bs-dismiss": "overlay",
                          type: "button" }.freeze
 
   wrapper :overlay do |opts|
@@ -21,7 +21,7 @@ format :html do
   end
 
   view :overlay_menu do
-    wrap_with :div, class: "btn-group btn-group-sm align-self-start ml-auto" do
+    wrap_with :div, class: "btn-group btn-group-sm align-self-start ms-auto" do
       [render_overlay_help_link, slotify_overlay_link, close_overlay_link]
     end
   end
@@ -48,7 +48,7 @@ format :html do
   end
 
   def close_overlay_link
-    overlay_menu_link :close, path: "#", "data-dismiss": "overlay"
+    overlay_menu_link :close, path: "#", "data-bs-dismiss": "overlay"
   end
 
   def overlay_close_button link_text="Close", opts={}
@@ -68,7 +68,7 @@ format :html do
   end
 
   def overlay_menu_link icon, args={}
-    add_class args, "border-light text-dark p-1 ml-1"
+    add_class args, "border-light text-dark p-1 ms-1"
     button_link fa_icon(icon, class: "fa-lg"), args.merge(btn_type: "outline-secondary")
   end
 

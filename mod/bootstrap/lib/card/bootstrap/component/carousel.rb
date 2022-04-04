@@ -68,7 +68,7 @@ class Card
         end
 
         def indicator index
-          html_opts = { "data-slide-to" => index, "data-target": "##{@id}" }
+          html_opts = { "data-slide-to" => index, "data-bs-target": "##{@id}" }
           add_class html_opts, "active" if index == @active_item_index
           @html.li html_opts
         end
