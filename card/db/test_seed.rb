@@ -27,14 +27,6 @@ class SharedData
       create "signup alert email+*to", "signups@decko.org"
       # CREATE A CARD OF EACH TYPE
 
-      no_samples = %w[user sign_up set number mirror_list mirrored_list file image
-                      customized_bootswatch_skin alias cardtype]
-      Card::Auth.createable_types.each do |type|
-        next if no_samples.include? type.to_name.key
-
-        create type: type, name: "Sample #{type}"
-      end
-
       %w[c1 c2 c3].each do |name|
         create name
       end

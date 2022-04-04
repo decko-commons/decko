@@ -3,9 +3,11 @@ require_relative "alias"
 
 CARD_TASKS =
   [
+    { assets: %i[refresh code] },
     :eat,
     :migrate,
     { migrate: %i[cards structure core_cards deck_cards redo stamp] },
+
     :reset_cache
   ].freeze
 

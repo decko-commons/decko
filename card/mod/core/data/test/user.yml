@@ -1,5 +1,4 @@
 ---
-
 - :name: Joe Admin
   :type: :user
   :content: I'm number one
@@ -15,6 +14,7 @@
 - :name: Joe User
   :type: :user
   :content: I'm number two
+  :user: Joe Admin
   :subfields:
     :account:
       :subfields:
