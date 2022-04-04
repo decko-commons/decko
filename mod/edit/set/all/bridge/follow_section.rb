@@ -31,7 +31,7 @@ format :html do
   def followers_bridge_link
     cnt = card.followers_count
     link_to_card card.name.field(:followers), "#{cnt} follower#{'s' unless cnt == 1}",
-                 bridge_link_opts(class: "btn btn-sm ml-2 btn-secondary slotter",
+                 bridge_link_opts(class: "btn btn-sm ms-2 btn-secondary slotter",
                                   remote: true, "data-cy": "followers")
   end
 end

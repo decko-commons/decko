@@ -1,0 +1,6 @@
+---
+- :name:
+  - :signup_alert_email
+  - :to
+  :type: :list
+  :content: signups@decko.org

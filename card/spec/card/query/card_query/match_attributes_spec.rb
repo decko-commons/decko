@@ -22,7 +22,7 @@ RSpec.describe Card::Query::CardQuery::MatchAttributes do
 
       it "works like a regexp when prefixed by '~~'" do
         expect(run_query(match: "~~(two|three)").sort)
-          .to eq((cards_matching_two + %w[Three ThreeHeading]).sort)
+          .to eq((cards_matching_two + %w[Three]).sort)
       end
 
       it "ignores initial (single) '~'" do

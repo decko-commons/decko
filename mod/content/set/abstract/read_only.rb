@@ -4,7 +4,7 @@ format :html do
   end
 
   def short_content
-    fa_icon("exclamation-circle", class: "text-muted pr-2") +
+    fa_icon("exclamation-circle", class: "text-muted pe-2") +
       wrap_with(:span, "read-only", class: "text-muted")
   end
 
