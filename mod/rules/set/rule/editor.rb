@@ -37,7 +37,7 @@ format :html do
 
   def pill_rule_link target_view
     opts = bridge_link_opts(class: "edit-rule-link nav-link",
-                            "data-toggle": "pill",
+                            "data-bs-toggle": "pill",
                             "data-cy": "#{setting_title.to_name.key}-pill")
     opts[:path].delete(:layout)
     link_to_view(target_view, (setting_title + short_help_text), opts)
@@ -49,7 +49,7 @@ format :html do
 
   def edit_rule_title
     output [
-      wrap_with(:h5, setting_title, class: "title font-weight-bold")
+      wrap_with(:h5, setting_title, class: "title fw-bold")
       # render_overlay_rule_help
     ]
   end

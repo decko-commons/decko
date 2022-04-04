@@ -4,8 +4,8 @@ class Card
       # Used for the bridge
       class BridgeActRenderer < RelativeActRenderer
         def title
-          wrap_with(:div, left_title, class: "mr-2") +
-            wrap_with(:div, right_title, class: "ml-auto act-summary")
+          wrap_with(:div, left_title, class: "me-2") +
+            wrap_with(:div, right_title, class: "ms-auto act-summary")
         end
 
         def left_title
@@ -25,7 +25,7 @@ class Card
         def bridge_link
           opts = @format.bridge_link_opts(
             path: { act_id: @act.id, view: :bridge_act, act_seq: @args[:act_seq] },
-            "data-toggle": "pill"
+            "data-bs-toggle": "pill"
           )
           add_class opts, "d-flex nav-link"
           opts[:path].delete :layout
