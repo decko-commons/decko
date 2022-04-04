@@ -136,7 +136,7 @@ RSpec.describe Card::Query::CardQuery::RelationalAttributes do
         end
 
         it "finds joe user among card's editors" do
-          expect(run_query(editor_of: "JoeLater")).to eq(["Joe User"])
+          expect(run_query(editor_of: "A")).to eq(["Joe User"])
         end
       end
 

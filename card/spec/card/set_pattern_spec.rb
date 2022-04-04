@@ -26,25 +26,6 @@ end
 
 RSpec.describe Card::Set::Type do
   it_generates name: "Book+*type", from: Card.new(type: "Book")
-
-  before do
-    Card::Auth.as_bot do
-      @mylist = Card.create! name: "MyList", type_id: Card::CardtypeID
-      Card.create name: "MyList+*type+*default", type_id: Card::PointerID
-    end
-    @mylist_card = Card.create name: "ip", type_id: @mylist.id
-  end
-
-  # similar tests for an inherited type of Pointer
-  it "has inherited set module" do
-    expect(@mylist_card.set_modules).to include(Card::Set::Type::Pointer)
-    expect(@mylist_card.set_format_modules(Card::Format::HtmlFormat))
-      .to include(Card::Set::Type::Pointer::HtmlFormat)
-    expect(@mylist_card.set_format_modules(Card::Format::CssFormat))
-      .to include(Card::Set::Type::Pointer::CssFormat)
-    expect(@mylist_card.set_format_modules(Card::Format::JsFormat))
-      .to include(Card::Set::Type::Pointer::JsFormat)
-  end
 end
 
 RSpec.describe Card::Set::AllPlus do
