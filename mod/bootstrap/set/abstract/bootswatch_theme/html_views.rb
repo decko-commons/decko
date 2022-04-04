@@ -11,7 +11,7 @@ format :html do
   end
 
   view :bar_left do
-    class_up "card-title", "my-0 ml-2"
+    class_up "card-title", "my-0 ms-2"
     class_up "media-left", "m-0"
     text_with_image size: :medium, title: "", text: _render_title,
                     media_opts: { class: "align-items-center" }
