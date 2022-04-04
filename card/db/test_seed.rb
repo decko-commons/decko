@@ -21,10 +21,8 @@ class SharedData
       create "signup alert email+*to", "signups@decko.org"
       # CREATE A CARD OF EACH TYPE
 
-
-      binding.pry
       no_samples = %w[user sign_up set number mirror_list mirrored_list file image
-                      customized_bootswatch_skin alias]
+                      customized_bootswatch_skin alias cardtype]
       Card::Auth.createable_types.each do |type|
         next if no_samples.include? type.to_name.key
 
@@ -71,7 +69,6 @@ class SharedData
       cardtype_cards
 
       # for template stuff
-      Card.create! type_id: Card::CardtypeID, name: "UserForm"
       create "UserForm+*type+*structure", "{{+name}} {{+age}} {{+description}}"
 
       Card::Auth.signin "joe_user"
@@ -80,18 +77,15 @@ class SharedData
 
       Card::Auth.signin Card::WagnBotID
 
-      create_cardtype "Book"
       create "Book+*type+*structure", "by {{+author}}, design by {{+illustrator}}"
       create_book "Iliad"
 
-      create_cardtype "Author"
       create_author "Darles Chickens"
       create_author "Stam Broker"
       create_book "Parry Hotter"
       create_book "50 grades of shy"
 
       ## --------- Fruit: creatable by anyone but not readable ---
-      Card.create! type: "Cardtype", name: "Fruit"
       Card.create! name: "Fruit+*type+*create", type: "Pointer", content: "[[Anyone]]"
       Card.create! name: "Fruit+*type+*read", type: "Pointer",
                    content: "[[Administrator]]"
@@ -123,7 +117,6 @@ class SharedData
       ].each do |name, content|
         create name, content
       end
-      create_cardtype "self aware", "[[/new/{{_self|name}}|new]]"
 
       notification_cards
 
@@ -136,11 +129,6 @@ class SharedData
     def cardtype_cards
       # for cql & permissions
       %w[A+C A+D A+E C+A D+A F+A A+B+C].each { |name| create name }
-      ("A".."F").each do |ch|
-        create "Cardtype #{ch}", type_code: "cardtype",
-                                 codename: "cardtype_#{ch.downcase}"
-      end
-      Card::Codename.reset_cache
 
       ("a".."f").each do |ch|
         create "type-#{ch}-card", type_code: "cardtype_#{ch}",

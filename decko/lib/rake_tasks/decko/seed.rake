@@ -8,7 +8,6 @@ namespace :decko do
       ENV["GENERATE_FIXTURES"] = "true"
       %w[reseed eat update seed:clean seed:supplement seed:dump].each do |task|
         puts "invoking: #{task}".green
-        puts "sample: #{Card["Sample Cardtype"]&.id}"
         Rake::Task["decko:#{task}"].invoke
       end
     end
@@ -40,6 +39,7 @@ namespace :decko do
       return unless (ignore = Card["*ignore"])
 
       Card::Auth.as_bot do
+        puts "deleting ignored items: #{ignore.item_names.join ', '}"
         ignore.item_cards.each(&:delete!)
       end
     end
@@ -61,13 +61,6 @@ namespace :decko do
     task make_asset_output_coded: :environment do
       Card::Assets.make_output_coded
     end
-
-    # def clean_files
-    #   puts "clean files"
-    #   Card::Cache.reset_all
-    #   # TODO: generalize to all unnecessary files
-    #   remove_old_machine_files
-    # end
 
     def clean_acts_and_actions
       clean_history
