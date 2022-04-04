@@ -3,6 +3,17 @@ include_set Abstract::BootstrapCodeFile
 def load_stylesheets
   add_bs_stylesheet "variables"
   add_bs_stylesheet "rfs", subdir: "vendor"
+  mixin_stylesheets.each { |name| add_bs_stylesheet name, subdir: "mixins" }
+  main_stylesheets.each { |name| add_bs_stylesheet name }
+  form_stylesheets.each { |name| add_bs_stylesheet name, subdir: "forms" }
+  after_form_stylesheets.each { |name| add_bs_stylesheet name }
+  helper_stylesheets.each { |name| add_bs_stylesheet name, subdir: "helpers" }
+  add_bs_stylesheet "api", subdir: "utilities"
+end
+
+private
+
+def mixin_stylesheets
   %w[
     deprecate
     breakpoints
@@ -29,9 +40,10 @@ def load_stylesheets
     clearfix
     container
     grid
-  ].each do |name|
-    add_bs_stylesheet name, subdir: "mixins"
-  end
+  ]
+end
+
+def main_stylesheets
   %w[
     utilities
     root
@@ -41,9 +53,10 @@ def load_stylesheets
     containers
     grid
     tables
-  ].each do |name|
-    add_bs_stylesheet name
-  end
+  ]
+end
+
+def form_stylesheets
   %w[
     labels
     form-text
@@ -54,10 +67,10 @@ def load_stylesheets
     floating-labels
     input-group
     validation
-  ].each do |name|
-    add_bs_stylesheet name, subdir: "forms"
-  end
+  ]
+end
 
+def after_form_stylesheets
   %w[
     buttons
     transitions
@@ -82,9 +95,10 @@ def load_stylesheets
     spinners
     offcanvas
     placeholders
-  ].each do |name|
-    add_bs_stylesheet name
-  end
+  ]
+end
+
+def helper_stylesheets
   %w[
     clearfix
     colored-links
@@ -95,8 +109,5 @@ def load_stylesheets
     stretched-link
     text-truncation
     vr
-  ].each do |name|
-    add_bs_stylesheet name, subdir: "helpers"
-  end
-  add_bs_stylesheet "api", subdir: "utilities"
+  ]
 end
