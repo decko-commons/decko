@@ -84,7 +84,7 @@ class Card
           case view_perms
           when :none             then true
           when parent.view_perms then true
-          when Symbol            then format.anyone_can?(view_perms)
+          when *Permission::CRUD then format.anyone_can?(view_perms)
           else                        false
           end
         end
