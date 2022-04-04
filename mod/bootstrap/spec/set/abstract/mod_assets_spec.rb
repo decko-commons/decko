@@ -3,10 +3,11 @@
 RSpec.describe Card::Set::Abstract::ModAssets do
   let(:style) { Card[:mod_bootstrap, :style] }
 
-  it "has two groups" do
+  it "has three groups" do
     expect(style.item_names)
       .to eq ["mod: bootstrap+*style+group: bootstrap_decko",
-              "mod: bootstrap+*style+group: libraries"]
+              "mod: bootstrap+*style+group: libraries",
+              "mod: bootstrap+*style+group: select2"]
   end
 
   specify "core view" do

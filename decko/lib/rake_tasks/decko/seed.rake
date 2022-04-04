@@ -6,9 +6,10 @@ namespace :decko do
     task update: :environment do
       ENV["STAMP_MIGRATIONS"] = "true"
       ENV["GENERATE_FIXTURES"] = "true"
-      %w[reseed update seed:clean seed:supplement seed:dump].each do |task|
+      %w[reseed eat update seed:clean seed:supplement seed:dump].each do |task|
+        puts "invoking: #{task}".green
+        puts "sample: #{Card["Sample Cardtype"]&.id}"
         Rake::Task["decko:#{task}"].invoke
-        puts "after #{task}: #{'yeti skin+*asset input'.card_id}".yellow
       end
     end
 
