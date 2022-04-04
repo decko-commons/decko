@@ -21,6 +21,8 @@ class SharedData
       create "signup alert email+*to", "signups@decko.org"
       # CREATE A CARD OF EACH TYPE
 
+
+      binding.pry
       no_samples = %w[user sign_up set number mirror_list mirrored_list file image
                       customized_bootswatch_skin alias]
       Card::Auth.createable_types.each do |type|

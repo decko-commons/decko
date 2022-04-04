@@ -7,12 +7,9 @@ namespace :decko do
       ENV["STAMP_MIGRATIONS"] = "true"
       ENV["GENERATE_FIXTURES"] = "true"
       %w[reseed eat update seed:clean seed:supplement seed:dump].each do |task|
-        if task == "meat"
-          execute_command "rake card:eat -- -v" # , :test
-        else
-          puts "invoking: #{task}"
-          Rake::Task["decko:#{task}"].invoke
-        end
+        puts "invoking: #{task}".green
+        puts "sample: #{Card["Sample Cardtype"]&.id}"
+        Rake::Task["decko:#{task}"].invoke
       end
     end
 
