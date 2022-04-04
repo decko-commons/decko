@@ -44,7 +44,7 @@ format :html do
 
   def dropdown_toggle_link
     link_to(render_title, href: "#", class: "nav-link dropdown-toggle",
-                          "data-toggle": "dropdown")
+                          "data-bs-toggle": "dropdown")
   end
 
   def dropdown_menu

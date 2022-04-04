@@ -15,9 +15,9 @@ module Cardio
 
       def initialize mod: nil, env: nil, user: nil, verbose: nil
         @mod = mod
-        @env = env
+        @env = "test" # env
         @user_id = user&.card_id
-        @verbose = !verbose.nil?
+        @verbose = true # !verbose.nil?
       end
 
       def up
@@ -48,7 +48,7 @@ module Cardio
       def rescuing edible
         yield
       rescue StandardError => e
-        # binding.pry
+        binding.pry
         puts edible
         puts e.message.red
         puts e.backtrace[0..10].join("\n") if @verbose
