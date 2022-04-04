@@ -2,14 +2,12 @@
   - items.each do |item|
     %li.pointer-li.mb-1
       %span.input-group
-        .input-group-prepend.handle
-          %span.input-group-text
-            = icon_tag :reorder
+        %span.input-group-text.handle
+          = icon_tag :reorder
         = text_field_tag "pointer_item", item, class: "pointer-item-text form-control",
                                                "data-options-card": options_card
-        .input-group-append
-          %button.pointer-item-delete.btn.btn-secondary{ type: "button"}
-            = icon_tag :remove
+        %button.pointer-item-delete.btn.btn-secondary{ type: "button"}
+          = icon_tag :remove
 %span.input-group
   %button._pointer-item-add.btn.btn-secondary{ type: "submit" }
     = icon_tag "add"

@@ -102,6 +102,6 @@ format :html do
 
   view :edit_button do
     view = voo.edit == :inline ? :edit_inline : :edit
-    link_to_view view, "Edit", class: "btn btn-sm btn-outline-primary mr-2"
+    link_to_view view, "Edit", class: "btn btn-sm btn-outline-primary me-2"
   end
 end

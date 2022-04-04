@@ -7,7 +7,7 @@ module Cardio
     # https://www.youtube.com/watch?v=VvEa4NSqw7I).
     #
     # https://docs.google.com/document/d/13K_ynFwfpHwc3t5gnLeAkZJZHco1wK063nJNYwU8qfc/edit#
-    class Poop
+    class Plant
       def initialize **args
         @mod = args[:mod]
         @name = args[:name]

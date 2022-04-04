@@ -52,6 +52,7 @@ class Card
       end
 
       def add_to_act options={}
+        puts "add_to_act: #{name}"
         director.appoint self unless @director
         director.head = true unless options[:validating] || options[:as_subcard]
         yield
