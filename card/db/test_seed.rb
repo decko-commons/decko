@@ -8,6 +8,12 @@ class SharedData
 
   CARDTYPE_COUNT = 44
 
+  USERS = [
+    "Joe Admin", "Joe User", "Joe Camel", "Sample User", "No count",
+    "u1", "u2", "u3",
+    "Big Brother", "Optic fan", "Sunglasses fan", "Narcissist"
+  ].freeze
+
   class << self
     # noinspection RubyResolve
     def add_test_data
