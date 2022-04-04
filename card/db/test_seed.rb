@@ -1,43 +1,19 @@
 # -*- encoding : utf-8 -*-
 
-require "timecop"
 require "active_support/core_ext/numeric/time"
 
 # noinspection RubyResolve
 class SharedData
   extend Card::Model::SaveHelper
 
-  USERS = [
-    "Joe Admin", "Joe User", "Joe Camel", "Sample User", "No count",
-    "u1", "u2", "u3",
-    "Big Brother", "Optic fan", "Sunglasses fan", "Narcissist"
-  ].freeze
-
   CARDTYPE_COUNT = 44
 
   class << self
-    def create_user name, args
-      args[:subcards] = account_args args if args[:email]
-
-      if name == "Joe Admin"
-        super name, args
-      else
-        Card::Auth.with("joe_admin") { super name, args }
-      end
-    end
-
-    def account_args hash
-      { "+*account" => { "+*email" => hash.delete(:email),
-                         "+*password" => hash.delete(:password) || "joe_pass" } }
-    end
-
     # noinspection RubyResolve
     def add_test_data
       Card::Cache.reset_all
       Card::Env.reset
       Card::Auth.as_bot
-
-      user_and_role_cards
 
       # generic, shared attribute card
       ensure_card "color"
@@ -155,38 +131,6 @@ class SharedData
                                "yeti skin+image", "*all+*script+*machine output"]
     end
 
-    def user_and_role_cards
-      # Card::Auth.instant_account_activation do
-      create_user "Joe Admin", content: "I'm number one", email: "joe@admin.com"
-        create_user "Joe User", content: "I'm number two", email: "joe@user.com"
-        create_user "Joe Camel", content: "Mr. Buttz", email: "joe@camel.com"
-
-        # data for testing users and account requests
-        create_user "No Count", content: "I got no account"
-        create_user "Sample User", email: "sample@user.com", password: "sample_pass"
-      # end
-
-      # noinspection RubyResolve
-      Card["Joe Admin"].fetch(:roles, new: { type_code: "pointer" })
-                       .items = [Card::AdministratorID, Card::SharkID, Card::HelpDeskID]
-
-      Card["Joe User"].fetch(:roles, new: { type_code: "pointer" })
-                      .items = [Card::SharkID]
-
-      create_user "u1", email: "u1@user.com", password: "u1_pass"
-      create_user "u2", email: "u2@user.com", password: "u2_pass"
-      create_user "u3", email: "u3@user.com", password: "u3_pass"
-
-      r1 = create_role "r1"
-      r2 = create_role "r2"
-      r3 = create_role "r3"
-      r4 = create_role "r4"
-
-      Card["u1"].fetch(:roles, new: { type_code: "pointer" }).items = [r1, r2, r3]
-      Card["u2"].fetch(:roles, new: {}).items = [r1, r2, r4]
-      Card["u3"].fetch(:roles, new: {}).items = [r1, r4, Card::AdministratorID]
-    end
-
     def cardtype_cards
       # for cql & permissions
       %w[A+C A+D A+E C+A D+A F+A A+B+C].each { |name| create name }
@@ -208,61 +152,50 @@ class SharedData
       create "Cardtype E+*type+*default"
     end
 
-    def future_stamp
-      Time.zone.local 2020, 1, 1, 0, 0, 0
-    end
-
     def notification_cards
-      Timecop.freeze(future_stamp - 1.day) do
-        # fwiw Timecop is apparently limited by ruby Time object,
-        # which goes only to 2037 and back to 1900 or so.
-        #  whereas DateTime can represent all dates.
+      # fwiw Timecop is apparently limited by ruby Time object,
+      # which goes only to 2037 and back to 1900 or so.
+      #  whereas DateTime can represent all dates.
 
-        followers = {
-          "John" => ["John Following", "All Eyes On Me"],
-          "Sara" => ["Sara Following", "All Eyes On Me", "Optic+*type",
-                     "Google Glass"],
-          "Big Brother" => ["All Eyes on Me", "Look at me+*self", "Optic+*type",
-                            "lens+*right", "Optic+tint+*type plus right",
-                            ["*all", "*created"], ["*all", "*edited"]],
-          "Optic fan" => ["Optic+*type"],
-          "Sunglasses fan" => ["Sunglasses"],
-          "Narcissist" => [["*all", "*created"], ["*all", "*edited"]]
-        }
+      followers = {
+        "John" => ["John Following", "All Eyes On Me"],
+        "Sara" => ["Sara Following", "All Eyes On Me", "Optic+*type",
+                   "Google Glass"],
+        "Big Brother" => ["All Eyes on Me", "Look at me+*self", "Optic+*type",
+                          "lens+*right", "Optic+tint+*type plus right",
+                          ["*all", "*created"], ["*all", "*edited"]],
+        "Optic fan" => ["Optic+*type"],
+        "Sunglasses fan" => ["Sunglasses"],
+        "Narcissist" => [["*all", "*created"], ["*all", "*edited"]]
+      }
 
-        followers.each do |name, _follow|
-          create_user name, email: "#{name.parameterize}@user.com",
-                            password: "#{name.parameterize}_pass"
-        end
+      create "All Eyes On Me"
+      create "No One Sees Me"
+      create "Look At Me"
+      create_cardtype "Optic"
+      create "Sara Following"
+      create "John Following", "{{+her}}"
+      create "John Following+her"
+      magnifier = create "Magnifier+lens"
 
-        create "All Eyes On Me"
-        create "No One Sees Me"
-        create "Look At Me"
-        create_cardtype "Optic"
-        create "Sara Following"
-        create "John Following", "{{+her}}"
-        create "John Following+her"
-        magnifier = create "Magnifier+lens"
+      Card::Auth.signin "Narcissist"
+      magnifier.update! content: "zoom in"
+      create_optic "Sunglasses", "{{+tint}}{{+lens}}"
 
-        Card::Auth.signin "Narcissist"
-        magnifier.update! content: "zoom in"
-        create_optic "Sunglasses", "{{+tint}}{{+lens}}"
+      Card::Auth.signin "Optic fan"
+      create_optic "Google glass", "{{+price}}"
 
-        Card::Auth.signin "Optic fan"
-        create_optic "Google glass", "{{+price}}"
+      Card::Auth.signin Card::WagnBotID
+      create "Google glass+*self+*follow_fields", ""
+      create "Sunglasses+*self+*follow_fields",
+             "[[#{:nests.cardname}]]\n[[_self+price]]\n[[_self+producer]]"
+      create "Sunglasses+tint"
+      create "Sunglasses+price"
 
-        Card::Auth.signin Card::WagnBotID
-        create "Google glass+*self+*follow_fields", ""
-        create "Sunglasses+*self+*follow_fields",
-               "[[#{:nests.cardname}]]\n[[_self+price]]\n[[_self+producer]]"
-        create "Sunglasses+tint"
-        create "Sunglasses+price"
-
-        followers.each do |name, follow|
-          user = Card[name]
-          follow.each do |f|
-            user.follow(*f)
-          end
+      followers.each do |name, follow|
+        user = Card[name]
+        follow.each do |f|
+          user.follow(*f)
         end
       end
 

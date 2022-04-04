@@ -71,7 +71,7 @@ format :html do
                  path: { view: :bridge,
                          bridge: { tab: :rules_tab },
                          set: Card::Name[safe_name, :type] },
-                 class: css_classes("configure-type-link ml-3", css_class)
+                 class: css_classes("configure-type-link ms-3", css_class)
   end
 
   private

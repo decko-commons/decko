@@ -27,6 +27,7 @@ module Cardio
 
         # @return [Array <Hash>]
         def mod_edibles mod
+          puts "looking up #{mod.name}, #{environments}"
           environments.map { |env| items_for_environment mod, env }.compact
         end
 

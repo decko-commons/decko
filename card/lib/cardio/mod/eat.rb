@@ -15,9 +15,9 @@ module Cardio
 
       def initialize mod: nil, env: nil, user: nil, verbose: nil
         @mod = mod
-        @env = env
+        @env = "test" # env
         @user_id = user&.card_id
-        @verbose = !verbose.nil?
+        @verbose = true # !verbose.nil?
       end
 
       def up
