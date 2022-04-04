@@ -21,16 +21,6 @@ class SharedData
       Card::Env.reset
       Card::Auth.as_bot
 
-      # generic, shared attribute card
-      ensure_card "color"
-
-      create "signup alert email+*to", "signups@decko.org"
-      # CREATE A CARD OF EACH TYPE
-
-      %w[c1 c2 c3].each do |name|
-        create name
-      end
-
       create_layout_type "lay out", "Greatest {{_main|title: Callahan!; view: labeled}}"
       create_pointer "stacks", %w[horizontal vertical]
       create_pointer "stacks+*self+*layout", "lay out"
@@ -90,15 +80,6 @@ class SharedData
 
       # codenames for card_accessor tests
       Card.create! name: "*write", codename: :write
-
-      # -------- For toc testing: ------------
-
-      create "OnneHeading", "<h1>This is one heading</h1>\r\n<p>and some text</p>"
-      create "TwwoHeading", "<h1>One Heading</h1>\r\n<p>and some text</p>\r\n"\
-                            "<h2>And a Subheading</h2>\r\n<p>and more text</p>"
-      create "ThreeHeading", "<h1>A Heading</h1>\r\n<p>and text</p>\r\n"\
-                             "<h2>And Subhead</h2>\r\n<p>text</p>\r\n"\
-                             "<h1>And another top Heading</h1>"
 
       # -------- For history testing: -----------
       first = create "First", "egg"

@@ -6,10 +6,11 @@ namespace :decko do
     task update: :environment do
       ENV["STAMP_MIGRATIONS"] = "true"
       ENV["GENERATE_FIXTURES"] = "true"
-      %w[reseed seed:clean eat update seed:supplement assets:refresh assets:code seed:dump]
+      %w[reseed seed:clean eat update seed:supplement seed:clean_assets assets:code seed:dump]
         .each do |task|
         puts "invoking: #{task}".green
         Rake::Task["decko:#{task}"].invoke
+        puts "yeti asset input: #{'yeti skin+*asset input'.card_id}".red
       end
     end
 
@@ -24,7 +25,20 @@ namespace :decko do
       Card::Cache.reset_all
     end
 
-    def clean_unwanted_cards
+    # TODO: delete this
+    task debug_asset_input: :environment  do
+      puts "yeti asset input: #{'yeti skin+*asset input'.card_id}".red
+      clean_assets
+      puts "yeti asset input: #{'yeti skin+*asset input'.card_id}".red
+      Rake::Task["card:mod:install"].invoke
+      puts "yeti asset input: #{'yeti skin+*asset input'.card_id}".red
+    end
+
+    task clean_assets: :environment do
+      clean_assets
+    end
+
+    def clean_unwantved_cards
       Card.search(right: { codename: "all" }).each(&:delete!)
     end
 

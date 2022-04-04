@@ -1,3 +1,8 @@
+---
 - user
 - cardtype
 - sample
+- :name: colors
+- :name: c1
+- :name: c2
+- :name: c3

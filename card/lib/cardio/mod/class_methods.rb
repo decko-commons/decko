@@ -79,12 +79,14 @@ module Cardio
       def ensure_asset_lists
         hash = { script: [], style: [] }
         yield hash
+        puts "yeti asset input: #{'yeti skin+*asset input'.card_id}".red
         puts "updating asset lists"
         Card[:all, :script].update! content: hash[:script].compact
         Card[:style_mods].update! content: hash[:style].compact
 
+        puts "yeti asset input: #{'yeti skin+*asset input'.card_id}".red
         puts "refreshing assets"
-        Card::Assets.refresh_assets force: true
+        # Card::Assets.refresh_assets force: true
       end
 
       # it would be nice if this were easier...
