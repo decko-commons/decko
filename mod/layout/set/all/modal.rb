@@ -1,6 +1,6 @@
 format :html do
   MODAL_SIZE = { small: "sm", medium: nil, large: "lg", full: "full" }.freeze
-  MODAL_CLOSE_OPTS = { "data-dismiss": "modal",
+  MODAL_CLOSE_OPTS = { "data-bs-dismiss": "modal",
                        "data-cy": "close-modal" }.freeze
 
   wrapper :modal do |opts={}|
@@ -57,7 +57,7 @@ format :html do
     [close_modal_window, pop_out_modal_window]
   end
 
-  wrapper :modal_menu, :div, class: "modal-menu ml-auto"
+  wrapper :modal_menu, :div, class: "modal-menu ms-auto"
 
   view :modal_title, unknown: true do
     ""
@@ -65,8 +65,8 @@ format :html do
 
   view :modal_footer, unknown: true do
     button_tag "Close",
-               class: "btn-xs _close-modal float-right",
-               "data-dismiss" => "modal"
+               class: "btn-xs _close-modal float-end",
+               "data-bs-dismiss" => "modal"
   end
 
   view :modal_link do
@@ -110,11 +110,11 @@ format :html do
 
   def close_modal_window
     link_to icon_tag(:close), path: "",
-                              class: "_close-modal close",
-                              "data-dismiss": "modal"
+                              class: "_close-modal btn-close",
+                              "data-bs-dismiss": "modal"
   end
 
   def pop_out_modal_window
-    link_to icon_tag(:new_window), path: {}, class: "pop-out-modal close"
+    link_to icon_tag(:new_window), path: {}, class: "pop-out-modal btn-close"
   end
 end

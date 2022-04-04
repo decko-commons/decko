@@ -3,6 +3,7 @@ require_relative "alias"
 
 CARD_TASKS =
   [
+    :eat,
     :migrate,
     { migrate: %i[cards structure core_cards deck_cards redo stamp] },
     :reset_cache
