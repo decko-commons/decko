@@ -198,40 +198,40 @@ class SharedData
           user.follow(*f)
         end
       end
-    end
 
-    # capitalized names so that they don't interfere with checks for the verbs
-    create "Created card", content: "new content"
-    update "Created card", name: "Updated card", content: "changed content",
-                           type: :pointer, skip: :validate_renaming
-    create "Created card", content: "new content"
-    card = create "Deleted card", content: "old content"
-    card.delete
+      # capitalized names so that they don't interfere with checks for the verbs
+      create "Created card", content: "new content"
+      update "Created card", name: "Updated card", content: "changed content",
+                             type: :pointer, skip: :validate_renaming
+      create "Created card", content: "new content"
+      card = create "Deleted card", content: "old content"
+      card.delete
 
-    Card::Auth.with "Joe User" do
-      [
-        ["card with fields", "field 1", "field 2"],
-        ["card with fields and admin fields", "field 1", "admin field 1"],
-        ["admin card with fields and admin fields", "field 1", "admin field 1"],
-        ["admin card with admin fields", "admin field 1", "admin field 2"]
-      ].each do |name, f1, f2|
-        create name,
-               content: "main content {{+#{f1}}}  {{+#{f2}}}",
-               subcards: { "+#{f1}" => "content of #{f1}",
-                           "+#{f2}" => "content of #{f2}" }
+      Card::Auth.with "Joe User" do
+        [
+          ["card with fields", "field 1", "field 2"],
+          ["card with fields and admin fields", "field 1", "admin field 1"],
+          ["admin card with fields and admin fields", "field 1", "admin field 1"],
+          ["admin card with admin fields", "admin field 1", "admin field 2"]
+        ].each do |name, f1, f2|
+          create name,
+                 content: "main content {{+#{f1}}}  {{+#{f2}}}",
+                 subcards: { "+#{f1}" => "content of #{f1}",
+                             "+#{f2}" => "content of #{f2}" }
+        end
       end
-    end
 
-    Card::Auth.as_bot do
-      [
-        ["admin card with fields and admin fields", :self],
-        ["admin card with admin fields", :self],
-        ["admin field 1", :right],
-        ["admin field 2", :right]
-      ].each do |name, rule_set|
-        create [name, rule_set, :read], type: "Pointer", content: "[[Administrator]]"
+      Card::Auth.as_bot do
+        [
+          ["admin card with fields and admin fields", :self],
+          ["admin card with admin fields", :self],
+          ["admin field 1", :right],
+          ["admin field 2", :right]
+        ].each do |name, rule_set|
+          create [name, rule_set, :read], type: "Pointer", content: "[[Administrator]]"
+        end
+        create ["field 1", :right, :read], type: "Pointer", content: "[[Anyone]]"
       end
-      create ["field 1", :right, :read], type: "Pointer", content: "[[Anyone]]"
     end
   end
 
