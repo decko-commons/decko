@@ -56,7 +56,7 @@ event :setup_as_bot, before: :check_permissions, on: :create, when: :setup? do
 end
 
 event :setup_first_user, :prepare_to_store, on: :create, when: :setup? do
-  subcard "signup alert email+*to", content: name
+  subcard %i[signup_alert_email to].cardname, content: name
   subfield :roles, content: roles_for_first_user
 end
 

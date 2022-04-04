@@ -90,10 +90,7 @@ decko.filter = (el) ->
     # only has effect if there is a data-options-card value
 
   @initSelectField = (field) ->
-    field.find("select").select2
-      containerCssClass: ":all:"
-      width: "auto"
-      dropdownAutoWidth: "true"
+    decko.initSelect2(field.find("select"))
 
   @activeField = (category) ->
     @activeContainer.find("._filter-input-#{category}")
@@ -131,7 +128,7 @@ decko.filter = (el) ->
   # if we just use simple "val", the display doesn't update correctly
   @setSelect2Val = (select, value) ->
     value = [value] if select.attr("multiple") && !Array.isArray(value)
-    select.select2 "val", value
+    select.select2.val(value)
 
   @setTextInputVal = (input, value) ->
     input.val value

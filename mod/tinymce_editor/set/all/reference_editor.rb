@@ -24,7 +24,7 @@ format :html do
   end
 
   def apply_tm_data_dismiss data
-    data["data-dismiss"] = "modal" if modal_tm_snippet_editor?
+    data["data-bs-dismiss"] = "modal" if modal_tm_snippet_editor?
   end
 
   def apply_tm_data_index data

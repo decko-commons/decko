@@ -112,7 +112,7 @@ RSpec.describe Card::Query::CardQuery::RelationalAttributes do
       describe "edited_by/editor_of" do
         it "finds card edited by joe using subquery" do
           expect(run_query(edited_by: { match: "Joe User" }))
-            .to include("JoeLater", "JoeNow")
+            .to include("A", "B")
         end
 
         it "finds card edited by Decko Bot" do
@@ -127,12 +127,12 @@ RSpec.describe Card::Query::CardQuery::RelationalAttributes do
         end
 
         it "does not give duplicate results for multiple edits" do
-          c = Card["JoeNow"]
+          c = Card["A"]
           c.content = "testagagin"
           c.save
           c.content = "test3"
           c.save!
-          expect(run_query(edited_by: "Joe User")).to include("JoeLater", "JoeNow")
+          expect(run_query(edited_by: "Joe User")).to include("A", "B")
         end
 
         it "finds joe user among card's editors" do

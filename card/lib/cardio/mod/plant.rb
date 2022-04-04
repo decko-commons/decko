@@ -1,13 +1,9 @@
 module Cardio
   class Mod
-    # POOP (or Plain Old OutPut) is our nickname for our standard card YAML,
-    # used to define cards associated with mods.
-    #
-    # Monkeys throw it around, and Sharks can eat it (if you believe this guy:
-    # https://www.youtube.com/watch?v=VvEa4NSqw7I).
+    # Plant YAML, is used to define cards associated with mods.
     #
     # https://docs.google.com/document/d/13K_ynFwfpHwc3t5gnLeAkZJZHco1wK063nJNYwU8qfc/edit#
-    class Poop
+    class Plant
       def initialize **args
         @mod = args[:mod]
         @name = args[:name]
@@ -19,7 +15,9 @@ module Cardio
 
       # @return [Array <Hash>]
       def new_data
-        @new_data ||= cards.map { |c| c.export_hash field_tags: field_tag_marks }
+        @new_data ||= cards.map do |c|
+          c.export_hash field_tags: field_tag_marks
+        end
       end
 
       def field_tag_marks

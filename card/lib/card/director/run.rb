@@ -97,6 +97,7 @@ class Card
         end
       end
 
+
       def run_subcard_stages stage
         each_subcard_director stage do |subdir|
           condition = block_given? ? yield(subdir) : true
