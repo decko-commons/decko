@@ -6,3 +6,39 @@
 - :name: c1
 - :name: c2
 - :name: c3
+- :name: Z
+  :content: I'm here to be referenced to
+- :name: A
+  :content: Alpha [[Z]]
+  :user: Joe User
+- :name: B
+  :content: Beta {{Z}}
+  :user: Joe User
+- :name: T
+  :content: Theta
+- :name: X
+  :content: "[[A]] [[A+B]] [[T]]"
+- :name: Y
+  :content: "{{B}} {{A+B}} {{A}} {{T}}"
+- :name:
+  - A
+  - B
+  :content: AlphaBeta
+- :name:
+  - A
+  - B
+  - Y
+  - Z
+  :content: more letters
+- :name: Link to unknown
+  :content: "[[Mister X]]"
+- :name:
+  - One
+  - Two
+  - Three
+- :name:
+  - Four
+  - One
+  - Five
+- :name: basicname
+  :content: basiccontent

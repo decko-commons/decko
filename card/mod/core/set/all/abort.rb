@@ -46,7 +46,7 @@ def abort_success
     @supercard.director.subdirectors.delete self
     expire :soft
   end
-  Director.delete director
+  # Director.delete director
   true
 end
 

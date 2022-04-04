@@ -21,39 +21,6 @@ class SharedData
       Card::Env.reset
       Card::Auth.as_bot
 
-      create_layout_type "lay out", "Greatest {{_main|title: Callahan!; view: labeled}}"
-      create_pointer "stacks", %w[horizontal vertical]
-      create_pointer "stacks+*self+*layout", "lay out"
-      create "horizontal"
-      create_pointer "vertical"
-
-      create_pointer "friends+*right+*default"
-      create_search_type "friends+*right+*content options", '{"type":"User"}'
-
-      create_pointer "joes"
-      create "joes+*self+*input type", "filtered list"
-      create "joes+*self+*content options", ["Joe Admin", "Joe User", "Joe Camel"]
-
-      # cards for rename_test
-      # FIXME: could probably refactor these..
-      [
-        ["Z", "I'm here to be referenced to"],
-        ["A", "Alpha [[Z]]"],
-        ["B", "Beta {{Z}}"],
-        %w[T Theta],
-        ["X", "[[A]] [[A+B]] [[T]]"],
-        ["Y", "{{B}} {{A+B}} {{A}} {{T}}"],
-        ["A+B", "AlphaBeta"],
-        ["A+B+Y+Z", "more letters"],
-        ["Link to unknown", "[[Mister X]]"]
-      ].each do |name, content|
-        create name, content
-      end
-
-      create "One+Two+Three"
-      create "Four+One+Five"
-      create "basicname", "basiccontent"
-
       cardtype_cards
 
       # for template stuff

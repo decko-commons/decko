@@ -6,7 +6,7 @@ namespace :decko do
     task update: :environment do
       ENV["STAMP_MIGRATIONS"] = "true"
       ENV["GENERATE_FIXTURES"] = "true"
-      %w[reseed seed:clean eat update seed:supplement assets:code seed:dump]
+      %w[reseed seed:clean eat update seed:supplement seed:clean_assets assets:code seed:dump]
         .each do |task|
         puts "invoking: #{task}".green
         Rake::Task["decko:#{task}"].invoke
@@ -38,9 +38,9 @@ namespace :decko do
       clean_assets
     end
 
-    def clean_unwantved_cards
-      Card.search(right: { codename: "all" }).each(&:delete!)
-    end
+    # def clean_unwantved_cards
+    #   Card.search(right: { codename: "all" }).each(&:delete!)
+    # end
 
     # TODO: obviate this
     def delete_ignored_cards

@@ -1,0 +1,18 @@
+---
+- :name: lay out
+  :type: :layout_type
+  :content: 'Greatest {{_main|title: Callahan!; view: labeled}}'
+- :name: stacks
+  :type: :pointer
+  :content: |-
+    horizontal
+    vertical
+- :name:
+  - stacks
+  - :self
+  - :layout
+  :type: :pointer
+  :content: lay out
+- :name: horizontal
+- :name: vertical
+  :type: :pointer
