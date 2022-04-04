@@ -23,9 +23,8 @@
             // SORTING
             .sort-in-filter-form
               %i.fa.fa-sort.filter-section-icon
-              .input-group.input-group-sm.flex-nowrap.sort-input-group.mb-2.mr-2
-                .input-group-prepend
-                  %span.input-group-text.text-muted Sort
+              .input-group.input-group-sm.flex-nowrap.sort-input-group.mb-2.me-2
+                %span.input-group-text.text-muted Sort
                 = sort_input_field
 
           // FILTERING
@@ -35,10 +34,10 @@
               // FILTERS inserted here
 
               // ADD FILTER DROPDOWN
-              .dropdown._add-filter-dropdown.mr-2
+              .dropdown._add-filter-dropdown.me-2
                 %button.btn.btn-sm.btn-primary._filter-dropdown.dropdown-toggle{"aria-expanded": "false",
                                                                                 "aria-haspopup": "true",
-                                                                                "data-toggle": "dropdown",
+                                                                                "data-bs-toggle": "dropdown",
                                                                                 type: "button" }
                   More Filters
                 .dropdown-menu

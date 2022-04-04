@@ -6,71 +6,59 @@ namespace :decko do
     task update: :environment do
       ENV["STAMP_MIGRATIONS"] = "true"
       ENV["GENERATE_FIXTURES"] = "true"
-      %w[reseed update seed:clean seed:supplement seed:dump].each do |task|
+      %w[reseed seed:clean eat update seed:supplement seed:clean_assets assets:code seed:dump]
+        .each do |task|
+        puts "invoking: #{task}".green
         Rake::Task["decko:#{task}"].invoke
-        puts "after #{task}: #{'yeti skin+*asset input'.card_id}".yellow
+        puts "yeti asset input: #{'yeti skin+*asset input'.card_id}".red
       end
     end
 
     desc "remove unneeded cards, acts, actions, changes, and references"
     task clean: :environment do
-      Card::Cache.reset_all
-      clean_cards
-      clean_acts_and_actions
-      Card::Cache.reset_all
-    end
-
-    def clean_cards
-      puts "clean cards"
-      # change actors so we can delete unwanted user cards that made changes
       Card::Act.update_all actor_id: Card::WagnBotID
       delete_ignored_cards
-      refresh_assets
-      Card::Assets.make_output_coded
-      # clean_unwanted_cards
+      clean_history
+      clean_time_and_user_stamps
+      clean_assets
       Card.empty_trash
+      Card::Cache.reset_all
     end
 
-    def clean_unwanted_cards
-      Card.search(right: { codename: "all" }).each(&:delete!)
+    # TODO: delete this
+    task debug_asset_input: :environment  do
+      puts "yeti asset input: #{'yeti skin+*asset input'.card_id}".red
+      clean_assets
+      puts "yeti asset input: #{'yeti skin+*asset input'.card_id}".red
+      Rake::Task["card:mod:install"].invoke
+      puts "yeti asset input: #{'yeti skin+*asset input'.card_id}".red
     end
 
+    task clean_assets: :environment do
+      clean_assets
+    end
+
+    # def clean_unwantved_cards
+    #   Card.search(right: { codename: "all" }).each(&:delete!)
+    # end
+
+    # TODO: obviate this
     def delete_ignored_cards
       return unless (ignore = Card["*ignore"])
 
       Card::Auth.as_bot do
+        puts "deleting ignored items: #{ignore.item_names.join ', '}"
         ignore.item_cards.each(&:delete!)
       end
     end
 
-    task refresh_assets: :environment do
-      refresh_assets
-    end
-
-    def refresh_assets
-      puts "refresh assets"
+    # TODO: obviate this
+    def clean_assets
+      puts "delete asset inputs"
       Card::Auth.as_bot do
         Card.where(right_id: :asset_input.card_id).delete_all
       end
       Card::Cache.reset_all
-      Cardio.config.compress_assets = true
-      Card::Assets.refresh_assets force: true
-    end
-
-    task make_asset_output_coded: :environment do
-      Card::Assets.make_output_coded
-    end
-
-    # def clean_files
-    #   puts "clean files"
-    #   Card::Cache.reset_all
-    #   # TODO: generalize to all unnecessary files
-    #   remove_old_machine_files
-    # end
-
-    def clean_acts_and_actions
-      clean_history
-      clean_time_and_user_stamps
     end
 
     def clean_history

@@ -9,7 +9,7 @@ format :html do
   view :type_info do
     return unless card.type_code != :basic
 
-    wrap_with :span, class: "type-info float-right" do
+    wrap_with :span, class: "type-info float-end" do
       link_to_card card.type_name, nil, class: "navbar-link"
     end
   end

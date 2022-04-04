@@ -18,7 +18,7 @@ format :html do
     link_to_card target, text,
                  path: { action: :update, card: { content: "[[#{card.name}]]" },
                          customize: true, theme: theme },
-                 class: "btn btn-sm btn-outline-primary mr-2"
+                 class: "btn btn-sm btn-outline-primary me-2"
   end
 
   view :box_middle do

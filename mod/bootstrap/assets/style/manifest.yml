@@ -13,8 +13,19 @@ libraries:
     - font_awesome.css
     - material_icons.css
     - bootstrap_colorpicker.scss
-    - ../../vendor/select2/dist/css/select2.css
-    - select2_bootstrap.scss
     - ../../vendor/bootstrap-colorpicker/src/sass/_colorpicker.scss
+
+select2:
+  items:
+    - ../../vendor/select2/dist/css/select2.css
+    - ../../vendor/select2-bootstrap-5-theme/src/_variables.scss
+    - ../../vendor/select2-bootstrap-5-theme/src/_layout.scss
+    - ../../vendor/select2-bootstrap-5-theme/src/_dropdown.scss
+    - ../../vendor/select2-bootstrap-5-theme/src/_single.scss
+    - ../../vendor/select2-bootstrap-5-theme/src/_multiple.scss
+    - ../../vendor/select2-bootstrap-5-theme/src/_disabled.scss
+    - ../../vendor/select2-bootstrap-5-theme/src/_input-group.scss
+    - ../../vendor/select2-bootstrap-5-theme/src/_validation.scss
+    - ../../vendor/select2-bootstrap-5-theme/src/_sizing.scss
 
 

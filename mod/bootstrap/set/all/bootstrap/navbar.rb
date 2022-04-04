@@ -26,13 +26,17 @@ format :html do
 
   def navbar_nocollapse content, nav_opts
     # content = wrap_with(:div, content)
-    wrap_with :nav, content, nav_opts
+    wrap_with :nav, nav_opts do
+      wrap_with :div, content, class: "container-fluid"
+    end
   end
 
   def navbar_responsive id, content, opts, nav_opts
     opts[:toggle_align] ||= :right
     wrap_with :nav, nav_opts do
-      haml :navbar_responsive, id: id, content: content, opts: opts
+      wrap_with :div, class: "container-fluid" do
+        haml :navbar_responsive, id: id, content: content, opts: opts
+      end
     end
   end
 

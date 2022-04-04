@@ -1,0 +1,32 @@
+---
+- :name: UserForm
+  :type: :cardtype
+- :name: Book
+  :type: :cardtype
+- :name: Author
+  :type: :cardtype
+
+- :name:
+  - UserForm
+  - :type
+  - :structure
+  :type: :nest_list
+  :content: "{{+name}} {{+age}} {{+description}}"
+- :name:
+  - Book
+  - :type
+  - :structure
+  :type: :nest_list
+  :content: by {{+author}}, design by {{+illustrator}}
+
+- :name: Stam Broker
+  :type: Author
+- :name: Darles Chickens
+  :type: Author
+
+- :name: Iliad
+  :type: Book
+- :name: Parry Hotter
+  :type: Book
+- :name: 50 grades of shy
+  :type: Book

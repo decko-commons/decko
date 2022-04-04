@@ -20,7 +20,7 @@ format :js do
   end
 
   def try_compress input
-    Uglifier.compile(input)
+    Uglifier.new(harmony: true).compile(input)
   rescue StandardError => e
     # CoffeeScript is compiled in a view
     # If there is a CoffeeScript syntax error we get the rescued view here
