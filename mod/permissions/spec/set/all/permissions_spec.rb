@@ -344,7 +344,7 @@ RSpec.describe Card::Set::All::Permissions do
   describe "cardtypes and permissions" do
     specify "cardtype b has create role r1" do
       expect(Card["Cardtype B+*type+*create"])
-        .to have_db_content("r3").and have_type(:pointer)
+        .to have_db_content("r3").and have_type(:list)
     end
 
     example "changing cardtype needs new cardtype's create permission", with_user: "u2" do

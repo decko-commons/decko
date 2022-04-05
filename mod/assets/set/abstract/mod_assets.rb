@@ -153,3 +153,12 @@ end
 def raise_manifest_error msg
   raise Card::Error, "invalid manifest format in #{manifest_path}: #{msg}"
 end
+
+format :html do
+  def map_remote_items
+    remote_items = card.manifest_group_items "remote"
+    return unless remote_items
+
+    remote_items.map { |args| yield args.clone }
+  end
+end
