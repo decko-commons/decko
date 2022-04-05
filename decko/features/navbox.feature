@@ -6,8 +6,8 @@ Feature: Navbox
   Scenario: quick search
     Given I go to the homepage
     When I enter "Joe" in the navbox
-    Then I should see "Joe Camel"
-    And I should see "JoeNow"
+    Then I should see "Joe Admin"
+    And I should see "Joe Camel"
     Then I press enter to search
     Then I should see "Search results for: Joe"
 
