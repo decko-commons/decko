@@ -6,18 +6,16 @@ namespace :decko do
     task update: :environment do
       ENV["STAMP_MIGRATIONS"] = "true"
       ENV["GENERATE_FIXTURES"] = "true"
-      %w[reseed seed:clean eat update seed:supplement seed:clean_assets assets:code seed:dump]
+      %w[reseed seed:clean eat update seed:clean_assets assets:code seed:dump]
         .each do |task|
         puts "invoking: #{task}".green
         Rake::Task["decko:#{task}"].invoke
-        puts "yeti asset input: #{'yeti skin+*asset input'.card_id}".red
       end
     end
 
     desc "remove unneeded cards, acts, actions, changes, and references"
     task clean: :environment do
       Card::Act.update_all actor_id: Card::WagnBotID
-      delete_ignored_cards
       clean_history
       clean_time_and_user_stamps
       clean_assets
@@ -36,20 +34,6 @@ namespace :decko do
 
     task clean_assets: :environment do
       clean_assets
-    end
-
-    # def clean_unwantved_cards
-    #   Card.search(right: { codename: "all" }).each(&:delete!)
-    # end
-
-    # TODO: obviate this
-    def delete_ignored_cards
-      return unless (ignore = Card["*ignore"])
-
-      Card::Auth.as_bot do
-        puts "deleting ignored items: #{ignore.item_names.join ', '}"
-        ignore.item_cards.each(&:delete!)
-      end
     end
 
     # TODO: obviate this
