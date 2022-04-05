@@ -6,14 +6,6 @@ require "active_support/core_ext/numeric/time"
 class SharedData
   extend Card::Model::SaveHelper
 
-  CARDTYPE_COUNT = 44
-
-  USERS = [
-    "Joe Admin", "Joe User", "Joe Camel", "Sample User", "No count",
-    "u1", "u2", "u3",
-    "Big Brother", "Optic fan", "Sunglasses fan", "Narcissist"
-  ].freeze
-
   class << self
     # noinspection RubyResolve
     def add_test_data
@@ -32,29 +24,6 @@ class SharedData
         "Sunglasses fan" => ["Sunglasses"],
         "Narcissist" => [["*all", "*created"], ["*all", "*edited"]]
       }
-
-      create "All Eyes On Me"
-      create "No One Sees Me"
-      create "Look At Me"
-      create_cardtype "Optic"
-      create "Sara Following"
-      create "John Following", "{{+her}}"
-      create "John Following+her"
-      magnifier = create "Magnifier+lens"
-
-      Card::Auth.signin "Narcissist"
-      magnifier.update! content: "zoom in"
-      create_optic "Sunglasses", "{{+tint}}{{+lens}}"
-
-      Card::Auth.signin "Optic fan"
-      create_optic "Google glass", "{{+price}}"
-
-      Card::Auth.signin Card::WagnBotID
-      create "Google glass+*self+*follow_fields", ""
-      create "Sunglasses+*self+*follow_fields",
-             "[[#{:nests.cardname}]]\n[[_self+price]]\n[[_self+producer]]"
-      create "Sunglasses+tint"
-      create "Sunglasses+price"
 
       followers.each do |name, follow|
         user = Card[name]
