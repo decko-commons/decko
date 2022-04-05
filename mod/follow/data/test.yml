@@ -33,6 +33,7 @@
 - :name:
   - Sunglasses
   - price
-- rules
 - :name: Created card
   :content: new content
+- rules
+- with_fields
