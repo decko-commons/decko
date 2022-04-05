@@ -13,32 +13,6 @@ class SharedData
       Card::Env.reset
       Card::Auth.as_bot
 
-      followers = {
-        "John" => ["John Following", "All Eyes On Me"],
-        "Sara" => ["Sara Following", "All Eyes On Me", "Optic+*type",
-                   "Google Glass"],
-        "Big Brother" => ["All Eyes on Me", "Look at me+*self", "Optic+*type",
-                          "lens+*right", "Optic+tint+*type plus right",
-                          ["*all", "*created"], ["*all", "*edited"]],
-        "Optic fan" => ["Optic+*type"],
-        "Sunglasses fan" => ["Sunglasses"],
-        "Narcissist" => [["*all", "*created"], ["*all", "*edited"]]
-      }
-
-      followers.each do |name, follow|
-        user = Card[name]
-        follow.each do |f|
-          user.follow(*f)
-        end
-      end
-
-      # capitalized names so that they don't interfere with checks for the verbs
-      create "Created card", content: "new content"
-      update "Created card", name: "Updated card", content: "changed content",
-                             type: :pointer, skip: :validate_renaming
-      create "Created card", content: "new content"
-      card = create "Deleted card", content: "old content"
-      card.delete
 
       Card::Auth.with "Joe User" do
         [

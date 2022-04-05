@@ -1,46 +1,5 @@
 ---
-- :name: John
-  :type: :user
-  :subfields:
-    :account:
-      :subfields:
-        :email: john@user.com
-        :password: john_pass
-- :name: Sara
-  :type: :user
-  :subfields:
-    :account:
-      :subfields:
-        :email: sara@user.com
-        :password: sara_pass
-- :name: Big Brother
-  :type: :user
-  :subfields:
-    :account:
-      :subfields:
-        :email: big-brother@user.com
-        :password: big-brother_pass
-- :name: Optic fan
-  :type: :user
-  :subfields:
-    :account:
-      :subfields:
-        :email: optic-fan@user.com
-        :password: optic-fan_pass
-- :name: Sunglasses fan
-  :type: :user
-  :subfields:
-    :account:
-      :subfields:
-        :email: sunglasses-fan@user.com
-        :password: sunglasses-fan_pass
-- :name: Narcissist
-  :type: :user
-  :subfields:
-    :account:
-      :subfields:
-        :email: narcissist@user.com
-        :password: narcissist_pass
+- users
 - :name: Optic
   :type: :cardtype
 - :name: All Eyes On Me
@@ -63,21 +22,19 @@
 - :name: Sunglasses
   :type: Optic
   :content: "{{+tint}}{{+lens}}"
+  :user: Narcissist
 - :name: Google glass
   :type: Optic
   :user: Optic fan
   :content: "{{+price}}"
+
 - :name:
-  - Google glass
-  - :self
-  - :follow_fields
-  :type: :list
+    - Sunglasses
+    - tint
 - :name:
-  - Sunglasses
-  - :self
-  - :follow_fields
-  :type: :list
-  :content: |-
-    *nests
-    _self+price
-    _self+producer
+    - Sunglasses
+    - price
+- rules
+
+- :name: Created card
+  :content: new content
