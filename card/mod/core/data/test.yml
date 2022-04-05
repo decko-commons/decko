@@ -42,3 +42,14 @@
   - Five
 - :name: basicname
   :content: basiccontent
+- :name: Blue
+- :name: blue includer 1
+  :content: "{{Blue}}"
+- :name: blue includer 2
+  :content: "{{blue|closed;other:stuff}}"
+- :name: blue linker 1
+  :content: "[[Blue]]"
+- :name: blue linker 2
+  :content: "[[blue]]"
+- :name: "*write"
+  :codename: :write

@@ -17,7 +17,6 @@ namespace :decko do
     desc "remove unneeded cards, acts, actions, changes, and references"
     task clean: :environment do
       Card::Act.update_all actor_id: Card::WagnBotID
-      delete_ignored_cards
       clean_history
       clean_time_and_user_stamps
       clean_assets
@@ -36,20 +35,6 @@ namespace :decko do
 
     task clean_assets: :environment do
       clean_assets
-    end
-
-    # def clean_unwantved_cards
-    #   Card.search(right: { codename: "all" }).each(&:delete!)
-    # end
-
-    # TODO: obviate this
-    def delete_ignored_cards
-      return unless (ignore = Card["*ignore"])
-
-      Card::Auth.as_bot do
-        puts "deleting ignored items: #{ignore.item_names.join ', '}"
-        ignore.item_cards.each(&:delete!)
-      end
     end
 
     # TODO: obviate this
