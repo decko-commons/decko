@@ -20,20 +20,6 @@ RSpec.describe Card::Set::Abstract::Pointer do
       end
     end
 
-    let(:new_type) do
-      Card::Auth.as_bot do
-        mylist = Card.create! name: "MyList", type_id: Card::CardtypeID
-        Card.create name: "MyList+*type+*default", type_id: Card::PointerID
-        mylist
-      end
-    end
-
-    let(:inherit_pointer) do
-      Card::Auth.as_bot do
-        Card.create name: "ip", type_id: new_type.id, content: "[[#{item_name}]]"
-      end
-    end
-
     it "includes nonexisting card in radio options" do
       common_with = { type: "radio",
                       value: "nonexistingcardmustnotexistthisistherule",
@@ -42,13 +28,10 @@ RSpec.describe Card::Set::Abstract::Pointer do
       expect(pointer.format.render_radio)
         .to have_tag "input.pointer-radio-button",
                      with: common_with.merge(name: "pointer_radio_button-tp")
-      expect(inherit_pointer.format.render_radio)
-        .to have_tag "input.pointer-radio-button",
-                     with: common_with.merge(name: "pointer_radio_button-ip")
     end
 
     it "includes nonexisting card in checkbox options" do
-      expect(inherit_pointer.format.render_checkbox)
+      expect(pointer.format.render_checkbox)
         .to have_tag "input.pointer-checkbox-button",
                      with: {
                        type: "checkbox",
@@ -61,16 +44,12 @@ RSpec.describe Card::Set::Abstract::Pointer do
     it "includes nonexisting card in select options" do
       option_html = "option[value='#{item_name}'][selected='selected']"
       assert_view_select pointer.format.render_select, option_html, item_name
-      assert_view_select inherit_pointer.format.render_select, option_html,
-                         item_name
     end
 
     it "includes nonexisting card in multiselect options" do
       option_html = "option[value='#{item_name}'][selected='selected']"
       assert_view_select pointer.format.render_multiselect, option_html,
                          item_name
-      assert_view_select inherit_pointer.format.render_multiselect,
-                         option_html, item_name
     end
   end
 

@@ -1,0 +1,24 @@
+- :name: Fruit
+  :type: :cardtype
+- :name: self aware
+  :type: :cardtype
+  :content: "[[/new/{{_self|name}}|new]]"
+- :name: Cardtype A
+  :type: :cardtype
+  :codename: :cardtype_a
+- :name: Cardtype B
+  :type: :cardtype
+  :codename: :cardtype_b
+- :name: Cardtype C
+  :type: :cardtype
+  :codename: :cardtype_c
+- :name: Cardtype D
+  :type: :cardtype
+  :codename: :cardtype_d
+- :name: Cardtype E
+  :type: :cardtype
+  :codename: :cardtype_e
+- :name: Cardtype F
+  :type: :cardtype
+  :codename: :cardtype_f
+

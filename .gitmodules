@@ -28,3 +28,6 @@
 [submodule "card-mod-platypus/vendor/capybara-select2"]
 	path = mod/platypus/vendor/capybara-select2
 	url = https://github.com/brunocavalcante/capybara-select2
+[submodule "mod/bootstrap/vendor/select2-bootstrap-5-theme"]
+	path = mod/bootstrap/vendor/select2-bootstrap-5-theme
+	url = https://github.com/apalfrey/select2-bootstrap-5-theme

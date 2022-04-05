@@ -1,6 +1,6 @@
 RSpec.describe Card::Set::All::Codename do
   describe "codename" do
-    let(:card) { Card["a"] }
+    let(:card) { Card["c"] }
 
     it "requires admin permission" do
       card.update codename: "structure"

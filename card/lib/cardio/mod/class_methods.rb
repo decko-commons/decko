@@ -82,7 +82,6 @@ module Cardio
         puts "updating asset lists"
         Card[:all, :script].update! content: hash[:script].compact
         Card[:style_mods].update! content: hash[:style].compact
-
         puts "refreshing assets"
         Card::Assets.refresh_assets force: true
       end

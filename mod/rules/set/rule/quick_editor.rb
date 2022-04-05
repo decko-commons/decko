@@ -30,7 +30,7 @@ format :html do
 
   def undo_button
     link_to "undo", method: :post, rel: "nofollow", remote: true,
-                    class: "btn btn-secondary ml-2 btn-sm btn-reduced-padding slotter",
+                    class: "btn btn-secondary ms-2 btn-sm btn-reduced-padding slotter",
                     "data-slot-selector": ".card-slot.quick_edit-view",
                     path: { action: :update,
                             revert_actions: [card.last_action_id],
