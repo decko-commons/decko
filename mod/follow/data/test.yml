@@ -27,14 +27,12 @@
   :type: Optic
   :user: Optic fan
   :content: "{{+price}}"
-
 - :name:
-    - Sunglasses
-    - tint
+  - Sunglasses
+  - tint
 - :name:
-    - Sunglasses
-    - price
+  - Sunglasses
+  - price
 - rules
-
 - :name: Created card
   :content: new content
