@@ -70,15 +70,3 @@ describe 'editing pointers', () ->
         .should("contain", "Joe Camel")
         .should("contain", "Big Brother")
         .should("not.contain", "u1")
-
-# filtered list doesn't work with pointer options (instead of search options)
-#  specify 'change with filtered list input', () ->
-#    cy.visit_bridge("joes")
-#    cy.get("._add-item-link").click()
-#    cy.get(".checkbox-side").first().click()
-#    cy.get("._add-selected").click()
-#    cy.get("._filtered-list")
-#      .should("contain", "Joe Admin")
-
-
-

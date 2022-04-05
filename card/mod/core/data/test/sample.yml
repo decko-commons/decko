@@ -1,0 +1,51 @@
+- :name: Sample Cardtype
+  :type: :cardtype
+- :name: Sample User
+  :type: :user
+- :name: Sample CSS
+  :type: :css
+- :name: Sample CoffeeScript
+  :type: :coffee_script
+- :name: Sample Date
+  :type: :date
+- :name: Sample Email template
+  :type: :email_template
+- :name: Sample HTML
+  :type: :html
+- :name: Sample JSON
+  :type: :json
+- :name: Sample JavaScript
+  :type: :java_script
+- :name: Sample Layout
+  :type: :layout_type
+- :name: Sample Link list
+  :type: :link_list
+- :name: Sample List
+  :type: :list
+- :name: Sample Markdown
+  :type: :markdown
+- :name: Sample Nest list
+  :type: :nest_list
+- :name: Sample Notification template
+  :type: :notification_template
+- :name: Sample Phrase
+  :type: :phrase
+- :name: Sample PlainText
+  :type: :plain_text
+- :name: Sample Pointer
+  :type: :pointer
+- :name: Sample RichText
+- :name: Sample Role
+  :type: :role
+- :name: Sample SCSS
+  :type: :scss
+- :name: Sample Search
+  :type: :search_type
+- :name: Sample Skin
+  :type: :skin
+- :name: Sample Toggle
+  :type: :toggle
+- :name: Sample Twitter template
+  :type: :twitter_template
+- :name: Sample URI
+  :type: :uri
