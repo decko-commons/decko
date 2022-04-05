@@ -1,9 +1,10 @@
 module Cardio
   class Mod
-    # Plant YAML, is used to define cards associated with mods.
+    # The Sow class is for exporting data to mods' data directories so that they can
+    # be used as seed data when the mod is installed.
     #
     # https://docs.google.com/document/d/13K_ynFwfpHwc3t5gnLeAkZJZHco1wK063nJNYwU8qfc/edit#
-    class Plant
+    class Sow
       def initialize **args
         @mod = args[:mod]
         @name = args[:name]
@@ -15,9 +16,7 @@ module Cardio
 
       # @return [Array <Hash>]
       def new_data
-        @new_data ||= cards.map do |c|
-          c.export_hash field_tags: field_tag_marks
-        end
+        @new_data ||= cards.map { |c| c.export_hash field_tags: field_tag_marks }
       end
 
       def field_tag_marks
@@ -63,17 +62,14 @@ module Cardio
 
       def cards_from_name
         case @items
-        when :only
-          item_cards
-        when true
-          main_cards + item_cards
-        else
-          main_cards
+        when :only then item_cards
+        when true  then main_cards + item_cards
+        else            main_cards
         end
       end
 
       def item_cards
-        main_cards.map { |mc| mc.item_cards }.flatten
+        main_cards.map(&:item_cards).flatten
       end
 
       def main_cards
@@ -114,13 +110,11 @@ module Cardio
       end
 
       def target
-        @target ||= old_data
+        @target ||= (old_data || nil)
       end
 
       def old_data
-        return nil unless File.exist? filename
-
-        YAML.safe_load File.read(filename), [Symbol]
+        YAML.safe_load File.read(filename), [Symbol] if File.exist? filename
       end
 
       # @return Path

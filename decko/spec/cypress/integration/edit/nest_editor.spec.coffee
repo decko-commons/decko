@@ -42,6 +42,7 @@ describe 'nest editor', () ->
     cy.contains "options"
       .click()
     cy.get "#nest_name"
+      .click()
       .type "NaNa"
     cy.contains "button", "Add item options"
       .click()
@@ -88,6 +89,7 @@ describe 'nest editor', () ->
         .should "not.contain", "default"
         .contains ".alert", "nest name required"
         .should "be.visible"
+      cy.wait 250
       cy.get "#nest_name"
         .type "NaNa{enter}"
       cy.get ".tab-pane-rules .card-slot.nest_rules-view", timeout: 15000
@@ -123,7 +125,7 @@ describe 'nest editor', () ->
     cy.visit "RichText+NaNa+*type plus right+*help"
     cy.expect_main_content "help nana"
 
-  specify "nest image editor", () ->
+  specify.only "nest image editor", () ->
     cy.ensure "nests", ""
     cy.visit_bridge "nests"
     open_image_editor()
@@ -144,6 +146,7 @@ describe 'nest editor', () ->
       cy.get("._open-nest-editor").click()
       cy.contains "options"
         .click()
+      cy.wait 250
       cy.get "#nest_name"
         .type "NaNa"
 
@@ -176,8 +179,3 @@ describe 'nest editor', () ->
       cy.visit("A Nest List?view=raw")
       # cy.contains "{{NaNa|title: T|view: bar; show: guide|view: bar}}"
       cy.contains "{{NaNa|title: T|show: guide|}}"
-
-
-
-
-

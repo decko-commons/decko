@@ -1,0 +1,70 @@
+---
+- :name: Fruit
+  :type: :cardtype
+- :name:
+  - Fruit
+  - :type
+  - :create
+  :type: :list
+  :content: Anyone
+- :name:
+  - Fruit
+  - :type
+  - :read
+  :type: :list
+  :content: Administrator
+- :name:
+  - :cardtype_b
+  - :type
+  - :create
+  :type: :list
+  :content: r3
+- :name:
+  - :cardtype_b
+  - :type
+  - :update
+  :type: :list
+  :content: r1
+
+- :name: r1
+  :type: :role
+- :name: r2
+  :type: :role
+- :name: r3
+  :type: :role
+- :name: r4
+  :type: :role
+
+- :name: u1
+  :type: :user
+  :subfields:
+    :account:
+      :subfields:
+        :email: u1@user.com
+        :password: u1_pass
+    :roles:
+      - r1
+      - r2
+      - r3
+- :name: u2
+  :type: :user
+  :subfields:
+    :account:
+      :subfields:
+        :email: u2@user.com
+        :password: u2_pass
+    :roles:
+      - r1
+      - r2
+      - r4
+- :name: u3
+  :type: :user
+  :subfields:
+    :account:
+      :subfields:
+        :email: u3@user.com
+        :password: u3_pass
+    :roles:
+      - r1
+      - r4
+      - :administrator
