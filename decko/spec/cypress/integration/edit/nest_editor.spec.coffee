@@ -42,6 +42,7 @@ describe 'nest editor', () ->
     cy.contains "options"
       .click()
     cy.get "#nest_name"
+      .click()
       .type "NaNa"
     cy.contains "button", "Add item options"
       .click()
@@ -89,6 +90,7 @@ describe 'nest editor', () ->
         .contains ".alert", "nest name required"
         .should "be.visible"
       cy.get "#nest_name"
+        .click()
         .type "NaNa{enter}"
       cy.get ".tab-pane-rules .card-slot.nest_rules-view", timeout: 15000
         .should "contain", "default"
@@ -176,8 +178,3 @@ describe 'nest editor', () ->
       cy.visit("A Nest List?view=raw")
       # cy.contains "{{NaNa|title: T|view: bar; show: guide|view: bar}}"
       cy.contains "{{NaNa|title: T|show: guide|}}"
-
-
-
-
-
