@@ -6,7 +6,7 @@ module Cardio
                 schema_migrations_deck schema_migrations_deck_cards].freeze
 
     class << self
-      attr_accessor :path, :test_path, :test_script_path
+      attr_accessor :path, :test_path
 
       def db_path *args
         parts = [Cardio.gem_root, "db"] + args
@@ -16,6 +16,5 @@ module Cardio
 
     self.path = db_path "seed", "new"
     self.test_path = db_path "seed", "test", "fixtures"
-    self.test_script_path = db_path "test_seed.rb"
   end
 end

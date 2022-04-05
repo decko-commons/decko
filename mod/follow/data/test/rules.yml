@@ -1,0 +1,125 @@
+---
+- :name:
+    - Google glass
+    - :self
+    - :follow_fields
+  :type: :list
+- :name:
+    - Sunglasses
+    - :self
+    - :follow_fields
+  :type: :list
+  :content: |-
+    *nests
+    _self+price
+    _self+producer
+
+
+- :name:
+    - John Following
+    - :self
+    - John
+    - :follow
+  :type: :list
+  :content: "*always"
+- :name:
+    - All Eyes On Me
+    - :self
+    - John
+    - :follow
+  :type: :list
+  :content: "*always"
+- :name:
+    - Sara Following
+    - :self
+    - Sara
+    - :follow
+  :type: :list
+  :content: "*always"
+- :name:
+    - All Eyes On Me
+    - :self
+    - Sara
+    - :follow
+  :type: :list
+  :content: "*always"
+- :name:
+    - Optic
+    - :type
+    - Sara
+    - :follow
+  :type: :list
+  :content: "*always"
+- :name:
+    - Google glass
+    - :self
+    - Sara
+    - :follow
+  :type: :list
+  :content: "*always"
+- :name:
+    - All Eyes On Me
+    - :self
+    - Big Brother
+    - :follow
+  :type: :list
+  :content: "*always"
+- :name:
+    - Look At Me
+    - :self
+    - Big Brother
+    - :follow
+  :type: :list
+  :content: "*always"
+- :name:
+    - Optic
+    - :type
+    - Big Brother
+    - :follow
+  :type: :list
+  :content: "*always"
+- :name:
+    - lens
+    - :right
+    - Big Brother
+    - :follow
+  :type: :list
+  :content: "*always"
+- :name:
+    - Optic
+    - tint
+    - :type_plus_right
+    - Big Brother
+    - :follow
+  :type: :list
+  :content: "*always"
+- :name:
+    - :all
+    - Big Brother
+    - :follow
+  :type: :list
+  :content: |-
+    *created
+    *edited
+- :name:
+    - Optic
+    - :type
+    - Optic fan
+    - :follow
+  :type: :list
+  :content: "*always"
+- :name:
+    - Sunglasses
+    - :self
+    - Sunglasses fan
+    - :follow
+  :type: :list
+  :content: "*always"
+- :name:
+    - :all
+    - Narcissist
+    - :follow
+  :type: :list
+  :content: |-
+    *created
+    *edited
