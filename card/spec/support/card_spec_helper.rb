@@ -21,6 +21,12 @@ class Card
     # ~~~~~~~~~  HELPER METHODS ~~~~~~~~~~~~~~~#
     include Rails::Dom::Testing::Assertions::SelectorAssertions
 
+    USERS = [
+      "Joe Admin", "Joe User", "Joe Camel", "Sample User", "No count",
+      "u1", "u2", "u3",
+      "Big Brother", "Optic fan", "Sunglasses fan", "Narcissist"
+    ].freeze
+
     def login_as user
       Env.session = @request&.session
       Auth.signin user
@@ -85,7 +91,7 @@ class Card
     HTML
 
     def users
-      SharedData::USERS.sort
+      USERS.sort
     end
 
     def with_rss_enabled
