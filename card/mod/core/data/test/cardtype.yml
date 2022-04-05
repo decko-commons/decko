@@ -1,8 +1,3 @@
-- :name: Fruit
-  :type: :cardtype
-- :name: self aware
-  :type: :cardtype
-  :content: "[[/new/{{_self|name}}|new]]"
 - :name: Cardtype A
   :type: :cardtype
   :codename: :cardtype_a
@@ -21,4 +16,23 @@
 - :name: Cardtype F
   :type: :cardtype
   :codename: :cardtype_f
+
+- :name: type-a-card
+  :type: :cardtype_a
+  :content: type_a_content
+- :name: type-b-card
+  :type: :cardtype_b
+  :content: type_b_content
+- :name: type-c-card
+  :type: :cardtype_c
+  :content: type_c_content
+- :name: type-d-card
+  :type: :cardtype_d
+  :content: type_d_content
+- :name: type-e-card
+  :type: :cardtype_e
+  :content: type_e_content
+- :name: type-f-card
+  :type: :cardtype_f
+  :content: type_f_content
 
