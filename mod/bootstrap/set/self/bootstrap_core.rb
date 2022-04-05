@@ -15,13 +15,13 @@ private
 
 def mixin_stylesheets
   %w[deprecate breakpoints color-scheme image resize visually-hidden reset-text
-    text-truncate utilities alert backdrop buttons caret pagination lists list-group
-    forms table-variants border-radius box-shadow gradients transition clearfix container
-    grid]
+     text-truncate utilities alert backdrop buttons caret pagination lists list-group
+     forms table-variants border-radius box-shadow gradients transition clearfix container
+     grid]
 end
 
 def main_stylesheets
-  %w[ utilities root reboot type images containers grid tables]
+  %w[utilities root reboot type images containers grid tables]
 end
 
 def form_stylesheets

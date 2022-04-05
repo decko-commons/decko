@@ -10,7 +10,6 @@ namespace :decko do
         .each do |task|
         puts "invoking: #{task}".green
         Rake::Task["decko:#{task}"].invoke
-        puts "yeti asset input: #{'yeti skin+*asset input'.card_id}".red
       end
     end
 
