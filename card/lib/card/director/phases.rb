@@ -42,7 +42,7 @@ class Card
       end
 
       def integration_phase
-        #puts "integration phase: #{@card.name}"
+        # puts "integration phase: #{@card.name}"
         return if @abort
 
         @card.restore_changes_information

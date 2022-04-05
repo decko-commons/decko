@@ -1,4 +1,6 @@
 ---
+- :name: Fruit
+  :type: :cardtype
 - :name:
   - Fruit
   - :type

@@ -21,28 +21,6 @@ class SharedData
       Card::Env.reset
       Card::Auth.as_bot
 
-      cardtype_cards
-      notification_cards
-    end
-
-    def cardtype_cards
-      # for cql & permissions
-      %w[A+C A+D A+E C+A D+A F+A A+B+C].each { |name| create name }
-
-      ("a".."f").each do |ch|
-        create "type-#{ch}-card", type_code: "cardtype_#{ch}",
-                                  content: "type_#{ch}_content"
-      end
-
-      ## --------- create templated permissions -------------
-      # create "Cardtype E+*type+*default"
-    end
-
-    def notification_cards
-      # fwiw Timecop is apparently limited by ruby Time object,
-      # which goes only to 2037 and back to 1900 or so.
-      #  whereas DateTime can represent all dates.
-
       followers = {
         "John" => ["John Following", "All Eyes On Me"],
         "Sara" => ["Sara Following", "All Eyes On Me", "Optic+*type",

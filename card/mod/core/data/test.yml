@@ -53,3 +53,29 @@
   :content: "[[blue]]"
 - :name: "*write"
   :codename: :write
+- :name:
+  - A
+  - C
+- :name:
+  - A
+  - D
+- :name:
+  - A
+  - E
+- :name:
+  - C
+  - A
+- :name:
+  - D
+  - A
+- :name:
+  - F
+  - A
+- :name:
+  - A
+  - B
+  - C
+
+- :name: self aware
+  :type: :cardtype
+  :content: "[[/new/{{_self|name}}|new]]"
