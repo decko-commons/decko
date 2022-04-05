@@ -63,18 +63,6 @@ namespace :decko do
       conn.update "UPDATE card_acts SET actor_id=%s, acted_at='%s'" % who_and_when
     end
 
-    desc "add test data"
-    task supplement: :environment do
-      add_test_data
-    end
-
-    def add_test_data
-      return unless Rails.env == "test"
-
-      load Cardio::Seed.test_script_path
-      SharedData.add_test_data
-    end
-
     desc "dump db to bootstrap fixtures"
     task dump: :environment do
       Card::Cache.reset_all
