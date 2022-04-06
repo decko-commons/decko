@@ -1,8 +1,7 @@
 ._filter-input.filter-input-group.input-group.input-group-sm{"data-category": key, "class": "_filter-input-#{key}" }
-  .input-group-prepend.filter-input-prepend
-    %button.btn.btn-secondary.input-group-text.p-1._delete-filter-input{:type => "button"}
-      %small.text-muted
-        = fa_icon :times
-    %span.input-group-text._selected-category.text-muted
-      = category[:label]
+  %button.btn.btn-secondary.input-group-text.p-1._delete-filter-input{:type => "button"}
+    %small.text-muted
+      = fa_icon :times
+  %span.input-group-text._selected-category.text-muted
+    = category[:label]
   = category[:input_field]
