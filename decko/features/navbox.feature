@@ -7,7 +7,7 @@ Feature: Navbox
     Given I go to the homepage
     When I enter "Joe" in the navbox
     Then I should see "Joe Camel"
-    And I should see "JoeNow"
+    And I should see "Joe Admin"
     Then I press enter to search
     Then I should see "Search results for: Joe"
 
