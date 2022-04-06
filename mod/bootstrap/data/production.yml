@@ -12,7 +12,7 @@
     class=\"d-flex justify-content-center align-items-center p-3 my-3 rounded box-shadow\">\r\n
     \   {{+shark|core}}\r\n    <h1>Welcome, Card Shark!</h1>\r\n  </div>\r\n  <div
     class=\"jumbotron\">\r\n    <h3 class=\"mb-4\">Things to sink your teeth into:</h3>\r\n
-    \   <div class=\"d-flex justify-content-center pl-10\">\r\n      <div>\r\n        <p
+    \   <div class=\"d-flex justify-content-center ps-10\">\r\n      <div>\r\n        <p
     class=\"lead\">\r\n          Structure\r\n        </p>\r\n        <p>\r\n          <a
     href=\"new/cardtype\" class=\"btn btn-primary me-2\">Add new Cardtype</a>\r\n
     \       </p>\r\n      </div>\r\n      <div class=\"pe-5\">\r\n        <p class=\"lead\">\r\n

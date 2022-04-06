@@ -42,3 +42,40 @@
   - Five
 - :name: basicname
   :content: basiccontent
+- :name: Blue
+- :name: blue includer 1
+  :content: "{{Blue}}"
+- :name: blue includer 2
+  :content: "{{blue|closed;other:stuff}}"
+- :name: blue linker 1
+  :content: "[[Blue]]"
+- :name: blue linker 2
+  :content: "[[blue]]"
+- :name: "*write"
+  :codename: :write
+- :name:
+  - A
+  - C
+- :name:
+  - A
+  - D
+- :name:
+  - A
+  - E
+- :name:
+  - C
+  - A
+- :name:
+  - D
+  - A
+- :name:
+  - F
+  - A
+- :name:
+  - A
+  - B
+  - C
+
+- :name: self aware
+  :type: :cardtype
+  :content: "[[/new/{{_self|name}}|new]]"

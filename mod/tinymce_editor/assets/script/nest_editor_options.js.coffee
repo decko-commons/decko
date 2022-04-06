@@ -14,12 +14,12 @@ $(document).ready ->
     nest.toggleOptionName($(this).closest("._options-select"), $(this).val(), false)
 
   $('body').on "select2:select", "._nest-option-name._new-row", () ->
-    $(this).closest(".input-group").find(".input-group-prepend").removeClass("d-none")
+    $(this).closest(".input-group").find(".d-none").removeClass("d-none")
     row =  $(this).closest("._nest-option-row")
     row.find("._nest-option-value").removeAttr("disabled")
     template = row.parent().find("._nest-option-row._template")
     $(this).removeClass("_new-row")
-    nest.addRow(template)
+    nest.addRow(tempglate)
 
   $('body').on "click", "._configure-items-button", () ->
     nest.addItemsOptions($(this))

@@ -41,11 +41,7 @@ format :html do
   end
 
   def remote_include_tags
-    remote_items = card.manifest_group_items "remote"
-    return unless remote_items
-
-    remote_items.map do |args|
-      tag_args = args.clone
+    map_remote_items do |tag_args|
       javascript_include_tag tag_args.delete("src"), tag_args
     end
   end
