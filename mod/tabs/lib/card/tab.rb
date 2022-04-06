@@ -74,7 +74,7 @@ class Card
     end
 
     def tab_id
-      @tab_id ||= "#{unique_id}-#{name.to_name.safe_key}"
+      @tab_id ||= "tab-#{unique_id}-#{name.to_name.safe_key}"
     end
 
     def active?
