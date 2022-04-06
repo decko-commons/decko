@@ -12,7 +12,7 @@ format :html do
   end
 
   def views_in_head
-    %i[meta_tags page_title_tag favicon_tag head_stylesheet
+    %i[meta_tags page_title_tag favicon_tag head_stylesheet head_remote_stylesheets
        universal_edit_button rss_links]
   end
 
@@ -42,7 +42,11 @@ format :html do
   view :head_stylesheet, unknown: true, cache: :never, perms: :none do
     return unless (href = head_stylesheet_path)
 
-    tag "link", href: href, media: "all", rel: "stylesheet", type: "text/css"
+    tag("link", href: href, media: "all", rel: "stylesheet", type: "text/css")
+  end
+
+  view :head_remote_stylesheets, unknown: true, cache: :never, perms: :none do
+    remote_style_tags
   end
 
   def param_or_rule_card setting
@@ -72,6 +76,14 @@ format :html do
 
   def rss_link?
     Card.config.rss_enabled && respond_to?(:rss_link_tag)
+  end
+
+  def remote_style_tags
+    return unless (asset_card = Card[:style_mods])
+
+    asset_card.item_cards.map do |mod_style_card|
+      nest mod_style_card, view: :remote_include_tags
+    end.compact
   end
 
   def head_stylesheet_path

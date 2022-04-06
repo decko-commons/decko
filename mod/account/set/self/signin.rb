@@ -154,7 +154,7 @@ format :html do
     class_up "button-form-group", "signin-buttons justify-content-between"
     button_formgroup do
       [
-        wrap_with("div", class: "pr-2") { [signin_button, signup_link] },
+        wrap_with("div", class: "pe-2") { [signin_button, signup_link] },
         reset_password_link
       ]
     end

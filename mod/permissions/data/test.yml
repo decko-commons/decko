@@ -1,0 +1,27 @@
+---
+- :name: Fruit
+  :type: :cardtype
+- :name:
+  - Fruit
+  - :type
+  - :create
+  :type: :list
+  :content: Anyone
+- :name:
+  - Fruit
+  - :type
+  - :read
+  :type: :list
+  :content: Administrator
+- :name:
+  - :cardtype_b
+  - :type
+  - :create
+  :type: :list
+  :content: r3
+- :name:
+  - :cardtype_b
+  - :type
+  - :update
+  :type: :list
+  :content: r1
