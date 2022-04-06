@@ -1008,7 +1008,7 @@ $bridge-line-color: $border-color;
   > .d0-card-frame
   > .d0-card-content {
     overflow-y: scroll;
-    height: calc(100% - 2em);
+    // height: calc(100% - 2em);
     padding: 1rem 1.5rem; // px-4
   }
 }
