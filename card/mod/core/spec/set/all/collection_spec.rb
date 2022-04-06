@@ -91,7 +91,8 @@ RSpec.describe Card::Set::All::Collection do
           with_tag "div.card-slot#a-content-view"
         end
         with_tag :li do
-          with_tag "a.load", with: { "data-bs-toggle": "tab", href: "#tab-tempo_rary-2-b" }
+          with_tag "a.load",
+                   with: { "data-bs-toggle": "tab", href: "#tab-tempo_rary-2-b" }
         end
         with_tag "div.tab-pane#tab-tempo_rary-2-b"
       end

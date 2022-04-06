@@ -25,7 +25,9 @@ format :html do
 
   view :remote_include_tags do
     map_remote_items do |tag_args|
-      tag "link", href: tag_args.delete("src"), media: "all", rel: "stylesheet", type: "text/css"
+      tag "link",
+          href: tag_args.delete("src"),
+          media: "all", rel: "stylesheet", type: "text/css"
     end
   end
 end
