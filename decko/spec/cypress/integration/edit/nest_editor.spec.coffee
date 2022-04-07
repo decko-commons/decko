@@ -41,8 +41,7 @@ describe 'nest editor', () ->
 
     cy.contains "options"
       .click()
-    cy.get "#nest_name"
-      .click()
+    cy.get "input#nest_name"
       .type "NaNa"
     cy.contains "button", "Add item options"
       .click()
@@ -89,9 +88,8 @@ describe 'nest editor', () ->
         .should "not.contain", "default"
         .contains ".alert", "nest name required"
         .should "be.visible"
-      cy.wait 250
-      cy.get "#nest_name"
-        .type "NaNa{enter}"
+      cy.get "input#nest_name"
+        .type "NaNa{enter}", force: true
       cy.get ".tab-pane-rules .card-slot.nest_rules-view", timeout: 15000
         .should "contain", "default"
         .contains ".alert", "nest name required"
@@ -146,9 +144,8 @@ describe 'nest editor', () ->
       cy.get("._open-nest-editor").click()
       cy.contains "options"
         .click()
-      cy.wait 250
-      cy.get "#nest_name"
-        .type "NaNa"
+      cy.get "input#nest_name"
+        .type "NaNa", force: true
 
       cy.contains "button", "Add item options"
         .click()

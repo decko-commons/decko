@@ -1120,12 +1120,11 @@ $bridge-line-color: $border-color;
   }
 }
 
-.input-group-prepend._field-indicator .input-group-text {
+.input-group-text._field-indicator {
   font-size: 1.3rem;
   line-height: 1;
   font-weight: bold;
   border-right: none;
-  border-left: none;
   background: $input-bg;
 }
 
@@ -1134,20 +1133,17 @@ $bridge-line-color: $border-color;
   > input {
     border-left: none;
   }
+  ._field-indicator {
+    border-left: none;
+  }
 }
 
 .input-group.hide-prefix {
-  border-left: 1px solid $input-border-color;
-  > input {
-    border-left: none;
-  }
-  > .input-group-prepend {
-    margin-right: 0;
-    > .input-group-text {
-      display: none;
-    }
+  > ._field-indicator {
+    display: none;
   }
 }
+
 
 .text-muted-link {
   color: $text-muted;
