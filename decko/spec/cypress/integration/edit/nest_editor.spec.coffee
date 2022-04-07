@@ -123,7 +123,7 @@ describe 'nest editor', () ->
     cy.visit "RichText+NaNa+*type plus right+*help"
     cy.expect_main_content "help nana"
 
-  specify.only "nest image editor", () ->
+  specify "nest image editor", () ->
     cy.ensure "nests", ""
     cy.visit_bridge "nests"
     open_image_editor()
