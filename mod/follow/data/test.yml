@@ -1,0 +1,39 @@
+---
+- users
+- :name: Optic
+  :type: :cardtype
+- :name: All Eyes On Me
+- :name: No One Sees Me
+- :name: Look At Me
+- :name: Sara Following
+- :name: John Following
+  :content: "{{+her}}"
+- :name:
+  - John Following
+  - her
+- :name:
+  - Magnifier
+  - lens
+- :name:
+  - Magnifier
+  - lens
+  :content: zoom in
+  :user: Narcissist
+- :name: Sunglasses
+  :type: Optic
+  :content: "{{+tint}}{{+lens}}"
+  :user: Narcissist
+- :name: Google glass
+  :type: Optic
+  :user: Optic fan
+  :content: "{{+price}}"
+- :name:
+  - Sunglasses
+  - tint
+- :name:
+  - Sunglasses
+  - price
+- :name: Created card
+  :content: new content
+- rules
+- with_fields

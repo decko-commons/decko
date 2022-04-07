@@ -6,7 +6,7 @@ namespace :decko do
     task update: :environment do
       ENV["STAMP_MIGRATIONS"] = "true"
       ENV["GENERATE_FIXTURES"] = "true"
-      %w[reseed seed:clean eat update seed:supplement seed:clean_assets assets:code seed:dump]
+      %w[reseed seed:clean eat update seed:clean_assets assets:code seed:dump]
         .each do |task|
         puts "invoking: #{task}".green
         Rake::Task["decko:#{task}"].invoke
@@ -61,18 +61,6 @@ namespace :decko do
                   "creator_id=%1$s, created_at='%2$s', " \
                   "updater_id=%1$s, updated_at='%2$s'" % who_and_when
       conn.update "UPDATE card_acts SET actor_id=%s, acted_at='%s'" % who_and_when
-    end
-
-    desc "add test data"
-    task supplement: :environment do
-      add_test_data
-    end
-
-    def add_test_data
-      return unless Rails.env == "test"
-
-      load Cardio::Seed.test_script_path
-      SharedData.add_test_data
     end
 
     desc "dump db to bootstrap fixtures"

@@ -176,8 +176,3 @@ describe 'nest editor', () ->
       cy.visit("A Nest List?view=raw")
       # cy.contains "{{NaNa|title: T|view: bar; show: guide|view: bar}}"
       cy.contains "{{NaNa|title: T|show: guide|}}"
-
-
-
-
-
