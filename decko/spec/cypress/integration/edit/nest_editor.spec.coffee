@@ -42,7 +42,7 @@ describe 'nest editor', () ->
     cy.contains "options"
       .click()
     cy.get "input#nest_name"
-      .type "NaNa"
+      .type "NaNa", force: true
     cy.contains "button", "Add item options"
       .click()
 
@@ -176,8 +176,3 @@ describe 'nest editor', () ->
       cy.visit("A Nest List?view=raw")
       # cy.contains "{{NaNa|title: T|view: bar; show: guide|view: bar}}"
       cy.contains "{{NaNa|title: T|show: guide|}}"
-
-
-
-
-
