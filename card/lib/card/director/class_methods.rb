@@ -1,6 +1,9 @@
 class Card
   class Director
-    module ActDirection
+    # Card::Director class methods
+    module ClassMethods
+      include EventDelay
+
       attr_accessor :act, :act_card
 
       def act_director
@@ -92,7 +95,8 @@ class Card
       def delete director
         return unless @directors
 
-        @directors.delete director.card
+        # normal delete was sometimes failing here (eg. when aborting in finalize stage)
+        @directors.delete_if { |k, _v| k == director.card }
         director.delete
       end
 
@@ -109,6 +113,13 @@ class Card
 
       def to_s
         act_director.to_s
+      end
+
+      private
+
+      def delete_card card
+        card_key = @directors.keys.find { |key| key == card }
+        @directors.delete card_key if card_key
       end
     end
   end

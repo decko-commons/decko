@@ -13,7 +13,7 @@
 # prevent events from showing up in the tree.
 def events action
   @action = action
-  events = Director::Stages::STAGES.map { |stage| events_tree "#{stage}_stage" }
+  events = Director::Stages::SYMBOLS.map { |stage| events_tree "#{stage}_stage" }
   @action = nil
   print_events events
 end
