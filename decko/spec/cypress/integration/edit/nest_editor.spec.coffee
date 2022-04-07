@@ -42,7 +42,7 @@ describe 'nest editor', () ->
     cy.contains "options"
       .click()
     cy.get "input#nest_name"
-      .type "NaNa"
+      .type "NaNa", force: true
     cy.contains "button", "Add item options"
       .click()
 

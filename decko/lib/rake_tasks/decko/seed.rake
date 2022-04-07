@@ -6,7 +6,7 @@ namespace :decko do
     task update: :environment do
       ENV["STAMP_MIGRATIONS"] = "true"
       ENV["GENERATE_FIXTURES"] = "true"
-      %w[reseed seed:clean eat update seed:clean_assets assets:code seed:dump]
+      %w[reseed seed:clean eat update assets:code seed:dump]
         .each do |task|
         puts "invoking: #{task}".green
         Rake::Task["decko:#{task}"].invoke
@@ -18,30 +18,7 @@ namespace :decko do
       Card::Act.update_all actor_id: Card::WagnBotID
       clean_history
       clean_time_and_user_stamps
-      clean_assets
       Card.empty_trash
-      Card::Cache.reset_all
-    end
-
-    # TODO: delete this
-    task debug_asset_input: :environment  do
-      puts "yeti asset input: #{'yeti skin+*asset input'.card_id}".red
-      clean_assets
-      puts "yeti asset input: #{'yeti skin+*asset input'.card_id}".red
-      Rake::Task["card:mod:install"].invoke
-      puts "yeti asset input: #{'yeti skin+*asset input'.card_id}".red
-    end
-
-    task clean_assets: :environment do
-      clean_assets
-    end
-
-    # TODO: obviate this
-    def clean_assets
-      puts "delete asset inputs"
-      Card::Auth.as_bot do
-        Card.where(right_id: :asset_input.card_id).delete_all
-      end
       Card::Cache.reset_all
     end
 
