@@ -1,0 +1,56 @@
+---
+- :name: card with fields
+  :content: main content {{+field 1}}  {{+field 2}}
+  :user: Joe User
+  :subfields:
+    field 1: content of field 1
+    field 2: content of field 2
+- :name: card with fields and admin fields
+  :content: main content {{+field 1}}  {{+admin field 1}}
+  :user: Joe User
+  :subfields:
+    field 1: content of field 1
+    admin field 1: content of admin field 1
+- :name: admin card with fields and admin fields
+  :content: main content {{+field 1}}  {{+admin field 1}}
+  :user: Joe User
+  :subfields:
+    field 1: content of field 1
+    admin field 1: content of admin field 1
+- :name: admin card with admin fields
+  :content: main content {{+admin field 1}}  {{+admin field 2}}
+  :user: Joe User
+  :subfields:
+    admin field 1: content of admin field 1
+    admin field 2: content of admin field 2
+
+- :name:
+    - admin card with fields and admin fields
+    - :self
+    - :read
+  :type: :pointer
+  :content: Administrator
+- :name:
+    - admin card with admin fields
+    - :self
+    - :read
+  :type: :pointer
+  :content: Administrator
+- :name:
+    - admin field 1
+    - :right
+    - :read
+  :type: :pointer
+  :content: Administrator
+- :name:
+    - admin field 2
+    - :right
+    - :read
+  :type: :pointer
+  :content: Administrator
+- :name:
+    - field 1
+    - :right
+    - :read
+  :type: :pointer
+  :content: Anyone

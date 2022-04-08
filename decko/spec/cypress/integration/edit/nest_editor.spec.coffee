@@ -30,11 +30,11 @@ type_nest = (text) ->
 
 describe 'nest editor', () ->
   before ->
+    cy.ensure "nests", ""
     cy.login()
     # cy.clear_script_cache()
 
   specify "nest editor", () ->
-    cy.ensure "nests", ""
     cy.visit_bridge "nests"
     open_nest_editor()
     cy.get("._view-select").select2("titled")
@@ -42,7 +42,7 @@ describe 'nest editor', () ->
     cy.contains "options"
       .click()
     cy.get "input#nest_name"
-      .type "NaNa"
+      .type "NaNa", force: true
     cy.contains "button", "Add item options"
       .click()
 
@@ -52,9 +52,9 @@ describe 'nest editor', () ->
     cy.get("._options-select").eq(0).as("options")
     cy.get("._options-select").eq(1).as("itemoptions")
 
-    nest_option_type(0, 0, "title", "T")
-    nest_option_select(1, 0, "view", "bar")
-    nest_option_select(1, 1, "show", "guide")
+    nest_option_type 0, 0, "title", "T"
+    nest_option_select 1, 0, "view", "bar"
+    nest_option_select 1, 1, "show", "guide"
     cy.contains "Apply and Close"
       .click()
     cy.tinymce_content()
@@ -76,7 +76,6 @@ describe 'nest editor', () ->
       .should "eq", "<p>{{ +NaNa|view: titled; title: T|view: bar; show: guide }}{{ crafted|view: bar; hide: guide }}</p>"
 
   specify "nest rules editor", () ->
-    cy.ensure "nests", ""
     cy.delete "NaNa+*right+*help"
     cy.visit_bridge "nests"
     open_nest_editor()
@@ -124,7 +123,6 @@ describe 'nest editor', () ->
     cy.expect_main_content "help nana"
 
   specify "nest image editor", () ->
-    cy.ensure "nests", ""
     cy.visit_bridge "nests"
     open_image_editor()
     # cy.get(".modal ._nest-editor").within () ->
@@ -176,8 +174,3 @@ describe 'nest editor', () ->
       cy.visit("A Nest List?view=raw")
       # cy.contains "{{NaNa|title: T|view: bar; show: guide|view: bar}}"
       cy.contains "{{NaNa|title: T|show: guide|}}"
-
-
-
-
-

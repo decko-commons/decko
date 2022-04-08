@@ -10,7 +10,6 @@ class CardSpecLoader
       Spork.prefork do
         require_environment
         load_shared_examples
-        require File.expand_path("../../db/test_seed.rb", __dir__)
 
         # Requires supporting ruby files with custom matchers and macros, etc,
         # in spec/support/ and its subdirectories.

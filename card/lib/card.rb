@@ -120,7 +120,6 @@ class Card < Cardio::Record
 
   include Dirty
   include DirtyNames
-  include Director::CardMethods
   include Name::All
   include Content::All
   include Set::CardMethods
