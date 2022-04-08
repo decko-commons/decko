@@ -2,8 +2,23 @@
 
 shared_examples_for "notifications" do
   let(:created) { Card["Created card"] }
-  let(:updated) { Card["Updated card"] }
-  let(:deleted) { Card.fetch("Deleted card", look_in_trash: true) }
+
+  let :updated do
+    Card::Auth.as_bot do
+      created.update! name: "Updated card",
+                      content: "changed content",
+                      type: :pointer,
+                      skip: :validate_renaming
+      Card["Updated card"]
+    end
+  end
+
+  let :deleted do
+    Card::Auth.as_bot do
+      created.delete!
+      Card.fetch "Created card", look_in_trash: true
+    end
+  end
 
   describe "#list_of_changes" do
     def list_of_changes card, action=nil
@@ -51,7 +66,7 @@ shared_examples_for "notifications" do
 
     example "for a deleted card" do
       expect(subedit_notice(deleted))
-        .to include("Deleted card", "deleted")
+        .to include("Created card", "deleted")
     end
   end
 end

@@ -63,7 +63,7 @@ class Card
       # by the parent director. So the storage phase will only run
       # the :store stage and the :finalize stage
       def trigger_storage_phase_callback
-        @stage = stage_index :prepare_to_store
+        @current_stage_index = stage_index :prepare_to_store
         @only_storage_phase = true
         @card.save! validate: false, as_subcard: true
       end
