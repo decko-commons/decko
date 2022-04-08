@@ -1,4 +1,5 @@
 include_set Abstract::Lock
+include Env::Location
 
 card_accessor :asset_output, type: :file
 

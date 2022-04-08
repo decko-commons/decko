@@ -20,7 +20,7 @@ end
 
 format do
   def outputter
-    left
+    card.left
   end
 
   view :not_found do

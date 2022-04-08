@@ -5,18 +5,19 @@ require "decko/rest_spec_helper"
 Decko::RestSpecHelper.describe_api do
   describe "#read" do
     context "css" do
+      let(:all_style) { Card[:all, :style] }
+
       before do
-        @all_style = Card["#{Card[:all].name}+#{Card[:style].name}"]
-        @all_style.reset_machine_output
+        Card::Auth.as_bot { all_style.asset_output_card.delete! }
       end
 
-      xit "creates missing machine output file" do
-        args = { params: { mark: @all_style.asset_output_card.name,
+      it "creates missing asset output file" do
+        args = { params: { mark: all_style.asset_output_card.name,
                            format: "css",
                            explicit_file: true } }
         get :read, **args
         # output_card = Card[:all, :style, :machine_output]
-        expect(response).to redirect_to(@all_style.asset_output_url)
+        expect(response).to redirect_to(all_style.asset_output_url)
         get :read, **args
         expect(response.status).to eq(200)
         expect(response.content_type).to eq("text/css")
