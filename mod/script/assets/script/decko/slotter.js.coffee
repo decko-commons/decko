@@ -78,7 +78,7 @@ $(window).ready ->
                                            # expects the url
     $.rails.handleRemote $(this)
 
-  $('body').on 'click', '[data-dismiss="overlay"]', (event) ->
+  $('body').on 'click', '[data-bs-dismiss="overlay"]', (event) ->
     $(this).findSlot(".card-slot._overlay").removeOverlay()
 
   $('body').on 'click', '._close-overlay-on-success', (event) ->

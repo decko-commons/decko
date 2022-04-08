@@ -1,6 +1,8 @@
 module Cardio
   # primary railtie for cards
   class Railtie < Rails::Railtie
+    config.encoding = "utf-8"
+
     # if you disable inline styles tinymce's formatting options stop working
     config.allow_inline_styles = true
     config.token_expiry = 2.days
@@ -15,7 +17,6 @@ module Cardio
     config.space_last_in_multispace = true
     config.delaying = false
     config.active_job.queue_adapter = :delayed_job
-    config.default_html_view = :titled
 
     config.non_createable_types = %w[
       signup
@@ -35,10 +36,7 @@ module Cardio
     ]
 
     config.view_cache = false
-    config.rss_enabled = false
-    config.double_click = :signed_in
 
-    config.encoding = "utf-8"
     config.request_logger = false
     config.performance_logger = false
     config.sql_comments = false

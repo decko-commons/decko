@@ -1,10 +1,9 @@
-.form-row._nest-option-row{class: [template && "_template"]}
+.row._nest-option-row{class: [template && "_template"]}
   .col-6
-    .input-group.mb-2.mr-2.d-flex.flex-nowrap
-      .input-group-prepend{class: [!name && "d-none"]}
-        %button.btn.btn-secondary.input-group-text.p-1._nest-delete-option{:type => "button"}
-          %small.text-muted
-            = fa_icon :times
+    .input-group.mb-2.me-2.d-flex.flex-nowrap
+      %button.btn.btn-secondary.input-group-text.p-1._nest-delete-option{:type => "button", class: [!name && "d-none"]}
+        %small.text-muted
+          = fa_icon :times
       = nest_option_name_select name, level, view_selectable, template
   .col-6._nest-option-value-col
     = nest_option_value_select value

@@ -2,8 +2,8 @@
   .card-header.d-flex
     %h5.mt-1
       = title
-    .ml-auto
-      = link_to fa_icon(:close), path: "#", "data-dismiss": editor_mode, class: "text-dark p-1 ml-1"
+    .ms-auto
+      = link_to fa_icon(:close), path: "#", "data-bs-dismiss": editor_mode, class: "text-dark p-1 ms-1"
 
   .card-body
     .form
@@ -15,6 +15,6 @@
       = text_field_tag "preview", snippet.raw, class: "_#{ref_type}-preview w-100 text-muted", readonly: true
     %hr.mt-1.mb-1
     .form-group-inline.d-flex.justify-content-center.py-3
-      = button_tag (modal_tm_snippet_editor? ? "Apply and Close" : "Apply"), apply_opts.merge(class: "_#{ref_type}-apply btn-sm mr-3")
-      %a.border-light.text-dark.btn.btn-sm.btn-secondary{"data-dismiss": editor_mode, href: "#"}
+      = button_tag (modal_tm_snippet_editor? ? "Apply and Close" : "Apply"), apply_opts.merge(class: "_#{ref_type}-apply btn-sm me-3")
+      %a.border-light.text-dark.btn.btn-sm.btn-secondary{"data-bs-dismiss": editor_mode, href: "#"}
         = modal_tm_snippet_editor? ? "Cancel" : "Close"

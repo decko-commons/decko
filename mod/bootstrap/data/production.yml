@@ -5,3 +5,32 @@
 - :name: Customized bootswatch skin
   :type: :cardtype
   :codename: :customized_bootswatch_skin
+- :name: "*getting started"
+  :type: :html
+  :codename: :getting_started
+  :content: "<div class=\"container text-center\">\r\n  <!-- card 1 -->\r\n  <div
+    class=\"d-flex justify-content-center align-items-center p-3 my-3 rounded box-shadow\">\r\n
+    \   {{+shark|core}}\r\n    <h1>Welcome, Card Shark!</h1>\r\n  </div>\r\n  <div
+    class=\"jumbotron\">\r\n    <h3 class=\"mb-4\">Things to sink your teeth into:</h3>\r\n
+    \   <div class=\"d-flex justify-content-center ps-10\">\r\n      <div>\r\n        <p
+    class=\"lead\">\r\n          Structure\r\n        </p>\r\n        <p>\r\n          <a
+    href=\"new/cardtype\" class=\"btn btn-primary me-2\">Add new Cardtype</a>\r\n
+    \       </p>\r\n      </div>\r\n      <div class=\"pe-5\">\r\n        <p class=\"lead\">\r\n
+    \         Style\r\n        </p>\r\n        <p>\r\n          <a href=\"*all+*style\"
+    class=\"btn btn-primary me-2\">Configure Skin Card</a>\r\n        </p>\r\n      </div>\r\n
+    \   </div>\r\n  </div>\r\n  <p class=\"lead mt-5\">\r\n    <a href=\"Administrator\"
+    class=\"\">and more...</a>\r\n  </p>\r\n</div>\r\n"
+- :name: "*header"
+  :type: :html
+  :content: "<nav class=\"navbar navbar-expand-lg navbar-dark bg-dark mb-3\">\r\n
+    \ <div class=\"container-fluid\">\r\n  <a class=\"navbar-brand nav-logo p-0\"
+    href=\"{{*home|home_path}}\">\r\n    {{*logo|core;size:small}}\r\n  </a>\r\n  <a
+    class=\"navbar-brand\" href=\"{{*home|home_path}}\">\r\n    {{*title|core}}\r\n
+    \ </a>\r\n  <button class=\"navbar-toggler\" type=\"button\" data-toggle=\"collapse\"
+    data-target=\"#navbarSupportedContent\" aria-controls=\"navbarSupportedContent\"
+    aria-expanded=\"false\" aria-label=\"Toggle navigation\">\r\n    <span class=\"navbar-toggler-icon\"></span>\r\n
+    \ </button>\r\n\r\n  <div class=\"collapse navbar-collapse\" id=\"navbarSupportedContent\">\r\n
+    \   <ul class=\"navbar-nav mr-auto\">\r\n      {{*main menu|navbar_links}}\r\n
+    \   </ul>\r\n    {{*navbox|navbar}}\r\n    {{*account links|navbar_links}}\r\n
+    \ </div>\r\n  </div>\r\n</nav>\r\n"
+

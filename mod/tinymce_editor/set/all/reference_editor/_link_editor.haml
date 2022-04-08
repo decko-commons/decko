@@ -1,9 +1,8 @@
-.form-row.align-items-center.mb-4.ml-1
+.row.align-items-center.mb-4.ms-1
   .col-9
     .input-group{class: [snippet.field? ? "show-prefix" : "hide-prefix"]}
-      .input-group-prepend._field-indicator
-        .input-group-text.text-muted
-          +
+      .input-group-text.text-muted._field-indicator
+        +
       = text_field_tag "link_name", snippet.name,
         class: "form-control _link-target _autocomplete",
         placeholder: "URL or Card name",
@@ -14,7 +13,7 @@
                     class: "_link-field-toggle", id: "link-editor-field"
     %label.form-check-label{for: "link-editor-field"} field
 
-.form-row.align-items-center.mb-4.ml-1.mr-1
+.row.align-items-center.mb-4.ms-1.me-1
   .col-12
     %label.form-check-label{for: "link_title"} Text to display
     = text_field_tag "link_title", snippet.title, class: "form-control _link-title"

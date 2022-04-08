@@ -68,13 +68,13 @@ class Card
       link_to label, button_attrib.merge(
         path: "##{tab_id}",
         role: "tab",
-        "data-toggle" => "tab",
+        "data-bs-toggle" => "tab",
         "data-tab-name" => name
       )
     end
 
     def tab_id
-      @tab_id ||= "#{unique_id}-#{name.to_name.safe_key}"
+      @tab_id ||= "tab-#{unique_id}-#{name.to_name.safe_key}"
     end
 
     def active?

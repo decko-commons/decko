@@ -10,12 +10,12 @@ namespace :card do
       flag_opt :v, :verbose, "progress info and error backtraces"
     end
     Cardio::Mod::Eat.new(**options).up
-    exit 0
+    # exit 0
   end
 
   desc "export card data to mod yaml"
-  task poop: :environment do
-    parse_options :poop do
+  task sow: :environment do
+    parse_options :sow do
       add_opt :n, :name, "export card with name/mark (handles : and ~ prefixes)"
       flag_opt :i, :items, "also export card items (with -n)"
       flag_opt :o, :only_items, "also export card items (with -n)", items: :only
@@ -24,10 +24,10 @@ namespace :card do
       add_opt :e, :env, "environment to dump to (default is current env)"
       add_opt :t, :field_tags, "comma-separated list of field tag marks"
     end
-    result = Cardio::Mod::Poop.new(**options).out
+    result = Cardio::Mod::Sow.new(**options).out
     exit 0 if result == :success
 
-    puts "ERROR in card:poop\n  #{result}".red
+    puts "ERROR in card:sow\n  #{result}".red
     exit 1
   end
 

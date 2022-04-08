@@ -30,7 +30,7 @@ module Cardio
         runner: { desc: "run code in app environment", group: :monkey, alias: :r },
         rspec: { desc: "run rspec tests", group: :monkey, alias: :rs, via: :call },
         generate: { desc: "generate templated code", group: :monkey, alias: :g },
-        poop: { desc: "export card data to mod yaml", group: :monkey, via: :rake },
+        sow: { desc: "export card data to mod yaml", group: :monkey, via: :rake },
         eat: { desc: "ingest card data from mod yaml", group: :monkey, via: :rake }
       }
     end

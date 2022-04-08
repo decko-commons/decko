@@ -6,71 +6,20 @@ namespace :decko do
     task update: :environment do
       ENV["STAMP_MIGRATIONS"] = "true"
       ENV["GENERATE_FIXTURES"] = "true"
-      %w[reseed update seed:clean seed:supplement seed:dump].each do |task|
+      %w[reseed seed:clean eat update assets:code seed:dump]
+        .each do |task|
+        puts "invoking: #{task}".green
         Rake::Task["decko:#{task}"].invoke
-        puts "after #{task}: #{'yeti skin+*asset input'.card_id}".yellow
       end
     end
 
     desc "remove unneeded cards, acts, actions, changes, and references"
     task clean: :environment do
-      Card::Cache.reset_all
-      clean_cards
-      clean_acts_and_actions
-      Card::Cache.reset_all
-    end
-
-    def clean_cards
-      puts "clean cards"
-      # change actors so we can delete unwanted user cards that made changes
       Card::Act.update_all actor_id: Card::WagnBotID
-      delete_ignored_cards
-      refresh_assets
-      Card::Assets.make_output_coded
-      # clean_unwanted_cards
-      Card.empty_trash
-    end
-
-    def clean_unwanted_cards
-      Card.search(right: { codename: "all" }).each(&:delete!)
-    end
-
-    def delete_ignored_cards
-      return unless (ignore = Card["*ignore"])
-
-      Card::Auth.as_bot do
-        ignore.item_cards.each(&:delete!)
-      end
-    end
-
-    task refresh_assets: :environment do
-      refresh_assets
-    end
-
-    def refresh_assets
-      puts "refresh assets"
-      Card::Auth.as_bot do
-        Card.where(right_id: :asset_input.card_id).delete_all
-      end
-      Card::Cache.reset_all
-      Cardio.config.compress_assets = true
-      Card::Assets.refresh_assets force: true
-    end
-
-    task make_asset_output_coded: :environment do
-      Card::Assets.make_output_coded
-    end
-
-    # def clean_files
-    #   puts "clean files"
-    #   Card::Cache.reset_all
-    #   # TODO: generalize to all unnecessary files
-    #   remove_old_machine_files
-    # end
-
-    def clean_acts_and_actions
       clean_history
       clean_time_and_user_stamps
+      Card.empty_trash
+      Card::Cache.reset_all
     end
 
     def clean_history
@@ -89,18 +38,6 @@ namespace :decko do
                   "creator_id=%1$s, created_at='%2$s', " \
                   "updater_id=%1$s, updated_at='%2$s'" % who_and_when
       conn.update "UPDATE card_acts SET actor_id=%s, acted_at='%s'" % who_and_when
-    end
-
-    desc "add test data"
-    task supplement: :environment do
-      add_test_data
-    end
-
-    def add_test_data
-      return unless Rails.env == "test"
-
-      load Cardio::Seed.test_script_path
-      SharedData.add_test_data
     end
 
     desc "dump db to bootstrap fixtures"
