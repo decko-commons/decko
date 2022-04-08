@@ -10,7 +10,6 @@ namespace :card do
       flag_opt :v, :verbose, "progress info and error backtraces"
     end
     Cardio::Mod::Eat.new(**options).up
-    binding.pry
     # exit 0
   end
 
