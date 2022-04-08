@@ -1,29 +1,31 @@
 class Card
   class Director
-    # Methods for intepreting stages of an action
+    # Methods for interpreting stages of an action
     module Stages
-      STAGES = %i[initialize prepare_to_validate validate
-                  prepare_to_store store finalize integrate
-                  after_integrate integrate_with_delay].freeze
-      STAGE_INDEX = STAGES.each_with_index.with_object({}) do |(stage, index), hash|
+      SYMBOLS = %i[initialize prepare_to_validate validate] +      # Validation phase
+                %i[prepare_to_store store finalize] +              # Storage phase
+                %i[integrate after_integrate integrate_with_delay] # Integration phase
+                  .freeze
+
+      INDECES = SYMBOLS.each_with_index.with_object({}) do |(stage, index), hash|
         Card.define_callbacks "#{stage}_stage", "#{stage}_final_stage"
         hash[stage] = index
       end.freeze
 
       def stage_symbol index
-        case index
-        when Symbol
-          return index if STAGE_INDEX[index]
-        when Integer
-          return STAGES[index] if index < STAGES.size
+        if index.is_a?(Symbol) && INDECES[index]
+          index
+        elsif index.is_a?(Integer) && index < SYMBOLS.size
+          SYMBOLS[index]
+        else
+          raise Card::Error, "not a valid stage index: #{index}"
         end
-        raise Card::Error, "not a valid stage index: #{index}"
       end
 
       def stage_index stage
         case stage
         when Symbol
-          STAGE_INDEX[stage]
+          INDECES[stage]
         when Integer
           stage
         when nil
@@ -41,17 +43,17 @@ class Card
       end
 
       def finished_stage? stage
-        @stage > stage_index(stage)
+        @current_stage_index > stage_index(stage)
       end
 
       def reset_stage
-        @stage = -1
+        @current_stage_index = -1
       end
 
       private
 
       def previous_stage_index from_stage=nil
-        from_stage ||= @stage
+        from_stage ||= @current_stage_index
         stage_index(from_stage) - 1
       end
 
@@ -80,7 +82,7 @@ class Card
       end
 
       def stage_test reference_stage, test_stage=nil
-        test_stage ||= @stage
+        test_stage ||= @current_stage_index
         yield stage_index(reference_stage), stage_index(test_stage)
       end
     end

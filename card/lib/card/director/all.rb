@@ -2,6 +2,31 @@ class Card
   class Director
     # director-related Card instance methods
     module All
+      attr_writer :director
+
+      delegate :validation_phase, :storage_phase, :integration_phase,
+               :validation_phase_callback?, :integration_phase_callback?, to: :director
+
+      def director
+        @director ||= Director.fetch self
+      end
+
+      def prepare_for_phases
+        reset_patterns
+        include_set_modules
+      end
+
+      def identify_action
+        @action =
+          if trash && trash_changed?
+            :delete
+          elsif new_card?
+            :create
+          else
+            :update
+          end
+      end
+
       def act options={}, &block
         if act_card
           add_to_act options, &block
@@ -41,6 +66,21 @@ class Card
 
       alias_method :update_attributes, :update
       alias_method :update_attributes!, :update!
+
+      def restore_changes_information
+        # restores changes for integration phase
+        # (rails cleared them in an after_create/after_update hook which is
+        #  executed before the integration phase)
+        return unless saved_changes.present?
+
+        @mutations_from_database = mutations_before_last_save
+      end
+
+      def clear_action_specific_attributes
+        self.class.action_specific_attributes.each do |attr|
+          instance_variable_set "@#{attr}", nil
+        end
+      end
 
       private
 

@@ -1,9 +1,10 @@
 module Cardio
   class Mod
-    # Plant YAML, is used to define cards associated with mods.
+    # The Sow class is for exporting data to mods' data directories so that they can
+    # be used as seed data when the mod is installed.
     #
     # https://docs.google.com/document/d/13K_ynFwfpHwc3t5gnLeAkZJZHco1wK063nJNYwU8qfc/edit#
-    class Plant
+    class Sow
       def initialize **args
         @mod = args[:mod]
         @name = args[:name]
