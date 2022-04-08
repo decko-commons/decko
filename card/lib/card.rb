@@ -118,6 +118,24 @@ class Card < Cardio::Record
   extend Director::CardClass
   extend Fetch::CardClass
 
+  cattr_accessor :action_specific_attributes, :set_specific_attributes
+
+  self.action_specific_attributes = [
+    :supercard,
+    :superleft,
+    :action,                      # [Symbol] :create, :update, or :delete
+    :current_action,              # [Card::Action]
+    :last_action_id_before_edit,
+
+    :comment,                     # obviated soon
+
+    # TODO: refactor following to use skip/trigger
+    :update_all_users,            # if the above is wrong then this one too
+    :silent_change                # and this probably too
+  ]
+
+  attr_accessor(*action_specific_attributes)
+
   include Dirty
   include DirtyNames
   include Name::All
@@ -138,35 +156,15 @@ class Card < Cardio::Record
   has_many :actions, -> { where(draft: [nil, false]).order :id }
   has_many :drafts, -> { where(draft: true).order :id }, class_name: :Action
 
-  cattr_accessor :action_specific_attributes, :set_specific_attributes
   alias_method :card_id, :id
 
   class << self
     delegate :config, :paths, to: Cardio
   end
 
-  self.action_specific_attributes = [
-    :supercard,
-    :superleft,
-    :action,                      # [Symbol] :create, :update, or :delete
-    :current_action,              # [Card::Action]
-    :last_action_id_before_edit,
 
-    :skip,                        # [Array] skip event(s) for all cards in act
-    :skip_in_action,              # [Array] skip event for just this card
-    :trigger,                     # [Array] trigger event(s) for all cards in act
-    :trigger_in_action,           # [Array] trigger event for just this card
-    :comment,                     # obviated soon
 
-    # TODO: refactor following to use skip/trigger
-    :update_all_users,            # if the above is wrong then this one too
-    :silent_change                # and this probably too
-  ]
 
-  attr_accessor(*action_specific_attributes)
-
-  self.action_specific_attributes +=
-    %i[skip_hash full_skip_hash trigger_hash full_trigger_hash]
 
   define_callbacks :select_action, :show_page, :act
 

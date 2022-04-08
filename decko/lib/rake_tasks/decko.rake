@@ -98,7 +98,6 @@ decko_namespace = namespace :decko do
       decko_namespace["reset_tmp"].invoke
       Card::Cache.reset_all
       Rake::Task["card:mod:uninstall"].invoke
-      Rake::Task["card:assets:wipe"].invoke
       Rake::Task["card:mod:install"].invoke
       Rake::Task["card:mod:symlink"].invoke
     end

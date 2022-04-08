@@ -69,6 +69,7 @@ format :css do
   def compile input, _style=:compressed
     SassC::Engine.new(input, style: :compressed).render
   rescue StandardError => e
+    binding.pry
     raise Card::Error, css_compression_error(e)
   end
 

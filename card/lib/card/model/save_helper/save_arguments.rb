@@ -63,8 +63,11 @@ class Card
 
           return if update_args.empty? && subcards.empty?
 
+          update_args[:skip] =
+            [update_args[:skip], :validate_renaming].flatten.compact.map(&:to_sym)
+
           # FIXME: use ensure_attributes for subcards
-          card.update! update_args.merge(subcards: subcards, skip: :validate_renaming)
+          card.update! update_args.merge(subcards: subcards)
         end
 
         def changing_args card, args
