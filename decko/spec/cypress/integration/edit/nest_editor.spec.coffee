@@ -30,12 +30,10 @@ type_nest = (text) ->
 
 describe 'nest editor', () ->
   before ->
-    cy.ensure "nests", ""
     cy.login()
-    # cy.clear_script_cache()
 
   specify "nest editor", () ->
-    cy.visit_bridge "nests"
+    cy.visit_bridge "c1"
     open_nest_editor()
     cy.get("._view-select").select2("titled")
 
@@ -77,7 +75,7 @@ describe 'nest editor', () ->
 
   specify "nest rules editor", () ->
     cy.delete "NaNa+*right+*help"
-    cy.visit_bridge "nests"
+    cy.visit_bridge "c2"
     open_nest_editor()
 
     cy.get("._nest-editor").within () ->
@@ -123,7 +121,7 @@ describe 'nest editor', () ->
     cy.expect_main_content "help nana"
 
   specify "nest image editor", () ->
-    cy.visit_bridge "nests"
+    cy.visit_bridge "c3"
     open_image_editor()
     # cy.get(".modal ._nest-editor").within () ->
     cy.contains("select").click()
