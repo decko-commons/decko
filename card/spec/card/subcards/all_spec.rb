@@ -49,12 +49,12 @@ RSpec.describe Card::Subcards::All do
 
               test_event :finalize, on: :create, for: "main card" do
                 expect(__record_names(true)).to eq ["main card"]
-                expect(subcard("sub card").director.stage).to eq nil
+                expect(subcard("sub card").director.current_stage_index).to eq nil
               end
 
               test_event :integrate, on: :create, for: "main card" do
                 expect(__record_names(true)).to eq(nil)
-                expect(subcard("sub card").director.stage).to eq nil
+                expect(subcard("sub card").director.current_stage_index).to eq nil
               end
 
               test_event :finalize, on: :create, for: "sub card" do

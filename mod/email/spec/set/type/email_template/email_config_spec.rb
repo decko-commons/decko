@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-describe Card::Set::Type::EmailTemplate::EmailConfig do
+RSpec.describe Card::Set::Type::EmailTemplate::EmailConfig do
   let(:email_name) { "a mail template" }
   let(:email) { Card.fetch(email_name) }
 
