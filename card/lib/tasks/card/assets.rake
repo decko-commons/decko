@@ -1,6 +1,6 @@
 namespace :card do
   namespace :assets do
-    task :refresh do
+    task refresh: :environment do
       Card::Assets.refresh_assets force: true
     end
 

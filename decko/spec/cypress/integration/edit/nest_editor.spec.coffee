@@ -30,11 +30,11 @@ type_nest = (text) ->
 
 describe 'nest editor', () ->
   before ->
+    cy.ensure "nests", ""
     cy.login()
     # cy.clear_script_cache()
 
   specify "nest editor", () ->
-    cy.ensure "nests", ""
     cy.visit_bridge "nests"
     open_nest_editor()
     cy.get("._view-select").select2("titled")
@@ -76,7 +76,6 @@ describe 'nest editor', () ->
       .should "eq", "<p>{{ +NaNa|view: titled; title: T|view: bar; show: guide }}{{ crafted|view: bar; hide: guide }}</p>"
 
   specify "nest rules editor", () ->
-    cy.ensure "nests", ""
     cy.delete "NaNa+*right+*help"
     cy.visit_bridge "nests"
     open_nest_editor()
@@ -124,7 +123,6 @@ describe 'nest editor', () ->
     cy.expect_main_content "help nana"
 
   specify "nest image editor", () ->
-    cy.ensure "nests", ""
     cy.visit_bridge "nests"
     open_image_editor()
     # cy.get(".modal ._nest-editor").within () ->
