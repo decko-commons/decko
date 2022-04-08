@@ -3,7 +3,7 @@ require_relative "alias"
 
 CARD_TASKS =
   [
-    { assets: %i[refresh code] },
+    { assets: %i[refresh code wipe] },
     :eat,
     :migrate,
     { migrate: %i[cards structure core_cards deck_cards redo stamp] },
@@ -98,6 +98,7 @@ decko_namespace = namespace :decko do
       decko_namespace["reset_tmp"].invoke
       Card::Cache.reset_all
       Rake::Task["card:mod:uninstall"].invoke
+      Rake::Task["card:assets:wipe"].invoke
       Rake::Task["card:mod:install"].invoke
       Rake::Task["card:mod:symlink"].invoke
     end

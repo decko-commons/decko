@@ -96,7 +96,7 @@ def source_files
   end.flatten.compact
 end
 
-# needed to make the refresh_assets method work with these cards
+# needed to make the Assets.refresh method work with these cards
 def existing_source_paths
   item_cards.map do |i_card|
     i_card.try(:existing_source_paths)
