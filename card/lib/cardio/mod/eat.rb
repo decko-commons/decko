@@ -1,5 +1,5 @@
 require "timecop"
-require "pry"
+# require "pry"
 
 DATA_ENVIRONMENTS = %i[production development test].freeze
 ENV["STORE_CODED_FILES"] = "true"
