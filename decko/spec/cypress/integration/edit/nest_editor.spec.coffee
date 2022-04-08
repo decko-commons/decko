@@ -52,9 +52,9 @@ describe 'nest editor', () ->
     cy.get("._options-select").eq(0).as("options")
     cy.get("._options-select").eq(1).as("itemoptions")
 
-    nest_option_type(0, 0, "title", "T")
-    nest_option_select(1, 0, "view", "bar")
-    nest_option_select(1, 1, "show", "guide")
+    nest_option_type 0, 0, "title", "T"
+    nest_option_select 1, 0, "view", "bar"
+    nest_option_select 1, 1, "show", "guide"
     cy.contains "Apply and Close"
       .click()
     cy.tinymce_content()

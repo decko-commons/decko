@@ -114,7 +114,7 @@ class Card
       end
 
       def ahead_of_parent? next_stage
-        haed? ? false : after?(parent.current_stage_index, next_stage)
+        head? ? false : after?(parent.current_stage_index, next_stage)
       end
     end
   end
