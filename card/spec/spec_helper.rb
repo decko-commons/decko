@@ -25,10 +25,6 @@ CardSpecLoader.prefork do
       c.syntax = %i[should expect]
     end
   end
-
-  # Card["*all+*style"].ensure_machine_output
-  # Card["*all+*script"].ensure_machine_output
-  # (ie9 = Card[:script_html5shiv_printshiv]) && ie9.ensure_machine_output
 end
 
 require "simplecov"
