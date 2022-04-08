@@ -133,15 +133,14 @@ class Card
   #
   # ---
   class Director
-    extend EventDelay
-    extend ActDirection
+    extend ClassMethods
 
     include Stages
     include Phases
     include Run
     include Store
 
-    attr_accessor :act, :card, :stage, :parent, :subdirectors, :head
+    attr_accessor :act, :card, :current_stage_index, :parent, :subdirectors, :head
     attr_reader :running
     alias_method :running?, :running
 
@@ -150,7 +149,7 @@ class Card
       @card.director = self
       # for read actions there is no validation phase
       # so we have to set the action here
-      @stage = nil
+      @current_stage_index = nil
       @running = false
       @prepared = false
       @parent = parent
@@ -178,7 +177,7 @@ class Card
       @parent&.subdirectors&.delete self
       @card.director = nil
       @subdirectors.clear
-      @stage = nil
+      @current_stage_index = nil
       @action = nil
       @running = false
     end
@@ -220,7 +219,7 @@ class Card
       card.director = self
       @card = card
       reset_stage
-      catch_up_to_stage @stage if @stage
+      catch_up_to_stage @current_stage_index if @current_stage_index
     end
 
     def update_card card
