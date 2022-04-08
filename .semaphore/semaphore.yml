@@ -22,6 +22,7 @@ global_job_config:
       # - sem-version ruby 2.6.3 # because pry-stack_explorer doesn't work in 2.5
       - sem-version ruby 2.7.3 # because semaphore certs not working in 2.6.3
       # - sem-version ruby 3.0.1 # temporary
+      - gem install bundler:2.3.11
       - alias be='bundle exec'
       - git submodule init
       # - git submodule status > substat.txt # needed for sem submodule caching
