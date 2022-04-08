@@ -11,7 +11,7 @@ class Card
       end
 
       def integration_phase_callback?
-        !@only_storage_phase && main?
+        !@abort && !@only_storage_phase && main?
       end
 
       def prepare_for_phases

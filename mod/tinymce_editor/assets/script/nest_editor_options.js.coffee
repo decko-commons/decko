@@ -19,7 +19,7 @@ $(document).ready ->
     row.find("._nest-option-value").removeAttr("disabled")
     template = row.parent().find("._nest-option-row._template")
     $(this).removeClass("_new-row")
-    nest.addRow(tempglate)
+    nest.addRow template
 
   $('body').on "click", "._configure-items-button", () ->
     nest.addItemsOptions($(this))

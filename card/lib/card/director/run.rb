@@ -13,7 +13,7 @@ class Card
       def run_delayed_event act
         @running = true
         @act = act
-        @stage = stage_index :integrate_with_delay
+        @current_stage_index = stage_index :integrate_with_delay
         yield
         run_subcard_stages :integrate_with_delay
       end
@@ -24,65 +24,33 @@ class Card
 
       def restart
         @running = false
-        @stage = nil
+        @current_stage_index = nil
       end
 
       private
-
-      def upto_stage stage
-        @stage ||= -1
-        (@stage + 1).upto(stage_index(stage)) do |i|
-          yield stage_symbol(i)
-        end
-      end
-
-      def valid_next_stage? next_stage
-        @stage ||= -1
-        return false if in_or_after?(next_stage) || ahead_of_parent?(next_stage)
-        return false unless valid_card? next_stage
-
-        check_skipped_stage next_stage
-        true
-      end
-
-      def valid_card? next_stage
-        @card.errors.empty? || in_or_before?(:validate, next_stage)
-      end
-
-      def check_skipped_stage stage
-        return unless before? previous_stage_index(stage)
-
-        raise Card::Error, "stage #{previous_stage_symbol stage} was " \
-                           "skipped for card #{@card}"
-      end
-
-      def ahead_of_parent? next_stage
-        return false if head?
-
-        after? parent.stage, next_stage
-      end
 
       def run_stage stage, &block
         return true unless valid_next_stage? stage
 
         # puts "#{@card.name}: #{stage} stage".yellow
-        prepare_stage_run stage
-        execute_stage_run stage, &block
+        @current_stage_index = stage_index stage
+        handle_stage stage, block do
+          run_stage_callbacks stage
+          run_subcard_stages stage
+          run_final_stage_callbacks stage
+        end
       end
 
-      def prepare_stage_run stage
-        @stage = stage_index stage
-        prepare_for_phases if stage == :initialize
-      end
-
-      def execute_stage_run stage, &block
-        # in the store stage it can be necessary that
-        # other subcards must be saved before we save this card
-        return store(&block) if stage == :store
-
-        run_stage_callbacks stage
-        run_subcard_stages stage
-        run_final_stage_callbacks stage
+      def handle_stage stage, block
+        case stage
+        when :initialize
+          prepare_for_phases
+        when :store
+          # in the store stage it can be necessary that
+          # other subcards must be saved before we save this card
+          return store(&block)
+        end
+        yield
       end
 
       def run_stage_callbacks stage, callback_postfix=""
@@ -114,6 +82,39 @@ class Card
 
       def run_final_stage_callbacks stage
         run_stage_callbacks stage, "_final"
+      end
+
+      def upto_stage stage
+        @current_stage_index ||= -1
+        (@current_stage_index + 1).upto(stage_index(stage)) do |i|
+          yield stage_symbol(i)
+        end
+      end
+
+      def valid_next_stage? next_stage
+        @current_stage_index ||= -1
+        return false if @abort ||
+                        in_or_after?(next_stage) ||
+                        ahead_of_parent?(next_stage) ||
+                        !valid_card?(next_stage)
+
+        check_skipped_stage next_stage
+        true
+      end
+
+      def valid_card? next_stage
+        @card.errors.empty? || in_or_before?(:validate, next_stage)
+      end
+
+      def check_skipped_stage stage
+        return unless before? previous_stage_index(stage)
+
+        raise Card::Error, "stage #{previous_stage_symbol stage} was " \
+                           "skipped for card #{@card}"
+      end
+
+      def ahead_of_parent? next_stage
+        head? ? false : after?(parent.current_stage_index, next_stage)
       end
     end
   end
