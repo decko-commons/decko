@@ -68,8 +68,8 @@ event :copy_theme, :prepare_to_store, on: :create do
 end
 
 def initialize_theme style_item_names=nil
-  subfield :colors, type_id: Card::ScssID
-  add_variables_subfield
+  subfield :colors, type: :scss
+  subfield :variables, type: :scss
   add_stylesheets_subfield style_item_names
 end
 
@@ -84,12 +84,6 @@ def add_stylesheets_subfield style_items=nil
   end
 
   subfield :stylesheets, opts
-end
-
-def add_variables_subfield
-  theme_content = content_from_theme(:variables)
-  default_content = read_bootstrap_variables
-  subfield :variables, type: :scss, content: "#{theme_content}\n\n\n#{default_content}"
 end
 
 def add_bootswatch_subfield

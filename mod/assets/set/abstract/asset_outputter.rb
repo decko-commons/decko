@@ -34,12 +34,7 @@ def update_asset_output_live
 end
 
 def input_from_item_cards joint="\n"
-  # input_item_cards.map(&:asset_input_content).compact.join(joint)
-  input_item_cards.map do |ic|
-    ic.asset_input_content.tap do |content|
-      puts "23 found in #{ic.name}".red if content.match? "23"
-    end
-  end.compact.join(joint)
+  input_item_cards.map(&:asset_input_content).compact.join(joint)
 end
 
 def store_output output
