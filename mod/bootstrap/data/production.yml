@@ -1,10 +1,9 @@
 ---
+- :name: parent
+  :codename: :parent
 - :name: Bootswatch skin
   :type: :cardtype
   :codename: :bootswatch_skin
-- :name: Customized bootswatch skin
-  :type: :cardtype
-  :codename: :customized_bootswatch_skin
 - :name: "*getting started"
   :type: :html
   :codename: :getting_started

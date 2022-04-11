@@ -49,7 +49,6 @@ class Card
       editing
       event
       other
-      config
     ].each_with_object({}) do |key, groups|
       groups[key] = []
     end
