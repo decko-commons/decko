@@ -24,7 +24,6 @@ module Cardio
       set
       session
       bootswatch_skin
-      customized_bootswatch_skin
       local_folder_group
       local_manifest_group
       local_script_folder_group
