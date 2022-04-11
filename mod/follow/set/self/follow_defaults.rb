@@ -48,9 +48,9 @@ end
 format :html do
   view :edit_buttons do
     render_confirm_update_all +
-    button_formgroup do
-      [submit_and_update_button, simple_submit_button, cancel_to_edit_button]
-    end
+      button_formgroup do
+        [submit_and_update_button, simple_submit_button, cancel_to_edit_button]
+      end
   end
 
   def submit_and_update_button
