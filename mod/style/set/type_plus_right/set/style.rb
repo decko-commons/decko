@@ -37,7 +37,6 @@ format :html do
   end
 end
 
-
 event :update_theme_input, :finalize,
       before: :update_asset_output_file, changed: :content do
   item_cards.each do |theme_card|

@@ -121,17 +121,14 @@ class Card < Cardio::Record
   cattr_accessor :action_specific_attributes, :set_specific_attributes
 
   self.action_specific_attributes = [
-    :supercard,
-    :superleft,
+    :supercard,                   # [Card]
+    :superleft,                   # [Card]
     :action,                      # [Symbol] :create, :update, or :delete
     :current_action,              # [Card::Action]
-    :last_action_id_before_edit,
+    :last_action_id_before_edit,  # [Integer]
 
-    :comment,                     # obviated soon
-
-    # TODO: refactor following to use skip/trigger
-    :update_all_users,            # if the above is wrong then this one too
-    :silent_change                # and this probably too
+    :comment,      # TODO: refactor in favor of card[add], card[drop]
+    :silent_change # TODO: refactor following to use skip/trigger
   ]
 
   attr_accessor(*action_specific_attributes)
@@ -161,10 +158,6 @@ class Card < Cardio::Record
   class << self
     delegate :config, :paths, to: Cardio
   end
-
-
-
-
 
   define_callbacks :select_action, :show_page, :act
 

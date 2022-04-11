@@ -11,8 +11,8 @@ class Card
         ]
         attr_reader(*settings)
 
-        Card.action_specific_attributes += settings +
-          %i[skip_hash full_skip_hash trigger_hash full_trigger_hash]
+        Card.action_specific_attributes +=
+          settings + %i[skip_hash full_skip_hash trigger_hash full_trigger_hash]
 
         def skip= skip_val
           @skip_hash = @full_skip_hash = nil
@@ -90,23 +90,16 @@ class Card
         end
 
         def full_skip_hash
-          @full_skip_hash ||= act_skip_hash.merge skip_in_action_hash
+          @full_skip_hash ||= act_skip_hash.merge hash_with_value(skip_in_action, true)
         end
 
         def act_skip_hash
           (act_card || self).skip_hash
         end
 
-        def skip_in_action_hash
-          hash_with_value skip_in_action, true
-        end
-
         def full_trigger_hash
-          @full_trigger_hash ||= act_trigger_hash.merge trigger_in_action_hash
-        end
-
-        def trigger_in_action_hash
-          hash_with_value trigger_in_action, true
+          @full_trigger_hash ||=
+            act_trigger_hash.merge hash_with_value(trigger_in_action, true)
         end
 
         def act_trigger_hash

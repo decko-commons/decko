@@ -5,7 +5,7 @@ describe Card::Set::Self::FollowDefaults do
     before do
       Card::Auth.as_bot do
         card = Card[:follow_defaults]
-        card.update_all_users = true
+        card.trigger :update_follow_rules
         card.update! content: "[[A+*self+*always]]"
       end
     end

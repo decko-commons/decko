@@ -30,9 +30,8 @@ format :html do
   end
 
   def customize_button target: parent&.card, text: "Apply and customize"
-    return "" if card.parent? # technically we should be able to do this now; you
-                              # can further customize a customized skin
-
+    return "" if card.parent?
+    # remove? perhaps we should be able to further customize a customized skin
 
     new_name = card.new_customized_name
     link_to_card target, text,

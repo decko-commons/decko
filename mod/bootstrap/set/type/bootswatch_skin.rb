@@ -80,10 +80,8 @@ def theme_codename
 end
 
 def scss_from_theme_file file
-  return "" unless (path = ::File.join(source_dir, "_#{file}.scss")) &&
-    ::File.exist?(path)
-
-  ::File.read path
+  path = ::File.join source_dir, "_#{file}.scss"
+  path && ::File.exist?(path) ? ::File.read(path) : ""
 end
 
 def editable_item_cards
@@ -174,4 +172,3 @@ def source_dir
     "#{mod_root :bootstrap}/vendor/bootswatch/dist/#{theme_name}", __FILE__
   )
 end
-
