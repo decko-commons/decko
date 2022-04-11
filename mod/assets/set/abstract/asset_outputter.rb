@@ -3,10 +3,6 @@ include Env::Location
 
 card_accessor :asset_output, type: :file
 
-def output_filetype
-  output_format
-end
-
 event :update_asset_output_file, :finalize, on: :save do
   update_asset_output
 end
@@ -55,7 +51,7 @@ def store_output output
 end
 
 def handle_file output
-  file = Tempfile.new [id.to_s, ".#{output_filetype}"]
+  file = Tempfile.new [id.to_s, ".#{output_format}"]
   file.write output
   file.close
   yield file

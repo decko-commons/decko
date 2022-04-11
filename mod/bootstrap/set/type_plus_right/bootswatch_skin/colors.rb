@@ -101,7 +101,7 @@ end
 def replace_values group, prefix=""
   values = variable_values_from_params group
   values.each_pair do |name, val|
-    if content.match definition_regex(name)
+    if content.match? definition_regex(name)
       content.gsub! definition_regex(name), "\\k<before>#{prefix}#{val}\\k<after>"
     else
       self.content += "$#{name}: #{prefix}#{val} !default;\n"

@@ -1,6 +1,6 @@
 .album.bg-light
   .container
-    .row
+    .d-flex.flex-wrap.justify-content-around
       - selectable_themes.each do |theme|
-        .col-md-4
+        .m-2.my-4
           = nest theme, view: :box
