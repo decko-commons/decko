@@ -12,7 +12,7 @@ def referers_responding_to method_name
   referers.select { |referer| referer.respond_to? method_name }
 end
 
-event :asset_input_changed, :finalize, on: :save do
+event :asset_input_changed, :finalize, on: :save, skip: :allowed do
   update_asset_input
 end
 

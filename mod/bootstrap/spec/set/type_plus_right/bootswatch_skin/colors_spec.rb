@@ -1,8 +1,7 @@
-RSpec.describe Card::Set::TypePlusRight::CustomizedBootswatchSkin::Colors do
+RSpec.describe Card::Set::TypePlusRight::BootswatchSkin::Colors do
   let(:card) do
-    Card::Env.params[:theme] = "journal"
     Card::Auth.as_bot do
-      create_customized_bootswatch_skin "my skin"
+      create_bootswatch_skin "my skin", subfields: { parent: :journal_skin.cardname }
     end
   end
 

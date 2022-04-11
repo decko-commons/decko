@@ -4,14 +4,13 @@ RSpec.describe Card::Set::Type::BootswatchSkin do
   CUSTOM_CSS = "body{background-color:#123}".freeze
   YETI_THEME_CSS = "background-color:#f6f6f6;".freeze
 
-  let(:customized_skin) do
-    Card::Env.params[:theme] = "yeti"
-    create "customized yeti skin", type: :customized_bootswatch_skin
+  let :customized_skin do
+    create "customized yeti skin", type: :bootswatch_skin,
+                                   subfields: { parent: :yeti_skin.cardname }
   end
 
   let(:style_with_customized_theme) do
-    create "A+*self+*style",
-           type: :pointer, content: customized_skin.name
+    create "A+*self+*style", type: :pointer, content: customized_skin.name
   end
 
   def generated_css
@@ -23,17 +22,39 @@ RSpec.describe Card::Set::Type::BootswatchSkin do
     expect(generated_css).to include YETI_THEME_CSS
   end
 
-  context "when item added to stylesheets pointer" do
-    it "updates output of related asset output card", as_bot: true do
-      create "new_style", type: :css, content: CUSTOM_CSS
-      customized_skin.fetch(:stylesheets).add_item! "new_style"
-      expect(generated_css).to include CUSTOM_CSS
+  specify ".read_bootstrap_variables" do
+    expect(customized_skin.read_bootstrap_variables).to include "$primary"
+  end
+
+  example "update old skin", as_bot: true do
+    create_skin "old skin", content: ["bootstrap default skin", "custom css"]
+    Card["old skin"].update! type: :bootswatch_skin
+
+    expect_card("old skin")
+      .to have_a_field(:stylesheets).pointing_to "custom css"
+  end
+
+  describe "+:colors" do
+    it "includes color definitions", as_bot: true do
+      customized_skin.colors_card.update! content: "$primary: $cyan !default"
+      expect(customized_skin.content).to include "$primary: $cyan !default"
     end
   end
 
-  context "when stylesheets item content changed" do
-    it "updates output of related asset output card", as_bot: true do
-      customized_skin.fetch(:bootswatch).update! content: CUSTOM_CSS
+  describe "+:stylesheets list" do
+    def create_and_add_style content
+      create "new_style", type: :css, content: content
+      customized_skin.stylesheets_card.add_item! "new_style"
+    end
+
+    it "updates asset output on create", as_bot: true do
+      create_and_add_style CUSTOM_CSS
+      expect(generated_css).to include CUSTOM_CSS
+    end
+
+    it "updates asset output on update", as_bot: true do
+      create_and_add_style ""
+      "new style".card.update! content: CUSTOM_CSS
       expect(generated_css).to include CUSTOM_CSS
     end
   end

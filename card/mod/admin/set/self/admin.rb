@@ -17,7 +17,7 @@ event :admin_tasks, :initialize, on: :update do
   when :repair_references    then Card::Reference.repair_all
   when :repair_permissions   then Card.repair_all_permissions
   when :clear_solid_cache    then Card.clear_solid_cache
-  when :regenerate_assets    then Card::Assets.refresh_assets force: true
+  when :regenerate_assets    then Card::Assets.refresh force: true
   # when :regenerate_scripts   then Card::Assets.refresh_scripts
   when :clear_history
     not_allowed "clear history" unless irreversibles_tasks_allowed?

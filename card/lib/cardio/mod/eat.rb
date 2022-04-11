@@ -1,5 +1,5 @@
 require "timecop"
-require "pry"
+# require "pry"
 
 DATA_ENVIRONMENTS = %i[production development test].freeze
 ENV["STORE_CODED_FILES"] = "true"
@@ -15,7 +15,7 @@ module Cardio
 
       def initialize mod: nil, env: nil, user: nil, verbose: nil
         @mod = mod
-        @env = "test" # env
+        @env = env || Rails.env
         @user_id = user&.card_id
         @verbose = true # !verbose.nil?
       end
@@ -41,7 +41,7 @@ module Cardio
         rescuing edible do
           # puts "eating: #{edible}" if @verbose
           card = yield
-          puts "eaten: #{card.name}".green if @verbose
+          puts "eaten: #{card.name}" if @verbose
         end
       end
 

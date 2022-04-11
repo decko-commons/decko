@@ -3,6 +3,37 @@ class Card
     class Event
       # opt into (trigger) or out of (skip) events
       module SkipAndTrigger
+        settings = [
+          :skip,                        # [Array] skip event(s) for all cards in act
+          :skip_in_action,              # [Array] skip event for just this card
+          :trigger,                     # [Array] trigger event(s) for all cards in act
+          :trigger_in_action,           # [Array] trigger event for just this card
+        ]
+        attr_reader(*settings)
+
+        Card.action_specific_attributes +=
+          settings + %i[skip_hash full_skip_hash trigger_hash full_trigger_hash]
+
+        def skip= skip_val
+          @skip_hash = @full_skip_hash = nil
+          @skip = skip_val
+        end
+
+        def skip_in_action= skip_val
+          @skip_hash = @full_skip_hash = nil
+          @skip_in_action = skip_val
+        end
+
+        def trigger= trigger_val
+          @trigger_hash = @full_trigger_hash = nil
+          @trigger = trigger_val
+        end
+
+        def trigger_in_action= trigger_val
+          @trigger_hash = @full_trigger_hash = nil
+          @trigger_in_action = trigger_val
+        end
+
         # force skipping this event for all cards in act
         def skip_event! *events
           @full_skip_hash = nil
@@ -59,23 +90,16 @@ class Card
         end
 
         def full_skip_hash
-          @full_skip_hash ||= act_skip_hash.merge skip_in_action_hash
+          @full_skip_hash ||= act_skip_hash.merge hash_with_value(skip_in_action, true)
         end
 
         def act_skip_hash
           (act_card || self).skip_hash
         end
 
-        def skip_in_action_hash
-          hash_with_value skip_in_action, true
-        end
-
         def full_trigger_hash
-          @full_trigger_hash ||= act_trigger_hash.merge trigger_in_action_hash
-        end
-
-        def trigger_in_action_hash
-          hash_with_value trigger_in_action, true
+          @full_trigger_hash ||=
+            act_trigger_hash.merge hash_with_value(trigger_in_action, true)
         end
 
         def act_trigger_hash
