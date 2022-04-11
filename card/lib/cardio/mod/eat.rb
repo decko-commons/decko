@@ -17,7 +17,7 @@ module Cardio
         @mod = mod
         @env = env || Rails.env
         @user_id = user&.card_id
-        @verbose = !verbose.nil?
+        @verbose = true # !verbose.nil?
       end
 
       def up
@@ -41,7 +41,7 @@ module Cardio
         rescuing edible do
           # puts "eating: #{edible}" if @verbose
           card = yield
-          puts "eaten: #{card.name}".green if @verbose
+          puts "eaten: #{card.name}" if @verbose
         end
       end
 
