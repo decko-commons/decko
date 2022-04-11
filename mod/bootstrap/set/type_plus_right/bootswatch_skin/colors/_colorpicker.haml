@@ -1,0 +1,10 @@
+.row
+  %label.col-sm-3.col-form-label
+    = color_name
+  .col-sm-9.py-1
+    .input-group.colorpicker-component
+      %input.form-control.input-lg{name: "colors[#{color_name}]", type: "text", value: color}/
+
+      %span.input-group-text.input-group-addon
+        %i
+

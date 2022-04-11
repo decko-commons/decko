@@ -63,6 +63,10 @@ def item_names _args={}
   end.compact
 end
 
+def parent?
+  parent_skin_card&.real?
+end
+
 def theme_name
   theme_codename.to_s.sub(/_skin$/, "")
 end
@@ -122,10 +126,6 @@ private
 
 def parent_skin_card
   parent_card&.first_card
-end
-
-def parent?
-  parent_skin_card&.real?
 end
 
 # needed to make the refresh_script_and_style method work with these cards

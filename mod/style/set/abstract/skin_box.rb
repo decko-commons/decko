@@ -7,18 +7,8 @@ format :html do
 
   view :box_bottom, template: :haml
 
-  view :customize_button, cache: :never do
-    customize_button
-  end
-
-  def customize_button target: parent&.card, text: "Apply and customize"
-    return "" unless card.codename.present?
-
-    theme = card.codename.match(/^(?<theme_name>.+)_skin$/).capture(:theme_name)
-    link_to_card target, text,
-                 path: { action: :update, card: { content: "[[#{card.name}]]" },
-                         customize: true, theme: theme },
-                 class: "btn btn-sm btn-outline-primary me-2"
+  view :customize_button do
+    ""
   end
 
   view :box_middle do
