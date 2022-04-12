@@ -1,8 +1,6 @@
 format :html do
   view :rule_form, cache: :never, unknown: true do
-    @success_view ||= :open
-    @rule_context ||= card
-    @form_type ||= :overlay
+    prepare_rule_form_options
 
     wrap do
       edit_rule_form @success_view do
@@ -11,6 +9,24 @@ format :html do
           haml(:rule_form)
         ].join
       end
+    end
+  end
+
+  def prepare_rule_form_options
+    @success_view ||= :open
+    @rule_context ||= card
+    @form_type ||= :overlay
+    @edit_rule_success = edit_rule_success @success_view
+  end
+
+  view :rule_form_card_editor, cache: :never, unknown: true do
+    prepare_rule_form_options
+    
+    wrap true, class: "card-editor slotter" do
+      [
+        rules_type_formgroup,
+        rule_content_formgroup
+      ]
     end
   end
 
