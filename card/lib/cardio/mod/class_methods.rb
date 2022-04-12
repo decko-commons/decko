@@ -83,7 +83,7 @@ module Cardio
         Card[:all, :script].update! content: hash[:script].compact
         Card[:style_mods].update! content: hash[:style].compact
         puts "refreshing assets"
-        Card::Assets.refresh_assets force: true
+        Card::Assets.refresh force: true
       end
 
       # it would be nice if this were easier...
