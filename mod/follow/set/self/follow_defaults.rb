@@ -14,7 +14,7 @@
 # - if you truly want to override existing follow rules, that may be monkey territory?
 # - we will delete "*follow defaults" after the above are completed
 
-event :update_follow_rules, :finalize, on: :save, when: :update_all_users do
+event :update_follow_rules, :finalize, on: :save, trigger: :required do
   Auth.as_bot do
     Card.search(type: "user").each do |user|
       follow_defaults.each do |set_card, option|
@@ -46,24 +46,16 @@ def follow_option item
 end
 
 format :html do
-  view :edit, perms: :update, unknown: true do
-    frame_and_form :update, hidden: { card: { update_all_users: false } } do
-      [
-        _render_content_formgroups,
-        _render_confirm_update_all,
-        _render_edit_buttons
-      ]
-    end
-  end
-
   view :edit_buttons do
-    button_formgroup do
-      [submit_and_update_button, simple_submit_button, cancel_to_edit_button]
-    end
+    render_confirm_update_all +
+      button_formgroup do
+        [submit_and_update_button, simple_submit_button, cancel_to_edit_button]
+      end
   end
 
   def submit_and_update_button
     submit_button text: "Submit and update all users",
+                  name: "card[trigger]", value: "update_follow_rules",
                   disable_with: "Updating", class: "follow-updater"
   end
 

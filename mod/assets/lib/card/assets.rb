@@ -15,8 +15,8 @@ class Card
         ]
       end
 
-      def refresh_assets force: false
-        return unless force || refresh_assets?
+      def refresh force: false
+        return unless force || refresh?
 
         inputters = standard_inputters
 
@@ -28,6 +28,15 @@ class Card
         inputters.each(&:refresh_asset)
 
         generate_asset_output_files if force
+      end
+
+      def wipe
+        Auth.as_bot do
+          %i[asset_input asset_output].each do |field|
+            Card.search(right: field).each(&:delete!)
+            Virtual.where(right_id: field.card_id).destroy_all
+          end
+        end
       end
 
       def make_output_coded
@@ -72,7 +81,7 @@ class Card
         Card.search type_id: inputter_types.unshift("in")
       end
 
-      def refresh_assets?
+      def refresh?
         case Cardio.config.asset_refresh
         when :eager    then true
         when :cautious then cautious_refresh?
