@@ -145,7 +145,10 @@ def pre_variables_content
 end
 
 def variables_content
-  combined_content :variables, variables_card_names
+  [
+    load_content(variables_card_names),
+    theme_card.scss_from_theme_file(:variables)
+  ].compact.join "\n"
 end
 
 def post_variables_content
@@ -153,7 +156,10 @@ def post_variables_content
 end
 
 def stylesheets_content
-  combined_content :bootswatch, stylesheets_card_names
+  [
+    theme_card.scss_from_theme_file(:bootswatch),
+    load_content(stylesheets_card_names)
+  ].compact.join "\n"
 end
 
 def combined_content filename, cardnames

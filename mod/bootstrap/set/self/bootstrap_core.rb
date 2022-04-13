@@ -1,6 +1,7 @@
 include_set Abstract::BootstrapCodeFile
 
 def load_stylesheets
+  add_bs_stylesheet "variables"
   add_bs_stylesheet "rfs", subdir: "vendor"
   mixin_stylesheets.each { |name| add_bs_stylesheet name, subdir: "mixins" }
   main_stylesheets.each { |name| add_bs_stylesheet name }
