@@ -1,36 +1,86 @@
 ---
+
+- :name: "*bootswatch"
+  :codename: :bootswatch
+- :name: "*variables"
+  :codename: :variables
+- :name: "*stylesheets"
+  :codename: :stylesheets
+- :name: "*colors"
+  :codename: :colors
+
 - :name: Bootswatch skin
   :type: :cardtype
   :codename: :bootswatch_skin
-- :name: Customized bootswatch skin
-  :type: :cardtype
-  :codename: :customized_bootswatch_skin
-- :name: "*getting started"
-  :type: :html
-  :codename: :getting_started
-  :content: "<div class=\"container text-center\">\r\n  <!-- card 1 -->\r\n  <div
-    class=\"d-flex justify-content-center align-items-center p-3 my-3 rounded box-shadow\">\r\n
-    \   {{+shark|core}}\r\n    <h1>Welcome, Card Shark!</h1>\r\n  </div>\r\n  <div
-    class=\"jumbotron\">\r\n    <h3 class=\"mb-4\">Things to sink your teeth into:</h3>\r\n
-    \   <div class=\"d-flex justify-content-center ps-10\">\r\n      <div>\r\n        <p
-    class=\"lead\">\r\n          Structure\r\n        </p>\r\n        <p>\r\n          <a
-    href=\"new/cardtype\" class=\"btn btn-primary me-2\">Add new Cardtype</a>\r\n
-    \       </p>\r\n      </div>\r\n      <div class=\"pe-5\">\r\n        <p class=\"lead\">\r\n
-    \         Style\r\n        </p>\r\n        <p>\r\n          <a href=\"*all+*style\"
-    class=\"btn btn-primary me-2\">Configure Skin Card</a>\r\n        </p>\r\n      </div>\r\n
-    \   </div>\r\n  </div>\r\n  <p class=\"lead mt-5\">\r\n    <a href=\"Administrator\"
-    class=\"\">and more...</a>\r\n  </p>\r\n</div>\r\n"
-- :name: "*header"
-  :type: :html
-  :content: "<nav class=\"navbar navbar-expand-lg navbar-dark bg-dark mb-3\">\r\n
-    \ <div class=\"container-fluid\">\r\n  <a class=\"navbar-brand nav-logo p-0\"
-    href=\"{{*home|home_path}}\">\r\n    {{*logo|core;size:small}}\r\n  </a>\r\n  <a
-    class=\"navbar-brand\" href=\"{{*home|home_path}}\">\r\n    {{*title|core}}\r\n
-    \ </a>\r\n  <button class=\"navbar-toggler\" type=\"button\" data-toggle=\"collapse\"
-    data-target=\"#navbarSupportedContent\" aria-controls=\"navbarSupportedContent\"
-    aria-expanded=\"false\" aria-label=\"Toggle navigation\">\r\n    <span class=\"navbar-toggler-icon\"></span>\r\n
-    \ </button>\r\n\r\n  <div class=\"collapse navbar-collapse\" id=\"navbarSupportedContent\">\r\n
-    \   <ul class=\"navbar-nav mr-auto\">\r\n      {{*main menu|navbar_links}}\r\n
-    \   </ul>\r\n    {{*navbox|navbar}}\r\n    {{*account links|navbar_links}}\r\n
-    \ </div>\r\n  </div>\r\n</nav>\r\n"
 
+- :name: cerulean skin
+  :type: :bootswatch_skin
+  :codename: :cerulean_skin
+- :name: cosmo skin
+  :type: :bootswatch_skin
+  :codename: :cosmo_skin
+- :name: cyborg skin
+  :type: :bootswatch_skin
+  :codename: :cyborg_skin
+- :name: darkly skin
+  :type: :bootswatch_skin
+  :codename: :darkly_skin
+- :name: flatly skin
+  :type: :bootswatch_skin
+  :codename: :flatly_skin
+- :name: journal skin
+  :type: :bootswatch_skin
+  :codename: :journal_skin
+- :name: lumen skin
+  :type: :bootswatch_skin
+  :codename: :lumen_skin
+- :name: sandstone skin
+  :type: :bootswatch_skin
+  :codename: :sandstone_skin
+- :name: simplex skin
+  :type: :bootswatch_skin
+  :codename: :simplex_skin
+- :name: slate skin
+  :type: :bootswatch_skin
+  :codename: :slate_skin
+- :name: spacelab skin
+  :type: :bootswatch_skin
+  :codename: :spacelab_skin
+- :name: superhero skin
+  :type: :bootswatch_skin
+  :codename: :superhero_skin
+- :name: united skin
+  :type: :bootswatch_skin
+  :codename: :united_skin
+- :name: yeti skin
+  :type: :bootswatch_skin
+  :codename: :yeti_skin
+- :name: litera skin
+  :type: :bootswatch_skin
+  :codename: :litera_skin
+- :name: lux skin
+  :type: :bootswatch_skin
+  :codename: :lux_skin
+- :name: materia skin
+  :type: :bootswatch_skin
+  :codename: :materia_skin
+- :name: minty skin
+  :type: :bootswatch_skin
+  :codename: :minty_skin
+- :name: pulse skin
+  :type: :bootswatch_skin
+  :codename: :pulse_skin
+- :name: solar skin
+  :type: :bootswatch_skin
+  :codename: :solar_skin
+- :name: sketchy skin
+  :type: :bootswatch_skin
+  :codename: :sketchy_skin
+
+
+- :name: 'bootstrap: functions'
+  :type: :scss
+  :codename: :bootstrap_functions
+- :name: 'bootstrap: core'
+  :type: :scss
+  :codename: :bootstrap_core
