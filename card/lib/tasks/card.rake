@@ -10,7 +10,7 @@ namespace :card do
       flag_opt :v, :verbose, "progress info and error backtraces"
     end
     Cardio::Mod::Eat.new(**options).up
-    # exit 0
+    exit 0
   end
 
   desc "export card data to mod yaml"
