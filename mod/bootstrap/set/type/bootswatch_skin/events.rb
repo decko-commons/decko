@@ -29,9 +29,9 @@ end
 def theme_error_type
   if theme_card.type_code != :bootswatch_skin
     :not_valid_theme
-  elsif !Dir.exist? source_dir
-    # puts method(:source_dir).source_location
-    :cannot_source_theme
+  # elsif !Dir.exist? source_dir
+  #   # puts method(:source_dir).source_location
+  #   :cannot_source_theme
   end
 end
 
