@@ -9,7 +9,7 @@ namespace :card do
       add_opt :u, :user, "user to credit unless specified (otherwise uses Decko Bot)"
       flag_opt :v, :verbose, "progress info and error backtraces"
     end
-    rake_results(:eat) { Cardio::Mod::Eat.new(**options).up }
+    rake_result(:eat) { Cardio::Mod::Eat.new(**options).up }
   end
 
   desc "export card data to mod yaml"
@@ -23,7 +23,7 @@ namespace :card do
       add_opt :e, :env, "environment to dump to (default is current env)"
       add_opt :t, :field_tags, "comma-separated list of field tag marks"
     end
-    rake_results(:sow) { Cardio::Mod::Sow.new(**options).out }
+    rake_result(:sow) { Cardio::Mod::Sow.new(**options).out }
   end
 
   desc "reset cache"
