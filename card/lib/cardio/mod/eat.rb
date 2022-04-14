@@ -45,12 +45,11 @@ module Cardio
         e.message
       end
 
-
       def track edible
         rescuing edible do
           # puts "eating: #{edible}" if @verbose
           card = yield
-          puts "eaten: #{card.name}" if @verbose
+          puts "eaten: #{card.name}".cyan if @verbose
         end
       end
 
