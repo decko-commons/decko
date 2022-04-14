@@ -9,8 +9,7 @@ namespace :card do
       add_opt :u, :user, "user to credit unless specified (otherwise uses Decko Bot)"
       flag_opt :v, :verbose, "progress info and error backtraces"
     end
-    Cardio::Mod::Eat.new(**options).up
-    exit 0
+    rake_result(:eat) { Cardio::Mod::Eat.new(**options).up }
   end
 
   desc "export card data to mod yaml"
@@ -24,11 +23,7 @@ namespace :card do
       add_opt :e, :env, "environment to dump to (default is current env)"
       add_opt :t, :field_tags, "comma-separated list of field tag marks"
     end
-    result = Cardio::Mod::Sow.new(**options).out
-    exit 0 if result == :success
-
-    puts "ERROR in card:sow\n  #{result}".red
-    exit 1
+    rake_result(:sow) { Cardio::Mod::Sow.new(**options).out }
   end
 
   desc "reset cache"
@@ -38,6 +33,16 @@ namespace :card do
 
   def options
     @options ||= {}
+  end
+
+  def rake_result task
+    result = yield
+    return unless @options.present? # otherwise rake tries to run the arguments as tasks
+
+    exit 0 if result == :success
+
+    puts "ERROR in card #{task}:\n  #{result}".red
+    exit 1
   end
 
   def flag_opt letter, key, desc, hash=nil

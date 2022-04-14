@@ -5,36 +5,25 @@
 # The original bootswatch theme is build from two files, `_variables.scss` and
 # `_bootswatch.scss`. The original bootstrap scss has to be put between those two.
 # `_variables.scss` overrides bootstrap variables, `_bootswatch.scss` overrides
-# bootstrap css (variables are defined with `!default` hence only the first appearance
-# has an effect, for css the last appearance counts)
+# bootstrap css (bootstrap's SCSS variables are defined later with `!default`, so the
+# bootswatch value takes precendence.
 #
 # The content of a bootswatch theme card consists of four parts:
-#   * pre_variables: hard-coded theme independent stuff
-#       and bootstrap functions to make them available in the variables part
-#   * variables: the content from `_variables.scss`,
-#   * post_variables: the bootstrap css and libraries like select2 and
-#       bootstrap-colorpicker that depend on the theme
-#   * stylesheets: the content from `_bootswatch.scss` and custom styles
+#   * functions: hard-coded SCSS mixins and functions available to variables
+#   * variables: variables from the bootswatch them and (where applicable) user-customized
+#                variables including colors.
+#   * main: the core bootstrap scss and all the SCSS from mods
+#   * stylesheets: the content from `_bootswatch.scss` and any user overrides
 #
-# For the original bootswatch themes all those parts are hard-coded and the content
-# is taken from files.
-# The bootswatch theme content is taken directly from the files in the bootswatch
-# submodule. For the rest we use code file cards.
-# Cards of type "customized bootswatch skin" have the same structure but make the
-# variables and stylesheets part editable.
+# Thus Bootswatch Skins bring together code from many different places:
 #
-# Bootswatch theme cards are "asset inputters," meaning they generate a
-# Machine cards usually store all involved input cards of all nested levels in
-# there +*machine_input pointer. All those input cards
-# are processed separately and the result is joined to build the machine output.
-# That's a problem for this card when it's used as input.
-# A lot of the items depend on the variables scss and can't
-# be processed independently. Therefore we return only self as item card and join
-# the content of all the item cards in the content of the bootswatch theme card.
-# But then this card has to forward updates of its items to the machine cards it provides
-# input for.
-# To do that it is a machine itself and stores the generated machine output as its
-# content which will trigger the updates of other machines that use this card.
+# - code file cards like "bootstrap function" and "bootstrap core"
+# - directly from files in the bootswatch submodule
+# - asset/style directories in mods
+# - user-editable fields, like +:colors, +:variables, and +:stylesheets
+#
+# All these sources need access to the shared SCSS variables, so unlike JavaScript assets,
+# they cannot be processed independently on a context-free per-mod basis.
 
 include_set Abstract::AssetInputter, input_format: :css, input_view: :compressed
 include_set Abstract::Scss

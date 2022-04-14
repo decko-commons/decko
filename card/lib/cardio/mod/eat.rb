@@ -21,9 +21,7 @@ module Cardio
       end
 
       def up
-        Card::Cache.reset_all
-        Card::Mailer.perform_deliveries = false
-        Card::Auth.as_bot do
+        handle_up do
           edibles.each do |edible|
             track edible do
               current_user edible.delete(:user)
@@ -37,11 +35,21 @@ module Cardio
 
       private
 
+      # if output mod given,
+      def handle_up
+        Card::Cache.reset_all
+        Card::Mailer.perform_deliveries = false
+        Card::Auth.as_bot { yield }
+        :success
+      rescue StandardError => e
+        e.message
+      end
+
       def track edible
         rescuing edible do
           # puts "eating: #{edible}" if @verbose
           card = yield
-          puts "eaten: #{card.name}" if @verbose
+          puts "eaten: #{card.name}".cyan if @verbose
         end
       end
 
