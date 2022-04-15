@@ -13,26 +13,18 @@ event :copy_theme, :prepare_to_store, on: :create do
 end
 
 event :validate_theme_template, :validate, on: :create do
-  return unless (tname = theme_name) && (etype = theme_error_type)
+  return unless (theme = theme_card) && theme.type_code != :bootswatch_skin
 
-  errors.add :abort, t("bootstrap_#{etype}", theme_name: tname)
+  errors.add :abort, t(:bootstrap_not_valid_theme, theme_name: theme.name)
 end
 
 private
 
+# I suspect we should remove this after Decko 1.0
 def old_skin_items
   skin = Card.new type: :pointer, content: db_content_before_act
   skin.drop_item "bootstrap default skin"
   skin.item_names
-end
-
-def theme_error_type
-  if theme_card.type_code != :bootswatch_skin
-    :not_valid_theme
-  elsif !Dir.exist? source_dir
-    # puts method(:source_dir).source_location
-    :cannot_source_theme
-  end
 end
 
 def initialize_theme
