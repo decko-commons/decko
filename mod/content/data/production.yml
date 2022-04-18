@@ -1,0 +1,9 @@
+- :name: "*default"
+  :type: :setting
+  :codename: :default
+- :name: "*structure"
+  :type: :setting
+  :codename: :structure
+- :name:
+    - :all
+    - :default

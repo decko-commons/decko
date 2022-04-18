@@ -1,0 +1,4 @@
+- :name: "*asset input"
+  :codename: :asset_input
+- :name: "*asset output"
+  :codename: :asset_output

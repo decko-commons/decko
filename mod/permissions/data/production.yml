@@ -1,0 +1,47 @@
+- :name: "*create"
+  :type: :setting
+  :codename: :create
+- :name: "*read"
+  :type: :setting
+  :codename: :read
+- :name: "*update"
+  :type: :setting
+  :codename: :update
+- :name: "*delete"
+  :type: :setting
+  :codename: :delete
+
+
+
+- :codename: :all
+  :subfields:
+    :read: Anyone
+    :create: Anyone Signed In
+    :update: Anyone Signed In
+    :delete: Anyone Signed In
+- :codename: :all_plus
+  :subfields:
+    :read: _left
+    :create: _left
+    :update: _left
+    :delete: _left
+
+
+- :codename: :star
+  :subfields:
+    :create: Administrator
+    :update: Administrator
+    :delete: Administrator
+- :codename: :rstar
+  :subfields:
+    :create: Shark
+    :update: Shark
+    :delete: Shark
+- :name:
+    - :html
+    - :type
+  :subfields:
+    :create: Shark
+    :update: Shark
+    :delete: Shark
+

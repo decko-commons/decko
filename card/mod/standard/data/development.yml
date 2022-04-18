@@ -1,112 +1,13 @@
----
-- :name: Date
-  :type: :cardtype
-  :codename: :date
-- :name: File
-  :type: :cardtype
-  :codename: :file
-- :name: Image
-  :type: :cardtype
-  :codename: :image
-- :name:
-  - :all
-  - :default
-- :name: Search
-  :type: :cardtype
-  :codename: :search_type
-- :name: "*children"
-  :codename: :children
-- :name:
-  - :children
-  - :right
-  - :structure
-  :type: :search_type
-  :content: |-
-    {"part":"_left",
-     "sort": "name"
-    }
-- :name: "*mates"
-  :codename: :mates
-- :name:
-  - :mates
-  - :right
-  - :structure
-  :type: :search_type
-  :content: |-
-    {"plus":"_left",
-     "sort": "name"
-    }
-- :name: "*nested by"
-  :codename: :nested_by
-- :name:
-  - :nested_by
-  - :right
-  - :structure
-  :type: :search_type
-  :content: |-
-    {"include":"_left",
-     "sort": "name"
-    }
-- :name: "*linked to by"
-  :codename: :linked_to_by
-- :name:
-  - :linked_to_by
-  - :right
-  - :structure
-  :type: :search_type
-  :content: |-
-    {"link_to":"_left",
-     "sort": "name"
-    }
-- :name: "*nests"
-  :codename: :nests
-- :name:
-  - :nests
-  - :right
-  - :structure
-  :type: :search_type
-  :content: |-
-    {"included_by":"_left",
-     "sort": "name"
-    }
-- :name: "*links to"
-  :codename: :links_to
-- :name:
-  - :links_to
-  - :right
-  - :structure
-  :type: :search_type
-  :content: |-
-    {"linked_to_by":"_left",
-     "sort": "name"
-    }
-- :name: List
-  :type: :cardtype
-  :codename: :list
-
-
 - :name: "*thanks"
   :type: :setting
   :codename: :thanks
-- :name: "*to"
-  :codename: :to
+
 - :name:
   - :signup
   - :type
   - :thanks
   :type: :phrase
   :content: Signup_Success
-- :name: Invite Success
-  :content: |-
-    <p>Thanks!&nbsp; Your invitation is on its way.</p>
-    <p>&nbsp;</p>
-    <p>See [[Sign up]].</p>
-
-
-- :name: "*logo"
-  :type: :image
-  :codename: :logo
-  :content: ":logo/standard.svg"
 
 - :name: "*sidebar"
   :codename: :sidebar
@@ -139,57 +40,13 @@
     <p>{{+description|content}}</p>
     <p>{{_|add_button}}{{_|configure_button}}</p>
     <p>{{+*type+by name|content}}</p>
-- :name: "*table of contents"
-  :type: :setting
-  :codename: :table_of_contents
-- :name:
-  - :table_of_contents
-  - :right
-  - :default
-  :type: :number
-  :content: '4'
 
-- :name:
-  - :editors
-  - :right
-  - :structure
-  :type: :search_type
-  :content: |-
-    {"editor_of": "_left",
-     "sort": "name"
-    }
-- :name:
-  - :edited
-  - :right
-  - :structure
-  :type: :search_type
-  :content: |-
-    {"edited_by": "_left",
-     "sort": "update"}
-
-- :name:
-  - :members
-  - :right
-  - :structure
-  :type: :search_type
-  :content: '{"member_of": "_left", "sort":"name"}'
-
-
-- :name: "*favicon"
-  :type: :image
-  :codename: :favicon
-  :content: ":favicon/standard.png"
-- :name: Request Sent
-  :content: "<div>Thank you for signing up to {{*title|core}}. Someone will receive
-    your request for an account and approve it as soon as possible.</div>"
 - :name: discussion
   :codename: :discussion
 - :name:
   - :discussion
   - :right
   - :default
-- :name: "*from"
-  :codename: :from
 
 
 - :name:
@@ -197,14 +54,7 @@
   - :description
   :content: "<p>[[_left+*members|Administrators]] can create, read, update and delete
     any card. [[http://decko.org/permissions|more]]</p>"
-- :name: by update
-  :codename: :by_update
-- :name:
-  - :by_update
-  - :right
-  - :structure
-  :type: :search_type
-  :content: '{"found_by": "_left", "sort": "update"}'
+
 - :name:
   - :cardtype
   - :description
@@ -219,22 +69,7 @@
   - :description
   :content: "<p>Searches return a list of cards using [[http://decko.org/wagn/WQL|WQL,
     the Wagn Query Language]]. See the [[http://decko.org/wagn/WQL syntax|syntax documentation]].</p>"
-- :name: by name
-  :codename: :by_name
-- :name:
-  - :by_name
-  - :right
-  - :structure
-  :type: :search_type
-  :content: '{"found_by": "_left", "sort": "name"}'
-- :name: by create
-  :codename: :by_create
-- :name:
-  - :by_create
-  - :right
-  - :structure
-  :type: :search_type
-  :content: '{"found_by": "_left", "sort": "create"}'
+
 - :name:
   - :thanks
   - :right
@@ -253,23 +88,10 @@
   - :description
   :content: "<p><span><span>Pointers list one or more other cards. [[http://decko.org/Pointer|more]]<br></span></span></p>"
 - :name:
-  - :image
-  - :description
-  :content: "<p>Upload images to these cards and include them anywhere. [[http://decko.org/Image|more]]</p>"
-- :name:
-  - :file
-  - :description
-  :content: "<p>File cards are for uploading and downloading files. [[http://decko.org/File|more]]</p>"
-- :name:
   - :signup
   - :description
   :content: "<p>[[Sign up]] cards represent not-yet-approved accounts. When approved,
     they become [[User]] cards. [[http://decko.org/account|more]]</p>"
-- :name:
-  - :image
-  - :right
-  - :default
-  :type: :image
 - :name:
   - :role
   - :description
@@ -393,12 +215,8 @@
   - :content_options
   :type: :search_type
   :content: '{"type": "Layout"}'
-- :name: "*structure"
-  :type: :setting
-  :codename: :structure
-- :name: "*default"
-  :type: :setting
-  :codename: :default
+
+
 - :name:
   - :role
   - :type
@@ -406,82 +224,6 @@
   :content: |-
     <p>{{+description|lead}}</p>
     <p>{{+dashboard|content}}</p>
-
-- :name:
-  - :setting
-  - :self
-  - :table_of_contents
-  :type: :number
-  :content: '0'
-- :name:
-  - :to
-  - :right
-  - :default
-  :type: :list
-- :name:
-  - :from
-  - :right
-  - :default
-  :type: :list
-- :name: "*cc"
-  :codename: :cc
-- :name:
-  - :cc
-  - :right
-  - :default
-  :type: :list
-- :name: "*bcc"
-  :codename: :bcc
-- :name:
-  - :bcc
-  - :right
-  :type: :set
-- :name:
-  - :bcc
-  - :right
-  - :default
-  :type: :list
-- :name: "*subject"
-  :codename: :subject
-- :name: "*attach"
-  :codename: :attach
-- :name:
-  - :attach
-  - :right
-  - :default
-  :type: :list
-- :name:
-  - :subject
-  - :right
-  - :default
-  :type: :phrase
-- :name:
-  - :attach
-  - :right
-  - :content_options
-  :type: :search_type
-  :content: |-
-    {"type": "File",
-     "sort": "update"
-    }
-- :name:
-  - :date
-  - :description
-  :content: "<p>Date cards contain a date.</p>"
-- :name: "*count"
-- :name:
-  - "*count"
-  - :right
-  :type: :set
-- :name:
-  - "*count"
-  - :right
-  - :structure
-  :type: :search_type
-  :content: |-
-    {"found_by":"_left",
-     "return":"count"
-    }
 
 - :name:
   - "*last edited"
@@ -509,71 +251,7 @@
   :type: :search_type
   :content: '{"creator_of": "_left"}'
 
-- :name:
-  - :created
-  - :right
-  :type: :set
-- :name:
-  - :created
-  - :right
-  - :structure
-  :type: :search_type
-  :content: |-
-    {"created_by": "_left",
-     "sort": "create", "dir": "desc"
-    }
-- :name: "*when created"
-  :codename: :when_created
-- :name:
-  - :when_created
-  - :right
-  :type: :set
-- :name:
-  - :when_created
-  - :right
-  - :structure
-  :type: :phrase
-- :name: "*when last edited"
-  :codename: :when_last_edited
-- :name:
-  - :when_last_edited
-  - :right
-  :type: :set
-- :name:
-  - :when_last_edited
-  - :right
-  - :structure
-  :type: :phrase
-- :name: "*refers to"
-  :codename: :refers_to
-- :name:
-  - :refers_to
-  - :right
-  :type: :set
-- :name:
-  - :refers_to
-  - :right
-  - :structure
-  :type: :search_type
-  :content: |-
-    {"referred_to_by":"_left",
-     "sort": "name"
-    }
-- :name: "*referred to by"
-  :codename: :referred_to_by
-- :name:
-  - :referred_to_by
-  - :right
-  :type: :set
-- :name:
-  - :referred_to_by
-  - :right
-  - :structure
-  :type: :search_type
-  :content: |-
-    {"refer_to":"_left",
-     "sort": "name"
-    }
+
 - :name:
   - :signup
   - :self
@@ -617,16 +295,6 @@
   - :input_type
   :type: :phrase
   :content: radio
-- :name: "*recent"
-  :type: :search_type
-  :codename: :recent
-  :content: '{"sort":"update", "dir":"desc", "view":"change"}'
-- :name: "*search"
-  :type: :search_type
-  :codename: :search
-  :content: '{"match":"$keyword", "sort":"relevance"}'
-- :name: "*alerts"
-  :codename: :alerts
 
 - :name: "*navbox"
   :codename: :navbox
@@ -636,111 +304,7 @@
 
 
 
-- :name: "*create"
-  :type: :setting
-  :codename: :create
-- :name: "*read"
-  :type: :setting
-  :codename: :read
-- :name: "*update"
-  :type: :setting
-  :codename: :update
-- :name: "*delete"
-  :type: :setting
-  :codename: :delete
-- :name:
-  - :star
-  - :create
-  :type: :list
-  :content: Administrator
-- :name:
-  - :rstar
-  - :create
-  :type: :list
-  :content: Shark
-- :name:
-  - :html
-  - :type
-  - :create
-  :type: :list
-  :content: Shark
-- :name:
-  - :cardtype
-  - :description
-  - :type_plus_right
-  :type: :set
-- :name:
-  - :star
-  - :update
-  :type: :list
-  :content: Administrator
-- :name:
-  - :rstar
-  - :update
-  :type: :list
-  :content: Shark
-- :name:
-  - :html
-  - :type
-  - :update
-  :type: :list
-  :content: Shark
-- :name:
-  - :star
-  - :delete
-  :type: :list
-  :content: Administrator
-- :name:
-  - :rstar
-  - :delete
-  :type: :list
-  :content: Shark
-- :name:
-  - :html
-  - :type
-  - :delete
-  :type: :list
-  :content: Shark
-- :name:
-  - :all
-  - :create
-  :type: :list
-  :content: Anyone Signed In
-- :name:
-  - :all_plus
-  - :create
-  :type: :list
-  :content: _left
-- :name:
-  - :all
-  - :read
-  :type: :list
-  :content: Anyone
-- :name:
-  - :all_plus
-  - :read
-  :type: :list
-  :content: _left
-- :name:
-  - :all
-  - :update
-  :type: :list
-  :content: Anyone Signed In
-- :name:
-  - :all_plus
-  - :update
-  :type: :list
-  :content: _left
-- :name:
-  - :all
-  - :delete
-  :type: :list
-  :content: Anyone Signed In
-- :name:
-  - :all_plus
-  - :delete
-  :type: :list
-  :content: _left
+
 - :name:
   - :setting
   - :self
@@ -790,9 +354,7 @@
   - :self
   - :read
   :type: :list
-  :content: 'Anyone
-
-    '
+  :content: Anyone
 - :name:
   - :account_links
   - :self
@@ -842,10 +404,6 @@
 - :name:
   - :all_plus
   - :default
-- :name: "*double click"
-  :type: :toggle
-  :codename: :double_click
-  :content: '1'
 - :name:
   - :roles
   - :right
@@ -874,49 +432,7 @@
   - :input_type
   :type: :list
   :content: checkbox
-- :name:
-  - :children
-  - :right
-  - :help
-  :content: |
-    <p>Cards formed by "mating" <em>{{_left|name}} </em>with another card. eg\:
-    "{{_left|name}}<strong>+</strong>mate".</p>
-- :name:
-  - :mates
-  - :right
-  - :help
-  :content: <p>If there is a card named "X+<em>{{_left|name}}</em>", then X is a mate
-    of <em>{{_left|name}}</em>.</p>
-- :name:
-  - :referred_to_by
-  - :right
-  - :help
-  :content: "<p>Cards that refer to <em>{{_left|name}}</em>.</p>"
-- :name:
-  - :linked_to_by
-  - :right
-  - :help
-  :content: "<p>Cards that link to <em>{{_left|name}}</em>.</p>"
-- :name:
-  - :nested_by
-  - :right
-  - :help
-  :content: "<p>Cards that include <em>{{_left|name}}</em>.</p>"
-- :name:
-  - :refers_to
-  - :right
-  - :help
-  :content: "<p>Cards that <em>{{_left|name}}</em> refers to.</p>"
-- :name:
-  - :links_to
-  - :right
-  - :help
-  :content: "<p>Cards that <em>{{_left|name}}</em> links to.</p>"
-- :name:
-  - :nests
-  - :right
-  - :help
-  :content: "<p>Cards that <em>{{_left|name}}</em> includes.</p>"
+
 - :name:
   - :editors
   - :right
@@ -939,122 +455,21 @@
   :type: :list
   :content: select
 
+- :name:
+    - :members
+    - :right
+    - :structure
+  :type: :search_type
+  :content: '{"member_of": "_left", "sort":"name"}'
+
 
 - :name:
   - :favicon
   - :self
   :type: :set
-- :name: CSS
-  :type: :cardtype
-  :codename: :css
-- :name: SCSS
-  :type: :cardtype
-  :codename: :scss
-- :name: Skin
-  :type: :cardtype
-  :codename: :skin
-- :name:
-  - :css
-  - :type
-  :type: :set
-- :name:
-  - :css
-  - :type
-  - :create
-  :type: :list
-  :content: Shark
-- :name:
-  - :css
-  - :type
-  - :update
-  :type: :list
-  :content: Shark
-- :name:
-  - :css
-  - :type
-  - :delete
-  :type: :list
-  :content: Shark
-- :name:
-  - :scss
-  - :type
-  :type: :set
-- :name:
-  - :scss
-  - :type
-  - :create
-  :type: :list
-  :content: Shark
-- :name:
-  - :scss
-  - :type
-  - :update
-  :type: :list
-  :content: Shark
-- :name:
-  - :scss
-  - :type
-  - :delete
-  :type: :list
-  :content: Shark
-- :name: "*style"
-  :type: :setting
-  :codename: :style
-- :name:
-  - :style
-  - :right
-  :type: :set
-- :name:
-  - :style
-  - :right
-  - :default
-  :type: :list
-- :name:
-  - :style
-  - :right
-  - :content_options
-  :type: :search_type
-  :content: '{"type": {"codename": ["in", "skin", "bootswatch_skin", "customized_bootswatch_skin"]},
-    "sort": "name"}
 
-    '
-- :name:
-  - :style
-  - :right
-  - :input_type
-  :type: :list
-  :content: radio
-- :name:
-  - :all
-  - :style
-  :type: :list
-  :content: yeti skin
-- :name:
-  - :skin
-  - :type
-  :type: :set
-- :name:
-  - :skin
-  - :type
-  - :create
-  :type: :list
-  :content: Shark
-- :name:
-  - :skin
-  - :type
-  - :update
-  :type: :list
-  :content: Shark
-- :name:
-  - :skin
-  - :type
-  - :delete
-  :type: :list
-  :content: Shark
 - :name: "*api key"
   :codename: :api_key
-
-
 - :name: "*admin"
   :codename: :admin
 
@@ -1072,90 +487,7 @@
   - :captcha
   :type: :toggle
   :content: '1'
-- :name: CoffeeScript
-  :type: :cardtype
-  :codename: :coffee_script
-- :name: JavaScript
-  :type: :cardtype
-  :codename: :java_script
-- :name:
-  - :java_script
-  - :type
-  :type: :set
-- :name:
-  - :java_script
-  - :type
-  - :create
-  :type: :list
-  :content: Shark
-- :name:
-  - :java_script
-  - :type
-  - :update
-  :type: :list
-  :content: Shark
-- :name:
-  - :java_script
-  - :type
-  - :delete
-  :type: :list
-  :content: Shark
-- :name:
-  - :coffee_script
-  - :type
-  :type: :set
-- :name:
-  - :coffee_script
-  - :type
-  - :create
-  :type: :list
-  :content: Shark
-- :name:
-  - :coffee_script
-  - :type
-  - :update
-  :type: :list
-  :content: Shark
-- :name:
-  - :coffee_script
-  - :type
-  - :delete
-  :type: :list
-  :content: Shark
-- :name: "*script"
-  :type: :setting
-  :codename: :script
-- :name:
-  - :script
-  - :right
-  :type: :set
-- :name:
-  - :script
-  - :right
-  - :default
-  :type: :list
-- :name:
-  - :script
-  - :right
-  - :content_options
-  :type: :search_type
-  :content: ' {"type":["in", "JavaScript", "CoffeeScript"] }'
-- :name:
-  - :script
-  - :right
-  - :input_type
-  :type: :list
-  :content: list
-- :name:
-  - :all
-  - :script
-  :type: :list
-  :content: |-
-    mod: script+*script
-    mod: ace_editor+*script
-    mod: bootstrap+*script
-    mod: date+*script
-    mod: tinymce_editor+*script
+
 - :name: "*on create"
   :type: :setting
   :codename: :on_create
@@ -1192,57 +524,6 @@
   - :right
   - :default
   :type: :list
-- :name:
-  - :to
-  - :right
-  - :content_options
-  :type: :search_type
-  :content: ' { "right_plus":{"codename":"account"} } '
-- :name:
-  - :from
-  - :right
-  - :content_options
-  :type: :search_type
-  :content: ' { "right_plus":{"codename":"account"} } '
-- :name:
-  - :cc
-  - :right
-  - :content_options
-  :type: :search_type
-  :content: ' { "right_plus":{"codename":"account"} } '
-- :name:
-  - :bcc
-  - :right
-  - :content_options
-  :type: :search_type
-  :content: ' { "right_plus":{"codename":"account"} } '
-- :name: Email template
-  :type: :cardtype
-  :codename: :email_template
-- :name:
-  - :email_template
-  - :type
-  :type: :set
-- :name:
-  - :email_template
-  - :type
-  - :structure
-  :content: "<p>{{+*from | labeled | link}} {{+*to | labeled | link}} {{+*cc | labeled
-    | link}} {{+*bcc | labeled | link}} {{+*subject | titled}} {{+*html message |
-    titled}} {{+*text message | titled}} {{+*attach | titled}}</p>"
-- :name: "*html message"
-  :codename: :html_message
-- :name: "*text message"
-  :codename: :text_message
-- :name:
-  - :text_message
-  - :right
-  :type: :set
-- :name:
-  - :text_message
-  - :right
-  - :default
-  :type: :plain_text
 
 - :name: follower notification email
   :type: :email_template
@@ -1409,15 +690,7 @@
 - :name: "*follow defaults"
   :type: :list
   :codename: :follow_defaults
-- :name: classic bootstrap skin
-  :type: :customized_bootswatch_skin
-  :content: "[[style: classic cards]]"
-- :name: bootstrap default skin
-  :type: :skin
-  :codename: :bootstrap_default_skin
-  :content: |-
-    [[themeless bootstrap skin]]
-    [[+bootswatch theme]]
+
 - :name: Default Layout
   :type: :layout_type
   :content: |-
@@ -1491,8 +764,6 @@
   :content: titled
 
 
-- :name: variables
-- :name: style
 - :name: Session
   :type: :cardtype
   :codename: :session
@@ -1502,57 +773,8 @@
   :content: |-
     Session cards are for non-permanent content.
     They are not stored in the database and can have different values for different users.
-- :name: "*recent settings"
-  :type: :list
-  :codename: :recent_settings
 
-- :name:
-  - :recent_settings
-  - :self
-  :type: :set
-- :name:
-  - :recent_settings
-  - :self
-  - :content_options
-  :type: :search_type
-  :content: '{"type":"setting"}'
-- :name:
-  - :recent_settings
-  - :self
-  - :update
-  :type: :list
-  :content: Anyone
-- :name: "*self**create"
-- :name:
-  - :recent_settings
-  - "*self**create"
-  :content: "[[Anyone]]"
-- :name: "*self**read"
-- :name:
-  - :recent_settings
-  - "*self**read"
-  :content: "[[Anyone]]"
-- :name:
-  - ''
-  - :self
-  :type: :set
-- :name:
-  - ''
-  - :self
-  - :content_options
-  :type: :list
-  :content: 'on'
-- :name:
-  - ''
-  - :self
-  - :input_type
-  :type: :list
-  :content: checkbox
-- :name: public key
-- :name: private key
-- :name: proxy
-- :name: "*cached count"
-  :codename: :cached_count
+
 - :name:
   - :cached_count
   - :right
@@ -1573,39 +795,10 @@
   :codename: :expiration
 - :name: "*trash"
   :codename: :trash
-- :name: "*test context"
-  :codename: :test_context
+
 - :name: "*changed card"
   :codename: :changed_card
-- :name:
-  - :test_context
-  - :right
-  :type: :set
-- :name:
-  - :test_context
-  - :right
-  - :default
-  :type: :list
-- :name:
-  - :verification_email
-  - :test_context
-  :type: :list
-  :content: Decko Bot+*account
-- :name:
-  - :password_reset_email
-  - :test_context
-  :type: :list
-  :content: Decko Bot+*account
-- :name:
-  - :signup_alert_email
-  - :test_context
-  :type: :list
-  :content: User
-- :name:
-  - :follower_notification_email
-  - :test_context
-  :type: :list
-  :content: "*changed card"
+
 - :name: Notification template
   :type: :cardtype
   :codename: :notification_template
@@ -1672,24 +865,6 @@
       <article class="container flex-shrink-0" role="main">{{_main|open}}</article>
       <footer class="footer mt-auto py-3">{{*footer|core}}</footer>
     </body>
-- :name: "*ace"
-  :type: :json
-  :codename: :ace
-  :content: |
-    {
-      "default": {
-        "showGutter": true,
-        "theme": "ace/theme/github",
-        "printMargin": false,
-        "tabSize": 2,
-        "useSoftTabs": true,
-        "maxLines": 30
-      }
-    }
-- :name:
-  - :ace
-  - :self
-  :type: :set
 - :name: "*solid cache"
   :codename: :solid_cache
 - :name:
@@ -1712,39 +887,13 @@
 - :name: 'style: mods'
   :type: :list
   :codename: :style_mods
-  :content: |-
-    mod: list+*style
-    mod: style+*style
-    mod: bar_and_box+*style
-    mod: bootstrap+*style
-    mod: date+*style
-    mod: tinymce_editor+*style
-- :name: 'script: libraries'
-  :type: :list
-  :codename: :script_libraries
 
-- :name: "*datepicker"
-  :type: :json
-  :codename: :datepicker
-  :content: |
-    {
-      "format": "YY-MM-DD",
-      "useCurrent": true,
-      "defaultDate": false
-    }
-- :name:
-  - :datepicker
-  - :self
-  :type: :set
+
 - :name: follow suggestions
   :type: :list
   :codename: :follow_suggestions
 
-- :name:
-  - classic bootstrap skin
-  - :stylesheets
-  :type: :skin
-  :content: "[[style: classic cards]]"
+
 - :name:
   - :all
   - :head
@@ -1896,7 +1045,6 @@
     ##Editor configuration
     {{*tiny mce|bar}}
     {{*ace|bar}}
-    {{*datepicker|bar}}
 - :name:
   - :shark
   - dashboard
@@ -1991,12 +1139,6 @@
     <p>{{_user+*created|bar; title: created cards}} {{_user+*edited|bar; title: edited cards}}</p>
 
 
-- :name: Markdown
-  :type: :cardtype
-  :codename: :markdown
-- :name: "*dropdown divider"
-  :type: :html
-  :codename: :dropdown_divider
 - :name: links
 - :name:
   - :administrator
@@ -2052,55 +1194,6 @@
 - :name: Link list
   :type: :cardtype
   :codename: :link_list
-- :name: "*guide"
-  :type: :setting
-  :codename: :guide
-- :name:
-  - :all
-  - :guide
-  :type: :markdown
-  :content: "#### Editing Guide\n\nThis default guide will appear in the full editor
-    view of any card \nwithout more specific guidance.  You can use it to put forward
-    principles of style, \nrules of conduct, or any other help text you think may
-    be of use to persons editing \ncontent.\n\nGuide content can be edited in [[*guide|*guide
-    rules]].\n"
-- :name:
-  - :cardtype
-  - :type
-  - :guide
-  :type: :markdown
-  :content: "Every Decko card has one and only one __type__.\n\n[[RichText]], [[List]],
-    [[Image]], [[Search]], [[JavaScript]], [[User]]... All of these are types. \nTo
-    see a given card's type, click its ellipses icon ({{\\_|bridge_link}})\nto go
-    to the card dashboard (or \"cardboard\").\n\nTypes are defined with [[Cardtype]]
-    cards. For example, the Cardtype card named [[Image]] defines the image\ntype.
-    You can create a new type by creating a [[/new/Cardtype|new Cardtype]] card.\n\nTypes
-    are a core tool for organizing cards. To decide whether you need\na new type for
-    a group of cards, consider whether you want to:\n\n1. ...think up a name for each
-    card?\n2. ...create a patterned structure for the group?\n\nAs a rule of thumb,
-    if the answer to both is yes, you probably want a new type. There are exceptions,
-    of\ncourse: [[\\*autoname|autonaming]], casual [[\\*structure|structures]], etc.\n\nBy
-    convention, Cardtype names are usually singular, capitalized nouns. \n\nTo configure
-    the structure for a Cardtype,  click the \"Configure\" button on a Cardtype cards
-    or edit\nthe type's structure rule in the cardboard of _either_ the Cardtype card
-    _or_ of any of the cards of that type.\n\nA Cardtype card cannot be deleted as
-    long as there are instances of that type."
-- :name:
-  - :structure
-  - :right
-  - :guide
-  :type: :markdown
-  :content: "[[*structure]] rules govern the type and content of cards in a given
-    set. The content of\nevery card in the set is a copy of the structure rule's content.\n\nYou
-    can create powerful card structures using [[http://decko.org/contextual_names|contextual
-    names]].\nSuppose a structure rule for City cards nests a card named \"+Country\".
-    This establishes a pattern in\nwhich every City has a Country field.  For example,
-    the City card \"Moscow\" would nest a field card\nnamed \"Moscow+Country\" with
-    the content \"Russia\". and the card \"Berlin+Country\" could contain \"Germany.\n\nNests
-    are easy to create and manage using the nest editor, which can be opened using
-    the curly bracket\nicon (\\{{}}). This tool will help you create and configure
-    nested fields, both through nest syntax \noptions (which only apply to the fields
-    when presented within the structure) and through rules \n(which apply in any context)."
 - :name:
   - :cardtype
   - :self
@@ -2135,12 +1228,7 @@
 - :name: Alias
   :type: :cardtype
   :codename: :alias
-- :name: Local folder group
-  :type: :cardtype
-  :codename: :local_folder_group
-- :name: Local manifest group
-  :type: :cardtype
-  :codename: :local_manifest_group
+
 - :name: Remote manifest group
   :type: :cardtype
   :codename: :remote_manifest_group
@@ -2150,13 +1238,4 @@
 - :name: Local style manifest group
   :type: :cardtype
   :codename: :local_style_manifest_group
-- :name: Local script folder group
-  :type: :cardtype
-  :codename: :local_script_folder_group
-- :name: Local script manifest group
-  :type: :cardtype
-  :codename: :local_script_manifest_group
-- :name: "*asset input"
-  :codename: :asset_input
-- :name: "*asset output"
-  :codename: :asset_output
+

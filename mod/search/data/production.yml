@@ -2,3 +2,76 @@
 - :name: Search
   :type: :cardtype
   :codename: :search_type
+
+- :name: "*search"
+  :type: :search_type
+  :codename: :search
+  :content: '{"match":"$keyword", "sort":"relevance"}'
+- :name: "*recent"
+  :type: :search_type
+  :codename: :recent
+- :name: "*count"
+
+- :name: by name
+  :codename: :by_name
+- :name: by create
+  :codename: :by_create
+- :name: by update
+  :codename: :by_update
+
+- :name: "*children"
+  :codename: :children
+  :subfields:
+    :right:
+      :subfields:
+        :help: |-
+          <p>
+            Cards formed by "mating" <em>{{_left|name}}</em> with another card. 
+            eg\: "{{_left|name}}<strong>+</strong>mate".
+          </p>
+- :name: "*mates"
+  :codename: :mates
+  :subfields:
+    :right:
+      :subfields:
+        :help: |-
+          <p>
+            If there is a card named "X+<em>{{_left|name}}</em>", 
+            then X is a mate of <em>{{_left|name}}</em>.
+          </p>
+- :name: "*nested by"
+  :codename: :nested_by
+  :subfields:
+    :right:
+      :subfields:
+        :help: "<p>Cards that refer to <em>{{_left|name}}</em>.</p>"
+- :name: "*linked to by"
+  :codename: :linked_to_by
+  :subfields:
+    :right:
+      :subfields:
+        :help: "<p>Cards that link to <em>{{_left|name}}</em>.</p>"
+- :name: "*nests"
+  :codename: :nests
+  :subfields:
+    :right:
+      :subfields:
+        :help: "<p>Cards nested within <em>{{_left|name}}</em></p>"
+- :name: "*links to"
+  :codename: :links_to
+  :subfields:
+    :right:
+      :subfields:
+        :help: "<p>Cards that <em>{{_left|name}}</em> links to.</p>"
+- :name: "*referred to by"
+  :codename: :referred_to_by
+  :subfields:
+    :right:
+      :subfields:
+        :help: "<p>Cards referred to by <em>{{_left|name}}</em>.</p>"
+- :name: "*refers to"
+  :codename: :refers_to
+  :subfields:
+    :right:
+      :subfields:
+        :help: "<p>Cards that <em>{{_left|name}}</em> refers to.</p>"

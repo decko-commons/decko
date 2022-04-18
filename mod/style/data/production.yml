@@ -2,9 +2,40 @@
 - :name: CSS
   :type: :cardtype
   :codename: :css
+  :subfields:
+    :type:
+      :create: Shark
+      :update: Shark
+      :delete: Shark
 - :name: SCSS
   :type: :cardtype
   :codename: :scss
+  :subfields:
+    :type:
+      :create: Shark
+      :update: Shark
+      :delete: Shark
 - :name: Skin
   :type: :cardtype
   :codename: :skin
+  :subfields:
+    :type:
+      :create: Shark
+      :update: Shark
+      :delete: Shark
+- :name: "*style"
+  :type: :setting
+  :codename: :style
+  :subfields:
+    :right:
+      :default:
+        :type: :list
+      :content_options:
+        :type: :search_type
+        :content: '{"type": "bootswatch_skin", "sort": "name"}'
+      :input_type: radio
+- :name:
+    - :all
+    - :style
+  :type: :list
+  :content: yeti skin
