@@ -1,0 +1,49 @@
+- :name: "*guide"
+  :type: :setting
+  :codename: :guide
+- :name:
+    - :all
+    - :guide
+  :type: :markdown
+  :content: "#### Editing Guide\n\nThis default guide will appear in the full editor
+    view of any card \nwithout more specific guidance.  You can use it to put forward
+    principles of style, \nrules of conduct, or any other help text you think may
+    be of use to persons editing \ncontent.\n\nGuide content can be edited in [[*guide|*guide
+    rules]].\n"
+- :name:
+    - :cardtype
+    - :type
+    - :guide
+  :type: :markdown
+  :content: "Every Decko card has one and only one __type__.\n\n[[RichText]], [[List]],
+    [[Image]], [[Search]], [[JavaScript]], [[User]]... All of these are types. \nTo
+    see a given card's type, click its ellipses icon ({{\\_|bridge_link}})\nto go
+    to the card dashboard (or \"cardboard\").\n\nTypes are defined with [[Cardtype]]
+    cards. For example, the Cardtype card named [[Image]] defines the image\ntype.
+    You can create a new type by creating a [[/new/Cardtype|new Cardtype]] card.\n\nTypes
+    are a core tool for organizing cards. To decide whether you need\na new type for
+    a group of cards, consider whether you want to:\n\n1. ...think up a name for each
+    card?\n2. ...create a patterned structure for the group?\n\nAs a rule of thumb,
+    if the answer to both is yes, you probably want a new type. There are exceptions,
+    of\ncourse: [[\\*autoname|autonaming]], casual [[\\*structure|structures]], etc.\n\nBy
+    convention, Cardtype names are usually singular, capitalized nouns. \n\nTo configure
+    the structure for a Cardtype,  click the \"Configure\" button on a Cardtype cards
+    or edit\nthe type's structure rule in the cardboard of _either_ the Cardtype card
+    _or_ of any of the cards of that type.\n\nA Cardtype card cannot be deleted as
+    long as there are instances of that type."
+- :name:
+    - :structure
+    - :right
+    - :guide
+  :type: :markdown
+  :content: "[[*structure]] rules govern the type and content of cards in a given
+    set. The content of\nevery card in the set is a copy of the structure rule's content.\n\nYou
+    can create powerful card structures using [[http://decko.org/contextual_names|contextual
+    names]].\nSuppose a structure rule for City cards nests a card named \"+Country\".
+    This establishes a pattern in\nwhich every City has a Country field.  For example,
+    the City card \"Moscow\" would nest a field card\nnamed \"Moscow+Country\" with
+    the content \"Russia\". and the card \"Berlin+Country\" could contain \"Germany.\n\nNests
+    are easy to create and manage using the nest editor, which can be opened using
+    the curly bracket\nicon (\\{{}}). This tool will help you create and configure
+    nested fields, both through nest syntax \noptions (which only apply to the fields
+    when presented within the structure) and through rules \n(which apply in any context)."

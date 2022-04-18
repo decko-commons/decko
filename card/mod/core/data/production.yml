@@ -5,3 +5,48 @@
 - :name: Cardtype
   :type: :cardtype
   :codename: :cardtype
+- :name: Decko Bot
+  :codename: :wagn_bot
+  :content: "<p>This is the account that makes any automated updates &mdash; cards
+    created when someone signs up, link updates when renaming cards, etc.</p>"
+- :name: Setting
+  :type: :cardtype
+  :codename: :setting
+
+
+- :name: "*version"
+  :codename: :version
+- :name: "*autoname"
+  :type: :setting
+  :codename: :autoname
+
+
+# Set Pattern Cards
+
+- :name: "*all"
+  :type: :set
+  :codename: :all
+  :content: "{}"
+- :name: "*all plus"
+  :type: :set
+  :codename: :all_plus
+  :content: '{"left":{}}'
+- :name: "*type"
+  :codename: :type
+- :name: "*star"
+  :type: :set
+  :codename: :star
+  :content: '{"complete":"*"}'
+- :name: "*rstar"
+  :type: :set
+  :codename: :rstar
+  :content: '{"right":{"complete":"*"}}'
+- :name: "*rule"
+  :type: :set
+  :codename: :rule
+- :name: "*type plus right"
+  :codename: :type_plus_right
+- :name: "*right"
+  :codename: :right
+- :name: "*self"
+  :codename: :self

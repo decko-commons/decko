@@ -5,3 +5,15 @@
 - :name: Set
   :type: :cardtype
   :codename: :set
+- :name: "*recent settings"
+  :type: :Session
+  :codename: :recent_settings
+  :subfields:
+    :self:
+      :subfields:
+        :update: Anyone
+        :create: Anyone
+        :read: Anyone
+        :content_options:
+          :type: :search_type
+          :content: '{"type":"setting"}'

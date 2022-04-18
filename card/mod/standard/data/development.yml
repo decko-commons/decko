@@ -1,0 +1,1241 @@
+- :name: "*thanks"
+  :type: :setting
+  :codename: :thanks
+
+- :name:
+  - :signup
+  - :type
+  - :thanks
+  :type: :phrase
+  :content: Signup_Success
+
+- :name: "*sidebar"
+  :codename: :sidebar
+  :content: |-
+    <div>[[/ | {{*logo|content_panel}}]]</div>
+    <div> </div>
+    <div>{{Menu|open}}</div>
+    <div> </div>
+    <div>
+    <div>{{Shark Menu|open}}</div>
+    </div>
+- :name: "*help"
+  :type: :setting
+  :codename: :help
+- :name: Menu
+  :content: "<p>[[/?view=new|Add a card]]</p>"
+- :name: "*content options"
+  :type: :setting
+  :codename: :content_options
+- :name:
+  - :content_options
+  - :right
+  - :default
+  :type: :list
+- :name:
+  - :cardtype
+  - :type
+  - :structure
+  :content: |
+    <p>{{+description|content}}</p>
+    <p>{{_|add_button}}{{_|configure_button}}</p>
+    <p>{{+*type+by name|content}}</p>
+
+- :name: discussion
+  :codename: :discussion
+- :name:
+  - :discussion
+  - :right
+  - :default
+
+
+- :name:
+  - :administrator
+  - :description
+  :content: "<p>[[_left+*members|Administrators]] can create, read, update and delete
+    any card. [[http://decko.org/permissions|more]]</p>"
+
+- :name:
+  - :cardtype
+  - :description
+  :content: "<p><span><span>Every card has a type, which shapes the kind of information
+    it holds. [[http://decko.org/card_types|more]]<br></span></span></p>"
+- :name:
+  - :user
+  - :description
+  :content: "<p>{{_l|name}} cards can support accounts, profile pages, and more. [[http://decko.org/Users|more]]</p>"
+- :name:
+  - :search_type
+  - :description
+  :content: "<p>Searches return a list of cards using [[http://decko.org/wagn/WQL|WQL,
+    the Wagn Query Language]]. See the [[http://decko.org/wagn/WQL syntax|syntax documentation]].</p>"
+
+- :name:
+  - :thanks
+  - :right
+  - :default
+  :type: :phrase
+- :name:
+  - :anyone
+  - :description
+  :content: "<p>Everyone has this role, whether signed in or not. [[http://decko.org/account|more]]</p>"
+- :name:
+  - :anyone_signed_in
+  - :description
+  :content: "<p>Anyone who is signed in has this role. [[http://decko.org/account|more]]</p>"
+- :name:
+  - :list
+  - :description
+  :content: "<p><span><span>Pointers list one or more other cards. [[http://decko.org/Pointer|more]]<br></span></span></p>"
+- :name:
+  - :signup
+  - :description
+  :content: "<p>[[Sign up]] cards represent not-yet-approved accounts. When approved,
+    they become [[User]] cards. [[http://decko.org/account|more]]</p>"
+- :name:
+  - :role
+  - :description
+  :content: "<p>Each [[user]] can be given roles to organize site permissions. [[http://decko.org/Role|Learn
+    more about roles]].</p>"
+- :name: "*input type"
+  :type: :setting
+  :codename: :input_type
+- :name:
+  - :input_type
+  - :right
+  - :default
+  :type: :list
+
+- :name:
+  - :autoname
+  - :right
+  - :default
+  :type: :phrase
+- :name: "*content option view"
+  :type: :setting
+  :codename: :content_option_view
+- :name:
+  - :content_option_view
+  - :right
+  - :default
+  :type: :phrase
+- :name: "*layout"
+  :type: :setting
+  :codename: :layout
+- :name: "*captcha"
+  :type: :setting
+  :codename: :captcha
+- :name:
+  - :captcha
+  - :right
+  - :default
+  :type: :toggle
+  :content: '1'
+- :name: Set
+  :codename: :set
+
+- :name:
+  - :right
+  - :right
+  - :structure
+  :type: :set
+  :content: '{"right":"_left"}'
+
+- :name:
+  - :type_plus_right
+  - :right
+  - :structure
+  :type: :set
+  :content: '{"left":{"type":"_LL"}, "right":"_LR"}'
+
+- :name:
+  - :self
+  - :right
+  - :structure
+  :type: :set
+  :content: '{"name":"_left"}'
+
+- :name:
+  - :type
+  - :right
+  - :structure
+  :type: :set
+  :content: '{"type":"_left"}'
+- :name:
+  - :input_type
+  - :right
+  :type: :set
+- :name:
+  - :basic
+  - :type
+  :type: :set
+
+- :name:
+  - :all
+  - :layout
+  :type: :list
+  :content: Default Layout
+- :name:
+  - :all
+  - :captcha
+  :type: :toggle
+  :content: '1'
+- :name:
+  - :all
+  - :content_option_view
+  :type: :phrase
+  :content: smart_label
+
+- :name:
+  - :all
+  - :table_of_contents
+  :type: :number
+  :content: '0'
+- :name:
+  - :layout
+  - :right
+  - :default
+  :type: :list
+
+- :name:
+  - :set
+  - :description
+  :content: "<div>Sets define a group of cards to which settings can apply. [[http://www.decko.org/wagn/Setting|Learn
+    more about settings.]]</div>"
+- :name:
+  - :setting
+  - :description
+  :content: |-
+    <div>Settings affect how cards look and behave. Settings are available under each card's Options tab.</div>
+    <p>&nbsp;</p>
+    <div><em>[[http://www.decko.org/wagn/Setting|Learn more about settings.]]</em></div>
+- :name:
+  - :layout
+  - :right
+  - :content_options
+  :type: :search_type
+  :content: '{"type": "Layout"}'
+
+
+- :name:
+  - :role
+  - :type
+  - :structure
+  :content: |-
+    <p>{{+description|lead}}</p>
+    <p>{{+dashboard|content}}</p>
+
+- :name:
+  - "*last edited"
+  - :right
+  :type: :set
+- :name:
+  - "*last edited"
+  - :right
+  - :structure
+  :type: :search_type
+  :content: |-
+    {"last_edited_by": "_left",
+     "sort": "update",
+     "view": "change"
+    }
+
+- :name:
+  - "*creator"
+  - :right
+  :type: :set
+- :name:
+  - "*creator"
+  - :right
+  - :structure
+  :type: :search_type
+  :content: '{"creator_of": "_left"}'
+
+
+- :name:
+  - :signup
+  - :self
+  :type: :set
+- :name:
+  - :signup
+  - :self
+  - :structure
+  :content: "<p>{{+description|content}}</p>\r\n<p> </p>\r\n<h2>{{_self|name}} Cards</h2>\r\n<blockquote>\r\n<p>{{+*type+by
+    name|content}}</p>\r\n</blockquote>"
+- :name:
+  - :set
+  - :self
+  :type: :set
+- :name:
+  - :set
+  - :self
+  - :structure
+  :content: |-
+    <p>{{+description}}</p>
+    <p>&nbsp;</p>
+    <h1>{{_self|name}} Cards</h1>
+    <blockquote>
+    <p>{{+*type+by name}}</p>
+    </blockquote>
+- :name:
+  - :input_type
+  - :right
+  - :content_options
+  :type: :list
+  :codename: :input_options
+  :content: |-
+    radio
+    checkbox
+    select
+    multiselect
+    list
+- :name:
+  - :input_type
+  - :right
+  - :input_type
+  :type: :phrase
+  :content: radio
+
+- :name: "*navbox"
+  :codename: :navbox
+- :name: "*now"
+  :codename: :now
+
+
+
+
+
+- :name:
+  - :setting
+  - :self
+  - :update
+  :type: :list
+  :content: Administrator
+- :name:
+  - :signup
+  - :type
+  - :create
+  :type: :list
+  :content: Anyone
+- :name:
+  - :create
+  - :right
+  - :default
+  :type: :list
+- :name:
+  - :read
+  - :right
+  - :default
+  :type: :list
+- :name:
+  - :read
+  - :right
+  - :content_options
+  :type: :search_type
+  :content: '{"extension_type":"User"}'
+- :name:
+  - :update
+  - :right
+  - :default
+  :type: :list
+- :name:
+  - :delete
+  - :right
+  - :default
+  :type: :list
+- :name:
+  - :head
+  - :self
+  - :read
+  :type: :list
+  :content: 'Anyone'
+- :name:
+  - :logo
+  - :self
+  - :read
+  :type: :list
+  :content: Anyone
+- :name:
+  - :account_links
+  - :self
+  :type: :set
+- :name:
+  - :sidebar
+  - :self
+  - :read
+  :type: :list
+  :content: 'Anyone'
+- :name:
+  - :recent
+  - :self
+  :type: :set
+- :name:
+  - :recent
+  - :self
+  - :read
+  :type: :list
+  :content: 'Anyone'
+
+- :name: Layout
+  :type: :cardtype
+  :codename: :layout_type
+- :name:
+  - :layout_type
+  - :type
+  :type: :set
+- :name:
+  - :layout_type
+  - :type
+  - :create
+  :type: :list
+  :content: Shark
+- :name:
+  - :layout_type
+  - :type
+  - :update
+  :type: :list
+  :content: Shark
+- :name:
+  - :layout_type
+  - :type
+  - :delete
+  :type: :list
+  :content: Shark
+- :name:
+  - :all_plus
+  - :default
+- :name:
+  - :roles
+  - :right
+  - :default
+  :type: :list
+- :name:
+  - :account
+  - :right
+  - :create
+  :type: :list
+  :content: Administrator
+- :name:
+  - :wagn_bot
+  - :roles
+  :type: :list
+  :content: Administrator
+- :name:
+  - :roles
+  - :right
+  - :content_options
+  :type: :search_type
+  :content: '{"type":"role", "not":{"codename":["in","anyone","anyone_signed_in, anyone_with_role"]}}'
+- :name:
+  - :roles
+  - :right
+  - :input_type
+  :type: :list
+  :content: checkbox
+
+- :name:
+  - :editors
+  - :right
+  - :help
+  :content: "<p>Users who have edited <em>{{_left|name}}</em>.</p>"
+- :name:
+  - :created
+  - :right
+  - :help
+  :content: "<p>Cards created by <em>{{_left|name}}</em>.</p>"
+- :name:
+  - :edited
+  - :right
+  - :help
+  :content: "<p>Cards edited by <em>{{_left|name}}</em>.</p>"
+- :name:
+  - :layout
+  - :right
+  - :input_type
+  :type: :list
+  :content: select
+
+- :name:
+    - :members
+    - :right
+    - :structure
+  :type: :search_type
+  :content: '{"member_of": "_left", "sort":"name"}'
+
+
+- :name:
+  - :favicon
+  - :self
+  :type: :set
+
+- :name: "*api key"
+  :codename: :api_key
+- :name: "*admin"
+  :codename: :admin
+
+- :name:
+  - :api_key
+  - :right
+  - :read
+  :type: :list
+  :content: Help Desk
+
+
+- :name:
+  - :signup
+  - :type
+  - :captcha
+  :type: :toggle
+  :content: '1'
+
+- :name: "*on create"
+  :type: :setting
+  :codename: :on_create
+- :name:
+  - :on_create
+  - :right
+  :type: :set
+- :name:
+  - :on_create
+  - :right
+  - :default
+  :type: :list
+- :name: "*on update"
+  :type: :setting
+  :codename: :on_update
+- :name:
+  - :on_update
+  - :right
+  :type: :set
+- :name:
+  - :on_update
+  - :right
+  - :default
+  :type: :list
+- :name: "*on delete"
+  :type: :setting
+  :codename: :on_delete
+- :name:
+  - :on_delete
+  - :right
+  :type: :set
+- :name:
+  - :on_delete
+  - :right
+  - :default
+  :type: :list
+
+- :name: follower notification email
+  :type: :email_template
+  :codename: :follower_notification_email
+- :name:
+  - :follower_notification_email
+  - :html_message
+  :content: |
+    <p>{{_|link}} was just <a href="{{_|url}}?view=history">{{_|last_action_verb}}</a> by {{_user|link}}</p>
+
+    <blockquote>{{_|list_of_changes}}</blockquote>
+
+    <p>{{_|subedits}}</p>
+
+    <p>You received this email because you're following <strong>{{_|followed}}</strong>.</p>
+
+    <p><em><a href="{{_|unfollow_url}}">Unfollow</a> to stop receiving these emails.</em></p>
+- :name:
+  - :follower_notification_email
+  - :text_message
+  :type: :plain_text
+  :content: |
+    "{{_|name}}" was just {{_|last_action_verb}} by {{_user|name}}.
+
+    {{_|list_of_changes}}
+
+    {{_|subedits}}
+
+    See the card: {{_|url}}
+
+    You received this email because you're following "{{_|followed}}".
+
+    Use this link to unfollow {{_|unfollow_url}}
+- :name:
+  - :follower_notification_email
+  - :subject
+  :type: :phrase
+  :content: '{{_user|name}} {{_|last_action_verb}} "{{_|name}}"'
+- :name:
+  - :signup
+  - :type
+  - :on_create
+  :type: :list
+  :content: signup alert email
+- :name:
+  - :signup_alert_email
+  - :from
+  :type: :list
+  :content: _user
+- :name:
+  - :verification_email
+  - :from
+  :type: :list
+  :content: Decko Bot
+- :name:
+  - :password_reset_email
+  - :from
+  :type: :list
+  :content: Decko Bot
+- :name: "*following"
+  :type: :list
+  :codename: :following
+- :name:
+  - :following
+  - :right
+  :type: :set
+- :name:
+  - :following
+  - :right
+  - :default
+  :type: :list
+- :name:
+  - :following
+  - :right
+  - :update
+  :type: :list
+  :content: _left
+- :name:
+  - :following
+  - :right
+  - :create
+  :type: :list
+  :content: _left
+- :name:
+  - :skin
+  - :description
+  :content: "<p>A [[skin]] determines a page's look and feel.  [[http://decko.org/Skins|more]]</p>"
+- :name:
+  - :java_script
+  - :description
+  :content: "<p>Create custom JavaScript for [[*script]] rules. [[http://decko.org/JavaScript|more]]</p>"
+- :name:
+  - :layout_type
+  - :description
+  :content: "<p>Organize webpages. [[http://decko.org/Layout|more]]</p>"
+- :name:
+  - :coffee_script
+  - :description
+  :content: "<p>Generate JavaScript for [[*script]] rules. [[http://decko.org/CoffeeScript|more]]</p>"
+- :name:
+  - :email_template
+  - :description
+  :content: "<p>Design custom emails to be triggered by card actions.  [[http://decko.org/actions|more]]</p>"
+- :name:
+  - :css
+  - :description
+  :content: "<p>Customize styles for [[Skins]]. [[http://decko.org/CSS|more]]</p>"
+- :name:
+  - :scss
+  - :description
+  :content: "<p>Customize styles for [[Skins]]. [[http://decko.org/SCSS|more]]</p>"
+- :name:
+  - :follower_notification_email
+  - :from
+  :type: :list
+  :content: Decko Bot
+- :name: "*follow"
+  :type: :setting
+  :codename: :follow
+- :name:
+  - :follow
+  - :right
+  :type: :set
+- :name:
+  - :follow
+  - :right
+  - :default
+  :type: :list
+- :name:
+  - :follow
+  - :right
+  - :input_type
+  :type: :list
+  :content: radio
+- :name:
+  - :follow
+  - :right
+  - :help
+  :type: :phrase
+  :content: Get notified about changes
+- :name: "*followers"
+  :codename: :followers
+- :name: "*follow fields"
+  :type: :setting
+  :codename: :follow_fields
+- :name:
+  - :follow_fields
+  - :right
+  :type: :set
+- :name:
+  - :follow_fields
+  - :right
+  - :default
+  :type: :list
+- :name:
+  - :all
+  - :follow_fields
+  :type: :list
+  :content: "*nests"
+- :name: "*always"
+  :codename: :always
+- :name: "*never"
+  :codename: :never
+- :name: "*follow defaults"
+  :type: :list
+  :codename: :follow_defaults
+
+- :name: Default Layout
+  :type: :layout_type
+  :content: |-
+    <body class="d-flex flex-column h-100">
+      <header>{{*header|core}}</header>
+      <article class="container flex-shrink-0" role="main">{{_main|titled}}
+      </article>
+      <footer class="footer mt-auto py-3">{{*footer|content}}</footer>
+    </body>
+- :name: "*header"
+  :type: :html
+  :content: |
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-3">
+      <a class="navbar-brand nav-logo p-0" href="{{*home|home_path}}">
+        {{*logo|core;size:small}}
+      </a>
+      <a class="navbar-brand" href="{{*home|home_path}}">
+        {{*title|core}}
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          {{*main menu|navbar_links}}
+        </ul>
+        {{*navbox|navbar}}
+        {{*account links|navbar_links}}
+      </div>
+    </nav>
+- :name: "*footer"
+  :type: :html
+  :content: |-
+    <div class="d-flex justify-content-center align-items-center">
+      {{*credit|core}}
+    </div>
+- :name: "*main menu"
+  :type: :link_list
+  :content: |-
+    [[*getting started links|Getting started]]
+    [[:recent|Recent Changes]]
+- :name:
+  - :style
+  - :right
+  - :content_option_view
+  :type: :phrase
+  :content: Image
+- :name:
+  - "*header"
+  - :self
+  - :read
+  :type: :list
+  :content: Anyone
+- :name: "*default html view"
+  :type: :setting
+  :codename: :default_html_view
+- :name:
+  - :default_html_view
+  - :right
+  :type: :set
+- :name:
+  - :default_html_view
+  - :right
+  - :default
+  :type: :phrase
+- :name:
+  - :all
+  - :default_html_view
+  :type: :phrase
+  :content: titled
+
+
+- :name: Session
+  :type: :cardtype
+  :codename: :session
+- :name:
+  - :session
+  - :description
+  :content: |-
+    Session cards are for non-permanent content.
+    They are not stored in the database and can have different values for different users.
+
+
+- :name:
+  - :cached_count
+  - :right
+  :type: :set
+- :name: "*cached content"
+  :codename: :cached_content
+- :name:
+  - :cached_content
+  - :right
+  :type: :set
+- :name: "*new file"
+  :type: :file
+  :codename: :new_file
+- :name: "*new image"
+  :type: :image
+  :codename: :new_image
+- :name: "*expiration"
+  :codename: :expiration
+- :name: "*trash"
+  :codename: :trash
+
+- :name: "*changed card"
+  :codename: :changed_card
+
+- :name: Notification template
+  :type: :cardtype
+  :codename: :notification_template
+- :name: "*message"
+  :codename: :message
+- :name:
+  - :message
+  - :right
+  :type: :set
+- :name:
+  - :message
+  - :right
+  - :default
+  :type: :phrase
+- :name: "*disappear"
+  :codename: :disappear
+- :name:
+  - :disappear
+  - :right
+  :type: :set
+- :name:
+  - :disappear
+  - :right
+  - :default
+  :type: :toggle
+- :name: "*contextual class"
+  :codename: :contextual_class
+- :name:
+  - :contextual_class
+  - :right
+  :type: :set
+- :name:
+  - :contextual_class
+  - :right
+  - :default
+  :type: :list
+- :name:
+  - :contextual_class
+  - :right
+  - :input_type
+  :type: :list
+  :content: radio
+- :name:
+  - :contextual_class
+  - :right
+  - :content_options
+  :type: :list
+  :content: |-
+    success
+    info
+    warning
+    danger
+- :name: Anyone With Role
+  :type: :role
+  :codename: :anyone_with_role
+- :name: "*csv structure"
+  :type: :setting
+  :codename: :csv_structure
+- :name: Full Width Layout
+  :type: :layout_type
+  :content: |-
+    <body class="fluid d-flex flex-column h-100">
+      <header>{{*header|core}}</header>
+      <article class="container flex-shrink-0" role="main">{{_main|open}}</article>
+      <footer class="footer mt-auto py-3">{{*footer|core}}</footer>
+    </body>
+- :name: "*solid cache"
+  :codename: :solid_cache
+- :name:
+  - :solid_cache
+  - :right
+  :type: :set
+- :name: "*debug"
+  :codename: :debug
+- :name:
+  - :debug
+  - :right
+  :type: :set
+- :name:
+  - :debug
+  - :right
+  - :read
+  :type: :list
+  :content: Administrator
+
+- :name: 'style: mods'
+  :type: :list
+  :codename: :style_mods
+
+
+- :name: follow suggestions
+  :type: :list
+  :codename: :follow_suggestions
+
+
+- :name:
+  - :all
+  - :head
+  :type: :html
+  :content: "{{*head|core}}"
+
+- :name:
+  - :head
+  - :right
+  - :default
+  :type: :html
+
+- :name: site key
+- :name: secret key
+- :name: minimum score
+- :name:
+  - Home
+  - :self
+  :type: :set
+- :name:
+  - Home
+  - :self
+  - :layout
+  :type: :list
+  :content: Home Layout
+- :name: Home Layout
+  :type: :layout_type
+  :content: |-
+    <body class="d-flex flex-column h-100">
+      <header>{{*header|core}}</header>
+      <article class="container flex-shrink-0" role="main">{{_main|content}}
+      </article>
+      <footer class="footer mt-auto py-3">{{*footer|content}}</footer>
+    </body>
+- :name:
+  - :title
+  - :self
+  :type: :set
+- :name:
+  - "*main menu"
+  - :self
+  :type: :set
+- :name:
+  - "*main menu"
+  - :self
+  - :read
+  :type: :list
+  :content: Anyone
+- :name:
+  - :navbox
+  - :self
+  - :read
+  :type: :list
+  :content: Anyone
+- :name:
+  - :credit
+  - :self
+  - :read
+  :type: :list
+  :content: Anyone
+- :name:
+  - :credit
+  - :image
+  - :self
+  - :read
+  :type: :list
+  :content: Anyone
+- :name:
+  - :cardtype
+  - :type
+  - :create
+  :type: :list
+  :content: Shark
+- :name:
+  - :cardtype
+  - :type
+  - :update
+  :type: :list
+  :content: Shark
+- :name:
+  - :cardtype
+  - :type
+  - :delete
+  :type: :list
+  :content: Shark
+
+- :name:
+  - :help
+  - :right
+  - :create
+  :type: :list
+  :content: Help Desk
+- :name:
+  - :help
+  - :right
+  - :update
+  :type: :list
+  :content: Help Desk
+- :name:
+  - :help
+  - :right
+  - :delete
+  :type: :list
+  :content: Help Desk
+- :name:
+  - :status
+  - :right
+  - :update
+  :type: :list
+  :content: Help Desk
+- :name:
+  - :status
+  - :right
+  - :delete
+  :type: :list
+  :content: Help Desk
+- :name:
+  - :api_key
+  - :right
+  - :update
+  :type: :list
+  :content: Help Desk
+- :name:
+  - :api_key
+  - :right
+  - :delete
+  :type: :list
+  :content: Help Desk
+- :name: dashboard
+- :name:
+  - :administrator
+  - dashboard
+  :type: :markdown
+  :content: |
+    {{*admin info|content}}
+
+    ##Basic configuration
+    {{*title|bar}}
+    {{*home|bar}}
+    {{*logo|bar}}
+    {{*main menu|bar}}
+    {{*header|bar}}
+    {{*footer|bar}}
+
+    ##Integrations
+    {{*recaptcha settings|bar}}
+    {{*google analytics key|bar}}
+
+    ##Editor configuration
+    {{*tiny mce|bar}}
+    {{*ace|bar}}
+- :name:
+  - :shark
+  - dashboard
+  :content: |
+    <h3>Cardtypes </h3>
+    <p> [[/new/cardtype|Add new Type]]</p>
+    <p>{{Cardtype+*type+by name|bar; title: all cardtypes}}</p>
+    <h3>Rules</h3>
+    <div>Cards are configured by creating <em>rules</em>.  </div>
+    <div> </div>
+    <h5>Webpage rules</h5>
+    <div>
+    <blockquote>{{*all|rules_table; filter:webpage}}</blockquote>
+    <h5>Permission rules</h5>
+    <blockquote>{{*all|rules_table; filter:permission}}</blockquote>
+    </div>
+    <div><em>[[http://decko.org/rules | More about rules.]]</em></div>
+    <div> </div>
+    <div>
+    <h3>Views</h3>
+    <p>You can try out different views below</p>
+    <p>{{*getting started|demo}}</p>
+    </div>
+- :name:
+  - :shark
+  - :description
+  :content: "<p>[[_left+*members|Shark users]] can configure the deck and create structures.</p>"
+- :name:
+  - :help_desk
+  - dashboard
+  :content: |
+    <h3>Accounts</h3>
+    <p>{{*accounts|content}}</p>
+    <h3>Help Texts</h3>
+    <p>{{*help|bar}}{{*add help|bar}}</p>
+    <h3>Emails </h3>
+    <p>Here are the current [[Email Templates|Email templates]] for your site.</p>
+    <p>{{Email Templates+*type+by update|content}} </p>
+- :name:
+  - :help_desk
+  - :description
+  :content: "<p>[[_left+*members|Help Desk users]] can manage accounts and edit help
+    text</p>"
+- :name:
+  - :eagle
+  - dashboard
+  :content: "<h3>Your contributions</h3>\r\n<p>{{_user+*created|bar; title: created
+    cards}} {{_user+*edited|bar; title: edited cards}}</p>"
+- :name:
+  - :eagle
+  - :description
+  :content: "<p>[[Eagle+*members|Eagle users]] can add and edit content.</p>"
+- :name:
+  - :account_settings
+  - :right
+  :type: :set
+- :name:
+  - :account_settings
+  - :right
+  - :structure
+  :content: |
+    {{_left+*account|content}}
+
+    {{_left+*roles|title: Roles}}
+
+    {{_left+*follow|title: Notification choices}}
+- :name: Right Thin Sidebar Layout
+  :type: :layout_type
+  :content: |-
+    <body class="right-sidebar thin-sidebar d-flex flex-column h-100">
+      <header>{{*header|core}}</header>
+      <article class="container flex-shrink-0" role="main">
+        {{_main|open}}
+      </article>
+      <aside>{{*sidebar|content}}</aside>
+      <footer class="footer mt-auto py-3">{{*footer|core}}</footer>
+    </body>
+- :name: Left Sidebar Layout
+  :type: :layout_type
+  :content: |-
+    <body class="left-sidebar">
+      <header>{{*header|core}}</header>
+      <article>{{_main|titled}}</article>
+      <aside>{{*sidebar|core}}</aside>
+      <footer>{{*footer|core}}</footer>
+    </body>
+- :name:
+  - :anyone_signed_in
+  - dashboard
+  :content: |-
+    <h3>Your contributions</h3>
+    <p>{{_user+*created|bar; title: created cards}} {{_user+*edited|bar; title: edited cards}}</p>
+
+
+- :name: links
+- :name:
+  - :administrator
+  - :members
+  :type: :search_type
+- :name:
+  - :administrator
+  - :members
+  - :self
+  :type: :set
+- :name:
+  - :administrator
+  - :members
+  - :self
+  - :update
+  :type: :list
+  :content: Administrator
+- :name:
+  - :shark
+  - :members
+  :type: :search_type
+- :name:
+  - :shark
+  - :members
+  - :self
+  :type: :set
+- :name:
+  - :shark
+  - :members
+  - :self
+  - :update
+  :type: :list
+  :content: Administrator
+- :name:
+  - :help_desk
+  - :members
+  :type: :search_type
+- :name:
+  - :help_desk
+  - :members
+  - :self
+  :type: :set
+- :name:
+  - :help_desk
+  - :members
+  - :self
+  - :update
+  :type: :list
+  :content: Administrator
+- :name: Pointer
+  :type: :cardtype
+  :codename: :pointer
+- :name: Link list
+  :type: :cardtype
+  :codename: :link_list
+- :name:
+  - :cardtype
+  - :self
+  :type: :set
+- :name:
+  - :cardtype
+  - :self
+  - :structure
+  :content: "      {{+description|content}}\n      \n      {{_|add_button}}{{_|configure_button}}\n
+    \     \n      {{_|grouped_list}}\n"
+- :name: "*getting started links"
+  :type: :link_list
+  :content: |-
+    [[/new/Cardtype | Add type]]
+    [[*all+*style | Configure skin]]
+    [[Administrator| Basic configuration]]
+    [[/*main menu?view=edit | Change this menu]]
+    [[*dropdown divider]]
+    [[https://decko.org/Features | Learn more]]
+- :name:
+  - "*header"
+  - :self
+  :type: :set
+- :name: Nest list
+  :type: :cardtype
+  :codename: :nest_list
+- :name:
+  - :structure
+  - :right
+  - :default
+  :type: :nest_list
+- :name: Alias
+  :type: :cardtype
+  :codename: :alias
+
+- :name: Remote manifest group
+  :type: :cardtype
+  :codename: :remote_manifest_group
+- :name: Local style folder group
+  :type: :cardtype
+  :codename: :local_style_folder_group
+- :name: Local style manifest group
+  :type: :cardtype
+  :codename: :local_style_manifest_group
+

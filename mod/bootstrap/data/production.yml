@@ -1,4 +1,13 @@
 ---
+- :name: "*bootswatch"
+  :codename: :bootswatch
+- :name: "*variables"
+  :codename: :variables
+- :name: "*stylesheets"
+  :codename: :stylesheets
+- :name: "*colors"
+  :codename: :colors
+
 - :name: parent
   :codename: :parent
 - :name: Bootswatch skin
@@ -33,3 +42,74 @@
     \   </ul>\r\n    {{*navbox|navbar}}\r\n    {{*account links|navbar_links}}\r\n
     \ </div>\r\n  </div>\r\n</nav>\r\n"
 
+- :name: cerulean skin
+  :type: :bootswatch_skin
+  :codename: :cerulean_skin
+- :name: cosmo skin
+  :type: :bootswatch_skin
+  :codename: :cosmo_skin
+- :name: cyborg skin
+  :type: :bootswatch_skin
+  :codename: :cyborg_skin
+- :name: darkly skin
+  :type: :bootswatch_skin
+  :codename: :darkly_skin
+- :name: flatly skin
+  :type: :bootswatch_skin
+  :codename: :flatly_skin
+- :name: journal skin
+  :type: :bootswatch_skin
+  :codename: :journal_skin
+- :name: lumen skin
+  :type: :bootswatch_skin
+  :codename: :lumen_skin
+- :name: sandstone skin
+  :type: :bootswatch_skin
+  :codename: :sandstone_skin
+- :name: simplex skin
+  :type: :bootswatch_skin
+  :codename: :simplex_skin
+- :name: slate skin
+  :type: :bootswatch_skin
+  :codename: :slate_skin
+- :name: spacelab skin
+  :type: :bootswatch_skin
+  :codename: :spacelab_skin
+- :name: superhero skin
+  :type: :bootswatch_skin
+  :codename: :superhero_skin
+- :name: united skin
+  :type: :bootswatch_skin
+  :codename: :united_skin
+- :name: yeti skin
+  :type: :bootswatch_skin
+  :codename: :yeti_skin
+- :name: litera skin
+  :type: :bootswatch_skin
+  :codename: :litera_skin
+- :name: lux skin
+  :type: :bootswatch_skin
+  :codename: :lux_skin
+- :name: materia skin
+  :type: :bootswatch_skin
+  :codename: :materia_skin
+- :name: minty skin
+  :type: :bootswatch_skin
+  :codename: :minty_skin
+- :name: pulse skin
+  :type: :bootswatch_skin
+  :codename: :pulse_skin
+- :name: solar skin
+  :type: :bootswatch_skin
+  :codename: :solar_skin
+- :name: sketchy skin
+  :type: :bootswatch_skin
+  :codename: :sketchy_skin
+
+
+- :name: 'bootstrap: functions'
+  :type: :scss
+  :codename: :bootstrap_functions
+- :name: 'bootstrap: core'
+  :type: :scss
+  :codename: :bootstrap_core
