@@ -28,7 +28,7 @@ module Cardio
                      type: :string, aliases: %w[-R -g --gem-path],
                      default: "", group: :runtime,
                      desc: "Path to local decko repository " \
-                           "(Default, use env DECKO_REPO_PATH)"
+                           "(Can also set via DECKO_REPO_PATH)"
 
         class_option :database,
                      type: :string, aliases: %w[-D -d], default: "mysql",

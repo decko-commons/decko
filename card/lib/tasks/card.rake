@@ -37,12 +37,12 @@ namespace :card do
 
   def rake_result task
     result = yield
-    return unless @options.present? # otherwise rake tries to run the arguments as tasks
-
-    exit 0 if result == :success
-
-    puts "ERROR in card #{task}:\n  #{result}".red
-    exit 1
+    if result == :success
+      exit 0 if @options.present? # otherwise rake tries to run the arguments as tasks
+    else
+      puts "ERROR in card #{task}:\n  #{result}".red
+      exit 1
+    end
   end
 
   def flag_opt letter, key, desc, hash=nil
