@@ -1,7 +1,7 @@
 VARIABLE_NAMES = {
-  colors: %i[blue indigo purple pink red orange yellow green teal cyan
-             white gray-100 gray-200 gray-300 gray-400 gray-500 gray-600 gray-700 gray-800
-             gray-900 black],
+  colors: %i[blue indigo purple pink red orange yellow green teal cyan black white
+             gray-100 gray-200 gray-300 gray-400 gray-500
+             gray-600 gray-700 gray-800 gray-900],
   theme_colors: %i[primary secondary success info warning danger light dark
                    body-bg body-color]
 }.freeze
@@ -101,7 +101,7 @@ end
 def replace_values group, prefix=""
   values = variable_values_from_params group
   values.each_pair do |name, val|
-    if content.match definition_regex(name)
+    if content.match? definition_regex(name)
       content.gsub! definition_regex(name), "\\k<before>#{prefix}#{val}\\k<after>"
     else
       self.content += "$#{name}: #{prefix}#{val} !default;\n"

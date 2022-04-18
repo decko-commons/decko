@@ -18,7 +18,7 @@ RSpec.describe Card::Set::Abstract::ModAssets do
 
   it "updates assets" do
     card = Card[:all, :style]
-    # Card::Assets.refresh_assets
+    # Card::Assets.refresh
     Card["mod: bootstrap"].ensure_mod_asset_card :style
     # input = Card["mod: bootstrap+*style+asset input"]
     card.update_asset_output

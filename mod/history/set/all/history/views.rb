@@ -16,7 +16,7 @@ format :html do
     bs_layout do
       row md: [12, 12], lg: [7, 5] do
         col action_legend
-        col content_legend, class: "text-right"
+        col content_legend, class: "test-end"
       end
     end
   end

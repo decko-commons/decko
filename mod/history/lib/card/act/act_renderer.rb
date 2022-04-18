@@ -38,7 +38,7 @@ class Card
               html title
               tag(:span, "text-muted ps-1 badge") { summary }
             end
-            column act_links, class: "text-right"
+            column act_links, class: "test-end"
           end
         end
         # end
