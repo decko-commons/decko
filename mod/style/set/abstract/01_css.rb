@@ -65,7 +65,7 @@ format :css do
     compress? ? compile(input) : compile(input, :nested)
   end
 
-  # FIXME: method is repeated called with "nested", but there is no handling for it
+  # FIXME: method is repeatedly called with "nested", but there is no handling for it
   def compile input, _style=:compressed
     SassC::Engine.new(input, style: :compressed).render
   rescue StandardError => e

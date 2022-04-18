@@ -42,7 +42,7 @@ $(window).ready ->
     false
 
   $("body").on "click", "._popover_link", (event) ->
-    event.preventDefault();
+    # event.preventDefault();
 
 
 

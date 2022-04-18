@@ -1,5 +1,10 @@
 ._filtered-content.nodblclick
-  .filter-form
-    = render_filter_form
+  .offcanvas.offcanvas-start{ id: offcanvas_filter_id }
+    .offcanvas-header
+      %h5.offcanvas-title Filters
+      %button.btn.btn-close{ "data-bs": { dismiss: "offcanvas" } }
+    .offcanvas-body
+      .filter-form
+        = #render_filter_form
   .filtered-results
     = render_filtered_results home_view: :filtered_results
