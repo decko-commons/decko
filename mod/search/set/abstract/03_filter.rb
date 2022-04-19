@@ -23,8 +23,23 @@ format :html do
 
   view :filtered_results do
     class_up "card-slot", "_filter-result-slot"
-    wrap { render_core }
+    wrap do
+      [
+        render_filtered_results_header,
+        render_core,
+        render_filtered_results_footer
+      ]
+    end
   end
 
+  view :filtered_results_header, template: :haml
+  view :open_filter_button, template: :haml
   view :selectable_filtered_content, template: :haml, cache: :never
+
+  # for override
+  view(:filtered_results_footer) { "" }
+
+  def offcanvas_filter_id
+    "#{card.name.safe_key}-offCanvasFilters"
+  end
 end
