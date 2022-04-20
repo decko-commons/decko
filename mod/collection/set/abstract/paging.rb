@@ -17,6 +17,10 @@ format do
     @count_with_params ||= card.item_names.count
   end
 
+  def no_results?
+    count_with_params.zero?
+  end
+
   def total_pages
     return 1 if limit.zero?
 

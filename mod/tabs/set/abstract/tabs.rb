@@ -42,14 +42,6 @@ format :html do
     Env.params[:tab].to_sym
   end
 
-  def tab_wrap
-    bs_layout do
-      row 12 do
-        col output(yield), class: "padding-top-10"
-      end
-    end
-  end
-
   def tab_url tab
     path tab: tab
   end
@@ -57,33 +49,24 @@ format :html do
   def tab_title fieldcode, opts={}
     opts ||= {}
     parts = tab_title_parts fieldcode, opts
-    info = tab_title_info parts[:icon], parts[:count]
+    info = tab_count_badge parts[:count]
     wrapped_tab_title parts[:label], info
   end
 
-  def tab_title_info icon, count
-    if count
-      tab_count_badge count, icon
-    else
-      icon || tab_space
-    end
-  end
 
-  def tab_space
-    one_line_tab? ? :nil : "&nbsp;"
-  end
-
-  def tab_count_badge count, icon_tag
+  def tab_count_badge count
     klass = nil
     if count.is_a? Card
       klass = css_classes count.safe_set_keys
       count = count.try(:cached_count) || count.count
     end
-    tab_badge count, icon_tag, klass: klass
+
+    tab_badge(count, "", klass: klass) if count
   end
 
   def tab_title_parts fieldcode, opts
-    %i[count icon label].each_with_object({}) do |part, hash|
+    # %i[count icon label]
+    %i[label count].each_with_object({}) do |part, hash|
       hash[part] = opts.key?(part) ? opts[part] : send("tab_title_#{part}", fieldcode)
     end
   end
@@ -93,31 +76,23 @@ format :html do
     field_card if field_card.respond_to? :count
   end
 
-  def tab_title_icon fieldcode
-    tab_icon_tag fieldcode
-  end
-
   def tab_title_label fieldcode
     fieldcode.cardname.vary :plural
   end
 
   def wrapped_tab_title label, info=nil
-    wrap_with :div, class: "tab-title text-center #{'one-line-tab' if one_line_tab?}" do
-      [wrapped_tab_title_info(info),
-       wrap_with(:span, label, class: "count-label")].compact
+    wrap_with :div, class: "tab-title text-center" do
+      [wrap_with(:span, label, class: "count-label"), info].compact
     end
   end
 
-  def wrapped_tab_title_info info
-    info ||= tab_space
-    return unless info
 
-    klass = css_classes "count-number", "clearfix"
-    wrap_with :span, info, class: klass
-  end
-
-  # TODO: handle mapped icon tagging in decko
-  def tab_icon_tag key
-    try :mapped_icon_tag, key
-  end
+  # def tab_title_icon fieldcode
+  #   tab_icon_tag fieldcode
+  # end
+  #
+  # # TODO: handle mapped icon tagging in decko
+  # def tab_icon_tag key
+  #   try :mapped_icon_tag, key
+  # end
 end

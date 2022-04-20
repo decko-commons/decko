@@ -155,6 +155,7 @@ body.mceContentBody {
 /*---------- Card menu ------------*/
 
 @include media-breakpoint-up(xs) {
+  // Hover over these, and only the card menus that are immediate children will appear
   .card-slot > .d0-card-frame > .d0-card-header,
   .card-slot > .d0-card-header,
   .card-slot.labeled-view > .labeled-content > .d0-card-body,
@@ -164,14 +165,17 @@ body.mceContentBody {
     > .card-menu._show-on-hover > a {
       display: none;
     }
+    &:hover > .card-menu._show-on-hover > a {
+      display: inline-block;
+    }
   }
-  .card-slot:hover > .d0-card-frame > .d0-card-header,
-  .card-slot:hover > .d0-card-header,
-  .card-slot.labeled-view:hover > .labeled-content > .d0-card-body,
-  .card-slot:hover,
-  .card:hover > .card-body,
-  .card:hover > .card-header{
-    > .card-menu._show-on-hover > a {
+
+  // Hover over this one, and ANY card-menu inside will appear
+  .card-menu-hoverspace {
+    .card-menu._show-on-hover > a {
+      display: none;
+    }
+    &:hover .card-menu._show-on-hover > a {
       display: inline-block;
     }
   }
