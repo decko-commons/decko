@@ -1,6 +1,6 @@
 format :html do
-  bar_cols 6, 6
-  info_bar_cols 5, 4, 3
+  mini_bar_cols 6, 6
+  bar_cols 5, 4, 3
 
   def existing_rule_card
     @existing_rule_card ||= find_existing_rule_card

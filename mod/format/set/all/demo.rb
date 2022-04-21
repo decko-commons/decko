@@ -12,7 +12,7 @@ format :html do
   end
 
   def view_list
-    %i[content titled labeled bar box open closed info_bar content_panel]
+    %i[content titled labeled bar box open closed content_panel]
   end
 
   def demo_view
