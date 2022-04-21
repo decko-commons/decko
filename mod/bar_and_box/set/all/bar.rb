@@ -60,11 +60,10 @@ format :html do
   def bar_title
     return render_missing if card.unknown?
 
-    if voo.show?(:toggle)
-      link_to_view bar_title_toggle_view, render_title
-    else
-      render_title
-    end
+    # if voo.show?(:toggle)
+    #   link_to_view bar_title_toggle_view, render_title
+    # else
+    render_title
   end
 
   def bar_title_toggle_view

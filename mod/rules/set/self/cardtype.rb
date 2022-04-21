@@ -1,5 +1,3 @@
-
-
 format :html do
   view :grouped_list do
     All::CardtypeGroups::GROUP.keys.map do |group|
