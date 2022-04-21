@@ -70,7 +70,7 @@ format :html do
 
   def help_popover_opts text=nil, title=nil
     text ||= render_help_text
-    opts = { "data-placement": :left, class: "help-link" }
+    opts = { "data-bs-placement": :left, class: "help-link" }
     popover_opts text, title, opts
   end
 
