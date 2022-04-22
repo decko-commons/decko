@@ -1,6 +1,5 @@
 ---
-- :name: description
-  :codename: :description
+
 
 - :name: JSON
   :type: :cardtype
@@ -42,20 +41,25 @@
 - :name: "*head"
   :type: :setting
   :codename: :head
+  :subfields:
+    :self:
+      :subfields:
+        :read: Anyone
+
+- :name:
+    - :all
+    - :head
+  :content: "{{*head|core}}"
+
 - :name: "*title"
   :type: :phrase
   :codename: :title
   :content: My Deck
-- :name: "*home"
-  :type: :list
-  :codename: :home
-  :content: Home
-
 - :name: "*credit"
   :type: :html
   :codename: :credit
   :content: |
-    {{+image|core}}
+    {{+:image|core}}
     <a href="http://decko.org">Decko v{{*version|core}}</a>
   :subfields:
     :self:

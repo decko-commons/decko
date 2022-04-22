@@ -1,8 +1,22 @@
 ---
+- :name: "style: mods"
+  :type: :list
+  :codename: :style_mods
+
+- :name: Local style folder group
+  :type: :cardtype
+  :codename: :local_style_folder_group
+- :name: Local style manifest group
+  :type: :cardtype
+  :codename: :local_style_manifest_group
+
+
 - :name: CSS
   :type: :cardtype
   :codename: :css
   :subfields:
+    :description: |-
+      <p>Customize styles for [[Skins]]. [[http://decko.org/CSS|more]]</p>
     :type:
       :create: Shark
       :update: Shark
@@ -11,6 +25,8 @@
   :type: :cardtype
   :codename: :scss
   :subfields:
+    :description: |-
+      <p>Customize styles for [[Skins]]. [[http://decko.org/SCSS|more]]</p>
     :type:
       :create: Shark
       :update: Shark
@@ -19,6 +35,11 @@
   :type: :cardtype
   :codename: :skin
   :subfields:
+    :description: |-
+      <p>
+        A [[skin]] determines a page's look and feel.
+        [[http://decko.org/Skins|more]]
+      </p>
     :type:
       :create: Shark
       :update: Shark
@@ -28,12 +49,13 @@
   :codename: :style
   :subfields:
     :right:
+      :input_type: radio
       :default:
         :type: :list
       :content_options:
         :type: :search_type
         :content: '{"type": "bootswatch_skin", "sort": "name"}'
-      :input_type: radio
+      :content_option_view: Image
 - :name:
     - :all
     - :style

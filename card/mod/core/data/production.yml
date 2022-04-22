@@ -1,14 +1,31 @@
 ---
-- :name: Mod
-  :type: :cardtype
-  :codename: :mod
+
+- :name: description
+  :codename: :description
+
+- :name: "*admin"
+  :codename: :admin
+
 - :name: Cardtype
   :type: :cardtype
   :codename: :cardtype
+  :subfields:
+    :description: |-
+      <p>
+        Every card has a type, which shapes the kind of information it holds.
+        [[http://decko.org/card_types|more]]
+      </p>
 - :name: Decko Bot
   :codename: :wagn_bot
-  :content: "<p>This is the account that makes any automated updates &mdash; cards
-    created when someone signs up, link updates when renaming cards, etc.</p>"
+  :content: |-
+    <p>
+      This is the account that makes any automated updates &mdash; cards
+      created when someone signs up, link updates when renaming cards, etc.
+    </p>
+
+- :name: Mod
+  :type: :cardtype
+  :codename: :mod
 - :name: Setting
   :type: :cardtype
   :codename: :setting
@@ -50,3 +67,4 @@
   :codename: :right
 - :name: "*self"
   :codename: :self
+

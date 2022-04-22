@@ -2,12 +2,120 @@
   :content: |
     <div>{{*getting started|core}}</div>
     <div>{{## Feel free to get rid of this and start fresh! }}</div>
+  :subfields:
+    :self:
+      :subfields:
+        :layout: Home Layout
 
+- :name: "*home"
+  :type: :pointer
+  :codename: :home
+  :content: Home
+
+- :name:
+    - :role
+    - :type
+    - :structure
+  :content: |-
+    <p>{{+:description|lead}}</p>
+    <p>{{+:dashboard|content}}</p>
+
+- :name: dashboard
+  :codename: :dashboard
+
+- :name: "*main menu"
+  :type: :link_list
+  :content: |-
+    [[*getting started links|Getting started]]
+    [[:recent|Recent Changes]]
+
+- :name: "*getting started links"
+  :type: :link_list
+  :content: |-
+    [[/new/Cardtype | Add type]]
+    [[*all+*style | Configure skin]]
+    [[Administrator| Basic configuration]]
+    [[/*main menu?view=edit | Change this menu]]
+    [[https://decko.org/Features | Learn more]]
+
+- :name:
+    - :administrator
+    - :dashboard
+  :type: :markdown
+  :content: |
+    {{*admin info|content}}
+
+    ##Basic configuration
+    {{*title|bar}}
+    {{*home|bar}}
+    {{*logo|bar}}
+    {{*main menu|bar}}
+    {{*header|bar}}
+    {{*footer|bar}}
+
+    ##Integrations
+    {{*recaptcha settings|bar}}
+    {{*google analytics key|bar}}
+
+    ##Editor configuration
+    {{*tiny mce|bar}}
+    {{*ace|bar}}
+- :name:
+    - :shark
+    - :dashboard
+  :content: |
+    <h3>Cardtypes </h3>
+    <p> [[/new/cardtype|Add new Type]]</p>
+    <p>{{Cardtype+*type+by name|bar; title: all cardtypes}}</p>
+    <h3>Rules</h3>
+    <div>Cards are configured by creating <em>rules</em>.  </div>
+    <div> </div>
+    <h5>Webpage rules</h5>
+    <div>
+    <blockquote>{{*all|rules_table; filter:webpage}}</blockquote>
+    <h5>Permission rules</h5>
+    <blockquote>{{*all|rules_table; filter:permission}}</blockquote>
+    </div>
+    <div><em>[[http://decko.org/rules | More about rules.]]</em></div>
+    <div> </div>
+    <div>
+    <h3>Views</h3>
+    <p>You can try out different views below</p>
+    <p>{{*getting started|demo}}</p>
+    </div>
+
+- :name:
+    - :help_desk
+    - dashboard
+  :content: |
+    <h3>Accounts</h3>
+    <p>{{*accounts|content}}</p>
+    <h3>Help Texts</h3>
+    <p>{{*help|bar}}{{*add help|bar}}</p>
+    <h3>Emails </h3>
+    <p>Here are the current [[Email Templates|Email templates]] for your site.</p>
+    <p>{{Email Templates+*type+by update|content}} </p>
+
+- :name:
+    - :eagle
+    - dashboard
+  :content: "<h3>Your contributions</h3>\r\n<p>{{_user+*created|bar; title: created
+    cards}} {{_user+*edited|bar; title: edited cards}}</p>"
+
+- :name:
+    - :anyone_signed_in
+    - :dashboard
+  :content: |-
+    <h3>Your contributions</h3>
+    <p>
+      {{_user+:created|bar; title: created cards}}
+      {{_user+:edited|bar; title: edited cards}}
+    </p>
 
 - :name: "*getting started"
   :type: :html
   :codename: :getting_started
-  :content: |
+  :content: |-
     <div class="container text-center">
       <!-- card 1 -->
       <div class="d-flex justify-content-center align-items-center p-3 my-3 rounded box-shadow">
@@ -16,28 +124,18 @@
       </div>
       <div class="jumbotron">
         <h3 class="mb-4">Things to sink your teeth into:</h3>
-        <div class="d-flex justify-content-center pl-10">
-          <div>
-            <p class="lead">
-              Structure
-            </p>
-            <p>
-              <a href="new/cardtype" class="btn btn-primary ml-2">Add new Cardtype</a>
-            </p>
-          </div>
-          <div class="pl-5">
-            <p class="lead">
-              Style
-            </p>
-            <p>
-              <a href="*all+*style" class="btn btn-primary ml-2">Configure Skin Card</a>
-            </p>
-          </div>
+        <div class="d-flex justify-content-center ps-10">
+          <p class="lead">Structure</p>
+          <p><a href="new/cardtype" class="btn btn-primary me-2">Add new Cardtype</a></p>
+        </div>
+        <div class="pe-5">
+          <p class="lead">Style</p>
+          <p>
+            <a href="*all+*style" class= "btn btn-primary me-2">Configure Skin Card</a>
+          </p>
         </div>
       </div>
-      <p class="lead mt-5">
-        <a href="Administrator" class="">and more...</a>
-      </p>
+      <p class="lead mt-5"><a href="Administrator">and more...</a></p>
     </div>
   :subfields:
     :shark:

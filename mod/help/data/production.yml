@@ -1,6 +1,16 @@
 - :name: "*guide"
   :type: :setting
   :codename: :guide
+- :name: "*help"
+  :type: :setting
+  :codename: :help
+  :subfields:
+    :right:
+      :subfields:
+        :create: Help Desk
+        :update: Help Desk
+        :delete: Help Desk
+
 - :name:
     - :all
     - :guide

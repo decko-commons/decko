@@ -5,5 +5,5 @@ require "../../decko_gem"
 DeckoGem.mod "list" do |s, d|
   s.summary = "list of cards"
   s.description = ""
-  d.depends_on_mod :format, :collection
+  d.depends_on_mod :format, :collection, :account
 end

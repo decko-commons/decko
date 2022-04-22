@@ -2,6 +2,13 @@
 - :name: Search
   :type: :cardtype
   :codename: :search_type
+  :subfields:
+    :description: |-
+      <p>
+        Searches return a list of cards using 
+        [[http://decko.org/CQL|CQL, the Card Query Language]]. 
+        See the [[http://decko.org/CQL_syntax|syntax documentation]].
+      </p>
 
 - :name: "*search"
   :type: :search_type
@@ -10,7 +17,12 @@
 - :name: "*recent"
   :type: :search_type
   :codename: :recent
+  :subfields:
+    :self:
+      :subfields:
+        :read: Anyone
 - :name: "*count"
+  :codename: :count
 
 - :name: by name
   :codename: :by_name
@@ -18,6 +30,29 @@
   :codename: :by_create
 - :name: by update
   :codename: :by_update
+
+- :name: "*last edited"
+  :codename: :last_edited
+- :name: "*creator"
+  :codename: :creator
+- :name: "*created"
+  :codename: :created
+  :subfields:
+    :right:
+      :subfields:
+        :help: Cards created by <em>{{_left|name}}</em>.
+- :name: "*edited"
+  :codename: :edited
+  :subfields:
+    :right:
+      :subfields:
+        :help: Cards edited by <em>{{_left|name}}</em>.
+- :name: "*editors"
+  :codename: :editors
+  :subfields:
+    :right:
+      :subfields:
+        :help: Users who have edited <em>{{_left|name}}</em>.
 
 - :name: "*children"
   :codename: :children

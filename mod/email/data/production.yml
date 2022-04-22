@@ -3,6 +3,9 @@
   :type: :cardtype
   :codename: :email_template
   :subfields:
+    :description: |-
+      Design custom emails to be triggered by card actions.
+      [[http://decko.org/actions|more]]
     :type:
       :subfields:
         :structure: |-

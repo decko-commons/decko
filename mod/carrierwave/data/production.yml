@@ -28,8 +28,18 @@
   :codename: :logo
   :image: logo.png
   :storage_type: :coded
+  :subfields:
+    :self:
+      :subfields:
+        :read: Anyone
 - :name: "*favicon"
   :type: :image
   :codename: :favicon
   :image: favicon.png
   :storage_type: :coded
+- :name: "*new file"
+  :type: :file
+  :codename: :new_file
+- :name: "*new image"
+  :type: :image
+  :codename: :new_image

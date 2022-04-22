@@ -20,6 +20,11 @@
   :type: :cardtype
   :codename: :java_script
   :subfields:
+    :description: |-
+      <p>
+        Create custom JavaScript for [[*script]] rules.
+        [[http://decko.org/JavaScript|more]]
+      </p>
     :type:
       :subfields:
         :create: Shark
@@ -29,6 +34,11 @@
   :type: :cardtype
   :codename: :coffee_script
   :subfields:
+    :description: |-
+      <p>
+        Generate JavaScript for [[*script]] rules.
+        [[http://decko.org/CoffeeScript|more]]
+      </p>
     :type:
       :subfields:
         :create: Shark

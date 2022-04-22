@@ -8,3 +8,5 @@
   :codename: :when_created
 - :name: "*when last edited"
   :codename: :when_last_edited
+- :name: "*now"
+  :codename: :now

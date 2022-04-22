@@ -12,13 +12,13 @@
   :codename: :delete
 
 
-
 - :codename: :all
   :subfields:
     :read: Anyone
     :create: Anyone Signed In
     :update: Anyone Signed In
     :delete: Anyone Signed In
+
 - :codename: :all_plus
   :subfields:
     :read: _left
@@ -26,17 +26,18 @@
     :update: _left
     :delete: _left
 
-
 - :codename: :star
   :subfields:
     :create: Administrator
     :update: Administrator
     :delete: Administrator
+
 - :codename: :rstar
   :subfields:
     :create: Shark
     :update: Shark
     :delete: Shark
+
 - :name:
     - :html
     - :type
@@ -45,3 +46,10 @@
     :update: Shark
     :delete: Shark
 
+- :name:
+    - :cardtype
+    - :type
+  :subfields:
+    :create: Shark
+    :update: Shark
+    :delete: Shark
