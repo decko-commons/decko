@@ -1,5 +1,5 @@
-.collapsed-bar.nodblclick{ class: classy("bar"), data: wrap_data }
-  %div{ class: classy("bar-body") }
+.nodblclick{ class: classy("bar"), data: wrap_data }
+  .row.g-0{ class: classy("bar-body") }
     - if voo.show? :bar_left
       %div{ class: classy("bar-left") }
         = render :bar_left
@@ -9,4 +9,4 @@
     - if voo.show? :bar_right
       %div{ class: classy("bar-right") }
         = render :bar_right
-  = render :bar_nav
+  = render_bar_menu
