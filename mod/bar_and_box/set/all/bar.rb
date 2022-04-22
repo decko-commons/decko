@@ -7,7 +7,7 @@ format :html do
 
   view :bar, unknown: :mini_bar do
     cols = bar_cols.size == 3 ? [mini_bar_cols, bar_cols] : [bar_cols]
-    bar *cols
+    bar(*cols)
   end
 
   view :mini_bar, unknown: true do
@@ -37,7 +37,7 @@ format :html do
   end
 
   def bar two_cols, three_cols=nil
-    class_up "bar", card.safe_set_keys
+    class_up "bar", full_page_card.safe_set_keys
     class_up_cols %w[bar-left bar-right], two_cols
     if three_cols
       class_up_cols %w[bar-left bar-middle bar-right], three_cols, "md"
@@ -51,5 +51,9 @@ format :html do
     classes.each_with_index do |cls, i|
       class_up cls, ["col", context, cols[i]].compact.join("-")
     end
+  end
+
+  def bar_wrap_data
+    full_page_card == card ? super : full_page_card.format.wrap_data
   end
 end
