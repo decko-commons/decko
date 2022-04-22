@@ -7,7 +7,7 @@ format :html do
 
   view :bar, unknown: :mini_bar do
     cols = bar_cols.size == 3 ? [mini_bar_cols, bar_cols] : [bar_cols]
-    bar *cols
+    bar(*cols)
   end
 
   view :mini_bar, unknown: true do
