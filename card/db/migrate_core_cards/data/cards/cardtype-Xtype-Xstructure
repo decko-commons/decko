@@ -1,3 +1,0 @@
-<p>{{+description|content}}</p>
-<p>{{_|add_button}}{{_|configure_button}}</p>
-<p>{{+*type+by name|content}}</p>
