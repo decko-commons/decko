@@ -1,6 +1,6 @@
 format :html do
-  bar_cols 6, 6
-  info_bar_cols 5, 4, 3
+  mini_bar_cols 6, 6
+  bar_cols 5, 4, 3
 
   def existing_rule_card
     @existing_rule_card ||= find_existing_rule_card
@@ -59,11 +59,11 @@ format :html do
          { set_context: card.name.trunk_name }
   end
 
-  def bar_title
-    return super() if voo.show? :full_name
-
-    linking_to_existing_rule { card.rule_setting_title }
-  end
+  # def bar_title
+  #   return super() if voo.show? :full_name
+  #
+  #   linking_to_existing_rule { card.rule_setting_title }
+  # end
 
   # LOCALIZE
   def rule_info
@@ -85,9 +85,9 @@ format :html do
 
   private
 
-  def linking_to_existing_rule
-    return yield unless existing_rule_card && voo.show?(:toggle)
-
-    link_to_view bar_title_toggle_view, yield
-  end
+  # def linking_to_existing_rule
+  #   return yield unless existing_rule_card && voo.show?(:toggle)
+  #
+  #   link_to_view bar_title_toggle_view, yield
+  # end
 end
