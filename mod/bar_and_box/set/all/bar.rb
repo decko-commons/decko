@@ -5,18 +5,13 @@ format :html do
   bar_cols 9, 3
   mini_bar_cols 9, 3
 
-  view :bar, unknown: :unknown_bar do
+  view :bar, unknown: :mini_bar do
     cols = bar_cols.size == 3 ? [mini_bar_cols, bar_cols] : [bar_cols]
     bar *cols
   end
 
-  view :mini_bar, unknown: :unknown_bar do
+  view :mini_bar, unknown: true do
     bar mini_bar_cols
-  end
-
-  view :unknown_bar, unknown: true do
-    voo.hide! :bar_middle, :bar_bottom
-    bar bar_cols
   end
 
   view(:bar_left, unknown: true) { bar_title }
