@@ -1,2 +1,2 @@
 // bar_and_box.js.coffee
-(function(){$(window).ready(function(){return $(document).on("click",".box",function(){return window.location=decko.path($(this).data("cardLinkName"))}),$("body").on("click",".box a",function(n){return n.preventDefault()})})}).call(this);
+(function(){$(window).ready(function(){return $("body").on("click",".bar-menu",function(n){return n.stopImmediatePropagation()}),$(document).on("click",".box, .bar",function(){return window.location=decko.path($(this).data("cardLinkName"))}),$("body").on("click",".box a, .bar a",function(n){return $(this).hasClass("over-bar")?n.stopPropagation():n.preventDefault()})})}).call(this);
