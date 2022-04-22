@@ -2,3 +2,88 @@
 - :name: Email template
   :type: :cardtype
   :codename: :email_template
+  :subfields:
+    :description: |-
+      Design custom emails to be triggered by card actions.
+      [[http://decko.org/actions|more]]
+    :type:
+      :subfields:
+        :structure: |-
+          <p>
+            {{+*from | labeled | link}} 
+            {{+*to | labeled | link}} 
+            {{+*cc | labeled | link}}
+            {{+*bcc | labeled | link}}
+            {{+*subject | titled}}
+            {{+*html message | titled}} 
+            {{+*text message | titled}}
+            {{+*attach | titled}}
+          </p>"
+
+- :name: "*to"
+  :codename: :to
+  :subfields:
+    :right:
+      :subfields:
+        :content_options:
+          :type: :search_type
+          :content: ' { "right_plus":{"codename":"account"} } '
+        :default:
+          :type: :list
+- :name: "*from"
+  :codename: :from
+  :subfields:
+    :right:
+      :subfields:
+        :content_options:
+          :type: :search_type
+          :content: ' { "right_plus":{"codename":"account"} } '
+        :default:
+          :type: :list
+- :name: "*cc"
+  :codename: :cc
+  :subfields:
+    :right:
+      :subfields:
+        :content_options:
+          :type: :search_type
+          :content: ' { "right_plus":{"codename":"account"} } '
+        :default:
+          :type: :list
+- :name: "*bcc"
+  :codename: :bcc
+  :subfields:
+    :right:
+      :subfields:
+        :content_options:
+          :type: :search_type
+          :content: ' { "right_plus":{"codename":"account"} } '
+        :default:
+          :type: :list
+- :name: "*subject"
+  :codename: :subject
+  :subfields:
+    :right:
+      :subfields:
+        :default:
+          :type: :phrase
+- :name: "*attach"
+  :codename: :attach
+  :subfields:
+    :right:
+      :subfields:
+        :content_options:
+          :type: :search_type
+          :content: |-
+            {"type": "File",
+             "sort": "update"
+            }
+- :name: "*html message"
+  :codename: :html_message
+- :name: "*text message"
+  :codename: :text_message
+  :subfields:
+    :right:
+      :subfields:
+        :default:
+          :type: :plain_text
