@@ -1,3 +1,5 @@
+assign_type :list
+
 def standardize_items
   super unless content == "_left"
 end

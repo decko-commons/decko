@@ -1,7 +1,0 @@
-<h3>Accounts</h3>
-<p>{{*accounts|content}}</p>
-<h3>Help Texts</h3>
-<p>{{*help|bar}}{{*add help|bar}}</p>
-<h3>Emails </h3>
-<p>Here are the current [[Email Templates|Email templates]] for your site.</p>
-<p>{{Email Templates+*type+by update|content}} </p>
