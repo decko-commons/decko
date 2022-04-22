@@ -25,14 +25,6 @@ jQuery.fn.extend {
     notice.html message
     notice.show 'blind'
 
-  report: (message) ->
-    report = @slot().find '.card-report'
-    return false unless report[0]
-    report.hide()
-    report.html message
-    report.show 'drop', 750
-    setTimeout (->report.hide 'drop', 750), 3000
-
   findCard: (id) ->
     @find("[data-card-id='" + id + "']")
 }
