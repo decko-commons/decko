@@ -54,6 +54,6 @@ format :html do
   end
 
   def bar_wrap_data
-    full_page_card == card ? super : full_page_card.format.wrap_data
+    full_page_card == card ? wrap_data : full_page_card.format.wrap_data
   end
 end
