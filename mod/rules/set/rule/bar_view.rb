@@ -11,10 +11,6 @@ format :html do
     super()
   end
 
-  view :expanded_bar, unknown: true do
-    super()
-  end
-
   view :one_line_content,
        wrap: { div: { class: "text-muted one-line" } }, unknown: true do
     return render_mini_unknown unless existing_rule_card

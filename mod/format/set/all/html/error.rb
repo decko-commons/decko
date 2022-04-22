@@ -77,7 +77,7 @@ format :html do
   end
 
   def view_for_unknown setting_view
-    main? && ok?(:create) ? :new : super
+    main? && voo.root? && ok?(:create) ? :new : super
   end
 
   def show_all_errors?
