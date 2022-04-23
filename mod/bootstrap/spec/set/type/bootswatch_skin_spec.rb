@@ -36,8 +36,8 @@ RSpec.describe Card::Set::Type::BootswatchSkin do
 
   describe "+:colors" do
     it "includes color definitions", as_bot: true do
-      customized_skin.colors_card.update! content: "$primary: $cyan !default"
-      expect(customized_skin.content).to include "$primary: $cyan !default"
+      customized_skin.colors_card.update! content: "$primary: #000 !default"
+      expect(customized_skin.content).to include "$primary: #000 !default"
     end
   end
 

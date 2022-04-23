@@ -1,11 +1,9 @@
 format :html do
-  view :menu, denial: :blank, unknown: true do
-    return "" if card.unknown?
-
+  view :menu, denial: :blank, unknown: :blank do
     wrap_with :div, class: "card-menu #{menu_link_classes}" do
       [render_help_link,
        menu_link,
-       (voo.show?(:bridge_link) ? bridge_link(false) : nil)]
+       (voo.show?(:bridge_link) ? bridge_link(in_modal: false) : nil)]
     end
   end
 
@@ -35,6 +33,11 @@ format :html do
     edit_link edit_link_view
   end
 
+  view :edit_button do
+    view = voo.edit == :inline ? :edit_inline : :edit
+    link_to_view view, "Edit", class: "btn btn-sm btn-outline-primary me-2"
+  end
+
   def edit_link_view
     :edit
   end
@@ -47,13 +50,13 @@ format :html do
     bridge_link
   end
 
-  def bridge_link in_modal=true
+  def bridge_link text: "", in_modal: true
     opts = { class: "bridge-link" }
     if in_modal
       # add_class opts, "close"
       opts["data-slotter-mode"] = "modal-replace"
     end
-    link_to_view :bridge, material_icon(:more_horiz), opts
+    link_to_view :bridge, "#{bridge_icon} #{text}", opts
   end
 
   # no caching because help_text view doesn't cache, and we can't have a
@@ -70,7 +73,7 @@ format :html do
 
   def help_popover_opts text=nil, title=nil
     text ||= render_help_text
-    opts = { "data-placement": :left, class: "help-link" }
+    opts = { "data-bs-placement": :left, class: "help-link" }
     popover_opts text, title, opts
   end
 
@@ -88,8 +91,9 @@ format :html do
     end.join Card::Name.joint
   end
 
-  def full_page_link
-    link_to_card full_page_card, full_page_icon, class: classy("full-page-link")
+  def full_page_link text: ""
+    link_to_card full_page_card, "#{full_page_icon} #{text}",
+                 class: classy("full-page-link")
   end
 
   def full_page_card
@@ -100,9 +104,9 @@ format :html do
     edit_link :bridge, opts
   end
 
-  def edit_link view=:edit, opts={}
-    link_to_view view, opts.delete(:link_text) || menu_icon,
-                 edit_link_opts(modal: (opts[:modal] || :lg))
+  def edit_link view=:edit, link_text: nil, text: "", modal: nil
+    link_to_view view, link_text || "#{menu_icon} #{text}",
+                 edit_link_opts(modal: (modal || :lg))
   end
 
   # @param modal [Symbol] modal size
@@ -125,5 +129,9 @@ format :html do
 
   def full_page_icon
     icon_tag :open_in_new
+  end
+
+  def bridge_icon
+    fa_icon :box
   end
 end

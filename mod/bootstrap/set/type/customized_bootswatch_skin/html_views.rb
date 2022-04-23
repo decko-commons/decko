@@ -12,20 +12,14 @@ format :html do
 
   view :core, template: :haml
 
-  info_bar_cols 6, 3, 3
+  bar_cols 6, 3, 3
 
   before :bar do
-    super()
-    voo.show :edit_button, :bar_middle
     class_up "bar-middle", "p-3 align-items-center p-0"
   end
 
   view :bar_right do
     render(:short_content)
-  end
-
-  before :bar_nav do
-    voo.hide :edit_link
   end
 
   view :bar_bottom do

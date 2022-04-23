@@ -1,3 +1,5 @@
+include_set Abstract::SkinField
+
 VARIABLE_NAMES = {
   colors: %i[blue indigo purple pink red orange yellow green teal cyan black white
              gray-100 gray-200 gray-300 gray-400 gray-500

@@ -474,7 +474,7 @@ textarea {
 ._filtering ._filterable {
   cursor: pointer;
   &:hover {
-    background-color: #fafafa;
+    background-color: $gray-100;
   }
 }
 ._filter-link {
@@ -560,39 +560,34 @@ ul.pointer {
 /*- HISTORY          - */
 /*-------------------- */
 
-$diff-green: #41ad41;
-$diff-red: #ff5050;
-$diff-red-bg: lighten($diff-red, 30%);
-$diff-green-bg: lighten($diff-green, 50%);
-
 .history-slot {
   overflow: hidden;
   clear: both;
 }
 
 .deleted-mark {
-  color: $diff-red;
+  color: $red;
 }
 
 .added-mark {
-  color: $diff-green;
+  color: $green;
 }
 
 .diff-deleted {
   text-decoration: line-through;
-  color: $diff-red;
-  background: $diff-red-bg;
+  color: $red;
+  background: $red-200;
   img {
-    border: 2px solid $diff-red;
+    border: 2px solid $red;
   }
 }
 .diff-added {
-  color: $diff-green;
-  background: $diff-green-bg;
+  color: $green;
+  background: $green-200;
   text-decoration: none;
   img {
     margin: 0px 4px 0px 4px;
-    border: 2px solid $diff-green;
+    border: 2px solid $green;
   }
 }
 
@@ -634,13 +629,12 @@ ul.action-list {
 
   li.create:before {
     content: "add_circle";
-    color: $diff-green;
-
+    color: $green;
   }
 
   li.delete:before {
     content: "remove_circle";
-    color: $diff-red;
+    color: $red;
   }
 
   li.draft:before {
@@ -944,9 +938,9 @@ a.external-link,
   width: 75px;
 }
 
-a.bridge-link, a.edit-link {
-  color: $text-muted;
-}
+//a.bridge-link, a.edit-link {
+//  color: $text-muted;
+//}
 
 // Bridge
 ._modal-stack {
@@ -1244,7 +1238,7 @@ body.right-sidebar, body.left-sidebar, body.two-sidebar {
 
 .filter-section-icon {
   width: 25px;
-  color: #6c757d;
+  color: $gray-600;
   float: left;
   padding: 0.5rem;
 }

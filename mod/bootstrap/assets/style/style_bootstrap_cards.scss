@@ -11,10 +11,7 @@
 $label_color: $gray-600;
 $header_color: $gray-200;
 $credit_color: $primary;
-// $bar-border-color: $grey-100;
-// $box-border-color: $grey-100;
-$bar_stripe_color: $gray-700;
-$box_stripe_color: $gray-700;
+
 
 header {
   a {
@@ -155,6 +152,7 @@ body.mceContentBody {
 /*---------- Card menu ------------*/
 
 @include media-breakpoint-up(xs) {
+  // Hover over these, and only the card menus that are immediate children will appear
   .card-slot > .d0-card-frame > .d0-card-header,
   .card-slot > .d0-card-header,
   .card-slot.labeled-view > .labeled-content > .d0-card-body,
@@ -164,14 +162,17 @@ body.mceContentBody {
     > .card-menu._show-on-hover > a {
       display: none;
     }
+    &:hover > .card-menu._show-on-hover > a {
+      display: inline-block;
+    }
   }
-  .card-slot:hover > .d0-card-frame > .d0-card-header,
-  .card-slot:hover > .d0-card-header,
-  .card-slot.labeled-view:hover > .labeled-content > .d0-card-body,
-  .card-slot:hover,
-  .card:hover > .card-body,
-  .card:hover > .card-header{
-    > .card-menu._show-on-hover > a {
+
+  // Hover over this one, and ANY card-menu inside will appear
+  .card-menu-hoverspace {
+    .card-menu._show-on-hover > a {
+      display: none;
+    }
+    &:hover .card-menu._show-on-hover > a {
       display: inline-block;
     }
   }
@@ -381,151 +382,7 @@ body.mceContentBody {
   }
 }
 
-/*----------- Bars and Boxes -------------*/
 
-.expanded-bar, .box {
-  .unknown-view {
-    // TODO: obviate in ruby with better unknown API
-    display: none;
-  }
-}
-.bar {
-  border-left: 3px solid $bar_stripe_color !important;
-  .bar-nav {
-    width: 20px;
-    margin-left: auto;
-  }
-  .media {
-    width: 100%
-  }
-  .media-left {
-    max-width: 25%
-  }
-  .bar-body {
-    display: flex;
-  }
-  .bar-left, .bar-right, .bar-middle {
-    display: flex;
-    padding: 0.5rem;
-    flex-wrap: wrap;
-    align-items: center;
-  }
-  .bar-left {
-    font-weight: bold;
-    align-items: flex-start;
-  }
-  .bar-middle {
-    display: none;
-    justify-content: center;
-  }
-  .bar-right {
-    justify-content: flex-end;
-  }
-}
-
-@include media-breakpoint-up(md) {
-  .bar .bar-middle {
-    display: flex;
-  }
-}
-
-.bar-body {
-  border: 1px solid $border-color;
-  width: calc(100% - 20px)
-}
-
-.bar-nav {
-  display: flex;
-  flex-direction: column;
-  padding-left: 3px;
-  a {
-    color: $text-muted;
-    &:hover {
-      color: $primary;
-    }
-  }
-}
-
-@include media-breakpoint-up(sm) {
-  .bar-nav {
-    display: none;
-  }
-  .bar, .expanded-bar {
-    &:hover .bar-nav {
-      display: flex
-    }
-  }
-}
-
-.collapsed-bar {
-  display: flex;
-  justify-content: space-between;
-}
-
-.expanded-bar {
-  margin: 0.5em 0;
-  display: flex;
-  > .bar-body {
-    > .bar {
-      border-bottom: 1px solid $border-color;
-      display: flex;
-    }
-    > .bar-bottom {
-      padding: 1em 1em 1em 2em;
-      border-top: 0;
-      overflow: hidden;
-    }
-  }
-
-}
-
-.item-box {
-  display: inline-block;
-  padding: 10px 1%;
-  vertical-align: top;
-}
-
-.box {
-  width: 320px;
-}
-
-.box-top {
-  display: flex;
-  min-height: 60px;
-  flex-direction: column;
-  justify-content: center;
-  overflow: auto;
-  h1, h2, h3, h4, h5, h6, div, span, a {
-    white-space: nowrap;
-    overflow:  hidden;
-    text-overflow: ellipsis;
-  }
-}
-
-.box-middle {
-  min-height: 180px;
-  img {
-    object-fit: contain;
-    height: 130px;
-    width: 190px;
-  }
-  i {
-    display: flex;
-    justify-content: center;
-    min-height: 130px;
-    align-items: center;
-    font-size: 70px;
-    color: $text-muted;
-  }
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.box-bottom {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
 
 .badge {
   vertical-align: text-top!important;

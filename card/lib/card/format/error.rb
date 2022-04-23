@@ -15,7 +15,7 @@ class Card
       end
 
       def view_for_unknown setting_view
-        if main?
+        if main? && voo.root?
           root.error_status = 404
           :not_found
         else
