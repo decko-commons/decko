@@ -14,7 +14,8 @@ module Cardio
       end
     end
 
-    self.path = db_path "seed", "new"
-    self.test_path = db_path "seed", "test", "fixtures"
+    self.path = db_path "seed", "minimal"
+    # self.path = db_path "seed", "new"
+    # self.test_path = db_path "seed", "test", "fixtures"
   end
 end

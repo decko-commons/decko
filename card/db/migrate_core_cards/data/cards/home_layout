@@ -1,6 +1,0 @@
-<body class="d-flex flex-column h-100">
-  <header>{{*header|core}}</header>
-  <article class="container flex-shrink-0" role="main">{{_main|content}}
-  </article>
-  <footer class="footer mt-auto py-3">{{*footer|content}}</footer>
-</body>

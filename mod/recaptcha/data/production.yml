@@ -1,0 +1,14 @@
+- :name: "*captcha"
+  :type: :setting
+  :codename: :captcha
+- :name:
+    - :all
+    - :captcha
+  :type: :toggle
+  :content: '1'
+- :name:
+    - :signup
+    - :type
+    - :captcha
+  :type: :toggle
+  :content: '1'

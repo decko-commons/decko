@@ -10,8 +10,8 @@ class AddRecentSettingSessionCard < Cardio::Migration::Core
         "+*self+*options" => { type_code: :search_type,
                                content: '{"type":"setting"}' },
         "+*self+*update" => { content: "[[Anyone]]" },
-        "+*self**create" => { content: "[[Anyone]]" },
-        "+*self**read" => { content: "[[Anyone]]" }
+        "+*self+**create" => { content: "[[Anyone]]" },
+        "+*self+**read" => { content: "[[Anyone]]" }
       }
     )
   end
