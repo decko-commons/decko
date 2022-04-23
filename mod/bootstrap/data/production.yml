@@ -37,6 +37,13 @@
       </div>
     </nav>
 
+- :name: 'bootstrap: functions'
+  :type: :scss
+  :codename: :bootstrap_functions
+- :name: 'bootstrap: core'
+  :type: :scss
+  :codename: :bootstrap_core
+
 - :name: cerulean skin
   :type: :bootswatch_skin
   :codename: :cerulean_skin
@@ -101,10 +108,8 @@
   :type: :bootswatch_skin
   :codename: :sketchy_skin
 
-
-- :name: 'bootstrap: functions'
-  :type: :scss
-  :codename: :bootstrap_functions
-- :name: 'bootstrap: core'
-  :type: :scss
-  :codename: :bootstrap_core
+- :name:
+    - :all
+    - :style
+  :type: :list
+  :content: yeti skin

@@ -1,13 +1,6 @@
 ---
 # Cardtypes
 
-- :name: User
-  :type: :cardtype
-  :codename: :user
-  :subfields:
-    :description: |-
-      {{_l|name}} cards can support accounts, profile pages, and more.
-      [[http://decko.org/Users|more]]
 - :name: Role
   :type: :cardtype
   :codename: :role
@@ -66,7 +59,7 @@
   :type: :role
   :codename: :eagle
   :subfields:
-    :description: [[Eagle+:members|Eagle users]] can add and edit content.
+    :description: "[[Eagle+:members|Eagle users]] can add and edit content."
 - :name: Shark
   :type: :role
   :codename: :shark

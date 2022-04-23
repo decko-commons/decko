@@ -40,7 +40,7 @@
 
 - :name: "*main menu"
   :type: :link_list
-  :content: [[:recent|Recent Changes]]
+  :content: "[[:recent|Recent Changes]]"
   :subfields:
     :self:
       :subfields:

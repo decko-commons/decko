@@ -37,6 +37,15 @@
   :type: :setting
   :codename: :autoname
 
+# user needed early because of references to UserID in preference cache
+- :name: User
+  :type: :cardtype
+  :codename: :user
+  :subfields:
+    :description: |-
+      {{_l|name}} cards can support accounts, profile pages, and more.
+      [[http://decko.org/Users|more]]
+
 
 # Set Pattern Cards
 

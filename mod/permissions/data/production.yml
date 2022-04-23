@@ -11,28 +11,32 @@
   :type: :setting
   :codename: :delete
 
-
-- :codename: :all
+# TODO: make it so the following work with only codename (no name)
+- :name: "*all"
+  :codename: :all
   :subfields:
     :read: Anyone
     :create: Anyone Signed In
     :update: Anyone Signed In
     :delete: Anyone Signed In
 
-- :codename: :all_plus
+- :name: "*all plus"
+  :codename: :all_plus
   :subfields:
     :read: _left
     :create: _left
     :update: _left
     :delete: _left
 
-- :codename: :star
+- :name: "*star"
+  :codename: :star
   :subfields:
     :create: Administrator
     :update: Administrator
     :delete: Administrator
 
-- :codename: :rstar
+- :name: "*rstar"
+  :codename: :rstar
   :subfields:
     :create: Shark
     :update: Shark

@@ -18,15 +18,16 @@
         File cards are for uploading and downloading files. 
         [[http://decko.org/File|more]]
       </p>
-    :right:
-      :subfields:
-        :default:
-          :type: :image
+- :name:
+    - :image
+    - :right
+    - :default
+  :type: :image
 
 - :name: "*logo"
   :type: :image
   :codename: :logo
-  :image: logo.png
+  :image: logo.svg
   :storage_type: :coded
   :subfields:
     :self:
@@ -37,9 +38,12 @@
   :codename: :favicon
   :image: favicon.png
   :storage_type: :coded
+
 - :name: "*new file"
   :type: :file
   :codename: :new_file
+  :skip: validate_file_exist
 - :name: "*new image"
   :type: :image
   :codename: :new_image
+  :skip: validate_file_exist

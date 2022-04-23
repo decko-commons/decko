@@ -12,7 +12,7 @@
       :subfields:
         :default:
           :type: :list
-        :input_type: :radio
+        :input_type: radio
         :help: Get notified about changes.
 
 - :name: "*following"

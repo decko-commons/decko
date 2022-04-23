@@ -18,9 +18,10 @@
     :description: |-
       <p>Customize styles for [[Skins]]. [[http://decko.org/CSS|more]]</p>
     :type:
-      :create: Shark
-      :update: Shark
-      :delete: Shark
+      :subfields:
+        :create: Shark
+        :update: Shark
+        :delete: Shark
 - :name: SCSS
   :type: :cardtype
   :codename: :scss
@@ -28,9 +29,10 @@
     :description: |-
       <p>Customize styles for [[Skins]]. [[http://decko.org/SCSS|more]]</p>
     :type:
-      :create: Shark
-      :update: Shark
-      :delete: Shark
+      :subfields:
+        :create: Shark
+        :update: Shark
+        :delete: Shark
 - :name: Skin
   :type: :cardtype
   :codename: :skin
@@ -41,23 +43,20 @@
         [[http://decko.org/Skins|more]]
       </p>
     :type:
-      :create: Shark
-      :update: Shark
-      :delete: Shark
+      :subfields:
+        :create: Shark
+        :update: Shark
+        :delete: Shark
 - :name: "*style"
   :type: :setting
   :codename: :style
   :subfields:
     :right:
-      :input_type: radio
-      :default:
-        :type: :list
-      :content_options:
-        :type: :search_type
-        :content: '{"type": "bootswatch_skin", "sort": "name"}'
-      :content_option_view: Image
-- :name:
-    - :all
-    - :style
-  :type: :list
-  :content: yeti skin
+      :subfields:
+        :input_type: radio
+        :default:
+          :type: :list
+        :content_options:
+          :type: :search_type
+          :content: '{"type": "bootswatch_skin", "sort": "name"}'
+        :content_option_view: Image
