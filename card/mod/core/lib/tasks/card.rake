@@ -35,6 +35,19 @@ namespace :card do
     Rake::Task["db:seed"].invoke
   end
 
+  desc "update decko gems and database"
+  task :update do
+    failing_loudly "decko update" do
+      ENV["NO_RAILS_CACHE"] = "true"
+      Rake::Task["decko:migrate"].invoke
+      Rake::Task["decko:reset_tmp"].invoke
+      Card::Cache.reset_all
+      Rake::Task["card:mod:uninstall"].invoke
+      Rake::Task["card:mod:install"].invoke
+      Rake::Task["card:mod:symlink"].invoke
+    end
+  end
+
   def options
     @options ||= {}
   end

@@ -4,15 +4,14 @@ namespace :card do
     task update: :environment do
       ENV["STAMP_MIGRATIONS"] = "true"
       ENV["UPDATE_SEED"] = "true"
+
       %w[seed:replant seed:clean eat update assets:code seed:dump].each do |task|
         puts "invoking: #{task}".green
         Rake::Task["card:#{task}"].invoke
       end
     end
 
-    task :replant do
-      Rake::Task["db:seed:replant"].invoke
-    end
+    task replant: ["db:seed:replant"]
 
     desc "remove unneeded cards, acts, actions, changes, and references"
     task clean: :environment do

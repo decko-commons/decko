@@ -10,12 +10,12 @@ module Cardio
 
       def default_path
         env = Rails.env.test? ? "test" : "production"
-        db_path env, -1
+        db_path env, 0
       end
 
       def path
         if ENV["UPDATE_SEED"]
-          args = Rails.env.test? ? ["production", -1] : ["production", -2]
+          args = Rails.env.test? ? ["production", 0] : ["production", 1]
           db_path *args
         else
           default_path
@@ -25,8 +25,7 @@ module Cardio
       private
 
       def db_path env, index
-        paths = Cardio.config.paths["seed_fixtures"]
-        File.join paths.existent[index], env
+        Mod.fetch(Cardio.config.seed_mods[index]).subpath "data", "fixtures", env
       end
     end
 

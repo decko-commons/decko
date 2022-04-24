@@ -90,19 +90,6 @@ decko_namespace = namespace :decko do
     end
   end
 
-  desc "update decko gems and database"
-  task :update do
-    failing_loudly "decko update" do
-      ENV["NO_RAILS_CACHE"] = "true"
-      decko_namespace["migrate"].invoke
-      decko_namespace["reset_tmp"].invoke
-      Card::Cache.reset_all
-      Rake::Task["card:mod:uninstall"].invoke
-      Rake::Task["card:mod:install"].invoke
-      Rake::Task["card:mod:symlink"].invoke
-    end
-  end
-
   %i[list symlink missing uninstall install].each do |task|
     alias_task "mod:#{task}", "card:mod:#{task}"
   end

@@ -3,6 +3,7 @@ module Cardio
   class Railtie < Rails::Railtie
     config.encoding = "utf-8"
 
+    config.seed_mods = [:core]
     # if you disable inline styles tinymce's formatting options stop working
     config.allow_inline_styles = true
     config.token_expiry = 2.days
@@ -86,8 +87,6 @@ module Cardio
 
           p.add "db/migrate_deck", with: "db/migrate"
           p.add "db/migrate_deck_cards", with: "db/migrate_cards"
-
-          p.add "seed_fixtures", with: "#{card_root}/mod/core/data/fixtures"
 
           Cardio::Mod.each_path do |mod_path|
             c.autoload_paths += Dir["#{mod_path}/lib"]
