@@ -31,9 +31,8 @@ namespace :card do
     Card::Cache.reset_all
   end
 
-  task :seed do
-    Rake::Task["db:seed"].invoke
-  end
+  task seed: ["db:seed"]
+  task setup: %w[db:setup card:mod:symlink]
 
   desc "update decko gems and database"
   task :update do

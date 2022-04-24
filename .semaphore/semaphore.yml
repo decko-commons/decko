@@ -59,14 +59,14 @@ blocks:
             # NEW SHARK DECK
             - be decko new shark
             - cd shark
-            - be decko seed
+            - be decko setup
 
             - cd .. # note: faster than making a separate job.
 
             # NEW MONKEY DECK
             - be decko new monkey --monkey
             - cd monkey
-            - be decko seed
+            - be decko setup
 
   - name: Unit Tests
     task:
@@ -86,7 +86,7 @@ blocks:
           commands:
             - be decko new platypus --platypus
             - cd platypus
-            - env RAILS_ENV=test bundle exec decko seed # --test
+            - env RAILS_ENV=test bundle exec decko setup # --test
             - be decko rspec -s -- --format RspecJunitFormatter --out junit.xml --format documentation
       epilogue:
         on_pass:
@@ -110,7 +110,7 @@ blocks:
           - cache restore bundle-gems-$(checksum Gemfile.lock)
           - be decko new platypus --platypus
           - cd platypus
-          - env RAILS_ENV=test bundle exec decko seed # --test
+          - env RAILS_ENV=test bundle exec decko setup # --test
 
       jobs:
         - name: Cypress
