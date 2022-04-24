@@ -1,0 +1,13 @@
+- :name: "*input type"
+  :type: :setting
+  :codename: :input_type
+  :subfields:
+    :right:
+      :subfields:
+        :content_options: |-
+          radio
+          checkbox
+          select
+          multiselect
+          list
+        :input_type: radio
