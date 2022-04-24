@@ -52,7 +52,6 @@ blocks:
           - cache store bundle-gems-baseline ~/bundle
 
           - sem-service start mysql
-          - git submodule update card/db/seed
 
       jobs:
         - name: New Shark and Monkey Decks
