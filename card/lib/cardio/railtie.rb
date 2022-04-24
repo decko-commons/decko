@@ -8,15 +8,12 @@ module Cardio
     config.token_expiry = 2.days
 
     config.no_authentication = false
-    config.files_web_path = "files"
 
     config.max_char_count = 200
     config.max_depth = 20
     config.email_defaults = nil
 
     config.space_last_in_multispace = true
-    config.delaying = false
-    config.active_job.queue_adapter = :delayed_job
 
     config.non_createable_types = %w[
       signup
@@ -25,8 +22,6 @@ module Cardio
       session
       bootswatch_skin
       customized_bootswatch_skin
-      local_folder_group
-      local_manifest_group
       local_script_folder_group
       local_script_manifest_group
       local_style_folder_group
@@ -40,10 +35,6 @@ module Cardio
     config.request_logger = false
     config.performance_logger = false
     config.sql_comments = false
-
-    config.file_storage = :local
-    config.file_buckets = {}
-    config.file_default_bucket = nil
 
     config.deck_origin = nil
 
@@ -95,6 +86,8 @@ module Cardio
 
           p.add "db/migrate_deck", with: "db/migrate"
           p.add "db/migrate_deck_cards", with: "db/migrate_cards"
+
+          p.add "seed_fixtures", with: "#{card_root}/mod/core/data/fixtures"
 
           Cardio::Mod.each_path do |mod_path|
             c.autoload_paths += Dir["#{mod_path}/lib"]

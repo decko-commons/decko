@@ -1,0 +1,136 @@
+---
+cards_001:
+  id: 1
+  name: Decko Bot
+  key: decko_bot
+  codename: wagn_bot
+  creator_id: 1
+  updater_id: 1
+  read_rule_class: "*all"
+  read_rule_id: 500
+  trash: false
+  type_id: 3
+  db_content: ""
+cards_002:
+  id: 3
+  name: RichText
+  key: rich_text
+  codename: basic
+  creator_id: 1
+  updater_id: 1
+  read_rule_class: "*all"
+  read_rule_id: 500
+  trash: false
+  type_id: 5
+  db_content: ""
+cards_003:
+  id: 5
+  name: Cardtype
+  key: cardtype
+  codename: cardtype
+  creator_id: 1
+  updater_id: 1
+  read_rule_class: "*all"
+  read_rule_id: 500
+  trash: false
+  type_id: 5
+  db_content: ""
+cards_004:
+  id: 47
+  name: List
+  key: list
+  codename: list
+  current_revision_id: 5486
+  creator_id: 1
+  updater_id: 1
+  read_rule_class: "*all"
+  read_rule_id: 500
+  trash: false
+  type_id: 5
+  db_content: ""
+cards_005:
+  id: 259
+  name: Set
+  key: set
+  codename: set
+  creator_id: 1
+  updater_id: 1
+  read_rule_class: "*all"
+  read_rule_id: 500
+  trash: false
+  type_id: 3
+  db_content: ""
+cards_006:
+  id: 278
+  name: Setting
+  key: setting
+  codename: setting
+  creator_id: 1
+  updater_id: 1
+  read_rule_class: "*all"
+  read_rule_id: 500
+  trash: false
+  type_id: 5
+  db_content: ""
+cards_007:
+  id: 274
+  name: "*all"
+  key: "*all"
+  codename: all
+  creator_id: 1
+  updater_id: 1
+  read_rule_class: "*all"
+  read_rule_id: 500
+  trash: false
+  type_id: 259
+  db_content: "{}"
+cards_008:
+  id: 318
+  name: "*default"
+  key: "*default"
+  codename: default
+  creator_id: 1
+  updater_id: 1
+  read_rule_class: "*all"
+  read_rule_id: 500
+  trash: false
+  type_id: 278
+  db_content: ""
+cards_224:
+  id: 479
+  name: "*read"
+  key: "*read"
+  codename: read
+  creator_id: 1
+  updater_id: 1
+  read_rule_class: "*all"
+  read_rule_id: 500
+  trash: false
+  type_id: 278
+  db_content: ""
+
+# *all+*read
+cards_009:
+  id: 500
+  left_id: 274
+  right_id: 479
+  creator_id: 1
+  updater_id: 1
+  read_rule_class: "*all"
+  read_rule_id: 500
+  trash: false
+  type_id: 47
+  db_content: Decko Bot
+# *all+*default
+cards_010:
+  id: 28
+  left_id: 274
+  right_id: 318
+  creator_id: 1
+  updater_id: 1
+  read_rule_class: "*all"
+  read_rule_id: 500
+  trash: false
+  type_id: 3
+  db_content: ""
+
