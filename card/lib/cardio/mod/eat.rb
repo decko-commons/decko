@@ -47,7 +47,7 @@ module Cardio
 
       def track edible
         # rescuing edible do
-          puts "eating: #{edible}" if @verbose
+          # puts "eating: #{edible}" if @verbose
           card = yield
           puts "eaten: #{card.name}".cyan if @verbose
         # end

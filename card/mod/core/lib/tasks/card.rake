@@ -31,6 +31,10 @@ namespace :card do
     Card::Cache.reset_all
   end
 
+  task :seed do
+    Rake::Task["db:seed"].invoke
+  end
+
   def options
     @options ||= {}
   end
