@@ -201,7 +201,7 @@ card_changes_031:
   value: '776'
 card_changes_032:
   id: 32
-  card_action_id: 578
+  card_action_id: 577
   field: 2
   value: |-
     mod: script+*script
@@ -242,7 +242,7 @@ card_changes_038:
   value:
 card_changes_039:
   id: 39
-  card_action_id: 579
+  card_action_id: 578
   field: 2
   value: |-
     mod: list+*style
