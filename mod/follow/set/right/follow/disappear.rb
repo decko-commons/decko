@@ -1,0 +1,1 @@
+assign_type :toggle

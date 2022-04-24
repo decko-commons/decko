@@ -1,0 +1,15 @@
+- :name: "*tinyMCE"
+  :type: :json
+  :codename: :tiny_mce
+  :content: |
+    {
+      "theme": "silver",
+      "menubar": "edit view insert format table",
+      "plugins": "autoresize code lists hr link autolink table",
+      "toolbar1": "formatselect | bold italic strikethrough forecolor backcolor | deckolink nest |   | numlist bullist outdent indent  | removeformat",
+      "width":"100%",
+      "auto_resize":true,
+      "autoresize_max_height": 500,
+      "relative_urls":false,
+      "extended_valid_elements":"a[name|href|target|title|onclick],img[class|src|border=0|alt|title|hspace|vspace|width|height|align|onmouseover|onmouseout|name],hr[class|width|size|noshade],font[face|size|color|style],span[class|align|style]"
+     }
