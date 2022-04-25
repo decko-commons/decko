@@ -99,7 +99,7 @@ RSpec.describe Card::Set::Type::Image do
   end
 
   describe "mod image" do
-    subject { %i[cerulean_skin image].card }
+    subject { Card.fetch :cerulean_skin, :image }
 
     it "exists" do
       expect(subject.image.size).to be_positive
