@@ -1,3 +1,5 @@
+assign_type :pointer
+
 format :html do
   def quick_editor
     @submit_on_change = true
