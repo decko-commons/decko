@@ -11,8 +11,6 @@ CardSpecLoader.init
 require "rr"
 
 CardSpecLoader.prefork do
-  Cardio::Seed.test_path = File.expand_path("../db/seed/test/fixtures", __dir__)
-
   CardSpecLoader.rspec_config do |config|
     # require 'card-rspec-formatter'
     config.mock_with :rr

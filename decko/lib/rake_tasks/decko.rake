@@ -18,7 +18,7 @@ CARD_TASKS =
 
 link_task CARD_TASKS, from: :decko, to: :card
 
-decko_namespace = namespace :decko do
+namespace :decko do
   desc "empty the card tables"
   task :clear do
     conn = ActiveRecord::Base.connection
@@ -49,7 +49,6 @@ decko_namespace = namespace :decko do
     require "decko/engine"
     Cardio::Schema.assume_migrated_upto_version :core_cards
   end
-
 end
 
 def failing_loudly task

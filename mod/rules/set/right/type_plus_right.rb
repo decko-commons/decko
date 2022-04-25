@@ -1,5 +1,7 @@
 include_set Abstract::VirtualSet
 
+assign_type :set
+
 def cql_content
   { left: { type: "_LL" }, right: "_LR" }
 end

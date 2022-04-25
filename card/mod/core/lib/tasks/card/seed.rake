@@ -26,7 +26,7 @@ namespace :card do
       puts "clean history"
       act = Card::Act.create! actor_id: Card::WagnBotID, card_id: Card::WagnBotID
       Card::Action.make_current_state_the_initial_state act
-      # conn.execute("truncate card_acts")
+      Card::Act.where("id <> #{act.id}").delete_all
       ActiveRecord::Base.connection.execute("truncate sessions")
     end
 
@@ -60,6 +60,7 @@ namespace :card do
       end
     end
 
+    # TODO: trim down unnecessary fields
     def yamlize_records table
       data = ActiveRecord::Base.connection.select_all "select * from #{table}"
       YAML.dump(
