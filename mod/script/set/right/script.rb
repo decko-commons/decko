@@ -1,4 +1,4 @@
-include_set Type::List
+assign_type :list
 
 def ok_to_read
   true

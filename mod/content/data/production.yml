@@ -1,0 +1,27 @@
+- :name: "*default"
+  :type: :setting
+  :codename: :default
+- :name: "*structure"
+  :type: :setting
+  :codename: :structure
+- :name:
+    - :all
+    - :default
+
+- :name:
+    - :cardtype
+    - :type
+    - :structure
+  :content: |
+    {{+:description|content}}
+    {{_|add_button}}{{_|configure_button}}
+    {{+:type+:by_name|content}}
+
+- :name:
+    - :cardtype
+    - :self
+    - :structure
+  :content: |-
+    {{+description|content}}
+    {{_|add_button}}{{_|configure_button}}\n
+    {{_|grouped_list}}\n"
