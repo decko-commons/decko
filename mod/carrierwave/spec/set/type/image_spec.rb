@@ -8,7 +8,7 @@ RSpec.describe Card::Set::Type::Image do
   end
 
   it "handles size argument in nest syntax" do
-    file = File.new File.join(Cardio::Seed.test_path, "mao2.jpg")
+    file = File.new CarrierWave::TestFile.path("mao2.jpg")
     image_card = Card.create! name: "TestImage", type: "Image", image: file
     including_card = Card.new name: "Image1",
                               content: "{{TestImage | core; size:small }}"
@@ -25,7 +25,7 @@ RSpec.describe Card::Set::Type::Image do
     before do
       Card::Auth.as_bot do
         Card.create! name: "image card", type: "image",
-                     image: File.new(File.join(Cardio::Seed.test_path, "mao2.jpg"))
+                     image: File.new(CarrierWave::TestFile.path("mao2.jpg"))
       end
     end
 
@@ -79,7 +79,7 @@ RSpec.describe Card::Set::Type::Image do
     context "updated file card" do
       before do
         subject.update!(
-          image: File.new(File.join(Cardio::Seed.test_path, "rails.gif"))
+          image: File.new(CarrierWave::TestFile.path("rails.gif"))
         )
       end
 
@@ -99,7 +99,7 @@ RSpec.describe Card::Set::Type::Image do
   end
 
   describe "mod image" do
-    subject { Card[:cerulean_skin_image] }
+    subject { %i[cerulean_skin image].card }
 
     it "exists" do
       expect(subject.image.size).to be_positive
@@ -115,9 +115,7 @@ RSpec.describe Card::Set::Type::Image do
 
     it "becomes a regular file when changed" do
       Card::Auth.as_bot do
-        subject.update!(
-          image: File.new(File.join(Cardio::Seed.test_path, "rails.gif"))
-        )
+        subject.update! image: File.new(CarrierWave::TestFile.path("rails.gif"))
       end
       is_expected.not_to be_coded
       expect(subject.image.url)
@@ -142,7 +140,7 @@ RSpec.describe Card::Set::Type::Image do
     subject do
       Card::Auth.as_bot do
         Card.create! name: "image card", type: "image",
-                     image: File.new(File.join(Cardio::Seed.test_path, "mao2.jpg"))
+                     image: File.new(CarrierWave::TestFile.path("mao2.jpg"))
       end
     end
 
