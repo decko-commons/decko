@@ -170,6 +170,12 @@
         :type_plus_right:
           :subfields:
             :create: _left
+- :name:
+    - :user
+    - :account
+    - :type_plus_right
+    - :create
+  :content: _left
 
 - :name: welcome email
   :type: :email_template

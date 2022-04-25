@@ -5,7 +5,7 @@ namespace :card do
       ENV["STAMP_MIGRATIONS"] = "true"
       ENV["UPDATE_SEED"] = "true"
 
-      tasks = %w[seed:replant eat]
+      tasks = %w[reset_tmp seed:replant eat]
       # important not to clean test data and lose history, creator info, etc.
       tasks += %w[update assets:code seed:clean] unless Rails.env.test?
       tasks << "seed:dump"
