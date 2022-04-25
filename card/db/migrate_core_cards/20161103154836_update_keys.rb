@@ -1,4 +1,4 @@
-# -*- encoding : utf-8 -*-
+l# -*- encoding : utf-8 -*-
 
 class UpdateKeys < Cardio::Migration::Core
   def up
