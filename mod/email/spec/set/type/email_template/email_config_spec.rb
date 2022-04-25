@@ -149,7 +149,7 @@ RSpec.describe Card::Set::Type::EmailTemplate::EmailConfig do
     subject(:config) { mailconfig(context_card) }
 
     let(:context_card) do
-      file = File.new(File.join(Cardio::Seed.test_path, "mao2.jpg"))
+      file = File.new(File.join(Cardio::Seed.default_path, "mao2.jpg"))
       Card.create(
         name: "Banana",
         content: "data content [[A]]",

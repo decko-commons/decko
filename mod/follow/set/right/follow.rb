@@ -34,6 +34,10 @@ def ok_to_delete
   permit :delete
 end
 
+def raw_help_text
+  "Get notified about changes"
+end
+
 def permit action, verb=nil
   if %i[create delete update].include?(action) && allowed_to_change_follow_status?
     true
