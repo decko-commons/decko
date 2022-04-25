@@ -1,7 +1,7 @@
 class Card
   module FileHelper
     def test_file no=1
-      File.new(File.join(Cardio::Seed.default_path, "file#{no}.txt"))
+      File.new CarrierWave::TestFile.path("file#{no}.txt")
     end
 
     def create_file_card storage_type, file=test_file, opts={}
