@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 
 RSpec.describe Card::Set::Abstract::ModAssets do
-  let(:script) { Card[:mod_script_script] }
+  let(:script) { %i[mod_script script].card }
 
   it "has two groups" do
     expect(script.item_names)

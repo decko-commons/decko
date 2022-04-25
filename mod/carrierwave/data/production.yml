@@ -1,7 +1,49 @@
----
+#---
 - :name: File
   :type: :cardtype
   :codename: :file
+  :subfields:
+    :description: |-
+      <p>
+        Upload images to these cards and include them anywhere.
+        [[http://decko.org/Image|more]]
+      </p>
+
 - :name: Image
   :type: :cardtype
   :codename: :image
+  :subfields:
+    :description: |-
+      <p>
+        File cards are for uploading and downloading files.
+        [[http://decko.org/File|more]]
+      </p>
+- :name:
+    - :image
+    - :right
+    - :default
+  :type: :image
+
+- :name: "*logo"
+  :type: :image
+  :codename: :logo
+  :storage_type: :coded
+  :image: logo.svg
+  :subfields:
+    :self:
+      :subfields:
+        :read: Anyone
+- :name: "*favicon"
+  :type: :image
+  :codename: :favicon
+  :image: favicon.png
+  :storage_type: :coded
+
+- :name: "*new file"
+  :type: :file
+  :codename: :new_file
+  :skip: validate_file_exist
+- :name: "*new image"
+  :type: :image
+  :codename: :new_image
+  :skip: validate_file_exist
