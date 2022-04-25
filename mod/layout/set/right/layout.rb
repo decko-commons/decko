@@ -1,1 +1,1 @@
-assign_type :list
+assign_type :pointer
