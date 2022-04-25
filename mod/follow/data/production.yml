@@ -10,8 +10,6 @@
   :subfields:
     :right:
       :subfields:
-        :default:
-          :type: :list
         :input_type: radio
         :help: Get notified about changes.
 

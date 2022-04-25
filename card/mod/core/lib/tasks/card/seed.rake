@@ -7,7 +7,7 @@ namespace :card do
 
       tasks = %w[seed:replant eat]
       # important not to clean test data and lose history, creator info, etc.
-      tasks << %w[update assets:code seed:clean] unless Rails.env.test?
+      tasks += %w[update assets:code seed:clean] unless Rails.env.test?
       tasks << "seed:dump"
 
       Card::Cache.reset_all

@@ -54,8 +54,6 @@
     :right:
       :subfields:
         :input_type: radio
-        :default:
-          :type: :list
         :content_options:
           :type: :search_type
           :content: '{"type": "bootswatch_skin", "sort": "name"}'

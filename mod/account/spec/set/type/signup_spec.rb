@@ -2,7 +2,7 @@
 
 RSpec.describe Card::Set::Type::Signup do
   before do
-    Card::Auth.signin Card::AnonymousID
+    Card::Auth.signin :anonymous
   end
 
   let :big_bad_signup do
@@ -30,7 +30,7 @@ RSpec.describe Card::Set::Type::Signup do
       Card::Auth.as_bot do
         Card.create! name: "User+*type+*create", content: "Anyone"
       end
-      Card::Auth.signin Card::AnonymousID
+      Card::Auth.signin :anonymous
 
       @signup = big_bad_signup
       @account = @signup.account

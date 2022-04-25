@@ -23,20 +23,10 @@
 - :name: "*content options"
   :type: :setting
   :codename: :content_options
-  :subfields:
-    :right:
-      :subfields:
-        :default:
-          :type: :list
 
 - :name: "*content option view"
   :type: :setting
   :codename: :content_option_view
-  :subfields:
-    :right:
-      :subfields:
-        :default:
-          :type: :phrase
 
 - :name:
     - :structure

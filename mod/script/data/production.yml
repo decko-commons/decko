@@ -5,8 +5,6 @@
   :subfields:
     :right:
       :subfields:
-        :default:
-          :type: :list
         :content_options:
           :type: :search_type
           :content: ' {"type":["in", "JavaScript", "CoffeeScript"] }'

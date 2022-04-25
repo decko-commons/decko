@@ -28,8 +28,6 @@
         :content_options:
           :type: :search_type
           :content: ' { "right_plus":{"codename":"account"} } '
-        :default:
-          :type: :list
 - :name: "*from"
   :codename: :from
   :subfields:
@@ -38,8 +36,6 @@
         :content_options:
           :type: :search_type
           :content: ' { "right_plus":{"codename":"account"} } '
-        :default:
-          :type: :list
 - :name: "*cc"
   :codename: :cc
   :subfields:
@@ -48,8 +44,6 @@
         :content_options:
           :type: :search_type
           :content: ' { "right_plus":{"codename":"account"} } '
-        :default:
-          :type: :list
 - :name: "*bcc"
   :codename: :bcc
   :subfields:
@@ -58,15 +52,8 @@
         :content_options:
           :type: :search_type
           :content: ' { "right_plus":{"codename":"account"} } '
-        :default:
-          :type: :list
 - :name: "*subject"
   :codename: :subject
-  :subfields:
-    :right:
-      :subfields:
-        :default:
-          :type: :phrase
 - :name: "*attach"
   :codename: :attach
   :subfields:
@@ -82,8 +69,3 @@
   :codename: :html_message
 - :name: "*text message"
   :codename: :text_message
-  :subfields:
-    :right:
-      :subfields:
-        :default:
-          :type: :plain_text
