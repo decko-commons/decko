@@ -15,7 +15,7 @@ end
 def among? ok_ids
   ok_ids.any? do |ok_id|
     ok_id == AnyoneID ||
-      (ok_id == AnyoneWithRoleID && all_enabled_roles.size > 1) ||
+      # (ok_id == AnyoneWithRoleID && all_enabled_roles.size > 1) ||
       parties.member?(ok_id)
   end
 end
