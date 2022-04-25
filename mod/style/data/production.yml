@@ -1,10 +1,62 @@
 ---
+- :name: "style: mods"
+  :type: :list
+  :codename: :style_mods
+
+- :name: Local style folder group
+  :type: :cardtype
+  :codename: :local_style_folder_group
+- :name: Local style manifest group
+  :type: :cardtype
+  :codename: :local_style_manifest_group
+
+
 - :name: CSS
   :type: :cardtype
   :codename: :css
+  :subfields:
+    :description: |-
+      <p>Customize styles for [[Skins]]. [[http://decko.org/CSS|more]]</p>
+    :type:
+      :subfields:
+        :create: Shark
+        :update: Shark
+        :delete: Shark
 - :name: SCSS
   :type: :cardtype
   :codename: :scss
+  :subfields:
+    :description: |-
+      <p>Customize styles for [[Skins]]. [[http://decko.org/SCSS|more]]</p>
+    :type:
+      :subfields:
+        :create: Shark
+        :update: Shark
+        :delete: Shark
 - :name: Skin
   :type: :cardtype
   :codename: :skin
+  :subfields:
+    :description: |-
+      <p>
+        A [[skin]] determines a page's look and feel.
+        [[http://decko.org/Skins|more]]
+      </p>
+    :type:
+      :subfields:
+        :create: Shark
+        :update: Shark
+        :delete: Shark
+- :name: "*style"
+  :type: :setting
+  :codename: :style
+  :subfields:
+    :right:
+      :subfields:
+        :input_type: radio
+        :default:
+          :type: :list
+        :content_options:
+          :type: :search_type
+          :content: '{"type": "bootswatch_skin", "sort": "name"}'
+        :content_option_view: Image
