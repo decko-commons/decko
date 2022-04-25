@@ -1,0 +1,288 @@
+---
+card_changes_001:
+  id: 40
+  card_action_id: 997
+  field: 0
+  value: First
+card_changes_002:
+  id: 41
+  card_action_id: 997
+  field: 1
+  value: '3'
+card_changes_003:
+  id: 42
+  card_action_id: 997
+  field: 2
+  value: egg
+card_changes_004:
+  id: 43
+  card_action_id: 997
+  field: 3
+  value: f
+card_changes_005:
+  id: 44
+  card_action_id: 997
+  field: 4
+  value:
+card_changes_006:
+  id: 45
+  card_action_id: 997
+  field: 5
+  value:
+card_changes_007:
+  id: 46
+  card_action_id: 998
+  field: 2
+  value: chicken
+card_changes_008:
+  id: 47
+  card_action_id: 999
+  field: 2
+  value: chick
+card_changes_009:
+  id: 48
+  card_action_id: 293
+  field: 0
+  value: "*logo"
+card_changes_010:
+  id: 49
+  card_action_id: 293
+  field: 1
+  value: '543'
+card_changes_011:
+  id: 50
+  card_action_id: 293
+  field: 2
+  value: ":logo/carrierwave.svg"
+card_changes_012:
+  id: 51
+  card_action_id: 293
+  field: 3
+  value: f
+card_changes_013:
+  id: 52
+  card_action_id: 293
+  field: 4
+  value:
+card_changes_014:
+  id: 53
+  card_action_id: 293
+  field: 5
+  value:
+card_changes_015:
+  id: 54
+  card_action_id: 1005
+  field: 2
+  value: "~767/1005.svg"
+card_changes_016:
+  id: 55
+  card_action_id: 296
+  field: 0
+  value: "*favicon"
+card_changes_017:
+  id: 56
+  card_action_id: 296
+  field: 1
+  value: '543'
+card_changes_018:
+  id: 57
+  card_action_id: 296
+  field: 2
+  value: ":favicon/carrierwave.png"
+card_changes_019:
+  id: 58
+  card_action_id: 296
+  field: 3
+  value: f
+card_changes_020:
+  id: 59
+  card_action_id: 296
+  field: 4
+  value:
+card_changes_021:
+  id: 60
+  card_action_id: 296
+  field: 5
+  value:
+card_changes_022:
+  id: 61
+  card_action_id: 1008
+  field: 2
+  value: "~770/1008.png"
+card_changes_023:
+  id: 62
+  card_action_id: 495
+  field: 0
+  value: "*header"
+card_changes_024:
+  id: 63
+  card_action_id: 495
+  field: 1
+  value: '528'
+card_changes_025:
+  id: 64
+  card_action_id: 495
+  field: 2
+  value: |
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-3">
+      <a class="navbar-brand nav-logo p-0" href="{{*home|home_path}}">
+        {{*logo|core;size:small}}
+      </a>
+      <a class="navbar-brand" href="{{*home|home_path}}">
+        {{*title|core}}
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          {{*main menu|navbar_links}}
+        </ul>
+        {{*navbox|navbar}}
+        {{*account links|navbar_links}}
+      </div>
+    </nav>
+card_changes_026:
+  id: 65
+  card_action_id: 495
+  field: 3
+  value: f
+card_changes_027:
+  id: 66
+  card_action_id: 495
+  field: 4
+  value:
+card_changes_028:
+  id: 67
+  card_action_id: 495
+  field: 5
+  value:
+card_changes_029:
+  id: 68
+  card_action_id: 1073
+  field: 2
+  value: |-
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-3">
+      <div class="container-fluid">
+        <a class="navbar-brand nav-logo p-0" href="{{*home|home_path}}">
+          {{*logo|core;size:small}}
+        </a>
+        <a class="navbar-brand" href="{{*home|home_path}}">
+          {{*title|core}}
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse"
+                data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">{{*main menu|navbar_links}}</ul>
+          {{*navbox|navbar}}
+          {{*account links|navbar_links}}
+        </div>
+      </div>
+    </nav>
+card_changes_030:
+  id: 69
+  card_action_id: 1171
+  field: 0
+  value:
+card_changes_031:
+  id: 70
+  card_action_id: 1171
+  field: 1
+  value: '3'
+card_changes_032:
+  id: 71
+  card_action_id: 1171
+  field: 2
+  value: ''
+card_changes_033:
+  id: 72
+  card_action_id: 1171
+  field: 3
+  value: f
+card_changes_034:
+  id: 73
+  card_action_id: 1171
+  field: 4
+  value: '1278'
+card_changes_035:
+  id: 74
+  card_action_id: 1171
+  field: 5
+  value: '1279'
+card_changes_036:
+  id: 75
+  card_action_id: 1174
+  field: 2
+  value: zoom in
+card_changes_037:
+  id: 76
+  card_action_id: 516
+  field: 0
+  value: "*main menu"
+card_changes_038:
+  id: 77
+  card_action_id: 516
+  field: 1
+  value: '623'
+card_changes_039:
+  id: 78
+  card_action_id: 516
+  field: 2
+  value: |-
+    [[*getting started links|Getting started]]
+    [[:recent|Recent Changes]]
+card_changes_040:
+  id: 79
+  card_action_id: 516
+  field: 3
+  value: f
+card_changes_041:
+  id: 80
+  card_action_id: 516
+  field: 4
+  value:
+card_changes_042:
+  id: 81
+  card_action_id: 516
+  field: 5
+  value:
+card_changes_043:
+  id: 82
+  card_action_id: 1275
+  field: 2
+  value: "[[:recent|Recent Changes]]"
+card_changes_044:
+  id: 83
+  card_action_id: 1281
+  field: 2
+  value: |
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-3">
+      <a class="navbar-brand nav-logo p-0" href="{{*home|home_path}}">
+        {{*logo|core;size:small}}
+      </a>
+      <a class="navbar-brand" href="{{*home|home_path}}">
+        {{*title|core}}
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          {{*main menu|navbar_links}}
+        </ul>
+        {{*navbox|navbar}}
+        {{*account links|navbar_links}}
+      </div>
+    </nav>
+card_changes_045:
+  id: 84
+  card_action_id: 1305
+  field: 2
+  value: |-
+    [[*getting started links|Getting started]]
+    [[:recent|Recent Changes]]
