@@ -8,23 +8,6 @@
     :description: |-
       Each [[user]] can be given roles to organize site permissions. 
       [[http://decko.org/Role|Learn more about roles]].
-- :name: Sign up
-  :type: :cardtype
-  :codename: :signup
-  :subfields:
-    :description: |-
-      [[Sign up]] cards represent not-yet-approved accounts. 
-      When approved, they become [[User]] cards. [[http://decko.org/account|more]]
-    :self:
-      :subfields:
-        :structure: |-
-          <p>{{+:description|content}}</p>
-          <h2>{{_self|name}} Cards</h2>
-          <blockquote><p>{{+:type+by name|content}}</p></blockquote>
-    :type:
-      :subfields:
-        :create: Anyone
-        :on_create: signup alert email
 
 - :name: "*members"
   :codename: :members
@@ -164,6 +147,29 @@
           {{_left+:account|content}}
           {{_left+:roles|title: Roles}}
           {{_left+:follow|title: Notification choices}}
+
+- :name: Sign up
+  :type: :cardtype
+  :codename: :signup
+  :subfields:
+    :description: |-
+      [[Sign up]] cards represent not-yet-approved accounts. 
+      When approved, they become [[User]] cards. [[http://decko.org/account|more]]
+    :self:
+      :subfields:
+        :structure: |-
+          <p>{{+:description|content}}</p>
+          <h2>{{_self|name}} Cards</h2>
+          <blockquote><p>{{+:type+by name|content}}</p></blockquote>
+    :type:
+      :subfields:
+        :create: Anyone
+        :on_create: signup alert email
+    :account:
+      :subfields:
+        :type_plus_right:
+          :subfields:
+            :create: _left
 
 - :name: welcome email
   :type: :email_template
