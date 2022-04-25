@@ -71,7 +71,11 @@ module Cardio
         end
 
         def mod_file mod, filename
-          File.open mod.subpath("data/files", filename)
+          unless (mod_file_path = mod.subpath "data/files", filename)
+            raise StandardError, "#{filename} not found. "\
+                                 "Should be in data/files in #{mod.name} mod."
+          end
+          File.open mod_file_path
         end
 
         def attachment_keys
