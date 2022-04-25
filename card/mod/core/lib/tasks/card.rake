@@ -1,7 +1,7 @@
 require "optparse"
 
 namespace :card do
-  desc "ingest card data from mod yaml"
+  desc "Ingests card data from mod yaml"
   task eat: :environment do
     parse_options :eat do
       add_opt :m, :mod, "only merge cards in given mod"
@@ -12,7 +12,7 @@ namespace :card do
     rake_result(:eat) { Cardio::Mod::Eat.new(**options).up }
   end
 
-  desc "export card data to mod yaml"
+  desc "Exports card data to mod yaml"
   task sow: :environment do
     parse_options :sow do
       add_opt :n, :name, "export card with name/mark (handles : and ~ prefixes)"
@@ -26,12 +26,16 @@ namespace :card do
     rake_result(:sow) { Cardio::Mod::Sow.new(**options).out }
   end
 
-  desc "reset cache"
+  desc "Resets cache"
   task reset_cache: :environment do
     Card::Cache.reset_all
   end
 
+  desc "Loads seed data"
   task seed: ["db:seed"]
+
+  desc "Creates the database, loads the schema, initializes seed data, "
+       "and adds symlinks to public directories"
   task setup: %w[db:setup card:mod:symlink]
 
   desc "update decko gems and database"

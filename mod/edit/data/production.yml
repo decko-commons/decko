@@ -4,10 +4,7 @@
   :subfields:
     :right:
       :subfields:
-        :content_options: |-
-          radio
-          checkbox
-          select
-          multiselect
-          list
+        # TODO: refactor so that we don't need a compound card to have a codename
+        :content_options:
+          :codename: :input_options
         :input_type: radio

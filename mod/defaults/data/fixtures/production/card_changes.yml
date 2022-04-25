@@ -110,7 +110,7 @@ card_changes_017:
   value:
 card_changes_018:
   id: 18
-  card_action_id: 495
+  card_action_id: 496
   field: 2
   value: |
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-3">
@@ -134,37 +134,37 @@ card_changes_018:
     </nav>
 card_changes_019:
   id: 19
-  card_action_id: 489
+  card_action_id: 490
   field: 0
   value: "*main menu"
 card_changes_020:
   id: 20
-  card_action_id: 489
+  card_action_id: 490
   field: 1
   value: '623'
 card_changes_021:
   id: 21
-  card_action_id: 489
+  card_action_id: 490
   field: 2
   value: "[[:recent|Recent Changes]]"
 card_changes_022:
   id: 22
-  card_action_id: 489
+  card_action_id: 490
   field: 3
   value: f
 card_changes_023:
   id: 23
-  card_action_id: 489
+  card_action_id: 490
   field: 4
   value:
 card_changes_024:
   id: 24
-  card_action_id: 489
+  card_action_id: 490
   field: 5
   value:
 card_changes_025:
   id: 25
-  card_action_id: 516
+  card_action_id: 517
   field: 2
   value: |-
     [[*getting started links|Getting started]]
@@ -198,10 +198,10 @@ card_changes_031:
   id: 31
   card_action_id: 307
   field: 5
-  value: '776'
+  value: '775'
 card_changes_032:
   id: 32
-  card_action_id: 577
+  card_action_id: 579
   field: 2
   value: |-
     mod: script+*script
@@ -242,7 +242,7 @@ card_changes_038:
   value:
 card_changes_039:
   id: 39
-  card_action_id: 578
+  card_action_id: 580
   field: 2
   value: |-
     mod: list+*style
