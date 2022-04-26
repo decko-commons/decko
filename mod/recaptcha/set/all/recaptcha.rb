@@ -66,6 +66,8 @@ def handle_recaptcha_config_errors
 end
 
 def validate_recaptcha?
+  return unless Card::Codename.exists? :captcha
+
   !@supercard && !:captcha.card.used? && recaptcha_on?
 end
 
