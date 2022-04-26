@@ -12,8 +12,7 @@ module Cardio
 
       def path
         if ENV["UPDATE_SEED"]
-          args = Rails.env.test? ? ["production", 0] : ["production", 1]
-          db_path(*args)
+          db_path :production, (Rails.env.test? ? 0 : 1)
         else
           default_path
         end
@@ -43,7 +42,7 @@ module Cardio
       private
 
       def db_path env, index
-        Mod.fetch(Cardio.config.seed_mods[index]).subpath "data", "fixtures", env
+        Mod.fetch(Cardio.config.seed_mods[index]).subpath "data", "fixtures", env.to_s
       end
 
       def write_seed_file table
