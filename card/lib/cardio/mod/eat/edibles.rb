@@ -89,11 +89,10 @@ module Cardio
         # production = [:production],
         # development = [:production, :development], etc.
         def environments
-          env = @env&.to_sym || (Rails.env.test? ? :test : :production)
           # index = DATA_ENVIRONMENTS.index(@env&.to_sym || Rails.env.to_sym) || -1
           # DATA_ENVIRONMENTS[0..index]
 
-          [env]
+          [@env]
         end
       end
     end

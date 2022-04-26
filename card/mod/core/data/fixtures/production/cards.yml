@@ -9,10 +9,10 @@ cards_001:
   read_rule_class: "*all"
   read_rule_id: 500
   trash: false
-  type_id: 3
+  type_id: 2
   db_content: ""
 cards_002:
-  id: 3
+  id: 2
   name: RichText
   key: rich_text
   codename: basic
@@ -21,10 +21,10 @@ cards_002:
   read_rule_class: "*all"
   read_rule_id: 500
   trash: false
-  type_id: 5
+  type_id: 3
   db_content: ""
 cards_003:
-  id: 5
+  id: 3
   name: Cardtype
   key: cardtype
   codename: cardtype
@@ -33,104 +33,103 @@ cards_003:
   read_rule_class: "*all"
   read_rule_id: 500
   trash: false
-  type_id: 5
+  type_id: 3
   db_content: ""
 cards_004:
-  id: 47
+  id: 4
   name: List
   key: list
   codename: list
-  current_revision_id: 5486
   creator_id: 1
   updater_id: 1
   read_rule_class: "*all"
   read_rule_id: 500
   trash: false
-  type_id: 5
+  type_id: 3
   db_content: ""
 cards_005:
-  id: 259
+  id: 5
   name: Set
   key: set
   codename: set
   creator_id: 1
   updater_id: 1
   read_rule_class: "*all"
-  read_rule_id: 500
+  read_rule_id: 10
   trash: false
-  type_id: 3
+  type_id: 2
   db_content: ""
 cards_006:
-  id: 278
+  id: 6
   name: Setting
   key: setting
   codename: setting
   creator_id: 1
   updater_id: 1
   read_rule_class: "*all"
-  read_rule_id: 500
+  read_rule_id: 10
   trash: false
-  type_id: 5
+  type_id: 3
   db_content: ""
 cards_007:
-  id: 274
+  id: 7
   name: "*all"
   key: "*all"
   codename: all
   creator_id: 1
   updater_id: 1
   read_rule_class: "*all"
-  read_rule_id: 500
+  read_rule_id: 10
   trash: false
-  type_id: 259
+  type_id: 5
   db_content: "{}"
 cards_008:
-  id: 318
+  id: 8
   name: "*default"
   key: "*default"
   codename: default
   creator_id: 1
   updater_id: 1
   read_rule_class: "*all"
-  read_rule_id: 500
+  read_rule_id: 10
   trash: false
-  type_id: 278
+  type_id: 6
   db_content: ""
-cards_224:
-  id: 479
+cards_009:
+  id: 9
   name: "*read"
   key: "*read"
   codename: read
   creator_id: 1
   updater_id: 1
   read_rule_class: "*all"
-  read_rule_id: 500
+  read_rule_id: 10
   trash: false
-  type_id: 278
+  type_id: 6
   db_content: ""
 
 # *all+*read
-cards_009:
-  id: 500
-  left_id: 274
-  right_id: 479
+cards_010:
+  id: 10
+  left_id: 7
+  right_id: 9
   creator_id: 1
   updater_id: 1
   read_rule_class: "*all"
-  read_rule_id: 500
+  read_rule_id: 10
   trash: false
-  type_id: 47
+  type_id: 4
   db_content: Decko Bot
 # *all+*default
-cards_010:
-  id: 28
-  left_id: 274
-  right_id: 318
+cards_011:
+  id: 11
+  left_id: 7
+  right_id: 8
   creator_id: 1
   updater_id: 1
   read_rule_class: "*all"
-  read_rule_id: 500
+  read_rule_id: 10
   trash: false
-  type_id: 3
+  type_id: 2
   db_content: ""
 
