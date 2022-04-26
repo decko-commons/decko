@@ -1,3 +1,7 @@
 - :name: Session
   :type: :cardtype
   :codename: :session
+  :subfields:
+    :description: |-
+      Session cards are for non-permanent content. They are not stored in the database 
+      and can have different values for different users.

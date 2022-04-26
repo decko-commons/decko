@@ -2,7 +2,7 @@ RSpec.describe Card::Set::All::Account do
   describe "parties" do
     it "for Wagn Bot", with_user: Card::WagnBotID do
       expect(Card::Auth.current.parties.sort)
-        .to eq([Card::WagnBotID, Card::AnyoneSignedInID, Card::AdministratorID])
+        .to eq([Card::WagnBotID, Card::AnyoneSignedInID])
     end
 
     it "for Anonymous", with_user: Card::AnonymousID do
