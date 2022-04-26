@@ -42,8 +42,8 @@ RSpec.describe Card::Set::All::Trash do
   end
 
   it "deletes children under a set", as_bot: true do
-    create_set "Book+value+*type plus right",
-               book1 = "Richard Mills+Annual Sales+CA+2014"
+    create_set "Book+value+*type plus right"
+    book1 = "Richard Mills+Annual Sales+CA+2014"
     book2 = "Richard Mills+Annual Profits+CA+2014"
     create_book book1
     create_book book2

@@ -2,3 +2,136 @@
 - :name: Layout
   :type: :cardtype
   :codename: :layout_type
+  :subfields:
+    :description: Organize webpages. [[http://decko.org/Layout|more]]
+    :type:
+      :subfields:
+        :create: Shark
+        :update: Shark
+        :delete: Shark
+
+- :name: "*layout"
+  :type: :setting
+  :codename: :layout
+  :subfields:
+    :right:
+      :subfields:
+        :input_type: select
+        :content_options:
+          :type: :search_type
+          :content: '{"type": "Layout"}'
+
+- :name: "*sidebar"
+  :codename: :sidebar
+  :content: |-
+    <div>[[/ | {{*logo|content_panel}}]]</div>
+    <div>{{Menu|open}}</div>
+  :subfields:
+    :right:
+      :subfields:
+        :read: Anyone
+
+
+- :name:
+    - :all
+    - :layout
+  :type: :list
+  :content: Default Layout
+
+- :name: "*main menu"
+  :type: :link_list
+  :content: "[[:recent|Recent Changes]]"
+  :subfields:
+    :self:
+      :subfields:
+        :read: Anyone
+- :name: "*navbox"
+  :codename: :navbox
+  :subfields:
+    :self:
+      :subfields:
+        :read: Anyone
+- :name: "*header"
+  :type: :html
+  :codename: header
+  :subfields:
+    :self:
+      :subfields:
+        :read: Anyone
+  :content: |
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-3">
+      <a class="navbar-brand nav-logo p-0" href="{{*home|home_path}}">
+        {{*logo|core;size:small}}
+      </a>
+      <a class="navbar-brand" href="{{*home|home_path}}">
+        {{*title|core}}
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          {{*main menu|navbar_links}}
+        </ul>
+        {{*navbox|navbar}}
+        {{*account links|navbar_links}}
+      </div>
+    </nav>
+- :name: "*footer"
+  :type: :html
+  :content: |-
+    <div class="d-flex justify-content-center align-items-center">
+      {{*credit|core}}
+    </div>
+
+
+- :name: Menu
+  :content: "<p>[[/?view=new|Add a card]]</p>"
+
+- :name: Default Layout
+  :type: :layout_type
+  :content: |-
+    <body class="d-flex flex-column h-100">
+      <header>{{*header|core}}</header>
+      <article class="container flex-shrink-0" role="main">{{_main|titled}}
+      </article>
+      <footer class="footer mt-auto py-3">{{*footer|content}}</footer>
+    </body>
+- :name: Full Width Layout
+  :type: :layout_type
+  :content: |-
+    <body class="fluid d-flex flex-column h-100">
+      <header>{{*header|core}}</header>
+      <article class="container flex-shrink-0" role="main">{{_main|open}}</article>
+      <footer class="footer mt-auto py-3">{{*footer|core}}</footer>
+    </body>
+- :name: Home Layout
+  :type: :layout_type
+  :content: |-
+    <body class="d-flex flex-column h-100">
+      <header>{{*header|core}}</header>
+      <article class="container flex-shrink-0" role="main">{{_main|content}}
+      </article>
+      <footer class="footer mt-auto py-3">{{*footer|content}}</footer>
+    </body>
+- :name: Right Thin Sidebar Layout
+  :type: :layout_type
+  :content: |-
+    <body class="right-sidebar thin-sidebar d-flex flex-column h-100">
+      <header>{{*header|core}}</header>
+      <article class="container flex-shrink-0" role="main">
+        {{_main|open}}
+      </article>
+      <aside>{{*sidebar|content}}</aside>
+      <footer class="footer mt-auto py-3">{{*footer|core}}</footer>
+    </body>
+- :name: Left Sidebar Layout
+  :type: :layout_type
+  :content: |-
+    <body class="left-sidebar">
+      <header>{{*header|core}}</header>
+      <article>{{_main|titled}}</article>
+      <aside>{{*sidebar|core}}</aside>
+      <footer>{{*footer|core}}</footer>
+    </body>

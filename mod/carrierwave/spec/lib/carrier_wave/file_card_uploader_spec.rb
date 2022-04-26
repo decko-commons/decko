@@ -11,7 +11,7 @@ RSpec.describe CarrierWave::FileCardUploader do
 
       it "returns correct identifier" do
         expect(subject.attachment.db_content)
-          .to eq ":logo/standard.svg"
+          .to eq ":logo/carrierwave.svg"
       end
     end
 
