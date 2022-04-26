@@ -51,33 +51,7 @@ namespace :card do
     desc "dump db to bootstrap fixtures"
     task dump: :environment do
       Card::Cache.reset_all
-      Cardio::Seed::TABLES.each do |table|
-        i = "000"
-        write_seed_file table do
-          yamlize_records table do |record, hash|
-            hash["#{table}_#{i.succ!}"] = record
-          end
-        end
-      end
-    end
-
-    def write_seed_file table
-      filename = File.join Cardio::Seed.default_path, "#{table}.yml"
-      File.open filename, "w" do |file|
-        file.write yield
-      end
-    end
-
-    # TODO: trim down unnecessary fields
-    def yamlize_records table
-      data = ActiveRecord::Base.connection.select_all "select * from #{table}"
-      YAML.dump(
-        data.each_with_object({}) do |record, hash|
-          record["trash"] = false if record.key? "trash"
-          record["draft"] = false if record.key? "draft"
-          yield record, hash
-        end
-      )
+      Cardio::Seed.dump
     end
   end
 end

@@ -193,11 +193,16 @@
   :subfields:
     :from: Decko Bot
     :subject: verification link for {{:title|core}}
-    :html_message: "<div style=\"text-align:center\"> \n\n  <h1>Thank you for signing up
-      with {{*title|core}}!</h1>\n\n  <p>Please <a href=\"{{_|verify_url}}\">follow
-      this link</a> to verify this email address and activate your account.</p>\n\n
-      \ <p><em>Link will remain valid for {{_|verify_days}} days.</em></p>\n\n</div>\n"
-    text_message: |+
+    :html_message: |-
+      <div style="text-align:center">
+        <h1>Thank you for signing up with {{:title|core}}!</h1>
+        <p>
+          Please <a href="{{_|verify_url}}">follow this link</a>
+          to verify this email address and activate your account.
+        </p>
+        <p><em>Link will remain valid for {{_|verify_days}} days.</em></p>
+      </div>
+    :text_message: |+
       Thank you for signing up with {{:title|core}}!
   
       Please follow the link below to verify this email address and activate your account.
