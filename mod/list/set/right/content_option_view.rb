@@ -1,3 +1,5 @@
+assign_type :phrase
+
 format :html do
   def quick_edit
     if card.left.prototype_default_card&.try(:show_content_options?) &&

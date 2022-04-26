@@ -1,0 +1,59 @@
+- :name: "*create"
+  :type: :setting
+  :codename: :create
+- :name: "*read"
+  :type: :setting
+  :codename: :read
+- :name: "*update"
+  :type: :setting
+  :codename: :update
+- :name: "*delete"
+  :type: :setting
+  :codename: :delete
+
+# TODO: make it so the following work with only codename (no name)
+- :name: "*all"
+  :codename: :all
+  :subfields:
+    :read: Anyone
+    :create: Anyone Signed In
+    :update: Anyone Signed In
+    :delete: Anyone Signed In
+
+- :name: "*all plus"
+  :codename: :all_plus
+  :subfields:
+    :read: _left
+    :create: _left
+    :update: _left
+    :delete: _left
+
+- :name: "*star"
+  :codename: :star
+  :subfields:
+    :create: Administrator
+    :update: Administrator
+    :delete: Administrator
+
+- :name: "*rstar"
+  :codename: :rstar
+  :subfields:
+    :create: Shark
+    :update: Shark
+    :delete: Shark
+
+- :name:
+    - :html
+    - :type
+  :subfields:
+    :create: Shark
+    :update: Shark
+    :delete: Shark
+
+- :name:
+    - :cardtype
+    - :type
+  :subfields:
+    :create: Shark
+    :update: Shark
+    :delete: Shark

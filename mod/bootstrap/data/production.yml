@@ -1,35 +1,220 @@
 ---
+- :name: "*bootswatch"
+  :codename: :bootswatch
+- :name: "*variables"
+  :codename: :variables
+- :name: "*stylesheets"
+  :codename: :stylesheets
+- :name: "*colors"
+  :codename: :colors
+
 - :name: parent
   :codename: :parent
 - :name: Bootswatch skin
   :type: :cardtype
   :codename: :bootswatch_skin
-- :name: "*getting started"
-  :type: :html
-  :codename: :getting_started
-  :content: "<div class=\"container text-center\">\r\n  <!-- card 1 -->\r\n  <div
-    class=\"d-flex justify-content-center align-items-center p-3 my-3 rounded box-shadow\">\r\n
-    \   {{+shark|core}}\r\n    <h1>Welcome, Card Shark!</h1>\r\n  </div>\r\n  <div
-    class=\"jumbotron\">\r\n    <h3 class=\"mb-4\">Things to sink your teeth into:</h3>\r\n
-    \   <div class=\"d-flex justify-content-center ps-10\">\r\n      <div>\r\n        <p
-    class=\"lead\">\r\n          Structure\r\n        </p>\r\n        <p>\r\n          <a
-    href=\"new/cardtype\" class=\"btn btn-primary me-2\">Add new Cardtype</a>\r\n
-    \       </p>\r\n      </div>\r\n      <div class=\"pe-5\">\r\n        <p class=\"lead\">\r\n
-    \         Style\r\n        </p>\r\n        <p>\r\n          <a href=\"*all+*style\"
-    class=\"btn btn-primary me-2\">Configure Skin Card</a>\r\n        </p>\r\n      </div>\r\n
-    \   </div>\r\n  </div>\r\n  <p class=\"lead mt-5\">\r\n    <a href=\"Administrator\"
-    class=\"\">and more...</a>\r\n  </p>\r\n</div>\r\n"
 - :name: "*header"
   :type: :html
-  :content: "<nav class=\"navbar navbar-expand-lg navbar-dark bg-dark mb-3\">\r\n
-    \ <div class=\"container-fluid\">\r\n  <a class=\"navbar-brand nav-logo p-0\"
-    href=\"{{*home|home_path}}\">\r\n    {{*logo|core;size:small}}\r\n  </a>\r\n  <a
-    class=\"navbar-brand\" href=\"{{*home|home_path}}\">\r\n    {{*title|core}}\r\n
-    \ </a>\r\n  <button class=\"navbar-toggler\" type=\"button\" data-toggle=\"collapse\"
-    data-target=\"#navbarSupportedContent\" aria-controls=\"navbarSupportedContent\"
-    aria-expanded=\"false\" aria-label=\"Toggle navigation\">\r\n    <span class=\"navbar-toggler-icon\"></span>\r\n
-    \ </button>\r\n\r\n  <div class=\"collapse navbar-collapse\" id=\"navbarSupportedContent\">\r\n
-    \   <ul class=\"navbar-nav mr-auto\">\r\n      {{*main menu|navbar_links}}\r\n
-    \   </ul>\r\n    {{*navbox|navbar}}\r\n    {{*account links|navbar_links}}\r\n
-    \ </div>\r\n  </div>\r\n</nav>\r\n"
+  :content: |-
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-3">
+      <div class="container-fluid">
+        <a class="navbar-brand nav-logo p-0" href="{{*home|home_path}}">
+          {{*logo|core;size:small}}
+        </a>
+        <a class="navbar-brand" href="{{*home|home_path}}">
+          {{*title|core}}
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse"
+                data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">{{*main menu|navbar_links}}</ul>
+          {{*navbox|navbar}}
+          {{*account links|navbar_links}}
+        </div>
+      </div>
+    </nav>
 
+- :name: 'bootstrap: functions'
+  :type: :scss
+  :codename: :bootstrap_functions
+- :name: 'bootstrap: core'
+  :type: :scss
+  :codename: :bootstrap_core
+
+- :name: cerulean skin
+  :type: :bootswatch_skin
+  :codename: :cerulean_skin
+  :subfields:
+    :image:
+      :image: cerulean_skin_image/image-original.png
+      :codename: :cerulean_skin_image
+      :storage_type: :coded
+- :name: cosmo skin
+  :type: :bootswatch_skin
+  :codename: :cosmo_skin
+  :subfields:
+    :image:
+      :image: cosmo_skin_image/image-original.png
+      :codename: :cosmo_skin_image
+      :storage_type: :coded
+- :name: cyborg skin
+  :type: :bootswatch_skin
+  :codename: :cyborg_skin
+  :subfields:
+    :image:
+      :image: cyborg_skin_image/image-original.png
+      :codename: :cyborg_skin_image
+      :storage_type: :coded
+- :name: darkly skin
+  :type: :bootswatch_skin
+  :codename: :darkly_skin
+  :subfields:
+    :image:
+      :image: darkly_skin_image/image-original.png
+      :codename: :darkly_skin_image
+      :storage_type: :coded
+- :name: flatly skin
+  :type: :bootswatch_skin
+  :codename: :flatly_skin
+  :subfields:
+    :image:
+      :image: flatly_skin_image/image-original.png
+      :codename: :flatly_skin_image
+      :storage_type: :coded
+- :name: journal skin
+  :type: :bootswatch_skin
+  :codename: :journal_skin
+  :subfields:
+    :image:
+      :image: journal_skin_image/image-original.png
+      :codename: :journal_skin_image
+      :storage_type: :coded
+- :name: lumen skin
+  :type: :bootswatch_skin
+  :codename: :lumen_skin
+  :subfields:
+    :image:
+      :image: lumen_skin_image/image-original.png
+      :codename: :lumen_skin_image
+      :storage_type: :coded
+- :name: sandstone skin
+  :type: :bootswatch_skin
+  :codename: :sandstone_skin
+  :subfields:
+    :image:
+      :image: sandstone_skin_image/image-original.png
+      :codename: :sandstone_skin_image
+      :storage_type: :coded
+- :name: simplex skin
+  :type: :bootswatch_skin
+  :codename: :simplex_skin
+  :subfields:
+    :image:
+      :image: simplex_skin_image/image-original.png
+      :codename: :simplex_skin_image
+      :storage_type: :coded
+- :name: slate skin
+  :type: :bootswatch_skin
+  :codename: :slate_skin
+  :subfields:
+    :image:
+      :image: slate_skin_image/image-original.png
+      :codename: :slate_skin_image
+      :storage_type: :coded
+- :name: spacelab skin
+  :type: :bootswatch_skin
+  :codename: :spacelab_skin
+  :subfields:
+    :image:
+      :image: spacelab_skin_image/image-original.png
+      :codename: :spacelab_skin_image
+      :storage_type: :coded
+- :name: superhero skin
+  :type: :bootswatch_skin
+  :codename: :superhero_skin
+  :subfields:
+    :image:
+      :image: superhero_skin_image/image-original.png
+      :codename: :superhero_skin_image
+      :storage_type: :coded
+- :name: united skin
+  :type: :bootswatch_skin
+  :codename: :united_skin
+  :subfields:
+    :image:
+      :image: united_skin_image/image-original.png
+      :codename: :united_skin_image
+      :storage_type: :coded
+- :name: yeti skin
+  :type: :bootswatch_skin
+  :codename: :yeti_skin
+  :subfields:
+    :image:
+      :image: yeti_skin_image/image-original.png
+      :codename: :yeti_skin_image
+      :storage_type: :coded
+- :name: litera skin
+  :type: :bootswatch_skin
+  :codename: :litera_skin
+  :subfields:
+    :image:
+      :image: litera_skin_image/image-original.png
+      :codename: :litera_skin_image
+      :storage_type: :coded
+- :name: lux skin
+  :type: :bootswatch_skin
+  :codename: :lux_skin
+  :subfields:
+    :image:
+      :image: lux_skin_image/image-original.png
+      :codename: :lux_skin_image
+      :storage_type: :coded
+- :name: materia skin
+  :type: :bootswatch_skin
+  :codename: :materia_skin
+  :subfields:
+    :image:
+      :image: materia_skin_image/image-original.png
+      :codename: :materia_skin_image
+      :storage_type: :coded
+- :name: minty skin
+  :type: :bootswatch_skin
+  :codename: :minty_skin
+  :subfields:
+    :image:
+      :image: minty_skin_image/image-original.png
+      :codename: :minty_skin_image
+      :storage_type: :coded
+- :name: pulse skin
+  :type: :bootswatch_skin
+  :codename: :pulse_skin
+  :subfields:
+    :image:
+      :image: pulse_skin_image/image-original.png
+      :codename: :pulse_skin_image
+      :storage_type: :coded
+- :name: solar skin
+  :type: :bootswatch_skin
+  :codename: :solar_skin
+  :subfields:
+    :image:
+      :image: solar_skin_image/image-original.png
+      :codename: :solar_skin_image
+      :storage_type: :coded
+- :name: sketchy skin
+  :type: :bootswatch_skin
+  :codename: :sketchy_skin
+  :subfields:
+    :image:
+      :image: sketchy_skin_image/image-original.png
+      :codename: :sketchy_skin_image
+      :storage_type: :coded
+
+- :name:
+    - :all
+    - :style
+  :type: :list
+  :content: yeti skin
