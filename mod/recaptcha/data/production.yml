@@ -12,3 +12,9 @@
     - :captcha
   :type: :toggle
   :content: '1'
+- :name: "*recaptcha settings"
+  :codename: :recaptcha_settings
+- :name: site key
+  :codename: :site_key
+- :name: secret key
+  :codename: :secret_key
