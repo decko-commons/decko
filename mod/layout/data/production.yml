@@ -35,7 +35,7 @@
 - :name:
     - :all
     - :layout
-  :type: :list
+  :type: :pointer
   :content: Default Layout
 
 - :name: "*main menu"
