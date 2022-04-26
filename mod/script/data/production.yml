@@ -1,7 +1,50 @@
 ---
-- :name: CoffeeScript
-  :type: :cardtype
-  :codename: :coffee_script
+- :name: "*script"
+  :type: :setting
+  :codename: :script
+  :subfields:
+    :right:
+      :subfields:
+        :content_options:
+          :type: :search_type
+          :content: ' {"type":["in", "JavaScript", "CoffeeScript"] }'
+        :input_type: list
+- :name:
+    - :all
+    - :script
+  :type: :list
+
 - :name: JavaScript
   :type: :cardtype
   :codename: :java_script
+  :subfields:
+    :description: |-
+      <p>
+        Create custom JavaScript for [[*script]] rules.
+        [[http://decko.org/JavaScript|more]]
+      </p>
+    :type:
+      :subfields:
+        :create: Shark
+        :update: Shark
+        :delete: Shark
+- :name: CoffeeScript
+  :type: :cardtype
+  :codename: :coffee_script
+  :subfields:
+    :description: |-
+      <p>
+        Generate JavaScript for [[*script]] rules.
+        [[http://decko.org/CoffeeScript|more]]
+      </p>
+    :type:
+      :subfields:
+        :create: Shark
+        :update: Shark
+        :delete: Shark
+- :name: Local script folder group
+  :type: :cardtype
+  :codename: :local_script_folder_group
+- :name: Local script manifest group
+  :type: :cardtype
+  :codename: :local_script_manifest_group
