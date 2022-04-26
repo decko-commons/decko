@@ -48,7 +48,7 @@ namespace :card do
   desc "Loads seed data"
   task seed: ["db:seed"]
 
-  desc "Creates the database, loads the schema, initializes seed data, "
+  desc "Creates the database, loads the schema, initializes seed data, " \
        "and adds symlinks to public directories"
   task setup: %w[db:setup card:mod:symlink]
 

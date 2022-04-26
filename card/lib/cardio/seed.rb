@@ -7,8 +7,7 @@ module Cardio
 
     class << self
       def default_path
-        env = Rails.env.test? ? "test" : "production"
-        db_path env, 0
+        db_path Cardio.config.seed_type, 0
       end
 
       def path
@@ -18,6 +17,10 @@ module Cardio
         else
           default_path
         end
+      end
+
+      def load
+        ActiveRecord::FixtureSet.create_fixtures path, TABLES
       end
 
       def dump

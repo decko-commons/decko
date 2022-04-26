@@ -3,7 +3,7 @@ require "active_record/fixtures"
 
 Card::Cache.reset_all
 
-ActiveRecord::FixtureSet.create_fixtures Cardio::Seed.path, Cardio::Seed::TABLES
+Cardio::Seed.load
 
 # get rid of bad constants
 Card::Codename.reset_cache

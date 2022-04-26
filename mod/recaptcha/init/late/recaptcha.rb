@@ -38,7 +38,8 @@ module RecaptchaCard
     end
 
     def card_value setting
-      return unless Card::Codename.exist? :recaptcha_settings # prevents breakage in migrations
+      # prevent breakage in migrations
+      return unless Card::Codename.exist? :recaptcha_settings
 
       value = :recaptcha_settings.card&.fetch(setting)&.content
       value if value.present?
