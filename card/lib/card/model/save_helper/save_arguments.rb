@@ -73,6 +73,8 @@ class Card
         def changing_args card, args
           args.select do |key, value|
             case key.to_s
+            when "storage_type"
+              true # because we have to re-assert coded, otherwise it changes
             when /^\+/
               changing_field_arg key, value
             when /name$/

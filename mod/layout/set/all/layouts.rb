@@ -22,7 +22,7 @@ format :html do
       <<-HTML.strip_heredoc
         <header>#{nest :header, view: :core}</header>
         <article>#{layout_nest}</article>
-        <footer>{nest :footer, view: :core}</footer>
+        <footer>#{nest :footer, view: :core}</footer>
       HTML
     end
   end
@@ -33,7 +33,7 @@ format :html do
         <header>#{nest :header, view: :core}</header>
         <article>#{layout_nest}</article>
         <aside>#{nest :sidebar, view: :core}</aside>
-        <footer>{nest :footer, view: :core}</footer>
+        <footer>#{nest :footer, view: :core}</footer>
       HTML
     end
   end

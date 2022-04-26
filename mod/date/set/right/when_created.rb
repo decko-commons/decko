@@ -1,3 +1,9 @@
+assign_type :phrase
+
+def virtual?
+  new?
+end
+
 def content
   return "" unless left&.real?
 

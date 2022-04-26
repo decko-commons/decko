@@ -1,9 +1,0 @@
-Thank you for signing up with {{:title|core}}!
-
-Please follow the link below to verify this email address and activate your account.
-
-{{_|verify_url}}
-
-{{_|token_expiry}}
-
-
