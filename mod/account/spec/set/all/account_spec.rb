@@ -103,11 +103,11 @@ RSpec.describe Card::Set::All::Account do
       expect(@read_rules).to be_member(Card.fetch("*all+*read").id)
     end
 
-    it "11 more should apply to Joe Admin" do
+    it "12 more should apply to Joe Admin" do
       # includes lots of account rules...
       Card::Auth.as("joe_admin") do
         ids = Card::Auth.as_card.read_rules
-        expect(ids.length).to eq(@read_rules.size + 17)
+        expect(ids.length).to eq(@read_rules.size + 12)
       end
     end
   end
