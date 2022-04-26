@@ -177,6 +177,13 @@
     - :create
   :content: _left
 
+- :name:
+    - :wagn_bot
+    - :account
+  :subfields:
+    :email: no-reply@decko.org
+    :status: system
+
 - :name: welcome email
   :type: :email_template
   :codename: :welcome_email

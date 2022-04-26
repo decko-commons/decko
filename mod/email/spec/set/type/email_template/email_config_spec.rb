@@ -154,9 +154,9 @@ RSpec.describe Card::Set::Type::EmailTemplate::EmailConfig do
         name: "Banana",
         content: "data content [[A]]",
         subcards: {
-          "+:email" => { content: "gary@gary.com" },
-          "+:subject" => { type: "Pointer", content: "[[default subject]]" },
-          "+:attach" => { type: "File", file: file }
+          "+email" => { content: "gary@gary.com" },
+          "+subject" => { type: "Pointer", content: "[[default subject]]" },
+          "+attachment" => { type: "File", file: file }
         }
       )
     end
