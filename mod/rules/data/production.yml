@@ -2,6 +2,37 @@
 - :name: Setting
   :type: :cardtype
   :codename: :setting
+  :subfields:
+    :description: |-
+      Settings affect how cards look and behave. 
+      [[http://www.decko.org/Setting|Learn more about settings.]]
+    :self:
+      :subfields:
+        :update: Administrator
 - :name: Set
   :type: :cardtype
   :codename: :set
+  :subfields:
+    :description: |-
+      Sets define a group of cards to which settings can apply.
+      [[http://www.decko.org/Set|Learn more about sets.]]
+    :self:
+      :subfields:
+        :structure: |-
+          <p>{{+description}}</p>
+          <h1>{{_self|name}} Cards</h1>
+          <blockquote>
+          <p>{{+:type+:by_name}}</p>
+          </blockquote>
+
+- :name: "*recent settings"
+  :type: :Session
+  :codename: :recent_settings
+  :subfields:
+    :self:
+      :subfields:
+        :update: Anyone
+        :read: Anyone
+        :content_options:
+          :type: :search_type
+          :content: '{"type":"setting"}'
