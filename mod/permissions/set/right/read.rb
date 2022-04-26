@@ -1,5 +1,7 @@
 include Abstract::Permission
 
+assign_type :list
+
 format :html do include Abstract::Permission::HtmlFormat end
 
 event :cascade_read_rule, :finalize, after: :update_rule_cache, when: :rule? do

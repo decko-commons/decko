@@ -1,6 +1,6 @@
 RSpec.describe Card::Set::All::NavbarLinks do
   describe "view: navbar_links" do
-    def expect_navbar_link content, divider=false
+    def expect_navbar_link content
       expect_view(
         :navbar_links, card: { name: "B", type: :pointer, content: content }
       ).to have_tag :ul do
@@ -11,7 +11,7 @@ RSpec.describe Card::Set::All::NavbarLinks do
             with_tag "a.dropdown-item", "horizontal"
           end
         end
-        with_tag "div.dropdown-divider" if divider
+        # with_tag "div.dropdown-divider" if divider
         with_tag "li.nav-item" do
           with_tag "a.nav-link", yield
         end
@@ -27,8 +27,8 @@ RSpec.describe Card::Set::All::NavbarLinks do
     end
 
     example "divider and explicit link" do
-      content = "[[Stacks|stacky]]\n[[*dropdown divider]]\n[[http://google.com|Google]]"
-      expect_navbar_link(content, true) { "Google" }
+      content = "[[Stacks|stacky]]\n[[http://google.com|Google]]"
+      expect_navbar_link(content) { "Google" }
     end
   end
 end

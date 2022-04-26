@@ -6,6 +6,10 @@ format :html do
     "If you want to turn captchas off then change all [[*captcha|captcha rules]] to 'no'."
   end
 
+  view :core do
+    [field_nest(:site_key), field_nest(:secret_key)]
+  end
+
   # def instructions title, steps
   #   steps = list_tag steps, ordered: true
   #   "#{title}#{steps}"
