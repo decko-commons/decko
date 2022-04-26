@@ -53,6 +53,7 @@
         :read: Anyone
 - :name: "*header"
   :type: :html
+  :codename: header
   :subfields:
     :self:
       :subfields:
