@@ -22,7 +22,7 @@ module RecaptchaCard
     end
 
     def using_defaults?
-      Cardio.config.recaptcha_site_key == @defaults[:recaptcha_site_key]
+      Cardio.config.recaptcha_site_key == @defaults[:site_key]
     end
 
     # card config overrides application.rb config overrides default
