@@ -7,7 +7,7 @@ cards_001:
   creator_id: 1
   updater_id: 1
   read_rule_class: "*all"
-  read_rule_id: 500
+  read_rule_id: 10
   trash: false
   type_id: 2
   db_content: ""
@@ -19,7 +19,7 @@ cards_002:
   creator_id: 1
   updater_id: 1
   read_rule_class: "*all"
-  read_rule_id: 500
+  read_rule_id: 10
   trash: false
   type_id: 3
   db_content: ""
@@ -31,7 +31,7 @@ cards_003:
   creator_id: 1
   updater_id: 1
   read_rule_class: "*all"
-  read_rule_id: 500
+  read_rule_id: 10
   trash: false
   type_id: 3
   db_content: ""
@@ -43,7 +43,7 @@ cards_004:
   creator_id: 1
   updater_id: 1
   read_rule_class: "*all"
-  read_rule_id: 500
+  read_rule_id: 10
   trash: false
   type_id: 3
   db_content: ""

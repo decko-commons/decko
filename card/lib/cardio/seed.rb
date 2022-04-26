@@ -31,6 +31,12 @@ module Cardio
         end
       end
 
+      def clean
+        Card::Act.update_all actor_id: author_id
+        clean_history
+        clean_time_and_user_stamps
+      end
+
       private
 
       def db_path env, index
@@ -61,6 +67,25 @@ module Cardio
         %w[created_at updated_at current_revision_id references_expired].each do |key|
           record.delete key
         end
+      end
+
+      def clean_history
+        puts "clean history"
+        act = Card::Act.create! actor_id: author_id, card_id: author_id
+        Card::Action.make_current_state_the_initial_state act
+        Card::Act.where("id <> #{act.id}").delete_all
+        ActiveRecord::Base.connection.execute("truncate sessions")
+      end
+
+      def clean_time_and_user_stamps
+        puts "clean time and user stamps"
+        conn = ActiveRecord::Base.connection
+        conn.update "UPDATE cards SET creator_id=#{author_id}, updater_id=#{author_id}"
+        conn.update "UPDATE card_acts SET actor_id=#{author_id}"
+      end
+
+      def author_id
+        Card::WagnBotID
       end
     end
   end
