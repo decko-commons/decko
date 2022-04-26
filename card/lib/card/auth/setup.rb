@@ -42,7 +42,7 @@ class Card
 
       def user_account_cql
         # every deck starts with two accounts: WagnBot and Anonymous
-        { right_id: Card::AccountID, creator_id: ["ne", Card::WagnBotID] }
+        { right: :account, creator_id: ["ne", Card::WagnBotID] }
       end
 
       def user_account_count
