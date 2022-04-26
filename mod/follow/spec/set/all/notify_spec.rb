@@ -145,8 +145,8 @@ RSpec.describe Card::Set::All::Notify do
 
     it "creates well formatted text message" do
       path = File.expand_path "notify_email.txt", __dir__
-      email = notification_email_for("card with fields").delete "\r"
-      expect(email).to eq(File.read(path))
+      email = notification_email_for("card with fields").delete("\r")
+      expect(email).to eq(File.read(path).strip)
     end
   end
 

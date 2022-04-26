@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 
 RSpec.describe Card::Set::All::Form do
-  CARDTYPE_COUNT = 44
+  CARDTYPE_COUNT = 40
 
   describe "type_list" do
     let(:card) { Card["UserForm"] } # no cards with this type

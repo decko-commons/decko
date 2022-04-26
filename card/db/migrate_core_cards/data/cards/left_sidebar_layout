@@ -1,6 +1,0 @@
-<body class="left-sidebar">
-  <header>{{*header|core}}</header>
-  <article>{{_main|titled}}</article>
-  <aside>{{*sidebar|core}}</aside>
-  <footer>{{*footer|core}}</footer>
-</body>
