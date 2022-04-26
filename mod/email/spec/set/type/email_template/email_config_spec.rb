@@ -149,14 +149,14 @@ RSpec.describe Card::Set::Type::EmailTemplate::EmailConfig do
     subject(:config) { mailconfig(context_card) }
 
     let(:context_card) do
-      file = File.new(File.join(Cardio::Seed.test_path, "mao2.jpg"))
+      file = File.new(CarrierWave::TestFile.path("mao2.jpg"))
       Card.create(
         name: "Banana",
         content: "data content [[A]]",
         subcards: {
-          "+email" => { content: "gary@gary.com" },
-          "+subject" => { type: "Pointer", content: "[[default subject]]" },
-          "+attachment" => { type: "File", file: file }
+          "+:email" => { content: "gary@gary.com" },
+          "+:subject" => { type: "Pointer", content: "[[default subject]]" },
+          "+:attach" => { type: "File", file: file }
         }
       )
     end
