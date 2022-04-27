@@ -1,0 +1,213 @@
+- :name: Home
+  :content: |
+    <div>{{*getting started|core}}</div>
+    <div>{{## Feel free to get rid of this and start fresh! }}</div>
+  :subfields:
+    :self:
+      :subfields:
+        :layout:
+          :content: Home Layout
+          :type: :pointer
+
+- :name: "*home"
+  :type: :pointer
+  :codename: :home
+  :content: Home
+
+- :name:
+    - :role
+    - :type
+    - :structure
+  :content: |-
+    <p>{{+:description|lead}}</p>
+    <p>{{+:dashboard|content}}</p>
+
+- :name: dashboard
+  :codename: :dashboard
+
+- :name: "*main menu"
+  :type: :link_list
+  :content: |-
+    [[*getting started links|Getting started]]
+    [[:recent|Recent Changes]]
+
+- :name: "*getting started links"
+  :type: :link_list
+  :content: |-
+    [[/new/Cardtype | Add type]]
+    [[*all+*style | Configure skin]]
+    [[Administrator| Basic configuration]]
+    [[/*main menu?view=edit | Change this menu]]
+    [[https://decko.org/Features | Learn more]]
+
+- :name:
+    - :administrator
+    - :dashboard
+  :type: :markdown
+  :content: |
+    {{*admin info|content}}
+
+    ##Basic configuration
+    {{*title|bar}}
+    {{*home|bar}}
+    {{*logo|bar}}
+    {{*main menu|bar}}
+    {{*header|bar}}
+    {{*footer|bar}}
+
+    ##Integrations
+    {{*recaptcha settings|bar}}
+    {{*google analytics key|bar}}
+
+    ##Editor configuration
+    {{*tiny mce|bar}}
+    {{*ace|bar}}
+- :name:
+    - :shark
+    - :dashboard
+  :content: |
+    <h3>Cardtypes </h3>
+    <p> [[/new/cardtype|Add new Type]]</p>
+    <p>{{Cardtype+*type+by name|bar; title: all cardtypes}}</p>
+    <h3>Rules</h3>
+    <div>Cards are configured by creating <em>rules</em>.  </div>
+    <div> </div>
+    <h5>Webpage rules</h5>
+    <div>
+    <blockquote>{{*all|rules_table; filter:webpage}}</blockquote>
+    <h5>Permission rules</h5>
+    <blockquote>{{*all|rules_table; filter:permission}}</blockquote>
+    </div>
+    <div><em>[[http://decko.org/rules | More about rules.]]</em></div>
+    <div> </div>
+    <div>
+    <h3>Views</h3>
+    <p>You can try out different views below</p>
+    <p>{{*getting started|demo}}</p>
+    </div>
+
+- :name:
+    - :help_desk
+    - dashboard
+  :content: |
+    <h3>Accounts</h3>
+    <p>{{*accounts|content}}</p>
+    <h3>Help Texts</h3>
+    <p>{{*help|bar}}{{*add help|bar}}</p>
+    <h3>Emails </h3>
+    <p>Here are the current [[Email Templates|Email templates]] for your site.</p>
+    <p>{{Email Templates+*type+by update|content}} </p>
+
+- :name:
+    - :eagle
+    - dashboard
+  :content: "<h3>Your contributions</h3>\r\n<p>{{_user+*created|bar; title: created
+    cards}} {{_user+*edited|bar; title: edited cards}}</p>"
+
+- :name:
+    - :anyone_signed_in
+    - :dashboard
+  :content: |-
+    <h3>Your contributions</h3>
+    <p>
+      {{_user+:created|bar; title: created cards}}
+      {{_user+:edited|bar; title: edited cards}}
+    </p>
+
+- :name: "*getting started"
+  :type: :html
+  :codename: :getting_started
+  :content: |-
+    <div class="container text-center">
+      <!-- card 1 -->
+      <div class="d-flex justify-content-center align-items-center p-3 my-3 rounded box-shadow">
+        {{+shark|core}}
+        <h1>Welcome, Card Shark!</h1>
+      </div>
+      <div class="jumbotron">
+        <h3 class="mb-4">Things to sink your teeth into:</h3>
+        <div class="d-flex justify-content-center ps-10">
+          <div>
+            <p class="lead">Structure</p>
+            <p><a href="new/cardtype" class="btn btn-primary me-2">Add new Cardtype</a></p>
+          </div>
+          <div class="pe-5">
+            <p class="lead">Style</p>
+            <p>
+              <a href="*all+*style" class= "btn btn-primary me-2">Configure Skin Card</a>
+            </p>
+          </div>
+        </div>
+      </div>
+      <p class="lead mt-5"><a href="Administrator">and more...</a></p>
+    </div>
+  :subfields:
+    :shark:
+      :type: :html
+      :content: |-
+        <svg width="146px" height="124px" viewBox="0 0 246 224" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+            <!-- Generator: Sketch 46.2 (44496) - http://www.bohemiancoding.com/sketch -->
+            <title>decko_cards_logo_shark</title>
+            <desc>Created with Sketch.</desc>
+            <defs>
+                <rect id="path-1" x="35.3347256" y="6.48271356" width="157.279999" height="190.610001" rx="12.491335"></rect>
+                <filter x="-12.1%" y="-10.5%" width="125.4%" height="121.0%" filterUnits="objectBoundingBox" id="filter-2">
+                    <feMorphology radius="1" operator="dilate" in="SourceAlpha" result="shadowSpreadOuter1"></feMorphology>
+                    <feOffset dx="1" dy="0" in="shadowSpreadOuter1" result="shadowOffsetOuter1"></feOffset>
+                    <feGaussianBlur stdDeviation="5.5" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+                    <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.1 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+                </filter>
+                <rect id="path-3" x="51.9854941" y="15.404077" width="123.949997" height="171.156925" rx="9.6888466"></rect>
+                <filter x="-15.3%" y="-11.7%" width="132.3%" height="123.4%" filterUnits="objectBoundingBox" id="filter-4">
+                    <feMorphology radius="1" operator="dilate" in="SourceAlpha" result="shadowSpreadOuter1"></feMorphology>
+                    <feOffset dx="1" dy="0" in="shadowSpreadOuter1" result="shadowOffsetOuter1"></feOffset>
+                    <feGaussianBlur stdDeviation="5.5" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+                    <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.1 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+                </filter>
+                <path d="M70.1050368,31.6666109 L159.089911,31.6666109 L159.089911,31.6666109 C163.678051,31.6666109 167.397473,35.386033 167.397473,39.9741728 L167.397473,83.717145 L167.397473,162.808436 L167.397473,162.808436 C167.397473,167.396576 163.678051,171.115998 159.089911,171.115998 L70.1050368,171.115998 L70.1050368,171.115998 C65.516897,171.115998 61.7974749,167.396576 61.7974749,162.808436 L61.7974749,39.9741728 L61.7974749,39.9741728 C61.7974749,35.386033 65.516897,31.6666109 70.1050368,31.6666109 Z" id="path-5"></path>
+                <filter x="-18.0%" y="-14.3%" width="137.9%" height="128.7%" filterUnits="objectBoundingBox" id="filter-6">
+                    <feMorphology radius="1" operator="dilate" in="SourceAlpha" result="shadowSpreadOuter1"></feMorphology>
+                    <feOffset dx="1" dy="0" in="shadowSpreadOuter1" result="shadowOffsetOuter1"></feOffset>
+                    <feGaussianBlur stdDeviation="5.5" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+                    <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.1 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+                </filter>
+                <rect id="path-7" x="70.7637805" y="45.8525134" width="92.149175" height="107.18743" rx="7.8659801"></rect>
+                <filter x="-17.4%" y="-15.9%" width="136.9%" height="131.7%" filterUnits="objectBoundingBox" id="filter-8">
+                    <feOffset dx="1" dy="0" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+                    <feGaussianBlur stdDeviation="5.5" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+                    <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.102553216 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+                </filter>
+            </defs>
+            <g id="decko_logo_container" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                <g id="decko_cards_logo_shark" fill-rule="nonzero">
+                    <g id="decko_logo_groups" transform="translate(9.000000, 9.000000)">
+                        <g id="svg-card-1" transform="translate(113.974725, 101.787714) scale(-1, 1) rotate(105.855860) translate(-113.974725, -101.787714) ">
+                            <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
+                            <use fill="#4D4D4D" fill-rule="evenodd" xlink:href="#path-1"></use>
+                        </g>
+                        <g id="svg-card-2" transform="translate(113.960493, 100.982539) scale(-1, 1) rotate(117.480003) translate(-113.960493, -100.982539) ">
+                            <use fill="black" fill-opacity="1" filter="url(#filter-4)" xlink:href="#path-3"></use>
+                            <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-3"></use>
+                        </g>
+                        <g id="svg-card-3" transform="translate(114.597474, 101.391304) scale(-1, 1) rotate(133.539993) translate(-114.597474, -101.391304) ">
+                            <use fill="black" fill-opacity="1" filter="url(#filter-6)" xlink:href="#path-5"></use>
+                            <use fill="#4C4C4C" fill-rule="evenodd" xlink:href="#path-5"></use>
+                        </g>
+                        <g id="svg-card-4" transform="translate(116.838368, 99.446228) scale(-1, 1) rotate(142.690002) translate(-116.838368, -99.446228) ">
+                            <use fill="black" fill-opacity="1" filter="url(#filter-8)" xlink:href="#path-7"></use>
+                            <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-7"></use>
+                        </g>
+                        <g id="svg-card-shark" transform="translate(115.500000, 96.500000) scale(-1, 1) rotate(20.000000) translate(-115.500000, -96.500000) translate(81.000000, 78.000000)" fill="#4C4C4C">
+                            <path d="M67.0472651,23 C67.0153814,23 66.9834976,22.9983754 66.9516139,22.995119 C66.398962,22.9430806 65.9942736,22.4551901 66.0466001,21.9059107 C66.1577867,20.7435153 66.3319205,19.6331724 66.5003338,18.5590045 C67.0178351,15.2641366 67.4699283,12.3839793 65.9239724,9.29849924 C61.6817773,11.3687669 59.0779225,14.4070825 57.9758856,18.5630696 C57.8352689,19.0968972 57.2842504,19.4168745 56.7487673,19.2741681 C56.2124639,19.1334979 55.8919857,18.5870633 56.0334226,18.0532287 C57.3717346,13.00563 60.6140778,9.41762341 65.9460485,7.08552522 C66.4120436,6.88142282 66.9499876,7.05381269 67.2107782,7.48355647 C69.6429457,11.4927721 69.0812994,15.0750817 68.4853155,18.8671836 C68.3218096,19.9120724 68.1517629,20.9927459 68.0462968,22.09537 C67.9972372,22.6125325 67.559859,23 67.0472651,23 Z" id="Shape"></path>
+                            <path d="M66.3499095,37 C66.2150134,37 66.0776707,36.9723588 65.9460485,36.9150261 C60.6140778,34.5820352 57.3717346,30.9943221 56.0334226,25.9465573 C55.8919857,25.4127122 56.2124639,24.8662597 56.7487673,24.7255777 C57.2842504,24.586116 57.835276,24.9032518 57.9758856,25.4366996 C59.0779225,29.5928235 61.6817773,32.6312391 65.9239724,34.7019792 C67.4699283,31.6163977 67.0178351,28.7361455 66.5003338,25.4411693 C66.3319205,24.366966 66.1577867,23.2565795 66.0466001,22.094153 C65.9942736,21.5448554 66.398962,21.0569489 66.9516139,21.0049088 C67.4969118,20.9504282 67.9939704,21.3557943 68.0462968,21.9046874 C68.1517629,23.0073477 68.3218025,24.0880498 68.4853155,25.13298 C69.0812994,28.9252067 69.6429457,32.5076342 67.2107782,36.5169817 C67.0235627,36.825171 66.6932769,37 66.3499095,37 Z" id="Shape"></path>
+                            <path d="M8.71393266,26 C8.03573086,26 7.36932221,25.9409174 6.71469985,25.822354 C2.44275669,25.0482009 0.382226956,21.9906998 0.29656896,21.8607251 C-0.00677539835,21.4011249 -0.0806471066,20.8539174 0.0898872471,20.3205669 C0.738222219,18.2894327 5.27185662,16.3304134 13.4110255,13.4261148 C21.659425,10.482705 40.1861121,8.90017224 57.4169109,16.6091114 C57.9065046,16.8279091 58.1320485,17.4170859 57.9206495,17.9251751 C57.7108276,18.4320415 57.1442218,18.6683649 56.6514878,18.4475267 C40.0454446,11.018096 21.7026551,12.5851436 14.0397167,15.3199441 C11.2373365,16.3198269 2.84354533,19.3149891 1.9720251,20.8433308 C2.34531241,21.3367525 3.99797761,23.2973999 7.04711568,23.8499043 C10.4404627,24.4639299 14.3202632,23.1580545 18.5843489,19.9673153 C19.0181446,19.6433918 19.6208977,19.7444437 19.9320996,20.1934504 C20.2440831,20.6420517 20.1466388,21.2678939 19.7144132,21.5914051 C15.7953319,24.5229983 12.1049279,26 8.71393266,26 Z" id="Shape"></path>
+                            <path d="M32.988313,32 C32.4812784,32 32.0498974,31.6071849 32.0040235,31.0858704 C32.001608,31.0556906 32,31.0259093 32,30.996128 C32,30.4825721 32.3871152,30.0452844 32.9013964,29.9987832 C40.2284495,29.340008 47.8098274,27.1152538 57.7219509,24.0440825 C58.2418636,23.8821433 58.7971876,24.1803261 58.9565417,24.7097976 C58.9863214,24.8072914 59,24.9060023 59,25.0030833 C59,25.4322068 58.7255575,25.8295133 58.299815,25.9612655 C48.2725962,29.0683323 40.5938391,31.3195935 33.0768517,31.9959143 C33.0470649,31.99837 33.0172852,32 32.988313,32 Z" id="Shape"></path>
+                            <path d="M24.0505049,32 C24.012578,32 23.975421,31.9975807 23.9374941,31.9927492 C18.9573086,31.3809479 14.0645792,29.2956488 9.39555488,25.7944994 C8.96905983,25.4748954 8.87230442,24.8562371 9.17959588,24.4120969 C9.48611746,23.9679567 10.0813587,23.8667904 10.5070772,24.1872032 C14.9113765,27.489255 19.504547,29.4536398 24.1604158,30.0259451 C24.6821198,30.0900277 25.0552092,30.5821313 24.9932809,31.1254194 C24.9360124,31.6292115 24.5257659,32 24.0505049,32 Z" id="Shape"></path>
+                            <path d="M41.0231141,37 C40.99367,37 40.9650243,36.9988436 40.9355802,36.9965309 C32.1863383,36.2413765 22.9787514,34.3404009 21.0243938,25.9643817 C20.9050344,25.4542672 21.2352653,24.9472386 21.7620519,24.83204 C22.2856517,24.7160682 22.8116468,25.0362377 22.9310062,25.5467354 C24.0673297,30.412837 28.1717952,33.2092156 36.3966387,34.5415127 C31.961144,31.7081576 29.3208586,28.6910159 28.2028292,25.2304182 C28.0420911,24.7310942 28.328562,24.200172 28.8442055,24.0441379 C29.3598489,23.8861742 29.9081163,24.1658847 30.0696528,24.6648255 C31.3189762,28.5318959 35.0486453,31.9820863 41.4727114,35.2130599 C41.8872965,35.4214998 42.0918015,35.884607 41.9605006,36.3184356 C41.8379545,36.7252982 41.4536119,37 41.0231141,37 Z" id="Shape"></path>
+                            <path d="M14.933219,19 C14.5214304,19 14.1438327,18.7466171 14.0321522,18.3623442 C13.8984379,17.903872 14.1939788,17.432105 14.6923781,17.3089159 L15.8244156,17.0292853 C16.3167364,16.9071466 16.8341269,17.1780259 16.9678478,17.6375424 C17.1015621,18.0960084 16.8060212,18.5677754 16.3076219,18.6909707 L15.1755844,18.9706012 C15.0950522,18.9905526 15.0137578,19 14.933219,19 Z" id="Shape"></path>
+                            <path d="M22.9472518,14 C22.8717975,14 22.7955706,13.9908917 22.7193438,13.9710926 C22.2119351,13.8419874 21.9024058,13.3144611 22.0279144,12.7928848 C23.6048033,6.23966486 27.9042946,1.9466294 34.8078126,0.0333814925 C35.155069,-0.0620618345 35.5231103,0.0508102139 35.760262,0.325260745 C35.9981795,0.600112096 36.0651694,0.989411129 35.9335073,1.33198709 C34.5598856,4.89710737 33.5188889,8.70578747 35.1866427,12.4031919 C35.4068521,12.8907123 35.2012673,13.4697163 34.7269707,13.6958543 C34.2542124,13.922787 33.6913684,13.7105118 33.471159,13.2229845 C31.8087996,9.53865506 32.363945,5.91888517 33.4981108,2.49237229 C28.3008395,4.41433455 25.1416675,7.95213003 23.8650575,13.2602123 C23.7580295,13.7033731 23.3722734,14 22.9472518,14 Z" id="Shape"></path>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </svg>
