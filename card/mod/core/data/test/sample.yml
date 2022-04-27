@@ -18,6 +18,7 @@
   :type: :java_script
 - :name: Sample Layout
   :type: :layout_type
+  :content: "{{_main}}"
 - :name: Sample Link list
   :type: :link_list
 - :name: Sample List
