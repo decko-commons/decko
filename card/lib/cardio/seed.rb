@@ -19,11 +19,11 @@ module Cardio
       end
 
       def load
-        ActiveRecord::FixtureSet.create_fixtures path, TABLES
+        ActiveRecord::FixtureSet.create_fixtures path, load_tables
       end
 
       def dump
-        TABLES.each do |table|
+        dump_tables.each do |table|
           i = "000" # TODO: use card keys instead (this is just a label)
           write_seed_file table do
             yamlize_records table do |record, hash|
@@ -40,6 +40,15 @@ module Cardio
       end
 
       private
+
+      # TODO: make this more robust. only handles simple case of extra seed tables
+      def load_tables
+        ENV["UPDATE_SEED"] && !Rails.env.test? ? TABLES : dump_tables
+      end
+
+      def dump_tables
+        TABLES + Cardio.config.extra_seed_tables
+      end
 
       def db_path env, index
         Mod.fetch(Cardio.config.seed_mods[index]).subpath "data", "fixtures", env.to_s

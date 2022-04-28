@@ -5,6 +5,7 @@ module Cardio
 
     config.seed_mods = [:core]
     config.seed_type = :production
+    config.extra_seed_tables = []
 
     # if you disable inline styles tinymce's formatting options stop working
     config.allow_inline_styles = true
