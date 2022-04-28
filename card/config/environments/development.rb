@@ -71,7 +71,7 @@ Cardio.application.class.configure do
   # with SQLite, MySQL, and PostgreSQL)
   #  config.active_record.auto_explain_threshold_in_seconds = 0.5
 
-  #  if File.exists?(File.join(Rails.root,'tmp', 'debug.txt'))
+  #  if File.exist?(File.join(Rails.root,'tmp', 'debug.txt'))
   #    require 'ruby-debug'
   #    Debugger.wait_connection = true
   #    Debugger.start_remote
