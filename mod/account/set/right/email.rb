@@ -2,6 +2,8 @@
 
 include_set Abstract::AccountField
 
+assign_type :phrase
+
 event :validate_email, :validate, on: :save do
   return unless content?
 

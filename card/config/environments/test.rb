@@ -3,6 +3,7 @@
 Cardio.application.class.configure do
   # Settings specified here will take precedence over those in config/application.rb
 
+  config.seed_type = :test
   config.eager_load = false
 
   config.asset_refresh = :never

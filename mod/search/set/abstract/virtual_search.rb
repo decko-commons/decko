@@ -1,0 +1,3 @@
+def virtual?
+  new?
+end
