@@ -1,10 +1,290 @@
 ---
-- :name: User
-  :type: :cardtype
-  :codename: :user
+# Cardtypes
+
 - :name: Role
   :type: :cardtype
   :codename: :role
+  :subfields:
+    :description: |-
+      Each [[user]] can be given roles to organize site permissions. 
+      [[http://decko.org/Role|Learn more about roles]].
+
+- :name: "*members"
+  :codename: :members
+
+# Roles
+
+- :name: Anyone
+  :type: :role
+  :codename: :anyone
+  :subfields:
+    :description: |-
+      Everyone has this role, whether signed in or not. [[http://decko.org/account|more]]
+- :name: Anyone Signed In
+  :type: :role
+  :codename: :anyone_signed_in
+  :subfields:
+    :description: |-
+      Anyone who is signed in has this role. [[http://decko.org/account|more]]
+- :name: Administrator
+  :type: :role
+  :codename: :administrator
+  :subfields:
+    :description: |-
+      [[_left+:members|Administrators]] can create, read, update and delete any card.
+      [[http://decko.org/permissions|more]]
+    :members:
+      :subfields:
+        :self:
+          :subfields:
+            :update: Administrator
+- :name: Eagle
+  :type: :role
+  :codename: :eagle
+  :subfields:
+    :description: "[[Eagle+:members|Eagle users]] can add and edit content."
+- :name: Shark
+  :type: :role
+  :codename: :shark
+  :subfields:
+    :description: |-
+      [[_left+:members|Shark users]] can configure the deck and create structures.
+    :members:
+      :subfields:
+        :self:
+          :subfields:
+            :update: Administrator
+- :name: Help Desk
+  :type: :role
+  :codename: :help_desk
+  :subfields:
+    :description: |-
+      [[_left+*members|Help Desk users]] can manage accounts and edit help text.
+    :members:
+      :subfields:
+        :self:
+          :subfields:
+            :update: Administrator
+- :name: Anonymous
+  :codename: :anonymous
+  :content: "<p>Edits made by people who are not signed in are credited to Anonymous.
+    [[http://decko.org/account|Learn more about accounts]].</p>"
+
+- :name: "*account"
+  :codename: :account
+  :subfields:
+    :right:
+      :subfields:
+        :create: Administrator
+        :read: Help Desk
+        :update: Help Desk
+        :delete: Help Desk
+  :content: |-
+    <div>When someone signs up, they create a [[Sign up]] card...</div>
+    <blockquote>
+    <div>{{Sign up|closed;title: Sign ups}}</div>
+    </blockquote>
+    <div>...that can be changed into a [[User]] card:</div>
+    <blockquote>
+    <div>{{User|title: Users; closed}}</div>
+    </blockquote>
+    <div>Some important [[http://decko.org/permissions|permissions]]:</div>
+    <div>
+    <ul>
+    <li>When [[Anyone]] can [[*create|create]] a [[Sign up]] card, links to sign up will appear.</li>
+    <li>When [[Anyone]] can [[*create|create]] a [[User]] card, each [[Sign up]] can be auto-approved with a verification email.</li>
+    <li>If permission to [[*create|create]] a [[User]] is restricted, someone with that permission must approve each [[Sign up]] by hand.</li>
+    </ul>
+    </div>
+    <h5>Related links</h5>
+    <ul>
+    <li><em>[[http://decko.org/account | Accounts docs]]</em></li>
+    <li><em>[[Cards with accounts]]</em></li>
+    <li><em>[[*account+*right+by name|Account cards]]</em></li>
+    </ul>
+
+# :account fields
+
+- :name: "*email"
+  :codename: :email
+  :subfields:
+    :right:
+      :subfields:
+        :update: Help Desk
+        :delete: Help Desk
+        :read: Help Desk
+- :name: "*password"
+  :codename: :password
+  :subfields:
+    :right:
+      :subfields:
+        :update: Help Desk
+        :delete: Help Desk
+        :read: Help Desk
+- :name: "*salt"
+  :codename: :salt
+  :subfields:
+    :right:
+      :subfields:
+        :read: Help Desk
+- :name: "*status"
+  :codename: :status
+  :subfields:
+    :right:
+      :subfields:
+        :update: Help Desk
+        :delete: Help Desk
+        :read: Help Desk
+
+- :name: "*account settings"
+  :codename: :account_settings
+  :subfields:
+    :right:
+      :subfields:
+        :structure: |-
+          {{_left+:account|content}}
+          {{_left+:roles|title: Roles}}
+          {{_left+:follow|title: Notification choices}}
+
 - :name: Sign up
   :type: :cardtype
   :codename: :signup
+  :subfields:
+    :description: |-
+      [[Sign up]] cards represent not-yet-approved accounts. 
+      When approved, they become [[User]] cards. [[http://decko.org/account|more]]
+    :self:
+      :subfields:
+        :structure: |-
+          <p>{{+:description|content}}</p>
+          <h2>{{_self|name}} Cards</h2>
+          <blockquote><p>{{+:type+by name|content}}</p></blockquote>
+    :type:
+      :subfields:
+        :create: Anyone
+        :on_create: signup alert email
+    :account:
+      :subfields:
+        :type_plus_right:
+          :subfields:
+            :create: _left
+- :name:
+    - :user
+    - :account
+    - :type_plus_right
+    - :create
+  :content: _left
+
+- :name:
+    - :wagn_bot
+    - :account
+  :subfields:
+    :email: no-reply@decko.org
+    :status: system
+
+- :name: welcome email
+  :type: :email_template
+  :codename: :welcome_email
+- :name: verification email
+  :type: :email_template
+  :codename: :verification_email
+  :subfields:
+    :from: Decko Bot
+    :subject: verification link for {{:title|core}}
+    :html_message: |-
+      <div style="text-align:center">
+        <h1>Thank you for signing up with {{:title|core}}!</h1>
+        <p>
+          Please <a href="{{_|verify_url}}">follow this link</a>
+          to verify this email address and activate your account.
+        </p>
+        <p><em>Link will remain valid for {{_|verify_days}} days.</em></p>
+      </div>
+    :text_message: |+
+      Thank you for signing up with {{:title|core}}!
+  
+      Please follow the link below to verify this email address and activate your account.
+  
+      {{_|verify_url}}
+      (Link will remain valid for {{_|verify_days}} days.)
+- :name: password reset email
+  :type: :email_template
+  :codename: :password_reset_email
+  :subfields:
+    :from: Decko Bot
+    :subject: reset password for {{:title|core}}
+    :text_message: "** Password reset for {{:title|core}} **\n\nSomeone – you, we hope –
+      asked to reset your password.  Please follow this link...\n\n  {{_|reset_password_url}}\n
+      \ \n...to update your account details.\n\n\n(Link will remain valid for {{_|reset_password_days}}
+      days.)\n\n"
+    :html_message: "<div style=\"text-align:center\">\n  
+      <h1>Password reset for {{:title|core}}</h1>\n
+      \ \n  <p>Someone – you, we hope – asked to reset your password.</p>\n  \n  <p>Please
+      <a href=\"{{_|reset_password_url}}\">follow this link</a> to update your account
+      details.</p>\n  \n  <p><em>Link will remain valid for {{_|reset_password_days}}
+      days.</em></p>\n</div>\n\n"
+- :name: signup alert email
+  :type: :email_template
+  :codename: :signup_alert_email
+  :subfields:
+    :from: _user
+    :subject: "{{_|name}} signed up for {{:title|core}}"
+    :text_message: |
+      {{_|name}} ({{+*account+*email|core}}) has signed up on {{:title|core}}.
+  
+      See {{_|name}}'s card: {{_|url}}
+  
+      -- the machines running {{:title|core}}
+    :html_message: |
+      <p>
+        {{_|name}} ({{+*account+*email|core}})
+        has <a href="{{_|url}}">signed up</a>
+        on {{:title|core}}.
+      </p>
+  
+      <p><em>-- the machines running {{:title|core}}</em></p>
+
+
+- :name: "*signin"
+  :codename: :signin
+  :subfields:
+    :self:
+      :subfields:
+        :update: Anyone
+- :name: "*roles"
+  :codename: :roles
+  :subfields:
+    :right:
+      :subfields:
+        :input_type: checkbox
+        :content_options:
+          :type: :search_type
+          :content: '{"type":"role", "not":{"codename":["in","anyone","anyone_signed_in"]}}'
+
+
+- :name: "*enabled roles"
+  :codename: :enabled_roles
+- :name: "*account links"
+  :codename: :account_links
+
+- :name: Cards with accounts
+  :type: :search_type
+  :codename: :cards_with_account
+  :content: '{"right_plus": ":account"}'
+
+- :name: "*thanks"
+  :type: :setting
+  :codename: :thanks
+- :name:
+    - :signup
+    - :type
+    - :thanks
+  :type: :phrase
+  :content: Signup_Success
+
+- :name: Signup Success
+  :content: |-
+    <div>
+      Thank you for signing up with {{:title|core}}. 
+      You should receive a response in your email.
+    </div>

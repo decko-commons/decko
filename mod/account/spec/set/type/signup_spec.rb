@@ -2,15 +2,15 @@
 
 RSpec.describe Card::Set::Type::Signup do
   before do
-    Card::Auth.signin Card::AnonymousID
+    Card::Auth.signin :anonymous
   end
 
   let :big_bad_signup do
     Mail::TestMailer.deliveries.clear
-    Card.create!(
-      name: "Big Bad Wolf", type_id: Card::SignupID,
-      "+*account" => { "+*email" => "wolf@decko.org", "+*password" => "wolf" }
-    )
+    Card.create! name: "Big Bad Wolf", type: :signup,
+                 subfields: {
+                   account: { subfields: { email: "wolf@decko.org", password: "wolf" } }
+                 }
   end
 
   context "signup form form" do
@@ -28,9 +28,9 @@ RSpec.describe Card::Set::Type::Signup do
   context "signup (without approval)" do
     before do
       Card::Auth.as_bot do
-        Card.create! name: "User+*type+*create", content: "[[Anyone]]"
+        Card.create! name: "User+*type+*create", content: "Anyone"
       end
-      Card::Auth.signin Card::AnonymousID
+      Card::Auth.signin :anonymous
 
       @signup = big_bad_signup
       @account = @signup.account

@@ -13,7 +13,7 @@ RSpec.describe Card::Set::Self::Head do
     end
 
     it "has a favicon" do
-      favpath = "/files/:favicon/standard-small.png"
+      favpath = "/files/:favicon/carrierwave-small.png"
       is_expected
         .to have_tag(:link, with: { rel: "shortcut icon", href: favpath })
     end
