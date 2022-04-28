@@ -11,7 +11,7 @@ module Cardio
       end
 
       def path
-        if ENV["UPDATE_SEED"]
+        if update_seed?
           db_path :production, (Rails.env.test? ? 0 : 1)
         else
           default_path
@@ -20,6 +20,13 @@ module Cardio
 
       def load
         ActiveRecord::FixtureSet.create_fixtures path, load_tables
+
+        return unless update_seed?
+
+        Cardio::Migration.assume_current
+        Cardio::Migration::Core.assume_current
+        Cardio::Migration::DeckStructure.assume_current
+        # Cardio::Migration::Core.assume_current
       end
 
       def dump
@@ -41,9 +48,13 @@ module Cardio
 
       private
 
+      def update_seed?
+        ENV["UPDATE_SEED"]
+      end
+
       # TODO: make this more robust. only handles simple case of extra seed tables
       def load_tables
-        ENV["UPDATE_SEED"] && !Rails.env.test? ? TABLES : dump_tables
+        update_seed? && !Rails.env.test? ? TABLES : dump_tables
       end
 
       def dump_tables
