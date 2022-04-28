@@ -1,6 +1,7 @@
 ---
 - :name: "*debug"
   :codename: debug
-- :name: "*debug+*right+*read"
-  :type: pointer
-  :content: Administrator
+  :subfields:
+    :right:
+      :subfields:
+        :read: Administrator
