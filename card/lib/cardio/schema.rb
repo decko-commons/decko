@@ -31,7 +31,8 @@ module Cardio
       end
 
       def version type=nil
-        File.read(stamp_path(type)).strip
+        path = stamp_path type
+        File.exists?(path) ? File.read(path).strip : nil
       end
 
       def stamp_path type

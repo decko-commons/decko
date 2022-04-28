@@ -11,7 +11,7 @@ namespace :card do
       tasks += %w[update assets:code seed:clean] unless Rails.env.test?
       tasks << "seed:dump"
 
-      Card::Cache.reset_all
+      # Card::Cache.reset_all
       tasks.each do |task|
         puts "invoking: #{task}".green
         Rake::Task["card:#{task}"].invoke

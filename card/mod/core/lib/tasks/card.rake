@@ -33,10 +33,10 @@ namespace :card do
 
   desc "reset with an empty tmp directory"
   task :reset_tmp do
-    tmp_dir = Decko.paths["tmp"].first
-    if Decko.paths["tmp"].existent
+    tmp_dir = Cardio.paths["tmp"].first
+    if Cardio.paths["tmp"].existent
       Dir.foreach(tmp_dir) do |filename|
-        next if filename.starts_with? "."
+        next if filename.match?(/^\./)
 
         FileUtils.rm_rf File.join(tmp_dir, filename), secure: true
       end
@@ -100,5 +100,14 @@ namespace :card do
     args = op.order!(ARGV) {}
     # args << "-h" if args.empty?
     op.parse! args
+  end
+
+  def failing_loudly task
+    yield
+  rescue StandardError
+    # TODO: fix this so that message appears *after* the errors.
+    # Solution should ensure that rake still exits with error code 1!
+    raise "\n>>>>>> FAILURE! #{task} did not complete successfully." \
+          "\n>>>>>> Please address errors and re-run:\n\n\n"
   end
 end

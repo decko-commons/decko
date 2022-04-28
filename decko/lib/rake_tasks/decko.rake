@@ -20,15 +20,15 @@ CARD_TASKS =
 link_task CARD_TASKS, from: :decko, to: :card
 
 namespace :decko do
-  desc "empty the card tables"
-  task :clear do
-    conn = ActiveRecord::Base.connection
-
-    puts "delete all data in bootstrap tables"
-    Cardio::Seed::TABLES.each do |table|
-      conn.delete "delete from #{table}"
-    end
-  end
+  # desc "empty the card tables"
+  # task :clear do
+  #   conn = ActiveRecord::Base.connection
+  #
+  #   puts "delete all data in bootstrap tables"
+  #   Cardio::Seed::TABLES.each do |table|
+  #     conn.delete "delete from #{table}"
+  #   end
+  # end
 
   desc "insert existing card migrations into schema_migrations_cards " \
        "to avoid re-migrating"
@@ -36,15 +36,6 @@ namespace :decko do
     require "decko/engine"
     Cardio::Schema.assume_migrated_upto_version :core_cards
   end
-end
-
-def failing_loudly task
-  yield
-rescue StandardError
-  # TODO: fix this so that message appears *after* the errors.
-  # Solution should ensure that rake still exits with error code 1!
-  raise "\n>>>>>> FAILURE! #{task} did not complete successfully." \
-        "\n>>>>>> Please address errors and re-run:\n\n\n"
 end
 
 def version
