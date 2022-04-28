@@ -1,5 +1,7 @@
 include_set Abstract::AssetOutputter, output_format: :css, output_view: :compressed
 
+assign_type :list
+
 def ok_to_read
   true
 end

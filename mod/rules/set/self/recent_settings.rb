@@ -1,3 +1,5 @@
+include_set Abstract::Pointer
+
 def history?
   false
 end
