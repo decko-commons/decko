@@ -1,5 +1,7 @@
 include_set Abstract::AccountField
 
+assign_type :phrase
+
 def generate
   self.content = Digest::SHA1.hexdigest "--#{Time.zone.now}--"
 end

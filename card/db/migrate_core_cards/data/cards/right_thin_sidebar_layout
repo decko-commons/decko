@@ -1,8 +1,0 @@
-<body class="right-sidebar thin-sidebar d-flex flex-column h-100">
-  <header>{{*header|core}}</header>
-  <article class="container flex-shrink-0" role="main">
-    {{_main|open}}
-  </article>
-  <aside>{{*sidebar|content}}</aside>
-  <footer class="footer mt-auto py-3">{{*footer|core}}</footer>
-</body>
