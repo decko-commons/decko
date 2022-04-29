@@ -21,7 +21,7 @@ event :save_original_filename, :prepare_to_store, on: :save, when: :file_ready_t
   @current_action.update! comment: original_filename
 end
 
-event :validate_file_exist, :validate, on: :create do
+event :validate_file_exist, :validate, on: :create, skip: :allowed do
   return if empty_ok?
 
   if web?

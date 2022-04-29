@@ -20,7 +20,7 @@ module Cardio
     def map
       @map ||= {
         new: { desc: "create a new deck", group: :shark, via: :call },
-        seed: { desc: "populate a database", group: :shark, via: :rake },
+        setup: { desc: "populate a database", group: :shark, via: :rake },
         update: { desc: "run data updates", group: :shark, alias: :u, via: :rake },
         version: { desc: "#{gem} gem version", group: :shark, alias: :v, via: :call },
         help: { desc: "show this text", group: :shark, alias: :h, via: :call},
