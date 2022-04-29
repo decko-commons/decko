@@ -106,25 +106,48 @@ Here's how the fixtures in the `defaults` mod are generated:
 2. "eating" the seed data in all the mods that the `defaults` mod depends on
 3. dumping the results to fixtures
 
-These pod data are used not only in seeding but also in mod installation and code
-updates. The idea is that for most cases you only need to **manage mods' card
+> #### Why pods?
+> Pod data are used not only in seeding but also in **mod installation** and **code
+updates**. The idea is that for most cases you only need to **manage mods' card
 data in one place.**
 
+There are two main ways to generate seed pods:
+
+1. Write it by hand
+2. Export it from your deck using `card sow` 
+
+_(See `card sow -h` for more)_
+
+Pods can use all the same arguments that are used with `Card.create` or `card.update`. 
+The most common are:
+
+   - name
+   - type
+   - codename
+   - content
+   - subfields
+   - skip
+   - trigger
+
+You can also use `user` to specify who should perform the action.
+
+The standard way to ingest card pods is by using `decko update`, but you can also
+use `card eat` for more control over your meal.
 
 
-### Creating a new fixtures set
+## Creating a new fixtures set
+#### _For advanced monkeys_
 
 Let's say you're creating a site called `mydeck`, and you want to install multiple copies
 of that deck with the same seed data. Here's how:
 
-1. Create some pod data in the data directories of your mods
-2. Choose a mod where you want to save the seed fixtures and add the Add the required 
+1. Choose a mod where you want to save the seed fixtures and add the required 
 directories in `[mymod]/data/fixtures`
-3. Add the following line to `config/application.rb`:
+2. Add the following line to `config/application.rb`:
    ```
    config.seed_mods.unshift :mymod
    ```
-4. Run `rake card:seed:build`
+3. Run `rake card:seed:build`
 
 This will generate fixtures that include all your data in addition to the data from the 
 defaults mod.
