@@ -12,7 +12,7 @@ module Cardio
 
       def path
         if update_seed?
-          db_path :production, (Rails.env.test? ? 0 : 1)
+          db_path :real, (Rails.env.test? ? 0 : 1)
         else
           default_path
         end
