@@ -4,7 +4,7 @@ module Cardio
     config.encoding = "utf-8"
 
     config.seed_mods = [:core]
-    config.seed_type = :production
+    config.seed_type = :real
     config.extra_seed_tables = []
 
     # if you disable inline styles tinymce's formatting options stop working
