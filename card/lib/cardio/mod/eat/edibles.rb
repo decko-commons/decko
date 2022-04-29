@@ -3,6 +3,8 @@ module Cardio
     class Eat
       # item handling for Mod::Eat (importables)
       module Edibles
+        DATA_ENVIRONMENTS = %i[production development test].freeze
+
         # list of card attribute hashes
         # @return [Array <Hash>]
         def edibles
@@ -71,7 +73,11 @@ module Cardio
         end
 
         def mod_file mod, filename
-          File.open mod.subpath("data/files", filename)
+          unless (mod_file_path = mod.subpath "data/files", filename)
+            raise StandardError, "#{filename} not found. "\
+                                 "Should be in data/files in #{mod.name} mod."
+          end
+          File.open mod_file_path
         end
 
         def attachment_keys
@@ -83,8 +89,10 @@ module Cardio
         # production = [:production],
         # development = [:production, :development], etc.
         def environments
-          index = DATA_ENVIRONMENTS.index(@env&.to_sym || Rails.env.to_sym) || -1
-          DATA_ENVIRONMENTS[0..index]
+          # index = DATA_ENVIRONMENTS.index(@env&.to_sym || Rails.env.to_sym) || -1
+          # DATA_ENVIRONMENTS[0..index]
+
+          [@env]
         end
       end
     end

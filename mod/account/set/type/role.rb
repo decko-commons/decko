@@ -1,3 +1,5 @@
+card_accessor :members
+
 def disabled?
   Auth.current&.fetch(:disabled_roles)&.item_ids&.include? id
 end
