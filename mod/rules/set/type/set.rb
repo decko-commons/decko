@@ -1,5 +1,7 @@
 include_set Type::SearchType
 
+basket[:non_createable_types] << :set
+
 def anchor_name
   name.left_name
 end

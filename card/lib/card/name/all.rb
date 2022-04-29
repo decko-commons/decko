@@ -71,10 +71,6 @@ class Card
         @key
       end
 
-      # def field tag, opts={}
-      #   Card.fetch name.field(tag), opts
-      # end
-
       private
 
       def assign_side_ids
