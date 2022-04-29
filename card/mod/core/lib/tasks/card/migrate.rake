@@ -146,5 +146,9 @@ namespace :card do
         end
       end
     end
+
+    def version
+      ENV["VERSION"] ? ENV["VERSION"].to_i : nil
+    end
   end
 end
