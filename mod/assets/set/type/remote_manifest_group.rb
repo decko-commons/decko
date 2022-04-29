@@ -1,6 +1,8 @@
 include_set Abstract::ReadOnly
 include_set Abstract::ManifestGroup
 
+basket[:non_createable_types] << :remote_manifest_group
+
 def local?
   @local = false
 end

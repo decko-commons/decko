@@ -19,21 +19,6 @@ module Cardio
 
     config.space_last_in_multispace = true
 
-    config.non_createable_types = %w[
-      signup
-      setting
-      set
-      session
-      bootswatch_skin
-      customized_bootswatch_skin
-      local_script_folder_group
-      local_script_manifest_group
-      local_style_folder_group
-      local_style_manifest_group
-      remote_manifest_group
-      mod
-    ]
-
     config.view_cache = false
 
     config.request_logger = false
