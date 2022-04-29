@@ -47,7 +47,8 @@ module Cardio
         migration_context do |mc|
           versions = mc.migrations.map(&:version)
           migrated = mc.get_all_versions
-          mark_as_migrated versions - migrated
+          to_mark = versions - migrated
+          mark_as_migrated to_mark if to_mark.present?
         end
       end
 

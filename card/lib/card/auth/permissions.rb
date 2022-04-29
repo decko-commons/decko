@@ -20,7 +20,7 @@ class Card
           Auth.as_bot do
             Card.search(
               { type: Card::CardtypeID, return: :name,
-                not: { codename: ["in"] + Card.config.non_createable_types } },
+                not: { codename: ["in"] + basket[:non_createable_types] } },
               "find createable types"
             )
           end
