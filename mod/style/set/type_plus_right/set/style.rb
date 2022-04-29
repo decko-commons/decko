@@ -7,7 +7,7 @@ def ok_to_read
 end
 
 def make_asset_output_coded
-  super ENV["STYLE_OUTPUT_MOD"]
+  super Cardio.config.seed_mods.first
 end
 
 format do

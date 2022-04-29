@@ -1,21 +1,31 @@
 namespace :card do
   namespace :seed do
-    desc "reseed, migrate, re-clean, and re-dump"
-    task update: :environment do
-      ENV["STAMP_MIGRATIONS"] = "true"
+    desc "completely regenerate seed fixtures starting with dependee seed fixtures"
+    task build: [:plow, "card:eat", :polish, :dump]
+
+    desc "regenerate seed fixtures quickly (not from scratch)"
+    # note: this will not delete anything; it just eats new stuff.
+    task update: [:replant, "card:eat", :polish, :dump]
+
+    desc "finalize seed data with migrations, installations, asset coding, and cleaning"
+    task polish: :environment do
+      unless Rails.env.test?
+        # the test data depend on the real data, which should handle the updating,
+        # asset coding, and cleaning. It's important NOT to clean the test
+        # data and lose history, creator info, etc.
+
+        ENV["STAMP_MIGRATIONS"] = "true"
+
+        invoke_card_tasks %w[update assets:code seed:clean]
+      end
+    end
+
+    desc "reseed from the fixtures of the dependee seed mod"
+    task plow: :environment do
       ENV["UPDATE_SEED"] = "true"
       # tells Cardio::Seed to use fixtures upon which the seeds being updated depend
 
-      tasks = %w[reset_tmp seed:replant eat]
-      # important not to clean test data and lose history, creator info, etc.
-      tasks += %w[update assets:code seed:clean] unless Rails.env.test?
-      tasks << "seed:dump"
-
-      # Card::Cache.reset_all
-      tasks.each do |task|
-        puts "invoking: #{task}".green
-        Rake::Task["card:#{task}"].invoke
-      end
+      invoke_card_tasks %w[reset_tmp seed:replant]
     end
 
     desc "Truncates tables of each database for current environment and loads the seeds" \
@@ -33,6 +43,15 @@ namespace :card do
     task dump: :environment do
       Card::Cache.reset_all
       Cardio::Seed.dump
+    end
+
+    def invoke_card_tasks tasks
+      tasks.each { |task| invoke_card_task task }
+    end
+
+    def invoke_card_task task
+      puts "invoking: #{task}".green
+      Rake::Task["card:#{task}"].invoke
     end
   end
 end

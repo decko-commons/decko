@@ -1,6 +1,23 @@
 require "optparse"
 
 namespace :card do
+  desc "Creates the database, loads the schema, initializes seed data, " \
+       "and adds symlinks to public directories"
+  task setup: %w[db:setup card:mod:symlink]
+
+  desc "Runs migrations, installs mods, and updates symlinks"
+  task :update do
+    failing_loudly "decko update" do
+      ENV["NO_RAILS_CACHE"] = "true"
+      Rake::Task["decko:migrate"].invoke
+      Rake::Task["decko:reset_tmp"].invoke
+      Card::Cache.reset_all
+      Rake::Task["card:mod:uninstall"].invoke
+      Rake::Task["card:mod:install"].invoke
+      Rake::Task["card:mod:symlink"].invoke
+    end
+  end
+
   desc "Ingests card data from mod yaml"
   task eat: :environment do
     parse_options :eat do
@@ -47,23 +64,6 @@ namespace :card do
 
   desc "Loads seed data"
   task seed: ["db:seed"]
-
-  desc "Creates the database, loads the schema, initializes seed data, " \
-       "and adds symlinks to public directories"
-  task setup: %w[db:setup card:mod:symlink]
-
-  desc "update decko gems and database"
-  task :update do
-    failing_loudly "decko update" do
-      ENV["NO_RAILS_CACHE"] = "true"
-      Rake::Task["decko:migrate"].invoke
-      Rake::Task["decko:reset_tmp"].invoke
-      Card::Cache.reset_all
-      Rake::Task["card:mod:uninstall"].invoke
-      Rake::Task["card:mod:install"].invoke
-      Rake::Task["card:mod:symlink"].invoke
-    end
-  end
 
   def options
     @options ||= {}
