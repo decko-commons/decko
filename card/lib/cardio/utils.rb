@@ -3,7 +3,7 @@ module Cardio
   module Utils
     class << self
       def seed_test_db
-        system "env RAILS_ENV=test bundle exec rake db:fixtures:load"
+        system "env RAILS_ENV=test bundle exec rake db:seed:replant"
       end
 
       # deletes tmp directory within files directory

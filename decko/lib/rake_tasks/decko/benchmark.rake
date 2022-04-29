@@ -3,7 +3,7 @@ require "benchmark"
 
 namespace :decko do
   namespace :benchmark do
-    desc "measure time for script generation"
+    desc "(for platypuses) measure time for script generation"
     task machines: :environment do
       Benchmark.bm do |x|
         regenerate x, :style
