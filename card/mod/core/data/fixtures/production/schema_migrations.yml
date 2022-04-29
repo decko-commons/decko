@@ -1,0 +1,67 @@
+---
+schema_migrations_001:
+  version: '20110511221913'
+schema_migrations_002:
+  version: '20120105203350'
+schema_migrations_003:
+  version: '20121111025347'
+schema_migrations_004:
+  version: '20121118114000'
+schema_migrations_005:
+  version: '20121118115000'
+schema_migrations_006:
+  version: '20130106052640'
+schema_migrations_007:
+  version: '20130109015336'
+schema_migrations_008:
+  version: '20130411210957'
+schema_migrations_009:
+  version: '20140822073704'
+schema_migrations_010:
+  version: '20141001105348'
+schema_migrations_011:
+  version: '20141121172918'
+schema_migrations_012:
+  version: '20141208132159'
+schema_migrations_013:
+  version: '20141216053032'
+schema_migrations_014:
+  version: '20150724210803'
+schema_migrations_015:
+  version: '20151105225559'
+schema_migrations_016:
+  version: '20160122153608'
+schema_migrations_017:
+  version: '20160804112340'
+schema_migrations_018:
+  version: '20160804112538'
+schema_migrations_019:
+  version: '20160804112560'
+schema_migrations_020:
+  version: '20160806112710'
+schema_migrations_021:
+  version: '20160812112513'
+schema_migrations_022:
+  version: '20170719163733'
+schema_migrations_023:
+  version: '20170726111053'
+schema_migrations_024:
+  version: '20170726145012'
+schema_migrations_025:
+  version: '20170908114442'
+schema_migrations_026:
+  version: '20170908114452'
+schema_migrations_027:
+  version: '20180514152037'
+schema_migrations_028:
+  version: '20190116170824'
+schema_migrations_029:
+  version: '20190131223248'
+schema_migrations_030:
+  version: '20190929202325'
+schema_migrations_031:
+  version: '20200718051236'
+schema_migrations_032:
+  version: '20200805200729'
+schema_migrations_033:
+  version: '20211128040849'
