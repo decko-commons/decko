@@ -1,6 +1,11 @@
 RSpec.describe Card::Set::All::History::Revision do
   THETA_REVISION = {
-    db_content: "Theta", name: "T", trash: "f", type_id: "3", left_id: nil, right_id: nil
+    db_content: "Theta",
+    name: "T",
+    trash: "f",
+    type_id: :basic.card_id.to_s,
+    left_id: nil,
+    right_id: nil
   }.freeze
 
   describe "#revision" do

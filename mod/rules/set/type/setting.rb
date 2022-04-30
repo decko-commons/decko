@@ -1,3 +1,5 @@
+basket[:non_createable_types] << :setting
+
 format :data do
   view :core do
     cql = { left: { type: SetID },

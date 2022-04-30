@@ -1,7 +1,0 @@
----
-- :name: File
-  :type: :cardtype
-  :codename: :file
-- :name: Image
-  :type: :cardtype
-  :codename: :image

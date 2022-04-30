@@ -9,7 +9,7 @@ module Cardio
         @mod = args[:mod]
         @name = args[:name]
         @cql = args[:cql]
-        @env = args[:env] || Rails.env
+        @env = args[:env] || (Rails.env.test? ? :test : :production)
         @items = args[:items]
         @field_tags = args[:field_tags]
       end

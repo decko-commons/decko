@@ -1,3 +1,5 @@
+basket[:non_createable_types] = [:mod]
+
 def cards_of_type_exist?
   !new_card? && Card.where(trash: false, type_id: id).exists?
 end
