@@ -29,6 +29,8 @@ include_set Abstract::AssetInputter, input_format: :css, input_view: :compressed
 include_set Abstract::Scss
 include_set Abstract::SkinBox
 
+basket[:non_createable_types] << :bootswatch_skin
+
 card_accessor :colors, type: :scss
 card_accessor :variables, type: :scss
 card_accessor :stylesheets, type: :skin

@@ -4,7 +4,7 @@ class Card
     module AdvancedApi
       def assign_type type, module_key=nil
         module_key ||= shortname
-        Type.assignment[module_key] = type.card_id
+        Type.assignment[module_key] = type
       end
 
       def setting_opts opts
