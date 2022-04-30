@@ -21,10 +21,10 @@ namespace :card do
   desc "Ingests card data from mod yaml"
   task eat: :environment do
     parse_options :eat do
-      add_opt :m, :mod, "only merge cards in given mod"
-      add_opt :e, :env, "environment of yaml source (default is current env)"
+      add_opt :m, :mod, "only eat cards in given mod"
       add_opt :u, :user, "user to credit unless specified (otherwise uses Decko Bot)"
-      flag_opt :v, :verbose, "progress info and error backtraces"
+      add_opt :t, :type, "pod type: real, test, or all"
+      flag_opt :v, :verbose, "output progress info and error backtraces"
     end
     rake_result(:eat) { Cardio::Mod::Eat.new(**options).up }
   end

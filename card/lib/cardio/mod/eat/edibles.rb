@@ -3,8 +3,6 @@ module Cardio
     class Eat
       # item handling for Mod::Eat (importables)
       module Edibles
-        DATA_ENVIRONMENTS = %i[production development test].freeze
-
         # list of card attribute hashes
         # @return [Array <Hash>]
         def edibles
@@ -29,14 +27,14 @@ module Cardio
 
         # @return [Array <Hash>]
         def mod_edibles mod
-          environments.map { |env| items_for_environment mod, env }.compact
+          pod_types.map { |type| items_for_type mod, type }.compact
         end
 
-        def items_for_environment mod, env
-          return unless (items = items_from_yaml mod, env)
+        def items_for_type mod, type
+          return unless (items = items_from_yaml mod, type)
 
           items = items.map do |item|
-            item.is_a?(String) ? items_from_yaml(mod, env, item) : item
+            item.is_a?(String) ? items_from_yaml(mod, type, item) : item
           end.flatten.compact
           interpret_items mod, items
         end
@@ -45,8 +43,8 @@ module Cardio
           each_card_hash(items) { |hash| handle_attachments mod, hash }
         end
 
-        def items_from_yaml mod, env, filename=nil
-          source = "#{env}#{'/' if filename.present?}#{filename}.yml"
+        def items_from_yaml mod, type, filename=nil
+          source = "#{type}#{'/' if filename.present?}#{filename}.yml"
           return unless (path = mod.subpath "data", source)
 
           YAML.load_file path
@@ -84,15 +82,16 @@ module Cardio
           @attachment_keys ||= Card.uploaders.keys
         end
 
-        # @return [Array <Symbol>]
-        # holarchical. each includes the previous
-        # production = [:production],
-        # development = [:production, :development], etc.
-        def environments
-          # index = DATA_ENVIRONMENTS.index(@env&.to_sym || Rails.env.to_sym) || -1
-          # DATA_ENVIRONMENTS[0..index]
-
-          [@env]
+        def pod_types
+          if @pod_type == :all
+            %i[real test]
+          elsif @pod_type
+            [@pod_type]
+          elsif Rails.env.test?
+            [:test]
+          else
+            [:real]
+          end
         end
       end
     end
