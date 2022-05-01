@@ -1,7 +1,7 @@
 RSpec.describe Card::Set::TypePlusRight::BootswatchSkin::Colors do
   let(:card) do
     Card::Auth.as_bot do
-      create_bootswatch_skin "my skin", subfields: { parent: :journal_skin.cardname }
+      create_bootswatch_skin "my skin", fields: { parent: :journal_skin.cardname }
     end
   end
 

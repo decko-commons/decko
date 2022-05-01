@@ -17,6 +17,7 @@ class Cardname < String
   include Contextual
   include Predicates
   include Manipulate
+  include Fields
 
   OK4KEY_RE = '\p{Word}\*'
 
