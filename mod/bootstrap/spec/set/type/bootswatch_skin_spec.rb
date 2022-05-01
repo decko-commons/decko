@@ -6,7 +6,7 @@ RSpec.describe Card::Set::Type::BootswatchSkin do
 
   let :customized_skin do
     create "customized yeti skin", type: :bootswatch_skin,
-                                   subfields: { parent: :yeti_skin.cardname }
+                                   fields: { parent: :yeti_skin.cardname }
   end
 
   let(:style_with_customized_theme) do

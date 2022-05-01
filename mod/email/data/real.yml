@@ -2,12 +2,12 @@
 - :name: Email template
   :type: :cardtype
   :codename: :email_template
-  :subfields:
+  :fields:
     :description: |-
       Design custom emails to be triggered by card actions.
       [[http://decko.org/actions|more]]
     :type:
-      :subfields:
+      :fields:
         :structure: |-
           <p>
             {{+*from | labeled | link}} 
@@ -22,33 +22,33 @@
 
 - :name: "*to"
   :codename: :to
-  :subfields:
+  :fields:
     :right:
-      :subfields:
+      :fields:
         :content_options:
           :type: :search_type
           :content: ' { "right_plus":{"codename":"account"} } '
 - :name: "*from"
   :codename: :from
-  :subfields:
+  :fields:
     :right:
-      :subfields:
+      :fields:
         :content_options:
           :type: :search_type
           :content: ' { "right_plus":{"codename":"account"} } '
 - :name: "*cc"
   :codename: :cc
-  :subfields:
+  :fields:
     :right:
-      :subfields:
+      :fields:
         :content_options:
           :type: :search_type
           :content: ' { "right_plus":{"codename":"account"} } '
 - :name: "*bcc"
   :codename: :bcc
-  :subfields:
+  :fields:
     :right:
-      :subfields:
+      :fields:
         :content_options:
           :type: :search_type
           :content: ' { "right_plus":{"codename":"account"} } '
@@ -56,9 +56,9 @@
   :codename: :subject
 - :name: "*attach"
   :codename: :attach
-  :subfields:
+  :fields:
     :right:
-      :subfields:
+      :fields:
         :content_options:
           :type: :search_type
           :content: |-

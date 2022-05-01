@@ -2,10 +2,10 @@
 - :name: Layout
   :type: :cardtype
   :codename: :layout_type
-  :subfields:
+  :fields:
     :description: Organize webpages. [[http://decko.org/Layout|more]]
     :type:
-      :subfields:
+      :fields:
         :create: Shark
         :update: Shark
         :delete: Shark
@@ -13,9 +13,9 @@
 - :name: "*layout"
   :type: :setting
   :codename: :layout
-  :subfields:
+  :fields:
     :right:
-      :subfields:
+      :fields:
         :input_type: select
         :content_options:
           :type: :search_type
@@ -26,9 +26,9 @@
   :content: |-
     <div>[[/ | {{*logo|content_panel}}]]</div>
     <div>{{Menu|open}}</div>
-  :subfields:
+  :fields:
     :right:
-      :subfields:
+      :fields:
         :read: Anyone
 
 
@@ -41,22 +41,22 @@
 - :name: "*main menu"
   :type: :link_list
   :content: "[[:recent|Recent Changes]]"
-  :subfields:
+  :fields:
     :self:
-      :subfields:
+      :fields:
         :read: Anyone
 - :name: "*navbox"
   :codename: :navbox
-  :subfields:
+  :fields:
     :self:
-      :subfields:
+      :fields:
         :read: Anyone
 - :name: "*header"
   :type: :html
   :codename: header
-  :subfields:
+  :fields:
     :self:
-      :subfields:
+      :fields:
         :read: Anyone
   :content: |
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-3">

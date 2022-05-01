@@ -1,8 +1,8 @@
 - :name: "*api key"
   :codename: :api_key
-  :subfields:
+  :fields:
     :right:
-      :subfields:
+      :fields:
         :read: Help Desk
         :update: Help Desk
         :delete: Help Desk

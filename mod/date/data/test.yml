@@ -1,8 +1,8 @@
 - :name: "*test context"
   :codename: :test_context
-  :subfields:
+  :fields:
     :right:
-      :subfields:
+      :fields:
         :default:
           :type: :list
 - :name:

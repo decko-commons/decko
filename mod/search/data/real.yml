@@ -2,7 +2,7 @@
 - :name: Search
   :type: :cardtype
   :codename: :search_type
-  :subfields:
+  :fields:
     :description: |-
       <p>
         Searches return a list of cards using 
@@ -17,9 +17,9 @@
 - :name: "*recent"
   :type: :search_type
   :codename: :recent
-  :subfields:
+  :fields:
     :self:
-      :subfields:
+      :fields:
         :read: Anyone
 - :name: "*count"
   :codename: :count
@@ -37,28 +37,28 @@
   :codename: :creator
 - :name: "*created"
   :codename: :created
-  :subfields:
+  :fields:
     :right:
-      :subfields:
+      :fields:
         :help: Cards created by <em>{{_left|name}}</em>.
 - :name: "*edited"
   :codename: :edited
-  :subfields:
+  :fields:
     :right:
-      :subfields:
+      :fields:
         :help: Cards edited by <em>{{_left|name}}</em>.
 - :name: "*editors"
   :codename: :editors
-  :subfields:
+  :fields:
     :right:
-      :subfields:
+      :fields:
         :help: Users who have edited <em>{{_left|name}}</em>.
 
 - :name: "*children"
   :codename: :children
-  :subfields:
+  :fields:
     :right:
-      :subfields:
+      :fields:
         :help: |-
           <p>
             Cards formed by "mating" <em>{{_left|name}}</em> with another card. 
@@ -66,9 +66,9 @@
           </p>
 - :name: "*mates"
   :codename: :mates
-  :subfields:
+  :fields:
     :right:
-      :subfields:
+      :fields:
         :help: |-
           <p>
             If there is a card named "X+<em>{{_left|name}}</em>", 
@@ -76,37 +76,37 @@
           </p>
 - :name: "*nested by"
   :codename: :nested_by
-  :subfields:
+  :fields:
     :right:
-      :subfields:
+      :fields:
         :help: "<p>Cards that refer to <em>{{_left|name}}</em>.</p>"
 - :name: "*linked to by"
   :codename: :linked_to_by
-  :subfields:
+  :fields:
     :right:
-      :subfields:
+      :fields:
         :help: "<p>Cards that link to <em>{{_left|name}}</em>.</p>"
 - :name: "*nests"
   :codename: :nests
-  :subfields:
+  :fields:
     :right:
-      :subfields:
+      :fields:
         :help: "<p>Cards nested within <em>{{_left|name}}</em></p>"
 - :name: "*links to"
   :codename: :links_to
-  :subfields:
+  :fields:
     :right:
-      :subfields:
+      :fields:
         :help: "<p>Cards that <em>{{_left|name}}</em> links to.</p>"
 - :name: "*referred to by"
   :codename: :referred_to_by
-  :subfields:
+  :fields:
     :right:
-      :subfields:
+      :fields:
         :help: "<p>Cards referred to by <em>{{_left|name}}</em>.</p>"
 - :name: "*refers to"
   :codename: :refers_to
-  :subfields:
+  :fields:
     :right:
-      :subfields:
+      :fields:
         :help: "<p>Cards that <em>{{_left|name}}</em> refers to.</p>"
