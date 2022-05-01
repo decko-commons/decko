@@ -41,7 +41,7 @@ class Card
       end
 
       def field? tag
-        fetch(tag) || subcards.field(field_name).present?
+        fetch(tag) || subcards.field(tag).present?
       end
 
       def drop_subcard name_or_card
