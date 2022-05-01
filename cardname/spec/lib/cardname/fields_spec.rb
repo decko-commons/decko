@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-describe Card::Name do
+describe Cardname::Fields do
   describe "field_of?" do
     it "identifies fields" do
       expect("A+B".to_name).to be_field_of("A")
