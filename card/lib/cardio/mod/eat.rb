@@ -1,7 +1,6 @@
 require "timecop"
 # require "pry"
 
-DATA_ENVIRONMENTS = %i[production development test].freeze
 ENV["STORE_CODED_FILES"] = "true"
 
 module Cardio
@@ -13,9 +12,9 @@ module Cardio
       include Card::Model::SaveHelper
       include Edibles
 
-      def initialize mod: nil, env: nil, user: nil, verbose: nil
+      def initialize mod: nil, type: nil, user: nil, verbose: nil
         @mod = mod
-        @env = env || Rails.env
+        @pod_type = type&.to_sym
         @user_id = user&.card_id
         @verbose = true # !verbose.nil?
       end

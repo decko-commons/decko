@@ -1,0 +1,7 @@
+---
+- :name: "*debug"
+  :codename: debug
+  :fields:
+    :right:
+      :fields:
+        :read: Administrator

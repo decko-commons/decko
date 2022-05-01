@@ -44,7 +44,7 @@ RSpec.describe Card::Set::Type::NotificationTemplate do
       create "success",
              type_id: Card::NotificationTemplateID,
              content: "success",
-             subfields: { contextual_class: "danger",
+             fields: { contextual_class: "danger",
                           disappear: "1",
                           message: "failed" }
     end

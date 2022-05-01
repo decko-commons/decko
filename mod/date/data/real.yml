@@ -1,0 +1,21 @@
+---
+- :name: Date
+  :type: :cardtype
+  :codename: :date
+  :fields:
+    :description: "<p>Date cards contain a date.</p>"
+- :name: "*when created"
+  :codename: :when_created
+- :name: "*when last edited"
+  :codename: :when_last_edited
+- :name: "*now"
+  :codename: :now
+- :name: "*datepicker"
+  :type: :json
+  :codename: :datepicker
+  :content: |
+    {
+      "format": "YY-MM-DD",
+      "useCurrent": true,
+      "defaultDate": false
+    }

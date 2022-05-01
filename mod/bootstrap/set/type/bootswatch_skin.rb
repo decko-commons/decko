@@ -29,6 +29,8 @@ include_set Abstract::AssetInputter, input_format: :css, input_view: :compressed
 include_set Abstract::Scss
 include_set Abstract::SkinBox
 
+basket[:non_createable_types] << :bootswatch_skin
+
 card_accessor :colors, type: :scss
 card_accessor :variables, type: :scss
 card_accessor :stylesheets, type: :skin
@@ -85,8 +87,8 @@ def stylesheets_card_names
   [Card.fetch_name(name, :stylesheets)]
 end
 
-def content_from_theme subfield
-  theme_card&.scss_from_theme_file subfield
+def content_from_theme field
+  theme_card&.scss_from_theme_file field
 end
 
 format :html do
