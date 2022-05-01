@@ -31,10 +31,10 @@ RSpec.describe Card::Set::All::AssignAttributes do
     expect(card).to have_type(:cardtype).and have_codename :foo
   end
 
-  it "assigns subfields" do
-    card = Card.new name: "#name", subfields: { default: { content: "subcontent" } }
+  it "assigns fields" do
+    card = Card.new name: "#name", fields: { default: { content: "subcontent" } }
     expect(card.subcards.first).to eq "name+*default"
-    subcard = card.subfield :default
+    subcard = card.field :default
     expect(subcard).to be_a(Card)
     expect(subcard.name).to eq "#name+*default"
     expect(subcard.content).to eq "subcontent"

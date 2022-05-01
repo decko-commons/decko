@@ -63,6 +63,8 @@ class Card
 
           return if update_args.empty? && subcards.empty?
 
+          puts "not empty: #{update_args} ;;; #{subcards}"
+
           update_args[:skip] =
             [update_args[:skip], :validate_renaming].flatten.compact.map(&:to_sym)
 
@@ -73,18 +75,34 @@ class Card
         def changing_args card, args
           args.select do |key, value|
             case key.to_s
+            when "storage_type"
+              true # because we have to re-assert coded, otherwise it changes
+            when "type"
+              changing_type_val? card, value
             when /^\+/
               changing_field_arg key, value
-            when /name$/
-              card.send(key).to_s != value
+            when "name", "codename"
+              changing_name_val? card, key, value
             else
               standard_changing_arg card, key, value
             end
           end
         end
 
+        def changing_name_val? card, key, value
+          card.send(key).to_s != value.to_name.to_s
+        end
+
+        def changing_type_val? card, value
+          if value.is_a? Symbol
+            card.type_code != value
+          else
+            card.type_name != value.to_name
+          end
+        end
+
         def changing_field_arg key, value
-          subfields[key] = value
+          fields[key] = value
           false
         end
 

@@ -1,6 +1,8 @@
 include_set Abstract::AccountField
 include_set Abstract::Pointer
 
+assign_type :phrase
+
 format :html do
   def input_type
     :radio

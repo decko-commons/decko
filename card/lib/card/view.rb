@@ -106,6 +106,10 @@ class Card
       !parent && !format.parent
     end
 
+    def depth
+      @depth ||= parent ? (parent.depth + 1) : 0
+    end
+
     # next voo object found tracing ancestry through parent voos and/or parent formats
     # @return [Card::View]
     def next_ancestor across_format=true

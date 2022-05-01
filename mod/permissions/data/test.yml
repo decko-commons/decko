@@ -37,9 +37,9 @@
 
 - :name: u1
   :type: :user
-  :subfields:
+  :fields:
     :account:
-      :subfields:
+      :fields:
         :email: u1@user.com
         :password: u1_pass
     :roles:
@@ -48,9 +48,9 @@
       - r3
 - :name: u2
   :type: :user
-  :subfields:
+  :fields:
     :account:
-      :subfields:
+      :fields:
         :email: u2@user.com
         :password: u2_pass
     :roles:
@@ -59,9 +59,9 @@
       - r4
 - :name: u3
   :type: :user
-  :subfields:
+  :fields:
     :account:
-      :subfields:
+      :fields:
         :email: u3@user.com
         :password: u3_pass
     :roles:
