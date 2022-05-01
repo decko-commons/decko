@@ -1,5 +1,7 @@
 include_set Abstract::Accountable
 
+basket[:non_createable_types] << :signup
+
 require_field :account
 
 def default_account_status

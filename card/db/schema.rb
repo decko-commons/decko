@@ -148,5 +148,4 @@ ActiveRecord::Schema.define(version: 2021_11_28_040849) do
     t.integer "card_id", null: false
     t.integer "account_id", null: false
   end
-
 end

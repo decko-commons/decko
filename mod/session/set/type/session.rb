@@ -1,5 +1,7 @@
 include_set Pointer
 
+basket[:non_createable_types] << :session
+
 def virtual?
   session_content.present?
 end

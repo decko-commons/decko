@@ -84,7 +84,7 @@ class Card
         end
 
         def restrict id_field, val
-          if (id = id_from_val(val))
+          if (id = id_from_val val)
             interpret id_field => id
           else
             tie :card, val, from: id_field
