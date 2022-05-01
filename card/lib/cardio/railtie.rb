@@ -3,47 +3,27 @@ module Cardio
   class Railtie < Rails::Railtie
     config.encoding = "utf-8"
 
+    config.seed_mods = [:core]
+    config.seed_type = :real
+    config.extra_seed_tables = []
+
     # if you disable inline styles tinymce's formatting options stop working
     config.allow_inline_styles = true
     config.token_expiry = 2.days
 
     config.no_authentication = false
-    config.files_web_path = "files"
 
     config.max_char_count = 200
     config.max_depth = 20
     config.email_defaults = nil
 
     config.space_last_in_multispace = true
-    config.delaying = false
-    config.active_job.queue_adapter = :delayed_job
-
-    config.non_createable_types = %w[
-      signup
-      setting
-      set
-      session
-      bootswatch_skin
-      customized_bootswatch_skin
-      local_folder_group
-      local_manifest_group
-      local_script_folder_group
-      local_script_manifest_group
-      local_style_folder_group
-      local_style_manifest_group
-      remote_manifest_group
-      mod
-    ]
 
     config.view_cache = false
 
     config.request_logger = false
     config.performance_logger = false
     config.sql_comments = false
-
-    config.file_storage = :local
-    config.file_buckets = {}
-    config.file_default_bucket = nil
 
     config.deck_origin = nil
 

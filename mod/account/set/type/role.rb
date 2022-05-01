@@ -1,3 +1,5 @@
+card_accessor :members
+
 def disabled?
   Auth.current&.fetch(:disabled_roles)&.item_ids&.include? id
 end
@@ -9,7 +11,7 @@ format :html do
 
   def role_checkbox
     name = card.disabled? ? "add_item" : "drop_item"
-    subformat(Auth.current.subfield(:disabled_roles)).card_form :update do
+    subformat(Auth.current.field(:disabled_roles)).card_form :update do
       [check_box_tag(name, card.id, !card.disabled?, class: "_edit-item"),
        render_link]
     end

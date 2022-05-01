@@ -28,7 +28,7 @@ format :html do
   end
 
   def range_filter field, default={}, opts={}
-    add_class opts, "simple-text range-filter-subfield"
+    add_class opts, "simple-text range-filter-field"
     default ||= {}
     output [range_sign(:from),
             sub_text_filter(field, :from, default, opts),
@@ -41,9 +41,9 @@ format :html do
     fa_icon("chevron-circle-#{dir}", class: "input-group-text")
   end
 
-  def sub_text_filter field, subfield, default={}, opts={}
-    name = "filter[#{field}][#{subfield}]"
-    value = filter_hash.dig(field, subfield) || default[subfield]
+  def sub_text_filter field, field, default={}, opts={}
+    name = "filter[#{field}][#{field}]"
+    value = filter_hash.dig(field, field) || default[field]
     text_filter_with_name_and_value name, value, opts
   end
 

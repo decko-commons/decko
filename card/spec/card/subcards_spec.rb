@@ -58,31 +58,31 @@ RSpec.describe Card::Subcards do
     end
   end
 
-  describe "#subfield" do
+  describe "#field" do
     def local_content name
       Card.fetch(name, new: {}, local_only: true).content
     end
 
     it "works with string" do
-      card.subfield "sub", content: "this is a sub"
+      card.field "sub", content: "this is a sub"
       expect(local_content("#{card.name}+sub")).to eq "this is a sub"
     end
 
     it "works with codename" do
-      card.subfield :phrase, content: "this is a sub"
+      card.field :phrase, content: "this is a sub"
       expect(local_content("A+phrase")).to eq "this is a sub"
     end
   end
 
-  describe "#subfield" do
+  describe "#field" do
     it "works with string" do
-      card.subfield "sub", content: "this is a sub"
-      expect(card.subfield("sub").content).to eq "this is a sub"
+      card.field "sub", content: "this is a sub"
+      expect(card.field("sub").content).to eq "this is a sub"
     end
 
     it "works with codename" do
-      card.subfield :phrase, content: "this is a sub"
-      expect(card.subfield(":phrase").content).to eq "this is a sub"
+      card.field :phrase, content: "this is a sub"
+      expect(card.field(":phrase").content).to eq "this is a sub"
     end
 
     it "works together with type change" do
@@ -92,18 +92,18 @@ RSpec.describe Card::Subcards do
     end
 
     it "handles codenames" do
-      create "card with subs", subfields: { title: "title 1" }
+      create "card with subs", fields: { title: "title 1" }
       expect_card("card with subs+*title").to exist.and have_db_content "title 1"
     end
 
-    it "handles nested subfields" do
+    it "handles nested fields" do
       create "card with subs",
-             subfields: { "nested" => { subfields: { title: "title 2" } } }
+             fields: { "nested" => { fields: { title: "title 2" } } }
       expect_card("card with subs+nested+*title").to exist.and have_db_content "title 2"
     end
 
     it "handles nested codenames" do
-      create "card with subs", subfields: { title: "new title" }
+      create "card with subs", fields: { title: "new title" }
       expect_card("card with subs+*title").to exist.and have_db_content "new title"
     end
   end
@@ -134,14 +134,14 @@ RSpec.describe Card::Subcards do
   describe "two levels of subcards" do
     it "creates cards with subcards with subcards", as_bot: true do
       create_with_event "test", :validate do
-        subfield("first-level").subfield "second-level", content: "yeah"
+        field("first-level").field "second-level", content: "yeah"
       end
       expect_card("test+first-level+second-level").to have_db_content "yeah"
     end
 
     it "creates cards with subcards with subcards using codenames", as_bot: true do
       create_with_event "test", :validate do
-        subfield(:children).subfield :title, content: "yeah"
+        field(:children).field :title, content: "yeah"
       end
       expect_card("test+*child+*title").to have_db_content "yeah"
     end

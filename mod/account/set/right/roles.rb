@@ -1,3 +1,5 @@
+assign_type :list
+
 event :validate_permission_to_assign_roles, :validate, on: :save do
   return unless (fr = forbidden_roles).present?
 
@@ -9,9 +11,7 @@ end
 def forbidden_roles
   # restore old roles for permission check
   with_old_role_permissions do |new_roles|
-    new_roles.reject do |card|
-      Card.fetch(card, "*members").ok? :update
-    end
+    new_roles.reject { |card| card.members_card.ok? :update }
   end
 end
 

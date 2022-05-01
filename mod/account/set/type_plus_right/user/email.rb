@@ -1,3 +1,7 @@
+def virtual?
+  new?
+end
+
 # supports legacy references to <User>+*email
 # (standard representation is now <User>+*account+*email)
 view :raw do

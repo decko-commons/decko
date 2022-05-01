@@ -2,9 +2,9 @@
 - :name: Joe Admin
   :type: :user
   :content: I'm number one
-  :subfields:
+  :fields:
     :account:
-      :subfields:
+      :fields:
         :email: joe@admin.com
         :password: joe_pass
     :roles:
@@ -15,9 +15,9 @@
   :type: :user
   :content: I'm number two
   :user: Joe Admin
-  :subfields:
+  :fields:
     :account:
-      :subfields:
+      :fields:
         :email: joe@user.com
         :password: joe_pass
     :roles:
@@ -25,9 +25,9 @@
 - :name: Joe Camel
   :type: :user
   :content: Mr. Buttz
-  :subfields:
+  :fields:
     :account:
-      :subfields:
+      :fields:
         :email: joe@camel.com
         :password: joe_pass
 - :name: No Count
@@ -35,9 +35,9 @@
   :content: I got no account
 - :name: Sample User
   :type: :user
-  :subfields:
+  :fields:
     :account:
-      :subfields:
+      :fields:
         :email: sample@user.com
         :password: sample_pass
 

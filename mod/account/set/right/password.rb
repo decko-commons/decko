@@ -1,5 +1,7 @@
 include_set Abstract::AccountField
 
+assign_type :phrase
+
 def history?
   false
 end

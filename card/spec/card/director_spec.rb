@@ -261,8 +261,8 @@ RSpec.describe "Card::Director" do
       in_stage :prepare_to_validate, on: :create, trigger: :create_subcards do
         if name.empty? && !changed
           self.name = "main1+main2"
-          expect(subfield("sub1")).to be
-          expect(subfield("sub1").content).to eq("some content")
+          expect(field("sub1")).to be
+          expect(field("sub1").content).to eq("some content")
         end
       end
       expect(Card["main1+main2+sub1"].class).to eq(Card)
@@ -274,8 +274,8 @@ RSpec.describe "Card::Director" do
     it "load type_plus_right set module", as_bot: true do
       in_stage :prepare_to_validate, on: :create, for: "single card",
                                      trigger: :create_single_card do
-        u_card = subfield "a user", type_id: Card::UserID
-        f_card = u_card.subfield "*follow"
+        u_card = field "a user", type_id: Card::UserID
+        f_card = u_card.field "*follow"
         expect(f_card.set_modules).to include(Card::Set::TypePlusRight::User::Follow)
       end
     end
