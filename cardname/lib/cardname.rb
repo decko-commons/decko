@@ -10,6 +10,7 @@ class Cardname < String
   require "cardname/contextual"
   require "cardname/predicates"
   require "cardname/manipulate"
+  require "cardname/fields"
 
   include Parts
   include Pieces
