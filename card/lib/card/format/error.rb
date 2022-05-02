@@ -15,7 +15,7 @@ class Card
       end
 
       def view_for_unknown setting_view
-        if main?
+        if main? && voo.root?
           root.error_status = 404
           :not_found
         else
@@ -30,9 +30,9 @@ class Card
       end
 
       def monitor_depth
-        if depth >= Card.config.max_depth
-          raise Card::Error::UserError,
-                t(:format_too_deep)
+        max = Card.config.max_depth
+        if depth >= max || voo.depth >= max
+          raise Card::Error::UserError, t(:format_too_deep)
         end
 
         yield

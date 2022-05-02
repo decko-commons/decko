@@ -4,6 +4,7 @@ Decko.application.class.configure do
   # Edit at your own peril - it's recommended to regenerate this file
   # in the future when you upgrade to a newer version of Cucumber.
 
+  config.seed_type = :test
   config.eager_load = false
 
   config.asset_refresh = :never

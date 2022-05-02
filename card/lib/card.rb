@@ -19,11 +19,11 @@ ActiveSupport.run_load_hooks(:before_card, self)
 # unique _name_, _key_, and _id_. Some cards also have a _codename_.
 #
 #       @card.name     # The name, a Card::Name object, is the most recognizable card
-# mark.
+#                      # mark.
 #       @card.key      # The key, a String, is a simple lower-case name variant.
 #       @card.id       # The id is an Integer.
 #       @card.codename # The codename, a Symbol, is the name by which a card can be
-# referred to in code.
+#                      # referred to in code.
 #
 # All names with the same key (including the key itself) are considered variants of each
 # other. No two cards can have names with the same key. {Card::Name} objects inherit from
@@ -118,6 +118,21 @@ class Card < Cardio::Record
   extend Director::CardClass
   extend Fetch::CardClass
 
+  cattr_accessor :action_specific_attributes, :set_specific_attributes
+
+  self.action_specific_attributes = [
+    :supercard,                   # [Card]
+    :superleft,                   # [Card]
+    :action,                      # [Symbol] :create, :update, or :delete
+    :current_action,              # [Card::Action]
+    :last_action_id_before_edit,  # [Integer]
+
+    :comment,      # TODO: refactor in favor of card[add], card[drop]
+    :silent_change # TODO: refactor following to use skip/trigger
+  ]
+
+  attr_accessor(*action_specific_attributes)
+
   include Dirty
   include DirtyNames
   include Name::All
@@ -138,35 +153,11 @@ class Card < Cardio::Record
   has_many :actions, -> { where(draft: [nil, false]).order :id }
   has_many :drafts, -> { where(draft: true).order :id }, class_name: :Action
 
-  cattr_accessor :action_specific_attributes, :set_specific_attributes
   alias_method :card_id, :id
 
   class << self
     delegate :config, :paths, to: Cardio
   end
-
-  self.action_specific_attributes = [
-    :supercard,
-    :superleft,
-    :action,                      # [Symbol] :create, :update, or :delete
-    :current_action,              # [Card::Action]
-    :last_action_id_before_edit,
-
-    :skip,                        # [Array] skip event(s) for all cards in act
-    :skip_in_action,              # [Array] skip event for just this card
-    :trigger,                     # [Array] trigger event(s) for all cards in act
-    :trigger_in_action,           # [Array] trigger event for just this card
-    :comment,                     # obviated soon
-
-    # TODO: refactor following to use skip/trigger
-    :update_all_users,            # if the above is wrong then this one too
-    :silent_change                # and this probably too
-  ]
-
-  attr_accessor(*action_specific_attributes)
-
-  self.action_specific_attributes +=
-    %i[skip_hash full_skip_hash trigger_hash full_trigger_hash]
 
   define_callbacks :select_action, :show_page, :act
 

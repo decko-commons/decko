@@ -1,0 +1,99 @@
+---
+- :name: Notification template
+  :type: :cardtype
+  :codename: :notification_template
+
+
+- :name: "*follow"
+  :type: :setting
+  :codename: :follow
+  :fields:
+    :right:
+      :fields:
+        :input_type: radio
+        :help: Get notified about changes.
+
+- :name: "*following"
+  :type: :list
+  :codename: :following
+  :fields:
+    :right:
+      :fields:
+        :create: _left
+        :update: _left
+
+
+- :name: "*followers"
+  :codename: :followers
+- :name: "*follow fields"
+  :type: :setting
+  :codename: :follow_fields
+- :name: "*always"
+  :codename: :always
+- :name: "*never"
+  :codename: :never
+- :name: "*follow defaults"
+  :type: :list
+  :codename: :follow_defaults
+
+- :name: follow suggestions
+  :type: :list
+  :codename: :follow_suggestions
+
+- :name:
+    - :all
+    - :follow_fields
+  :content: "*nests"
+
+- :name: "*contextual class"
+  :codename: :contextual_class
+  :fields:
+    :right:
+      :fields:
+        :input_type: radio
+        :content_options: |-
+          success
+          info
+          warning
+          danger
+- :name: "*message"
+  :codename: :message
+- :name: "*disappear"
+  :codename: :disappear
+
+
+- :name: follower notification email
+  :type: :email_template
+  :codename: :follower_notification_email
+  :fields:
+    :from: Decko Bot
+    :subject: '{{_user|name}} {{_|last_action_verb}} "{{_|name}}"'
+    :html_message: |-
+      <p>
+        {{_|link}} was just <a href="{{_|url}}?view=history">{{_|last_action_verb}}</a> 
+        by {{_user|link}}
+      </p>
+      <blockquote>{{_|list_of_changes}}</blockquote>
+      <p>{{_|subedits}}</p>
+
+      <p>
+        You received this email because you're following <strong>{{_|followed}}</strong>.
+      </p>
+  
+      <p>
+        <em>
+          <a href="{{_|unfollow_url}}">Unfollow</a> to stop receiving these emails.
+        </em>
+      </p>
+    :text_message: |-
+      "{{_|name}}" was just {{_|last_action_verb}} by {{_user|name}}.
+  
+      {{_|list_of_changes}}
+
+      {{_|subedits}}
+
+      See the card: {{_|url}}
+  
+      You received this email because you're following "{{_|followed}}".
+  
+      Use this link to unfollow {{_|unfollow_url}}

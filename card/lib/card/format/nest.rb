@@ -74,7 +74,7 @@ class Card
       def content_view?
         # TODO: this should be specified in view definition
         %i[
-          bar expanded_bar core content titled open closed open_content one_line_content
+          core content titled open closed open_content one_line_content
         ].member? @view.to_sym
       end
     end

@@ -131,8 +131,8 @@ format :html do
   # end
   # ###
 
-  # If you use subfield cards to render a form for a new card
-  # then the subfield cards should be created on the new card not the existing
+  # If you use field cards to render a form for a new card
+  # then the field cards should be created on the new card not the existing
   # card that build the form
 
   def form

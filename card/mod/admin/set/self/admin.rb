@@ -16,8 +16,7 @@ event :admin_tasks, :initialize, on: :update do
   when :clear_cache          then Card::Cache.reset_all
   when :repair_references    then Card::Reference.repair_all
   when :repair_permissions   then Card.repair_all_permissions
-  when :clear_solid_cache    then Card.clear_solid_cache
-  when :regenerate_assets    then Card::Assets.refresh_assets force: true
+  when :regenerate_assets    then Card::Assets.refresh force: true
   # when :regenerate_scripts   then Card::Assets.refresh_scripts
   when :clear_history
     not_allowed "clear history" unless irreversibles_tasks_allowed?
@@ -67,10 +66,6 @@ format :html do
 
   def cache_stats
     [
-      { title: "solid cache",
-        count: solid_cache_count, unit: " cards",
-        link_text: "clear solid cache",
-        task: "clear_solid_cache" },
       { title: "style assets",
         link_text: "regenerate styles and scripts",
         task: "regenerate_assets" } # ,
@@ -113,10 +108,6 @@ format :html do
   def count counter
     counter = counter.call if counter.is_a?(Proc)
     counter.respond_to?(:count) ? counter.count : counter
-  end
-
-  def solid_cache_count
-    Card.search right: { codename: "solid_cache" }, return: "count"
   end
 
   def asset_input_cache_count

@@ -9,7 +9,7 @@ format :html do
   view :content do
     voo.hide :edit_button
     wrap do
-      [_render_menu, _render_core, _render_edit_button(edit: :inline)]
+      [render_menu, render_core, render_edit_button(edit: :inline)]
     end
   end
 
@@ -19,7 +19,7 @@ format :html do
 
   view :content_with_edit_button, unknown: true do
     wrap do
-      [_render_menu, _render_core, _render_edit_button(edit: :inline)]
+      [render_menu, render_core, render_edit_button(edit: :inline)]
     end
   end
 
@@ -41,7 +41,7 @@ format :html do
 
   view :content_with_title do
     wrap true, title: card.format(:text).render_core do
-      [_render_menu, _render_core]
+      [render_menu, render_core]
     end
   end
 
@@ -53,7 +53,7 @@ format :html do
   view :content_panel do
     wrap do
       wrap_with :div, class: "card-body" do
-        [_render_menu, _render_core]
+        [render_menu, render_core]
       end
     end
   end

@@ -1,3 +1,5 @@
+# FIXME: this doesn't need to be in ALL set
+
 def read_bootstrap_variables
   path = ::File.expand_path(
     "#{mod_root :bootstrap}/vendor/bootstrap/scss/_variables.scss", __FILE__

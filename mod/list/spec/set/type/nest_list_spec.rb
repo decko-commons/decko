@@ -50,11 +50,11 @@ RSpec.describe Card::Set::Type::NestList do
   end
 
   specify "content view" do
-    card = Card.new name: "test", type_id: Card::NestListID,
-                    content: "{{A|core}}\n{{+B|title}}\n{{C|type|content}}"
+    card = Card.create! name: "nesttest", type: :nest_list,
+                        content: "{{A|core}}\n{{+B|title}}\n{{C|type|content}}"
     expect_view(:content, card: card).to have_tag("div.content-view") do
       with_text(/Alpha.*/)
-      with_tag "span.card-title", with: { title: "test+B" }
+      with_tag "span.card-title", with: { title: "nesttest+B" }
       with_tag "a.cardtype", text: "RichText"
     end
   end

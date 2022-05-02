@@ -8,7 +8,7 @@
 
 # authentication event
 event :signin, :validate, on: :update do
-  authenticate_or_abort subfield_content(:email), subfield_content(:password)
+  authenticate_or_abort field_content(:email), field_content(:password)
 end
 
 # abort after successful signin (do not save card)
@@ -30,8 +30,8 @@ event :send_reset_password_token, before: :signin, on: :update, trigger: :requir
   end
 end
 
-def email_from_subfield
-  @email_from_subfield ||= subfield_content(:email)
+def email_from_field
+  @email_from_field ||= field_content(:email)
 end
 
 def ok_to_read
@@ -76,7 +76,7 @@ def account_for email
 end
 
 def send_reset_password_email_or_fail
-  if (account = account_for email_from_subfield)&.active?
+  if (account = account_for email_from_field)&.active?
     send_reset_password_email account
   else
     reset_password_fail account
@@ -84,7 +84,7 @@ def send_reset_password_email_or_fail
 end
 
 def blank_email?
-  return false if email_from_subfield.present?
+  return false if email_from_field.present?
 
   error_on :email, :error_blank
 end
