@@ -3,9 +3,7 @@
     .guide-line-number 1
     Define rule
     -# = popover_link "Help text to explain this section"
-  .card-editor
-    = rules_type_formgroup
-    = rule_content_formgroup
+  = render(:rule_form_card_editor)
 .rule-section
   %h5
     .guide-line-number 2
