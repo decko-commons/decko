@@ -7,32 +7,32 @@
 - :name: RichText
   :type: :cardtype
   :codename: :basic
-  :subfields:
+  :fields:
     :description: "<p>Basic cards are for rich text, and are the default type for new cards.</p>"
 - :name: Number
   :type: :cardtype
   :codename: :number
-  :subfields:
+  :fields:
     :description: "<p>Can contain only numerical values.</p>"
 - :name: PlainText
   :type: :cardtype
   :codename: :plain_text
-  :subfields:
+  :fields:
     :description: "<p>PlainText cards are for unstyled text.</p>"
 - :name: HTML
   :type: :cardtype
   :codename: :html
-  :subfields:
+  :fields:
     :description: "<p>These cards allow unrestricted HTML. [[http://decko.org/wagn/HTML|more]]</p>"
 - :name: Toggle
   :type: :cardtype
   :codename: :toggle
-  :subfields:
+  :fields:
     :description: "<p>Toggles simply indicate yes or no. [[http://decko.org/wagn/Toggle|more]].</p>"
 - :name: Phrase
   :type: :cardtype
   :codename: :phrase
-  :subfields:
+  :fields:
     :description: "<p>Phrase cards are for short unstyled text.</p>"
 - :name: URI
   :type: :cardtype
@@ -41,9 +41,9 @@
 - :name: "*head"
   :type: :setting
   :codename: :head
-  :subfields:
+  :fields:
     :self:
-      :subfields:
+      :fields:
         :read: Anyone
 
 - :name:
@@ -61,9 +61,9 @@
   :content: |
     {{+:image|core}}
     <a href="http://decko.org">Decko v{{*version|core}}</a>
-  :subfields:
+  :fields:
     :self:
-      :subfields:
+      :fields:
         :read: Anyone
     # TODO: move to code.  should not be editable
     :image:

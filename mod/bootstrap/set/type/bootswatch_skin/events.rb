@@ -4,7 +4,7 @@ event :initialize_because_of_type_change, :prepare_to_store,
   self.content = content
   initialize_theme
   if (items = old_skin_items)&.present?
-    subfield :stylesheets, content: items
+    field :stylesheets, content: items
   end
 end
 
@@ -28,6 +28,6 @@ def old_skin_items
 end
 
 def initialize_theme
-  subfield :colors, type: :scss
-  subfield :variables, type: :scss
+  field :colors, type: :scss
+  field :variables, type: :scss
 end

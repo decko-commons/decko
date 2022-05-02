@@ -2,9 +2,9 @@
   :content: |
     <div>{{*getting started|core}}</div>
     <div>{{## Feel free to get rid of this and start fresh! }}</div>
-  :subfields:
+  :fields:
     :self:
-      :subfields:
+      :fields:
         :layout:
           :content: Home Layout
           :type: :pointer
@@ -141,7 +141,7 @@
       </div>
       <p class="lead mt-5"><a href="Administrator">and more...</a></p>
     </div>
-  :subfields:
+  :fields:
     :shark:
       :type: :html
       :content: |-

@@ -1,43 +1,43 @@
 ---
 - :name: John
   :type: :user
-  :subfields:
+  :fields:
     :account:
-      :subfields:
+      :fields:
         :email: john@user.com
         :password: john_pass
 - :name: Sara
   :type: :user
-  :subfields:
+  :fields:
     :account:
-      :subfields:
+      :fields:
         :email: sara@user.com
         :password: sara_pass
 - :name: Big Brother
   :type: :user
-  :subfields:
+  :fields:
     :account:
-      :subfields:
+      :fields:
         :email: big-brother@user.com
         :password: big-brother_pass
 - :name: Optic fan
   :type: :user
-  :subfields:
+  :fields:
     :account:
-      :subfields:
+      :fields:
         :email: optic-fan@user.com
         :password: optic-fan_pass
 - :name: Sunglasses fan
   :type: :user
-  :subfields:
+  :fields:
     :account:
-      :subfields:
+      :fields:
         :email: sunglasses-fan@user.com
         :password: sunglasses-fan_pass
 - :name: Narcissist
   :type: :user
-  :subfields:
+  :fields:
     :account:
-      :subfields:
+      :fields:
         :email: narcissist@user.com
         :password: narcissist_pass

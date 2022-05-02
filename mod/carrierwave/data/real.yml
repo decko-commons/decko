@@ -2,7 +2,7 @@
 - :name: File
   :type: :cardtype
   :codename: :file
-  :subfields:
+  :fields:
     :description: |-
       <p>
         Upload images to these cards and include them anywhere.
@@ -12,7 +12,7 @@
 - :name: Image
   :type: :cardtype
   :codename: :image
-  :subfields:
+  :fields:
     :description: |-
       <p>
         File cards are for uploading and downloading files.
@@ -29,9 +29,9 @@
   :codename: :logo
   :storage_type: :coded
   :image: logo.svg
-  :subfields:
+  :fields:
     :self:
-      :subfields:
+      :fields:
         :read: Anyone
 - :name: "*favicon"
   :type: :image

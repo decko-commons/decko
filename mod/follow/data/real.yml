@@ -7,18 +7,18 @@
 - :name: "*follow"
   :type: :setting
   :codename: :follow
-  :subfields:
+  :fields:
     :right:
-      :subfields:
+      :fields:
         :input_type: radio
         :help: Get notified about changes.
 
 - :name: "*following"
   :type: :list
   :codename: :following
-  :subfields:
+  :fields:
     :right:
-      :subfields:
+      :fields:
         :create: _left
         :update: _left
 
@@ -47,9 +47,9 @@
 
 - :name: "*contextual class"
   :codename: :contextual_class
-  :subfields:
+  :fields:
     :right:
-      :subfields:
+      :fields:
         :input_type: radio
         :content_options: |-
           success
@@ -65,7 +65,7 @@
 - :name: follower notification email
   :type: :email_template
   :codename: :follower_notification_email
-  :subfields:
+  :fields:
     :from: Decko Bot
     :subject: '{{_user|name}} {{_|last_action_verb}} "{{_|name}}"'
     :html_message: |-

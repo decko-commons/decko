@@ -1,7 +1,6 @@
 describe Card::Set::Abstract::Pointer do
   let(:pointer) do
-    Card.create! name: "tp", type_id: Card::PointerID,
-                 content: "[[item1]]\n[[item2]]"
+    Card.create! name: "tp", type: :pointer, content: "[[item1]]\n[[item2]]"
   end
 
   def pointer_update content
@@ -83,9 +82,9 @@ describe Card::Set::Abstract::Pointer do
       expect(pointer1.content).to eq("b1\nb2")
     end
 
-    it "handles arrays for subfields" do
-      create "super card", subfields: { "a pointer" => { content: ["b1", "[[b2]]"],
-                                                         type_id: Card::PointerID } }
+    it "handles arrays for fields" do
+      create "super card", fields: { "a pointer" => { content: ["b1", "[[b2]]"],
+                                                      type: :pointer } }
       expect_card("super card+a pointer").to have_db_content "b1\nb2"
     end
   end

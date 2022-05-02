@@ -7,10 +7,10 @@ def export_hash field_tags: []
     type: export_type,
     codename: codename,
     content: export_content,
-    subfields: export_subfields(field_tags) }.compact_blank
+    fields: export_fields(field_tags) }.compact_blank
 end
 
-def export_subfields marks
+def export_fields marks
   marks.each_with_object({}) do |mark, hash|
     hash[mark] = [name, mark].card&.export_content
   end.compact_blank

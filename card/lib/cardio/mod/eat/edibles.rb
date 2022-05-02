@@ -54,7 +54,7 @@ module Cardio
         def each_card_hash items
           items.each do |item|
             yield item
-            item[:subfields]&.values&.each { |val| yield val if val.is_a? Hash }
+            item[:fields]&.values&.each { |val| yield val if val.is_a? Hash }
           end
           items
         end

@@ -26,7 +26,7 @@ format :html do
   def new_skin_path_args new_name
     { name: new_name,
       type: :bootstrap_skin,
-      subfields: { parent: card.name } }
+      fields: { parent: card.name } }
   end
 
   def customize_button target: parent&.card, text: "Apply and customize"

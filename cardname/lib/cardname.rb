@@ -10,6 +10,7 @@ class Cardname < String
   require "cardname/contextual"
   require "cardname/predicates"
   require "cardname/manipulate"
+  require "cardname/fields"
 
   include Parts
   include Pieces
@@ -17,6 +18,7 @@ class Cardname < String
   include Contextual
   include Predicates
   include Manipulate
+  include Fields
 
   OK4KEY_RE = '\p{Word}\*'
 

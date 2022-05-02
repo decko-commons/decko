@@ -57,7 +57,7 @@ end
 
 event :setup_first_user, :prepare_to_store, on: :create, when: :setup? do
   subcard %i[signup_alert_email to].cardname, content: name
-  subfield :roles, content: roles_for_first_user
+  field :roles, content: roles_for_first_user
 end
 
 def roles_for_first_user

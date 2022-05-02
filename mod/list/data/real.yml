@@ -2,14 +2,14 @@
 - :name: List
   :type: :cardtype
   :codename: :list
-  :subfields:
+  :fields:
     :description: |-
       <p>Lists list one or more other cards. [[http://decko.org/:list|more]]</p>
 
 - :name: Pointer
   :type: :cardtype
   :codename: :pointer
-  :subfields:
+  :fields:
     :description: |-
       <p>Pointers point another card. [[http://decko.org/:pointer|more]]</p>
 

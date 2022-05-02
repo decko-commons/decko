@@ -28,7 +28,7 @@ format :html do
   end
 
   def range_filter field, default={}, opts={}
-    add_class opts, "simple-text range-filter-subfield"
+    add_class opts, "simple-text range-filter-field"
     default ||= {}
     output [range_sign(:from),
             sub_text_filter(field, :from, default, opts),

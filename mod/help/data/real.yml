@@ -4,9 +4,9 @@
 - :name: "*help"
   :type: :setting
   :codename: :help
-  :subfields:
+  :fields:
     :right:
-      :subfields:
+      :fields:
         :create: Help Desk
         :update: Help Desk
         :delete: Help Desk

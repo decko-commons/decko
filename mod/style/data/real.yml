@@ -14,45 +14,45 @@
 - :name: CSS
   :type: :cardtype
   :codename: :css
-  :subfields:
+  :fields:
     :description: |-
       <p>Customize styles for [[Skins]]. [[http://decko.org/CSS|more]]</p>
     :type:
-      :subfields:
+      :fields:
         :create: Shark
         :update: Shark
         :delete: Shark
 - :name: SCSS
   :type: :cardtype
   :codename: :scss
-  :subfields:
+  :fields:
     :description: |-
       <p>Customize styles for [[Skins]]. [[http://decko.org/SCSS|more]]</p>
     :type:
-      :subfields:
+      :fields:
         :create: Shark
         :update: Shark
         :delete: Shark
 - :name: Skin
   :type: :cardtype
   :codename: :skin
-  :subfields:
+  :fields:
     :description: |-
       <p>
         A [[skin]] determines a page's look and feel.
         [[http://decko.org/Skins|more]]
       </p>
     :type:
-      :subfields:
+      :fields:
         :create: Shark
         :update: Shark
         :delete: Shark
 - :name: "*style"
   :type: :setting
   :codename: :style
-  :subfields:
+  :fields:
     :right:
-      :subfields:
+      :fields:
         :input_type: radio
         :content_options:
           :type: :search_type

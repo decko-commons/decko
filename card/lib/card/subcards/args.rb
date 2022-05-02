@@ -4,8 +4,8 @@ class Card
     module Args
       def extract_subcard_args! args
         safe_subcard_args args do |subcards|
-          extract_explicit_subfields subcards, args
-          extract_implicit_subfields subcards, args
+          extract_explicit_fields subcards, args
+          extract_implicit_fields subcards, args
         end
       end
 
@@ -18,21 +18,21 @@ class Card
         subcards.try(:to_unsafe_h) || subcards
       end
 
-      def extract_explicit_subfields subcards, args
-        return unless (subfields = args.delete :subfields)
+      def extract_explicit_fields subcards, args
+        return unless (fields = args.delete :fields)
 
-        subfields.each_pair do |key, value|
-          subcards[normalize_subfield_key(key)] = value
+        fields.each_pair do |key, value|
+          subcards[normalize_field_key(key)] = value
         end
       end
 
       # ensure a leading '+'
-      def normalize_subfield_key key
+      def normalize_field_key key
         key = Card::Codename.name(key) if key.is_a?(Symbol) && Card::Codename.exist?(key)
         key.to_name.prepend_joint
       end
 
-      def extract_implicit_subfields subcards, args
+      def extract_implicit_fields subcards, args
         args.each_key do |key|
           subcards[key.to_s] = args.delete(key) if key.to_s.match?(/^\+/)
         end

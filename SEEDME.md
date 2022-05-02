@@ -125,7 +125,7 @@ The most common are:
    - type
    - codename
    - content
-   - subfields
+   - fields
    - skip
    - trigger
 
