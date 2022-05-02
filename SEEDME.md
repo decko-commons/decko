@@ -12,8 +12,8 @@ If you already have tables but want to start over, you can use `rake card:seed:r
 which will truncate (as in, delete everything from) the existing tables and then
 add the seed data.
 
-You can also use Ruby-on-Rails db tasks (eg `db:reset`, `db:drop`) for their original purpose, 
-but caution is advised.
+You can also use Ruby-on-Rails db tasks (eg `db:reset`, `db:drop`) for their original
+purpose, but caution is advised.
 
 **Important**: always back up any valuable data before running any seed commands.
 
@@ -22,8 +22,8 @@ but caution is advised.
 
 Decko blurs the line between data and code. That is by design, because Decko helps people
 who aren't coders do things that usually only coders do. In Decko terms, we extend the
-capacities of sharks (ie advanced web users, so ultimately data manipulaters) into the
-realm of the capacities of monkeys (ie code manipulaters). 
+capacities of sharks (ie advanced web users, so ultimately **data** people) into the
+realm of the capacities of monkeys (ie **code** people). 
 
 [Mods][1] often add cards used to configure things. These cards can
 be influenced in data (by sharks), in code (by monkeys), or both.
