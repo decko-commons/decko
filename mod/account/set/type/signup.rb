@@ -28,7 +28,7 @@ event :approve_without_verification, :validate, on: :update, trigger: :required 
   # TODO: if validated here, add trigger and activate in storage phase
   approvable do
     activate_accounted
-    subfield(:account).activate_account
+    field(:account).activate_account
   end
 end
 
@@ -38,8 +38,8 @@ event :act_as_current_for_integrate_stage, :integrate, on: :create do
 end
 
 def request_verification
-  acct = subfield :account
-  acct.subfield :status, content: "unverified"
+  acct = field :account
+  acct.field :status, content: "unverified"
   acct.trigger_event! :send_verification_email
 end
 

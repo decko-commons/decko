@@ -87,8 +87,8 @@ def stylesheets_card_names
   [Card.fetch_name(name, :stylesheets)]
 end
 
-def content_from_theme subfield
-  theme_card&.scss_from_theme_file subfield
+def content_from_theme field
+  theme_card&.scss_from_theme_file field
 end
 
 format :html do

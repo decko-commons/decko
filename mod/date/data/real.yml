@@ -2,7 +2,7 @@
 - :name: Date
   :type: :cardtype
   :codename: :date
-  :subfields:
+  :fields:
     :description: "<p>Date cards contain a date.</p>"
 - :name: "*when created"
   :codename: :when_created

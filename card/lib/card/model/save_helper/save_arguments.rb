@@ -102,7 +102,7 @@ class Card
         end
 
         def changing_field_arg key, value
-          subfields[key] = value
+          fields[key] = value
           false
         end
 

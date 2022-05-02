@@ -10,7 +10,6 @@ class Card
   #
   # Card::Name adds support for deeper card integration
   class Name < Cardname
-    include FieldsAndTraits
     include NameVariants
 
     class << self

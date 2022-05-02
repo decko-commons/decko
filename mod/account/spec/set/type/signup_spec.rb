@@ -8,8 +8,8 @@ RSpec.describe Card::Set::Type::Signup do
   let :big_bad_signup do
     Mail::TestMailer.deliveries.clear
     Card.create! name: "Big Bad Wolf", type: :signup,
-                 subfields: {
-                   account: { subfields: { email: "wolf@decko.org", password: "wolf" } }
+                 fields: {
+                   account: { fields: { email: "wolf@decko.org", password: "wolf" } }
                  }
   end
 

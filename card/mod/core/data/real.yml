@@ -9,7 +9,7 @@
 - :name: Cardtype
   :type: :cardtype
   :codename: :cardtype
-  :subfields:
+  :fields:
     :description: |-
       <p>
         Every card has a type, which shapes the kind of information it holds.
@@ -41,7 +41,7 @@
 - :name: User
   :type: :cardtype
   :codename: :user
-  :subfields:
+  :fields:
     :description: |-
       {{_l|name}} cards can support accounts, profile pages, and more.
       [[http://decko.org/Users|more]]
