@@ -74,7 +74,7 @@ RSpec.describe Card::Set::Type::SearchType do
 
       it "has nests contents" do
         create "Guide", type: "Book", fields: { "author" => "Hitchhiker",
-                                                   "illustrator" => "Galaxy" }
+                                                "illustrator" => "Galaxy" }
         is_expected.to include "Hitchhiker,Galaxy"
       end
     end

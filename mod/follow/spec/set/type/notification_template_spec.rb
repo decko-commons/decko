@@ -11,15 +11,13 @@ RSpec.describe Card::Set::Type::NotificationTemplate do
 
   def notify
     Card::Auth.as_bot do
-      post :update, params: { mark: "A", card: { "content" => "change" } },
-                    xhr: true
+      post :update, params: { mark: "A", card: { "content" => "change" } }, xhr: true
     end
   end
 
   context "without fields" do
     before do
-      create "success", type_id: Card::NotificationTemplateID,
-                        content: "success"
+      create "success", type: :notification_template, content: "success"
     end
 
     describe "#deliver" do
@@ -45,8 +43,8 @@ RSpec.describe Card::Set::Type::NotificationTemplate do
              type_id: Card::NotificationTemplateID,
              content: "success",
              fields: { contextual_class: "danger",
-                          disappear: "1",
-                          message: "failed" }
+                       disappear: "1",
+                       message: "failed" }
     end
 
     it "shows notification" do
