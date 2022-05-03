@@ -28,7 +28,8 @@ format :html do
     text_field_tag name, value, opts
   end
 
-  def range_filter field, default={}, opts={}
+  def range_filter field, default={}, opts=nil
+    opts ||= {}
     add_class opts, "simple-text range-filter-field"
     default ||= {}
     output [range_sign(:from),

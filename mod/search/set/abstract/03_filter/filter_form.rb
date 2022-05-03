@@ -74,10 +74,9 @@ format :html do
         method = "filter_#{category}_#{trait}"
         if respond_to? method
           hash[trait] = send method
-        else
-          raise "expected #{method} method" if category == :type
+        elsif category == :type
+          raise "expected #{method} method"
         end
-        # hash
       end
   end
 
