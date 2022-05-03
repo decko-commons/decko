@@ -84,27 +84,6 @@ module Cardio
       end
     end
 
-
-    def import_cards filename, merge_opts={}
-      Card::Mailer.perform_deliveries = false
-      output_file = File.join data_path, "unmerged_#{filename}"
-      merge_opts[:output_file] ||= output_file
-      meta_data = JSON.parse(File.read(data_path(filename)))
-      full_data =
-        meta_data.map do |hash|
-          hash["content"] =
-            File.read data_path(File.join("cards", hash["name"].to_name.key))
-          hash
-        end
-      Card.merge_list full_data, merge_opts
-    end
-
-    def read_json filename
-      raw_json = File.read data_path(filename)
-      json = JSON.parse raw_json
-      json.is_a?(Hash) ? json["card"]["value"] : json
-    end
-
     def data_path filename=nil
       self.class.data_path filename
     end
@@ -128,10 +107,6 @@ module Cardio
 
     def down
       raise ActiveRecord::IrreversibleMigration
-    end
-
-    def update_machine_output
-      Card.search(right: { codename: "machine_output" }).each(&:delete)
     end
   end
 end
