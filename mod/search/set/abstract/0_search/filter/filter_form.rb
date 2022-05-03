@@ -57,9 +57,27 @@ format :html do
   def filter_form_data
     all_filter_keys.each_with_object({}) do |cat, h|
       h[cat] = { label: filter_label(cat),
-                 input_field: _render("filter_#{cat}_formgroup"),
+                 input_field: filter_input_field(cat),
                  active: active_filter?(cat) }
     end
+  end
+
+  def filter_input_field category, default=nil
+    fc = filter_config category
+    send "#{fc[:type]}_filter", category, (default || fc[:default]), fc[:options]
+  end
+
+  def filter_config category
+    @filter_config ||= {}
+    @filter_config[category] ||=
+      %i[type default options label].each_with_object({}) do |trait, hash|
+        method = "filter_#{category}_#{trait}"
+        if respond_to? method
+          hash[trait] = send method
+        elsif trait == :type
+          raise "expected #{method} method"
+        end
+      end
   end
 
   def active_filter? field
@@ -75,13 +93,7 @@ format :html do
   end
 
   def filter_label field
-    # return "Keyword" if field.to_sym == :name
-    #
-    filter_label_from_method(field) || filter_label_from_name(field)
-  end
-
-  def filter_label_from_method field
-    try "#{field}_filter_label"
+    filter_config(field)[:label] || filter_label_from_name(field)
   end
 
   def filter_label_from_name field

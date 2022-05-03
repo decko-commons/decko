@@ -19,17 +19,6 @@ class AddSharkAndHelpDeskRole < Cardio::Migration::Core
     remove_redundant_permissions
     add_shark_permissions
     add_help_desk_permissions
-
-    merge_cards %w[role+*type+*structure
-                   administrator+dashboard administrator+description
-                   shark+dashboard shark+description
-                   help_desk+dashboard help_desk+description
-                   anyone_signed_in+dashboard
-                   *recaptcha_settings+*self+*structure
-                   *account_settings+*right+*structure
-                   *getting_started+shark
-                   right_thin_sidebar_layout left_sidebar_layout
-                   *getting_started]
   end
 
   private
