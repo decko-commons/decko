@@ -84,16 +84,6 @@ module Cardio
       end
     end
 
-    # def disable_ddl_transaction #:nodoc:
-    #   true
-    # end
-
-    def import_json filename, merge_opts={}
-      Card::Mailer.perform_deliveries = false
-      output_file = File.join data_path, "unmerged_#{filename}"
-      merge_opts[:output_file] ||= output_file
-      Card.merge_list read_json(filename), merge_opts
-    end
 
     def import_cards filename, merge_opts={}
       Card::Mailer.perform_deliveries = false
@@ -107,22 +97,6 @@ module Cardio
           hash
         end
       Card.merge_list full_data, merge_opts
-    end
-
-    # uses the data in cards.yml and the card content in db/migrate_cards/data/cards
-    # to update or create the cards given by name or key in names_or_keys
-    def merge_cards names_or_keys
-      names_or_keys = Array(names_or_keys)
-      Card::Mailer.perform_deliveries = false
-
-      Migration::Import.new(data_path).merge only: names_or_keys
-    end
-
-    def merge_pristine_cards names_or_keys
-      names_or_keys = Array(names_or_keys)
-
-      pristine = names_or_keys.select { |n| !Card.exists?(n) || Card.fetch(n)&.pristine? }
-      merge_cards pristine
     end
 
     def read_json filename
