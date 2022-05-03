@@ -1,0 +1,60 @@
+.filter-and-sort {
+  padding-top: 1.5em;
+}
+
+.filter-section-icon {
+  width: 25px;
+  color: $text-muted;
+  float: left;
+  padding: 0.5rem;
+}
+
+// Fix to prevent that the dropdown becomes bigger than the area it is inside.
+// happens for example for project filter
+// The reason is that dropdownAutoWidth in script_load_select2.js.coffee sets a fixed
+// width so that the longest entry fits in
+.filter-in-filter-form {
+  max-width: 100%;
+  // overflow-x: hidden;
+  .dropdown-menu {
+    z-index: 1035;
+  }
+}
+
+.filter-input-group, .sort-input-group {
+  max-width: 100% !important;
+  margin: 0 0.5rem 0.5rem 0;
+  display: flex;
+  flex-wrap: nowrap;
+  btn, .input-group-text, input, .select2-selection, .input-group-prepend {
+    border-color: $gray-200;
+  }
+}
+
+.range-filter-field {
+  max-width: 50px;
+}
+
+.filter-form {
+  > .card {
+    border: 0;
+    background: inherit;
+    > .card-body {
+      padding: 1rem 0 0.5rem 0;
+    }
+  }
+}
+
+.filter-buttons {
+  text-align: right;
+  margin: 10px;
+  //border-top: 1px solid #eee;
+  .form-group {
+    margin: 0 0 -15px;
+    padding: 0;
+  }
+}
+
+.filtered_results-view {
+  min-height: 300px;
+}

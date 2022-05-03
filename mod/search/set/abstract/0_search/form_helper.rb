@@ -1,22 +1,21 @@
-include_set Abstract::FilterHelper
-
 format :html do
-  view :filter_name_formgroup, cache: :never do
-    text_filter :name
+  def filter_name_type
+    :text
   end
 
   def select_filter field, default=nil, options=nil
-    options ||= filter_options field
+    options = filter_options options
     options = [["--", ""]] + options unless default
     select_filter_tag field, default, options
   end
 
-  def multiselect_filter field, default=nil, options=nil
+  def multi_filter field, default=nil, options=nil
     options ||= filter_options field
     multiselect_filter_tag field, default, options
   end
 
-  def text_filter field, default=nil, opts={}
+  def text_filter field, default=nil, opts=nil
+    opts ||= {}
     value = filter_param(field) || default
     text_filter_with_name_and_value filter_name(field), value, opts
   end
@@ -27,7 +26,8 @@ format :html do
     text_field_tag name, value, opts
   end
 
-  def range_filter field, default={}, opts={}
+  def range_filter field, default={}, opts=nil
+    opts ||= {}
     add_class opts, "simple-text range-filter-field"
     default ||= {}
     output [range_sign(:from),
@@ -47,7 +47,7 @@ format :html do
     text_filter_with_name_and_value name, value, opts
   end
 
-  def autocomplete_filter type_code, options_card=nil
+  def autocomplete_filter type_code, _default, options_card=nil
     options_card ||= Card::Name[type_code, :type, :by_name]
     text_filter type_code, "", class: "#{type_code}_autocomplete",
                                "data-options-card": options_card
@@ -78,8 +78,7 @@ format :html do
     "filter[#{field}]#{'[]' if multi}"
   end
 
-  def filter_options field
-    raw = send("#{field}_options")
+  def filter_options raw
     raw.is_a?(Array) ? raw : option_hash_to_array(raw)
   end
 
