@@ -62,9 +62,9 @@ format :html do
     end
   end
 
-  def filter_input_field category
-    config = filter_config category
-    send "#{config[:type]}_filter", category, config[:default], config[:options]
+  def filter_input_field category, default=nil
+    fc = filter_config category
+    send "#{fc[:type]}_filter", category, (default ||fc[:default]), fc[:options]
   end
 
   def filter_config category
