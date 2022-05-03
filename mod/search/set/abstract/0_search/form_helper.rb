@@ -1,5 +1,3 @@
-include_set Abstract::FilterHelper
-
 format :html do
   def filter_name_type
     :text
