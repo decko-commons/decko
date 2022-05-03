@@ -1,4 +1,4 @@
-RSpec.describe Card::Set::Abstract::Filter do
+RSpec.describe Card::Set::Abstract::Search::Filter do
   subject do
     search_card = Card.new type: "Search"
     search_card.format.filter_form a: { input_field: "<input id='a'/>", label: "A" },
