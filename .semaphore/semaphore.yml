@@ -120,7 +120,8 @@ blocks:
             - nvm use 16.0.0
             - rm -rf node_modules
             - yarn install --frozen-lockfile
-            - yarn run cypress run --record --key 15efb149-d03c-410b-bb10-6d3b1a82958e --reporter junit --reporter-options "mochaFile=/home/semaphore/reports/cypress-output-[hash].xml"
+            # - yarn run cypress run --record --key 15efb149-d03c-410b-bb10-6d3b1a82958e --reporter junit --reporter-options "mochaFile=/home/semaphore/reports/cypress-output-[hash].xml"
+            - yarn run cypress run --reporter junit --reporter-options "mochaFile=/home/semaphore/reports/cypress-output-[hash].xml"
             - pkill -2 -f puma
         - name: Cucumber
           commands:
