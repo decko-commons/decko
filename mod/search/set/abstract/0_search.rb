@@ -56,10 +56,6 @@ format do
     @count_with_params ||= search_with_rescue search_params.merge(return: :count)
   end
 
-  view :filtered_count, cache: :never do
-    count_with_params
-  end
-
   def search_with_rescue query_args
     rescuing_bad_query query_args do
       card.cached_search query_args
