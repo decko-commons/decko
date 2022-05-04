@@ -6,7 +6,6 @@ describe Card::Set::Self::InputOptions do
         "autocomplete",
         "calendar",
         "checkbox",
-        "filtered list",
         "list",
         "multiselect",
         "radio",

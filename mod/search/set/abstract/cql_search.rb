@@ -71,10 +71,6 @@ def standardized_query_args args
 end
 
 format do
-  def search_params
-    super.merge filter_and_sort_cql
-  end
-
   def default_limit
     card_content_limit || super
   end

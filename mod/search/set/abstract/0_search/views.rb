@@ -117,16 +117,6 @@ format :html do
     end
   end
 
-  view :select_item, cache: :never do
-    wrap do
-      haml :select_item
-    end
-  end
-
-  before :select_item do
-    class_up "card-slot", "_filter-result-slot"
-  end
-
   view :checkbox_list, cache: :never do
     with_results do
       search_result_list "_search-checkbox-list pe-2" do |item_card|
