@@ -21,7 +21,7 @@ format :html do
 
   view :rule_form_card_editor, cache: :never, unknown: true do
     prepare_rule_form_options
-    
+
     wrap true, class: "card-editor slotter" do
       [
         rules_type_formgroup,
