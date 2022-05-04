@@ -1,7 +1,0 @@
-.filtered-list-editor
-  %ul.pointer-list.filtered-list-review._filtered-list.list-group.vertical.p-0
-    - card.item_cards(context: :raw).each do |item_card|
-      = nest_item item_card, view: filtered_item_view, wrap: filtered_item_wrap
-  %br
-  .clearfix
-    = add_item_modal_link

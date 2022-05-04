@@ -1,3 +1,5 @@
+include_set Abstract::Paging
+
 format do
   def search_params
     @search_params ||= default_search_params

@@ -1,5 +1,3 @@
-include_set Abstract::Paging
-
 def search _args={}
   raise Error, "search not overridden"
 end
@@ -56,10 +54,6 @@ format do
 
   def count_with_params
     @count_with_params ||= search_with_rescue search_params.merge(return: :count)
-  end
-
-  view :filtered_count, cache: :never do
-    count_with_params
   end
 
   def search_with_rescue query_args
