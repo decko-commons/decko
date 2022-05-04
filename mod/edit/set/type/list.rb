@@ -1,5 +1,5 @@
 def input_type_content_options
-  ["multiselect", "checkbox", "list"]
+  %w[multiselect checkbox list]
 end
 
 def show_content_options?

@@ -117,8 +117,6 @@ format :html do
     end
   end
 
-
-
   view :checkbox_list, cache: :never do
     with_results do
       search_result_list "_search-checkbox-list pe-2" do |item_card|
