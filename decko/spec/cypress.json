@@ -2,7 +2,5 @@
   "projectId": "n4h7vq",
   "baseUrl": "http://localhost:5002",
   "defaultCommandTimeout": 10000,
-  "watchForFileChanges": false,
-  "reporterOptions": "mochaFile=/home/semaphore/reports/cypress-output-[hash].xml",
-  "reporter": "junit"
+  "watchForFileChanges": false
 }
