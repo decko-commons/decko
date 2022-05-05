@@ -1,6 +1,10 @@
 assign_type :pointer
 
 format :html do
+  def default_item_view
+    :name
+  end
+
   def quick_editor
     @submit_on_change = true
     super
