@@ -10,8 +10,6 @@ global_job_config:
       value: "~/bundle/"
     - name: DECKO_REPO_PATH
       value: "~/decko"
-    - name: S3_PATH
-      value: ""
 
   secrets:
     - name: s3-credentials
@@ -25,8 +23,6 @@ global_job_config:
       - gem install bundler:2.3.11
       - alias be='bundle exec'
       - git submodule init
-      # - git submodule status > substat.txt # needed for sem submodule caching
-      # - ruby .semaphore/submodules.rb restore # restore submodules from sem cache
 
       - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
       - chmod +x ./cc-test-reporter
@@ -100,6 +96,8 @@ blocks:
 
   - name: Integration Tests
     task:
+      secrets:
+        - name: decko-cypress
       env_vars:
         - name: REPO_TMPSETS
           value: "true"
@@ -120,8 +118,9 @@ blocks:
             - nvm use 16.0.0
             - rm -rf node_modules
             - yarn install --frozen-lockfile
-            # - yarn run cypress run --record --key 15efb149-d03c-410b-bb10-6d3b1a82958e --reporter junit --reporter-options "mochaFile=/home/semaphore/reports/cypress-output-[hash].xml"
-            - yarn run cypress run --reporter junit --reporter-options "mochaFile=/home/semaphore/reports/cypress-output-[hash].xml"
+
+            - yarn run cypress run --record --reporter junit --reporter-options "mochaFile=/home/semaphore/reports/cypress-output-[hash].xml"
+
             - pkill -2 -f puma
         - name: Cucumber
           commands:
