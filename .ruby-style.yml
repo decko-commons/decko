@@ -30,13 +30,7 @@ Metrics/MethodLength:
   CountComments: false
   Max: 15
 Metrics/BlockLength:
-  Enabled: true
-  Exclude:
-    - 'Rakefile'
-    - '**/*.rake'
-    - 'spec/**/*.rb'
-    - '**/*_spec.rb'
-
+  Enabled: false
 RSpec/MultipleExpectations:
   Enabled: false
 RSpec/ExampleLength:
