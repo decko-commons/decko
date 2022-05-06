@@ -1,6 +1,6 @@
 {
+  "projectId": "n4h7vq",
   "baseUrl": "http://localhost:5002",
   "defaultCommandTimeout": 10000,
-  "projectId": "n4h7vq",
   "watchForFileChanges": false
 }
