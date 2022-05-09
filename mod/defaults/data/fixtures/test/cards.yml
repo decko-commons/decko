@@ -14198,7 +14198,7 @@ cards_752:
   right_id:
   current_revision_id:
   created_at: 2022-05-03 19:57:54.000000000 Z
-  updated_at: 2022-05-03 19:57:54.000000000 Z
+  updated_at: 2022-05-09 18:58:15.000000000 Z
   creator_id: 1
   updater_id: 1
   read_rule_class: "*all"
@@ -16062,7 +16062,7 @@ cards_855:
   right_id:
   current_revision_id:
   created_at: 2022-05-03 19:57:57.000000000 Z
-  updated_at: 2022-05-03 19:57:57.000000000 Z
+  updated_at: 2022-05-09 18:58:16.000000000 Z
   creator_id: 603
   updater_id: 603
   read_rule_class: "*all"
@@ -16152,7 +16152,7 @@ cards_860:
   right_id:
   current_revision_id:
   created_at: 2022-05-03 19:57:57.000000000 Z
-  updated_at: 2022-05-03 19:57:57.000000000 Z
+  updated_at: 2022-05-09 18:58:16.000000000 Z
   creator_id: 603
   updater_id: 603
   read_rule_class: "*all"
@@ -16224,7 +16224,7 @@ cards_864:
   right_id:
   current_revision_id:
   created_at: 2022-05-03 19:57:57.000000000 Z
-  updated_at: 2022-05-03 19:57:57.000000000 Z
+  updated_at: 2022-05-09 18:58:16.000000000 Z
   creator_id: 603
   updater_id: 603
   read_rule_class: "*self"
@@ -16278,7 +16278,7 @@ cards_867:
   right_id:
   current_revision_id:
   created_at: 2022-05-03 19:57:58.000000000 Z
-  updated_at: 2022-05-03 19:57:58.000000000 Z
+  updated_at: 2022-05-09 18:58:17.000000000 Z
   creator_id: 603
   updater_id: 603
   read_rule_class: "*self"

@@ -74,3 +74,18 @@ card_changes_015:
   card_action_id: 1082
   field: 2
   value: zoom in
+card_changes_016:
+  id: 16
+  card_action_id: 1192
+  field: 2
+  value: egg
+card_changes_017:
+  id: 17
+  card_action_id: 1193
+  field: 2
+  value: chicken
+card_changes_018:
+  id: 18
+  card_action_id: 1194
+  field: 2
+  value: chick
