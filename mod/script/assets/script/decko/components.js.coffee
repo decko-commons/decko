@@ -1,16 +1,11 @@
 submitAfterTyping = null
 
 $(window).ready ->
-  $('body').on 'show.bs.tab', 'a.load[data-bs-toggle="tab"][data-url]', (e) ->
-    tab_id = $(e.target).attr('href')
-    url    = $(e.target).data('url')
-    $(e.target).removeClass('load')
-    $.ajax
-      url: url
-      success: (html) ->
-        $(tab_id).append(html)
-        decko.contentLoaded($(tab_id), $(this))
+  $('body').on "change", "._submit-on-change", (event) ->
+    $(event.target).closest('form').submit()
+    false
 
+  # TODO: consider refactoring so that all of this is handled by _submit-on-change
   $('body').on "input", "._submit-after-typing", (event) ->
     form = $(event.target).closest('form')
     form.slot().find(".autosubmit-success-notification").remove()
@@ -27,10 +22,6 @@ $(window).ready ->
       $(event.target).closest('form').submit()
       false
 
-  $('body').on "change", "._submit-on-change", (event) ->
-    $(event.target).closest('form').submit()
-    false
-
   $('body').on "change", "._edit-item", (event) ->
     cb = $(event.target)
     if cb.is(":checked")
@@ -40,9 +31,3 @@ $(window).ready ->
 
     $(event.target).closest('form').submit()
     false
-
-  $("body").on "click", "._popover_link", (event) ->
-    # event.preventDefault();
-
-
-
