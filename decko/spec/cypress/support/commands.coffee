@@ -75,12 +75,12 @@ Cypress.Commands.add "login", (email="joe@admin.com", password="joe_pass") =>
   # cy.setCookie("user_testdeck_test", "11862")
   cy.request
     method: "POST",
-    url: "/update/*signin",
+    url: "/update/:signin",
     body:
       card:
-        subcards:
-          "+*email": { content: email }
-          "+*password": { content: password }
+        fields:
+          ":email": email
+          ":password": password
 
 
 Cypress.Commands.add "logout", () =>
