@@ -1,0 +1,6 @@
+- colorgroup.each do |name, color|
+  %div
+    %span.labeled-badge
+    %i{style: "background-color: #{color};"}
+    %label.text-muted
+      = name

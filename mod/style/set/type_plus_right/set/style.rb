@@ -1,6 +1,6 @@
 include_set Abstract::AssetOutputter, output_format: :css, output_view: :compressed
 
-assign_type :list
+assign_type :pointer
 
 def ok_to_read
   true
@@ -21,11 +21,15 @@ format :html do
   HIDDEN_SKINS = %w[bootstrap_default_skin themeless_bootstrap_skin bootstrap_default_skin
                     classic_bootstrap_skin].freeze
 
+  def input_type
+    :box_select
+  end
+
   def default_item_view
     :bar
   end
 
-  view :input, template: :haml
+  # view :input, template: :haml
 
   def themes
     card.rule_card(:content_options).item_cards
