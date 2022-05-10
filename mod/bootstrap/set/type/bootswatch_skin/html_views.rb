@@ -12,12 +12,14 @@ end
 
 format :html do
   before :box do
-    voo.show! :customize_button, :box_middle
+    voo.show! :box_middle
   end
 
   view :one_line_content do
     ""
   end
+
+  view :core, template: :haml
 
   view :customize_button, cache: :never do
     customize_button
@@ -25,21 +27,29 @@ format :html do
 
   def new_skin_path_args new_name
     { name: new_name,
-      type: :bootstrap_skin,
+      type: :bootswatch_skin,
       fields: { parent: card.name } }
   end
 
-  def customize_button target: parent&.card, text: "Apply and customize"
+  def current_skin?
+    Card[:all, :style].item_keys.include? card.key
+  end
+
+  def customize_button text: "Customize"
     return "" if card.parent?
     # remove? perhaps we should be able to further customize a customized skin
 
     new_name = card.new_customized_name
-    link_to_card target, text,
+    link_to_card new_name, text,
+                 path: { action: :create,
+                         card:  new_skin_path_args(new_name) } ,
+                 class: "btn btn-sm btn-outline-primary me-2"
+  end
+
+  def use_as_current_button
+    link_to_card card, "Use as current",
                  path: { action: :update,
-                         card: {
-                           content: new_name,
-                           subcards: { new_name => new_skin_path_args(new_name) }
-                         } },
+                         card: { trigger: "use_as_current_skin" } },
                  class: "btn btn-sm btn-outline-primary me-2"
   end
 
@@ -52,7 +62,7 @@ format :html do
   end
 
   view :bar_right do
-    customize_button
+    # customize_button
   end
 
   view :bar_bottom do

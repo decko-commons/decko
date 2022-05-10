@@ -134,6 +134,7 @@ PATH
       card (= 1.104.2)
       card-mod-account (= 0.14.2)
       card-mod-session (= 0.14.2)
+      card-mod-tabs (= 0.14.2)
     card-mod-list (0.14.2)
       card (= 1.104.2)
       card-mod-collection (= 0.14.2)
