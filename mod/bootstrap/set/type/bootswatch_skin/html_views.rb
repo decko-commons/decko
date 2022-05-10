@@ -42,7 +42,7 @@ format :html do
     new_name = card.new_customized_name
     link_to_card new_name, text,
                  path: { action: :create,
-                         card:  new_skin_path_args(new_name) } ,
+                         card:  new_skin_path_args(new_name) },
                  class: "btn btn-sm btn-outline-primary me-2"
   end
 

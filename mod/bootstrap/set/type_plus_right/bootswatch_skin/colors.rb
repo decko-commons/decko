@@ -90,10 +90,13 @@ format :html do
   end
 
   view :core, template: :haml do
-    @colornames_with_value = card.colors.with_indifferent_access # card.theme_colors.reject { |k, _v| k.in? %i[body-bg body-color] }
+    @colornames_with_value = card.colors.with_indifferent_access
     @colors = @colornames_with_value.to_a[0..9]
     @grays = @colornames_with_value.to_a[10..-1]
-    @themecolornames_with_value = card.theme_colors.map  { |k, v|  v.starts_with?("$") ? [k, @colornames_with_value[v[1..-1]]] : [k, v] }.to_h
+    @themecolornames_with_value =
+      card.theme_colors.map  do |k, v|
+        v.starts_with?("$") ? [k, @colornames_with_value[v[1..-1]]] : [k, v]
+      end
   end
 
   view :bar_middle do
