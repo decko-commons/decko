@@ -14,6 +14,10 @@ $box_stripe_color: $dark !default;
   }
 }
 
+.selected .bar, .selected .box {
+    border: 3px solid $primary !important;
+}
+
 .bar {
   display: flex;
   border-left: 3px solid $bar_stripe_color !important;
