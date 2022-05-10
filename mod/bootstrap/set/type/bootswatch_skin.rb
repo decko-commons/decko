@@ -169,3 +169,9 @@ def source_dir
     "#{mod_root :bootstrap}/vendor/bootswatch/dist/#{theme_name}", __FILE__
   )
 end
+
+event :use_as_current_skin, :finalize, on: :save, trigger: :required do
+  style_rule = Card[:all, :style]
+  style_rule.content = name
+  style_rule.save!
+end
