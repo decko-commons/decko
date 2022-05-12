@@ -59,6 +59,18 @@ def variable_group_with_values group
   end
 end
 
+def virtual?
+  new?
+end
+
+def ok_to_create
+  left.parent? && super
+end
+
+def ok_to_update
+  left.parent? && super
+end
+
 format :html do
   view :input, template: :haml do
     @colors = card.colors
@@ -78,7 +90,13 @@ format :html do
   end
 
   view :core, template: :haml do
-    @colors = card.theme_colors.reject { |k, _v| k.in? %i[body-bg body-color] }
+    @colornames_with_value = card.colors.with_indifferent_access
+    @colors = @colornames_with_value.to_a[0..9]
+    @grays = @colornames_with_value.to_a[10..-1]
+    @themecolornames_with_value =
+      card.theme_colors.map  do |k, v|
+        v.starts_with?("$") ? [k, @colornames_with_value[v[1..-1]]] : [k, v]
+      end
   end
 
   view :bar_middle do
