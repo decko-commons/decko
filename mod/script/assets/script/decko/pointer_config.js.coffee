@@ -19,6 +19,12 @@ $.extend decko.editorContentFunctionMap,
       pointerContent @find('._filtered-list-item').map( -> $(this).data('cardName') )
     '._pointer-list': ->
       pointerContent @find('._pointer-item').map( -> $(this).val() )
+    '._click-select-editor': ->
+      pointerContent @find('._select-item.selected').map( ->
+        $($(this).find('[data-card-name]')[0]).data('cardName'))
+    '._click-multiselect-editor': ->
+      pointerContent @find('._select-item.selected').map( ->
+        $($(this).find('[data-card-name]')[0]).data('cardName'))
     # can't find evidence that the following is in use: #efm
     # '.pointer-mixed': ->
     #   element = '.pointer-checkbox-sublist input:checked,\
