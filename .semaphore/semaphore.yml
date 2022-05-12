@@ -129,7 +129,7 @@ blocks:
       epilogue:
         always:
           commands:
-            - artifact push job ~/decko/decko/spec/cypress/screenshots
+            - artifact push job ~/decko/decko/spec/cypress/screenshots/**/*.png
             - artifact push job ~/decko/decko/spec/cypress/videos
             - test-results publish /home/semaphore/reports/*.xml
             - cd ~/decko
