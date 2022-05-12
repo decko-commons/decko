@@ -133,6 +133,8 @@ blocks:
             - cd ~/decko
             - ./cc-test-reporter format-coverage --output "coverage/codeclimate.$SEMAPHORE_JOB_ID.json" -t simplecov
             - aws s3 cp "coverage/codeclimate.$SEMAPHORE_JOB_ID.json" $S3_PATH
+            - artifact push job ~/decko/decko/spec/cypress/screenshots
+            - artifact push job ~/decko/decko/spec/cypress/videos
 
 
   - name: Coverage Report
