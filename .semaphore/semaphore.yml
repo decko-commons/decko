@@ -118,7 +118,7 @@ blocks:
             - nvm use 16.0.0
             - rm -rf node_modules
             - yarn install --frozen-lockfile
-
+            - mkdir /home/semaphore/reports
             - yarn run cypress run --record --reporter junit --reporter-options "mochaFile=/home/semaphore/reports/cypress-output-[hash].xml"
 
             - pkill -2 -f puma
@@ -129,6 +129,8 @@ blocks:
       epilogue:
         always:
           commands:
+            - artifact push job ~/decko/decko/spec/cypress/screenshots
+            - artifact push job ~/decko/decko/spec/cypress/videos
             - test-results publish /home/semaphore/reports/*.xml
             - cd ~/decko
             - ./cc-test-reporter format-coverage --output "coverage/codeclimate.$SEMAPHORE_JOB_ID.json" -t simplecov
