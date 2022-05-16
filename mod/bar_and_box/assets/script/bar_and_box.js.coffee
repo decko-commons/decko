@@ -6,7 +6,6 @@ $(window).ready ->
     window.location = decko.path $(this).data("cardLinkName")
 
   $('body').on 'click', ".box a, .bar a", (event)->
-    debugger
     if $(this).hasClass "over-bar"
       # don't count as bar click
       event.stopPropagation()
