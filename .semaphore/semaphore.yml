@@ -118,8 +118,7 @@ blocks:
             - nvm use 16.0.0
             - rm -rf node_modules
             - yarn install --frozen-lockfile
-
-            - yarn run cypress run --record --reporter junit --reporter-options "mochaFile=/home/semaphore/reports/cypress-output-[hash].xml"
+            - yarn run cypress run --reporter junit --reporter-options "mochaFile=/home/semaphore/reports/cypress-output-[hash].xml"
 
             - pkill -2 -f puma
         - name: Cucumber
@@ -133,6 +132,8 @@ blocks:
             - cd ~/decko
             - ./cc-test-reporter format-coverage --output "coverage/codeclimate.$SEMAPHORE_JOB_ID.json" -t simplecov
             - aws s3 cp "coverage/codeclimate.$SEMAPHORE_JOB_ID.json" $S3_PATH
+            - artifact push job ~/decko/decko/spec/cypress/screenshots
+            - artifact push job ~/decko/decko/spec/cypress/videos
 
 
   - name: Coverage Report
