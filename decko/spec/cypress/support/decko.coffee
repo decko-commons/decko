@@ -96,4 +96,4 @@ Cypress.Commands.add "editor", (field) =>
   cy.get ".card-editor.RIGHT-#{field} .content-editor"
 
 Cypress.Commands.add "closeFilter", (field) =>
-  cy.get(".filter-in-filter-form ._filter-input-#{field} ._delete-filter-input").click()
+  cy.get(".close-filter-#{field}").click()
