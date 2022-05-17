@@ -1,10 +1,8 @@
-.colorpicker-element
-  .input-group-addon
-    - colors.each do |name, color|
-      %div
-        %span.labeled-badge
-        %i{class: "bg-#{name}"}
-        -#%span.badge{ class: "badge-#{name}" }
+.colorpicker-element.row
+  .col-auto.input-group-addon
+    = haml_partial :colorgroup, colorgroup: themecolornames_with_value
+  .col-auto.input-group-addon
+    = haml_partial :colorgroup, colorgroup: colors
+  .col-auto.input-group-addon
+    = haml_partial :colorgroup, colorgroup: grays
 
-        %label.text-muted
-          = name

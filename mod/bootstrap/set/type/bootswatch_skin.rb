@@ -63,7 +63,8 @@ def theme_name
 end
 
 def theme_card
-  @theme_card ||= parent? ? parent_skin_card.theme_card : self
+  @theme_card ||=
+    parent? && parent_skin_card.id != id ? parent_skin_card.theme_card : self
 end
 
 def theme_codename
@@ -168,4 +169,10 @@ def source_dir
   @source_dir ||= ::File.expand_path(
     "#{mod_root :bootstrap}/vendor/bootswatch/dist/#{theme_name}", __FILE__
   )
+end
+
+event :use_as_current_skin, :finalize, on: :save, trigger: :required do
+  style_rule = Card[:all, :style]
+  style_rule.content = name
+  style_rule.save!
 end
