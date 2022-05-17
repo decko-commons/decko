@@ -63,7 +63,7 @@ def theme_name
 end
 
 def theme_card
-  @theme_card ||= parent? ? parent_skin_card.theme_card : self
+  @theme_card ||= parent? && parent_skin_card.id != self.id ? parent_skin_card.theme_card : self
 end
 
 def theme_codename
