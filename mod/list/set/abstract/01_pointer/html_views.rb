@@ -75,6 +75,22 @@ format :html do
                class: "pointer-select form-control")
   end
 
+  def bar_select_input
+    raw haml(:click_select_input, item_view: :bar, multiselect: false)
+  end
+
+  def box_select_input
+    raw haml(:click_select_input, item_view: :box, multiselect: false)
+  end
+
+  def bar_multiselect_input
+    raw haml(:click_select_input, item_view: :bar, multiselect: true)
+  end
+
+  def box_multiselect_input
+    raw haml(:click_select_input, item_view: :box, multiselect: true)
+  end
+
   def multiselect_input
     select_tag "pointer_multiselect-#{unique_id}",
                options_for_select(card.options_hash, card.item_names),
