@@ -1,13 +1,14 @@
 
 class RemoveCustomizedBootswatchSkins < Cardio::Migration::Core
   def up
+    return unless Card::Codename[:customized_bootswatch_skin]
+
     convert_bootswatch_skins
     delete_code_card :customized_bootswatch_skin
   end
 
   def convert_bootswatch_skins
     parent_field_name = Card[:parent].name
-
     Card.search(type_id: ::Card::CustomizedBootswatchSkinID) do |card|
       update_args = { type_id: Card::BootswatchSkinID }
       parent = find_parent(card.name)
@@ -21,7 +22,7 @@ class RemoveCustomizedBootswatchSkins < Cardio::Migration::Core
   end
 
   def find_parent card_name
-    potential_parent_name = card_name.downcase.sub("customized", "").gsub(/\d/,"").strip
+    potential_parent_name = card_name.downcase.sub("customized", "").gsub(/\d/, "").strip
     Card[potential_parent_name]
   end
 end
