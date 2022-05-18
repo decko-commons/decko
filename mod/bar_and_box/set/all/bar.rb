@@ -14,7 +14,7 @@ format :html do
     bar mini_bar_cols
   end
 
-  view(:bar_left, unknown: true) { bar_title }
+  view(:bar_left, unknown: true) { render_title }
   view(:bar_middle, unknown: :blank) { "" }
   view(:bar_right, unknown: :blank) { "" }
 
@@ -26,14 +26,10 @@ format :html do
 
   def bar_menu_items
     [
-      edit_link(:edit, text: "edit"),
+      edit_link(:edit, text: card.new? ? "create" : "edit"),
       full_page_link(text: "full page"),
       bridge_link(text: "advanced")
     ]
-  end
-
-  def bar_title
-    card.unknown? ? render_missing : render_title
   end
 
   def bar two_cols, three_cols=nil
