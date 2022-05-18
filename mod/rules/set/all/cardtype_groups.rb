@@ -7,8 +7,7 @@ GROUP = {
   "Organize" => ["List", "Pointer", "Search", "Link list", "Nest list"],
   "Template" => ["Notification template", "Email template", "Twitter template"],
   "Admin" => ["Cardtype", "User", "Role", "Sign up", "Session", "Set", "Setting"],
-  "Styling" => ["Layout", "Skin", "Bootswatch skin", "Customized bootswatch skin",
-                "CSS", "SCSS"],
+  "Styling" => ["Layout", "Skin", "Bootswatch skin", "CSS", "SCSS"],
   "Scripting" => %w[JSON JavaScript CoffeeScript]
 }.freeze
 

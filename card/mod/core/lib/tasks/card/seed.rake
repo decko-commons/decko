@@ -7,6 +7,11 @@ namespace :card do
     # note: this will not delete anything; it just eats new stuff.
     task update: [:replant, "card:eat", :polish, :dump]
 
+    desc "replant, polish, and dump seed. " \
+         "Good when mods/assets have changed but pods haven't."
+    # note: this will not delete anything; it just eats new stuff.
+    task modify: %i[replant polish dump]
+
     desc "finalize seed data with migrations, installations, asset coding, and cleaning"
     task polish: :environment do
       unless Rails.env.test?
