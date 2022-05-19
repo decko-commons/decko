@@ -1,6 +1,4 @@
 format :html do
-
-
   def accordion &block
     wrap_with :div, class: "accordion", &block
   end
@@ -8,6 +6,7 @@ format :html do
   def accordion_item title, **args
     args.reverse_merge!(
       title: title,
+      subheader: nil,
       body: "",
       open: false,
       collapse_id: "#{card.name.safe_key}-#{title.to_name.safe_key}-collapse-id"

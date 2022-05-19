@@ -47,12 +47,7 @@ class Card
       end
 
       def actor_and_ago
-        wrap_with :small do
-          [
-            @format.link_to_card(@act.actor, nil, class: "_stop_propagation"),
-            edited_ago,
-          ]
-        end
+        wrap_with(:small) { [@format.link_to_card(@act.actor), edited_ago] }
       end
 
       def details
@@ -64,10 +59,15 @@ class Card
 
       def summary
         %i[create update delete draft].map do |type|
-          count = count_types[type]
-          next unless count.positive?
-          "#{@format.action_icon type}<small> #{count if count > 1}</small>"
+          action_summary type
         end.compact.join "<small class='text-muted'> | </small>"
+      end
+
+      def action_summary type
+        count = count_types[type]
+        return unless count.positive?
+
+        "#{@format.action_icon type}<small> #{count if count > 1}</small>"
       end
 
       def act_links
@@ -120,13 +120,14 @@ class Card
 
       def accordion_item
         # context = @act.main_action&.draft ? :warning : :default
-        @format.accordion_item header, body: details, collapse_id: collapse_id
+        @format.accordion_item header,
+                               subheader: act_links,
+                               body: details, collapse_id: collapse_id
       end
 
       def act_accordion_heading
         header + subtitle
       end
-
 
       # Revert:
       #   current update

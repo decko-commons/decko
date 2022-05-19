@@ -24,7 +24,7 @@ format :html do
   def set_modules_accordion subject
     accordion do
       set_module_ancestor_hash(subject).each_with_object([]) do |(setmod, anc), array|
-        array << accordion_item(setmod, body: anc.join(", "))
+        array << accordion_item(setmod, body: list_group(anc))
       end
     end
   end
