@@ -5,13 +5,16 @@
   = use_as_current_button
 
 - if card.parent?
-  = link_to_card card.parent, "Go to parent", class: "btn btn-sm btn-outline-primary me-2"
+  Inherit from:
+  = link_to_card card.parent
 - else
   = render_customize_button
   %div.mt-4
     = nest image_card, view: :content, size: :large
 %h5.mt-4
-  Skin configuration from simplest to most advanced
+  Skin configuration
+.lead.mb-3
+  from simplest to most advanced
 = field_nest :colors, view: :bar, title: "Palette and uses of colors"
 = field_nest :variables, view: :bar, title: "Additional SCSS variables"
-= field_nest :stylesheets, view: :info_bar, title: "SCSS and CSS stylesheets", show: :edit_button
+= field_nest :stylesheets, view: :bar, title: "SCSS and CSS stylesheets"

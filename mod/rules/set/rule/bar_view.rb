@@ -39,10 +39,6 @@ format :html do
     rule_info
   end
 
-  def bar_title
-    render_title
-  end
-
   view :bar_right, unknown: true do
     rule_short_content
   end
@@ -54,12 +50,6 @@ format :html do
          { view: :one_line_content },
          { set_context: card.name.trunk_name }
   end
-
-  # def bar_title
-  #   return super() if voo.show? :full_name
-  #
-  #   linking_to_existing_rule { card.rule_setting_title }
-  # end
 
   # LOCALIZE
   def rule_info

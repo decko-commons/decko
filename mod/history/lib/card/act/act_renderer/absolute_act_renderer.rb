@@ -9,13 +9,7 @@ class Card
         end
 
         def subtitle
-          wrap_with :small do
-            [
-              @format.link_to_card(@act.actor, nil, class: "_stop_propagation"),
-              edited_ago,
-              rollback_link
-            ]
-          end
+          actor_and_ago
         end
 
         # FIXME: how do we know we need main here??
