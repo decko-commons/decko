@@ -52,8 +52,7 @@ class Card
 
       def details
         approved_actions[0..20].map do |action|
-          Action::ActionRenderer.new(@format, action, action_header?,
-                                     :summary).render
+          Action::ActionRenderer.new(@format, action, true, :summary).render
         end.join
       end
 
@@ -93,12 +92,6 @@ class Card
         # FIXME: should not need to test for presence of card here.
       end
 
-      def action_header?
-        true
-        # @action_header ||= approved_actions.size != 1 ||
-        #                   approved_actions[0].card_id != @format.card.id
-      end
-
       def count_types
         @count_types ||=
           approved_actions.each_with_object(
@@ -114,64 +107,28 @@ class Card
         "#{time_ago_in_words(@act.acted_at)} ago"
       end
 
-      def collapse_id
-        "act-id-#{@act.id}"
-      end
-
       def accordion_item
         # context = @act.main_action&.draft ? :warning : :default
         @format.accordion_item header,
                                subheader: act_links,
-                               body: details, collapse_id: collapse_id
-      end
-
-      def act_accordion_heading
-        header + subtitle
-      end
-
-      # Revert:
-      #   current update
-      # Restore:
-      #   current deletion
-      # Revert and Restore:
-      #   old deletions
-      # blank:
-      #   current create
-      # save as current:
-      #   not current, not deletion
-      def rollback_link
-        return unless @card.ok? :update
-
-        wrap_with :div, class: "act-link collapse #{collapse_id} float-end" do
-          content_tag(:small, revert_link)
-
-          # link_to "Save as current",
-          #         class: "slotter", remote: true,
-          #         method: :post, rel: "nofollow",
-          #         "data-slot-selector" => ".card-slot.history-view",
-          #         path: { action: :update, action_ids: prior,
-          #                 view: :open, look_in_trash: true }
-        end
-      end
-
-      def deletion_act?
-        act_type == :delete
+                               body: details, collapse_id: "act-id-#{@act.id}"
       end
 
       def act_type
         @act.main_action.action_type
       end
 
-      def show_or_hide_changes_link
-        wrap_with :div, class: "act-link" do
-          @format.link_to_view(
-            :act, "#{@args[:hide_diff] ? 'Show' : 'Hide'} changes",
-            path: { act_id: @args[:act].id, act_seq: @args[:act_seq],
-                    hide_diff: !@args[:hide_diff], action_view: :expanded,
-                    act_context: @args[:act_context], look_in_trash: true }
-          )
-        end
-      end
+      # TODO: get this working again, perhaps in action
+      # def show_or_hide_changes_link
+      #   wrap_with :div, class: "act-link" do
+      #     @format.link_to_view(
+      #       :act, "#{@args[:hide_diff] ? 'Show' : 'Hide'} changes",
+      #       path: { act_id: @act.id, act_seq: @args[:act_seq],
+      #               hide_diff: !@args[:hide_diff], action_view: :expanded,
+      #               act_context: @args[:act_context], look_in_trash: true }
+      #     )
+      #   end
+      # end
 
       def autosaved_draft_link opts={}
         text = opts.delete(:text) || "autosaved draft"

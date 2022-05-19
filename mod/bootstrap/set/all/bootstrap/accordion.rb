@@ -7,6 +7,7 @@ format :html do
     args.reverse_merge!(
       title: title,
       subheader: nil,
+      data: nil,
       body: "",
       open: false,
       collapse_id: "#{card.name.safe_key}-#{title.to_name.safe_key}-collapse-id"

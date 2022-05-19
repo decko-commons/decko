@@ -1,6 +1,6 @@
 $(window).ready ->
-#  $("body").on "click", ".bar-menu", (e) ->
-#    e.stopImmediatePropagation()
+ $("body").on "click", ".bar-menu", (e) ->
+   e.stopImmediatePropagation()
 
   $(document).on 'click', "._card-link", ->
     window.location = decko.path $(this).data("cardLinkName")
@@ -15,8 +15,7 @@ $(window).ready ->
     $(this).closest("._select-item").toggleClass("selected")
     event.stopPropagation()
 
-  $('body').on 'click', "._card-link a, .bar-menu", (event)->
-#    debugger
+  $('body').on 'click', "._card-link a", (event)->
     if $(this).hasClass("_over-card-link") || $(this).closest("._over-card-link")[0]
       # don't count as bar/box click
       event.stopPropagation()

@@ -7,11 +7,13 @@ format :html do
 
   view :bar, unknown: :mini_bar do
     cols = bar_cols.size == 3 ? [mini_bar_cols, bar_cols] : [bar_cols]
-    bar(*cols)
+    prepare_bar(*cols)
+    wrap { haml :bar }
   end
 
   view :mini_bar, unknown: true do
-    bar mini_bar_cols
+    prepare_bar mini_bar_cols
+    wrap { haml :bar }
   end
 
   view(:bar_left, unknown: true) { render_title }
@@ -23,6 +25,15 @@ format :html do
   end
 
   view :bar_menu, unknown: true, template: :haml
+  view :bar_body, unknown: true, template: :haml
+
+  view :accordion_bar, unknown: true do
+    prepare_bar mini_bar_cols
+    class_up "accordion-item", "bar #{classy 'bar'}"
+    accordion_item render_bar_body,
+                   subheader: render_menu,
+                   body: render_bar_bottom
+  end
 
   def bar_menu_items
     [
@@ -32,7 +43,7 @@ format :html do
     ]
   end
 
-  def bar two_cols, three_cols=nil
+  def prepare_bar two_cols, three_cols=nil
     class_up "bar", full_page_card.safe_set_keys
     class_up_cols %w[bar-left bar-right], two_cols
     if three_cols
@@ -40,7 +51,6 @@ format :html do
     else
       voo.hide :bar_middle
     end
-    wrap { haml :bar }
   end
 
   def class_up_cols classes, cols, context=nil

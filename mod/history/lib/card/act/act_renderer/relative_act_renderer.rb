@@ -23,8 +23,7 @@ class Card
 
         def rollback_or_edit_link
           if @act.draft?
-            autosaved_draft_link text: "continue editing",
-                                 class: "collapse #{collapse_id}"
+            autosaved_draft_link text: "continue editing"
           elsif show_rollback_link?
             rollback_link
           end
@@ -49,6 +48,31 @@ class Card
                               { revert_actions: actions.map(&:id) },
                               { class: "_close-modal",
                                 "data-slotter-mode": "update-modal-origin" }
+        end
+
+        # Revert:
+        #   current update
+        # Restore:
+        #   current deletion
+        # Revert and Restore:
+        #   old deletions
+        # blank:
+        #   current create
+        # save as current:
+        #   not current, not deletion
+        def rollback_link
+          return unless @card.ok? :update
+
+          wrap_with :div, class: "act-link float-end" do
+            content_tag(:small, revert_link)
+
+            # link_to "Save as current",
+            #         class: "slotter", remote: true,
+            #         method: :post, rel: "nofollow",
+            #         "data-slot-selector" => ".card-slot.history-view",
+            #         path: { action: :update, action_ids: prior,
+            #                 view: :open, look_in_trash: true }
+          end
         end
       end
     end
