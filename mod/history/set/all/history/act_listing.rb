@@ -16,7 +16,7 @@ format :html do
     bs_layout container: false, fluid: false do
       html _render_act_legend(draft_legend => :draft_legend)
       row(12) { act_list acts, context }
-      row(12) { act_paging acts, context }
+      # row(12) { act_paging acts, context }
     end
   end
 
@@ -43,7 +43,9 @@ format :html do
   end
 
   def act_accordion acts, context, &block
-    accordion_group acts_for_accordion(acts, context, &block), nil, class: "clear-both"
+    accordion do
+      acts_for_accordion(acts, context, &block).join
+    end
   end
 
   def acts_for_accordion acts, context

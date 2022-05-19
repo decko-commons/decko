@@ -25,27 +25,34 @@ class Card
       end
 
       def render
-        return "" unless @act_card
-
-        act_accordion
+        @act_card ? accordion_item : ""
       end
 
       def header
         # Card::Bootstrap.new(self).render do
         bs_layout do
-          row xs: [10, 2] do
+          row xs: [8, 4], class: "w-100" do
             column do
               html title
               tag(:span, "text-muted ps-1 badge") { summary }
             end
-            column act_links, class: "test-end"
+            column subtitle, class: "text-end"
           end
         end
         # end
       end
 
       def absolute_title
-        accordion_expand_link(@act_card.name)
+        @act_card.name
+      end
+
+      def actor_and_ago
+        wrap_with :small do
+          [
+            @format.link_to_card(@act.actor, nil, class: "_stop_propagation"),
+            edited_ago,
+          ]
+        end
       end
 
       def details
@@ -57,9 +64,9 @@ class Card
 
       def summary
         %i[create update delete draft].map do |type|
-          next unless count_types[type].positive?
-
-          "#{@format.action_icon type}<small> #{count_types[type]}</small>"
+          count = count_types[type]
+          next unless count.positive?
+          "#{@format.action_icon type}<small> #{count if count > 1}</small>"
         end.compact.join "<small class='text-muted'> | </small>"
       end
 
@@ -111,56 +118,15 @@ class Card
         "act-id-#{@act.id}"
       end
 
-      def accordion_expand_link text
-        <<-HTML
-          <a>
-            #{text}
-          </a>
-        HTML
-      end
-
-      # TODO: change accordion API in bootstrap/helper.rb so that it can be used
-      #   here. The problem is that here we have extra links in the title
-      #   that are not supposed to expand the accordion
-      def act_accordion
-        context = @act.main_action&.draft ? :warning : :default
-        <<-HTML
-        <div class="card card-#{context} nodblclick">
-          #{act_accordion_panel}
-        </div>
-        HTML
-      end
-
-      def accordion_expand_options
-        {
-          "data-bs-toggle" => "collapse",
-          "data-bs-target" => ".#{collapse_id}",
-          "aria-expanded" => true,
-          "aria-controls" => collapse_id
-        }
-      end
-
-      def act_panel_options
-        { class: "card-header", role: "tab", id: "heading-#{collapse_id}" }
-      end
-
-      def act_accordion_panel
-        act_accordion_heading + act_accordion_body
+      def accordion_item
+        # context = @act.main_action&.draft ? :warning : :default
+        @format.accordion_item header, body: details, collapse_id: collapse_id
       end
 
       def act_accordion_heading
-        wrap_with :div, act_panel_options.merge(accordion_expand_options) do
-          wrap_with(:h5, header, class: "mb-0") + subtitle
-        end
+        header + subtitle
       end
 
-      def act_accordion_body
-        wrap_with :div, id: collapse_id,
-                        class: "collapse #{collapse_id}",
-                        "data-parent": ".act-accordion-group" do
-          wrap_with :div, details, class: "card-body"
-        end
-      end
 
       # Revert:
       #   current update

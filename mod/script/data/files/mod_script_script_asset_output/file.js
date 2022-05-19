@@ -3674,6 +3674,16 @@ this._delay(function(){n===this.counter&&this.refreshPositions(!s)})},_clear:fun
         return $(this).val();
       }));
     },
+    '._click-select-editor': function() {
+      return pointerContent(this.find('._select-item.selected').map(function() {
+        return $($(this).find('[data-card-name]')[0]).data('cardName');
+      }));
+    },
+    '._click-multiselect-editor': function() {
+      return pointerContent(this.find('._select-item.selected').map(function() {
+        return $($(this).find('[data-card-name]')[0]).data('cardName');
+      }));
+    },
     '.perm-editor': function() {
       return permissionsContent(this);
     }

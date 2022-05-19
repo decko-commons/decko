@@ -1,0 +1,10 @@
+.accordion-item
+  %h2.accordion-header.nodblclick
+    %button.accordion-button{ type: "button",
+                              class: ("collapsed" unless open),
+                              "data-bs-toggle": "collapse",
+                              "data-bs-target": "##{collapse_id}" }
+      = title
+  .accordion-collapse.collapse{ id: collapse_id, class: ("show" if open ) }
+    .accordion-body
+      = body
