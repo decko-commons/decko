@@ -25,42 +25,48 @@ class Card
       end
 
       def render
-        return "" unless @act_card
-
-        act_accordion
+        @act_card ? accordion_item : ""
       end
 
       def header
         # Card::Bootstrap.new(self).render do
         bs_layout do
-          row xs: [10, 2] do
+          row xs: [8, 4], class: "w-100" do
             column do
               html title
               tag(:span, "text-muted ps-1 badge") { summary }
             end
-            column act_links, class: "test-end"
+            column subtitle, class: "text-end"
           end
         end
         # end
       end
 
       def absolute_title
-        accordion_expand_link(@act_card.name)
+        @act_card.name
+      end
+
+      def actor_and_ago
+        wrap_with(:small) { [@format.link_to_card(@act.actor), edited_ago] }
       end
 
       def details
         approved_actions[0..20].map do |action|
-          Action::ActionRenderer.new(@format, action, action_header?,
-                                     :summary).render
+          Action::ActionRenderer.new(@format, action, true, :summary).render
         end.join
       end
 
       def summary
         %i[create update delete draft].map do |type|
-          next unless count_types[type].positive?
-
-          "#{@format.action_icon type}<small> #{count_types[type]}</small>"
+          action_summary type
         end.compact.join "<small class='text-muted'> | </small>"
+      end
+
+      def action_summary type
+        count = count_types[type]
+        return unless count.positive?
+
+        "#{@format.action_icon type}<small> #{count if count > 1}</small>"
       end
 
       def act_links
@@ -86,12 +92,6 @@ class Card
         # FIXME: should not need to test for presence of card here.
       end
 
-      def action_header?
-        true
-        # @action_header ||= approved_actions.size != 1 ||
-        #                   approved_actions[0].card_id != @format.card.id
-      end
-
       def count_types
         @count_types ||=
           approved_actions.each_with_object(
@@ -107,104 +107,28 @@ class Card
         "#{time_ago_in_words(@act.acted_at)} ago"
       end
 
-      def collapse_id
-        "act-id-#{@act.id}"
-      end
-
-      def accordion_expand_link text
-        <<-HTML
-          <a>
-            #{text}
-          </a>
-        HTML
-      end
-
-      # TODO: change accordion API in bootstrap/helper.rb so that it can be used
-      #   here. The problem is that here we have extra links in the title
-      #   that are not supposed to expand the accordion
-      def act_accordion
-        context = @act.main_action&.draft ? :warning : :default
-        <<-HTML
-        <div class="card card-#{context} nodblclick">
-          #{act_accordion_panel}
-        </div>
-        HTML
-      end
-
-      def accordion_expand_options
-        {
-          "data-bs-toggle" => "collapse",
-          "data-bs-target" => ".#{collapse_id}",
-          "aria-expanded" => true,
-          "aria-controls" => collapse_id
-        }
-      end
-
-      def act_panel_options
-        { class: "card-header", role: "tab", id: "heading-#{collapse_id}" }
-      end
-
-      def act_accordion_panel
-        act_accordion_heading + act_accordion_body
-      end
-
-      def act_accordion_heading
-        wrap_with :div, act_panel_options.merge(accordion_expand_options) do
-          wrap_with(:h5, header, class: "mb-0") + subtitle
-        end
-      end
-
-      def act_accordion_body
-        wrap_with :div, id: collapse_id,
-                        class: "collapse #{collapse_id}",
-                        "data-parent": ".act-accordion-group" do
-          wrap_with :div, details, class: "card-body"
-        end
-      end
-
-      # Revert:
-      #   current update
-      # Restore:
-      #   current deletion
-      # Revert and Restore:
-      #   old deletions
-      # blank:
-      #   current create
-      # save as current:
-      #   not current, not deletion
-      def rollback_link
-        return unless @card.ok? :update
-
-        wrap_with :div, class: "act-link collapse #{collapse_id} float-end" do
-          content_tag(:small, revert_link)
-
-          # link_to "Save as current",
-          #         class: "slotter", remote: true,
-          #         method: :post, rel: "nofollow",
-          #         "data-slot-selector" => ".card-slot.history-view",
-          #         path: { action: :update, action_ids: prior,
-          #                 view: :open, look_in_trash: true }
-        end
-      end
-
-      def deletion_act?
-        act_type == :delete
+      def accordion_item
+        # context = @act.main_action&.draft ? :warning : :default
+        @format.accordion_item header,
+                               subheader: act_links,
+                               body: details, collapse_id: "act-id-#{@act.id}"
       end
 
       def act_type
         @act.main_action.action_type
       end
 
-      def show_or_hide_changes_link
-        wrap_with :div, class: "act-link" do
-          @format.link_to_view(
-            :act, "#{@args[:hide_diff] ? 'Show' : 'Hide'} changes",
-            path: { act_id: @args[:act].id, act_seq: @args[:act_seq],
-                    hide_diff: !@args[:hide_diff], action_view: :expanded,
-                    act_context: @args[:act_context], look_in_trash: true }
-          )
-        end
-      end
+      # TODO: get this working again, perhaps in action
+      # def show_or_hide_changes_link
+      #   wrap_with :div, class: "act-link" do
+      #     @format.link_to_view(
+      #       :act, "#{@args[:hide_diff] ? 'Show' : 'Hide'} changes",
+      #       path: { act_id: @act.id, act_seq: @args[:act_seq],
+      #               hide_diff: !@args[:hide_diff], action_view: :expanded,
+      #               act_context: @args[:act_context], look_in_trash: true }
+      #     )
+      #   end
+      # end
 
       def autosaved_draft_link opts={}
         text = opts.delete(:text) || "autosaved draft"

@@ -14,9 +14,9 @@ format :html do
 
   view :act_legend do
     bs_layout do
-      row md: [12, 12], lg: [7, 5] do
+      row md: [12, 12], lg: [7, 5], class: "pb-3" do
         col action_legend
-        col content_legend, class: "test-end"
+        col content_legend, class: "text-end"
       end
     end
   end

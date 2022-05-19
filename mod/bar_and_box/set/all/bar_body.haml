@@ -1,0 +1,10 @@
+.row.w-100.g-0{ class: classy("bar-body") }
+  - if voo.show? :bar_left
+    %div{ class: classy("bar-left") }
+      = render :bar_left
+  - if voo.show? :bar_middle
+    %div{ class: classy("bar-middle") }
+      = render :bar_middle
+  - if voo.show? :bar_right
+    %div{ class: classy("bar-right") }
+      = render :bar_right

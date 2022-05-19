@@ -1,0 +1,13 @@
+.accordion-item{ class: classy("accordion-item"), data: data }
+  %h2.accordion-header.nodblclick.w-100
+    %button.accordion-button{ type: "button",
+                              class: ("collapsed" unless open),
+                              "data-bs-toggle": "collapse",
+                              "data-bs-target": "##{collapse_id}" }
+      = title
+  .accordion-collapse.collapse{ id: collapse_id, class: ("show" if open ) }
+    - if subheader
+      .accordion-subheader.bg-light.p-2.text-end
+        = subheader
+    .accordion-body{ class: classy("accordion-body") }
+      = body
