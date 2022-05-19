@@ -22,12 +22,19 @@ format :html do
   end
 
   def set_modules_accordion subject
-    sets = subject.set_modules.each_with_object({}) do |sm, hash|
+    accordion do
+      set_module_ancestor_hash(subject).each_with_object([]) do |(setmod, anc), array|
+        array << accordion_item(setmod, body: list_group(anc))
+      end
+    end
+  end
+
+  def set_module_ancestor_hash subject
+    subject.set_modules.each_with_object({}) do |sm, hash|
       ans = sm.ancestors
       ans.shift
-      hash[sm.to_s] = ans
+      hash[sm.to_s] = ans if ans.present?
     end
-    accordion_group sets
   end
 
   def set_patterns_breadcrumb subject

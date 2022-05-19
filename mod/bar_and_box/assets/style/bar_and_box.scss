@@ -15,11 +15,10 @@ $box_stripe_color: $dark !default;
 }
 
 .selected .bar, .selected .box {
-    border: 3px solid $primary !important;
+  border: 3px solid $primary !important;
 }
 
 .bar {
-  display: flex;
   border-left: 3px solid $bar_stripe_color !important;
 
   .media {
@@ -72,6 +71,10 @@ $box_stripe_color: $dark !default;
   }
 }
 
+.accordion-subheader > .card-menu {
+  position: static;
+  background: inherit !important;
+}
 
 //@include media-breakpoint-up(md) {
 //  .bar .bar-middle {
