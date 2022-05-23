@@ -4,10 +4,10 @@
   padding: 10px;
   margin-top: 10px;
   text-align: center;
-}
-.invite-links a {
-  font-weight: bold;
-  margin: 0 20px;
+  a {
+    font-weight: bold;
+    margin: 0 20px;
+  }
 }
 
 /*-- sign in page --*/
@@ -17,6 +17,7 @@
 #forgot-password input#email {
   width: 50%;
 }
+
 #forgot-password {
   margin-top: 40px;
 }
