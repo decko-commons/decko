@@ -5582,7 +5582,7 @@ cards_297:
   right_id: 293
   current_revision_id:
   created_at: 2022-05-10 02:43:34.000000000 Z
-  updated_at: 2022-05-10 02:45:14.000000000 Z
+  updated_at: 2022-05-23 15:27:52.000000000 Z
   creator_id: 1
   updater_id: 1
   read_rule_class: "*all plus"
@@ -5997,7 +5997,7 @@ cards_318:
   right_id:
   current_revision_id:
   created_at: 2022-05-10 02:43:35.000000000 Z
-  updated_at: 2022-05-10 02:45:15.000000000 Z
+  updated_at: 2022-05-23 15:27:52.000000000 Z
   creator_id: 1
   updater_id: 1
   read_rule_class: "*all"
@@ -6006,11 +6006,24 @@ cards_318:
   trash: 0
   type_id: 4
   db_content: |-
+    mod: format+*style
+    mod: search+*style
     mod: list+*style
+    mod: permissions+*style
+    mod: account+*style
+    mod: rules+*style
+    mod: edit+*style
+    mod: history+*style
+    mod: carrierwave+*style
+    mod: api key+*style
     mod: style+*style
     mod: bar and box+*style
     mod: bootstrap+*style
+    mod: comment+*style
     mod: date+*style
+    mod: follow+*style
+    mod: help+*style
+    mod: layout+*style
     mod: tinymce editor+*style
 cards_319:
   id: 319
@@ -7610,7 +7623,7 @@ cards_405:
   right_id:
   current_revision_id:
   created_at: 2022-05-10 02:44:23.000000000 Z
-  updated_at: 2022-05-10 02:44:23.000000000 Z
+  updated_at: 2022-05-23 15:27:56.000000000 Z
   creator_id: 1
   updater_id: 1
   read_rule_class: "*all"
@@ -8204,7 +8217,7 @@ cards_438:
   right_id: 291
   current_revision_id:
   created_at: 2022-05-10 02:44:55.000000000 Z
-  updated_at: 2022-05-17 22:47:27.000000000 Z
+  updated_at: 2022-05-23 15:28:05.000000000 Z
   creator_id: 1
   updater_id: 1
   read_rule_class: "*all plus"
@@ -10318,24 +10331,6 @@ cards_540:
   type_id: 15
   db_content: ''
 cards_541:
-  id: 541
-  name: 'mod: standard'
-  key: mod_standard
-  codename: mod_standard
-  left_id:
-  right_id:
-  current_revision_id:
-  created_at: 2022-05-10 02:45:03.000000000 Z
-  updated_at: 2022-05-10 02:45:03.000000000 Z
-  creator_id: 1
-  updater_id: 1
-  read_rule_class: "*all"
-  read_rule_id: 10
-  references_expired:
-  trash: 0
-  type_id: 15
-  db_content: ''
-cards_542:
   id: 542
   name: 'mod: collection'
   key: mod_collection
@@ -10353,7 +10348,7 @@ cards_542:
   trash: 0
   type_id: 15
   db_content: ''
-cards_543:
+cards_542:
   id: 543
   name: 'mod: content'
   key: mod_content
@@ -10371,7 +10366,7 @@ cards_543:
   trash: 0
   type_id: 15
   db_content: ''
-cards_544:
+cards_543:
   id: 544
   name: 'mod: format'
   key: mod_format
@@ -10389,7 +10384,7 @@ cards_544:
   trash: 0
   type_id: 15
   db_content: ''
-cards_545:
+cards_544:
   id: 545
   name: 'mod: search'
   key: mod_search
@@ -10407,7 +10402,7 @@ cards_545:
   trash: 0
   type_id: 15
   db_content: ''
-cards_546:
+cards_545:
   id: 546
   name: 'mod: email'
   key: mod_email
@@ -10425,7 +10420,7 @@ cards_546:
   trash: 0
   type_id: 15
   db_content: ''
-cards_547:
+cards_546:
   id: 547
   name: 'mod: integrate'
   key: mod_integrate
@@ -10443,7 +10438,7 @@ cards_547:
   trash: 0
   type_id: 15
   db_content: ''
-cards_548:
+cards_547:
   id: 548
   name: 'mod: list'
   key: mod_list
@@ -10461,7 +10456,7 @@ cards_548:
   trash: 0
   type_id: 15
   db_content: ''
-cards_549:
+cards_548:
   id: 549
   name:
   key:
@@ -10479,7 +10474,7 @@ cards_549:
   trash: 0
   type_id: 4
   db_content: ''
-cards_550:
+cards_549:
   id: 550
   name: 'mod: permissions'
   key: mod_permission
@@ -10497,7 +10492,7 @@ cards_550:
   trash: 0
   type_id: 15
   db_content: ''
-cards_551:
+cards_550:
   id: 551
   name: 'mod: account'
   key: mod_account
@@ -10515,7 +10510,7 @@ cards_551:
   trash: 0
   type_id: 15
   db_content: ''
-cards_552:
+cards_551:
   id: 552
   name: 'mod: rules'
   key: mod_rule
@@ -10533,7 +10528,7 @@ cards_552:
   trash: 0
   type_id: 15
   db_content: ''
-cards_553:
+cards_552:
   id: 553
   name: 'mod: edit'
   key: mod_edit
@@ -10551,7 +10546,7 @@ cards_553:
   trash: 0
   type_id: 15
   db_content: ''
-cards_554:
+cards_553:
   id: 554
   name: 'mod: history'
   key: mod_history
@@ -10569,7 +10564,7 @@ cards_554:
   trash: 0
   type_id: 15
   db_content: ''
-cards_555:
+cards_554:
   id: 555
   name: 'mod: carrierwave'
   key: mod_carrierwave
@@ -10587,7 +10582,7 @@ cards_555:
   trash: 0
   type_id: 15
   db_content: ''
-cards_556:
+cards_555:
   id: 556
   name: 'mod: virtual'
   key: mod_virtual
@@ -10605,7 +10600,7 @@ cards_556:
   trash: 0
   type_id: 15
   db_content: ''
-cards_557:
+cards_556:
   id: 557
   name: 'mod: assets'
   key: mod_asset
@@ -10623,7 +10618,7 @@ cards_557:
   trash: 0
   type_id: 15
   db_content: ''
-cards_558:
+cards_557:
   id: 558
   name: 'mod: script'
   key: mod_script
@@ -10641,7 +10636,7 @@ cards_558:
   trash: 0
   type_id: 15
   db_content: ''
-cards_559:
+cards_558:
   id: 559
   name:
   key:
@@ -10659,7 +10654,7 @@ cards_559:
   trash: 0
   type_id: 4
   db_content: ''
-cards_560:
+cards_559:
   id: 560
   name:
   key:
@@ -10668,7 +10663,7 @@ cards_560:
   right_id: 291
   current_revision_id:
   created_at: 2022-05-10 02:45:09.000000000 Z
-  updated_at: 2022-05-17 22:47:27.000000000 Z
+  updated_at: 2022-05-23 15:28:05.000000000 Z
   creator_id: 1
   updater_id: 1
   read_rule_class: "*all plus"
@@ -10677,7 +10672,7 @@ cards_560:
   trash: 0
   type_id: 279
   db_content: ":mod_script_script_asset_output/script.js"
-cards_561:
+cards_560:
   id: 561
   name: 'mod: ace editor'
   key: mod_ace_editor
@@ -10695,7 +10690,7 @@ cards_561:
   trash: 0
   type_id: 15
   db_content: ''
-cards_562:
+cards_561:
   id: 562
   name:
   key:
@@ -10713,7 +10708,7 @@ cards_562:
   trash: 0
   type_id: 4
   db_content: ''
-cards_563:
+cards_562:
   id: 563
   name:
   key:
@@ -10722,7 +10717,7 @@ cards_563:
   right_id: 291
   current_revision_id:
   created_at: 2022-05-10 02:45:09.000000000 Z
-  updated_at: 2022-05-17 22:47:27.000000000 Z
+  updated_at: 2022-05-23 15:28:05.000000000 Z
   creator_id: 1
   updater_id: 1
   read_rule_class: "*all plus"
@@ -10731,7 +10726,7 @@ cards_563:
   trash: 0
   type_id: 279
   db_content: ":mod_ace_editor_script_asset_output/ace_editor.js"
-cards_564:
+cards_563:
   id: 564
   name: 'mod: api key'
   key: mod_api_key
@@ -10749,7 +10744,7 @@ cards_564:
   trash: 0
   type_id: 15
   db_content: ''
-cards_565:
+cards_564:
   id: 565
   name: 'mod: style'
   key: mod_style
@@ -10767,7 +10762,7 @@ cards_565:
   trash: 0
   type_id: 15
   db_content: ''
-cards_566:
+cards_565:
   id: 566
   name:
   key:
@@ -10785,7 +10780,7 @@ cards_566:
   trash: 0
   type_id: 4
   db_content: ''
-cards_567:
+cards_566:
   id: 567
   name: 'mod: bar and box'
   key: mod_bar_and_box
@@ -10803,7 +10798,7 @@ cards_567:
   trash: 0
   type_id: 15
   db_content: ''
-cards_568:
+cards_567:
   id: 568
   name:
   key:
@@ -10821,7 +10816,7 @@ cards_568:
   trash: 0
   type_id: 4
   db_content: ''
-cards_569:
+cards_568:
   id: 569
   name:
   key:
@@ -10830,7 +10825,7 @@ cards_569:
   right_id: 291
   current_revision_id:
   created_at: 2022-05-10 02:45:10.000000000 Z
-  updated_at: 2022-05-17 22:47:27.000000000 Z
+  updated_at: 2022-05-23 15:28:05.000000000 Z
   creator_id: 1
   updater_id: 1
   read_rule_class: "*all plus"
@@ -10839,7 +10834,7 @@ cards_569:
   trash: 0
   type_id: 279
   db_content: ":mod_bar_and_box_script_asset_output/bar_and_box.js"
-cards_570:
+cards_569:
   id: 570
   name:
   key:
@@ -10857,7 +10852,7 @@ cards_570:
   trash: 0
   type_id: 4
   db_content: ''
-cards_571:
+cards_570:
   id: 571
   name: 'mod: bootstrap'
   key: mod_bootstrap
@@ -10875,7 +10870,7 @@ cards_571:
   trash: 0
   type_id: 15
   db_content: ''
-cards_572:
+cards_571:
   id: 572
   name:
   key:
@@ -10893,7 +10888,7 @@ cards_572:
   trash: 0
   type_id: 4
   db_content: ''
-cards_573:
+cards_572:
   id: 573
   name:
   key:
@@ -10902,7 +10897,7 @@ cards_573:
   right_id: 291
   current_revision_id:
   created_at: 2022-05-10 02:45:11.000000000 Z
-  updated_at: 2022-05-17 22:47:27.000000000 Z
+  updated_at: 2022-05-23 15:28:05.000000000 Z
   creator_id: 1
   updater_id: 1
   read_rule_class: "*all plus"
@@ -10911,7 +10906,7 @@ cards_573:
   trash: 0
   type_id: 279
   db_content: ":mod_bootstrap_script_asset_output/bootstrap.js"
-cards_574:
+cards_573:
   id: 574
   name:
   key:
@@ -10929,7 +10924,7 @@ cards_574:
   trash: 0
   type_id: 4
   db_content: ''
-cards_575:
+cards_574:
   id: 575
   name: 'mod: comment'
   key: mod_comment
@@ -10947,7 +10942,7 @@ cards_575:
   trash: 0
   type_id: 15
   db_content: ''
-cards_576:
+cards_575:
   id: 576
   name: 'mod: date'
   key: mod_date
@@ -10965,7 +10960,7 @@ cards_576:
   trash: 0
   type_id: 15
   db_content: ''
-cards_577:
+cards_576:
   id: 577
   name:
   key:
@@ -10983,7 +10978,7 @@ cards_577:
   trash: 0
   type_id: 4
   db_content: ''
-cards_578:
+cards_577:
   id: 578
   name:
   key:
@@ -10992,7 +10987,7 @@ cards_578:
   right_id: 291
   current_revision_id:
   created_at: 2022-05-10 02:45:12.000000000 Z
-  updated_at: 2022-05-17 22:47:27.000000000 Z
+  updated_at: 2022-05-23 15:28:05.000000000 Z
   creator_id: 1
   updater_id: 1
   read_rule_class: "*all plus"
@@ -11001,7 +10996,7 @@ cards_578:
   trash: 0
   type_id: 279
   db_content: ":mod_date_script_asset_output/date.js"
-cards_579:
+cards_578:
   id: 579
   name:
   key:
@@ -11019,7 +11014,7 @@ cards_579:
   trash: 0
   type_id: 4
   db_content: ''
-cards_580:
+cards_579:
   id: 580
   name: 'mod: delayed job'
   key: mod_delayed_job
@@ -11037,7 +11032,7 @@ cards_580:
   trash: 0
   type_id: 15
   db_content: ''
-cards_581:
+cards_580:
   id: 581
   name: 'mod: follow'
   key: mod_follow
@@ -11055,7 +11050,7 @@ cards_581:
   trash: 0
   type_id: 15
   db_content: ''
-cards_582:
+cards_581:
   id: 582
   name: 'mod: markdown'
   key: mod_markdown
@@ -11073,7 +11068,7 @@ cards_582:
   trash: 0
   type_id: 15
   db_content: ''
-cards_583:
+cards_582:
   id: 583
   name: 'mod: help'
   key: mod_help
@@ -11091,7 +11086,7 @@ cards_583:
   trash: 0
   type_id: 15
   db_content: ''
-cards_584:
+cards_583:
   id: 584
   name: 'mod: session'
   key: mod_session
@@ -11109,7 +11104,7 @@ cards_584:
   trash: 0
   type_id: 15
   db_content: ''
-cards_585:
+cards_584:
   id: 585
   name: 'mod: tabs'
   key: mod_tab
@@ -11127,7 +11122,7 @@ cards_585:
   trash: 0
   type_id: 15
   db_content: ''
-cards_586:
+cards_585:
   id: 586
   name:
   key:
@@ -11145,7 +11140,7 @@ cards_586:
   trash: 0
   type_id: 4
   db_content: ''
-cards_587:
+cards_586:
   id: 587
   name:
   key:
@@ -11154,7 +11149,7 @@ cards_587:
   right_id: 291
   current_revision_id:
   created_at: 2022-05-10 02:45:13.000000000 Z
-  updated_at: 2022-05-17 22:47:27.000000000 Z
+  updated_at: 2022-05-23 15:28:05.000000000 Z
   creator_id: 1
   updater_id: 1
   read_rule_class: "*all plus"
@@ -11163,7 +11158,7 @@ cards_587:
   trash: 0
   type_id: 279
   db_content: ":mod_tabs_script_asset_output/tabs.js"
-cards_588:
+cards_587:
   id: 588
   name: 'mod: layout'
   key: mod_layout
@@ -11181,7 +11176,7 @@ cards_588:
   trash: 0
   type_id: 15
   db_content: ''
-cards_589:
+cards_588:
   id: 589
   name: 'mod: recaptcha'
   key: mod_recaptcha
@@ -11199,7 +11194,7 @@ cards_589:
   trash: 0
   type_id: 15
   db_content: ''
-cards_590:
+cards_589:
   id: 590
   name: 'mod: tinymce editor'
   key: mod_tinymce_editor
@@ -11217,7 +11212,7 @@ cards_590:
   trash: 0
   type_id: 15
   db_content: ''
-cards_591:
+cards_590:
   id: 591
   name:
   key:
@@ -11235,7 +11230,7 @@ cards_591:
   trash: 0
   type_id: 4
   db_content: ''
-cards_592:
+cards_591:
   id: 592
   name:
   key:
@@ -11244,7 +11239,7 @@ cards_592:
   right_id: 291
   current_revision_id:
   created_at: 2022-05-10 02:45:14.000000000 Z
-  updated_at: 2022-05-17 22:47:27.000000000 Z
+  updated_at: 2022-05-23 15:28:05.000000000 Z
   creator_id: 1
   updater_id: 1
   read_rule_class: "*all plus"
@@ -11253,7 +11248,7 @@ cards_592:
   trash: 0
   type_id: 279
   db_content: ":mod_tinymce_editor_script_asset_output/tinymce_editor.js"
-cards_593:
+cards_592:
   id: 593
   name:
   key:
@@ -11271,7 +11266,7 @@ cards_593:
   trash: 0
   type_id: 4
   db_content: ''
-cards_594:
+cards_593:
   id: 594
   name: 'mod: defaults'
   key: mod_default
@@ -11289,7 +11284,7 @@ cards_594:
   trash: 0
   type_id: 15
   db_content: ''
-cards_595:
+cards_594:
   id: 595
   name: 'mod: monkey'
   key: mod_monkey
@@ -11307,7 +11302,7 @@ cards_595:
   trash: 0
   type_id: 15
   db_content: ''
-cards_596:
+cards_595:
   id: 596
   name: 'mod: platypus'
   key: mod_platypu
@@ -11325,7 +11320,7 @@ cards_596:
   trash: 0
   type_id: 15
   db_content: ''
-cards_597:
+cards_596:
   id: 597
   name:
   key:
@@ -11343,7 +11338,7 @@ cards_597:
   trash: 0
   type_id: 2
   db_content: Cards created by <em>{{_left|name}}</em>.
-cards_598:
+cards_597:
   id: 598
   name:
   key:
@@ -11361,7 +11356,7 @@ cards_598:
   trash: 0
   type_id: 2
   db_content: Cards edited by <em>{{_left|name}}</em>.
-cards_599:
+cards_598:
   id: 599
   name:
   key:
@@ -11379,7 +11374,7 @@ cards_599:
   trash: 0
   type_id: 2
   db_content: Users who have edited <em>{{_left|name}}</em>.
-cards_600:
+cards_599:
   id: 600
   name:
   key:
@@ -11398,7 +11393,7 @@ cards_600:
   type_id: 2
   db_content: "<p>\n  Cards formed by \"mating\" <em>{{_left|name}}</em> with another
     card. \n  eg\\: \"{{_left|name}}<strong>+</strong>mate\".\n</p>"
-cards_601:
+cards_600:
   id: 601
   name:
   key:
@@ -11417,7 +11412,7 @@ cards_601:
   type_id: 2
   db_content: "<p>\n  If there is a card named \"X+<em>{{_left|name}}</em>\", \n  then
     X is a mate of <em>{{_left|name}}</em>.\n</p>"
-cards_602:
+cards_601:
   id: 602
   name:
   key:
@@ -11435,7 +11430,7 @@ cards_602:
   trash: 0
   type_id: 2
   db_content: "<p>Cards that refer to <em>{{_left|name}}</em>.</p>"
-cards_603:
+cards_602:
   id: 603
   name:
   key:
@@ -11453,7 +11448,7 @@ cards_603:
   trash: 0
   type_id: 2
   db_content: "<p>Cards that link to <em>{{_left|name}}</em>.</p>"
-cards_604:
+cards_603:
   id: 604
   name:
   key:
@@ -11471,7 +11466,7 @@ cards_604:
   trash: 0
   type_id: 2
   db_content: "<p>Cards nested within <em>{{_left|name}}</em></p>"
-cards_605:
+cards_604:
   id: 605
   name:
   key:
@@ -11489,7 +11484,7 @@ cards_605:
   trash: 0
   type_id: 2
   db_content: "<p>Cards that <em>{{_left|name}}</em> links to.</p>"
-cards_606:
+cards_605:
   id: 606
   name:
   key:
@@ -11507,7 +11502,7 @@ cards_606:
   trash: 0
   type_id: 2
   db_content: "<p>Cards referred to by <em>{{_left|name}}</em>.</p>"
-cards_607:
+cards_606:
   id: 607
   name:
   key:
@@ -11525,7 +11520,7 @@ cards_607:
   trash: 0
   type_id: 2
   db_content: "<p>Cards that <em>{{_left|name}}</em> refers to.</p>"
-cards_608:
+cards_607:
   id: 608
   name:
   key:
@@ -11543,7 +11538,7 @@ cards_608:
   trash: 0
   type_id: 56
   db_content: ' { "right_plus":{"codename":"account"} } '
-cards_609:
+cards_608:
   id: 609
   name:
   key:
@@ -11561,7 +11556,7 @@ cards_609:
   trash: 0
   type_id: 56
   db_content: ' { "right_plus":{"codename":"account"} } '
-cards_610:
+cards_609:
   id: 610
   name:
   key:
@@ -11579,7 +11574,7 @@ cards_610:
   trash: 0
   type_id: 56
   db_content: ' { "right_plus":{"codename":"account"} } '
-cards_611:
+cards_610:
   id: 611
   name:
   key:
@@ -11597,7 +11592,7 @@ cards_611:
   trash: 0
   type_id: 56
   db_content: ' { "right_plus":{"codename":"account"} } '
-cards_612:
+cards_611:
   id: 612
   name:
   key:
@@ -11618,7 +11613,7 @@ cards_612:
     {"type": "File",
      "sort": "update"
     }
-cards_613:
+cards_612:
   id: 613
   name:
   key:
@@ -11636,7 +11631,7 @@ cards_613:
   trash: 0
   type_id: 129
   db_content: checkbox
-cards_614:
+cards_613:
   id: 614
   name:
   key:
@@ -11654,7 +11649,7 @@ cards_614:
   trash: 0
   type_id: 129
   db_content: radio
-cards_615:
+cards_614:
   id: 615
   name:
   key:
@@ -11672,21 +11667,237 @@ cards_615:
   trash: 0
   type_id: 2
   db_content: Get notified about changes.
-cards_616:
-  id: 616
-  name: 'mod: twitter'
-  key: mod_twitter
-  codename: mod_twitter
-  left_id:
-  right_id:
+cards_615:
+  id: 617
+  name:
+  key:
+  codename:
+  left_id: 544
+  right_id: 339
   current_revision_id:
-  created_at: 2022-05-17 22:47:16.000000000 Z
-  updated_at: 2022-05-17 22:47:16.000000000 Z
+  created_at: 2022-05-23 15:27:49.000000000 Z
+  updated_at: 2022-05-23 15:27:49.000000000 Z
   creator_id: 1
   updater_id: 1
-  read_rule_class: "*all"
+  read_rule_class: "*all plus"
   read_rule_id: 10
   references_expired:
   trash: 0
-  type_id: 15
+  type_id: 4
+  db_content: ''
+cards_616:
+  id: 618
+  name:
+  key:
+  codename:
+  left_id: 545
+  right_id: 339
+  current_revision_id:
+  created_at: 2022-05-23 15:27:49.000000000 Z
+  updated_at: 2022-05-23 15:27:49.000000000 Z
+  creator_id: 1
+  updater_id: 1
+  read_rule_class: "*all plus"
+  read_rule_id: 10
+  references_expired:
+  trash: 0
+  type_id: 4
+  db_content: ''
+cards_617:
+  id: 619
+  name:
+  key:
+  codename:
+  left_id: 550
+  right_id: 339
+  current_revision_id:
+  created_at: 2022-05-23 15:27:49.000000000 Z
+  updated_at: 2022-05-23 15:27:49.000000000 Z
+  creator_id: 1
+  updater_id: 1
+  read_rule_class: "*all plus"
+  read_rule_id: 10
+  references_expired:
+  trash: 0
+  type_id: 4
+  db_content: ''
+cards_618:
+  id: 620
+  name:
+  key:
+  codename:
+  left_id: 551
+  right_id: 339
+  current_revision_id:
+  created_at: 2022-05-23 15:27:50.000000000 Z
+  updated_at: 2022-05-23 15:27:50.000000000 Z
+  creator_id: 1
+  updater_id: 1
+  read_rule_class: "*all plus"
+  read_rule_id: 10
+  references_expired:
+  trash: 0
+  type_id: 4
+  db_content: ''
+cards_619:
+  id: 621
+  name:
+  key:
+  codename:
+  left_id: 552
+  right_id: 339
+  current_revision_id:
+  created_at: 2022-05-23 15:27:50.000000000 Z
+  updated_at: 2022-05-23 15:27:50.000000000 Z
+  creator_id: 1
+  updater_id: 1
+  read_rule_class: "*all plus"
+  read_rule_id: 10
+  references_expired:
+  trash: 0
+  type_id: 4
+  db_content: ''
+cards_620:
+  id: 622
+  name:
+  key:
+  codename:
+  left_id: 553
+  right_id: 339
+  current_revision_id:
+  created_at: 2022-05-23 15:27:50.000000000 Z
+  updated_at: 2022-05-23 15:27:50.000000000 Z
+  creator_id: 1
+  updater_id: 1
+  read_rule_class: "*all plus"
+  read_rule_id: 10
+  references_expired:
+  trash: 0
+  type_id: 4
+  db_content: ''
+cards_621:
+  id: 623
+  name:
+  key:
+  codename:
+  left_id: 554
+  right_id: 339
+  current_revision_id:
+  created_at: 2022-05-23 15:27:50.000000000 Z
+  updated_at: 2022-05-23 15:27:50.000000000 Z
+  creator_id: 1
+  updater_id: 1
+  read_rule_class: "*all plus"
+  read_rule_id: 10
+  references_expired:
+  trash: 0
+  type_id: 4
+  db_content: ''
+cards_622:
+  id: 624
+  name:
+  key:
+  codename:
+  left_id: 555
+  right_id: 339
+  current_revision_id:
+  created_at: 2022-05-23 15:27:50.000000000 Z
+  updated_at: 2022-05-23 15:27:50.000000000 Z
+  creator_id: 1
+  updater_id: 1
+  read_rule_class: "*all plus"
+  read_rule_id: 10
+  references_expired:
+  trash: 0
+  type_id: 4
+  db_content: ''
+cards_623:
+  id: 625
+  name:
+  key:
+  codename:
+  left_id: 564
+  right_id: 339
+  current_revision_id:
+  created_at: 2022-05-23 15:27:50.000000000 Z
+  updated_at: 2022-05-23 15:27:50.000000000 Z
+  creator_id: 1
+  updater_id: 1
+  read_rule_class: "*all plus"
+  read_rule_id: 10
+  references_expired:
+  trash: 0
+  type_id: 4
+  db_content: ''
+cards_624:
+  id: 626
+  name:
+  key:
+  codename:
+  left_id: 575
+  right_id: 339
+  current_revision_id:
+  created_at: 2022-05-23 15:27:51.000000000 Z
+  updated_at: 2022-05-23 15:27:51.000000000 Z
+  creator_id: 1
+  updater_id: 1
+  read_rule_class: "*all plus"
+  read_rule_id: 10
+  references_expired:
+  trash: 0
+  type_id: 4
+  db_content: ''
+cards_625:
+  id: 627
+  name:
+  key:
+  codename:
+  left_id: 581
+  right_id: 339
+  current_revision_id:
+  created_at: 2022-05-23 15:27:51.000000000 Z
+  updated_at: 2022-05-23 15:27:51.000000000 Z
+  creator_id: 1
+  updater_id: 1
+  read_rule_class: "*all plus"
+  read_rule_id: 10
+  references_expired:
+  trash: 0
+  type_id: 4
+  db_content: ''
+cards_626:
+  id: 628
+  name:
+  key:
+  codename:
+  left_id: 583
+  right_id: 339
+  current_revision_id:
+  created_at: 2022-05-23 15:27:51.000000000 Z
+  updated_at: 2022-05-23 15:27:51.000000000 Z
+  creator_id: 1
+  updater_id: 1
+  read_rule_class: "*all plus"
+  read_rule_id: 10
+  references_expired:
+  trash: 0
+  type_id: 4
+  db_content: ''
+cards_627:
+  id: 629
+  name:
+  key:
+  codename:
+  left_id: 588
+  right_id: 339
+  current_revision_id:
+  created_at: 2022-05-23 15:27:51.000000000 Z
+  updated_at: 2022-05-23 15:27:51.000000000 Z
+  creator_id: 1
+  updater_id: 1
+  read_rule_class: "*all plus"
+  read_rule_id: 10
+  references_expired:
+  trash: 0
+  type_id: 4
   db_content: ''

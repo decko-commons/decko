@@ -1,0 +1,30 @@
+/*----------- (Account Request)--------------*/
+
+.invite-links {
+  padding: 10px;
+  margin-top: 10px;
+  text-align: center;
+}
+.invite-links a {
+  font-weight: bold;
+  margin: 0 20px;
+}
+
+/*-- sign in page --*/
+
+#sign-in input#login_field,
+#sign-in input#password,
+#forgot-password input#email {
+  width: 50%;
+}
+#forgot-password {
+  margin-top: 40px;
+}
+
+.new-account-link {
+  text-align: center;
+}
+
+.form-group .signup-link {
+  display: inline;
+}

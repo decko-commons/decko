@@ -35,7 +35,7 @@ class RuleSetRadio
 
   def rule_radio
     label_classes = ["set-label", ("current-set-label" if current?)]
-    icon = icon_tag "open_in_new", "link-muted"
+    icon = icon_tag "open_in_new", "text-muted"
     wrap_with :label, class: label_classes.compact.join(" ") do
       [yield, label, link_to_card(@set_name, icon, target: "decko_set")]
     end

@@ -19,7 +19,7 @@
       return event.stopPropagation();
     });
     return $('body').on('click', "._card-link a", function(event) {
-      if ($(this).hasClass("over-card-link")) {
+      if ($(this).hasClass("_over-card-link") || $(this).closest("._over-card-link")[0]) {
         return event.stopPropagation();
       } else {
         return event.preventDefault();

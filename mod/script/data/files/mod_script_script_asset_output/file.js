@@ -3963,7 +3963,7 @@ this._delay(function(){n===this.counter&&this.refreshPositions(!s)})},_clear:fun
           return true;
         }
       } else {
-        f.find('.set-editor').addClass('attention');
+        f.find('.set-editor').addClass('warning');
         $(this).notify('To what Set does this Rule apply?');
         return false;
       }
