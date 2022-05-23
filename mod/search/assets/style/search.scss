@@ -1,0 +1,30 @@
+
+.search-keyword {
+  font-style: italic;
+}
+
+.search-count {
+  float: right;
+  color: $gray-600;
+}
+
+.checkbox-list-item {
+  > .checkbox-side {
+    width: 32px;
+    min-width: 32px;
+  }
+  > .item-view-side {
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+  }
+}
+
+.closed-content .search-no-results:after {
+  content:'';
+}
+
+/* english content in css.  ugh */
+.search-no-results:after {
+  content:'0 results';
+}
