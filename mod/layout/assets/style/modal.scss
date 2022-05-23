@@ -25,6 +25,15 @@
   z-index: auto;
 }
 
+.modal-body > div {
+  display: inline-block;
+  width: 100%;
+
+  .menu-slot {
+    z-index: 1;
+  }
+}
+
 
 /*------ bootstrap 5 --------*/
 

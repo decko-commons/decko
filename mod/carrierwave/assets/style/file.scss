@@ -2,6 +2,7 @@
 .fileupload-buttonbar .btn, .fileupload-buttonbar .toggle {
   margin-bottom: 5px;
 }
+
 .fileinput-button {
   position: relative;
   overflow: hidden;
@@ -19,9 +20,11 @@
   }
 }
 
-
-.TYPE-image.d0-card-content, .TYPE-image .d0-card-body {
-  img {
-    max-width: 100%;
+.TYPE-image {
+  .d0-card-content, .d0-card-body {
+    img {
+      max-width: 100%;
+      max-height: 100%;
+    }
   }
 }

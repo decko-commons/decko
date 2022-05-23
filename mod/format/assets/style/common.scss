@@ -3,6 +3,13 @@ form {
   padding: 0;
 }
 
+a, a:visited {
+  text-decoration: none;
+}
+a:focus, a:hover {
+  text-decoration: underline;
+}
+
 .card-slot {
   position: relative;
 }
@@ -46,11 +53,11 @@ form {
 
 
 
-
 .titled-view > .d0-card-header {
   border-bottom: 1px solid $border-color;
   padding-bottom: 0.1em;
   margin-bottom: 1em;
+  min-height: 1.5em;
 
   > .d0-card-header-title > .card-title {
     font-size: $h1-font-size;
