@@ -8218,7 +8218,7 @@ cards_438:
   right_id: 291
   current_revision_id:
   created_at: 2022-05-10 02:44:55.000000000 Z
-  updated_at: 2022-05-23 17:36:51.000000000 Z
+  updated_at: 2022-05-23 21:57:34.000000000 Z
   creator_id: 1
   updater_id: 185
   read_rule_class: "*all plus"
@@ -10682,7 +10682,7 @@ cards_560:
   right_id: 291
   current_revision_id:
   created_at: 2022-05-10 02:45:09.000000000 Z
-  updated_at: 2022-05-23 17:36:50.000000000 Z
+  updated_at: 2022-05-23 21:57:34.000000000 Z
   creator_id: 1
   updater_id: 185
   read_rule_class: "*all plus"
@@ -10736,7 +10736,7 @@ cards_563:
   right_id: 291
   current_revision_id:
   created_at: 2022-05-10 02:45:09.000000000 Z
-  updated_at: 2022-05-23 17:36:50.000000000 Z
+  updated_at: 2022-05-23 21:57:34.000000000 Z
   creator_id: 1
   updater_id: 185
   read_rule_class: "*all plus"
@@ -10844,7 +10844,7 @@ cards_569:
   right_id: 291
   current_revision_id:
   created_at: 2022-05-10 02:45:10.000000000 Z
-  updated_at: 2022-05-23 17:36:50.000000000 Z
+  updated_at: 2022-05-23 21:57:34.000000000 Z
   creator_id: 1
   updater_id: 185
   read_rule_class: "*all plus"
@@ -10916,7 +10916,7 @@ cards_573:
   right_id: 291
   current_revision_id:
   created_at: 2022-05-10 02:45:11.000000000 Z
-  updated_at: 2022-05-23 17:36:50.000000000 Z
+  updated_at: 2022-05-23 21:57:34.000000000 Z
   creator_id: 1
   updater_id: 185
   read_rule_class: "*all plus"
@@ -11006,7 +11006,7 @@ cards_578:
   right_id: 291
   current_revision_id:
   created_at: 2022-05-10 02:45:12.000000000 Z
-  updated_at: 2022-05-23 17:36:50.000000000 Z
+  updated_at: 2022-05-23 21:57:34.000000000 Z
   creator_id: 1
   updater_id: 185
   read_rule_class: "*all plus"
@@ -11168,7 +11168,7 @@ cards_587:
   right_id: 291
   current_revision_id:
   created_at: 2022-05-10 02:45:13.000000000 Z
-  updated_at: 2022-05-23 17:36:50.000000000 Z
+  updated_at: 2022-05-23 21:57:34.000000000 Z
   creator_id: 1
   updater_id: 185
   read_rule_class: "*all plus"
@@ -11258,7 +11258,7 @@ cards_592:
   right_id: 291
   current_revision_id:
   created_at: 2022-05-10 02:45:14.000000000 Z
-  updated_at: 2022-05-23 17:36:50.000000000 Z
+  updated_at: 2022-05-23 21:57:34.000000000 Z
   creator_id: 1
   updater_id: 185
   read_rule_class: "*all plus"
