@@ -1,0 +1,109 @@
+
+// Bridge
+._modal-stack {
+  z-index: 1010;
+}
+
+.modal-header .card-title {
+  margin-bottom: 0;
+}
+
+.modal-dialog.no-gaps > .modal-content {
+  > .modal-body {
+    padding: 0;
+  }
+  > .modal-header > nav > ol.breadcrumb {
+    margin-bottom: 0;
+    padding: 0.2rem 0.3rem;
+  }
+}
+
+$bridge-line-color: $border-color;
+
+.bridge-sidebar {
+  background-color: darken($body-bg, 15%);
+  padding-left: 0;
+  padding-right: 0;
+  min-height: calc(100vh - 90px);
+
+  .guide-text {
+    padding: 15px;
+    background-color: $body-bg;
+  }
+}
+
+.bg-body {
+  background-color: $body-bg !important;
+}
+
+.bridge-main {
+  border-right: 1px solid $bridge-line-color;
+  padding-left: 0;
+  padding-right: 0;
+  > ._overlay-container-placeholder > .bridge-view {
+    padding-top: 10px;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+  > .overlay-container > .bridge-view {
+    padding-top: 0px;
+  }
+}
+
+
+
+.bridge-pills {
+  .help-text {
+    font-size: 0.8rem;
+  }
+  > .nav-item {
+    padding: 0;
+    > a {
+      color: inherit
+    }
+    background-color: $body-bg;
+    border: 1px solid $nav-tabs-border-color;
+    border-left: 3px solid $nav-tabs-border-color;
+    margin-bottom: -1px;
+
+    &:hover, &.active, &:focus {
+      border-left-color: $nav-pills-link-active-bg;
+    }
+  }
+}
+
+.bridge {
+  .perm-editor {
+    margin-left: 0;
+  }
+
+  .set-editor {
+    ul {
+      background: $white;
+      padding-left: 0;
+      margin-left: 15px;
+
+      &:first-child {
+        margin-left: 0;
+      }
+    }
+    li.radio {
+      padding: 10px 0px 0px 15px;
+      border-left: 1px solid $bridge-line-color;
+      border-top: 1px solid $bridge-line-color;
+      margin-top: 10px;
+    }
+  }
+
+  .bridge-sidebar {
+    .history_tab-view > div {
+      margin: 0.5rem;
+    }
+    .d0-card-header-title > .card-title {
+      font-size: 1rem;
+    }
+    .nav-link {
+      padding: 0.5rem 0.5rem;
+    }
+  }
+}

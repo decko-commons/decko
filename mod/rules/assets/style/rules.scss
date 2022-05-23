@@ -1,0 +1,143 @@
+
+/*-------------------------- */
+/*- SETS, SETTINGS, RULES  - */
+/*-------------------------- */
+
+.setting-klass,
+.rule-setting {
+  font-weight: bold;
+}
+
+.rule-set {
+  white-space: nowrap;
+}
+
+.closed-rule {
+  height: 30px;
+  .rule-content {
+    width: 350px;
+  }
+}
+
+.rule-content-container {
+  max-width: 350px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: inherit;
+  background: inherit;
+  white-space: nowrap;
+  .closed-content,
+  .closed-content .pointer-list,
+  .closed-content .search-list {
+    margin: 0;
+  }
+}
+.rule-setting {
+  padding-top: 4px;
+}
+.open-rule > .rule-setting {
+  width: 28%;
+  float: left;
+}
+.open-rule .d0-card-body {
+  clear: both;
+}
+.open-rule .rule-instruction {
+  float: right;
+  text-align: left;
+  max-width: 68%;
+}
+.edit-rule,
+.set-list{
+  .set-editor {
+    ul {
+      list-style-type: none;
+    }
+    .current-set-label {
+      font-weight: bold;
+    }
+  }
+  .edit-button-area {
+    clear: both;
+    padding-top: 5px;
+  }
+}
+.rule-delete-section {
+  float: right;
+}
+.guide-line-number {
+  display: inline-block;
+  background: #000;
+  color: $white;
+  border-radius: 100%;
+  width: 21px;
+  height: 21px;
+  font-size: 61%;
+  text-align: center;
+  padding-top: 3px;
+  font-weight: bold;
+  margin-left: -1.7rem;
+  position: relative;
+  top: -5px;
+  left: -4px;
+}
+
+.guide-line {
+  border-left: 1px solid $border-color;
+}
+
+.rule-section {
+  padding-left: 20px;
+  margin-left: 12px;
+  margin-right: 5px;
+  h4 {
+    position: relative;
+    top: -4px;
+  }
+}
+
+.template_link-view {
+  display: inline;
+}
+
+.rule-item {
+  h5 {
+    font-weight: bold;
+  }
+  background-color: $list-group-bg;
+  border: 1px solid $list-group-border-color;
+  border-left: 5px solid $list-group-border-color;
+  margin-bottom: -1px;
+  padding: 5px;
+  &:hover, &.active {
+    border-left-color: $list-group-active-bg;
+  }
+}
+
+// reduce bottom margins
+.card-slot.set-info {
+  .form-group {
+    margin-bottom: 0.3rem;
+    label {
+      margin-bottom: 0.2rem;
+    }
+  }
+  p {
+    margin-bottom: 0.5rem;
+  }
+}
+
+.help-text.rule-instruction > div p:last-child {
+  margin-bottom: 0;
+}
+
+a.setting-link {
+  font-style: italic;
+  margin-left: 2%;
+  font-weight: normal;
+  color: $black;
+  white-space: nowrap;
+}
+h2.set-label {
+  padding-bottom: 10px;
+}
