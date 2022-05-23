@@ -1,0 +1,28 @@
+.background-modal {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 900;
+  outline: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.modal-menu .close{
+  font-size: 16px;
+  // margin-left: 10px;
+}
+
+.modal-dialog.modal-full {
+  max-width: 99%;
+  margin: 1%;
+}
+
+
+/*------ bootstrap 5 --------*/
+
+.modal-header .btn-close {
+  background: none;
+}
