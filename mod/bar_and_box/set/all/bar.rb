@@ -27,7 +27,7 @@ format :html do
   view :bar_menu, unknown: true, template: :haml
   view :bar_body, unknown: true, template: :haml
 
-  view :accordion_bar, unknown: true do
+  view :accordion_bar, unknown: :mini_bar do
     prepare_bar mini_bar_cols
     class_up "accordion-item", "bar #{classy 'bar'}"
     accordion_item render_bar_body,
