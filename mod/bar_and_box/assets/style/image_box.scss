@@ -11,9 +11,7 @@
     }
   }
 }
-.media {
-  display: flex;
-}
+
 .image-box {
   display: flex;
   align-items: center;
@@ -77,5 +75,19 @@
   }
   .media-body {
     padding: 4px;
+  }
+}
+
+.media {
+  display: flex;
+}
+.media-body {
+  .media-heading {
+    a {
+      color: inherit;
+    }
+  }
+  .media-text {
+    clear: both;
   }
 }
