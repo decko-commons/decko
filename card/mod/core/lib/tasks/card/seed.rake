@@ -14,15 +14,12 @@ namespace :card do
 
     desc "finalize seed data with migrations, installations, asset coding, and cleaning"
     task polish: :environment do
-      unless Rails.env.test?
-        # the test data depend on the real data, which should handle the updating,
-        # asset coding, and cleaning. It's important NOT to clean the test
-        # data and lose history, creator info, etc.
+      ENV["STAMP_MIGRATIONS"] = "true"
 
-        ENV["STAMP_MIGRATIONS"] = "true"
+      invoke_card_tasks %w[update assets:code]
 
-        invoke_card_tasks %w[update assets:code seed:clean]
-      end
+      invoke_card_task "seed:clean" unless Rails.env.test?
+      # It's important NOT to clean the test data and lose history, creator info, etc.
     end
 
     desc "reseed from the fixtures of the dependee seed mod"
