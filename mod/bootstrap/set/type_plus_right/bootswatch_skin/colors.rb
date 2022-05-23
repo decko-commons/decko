@@ -118,6 +118,14 @@ event :translate_variables_to_scss, :prepare_to_validate, on: :update do
   replace_values :theme_colors
 end
 
+private
+
+def read_bootstrap_variables
+  ::File.read ::File.expand_path(
+    "#{mod_root :bootstrap}/vendor/bootstrap/scss/_variables.scss"
+  )
+end
+
 def replace_values group, prefix=""
   values = variable_values_from_params group
   values.each_pair do |name, val|
