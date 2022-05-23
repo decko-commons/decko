@@ -1,0 +1,9 @@
+
+/* Help text */
+.help-text {
+  color: $text-muted
+}
+
+.nav-pills .nav-link.active .help-text {
+  color: lighten($primary, 40%);
+}

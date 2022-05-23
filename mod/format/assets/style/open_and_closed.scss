@@ -1,0 +1,68 @@
+.d0-card-frame .toggler {
+  display: inline-block;
+  position: relative;
+}
+
+.closed-view {
+  position: relative;
+  > .d0-card-frame {
+    white-space: nowrap;
+    //padding-right: 30px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    position: static;
+    width:100%;
+    > .d0-card-header{
+      // float: left;
+    }
+  }
+
+  .d0-card-frame {
+    display: inline-block;
+  }
+}
+.closed-content {
+  margin-top: 2px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  padding: 10px;
+
+  table, thead, tbody, tr, th, td, p, h1, h2, h3, h4, h5, h6, ul, li, pre, ol, div, span, a, blockquote, img, label, i {
+    display: inline;
+    white-space: nowrap;
+    float: none;
+  }
+  br, hr, input, textarea, object, :after, :before {
+    display: none;
+  }
+}
+
+
+.closed-view.panel {
+  margin: 0;
+  width: 100%;
+}
+.closed-content {
+  table, tbody, tr, th, td, p, h1, h2, h3, h4, h5, h6, ul, li, pre, ol, div, span, a, blockquote, img {
+    font-size: 1em;
+    margin: 0 6px 0 0;
+    padding: 0;
+    border:  0;
+  }
+  a {
+    margin: 0;
+  }
+  img {
+    max-height: 1em;
+    width: auto;
+  }
+}
+
+.toggler > i.material-icons{
+  color: $black;
+  font-size: 15px;
+  font-weight: bolder!important;
+  border: 2px solid $black;
+  border-radius: 3px;
+  margin-right: 3px;
+}

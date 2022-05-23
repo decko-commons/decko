@@ -3,7 +3,7 @@ class Card
     class Component
       # generate bootstrap column layout
       # @example
-      #   layout container: true, fluid: true, class: "hidden" do
+      #   layout container: true, fluid: true, class: "jackelope" do
       #     row 6, 6, class: "unicorn" do
       #       column "horn",
       #       column "rainbow", class: "colorful"
