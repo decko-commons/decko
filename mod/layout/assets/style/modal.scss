@@ -21,6 +21,11 @@
 }
 
 
+.modal-backdrop.in {
+  z-index: auto;
+}
+
+
 /*------ bootstrap 5 --------*/
 
 .modal-header .btn-close {
