@@ -18,6 +18,6 @@ $(window).ready ->
       else
         true
     else
-      f.find('.set-editor').addClass('attention')
+      f.find('.set-editor').addClass('warning')
       $(this).notify 'To what Set does this Rule apply?'
       false

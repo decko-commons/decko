@@ -1,0 +1,34 @@
+.card-editor {
+  white-space: normal;
+  padding-bottom: 15px;
+}
+
+.button-form-group {
+  display: flex
+}
+.rename-button-form-group .btn {
+  margin-right: 1rem;
+}
+
+.d0-card-header a {
+  color: $body-color;
+  &.edit-link, &.bridge-link, &.help-link {
+    color: $text-muted;
+  }
+}
+
+//
+///*-------------------- */
+///*- EDIT INTERFACE   - */
+///*-------------------- */
+//
+//textarea,
+//.content-editor > input[type=text],
+//.content-editor > input[type=password],
+//.name-editor input {
+//  width: 97.5%;
+//}
+///* width + padding = 99.5%, which leaves 0.5% for the borders.  This is imprecise, but borders can't be specified as a percentage */
+//textarea {
+//  max-height: 500px;
+//}

@@ -1,0 +1,102 @@
+ul.pointer {
+  margin: 0;
+  padding: 0;
+}
+
+.pointer-list-editor {
+  margin: 0px;
+  padding: 0px;
+  li {
+    list-style: none;
+    white-space: nowrap;
+  }
+
+  .input-group-btn {
+    .btn {
+      border-bottom-width: 1px;
+    }
+  }
+
+  ._pointer-item-add {
+    margin-top: 10px;
+  }
+
+  .input-group-addon.handle {
+    padding-left: 1px;
+    padding-right: 1px;
+
+    .glyphicon-option-vertical.left {
+      margin-right: -7px;
+    }
+    .glyphicon-option-vertical.right {
+      margin-left: -7px;
+    }
+  }
+}
+
+/*---------- ( Link list )-------------*/
+
+.group-text-middle {
+  border-left: none;
+  border-right: none;
+}
+
+.group-text-left {
+  border-right: none;
+}
+
+.group-text-right {
+  border-left: none;
+}
+
+
+/*---------- ( Nest list editor )-------------*/
+
+.input-nest-syntax {
+  background-color: $input-bg;
+  font-weight: 200;
+  font-size: 1.3rem;
+  padding-top: 0.1rem;
+  padding-bottom: 0.1rem;
+}
+
+.nest-form-header .input-group {
+  height: 2rem;
+
+  .input-group-text {
+    visibility: hidden;
+  }
+}
+
+.one-line-pointer-list {
+  div.pointer-item {
+    display: inline-block
+  }
+}
+
+/*-------------------- */
+/*- SEARCH & POINTER - */
+/*-------------------- */
+
+// TODO: use shared class for pointers and searches
+
+div.pointer-list,
+div.search-result-list {
+  list-style: none;
+  padding: 5px 0;
+  margin: 0;
+  .closed-view > .d0-card-frame {
+    margin-bottom: 0;
+  }
+}
+div.pointer-list .pointer-item,
+div.search-result-list .search-result-item {
+  margin: 0;
+}
+.search-result-item.item-link,
+.pointer-item.item-link,
+.search-result-item.item-name,
+.pointer-item.item-name {
+  text-indent: -15px;
+  padding-left: 15px;
+}
