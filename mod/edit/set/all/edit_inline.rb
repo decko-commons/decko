@@ -37,7 +37,7 @@ format :html do
   def edit_row_fixed_width title, content, edit_view, width=50
     class_up "card-slot", "d-flex form-group"
     wrap do
-      ["<label class='w-#{width}px'>#{title}</label>",
+      ["<label style='width: #{width}px'>#{title}</label>",
        content,
        edit_inline_link(edit_view, align: :right)]
     end

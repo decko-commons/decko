@@ -64,35 +64,35 @@ blocks:
             - cd monkey
             - be decko setup
 
-  - name: Unit Tests
-    task:
-      env_vars:
-        - name: REPO_TMPSETS
-          value: "true"
-      prologue:
-        commands:
-          - sem-service start mysql
-          - git submodule update
-          - cache restore bundle-gems-$(checksum Gemfile.lock)
-          - ./cc-test-reporter before-build
-          - bundle install
-
-      jobs:
-        - name: RSpec
-          commands:
-            - be decko new platypus --platypus
-            - cd platypus
-            - env RAILS_ENV=test bundle exec decko setup # --test
-            - be decko rspec -s -- --format RspecJunitFormatter --out junit.xml --format documentation
-      epilogue:
-        on_pass:
-          commands:
-            - cd -
-            - ./cc-test-reporter format-coverage --output "coverage/codeclimate.$SEMAPHORE_JOB_ID.json" -t simplecov
-            - aws s3 cp "coverage/codeclimate.$SEMAPHORE_JOB_ID.json" $S3_PATH
-        always:
-          commands:
-            - test-results publish junit.xml
+#  - name: Unit Tests
+#    task:
+#      env_vars:
+#        - name: REPO_TMPSETS
+#          value: "true"
+#      prologue:
+#        commands:
+#          - sem-service start mysql
+#          - git submodule update
+#          - cache restore bundle-gems-$(checksum Gemfile.lock)
+#          - ./cc-test-reporter before-build
+#          - bundle install
+#
+#      jobs:
+#        - name: RSpec
+#          commands:
+#            - be decko new platypus --platypus
+#            - cd platypus
+#            - env RAILS_ENV=test bundle exec decko setup # --test
+#            - be decko rspec -s -- --format RspecJunitFormatter --out junit.xml --format documentation
+#      epilogue:
+#        on_pass:
+#          commands:
+#            - cd -
+#            - ./cc-test-reporter format-coverage --output "coverage/codeclimate.$SEMAPHORE_JOB_ID.json" -t simplecov
+#            - aws s3 cp "coverage/codeclimate.$SEMAPHORE_JOB_ID.json" $S3_PATH
+#        always:
+#          commands:
+#            - test-results publish junit.xml
 
   - name: Integration Tests
     task:
@@ -118,12 +118,12 @@ blocks:
             - nvm use 16.0.0
             - rm -rf node_modules
             - yarn install --frozen-lockfile
-            - yarn run cypress run --reporter --record junit --reporter-options "mochaFile=/home/semaphore/reports/cypress-output-[hash].xml"
+            - yarn run cypress run --record  --reporter junit --reporter-options "mochaFile=/home/semaphore/reports/cypress-output-[hash].xml"
 
             - pkill -2 -f puma
-        - name: Cucumber
-          commands:
-            - RAILS_ENV=cucumber bundle exec decko cucumber -- --format junit --out /home/semaphore/reports
+#        - name: Cucumber
+#          commands:
+#            - RAILS_ENV=cucumber bundle exec decko cucumber -- --format junit --out /home/semaphore/reports
 
       epilogue:
         always:
