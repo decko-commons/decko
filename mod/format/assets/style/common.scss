@@ -1,0 +1,78 @@
+form {
+  margin: 0;
+  padding: 0;
+}
+
+a, a:visited {
+  text-decoration: none;
+}
+a:focus, a:hover {
+  text-decoration: underline;
+}
+
+.card-slot {
+  position: relative;
+}
+
+// resets
+.d0-card-frame,
+.d0-card-body,
+.ALL {
+  overflow: inherit;
+  white-space: normal;
+}
+
+.d0-card-frame {
+  text-align: left;
+  font-weight: normal;
+  font-style: normal;
+
+  .d0-card-frame-title {
+    // display: inline-block;
+    overflow: hidden;
+    span.header-icon {
+      margin: 0 5px;
+    }
+  }
+  .type-info {
+    margin-right: 10px;
+  }
+}
+
+
+.d0-card-content {
+  .d0-card-header > .d0-card-header-title > .card-title {
+    font-size: $h2-font-size;
+    color: $headings-color;
+  }
+  .bar-bottom .d0-card-header > .d0-card-header-title > .card-title {
+    font-size: $h3-font-size;
+    color: $headings-color;
+  }
+}
+
+
+
+.titled-view > .d0-card-header {
+  border-bottom: 1px solid $border-color;
+  padding-bottom: 0.1em;
+  margin-bottom: 1em;
+  min-height: 1.5em;
+
+  > .d0-card-header-title > .card-title {
+    font-size: $h1-font-size;
+    color: $headings-color;
+  }
+}
+
+/* links to create missing cards */
+
+a.unknown-link {
+  color: $text-muted;
+  font-variant: small-caps;
+  &:hover {
+    color: $primary;
+  }
+}
+
+

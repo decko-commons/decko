@@ -29,3 +29,27 @@ li.select2-results__option svg {
   min-width: 15px;
   margin: 0;
 }
+
+.input-group.show-prefix {
+  border-left: 1px solid $input-border-color;
+  > input {
+    border-left: none;
+  }
+  ._field-indicator {
+    border-left: none;
+  }
+}
+
+.input-group.hide-prefix {
+  > ._field-indicator {
+    display: none;
+  }
+}
+
+.input-group-text._field-indicator {
+  font-size: 1.3rem;
+  line-height: 1;
+  font-weight: bold;
+  border-right: none;
+  background: $input-bg;
+}
