@@ -49,7 +49,7 @@ RSpec.describe Card::Set::Type::Set do
       puts structure_rule.format.render_open
       expect(structure_rule.format.render_open)
         .to have_tag("a.slotter") do
-        with_text /#{Regexp.escape nest_syntax}/
+        with_text(/#{Regexp.escape nest_syntax}/)
       end
     end
 

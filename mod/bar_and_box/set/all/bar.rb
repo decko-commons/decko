@@ -39,7 +39,8 @@ format :html do
     [
       edit_link(:edit, text: card.new? ? "create" : "edit"),
       full_page_link(text: "full page"),
-      bridge_link(text: "advanced")
+      modal_page_link(text: "modal"),
+      bridge_link(text: "advanced"),
     ]
   end
 
