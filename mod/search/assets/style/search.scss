@@ -8,18 +8,6 @@
   color: $gray-600;
 }
 
-.checkbox-list-item {
-  > .checkbox-side {
-    width: 32px;
-    min-width: 32px;
-  }
-  > .item-view-side {
-    width: 100%;
-    max-width: 100%;
-    overflow: hidden;
-  }
-}
-
 .closed-content .search-no-results:after {
   content:'';
 }

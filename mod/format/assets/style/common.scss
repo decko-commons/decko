@@ -39,7 +39,6 @@ a:focus, a:hover {
   }
 }
 
-
 .d0-card-content {
   .d0-card-header > .d0-card-header-title > .card-title {
     font-size: $h2-font-size;
@@ -51,12 +50,7 @@ a:focus, a:hover {
   }
 }
 
-
-
 .titled-view > .d0-card-header {
-  border-bottom: 1px solid $border-color;
-  padding-bottom: 0.1em;
-  margin-bottom: 1em;
   min-height: 1.5em;
 
   > .d0-card-header-title > .card-title {
