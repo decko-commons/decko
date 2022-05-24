@@ -42,7 +42,7 @@ def default_value_from_bootstrap name
 end
 
 def bootstrap_variables_scss
-  @bootstrap_variables_scss ||= read_bootstrap_variables
+  @bootstrap_variables_scss ||= left.read_bootstrap_variables
 end
 
 def colors
@@ -117,6 +117,8 @@ event :translate_variables_to_scss, :prepare_to_validate, on: :update do
   replace_values :colors
   replace_values :theme_colors
 end
+
+private
 
 def replace_values group, prefix=""
   values = variable_values_from_params group

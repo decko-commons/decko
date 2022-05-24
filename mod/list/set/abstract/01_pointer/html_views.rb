@@ -11,7 +11,10 @@ format :html do
 
   def standard_pointer_core
     with_paging do |paging_args|
-      wrap_with :div, standard_pointer_items(paging_args), class: "pointer-list"
+      wrap_with :div,
+                class: "card-list card-list-#{item_view_options[:view]} pointer-list" do
+        standard_pointer_items(paging_args)
+      end
     end
   end
 
