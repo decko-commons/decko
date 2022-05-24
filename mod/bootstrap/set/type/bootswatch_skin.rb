@@ -92,6 +92,12 @@ def content_from_theme field
   theme_card&.scss_from_theme_file field
 end
 
+def read_bootstrap_variables
+  ::File.read ::File.expand_path(
+    "#{mod_root :bootstrap}/vendor/bootstrap/scss/_variables.scss"
+  )
+end
+
 format :html do
   view :input do
     if parent?
