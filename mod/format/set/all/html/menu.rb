@@ -97,8 +97,7 @@ format :html do
   end
 
   def modal_page_link text: ""
-    modal_link "#{modal_icon} #{text}", path: { mark: card }, size: modal_page_size,
-               class: "_prevent_default"
+    modal_link "#{modal_icon} #{text}", path: { mark: card }, size: modal_page_size
   end
 
   def modal_page_size

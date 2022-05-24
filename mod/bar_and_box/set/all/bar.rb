@@ -37,9 +37,9 @@ format :html do
 
   def bar_menu_items
     [
-      edit_link(:edit, text: card.new? ? "create" : "edit"),
-      full_page_link(text: "full page"),
+      full_page_link(text: "page"),
       modal_page_link(text: "modal"),
+      edit_link(:edit, text: card.new? ? "create" : "edit"),
       bridge_link(text: "advanced"),
     ]
   end
