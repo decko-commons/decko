@@ -1,0 +1,18 @@
+
+.search-keyword {
+  font-style: italic;
+}
+
+.search-count {
+  float: right;
+  color: $gray-600;
+}
+
+.closed-content .search-no-results:after {
+  content:'';
+}
+
+/* english content in css.  ugh */
+.search-no-results:after {
+  content:'0 results';
+}

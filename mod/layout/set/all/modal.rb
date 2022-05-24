@@ -1,5 +1,5 @@
 format :html do
-  MODAL_SIZE = { small: "sm", medium: nil, large: "lg", full: "full" }.freeze
+  MODAL_SIZE = { small: "sm", medium: nil, large: "lg",  full: "full", xl: "xl" }.freeze
   MODAL_CLOSE_OPTS = { "data-bs-dismiss": "modal",
                        "data-cy": "close-modal" }.freeze
 
@@ -9,28 +9,6 @@ format :html do
                         title: normalize_modal_option(:title, opts),
                         menu: normalize_modal_option(:menu, opts),
                         footer: normalize_modal_option(:footer, opts)
-  end
-
-  def normalize_modal_option key, opts
-    val = opts[key]
-    return render("modal_#{key}") unless val
-
-    cast_model_option val
-  end
-
-  def cast_model_option val
-    case val
-    when Symbol
-      cast_model_option_symbol val
-    when Proc
-      val.call(self)
-    else
-      val
-    end
-  end
-
-  def cast_model_option_symbol val
-    respond_to?(val) ? send(val) : val
   end
 
   view :modal, wrap: :modal do
@@ -105,7 +83,7 @@ format :html do
   end
 
   def normalize_modal_size_class size
-    size.in?(MODAL_SIZE.keys) ? size : cast_model_option(size)
+    size.in?(MODAL_SIZE.keys) ? size : cast_modal_option(size)
   end
 
   def close_modal_window
@@ -116,5 +94,29 @@ format :html do
 
   def pop_out_modal_window
     link_to icon_tag(:new_window), path: {}, class: "pop-out-modal btn-close"
+  end
+
+  private
+
+  def normalize_modal_option key, opts
+    val = opts[key]
+    return render("modal_#{key}") unless val
+
+    cast_modal_option val
+  end
+
+  def cast_modal_option val
+    case val
+    when Symbol
+      cast_modal_option_symbol val
+    when Proc
+      val.call(self)
+    else
+      val
+    end
+  end
+
+  def cast_modal_option_symbol val
+    respond_to?(val) ? send(val) : val
   end
 end

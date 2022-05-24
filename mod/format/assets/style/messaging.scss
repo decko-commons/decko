@@ -1,0 +1,59 @@
+/*-------------------- */
+/*- ERRORS / NOTICES - */
+/*-------------------- */
+
+/* TODO: following should be consolidated / simplified */
+
+.card-notice,
+.new-current-revision-id,
+.confirm_update_all-view,
+._template,
+.admin-error-message {
+  display: none
+}
+
+.exception p {
+  margin: 15px;
+}
+
+.card-notice {
+  background: $white;
+  font-weight: bold;
+  font-style: italic;
+  text-align: center;
+  margin: 0 0 4px 0;
+
+  .card-error-msg {
+    text-align: left;
+  }
+}
+
+.conflict-view {
+  text-align: left;
+  border: 1px solid $gray-400;
+  padding: 10px;
+  margin-top: 12px;
+}
+
+.name-editor.known-name input {
+  border: 3px solid $danger;
+}
+.name-messages {
+  font-style: italic;
+  background: $info;
+}
+
+.alert {
+  &.guide {
+    margin-left: 20px;
+    width: 40%;
+  }
+}
+.alert-heading.error {
+  margin-bottom: 30px;
+}
+
+/*-------- Help Texts --------*/
+.alert-info p:last-child {
+  margin-bottom: 0;
+}
