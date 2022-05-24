@@ -76,45 +76,12 @@ $box_stripe_color: $dark !default;
   background: inherit !important;
 }
 
-//@include media-breakpoint-up(md) {
-//  .bar .bar-middle {
-//    display: flex;
-//  }
-//}
-
-
-//@include media-breakpoint-up(sm) {
-//  .bar-nav {
-//    display: none;
-//  }
-//  .bar, .expanded-bar {
-//    &:hover .bar-nav {
-//      display: flex
-//    }
-//  }
-//}
-//
-//.collapsed-bar {
-//  display: flex;
-//  justify-content: space-between;
-//}
-
-//.expanded-bar {
-//  margin: 0.5em 0;
-//  display: flex;
-//  > .bar-body {
-//    > .bar {
-//      border-bottom: 1px solid $border-color;
-//      display: flex;
-//    }
-//    > .bar-bottom {
-//      padding: 1em 1em 1em 2em;
-//      border-top: 0;
-//      overflow: hidden;
-//    }
-//  }
-//
-//}
+// card-list in which items are in box view
+.card-list-box {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
 
 // wrapper around box in list context
 .item-box {

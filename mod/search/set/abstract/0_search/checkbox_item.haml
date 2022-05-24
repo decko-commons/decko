@@ -1,5 +1,7 @@
-.checkbox-list-item.w-100.d-flex
-  .checkbox-side
-    = check_box_tag item_card.name, item_card.key, false, class: "_checkbox-list-checkbox"
-  .item-view-side{ style: "background: #fff" }
+- id = "#{card.key}-_-#{item_card.key}"
+.w-100.d-flex.align-items-center
+  = check_box_tag item_card.name, item_card.key, false,
+                  class: "_checkbox-list-checkbox p-1 me-3",
+                  id: id
+  %label.p-2.w-100{ for: id }
     = nest_item item_card

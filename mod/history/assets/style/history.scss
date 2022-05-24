@@ -1,0 +1,92 @@
+.history-slot {
+  overflow: hidden;
+  clear: both;
+}
+
+ul.action-list {
+  list-style-type: none;
+  padding-left: 15px;
+  li {
+    border: 1px solid $border-color;
+  }
+  li:before {
+    font-family: 'Material Icons';
+    font-weight: normal;
+    font-style: normal;
+    display: inline-block;
+    line-height: 1;
+    text-transform: none;
+    letter-spacing: normal;
+    word-wrap: normal;
+    white-space: nowrap;
+    direction: ltr;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    -moz-osx-font-smoothing: grayscale;
+    font-feature-settings: 'liga';
+
+
+    float: left;
+    margin-top: 8px;
+    margin-left: -2rem;
+    font-size: 120%;
+    padding-left: 4px;
+    max-height: 30px;
+  }
+
+  li.update:before {
+    content: "edit";
+    color: $gray-600;
+  }
+
+  li.create:before {
+    content: "add_circle";
+    color: $green;
+  }
+
+  li.delete:before {
+    content: "remove_circle";
+    color: $red;
+  }
+
+  li.draft:before {
+    content: "build";
+    color: $gray-600;
+  }
+}
+
+
+/*----------- Change View ---------*/
+
+.change-view {
+  padding: 5px 0px;
+  clear: both;
+  .change-card{
+    font-weight: bold;
+  }
+  .last-update {
+    float:right;
+    text-align: right;
+    a {
+      white-space: nowrap;
+    }
+  }
+}
+
+.diff-deleted {
+  text-decoration: line-through;
+  color: $red;
+  background: $red-200;
+  img {
+    border: 2px solid $red;
+  }
+}
+.diff-added {
+  color: $green;
+  background: $green-200;
+  text-decoration: none;
+  img {
+    margin: 0px 4px 0px 4px;
+    border: 2px solid $green;
+  }
+}

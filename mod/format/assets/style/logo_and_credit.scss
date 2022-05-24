@@ -1,0 +1,24 @@
+$credit_color: $primary !default;
+
+.SELF-Xlogo.content_panel-view,
+.SELF-Xcredit.content_panel-view {
+  text-align: center;
+  background: $white;
+  img {
+    max-width: 100%;
+  }
+  a {
+    color: $credit_color;
+  }
+}
+
+// TODO: make classes clearer (reference logo)
+
+[id^='svg-card-'] use{ // all cards
+  fill: $primary;
+}
+
+[id^='svg-card-']:nth-child(even) use { // even cards
+  fill: $secondary;
+}
+
