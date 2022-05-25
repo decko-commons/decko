@@ -44,9 +44,11 @@ format :html do
     ]
   end
 
+  # NOTE: currently bar always turns to mini-bar at md
   def prepare_bar two_cols, three_cols=nil
     class_up "bar", full_page_card.safe_set_keys
     class_up_cols %w[bar-left bar-right], two_cols
+    class_up "bar-middle", "d-none d-md-block"
     if three_cols
       class_up_cols %w[bar-left bar-middle bar-right], three_cols, "md"
     else
