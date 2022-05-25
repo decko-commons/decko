@@ -1,3 +1,6 @@
+# TODO: move to list mod when possible
+# (currently not because list mod comes before jquery)
+
 $("body").on "click", "._click-multiselect-editor ._select-item", (event) ->
   $(this).closest("._select-item").toggleClass("selected")
   event.stopPropagation()
