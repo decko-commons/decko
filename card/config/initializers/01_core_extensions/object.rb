@@ -1,5 +1,11 @@
 module CoreExtensions
   module Object
+    def number?
+      true if Float(self)
+    rescue StandardError
+      false
+    end
+
     def deep_clone
       case self
       when Integer, Float, NilClass, FalseClass, TrueClass, Symbol

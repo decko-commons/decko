@@ -150,7 +150,7 @@ class Card
 
     def unstash_chunks content, stashed_chunks
       Chunk::Nest.gsub content do |nest_content|
-        number?(nest_content) ? stashed_chunks[nest_content.to_i] : "{{#{nest_content}}}"
+        nest_content.number? ? stashed_chunks[nest_content.to_i] : "{{#{nest_content}}}"
       end
     end
 
