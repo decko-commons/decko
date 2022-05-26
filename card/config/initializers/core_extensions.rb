@@ -6,6 +6,7 @@ module CoreExtensions
   ::Kernel.include Kernel
   ::Object.include Object
   ::Module.include Module
+  ::String.include String
   ::Array.include Array
   ::Hash.include Hash::Merging
   ::Symbol.include PersistentIdentifier
