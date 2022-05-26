@@ -96,6 +96,15 @@ format :html do
                  class: classy("full-page-link")
   end
 
+  def modal_page_link text: ""
+    modal_link "#{modal_icon} #{text}",
+               path: { mark: card }, size: modal_page_size, class: "_modal-page-link"
+  end
+
+  def modal_page_size
+    :large
+  end
+
   def full_page_card
     card
   end
@@ -129,6 +138,10 @@ format :html do
 
   def full_page_icon
     icon_tag :open_in_new
+  end
+
+  def modal_icon
+    fa_icon :expand
   end
 
   def bridge_icon

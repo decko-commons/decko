@@ -1,7 +1,6 @@
-- id = "#{card.key}-_-#{item_card.key}"
+//- id = "#{card.key}-_-#{item_card.key}"
 .w-100.d-flex.align-items-center
   = check_box_tag item_card.name, item_card.key, false,
-                  class: "_checkbox-list-checkbox p-1 me-3",
-                  id: id
-  %label.p-2.w-100{ for: id }
+                  class: "_checkbox-list-checkbox p-1 me-3"
+  %label.p-2.w-100
     = nest_item item_card
