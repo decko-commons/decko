@@ -37,15 +37,18 @@ format :html do
 
   def bar_menu_items
     [
+      full_page_link(text: "page"),
+      modal_page_link(text: "modal"),
       edit_link(:edit, text: card.new? ? "create" : "edit"),
-      full_page_link(text: "full page"),
-      bridge_link(text: "advanced")
+      bridge_link(text: "advanced"),
     ]
   end
 
+  # NOTE: currently bar always turns to mini-bar at md
   def prepare_bar two_cols, three_cols=nil
     class_up "bar", full_page_card.safe_set_keys
     class_up_cols %w[bar-left bar-right], two_cols
+    class_up "bar-middle", "d-none d-md-block"
     if three_cols
       class_up_cols %w[bar-left bar-middle bar-right], three_cols, "md"
     else

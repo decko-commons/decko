@@ -83,7 +83,7 @@ format :html do
 
     asset_card.item_cards.map do |mod_style_card|
       nest mod_style_card, view: :remote_include_tags
-    end.compact
+    end.select(&:present?)
   end
 
   def head_stylesheet_path
