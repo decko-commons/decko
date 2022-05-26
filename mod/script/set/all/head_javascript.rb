@@ -1,18 +1,12 @@
 format :html do
-  # script_config basket is a hash where
-  #  - key is the codename of a card with javascript config (usually in json format)
-  #  - value is the name of a javascript method that handles the config
-  basket[:script_config] = {}
+  # script_calls basket is a hash where
+  #  - key is the name of a javascript method
+  #  - value is the argument to send to the method
+  basket[:script_calls] = {}
 
-  def views_in_head
-    super + %w[
-      decko_script_variables
-      head_javascript
-      script_config_and_initiation
-    ]
-  end
+  basket[:head_views] += %w[head_javascript script_variables script_calls]
 
-  view :decko_script_variables, unknown: true, cache: :never, perms: :none do
+  view :script_variables, unknown: true, cache: :never, perms: :none do
     javascript_tag do
       decko_script_variables.each_with_object("") do |(k, v), string|
         string << "#{k}=#{script_variable_to_js v};\n"
@@ -21,13 +15,11 @@ format :html do
   end
 
   view :head_javascript, unknown: true, cache: :never, perms: :none do
-    Array.wrap(head_javascript_paths).reject(&:empty?).join("\n")
+    Array.wrap(head_javascript_paths).reject(&:empty?).join
   end
 
-  view :script_config_and_initiation, unknown: true, perms: :none do
-    javascript_tag do
-      (script_configs << trigger_slot_ready).join "\n\n"
-    end
+  view :script_calls, unknown: true, perms: :none do
+    javascript_tag { (script_configs << trigger_slot_ready).join "\n\n" }
   end
 
   view :javascript_include_tag, unknown: true, perms: :none do
@@ -36,7 +28,7 @@ format :html do
 
   def decko_script_variables
     {
-      "window.decko": { rootUrl: card_url("") },
+      "decko.rootUrl": card_url(""),
       "decko.doubleClick": Card.config.double_click,
       "decko.cssPath": head_stylesheet_path,
       "decko.currentUserId": (Auth.current_id if Auth.signed_in?)
@@ -67,9 +59,8 @@ format :html do
   end
 
   def script_configs
-    basket[:script_config].map do |codename, js_decko_function|
-      config_json = escape_javascript Card::Rule.global_setting(codename)
-      "decko.#{js_decko_function}('#{config_json}')"
+    basket[:script_calls].map do |js_function, ruby_method|
+      "decko.#{js_function}('#{escape_javascript send(ruby_method)}')"
     end
   end
 

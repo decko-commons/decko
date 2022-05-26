@@ -1,0 +1,96 @@
+/*----------- Bars and Boxes -------------*/
+
+$bar_stripe_color: $dark !default;
+
+.bar {
+  border: 1px solid $border-color;
+  &:hover {
+    cursor: pointer;
+    .bar-body, .bar-menu { // }, .accordion-header, .accordion-button {
+      background-color: $gray-200;
+    }
+  }
+}
+
+.selected .bar, .selected .box {
+  border: 3px solid $primary !important;
+}
+
+.bar {
+  border-left: 3px solid $bar_stripe_color !important;
+
+  .media {
+    width: 100%
+  }
+  .media-left {
+    max-width: 25%
+  }
+}
+
+.bar-left, .bar-right, .bar-middle {
+  display: flex;
+  padding: 0.5rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.bar-left {
+  font-weight: bold;
+  align-items: flex-start;
+}
+
+.bar-middle {
+  justify-content: center;
+}
+
+.bar-right {
+  justify-content: flex-end;
+}
+
+.bar-menu {
+  width: 3em;
+  display: flex;
+  align-items: center;
+}
+
+.bar-body {
+  width: 100%;
+  display: flex;
+}
+
+
+.bar-menu-button {
+  padding: 0.2em 0.75em;
+  &:hover {
+    background-color: $secondary;
+    color: $white;
+    border-radius: 5px;
+  }
+  // disable bootstrap dropdown caret
+  &:after {
+    display: none;
+  }
+}
+
+// links in bar menu
+.bar-menu-list a {
+  i {
+    padding-right: 0.4em;
+  }
+}
+
+// card submenu in accordion bar
+.accordion-subheader > .card-menu {
+  position: static;
+  background: inherit !important;
+}
+
+@include media-breakpoint-up(md) {
+  .bar-menu-button {
+    display: none;
+  }
+
+  .bar:hover .bar-menu-button {
+    display: block;
+  }
+}

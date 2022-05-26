@@ -5,7 +5,5 @@ format :html do
 end
 
 event :validate_number, :validate, on: :save do
-  unless content.number?
-    errors.add :content, t(:format_not_numeric, content: content)
-  end
+  errors.add :content, t(:format_not_numeric, content: content) unless content.number?
 end

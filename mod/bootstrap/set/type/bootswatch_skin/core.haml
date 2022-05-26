@@ -15,6 +15,7 @@
   Skin configuration
 .small.mb-3
   from simplest to most advanced
-= field_nest :colors, view: :accordion_bar, title: "Palette and uses of colors"
-= field_nest :variables, view: :accordion_bar, title: "Additional SCSS variables"
-= field_nest :stylesheets, view: :accordion_bar, title: "SCSS and CSS stylesheets"
+.accordion
+  = field_nest :colors, view: :accordion_bar, title: "Palette and uses of colors"
+  = field_nest :variables, view: :accordion_bar, title: "Additional SCSS variables"
+  = field_nest :stylesheets, view: :accordion_bar, title: "SCSS and CSS stylesheets"

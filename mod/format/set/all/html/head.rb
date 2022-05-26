@@ -1,3 +1,9 @@
+basket[:head_views] =
+  %i[page_title_tag meta_tags favicon_tag
+     head_stylesheet head_remote_stylesheets
+     universal_edit_button rss_links]
+# TODO: the last two should be in mods
+
 format do
   view :page_title, unknown: true, perms: :none do
     title_parts = [Card::Rule.global_setting(:title)]
@@ -8,18 +14,10 @@ end
 
 format :html do
   view :head, unknown: true, perms: :none do
-    views_in_head.map { |viewname| render viewname }.flatten.compact.join "\n"
+    basket[:head_views].map { |viewname| render viewname }.flatten.compact.join "\n"
   end
 
-  def views_in_head
-    %i[meta_tags page_title_tag favicon_tag head_stylesheet head_remote_stylesheets
-       universal_edit_button rss_links]
-  end
-
-  # FIXME: tags not working with `template: :haml`
-  view :meta_tags, unknown: true, perms: :none do
-    haml :meta_tags
-  end
+  view :meta_tags, unknown: true, perms: :none, template: :haml
 
   view :page_title_tag, unknown: true, perms: :none do
     content_tag(:title) { render :page_title }
@@ -29,7 +27,7 @@ format :html do
     nest :favicon, view: :link_tag
   end
 
-  view :universal_edit_button, unknown: true, denial: :blank, perms: :update do
+  view :universal_edit_button, unknown: :blank, denial: :blank, perms: :update do
     return if card.new?
 
     tag "link", rel: "alternate", type: "application/x-wiki",
