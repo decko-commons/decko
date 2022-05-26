@@ -36,7 +36,6 @@ decko:
     - decko/type_editor.js.coffee
     - decko/modal.js.coffee
     - decko/overlay.js.coffee
-    - decko/recaptcha.js.coffee
     - decko/slotter.js.coffee
     - decko/bridge.js.coffee
     - decko/components.js.coffee

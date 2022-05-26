@@ -161,11 +161,5 @@ class Card
         format_or_card
       end
     end
-
-    def number? str
-      true if Float(str)
-    rescue StandardError
-      false
-    end
   end
 end
