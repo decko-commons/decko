@@ -73,10 +73,10 @@ $(window).ready ->
     return false if !$.rails.allowAction $(this)
     $.rails.handleRemote $(this)
 
-  $('body').on 'click', '._clickable.slotter', (event)->
-    $(this)[0].href = $(this).attr("href") # that's where rails.handleRemote
-                                           # expects the url
-    $.rails.handleRemote $(this)
+#  $('body').on 'click', '._clickable.slotter', (event)->
+#    $(this)[0].href = $(this).attr("href") # that's where rails.handleRemote
+#                                           # expects the url
+#    $.rails.handleRemote $(this)
 
   $('body').on 'click', '[data-bs-dismiss="overlay"]', (event) ->
     $(this).findSlot(".card-slot._overlay").removeOverlay()

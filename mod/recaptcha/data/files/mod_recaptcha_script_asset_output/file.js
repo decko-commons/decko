@@ -1,0 +1,2 @@
+// recaptcha.js.coffee
+(function(){jQuery.fn.extend({updateRecaptchaToken:function(t){var a,e;return null==(e=this.find("input._recaptcha-token"))[0]?e.val("recaptcha-token-field-missing"):"undefined"==typeof grecaptcha||null===grecaptcha?e.val("grecaptcha-undefined"):(a=$(this),t&&t.stopPropagation(),grecaptcha.execute(e.data("site-key"),{action:e.data("action")}).then(function(n){if(e.val(n),e.addClass("_token-updated"),t)return a.submit()}),!1)}})}).call(this);
