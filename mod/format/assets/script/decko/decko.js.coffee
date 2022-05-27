@@ -1,4 +1,6 @@
-$.extend decko,
+window.decko =
+  rootUrl: "" # overwritten in inline script in head
+
   # returns absolute path (starting with a slash)
   # if rawPath is complete url, this returns the complete url
   # if rawPath is relative (no slash), this adds relative root
@@ -10,6 +12,9 @@ $.extend decko,
 
   pingName: (name, success)->
     $.getJSON decko.path(''), format: 'json', view: 'status', 'card[name]': name, success
+
+  warn: (stuff) -> console.log stuff if console?
+
 
 jQuery.fn.extend {
   notify: (message, status) ->
@@ -40,37 +45,38 @@ $(window).ready ->
   $('body').on 'click', 'button.redirecter', ->
     window.location = $(this).attr('href')
 
-  $('body').on 'mouseenter', '[hover_content]', ->
-    $(this).attr 'hover_restore', $(this).html()
-    $(this).html $(this).attr( 'hover_content' )
-  $('body').on 'mouseleave', '[hover_content]', ->
-    $(this).html $(this).attr( 'hover_restore' )
-
   $('body').on 'click', '.render-error-link', (event) ->
     msg = $(this).closest('.render-error').find '.render-error-message'
     msg.show()
 #    msg.dialog()
     event.preventDefault()
 
-decko.slotReady (slot) ->
-  slot.find('card-view-placeholder').each ->
-    $place = $(this)
-    return if $place.data("loading")
+  $(document).on 'click', '._stop_propagation', (event)->
+    event.stopPropagation()
 
-    $place.data "loading", true
-    $.get $place.data("url"), (data, _status) ->
-      $place.replaceWith data
+  $("body").on 'click', '._prevent_default', (event)->
+    event.preventDefault()
 
-# important: this prevents jquery-mobile from taking over everything
-# $( document ).on "mobileinit", ->
-#   $.extend $.mobile , {
-#     #autoInitializePage: false
-#     #ajaxEnabled: false
-#   }
+  $('body').on 'mouseenter', 'a[data-hover-text]', ->
+    text = $(this).text()
+    $(this).data("original-text", text)
+    $(this).text($(this).data("hover-text"))
+
+  $('body').on 'mouseleave', 'a[data-hover-text]', ->
+    $(this).text($(this).data("original-text"))
+
+  $('body').on 'mouseenter', '[hover_content]', ->
+    $(this).attr 'hover_restore', $(this).html()
+    $(this).html $(this).attr( 'hover_content' )
+
+  $('body').on 'mouseleave', '[hover_content]', ->
+    $(this).html $(this).attr( 'hover_restore' )
 
 
 
-warn = (stuff) -> console.log stuff if console?
+
+
+
 
 
 
