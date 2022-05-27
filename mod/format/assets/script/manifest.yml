@@ -3,8 +3,8 @@ remote:
     - src: https://code.jquery.com/jquery-3.6.0.min.js
       integrity: sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=
       crossorigin: anonymous
-    - src: https://cdnjs.cloudflare.com/ajax/libs/jquery-ujs/1.2.0/rails.min.js
-      integrity: sha512-7JCF1tm2gqb7ddeKwz64uEhSx9f/Eu+90/LQ26ymVJlkrrOI7C1JR0KUHLi4FASyVwkuAekBNsMfCWJm1l9bHQ==
+    - src: https://cdnjs.cloudflare.com/ajax/libs/jquery-ujs/1.2.3/rails.min.js
+      integrity: sha512-yDJWVxuRSkQa1u9/Zif6Gh93Gk0Urboz98JLEPcERMQ+pTHz/c27d0Xz08G+lgutFyKklB9UILtnhG6bth6B4A==
       crossorigin: anonymous
       referrerpolicy: no-referrer
 
@@ -24,11 +24,10 @@ jquery:
 
 decko:
   items:
-    - decko/mod.js.coffee
+    - decko/decko.js.coffee
     - decko/editor_api.js.coffee
     - decko/doubleclick.js.coffee
     - decko/slot.js.coffee
-    - decko/decko.js.coffee
     - decko/slotter.js.coffee
     - decko/card_menu.js.coffee
     - decko/slot_ready.js.coffee
