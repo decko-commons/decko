@@ -3,7 +3,7 @@
 RSpec.describe Card::Set::TypePlusRight::Mod::Script do
   describe "view: javascript_include_tag" do
     subject(:script_card) do
-      Card[:mod_script, :script].format(:html).render(:javascript_include_tag)
+      Card[:mod_format, :script].format(:html).render(:javascript_include_tag)
     end
 
     it "contains remote sources" do

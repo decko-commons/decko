@@ -67,7 +67,6 @@ $.extend decko,
     list = $.map $.makeArray(vals), (v) -> if v then '{{' + v + '}}'
     $.makeArray(list).join "\n"
 
-
 pointerContent = (vals) ->
   decko.pointerContent vals
   # deprecated. backwards compatibility

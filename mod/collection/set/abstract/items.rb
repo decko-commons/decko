@@ -99,6 +99,8 @@ end
 # @param name [String, Card::Name] item name
 def add_item! name
   add_item(name) && save!
+rescue
+  "woot"
 end
 
 # remove item from list
