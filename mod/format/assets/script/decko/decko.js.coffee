@@ -72,12 +72,3 @@ $(window).ready ->
   $('body').on 'mouseleave', '[hover_content]', ->
     $(this).html $(this).attr( 'hover_restore' )
 
-
-
-
-
-
-
-
-
-
