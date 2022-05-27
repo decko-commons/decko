@@ -21,7 +21,7 @@ RSpec.describe Card::Set::Self::Head do
     it "has a main javascript tag" do
       aggregate_failures do
         %w[https://code.jquery.com/jquery-3.6.0.min.js
-           https://cdnjs.cloudflare.com/ajax/libs/jquery-ujs/1.2.0/rails.min.js
+           https://cdnjs.cloudflare.com/ajax/libs/jquery-ujs/1.2.3/rails.min.js
            /files/:mod_format_script_asset_output/format.js
            /files/:mod_ace_editor_script_asset_output/ace_editor.js
            /files/:mod_bootstrap_script_asset_output/bootstrap.js
