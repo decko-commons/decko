@@ -1,8 +1,8 @@
 [submodule "card-mod-script/vendor/jquery_file_upload"]
-	path = mod/script/vendor/jquery_file_upload
+	path = mod/format/vendor/jquery_file_upload
 	url = https://github.com/blueimp/jQuery-File-Upload
 [submodule "card-mod-script/vendor/jquery_rails"]
-	path = mod/script/vendor/jquery_rails
+	path = mod/format/vendor/jquery_rails
 	url = https://github.com/rails/jquery-rails
 [submodule "card-mod-date/vendor/moment"]
 	path = mod/date/vendor/moment
