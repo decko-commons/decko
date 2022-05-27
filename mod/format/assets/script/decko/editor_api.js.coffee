@@ -10,10 +10,6 @@ $.extend decko,
   editorInitFunctionMap:
     'textarea': -> $(this).autosize()
     '.file-upload': -> decko.upload_file(this)
-    '.etherpad-textarea': ->
-      $(this).closest('form')
-      .find('.edit-submit-button')
-      .attr('class', 'etherpad-submit-button')
 
   addEditor: (selector, init, get_content) ->
     decko.editorContentFunctionMap[selector] = get_content
