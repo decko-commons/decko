@@ -28,6 +28,6 @@ describe Card::Set::All::Html::Head do
   end
 
   specify "view decko_script_variables" do
-    expect_view(:decko_script_variables).to have_tag("script")
+    expect_view(:script_variables).to have_tag("script")
   end
 end

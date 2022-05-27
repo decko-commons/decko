@@ -1,0 +1,64 @@
+$box_stripe_color: $secondary !default;
+
+.box {
+  border: 1px solid $border-color;
+  box-shadow: $box-shadow-sm;
+  &:hover {
+    box-shadow: $box-shadow-lg;
+    cursor: pointer
+  }
+  border-top: 3px solid $box_stripe_color;
+  width: 320px;
+}
+
+.box-top {
+  display: flex;
+  min-height: 60px;
+  flex-direction: column;
+  justify-content: center;
+  overflow: auto;
+  h1, h2, h3, h4, h5, h6, div, span, a {
+    white-space: nowrap;
+    overflow:  hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+.box-middle {
+  min-height: 180px;
+  img {
+    object-fit: contain;
+    height: 130px;
+    width: 190px;
+  }
+  i {
+    display: flex;
+    justify-content: center;
+    min-height: 130px;
+    align-items: center;
+    font-size: 70px;
+    color: $text-muted;
+  }
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.box-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+// card-list in which items are in box view
+.card-list-box {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+// wrapper around box in list context
+.item-box {
+  display: inline-block;
+  padding: 10px 1%;
+  vertical-align: top;
+}
