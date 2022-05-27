@@ -169,3 +169,84 @@ card_changes_029:
     mod: help+*style
     mod: layout+*style
     mod: tinymce editor+*style
+card_changes_030:
+  id: 30
+  card_action_id: 602
+  field: 0
+  value:
+card_changes_031:
+  id: 31
+  card_action_id: 602
+  field: 1
+  value: '4'
+card_changes_032:
+  id: 32
+  card_action_id: 602
+  field: 2
+  value: |-
+    mod: script+*script
+    mod: ace editor+*script
+    mod: bar and box+*script
+    mod: bootstrap+*script
+    mod: date+*script
+    mod: tabs+*script
+    mod: tinymce editor+*script
+card_changes_033:
+  id: 33
+  card_action_id: 602
+  field: 3
+  value: f
+card_changes_034:
+  id: 34
+  card_action_id: 602
+  field: 4
+  value: '7'
+card_changes_035:
+  id: 35
+  card_action_id: 602
+  field: 5
+  value: '293'
+card_changes_036:
+  id: 36
+  card_action_id: 898
+  field: 2
+  value: |-
+    mod: format+*script
+    mod: list+*script
+    mod: search+*script
+    mod: rules+*script
+    mod: edit+*script
+    mod: carrierwave+*script
+    mod: ace editor+*script
+    mod: bar and box+*script
+    mod: bootstrap+*script
+    mod: date+*script
+    mod: follow+*script
+    mod: tabs+*script
+    mod: layout+*script
+    mod: recaptcha+*script
+    mod: tinymce editor+*script
+card_changes_037:
+  id: 37
+  card_action_id: 899
+  field: 2
+  value: |-
+    mod: format+*style
+    mod: list+*style
+    mod: search+*style
+    mod: rules+*style
+    mod: permissions+*style
+    mod: account+*style
+    mod: edit+*style
+    mod: history+*style
+    mod: carrierwave+*style
+    mod: api key+*style
+    mod: style+*style
+    mod: bar and box+*style
+    mod: bootstrap+*style
+    mod: comment+*style
+    mod: date+*style
+    mod: follow+*style
+    mod: help+*style
+    mod: layout+*style
+    mod: tinymce editor+*style
