@@ -49,7 +49,7 @@ RSpec.describe Card::Set::Self::Head do
     end
 
     it "sets rootUrl" do
-      is_expected.to match(/window\.decko\W+rootUrl/)
+      is_expected.to match(/decko\.rootUrl/)
     end
   end
 end
