@@ -25,14 +25,3 @@
           <p>{{+:type+:by_name}}</p>
           </blockquote>
 
-- :name: "*recent settings"
-  :type: :Session
-  :codename: :recent_settings
-  :fields:
-    :self:
-      :fields:
-        :update: Anyone
-        :read: Anyone
-        :content_options:
-          :type: :search_type
-          :content: '{"type":"setting"}'
