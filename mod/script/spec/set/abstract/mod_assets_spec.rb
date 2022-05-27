@@ -1,11 +1,11 @@
 # -*- encoding : utf-8 -*-
 
 RSpec.describe Card::Set::Abstract::ModAssets do
-  let(:script) { %i[mod_script script].card }
+  let(:script) { %i[mod_format script].card }
 
   it "has two groups" do
     expect(script.item_names)
-      .to eq ["mod: script+*script+group: jquery", "mod: script+*script+group: decko"]
+      .to eq ["mod: format+*script+group: jquery", "mod: format+*script+group: decko"]
   end
 
   specify "core view" do
@@ -19,10 +19,10 @@ RSpec.describe Card::Set::Abstract::ModAssets do
   end
 
   it "updates assets" do
-    card = Card["mod: script+*script"]
+    card = Card["mod: format+*script"]
     card.update_asset_output
     card.make_asset_output_coded
-    card.asset_output_card.content.should eq(":mod_script_script_asset_output/script.js")
+    card.asset_output_card.content.should eq(":mod_format_script_asset_output/format.js")
     content = card.asset_output_card.file.file.read
     content.should include "// decko.js.coffee"
   end

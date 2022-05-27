@@ -5,3 +5,16 @@
     :description: |-
       Session cards are for non-permanent content. They are not stored in the database 
       and can have different values for different users.
+
+# FIXME: this code is in rules, but neither session cards nor permissions are that early
+- :name: "*recent settings"
+  # :type: :session
+  :codename: :recent_settings
+  :fields:
+    :self:
+      :fields:
+        :update: Anyone
+        :read: Anyone
+        :content_options:
+          :type: :search_type
+          :content: '{"type":"setting"}'
