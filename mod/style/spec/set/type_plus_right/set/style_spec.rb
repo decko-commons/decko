@@ -19,9 +19,9 @@ RSpec.describe Card::Set::TypePlusRight::Set::Style do
       ensure_card "invalid test css", type: :plain_text, content: css
     end
     let(:card_content) do
-      { in: css,         out:     compressed_css,
+      { in: css,                         out: compressed_css,
         changed_in: changed_css, changed_out: compressed_changed_css,
-        new_in: new_css,     new_out:     compressed_new_css }
+        new_in: new_css,             new_out: compressed_new_css }
     end
   end
 end
