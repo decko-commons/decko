@@ -2,7 +2,8 @@
 
 require "../../decko_gem"
 
-DeckoGem.mod "integrate" do |s, _d|
+DeckoGem.mod "integrate" do |s, d|
   s.summary = "card configurable integration events"
   s.description = ""
+  d.depends_on_mod :rules
 end

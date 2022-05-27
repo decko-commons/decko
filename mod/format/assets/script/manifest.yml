@@ -25,25 +25,10 @@ jquery:
 decko:
   items:
     - decko/mod.js.coffee
-    - decko/editor.js.coffee
-    - decko/name_editor.js.coffee
-    - decko/autosave.js.coffee
+    - decko/editor_api.js.coffee
     - decko/doubleclick.js.coffee
-    - decko/layout.js.coffee
-    - decko/upload.js.coffee
     - decko/slot.js.coffee
     - decko/decko.js.coffee
-    - decko/type_editor.js.coffee
-    - decko/modal.js.coffee
-    - decko/overlay.js.coffee
     - decko/slotter.js.coffee
-    - decko/bridge.js.coffee
-    - decko/components.js.coffee
-    - decko/follow.js.coffee
     - decko/card_menu.js.coffee
     - decko/slot_ready.js.coffee
-    - decko/pointer_config.js.coffee
-    - decko/pointer_list_editor.js.coffee
-    - decko/autocomplete.js.coffee
-    - decko/script_rules.js.coffee
-    - decko/navbox.js.coffee
