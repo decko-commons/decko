@@ -87,6 +87,7 @@ end
 def load_manifest
   return unless manifest_exists?
   manifest = YAML.load_file manifest_path
+  return {} unless manifest # blank manifest
   validate_manifest manifest
   manifest
 end

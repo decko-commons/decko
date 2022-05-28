@@ -12,7 +12,7 @@ RSpec.describe Card::Set::TypePlusRight::Mod::Script do
                         "crossorigin=\"anonymous\"></script>"
       script_card
         .should include "<script src=\"https://cdnjs.cloudflare.com/ajax/libs/"\
-                        "jquery-ujs/1.2.0/rails.min.js\" "\
+                        "jquery-ujs/1.2.3/rails.min.js\" "\
                         "crossorigin=\"anonymous\" referrerpolicy=\"no-referrer\">"\
                         "</script>"
     end
