@@ -13,6 +13,9 @@ $(window).ready ->
           checkNameAfterTyping = null
         , 400
 
+decko.pingName = (name, success)->
+  $.getJSON decko.path(''), format: 'json', view: 'status', 'card[name]': name, success
+
 
 checkName = (box) ->
   name = box.val()

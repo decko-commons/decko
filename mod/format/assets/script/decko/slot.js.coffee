@@ -4,6 +4,9 @@ $.extend decko,
     params = decko.slotData(slot)
     decko.path(path) + ( (if path.match /\?/ then '&' else '?') + $.param(params) )
 
+  slotUrl: ->
+    decko.slotPath "#{this.cardMark()}?view=#{@data("slot")["view"]}"
+
   slotData: (slot) ->
     xtra = {}
     main = $('#main').children('.card-slot').data 'cardName'
@@ -129,8 +132,6 @@ jQuery.fn.extend
     @triggerSlotDestroy()
     @empty()
 
-  slotUrl: ->
-    decko.slotPath "#{this.cardMark()}?view=#{@data("slot")["view"]}"
 
   setSlotContent: (newContent, mode, $slotter) ->
     v = $(newContent)[0] && $(newContent) || newContent

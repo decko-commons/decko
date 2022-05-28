@@ -17,9 +17,6 @@ window.decko =
       decko.editors.init[selector] = initf
       decko.editors.content[selector] = contentf
 
-  pingName: (name, success)->
-    $.getJSON decko.path(''), format: 'json', view: 'status', 'card[name]': name, success
-
   warn: (stuff) -> console.log stuff if console?
 
   snakeCase: (str)->

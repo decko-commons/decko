@@ -8,16 +8,19 @@ $.extend decko,
         fn.call $(this)
 
 jQuery.fn.extend
+  contentField: ->
+    @closest('.card-editor').find '.d0-card-content'
+
   setContentFieldsFromMap: (map) ->
     map = decko.editors.content unless map?
     this_form = $(this)
     $.each map, (selector, fn) ->
       this_form.setContentFields(selector, fn)
+
   setContentFields: (selector, fn) ->
     $.each @find(selector), ->
       $(this).setContentField(fn)
-  contentField: ->
-    @closest('.card-editor').find '.d0-card-content'
+
   setContentField: (fn) ->
     field = @contentField()
     init_val = field.val() # tinymce-jquery overrides val();
