@@ -1,3 +1,5 @@
+decko.editors.init[".file-upload"] = -> decko.upload_file(this)
+
 $.extend decko,
   upload_file: (fileupload) ->
     # for file as a subcard in a form,

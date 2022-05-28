@@ -1,23 +1,15 @@
+decko.editors.init["textarea"] = -> $(this).autosize()
+
 $.extend decko,
   initializeEditors: (range, map) ->
-    map = decko.editorInitFunctionMap unless map?
+    map = decko.editors.init unless map?
     $.each map, (selector, fn) ->
       $.each range.find(selector), ->
         fn.call $(this)
 
-  editorContentFunctionMap: {}
-
-  editorInitFunctionMap:
-    'textarea': -> $(this).autosize()
-    '.file-upload': -> decko.upload_file(this)
-
-  addEditor: (selector, init, get_content) ->
-    decko.editorContentFunctionMap[selector] = get_content
-    decko.editorInitFunctionMap[selector] = init
-
 jQuery.fn.extend
   setContentFieldsFromMap: (map) ->
-    map = decko.editorContentFunctionMap unless map?
+    map = decko.editors.content unless map?
     this_form = $(this)
     $.each map, (selector, fn) ->
       this_form.setContentFields(selector, fn)

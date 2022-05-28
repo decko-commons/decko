@@ -1,4 +1,4 @@
-$.extend decko.editorContentFunctionMap,
+$.extend decko.editors.content,
     'select.pointer-select': ->
       pointerContent @val()
     'select.pointer-multiselect': ->
@@ -33,12 +33,13 @@ $.extend decko.editorContentFunctionMap,
     # must happen after pointer-list-ul, I think
     '.perm-editor': -> permissionsContent this
 
-decko.editorInitFunctionMap['.pointer-list-editor'] = ->
-  @sortable({handle: '.handle', cancel: ''})
-  decko.initPointerList @find('input')
+$.extend decko.editors.init,
+  ".pointer-list-editor": ->
+    @sortable handle: '.handle', cancel: ''
+    decko.initPointerList @find('input')
 
-decko.editorInitFunctionMap['._filtered-list'] = ->
-  @sortable({handle: '._handle', cancel: ''})
+  "._filtered-list" : ->
+    @sortable handle: '._handle', cancel: ''
 
 $.extend decko,
   initPointerList: (input) ->
@@ -69,7 +70,6 @@ $.extend decko,
 
 pointerContent = (vals) ->
   decko.pointerContent vals
-  # deprecated. backwards compatibility
 
 permissionsContent = (ed) ->
   return '_left' if ed.find('#inherit').is(':checked')
