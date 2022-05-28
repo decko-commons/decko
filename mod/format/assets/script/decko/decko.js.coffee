@@ -10,29 +10,19 @@ window.decko =
     else
       decko.rootUrl + rawPath
 
-  pingName: (name, success)->
-    $.getJSON decko.path(''), format: 'json', view: 'status', 'card[name]': name, success
+  editors:
+    init: {}
+    content: {}
+    add: (selector, initf, contentf)->
+      decko.editors.init[selector] = initf
+      decko.editors.content[selector] = contentf
 
   warn: (stuff) -> console.log stuff if console?
 
+  snakeCase: (str)->
+    str.replace /([a-z])([A-Z])/g, (match) -> match[0] + '_' +
+      match[1].toLowerCase()
 
-jQuery.fn.extend {
-  notify: (message, status) ->
-    slot = @slot(status)
-    notice = slot.find '.card-notice'
-    unless notice[0]
-      notice = $('<div class="card-notice"></div>')
-      form = slot.find('.card-form')
-      if form[0]
-        $(form[0]).append notice
-      else
-        slot.append notice
-    notice.html message
-    notice.show 'blind'
-
-  findCard: (id) ->
-    @find("[data-card-id='" + id + "']")
-}
 
 #~~~~~ ( EVENTS )
 

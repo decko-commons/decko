@@ -97,8 +97,6 @@ $(window).ready ->
     form = $(this)
     if form.data("main-success") and form.isMainOrMainModal()
       form.mainSuccess()
-    if form.data('recaptcha') == 'on'
-      return form.handleRecaptchaBeforeSubmit(event)
 
   $('body').on 'ajax:beforeSend', '.slotter', (event, xhr, opt)->
     $(this).slotterBeforeSend opt
@@ -211,57 +209,3 @@ jQuery.fn.extend
     # avoiding duplication. could be better test?
     unless (opt.url.match(/home_view/) or @data("slotter-mode") == "modal")
       opt.url = decko.slotPath opt.url, @slot()
-
-    if @is('form')
-      if data = @data 'file-data'
-# NOTE - this entire solution is temporary.
-        @uploadWithBlueimp(data, opt)
-        false
-
-  uploadWithBlueimp: (data, opt) ->
-    input = @find '.file-upload'
-    if input[1]
-      @notify(
-        "Decko does not yet support multiple files in a single form.",
-        "error"
-      )
-      return false
-
-    widget = input.data 'wblueimpFileupload' #jQuery UI widget
-
-    # browsers that can't do ajax uploads use iframe
-    unless widget._isXHRUpload(widget.options)
-      # can't do normal redirects.
-      @find('[name=success]').val('_self')
-      # iframe response not passed back;
-      # all responses treated as success.  boo
-      opt.url += '&simulate_xhr=true'
-      # iframe is not xhr request,
-      # so would otherwise get full response with layout
-      iframeUploadFilter = (data)-> data.find('body').html()
-      opt.dataFilter = iframeUploadFilter
-    # gets rid of default html and body tags
-
-    args = $.extend opt, (widget._getAJAXSettings data), url: opt.url
-    # combines settings from decko's slotter and jQuery UI's upload widget
-    args.skip_before_send = true #avoid looping through this method again
-
-    $.ajax( args )
-
-  handleRecaptchaBeforeSubmit: (event) ->
-    recaptcha = @find("input._recaptcha-token")
-
-    if !recaptcha[0]?
-      # monkey error (bad form)
-      recaptcha.val "recaptcha-token-field-missing"
-    else if recaptcha.hasClass "_token-updated"
-      # recaptcha token is fine - continue submitting
-      recaptcha.removeClass "_token-updated"
-    else if !grecaptcha?
-      # shark error (probably recaptcha keys of pre v3 version)
-      recaptcha.val "grecaptcha-undefined"
-    else
-      @updateRecaptchaToken(event)
-      # this stops the submit here
-      # and submits again when the token is ready
-

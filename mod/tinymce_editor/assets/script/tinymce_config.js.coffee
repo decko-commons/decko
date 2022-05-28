@@ -1,11 +1,8 @@
-decko.addEditor(
-  '.tinymce-textarea',
-  ->
-    decko.initTinyMCE @[0].id
+decko.editors.add ".tinymce-textarea",
+  -> decko.initTinyMCE @[0].id,
   ->
     ed = tinyMCE.get(@[0].id)
     ed && ed.getContent()
-)
 
 decko.slotDestroy (slot) ->
   slot.find("textarea.tinymce-textarea").each ->
