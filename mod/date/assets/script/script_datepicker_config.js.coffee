@@ -1,10 +1,6 @@
-decko.addEditor(
-  '.date-editor',
-  ->
-    decko.initDatepicker($(this))
-  ->
-    @val()
-)
+decko.editors.add ".date-editor",
+  -> decko.initDatepicker($(this)),
+  -> @val()
 
 $.extend decko,
   setDatepickerConfig: (string) ->

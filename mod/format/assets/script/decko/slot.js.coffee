@@ -1,8 +1,4 @@
 $.extend decko,
-  snakeCase: (str)->
-    str.replace /([a-z])([A-Z])/g, (match) -> match[0] + '_' +
-                match[1].toLowerCase()
-
   # returns full path with slot parameters
   slotPath: (path, slot)->
     params = decko.slotData(slot)
@@ -66,6 +62,8 @@ $.extend decko,
         func.call this, $(this)
 
 jQuery.fn.extend
+  isSlot: -> $(this).hasClass "card-slot"
+
   slot: (status="success", mode="replace") ->
     if mode == "modal"
       @modalSlot()
@@ -78,17 +76,6 @@ jQuery.fn.extend
     if selector = @data(selectorName)
       slot = @findSlot selector
       slot && slot[0] && slot
-
-  isSlot: ->
-    $(this).hasClass "card-slot"
-
-  isMain: ->
-    @slot().parent('#main')[0]
-
-  isMainOrMainModal: ->
-    el = $(this)
-    el = el.findOriginSlot("modal") if el.closest(".modal")[0]
-    el && el.isMain()
 
   findSlot: (selector) ->
     if selector == "modal-origin"
@@ -143,10 +130,7 @@ jQuery.fn.extend
     @empty()
 
   slotUrl: ->
-    decko.slotPath "#{this.slotMark()}?view=#{@data("slot")["view"]}"
-
-  slotMark: ->
-    if @data('cardId') then "~#{@data('cardId')}" else @data("cardName")
+    decko.slotPath "#{this.cardMark()}?view=#{@data("slot")["view"]}"
 
   setSlotContent: (newContent, mode, $slotter) ->
     v = $(newContent)[0] && $(newContent) || newContent

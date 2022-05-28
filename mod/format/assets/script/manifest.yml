@@ -10,8 +10,6 @@ remote:
 
 jquery:
   items:
-    # - ../../vendor/jquery_rails/vendor/assets/javascripts/jquery3.js
-    # - ../../vendor/jquery_rails/vendor/assets/javascripts/jquery_ujs.js
     # jquery-ui includes all interaction components, the dialog and the autocomplete widget
     # and all dependencies for those
     # decko depends on autocomplete, sortable, jquery.autosize and jquery.fileupload
@@ -25,9 +23,12 @@ jquery:
 decko:
   items:
     - decko/decko.js.coffee
-    - decko/editor_api.js.coffee
-    - decko/doubleclick.js.coffee
+    - decko/decko_jquery.js.coffee
+
     - decko/slot.js.coffee
     - decko/slotter.js.coffee
+
     - decko/card_menu.js.coffee
     - decko/slot_ready.js.coffee
+
+    - decko/doubleclick.js.coffee
