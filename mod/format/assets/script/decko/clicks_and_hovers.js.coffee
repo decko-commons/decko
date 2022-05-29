@@ -38,7 +38,7 @@ decko.slot.ready (slot) ->
 
 isTouchDevice = ->
   if 'ontouchstart' of window or window.DocumentTouch and
-    document instanceof DocumentTouch
+      document instanceof DocumentTouch
     true
   else
     detectMobileBrowser()
