@@ -10,7 +10,8 @@ remote:
 bootstrap:
   items:
     - ../../vendor/bootstrap/dist/js/bootstrap.bundle.js
-    - bootstrap_modal_decko.js
+    - decko_modal.js.coffee
+    - decko_popover.js.coffee
     - script_load_select2.js.coffee
     - ../../vendor/bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js
     - script_colorpicker.js.coffee
