@@ -28,7 +28,5 @@ decko:
     - decko/slot.js.coffee
     - decko/slotter.js.coffee
 
-    - decko/card_menu.js.coffee
     - decko/slot_ready.js.coffee
-
-    - decko/doubleclick.js.coffee
+    - decko/clicks_and_hovers.js.coffee
