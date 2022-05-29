@@ -1,8 +1,6 @@
-decko.addEditor(
-  '.ace-editor-textarea',
+decko.editors.add '.ace-editor-textarea',
   -> decko.initAce $(this),
   -> aceEditorContent this[0]
-)
 
 $.extend decko,
   setAceConfig: (string) ->
