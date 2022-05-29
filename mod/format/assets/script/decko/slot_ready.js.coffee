@@ -1,4 +1,4 @@
-decko.slotReady (slot) ->
+decko.slot.ready (slot) ->
   slot.find('card-view-placeholder').each ->
     $place = $(this)
     return if $place.data("loading")
