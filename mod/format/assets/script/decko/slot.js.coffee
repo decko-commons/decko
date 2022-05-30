@@ -119,7 +119,7 @@ jQuery.fn.extend
     $slot = $slot.slot() unless $slot.isSlot
     return unless $slot[0]
 
-    url = decko.slot.url $slot unless url?
+    url = $slot.slotUrl unless url?
     $slot.addClass 'slotter'
     $slot.attr 'href', url
     $slot.data "url", url
