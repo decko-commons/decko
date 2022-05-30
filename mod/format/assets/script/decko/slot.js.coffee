@@ -74,7 +74,9 @@ jQuery.fn.extend
         @selectSlot("slot-selector") ||
         @closest(".card-slot")
 
-  slotUrl: -> decko.slot.path "#{this.cardMark()}/#{@data("slot")["view"]}"
+  slotUrl: ->
+    slot = $(this)
+    decko.slot.path "#{slot.cardMark()}/#{slot.data("slot")["view"]}"
 
   selectSlot: (selectorName) ->
     if selector = @data(selectorName)
@@ -119,7 +121,7 @@ jQuery.fn.extend
     $slot = $slot.slot() unless $slot.isSlot
     return unless $slot[0]
 
-    url = $slot.slotUrl unless url?
+    url = $slot.slotUrl() unless url?
     $slot.addClass 'slotter'
     $slot.attr 'href', url
     $slot.data "url", url
