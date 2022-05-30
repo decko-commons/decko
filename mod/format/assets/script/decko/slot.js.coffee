@@ -60,7 +60,7 @@ $.extend decko,
     notice = slotter.attr('notify-success')
 
     el.notify notice, "success" if notice?
-    el.triggerslotReady(slotter)
+    el.triggerSlotReady(slotter)
 
 
 jQuery.fn.extend
@@ -159,7 +159,7 @@ jQuery.fn.extend
       @replaceWith el
       decko.contentLoaded(el, $slotter)
 
-  triggerslotReady: (slotter) ->
+  triggerSlotReady: (slotter) ->
     @trigger "slot.ready", slotter if @isSlot()
     @find(".card-slot").trigger "slot.ready", slotter
 
