@@ -1,12 +1,27 @@
-$.extend decko,
+decko.slot =
   # returns full path with slot parameters
-  slotPath: (path, slot)->
+  path: (path, slot)->
     params = decko.slotData(slot)
     decko.path(path) + ( (if path.match /\?/ then '&' else '?') + $.param(params) )
 
-  slotUrl: ->
-    decko.slotPath "#{this.cardMark()}?view=#{@data("slot")["view"]}"
+  url: -> decko.slot.path "#{this.cardMark()}/#{@data("slot")["view"]}"
 
+  ready: (func)->
+    $('document').ready ->
+      $('body').on 'slot.ready', '.card-slot', (e, slotter) ->
+        e.stopPropagation()
+        if slotter?
+          func.call this, $(this), $(slotter)
+        else
+          func.call this, $(this)
+
+  destroy: (func)->
+    $('document').ready ->
+      $('body').on 'slot.destroy', '.card-slot, ._modal-slot', (e) ->
+        e.stopPropagation()
+        func.call this, $(this)
+
+$.extend decko,
   slotData: (slot) ->
     xtra = {}
     main = $('#main').children('.card-slot').data 'cardName'
@@ -45,24 +60,10 @@ $.extend decko,
   contentLoaded: (el, slotter)->
     decko.initializeEditors(el)
     notice = slotter.attr('notify-success')
-    if notice?
-      el.notify notice, "success"
-    el.triggerSlotReady(slotter)
 
-  slotReady: (func)->
-    $('document').ready ->
-      $('body').on 'slotReady', '.card-slot', (e, slotter) ->
-        e.stopPropagation()
-        if slotter?
-          func.call this, $(this), $(slotter)
-        else
-          func.call this, $(this)
+    el.notify notice, "success" if notice?
+    el.triggerslotReady(slotter)
 
-  slotDestroy: (func)->
-    $('document').ready ->
-      $('body').on 'slotDestroy', '.card-slot, ._modal-slot', (e) ->
-        e.stopPropagation()
-        func.call this, $(this)
 
 jQuery.fn.extend
   isSlot: -> $(this).hasClass "card-slot"
@@ -118,8 +119,7 @@ jQuery.fn.extend
     $slot = $slot.slot() unless $slot.isSlot
     return unless $slot[0]
 
-    unless url?
-      url = $slot.slotUrl()
+    url = $slot.slotUrl unless url?
     $slot.addClass 'slotter'
     $slot.attr 'href', url
     $slot.data "url", url
@@ -159,9 +159,9 @@ jQuery.fn.extend
       @replaceWith el
       decko.contentLoaded(el, $slotter)
 
-  triggerSlotReady: (slotter) ->
-    @trigger "slotReady", slotter if @isSlot()
-    @find(".card-slot").trigger "slotReady", slotter
+  triggerslotReady: (slotter) ->
+    @trigger "slot.ready", slotter if @isSlot()
+    @find(".card-slot").trigger "slot.ready", slotter
 
   triggerSlotDestroy: () ->
-    @trigger "slotDestroy"
+    @trigger "slot.destroy"
