@@ -23,7 +23,7 @@ imageItem = (data) ->
   data.label ||= '<strong class="highlight">' + data.text + '</strong>'
   data
 
-decko.slotReady (slot) ->
+decko.slot.ready (slot) ->
   slotData = slot.data("slot")
   if slotData? && slotData["show"]? && slotData["show"].includes "preview_redirect"
     tabPanel = slot.closest(".tab-panel")

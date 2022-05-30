@@ -29,36 +29,4 @@ window.decko =
 $(window).ready ->
   $.ajaxSetup cache: false
 
-  $('body').on 'click', '.submitter', ->
-    $(this).closest('form').submit()
-
-  $('body').on 'click', 'button.redirecter', ->
-    window.location = $(this).attr('href')
-
-  $('body').on 'click', '.render-error-link', (event) ->
-    msg = $(this).closest('.render-error').find '.render-error-message'
-    msg.show()
-#    msg.dialog()
-    event.preventDefault()
-
-  $(document).on 'click', '._stop_propagation', (event)->
-    event.stopPropagation()
-
-  $("body").on 'click', '._prevent_default', (event)->
-    event.preventDefault()
-
-  $('body').on 'mouseenter', 'a[data-hover-text]', ->
-    text = $(this).text()
-    $(this).data("original-text", text)
-    $(this).text($(this).data("hover-text"))
-
-  $('body').on 'mouseleave', 'a[data-hover-text]', ->
-    $(this).text($(this).data("original-text"))
-
-  $('body').on 'mouseenter', '[hover_content]', ->
-    $(this).attr 'hover_restore', $(this).html()
-    $(this).html $(this).attr( 'hover_content' )
-
-  $('body').on 'mouseleave', '[hover_content]', ->
-    $(this).html $(this).attr( 'hover_restore' )
 
