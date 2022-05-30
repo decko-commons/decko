@@ -56,6 +56,7 @@ $.extend decko,
     newItem = lastItem.clone()
     lastItem.after newItem
     newItem.attr("data-index", parseInt(lastItem.attr("data-index") + 1))
+    newItem.trigger "item:added"
     newItem.find 'input'
 
   lastPointerItem: (el)->
