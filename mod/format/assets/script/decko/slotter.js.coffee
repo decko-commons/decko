@@ -208,4 +208,4 @@ jQuery.fn.extend
 
     # avoiding duplication. could be better test?
     unless (opt.url.match(/home_view/) or @data("slotter-mode") == "modal")
-      opt.url = decko.slotPath opt.url, @slot()
+      opt.url = decko.slot.path opt.url, @slot()
