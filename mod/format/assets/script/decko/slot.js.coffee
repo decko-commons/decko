@@ -1,27 +1,25 @@
-decko.slot =
-  # returns full path with slot parameters
-  path: (path, slot)->
-    params = decko.slotData(slot)
-    decko.path(path) + ( (if path.match /\?/ then '&' else '?') + $.param(params) )
+$.extend decko,
+  slot:
+# returns full path with slot parameters
+    path: (path, slot)->
+      params = decko.slotData(slot)
+      decko.path(path) + ( (if path.match /\?/ then '&' else '?') + $.param(params) )
 
-  url: -> decko.slot.path "#{this.cardMark()}/#{@data("slot")["view"]}"
+    ready: (func)->
+      $('document').ready ->
+        $('body').on 'slot.ready', '.card-slot', (e, slotter) ->
+          e.stopPropagation()
+          if slotter?
+            func.call this, $(this), $(slotter)
+          else
+            func.call this, $(this)
 
-  ready: (func)->
-    $('document').ready ->
-      $('body').on 'slot.ready', '.card-slot', (e, slotter) ->
-        e.stopPropagation()
-        if slotter?
-          func.call this, $(this), $(slotter)
-        else
+    destroy: (func)->
+      $('document').ready ->
+        $('body').on 'slot.destroy', '.card-slot, ._modal-slot', (e) ->
+          e.stopPropagation()
           func.call this, $(this)
 
-  destroy: (func)->
-    $('document').ready ->
-      $('body').on 'slot.destroy', '.card-slot, ._modal-slot', (e) ->
-        e.stopPropagation()
-        func.call this, $(this)
-
-$.extend decko,
   slotData: (slot) ->
     xtra = {}
     main = $('#main').children('.card-slot').data 'cardName'
@@ -75,6 +73,8 @@ jQuery.fn.extend
       @selectSlot("slot-#{status}-selector") ||
         @selectSlot("slot-selector") ||
         @closest(".card-slot")
+
+  slotUrl: -> decko.slot.path "#{this.cardMark()}/#{@data("slot")["view"]}"
 
   selectSlot: (selectorName) ->
     if selector = @data(selectorName)
