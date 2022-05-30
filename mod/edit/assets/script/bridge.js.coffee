@@ -1,4 +1,4 @@
-decko.slotReady (slot, slotter) ->
+decko.slot.ready (slot, slotter) ->
   slot.updateBridge(false, slotter)
 
   links = slot.find('ul._auto-single-select > li.nav-item > a.nav-link')

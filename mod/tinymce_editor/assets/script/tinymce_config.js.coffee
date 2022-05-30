@@ -4,7 +4,7 @@ decko.editors.add ".tinymce-textarea",
     ed = tinyMCE.get(@[0].id)
     ed && ed.getContent()
 
-decko.slotDestroy (slot) ->
+decko.slot.destroy (slot) ->
   slot.find("textarea.tinymce-textarea").each ->
     ed = tinyMCE.get($(this)[0].id)
     ed && ed.remove()
