@@ -30,16 +30,16 @@ decko.slot.ready (slot) ->
 $.extend decko,
   addPointerItem: (el) ->
     slot = $(el).slot()
-    slot.trigger "slot.destroy"
+    slot.trigger "slot:destroy"
     # why is this necessary?
     # this can have a lot of side effects in a multi-card form.
 
     newInput = decko.nextPointerInput decko.lastPointerItem(el)
     newInput.val ''
 
-    slot.trigger "slot.ready"
+    slot.trigger "slot:ready"
     decko.initializeEditors slot
-    # should be (but is not) handled by slot.ready
+    # should be (but is not) handled by slot:ready
     # without this, "add another" was breaking tinymce editors in same slot
 
     newInput.first().focus()
