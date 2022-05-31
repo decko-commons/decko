@@ -204,7 +204,7 @@ jQuery.fn.extend
     slotter.addClass "_close-#{type}"
 
   slotterBeforeSend: (opt) ->
-    return if opt.skip_before_send
+    return if opt.noSlotParams
 
     # avoiding duplication. could be better test?
     unless (opt.url.match(/home_view/) or @data("slotter-mode") == "modal")
