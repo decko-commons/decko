@@ -26,6 +26,10 @@ $box_stripe_color: $secondary !default;
 
 .box-middle {
   min-height: 180px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: flex;
+  justify-content: center;
   img {
     object-fit: contain;
     height: 130px;
@@ -39,8 +43,6 @@ $box_stripe_color: $secondary !default;
     font-size: 70px;
     color: $text-muted;
   }
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 
 .box-bottom {
