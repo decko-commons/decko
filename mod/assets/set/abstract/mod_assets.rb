@@ -22,7 +22,6 @@ end
 def folder_group_card
   return unless assets_path
   card = new_assets_group_card local_group_name, folder_group_type_id
-  # binding.pry unless card.respond_to? "assets_path="
   card.assets_path = assets_path
   card
 end

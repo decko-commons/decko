@@ -123,7 +123,7 @@ blocks:
             - pkill -2 -f puma
         - name: Cucumber
           commands:
-            - RAILS_ENV=cucumber bundle exec decko cucumber -- --format junit --out /home/semaphore/reports
+            - RAILS_ENV=cucumber bundle exec decko cucumber -- --format pretty --format junit --out /home/semaphore/reports
 
       epilogue:
         always:
