@@ -7,5 +7,5 @@ def raw_help_text
 end
 
 def cql_content
-  { nest: "_left", sort: "name" }
+  { nest: "_left", sort_by: "name" }
 end

@@ -14,13 +14,13 @@ RSpec.describe Card::Query::CardQuery::FoundBy do
     end
 
     it "finds cards returned by virtual cards" do
-      image_cards = Card.search type: "Image", return: :name, sort: :name
+      image_cards = Card.search type: "Image", return: :name, sort_by: :name
       expect(run_query(found_by: "Image+*type+by name")).to eq(image_cards)
     end
 
     it "plays nicely with other properties and relationships" do
       expect(run_query(plus: { found_by: "Simple Search" }))
-        .to eq(Card::Query.run(plus: { name: "A" }, return: :name, sort: :name))
+        .to eq(Card::Query.run(plus: { name: "A" }, return: :name, sort_by: :name))
     end
 
     it "plays work with virtual cards" do

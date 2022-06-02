@@ -43,7 +43,7 @@ RSpec.describe Card::Query::CardQuery::Run do
   describe "process_name (relative return value)" do
     def returning field
       # before results are altered, this returns `A+B+C` and `A+C`
-      Card::Query.run right: "C", return: field, sort: :id
+      Card::Query.run right: "C", return: field, sort_by: :id
     end
 
     it "handles _left" do

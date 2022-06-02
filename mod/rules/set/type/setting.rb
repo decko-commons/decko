@@ -21,7 +21,7 @@ def set_classes_with_rules
 end
 
 def rules_for_set_class set_class
-  cql = { left: { type: SetID }, right: id, sort: %w[content name], limit: 0 }
+  cql = { left: { type: SetID }, right: id, sort_by: %w[content name], limit: 0 }
   cql[:left][(set_class.anchorless? ? :id : :right_id)] = set_class.pattern_id
   Card.search cql
 end

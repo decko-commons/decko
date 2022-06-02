@@ -30,7 +30,7 @@ When /^(.*) creates?\s*a?\s*([^\s]*) card "([^"]*)" with content "([^"]*)"$/ do 
 end
 
 When /^(.*) creates? Search card "([^"]*)" for cards of type "([^"]*)"$/ do |username, cardname, searchtype|
-  set_content_and_create username, "Search", cardname, %({"type":"#{searchtype}", "sort":"name"})
+  set_content_and_create username, "Search", cardname, %({"type":"#{searchtype}", "sort_by":"name"})
 end
 
 def set_content_and_create username, cardtype, cardname, content
