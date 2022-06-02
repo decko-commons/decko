@@ -69,7 +69,7 @@ format :json do
   end
 
   def name_cql limit
-    { limit: limit, sort: "name", return: "name" }
+    { limit: limit, sort_by: "name", return: "name" }
   end
 
   def complete_cql

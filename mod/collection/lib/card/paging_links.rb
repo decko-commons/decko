@@ -46,9 +46,13 @@ class Card
 
     def right_part
       parts = [next_page_link]
-      parts.unshift direct_page_link(@total) if @total <= MAX_PAGES && @total > @window_end
+      parts.unshift direct_page_link(@total) if add_final_page?
       parts.unshift ellipse if @total > @window_end + 1
       parts
+    end
+
+    def add_final_page?
+      @total <= MAX_PAGES && @total > @window_end
     end
 
     def previous_page_link

@@ -76,7 +76,10 @@ class Card
 
     CONJUNCTIONS = { any: :or, in: :or, or: :or, all: :and, and: :and }.freeze
 
-    MODIFIERS = %i[conj return sort sort_as group dir limit offset]
+    # "dir" is DEPRECATED in favor of sort_dir
+    # "sort" is DEPRECATED in favor of sort_by, except in cases where sort's value
+    # is a hash
+    MODIFIERS = %i[conj return sort_by sort_as sort_dir sort dir group limit offset]
                 .each_with_object({}) { |v, h| h[v] = nil }
 
     OPERATORS =

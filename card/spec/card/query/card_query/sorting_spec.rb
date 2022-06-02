@@ -6,17 +6,17 @@ RSpec.describe Card::Query::CardQuery::Sorting do
   #   Card.create! name: "classic bootstrap skin head"
   #   # classic skin head is created more recently than classic skin,
   #   # which is in the seed data
-  #   expect(run_query(sort: "create", name: [:match, "classic bootstrap skin"]))
+  #   expect(run_query(sort_by: "create", name: [:match, "classic bootstrap skin"]))
   #     .to eq(["classic bootstrap skin", "classic bootstrap skin head"])
   # end
 
   it "sorts by name" do
-    expect(run_query(name: %w[in B Z A Y C X], sort: "name", dir: "desc"))
+    expect(run_query(name: %w[in B Z A Y C X], sort_by: "name", dir: "desc"))
       .to eq(%w[Z Y X C B A])
   end
 
   it "sorts by content" do
-    expect(run_query(name: %w[in Z T A], sort: "content")).to eq(%w[A Z T])
+    expect(run_query(name: %w[in Z T A], sort_by: "content")).to eq(%w[A Z T])
   end
 
   it "plays nice with match" do
@@ -29,7 +29,7 @@ RSpec.describe Card::Query::CardQuery::Sorting do
   #     Card["Setting+*self+*table of contents"].update! content: 10
   #     Card.create! name: "RichText+*type+*table of contents", content: "3"
   #     expect(run_query(right_plus: "*table of contents",
-  #                      sort: { right: "*table_of_contents" },
+  #                      sort_by: { right: "*table_of_contents" },
   #                      sort_as: "integer"))
   #       .to eq(%w[*all RichText+*type Setting+*self])
   #   end
@@ -45,11 +45,11 @@ RSpec.describe Card::Query::CardQuery::Sorting do
   #    # do this on a restricted set so it won't change every time we
   #    #  add a card..
   #    Card::Query.run(
-  #    match: 'two', sort: 'update', dir: 'desc'
+  #    match: 'two', sort_by: 'update', dir: 'desc'
   #    ).map(&:name).should == ['One+Two+Three', 'One+Two','Two','Joe User']
   #    Card['Two'].update! content: 'new bar'
   #    Card::Query.run(
-  #    match: 'two', sort: 'update', dir: 'desc'
+  #    match: 'two', sort_by: 'update', dir: 'desc'
   #    ).map(&:name).should == ['Two','One+Two+Three', 'One+Two','Joe User']
   #  end
 end

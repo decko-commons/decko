@@ -34,12 +34,12 @@ RSpec.describe Card::Query::CardQuery::ReferenceAttributes do
 
       describe "compound relationships" do
         it "right_plus should handle subqueries" do
-          expect(run_query(right_plus: ["*create", { refer_to: "Anyone" }], sort: :id))
+          expect(run_query(right_plus: ["*create", { refer_to: "Anyone" }], sort_by: :id))
             .to eq(["Sign up+*type", "Fruit+*type"])
         end
 
         it "plus should handle subqueries" do # albeit more slowly :)
-          expect(run_query(plus: ["*create", { refer_to: "Anyone" }], sort: :id))
+          expect(run_query(plus: ["*create", { refer_to: "Anyone" }], sort_by: :id))
             .to eq(["Sign up+*type", "Fruit+*type"])
         end
       end
