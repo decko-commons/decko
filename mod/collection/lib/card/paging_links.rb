@@ -1,5 +1,5 @@
 class Card
-  # render paging links
+  # generates pagination links
   class PagingLinks
     MAX_PAGES = 100
 
