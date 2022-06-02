@@ -37,7 +37,7 @@ RSpec.describe Card::Query::CardQuery::Sorting do
 
   it "sorts by count", as_bot: true do
     expect(run_query(name: [:in, "*always", "*never", "*edited"],
-                     sort_by: { right: "*follow", item: "referred_to", return: "count" }))
+                     sort: { right: "*follow", item: "referred_to", return: "count" }))
       .to eq(["*never", "*edited", "*always"])
   end
 
