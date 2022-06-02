@@ -3,21 +3,11 @@ format :html do
 
   def with_paging path_args={}
     with_paging_path_args path_args do
-      output [yield(@paging_path_args), _render_paging]
+      output [yield(@paging_path_args), render_paging]
     end
   end
 
-  view :paging, cache: :never do
-    return "" unless paging_needed?
-
-    <<-HTML
-      <nav>
-        <ul class="pagination paging">
-          #{paging_links.join}
-        </ul>
-      </nav>
-    HTML
-  end
+  view :paging, cache: :never, template: :haml
 
   def paging_links
     PagingLinks.new(total_pages, current_page).build do |text, page, status, options|

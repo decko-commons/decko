@@ -33,19 +33,19 @@ RSpec.describe Card::Query::CardQuery::MatchAttributes do
 
   describe "complete" do
     it "returns no plus cards when value has no plus" do
-      expect(run_query(complete: "Any", sort: :name))
+      expect(run_query(complete: "Any", sort_by: :name))
         .to eq(["Anyone", "Anyone Signed In"])
     end
 
     it "returns plus cards when value has plus" do
-      expect(run_query(complete: "Anyone+", sort: :name))
+      expect(run_query(complete: "Anyone+", sort_by: :name))
         .to eq(["Anyone+description"])
     end
   end
 
   describe "name_match" do
     it "same as name: [:match, val]" do
-      expect(run_query(name_match: "Any", sort: :name))
+      expect(run_query(name_match: "Any", sort_by: :name))
         .to eq(["Anyone", "Anyone Signed In"])
     end
   end
