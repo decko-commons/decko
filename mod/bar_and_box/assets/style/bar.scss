@@ -58,6 +58,9 @@ $bar_stripe_color: $dark !default;
   display: flex;
 }
 
+.bar.with-bar-menu {
+  width: calc(100% - 3em);
+}
 
 .bar-menu-button {
   padding: 0.2em 0.75em;
