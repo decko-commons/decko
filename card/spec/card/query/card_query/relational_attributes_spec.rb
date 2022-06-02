@@ -58,7 +58,7 @@ RSpec.describe Card::Query::CardQuery::RelationalAttributes do
         end
 
         it "finds right connection cards based on content" do
-          expect(run_query(right: { content: "Alpha [[Z]]" }, sort: :id))
+          expect(run_query(right: { content: "Alpha [[Z]]" }, sort_by: :id))
             .to eq(%w[C+A D+A F+A])
         end
       end
