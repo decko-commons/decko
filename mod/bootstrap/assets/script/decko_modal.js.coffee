@@ -1,6 +1,6 @@
 decko.slot.ready (slot)->
   slot.find('.modal.fade').on "loaded.bs.modal", ->
-    $(this).trigger('slot.ready')
+    $(this).trigger('slot:ready')
 
   slot.find('[data-toggle=\'modal\']').off("click").on "click", (e) ->
     e.preventDefault()
