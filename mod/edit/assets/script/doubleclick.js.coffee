@@ -19,12 +19,25 @@ doubleClickApplies = (el) ->
 
 triggerDoubleClickEditingOn = (el)->
   slot = el.slot()
-  edit_link = decko.slotEditLink(slot)
+  edit_link = slotEditLink(slot)
 
   if edit_link
     edit_link.click()
   else
-    edit_view = decko.slotEditView(slot)
+    edit_view = slotEditView(slot)
     url = decko.path("~#{slot.data('cardId')}?view=#{edit_view}")
     slot.reloadSlot url
 
+slotEditLink: (slot) ->
+  edit_links =
+    slot.find(".edit-link").filter (i, el) ->
+      $(el).slot().data('slotId') == slot.data('slotId')
+
+  if edit_links[0] then $(edit_links[0]) else false
+
+slotEditView: (slot) ->
+  data = decko.slotData(slot)
+  switch data["slot[edit]"]
+    when "inline" then "edit_inline"
+    when "full"   then "bridge"
+    else "edit"
