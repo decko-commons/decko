@@ -63,7 +63,7 @@ format :html do
 
   def group_options
     Auth.as_bot do
-      Card.search({ type_id: RoleID, sort: "name" }, "roles by name")
+      Card.search({ type_id: RoleID, sort_by: "name" }, "roles by name")
     end
   end
 

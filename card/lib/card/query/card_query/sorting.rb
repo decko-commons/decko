@@ -2,6 +2,7 @@ class Card
   module Query
     class CardQuery
       # handle relational (not simple) CQL sort values
+      # (see #interpret_as_modifier? and #order_directives)
       #
       # sorting with subqueries is not fully supported; only a few experimental
       # examples have been attempted, and even for those the syntax is likely
@@ -14,7 +15,7 @@ class Card
         SORT_BY_ITEM_JOIN_MAP = { left: "left_id", right: "right_id" }.freeze
 
         def sort val
-          return nil unless full?
+          return nil unless full? # eg, no sorting on simple count queries
 
           interpret_sort_hash val do |value, item, sort_field|
             sort_by value, item, sort_field
@@ -34,7 +35,7 @@ class Card
           join = join_cards val, to_field: join_field,
                                  side: "LEFT",
                                  conditions_on_join: true
-          @mods[:sort] ||= "#{join.table_alias}.#{sort_field}"
+          @mods[:sort_by] ||= "#{join.table_alias}.#{sort_field}"
         end
 
         def sort_by_item_join_field item
@@ -42,7 +43,7 @@ class Card
         end
 
         # EXPERIMENTAL!
-        # sort: { referred_to_by { right: "*follow" }, return count }
+        # sort_by: { referred_to_by { right: "*follow" }, return count }
 
         def sort_by_count val, item
           method_name = "sort_by_count_#{item}"
@@ -55,7 +56,7 @@ class Card
         end
 
         def sort_by_count_referred_to val
-          @mods[:sort] = "coalesce(count,0)" # needed for postgres
+          @mods[:sort_by] = "coalesce(count,0)" # needed for postgres
           sort_query = count_sort_query
           sort_query.add_condition "referer_id in (#{count_subselect(val).sql})"
           # FIXME: - SQL generated before SQL phase
