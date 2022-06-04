@@ -16,14 +16,14 @@ format :html do
 
   def navbar_items
     # removed invite for now
-    links =
-      %i[my_card sign_out sign_up sign_in].map do |link_view|
-        render link_view
-      end.compact
+    navbar_item_views.map do |link_view|
+      rendered = render link_view
+      wrap_with_nav_item rendered if rendered
+    end.compact
+  end
 
-    links.map do |link|
-      wrap_with_nav_item link
-    end
+  def navbar_item_views
+    %i[my_card sign_out sign_up sign_in]
   end
 
   def self.link_options perms

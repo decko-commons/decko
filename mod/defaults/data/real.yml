@@ -74,9 +74,9 @@
     <div> </div>
     <h5>Webpage rules</h5>
     <div>
-    <blockquote>{{*all|rules_table; filter:webpage}}</blockquote>
+    <blockquote>{{*all|bar_rule_list; filter:webpage}}</blockquote>
     <h5>Permission rules</h5>
-    <blockquote>{{*all|rules_table; filter:permission}}</blockquote>
+    <blockquote>{{*all|bar_rule_list; filter:permission}}</blockquote>
     </div>
     <div><em>[[http://decko.org/rules | More about rules.]]</em></div>
     <div> </div>
