@@ -8,7 +8,7 @@ jQuery.fn.extend
 
   isMainOrMainModal: ->
     el = $(this)
-    el = el.findOriginSlot("modal") if el.closest(".modal")[0]
+    el = el.slotOrigin("modal") if el.closest(".modal")[0]
     el && el.isMain()
 
   notify: (message, status) ->

@@ -133,7 +133,7 @@ jQuery.fn.extend
     if @data("update-foreign-slot")
       $slot = @slotFind @data("update-foreign-slot")
       reload_url = @data("update-foreign-slot-url")
-      $slot.reloadSlot reload_url
+      $slot.slotReload reload_url
 
     if @data('original-slotter-mode')
       @attr 'data-slotter-mode', @data('original-slotter-mode')
@@ -169,7 +169,7 @@ jQuery.fn.extend
 
   updateModalOrigin: () ->
     if @overlaySlot()
-      overlayOrigin = @findOriginSlot("overlay")
+      overlayOrigin = @slotOrigin("overlay")
       overlayOrigin.updateOrigin()
     else if @closest("#modal-container")[0]
       @updateOrigin()
@@ -182,9 +182,9 @@ jQuery.fn.extend
 
     return unless type?
 
-    origin = @findOriginSlot(type)
+    origin = @slotOrigin(type)
     if origin && origin[0]?
-      origin.reloadSlot()
+      origin.slotReload()
 
   registerAsOrigin: (type, slot) ->
     if slot.hasClass("_modal-slot")
@@ -194,7 +194,7 @@ jQuery.fn.extend
 
   updateSlot: (newContent, mode) ->
     mode ||= "replace"
-    @setSlotContent newContent, mode, $(this)
+    @slotContent newContent, mode, $(this)
 
   # close modal or overlay
   closeOnSuccess: (type) ->
