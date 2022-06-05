@@ -2,7 +2,7 @@ $.extend decko,
   slot:
 # returns full path with slot parameters
     path: (path, slot)->
-      params = decko.slotData(slot)
+      params = decko.slotData slot
       decko.path(path) + ( (if path.match /\?/ then '&' else '?') + $.param(params) )
 
     ready: (func)->
@@ -132,7 +132,6 @@ jQuery.fn.extend
     if selector = @data(selectorName)
       slot = @slotFind selector
       slot && slot[0] && slot
-
 
 
 slotParams = (raw, processed, prefix)->
