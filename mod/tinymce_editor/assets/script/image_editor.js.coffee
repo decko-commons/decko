@@ -71,4 +71,4 @@ $.extend nest,
 
     slot = tabs.find(".tab-pane-preview > .card-slot");
     path = "#{name}?view=#{view}&size=#{size}"
-    $(slot).reloadSlot(path)
+    $(slot).slotReload(path)
