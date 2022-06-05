@@ -66,7 +66,7 @@ jQuery.fn.extend
     else if selector == "overlay-origin"
       @findOriginSlot("overlay")
     else
-      slotScour @closest(selector), @closest(".card-slot")
+      slotScour @closest(selector), @closest(".card-slot"), selector
 
   clearSlot: () ->
     @trigger "slot:destroy"
@@ -142,7 +142,7 @@ slotParams = (raw, processed, prefix)->
     else
       processed[cgiKey] = value
 
-slotScour = (target_slot, parent_slot) ->
+slotScour = (target_slot, parent_slot, selector) ->
   # if slot-selector doesn't apply to a child, search in all parent slots and finally in the body
   while target_slot.length == 0 and parent_slot.length > 0
     target_slot = $(parent_slot).find(selector)
