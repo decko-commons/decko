@@ -69,7 +69,7 @@ $(window).ready ->
   $('body').on 'ajax:error', '.slotter', (event, xhr) ->
     $(this).showErrorResponse xhr.status, xhr.responseText
 
-  $('body').on 'click', 'button.slotter', (event)->
+  $('body').on 'click', 'button.slotter', ->
     return false if !$.rails.allowAction $(this)
     $.rails.handleRemote $(this)
 
@@ -78,22 +78,22 @@ $(window).ready ->
 #                                           # expects the url
 #    $.rails.handleRemote $(this)
 
-  $('body').on 'click', '[data-bs-dismiss="overlay"]', (event) ->
-    $(this).findSlot(".card-slot._overlay").removeOverlay()
+  $('body').on 'click', '[data-bs-dismiss="overlay"]', ->
+    $(this).slotFind(".card-slot._overlay").removeOverlay()
 
-  $('body').on 'click', '._close-overlay-on-success', (event) ->
+  $('body').on 'click', '._close-overlay-on-success', ->
     $(this).closeOnSuccess("overlay")
 
-  $('body').on 'click', '._close-modal-on-success', (event) ->
+  $('body').on 'click', '._close-modal-on-success', ->
     $(this).closeOnSuccess("modal")
 
-  $('body').on 'click', '._close-on-success', (event) ->
+  $('body').on 'click', '._close-on-success', ->
     $(this).closeOnSuccess()
 
-  $('body').on 'click', '._update-origin', (event) ->
+  $('body').on 'click', '._update-origin', ->
     $(this).closest('.slotter').data("slotter-mode", "update-origin")
 
-  $('body').on 'submit', 'form.slotter', (event)->
+  $('body').on 'submit', 'form.slotter', ->
     form = $(this)
     if form.data("main-success") and form.isMainOrMainModal()
       form.mainSuccess()
@@ -131,7 +131,7 @@ jQuery.fn.extend
       slot_top_pos = @slot().offset().top
       $("body").scrollTop slot_top_pos
     if @data("update-foreign-slot")
-      $slot = @findSlot @data("update-foreign-slot")
+      $slot = @slotFind @data("update-foreign-slot")
       reload_url = @data("update-foreign-slot-url")
       $slot.reloadSlot reload_url
 
