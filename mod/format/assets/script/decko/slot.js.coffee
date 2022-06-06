@@ -2,7 +2,7 @@ $.extend decko,
   slot:
     # returns full path with slot parameters
     path: (path, slot)->
-      params = decko.slotData slot
+      params = slotPathParams slot
       decko.path(path) + ( (if path.match /\?/ then '&' else '?') + $.param(params) )
 
     ready: (func)->
@@ -20,19 +20,6 @@ $.extend decko,
           e.stopPropagation()
           func.call this, $(this)
 
-  slotData: (slot) ->
-    xtra = {}
-    main = $('#main').children('.card-slot').data 'cardName'
-    xtra['main'] = main if main?
-
-    if slot
-      xtra['is_main'] = true if slot.isMain()
-      slotdata = slot.data 'slot'
-      if slotdata?
-        slotParams slotdata, xtra, 'slot'
-        xtra['type'] = slotdata['type'] if slotdata['type']
-    xtra
-
 
 jQuery.fn.extend
   isSlot: -> $(this).hasClass "card-slot"
@@ -42,24 +29,21 @@ jQuery.fn.extend
     @find(".card-slot").trigger "slot:ready", slotter  
     
   slot: (status="success", mode="replace") ->
-    if mode == "modal"
-      @modalSlot()
-    else
-      @_slotSelect("slot-#{status}-selector") ||
-        @_slotSelect("slot-selector") ||
-        @closest(".card-slot")
+    return @modalSlot() if mode == "modal"
+
+    @_slotSelect("slot-#{status}-selector") ||
+      @_slotSelect("slot-selector") ||
+      @closest(".card-slot")
 
   slotUrl: ->
     slot = $(this)
     decko.slot.path "#{slot.cardMark()}/#{slot.data("slot")["view"]}"
 
   slotFind: (selector) ->
-    if selector == "modal-origin"
-      @slotOrigin "modal"
-    else if selector == "overlay-origin"
-      @slotOrigin "overlay"
-    else
-      slotScour @closest(selector), @closest(".card-slot"), selector
+    switch selector
+      when "modal-origin"   then @slotOrigin "modal"
+      when "overlay-origin" then @slotOrigin "overlay"
+      else slotScour @closest(selector), @closest(".card-slot"), selector
 
   slotClear: () ->
     @trigger "slot:destroy"
@@ -76,26 +60,7 @@ jQuery.fn.extend
       decko.warn "couldn't find origin with slot id #{origin_slot_id}"
 
   slotReload: (url) ->
-    $slot = $(this)
-    if $slot.length > 1
-      $slot.each ->
-        $(this).reloadSlot url
-      return
-
-    # $slot = $slot.slot() unless $slot.isSlot()
-    return unless $slot[0]
-
-    url = $slot.slotUrl() unless url?
-    $slot.addClass 'slotter'
-    $slot.attr 'href', url
-    $slot.data "url", url
-    this[0].href = url # that's where handleRemote gets the url from
-    # .attr(href, url) only works for anchors
-    $slot.data "remote", true
-    $.rails.handleRemote($slot)
-
-#
-#    $(this).each -> $(this)._slotReloadSingle url
+    $(this).each -> @_slotReloadSingle url 
 
   slotContent: (newContent, mode, $slotter) ->
     v = $(newContent)[0] && $(newContent) || newContent
@@ -128,17 +93,34 @@ jQuery.fn.extend
       slot = @slotFind selector
       slot && slot[0] && slot
 
-  _slotReloadSingle: ($slot, url) ->
+  _slotReloadSingle: (url) ->
+    $slot = $(this)
     url = $slot.slotUrl() unless url?
     $slot.addClass 'slotter'
-    $slot.attr 'href', url
     $slot.data "url", url
-    this[0].href = url # that's where handleRemote gets the url from
-    # .attr(href, url) only works for anchors
     $slot.data "remote", true
+    $slot.attr 'href', url
+    this[0].href = url 
+    # that's where handleRemote gets the url from
+    # .attr(href, url) only works for anchors
     $.rails.handleRemote $slot
 
+# ~~~~~~~~~~~~~~~~~~~~~~~~
+# "private" helper methods
 
+slotPathParams = (slot) ->
+  params = {}
+  main = $('#main').children('.card-slot').data 'cardName'
+  params['main'] = main if main?
+
+  if slot
+    params['is_main'] = true if slot.isMain()
+    slotdata = slot.data 'slot'
+    if slotdata?
+      slotParams slotdata, params, 'slot'
+      params['type'] = slotdata['type'] if slotdata['type']
+  params    
+    
 slotParams = (raw, processed, prefix)->
   $.each raw, (key, value)->
     cgiKey = prefix + '[' + decko.snakeCase(key) + ']'
