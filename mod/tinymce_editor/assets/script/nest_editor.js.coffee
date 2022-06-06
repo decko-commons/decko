@@ -83,7 +83,7 @@ $.extend nest,
       $.ajax
         url: url
         success: (html) ->
-          slot.setSlotContent html, mode, slotter
+          slot.slotContent html, mode, slotter
 
   editParams: (tm, prefix="{{", postfix="}}", edit=true) ->
     sel = tm.selection.getSel()
