@@ -26,7 +26,7 @@ triggerDoubleClickEditingOn = (el)->
   else
     edit_view = slotEditView(slot)
     url = decko.path("~#{slot.data('cardId')}?view=#{edit_view}")
-    slot.reloadSlot url
+    slot.slotReload url
 
 slotEditLink = (slot) ->
   edit_links =
