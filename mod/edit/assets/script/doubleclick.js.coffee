@@ -36,8 +36,7 @@ slotEditLink = (slot) ->
   if edit_links[0] then $(edit_links[0]) else false
 
 slotEditView = (slot) ->
-  data = decko.slotData(slot)
-  switch data["slot[edit]"]
+  switch slot.data("slot").edit
     when "inline" then "edit_inline"
     when "full"   then "bridge"
     else "edit"
