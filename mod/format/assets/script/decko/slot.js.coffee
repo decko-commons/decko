@@ -76,7 +76,26 @@ jQuery.fn.extend
       decko.warn "couldn't find origin with slot id #{origin_slot_id}"
 
   slotReload: (url) ->
-    $(this).each -> $(this)._slotReloadSingle url
+    $slot = $(this)
+    if $slot.length > 1
+      $slot.each ->
+        $(this).reloadSlot url
+      return
+
+    # $slot = $slot.slot() unless $slot.isSlot()
+    return unless $slot[0]
+
+    url = $slot.slotUrl() unless url?
+    $slot.addClass 'slotter'
+    $slot.attr 'href', url
+    $slot.data "url", url
+    this[0].href = url # that's where handleRemote gets the url from
+    # .attr(href, url) only works for anchors
+    $slot.data "remote", true
+    $.rails.handleRemote($slot)
+
+#
+#    $(this).each -> $(this)._slotReloadSingle url
 
   slotContent: (newContent, mode, $slotter) ->
     v = $(newContent)[0] && $(newContent) || newContent
