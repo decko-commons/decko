@@ -49,7 +49,3 @@ $(window).ready ->
     true
 
 setInterval (-> $('.card-form').setContentFieldsFromMap()), 20000
-
-
-
-
