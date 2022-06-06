@@ -152,7 +152,7 @@ jQuery.fn.extend
         when "silent-success" then return
         when "update-modal-origin" then @updateModalOrigin()
         when "update-origin" then @updateOrigin()
-        else @updateSlot responseData, mode
+        else @slotUpdate responseData, mode
 
   showErrorResponse: (status, result) ->
     if status == 403 #permission denied
@@ -192,9 +192,6 @@ jQuery.fn.extend
                                         # of on the slot, so that it survives slot reloads
     slot.attr("data-#{type}-origin-slot-id", @closest(".card-slot").data("slot-id"))
 
-  updateSlot: (newContent, mode) ->
-    mode ||= "replace"
-    @slotContent newContent, mode, $(this)
 
   # close modal or overlay
   closeOnSuccess: (type) ->
