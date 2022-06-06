@@ -1,24 +1,23 @@
-$.extend decko,
-  slot:
-    # returns full path with slot parameters
-    path: (path, slot)->
-      params = slotPathParams slot
-      decko.path(path) + ( (if path.match /\?/ then '&' else '?') + $.param(params) )
+decko.slot =
+  # returns full path with slot parameters
+  path: (path, slot)->
+    params = slotPathParams slot
+    decko.path(path) + ( (if path.match /\?/ then '&' else '?') + $.param(params) )
 
-    ready: (func)->
-      $('document').ready ->
-        $('body').on 'slot:ready', '.card-slot', (e, slotter) ->
-          e.stopPropagation()
-          if slotter?
-            func.call this, $(this), $(slotter)
-          else
-            func.call this, $(this)
-
-    destroy: (func)->
-      $('document').ready ->
-        $('body').on 'slot:destroy', '.card-slot, ._modal-slot', (e) ->
-          e.stopPropagation()
+  ready: (func)->
+    $('document').ready ->
+      $('body').on 'slot:ready', '.card-slot', (e, slotter) ->
+        e.stopPropagation()
+        if slotter?
+          func.call this, $(this), $(slotter)
+        else
           func.call this, $(this)
+
+  destroy: (func)->
+    $('document').ready ->
+      $('body').on 'slot:destroy', '.card-slot, ._modal-slot', (e) ->
+        e.stopPropagation()
+        func.call this, $(this)
 
 
 jQuery.fn.extend
@@ -60,7 +59,11 @@ jQuery.fn.extend
       decko.warn "couldn't find origin with slot id #{origin_slot_id}"
 
   slotReload: (url) ->
-    $(this).each -> @_slotReloadSingle url 
+    @each -> $(this)._slotReloadSingle url
+
+  slotUpdate: (newContent, mode) ->
+    mode ||= "replace"
+    @slotContent newContent, mode, $(this)
 
   slotContent: (newContent, mode, $slotter) ->
     v = $(newContent)[0] && $(newContent) || newContent
