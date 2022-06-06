@@ -68,7 +68,9 @@ end
 
 format :html do
   def option_label option_name, id
-    %(<label for="#{id}">#{option_label_text option_name}</label>)
+    wrap_with :label, class: "form-check-label", for: id do
+      option_label_text option_name
+    end
   end
 
   def option_view

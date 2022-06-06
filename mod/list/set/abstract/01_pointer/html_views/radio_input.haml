@@ -7,7 +7,7 @@
     - options_hash.each do |option_label, option_name|
       - checked = option_name == card.item_name
       - id = "pointer-radio-#{option_name.to_name.key}"
-      %li.pointer-radio.radio
+      %li.pointer-radio.radio.form-check
         = radio_button_tag input_name, option_name, checked,
-                           id: id, class: "pointer-radio-button #{'_submit-on-change' if submit_on_change}"
+                           id: id, class: "pointer-radio-button form-check-input #{'_submit-on-change' if submit_on_change}"
         = option_label option_label, id

@@ -87,9 +87,9 @@ $.extend nest,
     name = $("input._nest-name").val()
     if name? && name.length > 0
       nest.emptyNameAlert(false)
-      $slot.reloadSlot url
+      $slot.slotReload url
     else
-      $slot.clearSlot()
+      $slot.slotClear()
       nest.emptyNameAlert(true)
 
   fullName: () ->
