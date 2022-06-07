@@ -34,6 +34,8 @@ format :html do
                    subheader: render_menu,
                    body: render_bar_bottom
   end
+  # DEPRECATED
+  view :expanded_bar, :accordion_bar
 
   def bar_menu_items
     [
