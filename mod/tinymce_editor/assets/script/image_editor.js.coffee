@@ -24,8 +24,8 @@ imageItem = (data) ->
   data
 
 decko.slot.ready (slot) ->
-  slotData = slot.data("slot")
-  if slotData? && slotData["show"]? && slotData["show"].includes "preview_redirect"
+  sdata = slot.data("slot")
+  if sdata? && sdata["show"]? && sdata["show"].includes "preview_redirect"
     tabPanel = slot.closest(".tab-panel")
     tabPanel.find(".tab-li-preview a").tab("show")
     nest.updateImagePreview(slot)
@@ -71,4 +71,4 @@ $.extend nest,
 
     slot = tabs.find(".tab-pane-preview > .card-slot");
     path = "#{name}?view=#{view}&size=#{size}"
-    $(slot).reloadSlot(path)
+    $(slot).slotReload path

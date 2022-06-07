@@ -1,8 +1,8 @@
 class Card
   module Query
     # convert @query sort rep into order by statement
-    # order information is stored in @mods[:sort], @mods[:sort_as], and
-    # @mods[:dir]
+    # order information is stored in @mods[:sort_by], @mods[:sort_as], and
+    # @mods[:sort_dir]
     class SqlStatement
       ORDER_MAP = {
         "id" => "id",
@@ -24,17 +24,18 @@ class Card
         end
 
         def order_directives
-          return if @mods[:sort].blank?
+          sort_mod = @mods[:sort_by] || @mods[:sort]
+          return if sort_mod.blank?
 
-          Array.wrap(@mods[:sort]).map do |order_key|
-            order_directive order_key
+          Array.wrap(sort_mod).map.with_index do |order_key, index|
+            order_directive order_key, index
           end
         end
 
-        def order_directive order_key
+        def order_directive order_key, index
           field = order_field order_key
           @fields += ", #{field}"
-          "#{field} #{order_dir order_key}"
+          "#{field} #{order_dir order_key, index}"
         end
 
         def order_field order_key
@@ -54,11 +55,12 @@ class Card
           "CAST(#{field} AS #{cast_type(safe_sql(as))})"
         end
 
-        def order_dir order_key
-          if @mods[:dir].blank?
+        def order_dir order_key, index
+          dir = @mods[:sort_dir] || @mods[:dir] # dir is DEPRECATED
+          if dir.blank?
             DEFAULT_ORDER_DIRS[order_key.to_sym] || "asc"
           else
-            safe_sql @mods[:dir]
+            safe_sql Array.wrap(dir)[index]
           end
         end
       end

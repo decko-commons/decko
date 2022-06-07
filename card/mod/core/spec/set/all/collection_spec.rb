@@ -158,7 +158,7 @@ RSpec.describe Card::Set::All::Collection do
 
     it "works with search cards" do
       Card.create type: "Search", name: "Asearch",
-                  content: '{"type":"User","sort":"name"}'
+                  content: '{"type":"User","sort_by":"name"}'
       tabs = render_content("{{Asearch|tabs|name}}")
       assert_view_select tabs, "div[role=tabpanel]" do
         assert_select(

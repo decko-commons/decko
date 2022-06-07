@@ -1,6 +1,13 @@
 decko.editors.init["textarea"] = -> $(this).autosize()
 
 $.extend decko,
+  contentLoaded: (el, slotter)->
+    decko.initializeEditors(el)
+    notice = slotter.attr('notify-success')
+
+    el.notify notice, "success" if notice?
+    el.triggerSlotReady(slotter)
+
   initializeEditors: (range, map) ->
     map = decko.editors.init unless map?
     $.each map, (selector, fn) ->
@@ -42,7 +49,3 @@ $(window).ready ->
     true
 
 setInterval (-> $('.card-form').setContentFieldsFromMap()), 20000
-
-
-
-

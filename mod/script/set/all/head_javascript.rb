@@ -46,7 +46,7 @@ format :html do
   private
 
   def trigger_slot_ready
-    "$('document').ready(function() { $('.card-slot').trigger('slot.ready'); })"
+    "$('document').ready(function() { $('.card-slot').trigger('slot:ready'); })"
   end
 
   def script_variable_to_js value

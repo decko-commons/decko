@@ -69,7 +69,7 @@ $(window).ready ->
   $('body').on 'ajax:error', '.slotter', (event, xhr) ->
     $(this).showErrorResponse xhr.status, xhr.responseText
 
-  $('body').on 'click', 'button.slotter', (event)->
+  $('body').on 'click', 'button.slotter', ->
     return false if !$.rails.allowAction $(this)
     $.rails.handleRemote $(this)
 
@@ -78,22 +78,22 @@ $(window).ready ->
 #                                           # expects the url
 #    $.rails.handleRemote $(this)
 
-  $('body').on 'click', '[data-bs-dismiss="overlay"]', (event) ->
-    $(this).findSlot(".card-slot._overlay").removeOverlay()
+  $('body').on 'click', '[data-bs-dismiss="overlay"]', ->
+    $(this).slotFind(".card-slot._overlay").removeOverlay()
 
-  $('body').on 'click', '._close-overlay-on-success', (event) ->
+  $('body').on 'click', '._close-overlay-on-success', ->
     $(this).closeOnSuccess("overlay")
 
-  $('body').on 'click', '._close-modal-on-success', (event) ->
+  $('body').on 'click', '._close-modal-on-success', ->
     $(this).closeOnSuccess("modal")
 
-  $('body').on 'click', '._close-on-success', (event) ->
+  $('body').on 'click', '._close-on-success', ->
     $(this).closeOnSuccess()
 
-  $('body').on 'click', '._update-origin', (event) ->
+  $('body').on 'click', '._update-origin', ->
     $(this).closest('.slotter').data("slotter-mode", "update-origin")
 
-  $('body').on 'submit', 'form.slotter', (event)->
+  $('body').on 'submit', 'form.slotter', ->
     form = $(this)
     if form.data("main-success") and form.isMainOrMainModal()
       form.mainSuccess()
@@ -131,9 +131,9 @@ jQuery.fn.extend
       slot_top_pos = @slot().offset().top
       $("body").scrollTop slot_top_pos
     if @data("update-foreign-slot")
-      $slot = @findSlot @data("update-foreign-slot")
+      $slot = @slotFind @data("update-foreign-slot")
       reload_url = @data("update-foreign-slot-url")
-      $slot.reloadSlot reload_url
+      $slot.slotReload reload_url
 
     if @data('original-slotter-mode')
       @attr 'data-slotter-mode', @data('original-slotter-mode')
@@ -152,7 +152,7 @@ jQuery.fn.extend
         when "silent-success" then return
         when "update-modal-origin" then @updateModalOrigin()
         when "update-origin" then @updateOrigin()
-        else @updateSlot responseData, mode
+        else @slotUpdate responseData, mode
 
   showErrorResponse: (status, result) ->
     if status == 403 #permission denied
@@ -169,7 +169,7 @@ jQuery.fn.extend
 
   updateModalOrigin: () ->
     if @overlaySlot()
-      overlayOrigin = @findOriginSlot("overlay")
+      overlayOrigin = @slotOrigin("overlay")
       overlayOrigin.updateOrigin()
     else if @closest("#modal-container")[0]
       @updateOrigin()
@@ -182,9 +182,9 @@ jQuery.fn.extend
 
     return unless type?
 
-    origin = @findOriginSlot(type)
+    origin = @slotOrigin(type)
     if origin && origin[0]?
-      origin.reloadSlot()
+      origin.slotReload()
 
   registerAsOrigin: (type, slot) ->
     if slot.hasClass("_modal-slot")
@@ -192,9 +192,6 @@ jQuery.fn.extend
                                         # of on the slot, so that it survives slot reloads
     slot.attr("data-#{type}-origin-slot-id", @closest(".card-slot").data("slot-id"))
 
-  updateSlot: (newContent, mode) ->
-    mode ||= "replace"
-    @setSlotContent newContent, mode, $(this)
 
   # close modal or overlay
   closeOnSuccess: (type) ->

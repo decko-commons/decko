@@ -36,6 +36,10 @@ format do
     {}
   end
 
+  def last_item_on_page
+    [count_with_params, (offset + limit)].min
+  end
+
   private
 
   def contextual_param param

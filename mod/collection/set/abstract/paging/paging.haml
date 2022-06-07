@@ -1,0 +1,12 @@
+- if paging_needed?
+  %nav.nav.justify-content-between.align-items-center
+    %ul.pagination.paging
+      = paging_links.join
+    .paging-context
+      = offset + 1
+      = "-"
+      = last_item_on_page
+      of
+      = count_with_params
+
+
