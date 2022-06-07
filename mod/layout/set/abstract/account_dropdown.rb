@@ -8,6 +8,7 @@ format :html do
     split_button link_to_mycard, nil do
       [
         link_to_card([Auth.current, :account_settings], "Account"),
+        render_sign_out,
         (["Roles", role_items(&render_role_item)] if special_roles?)
       ]
     end
