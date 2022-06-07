@@ -1,5 +1,8 @@
 format :html do
-  view :menu, denial: :blank, unknown: :blank do
+  view :menu, denial: :blank, unknown: true do
+    return "" unless card.known?
+    # would be preferable to do this with unknown: :blank, but that fails with view
+    # caching on, because voo always thinks it's the root.
     wrap_with :div, class: "card-menu #{menu_link_classes}" do
       [render_help_link,
        menu_link,
