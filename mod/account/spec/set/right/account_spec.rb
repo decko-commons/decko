@@ -174,7 +174,7 @@ RSpec.describe Card::Set::Right::Account do
 
     it "does not work if token is wrong" do
       Card::Env.params[:token] = "#{auth_token}xxx"
-      expect { trigger_reset }.to raise_error(/Signature verification raised/)
+      expect { trigger_reset }.to raise_error(/invalid base64/)
     end
   end
 end
