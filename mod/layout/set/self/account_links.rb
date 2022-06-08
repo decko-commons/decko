@@ -23,7 +23,7 @@ format :html do
   end
 
   def navbar_item_views
-    %i[my_card sign_up sign_in]
+    %i[my_card sign_out sign_up sign_in]
   end
 
   def self.link_options perms
