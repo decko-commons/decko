@@ -17,6 +17,7 @@ decko.slot =
       $('document').ready ->
         $('body').on 'decko.slot.destroy', '.card-slot, ._modal-slot', (e) ->
           e.stopPropagation()
+          func.call this, $(this)
 
 
 jQuery.fn.extend
