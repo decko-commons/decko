@@ -4,20 +4,20 @@ decko.slot =
     params = slotPathParams slot
     decko.path(path) + ( (if path.match /\?/ then '&' else '?') + $.param(params) )
 
-    ready: (func)->
-      $('document').ready ->
-        $('body').on 'decko.slot.ready', '.card-slot', (e, slotter) ->
-          e.stopPropagation()
-          if slotter?
-            func.call this, $(this), $(slotter)
-          else
-            func.call this, $(this)
-
-    destroy: (func)->
-      $('document').ready ->
-        $('body').on 'decko.slot.destroy', '.card-slot, ._modal-slot', (e) ->
-          e.stopPropagation()
+  ready: (func)->
+    $('document').ready ->
+      $('body').on 'decko.slot.ready', '.card-slot', (e, slotter) ->
+        e.stopPropagation()
+        if slotter?
+          func.call this, $(this), $(slotter)
+        else
           func.call this, $(this)
+
+  destroy: (func)->
+    $('document').ready ->
+      $('body').on 'decko.slot.destroy', '.card-slot, ._modal-slot', (e) ->
+        e.stopPropagation()
+        func.call this, $(this)
 
 
 jQuery.fn.extend
