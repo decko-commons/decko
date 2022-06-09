@@ -116,13 +116,12 @@ def source_changed? since:
       folder_group_card&.paths&.map { |path| File.mtime(path) }
     end
 
-  return unless source_updates.present?
-
-  source_updates.max > since
+  source_updates.present? && (source_updates.max > since)
 end
 
 def manifest_updated_at
   return unless manifest_exists?
+
   File.mtime(manifest_path)
 end
 
