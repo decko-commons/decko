@@ -44,8 +44,8 @@ RSpec.describe Card::Set::Self::Head do
       is_expected.to match(/decko\.setTinyMCEConfig/)
     end
 
-    it "triggers slot:ready" do
-      is_expected.to match(/trigger\W*slot:ready/)
+    it "triggers decko.slot.ready" do
+      is_expected.to match(/trigger\W*decko.slot.ready/)
     end
 
     it "sets rootUrl" do
