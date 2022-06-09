@@ -35,7 +35,7 @@ jQuery.fn.extend {
       @addModal el, $slotter
     else
       if $("body > ._modal-slot")[0]
-        $("._modal-slot").trigger "slot:destroy"
+        $("._modal-slot").trigger "decko.slot.destroy"
         $("body > ._modal-slot").replaceWith el
       else
         $("body").append el
@@ -47,7 +47,7 @@ jQuery.fn.extend {
     if $slotter.data("slotter-mode") == "modal-replace"
       dialog = el.find(".modal-dialog")
       el.adoptModalOrigin()
-      $("._modal-slot").trigger "slot:destroy"
+      $("._modal-slot").trigger "decko.slot.destroy"
       $("body > ._modal-slot > .modal-dialog").replaceWith(dialog)
       decko.contentLoaded(dialog, $slotter)
     else
@@ -93,7 +93,7 @@ $.extend decko,
     if $("._modal-stack")[0]
       decko.popModal()
     else
-      $("._modal-slot").trigger "slot:destroy"
+      $("._modal-slot").trigger "decko.slot.destroy"
       $(".modal-dialog").empty()
 
   pushModal: (el) ->
@@ -105,7 +105,7 @@ $.extend decko,
 
   popModal: ->
     $(".modal-backdrop").addClass("show")
-    $("body > ._modal-slot").trigger "slot:destroy"
+    $("body > ._modal-slot").trigger "decko.slot.destroy"
     $("body > ._modal-slot").remove()
     modal = $($("._modal-stack")[0])
     modal.addClass("_modal-slot").removeClass("_modal-stack").attr("id", "modal-container").addClass("modal").removeClass("background-modal")
