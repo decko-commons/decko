@@ -1,0 +1,8 @@
+.btn-group{ class: opts[:extra_css_class], role: "group" }
+  %button.btn.btn-outline-secondary.dropdown-toggle{ title: name,
+    "aria-expanded": "false",
+    "aria-haspopup": "true",
+    "data-bs-toggle": "dropdown" }
+    = icon_tag opts[:icon] if opts[:icon]
+    = name
+  = dropdown_list items, opts[:class]

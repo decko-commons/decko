@@ -24,9 +24,11 @@ RSpec.describe Card::Set::Self::AccountLinks do
   context "when user has special roles", with_user: "Joe User" do
     it "shows role interface" do
       expect_view(:my_card, card: :account_links).to have_tag "ul.dropdown-menu" do
-        with_tag "li.dropdown-item" do
-          with_checkbox "pointer_checkbox-joe_user-Xenabled_role-1", "Anyone Signed In"
-          with_tag :a, text: "Anyone Signed In", with: { href: "/Anyone_Signed_In" }
+        with_tag "li" do
+          with_tag ".dropdown-item" do
+            with_checkbox "pointer_checkbox-joe_user-Xenabled_role-1", "Anyone Signed In"
+            with_tag :a, text: "Anyone Signed In", with: { href: "/Anyone_Signed_In" }
+          end
         end
         with_tag :a, text: "Shark", with: { href: "/Shark" }
       end

@@ -1,3 +1,5 @@
+# DEPRECATED!
+
 format :html do
   view :nav_item do
     wrap_with :div, "", class: "dropdown-divider"
