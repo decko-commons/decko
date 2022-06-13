@@ -18,8 +18,11 @@ format :html do
   def account_dropdown_roles &block
     return [] unless special_roles?
 
-    [dropdown_header("Roles")] +
-      Auth.current_roles.map { |role| block_given? ? block.call(role) : [role] }
+    [dropdown_header("Roles")] + account_dropdown_role_items(&block)
+  end
+
+  def account_dropdown_role_items
+    Auth.current_roles.map { |role| block_given? ? yield(role) : [role] }
   end
 
   def special_roles?
