@@ -54,16 +54,12 @@ format :html do
   end
 
   view :my_card, link_options(:signed_in?) do
-    can_disable_roles? ? interactive_roles_dropdown : simple_roles_dropdown
+    can_disable_roles? ? interactive_roles_dropdown : account_dropdown
   end
 
   def interactive_roles_dropdown
     nest enabled_roles_card,
          view: :edit_inline, hide: %i[edit_inline_buttons name_formgroup]
-  end
-
-  def simple_roles_dropdown
-    account_dropdown(&method(:link_to_card))
   end
 
   def enabled_roles_card
