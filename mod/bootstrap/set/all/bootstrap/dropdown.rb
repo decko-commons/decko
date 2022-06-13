@@ -1,43 +1,23 @@
 format :html do
-  def dropdown_button name, items_or_opts={}, opts={}
-    items = block_given? ? yield : items_or_opts
-    opts = items_or_opts if block_given?
-    haml :dropdown_button, name: name, items: items, opts: opts
+  # Both #dropdown_button and #split_dropdown_button are called with blocks that yield
+  # and array of dropdown items.
+  #
+  # If the item is a string, the only thing added is an li tag.
+  #
+  # If the item is an Array, it is treated as a list of arguments to #link_to_card,
+  # and the "dropdown-item" class is added to each link
+
+  def dropdown_button name, opts={}
+    haml :dropdown_button, name: name, items: yield, opts: opts
   end
 
-  def split_button main_button, active_item
+  def split_dropdown_button main_button
     wrap_with :div, class: "btn-group" do
       [
         main_button,
         split_button_toggle,
-        dropdown_list(yield, "dropdown-menu-right", active_item)
+        dropdown_list(yield, "dropdown-menu-right")
       ]
-    end
-  end
-
-  private
-
-  # @param items
-  #   [String] plain html
-  #   [Array<String, Array>] list of item names
-  #         If an item is an array then the first element is used as header for a section.
-  #         The second item has to be an array with the item names for that section.
-  #   [Hash] key is used to identify active item, value is the item name.
-  # @param active specifies which item to highlight as active. If items are given as array
-  #     it has to be the index of the active item. If items are given as hash it has to be
-  #     the key of that item.
-  def dropdown_list items, extra_css_class=nil, active=nil
-    wrap_with :ul, class: "dropdown-menu #{extra_css_class}", role: "menu" do
-      list =
-        case items
-        when Array
-          dropdown_array_list items, active
-        when Hash
-          dropdown_hash_list items, active
-        else
-          [items]
-        end
-      list.flatten.compact.join "\n"
     end
   end
 
@@ -45,30 +25,25 @@ format :html do
     content_tag(:h6, text, class: "dropdown-header")
   end
 
-  def dropdown_hash_list items, active=nil
-    items.map { |key, item| dropdown_list_item item, key, active }
-  end
+  private
 
-  def dropdown_array_list items, active=nil
-    items.map.with_index { |item, i| dropdown_list_item item, i, active }
-  end
-
-  def dropdown_list_item item, active_test, active
-    return unless item
-
-    if item.is_a? Array
-      formatted_dropdown_list_item item
-    else
-      simple_dropdown_list_item item, (active_test == active)
+  def dropdown_list items, extra_css_class=nil
+    wrap_with :ul, class: "dropdown-menu #{extra_css_class}", role: "menu" do
+      Array.wrap(items).map { |item| dropdown_item item }.compact.join "\n"
     end
   end
 
-  def formatted_dropdown_list_item item
-    [dropdown_header(item.first), dropdown_array_list(item.second)]
+  def dropdown_item item
+    return unless item.present?
+    item = dropdown_item_from_array item if item.is_a? Array
+    "<li>#{item}</li>"
   end
 
-  def simple_dropdown_list_item item, active
-    "<li class='dropdown-item#{' active' if active}'>#{item}</li>"
+  def dropdown_item_from_array array
+    array[1] ||= nil
+    array[2] ||= {}
+    add_class array[2], "dropdown-item"
+    link_to_card(*array)
   end
 
   def split_button_toggle
