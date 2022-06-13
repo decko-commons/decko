@@ -6,7 +6,7 @@ decko.slot =
 
   ready: (func)->
     $('document').ready ->
-      $('body').on 'slot:ready', '.card-slot', (e, slotter) ->
+      $('body').on 'decko.slot.ready', '.card-slot', (e, slotter) ->
         e.stopPropagation()
         if slotter?
           func.call this, $(this), $(slotter)
@@ -15,7 +15,7 @@ decko.slot =
 
   destroy: (func)->
     $('document').ready ->
-      $('body').on 'slot:destroy', '.card-slot, ._modal-slot', (e) ->
+      $('body').on 'decko.slot.destroy', '.card-slot, ._modal-slot', (e) ->
         e.stopPropagation()
         func.call this, $(this)
 
@@ -24,8 +24,8 @@ jQuery.fn.extend
   isSlot: -> $(this).hasClass "card-slot"
 
   triggerSlotReady: (slotter) ->
-    @trigger "slot:ready", slotter if @isSlot()
-    @find(".card-slot").trigger "slot:ready", slotter  
+    @trigger "decko.slot.ready", slotter if @isSlot()
+    @find(".card-slot").trigger "decko.slot.ready", slotter  
     
   slot: (status="success", mode="replace") ->
     return @modalSlot() if mode == "modal"
@@ -45,7 +45,7 @@ jQuery.fn.extend
       else slotScour @closest(selector), @closest(".card-slot"), selector
 
   slotClear: () ->
-    @trigger "slot:destroy"
+    @trigger "decko.slot.destroy"
     @empty()
 
   # type can be "modal" or "overlay"
@@ -87,7 +87,7 @@ jQuery.fn.extend
     else
       slot_id = @data("slot-id")
       el.attr("data-slot-id", slot_id) if slot_id
-      @trigger "slot:destroy"
+      @trigger "decko.slot.destroy"
       @replaceWith el
       decko.contentLoaded(el, $slotter)
 
