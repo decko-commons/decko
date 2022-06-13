@@ -19,7 +19,7 @@ format :html do
     return [] unless special_roles?
 
     [dropdown_header("Roles")] +
-      Auth.current_roles.map { |role| block_given? ? block.call(role) : [name] }
+      Auth.current_roles.map { |role| block_given? ? block.call(role) : [role] }
   end
 
   def special_roles?

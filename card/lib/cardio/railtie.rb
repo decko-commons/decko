@@ -84,9 +84,12 @@ module Cardio
               "#{mod_path}/lib/graph_q_l/types/query.rb"
             p["config/initializers"] << "#{mod_path}/init/early"
             p["late/initializers"] << "#{mod_path}/init/late"
-            p["config/locales"] << "#{mod_path}/locales"
             p["lib/tasks"] << "#{mod_path}/lib/tasks"
             p["mod-data"] << "#{mod_path}/data"
+
+            # locales we use unshift, because the earliest listed paths get precedence
+            # (and the last loaded mods should be able to override)
+            p["config/locales"].unshift "#{mod_path}/locales"
           end
 
           p["app/models"] = []
