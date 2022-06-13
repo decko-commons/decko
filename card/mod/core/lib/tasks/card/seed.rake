@@ -6,7 +6,7 @@ namespace :card do
     # FIXME: this is not ready for prime time.
     # "Eating" is still doing too many unnecessary updates, and that messes up
     # the test data. For now use card:seed:build instead
-    desc "regenerate seed fixtures quickly (not from scratch)"
+    desc "EXPERIMENTAL – regenerate seed fixtures quickly (not from scratch)"
     # note: this will not delete anything; it just eats new stuff.
     task update: [:replant, "card:eat", :polish, :dump]
 
