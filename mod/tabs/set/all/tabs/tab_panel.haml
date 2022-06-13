@@ -1,5 +1,5 @@
 .tabbable.tab-panel{ panel_attr.merge(role: "tabpanel") }
-  %ul{ class: "nav nav-#{tab_type}", role: "tablist" }
+  %ul{ class: "#{classy('nav')} nav-#{tab_type}", role: "tablist" }
     - tab_objects.each do |tab|
       = tab.tab_button
   .tab-content
