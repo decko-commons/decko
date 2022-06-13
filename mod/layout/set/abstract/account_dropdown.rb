@@ -5,7 +5,7 @@ format :html do
   end
 
   def account_dropdown &render_role_item
-    split_button link_to_mycard do
+    split_dropdown_button link_to_mycard do
       [
         [[Auth.current, :account_settings], "Account"],
         [:signin, t("account_sign_out"), { path: { action: :delete } }]
@@ -15,15 +15,11 @@ format :html do
 
   private
 
-  def account_dropdown_roles &render_role_item
+  def account_dropdown_roles &block
     return [] unless special_roles?
 
     [dropdown_header("Roles")] +
-      if block_given?
-        Auth.current_roles.map(&block)
-      else
-        Auth.current_roles.map { |name| [name] }
-      end
+      Auth.current_roles.map { |role| block_given? ? block.call(role) : [name] }
   end
 
   def special_roles?

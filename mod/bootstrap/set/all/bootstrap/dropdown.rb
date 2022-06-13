@@ -1,11 +1,17 @@
 format :html do
-  def dropdown_button name, items_or_opts={}, opts={}
-    items = block_given? ? yield : items_or_opts
-    opts = items_or_opts if block_given?
-    haml :dropdown_button, name: name, items: items, opts: opts
+  # Both #dropdown_button and #split_dropdown_button are called with blocks that yield
+  # and array of dropdown items.
+  #
+  # If the item is a string, the only thing added is an li tag.
+  #
+  # If the item is an Array, it is treated as a list of arguments to #link_to_card,
+  # and the "dropdown-item" class is added to each link
+
+  def dropdown_button name, opts={}
+    haml :dropdown_button, name: name, items: yield, opts: opts
   end
 
-  def split_button main_button
+  def split_dropdown_button main_button
     wrap_with :div, class: "btn-group" do
       [
         main_button,
@@ -21,12 +27,6 @@ format :html do
 
   private
 
-  # @param items
-  #   [String] plain html
-  #   [Array<String, Array>] list of item names
-  #         If an item is an array then the first element is used as header for a section.
-  #         The second item has to be an array with the item names for that section.
-  #   [Hash] key is used to identify active item, value is the item name.
   def dropdown_list items, extra_css_class=nil
     wrap_with :ul, class: "dropdown-menu #{extra_css_class}", role: "menu" do
       Array.wrap(items).map { |item| dropdown_item item }.compact.join "\n"
