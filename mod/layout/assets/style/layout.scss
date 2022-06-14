@@ -1,3 +1,11 @@
+.d0-nav-container {
+  flex-wrap: inherit;
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+
+
 /*----------- Sidebar -------------*/
 
 .row.row-offcanvas {
