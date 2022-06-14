@@ -58,7 +58,7 @@ $bar_stripe_color: $dark !default;
   display: flex;
 }
 
-.bar.with-bar-menu {
+.bar.with-bar-menu .bar-body {
   width: calc(100% - 3em);
 }
 
