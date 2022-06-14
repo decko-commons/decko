@@ -7,10 +7,11 @@ $(window).ready ->
       multiple: true
       containerCssClass: 'select2-search-box-autocomplete'
       dropdownCssClass: 'select2-search-box-dropdown'
-      width: "100%!important"
+      width: "100%"
     })
 
-  searchBox.on "select2:select", (e) ->
+  searchBox.on "select2:selecting", (e) ->
+    e.preventDefault()
     searchBoxSelect(e)
 
 formatSearchBoxItem = (i) ->
@@ -53,7 +54,7 @@ searchBoxItem = (data) ->
   data
 
 searchBoxSelect = (event) ->
-  item = event.params.data
+  item = event.params.args.data
   if item.href
     window.location = decko.path(item.href)
   else
