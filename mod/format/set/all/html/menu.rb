@@ -105,7 +105,7 @@ format :html do
   end
 
   def modal_page_size
-    :large
+    :xl
   end
 
   def full_page_card

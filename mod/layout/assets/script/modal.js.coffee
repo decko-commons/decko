@@ -45,11 +45,12 @@ jQuery.fn.extend {
 
   addModal: (el, $slotter) ->
     if $slotter.data("slotter-mode") == "modal-replace"
+      addModalDialogClasses el, $slotter
       dialog = el.find(".modal-dialog")
       el.adoptModalOrigin()
       $("._modal-slot").trigger "decko.slot.destroy"
-      $("body > ._modal-slot > .modal-dialog").replaceWith(dialog)
-      decko.contentLoaded(dialog, $slotter)
+      $("body > ._modal-slot > .modal-dialog").replaceWith dialog
+      decko.contentLoaded dialog, $slotter
     else
       decko.pushModal el
       $slotter.registerAsOrigin("modal", el)

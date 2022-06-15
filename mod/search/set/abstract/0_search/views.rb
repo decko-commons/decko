@@ -4,8 +4,7 @@ format do
   end
 
   view :search_error, cache: :never do
-    sr_class = search_with_params.class.to_s
-    %(#{sr_class} :: #{search_with_params.message} :: #{card.content})
+    %(#{search_with_params.class} :: #{search_with_params.message} :: #{card.content})
   end
 
   view :card_list, cache: :never do

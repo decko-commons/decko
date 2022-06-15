@@ -38,7 +38,7 @@
 #             replace the closest slot with new slot
 #          modal
 #             show new slot in modal; if there is already a modal then put it on top
-#           modal-replace
+#          modal-replace
 #             replace existing modal
 #          overlay
 #             show new slot in overlay

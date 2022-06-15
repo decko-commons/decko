@@ -1,5 +1,3 @@
-/*----------- Bars and Boxes -------------*/
-
 $bar_stripe_color: $dark !default;
 
 .bar {
@@ -76,10 +74,8 @@ $bar_stripe_color: $dark !default;
 }
 
 // links in bar menu
-.bar-menu-list a {
-  i {
-    padding-right: 0.4em;
-  }
+.bar-menu-list a i {
+  padding-right: 0.4em;
 }
 
 // card submenu in accordion bar
@@ -93,7 +89,7 @@ $bar_stripe_color: $dark !default;
     display: none;
   }
 
-  .bar:hover .bar-menu-button {
+  ._card-link:hover .bar-menu-button {
     display: block;
   }
 }

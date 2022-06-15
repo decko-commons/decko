@@ -33,15 +33,15 @@ $.extend decko,
       width: "100%!important"
     }
     $.extend defaultOptions, options
-    el.select2 defaultOptions
+qq    el.select2 defaultOptions
 
   autocompleteTemplateResult: (i) ->
     if i.loading
       return i.text
-    '<span class="navbox-item-value ml-1">' + i.text + '</span>'
+    '<span class="search-box-item-value ml-1">' + i.text + '</span>'
 
   autocompleteTemplateSelection: (i) ->
-    '<span class="navbox-item-value ml-1">' + i.text + '</span>'
+    '<span class="search-box-item-value ml-1">' + i.text + '</span>'
 
   autocompletePrepareItems: (response) ->
     items = []
