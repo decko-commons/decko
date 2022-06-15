@@ -28,8 +28,6 @@ format do
   def cql_keyword?
     search_keyword&.match?(/^\{.+\}$/)
   end
-
-
 end
 
 format :html do
