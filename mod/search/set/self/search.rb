@@ -1,7 +1,7 @@
 format do
   view :search_error, cache: :never do
     # don't show card content; not very helpful in this case
-    %(#{search_with_params.class.to_s} :: #{search_with_params.message})
+    %(#{search_with_params.class} :: #{search_with_params.message})
   end
 
   def search_with_params
@@ -64,6 +64,7 @@ format :json do
     { result: complete_or_match_search(start_only: match_start_only?) }
   end
 
+  # TODO: move to carrierwave mod
   view :image_complete, cache: :never do
     { result: image_items }
   end
