@@ -119,27 +119,26 @@
   :codename: :getting_started
   :content: |-
     <div class="container text-center">
-      <!-- card 1 -->
       <div class="d-flex justify-content-center align-items-center p-3 my-3 rounded box-shadow">
         {{+shark|core}}
         <h1>Welcome, Card Shark!</h1>
       </div>
       <div class="jumbotron">
-        <h3 class="mb-4">Things to sink your teeth into:</h3>
-        <div class="d-flex justify-content-center ps-10">
-          <div>
+        <h3>Things to sink your teeth into:</h3>
+        <div class="d-flex justify-content-center">
+          <div class="m-4">
             <p class="lead">Structure</p>
-            <p><a href="new/cardtype" class="btn btn-primary me-2">Add new Cardtype</a></p>
+            <p><a href="new/cardtype" class="btn btn-primary">Add new Cardtype</a></p>
           </div>
-          <div class="pe-5">
+          <div class="m-4">
             <p class="lead">Style</p>
             <p>
-              <a href="*all+*style" class= "btn btn-primary me-2">Configure Skin Card</a>
+              <a href="*all+*style" class= "btn btn-primary">Configure Skin Card</a>
             </p>
           </div>
         </div>
       </div>
-      <p class="lead mt-5"><a href="Administrator">and more...</a></p>
+      <p class="lead"><a href="Administrator">and more...</a></p>
     </div>
   :fields:
     :shark:
