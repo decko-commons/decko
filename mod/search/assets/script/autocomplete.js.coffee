@@ -38,10 +38,10 @@ $.extend decko,
   autocompleteTemplateResult: (i) ->
     if i.loading
       return i.text
-    '<span class="navbox-item-value ml-1">' + i.text + '</span>'
+    '<span class="search-box-item-value ml-1">' + i.text + '</span>'
 
   autocompleteTemplateSelection: (i) ->
-    '<span class="navbox-item-value ml-1">' + i.text + '</span>'
+    '<span class="search-box-item-value ml-1">' + i.text + '</span>'
 
   autocompletePrepareItems: (response) ->
     items = []

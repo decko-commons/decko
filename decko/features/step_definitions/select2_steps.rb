@@ -1,14 +1,14 @@
-When(/^I enter "([^"]*)" in the navbox$/) do |arg|
-  enter_select2(arg, ".navbox-form")
+When(/^I enter "([^"]*)" in the search box$/) do |arg|
+  enter_select2(arg, ".search-box-form")
 end
 
-When(/^I enter '([^']*)' in the navbox$/) do |arg|
-  enter_select2(arg, ".navbox-form")
+When(/^I enter '([^']*)' in the search box$/) do |arg|
+  enter_select2(arg, ".search-box-form")
   wait_for_ajax # wait for search results
 end
 
-When(/^I search for "([^"]*)" using the navbox$/) do |arg|
-  enter_and_select_select2(arg, ".navbox-form")
+When(/^I search for "([^"]*)" using the search box$/) do |arg|
+  enter_and_select_select2(arg, ".search-box-form")
 end
 
 When(/^(?:|I )select2 "([^"]*)" from "([^"]*)"$/) do |value, field|
