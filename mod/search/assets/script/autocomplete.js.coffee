@@ -33,7 +33,7 @@ $.extend decko,
       width: "100%!important"
     }
     $.extend defaultOptions, options
-    el.select2 defaultOptions
+qq    el.select2 defaultOptions
 
   autocompleteTemplateResult: (i) ->
     if i.loading

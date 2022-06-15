@@ -116,7 +116,7 @@ format :json do
 
   def image_items
     complete_or_match_search(start_only: match_start_only?,
-                             additional_cql: { type: :image }).map do
+                             additional_cql: { type: :image }).map do |name|
       [name, h(card.format("html").nest(name, view: :core, size: :icon))]
     end
   end
