@@ -1,13 +1,13 @@
 formatImageCardItem = (i) ->
   if i.loading
     return i.text
-  i.icon + '<span class="navbox-item-value ml-1">' + i.text + '</span>'
+  i.icon + '<span class="search-box-item-value ml-1">' + i.text + '</span>'
 
 
 formatImageCardSelectedItem = (i) ->
   unless i.icon
     return i.text
-  '<span class="navbox-item-value ml-1">' + i.text + '</span>'
+  '<span class="search-box-item-value ml-1">' + i.text + '</span>'
 
 prepareImageItems = (response) ->
   items = []

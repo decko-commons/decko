@@ -1,9 +1,7 @@
 format do
   view :search_error, cache: :never do
-    sr_class = search_with_params.class.to_s
-
     # don't show card content; not very helpful in this case
-    %(#{sr_class} :: #{search_with_params.message})
+    %(#{search_with_params.class} :: #{search_with_params.message})
   end
 
   def search_with_params
@@ -12,9 +10,7 @@ format do
 
   def cql_search
     query = card.parse_json_cql search_keyword
-    rescuing_bad_query query do
-      Card.search query
-    end
+    rescuing_bad_query(query) { Card.search query }
   end
 
   def search_keyword
@@ -31,10 +27,17 @@ format do
 end
 
 format :html do
-  view :title, cache: :never do
-    return super() unless (title = keyword_search_title)
+  view :search_box, cache: :never do
+    form_tag path, method: "get", role: "search",
+                   class: classy("search-box-form", "nodblclick") do
+      select_tag "query[keyword]", "",
+                 class: "_search-box search-box form-control w-100",
+                 placeholder: t(:search_search_box_placeholder)
+    end
+  end
 
-    voo.title = title
+  view :title, cache: :never do
+    (title = keyword_search_title) ? (voo.title = title) : super()
   end
 
   def keyword_search_title
@@ -44,7 +47,7 @@ format :html do
 end
 
 format :json do
-  view :navbox_complete, cache: :never do
+  view :search_box_complete, cache: :never do
     term = term_param
     exact = Card.fetch term, new: {}
 
@@ -58,16 +61,18 @@ format :json do
   end
 
   view :complete, cache: :never do
-    items = complete_or_match_search start_only: Card.config.navbox_match_start_only
-    {
-      result: items
-    }
+    { result: complete_or_match_search(start_only: match_start_only?) }
   end
 
+  # TODO: move to carrierwave mod
   view :image_complete, cache: :never do
-    {
-      result: image_items
-    }
+    { result: image_items }
+  end
+
+  private
+
+  def match_start_only?
+    Card.config.search_box_match_start_only
   end
 
   def add_item exact
@@ -87,7 +92,7 @@ format :json do
   end
 
   def goto_items term, exact, additional_cql: {}
-    goto_names = complete_or_match_search start_only: Card.config.navbox_match_start_only,
+    goto_names = complete_or_match_search start_only: match_start_only?,
                                           additional_cql: additional_cql
     goto_names.unshift exact.name if add_exact_to_goto_names? exact, goto_names
     goto_names.map do |name|
@@ -110,10 +115,8 @@ format :json do
   end
 
   def image_items
-    image_names =
-      complete_or_match_search start_only: Card.config.navbox_match_start_only,
-                               additional_cql: { type_id: Card::ImageID }
-    image_names.map do |name|
+    complete_or_match_search(start_only: match_start_only?,
+                             additional_cql: { type: :image }).map do
       [name, h(card.format("html").nest(name, view: :core, size: :icon))]
     end
   end

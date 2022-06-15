@@ -31,7 +31,6 @@
       :fields:
         :read: Anyone
 
-
 - :name:
     - :all
     - :layout
@@ -45,12 +44,6 @@
     :self:
       :fields:
         :read: Anyone
-- :name: "*navbox"
-  :codename: :navbox
-  :fields:
-    :self:
-      :fields:
-        :read: Anyone
 - :name: "*header"
   :type: :html
   :codename: header
@@ -59,23 +52,28 @@
       :fields:
         :read: Anyone
   :content: |
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-3">
-      <a class="navbar-brand nav-logo p-0" href="{{*home|home_path}}">
-        {{*logo|core;size:small}}
-      </a>
-      <a class="navbar-brand" href="{{*home|home_path}}">
-        {{*title|core}}
-      </a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-          {{*main menu|navbar_links}}
-        </ul>
-        {{*navbox|navbar}}
-        {{*account links|navbar_links}}
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-3 nodblclick">
+      <div class="container">
+        <div class="d0-nav-container">
+          <div class="d-flex">
+            <a class="nav-logo navbar-brand" href="{{*home|home_path}}">
+              {{*logo|core;size:small}}
+            </a>
+            <a class="navbar-brand" href="{{*home|home_path}}">{{*title|core}}</a>
+          </div>
+          <button class="navbar-toggler" type="button" aria-label="Toggle navigation"
+                  aria-controls="d0-navbar" aria-expanded="false"
+                  data-bs-toggle="collapse" data-bs-target="#d0-navbar">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="d0-navbar">
+            <ul class="navbar-nav mr-auto main-nav ms-2">
+              {{*main menu|navbar_links}}
+            </ul>
+            <div class="navbar-nav search-box-nav mx-2">{{:search|search_box}}</div>
+            {{*account links|navbar_links}}
+          </div>
+        </div>
       </div>
     </nav>
 - :name: "*footer"
