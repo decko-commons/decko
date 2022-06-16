@@ -16,6 +16,7 @@ format :html do
                  options: haml(:_image_options, snippet: snippet),
                  preview: image_preview_tab(snippet) }
 
+    class_up "nav", "nav-fill"
     tabs tab_hash, :content, panel_attr: { class: "nest-options" }
   end
 
