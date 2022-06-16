@@ -34,12 +34,7 @@ format :html do
     with_nest_mode :edit do
       voo.show :help
       voo.hide :save_button
-      wrap true do
-        [
-          frame_help,
-          _render_edit_form
-        ]
-      end
+      wrap(true) { [frame_help, _render_edit_form] }
     end
   end
 
