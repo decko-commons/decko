@@ -67,9 +67,7 @@
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="d0-navbar">
-            <ul class="navbar-nav mr-auto main-nav ms-2">
-              {{*main menu|navbar_links}}
-            </ul>
+            <ul class="navbar-nav mr-auto main-nav ms-2">{{*main menu|navbar_links}}</ul>
             <div class="navbar-nav search-box-nav mx-2">{{:search|search_box}}</div>
             {{*account links|navbar_links}}
           </div>
