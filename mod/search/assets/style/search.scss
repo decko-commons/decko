@@ -25,20 +25,18 @@
   .select2-results > .select2-results__options {
     max-height: none !important;
   }
-
-  .search-box-item-label {
-    float: left;
-    position: relative;
-    font-size: 10px;
-    width: 50px;
-    padding: 3px 0 3px 5px;
-  }
-  .search-box-item-value mark {
-    padding: 0.2em 0;
-  }
-
   .select2-search__field {
     width: 100% !important;
   }
 }
 
+.search-box-item-label {
+  float: left;
+  position: relative;
+  font-size: 10px;
+  width: 50px;
+  padding: 3px 0 3px 5px;
+}
+.search-box-item-value mark {
+  padding: 0.2em 0;
+}

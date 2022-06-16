@@ -27,7 +27,7 @@ format do
 end
 
 format :html do
-  view :search_box, cache: :never do
+  view :search_box do
     search_form { search_box_contents }
   end
 
