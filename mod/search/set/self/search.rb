@@ -27,13 +27,8 @@ format do
 end
 
 format :html do
-  view :search_box, cache: :never do
-    form_tag path, method: "get", role: "search",
-                   class: classy("search-box-form", "nodblclick") do
-      select_tag "query[keyword]", "",
-                 class: "_search-box search-box form-control w-100",
-                 placeholder: t(:search_search_box_placeholder)
-    end
+  view :search_box do
+    search_form { search_box_contents }
   end
 
   view :title, cache: :never do
@@ -43,6 +38,16 @@ format :html do
   def keyword_search_title
     search_keyword &&
       %(Search results for: <span class="search-keyword">#{h search_keyword}</span>)
+  end
+
+  def search_form &block
+    form_tag path, method: "get", role: "search", class: classy("search-box-form"), &block
+  end
+
+  def search_box_contents
+    select_tag "query[keyword]", "",
+               class: "_search-box #{classy 'search-box'} form-control w-100",
+               placeholder: t(:search_search_box_placeholder)
   end
 end
 

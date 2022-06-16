@@ -23,8 +23,8 @@ format :html do
   end
 
   view :one_line_content do
-    item_view = implicit_item_view
-    item_view = item_view == "name" ? "name" : "link"
+    item_view = implicit_item_view&.to_sym
+    item_view = item_view == :name ? :name : :link
     wrap_with :div, class: "pointer-list one-line-pointer-list" do
       # limit to first 10 items to optimize
       pointer_items(view: item_view, limit: 10, offset: 0).join ", "
