@@ -1,63 +1,94 @@
+
 $(window).ready ->
   searchBox = $('._search-box')
-  decko.initSelect2Autocomplete(searchBox, "search_box_complete",
-    searchBoxize, formatSearchBoxItem, formatSearchBoxSelectedItem,
-    {
-      minimumInputLength: 1
-      multiple: true
-      containerCssClass: 'select2-search-box-autocomplete'
-      dropdownCssClass: 'select2-search-box-dropdown'
-      width: "100%"
-    })
+  decko.searchBox.init searchBox
 
-  searchBox.on "select2:selecting", (e) ->
-    e.preventDefault()
-    searchBoxSelect(e)
+  searchBox.on "select2:select", (e) ->
+    # e.preventDefault()
+    decko.searchBox.select e
 
-formatSearchBoxItem = (i) ->
-  if i.loading
-    return i.text
-  '<i class="material-icons">' + i.icon + '</i>' +
-  '<span class="search-box-item-label">' + i.prefix + ':</span> ' +
-  '<span class="search-box-item-value">' + i.label + '</span>'
 
-formatSearchBoxSelectedItem = (i) ->
-  unless i.icon
-    return i.text
-  '<i class="material-icons">' + i.icon + '</i>' +
-  '<span class="search-box-item-value">' + i.label + '</span>'
+# TODO: make this more object oriented
+decko.searchBox =
+  init: (el) ->
+    process = @_process
+    decko.select2Autocomplete.init el, @_options(),
+      processResults: (data) ->
+        results: process(data)
+      data: (pobj) ->
+        params =
+          query: { keyword: pobj.term }
+          view: "search_box_complete"
+        el.closest("form").serializeArray().map (p) -> params[p.name] = p.value
+        params
 
-searchBoxize = (results) ->
-  items = []
-  term = results.term
-  if results["search"]
-    # id is what the form sends
-    items.push searchBoxItem(prefix: "search", id: term, text: term)
+  select: (event) ->
+    # item = event.params.args.data
+    item = event.params.data
+    if item.href
+      window.location = decko.path(item.href)
+    else
+      $(event.target).closest('form').submit()
 
-  $.each ['add', 'new'], (index, key) ->
-    if val = results[key]
-      items.push searchBoxItem(prefix: key, icon: "add", text: val[0], href: val[1])
+    $(event.target).attr('disabled', 'disabled')
 
-  $.each results['goto'], (index, val) ->
-    i = searchBoxItem(
-      prefix: "go to", id: index, icon: "arrow_forward",
-      text: val[0], href: val[1], label: val[2]
-    )
-    items.push i
 
-  items
+  _options: (_el) ->
+    minimumInputLength: 1
+    containerCssClass: 'select2-search-box-autocomplete'
+    dropdownCssClass: 'select2-search-box-dropdown'
+    templateResult: @_templateResult
+    templateSelection: @_templateSelection
+    width: "100%"
 
-searchBoxItem = (data) ->
-  data.id ||= data.prefix
-  data.icon ||= data.prefix
-  data.label ||= '<strong class="highlight">' + data.text + '</strong>'
-  data
+  _templateResult: (i) ->
+    return i.text if i.loading
+    '<i class="material-icons">' + i.icon + '</i>' +
+    '<span class="search-box-item-label">' + i.prefix + ':</span> ' +
+    '<span class="search-box-item-value">' + i.label + '</span>'
 
-searchBoxSelect = (event) ->
-  item = event.params.args.data
-  if item.href
-    window.location = decko.path(item.href)
-  else
-    $(event.target).closest('form').submit()
+  _templateSelection: (i) ->
+    return i.text unless i.icon
+    '<i class="material-icons">' + i.icon + '</i>' +
+    '<span class="search-box-item-value">' + i.label + '</span>'
 
-  $(event.target).attr('disabled', 'disabled')
+  _process: (results) ->
+    box = decko.searchBox
+    items = []
+
+    items.push box._searchItem(results.term) if results["search"]
+    $.each ['add', 'new'], (_index, key) ->
+      val = results[key]
+      items.push box._addItem(key, val) if val
+    $.each results['goto'], (index, val) ->
+      items.push box._gotoItem(index, val)
+    items
+
+  _searchItem: (term) ->
+    @_normalizeItem
+      prefix: "search"
+      id: term
+      text: term
+
+  _addItem: (key, val) ->
+    @_normalizeItem
+      prefix: key
+      icon: "add"
+      text: val[0]
+      href: val[1]
+
+  _gotoItem: (index, val) ->
+   @_normalizeItem
+     prefix: "go to"
+     id: index
+     icon: "arrow_forward"
+     text: val[0]
+     href: val[1]
+     label: val[2]
+
+  _normalizeItem: (data) ->
+    data.id ||= data.prefix
+    data.icon ||= data.prefix
+    data.label ||= '<strong class="highlight">' + data.text + '</strong>'
+    data
+

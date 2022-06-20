@@ -5,7 +5,7 @@ format do
 
   # used for override
   def default_search_params
-    if (qparams = query_params)
+    if (qparams = query_params)&.present?
       paging_params.merge vars: qparams
     else
       paging_params
@@ -17,9 +17,7 @@ format do
   end
 
   def query_params
-    return nil unless (vars = params[:query])
-
-    Env.hash vars
+    (vars = params[:query]) ? Env.hash(vars) : {}
   end
 
   def default_limit
