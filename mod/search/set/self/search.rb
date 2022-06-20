@@ -27,7 +27,7 @@ format do
 end
 
 format :html do
-  view :search_box do
+  view :search_box, cache: :never do
     search_form { search_box_contents }
   end
 
@@ -36,8 +36,7 @@ format :html do
   end
 
   def keyword_search_title
-    search_keyword &&
-      %(Search results for: <span class="search-keyword">#{h search_keyword}</span>)
+    haml :keyword_search_title, keyword: search_keyword if search_keyword
   end
 
   def search_form &block
@@ -45,7 +44,8 @@ format :html do
   end
 
   def search_box_contents
-    select_tag "query[keyword]", "",
+    keyword = query_params[:keyword]
+    select_tag "query[keyword]", options_for_select([keyword].compact, keyword),
                class: "_search-box #{classy 'search-box'} form-control w-100",
                placeholder: t(:search_search_box_placeholder)
   end
@@ -110,7 +110,7 @@ format :json do
   end
 
   def term_param
-    return nil unless query_params
+    return nil unless query_params.present?
 
     term = query_params[:keyword]
     if (term =~ /^\+/) && (main = params["main"])
