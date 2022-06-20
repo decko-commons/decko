@@ -33,11 +33,10 @@ $.extend decko,
       width: "100%!important"
     }
     $.extend defaultOptions, options
-qq    el.select2 defaultOptions
+    el.select2 defaultOptions
 
   autocompleteTemplateResult: (i) ->
-    if i.loading
-      return i.text
+    return i.text if i.loading
     '<span class="search-box-item-value ml-1">' + i.text + '</span>'
 
   autocompleteTemplateSelection: (i) ->
