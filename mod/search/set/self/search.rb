@@ -27,25 +27,28 @@ format do
 end
 
 format :html do
-  view :search_box do
+  view :search_box, cache: :never do
     search_form { search_box_contents }
   end
 
-  view :title, cache: :never do
-    (title = keyword_search_title) ? (voo.title = title) : super()
+  view :title do
+    voo.title ||= t(:search_results_title)
+    super()
   end
 
-  def keyword_search_title
-    search_keyword &&
-      %(Search results for: <span class="search-keyword">#{h search_keyword}</span>)
+  view :core, cache: :never do
+    [render_results_for_keyword, super()]
   end
+
+  view :results_for_keyword, template: :haml
 
   def search_form &block
     form_tag path, method: "get", role: "search", class: classy("search-box-form"), &block
   end
 
   def search_box_contents
-    select_tag "query[keyword]", "",
+    keyword = query_params[:keyword]
+    select_tag "query[keyword]", options_for_select([keyword].compact, keyword),
                class: "_search-box #{classy 'search-box'} form-control w-100",
                placeholder: t(:search_search_box_placeholder)
   end
@@ -53,16 +56,14 @@ end
 
 format :json do
   view :search_box_complete, cache: :never do
-    term = term_param
-    exact = Card.fetch term, new: {}
-
-    {
-      search: true,
-      term: term,
-      add: add_item(exact),
-      new: new_item_of_type(exact),
-      goto: goto_items(term, exact)
-    }
+    term_and_exact do |term, exact|
+      {
+        term: term,
+        add: add_item(exact),
+        new: new_item_of_type(exact),
+        goto: goto_items(term, exact)
+      }
+    end
   end
 
   view :complete, cache: :never do
@@ -75,6 +76,11 @@ format :json do
   end
 
   private
+
+  def term_and_exact
+    term = term_param
+    yield term, Card.fetch(term, new: {})
+  end
 
   def match_start_only?
     Card.config.search_box_match_start_only
@@ -110,7 +116,7 @@ format :json do
   end
 
   def term_param
-    return nil unless query_params
+    return nil unless query_params.present?
 
     term = query_params[:keyword]
     if (term =~ /^\+/) && (main = params["main"])

@@ -1,6 +1,10 @@
 # -*- encoding : utf-8 -*-
 
 RSpec.describe Card::Set::Self::Search do
+  def card_subject
+    :search.card
+  end
+
   describe "#search_with_params" do
     context "with keyword" do
       def keyword_search value

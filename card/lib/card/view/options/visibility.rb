@@ -19,6 +19,10 @@ class Card
           !hide? view
         end
 
+        def explicit_show? view
+          viz_hash[view&.to_sym] == :show
+        end
+
         # write methods
 
         def show *views
