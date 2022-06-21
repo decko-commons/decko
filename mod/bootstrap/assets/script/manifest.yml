@@ -16,5 +16,3 @@ bootstrap:
     - ../../vendor/bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js
     - script_colorpicker.js.coffee
 
-
-

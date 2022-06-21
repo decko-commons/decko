@@ -38,8 +38,10 @@ pre,
 .labeled-view {
   padding: 5px 0;
   max-width: 100%;
-  .labeled-content {
+  .label {
     font-weight: bold;
+  }
+  .labeled-content {
     .pointer-list,
     .pointer-item,
     .search-result-list,
