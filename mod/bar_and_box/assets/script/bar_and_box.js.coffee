@@ -19,7 +19,3 @@ $(window).ready ->
      else
        # don't follow original link
        event.preventDefault()
-
-
-
-
