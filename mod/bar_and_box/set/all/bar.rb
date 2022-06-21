@@ -8,12 +8,12 @@ format :html do
   view :bar, unknown: :mini_bar do
     cols = bar_cols.size == 3 ? [mini_bar_cols, bar_cols] : [bar_cols]
     prepare_bar(*cols)
-    wrap { haml :bar }
+    build_bar
   end
 
   view :mini_bar, unknown: true do
     prepare_bar mini_bar_cols
-    wrap { haml :bar }
+    build_bar
   end
 
   view(:bar_left, unknown: true) { render_title }
@@ -37,6 +37,10 @@ format :html do
   # DEPRECATED
   view :expanded_bar, :accordion_bar
 
+  def build_bar
+    wrap { haml :bar }
+  end
+
   def bar_menu_items
     [
       full_page_link(text: "page"),
@@ -50,7 +54,7 @@ format :html do
   def prepare_bar two_cols, three_cols=nil
     class_up "bar", full_page_card.safe_set_keys
     class_up_cols %w[bar-left bar-right], two_cols
-    class_up "bar-middle", "d-none d-md-block"
+    class_up "bar-middle", "d-none d-md-flex"
     if three_cols
       class_up_cols %w[bar-left bar-middle bar-right], three_cols, "md"
     else

@@ -1,28 +1,3 @@
-formatImageCardItem = (i) ->
-  if i.loading
-    return i.text
-  i.icon + '<span class="search-box-item-value ml-1">' + i.text + '</span>'
-
-
-formatImageCardSelectedItem = (i) ->
-  unless i.icon
-    return i.text
-  '<span class="search-box-item-value ml-1">' + i.text + '</span>'
-
-prepareImageItems = (response) ->
-  items = []
-  $.each response['result'], (index, val) ->
-    i = imageItem(id: val[0], icon: val[1], text: val[0])
-    items.push i
-
-  items
-
-imageItem = (data) ->
-  data.id ||= data.prefix
-  data.icon ||= data.prefix
-  data.label ||= '<strong class="highlight">' + data.text + '</strong>'
-  data
-
 decko.slot.ready (slot) ->
   sdata = slot.data("slot")
   if sdata? && sdata["show"]? && sdata["show"].includes "preview_redirect"
@@ -33,8 +8,7 @@ decko.slot.ready (slot) ->
   if slot.hasClass("modal_nest_image-view")
     imageSelect = slot.find('._image-card-select')
     if imageSelect.length > 0
-      decko.initSelect2Autocomplete(imageSelect, "image_complete",
-        prepareImageItems, formatImageCardItem, formatImageCardSelectedItem)
+      decko.imageComplete.init imageSelect
       nest.updateImageName(slot.find(".new_image-view .new_fields-view .submit-button"))
 
 $(document).ready ->
@@ -49,6 +23,46 @@ $(document).ready ->
 
   $('body').on 'click', ".new_image-view .new_fields-view .submit-button", ->
     nest.updateImageName($(this))
+
+
+decko.imageComplete =
+  init: (el) ->
+    process = @_process
+    decko.select2Autocomplete.init el, @_options(),
+      processResults: (data) ->
+        results: process(data)
+      data: (params) ->
+        query: { keyword: params.term }
+        view: "image_complete"
+
+
+  _options: (_el) ->
+    minimumInputLength: 1
+    templateResult: @_templateResult
+    templateSelection: @_templateSelection
+
+  _templateResult: (i) ->
+    return i.text if i.loading or !i.icon
+    i.icon + '<span class="search-box-item-value ml-1">' + i.text + '</span>'
+
+  _templateSelection: (i) ->
+    return i.text unless i.icon
+    '<span class="search-box-item-value ml-1">' + i.text + '</span>'
+
+  _process: (response) ->
+    items = []
+    $.each response['result'], (index, val) ->
+      i = decko.imageComplete._imageItem(id: val[0], icon: val[1], text: val[0])
+      items.push i
+
+    items
+
+  _imageItem: (data) ->
+    data.id ||= data.prefix
+    data.icon ||= data.prefix
+    data.label ||= '<strong class="highlight">' + data.text + '</strong>'
+    data
+
 
 window.nest ||= {}
 
