@@ -40,7 +40,7 @@ format :html do
     [render_results_for_keyword, super()]
   end
 
-  view :results_for_keyword, template: :haml
+  view :results_for_keyword, cache: :never, template: :haml
 
   def search_form &block
     form_tag path, method: "get", role: "search", class: classy("search-box-form"), &block
