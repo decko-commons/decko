@@ -28,7 +28,7 @@ $(document).ready ->
 decko.imageComplete =
   init: (el) ->
     process = @_process
-    decko.select2Autocomplete el, @_options(),
+    decko.select2Autocomplete.init el, @_options(),
       processResults: (data) ->
         results: process(data)
       data: (params) ->
@@ -37,11 +37,12 @@ decko.imageComplete =
 
 
   _options: (_el) ->
+    minimumInputLength: 1
     templateResult: @_templateResult
     templateSelection: @_templateSelection
 
   _templateResult: (i) ->
-    return i.text if i.loading
+    return i.text if i.loading or !i.icon
     i.icon + '<span class="search-box-item-value ml-1">' + i.text + '</span>'
 
   _templateSelection: (i) ->
