@@ -1,12 +1,11 @@
 
 $(window).ready ->
   searchBox = $('._search-box')
+
   decko.searchBox.init searchBox
 
   searchBox.on "select2:select", (e) ->
-    # e.preventDefault()
     decko.searchBox.select e
-
 
 # TODO: make this more object oriented
 decko.searchBox =
@@ -19,19 +18,25 @@ decko.searchBox =
         params =
           query: { keyword: pobj.term }
           view: "search_box_complete"
-        el.closest("form").serializeArray().map (p) -> params[p.name] = p.value
+        el.closest("form").serializeArray().map (p) ->
+          params[p.name] = p.value unless p.name == "query[keyword]"
         params
 
   select: (event) ->
     # item = event.params.args.data
-    item = event.params.data
-    if item.href
-      window.location = decko.path(item.href)
+    href = @_eventHref event
+    form = $(event.target).closest "form"
+    if href
+      window.location = decko.path href
     else
-      $(event.target).closest('form').submit()
+      form.submit()
 
-    $(event.target).attr('disabled', 'disabled')
+    form.find("._search-box").attr 'disabled', 'disabled'
 
+  _eventHref: (event) ->
+    p = event.params
+    d = p && p.data
+    d && d.href
 
   _options: (_el) ->
     minimumInputLength: 1
@@ -39,6 +44,7 @@ decko.searchBox =
     dropdownCssClass: 'select2-search-box-dropdown'
     templateResult: @_templateResult
     templateSelection: @_templateSelection
+    allowClear: true
     width: "100%"
 
   _templateResult: (i) ->
@@ -56,7 +62,7 @@ decko.searchBox =
     box = decko.searchBox
     items = []
 
-    items.push box._searchItem(results.term) if results["search"]
+    items.push box._searchItem(results.term) if results.term
     $.each ['add', 'new'], (_index, key) ->
       val = results[key]
       items.push box._addItem(key, val) if val

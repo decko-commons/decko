@@ -31,13 +31,16 @@ format :html do
     search_form { search_box_contents }
   end
 
-  view :title, cache: :never do
-    (title = keyword_search_title) ? (voo.title = title) : super()
+  view :title do
+    voo.title ||= t(:search_results_title)
+    super()
   end
 
-  def keyword_search_title
-    haml :keyword_search_title, keyword: search_keyword if search_keyword
+  view :core, cache: :never do
+    [render_results_for_keyword, super()]
   end
+
+  view :results_for_keyword, template: :haml
 
   def search_form &block
     form_tag path, method: "get", role: "search", class: classy("search-box-form"), &block
@@ -53,16 +56,14 @@ end
 
 format :json do
   view :search_box_complete, cache: :never do
-    term = term_param
-    exact = Card.fetch term, new: {}
-
-    {
-      search: true,
-      term: term,
-      add: add_item(exact),
-      new: new_item_of_type(exact),
-      goto: goto_items(term, exact)
-    }
+    term_and_exact do |term, exact|
+      {
+        term: term,
+        add: add_item(exact),
+        new: new_item_of_type(exact),
+        goto: goto_items(term, exact)
+      }
+    end
   end
 
   view :complete, cache: :never do
@@ -75,6 +76,11 @@ format :json do
   end
 
   private
+
+  def term_and_exact
+    term = term_param
+    yield term, Card.fetch(term, new: {})
+  end
 
   def match_start_only?
     Card.config.search_box_match_start_only
