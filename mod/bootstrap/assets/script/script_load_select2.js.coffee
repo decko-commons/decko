@@ -26,6 +26,8 @@ $.extend decko,
         opts.tags = "true"
       if elem.data("placeholder")
         opts.placeholder = elem.data("placeholder")
+      if elem.data("dropdown-parent")
+        opts.dropdownParent = elem.parent()
       if elem.data("minimum-results-for-search")?
         opts.minimumResultsForSearch = elem.data("minimum-results-for-search")
       elem.select2(opts)
