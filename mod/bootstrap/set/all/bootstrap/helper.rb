@@ -55,7 +55,7 @@ format :html do
   end
 
   def popover_opts text, title, opts
-    add_class opts, "ps-1 text-muted _popover_link"
+    add_class opts, "ps-1 _popover_link"
     text = "&nbsp;" unless text.present?
     opts.reverse_merge! path: "#",
                         tabindex: 0,

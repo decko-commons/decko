@@ -13,6 +13,7 @@ format do
     rescuing_bad_query(query) { Card.search query }
   end
 
+  # TODO: unify with term_param
   def search_keyword
     @search_keyword ||= search_vars&.dig :keyword
   end
