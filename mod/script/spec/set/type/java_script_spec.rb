@@ -24,6 +24,12 @@ RSpec.describe Card::Set::Type::JavaScript do
       .to have_tag :script, with: { src: "/js_test_card.js" }
   end
 
+  it "validates syntax" do
+    card = Card.create name: "tmp javascript", type_code: "java_script", content: "your turn"
+    expect(card.errors[:content].first)
+      .to include("Unexpected token")
+  end
+
   # script outputters can't be changed with cards
   # it_behaves_like "asset inputter", that_produces: :js  do
   #   let(:create_asset_inputter_card) { js_card }

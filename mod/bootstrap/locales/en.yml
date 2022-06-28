@@ -1,3 +1,4 @@
 en:
   bootstrap_cannot_source_theme: can't find source for theme %{theme_name}
   bootstrap_not_valid_theme: not a valid theme %{theme_name}
+  bootstrap_invalid_item_type: "%{item} has an invalid type: %{type}. Only css and scss are valid."
