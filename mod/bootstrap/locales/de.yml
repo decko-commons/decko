@@ -2,3 +2,4 @@ de:
   bootstrap_cannot_source_theme: kann die Quelle für das Theme %{theme_name} nicht finden
   bootstrap_not_valid_theme: kein gültiges Theme %{theme_name}
   bootstrap_invalid_item_type: "%{item} hat einen ungültigen Typ: %{type}. Nur css und scss sind erlaubt."
+
