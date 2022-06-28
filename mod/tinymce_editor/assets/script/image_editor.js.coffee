@@ -28,7 +28,7 @@ $(document).ready ->
 decko.imageComplete =
   init: (el) ->
     process = @_process
-    decko.select2Autocomplete.init el, @_options(),
+    decko.select2Autocomplete.init el, @_options(el),
       processResults: (data) ->
         results: process(data)
       data: (params) ->
@@ -36,10 +36,11 @@ decko.imageComplete =
         view: "image_complete"
 
 
-  _options: (_el) ->
+  _options: (el) ->
     minimumInputLength: 1
     templateResult: @_templateResult
     templateSelection: @_templateSelection
+    dropdownParent: el.parent()
 
   _templateResult: (i) ->
     return i.text if i.loading or !i.icon
