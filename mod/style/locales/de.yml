@@ -1,0 +1,3 @@
+de:
+  style_delete_error_skin_in_use: Skin kann nicht gelöscht werden, weil es verwendet wird.
+  style_invalid_item_type: "%{item} hat einen ungültigen Typ: %{type}. Nur css und scss sind erlaubt."

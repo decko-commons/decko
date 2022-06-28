@@ -1,0 +1,3 @@
+en:
+  style_delete_error_skin_in_use: Can't delete skin because it's used.
+  style_invalid_item_type: "%{item} has an invalid type: %{type}. Only css and scss are valid."
