@@ -13,6 +13,13 @@ RSpec.describe Card::Set::Type::Css do
   #     assert_view_select css_card.format.render_core, "div[class=CodeRay]"
   #   end
   # end
+  #
+
+  it "validates syntax" do
+    css_card = Card.create name: "tmp css", type_code: "css", content: "invalid css"
+    expect(css_card.errors[:content].first)
+      .to eq("Invalid CSS after \"invalid css\": expected \"{\", was \"\"")
+  end
 
   def dummy_css name="test css"
     ensure_card name, type: :css, content: css
