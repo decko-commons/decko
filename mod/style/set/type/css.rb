@@ -1,5 +1,5 @@
 include_set Abstract::Css
-include_set Abstract::AssetInputter, input_format: :css, input_view: :core
+include_set Abstract::AssetInputter, input_format: :css, input_view: :compressed
 
 # require 'w3c_validators'
 require 'sass'

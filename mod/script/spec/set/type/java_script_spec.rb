@@ -27,7 +27,7 @@ RSpec.describe Card::Set::Type::JavaScript do
   it "validates syntax" do
     card = Card.create name: "tmp javascript", type_code: "java_script", content: "your turn"
     expect(card.errors[:content].first)
-      .to include("Unexpected token")
+      .to eq "<pre>Unexpected token: name (turn)\n--\n<span style='color: lightcoral; '> => </span>your <span style='color: lightcoral; '>turn</span>\n==</pre>"
   end
 
   # script outputters can't be changed with cards
