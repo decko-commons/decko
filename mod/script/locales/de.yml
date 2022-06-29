@@ -1,0 +1,2 @@
+de:
+  script_invalid_item_type: "%{item} hat einen ungültigen Typ (%{type)). Nur Javascript und Coffeescript sind erlaubt."

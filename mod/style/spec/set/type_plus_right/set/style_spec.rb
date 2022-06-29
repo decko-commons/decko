@@ -24,4 +24,14 @@ RSpec.describe Card::Set::TypePlusRight::Set::Style do
         new_in: new_css,             new_out: compressed_new_css }
     end
   end
+
+  it "validates item type" do
+    card = Card.create name: "A+*self+*style", content: "B"
+    expect(card.errors[:content].first)
+      .to eq("B has an invalid type: RichText. Only css and scss are valid.")
+
+    ensure_card "test css", type: :css, content: css
+    card = Card.create name: "A+*self+*style", content: "test css"
+    expect(card.errors[:type]).to be_empty
+  end
 end
