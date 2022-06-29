@@ -27,7 +27,9 @@ RSpec.describe Card::Set::TypePlusRight::Set::Style do
 
   it "validates item type" do
     card = Card.create name: "A+*self+*style", content: "B"
-    expect(card.errors[:content]).to include("B has an invalid type: RichText. Only CSS and SCSS are valid.")
+    expect(card.errors[:content])
+      .to include("B has an invalid type: RichText. "\
+                  "Only CSS, SCSS, Skin, and Bootswatch skin are valid.")
 
     ensure_card "test css", type: :css, content: css
     card = Card.create name: "A+*self+*style", content: "test css"

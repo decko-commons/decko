@@ -1,5 +1,5 @@
 include_set Abstract::AssetOutputter, output_format: :css, output_view: :compressed
-include_set Abstract::ItemsTypeValidation, allowed_types: %i[css scss]
+include_set Abstract::ItemsTypeValidation, allowed_types: %i[css scss skin bootswatch_skin]
 
 assign_type :pointer
 

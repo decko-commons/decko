@@ -6,4 +6,3 @@ def input_item_cards
     item_card.is_a? Abstract::ModAssets
   end
 end
-
