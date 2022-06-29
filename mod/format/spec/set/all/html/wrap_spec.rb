@@ -9,7 +9,7 @@ RSpec.describe Card::Set::All::Html::Wrap do
         .to have_tag "div.card-slot.open-view.ALL.TYPE-rich_text.SELF-a" do
           with_tag "div.d0-card-frame.card" do
             with_tag "div.d0-card-header.card-header" do
-              with_tag "div.d0-card-header-title"
+              with_tag "h2.d0-card-header-title"
             end
             with_tag "div.d0-card-body"
           end
@@ -21,7 +21,7 @@ RSpec.describe Card::Set::All::Html::Wrap do
         .to have_tag "div.card-slot.closed-view.ALL.TYPE-rich_text.SELF-a" do
           with_tag "div.d0-card-frame.card" do
             with_tag "div.d0-card-header.card-header" do
-              with_tag "div.d0-card-header-title"
+              with_tag "h2.d0-card-header-title"
             end
             without_tag "div.d0-card-body.d0-card-content"
           end

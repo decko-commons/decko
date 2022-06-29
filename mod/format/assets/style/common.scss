@@ -39,6 +39,12 @@ a:focus, a:hover {
   }
 }
 
+
+.d0-card-header {
+  display: flex;
+  justify-content: space-between;
+}
+
 .d0-card-content {
   .d0-card-header > .d0-card-header-title > .card-title {
     font-size: $h2-font-size;
@@ -50,11 +56,12 @@ a:focus, a:hover {
   }
 }
 
+
+
 .titled-view > .d0-card-header {
   min-height: 1.5em;
 
   > .d0-card-header-title > .card-title {
-    font-size: $h1-font-size;
     color: $headings-color;
   }
 }
