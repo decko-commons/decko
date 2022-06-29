@@ -53,18 +53,15 @@ format :html do
                class: "_search-box #{classy 'search-box'} form-control w-100",
                placeholder: t(:search_search_box_placeholder)
   end
+
+  def search_item term
+    autocomplete_item icon_tag(:search), term
+  end
 end
 
 format :json do
   view :search_box_complete, cache: :never do
-    term_and_exact do |term, exact|
-      {
-        term: term,
-        add: add_item(exact),
-        new: new_item_of_type(exact),
-        goto: goto_items(term, exact)
-      }
-    end
+    search_box_items :search_item, :add_item, :goto_items
   end
 
   view :complete, cache: :never do
@@ -78,6 +75,18 @@ format :json do
 
   private
 
+  def search_box_items *methods
+    term_and_exact do |term, exact|
+      methods.map do |method|
+        send method, term, exact
+      end.flatten.compact
+    end
+  end
+
+  def search_item term, _exact
+    { id: term, text: card.format.search_item(term) }
+  end
+
   def term_and_exact
     term = term_param
     yield term, Card.fetch(term, new: {})
@@ -87,33 +96,25 @@ format :json do
     Card.config.search_box_match_start_only
   end
 
-  def add_item exact
-    return unless exact.new_card? &&
-                  exact.name.valid? &&
-                  !exact.virtual? &&
-                  exact.ok?(:create)
-
-    [h(exact.name), ERB::Util.url_encode(exact.name)]
+  def add_item term, exact
+    exact.format(:json).add_autocomplete_item term
   end
 
-  def new_item_of_type exact
-    return unless (exact.type_id == CardtypeID) &&
-                  Card.new(type_id: exact.id).ok?(:create)
-
-    [exact.name, "new/#{exact.name.url_key}"]
-  end
-
-  def goto_items term, exact, additional_cql: {}
-    goto_names = complete_or_match_search start_only: match_start_only?,
-                                          additional_cql: additional_cql
-    goto_names.unshift exact.name if add_exact_to_goto_names? exact, goto_names
-    goto_names.map do |name|
-      [name, name.to_name.url_key, h(highlight(name, term, sanitize: false))]
+  def goto_items term, exact
+    map_goto_items exact do |item|
+      { id: term, href: item.url_key, text: goto_item_text(item) }
     end
   end
 
-  def add_exact_to_goto_names? exact, goto_names
-    exact.known? && !goto_names.find { |n| n.to_name.key == exact.key }
+  # TODO handle highlighting (with #highlight method)
+  def goto_item_text item
+    item.card.format.render :goto_autocomplete_item
+  end
+
+  def map_goto_items exact, &block
+    goto_names = complete_or_match_search start_only: match_start_only?
+    goto_names.unshift exact.name if exact.known?
+    goto_names.uniq.map &block
   end
 
   def term_param

@@ -25,8 +25,8 @@ decko.select2Autocomplete =
     maximumSelectionSize: 1
 
     placeholder: el.attr("placeholder")
-    templateResult: @_templateResult
-    templateSelection: @_templateSelection
+#    templateResult: @_templateResult
+#    templateSelection: @_templateSelection
     escapeMarkup: (markup) -> markup
 
     ajax:
