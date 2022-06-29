@@ -1,6 +1,6 @@
 module Ansi2html
   def ansi2html data
-    data.gsub(/\033\[([\d\;]{2,})m(.*?)\033\[0m/) do
+    data.gsub(%r{\033\[([\d\;]{2,})m(.*?)\033\[0m}) do
       to_span_tag $1, $2
     end
   end

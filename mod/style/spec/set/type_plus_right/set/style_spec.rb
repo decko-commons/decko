@@ -27,7 +27,6 @@ RSpec.describe Card::Set::TypePlusRight::Set::Style do
 
   it "validates item type" do
     card = Card.create name: "A+*self+*style", content: "B"
-    #card.singleton.define_method(:asset_input_content) { pass }
     expect(card.errors[:content].first)
       .to eq("B has an invalid type: RichText. Only css and scss are valid.")
 

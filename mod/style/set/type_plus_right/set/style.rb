@@ -44,9 +44,7 @@ format :html do
 end
 
 def joined_items_content
-  item_cards.map do |card|
-    card.content
-  end.compact.join "\n"
+  item_cards.map(&:content).compact.join "\n"
 end
 
 event :update_theme_input, :finalize,
@@ -59,6 +57,8 @@ end
 
 event :validate_item_type, :validate, on: :save, before: :validate_asset_inputs, changed: :content do
   item_cards.each do |item|
-    errors.add :content, t(:style_invalid_item_type, item: item.name, type: item.type) unless %i[css scss].include? item.type_code
+    next if %i[css scss].include? item.type_code
+
+    errors.add :content, t(:style_invalid_item_type, item: item.name, type: item.type)
   end
 end
