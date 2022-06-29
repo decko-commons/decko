@@ -13,9 +13,13 @@ format :html do
   end
 
   view :header_title, perms: :none do
-    wrap_with (voo.header || :h2), class: classy("d0-card-header-title") do
+    wrap_with (voo.header || default_header), class: classy("d0-card-header-title") do
       render_title
     end
+  end
+
+  def default_header
+    main? ? :h1 : :h2
   end
 
   def show_draft_link?
