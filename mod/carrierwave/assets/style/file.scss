@@ -21,7 +21,7 @@
 }
 
 .TYPE-image {
-  .d0-card-content, .d0-card-body {
+  .d0-card-content, .d0-card-body, &.d0-card-content {
     img {
       max-width: 100%;
       max-height: 100%;

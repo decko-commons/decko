@@ -56,6 +56,7 @@ class Card
           :type,           # set the default type of new cards
           :size,           # set an image size
           #                    (also used for character limit in one_line_content)
+          :header,         # h1, h2, h3..
           :items,          # options for items (Hash)
           :cache,          # change view cache behaviour
           #                    (Symbol<:always, :standard, :never>)
