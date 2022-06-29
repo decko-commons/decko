@@ -31,6 +31,7 @@ DeckoGem.gem "card" do |s, d|
     # assets (JavaScript, CSS, etc)
     ["coderay",                     "~> 1.1"],
     ["sassc",                       "~> 2.4"],
+    ["sass",                        "~> 3.7"], # used to validate css
     ["coffee-script",               "~> 2.4"],
     ["uglifier",                    "~> 4.2"],
     ["sprockets",                   "~> 3.7"], # sprockets 4 requires new configuration

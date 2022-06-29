@@ -54,4 +54,27 @@ RSpec.describe Card::Set::Type::Scss do
       expect(rendered).to eq content
     end
   end
+
+  it "validates syntax" do
+    scss_card = Card.create name: "tmp scss", type_code: "scss",
+                            content: "body {\ninvalid\n}"
+    expect(scss_card.errors[:content].first)
+      .to include("Error: property \"invalid\" must be followed by a ':'")
+    expect(scss_card.errors[:content].first)
+      .to include("line 2")
+  end
+
+  it "validation fails for unknown variables" do
+    scss_card = Card.create name: "tmp scss", type_code: "scss",
+                            content: "body {\ncolor: $invalid\n}"
+    expect(scss_card.errors[:content].first)
+      .to include("Error: Undefined variable: \"$invalid\"")
+  end
+
+  it "validation passes for known bootstrap variables" do
+    scss_card = Card.create name: "tmp scss", type_code: "scss",
+                            content: "body {\ncolor: $primary\n}"
+    expect(scss_card.errors[:content])
+      .to be_empty
+  end
 end

@@ -1,4 +1,5 @@
 include_set Abstract::AssetOutputter, output_format: :css, output_view: :compressed
+include_set Abstract::StyleItemsValidation
 
 assign_type :pointer
 
@@ -43,10 +44,8 @@ format :html do
   end
 end
 
-event :update_theme_input, :finalize,
-      before: :update_asset_output_file, changed: :content do
-  item_cards.each do |theme_card|
-    next unless theme_card.respond_to? :theme_name
-    theme_card.update_asset_input
-  end
+def joined_items_content
+  item_cards.map(&:content).compact.join "\n"
 end
+
+
