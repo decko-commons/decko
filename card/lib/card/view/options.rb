@@ -31,7 +31,6 @@ class Card
           :wrap,           # wrap the nest with a wrapper
           :show,           # render these views when optional
           :hide,           # do not render these views when optional
-          :header,         # h1, h2, h3..
           :unknown         # view to use if nested card is unknown
         ],                 #   show/hide can be view (Symbol), list of views (Array),
         #                      or comma separated views (String)
@@ -57,6 +56,7 @@ class Card
           :type,           # set the default type of new cards
           :size,           # set an image size
           #                    (also used for character limit in one_line_content)
+          :header,         # h1, h2, h3..
           :items,          # options for items (Hash)
           :cache,          # change view cache behaviour
           #                    (Symbol<:always, :standard, :never>)
