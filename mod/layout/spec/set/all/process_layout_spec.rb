@@ -18,7 +18,7 @@ RSpec.describe Card::Set::All::ProcessLayout do
 
     it "renders card header" do
       expect(open_view).to have_tag "div.d0-card-header.card-header" do
-        with_tag "div.d0-card-header-title" do
+        with_tag "h2.d0-card-header-title" do
           with_tag "span.card-title", text: "A+B"
         end
       end
