@@ -35,6 +35,12 @@ RSpec.describe Card::Set::Type::Skin do
     end
   end
 
+  it "prevents deletion of used skins" do
+    card = Card[:all, :style].item_cards.first
+    card.delete
+    expect(card.errors[:delete].first).to be_present
+  end
+
   def outputter_file_content
     path = outputter.asset_output_path
     File.read(path)

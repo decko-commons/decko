@@ -11,6 +11,12 @@ RSpec.describe Card::Set::Type::CoffeeScript do
     ensure_card name, type: Card::CoffeeScriptID, content: content
   end
 
+  it "validates syntax" do
+    card = Card.create name: "tmp coffeescript", type_code: "coffee_script", content: "your turn\n\tindent"
+    expect(card.errors[:content].first)
+      .to eq("SyntaxError: 2:1: unexpected indentation")
+  end
+
   # script outputters can't be changed with cards
   # it_behaves_like "asset inputter", that_produces: :js do
   #   let(:inputter_name) do

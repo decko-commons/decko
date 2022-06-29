@@ -18,7 +18,9 @@ $.extend decko,
       opts = {
         dropdownAutoWidth: "true",
         containerCssClass: ":all:",
-        width: "auto"}
+        width: "auto",
+        dropdownParent: elem.parent()
+      }
 
       elem.attr "id", decko.uniqSelect2Id(elem.attr("id"))
 
@@ -28,6 +30,7 @@ $.extend decko,
         opts.placeholder = elem.data("placeholder")
       if elem.data("minimum-results-for-search")?
         opts.minimumResultsForSearch = elem.data("minimum-results-for-search")
+
       elem.select2(opts)
 
   uniqSelect2Id: (id) ->
