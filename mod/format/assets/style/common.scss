@@ -39,24 +39,27 @@ a:focus, a:hover {
   }
 }
 
-.d0-card-content {
-  .d0-card-header > .d0-card-header-title > .card-title {
-    font-size: $h2-font-size;
-    color: $headings-color;
-  }
-  .bar-bottom .d0-card-header > .d0-card-header-title > .card-title {
-    font-size: $h3-font-size;
-    color: $headings-color;
-  }
+
+.d0-card-header {
+  display: flex;
+  justify-content: space-between;
 }
+
+//.d0-card-content {
+//  .d0-card-header > .d0-card-header-title > .card-title {
+//    font-size: $h2-font-size;
+//    color: $headings-color;
+//  }
+//  .bar-bottom .d0-card-header > .d0-card-header-title > .card-title {
+//    font-size: $h3-font-size;
+//    color: $headings-color;
+//  }
+//}
+
+
 
 .titled-view > .d0-card-header {
   min-height: 1.5em;
-
-  > .d0-card-header-title > .card-title {
-    font-size: $h1-font-size;
-    color: $headings-color;
-  }
 }
 
 /* links to create missing cards */
