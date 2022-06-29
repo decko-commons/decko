@@ -25,7 +25,8 @@ RSpec.describe Card::Set::Type::JavaScript do
   end
 
   it "validates syntax" do
-    card = Card.create name: "tmp javascript", type_code: "java_script", content: "your turn"
+    card = Card.create name: "tmp javascript", type_code: "java_script",
+                       content: "your turn"
     expect(card.errors[:content].first)
       .to eq "<pre>Unexpected token: name (turn)\n"\
              "--\n"\

@@ -1,3 +1,4 @@
+# Converts ansi formatting codes to html
 module Ansi2html
   class << self
     def ansi2html data

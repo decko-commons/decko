@@ -1,2 +1,0 @@
-en:
-  script_invalid_item_type: "%{item} has an invalid type: %{type}. Only javascript and coffeescript are valid."

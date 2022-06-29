@@ -1,5 +1,5 @@
 include_set Abstract::AssetOutputter, output_format: :css, output_view: :compressed
-include_set Abstract::StyleItemsValidation
+include_set Abstract::ItemsTypeValidation, allowed_types: %i[css scss]
 
 assign_type :pointer
 
@@ -47,5 +47,3 @@ end
 def joined_items_content
   item_cards.map(&:content).compact.join "\n"
 end
-
-
