@@ -1,4 +1,5 @@
 include_set Abstract::AssetOutputter, output_format: :css, output_view: :compressed
+include_set Abstract::StyleItemsValidation
 
 assign_type :pointer
 
@@ -47,18 +48,4 @@ def joined_items_content
   item_cards.map(&:content).compact.join "\n"
 end
 
-event :update_theme_input, :finalize,
-      before: :update_asset_output_file, changed: :content do
-  item_cards.each do |theme_card|
-    next unless theme_card.respond_to? :theme_name
-    theme_card.update_asset_input
-  end
-end
 
-event :validate_item_type, :validate, on: :save, before: :validate_asset_inputs, changed: :content do
-  item_cards.each do |item|
-    next if %i[css scss].include? item.type_code
-
-    errors.add :content, t(:style_invalid_item_type, item: item.name, type: item.type)
-  end
-end

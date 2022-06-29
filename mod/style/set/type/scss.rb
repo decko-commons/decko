@@ -3,7 +3,7 @@ include_set Abstract::AssetInputter, input_format: :scss
 
 event :validate_scss_syntax, :validate, on: :save, changed: %i[type_id content] do
   variables = Card[:all, :style].joined_items_content
-  SassC::Engine.new([variables.strip, content].join "\n").render
+  SassC::Engine.new([variables.strip, content].join("\n")).render
 rescue SassC::SyntaxError => e
   match = e.message.match(/line (\d+)/)
   message =
