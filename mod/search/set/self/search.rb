@@ -106,7 +106,7 @@ format :json do
     end
   end
 
-  # TODO handle highlighting (with #highlight method)
+  # TODO: handle highlighting (with #highlight method)
   def goto_item_text item
     item.card.format.render :goto_autocomplete_item
   end
@@ -114,7 +114,7 @@ format :json do
   def map_goto_items exact, &block
     goto_names = complete_or_match_search start_only: match_start_only?
     goto_names.unshift exact.name if exact.known?
-    goto_names.uniq.map &block
+    goto_names.uniq.map(&block)
   end
 
   def term_param

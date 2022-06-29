@@ -6,7 +6,7 @@ format :json do
   def add_autocomplete_item term
     return unless card.add_autocomplete_ok?
 
-    { id: term, href: path(), text: add_autocomplete_item_text }
+    { id: term, href: path, text: add_autocomplete_item_text }
   end
 
   private
@@ -15,7 +15,6 @@ format :json do
     card.format.render_add_autocomplete_item
   end
 end
-
 
 format :html do
   view :goto_autocomplete_item do
@@ -38,7 +37,6 @@ format :html do
                    class: "pointer-item-text form-control _autocomplete #{extra_classes}",
                    "data-options-card": %i[all by_name].to_name
   end
-
 
   private
 
