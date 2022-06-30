@@ -959,3 +959,15 @@ card_acts_160:
   actor_id: 1
   acted_at: 2022-06-14 18:38:39.000000000 Z
   ip_address:
+card_acts_161:
+  id: 105483
+  card_id: 292
+  actor_id: 191
+  acted_at: 2022-06-30 22:15:20.000000000 Z
+  ip_address:
+card_acts_162:
+  id: 105484
+  card_id: 313
+  actor_id: 191
+  acted_at: 2022-06-30 22:15:20.000000000 Z
+  ip_address:
