@@ -65,12 +65,9 @@ format :json do
   end
 
   view :complete, cache: :never do
-    { result: complete_or_match_search(start_only: match_start_only?) }
-  end
-
-  # TODO: move to carrierwave mod
-  view :image_complete, cache: :never do
-    { result: image_items }
+    complete_or_match_search(start_only: match_start_only?).map do |name|
+      goto_item_text name
+    end
   end
 
   private
@@ -125,12 +122,5 @@ format :json do
       term = main + term
     end
     term
-  end
-
-  def image_items
-    complete_or_match_search(start_only: match_start_only?,
-                             additional_cql: { type: :image }).map do |name|
-      [name, h(card.format("html").nest(name, view: :core, size: :icon))]
-    end
   end
 end
