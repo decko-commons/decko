@@ -27,15 +27,14 @@ $(document).ready ->
 
 decko.imageComplete =
   init: (el) ->
-    decko.select2Autocomplete.init el, @_options(),
+    decko.select2Autocomplete.init el, @_options(el),
       data: (params) ->
         query: { keyword: params.term }
         view: "image_complete"
 
-  _options: (_el) ->
+  _options: (el) ->
     minimumInputLength: 1
-
-
+    dropdownParent: el.parent()
 
 window.nest ||= {}
 
