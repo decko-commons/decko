@@ -9,3 +9,9 @@ format :css do
     end.join("\n")
   end
 end
+
+event :no_deletion_if_used, :validate, on: :delete do
+  if Card[:all, :style].item_keys.contains key
+    errors.add :delete, t(:style_delete_error_skin_used)
+  end
+end
