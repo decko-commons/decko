@@ -27,6 +27,7 @@ RSpec.describe Card::Set::Type::BootswatchSkin do
   end
 
   example "update old skin", as_bot: true do
+    ensure_card "custom css", type: :css
     create_skin "old skin", content: ["bootstrap default skin", "custom css"]
     Card["old skin"].update! type: :bootswatch_skin
 
