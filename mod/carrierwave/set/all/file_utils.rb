@@ -1,3 +1,5 @@
+# TODO: move to lib
+# eg, create new Card::File class in lib/card/file
 module ClassMethods
   def update_all_storage_locations
     Card.search(type_id: ["in", Card::FileID, Card::ImageID])
