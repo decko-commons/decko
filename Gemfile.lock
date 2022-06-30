@@ -701,6 +701,7 @@ DEPENDENCIES
   decko-rspec!
   decko-spring!
   mysql2
+  rack-test (!= 2.0.0)
   thin
 
 BUNDLED WITH
