@@ -76,4 +76,8 @@ format :html do
       Card::Content::Diff.render_added_chunk _render_core
     end
   end
+
+  def goto_autocomplete_icon
+    render :core, size: :small
+  end
 end
