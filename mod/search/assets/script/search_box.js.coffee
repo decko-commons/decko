@@ -28,7 +28,7 @@ decko.searchBox =
     else
       form.submit()
 
-    form.find("._search-box").attr 'disabled', 'disabled'
+    # form.find("._search-box").attr 'disabled', 'disabled'
 
   _eventHref: (event) ->
     p = event.params
