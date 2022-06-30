@@ -50,7 +50,8 @@ format :html do
   def search_box_contents
     keyword = query_params[:keyword]
     select_tag "query[keyword]", options_for_select([keyword].compact, keyword),
-               class: "_search-box #{classy 'search-box'} form-control w-100",
+               class: "_search-box #{classy 'search-box'} form-control " \
+                      "w-100 _no-select2-init",
                placeholder: t(:search_search_box_placeholder)
   end
 

@@ -33,7 +33,6 @@ decko.imageComplete =
         view: "image_complete"
 
   _options: (el) ->
-    minimumInputLength: 1
     dropdownParent: el.parent()
 
 window.nest ||= {}

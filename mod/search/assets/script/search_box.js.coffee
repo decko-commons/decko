@@ -2,10 +2,11 @@
 $(window).ready ->
   searchBox = $('._search-box')
 
-  decko.searchBox.init searchBox
+  if searchBox.length > 0
+    decko.searchBox.init searchBox
 
-  searchBox.on "select2:select", (e) ->
-    decko.searchBox.select e
+    searchBox.on "select2:select", (e) ->
+      decko.searchBox.select e
 
 # TODO: make this more object oriented
 decko.searchBox =

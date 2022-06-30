@@ -1,8 +1,8 @@
 format :json do
   view :image_complete, cache: :never do
-    complete_or_match_search(start_only: match_start_only?,
-                             additional_cql: { type: :image }).map do |name|
-      goto_item_text name
+    complete_or_match_search(start_only: false,
+                             additional_cql: { type: :image }).map do |item|
+      { id: term_param, href: item.url_key, text: goto_item_text(item) }
     end
   end
 end
