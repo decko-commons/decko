@@ -517,7 +517,7 @@ GEM
     puma (5.6.4)
       nio4r (~> 2.0)
     racc (1.6.0)
-    rack (2.2.3.1)
+    rack (2.2.4)
     rack-protection (2.2.0)
       rack
     rack-test (2.0.2)
@@ -701,7 +701,6 @@ DEPENDENCIES
   decko-rspec!
   decko-spring!
   mysql2
-  rack-test (!= 2.0.0)
   thin
 
 BUNDLED WITH
