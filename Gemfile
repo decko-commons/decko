@@ -32,3 +32,4 @@ gem "card-mod-platypus", group: :test, path: "./mod"
 # The following allows simple (non-gem) mods to specify gems via a Gemfile.
 # You may need to alter this code if you move such mods to an unconventional location.
 # Dir.glob("mod/**/Gemfile").each { |gemfile| instance_eval File.read(gemfile) }
+gem "rack-test", "!=2.0.0"

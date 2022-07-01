@@ -40,3 +40,19 @@
 .search-box-item-value mark {
   padding: 0.2em 0;
 }
+
+
+.autocomplete-item {
+  display: flex;
+  .autocomplete-icon {
+    width: 30px;
+    margin-right: 1em;
+    text-align: center;
+    img, svg {
+      max-width: 100% !important;
+      max-height: 100% !important;
+      min-width: auto !important;
+      min-height: auto !important;
+    }
+  }
+}
