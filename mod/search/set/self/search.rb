@@ -98,9 +98,9 @@ format :json do
     exact.format(:json).add_autocomplete_item term
   end
 
-  def goto_items term, exact
+  def goto_items _term, exact
     map_goto_items exact do |item|
-      { id: term, href: item.url_key, text: goto_item_text(item) }
+      { id: item, href: item.url_key, text: goto_item_text(item) }
     end
   end
 
