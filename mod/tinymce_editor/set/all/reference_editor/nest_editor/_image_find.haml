@@ -2,4 +2,6 @@
   %label{:for => "nest_name"} Name
   = help_link t(:tinymce_editor_image_nest_editor_name_help_text), t(:tinymce_editor_image_nest_editor_name_help_title)
   = # autocomplete_field snippet.name, "image+*type+by name",  "form-control _autocomplete _nest-name _image-name"
-  = select_tag "image-name-select", "", class: "_image-card-select _image-name"
+  = select_tag "image-name-select", "",
+               class: "_image-card-select _image-name _no-select2-init",
+               "data-dropdown-parent": "true"

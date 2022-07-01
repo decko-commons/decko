@@ -31,7 +31,7 @@ class Card
 
       # "new" and "type" are not really an action and are only
       # a valid value here for this path
-      opts[:mark].present?
+      mark.present?
     end
 
     def standard
