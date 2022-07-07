@@ -37,7 +37,7 @@ module RecaptchaCard
 
     # card config overrides application.rb config overrides default
     def recaptcha_setting_value setting, full_setting
-      card_value(setting) ||                  # card content
+      card_value(full_setting) ||             # card content
         config_value(full_setting) ||         # application.rb (current setting)
         config_value(@deprecated[setting]) || # application.rb (deprecated setting)
         @defaults[setting]
@@ -49,10 +49,10 @@ module RecaptchaCard
 
     def card_value setting
       # prevent breakage in migrations
-      return unless Card::Codename.exist?(:recaptcha_settings) &&
+      return unless Card::Codename.exist? :recaptcha_settings) &&
                     Card::Codename.exist?(setting)
 
-      value = :recaptcha_settings.card&.fetch(setting)&.content
+      value = setting.card&.content
       value if value.present?
     end
   end
