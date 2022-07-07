@@ -49,7 +49,7 @@ module RecaptchaCard
 
     def card_value setting
       # prevent breakage in migrations
-      return unless Card::Codename.exist? :recaptcha_settings) &&
+      return unless Card::Codename.exist?(:recaptcha_settings) &&
                     Card::Codename.exist?(setting)
 
       value = setting.card&.content
