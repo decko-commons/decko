@@ -29,13 +29,13 @@ updateRecaptchaToken = (form, event) ->
     recaptcha.val "grecaptcha-undefined"
   else
     event.stopPropagation() if event
-    executeGrecaptcha recaptcha
-    form.submit() if event
+    executeGrecaptcha form, event, recaptcha
     false
 
-executeGrecaptcha = (recaptcha) ->
+executeGrecaptcha = (form, event, recaptcha) ->
   siteKey = recaptcha.data "site-key"
   action = recaptcha.data "action"
   grecaptcha.execute(siteKey, action: action).then (token) ->
     recaptcha.val token
     recaptcha.addClass "_token-updated"
+    form.submit() if event
