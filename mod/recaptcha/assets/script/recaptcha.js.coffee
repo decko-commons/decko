@@ -3,7 +3,7 @@ $(window).ready ->
     handleRecaptcha event if $(this).data('recaptcha') == 'on'
 
 handleRecaptcha = (event) ->
-  recaptcha = @find("input._recaptcha-token")
+  recaptcha = $(this).find("input._recaptcha-token")
 
   if !recaptcha[0]?
     # monkey error (bad form)
@@ -20,7 +20,7 @@ handleRecaptcha = (event) ->
     # and submits again when the token is ready
 
 updateRecaptchaToken = (event) ->
-  recaptcha = @find("input._recaptcha-token")
+  recaptcha = $(this).find("input._recaptcha-token")
 
   if !recaptcha[0]?
     recaptcha.val "recaptcha-token-field-missing"
