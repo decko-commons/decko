@@ -11,9 +11,9 @@ def cql_content
   query.symbolize_keys
 end
 
-def item_type
-  type = cql_hash[:type]
-  type unless type.is_a?(Array) || type.is_a?(Hash)
+def item_type_id
+  type = cql_hash[:type]&.card_id
+  type if type.is_a? Integer
 end
 
 # for override, eg when required subqueries are known to be missing

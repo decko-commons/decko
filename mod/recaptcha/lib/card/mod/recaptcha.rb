@@ -6,4 +6,5 @@ Cardio::Railtie.config.tap do |config|
   config.recaptcha_site_key = nil
   config.recaptcha_secret_key = nil
   config.recaptcha_minimum_score = 0.5
+  config.recaptcha_verify_url = "https://www.google.com/recaptcha/api/siteverify"
 end
