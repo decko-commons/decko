@@ -2,8 +2,16 @@
 
 require "recaptcha"
 
-# This initializer module is mostly here to avoid adding methods/vars to the Object
-# namespace
+# This Recaptcha initializer handles the multiple ways in which the recaptcha site and
+# secret key can be configured.  These include:
+#
+# - in config files with config.recaptcha_site_key and config.recaptcha_secret_key
+#   (PREFERRED!)
+# - via the :recaptcha_settings card
+# - in config files with config.recaptcha_public_key and config.recaptcha_private_key
+#   (DEPRECATED!)
+# - by using the defaults below (DEVELOPMENT ONLY)
+#
 module RecaptchaCard
   @deprecated = {
     site_key: :recaptcha_public_key,
@@ -25,9 +33,11 @@ module RecaptchaCard
       Cardio.config.recaptcha_site_key == @defaults[:site_key]
     end
 
+    private
+
     # card config overrides application.rb config overrides default
     def recaptcha_setting_value setting, full_setting
-      card_value(setting) ||                  # card content
+      card_value(full_setting) ||             # card content
         config_value(full_setting) ||         # application.rb (current setting)
         config_value(@deprecated[setting]) || # application.rb (deprecated setting)
         @defaults[setting]
@@ -42,7 +52,7 @@ module RecaptchaCard
       return unless Card::Codename.exist?(:recaptcha_settings) &&
                     Card::Codename.exist?(setting)
 
-      value = :recaptcha_settings.card&.fetch(setting)&.content
+      value = setting.card&.content
       value if value.present?
     end
   end
@@ -51,9 +61,9 @@ end
 ActiveSupport.on_load :after_card do
   Recaptcha.configure do |config|
     %i[site_key secret_key].each do |setting|
-      RecaptchaCard.load_recaptcha_config setting
+      config.send "#{setting}=", RecaptchaCard.load_recaptcha_config(setting)
     end
-    config.verify_url = "https://www.google.com/recaptcha/api/siteverify"
+    config.verify_url = Cardio.config.recaptcha_verify_url
   end
 end
 
