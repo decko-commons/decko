@@ -36,9 +36,9 @@ def count args={}
 end
 
 # for override
-def item_type
-  nil
-end
+# def item_type_id
+#   nil
+# end
 
 def each_item_name_with_options _content=nil
   options = {}

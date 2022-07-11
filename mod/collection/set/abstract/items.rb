@@ -152,14 +152,12 @@ def all_item_cards args={}
   names.map { |name| fetch_item_card name, args }
 end
 
-# TODO: support type_code and type_id. (currently type)
-# uses name, because its most common use is from CQL
-def item_type
+def item_type_id
   opt = options_card
   # FIXME: need better recursion prevention
-  return if !opt || opt == self
+  return unless opt && opt != self
 
-  opt.item_type
+  opt.item_type_id
 end
 
 def item_strings args={}
@@ -188,7 +186,7 @@ def fetch_item_card name, args={}
 end
 
 def new_unknown_item_args args
-  itype = args[:type] || item_type
+  itype = args[:type] || item_type_name
   itype ? { type: itype } : {}
 end
 
