@@ -1,5 +1,3 @@
-
-
 $(window).ready ->
   $('body').on 'show.bs.popover', '._card-menu-popover', () ->
     $(this).closest(".card-menu._show-on-hover")
@@ -12,3 +10,6 @@ $(window).ready ->
            .addClass("_show-on-hover")
 
 
+decko.slot.ready (slot) ->
+  slot.find('[data-tooltip="true"]').tooltip()
+  slot.find('[data-bs-toggle="popover"]').popover(html: true)
