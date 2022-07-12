@@ -1,3 +1,2 @@
-decko.slot.ready (slot)->
-  $('[data-bs-toggle="popover"]').popover(html: true)
+decko.slot.ready ()->
   $('.colorpicker-component').colorpicker()

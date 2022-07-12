@@ -49,6 +49,7 @@ format :html do
                         tabindex: 0,
                         data: { "bs-toggle": "popover",
                                 "bs-trigger": :focus,
+                                # "bs-container": ".modal.show",
                                 "bs-content": text }
     opts["data-bs-title"] = title if title
     opts
