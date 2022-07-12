@@ -7,8 +7,17 @@ def item_cards _args={}
   [self]
 end
 
-def item_type
-  nil
+# typically override EITHER #item_type_id OR #item_type_name
+def item_type_id
+  no_item_type_recursion { item_type_name&.card_id }
+end
+
+def item_type_name
+  no_item_type_recursion { item_type_id&.cardname }
+end
+
+def item_type_card
+  item_type_id&.card
 end
 
 def item_keys args={}
@@ -113,8 +122,8 @@ format do
   def determine_item_view_options_type options
     return if options[:type]
 
-    type_from_rule = card.item_type
-    options[:type] = type_from_rule if type_from_rule
+    type_name = card.item_type_name
+    options[:type] = type_name if type_name
   end
 
   def listing listing_cards, item_args={}
@@ -134,4 +143,13 @@ format :html do
   def wrap_item rendered, item_view
     %(<div class="item-#{item_view}">#{rendered}</div>)
   end
+end
+
+private
+
+def no_item_type_recursion
+  return nil if @item_type_lookup
+
+  @item_type_lookup = true
+  yield
 end
