@@ -5,6 +5,7 @@ format :html do
   end
 
   def account_dropdown &render_role_item
+    class_up "dropdown-toggle-split", "nav-link"
     split_dropdown_button link_to_mycard do
       [
         [[Auth.current, :account_settings], "Account"],
