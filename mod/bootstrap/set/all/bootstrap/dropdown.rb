@@ -15,7 +15,7 @@ format :html do
     wrap_with :div, class: "btn-group" do
       [
         main_button,
-        split_button_toggle,
+        split_dropdown_button_toggle,
         dropdown_list(yield, "dropdown-menu-right")
       ]
     end
@@ -23,6 +23,17 @@ format :html do
 
   def dropdown_header text
     content_tag(:h6, text, class: "dropdown-header")
+  end
+
+  def split_dropdown_button_toggle
+    wrap_with :a,
+              href: "#",
+              class: "dropdown-toggle #{classy 'dropdown-toggle-split'}",
+              "data-bs-toggle" => "dropdown",
+              "aria-haspopup" => "true",
+              "aria-expanded" => "false" do
+      '<span class="sr-only">Toggle Dropdown</span>'
+    end
   end
 
   private
@@ -44,16 +55,5 @@ format :html do
     array[2] ||= {}
     add_class array[2], "dropdown-item"
     link_to_card(*array)
-  end
-
-  def split_button_toggle
-    wrap_with :a,
-              href: "#",
-              class: "nav-link ps-0 dropdown-toggle dropdown-toggle-split",
-              "data-bs-toggle" => "dropdown",
-              "aria-haspopup" => "true",
-              "aria-expanded" => "false" do
-      '<span class="sr-only">Toggle Dropdown</span>'
-    end
   end
 end

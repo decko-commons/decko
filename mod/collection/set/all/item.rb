@@ -9,11 +9,11 @@ end
 
 # typically override EITHER #item_type_id OR #item_type_name
 def item_type_id
-  no_item_type_recursion { item_type_name&.card_id }
+  @item_type_id ||= no_item_type_recursion { item_type_name&.card_id }
 end
 
 def item_type_name
-  no_item_type_recursion { item_type_id&.cardname }
+  @item_type_name ||= no_item_type_recursion { item_type_id&.cardname }
 end
 
 def item_type_card
