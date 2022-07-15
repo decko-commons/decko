@@ -7,7 +7,7 @@ format :csv do
   end
 
   def nests
-    [["_self", { view: :name}], ["_self", { view: :type}]]
+    [["_self", { view: :name }], ["_self", { view: :type }]]
   end
 
   def default_nest_view
@@ -15,7 +15,7 @@ format :csv do
   end
 
   def default_item_view
-    :name 
+    :name
   end
 
   view :titled do
@@ -28,7 +28,7 @@ format :csv do
   end
 
   view :row do
-    CSV.generate_line nests.map { |nest_args| nest(*nest_args) }
+    CSV.generate_line(nests.map { |nest_args| nest(*nest_args) })
   end
 
   # localize
