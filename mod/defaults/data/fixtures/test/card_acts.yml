@@ -971,3 +971,15 @@ card_acts_162:
   actor_id: 191
   acted_at: 2022-06-30 22:15:20.000000000 Z
   ip_address:
+card_acts_163:
+  id: 105485
+  card_id: 292
+  actor_id: 191
+  acted_at: 2022-07-15 18:03:19.000000000 Z
+  ip_address:
+card_acts_164:
+  id: 105486
+  card_id: 313
+  actor_id: 191
+  acted_at: 2022-07-15 18:03:20.000000000 Z
+  ip_address:
