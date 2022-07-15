@@ -24,14 +24,14 @@ format do
   def with_results
     search_with_params.empty? ? render_no_search_results : yield
   end
-end
-
-format :json do
-  AUTOCOMPLETE_LIMIT = 8 # number of name suggestions for autocomplete text fields
 
   def item_cards
     search_with_params
   end
+end
+
+format :json do
+  AUTOCOMPLETE_LIMIT = 8 # number of name suggestions for autocomplete text fields
 
   # NOCACHE because paging_urls is uncacheable hash and thus not safe to merge
   view :molecule, cache: :never do
@@ -96,15 +96,15 @@ end
 
 format :csv do
   view :core, :core, mod: All::Csv::CsvFormat
-
-  view :card_list do
-    items = super()
-    if depth.zero?
-      title_row + items
-    else
-      items
-    end
-  end
+  #
+  # view :card_list do
+  #   items = super()
+  #   if depth.zero?
+  #     title_row + items
+  #   else
+  #     items
+  #   end
+  # end
 end
 
 format :html do

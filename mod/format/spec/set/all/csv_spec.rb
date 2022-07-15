@@ -1,12 +1,9 @@
 # -*- encoding : utf-8 -*-
 
 describe Card::Set::All::Csv do
-  describe "csv_row view" do
+  describe "csv view: row" do
     it "handles nests" do
-      rendered = render_card :csv_row,
-                             { content: "{{A+B}} {{T}}" },
-                             { format: :csv }
-      expect(rendered).to eq("AlphaBeta,Theta")
+      expect(card_subject.format(:csv).render_row).to eq("A,RichText\n")
     end
   end
 end
