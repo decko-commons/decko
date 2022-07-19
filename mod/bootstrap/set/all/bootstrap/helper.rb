@@ -38,7 +38,8 @@ format :html do
     wrap_with :span, content, options
   end
 
-  def popover_link text, title=nil, link_text=fa_icon("question-circle"), opts={}
+  def popover_link text, title=nil, link_text=nil, opts={}
+    link_text ||= fa_icon "question-circle"
     link_to link_text, popover_opts(text, title, opts)
   end
 
@@ -48,7 +49,7 @@ format :html do
     opts.reverse_merge! path: "#",
                         tabindex: 0,
                         data: { "bs-toggle": "popover",
-                                "bs-trigger": :focus,
+                                "bs-trigger": "hover focus",
                                 # "bs-container": ".modal.show",
                                 "bs-content": text }
     opts["data-bs-title"] = title if title
