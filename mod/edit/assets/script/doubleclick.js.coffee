@@ -1,14 +1,16 @@
-doubleClickActiveMap = { off: false, on: true, signed_in: decko.currentUserId }
 
 $(window).ready ->
+  doubleClickActiveMap = { off: false, on: true, signed_in: decko.currentUserId }
+
+  doubleClickActive = () ->
+    doubleClickActiveMap[decko.doubleClick]
+
   if doubleClickActive()
     $('body').on 'dblclick', 'div', (_event) ->
       if doubleClickApplies $(this)
         triggerDoubleClickEditingOn $(this)
       false # don't propagate up to next slot
 
-doubleClickActive = () ->
-  doubleClickActiveMap[decko.doubleClick]
   # else alert "illegal configuration: " + decko.doubleClick
 
 doubleClickApplies = (el) ->
