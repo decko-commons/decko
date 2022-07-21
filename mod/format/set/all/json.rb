@@ -50,7 +50,7 @@ format :json do
   def page_details obj
     return obj unless obj.is_a? Hash
 
-    obj.merge url: request_url, requested_at: Time.now.to_s
+    obj.merge url: request_url, requested_at: Time.now.utc.to_s
   end
 
   def stringify raw
