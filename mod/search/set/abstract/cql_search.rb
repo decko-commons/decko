@@ -12,7 +12,8 @@ def cql_content
 end
 
 def item_type_id
-  type = cql_hash[:type]&.card_id
+  type = cql_hash[:type]
+  type = type&.card_id unless type.is_a? Hash
   type if type.is_a? Integer
 end
 
