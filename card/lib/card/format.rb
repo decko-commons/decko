@@ -73,6 +73,10 @@ class Card
       @controller || Env.controller ||= CardController.new
     end
 
+    def request_url
+      controller.request&.original_url || path
+    end
+
     def mime_type
       "text/plain"
     end
