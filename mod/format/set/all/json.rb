@@ -40,10 +40,6 @@ format :json do
 
   private
 
-  def request_url
-    controller.request&.original_url || path
-  end
-
   def string_with_page_details
     raw = yield
     return raw if raw.is_a? String
@@ -54,7 +50,7 @@ format :json do
   def page_details obj
     return obj unless obj.is_a? Hash
 
-    obj.merge url: request_url, requested_at: Time.now.to_s
+    obj.merge url: request_url, requested_at: Time.now.utc.to_s
   end
 
   def stringify raw

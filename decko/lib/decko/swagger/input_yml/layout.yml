@@ -4,7 +4,7 @@ info:
     Decko organizes data into "cards." Decko's API supports retrieval and alteration of card data.
 
     To get the JSON responses as described below, do _any_ of the following:
-      1. Set the http access header to `application/json` in your request
+      1. Set the http Accept header to `application/json` in your request
       2. Add `.json` to the url, or
       3. Add `format=json` to the query params.
 
