@@ -33,11 +33,11 @@ class Card
         # DEPRECATE?
 
         def member_of val
-          interpret right_plus: [Card::RolesID, { refer_to: val }]
+          interpret referred_to_by: val
         end
 
         def member val
-          interpret referred_to_by: { left: val, right: Card::RolesID }
+          interpret right_plus: [Card::RoleID, { refer_to: val }]
         end
       end
     end

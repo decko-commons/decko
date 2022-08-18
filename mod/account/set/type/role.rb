@@ -1,3 +1,5 @@
+include_set Type::List
+
 card_accessor :members
 
 def disabled?

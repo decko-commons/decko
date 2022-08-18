@@ -1,4 +1,14 @@
-assign_type :list
+assign_type :search_type
+
+def virtual?
+  new?
+end
+
+
+def cql_content
+  { member:  "_left" }
+end
+
 
 event :validate_permission_to_assign_roles, :validate, on: :save do
   return unless (fr = forbidden_roles).present?
