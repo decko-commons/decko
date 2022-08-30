@@ -12,7 +12,7 @@ class  MoveRoles < Cardio::Migration
       role_names = content.split "\n"
       role_names.each do |role_name|
         puts "Move #{user} to role #{role_name}"
-        Card[role_name, :members].add_item! user
+        Card.fetch(role_name, :members, new: {}).add_item! user
       end
       user_roles.delete
     end

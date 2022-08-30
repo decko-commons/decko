@@ -23,8 +23,9 @@ RSpec.describe Card::Set::All::Account do
       it "updates when new roles are set" do
         roles_card = @joe_user_card.fetch :roles, new: {}
         r1 = Card["r1"]
+        r1_members = Card["r1", :members]
 
-        Card::Auth.as_bot { roles_card.items = [r1.id] }
+        Card::Auth.as_bot { r1_members.items = [@joe_user_card.id] }
         Card::Cache.restore
         # simulate new request
         # clears local cache, where, eg, @parties would still be cached on card

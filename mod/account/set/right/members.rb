@@ -1,2 +1,2 @@
-  assign_type :list
+assign_type :list
 

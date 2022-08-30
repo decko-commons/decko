@@ -19,12 +19,12 @@ module PermissionSpecHelper
     Card::Auth.as(user.id) { assert_not_hidden(card, msg) }
   end
 
-  def assert_locked_from user, card, msg=""
-    Card::Auth.as(user.id) { assert_locked(card, msg) }
+  def assert_locked_from user, card, user_name, card_name
+    Card::Auth.as(user.id) { assert_locked(card, "expected #{user_name} to be locked from #{card_name}") }
   end
 
-  def assert_not_locked_from user, card, msg=""
-    Card::Auth.as(user.id) { assert_not_locked(card, msg) }
+  def assert_not_locked_from user, card, user_name, card_name
+    Card::Auth.as(user.id) { assert_not_locked(card, "expected #{user_name} not to be locked from #{card_name}") }
   end
 
   def assert_hidden card, msg=""
@@ -37,12 +37,12 @@ module PermissionSpecHelper
     assert_equal [card.name], Card.search(id: card.id).map(&:name), msg
   end
 
-  def assert_locked card, msg=""
-    assert_equal false, card.ok?(:update), msg
+  def assert_locked card, msg=nil
+    expect(card.ok?(:update)).to be_falsey, msg
   end
 
-  def assert_not_locked card, msg=""
-    assert_equal true, card.ok?(:update), msg
+  def assert_not_locked card, msg=nil
+    expect(card.ok?(:update)).to be_truthy, msg
   end
 end
 
@@ -100,26 +100,27 @@ RSpec.describe Card::Set::All::Permissions do
 
         Card::Cache.renew
 
-        @u1.fetch(:roles, new: {}).items = [@r1, @r2]
-        @u2.fetch(:roles, new: {}).items = [@r1, @r3]
-        @u3.fetch(:roles, new: {}).items = [@r1, @r2, @r3]
+        @r1.fetch(:members, new: {}).items = [@u1, @u2, @u3]
+        @r2.fetch(:members, new: {}).items = [@u1, @u3]
+        @r3.fetch(:members, new: {}).items = [@u2, @u3]
       end
 
       @c1 = Card["c1"].refresh(true)
-      assert_not_locked_from(@u1, @c1)
-      assert_locked_from(@u2, @c1)
-      assert_locked_from(@u3, @c1)
+      assert_not_locked_from(@u1, @c1, "u1", "c1")
+      assert_locked_from(@u2, @c1, "u2", "c1")
+      assert_locked_from(@u3, @c1, "u3", "c1")
 
       @c2 = Card["c2"].refresh(true)
-      assert_locked_from(@u1, @c2)
-      assert_not_locked_from(@u2, @c2)
-      assert_locked_from(@u3, @c2)
+      assert_locked_from(@u1, @c2, "u1", "c2")
+      assert_not_locked_from(@u2, @c2, "u2", "c2")
+      assert_locked_from(@u3, @c2, "u3", "c2")
     end
 
     it "read group permissions" do
       Card::Auth.as_bot do
-        @u1.fetch(:roles).items = [@r1, @r2]
-        @u2.fetch(:roles).items = [@r1, @r3]
+        @r1.fetch(:members).items = [@u1, @u2]
+        @r2.fetch(:members).items = [@u1]
+        @r3.fetch(:members).items = [@u2]
 
         (1..3).each do |num|
           Card.create name: "c#{num}+*self+*read", type: "Pointer",
@@ -147,7 +148,7 @@ RSpec.describe Card::Set::All::Permissions do
                       content: "r#{num}"
         end
 
-        @u3.fetch(:roles, new: {}).items = [@r1]
+        @r1.fetch(:members, new: {}).items = [@u3]
       end
 
       #          u1 u2 u3
@@ -167,9 +168,9 @@ RSpec.describe Card::Set::All::Permissions do
 
     it "read user permissions" do
       Card::Auth.as_bot do
-        @u1.fetch(:roles, new: {}).items = [@r1, @r2]
-        @u2.fetch(:roles, new: {}).items = [@r1, @r3]
-        @u3.fetch(:roles, new: {}).items = [@r1, @r2, @r3]
+        @r1.fetch(:members, new: {}).items = [@u1, @u2, @u3]
+        @r2.fetch(:members, new: {}).items = [@u1, @u3]
+        @r3.fetch(:members, new: {}).items = [@u2, @u3]
 
         (1..3).each do |num|
           Card.create name: "c#{num}+*self+*read", type: "Pointer",

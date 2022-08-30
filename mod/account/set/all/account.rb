@@ -86,13 +86,12 @@ def enabled_roles_card
 end
 
 def fetch_roles
-  [AnyoneSignedInID] + role_ids_from_roles_trait
+  [AnyoneSignedInID] + role_ids_from_role_cards
 end
 
-def role_ids_from_roles_trait
+def role_ids_from_role_cards
   Auth.as_bot do
-    role_trait = fetch :roles
-    role_trait ? role_trait.item_ids : []
+    Card.search member: id, return: :id
   end
 end
 
