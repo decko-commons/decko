@@ -23,8 +23,17 @@ class Card
                        raw: "{{#{name}|view: content; size: medium}}")
       end
 
+      def empty?
+        @raw.empty? || @raw =~ /\{\{+?\s*\|?\s*\}\}/
+      end
+
       def field?
         @field
+      end
+
+      def field!
+        @raw.sub!(/\{\{\s*\+?/, "{{+")
+        @field = true
       end
 
       def option_value name
