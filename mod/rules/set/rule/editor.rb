@@ -5,7 +5,7 @@ def left_type_for_nest_editor_set_selection
   when TypeID
     rule_set.anchor_name
   when SelfID
-    rule_set.anchor.type_name
+    rule_set.anchor&.type_name || Card.new(name: rule_set.anchor_name).type_name
   else
     super
   end
