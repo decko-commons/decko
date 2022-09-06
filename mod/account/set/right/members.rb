@@ -1,2 +1,0 @@
-assign_type :list
-

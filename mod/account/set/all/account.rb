@@ -86,13 +86,12 @@ def enabled_roles_card
 end
 
 def fetch_roles
-  [AnyoneSignedInID] + role_ids_from_role_cards
+  [AnyoneSignedInID] + role_ids_from_role_member_cards
 end
 
-def role_ids_from_role_cards
-  Auth.as_bot do
-    Card.search member: id, return: :id
-  end
+def role_ids_from_role_member_cards
+  ids = Card.search(left: { type_id: Card::RoleID }, right_id: Card::MembersID)
+  Self::Role.role_ids id
 end
 
 event :generate_token do
