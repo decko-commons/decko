@@ -73,6 +73,7 @@ PATH
       card-mod-permissions (= 0.14.2)
       carrierwave (~> 2.2)
       mini_magick (~> 4.2)
+      ssrf_filter (~> 1.0.7)
     card-mod-collection (0.14.2)
       card (= 1.104.2)
     card-mod-comment (0.14.2)
