@@ -90,7 +90,6 @@ def fetch_roles
 end
 
 def role_ids_from_role_member_cards
-  ids = Card.search(left: { type_id: Card::RoleID }, right_id: Card::MembersID)
   Self::Role.role_ids id
 end
 

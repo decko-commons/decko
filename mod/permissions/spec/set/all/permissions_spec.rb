@@ -1,34 +1,34 @@
 # -*- encoding : utf-8 -*-
 
 
-RSpec::Matchers.define :be_writeable do |card|
-  match do |user|
+RSpec::Matchers.define :be_writeable do |user|
+  match do |card|
     Card::Auth.as(user.id) { card.ok? :update }
   end
 end
 
-RSpec::Matchers.define :be_readable_by do |card|
-  match do |user|
+RSpec::Matchers.define :be_readable_by do |user|
+  match do |card|
     Card::Auth.as(user.id) { card.ok? :read }
   end
 end
 
-RSpec::Matchers.define :be_hidden_from do |card|
-  match do |user|
+RSpec::Matchers.define :be_hidden_from do |user|
+  match do |card|
     Card::Auth.as(user.id) { expect(card).to be_hidden }
   end
 
-  match_when_negated do |user|
+  match_when_negated do |card|
     Card::Auth.as(user.id) { expect(card).not_to be_hidden }
   end
 end
 
-RSpec::Matchers.define :be_locked_from do |card|
-  match do |user|
+RSpec::Matchers.define :be_locked_from do |user|
+  match do |card|
     Card::Auth.as(user.id) { expect(card).to be_locked }
   end
 
-  match_when_negated do |user|
+  match_when_negated do |card|
     Card::Auth.as(user.id) { expect(card).not_to be_locked }
   end
 end
@@ -68,7 +68,7 @@ RSpec.describe Card::Set::All::Permissions do
   def create_self_rule num, grantee, task=:read
       Card::Auth.as_bot do
         Card.create! name: ["c#{num}", :self, task], content: "#{grantee}#{num}"
-        Card::Cache.renew
+        Card::Cache.reset_all
       end
     end
 
@@ -129,8 +129,8 @@ RSpec.describe Card::Set::All::Permissions do
 
       it "user can't read cards without read rules granted to him" do
         create_self_user_rule 3
-        @c3.refresh true
-        expect(@c3).to be_hidden_from @u2
+        # Card::Cache.reset_all
+        expect(Card["c3"]).to be_hidden_from @u2
       end
 
       it "admin can read cards even without read rules granted to him" do
@@ -151,10 +151,8 @@ RSpec.describe Card::Set::All::Permissions do
       it "user can't edit cards without update rules granted to him" do
         create_self_user_rule 1, :update
         create_self_user_rule 2, :update
-        @c1.refresh true
-        @c2.refresh true
-        expect(@c1).to be_locked_from @u2
-        expect(@c2).to be_locked_from @u1
+        expect(Card["c1"]).to be_locked_from @u2
+        expect(Card["c2"]).to be_locked_from @u1
       end
 
       it "admin can edit cards even without read rules granted to him" do
@@ -173,8 +171,7 @@ RSpec.describe Card::Set::All::Permissions do
 
       it "user can't read cards without read rules granted to his roles" do
         create_self_role_rule 3
-        @c3.refresh true
-        expect(@c3).to be_hidden_from @u2
+        expect(Card["c3"]).to be_hidden_from @u2
       end
 
       it "admin can read cards even without read rules granted to his roles" do
@@ -192,8 +189,7 @@ RSpec.describe Card::Set::All::Permissions do
 
       it "user can't write cards without update rules granted to his roles" do
         create_self_role_rule 3, :update
-        @c3.refresh(true)
-        expect(@c3).to be_locked_from @u2
+        expect(Card["c3"]).to be_locked_from @u2
       end
 
       it "admin can write cards even without update rules granted to his roles" do
