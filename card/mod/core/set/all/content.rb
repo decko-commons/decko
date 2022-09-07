@@ -9,10 +9,9 @@ event :save_draft, :store, on: :update, when: :draft? do
   abort :success
 end
 
-event :set_default_content,
-      :prepare_to_validate,
+event :set_default_content, :prepare_to_validate,
       on: :create, when: :use_default_content? do
-  self.db_content = template.db_content
+  self.db_content = default_content
 end
 
 def draft?
@@ -23,8 +22,13 @@ def clean_html?
   true
 end
 
+# TODO: let default_content in card_accessor override template
+def default_content
+  template&.db_content
+end
+
 def use_default_content?
-  !db_content_changed? && template && template.db_content.present?
+  !db_content_changed? && default_content.present?
 end
 
 def unfilled?
