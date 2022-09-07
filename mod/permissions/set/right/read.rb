@@ -26,6 +26,7 @@ def update_read_rules_of_set_members
 
   each_member do |member, processed|
     processed << member.key
+    member.update_read_rule
     member.update_read_rule unless member_has_overriding_rule?(member)
   end
 end
