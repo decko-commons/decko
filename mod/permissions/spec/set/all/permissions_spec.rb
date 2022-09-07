@@ -52,12 +52,14 @@ end
 RSpec::Matchers.define :be_locked do
   match do |card|
     expect(card.ok?(:update))
-      .to be_falsey, "expected #{Card::Auth.as_card.name} to be locked from #{card.name}"
+      .to be_falsey,
+          "expected #{Card::Auth.as_card.name} to be locked from #{card.name}"
   end
 
   match_when_negated do |card|
     expect(card.ok?(:update))
-          .to be_truthy, "expected #{Card::Auth.as_card.name} not to be locked from #{card.name}"
+      .to be_truthy,
+          "expected #{Card::Auth.as_card.name} not to be locked from #{card.name}"
   end
 end
 
@@ -66,11 +68,11 @@ RSpec.describe Card::Set::All::Permissions do
   # FIXME: lots of good tests here, but generally disorganized.
 
   def create_self_rule num, grantee, task=:read
-      Card::Auth.as_bot do
-        Card.create! name: ["c#{num}", :self, task], content: "#{grantee}#{num}"
-        Card::Cache.reset_all
-      end
+    Card::Auth.as_bot do
+      Card.create! name: ["c#{num}", :self, task], content: "#{grantee}#{num}"
+      Card::Cache.reset_all
     end
+  end
 
   def create_self_role_rule num, task=:read
     create_self_rule num, "r", task
@@ -78,15 +80,18 @@ RSpec.describe Card::Set::All::Permissions do
 
   def create_self_user_rule num, task=:read
     create_self_rule num, "u", task
-    end
+  end
 
   context "??" do
-    before do
-      Card::Auth.as_bot do
-        @u1, @u2, @u3, @r1, @r2, @r3, @c1, @c2, @c3 =
-          %w[u1 u2 u3 r1 r2 r3 c1 c2 c3].map { |x| Card[x] }
-      end
-    end
+    let(:u1) { Card["u1"] }
+    let(:u2) { Card["u2"] }
+    let(:u3) { Card["u3"] }
+    let(:r1) { Card["r1"] }
+    let(:r2) { Card["r2"] }
+    let(:r3) { Card["r3"] }
+    let(:c1) { Card["c1"] }
+    let(:c2) { Card["c2"] }
+    let(:c3) { Card["c3"] }
 
     it "checking ok read should not add to errors" do
       Card::Auth.as_bot do
@@ -119,82 +124,80 @@ RSpec.describe Card::Set::All::Permissions do
       end
     end
 
-    context "read user permissions" do
+    context "with read user permissions" do
       it "user can read all cards with read rules granted to him" do
         create_self_user_rule 1
         create_self_user_rule 2
-        expect(@c1).not_to be_hidden_from @u1
-        expect(@c2).not_to be_hidden_from @u2
+        expect(c1).not_to be_hidden_from u1
+        expect(c2).not_to be_hidden_from u2
       end
 
       it "user can't read cards without read rules granted to him" do
         create_self_user_rule 3
-        # Card::Cache.reset_all
-        expect(Card["c3"]).to be_hidden_from @u2
+        expect(Card["c3"]).to be_hidden_from u2
       end
 
       it "admin can read cards even without read rules granted to him" do
         create_self_user_rule 2
-        expect(@c3).not_to be_hidden_from @u3
+        expect(c3).not_to be_hidden_from u3
       end
     end
 
-
-    context "write user permissions" do
+    context "with write user permissions" do
       it "user can edit all cards with update rules granted to him" do
         create_self_user_rule 1, :update
         create_self_user_rule 2, :update
-        expect(@c1).not_to be_locked_from @u1
-        expect(@c2).not_to be_locked_from @u2
+        expect(c1).not_to be_locked_from u1
+        expect(c2).not_to be_locked_from u2
       end
 
       it "user can't edit cards without update rules granted to him" do
         create_self_user_rule 1, :update
         create_self_user_rule 2, :update
-        expect(Card["c1"]).to be_locked_from @u2
-        expect(Card["c2"]).to be_locked_from @u1
+        expect(c1).to be_locked_from u2
+        expect(c2).to be_locked_from u1
       end
 
       it "admin can edit cards even without read rules granted to him" do
         create_self_user_rule 2
-        expect(@c3).not_to be_locked_from @u3
+        expect(c3).not_to be_locked_from u3
       end
     end
 
-    context "read group permissions" do
+    context "with read group permissions" do
       it "user can read all cards with read rules granted to his roles" do
         create_self_role_rule 1
         create_self_role_rule 2
-        expect(@c1).not_to be_hidden_from @u1
-        expect(@c2).not_to be_hidden_from @u2
+        expect(c1).not_to be_hidden_from u1
+        expect(c2).not_to be_hidden_from u2
       end
 
       it "user can't read cards without read rules granted to his roles" do
         create_self_role_rule 3
-        expect(Card["c3"]).to be_hidden_from @u2
+        expect(c3).to be_hidden_from u2
       end
 
       it "admin can read cards even without read rules granted to his roles" do
         create_self_role_rule 2
-        expect(@c2).not_to be_hidden_from @u3
+        expect(c2).not_to be_hidden_from u3
       end
     end
 
-    context "write group permissions" do
+    context "with write group permissions" do
       it "user can write all cards with update rules granted to his roles" do
         create_self_role_rule 1, :update
-        expect(@c1).not_to be_locked_from @u1
-        expect(@c2).not_to be_locked_from @u1
+        expect(c1).not_to be_locked_from u1
+        expect(c2).not_to be_locked_from u1
       end
 
       it "user can't write cards without update rules granted to his roles" do
         create_self_role_rule 3, :update
-        expect(Card["c3"]).to be_locked_from @u2
+        expect(c3).to be_locked_from u2
       end
 
       it "admin can write cards even without update rules granted to his roles" do
         create_self_role_rule 2, :update
-        expect(@c1).not_to be_locked_from @u3
+        expect(c1).not_to be_locked_from u3
       end
     end
 
@@ -228,14 +231,14 @@ RSpec.describe Card::Set::All::Permissions do
     it "private cql" do
       # set up cards of type TestType, 2 with nil reader, 1 with role1 reader
       Card::Auth.as_bot do
-        [@c1, @c2, @c3].each { |c| c.update content: "WeirdWord" }
+        [c1, c2, c3].each { |c| c.update content: "WeirdWord" }
         Card.create(name: "c1+*self+*read", type: "Pointer", content: "u1")
       end
 
-      Card::Auth.as(@u1) do
+      Card::Auth.as(u1) do
         expect(Card.search(content: "WeirdWord").map(&:name).sort).to(eq %w[c1 c2 c3])
       end
-      Card::Auth.as(@u2) do
+      Card::Auth.as(u2) do
         expect(Card.search(content: "WeirdWord").map(&:name).sort).to(eq %w[c2 c3])
       end
     end
@@ -245,16 +248,16 @@ RSpec.describe Card::Set::All::Permissions do
 
       # set up cards of type TestType, 2 with nil reader, 1 with role1 reader
       Card::Auth.as_bot do
-        [@c1, @c2, @c3].each { |c| c.update content: "WeirdWord" }
+        [c1, c2, c3].each { |c| c.update content: "WeirdWord" }
         Card.create(name: "c1+*self+*read", type: "Pointer", content: "r3")
       end
 
-      Card::Auth.as(@u1) do
+      Card::Auth.as(u1) do
         expect(Card.search(content: "WeirdWord").map(&:name).sort).to(eq(%w[c1 c2 c3]))
       end
       # for Card::Auth.as to be effective, you can't have a logged in user
       Card::Auth.signin nil
-      Card::Auth.as(@u2) do
+      Card::Auth.as(u2) do
         expect(Card.search(content: "WeirdWord").map(&:name).sort).to(
           eq(%w[c2 c3])
         )
