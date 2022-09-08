@@ -51,4 +51,8 @@ format :html do
   def text_field_input
     text_field :content, class: classy("d0-card-content")
   end
+
+  def hidden_input
+    hidden_field :content, class: classy("d0-card-content")
+  end
 end
