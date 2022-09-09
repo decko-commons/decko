@@ -127,5 +127,6 @@ end
 
 def delete_as_subcard subcard
   subcard.trash = true
+  subcard.identify_action
   subcard subcard
 end
