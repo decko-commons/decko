@@ -98,10 +98,6 @@ RSpec.describe Card::Set::All::Trash do
       expect(trashed_dependant.trash).to be_truthy
     end
 
-    # it "removes children with restricted delete permissions" do
-
-    # end
-
     # TODO: explain what this adds to testing above or remove test.
     it "deletes children under a set", as_bot: true do
       create_set "Book+value+*type plus right"
@@ -123,6 +119,4 @@ RSpec.describe Card::Set::All::Trash do
       expect(Card["#{book2}+value"]).not_to be
     end
   end
-
-
 end
