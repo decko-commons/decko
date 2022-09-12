@@ -37,7 +37,8 @@ class Card
         end
 
         def member val
-          interpret type_id: Card::RoleID, right_plus: [{ codename: "members" }, refer_to: val ]
+          interpret type_id: Card::RoleID,
+                    right_plus: [{ codename: "members" }, refer_to: val]
         end
       end
     end
