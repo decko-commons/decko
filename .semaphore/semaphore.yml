@@ -98,6 +98,7 @@ blocks:
     task:
       secrets:
         - name: decko-cypress
+        - name: publish-cucumber
       env_vars:
         - name: REPO_TMPSETS
           value: "true"
@@ -123,7 +124,7 @@ blocks:
             - pkill -2 -f puma
         - name: Cucumber
           commands:
-            - RAILS_ENV=cucumber bundle exec decko cucumber -- --format pretty --format junit --out /home/semaphore/reports
+            - RAILS_ENV=cucumber bundle exec decko cucumber -- --format pretty --format junit --out /home/semaphore/reports --publish
 
       epilogue:
         always:
