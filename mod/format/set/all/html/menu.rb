@@ -113,7 +113,7 @@ format :html do
   end
 
   def edit_in_bridge_link opts={}
-    edit_link :bridge, opts
+    edit_link :bridge, *opts
   end
 
   def edit_link view=:edit, link_text: nil, text: "", modal: nil

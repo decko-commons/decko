@@ -12,7 +12,7 @@ RSpec.describe Card::Set::Abstract::Pointer do
       sample_pointer
     end
 
-    let(:item_names) { %w[r1 r2 r3] }
+    let(:item_names) { %w[u1 u2 u3] }
 
     specify "view: links" do
       expect_view(:links, format: :json).to eq([])
@@ -20,7 +20,7 @@ RSpec.describe Card::Set::Abstract::Pointer do
 
     specify "view: items" do
       expect_view(:items, format: :json)
-        .to contain_exactly(*item_names.map { |i| structured_atom_values Card[i] })
+        .to contain_exactly(*item_names.map { |i| atom_values Card[i] })
     end
   end
 

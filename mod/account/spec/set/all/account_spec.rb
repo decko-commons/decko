@@ -15,16 +15,16 @@ RSpec.describe Card::Set::All::Account do
         @parties = @joe_user_card.parties # NOTE: must be called to test resets
       end
 
-      it "initially has only auth and self " do
+      it "initially has only auth, shark and self " do
         expect(@parties)
           .to eq([Card::AnyoneSignedInID, Card::SharkID, @joe_user_card.id])
       end
 
       it "updates when new roles are set" do
-        roles_card = @joe_user_card.fetch :roles, new: {}
         r1 = Card["r1"]
+        r1_members = Card["r1", :members]
 
-        Card::Auth.as_bot { roles_card.items = [r1.id] }
+        Card::Auth.as_bot { r1_members.items = [@joe_user_card.id] }
         Card::Cache.restore
         # simulate new request
         # clears local cache, where, eg, @parties would still be cached on card
@@ -33,7 +33,7 @@ RSpec.describe Card::Set::All::Account do
         # simulate new request
         # current_id assignment clears several class variables
 
-        new_parties = [Card::AnyoneSignedInID, r1.id, @joe_user_card.id]
+        new_parties = [Card::AnyoneSignedInID, Card::SharkID, r1.id, @joe_user_card.id]
         expect(Card["Joe User"].parties).to eq(new_parties)
         # @parties regenerated, now with correct values
 
