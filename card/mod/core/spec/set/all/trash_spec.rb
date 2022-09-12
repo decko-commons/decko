@@ -82,17 +82,17 @@ RSpec.describe Card::Set::All::Trash do
       expect(trashed_dependant.trash).to be_truthy
     end
 
-    it "removes children with restricted delete permissions" do
-      Card::Auth.as_bot do
-        Card.create! name: ["A", :status] # deleting +status cards requires Help Desk role
-      end
-
-      a = card_subject
-      as = Card["A", :status]
-      a.delete!
-      expect(a.trash).to be_truthy
-      expect(as.trash).to be_truthy
-    end
+    # it "removes children with restricted delete permissions" do
+    #   Card::Auth.as_bot do
+    #     Card.create! name: ["A", :status] # deleting +status cards requires Help Desk role
+    #   end
+    #
+    #   a = card_subject
+    #   as = Card["A", :status]
+    #   a.delete!
+    #   expect(a.trash).to be_truthy
+    #   expect(as.trash).to be_truthy
+    # end
 
     # TODO: explain what this adds to testing above or remove test.
     it "deletes children under a set", as_bot: true do
