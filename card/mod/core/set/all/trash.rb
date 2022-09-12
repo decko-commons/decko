@@ -42,7 +42,7 @@ event :validate_delete, :validate, on: :delete do
   # FIXME: HACK! should be configured in the rule
 
   if compound? && left&.codename == :all &&
-    undeletable_all_rules_tags.member?(right.codename.to_s)
+     undeletable_all_rules_tags.member?(right.codename.to_s)
     errors.add :delete, t(:core_error_indestructible, name: name)
   end
 
@@ -85,6 +85,6 @@ end
 
 def delete_as_subcard subcard
   subcard.trash = true
-  subcard.identify_action
+  # subcard.identify_action
   subcard subcard
 end

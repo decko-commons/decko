@@ -59,6 +59,22 @@ RSpec.describe Card::Set::All::Trash do
           end
         end
       end
+
+      context "card with undeletable child" do
+        # NOTE: +*status restricts deletion to Help Desk role
+        it "cannot be deleted" do
+          Card::Auth.as_bot { Card.create! name: ["A", :status] }
+          expect { card_subject.delete! }.to raise_error(/don't have permission/)
+        end
+
+        it "cannot be created and deleted in consecutive acts" do
+          schmatus = Card::Auth.as_bot do
+            Card.create! name: "schmatus", fields: { status: "open" }
+          end
+          expect { schmatus.delete! }.to raise_error(/don't have permission/)
+        end
+      end
+
     end
   end
 
@@ -82,17 +98,9 @@ RSpec.describe Card::Set::All::Trash do
       expect(trashed_dependant.trash).to be_truthy
     end
 
-    it "removes children with restricted delete permissions" do
-      Card::Auth.as_bot do
-        Card.create! name: ["A", :status] # deleting +status cards requires Help Desk role
-      end
+    # it "removes children with restricted delete permissions" do
 
-      a = card_subject
-      as = Card["A", :status]
-      a.delete!
-      expect(a.trash).to be_truthy
-      expect(as.trash).to be_truthy
-    end
+    # end
 
     # TODO: explain what this adds to testing above or remove test.
     it "deletes children under a set", as_bot: true do
@@ -115,4 +123,6 @@ RSpec.describe Card::Set::All::Trash do
       expect(Card["#{book2}+value"]).not_to be
     end
   end
+
+
 end
