@@ -56,7 +56,7 @@ def permission_rule_id action
   if compound? && rule(action).match?(/^\[?\[?_left\]?\]?$/)
     left_permission_rule_id action
   else
-    rule_card_id(action)
+    rule_card_id action
   end
 end
 
