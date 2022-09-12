@@ -21,6 +21,10 @@ class << self
     ::Card.cache.write CACHE_KEY, role_hash
   end
 
+  def clear_rolehash
+    @role_hash = nil
+  end
+
   def role_hash
     @role_hash ||= load_rolehash
   end

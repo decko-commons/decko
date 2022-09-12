@@ -1,6 +1,5 @@
 # -*- encoding : utf-8 -*-
 
-
 RSpec::Matchers.define :be_writeable do |user|
   match do |card|
     Card::Auth.as(user.id) { card.ok? :update }
@@ -62,7 +61,6 @@ RSpec::Matchers.define :be_locked do
           "expected #{Card::Auth.as_card.name} not to be locked from #{card.name}"
   end
 end
-
 
 RSpec.describe Card::Set::All::Permissions do
   # FIXME: lots of good tests here, but generally disorganized.
