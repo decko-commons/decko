@@ -7,10 +7,6 @@
       :fields:
         :email: joe@admin.com
         :password: joe_pass
-    :roles:
-      - :administrator
-      - :shark
-      - :help_desk
 - :name: Joe User
   :type: :user
   :content: I'm number two
@@ -20,8 +16,6 @@
       :fields:
         :email: joe@user.com
         :password: joe_pass
-    :roles:
-      - :shark
 - :name: Joe Camel
   :type: :user
   :content: Mr. Buttz
