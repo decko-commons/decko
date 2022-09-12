@@ -27,7 +27,8 @@ class Card
 
       def current_roles
         @current_roles ||= [Card.fetch_name(:anyone_signed_in),
-                            current.fetch(:roles)&.item_names].flatten.compact
+                            Card.search(member: current_id, return: :name)]
+                             .flatten.compact
       end
 
       # set current user in process and session

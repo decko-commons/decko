@@ -49,7 +49,7 @@ class Card
     end
 
     def sample_pointer
-      Card["u1+*roles"]
+      Card["r1+*members"]
       # items: r1, r2, r3
     end
 
