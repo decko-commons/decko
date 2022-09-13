@@ -76,7 +76,7 @@ def pull_from_trash!
 end
 
 def add_to_trash args
-  yield args.merge trash: true unless new_card?
+  yield args.merge(trash: true) unless new_card?
 end
 
 def db_attributes

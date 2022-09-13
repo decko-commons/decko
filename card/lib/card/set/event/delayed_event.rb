@@ -10,7 +10,7 @@ class Card
   def serializable_attributes
     self.class.action_specific_attributes
       + set_specific.keys
-      - %i[supercard superleft subcards]
+      - %i[supercard superleft]
   end
 
   module Set

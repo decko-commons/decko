@@ -2,7 +2,7 @@ class Card
   class Subcards
     # subcard-related Card instance methods
     module All
-      Card.action_specific_attributes << :subcards
+      # Card.action_specific_attributes << :subcards
 
       def subcards
         @subcards ||= Card::Subcards.new self

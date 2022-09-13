@@ -34,6 +34,7 @@ class Card
         directors.each_pair do |card, _dir|
           card.expire
           card.director = nil
+          card.action = nil
           card.clear_action_specific_attributes
         end
         expire
