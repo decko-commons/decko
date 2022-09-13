@@ -1,5 +1,5 @@
 # must be called on all actions and before :set_name, :process_subcards and
-# :delete_children
+# :validate_delete_children
 event :assign_action, :initialize, when: :actionable? do
   act = director.need_act
   @current_action = Card::Action.create(

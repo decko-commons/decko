@@ -2,7 +2,7 @@ Description:
     Generates new mod
 
 Example:
-    <%= banner_command %> generate mod clothing
+    <%= banner_command %> generate card:mod clothing
 
     This will create:
 

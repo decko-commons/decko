@@ -134,10 +134,6 @@ You can also use `user` to specify who should perform the action.
 The standard way to ingest card pods is by using `decko update`, but you can also
 use `card eat` for more control over your meal.
 
-### Real vs Test data
-
-
-
 
 ## Creating a new fixtures set
 #### _For advanced monkeys_
