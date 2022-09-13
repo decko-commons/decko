@@ -8,7 +8,8 @@ class Card
   # needed, then we clearly need to make sure that they are fully restored. At a bare
   # minimum they would need to include set modules.
   def serializable_attributes
-    self.class.action_specific_attributes + set_specific.keys - %i[supercard superleft]
+    self.class.action_specific_attributes + set_specific.keys -
+      %i[supercard superleft subcards]
   end
 
   module Set
