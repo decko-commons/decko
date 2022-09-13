@@ -28,7 +28,6 @@ class Card
       end
 
       def act options={}, &block
-        @subcards = nil
         if act_card
           add_to_act options, &block
         else

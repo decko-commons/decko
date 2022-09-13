@@ -123,6 +123,7 @@ class Card < Cardio::Record
   self.action_specific_attributes = [
     :supercard,                   # [Card]
     :superleft,                   # [Card]
+
     :action,                      # [Symbol] :create, :update, or :delete
     :current_action,              # [Card::Action]
     :last_action_id_before_edit,  # [Integer]
