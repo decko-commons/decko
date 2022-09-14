@@ -88,6 +88,7 @@ class CardSpecLoader
 
     def around_config config
       config.around :example, :as_bot do |example|
+        Card::Set::Self::Role.clear_rolehash
         Card::Auth.signin CardSpecLoader.joe_user_id
         Card::Auth.as_bot { example.run }
       end
