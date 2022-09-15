@@ -25,6 +25,7 @@ end
 
 Before do
   Card::Cache.reset
+  Card::Set::Self::Role.clear_rolehash
   # TODO: try restore/prepopulate
 end
 
