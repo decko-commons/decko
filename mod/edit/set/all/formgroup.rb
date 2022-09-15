@@ -1,9 +1,13 @@
 format :html do
   view :read_form do
-    edit_field_configs.map do |field, args|
+    read_field_configs.map do |field, args|
       args[:view] = :read_formgroup
       nest field, args
     end
+  end
+
+  def read_field_configs
+    edit_field_configs
   end
 
   view :read_formgroup, template: :haml, unknown: true, wrap: :slot
