@@ -18,9 +18,11 @@
     - :role
     - :type
     - :structure
+  :type: :nestr_list
   :content: |-
-    <p>{{+:description|lead}}</p>
-    <p>{{+:dashboard|content}}</p>
+    {{+:description|lead}}
+    {{+:dashboard|content}}
+    {{+:members|titled;title: Members}}
 
 - :name: dashboard
   :codename: :dashboard
@@ -45,8 +47,6 @@
     - :dashboard
   :type: :markdown
   :content: |
-    {{*admin info|content}}
-
     ##Basic configuration
     {{*title|bar}}
     {{*home|bar}}
