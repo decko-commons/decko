@@ -39,6 +39,10 @@ format :html do
     _render_hidden_content_field + super()
   end
 
+  def hidden_input
+    ""
+  end
+
   def default_input_type
     :list
   end
