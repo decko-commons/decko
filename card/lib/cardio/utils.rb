@@ -2,7 +2,6 @@ module Cardio
   # Utilities that may need to be run even when mods are not loaded.
   module Utils
     class << self
-
       def empty_trash
         delete_trashed_files
         Card.where(trash: true).in_batches.update_all(left_id: nil, right_id: nil)

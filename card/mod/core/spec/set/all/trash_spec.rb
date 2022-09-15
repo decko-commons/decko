@@ -60,7 +60,7 @@ RSpec.describe Card::Set::All::Trash do
         end
       end
 
-      context "card with undeletable child" do
+      context "with undeletable child" do
         # NOTE: +*status restricts deletion to Help Desk role
         it "cannot be deleted" do
           Card::Auth.as_bot { Card.create! name: ["A", :status] }
@@ -74,7 +74,6 @@ RSpec.describe Card::Set::All::Trash do
           expect { schmatus.delete! }.to raise_error(/don't have permission/)
         end
       end
-
     end
   end
 
