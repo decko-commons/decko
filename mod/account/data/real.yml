@@ -12,6 +12,7 @@
 - :name: "*members"
   :codename: :members
 
+
 # Roles
 
 - :name: Anyone
@@ -69,6 +70,14 @@
   :codename: :anonymous
   :content: "<p>Edits made by people who are not signed in are credited to Anonymous.
     [[http://decko.org/account|Learn more about accounts]].</p>"
+
+- :name:
+    - :role
+    - :members
+    - :type_plus_right
+    - :update
+  :content:
+    Help Desk
 
 - :name: "*account"
   :codename: :account
