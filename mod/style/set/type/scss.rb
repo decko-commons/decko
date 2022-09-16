@@ -2,7 +2,9 @@ include_set Abstract::Scss
 include_set Abstract::AssetInputter, input_format: :scss
 
 event :validate_scss_syntax, :validate, on: :save, changed: %i[type_id content] do
-  variables = Card[:all, :style].joined_items_content
+  variables = Card[:all, :style]&.joined_items_content
+  return unless variables.present? # happens during card:seed:build
+
   SassC::Engine.new([variables.strip, content].join("\n")).render
 rescue SassC::SyntaxError => e
   match = e.message.match(/line (\d+)/)
