@@ -135,8 +135,16 @@ The standard way to ingest card pods is by using `decko update`, but you can als
 use `card eat` for more control over your meal.
 
 
+### Test data
+
+Test data is dummy data added to facilitate code testing.
+
+
+
 ## Creating a new fixtures set
 #### _For advanced monkeys_
+
+Fixtures sets are for packaged deployments of specific applications that combine many mods.
 
 Let's say you're creating a site called `mydeck`, and you want to install multiple copies
 of that deck with the same seed data. Here's how:
