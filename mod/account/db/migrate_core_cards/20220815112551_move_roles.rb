@@ -22,12 +22,15 @@ class  MoveRoles < Cardio::Migration
     Card.search(left: { type_id: Card::UserID },
                 right_id: Card::RolesID) do |user_roles|
       role_names = role_names_from_user_roles_card user_roles.id
-      user = user_roles.left.name
-      role_names.each do |role_name|
-        puts "Move #{user} to role #{role_name}"
-        Card.fetch(role_name, :members, new: {}).add_item! user
-      end
+      move_role_names user_roles.left.name, role_names if role_names.present?
       user_roles.delete
+    end
+  end
+
+  def move_role_names user, role_names
+    role_names.each do |role_name|
+      puts "Move #{user} to role #{role_name}"
+      Card.fetch(role_name, :members, new: {}).add_item! user
     end
   end
 
