@@ -29,6 +29,8 @@ class  MoveRoles < Cardio::Migration
 
   def move_role_names user, role_names
     role_names.each do |role_name|
+      next unless role_name.card&.type_code == :role
+      
       puts "Move #{user} to role #{role_name}"
       Card.fetch(role_name, :members, new: {}).add_item! user
     end
