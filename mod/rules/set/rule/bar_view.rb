@@ -53,7 +53,7 @@ format :html do
 
   # LOCALIZE
   def rule_info
-    return wrap_with(:em, "no existing #{setting_link} rule") unless existing_rule_card
+    return wrap_with(:em, "no existing #{rule_setting_link} rule") unless existing_rule_card
 
     wrap_with :span,
               "#{rule_setting_link} rule that applies to "\
@@ -61,12 +61,15 @@ format :html do
   end
 
   def rule_setting_link
-    link_to_card card.rule_setting, card.rule_setting_name
+    link_to_card card.rule_setting, card.rule_setting_name, class: "_over-card-link"
   end
 
   def rule_set_link existing_rule
     count = link_to_card [card.rule_set, :by_name], card.rule_set.count
-    "#{link_to_card card.rule_set, existing_rule.trunk&.label&.downcase} (#{count})"
+    link = link_to_card card.rule_set,
+                        existing_rule.trunk&.label&.downcase,
+                        class: "_over-card-link"
+    "#{link} (#{count})"
   end
 
   private

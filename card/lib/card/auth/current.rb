@@ -26,9 +26,10 @@ class Card
       alias_method :current, :current_card
 
       def current_roles
-        @current_roles ||= [Card.fetch_name(:anyone_signed_in),
-                            Card.search(member: current_id, return: :name)]
-                           .flatten.compact
+        return [] if signed_in?
+
+        @current_roles ||= [:anyone_signed_in.cardname] +
+          Set::Self::Role.role_ids(current_id).map(&:cardname)
       end
 
       # set current user in process and session

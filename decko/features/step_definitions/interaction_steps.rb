@@ -59,7 +59,7 @@ When /^I open the main card menu$/ do
 end
 
 When /^I close the modal window$/ do
-  page.find(".modal-menu ._close-modal").click
+  page.find("._modal-menu ._close-modal").click
 end
 
 When /^I fill in "([^"]*)" with$/ do |field, value|
