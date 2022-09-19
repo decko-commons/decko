@@ -8,7 +8,7 @@ class  MoveRoles < Cardio::Migration
   end
 
   def remove_member_structure_rule
-    %i[member right structure].card&.delete!
+    %i[members right structure].card&.delete!
   end
 
   def change_existing_member_cards_to_lists
