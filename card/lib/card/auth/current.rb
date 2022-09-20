@@ -26,7 +26,7 @@ class Card
       alias_method :current, :current_card
 
       def current_roles
-        return [] if signed_in?
+        return [] unless signed_in?
 
         @current_roles ||= [:anyone_signed_in.cardname] +
           Set::Self::Role.role_ids(current_id).map(&:cardname)
