@@ -71,12 +71,4 @@ format :html do
                         class: "_over-card-link"
     "#{link} (#{count})"
   end
-
-  private
-
-  # def linking_to_existing_rule
-  #   return yield unless existing_rule_card && voo.show?(:toggle)
-  #
-  #   link_to_view bar_title_toggle_view, yield
-  # end
 end
