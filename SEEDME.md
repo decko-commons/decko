@@ -107,7 +107,7 @@ Here's how the fixtures in the `defaults` mod are generated:
 3. dumping the results to fixtures
 
 > #### Why pods?
-> Pod data are used not only in seeding but also in **mod installation** and **code
+> Pod data are used not only in generating fixtures but also in **mod installation** and **code
 updates**. The idea is that for most cases you only need to **manage mods' card
 data in one place.**
 
@@ -135,8 +135,42 @@ The standard way to ingest card pods is by using `decko update`, but you can als
 use `card eat` for more control over your meal.
 
 
+### Test data vs _Real_ data
+
+Test data is dummy data added to facilitate code testing. It is not intended to be 
+included in live sites. _Real_ data, by contrast, _is_ intended for production sites.
+
+When you add seed data to mods, you typically put it in one of two files:
+
+- data/real.yml
+- data/test.yml
+
+If you have a _lot_ of data, you can break them into more files. For example if you want
+to add "project" data, you can add them to a file called `data/real/projects.yml` and then
+add a line with `- projects` in the real.yml file. 
+
+### Updating fixtures
+
+The primary rake task for updating seed fixtures is `card:seed:build`.  When pods are
+updated, you will need to run this `build` task in order for the fixtures to be updated
+and any changes to be reflected in the seed data.
+
+When the build task is run, it:
+
+- populates the seeds from the fixtures set it depends on
+- ingests all the applicable pods
+- finalize seed data with migrations, installations, etc
+- dumps new fixtures.
+
+For any given fixtures set, the _test_ data depends on the _real_ data in that set.  So 
+for changes in _real_ pod data to show up in _test_ data, one must first rebuild the
+_real_ fixtures, and then rebuild the _test_ fixtures that depend on them.
+
+
 ## Creating a new fixtures set
 #### _For advanced monkeys_
+
+Fixtures sets are for packaged deployments of specific applications that combine many mods.
 
 Let's say you're creating a site called `mydeck`, and you want to install multiple copies
 of that deck with the same seed data. Here's how:
