@@ -35,7 +35,7 @@ format :html do
     [close_modal_window, pop_out_modal_window]
   end
 
-  wrapper :modal_menu, :div, class: "modal-menu ms-auto"
+  wrapper :modal_menu, :div, class: "modal-menu _modal-menu ms-auto"
 
   view :modal_title, unknown: true do
     ""
