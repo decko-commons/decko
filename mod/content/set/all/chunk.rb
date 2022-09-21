@@ -141,7 +141,7 @@ format do
 
   def normalized_edit_field_mark cardish, options
     return cardish if cardish.is_a?(Card) ||
-                      (cardish.is_a?(String) && cardish.to_name.compound?)
+                      (cardish.is_a?(String) && cardish.to_name.compound?) ||
                       (options.is_a?(Hash) && options.delete(:absolute))
 
     card.name.field cardish
