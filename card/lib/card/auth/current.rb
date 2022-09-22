@@ -29,7 +29,7 @@ class Card
         return [] unless signed_in?
 
         @current_roles ||= [:anyone_signed_in.cardname] +
-          Set::Self::Role.role_ids(current_id).map(&:cardname)
+                           Set::Self::Role.role_ids(current_id).map(&:cardname)
       end
 
       # set current user in process and session

@@ -51,17 +51,24 @@ format :html do
          { set_context: card.name.trunk_name }
   end
 
+  private
+
   # LOCALIZE
   def rule_info
-    return wrap_with(:em, "no existing #{rule_setting_link} rule") unless existing_rule_card
-
-    wrap_with :span,
-              "#{rule_setting_link} rule that applies to "\
-              "#{rule_set_link existing_rule_card}"
+    if existing_rule_card
+      wrap_with :span,
+                "#{rule_setting_link} rule that applies to #{existing_rule_set_link}"
+    else
+      wrap_with :em, "no existing #{rule_setting_link} rule"
+    end
   end
 
   def rule_setting_link
     link_to_card card.rule_setting, card.rule_setting_name, class: "_over-card-link"
+  end
+
+  def existing_rule_set_link
+    rule_set_link existing_rule_card
   end
 
   def rule_set_link existing_rule

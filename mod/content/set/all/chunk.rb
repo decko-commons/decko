@@ -128,22 +128,19 @@ format do
     end
   end
 
-  def normalized_edit_field_config cardish, options
+  def normalized_edit_field_config cardish, options={}
     field_mark = normalized_edit_field_mark cardish, options
-    options = normalized_edit_field_options options, Card::Name[field_mark]
+    options[:title] ||= Card::Name[field_mark]
     [field_mark, options]
   end
 
-  def normalized_edit_field_options options, cardname
-    options ||= cardname
-    options.is_a?(String) ? { title: options } : options
+  def normalized_edit_field_mark cardish, options={}
+    return cardish if options.delete(:absolute) || normalized_edit_field_mark?(cardish)
+    
+    card.name.field cardish
   end
 
-  def normalized_edit_field_mark cardish, options
-    return cardish if cardish.is_a?(Card) ||
-                      (cardish.is_a?(String) && cardish.to_name.compound?) ||
-                      (options.is_a?(Hash) && options.delete(:absolute))
-
-    card.name.field cardish
+  def normalized_edit_field_mark? cardish
+    cardish.is_a?(Card) || (cardish.is_a?(String) && cardish.to_name.compound?)
   end
 end
