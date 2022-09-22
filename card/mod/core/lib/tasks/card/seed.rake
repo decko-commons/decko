@@ -40,7 +40,7 @@ namespace :card do
     desc "remove unneeded cards, acts, actions, changes, and references"
     task clean: :environment do
       Cardio::Seed.clean
-      Card.empty_trash
+      Cardio::Utils.empty_trash
       Card::Cache.reset_all
     end
 
