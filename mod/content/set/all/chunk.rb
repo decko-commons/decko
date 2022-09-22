@@ -129,6 +129,7 @@ format do
   end
 
   def normalized_edit_field_config cardish, options={}
+    options ||= {}
     field_mark = normalized_edit_field_mark cardish, options
     options[:title] ||= Card::Name[field_mark]
     [field_mark, options]
@@ -136,7 +137,7 @@ format do
 
   def normalized_edit_field_mark cardish, options={}
     return cardish if options.delete(:absolute) || normalized_edit_field_mark?(cardish)
-    
+
     card.name.field cardish
   end
 
