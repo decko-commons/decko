@@ -1,4 +1,5 @@
 require "rails/generators/app_base"
+require "cardio/generators/deck_generator_loader"
 
 module Cardio
   module Generators
@@ -10,6 +11,8 @@ module Cardio
 
         include RailsOverrides
         include DeckHelper
+
+        extend ClassMethods
 
         source_root File.expand_path("templates", __dir__)
 
@@ -43,7 +46,7 @@ module Cardio
         public_task :create_root
 
         def self.banner
-          "decko new #{arguments.map(&:usage).join(' ')} [options]"
+          "#{banner_command} new #{arguments.map(&:usage).join(' ')} [options]"
         end
 
         # Generator works its way through each public method below
