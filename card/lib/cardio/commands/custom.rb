@@ -33,7 +33,7 @@ module Cardio
 
       def run_help
         puts "Usage:"
-        puts "  #{gem} COMMAND [OPTIONS]".green
+        puts "  #{ScriptLoader.script_name} COMMAND [OPTIONS]".green
         puts
         puts "Run commands with -h (or --help) for more info."
 
@@ -47,8 +47,6 @@ module Cardio
           puts
         end
       end
-
-      private
 
       # formats command string for help text
       def command_help command, conf
