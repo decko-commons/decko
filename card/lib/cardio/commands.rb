@@ -1,15 +1,25 @@
 require "English"
 require "colorize"
 require "cardio/commands/custom"
-require "cardio/commands/class_methods"
 
 module Cardio
   # manage different types of commands that can be run via bin/card (and bin/decko)
   class Commands
     include Custom
-    extend ClassMethods
 
     attr_reader :command, :args
+
+    def self.run_non_deck_command command, commands_script
+      if command == "new"
+        ARGV.shift
+        Cardio::Generators::Deck::DeckGenerator.start
+      elsif command.blank?
+        require commands_script
+      else
+        puts "ERROR: `#{ScriptLoader.script_name} #{command}` "\
+               "cannot be run from outside deck".red
+      end
+    end
 
     def map
       @map ||= {
