@@ -6,16 +6,8 @@ module Cardio
   # manage different types of commands that can be run via bin/card (and bin/decko)
   class Commands
     include Custom
-    
+
     attr_reader :command, :args
-
-    class << self
-      attr_accessor :current
-
-      def gem
-        current&.gem
-      end
-    end
 
     def map
       @map ||= {
@@ -49,7 +41,6 @@ module Cardio
       @command = command_for_key args.first&.to_sym
       ENV["PRY_RESCUE_RAILS"] = "1" if rescue?
       @args.shift unless handler == :rails
-      Commands.current = self
     end
 
     def gem
@@ -118,7 +109,5 @@ module Cardio
       run_help
       exit 1
     end
-
-    new(ARGV).run unless ENV["CARDIO_COMMANDS"] == "NO_RUN"
   end
 end
