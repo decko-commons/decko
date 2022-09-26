@@ -1,11 +1,13 @@
 require "English"
 require "colorize"
 require "cardio/commands/custom"
+require "cardio/commands/class_methods"
 
 module Cardio
   # manage different types of commands that can be run via bin/card (and bin/decko)
   class Commands
     include Custom
+    extend ClassMethods
 
     attr_reader :command, :args
 

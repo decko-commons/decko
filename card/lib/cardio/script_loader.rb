@@ -1,6 +1,5 @@
 require "pathname"
 
-
 module Cardio
   # help card executable find ./script/card when called from anywhere within deck
   module ScriptLoader

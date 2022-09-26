@@ -1,11 +1,5 @@
 require "rails/generators"
 require File.expand_path("../../../generators/deck/deck_generator", __FILE__)
+require "cardio/commands"
 
-if ARGV.first == "new"
-  ARGV.shift
-  Cardio::Generators::Deck::DeckGenerator.start
-elsif ARGV.first.blank?
-  require "cardio/card_commands"
-else
-  puts "ERROR: `decko #{ARGV.first}` must be run from within deck".red
-end
+Cardio::Commands.run_non_deck_command ARGV.first, "decko/commands"
