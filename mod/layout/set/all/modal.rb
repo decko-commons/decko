@@ -1,6 +1,7 @@
 format :html do
   MODAL_SIZE = { small: "sm", medium: nil, large: "lg",  full: "full", xl: "xl" }.freeze
-  MODAL_CLOSE_OPTS = { "data-bs-dismiss": "modal",
+  MODAL_CLOSE_OPTS = { type: "button",
+                       "data-bs-dismiss": "modal",
                        "data-cy": "close-modal" }.freeze
 
   wrapper :modal do |opts={}|
