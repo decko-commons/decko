@@ -6,7 +6,7 @@ class RemoveAddHelp < Cardio::Migration::Core
                 left: { type_id: Card::SetID }).each do |card|
       next if Card.exists? [card.left, :help]
 
-      ensure_card [card.left, :help], content: card.content
+      Card.ensure name: [card.left, :help], content: card.content
     end
     delete_code_card :add_help
     Card::Cache.reset_all
