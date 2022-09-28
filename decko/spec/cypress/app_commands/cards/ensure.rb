@@ -8,7 +8,6 @@ Class.new do
   args ||= {}
   args[:content] = content if content
   args[:type] = type if type
-  Card::Auth.as_bot do
-    Card.ensure(name, args)
-  end
+  args[:name] = name if name
+  Card::Auth.as_bot { Card.ensure args }
 end
