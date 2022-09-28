@@ -19,10 +19,9 @@ class AddTypeCustomizedBootswatchSkin < Cardio::Migration::Core
   end
 
   def rename_customized_bootswatch_skin
-    Card.ensure name: :customized_bootswatch_skin,
-                name: "Customized bootswatch skin",
-                type_id: Card::CardtypeID,
-                codename: "customized_bootswatch_skin"
+    Card.ensure name: "Customized bootswatch skin",
+                codename: "customized_bootswatch_skin",
+                type: :cardtype
   end
 
   def remove_deprecated_bootswatch_skins

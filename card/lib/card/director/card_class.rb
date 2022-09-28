@@ -52,11 +52,15 @@ class Card
 
       def ensuring_purity card, opts, &block
         if opts[:codename] && (other = other_card_with_name card, opts[:name].to_name)
-          attempt_card = send "ensure_advanced_#{@conflict_mode}", card, other, opts
-          attempt_card ? yield(attempt_card, true) : yield(card, false)
+          ensure_purity_advanced card, other, opts, &block
         else
           ensure_purity_simple card, &block
         end
+      end
+
+      def ensure_purity_advanced card, other, opts
+        attempt_card = send "ensure_advanced_#{@conflict_mode}", card, other, opts
+        attempt_card ? yield(attempt_card, true) : yield(card, false)
       end
 
       def ensure_purity_simple card
@@ -79,14 +83,14 @@ class Card
       end
 
       def ensure_advanced_default card, other, opts
+        return unless card.pristine?
+
         if card.new? && other.pristine?
           other.assign_attributes opts
           other
-        elsif card.pristine?
+        else
           card.name = card.new? ? other.name.alternative : card.name_before_act
           card
-        else
-          nil
         end
       end
 

@@ -71,12 +71,11 @@ class MigrateCustomizedBootstrapSkin < Cardio::Migration::Core
       %w[colors components spacing cards fonts more].map do |name|
         Card.fetch(OLD_SKIN, "custom theme", name)&.content
       end.compact
-    Card.ensure name: [NEW_SKIN, :variables], type_id: Card::ScssID,
-                                        content: variables.join("\n\n")
+    Card.ensure name: [NEW_SKIN, :variables], type: :scss, content: variables.join("\n\n")
 
     custom_style =
       Card.fetch(OLD_SKIN, "custom theme", "style")&.content || ""
-    Card.ensure name: "customized bootstrap style", type_id: Card::ScssID, content: custom_style
+    Card.ensure name: "customized bootstrap style", type: :scss, content: custom_style
     update_card! [NEW_SKIN, :stylesheets],
                  content: "[[customized bootstrap style]]"
   end

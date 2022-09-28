@@ -47,7 +47,6 @@ class CustomizableSkin < Cardio::Migration::Core
     def update_scss_field field_name
       skin_name = "#{@skin_name}+custom theme+#{field_name}"
       Card.ensure theme_field_args(field_name).merge(name: skin_name)
-
     end
 
     def create_subcard_args
