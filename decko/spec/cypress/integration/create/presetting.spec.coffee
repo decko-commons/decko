@@ -10,7 +10,7 @@ describe 'presetting', () ->
     cy.main_slot().should "contain", "JKRowling"
 
   specify "simple cardtype autoname", ->
-    cy.ensure "Book+*type+*autoname", "Book_1"
+    cy.ensure "Book+*type+*autoname", content: "Book_1"
     cy.delete "Book_1"
     cy.delete "Book_2"
 

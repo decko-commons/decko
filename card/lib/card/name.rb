@@ -52,6 +52,10 @@ class Card
         new_from_parts(parts) { |part| self[part] }
       end
 
+      def alternative
+        Card.generate_alternative_name self
+      end
+
       private
 
       def string_compose parts

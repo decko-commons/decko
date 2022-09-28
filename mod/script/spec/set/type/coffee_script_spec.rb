@@ -8,7 +8,7 @@ RSpec.describe Card::Set::Type::CoffeeScript do
   let(:compressed_changed_coffee) { '(function(){alert("Hello")}).call(this);' }
 
   def create_coffee_card name, content
-    ensure_card name, type: Card::CoffeeScriptID, content: content
+    Card.ensure name: name, type: Card::CoffeeScriptID, content: content
   end
 
   it "validates syntax" do
@@ -30,8 +30,8 @@ RSpec.describe Card::Set::Type::CoffeeScript do
   #     create_coffee_card "more coffee", changed_coffee
   #   end
   #   let(:create_asset_outputter_card) do
-  #     mod_card = ensure_card "mod: coffee test", type: :mod
-  #     ensure_card [mod_card.name, :script], type: :list
+  #     mod_card = Card.ensure name: "mod: coffee test", type: :mod
+  #     Card.ensure name: [mod_card.name, :script], type: :list
   #   end
   #   let(:card_content) do
   #     { in: coffee,
