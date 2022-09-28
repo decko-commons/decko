@@ -14,11 +14,6 @@ RSpec.describe Card::Model::SaveHelper, as_bot: true do
       expect_card("*home").to have_type :phrase
     end
 
-    example "content string argument" do
-      Card.ensure name: "A", content: "new content"
-      expect_card("A").to have_content "new content"
-    end
-
     example "single hash argument" do
       Card.ensure name: "A", content: "new content"
       expect_card("A").to have_content "new content"
@@ -42,7 +37,7 @@ RSpec.describe Card::Model::SaveHelper, as_bot: true do
     end
 
     it "doesn't fail if codename doesn't exist" do
-      Card.ensure name: :not_a_codename, name: "test", codename: "with_codename"
+      Card.ensure name: "test", codename: "with_codename"
       expect_card(:with_codename).to exist
     end
   end

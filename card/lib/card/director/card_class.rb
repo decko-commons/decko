@@ -89,8 +89,7 @@ class Card
           other.assign_attributes opts
           other
         else
-          card.name = card.new? ? other.name.alternative : card.name_before_act
-          card
+          ensure_non_conflicting_name card
         end
       end
 
@@ -103,6 +102,11 @@ class Card
           card.subcards.add other
           card
         end
+      end
+
+      def ensure_non_conflicting_name card
+        card.name = card.new? ? card.name.alternative : card.name_before_act
+        card
       end
 
       def other_card_with_name card, name
