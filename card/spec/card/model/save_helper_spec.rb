@@ -1,62 +1,55 @@
 RSpec.describe Card::Model::SaveHelper, as_bot: true do
-  describe "#ensure_card" do
+  describe "Card#ensure" do
     after do
       Card::Codename.reset_cache
     end
 
     it "creates card if card doesn't exist" do
-      ensure_card "ensured card"
+      Card.ensure name: "ensured card"
       expect_card("ensured card").to exist
     end
 
     it "updates card if card exists" do
-      ensure_card "*home", type_id: Card::PhraseID
+      Card.ensure name: "*home", type_id: Card::PhraseID
       expect_card("*home").to have_type :phrase
     end
 
     example "content string argument" do
-      ensure_card "A", "new content"
+      Card.ensure name: "A", content: "new content"
       expect_card("A").to have_content "new content"
     end
 
     example "single hash argument" do
-      ensure_card name: "A", content: "new content"
+      Card.ensure name: "A", content: "new content"
       expect_card("A").to have_content "new content"
     end
 
-    it "doesn't change name variant"  do
-      ensure_card "*Home"
-      expect_card(:home).to have_name "*home"
+    it "changes name variant"  do
+      Card.ensure name: "*Home"
+      expect_card(:home).to have_name "*Home"
     end
 
     it "changes name if new name is given" do
-      ensure_card "*home", name: "new home"
+      Card.ensure codename: "home", name: "new home"
       expect_card("*home").not_to exist
       expect_card("new home").to exist
     end
 
     it "renames existing codename cards" do
       expect_card("*home").to exist
-      ensure_card :home, name: "New Home"
-      expect_card("*home").not_to exist
+      Card.ensure codename: :home, name: "New Home"
       expect(Card[:home].name).to eq "New Home"
     end
 
     it "doesn't fail if codename doesn't exist" do
-      ensure_card :not_a_codename, name: "test", codename: "with_codename"
+      Card.ensure name: :not_a_codename, name: "test", codename: "with_codename"
       expect_card(:with_codename).to exist
-    end
-
-    it "changes codename" do
-      ensure_card :home, codename: "new_home"
-      expect(Card::Codename).not_to be_exist(:home)
-      expect_card(:new_home).to exist
     end
   end
 
-  describe "#ensure_card!" do
+  describe "#Card.ensure!" do
     it "changes name variant"  do
-      ensure_card! "*Home"
+      Card.ensure! name: "*Home"
       expect_card(:home).to have_name "*Home"
     end
   end

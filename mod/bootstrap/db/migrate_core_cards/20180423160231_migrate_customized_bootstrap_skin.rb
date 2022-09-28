@@ -12,11 +12,11 @@ class Skin
   #
   # def migrate
   #   new_name = "#{skin_name} customized"
-  #   ensure_card new_name, type_id: Card::CustomizedBootswatchSkinID
-  #   ensure_card [new_name, :variables],
+  #   Card.ensure new_name, type_id: Card::CustomizedBootswatchSkinID
+  #   Card.ensure name: [new_name, :variables],
   #               type_id: Card::ScssID,
   #               content: Card.fetch(skin_name, "variables")&.content
-  #   ensure_card [new_name, :bootswatch],
+  #   Card.ensure name: [new_name, :bootswatch],
   #               type_id: Card::ScssID,
   #               content: Card.fetch(skin_name, "style")&.content
   #   update_skin_references
@@ -37,10 +37,10 @@ class MigrateCustomizedBootstrapSkin < Cardio::Migration::Core
   OLD_SKIN = :customizable_bootstrap_skin
 
   def up
-    ensure_card "*stylesheets", codename: "stylesheets"
-    ensure_card "*colors", codename: "colors"
-    ensure_card "style: mods", codename: "style_mods", type_id: Card::PointerID
-    ensure_card "style: right sidebar", codename: "style_right_sidebar"
+    Card.ensure name: "*stylesheets", codename: "stylesheets"
+    Card.ensure name: "*colors", codename: "colors"
+    Card.ensure name: "style: mods", codename: "style_mods", type_id: Card::PointerID
+    Card.ensure name: "style: right sidebar", codename: "style_right_sidebar"
     Card::Cache.reset_all
 
     migrate_customizable_bootstrap_skin
@@ -65,18 +65,17 @@ class MigrateCustomizedBootstrapSkin < Cardio::Migration::Core
   end
 
   def build_new_skin
-    ensure_card NEW_SKIN, type_id: Card::CustomizedBootswatchSkinID
+    Card.ensure name: NEW_SKIN, type_id: Card::CustomizedBootswatchSkinID
 
     variables =
       %w[colors components spacing cards fonts more].map do |name|
         Card.fetch(OLD_SKIN, "custom theme", name)&.content
       end.compact
-    ensure_card [NEW_SKIN, :variables], type_id: Card::ScssID,
-                                        content: variables.join("\n\n")
+    Card.ensure name: [NEW_SKIN, :variables], type: :scss, content: variables.join("\n\n")
 
     custom_style =
       Card.fetch(OLD_SKIN, "custom theme", "style")&.content || ""
-    ensure_card "customized bootstrap style", type_id: Card::ScssID, content: custom_style
+    Card.ensure name: "customized bootstrap style", type: :scss, content: custom_style
     update_card! [NEW_SKIN, :stylesheets],
                  content: "[[customized bootstrap style]]"
   end

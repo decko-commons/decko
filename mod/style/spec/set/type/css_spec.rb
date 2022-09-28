@@ -22,14 +22,14 @@ RSpec.describe Card::Set::Type::Css do
   end
 
   def dummy_css name="test css"
-    ensure_card name, type: :css, content: css
+    Card.ensure name: name, type: :css, content: css
   end
 
   it_behaves_like "asset inputter", that_produces: :css  do
     let(:create_asset_inputter_card) { dummy_css }
     let(:create_another_asset_inputter_card) { dummy_css "more test css" }
     let(:create_asset_outputter_card) do
-      ensure_card "A+*self+*style", type: :list
+      Card.ensure name: "A+*self+*style", type: :list
     end
     let(:card_content) do
       { in:         css,         out:         compressed_css,
