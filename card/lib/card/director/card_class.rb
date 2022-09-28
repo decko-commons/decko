@@ -15,11 +15,11 @@ class Card
       end
 
       def ensure opts
-        ensuring(opts) { |card| card.save_if_needed }
+        ensuring opts, &:save_if_needed
       end
 
       def ensure! opts
-        ensuring(opts) { |card| card.save_if_needed! }
+        ensuring opts, &:save_if_needed!
       end
 
       private
