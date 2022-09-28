@@ -43,6 +43,7 @@ format :html do
   end
 end
 
+# FIXME. use trigger
 def setup?
   Card::Env.params[:setup]
 end

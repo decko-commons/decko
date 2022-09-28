@@ -28,7 +28,7 @@ class Card
 
       def migration_file_content
         <<-RUBY.strip_heredoc
-          ensure_card "#{@name}",
+          Card.ensure name: "#{@name}",
                       type_id: #{type_id},
                       codename: "#{@codename}"
         RUBY
