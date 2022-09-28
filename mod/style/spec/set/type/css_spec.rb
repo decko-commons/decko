@@ -28,10 +28,9 @@ RSpec.describe Card::Set::Type::Css do
   it_behaves_like "asset inputter", that_produces: :css  do
     let(:create_asset_inputter_card) { dummy_css }
     let(:create_another_asset_inputter_card) { dummy_css "more test css" }
-    let(:create_asset_outputter_card) do
-      Card.ensure name: "A+*self+*style", type: :list
-    end
-    let(:card_content) do
+    let(:create_asset_outputter_card) { Card.ensure name: "A+*self+*style" }
+
+    let :card_content do
       { in:         css,         out:         compressed_css,
         changed_in: changed_css, changed_out: compressed_changed_css }
     end
