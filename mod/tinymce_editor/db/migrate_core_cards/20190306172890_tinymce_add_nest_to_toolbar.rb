@@ -6,6 +6,6 @@ class TinymceAddNestToToolbar < Cardio::Migration::Core
       Card[:tiny_mce].content
                      .sub("link | alignleft aligncenter alignright alignjustify",
                           "link nest | ")
-    ensure_card :tiny_mce, content: content
+    Card.ensure name: :tiny_mce, content: content
   end
 end

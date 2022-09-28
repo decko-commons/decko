@@ -53,7 +53,7 @@ shared_examples_for "asset inputter" do |_args|
   # context "a non-existent card was added as item and now created" do
   #   it "updates #{args[:that_produces]} file", as_bot: true do
   #     asset_outputter.update! content: "[[non-existent input]]"
-  #     ensure_card "non-existent input",
+  #     Card.ensure name: "non-existent input",
   #                 type: args[:that_produces],
   #                 content: card_content[:changed_in]
   #     out = card_content[:changed_out].gsub(input.name, "non-existent input")

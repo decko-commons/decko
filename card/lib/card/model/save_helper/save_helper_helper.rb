@@ -21,7 +21,7 @@ class Card
           codename = "#{prefix}_#{name.tr(' ', '_').underscore}"
           name = "#{prefix}: #{name}"
 
-          ensure_card name, type_id: type_id, codename: codename
+          Card.ensure name: name, type_id: type_id, codename: codename
           Card[to].add_item! name
         end
 
@@ -52,7 +52,7 @@ class Card
         end
 
         def ensure_card_simplified name, args
-          ensure_card_update(name, args) || Card.create!(add_name(name, args))
+          Card.ensure_update(name, args) || Card.create!(add_name(name, args))
         end
 
         def ensure_card_update name, args

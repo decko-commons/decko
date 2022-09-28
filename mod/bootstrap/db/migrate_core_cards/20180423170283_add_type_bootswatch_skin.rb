@@ -7,12 +7,12 @@ class AddTypeBootswatchSkin < Cardio::Migration::Core
     {"type": {"codename": ["in", "skin", "bootswatch_skin", "customized_bootswatch_skin"]}, "sort_by": "name"}
   JSON
   def up
-    ensure_card "style: mods", codename: "style_mods",
+    Card.ensure name: "style: mods", codename: "style_mods",
                                type_id: Card::PointerID
-    ensure_card "style: right sidebar", codename: "style_right_sidebar"
+    Card.ensure name: "style: right sidebar", codename: "style_right_sidebar"
     Card::Cache.reset_all
 
-    ensure_card "Bootswatch skin", type_id: Card::CardtypeID,
+    Card.ensure name: "Bootswatch skin", type_id: Card::CardtypeID,
                                    codename: "bootswatch_skin"
     update_card! %i[style right options], content: STYLE_INPUT_SEARCH
     Card::Cache.reset_all

@@ -67,30 +67,31 @@ class Card
       # updates existing card only if given attributes are different except the
       # name
       # @example if a card with name "under_score" exists
-      #   ensure_card "Under Score"                 # => no change
-      #   ensure_card "Under Score", type: :pointer # => changes the type to pointer
+      #   Card.ensure name: "Under Score"                 # => no change
+      #   Card.ensure name: "Under Score", type: :pointer # => changes the type to pointer
       #                                             #    but not the name
       def ensure_card name_or_args, content_or_args=nil
+        binding.pry
         name, args = standardize_ensure_args name_or_args, content_or_args
-        ensure_card_simplified name, args
+        Card.ensure_simplified name, args
       end
 
-      # like ensure_card but derives codename from name if no codename is given.
+      # like Card.ensure but derives codename from name if no codename is given.
       # The derived codename is all lower case with underscores; "*" and ":" are removed
       def ensure_code_card name_or_args, content_or_args=nil
         name, args = standardize_ensure_args name_or_args, content_or_args
         args[:codename] = codename_from_name(name) unless args[:codename]
-        ensure_card_simplified name, args
+        Card.ensure_simplified name, args
       end
 
       # create if card doesn't exist
       # updates existing card only if given attributes are different including
       # the name
       # For example if a card with name "under_score" exists
-      # then `ensure_card "Under Score"` renames it to "Under Score"
+      # then `Card.ensure "Under Score"` renames it to "Under Score"
       def ensure_card! name_or_args, content_or_args=nil
         name, args = standardize_ensure_args name_or_args, content_or_args
-        ensure_card_simplified name, add_name(name, args)
+        Card.ensure_simplified name, add_name(name, args)
       end
 
       # Creates or updates a trait card with codename and right rules.
@@ -102,7 +103,7 @@ class Card
       #                options: ["A", "B"],
       #                input: "radio"
       def ensure_trait name, codename, args={}
-        ensure_card name, codename: codename
+        Card.ensure name: name, codename: codename
         args.each do |setting, value|
           ensure_trait_rule name, setting, value
         end
@@ -111,7 +112,7 @@ class Card
       def ensure_trait_rule trait, setting, value
         validate_setting setting
         card_args = normalize_trait_rule_args setting, value
-        ensure_card [trait, :right, setting], card_args
+        Card.ensure card_args.merge(name: [trait, :right, setting])
       end
 
       def create_or_update_card! name_or_args, content_or_args=nil

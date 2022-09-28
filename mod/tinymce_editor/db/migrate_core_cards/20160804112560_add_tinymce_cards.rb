@@ -22,7 +22,7 @@ class AddTinymceCards < Cardio::Migration
   JSON
 
   def up
-    ensure_card name: "*TinyMCE", type_id: Card::PlainTextID,
+    Card.ensure name: "*TinyMCE", type_id: Card::PlainTextID,
                 codename: "tiny_mce",
                 content: TINYMCE_CONFIG
     Card::Cache.reset_all
@@ -32,10 +32,10 @@ class AddTinymceCards < Cardio::Migration
                "[[http://en.wikipedia.org/wiki/Wysiwyg|wysiwyg]] editor. "\
                "[[https://decko.org/TinyMCE|more]]"
     )
-    ensure_card name: "script: tinymce",
+    Card.ensure name: "script: tinymce",
                 type_id: Card::JavaScriptID,
                 codename: "script_tinymce"
-    ensure_card name: "script: tinymce config",
+    Card.ensure name: "script: tinymce config",
                 type_id: Card::CoffeeScriptID,
                 codename: "script_tinymce_config"
   end
