@@ -10,13 +10,13 @@ RSpec.describe Card::Set::TypePlusRight::Set::Style do
 
   it_behaves_like "asset outputter", that_produces: :css do
     let(:asset_outputter_card) do
-      ensure_card "test my style+*self+*style", type: :list, content: ""
+      Card.ensure name: "test my style+*self+*style", type: :list, content: ""
     end
     let(:asset_inputter_card) do
-      ensure_card "test css", type: :css, content: css
+      Card.ensure name: "test css", type: :css, content: css
     end
     let(:invalid_inputter_card) do
-      ensure_card "invalid test css", type: :plain_text, content: css
+      Card.ensure name: "invalid test css", type: :plain_text, content: css
     end
     let(:card_content) do
       { in: css,                         out: compressed_css,
@@ -31,7 +31,7 @@ RSpec.describe Card::Set::TypePlusRight::Set::Style do
       .to include("B has an invalid type: RichText. "\
                   "Only CSS, SCSS, Skin, and Bootswatch skin are valid.")
 
-    ensure_card "test css", type: :css, content: css
+    Card.ensure name: "test css", type: :css, content: css
     card = Card.create name: "A+*self+*style", content: "test css"
     expect(card.errors[:type]).to be_empty
   end

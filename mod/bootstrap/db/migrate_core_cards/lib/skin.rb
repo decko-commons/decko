@@ -56,11 +56,12 @@ class Skin
   end
 
   def update_css file_name:, field_name: file_name
-    ensure_card "#{@skin_name}+#{field_name}", style_args(file_name, Card::CssID)
+    ensure_args = style_args file_name, Card::CssID
+    Card.ensure ensure_args.merge(name: "#{@skin_name}+#{field_name}")
   end
 
   def update_thumbnail
-    ensure_card "#{@skin_name}+Image", thumbnail_args
+    Card.ensure name: thumnail_args.merge(name: "#{@skin_name}+Image")
   end
 
   private

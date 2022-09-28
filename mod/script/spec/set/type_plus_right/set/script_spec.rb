@@ -7,7 +7,7 @@ RSpec.describe Card::Set::TypePlusRight::Set::Script do
       .to include("B has an invalid type: RichText. "\
                   "Only JavaScript, CoffeeScript, and List are valid.")
 
-    ensure_card "test script", type: :java_script
+    Card.ensure name: "test script", type: :java_script
     card = Card.create name: "A+*self+*script", content: "test script"
     expect(card.errors[:type]).to be_empty
   end

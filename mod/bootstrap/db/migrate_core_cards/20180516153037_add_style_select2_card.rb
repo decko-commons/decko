@@ -2,7 +2,7 @@
 
 class AddStyleSelect2Card < Cardio::Migration::Core
   def up
-    ensure_card "style: select2",
+    Card.ensure name: "style: select2",
                 type_id: Card::ScssID,
                 codename: "style_select2"
   end
