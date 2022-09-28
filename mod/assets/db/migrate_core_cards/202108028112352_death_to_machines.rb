@@ -43,9 +43,6 @@ class DeathToMachines < Cardio::Migration::Core
     delete_group_card
     delete_old_style_cards
 
-    ensure_code_card "*asset input"
-    ensure_code_card "*asset output"
-
     drop_all_style_items
     update_mod_asset_type_id
 

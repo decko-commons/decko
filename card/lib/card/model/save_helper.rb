@@ -37,18 +37,6 @@ class Card
         update_card name, args.reverse_merge(rename_if_conflict: :new)
       end
 
-      def create_or_update_card name_or_args, content_or_args=nil
-        name = name_from_args name_or_args
-
-        if Card[name]
-          args = standardize_update_args name_or_args, content_or_args
-          update_card(name, args)
-        else
-          args = standardize_args name_or_args, content_or_args
-          create_card(args)
-        end
-      end
-
       def delete_card name
         return unless Card.exist?(name)
 
@@ -63,81 +51,10 @@ class Card
         card.delete!
       end
 
-      # create if card doesn't exist
-      # updates existing card only if given attributes are different except the
-      # name
-      # @example if a card with name "under_score" exists
-      #   Card.ensure name: "Under Score"                 # => no change
-      #   Card.ensure name: "Under Score", type: :pointer # => changes the type to pointer
-      #                                             #    but not the name
-      def ensure_card name_or_args, content_or_args=nil
-        binding.pry
-        name, args = standardize_ensure_args name_or_args, content_or_args
-        Card.ensure_simplified name, args
-      end
-
-      # like Card.ensure but derives codename from name if no codename is given.
-      # The derived codename is all lower case with underscores; "*" and ":" are removed
-      def ensure_code_card name_or_args, content_or_args=nil
-        name, args = standardize_ensure_args name_or_args, content_or_args
-        args[:codename] = codename_from_name(name) unless args[:codename]
-        Card.ensure_simplified name, args
-      end
-
-      # create if card doesn't exist
-      # updates existing card only if given attributes are different including
-      # the name
-      # For example if a card with name "under_score" exists
-      # then `Card.ensure "Under Score"` renames it to "Under Score"
-      def ensure_card! name_or_args, content_or_args=nil
-        name, args = standardize_ensure_args name_or_args, content_or_args
-        Card.ensure_simplified name, add_name(name, args)
-      end
-
-      # Creates or updates a trait card with codename and right rules.
-      # Content for rules that are pointer cards by default
-      # is converted to pointer format.
-      # @example
-      #   ensure_trait "*a_or_b", :a_or_b,
-      #                default: { type_id: Card::PointerID },
-      #                options: ["A", "B"],
-      #                input: "radio"
-      def ensure_trait name, codename, args={}
-        Card.ensure name: name, codename: codename
-        args.each do |setting, value|
-          ensure_trait_rule name, setting, value
-        end
-      end
-
-      def ensure_trait_rule trait, setting, value
-        validate_setting setting
-        card_args = normalize_trait_rule_args setting, value
-        Card.ensure card_args.merge(name: [trait, :right, setting])
-      end
-
-      def create_or_update_card! name_or_args, content_or_args=nil
-        args = standardize_args name_or_args, content_or_args
-        create_or_update args.reverse_merge(rename_if_conflict: :new)
-      end
-
-      # TODO: this is too specific for this
-      def add_script name, opts={}
-        name.sub!(/^script:?\s?/, "") # in case name is given with prefix
-        # remove it so that we don't double it
-
-        add_coderule_item name, "script",
-                          opts[:type_id] || Card::CoffeeScriptID,
-                          opts[:to] || "*all+*script"
-      end
-
       alias_method :create, :create_card
       alias_method :update, :update_card
-      alias_method :create_or_update, :create_or_update_card
       alias_method :create!, :create_card!
       alias_method :update!, :update_card!
-      alias_method :create_or_update!, :create_or_update_card!
-      alias_method :ensure, :ensure_card
-      alias_method :ensure!, :ensure_card!
       alias_method :delete, :delete_card
     end
   end
