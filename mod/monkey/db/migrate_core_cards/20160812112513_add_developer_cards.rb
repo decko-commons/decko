@@ -2,9 +2,9 @@
 
 class AddDeveloperCards < Cardio::Migration
   def up
-    ensure_card name: "*debug",
+    Card.ensure name: "*debug",
                 codename: "debug"
-    ensure_card name: "*debug+*right+*read",
+    Card.ensure name: "*debug+*right+*read",
                 type_id: Card::PointerID,
                 content: "[[Administrator]]"
   end

@@ -7,15 +7,15 @@ RSpec.describe Card::Set::Type::Skin do
   let(:compressed_changed_css) { "#box{display:inline}\n"   }
 
   let! :skin do
-    ensure_card "test skin", type: :skin, content: ""
+    Card.ensure name: "test skin", type: :skin, content: ""
   end
 
   let! :item do
-    ensure_card "skin item", type: :css, content: css
+    Card.ensure name: "skin item", type: :css, content: css
   end
 
   let! :outputter do
-    ensure_card "A+*self+*style",
+    Card.ensure name: "A+*self+*style",
                 type: :pointer, content: "[[test skin]]"
   end
 

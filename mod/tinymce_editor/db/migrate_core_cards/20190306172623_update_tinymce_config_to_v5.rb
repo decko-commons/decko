@@ -6,7 +6,7 @@ class UpdateTinymceConfigToV5 < Cardio::Migration::Core
   def up
     content = Card[:tiny_mce].content.sub('"modern"', '"silver"')
     content = remove_deprecated_plugins(content)
-    ensure_card :tiny_mce, content: content
+    Card.ensure name: :tiny_mce, content: content
   end
 
   def remove_deprecated_plugins content

@@ -16,7 +16,7 @@ class UpdateTinymceConfig < Cardio::Migration::Core
   JSON
 
   def up
-    ensure_card :tiny_mce,
+    Card.ensure name: :tiny_mce,
                 content: TINYMCE_CONF
   end
 end

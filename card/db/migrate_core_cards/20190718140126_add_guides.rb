@@ -13,7 +13,7 @@ class AddGuides < Cardio::Migration
   MD
 
   def up
-    ensure_card "*guide", codename: "guide", type_id: Card::SettingID
+    Card.ensure name: "*guide", codename: "guide", type_id: Card::SettingID
     Card::Cache.reset_all
   end
 end
