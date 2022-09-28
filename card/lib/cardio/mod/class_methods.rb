@@ -43,7 +43,7 @@ module Cardio
           puts "installing card mods".green
           ensure_asset_lists do |hash|
             puts "ensuring mod and asset cards"
-            Cardio.mods.each { |mod| ensure_asset_cards mod.ensure_card, hash }
+            Cardio.mods.each { |mod| ensure_asset_cards mod.Card.ensure, hash }
           end
         end
       end

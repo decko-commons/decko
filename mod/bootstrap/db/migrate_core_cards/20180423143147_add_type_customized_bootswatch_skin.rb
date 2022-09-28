@@ -5,21 +5,21 @@ require_relative "lib/skin"
 class AddTypeCustomizedBootswatchSkin < Cardio::Migration::Core
   def up
     rename_customized_bootswatch_skin
-    ensure_card "*stylesheets", codename: "stylesheets"
-    ensure_card "*bootswatch", codename: "bootswatch"
-    ensure_card "*variables", codename: "variables"
-    ensure_card "*colors", codename: "colors"
+    Card.ensure name: "*stylesheets", codename: "stylesheets"
+    Card.ensure name: "*bootswatch", codename: "bootswatch"
+    Card.ensure name: "*variables", codename: "variables"
+    Card.ensure name: "*colors", codename: "colors"
 
     Skin.themes.each do |theme_name|
       skin = Skin.new(theme_name)
-      ensure_card skin.skin_name, codename: skin.skin_codename
+      Card.ensure name: skin.skin_name, codename: skin.skin_codename
     end
 
     remove_deprecated_bootswatch_skins
   end
 
   def rename_customized_bootswatch_skin
-    ensure_card :customized_bootswatch_skin,
+    Card.ensure name: :customized_bootswatch_skin,
                 name: "Customized bootswatch skin",
                 type_id: Card::CardtypeID,
                 codename: "customized_bootswatch_skin"
