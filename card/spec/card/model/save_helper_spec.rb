@@ -24,21 +24,20 @@ RSpec.describe Card::Model::SaveHelper, as_bot: true do
       expect_card("A").to have_content "new content"
     end
 
-    it "doesn't change name variant"  do
+    it "changes name variant"  do
       Card.ensure name: "*Home"
-      expect_card(:home).to have_name "*home"
+      expect_card(:home).to have_name "*Home"
     end
 
     it "changes name if new name is given" do
-      Card.ensure name: "*home", name: "new home"
+      Card.ensure codename: "home", name: "new home"
       expect_card("*home").not_to exist
       expect_card("new home").to exist
     end
 
     it "renames existing codename cards" do
       expect_card("*home").to exist
-      Card.ensure name: :home, name: "New Home"
-      expect_card("*home").not_to exist
+      Card.ensure codename: :home, name: "New Home"
       expect(Card[:home].name).to eq "New Home"
     end
 
@@ -46,17 +45,11 @@ RSpec.describe Card::Model::SaveHelper, as_bot: true do
       Card.ensure name: :not_a_codename, name: "test", codename: "with_codename"
       expect_card(:with_codename).to exist
     end
-
-    it "changes codename" do
-      Card.ensure name: :home, codename: "new_home"
-      expect(Card::Codename).not_to be_exist(:home)
-      expect_card(:new_home).to exist
-    end
   end
 
   describe "#Card.ensure!" do
     it "changes name variant"  do
-      Card.ensure! "*Home"
+      Card.ensure! name: "*Home"
       expect_card(:home).to have_name "*Home"
     end
   end

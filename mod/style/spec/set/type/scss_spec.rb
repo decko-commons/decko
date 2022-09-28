@@ -44,7 +44,7 @@ RSpec.describe Card::Set::Type::Scss do
   end
 
   def scss_card name="test scss"
-    Card.ensure name, type: :scss, content: scss
+    Card.ensure name: name, type: :scss, content: scss
   end
 
   describe "scss format" do

@@ -21,7 +21,7 @@ class Card
           codename = "#{prefix}_#{name.tr(' ', '_').underscore}"
           name = "#{prefix}: #{name}"
 
-          Card.ensure name, type_id: type_id, codename: codename
+          Card.ensure name: name, type_id: type_id, codename: codename
           Card[to].add_item! name
         end
 

@@ -15,15 +15,24 @@ class Card
       end
 
       def ensure opts
-        with_conflict_mode opts.delete(:conflict) do
-          card = fetch_for_ensure opts
-          ensuring_purity card, opts do |ready_card|
-            ready_card.save_if_needed!
-          end
-        end
+        ensuring(opts) { |card| card.save_if_needed }
+      end
+
+      def ensure! opts
+        ensuring(opts) { |card| card.save_if_needed! }
       end
 
       private
+
+      def ensuring opts
+        with_conflict_mode opts.delete(:conflict) do
+          card = fetch_for_ensure opts
+          ensuring_purity(card, opts) do |ensured_card, attempt|
+            yield ensured_card if attempt
+            ensured_card
+          end
+        end
+      end
 
       def with_conflict_mode mode
         @conflict_mode = mode || :default
@@ -42,55 +51,59 @@ class Card
       end
 
       def ensuring_purity card, opts, &block
-        if codename && (other = other_card_with_name card, opts[:name].to_name)
-          send "ensure_with_codename_#{conflict_mode}",
-               card, other, opts, &block
+        if opts[:codename] && (other = other_card_with_name card, opts[:name].to_name)
+          attempt_card = send "ensure_advanced_#{@conflict_mode}", card, other, opts
+          attempt_card ? yield(attempt_card, true) : yield(card, false)
         else
           ensure_purity_simple card, &block
         end
       end
 
       def ensure_purity_simple card
-        case @conflict_mode
-        when :override then yield card
-        when :default  then yield card if card.pristine?
-        when :defer    then yield card if card.new?
-        else
-          invalid_conflict_mode!
-        end
+        attempt_save =
+          case @conflict_mode
+          when :override then true
+          when :default  then card.pristine?
+          when :defer    then card.new?
+          else
+            invalid_conflict_mode!
+          end
+        yield card, attempt_save
       end
 
-      def ensure_with_codename_defer card, other, _opts
+      def ensure_advanced_defer card, other, _opts
         return unless card.new? # codenamed card doesn't exist yet
 
         card.name = other.name.alternative
-        yield card
+        card
       end
 
-      def ensure_with_codename_default card, other, opts
+      def ensure_advanced_default card, other, opts
         if card.new? && other.pristine?
           other.assign_attributes opts
-          yield other
+          other
         elsif card.pristine?
           card.name = card.new? ? other.name.alternative : card.name_before_act
-          yield card
+          card
+        else
+          nil
         end
       end
 
-      def ensure_with_codename_override card, other, opts
+      def ensure_advanced_override card, other, opts
         if card.new?
           other.assign_attributes opts
-          yield other
+          other
         else
           other.name = other.name.alternative
           card.subcards.add other
-          yield card
+          card
         end
       end
 
       def other_card_with_name card, name
         card_with_name = name.card
-        card_with_name if card_with_name&.id & (card_with_name.id != card.id)
+        card_with_name if card_with_name&.id && (card_with_name.id != card.id)
       end
 
       def invalid_conflict_mode!
