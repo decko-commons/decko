@@ -35,7 +35,7 @@ class Card
       end
 
       def with_conflict_mode mode
-        @conflict_mode = mode || :default
+        @conflict_mode = mode&.to_sym || :default
         yield
       ensure
         @conflict_mode = nil

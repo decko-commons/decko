@@ -28,8 +28,9 @@ describe 'rules', () ->
     cy.main_slot().should "contain", "your favorite"
 
     cy.app "cards/ensure",
-           name: "User+*type+*structure",
+           name: "User+*type+*structure"
            content: "{{+cereal}}"
+           conflict: "override" # because it's also edited in pointer
 
     cy.wait(500)
     cy.visit_bridge("Joe User")
