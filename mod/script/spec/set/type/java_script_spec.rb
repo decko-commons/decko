@@ -8,7 +8,7 @@ RSpec.describe Card::Set::Type::JavaScript do
   let(:js_card)               { create_js_card "js test card", js }
 
   def create_js_card name, content
-    ensure_card name, type: Card::JavaScriptID, content: content
+    Card.ensure name: name, type: Card::JavaScriptID, content: content
   end
 
   def comment_with_source content, source="js test card"
@@ -42,8 +42,8 @@ RSpec.describe Card::Set::Type::JavaScript do
   #     create_js_card "more js", compressed_changed_js}
   #   end
   #   let(:create_asset_outputter_card) do
-  #     mod_card = ensure_card "mod: script test", type: :mod
-  #     ensure_card [mod_card.name, :script], type: :list
+  #     mod_card = Card.ensure name: "mod: script test", type: :mod
+  #     Card.ensure name: [mod_card.name, :script], type: :list
   #   end
   #   let(:card_content) do
   #     { in:          js,

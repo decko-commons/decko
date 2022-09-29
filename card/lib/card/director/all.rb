@@ -64,6 +64,24 @@ class Card
         act { super }
       end
 
+      def save_if_needed
+        validate
+        save if save_needed?
+      end
+
+      def save_if_needed!
+        validate
+        save! if save_needed?
+      end
+
+      def save_needed?
+        return true if new?
+
+        %i[name db_content trash type_id codename].find do |fld|
+          send "#{fld}_is_changing?"
+        end
+      end
+
       alias_method :update_attributes, :update
       alias_method :update_attributes!, :update!
 

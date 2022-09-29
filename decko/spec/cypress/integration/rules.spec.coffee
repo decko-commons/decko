@@ -14,7 +14,7 @@ describe 'rules', () ->
     cy.app("cards/ensure",
            name: "cereal+*right+*help",
            content: "I go poopoo for poco puffs").then ->
-      cy.wait(1000)
+      cy.wait(500)
       cy.visit("/Test+cereal")
       cy.main_slot()
         .should("not.contain", "something spicy")
@@ -31,6 +31,7 @@ describe 'rules', () ->
            name: "User+*type+*structure",
            content: "{{+cereal}}"
 
+    cy.wait(500)
     cy.visit_bridge("Joe User")
     cy.bridge().should "contain", "your favorite"
 
