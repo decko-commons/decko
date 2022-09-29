@@ -19,7 +19,7 @@ class UpgradeRecaptchaToV3 < Cardio::Migration::Core
                    codename: "recaptcha_#{new_name}_key"
     end
 
-    ensure_card [Card[:recaptcha_settings].name, "minimum score"],
+    Card.ensure name: [Card[:recaptcha_settings].name, "minimum score"],
                 codename: "recaptcha_minimum_score",
                 type_id: Card::NumberID
   end

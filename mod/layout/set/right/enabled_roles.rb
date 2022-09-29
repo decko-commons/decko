@@ -1,5 +1,7 @@
 include_set Abstract::AccountDropdown
 
+assign_type :session
+
 def ok_to_read
   true
 end
