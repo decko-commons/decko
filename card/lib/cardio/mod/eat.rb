@@ -25,7 +25,7 @@ module Cardio
             track edible do
               current_user edible.delete(:user)
               time_machine edible.delete(:time) do
-                ensure_card edible
+                Card.ensure name: edible
               end
             end
           end

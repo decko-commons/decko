@@ -19,7 +19,7 @@ describe 'editing pointers', () ->
       .should "contain", "Joe Camel"
 
   specify "create a structured card including select input", ->
-    cy.ensure "User+*type+*structure", "{{+friends}}"
+    cy.ensure "User+*type+*structure", content: "{{+friends}}"
     input "select"
     cy.visit_bridge("Joe User")
     cy.contains(".form-group", "+friends").find("select")
