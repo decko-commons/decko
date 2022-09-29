@@ -30,7 +30,8 @@ describe 'rules', () ->
     cy.app "cards/ensure",
            name: "User+*type+*structure"
            content: "{{+cereal}}"
-           conflict: "override" # because it's also edited in pointer
+           args:
+             conflict: "override" # because it's also edited in pointer
 
     cy.wait(500)
     cy.visit_bridge("Joe User")
