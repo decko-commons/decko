@@ -14,16 +14,16 @@ class AddDatepicker < Cardio::Migration::Core
   TEXT
 
   def up
-    ensure_card "Date", codename: "date", type_id: Card::CardtypeID
-    ensure_card "script: datepicker",
+    Card.ensure name: "Date", codename: "date", type_id: Card::CardtypeID
+    Card.ensure name: "script: datepicker",
                 codename: "script_datepicker", type_id: Card::JavaScriptID
-    ensure_card "style: datepicker",
+    Card.ensure name: "style: datepicker",
                 codename: "style_datepicker", type_id: Card::ScssID
-    ensure_card "script: datepicker config",
+    Card.ensure name: "script: datepicker config",
                 codename: "script_datepicker_config", type_id: Card::CoffeeScriptID
-    ensure_card "*datepicker",
+    Card.ensure name: "*datepicker",
                 codename: "datepicker", type_id: Card::JsonID,
                 content: DEFAULT_CONFIG
-    ensure_card %i[datepicker self help], content: HELP_TEXT
+    Card.ensure name: %i[datepicker self help], content: HELP_TEXT
   end
 end

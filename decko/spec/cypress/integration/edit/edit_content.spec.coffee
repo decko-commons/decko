@@ -3,7 +3,7 @@ describe 'edit content', () ->
     cy.login()
 
   specify "edit content modal", () ->
-    cy.ensure "cyp", "original"
+    cy.ensure "cyp", content: "original"
     cy.visit("/cyp?view=edit")
     cy.tinymce_set_content("new content")
     cy.el("submit-modal").click()
