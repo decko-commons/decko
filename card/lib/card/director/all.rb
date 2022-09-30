@@ -75,11 +75,7 @@ class Card
       end
 
       def save_needed?
-        return true if new?
-
-        %i[name db_content trash type_id codename].find do |fld|
-          send "#{fld}_is_changing?"
-        end
+        new? || test_field_changing? || subcards.any? { |sc| sc.card.save_needed? }
       end
 
       alias_method :update_attributes, :update
@@ -101,6 +97,14 @@ class Card
       end
 
       private
+
+      def test_field_changing?
+        save_test_fields.any? { |fld| send "#{fld}_is_changing?" }
+      end
+
+      def save_test_fields
+        %i[name db_content trash type_id codename]
+      end
 
       def start_new_act &block
         self.director = nil
