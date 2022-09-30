@@ -6,9 +6,9 @@ describe 'paging', () ->
               content: '{"type":"RichText","sort":"name", "not": { "right": {} }}'
 
   it "keeps item structure when jumping to pages", ->
-    cy.ensure "basic item structure", "{{_|name}}"
+    cy.ensure "basic item structure", content: "{{_|name}}"
     cy.ensure "list all basic cards",
-              "{{basic card search||content;structure:basic item structure}}"
+              content: "{{basic card search||content;structure:basic item structure}}"
     cy.visit "/list_all_basic_cards"
     cy.contains(".page-item", "2").click()
     cy.contains(".page-item.active", "2")
@@ -19,7 +19,7 @@ describe 'paging', () ->
     cy.get(".search-result-item .STRUCTURE-basic_item_structure")
 
   it "keeps the item view", () ->
-    cy.ensure "list basic types", "{{basic card search|open|closed}}"
+    cy.ensure "list basic types", content: "{{basic card search|open|closed}}"
     cy.visit "/list_basic_types"
     cy.contains(".page-item", "2").click()
     cy.contains(".page-item.active", "2")

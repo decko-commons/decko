@@ -74,9 +74,23 @@ end
 alias_method :new_card?, :new?
 alias_method :unreal?, :new?
 
+def purity
+  case
+  when new?      then :new
+  when pristine? then :pristine
+  else                :altered
+  end
+end
+
 # has not been edited directly by human users.  bleep blorp.
 def pristine?
-  new_card? || !user_changes?
+  new_card? ||
+    (created_at == updated_at && creator_id == WagnBotID) ||
+    !user_changes?
+end
+
+def altered?
+  !pristine?
 end
 
 def user_changes?
