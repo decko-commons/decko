@@ -39,7 +39,7 @@ class MigrateLayouts < Cardio::Migration::Core
 
     each_layout_set layout_card do |set_name|
       puts "creating head rule for '#{set_name}'"
-      ensure_card [set_name, :head], content: head, type_id: Card::HtmlID
+      Card.ensure name: [set_name, :head], content: head, type_id: Card::HtmlID
     end
   end
 
