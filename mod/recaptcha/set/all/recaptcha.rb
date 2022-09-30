@@ -49,7 +49,7 @@ end
 
 event :recaptcha, :validate, when: :validate_recaptcha? do
   handle_recaptcha_config_errors do
-    :captcha.card.used!
+    :captcha.card.captcha_used!
     human?
   end
 end
@@ -68,7 +68,7 @@ end
 def validate_recaptcha?
   return unless Card::Codename.exists? :captcha
 
-  !@supercard && !:captcha.card.used? && recaptcha_on?
+  !@supercard && !:captcha.card.captcha_used? && recaptcha_on?
 end
 
 format :html do

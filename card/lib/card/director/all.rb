@@ -64,6 +64,20 @@ class Card
         act { super }
       end
 
+      def save_if_needed
+        validate
+        save if save_needed?
+      end
+
+      def save_if_needed!
+        validate
+        save! if save_needed?
+      end
+
+      def save_needed?
+        new? || test_field_changing? || subcards.any? { |sc| sc.card.save_needed? }
+      end
+
       alias_method :update_attributes, :update
       alias_method :update_attributes!, :update!
 
@@ -83,6 +97,14 @@ class Card
       end
 
       private
+
+      def test_field_changing?
+        save_test_fields.any? { |fld| send "#{fld}_is_changing?" }
+      end
+
+      def save_test_fields
+        %i[name db_content trash type_id codename]
+      end
 
       def start_new_act &block
         self.director = nil

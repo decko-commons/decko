@@ -1,5 +1,5 @@
 require "timecop"
-# require "pry"
+require "pry"
 
 ENV["STORE_CODED_FILES"] = "true"
 
@@ -25,7 +25,7 @@ module Cardio
             track edible do
               current_user edible.delete(:user)
               time_machine edible.delete(:time) do
-                ensure_card edible
+                Card.ensure edible
               end
             end
           end
@@ -55,6 +55,7 @@ module Cardio
       def rescuing edible
         yield
       rescue StandardError => e
+        binding.pry
         puts edible
         puts e.message.red
         puts e.backtrace[0..10].join("\n") if @verbose

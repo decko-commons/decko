@@ -28,10 +28,9 @@ RSpec.describe Card::Set::Type::Scss do
   it_behaves_like "asset inputter"  do
     let(:create_asset_inputter_card) { scss_card }
     let(:create_another_asset_inputter_card) { scss_card "more css" }
-    let(:create_asset_outputter_card) do
-      ensure_card "A+*self+*style", type: :list
-    end
-    let(:card_content) do
+    let(:create_asset_outputter_card) { Card.ensure name: "A+*self+*style" }
+
+    let :card_content do
       { in:         scss,         out:         scss,
         changed_in: changed_scss, changed_out: changed_scss }
     end
@@ -44,7 +43,7 @@ RSpec.describe Card::Set::Type::Scss do
   end
 
   def scss_card name="test scss"
-    ensure_card name, type: :scss, content: scss
+    Card.ensure name: name, type: :scss, content: scss
   end
 
   describe "scss format" do
