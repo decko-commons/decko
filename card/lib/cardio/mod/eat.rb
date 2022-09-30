@@ -55,10 +55,11 @@ module Cardio
       def rescuing edible
         yield
       rescue StandardError => e
-        binding.pry
+        # binding.pry
         puts edible
         puts e.message.red
         puts e.backtrace[0..10].join("\n") if @verbose
+        raise e
       end
 
       def current_user item_user
