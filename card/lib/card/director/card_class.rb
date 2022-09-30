@@ -25,6 +25,7 @@ class Card
       private
 
       def ensuring opts
+        opts.symbolize_keys!
         with_conflict_mode opts.delete(:conflict) do
           card = fetch_for_ensure opts
           ensuring_purity(card, opts) do |ensured_card, attempt|
