@@ -6,7 +6,7 @@ class MoveHelpTextToCode < Cardio::Migration::Core
     Card::Cache.reset_all
 
     # avoid that "list" as input option gets the description of the cardtype "list"
-    ensure_card %i[input right options_label], "options description"
+    Card.ensure name: %i[input right options_label], content: "options description"
 
     remove_setting_help_rules
     remove_search_help_rules
