@@ -75,9 +75,7 @@ class Card
       end
 
       def save_needed?
-        r = new? || test_field_changing? || subcards.cards.any?(&:save_needed?)
-        # binding.pry if r
-        r
+        new? || test_field_changing? || subcards.cards.any?(&:save_needed?)
       end
 
       alias_method :update_attributes, :update
