@@ -5,3 +5,7 @@
   :content: chicken
 - :name: First
   :content: chick
+  :user: Joe User
+  :time: "+1"
+  # note: user and time change ensures card is not considered pristine and won't be
+  # updated.
