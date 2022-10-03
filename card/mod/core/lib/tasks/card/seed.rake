@@ -1,19 +1,17 @@
 namespace :card do
   namespace :seed do
-    desc "completely regenerate seed fixtures starting with dependee seed fixtures"
-    task build: [:plow, "card:eat", :polish, :dump]
+    desc "regenerate seed fixtures quickly from current fixtures. " \
+         "create and update only (no delete)"
+    task update: %i[replant polish dump]
 
-    # FIXME: this is not ready for prime time.
-    # "Eating" is still doing too many unnecessary updates, and that messes up
-    # the test data. For now use card:seed:build instead
-    desc "EXPERIMENTAL – regenerate seed fixtures quickly (not from scratch)"
-    # note: this will not delete anything; it just eats new stuff.
-    task update: [:replant, "card:eat", :polish, :dump]
+    # desc "replant, polish, and dump seed. " \
+    #      "Good when mods/assets have changed but pods haven't."
+    # # note: this will not delete anything; it just eats new stuff.
+    # task modify: %i[replant polish dump]
 
-    desc "replant, polish, and dump seed. " \
-         "Good when mods/assets have changed but pods haven't."
-    # note: this will not delete anything; it just eats new stuff.
-    task modify: %i[replant polish dump]
+    desc "Truncates tables of each database for current environment and loads the seeds" \
+         "(alias for db:seed:replant)"
+    task replant: ["db:seed:replant"]
 
     desc "finalize seed data with migrations, installations, asset coding, and cleaning"
     task polish: :environment do
@@ -24,18 +22,6 @@ namespace :card do
       invoke_card_task "seed:clean" unless Rails.env.test?
       # It's important NOT to clean the test data and lose history, creator info, etc.
     end
-
-    desc "reseed from the fixtures of the dependee seed mod"
-    task plow: :environment do
-      ENV["UPDATE_SEED"] = "true"
-      # tells Cardio::Seed to use fixtures upon which the seeds being updated depend
-
-      invoke_card_tasks %w[reset_tmp seed:replant]
-    end
-
-    desc "Truncates tables of each database for current environment and loads the seeds" \
-         "(alias for db:seed:replant)"
-    task replant: ["db:seed:replant"]
 
     desc "remove unneeded cards, acts, actions, changes, and references"
     task clean: :environment do
@@ -48,6 +34,17 @@ namespace :card do
     task dump: :environment do
       Card::Cache.reset_all
       Cardio::Seed.dump
+    end
+
+    desc "completely regenerate seed fixtures starting with dependee seed fixtures"
+    task build: %i[plow polish dump]
+
+    desc "reseed from the fixtures of the dependee seed mod"
+    task plow: :environment do
+      ENV["UPDATE_SEED"] = "true"
+      # tells Cardio::Seed to use fixtures upon which the seeds being updated depend
+
+      invoke_card_tasks %w[reset_tmp seed:replant]
     end
 
     def invoke_card_tasks tasks
