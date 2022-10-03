@@ -1,6 +1,6 @@
 format :html do
   ###---( TOP_LEVEL (used by menu) NEW / EDIT VIEWS )
-  view :bridge, perms: :update, unknown: true, cache: :never, wrap: :bridge do
+  view :board, perms: :update, unknown: true, cache: :never, wrap: :bridge do
     with_nest_mode :edit do
       add_name_context
       voo.show :help
@@ -10,7 +10,7 @@ format :html do
     end
   end
 
-  view :cardboard, :bridge
+  view :bridge, :board
 
   def bridge_parts
     voo.show! :edit_type_row

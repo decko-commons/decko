@@ -2,6 +2,7 @@
 - :name: Joe Admin
   :type: :user
   :content: I'm number one
+  :conflict: :defer
   :fields:
     :account:
       :fields:
@@ -11,6 +12,7 @@
   :type: :user
   :content: I'm number two
   :user: Joe Admin
+  :conflict: :defer
   :fields:
     :account:
       :fields:
@@ -19,6 +21,7 @@
 - :name: Joe Camel
   :type: :user
   :content: Mr. Buttz
+  :conflict: :defer
   :fields:
     :account:
       :fields:
@@ -29,6 +32,7 @@
   :content: I got no account
 - :name: Sample User
   :type: :user
+  :conflict: :defer
   :fields:
     :account:
       :fields:
