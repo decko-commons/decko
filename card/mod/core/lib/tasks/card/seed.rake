@@ -18,7 +18,6 @@ namespace :card do
       ENV["STAMP_MIGRATIONS"] = "true"
 
       invoke_card_tasks %w[update assets:code]
-
       invoke_card_task "seed:clean" unless Rails.env.test?
       # It's important NOT to clean the test data and lose history, creator info, etc.
     end

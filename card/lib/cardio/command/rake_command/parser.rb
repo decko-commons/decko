@@ -23,8 +23,8 @@
 #           super() do |parser|
 #             parser.banner =
 #               "Usage:\n" +
-#                 "  #{Commands.bin_name} #{command} [options]".green +
-#                 "\n\nRuns `rake #{Commands.bin_name}:#{command}` task."
+#                 "  #{Command.bin_name} #{command} [options]".green +
+#                 "\n\nRuns `rake #{Command.bin_name}:#{command}` task."
 #             parser_ons parser, command do |env_array|
 #               opts[:envs] = env_array
 #             end

@@ -33,7 +33,7 @@ module Cardio
 
       def run_help
         puts "Usage:"
-        puts "  #{Commands.bin_name} COMMAND [OPTIONS]".green
+        puts "  #{Command.bin_name} COMMAND [OPTIONS]".green
         puts
         puts "Run commands with -h (or --help) for more info."
 

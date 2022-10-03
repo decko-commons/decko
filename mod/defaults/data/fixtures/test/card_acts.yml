@@ -995,3 +995,63 @@ card_acts_166:
   actor_id: 1
   acted_at: 2022-10-03 14:09:03.000000000 Z
   ip_address:
+card_acts_167:
+  id: 105492
+  card_id: 302
+  actor_id: 1
+  acted_at: 2022-10-03 19:37:55.000000000 Z
+  ip_address:
+card_acts_168:
+  id: 105493
+  card_id: 323
+  actor_id: 1
+  acted_at: 2022-10-03 19:37:58.000000000 Z
+  ip_address:
+card_acts_169:
+  id: 105494
+  card_id: 302
+  actor_id: 1
+  acted_at: 2022-10-03 19:49:34.000000000 Z
+  ip_address:
+card_acts_170:
+  id: 105495
+  card_id: 323
+  actor_id: 1
+  acted_at: 2022-10-03 19:49:37.000000000 Z
+  ip_address:
+card_acts_171:
+  id: 105496
+  card_id: 302
+  actor_id: 1
+  acted_at: 2022-10-03 19:50:48.000000000 Z
+  ip_address:
+card_acts_172:
+  id: 105497
+  card_id: 323
+  actor_id: 1
+  acted_at: 2022-10-03 19:50:51.000000000 Z
+  ip_address:
+card_acts_173:
+  id: 105498
+  card_id: 302
+  actor_id: 1
+  acted_at: 2022-10-03 19:55:41.000000000 Z
+  ip_address:
+card_acts_174:
+  id: 105499
+  card_id: 323
+  actor_id: 1
+  acted_at: 2022-10-03 19:55:43.000000000 Z
+  ip_address:
+card_acts_175:
+  id: 105500
+  card_id: 302
+  actor_id: 1
+  acted_at: 2022-10-03 20:00:08.000000000 Z
+  ip_address:
+card_acts_176:
+  id: 105501
+  card_id: 323
+  actor_id: 1
+  acted_at: 2022-10-03 20:00:10.000000000 Z
+  ip_address:

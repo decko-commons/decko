@@ -27,7 +27,7 @@ module Cardio
       end
 
       def banner_command
-        Commands.bin_name
+        Command.bin_name
       end
 
       # Override Rails namespace handling so we can put generators in `module Cardio`
@@ -50,7 +50,7 @@ module Rails
       end
 
       def help command="generate"
-        caller = Commands.bin_name
+        caller = Command.bin_name
         puts "Usage:"
         puts "  #{caller} #{command} GENERATOR [args] [options]".green
         puts
