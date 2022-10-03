@@ -100,11 +100,11 @@ fixtures that ever get edited by hand (and even that is very rare).
 
 #### _Easy to use._
 
-Because of fixtures' complexity, we almost always generate fixtures from simpler YAML
-files in mods' data directories. The data in these "pod" files are based not on the final 
+Because fixtures are hard to write, we almost always generate fixtures from simpler YAML
+files in mods' data directories. The data in these "pod" files are based not on the final
 database structure but on the api by which cards are created.
 
-For example, here is how that same card would look in pod yaml:
+For example, here is how the "List" card described above would look in pod yaml:
 
 ```
 - :name: List
@@ -112,17 +112,16 @@ For example, here is how that same card would look in pod yaml:
   :type: :cardtype
 ```
 
-Here's how the fixtures in the `defaults` mod are generated:
+Pod data are used not only in generating fixtures but also by `decko update`, which is
+used when updating code or installing mods. The idea is that in most cases Monkeys
+just need to maintain their mod data in one place.
 
-1. seeding from the fixtures `core` mod
-2. "eating" the seed data in all the mods that the `defaults` mod depends on
-3. dumping the results to fixtures
+If you want more nuanced control of which cards you ingest – for example to ingest
+only the cards from a given mod – you can use `card eat` (or
+`rake card:eat`). See `card eat -h` for more details.
 
-> #### Why pods?
-> Pod data are used not only in generating fixtures but also in **mod installation**
-> and **code
-updates**. The idea is that for most cases you only need to **manage mods' card
-data in one place.**
+
+> #### Generating pod YAML
 
 There are two main ways to generate seed pods:
 
@@ -141,6 +140,17 @@ The most common are:
 - fields
 - skip
 - trigger
+
+Because `car`
+
+The following two arguments are specific to eating (as in, you can't use them with
+`Card.create` or `card.update`:
+
+- user — who is credited with the action. Default is Decko Bot.
+- time — when did the action take place. If not specified, uses actual time of action.
+  Useful for test data (see below). Value is an integer representing
+  [unix time](https://kb.narrative.io/what-is-unix-time). If prefaced by a “+” or “-”,
+  we compute a time in the future or past respectively from `Time.now`.
 
 You can also use `user` to specify who should perform the action.
 
@@ -163,20 +173,28 @@ add a line with `- projects` in the real.yml file.
 
 ### Updating fixtures
 
-The primary rake task for updating seed fixtures is `card:seed:build`. When pods are
-updated, you will need to run this `build` task in order for the fixtures to be updated
+The primary rake task for updating seed fixtures is `card:seed:update`. When pods are
+updated, you will need to run this `update` task in order for the fixtures to be updated
 and any changes to be reflected in the seed data.
 
-When the build task is run, it:
+Here's how the fixtures are updated with `rake card:seed:update`:
 
-- populates the seeds from the fixtures set it depends on
-- ingests all the applicable pods
-- finalize seed data with migrations, installations, etc
-- dumps new fixtures.
+1. seed with the existing fixtures
+2. run `decko update` to "eat" the pod data, run migrations, and install the mods
+3. do some minor cleanup of mods / assets
+4. dump the results to the `data/fixtures` directory
 
-For any given fixtures set, the _test_ data depends on the _real_ data in that set. So
-for changes in _real_ pod data to show up in _test_ data, one must first rebuild the
-_real_ fixtures, and then rebuild the _test_ fixtures that depend on them.
+Note that `card:seed:update` simply loops through the card pods and ensures that they
+exist. If you _delete_ pods, it won't notice. In that case you would need to rebuild
+your seed data from scratch using `card:seed:build`, which starts from the fixtures set
+on which the current fixtures set depends. For example, if you were to run
+`rake card:seed:build` from the _defaults_ mod, it would start by seeding from the
+fixtures in the _core_ mod.
+
+**IMPORTANT**: For both building and updating, _test_ data fixtures are seeded with _real_
+data. So for changes in _real_ pod data to show up in _test_ data, one must first update
+the _real_ fixtures, and then update the _test_ fixtures that depend on them.
+
 
 ## Creating a new fixtures set
 
@@ -198,11 +216,6 @@ of that deck with the same seed data. Here's how:
 
 This will generate fixtures that include all your data in addition to the data from the
 defaults mod.
-
-Once you have your fixtures in place, you can use `rake card:seed:update` for most
-changes. This will add and update seed data but won't remove any old data. If you have
-old data to remove, you will need to run `rake card:seed:build` again to build from
-scratch.
 
 If you would like to publish your new seed data in a gem mod, then rather than
 configuring the seed mod list in `config/application.rb`, you will need to configure it

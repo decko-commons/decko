@@ -1,5 +1,5 @@
 module Cardio
-  class Commands
+  class Command
     # shared handling of commands splitting cardio and original args with "--"
     class Command
       def run

@@ -14,6 +14,9 @@ class Card
         card
       end
 
+      # The ensure
+
+
       def ensure opts
         ensuring opts, &:save_if_needed
       end
