@@ -141,10 +141,14 @@ The most common are:
 - skip
 - trigger
 
-Because `car`
+Because pods are ingested using `Card.ensure` (which creates or updates the card as
+necessary), they can also handle the `conflict` argument, which manages situations where
+an existing card differs from the pod. The default conflict handling will override cards
+that are "pristine" – that is to say, that have not been directly edited by a user other
+than Decko Bot. Setting `conflict` to `defer` will mean existing content is never
+overridden. Setting it to `override` will mean it always is.
 
-The following two arguments are specific to eating (as in, you can't use them with
-`Card.create` or `card.update`:
+The eat task also adds support for two additional arguments:
 
 - user — who is credited with the action. Default is Decko Bot.
 - time — when did the action take place. If not specified, uses actual time of action.
@@ -194,7 +198,6 @@ fixtures in the _core_ mod.
 **IMPORTANT**: For both building and updating, _test_ data fixtures are seeded with _real_
 data. So for changes in _real_ pod data to show up in _test_ data, one must first update
 the _real_ fixtures, and then update the _test_ fixtures that depend on them.
-
 
 ## Creating a new fixtures set
 
