@@ -1,5 +1,7 @@
 # Seeding Cards
 
+**IMPORTANT**: always back up any valuable data before running any seed commands.
+
 ## I just want to seed my deck
 
 If you're starting from scratch, run `decko setup`. This will create the databases
@@ -15,7 +17,8 @@ add the seed data.
 You can also use Ruby-on-Rails db tasks (eg `db:reset`, `db:drop`) for their original
 purpose, but caution is advised.
 
-**IMPORTANT**: always back up any valuable data before running any seed commands.
+
+# Advanced
 
 _The remainder of these docs are intended as an introduction for Monkeys who may be
 creating or modifying seed data. You probably don't need it if you're working exclusively
