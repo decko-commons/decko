@@ -1,11 +1,11 @@
 # load the application so we can look in mods
 require APP_PATH
-require "cardio/commands/command"
+require "cardio/command/command_base"
 require "cardio/mod/dirs"
 
 module Decko
   class Commands
-    class CucumberCommand < Cardio::Commands::Command
+    class CucumberCommand < Cardio::Command::CommandBase
       require "decko/commands/cucumber_command/parser"
 
       def initialize args

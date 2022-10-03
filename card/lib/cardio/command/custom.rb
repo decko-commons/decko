@@ -2,13 +2,13 @@ require "optparse"
 require "cardio/version"
 
 module Cardio
-  class Commands
+  class Command
     module Custom
       private
 
       def run_new
         if !["-h", "--help"].intersection(args).empty?
-          require "cardio/commands/application"
+          require "cardio/command/application"
         else
           puts "Can't initialize a new deck within the directory of another, " \
                "please change to a non-deck directory first.\n"
@@ -22,18 +22,18 @@ module Cardio
       end
 
       def run_rspec
-        require "cardio/commands/rspec_command"
+        require "cardio/command/rspec_command"
         RspecCommand.new(args).run
       end
 
       # def run_jasmine
-      #   require "cardio/commands/rake_command"
+      #   require "cardio/command/rake_command"
       #   RakeCommand.new("spec:javascript", envs: "test").run
       # end
 
       def run_help
         puts "Usage:"
-        puts "  #{ScriptLoader.script_name} COMMAND [OPTIONS]".green
+        puts "  #{Command.bin_name} COMMAND [OPTIONS]".green
         puts
         puts "Run commands with -h (or --help) for more info."
 

@@ -10,7 +10,7 @@ format :html do
 end
 
 def option_names
-  %w[unapproved unverified active blocked system]
+  %w[unapproved unverified active blocked] # system
 end
 
 def ok_to_update
