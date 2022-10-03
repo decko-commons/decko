@@ -81,11 +81,11 @@ module CarrierWave
 
         def assign_file file
           db_column = _mounter(:#{column}).serialization_column
-          send(:"\#{db_column}_will_change!") # unless attribute_is_changing? db_column
+          send(:"\#{db_column}_will_change!") unless duplicate?
           if web?
             self.content = file
           else
-            send(:"#{column}_will_change!")
+            send(:"#{column}_will_change!") unless duplicate?
             yield
           end
         end
