@@ -1,7 +1,5 @@
 - :name: Sample Cardtype
   :type: :cardtype
-- :name: Sample User
-  :type: :user
 - :name: Sample CSS
   :type: :css
 - :name: Sample CoffeeScript

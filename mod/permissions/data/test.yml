@@ -28,6 +28,7 @@
 
 - :name: u1
   :type: :user
+  :conflict: :defer
   :fields:
     :account:
       :fields:
@@ -35,6 +36,7 @@
         :password: u1_pass
 - :name: u2
   :type: :user
+  :conflict: :defer
   :fields:
     :account:
       :fields:
@@ -43,6 +45,7 @@
 
 - :name: u3
   :type: :user
+  :conflict: :defer
   :fields:
     :account:
       :fields:
