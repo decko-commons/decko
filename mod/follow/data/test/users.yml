@@ -1,6 +1,11 @@
 ---
+# users use "conflict: :defer" because otherwise Card#ensure detects false
+# changes in the +:password card (because the encrypted version is compared to the
+# the unencrypted one. A deeper fix would address the change detection in the
+# +:password cards
 - :name: John
   :type: :user
+  :conflict: :defer
   :fields:
     :account:
       :fields:
@@ -8,6 +13,7 @@
         :password: john_pass
 - :name: Sara
   :type: :user
+  :conflict: :defer
   :fields:
     :account:
       :fields:
@@ -15,6 +21,7 @@
         :password: sara_pass
 - :name: Big Brother
   :type: :user
+  :conflict: :defer
   :fields:
     :account:
       :fields:
@@ -22,6 +29,7 @@
         :password: big-brother_pass
 - :name: Optic fan
   :type: :user
+  :conflict: :defer
   :fields:
     :account:
       :fields:
@@ -29,6 +37,7 @@
         :password: optic-fan_pass
 - :name: Sunglasses fan
   :type: :user
+  :conflict: :defer
   :fields:
     :account:
       :fields:
@@ -36,6 +45,7 @@
         :password: sunglasses-fan_pass
 - :name: Narcissist
   :type: :user
+  :conflict: :defer
   :fields:
     :account:
       :fields:
