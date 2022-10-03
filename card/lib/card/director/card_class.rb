@@ -14,6 +14,9 @@ class Card
         card
       end
 
+      # The ensure
+
+
       def ensure opts
         ensuring opts, &:save_if_needed
       end
@@ -39,6 +42,7 @@ class Card
         @conflict_mode = mode&.to_sym || :default
         yield
       ensure
+        Card::Director.clear
         @conflict_mode = nil
       end
 
