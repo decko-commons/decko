@@ -76,7 +76,7 @@ class Card
 
       def save_needed?
         (new? || test_field_changing? || subcards.cards.any?(&:save_needed?))
-          .tap { |r| binding.pry if r }
+        # .tap { |r| puts "save needed for #{name}".yellow if r }
       end
 
       alias_method :update_attributes, :update
