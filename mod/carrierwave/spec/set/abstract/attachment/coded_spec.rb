@@ -68,7 +68,7 @@ RSpec.describe Card::Set::Abstract::Attachment::Coded do
       with_storage_config :local do
         file_card
         card = file_card.refresh true
-        card.update! file: test_file(2)
+        card.update! file: test_file(3)
         expect(card.storage_type).to eq :local
         expect(card.db_content)
           .to eq("~#{card.id}/#{card.last_action_id}.txt")

@@ -189,7 +189,6 @@
     - :account
   :fields:
     :email: no-reply@decko.org
-    :status: system
 
 - :name: welcome email
   :type: :email_template
@@ -256,6 +255,7 @@
 
 - :name: "*signin"
   :codename: :signin
+  :conflict: :defer
   :fields:
     :self:
       :fields:
