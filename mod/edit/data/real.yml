@@ -1,12 +1,14 @@
 - :name: "*input type"
   :type: :setting
   :codename: :input_type
+
+- :name:
+    - :input_type
+    - :right
   :fields:
-    :right:
-      :fields:
-        # TODO: refactor so that we don't need a compound card to have a codename
-        :content_options:
-          :codename: :input_options
-          :content: |-
-            overridden
-        :input_type: radio
+    # TODO: refactor so that we don't need a compound card to have a codename
+    :content_options:
+      :codename: :input_options
+      :content: |-
+        overridden
+    :input_type: radio

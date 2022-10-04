@@ -11,4 +11,4 @@ Cardio::ScriptLoader.exec!
 require "rails/ruby_version_check"
 Signal.trap("INT") { exit(1) }
 
-require "cardio/commands/application"
+require "cardio/command/application"

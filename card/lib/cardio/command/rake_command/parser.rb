@@ -3,7 +3,7 @@
 # require "optparse"
 #
 # module Cardio
-#   class Commands
+#   class Command
 #     class RakeCommand
 #       # parse decko/card -specific options for rake
 #       class Parser < OptionParser
@@ -23,8 +23,8 @@
 #           super() do |parser|
 #             parser.banner =
 #               "Usage:\n" +
-#                 "  #{ScriptLoader.script_name} #{command} [options]".green +
-#                 "\n\nRuns `rake #{ScriptLoader.script_name}:#{command}` task."
+#                 "  #{Command.bin_name} #{command} [options]".green +
+#                 "\n\nRuns `rake #{Command.bin_name}:#{command}` task."
 #             parser_ons parser, command do |env_array|
 #               opts[:envs] = env_array
 #             end
