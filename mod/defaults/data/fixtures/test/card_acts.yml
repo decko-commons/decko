@@ -1055,3 +1055,15 @@ card_acts_176:
   actor_id: 1
   acted_at: 2022-10-03 20:00:10.000000000 Z
   ip_address:
+card_acts_177:
+  id: 105502
+  card_id: 302
+  actor_id: 1
+  acted_at: 2022-10-04 00:04:15.000000000 Z
+  ip_address:
+card_acts_178:
+  id: 105503
+  card_id: 323
+  actor_id: 1
+  acted_at: 2022-10-04 00:04:17.000000000 Z
+  ip_address:
