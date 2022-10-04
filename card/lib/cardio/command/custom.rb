@@ -3,6 +3,7 @@ require "cardio/version"
 
 module Cardio
   class Command
+    # Card-extensions of Rails command patterns
     module Custom
       private
 
@@ -38,14 +39,18 @@ module Cardio
         puts "Run commands with -h (or --help) for more info."
 
         %i[shark monkey].each do |group|
-          puts
-          puts "For " + "#{group}s".yellow + ":"
-          map.each do |command, conf|
-            next unless conf[:group] == group
-            puts command_help(command, conf)
-          end
-          puts
+          run_help_for_group group
         end
+      end
+
+      def run_help_for_group group
+        puts
+        puts "For " + "#{group}s".yellow + ":"
+        map.each do |command, conf|
+          next unless conf[:group] == group
+          puts command_help(command, conf)
+        end
+        puts
       end
 
       # formats command string for help text

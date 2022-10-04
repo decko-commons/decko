@@ -25,14 +25,13 @@ module Cardio
       end
     end
 
-
     def map
       @map ||= {
         new: { desc: "create a new deck", group: :shark, via: :call },
         setup: { desc: "populate a database", group: :shark, via: :rake },
         update: { desc: "run data updates", group: :shark, alias: :u, via: :rake },
         version: { desc: "#{gem} gem version", group: :shark, alias: :v, via: :call },
-        help: { desc: "show this text", group: :shark, alias: :h, via: :call},
+        help: { desc: "show this text", group: :shark, alias: :h, via: :call },
 
         console: { desc: "start a ruby console", group: :monkey, alias: :c },
         dbconsole: { desc: "start a database console", group: :monkey, alias: :db },
