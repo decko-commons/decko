@@ -42,6 +42,7 @@ class Card
         @conflict_mode = mode&.to_sym || :default
         yield
       ensure
+        Card::Director.clear
         @conflict_mode = nil
       end
 
