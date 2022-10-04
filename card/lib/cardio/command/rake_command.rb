@@ -1,9 +1,9 @@
-require File.expand_path("command", __dir__)
+require File.expand_path("command_base", __dir__)
 
 module Cardio
-  class Commands
+  class Command
     # enhance standard rake command with some decko/card -specific options
-    class RakeCommand < Command
+    class RakeCommand < CommandBase
       def initialize gem, command, args={}
         @command = command
         @task = "#{gem}:#{command}"
@@ -31,7 +31,7 @@ module Cardio
 
       def commands
         task_cmd = "bundle exec rake #{@task}"
-        task_cmd += " -- #{@args.join ' '}" if !@args.empty?
+        task_cmd += " -- #{@args.join ' '}" if @args.present?
         return [task_cmd] if !@envs || @envs.empty?
 
         # @envs.map do |env|
