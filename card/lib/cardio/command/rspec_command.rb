@@ -1,9 +1,9 @@
-require File.expand_path("command", __dir__)
+require File.expand_path("command_base", __dir__)
 
 module Cardio
-  class Commands
+  class Command
     # enhance standard RSpec command with some decko/card -specific options
-    class RspecCommand < Command
+    class RspecCommand < CommandBase
       def initialize args
         require "rspec/core"
 

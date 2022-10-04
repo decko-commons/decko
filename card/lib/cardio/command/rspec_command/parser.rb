@@ -3,7 +3,7 @@
 require "optparse"
 
 module Cardio
-  class Commands
+  class Command
     class RspecCommand
       # parse decko/card -specific options for RSpec
       class Parser < OptionParser
