@@ -35,6 +35,6 @@ format :html do
 
   def all_views
     Card::Set::Format::AbstractFormat::ViewDefinition
-      .views.slice(*self.class.ancestors).values.map(&:keys).flatten.uniq
+      .views.slice(*self.class.ancestors).values.map(&:keys).flatten.uniq.sort
   end
 end

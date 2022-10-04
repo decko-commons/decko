@@ -16,7 +16,7 @@ module Cardio
         @mod = mod
         @pod_type = type&.to_sym
         @user_id = user&.card_id
-        @verbose = true # !verbose.nil?
+        @verbose = !verbose.nil?
       end
 
       def up
@@ -55,7 +55,6 @@ module Cardio
       def rescuing edible
         yield
       rescue StandardError => e
-        binding.pry
         puts edible
         puts e.message.red
         puts e.backtrace[0..10].join("\n") if @verbose
