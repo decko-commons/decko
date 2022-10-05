@@ -2,7 +2,8 @@ format :html do
   view :views_by_format do
     accordion do
       views_by_format_hash.each_with_object([]) do |(format, views), array|
-        array << accordion_item(format, body: list_group(views))
+        context = format.to_name.key
+        array << accordion_item(format, body: list_group(views), context: context)
       end
     end
   end
