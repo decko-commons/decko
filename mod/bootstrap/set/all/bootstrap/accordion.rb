@@ -10,7 +10,7 @@ format :html do
       data: nil,
       body: "",
       open: false,
-      collapse_id: "#{card.name.safe_key}-#{args[:context]}-collapse-id"
+      collapse_id: "card-#{card.name.safe_key}-#{args[:context]}-collapse-id"
     )
     haml :accordion_item, **args
   end
