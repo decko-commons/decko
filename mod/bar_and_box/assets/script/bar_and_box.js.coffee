@@ -11,8 +11,6 @@ $(window).ready ->
     else
       window.location = decko.path cl.data("cardLinkName")
 
-
-
 decko.slot.ready (slot)->
   # note: by using slot ready, we can make sure this event is triggered early
   slot.find("._card-link a, ._card-link ._card-link-clickable").on "click", (event) ->
