@@ -32,7 +32,9 @@ format :html do
     class_up "accordion-item", "bar #{classy 'bar'}"
     accordion_item render_bar_body,
                    subheader: render_menu,
-                   body: render_bar_bottom
+                   body: render_bar_bottom,
+                   context: :accordion_bar
+
   end
   # DEPRECATED
   view :expanded_bar, :accordion_bar

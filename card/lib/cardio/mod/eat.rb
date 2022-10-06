@@ -1,5 +1,5 @@
 require "timecop"
-require "pry"
+# require "pry"
 
 ENV["STORE_CODED_FILES"] = "true"
 

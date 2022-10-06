@@ -11,11 +11,13 @@ $(window).ready ->
     else
       window.location = decko.path cl.data("cardLinkName")
 
-   $('body').on 'click', "._card-link a, ._card-link ._card-link-clickable", (event)->
-     a = $(this)
-     if a.hasClass("_over-card-link") || a.closest("._over-card-link")[0]
-       # skip card link action
-       a.closest("._card-link").data "skip", "on"
-     else
-       # don't follow original link
-       event.preventDefault()
+decko.slot.ready (slot)->
+  # note: by using slot ready, we can make sure this event is triggered early
+  slot.find("._card-link a, ._card-link ._card-link-clickable").on "click", (event) ->
+   a = $(this)
+   if a.hasClass("_over-card-link") || a.closest("._over-card-link")[0]
+   # skip card link action
+     a.closest("._card-link").data "skip", "on"
+   else
+     # don't follow original link
+     event.preventDefault()

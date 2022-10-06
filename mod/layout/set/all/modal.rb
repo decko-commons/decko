@@ -94,6 +94,8 @@ format :html do
   end
 
   def pop_out_modal_window
+    return unless card.known?
+
     link_to icon_tag(:new_window), path: {}, class: "pop-out-modal btn-close"
   end
 
