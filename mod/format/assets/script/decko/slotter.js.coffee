@@ -190,7 +190,7 @@ jQuery.fn.extend
     if slot.hasClass("_modal-slot")
       slot = slot.find(".modal-body")  # put the origin slot id on the modal-body instead
                                         # of on the slot, so that it survives slot reloads
-    slot.attr("data-#{type}-origin-slot-id", @closest(".card-slot").data("slot-id"))
+    slot.attr("data-#{type}-origin-slot-id", @slot().data("slot-id"))
 
 
   # close modal or overlay
