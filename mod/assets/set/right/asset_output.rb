@@ -10,9 +10,7 @@ def history?
   false
 end
 
-event :remove_codename, :prepare_to_validate,
-      on: :delete,
-      when: proc { |c| c.codename.present? } do
+event :remove_codename, :prepare_to_validate, on: :delete, when: :codename? do
   # load file before deleting codename otherwise it will fail later
   attachment
   self.codename = nil
