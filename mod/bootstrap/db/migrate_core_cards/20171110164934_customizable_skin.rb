@@ -12,8 +12,6 @@ class CustomizableSkin < Cardio::Migration::Core
   class CustomSkin
     THEME_FIELDS = %w[colors components spacing cards fonts more].freeze
 
-    include ::Card::Model::SaveHelper
-
     def initialize theme_name, data_dir
       @theme_name = theme_name.downcase
       @skin_name = "#{theme_name} skin"

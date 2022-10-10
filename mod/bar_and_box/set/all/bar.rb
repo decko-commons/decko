@@ -34,7 +34,6 @@ format :html do
                    subheader: render_menu,
                    body: render_bar_bottom,
                    context: :accordion_bar
-
   end
   # DEPRECATED
   view :expanded_bar, :accordion_bar
