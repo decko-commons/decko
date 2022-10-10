@@ -9,7 +9,6 @@ module Cardio
     # (list of card attributes)
     # https://docs.google.com/document/d/13K_ynFwfpHwc3t5gnLeAkZJZHco1wK063nJNYwU8qfc/edit#
     class Eat
-      include Card::Model::SaveHelper
       include Edibles
 
       def initialize mod: nil, type: nil, user: nil, verbose: nil
