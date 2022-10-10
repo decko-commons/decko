@@ -1,4 +1,5 @@
 - :name: Home
+  :codename: default_home
   :content: |
     <div>{{:getting_started|core}}</div>
     <div>{{## Feel free to get rid of this and start fresh! }}</div>
@@ -58,8 +59,7 @@
     {{:footer|bar}}
 
     ##Integrations
-    {{*recaptcha settings|bar}}
-    {{*google analytics key|bar}}
+    {{:recaptcha_settings|bar}}
 
     ##Editor configuration
     {{:tiny_mce|bar}}
@@ -85,7 +85,7 @@
     <div>
     <h3>Views</h3>
     <p>You can try out different views below</p>
-    <p>{{*getting started|demo}}</p>
+    <p>{{:getting_started|demo}}</p>
     </div>
 
 - :name:
@@ -95,7 +95,7 @@
     <h3>Accounts</h3>
     <p>{{:accounts|content}}</p>
     <h3>Help Texts</h3>
-    <p>{{:help|bar}}{{*add help|bar}}</p>
+    <p>{{:help|bar}}</p>
     <h3>Emails </h3>
     <p>Here are the current [[Email Templates|Email templates]] for your site.</p>
     <p>{{Email Templates+*type+by update|content}} </p>

@@ -289,9 +289,10 @@
     - :type
     - :thanks
   :type: :phrase
-  :content: Signup_Success
+  :content: :signup_success
 
 - :name: Signup Success
+  :codename: signup_success
   :content: |-
     <div>
       Thank you for signing up with {{:title|core}}. 

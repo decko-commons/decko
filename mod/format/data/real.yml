@@ -49,7 +49,7 @@
 - :name:
     - :all
     - :head
-  :content: "{{*head|core}}"
+  :content: "{{:head|core}}"
 
 - :name: "*title"
   :type: :phrase
@@ -60,7 +60,7 @@
   :codename: credit
   :content: |
     {{+:image|core}}
-    <a href="http://decko.org">Decko v{{*version|core}}</a>
+    <a href="http://decko.org">Decko v{{:version|core}}</a>
   :fields:
     :self:
       :fields:
