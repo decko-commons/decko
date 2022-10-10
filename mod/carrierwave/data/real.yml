@@ -1,7 +1,7 @@
 #---
 - :name: File
   :type: :cardtype
-  :codename: :file
+  :codename: file
   :fields:
     :description: |-
       <p>
@@ -11,7 +11,7 @@
 
 - :name: Image
   :type: :cardtype
-  :codename: :image
+  :codename: image
   :fields:
     :description: |-
       <p>
@@ -26,7 +26,7 @@
 
 - :name: "*logo"
   :type: :image
-  :codename: :logo
+  :codename: logo
   :storage_type: :coded
   :image: logo.svg
   :fields:
@@ -35,18 +35,18 @@
         :read: Anyone
 - :name: "*favicon"
   :type: :image
-  :codename: :favicon
+  :codename: favicon
   :image: favicon.png
   :storage_type: :coded
 
 
 - :name: "*new file"
   :type: :file
-  :codename: :new_file
+  :codename: new_file
   :skip: validate_file_exist
 - :name: "*new image"
   :type: :image
-  :codename: :new_image
+  :codename: new_image
   :skip: validate_file_exist
 
 # TODO: move to code.  should not be editable

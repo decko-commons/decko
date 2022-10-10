@@ -2,13 +2,6 @@
 
 class AddSharkAndHelpDeskRole < Cardio::Migration::Core
   def up
-    # delete_code_card :eagle
-    ensure_role "Shark", codename: "shark"
-    ensure_role "Help Desk", codename: "help_desk"
-
-    Card.ensure name: "*account settings",
-                codename: "account_settings", type_id: Card::BasicID
-
     update_card! "Decker Menu", name: "Shark Menu"
     update_card! :ace, name: "*ace"
     update_card! "*google_analytics_key", name: "*google analytics key"
