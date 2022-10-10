@@ -1,5 +1,5 @@
 - :name: "*api key"
-  :codename: :api_key
+  :codename: api_key
   :fields:
     :right:
       :fields:

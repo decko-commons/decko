@@ -3,44 +3,44 @@
 
 - :name: JSON
   :type: :cardtype
-  :codename: :json
+  :codename: json
 - :name: RichText
   :type: :cardtype
-  :codename: :basic
+  :codename: basic
   :fields:
     :description: "<p>Basic cards are for rich text, and are the default type for new cards.</p>"
 - :name: Number
   :type: :cardtype
-  :codename: :number
+  :codename: number
   :fields:
     :description: "<p>Can contain only numerical values.</p>"
 - :name: PlainText
   :type: :cardtype
-  :codename: :plain_text
+  :codename: plain_text
   :fields:
     :description: "<p>PlainText cards are for unstyled text.</p>"
 - :name: HTML
   :type: :cardtype
-  :codename: :html
+  :codename: html
   :fields:
     :description: "<p>These cards allow unrestricted HTML. [[http://decko.org/wagn/HTML|more]]</p>"
 - :name: Toggle
   :type: :cardtype
-  :codename: :toggle
+  :codename: toggle
   :fields:
     :description: "<p>Toggles simply indicate yes or no. [[http://decko.org/wagn/Toggle|more]].</p>"
 - :name: Phrase
   :type: :cardtype
-  :codename: :phrase
+  :codename: phrase
   :fields:
     :description: "<p>Phrase cards are for short unstyled text.</p>"
 - :name: URI
   :type: :cardtype
-  :codename: :uri
+  :codename: uri
 
 - :name: "*head"
   :type: :setting
-  :codename: :head
+  :codename: head
   :fields:
     :self:
       :fields:
@@ -49,18 +49,18 @@
 - :name:
     - :all
     - :head
-  :content: "{{*head|core}}"
+  :content: "{{:head|core}}"
 
 - :name: "*title"
   :type: :phrase
-  :codename: :title
+  :codename: title
   :content: My Deck
 - :name: "*credit"
   :type: :html
-  :codename: :credit
+  :codename: credit
   :content: |
     {{+:image|core}}
-    <a href="http://decko.org">Decko v{{*version|core}}</a>
+    <a href="http://decko.org">Decko v{{:version|core}}</a>
   :fields:
     :self:
       :fields:
