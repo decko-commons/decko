@@ -6,8 +6,6 @@ namespace :card do
 
     task code: :environment do
       Cardio.config.compress_assets = true
-
-      binding.pry
       Card::Assets.make_output_coded
     end
 
