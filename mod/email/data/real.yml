@@ -1,7 +1,7 @@
 ---
 - :name: Email template
   :type: :cardtype
-  :codename: :email_template
+  :codename: email_template
   :fields:
     :description: |-
       Design custom emails to be triggered by card actions.
@@ -21,7 +21,7 @@
           </p>"
 
 - :name: "*to"
-  :codename: :to
+  :codename: to
   :fields:
     :right:
       :fields:
@@ -29,7 +29,7 @@
           :type: :search_type
           :content: ' { "right_plus":{"codename":"account"} } '
 - :name: "*from"
-  :codename: :from
+  :codename: from
   :fields:
     :right:
       :fields:
@@ -37,7 +37,7 @@
           :type: :search_type
           :content: ' { "right_plus":{"codename":"account"} } '
 - :name: "*cc"
-  :codename: :cc
+  :codename: cc
   :fields:
     :right:
       :fields:
@@ -45,7 +45,7 @@
           :type: :search_type
           :content: ' { "right_plus":{"codename":"account"} } '
 - :name: "*bcc"
-  :codename: :bcc
+  :codename: bcc
   :fields:
     :right:
       :fields:
@@ -53,9 +53,9 @@
           :type: :search_type
           :content: ' { "right_plus":{"codename":"account"} } '
 - :name: "*subject"
-  :codename: :subject
+  :codename: subject
 - :name: "*attach"
-  :codename: :attach
+  :codename: attach
   :fields:
     :right:
       :fields:
@@ -66,6 +66,6 @@
              "sort": "update"
             }
 - :name: "*html message"
-  :codename: :html_message
+  :codename: html_message
 - :name: "*text message"
-  :codename: :text_message
+  :codename: text_message

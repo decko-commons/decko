@@ -1,12 +1,12 @@
 ---
 - :name: Notification template
   :type: :cardtype
-  :codename: :notification_template
+  :codename: notification_template
 
 
 - :name: "*follow"
   :type: :setting
-  :codename: :follow
+  :codename: follow
   :fields:
     :right:
       :fields:
@@ -15,7 +15,7 @@
 
 - :name: "*following"
   :type: :list
-  :codename: :following
+  :codename: following
   :fields:
     :right:
       :fields:
@@ -24,21 +24,21 @@
 
 
 - :name: "*followers"
-  :codename: :followers
+  :codename: followers
 - :name: "*follow fields"
   :type: :setting
-  :codename: :follow_fields
+  :codename: follow_fields
 - :name: "*always"
-  :codename: :always
+  :codename: always
 - :name: "*never"
-  :codename: :never
+  :codename: never
 - :name: "*follow defaults"
   :type: :list
-  :codename: :follow_defaults
+  :codename: follow_defaults
 
 - :name: follow suggestions
   :type: :list
-  :codename: :follow_suggestions
+  :codename: follow_suggestions
 
 - :name:
     - :all
@@ -46,7 +46,7 @@
   :content: "*nests"
 
 - :name: "*contextual class"
-  :codename: :contextual_class
+  :codename: contextual_class
   :fields:
     :right:
       :fields:
@@ -57,14 +57,14 @@
           warning
           danger
 - :name: "*message"
-  :codename: :message
+  :codename: message
 - :name: "*disappear"
-  :codename: :disappear
+  :codename: disappear
 
 
 - :name: follower notification email
   :type: :email_template
-  :codename: :follower_notification_email
+  :codename: follower_notification_email
   :fields:
     :from: Decko Bot
     :subject: '{{_user|name}} {{_|last_action_verb}} "{{_|name}}"'
