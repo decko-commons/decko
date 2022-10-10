@@ -1,7 +1,7 @@
 - :name: "*asset input"
-  :codename: :asset_input
+  :codename: asset_input
 - :name: "*asset output"
-  :codename: :asset_output
+  :codename: asset_output
 - :name: Remote manifest group
   :type: :cardtype
-  :codename: :remote_manifest_group
+  :codename: remote_manifest_group

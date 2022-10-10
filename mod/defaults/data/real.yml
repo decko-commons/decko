@@ -1,6 +1,6 @@
 - :name: Home
   :content: |
-    <div>{{*getting started|core}}</div>
+    <div>{{:getting_started|core}}</div>
     <div>{{## Feel free to get rid of this and start fresh! }}</div>
   :fields:
     :self:
@@ -11,7 +11,7 @@
 
 - :name: "*home"
   :type: :pointer
-  :codename: :home
+  :codename: home
   :content: Home
 
 - :name:
@@ -25,21 +25,23 @@
     {{+:members|titled;title: Members}}
 
 - :name: dashboard
-  :codename: :dashboard
+  :codename: dashboard
 
 - :name: "*main menu"
+  :codename: main_menu
   :type: :link_list
   :content: |-
-    [[*getting started links|Getting started]]
+    [[:getting_started_links|Getting started]]
     [[:recent|Recent Changes]]
 
 - :name: "*getting started links"
+  :codename: getting_started_links
   :type: :link_list
   :content: |-
     [[/new/Cardtype | Add type]]
-    [[*all+*style | Configure skin]]
+    [[:all+:style | Configure skin]]
     [[Administrator| Basic configuration]]
-    [[/*main menu?view=edit | Change this menu]]
+    [[/:main_menu/edit | Change this menu]]
     [[https://decko.org/Features | Learn more]]
 
 - :name:
@@ -48,35 +50,35 @@
   :type: :markdown
   :content: |
     ##Basic configuration
-    {{*title|bar}}
-    {{*home|bar}}
-    {{*logo|bar}}
-    {{*main menu|bar}}
-    {{*header|bar}}
-    {{*footer|bar}}
+    {{:title|bar}}
+    {{:home|bar}}
+    {{:logo|bar}}
+    {{:main_menu|bar}}
+    {{:header|bar}}
+    {{:footer|bar}}
 
     ##Integrations
     {{*recaptcha settings|bar}}
     {{*google analytics key|bar}}
 
     ##Editor configuration
-    {{*tiny mce|bar}}
-    {{*ace|bar}}
+    {{:tiny_mce|bar}}
+    {{:ace|bar}}
 - :name:
     - :shark
     - :dashboard
   :content: |
     <h3>Cardtypes </h3>
     <p> [[/new/cardtype|Add new Type]]</p>
-    <p>{{Cardtype+*type+by name|bar; title: all cardtypes}}</p>
+    <p>{{Cardtype+:type+:by_name|bar; title: all cardtypes}}</p>
     <h3>Rules</h3>
     <div>Cards are configured by creating <em>rules</em>.  </div>
     <div> </div>
     <h5>Webpage rules</h5>
     <div>
-    <blockquote>{{*all|bar_rule_list; filter:webpage}}</blockquote>
+    <blockquote>{{:all|bar_rule_list; filter:webpage}}</blockquote>
     <h5>Permission rules</h5>
-    <blockquote>{{*all|bar_rule_list; filter:permission}}</blockquote>
+    <blockquote>{{:all|bar_rule_list; filter:permission}}</blockquote>
     </div>
     <div><em>[[http://decko.org/rules | More about rules.]]</em></div>
     <div> </div>
@@ -91,9 +93,9 @@
     - dashboard
   :content: |
     <h3>Accounts</h3>
-    <p>{{*accounts|content}}</p>
+    <p>{{:accounts|content}}</p>
     <h3>Help Texts</h3>
-    <p>{{*help|bar}}{{*add help|bar}}</p>
+    <p>{{:help|bar}}{{*add help|bar}}</p>
     <h3>Emails </h3>
     <p>Here are the current [[Email Templates|Email templates]] for your site.</p>
     <p>{{Email Templates+*type+by update|content}} </p>
@@ -116,11 +118,11 @@
 
 - :name: "*getting started"
   :type: :html
-  :codename: :getting_started
+  :codename: getting_started
   :content: |-
     <div class="container text-center">
       <div class="d-flex justify-content-center align-items-center p-3 my-3 rounded box-shadow">
-        {{+shark|core}}
+        {{+:shark|core}}
         <h1>Welcome, Card Shark!</h1>
       </div>
       <div class="jumbotron">
@@ -133,7 +135,7 @@
           <div class="m-4">
             <p class="lead">Style</p>
             <p>
-              <a href="*all+*style" class= "btn btn-primary">Configure Skin Card</a>
+              <a href=":all+:style" class= "btn btn-primary">Configure Skin Card</a>
             </p>
           </div>
         </div>

@@ -1,7 +1,7 @@
 ---
 - :name: "*script"
   :type: :setting
-  :codename: :script
+  :codename: script
   :fields:
     :right:
       :fields:
@@ -16,7 +16,7 @@
 
 - :name: JavaScript
   :type: :cardtype
-  :codename: :java_script
+  :codename: java_script
   :fields:
     :description: |-
       <p>
@@ -30,7 +30,7 @@
         :delete: Shark
 - :name: CoffeeScript
   :type: :cardtype
-  :codename: :coffee_script
+  :codename: coffee_script
   :fields:
     :description: |-
       <p>
@@ -44,7 +44,7 @@
         :delete: Shark
 - :name: Local script folder group
   :type: :cardtype
-  :codename: :local_script_folder_group
+  :codename: local_script_folder_group
 - :name: Local script manifest group
   :type: :cardtype
-  :codename: :local_script_manifest_group
+  :codename: local_script_manifest_group

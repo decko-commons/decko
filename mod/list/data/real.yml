@@ -1,32 +1,32 @@
 ---
 - :name: List
   :type: :cardtype
-  :codename: :list
+  :codename: list
   :fields:
     :description: |-
       <p>Lists list one or more other cards. [[http://decko.org/:list|more]]</p>
 
 - :name: Pointer
   :type: :cardtype
-  :codename: :pointer
+  :codename: pointer
   :fields:
     :description: |-
       <p>Pointers point another card. [[http://decko.org/:pointer|more]]</p>
 
 - :name: Nest list
   :type: :cardtype
-  :codename: :nest_list
+  :codename: nest_list
 - :name: Link list
   :type: :cardtype
-  :codename: :link_list
+  :codename: link_list
 
 - :name: "*content options"
   :type: :setting
-  :codename: :content_options
+  :codename: content_options
 
 - :name: "*content option view"
   :type: :setting
-  :codename: :content_option_view
+  :codename: content_option_view
 
 - :name:
     - :structure

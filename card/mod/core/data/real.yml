@@ -1,14 +1,14 @@
 ---
 
 - :name: description
-  :codename: :description
+  :codename: description
 
 - :name: "*admin"
-  :codename: :admin
+  :codename: admin
 
 - :name: Cardtype
   :type: :cardtype
-  :codename: :cardtype
+  :codename: cardtype
   :fields:
     :description: |-
       <p>
@@ -16,7 +16,7 @@
         [[http://decko.org/card_types|more]]
       </p>
 - :name: Decko Bot
-  :codename: :wagn_bot
+  :codename: wagn_bot
   :content: |-
     <p>
       This is the account that makes any automated updates &mdash; cards
@@ -25,22 +25,22 @@
 
 - :name: Mod
   :type: :cardtype
-  :codename: :mod
+  :codename: mod
 - :name: Setting
   :type: :cardtype
-  :codename: :setting
+  :codename: setting
 
 
 - :name: "*version"
-  :codename: :version
+  :codename: version
 - :name: "*autoname"
   :type: :setting
-  :codename: :autoname
+  :codename: autoname
 
 # user needed early because of references to UserID in preference cache
 - :name: User
   :type: :cardtype
-  :codename: :user
+  :codename: user
   :fields:
     :description: |-
       {{_l|name}} cards can support accounts, profile pages, and more.
@@ -51,29 +51,29 @@
 
 - :name: "*all"
   :type: :set
-  :codename: :all
+  :codename: all
   :content: "{}"
 - :name: "*all plus"
   :type: :set
-  :codename: :all_plus
+  :codename: all_plus
   :content: '{"left":{}}'
 - :name: "*type"
-  :codename: :type
+  :codename: type
 - :name: "*star"
   :type: :set
-  :codename: :star
+  :codename: star
   :content: '{"complete":"*"}'
 - :name: "*rstar"
   :type: :set
-  :codename: :rstar
+  :codename: rstar
   :content: '{"right":{"complete":"*"}}'
 - :name: "*rule"
   :type: :set
-  :codename: :rule
+  :codename: rule
 - :name: "*type plus right"
-  :codename: :type_plus_right
+  :codename: type_plus_right
 - :name: "*right"
-  :codename: :right
+  :codename: right
 - :name: "*self"
-  :codename: :self
+  :codename: self
 

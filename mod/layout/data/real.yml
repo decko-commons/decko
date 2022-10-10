@@ -1,7 +1,7 @@
 ---
 - :name: Layout
   :type: :cardtype
-  :codename: :layout_type
+  :codename: layout_type
   :fields:
     :description: Organize webpages. [[http://decko.org/Layout|more]]
     :type:
@@ -12,7 +12,7 @@
 
 - :name: "*layout"
   :type: :setting
-  :codename: :layout
+  :codename: layout
   :fields:
     :right:
       :fields:
@@ -22,9 +22,9 @@
           :content: '{"type": "Layout"}'
 
 - :name: "*sidebar"
-  :codename: :sidebar
+  :codename: sidebar
   :content: |-
-    <div>[[/ | {{*logo|content_panel}}]]</div>
+    <div>[[/ | {{:logo|content_panel}}]]</div>
     <div>{{Menu|open}}</div>
   :fields:
     :right:
@@ -40,6 +40,7 @@
 - :name: "*main menu"
   :type: :link_list
   :content: "[[:recent|Recent Changes]]"
+  :codename: main_menu
   :conflict: :defer
   :fields:
     :self:
@@ -76,6 +77,7 @@
       </div>
     </nav>
 - :name: "*footer"
+  :codename: footer
   :type: :html
   :content: |-
     <div class="d-flex justify-content-center align-items-center">

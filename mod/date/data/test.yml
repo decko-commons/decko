@@ -1,5 +1,5 @@
 - :name: "*test context"
-  :codename: :test_context
+  :codename: test_context
 - :name:
     - :test_context
     - :right
