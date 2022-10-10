@@ -1,2 +1,60 @@
 // recaptcha.js.coffee
-(function(){var t,a,n;$(window).ready(function(){return $("body").on("submit","form.slotter",function(t){var n;if("on"===(n=$(this)).data("recaptcha"))return a(n,t)})}),a=function(t,a){var e;return null==(e=t.find("input._recaptcha-token"))[0]?e.val("recaptcha-token-field-missing"):e.hasClass("_token-updated")?e.removeClass("_token-updated"):"undefined"==typeof grecaptcha||null===grecaptcha?e.val("grecaptcha-undefined"):n(t,a)},n=function(a,n){var e;return null==(e=a.find("input._recaptcha-token"))[0]?e.val("recaptcha-token-field-missing"):"undefined"==typeof grecaptcha||null===grecaptcha?e.val("grecaptcha-undefined"):(n&&n.stopPropagation(),t(a,n,e),!1)},t=function(t,a,n){var e,c;return c=n.data("site-key"),e=n.data("action"),grecaptcha.execute(c,{action:e}).then(function(e){if(n.val(e),n.addClass("_token-updated"),a)return t.submit()})}}).call(this);
+(function() {
+  var executeGrecaptcha, handleRecaptcha, updateRecaptchaToken;
+
+  $(window).ready(function() {
+    return $('body').on('submit', 'form.slotter', function(event) {
+      var form;
+      form = $(this);
+      if (form.data('recaptcha') === 'on') {
+        return handleRecaptcha(form, event);
+      }
+    });
+  });
+
+  handleRecaptcha = function(form, event) {
+    var recaptcha;
+    recaptcha = form.find("input._recaptcha-token");
+    if (recaptcha[0] == null) {
+      return recaptcha.val("recaptcha-token-field-missing");
+    } else if (recaptcha.hasClass("_token-updated")) {
+      return recaptcha.removeClass("_token-updated");
+    } else if (typeof grecaptcha === "undefined" || grecaptcha === null) {
+      return recaptcha.val("grecaptcha-undefined");
+    } else {
+      return updateRecaptchaToken(form, event);
+    }
+  };
+
+  updateRecaptchaToken = function(form, event) {
+    var recaptcha;
+    recaptcha = form.find("input._recaptcha-token");
+    if (recaptcha[0] == null) {
+      return recaptcha.val("recaptcha-token-field-missing");
+    } else if (typeof grecaptcha === "undefined" || grecaptcha === null) {
+      return recaptcha.val("grecaptcha-undefined");
+    } else {
+      if (event) {
+        event.stopPropagation();
+      }
+      executeGrecaptcha(form, event, recaptcha);
+      return false;
+    }
+  };
+
+  executeGrecaptcha = function(form, event, recaptcha) {
+    var action, siteKey;
+    siteKey = recaptcha.data("site-key");
+    action = recaptcha.data("action");
+    return grecaptcha.execute(siteKey, {
+      action: action
+    }).then(function(token) {
+      recaptcha.val(token);
+      recaptcha.addClass("_token-updated");
+      if (event) {
+        return form.submit();
+      }
+    });
+  };
+
+}).call(this);
