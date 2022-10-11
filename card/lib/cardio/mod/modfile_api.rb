@@ -2,8 +2,8 @@ module Cardio
   class Mod
     # Methods used via "eval" in Modfiles
     module ModfileApi
-      def mod mod_name, path=nil
-        @dirs.add_mod mod_name, path
+      def mod *args
+        @dirs.add_mod *args
       end
 
       def gem_mod name
