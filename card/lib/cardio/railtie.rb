@@ -102,7 +102,6 @@ module Cardio
       app.config.tap do |c|
         if c.load_strategy == :tmp_files
           %w[set set_pattern].each { |dir| c.paths.add "tmp/#{dir}" }
-          end
         end
       end
     end
