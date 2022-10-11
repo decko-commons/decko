@@ -52,34 +52,34 @@ module Cardio
         @mods = []
         @mods_by_name = {}
         @loaded_gem_mods = ::Set.new
-        mod_paths = Array(mod_paths)
-        mod_paths.each do |mp|
+        # load_core_mods
+        Array(mod_paths).each do |mp|
           @current_path = mp
-          load_from_modfile || load_from_dir
+          add_from_modfile || add_from_dir
         end
-        load_from_gemfile
+        add_from_gemfile
         super()
-        @mods.each do |mod|
-          self << mod.path
-        end
+        @mods.each { |mod| self << mod.path }
       end
 
       def add_gem_mod mod_name, mod_path
         return if @loaded_gem_mods.include?(mod_name)
 
         @loaded_gem_mods << mod_name
-        add_mod mod_name, mod_path
+        add_mod mod_name, path: mod_path, group: "gem"
       end
 
       # Add a mod to mod load paths
-      def add_mod mod_name, path=nil
+      def add_mod mod_name, path: nil, group: nil
         if @mods_by_name.key? Mod.normalize_name(mod_name)
           raise ::Card::Error,
                 "name conflict: mod with name \"#{mod_name}\" already loaded"
         end
 
         path ||= File.join @current_path, mod_name
-        mod = Mod.new mod_name, path, @mods.size
+        group ||= @current_group
+
+        mod = Mod.new mod_name, path, group, @mods.size
         @mods << mod
         @mods_by_name[mod.name] = mod
       end
@@ -142,7 +142,7 @@ module Cardio
         end
       end
 
-      def load_from_gemfile
+      def add_from_gemfile
         Cardio::Mod.gem_specs.each do |mod_name, mod_spec|
           add_gem_mod mod_name, mod_spec.full_gem_path
         end
@@ -150,7 +150,14 @@ module Cardio
 
       private
 
-      def load_from_modfile
+      def add_core_mods
+        @current_path = File.join Cardio.gem_root, "mod"
+        @current_group = "core"
+        add_from_dir
+        @current_group = nil
+      end
+
+      def add_from_modfile
         modfile_path = File.join @current_path, "Modfile"
         return unless File.exist? modfile_path
 
@@ -159,7 +166,7 @@ module Cardio
         true
       end
 
-      def load_from_dir
+      def add_from_dir
         Dir.entries(@current_path).sort.each do |filename|
           add_mod filename unless filename.match?(/^\./)
         end

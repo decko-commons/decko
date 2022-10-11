@@ -42,7 +42,7 @@ module Cardio
 
     config.i18n.enforce_available_locales = true
     config.read_only = !ENV["DECKO_READ_ONLY"].nil?
-    config.load_strategy = (ENV["REPO_TMPSETS"] || ENV["TMPSETS"] ? :tmp_files : :eval)
+    config.load_strategy = (ENV["TMPSETS"] ? :tmp_files : :eval)
 
     # TODO: support mod-specific railties
 
@@ -75,7 +75,7 @@ module Cardio
           p.add "db/migrate_deck", with: "db/migrate"
           p.add "db/migrate_deck_cards", with: "db/migrate_cards"
 
-          Cardio::Mod.each_path do |mod_path|
+          Cardio::Mod.dirs.each do |mod_path|
             c.autoload_paths += Dir["#{mod_path}/lib"]
             c.watchable_dirs["#{mod_path}/set"] = %i[rb haml]
 
@@ -101,13 +101,7 @@ module Cardio
     config.before_initialize do |app|
       app.config.tap do |c|
         if c.load_strategy == :tmp_files
-          %w[set set_pattern].each do |dir|
-            if ENV["REPO_TMPSETS"]
-              c.paths.add "tmp/#{dir}", with: "#{Cardio.gem_root}/tmpsets/#{dir}"
-            else
-              c.paths.add "tmp/#{dir}"
-            end
-          end
+          %w[set set_pattern].each { |dir| c.paths.add "tmp/#{dir}" }
         end
       end
     end
