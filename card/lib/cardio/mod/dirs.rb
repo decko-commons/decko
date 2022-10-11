@@ -52,12 +52,12 @@ module Cardio
         @mods = []
         @mods_by_name = {}
         @loaded_gem_mods = ::Set.new
-        load_core_mods
+        # load_core_mods
         Array(mod_paths).each do |mp|
           @current_path = mp
-          load_from_modfile || load_from_dir
+          add_from_modfile || add_from_dir
         end
-        load_from_gemfile
+        add_from_gemfile
         super()
         @mods.each { |mod| self << mod.path }
       end
@@ -142,7 +142,7 @@ module Cardio
         end
       end
 
-      def load_from_gemfile
+      def add_from_gemfile
         Cardio::Mod.gem_specs.each do |mod_name, mod_spec|
           add_gem_mod mod_name, mod_spec.full_gem_path
         end
@@ -150,14 +150,14 @@ module Cardio
 
       private
 
-      def load_core_mods
+      def add_core_mods
         @current_path = File.join Cardio.gem_root, "mod"
         @current_group = "core"
-        load_from_dir
+        add_from_dir
         @current_group = nil
       end
 
-      def load_from_modfile
+      def add_from_modfile
         modfile_path = File.join @current_path, "Modfile"
         return unless File.exist? modfile_path
 
@@ -166,7 +166,7 @@ module Cardio
         true
       end
 
-      def load_from_dir
+      def add_from_dir
         Dir.entries(@current_path).sort.each do |filename|
           add_mod filename unless filename.match?(/^\./)
         end

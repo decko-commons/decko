@@ -60,8 +60,8 @@ module Cardio
 
           p["lib/tasks"] << "#{card_root}/lib/tasks"
 
-          p.add "mod" # , with: "#{card_root}/mod"
-          # p["mod"] << "mod"
+          p.add "mod", with: "#{card_root}/mod"
+          p["mod"] << "mod"
           p.add "files"
 
           p.add "lib/graph_q_l/types/query.rb"
@@ -75,7 +75,7 @@ module Cardio
           p.add "db/migrate_deck", with: "db/migrate"
           p.add "db/migrate_deck_cards", with: "db/migrate_cards"
 
-          Cardio::Mod.each_path do |mod_path|
+          Cardio::Mod.dirs.each do |mod_path|
             c.autoload_paths += Dir["#{mod_path}/lib"]
             c.watchable_dirs["#{mod_path}/set"] = %i[rb haml]
 
