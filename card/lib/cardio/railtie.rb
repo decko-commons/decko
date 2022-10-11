@@ -60,8 +60,8 @@ module Cardio
 
           p["lib/tasks"] << "#{card_root}/lib/tasks"
 
-          p.add "mod", with: "#{card_root}/mod"
-          p["mod"] << "mod"
+          p.add "mod" # , with: "#{card_root}/mod"
+          # p["mod"] << "mod"
           p.add "files"
 
           p.add "lib/graph_q_l/types/query.rb"

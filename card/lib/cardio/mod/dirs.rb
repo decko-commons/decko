@@ -52,16 +52,14 @@ module Cardio
         @mods = []
         @mods_by_name = {}
         @loaded_gem_mods = ::Set.new
-        mod_paths = Array(mod_paths)
-        mod_paths.each do |mp|
+        load_core_mods
+        Array(mod_paths).each do |mp|
           @current_path = mp
           load_from_modfile || load_from_dir
         end
         load_from_gemfile
         super()
-        @mods.each do |mod|
-          self << mod.path
-        end
+        @mods.each { |mod| self << mod.path }
       end
 
       def add_gem_mod mod_name, mod_path
@@ -79,6 +77,8 @@ module Cardio
         end
 
         path ||= File.join @current_path, mod_name
+        group ||= @current_group
+
         mod = Mod.new mod_name, path, group, @mods.size
         @mods << mod
         @mods_by_name[mod.name] = mod
@@ -149,6 +149,13 @@ module Cardio
       end
 
       private
+
+      def load_core_mods
+        @current_path = File.join Cardio.gem_root, "mod"
+        @current_group = "core"
+        load_from_dir
+        @current_group = nil
+      end
 
       def load_from_modfile
         modfile_path = File.join @current_path, "Modfile"
