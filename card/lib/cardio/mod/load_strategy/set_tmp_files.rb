@@ -9,7 +9,7 @@ module Cardio
           return unless prepare_tmp_dir "tmp/set"
 
           mod_dirs.each_with_tmp(:set) do |mod_dir, mod_tmp_dir|
-            Dir.mkdir mod_tmp_dir
+            FileUtils.mkdir_p mod_tmp_dir
             Dir.glob("#{mod_dir}/**/*.rb").each do |abs_path|
               rel_path = abs_path.sub "#{mod_dir}/", ""
               tmp_filename = File.join mod_tmp_dir, rel_path
