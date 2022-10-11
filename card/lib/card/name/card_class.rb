@@ -17,8 +17,6 @@ class Card
         name
       end
 
-      private
-
       def generate_alternative_name name
         uniq_name = "#{name} 1"
         uniq_name.next! while Card.exists?(uniq_name)

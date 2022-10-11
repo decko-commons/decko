@@ -18,8 +18,8 @@
       :fields:
         :input_type: select
         :content_options:
+          :codename: layout_options
           :type: :search_type
-          :content: '{"type": "Layout"}'
 
 - :name:
     - :all

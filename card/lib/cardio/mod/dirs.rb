@@ -68,18 +68,18 @@ module Cardio
         return if @loaded_gem_mods.include?(mod_name)
 
         @loaded_gem_mods << mod_name
-        add_mod mod_name, mod_path
+        add_mod mod_name, path: mod_path, group: "gem"
       end
 
       # Add a mod to mod load paths
-      def add_mod mod_name, path=nil
+      def add_mod mod_name, path: nil, group: nil
         if @mods_by_name.key? Mod.normalize_name(mod_name)
           raise ::Card::Error,
                 "name conflict: mod with name \"#{mod_name}\" already loaded"
         end
 
         path ||= File.join @current_path, mod_name
-        mod = Mod.new mod_name, path, @mods.size
+        mod = Mod.new mod_name, path, group, @mods.size
         @mods << mod
         @mods_by_name[mod.name] = mod
       end
