@@ -62,11 +62,12 @@ module Cardio
   class Mod
     extend ClassMethods
 
-    attr_reader :name, :path, :index
+    attr_reader :name, :path, :group, :index
 
-    def initialize name, path, index
+    def initialize name, path, group, index
       @name = Mod.normalize_name name
       @path = required_path path
+      @group = group || :default
       @index = index
     end
 
@@ -84,7 +85,7 @@ module Cardio
     end
 
     def tmp_dir type
-      File.join Cardio.paths["tmp/#{type}"].first,
+      File.join Cardio.paths["tmp/#{type}"].first, @group.to_s,
                 "mod#{'%03d' % (@index + 1)}-#{@name}"
     end
 
