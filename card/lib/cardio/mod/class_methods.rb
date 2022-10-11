@@ -1,3 +1,5 @@
+require "cardio/mod/dirs"
+
 module Cardio
   class Mod
     # class methods for Cardio::Mod
@@ -56,9 +58,8 @@ module Cardio
         (dep_names << spec).flatten.compact.uniq
       end
 
-      def each_path &block
-        each_simple_path(&block)
-        each_gem_path(&block)
+      def each_path
+        dirs.each { |path| yield path}
       end
 
       # @return [Hash] in the form{ modname(String) => Gem::Specification }
@@ -106,18 +107,6 @@ module Cardio
         name = "card-mod-#{name}" if nickname && !name.match?(/^card-mod/)
         spec = Gem::Specification.stubs_for(name)&.first
         gem_spec?(spec) ? spec : nil
-      end
-
-      def each_simple_path &block
-        Cardio.paths["mod"].each do |mods_path|
-          Dir.glob("#{mods_path}/*").each(&block)
-        end
-      end
-
-      def each_gem_path
-        gem_specs.each_value do |spec|
-          yield spec.full_gem_path
-        end
       end
 
       # @return [True/False]
