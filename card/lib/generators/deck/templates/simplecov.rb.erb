@@ -1,5 +1,5 @@
 
-if ENV["<%= 'REPO_' if platypus? %>TMPSETS"] && ENV["COVERAGE"] != "false"
+if ENV["TMPSETS"] && ENV["COVERAGE"] != "false"
   SimpleCov.start do
     def add_mod_groups dir_pattern
       Dir[dir_pattern].each do |path|
@@ -12,7 +12,6 @@ if ENV["<%= 'REPO_' if platypus? %>TMPSETS"] && ENV["COVERAGE"] != "false"
 
     add_filter "/generators/"
     add_filter "_spec_helper"
-    add_filter "test_seed"
 
     add_group "Card", "card/"
     add_group "Cardname", "cardname"

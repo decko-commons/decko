@@ -34,6 +34,10 @@ class Card
       def codename_or_string
         codename || s
       end
+
+      def alternative
+        Card.generate_alternative_name self
+      end
     end
   end
 end
