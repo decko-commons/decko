@@ -1,5 +1,5 @@
 
-if ENV["<%= 'REPO_' if platypus? %>TMPSETS"] && ENV["COVERAGE"] != "false"
+if ENV["TMPSETS"] && ENV["COVERAGE"] != "false"
   SimpleCov.start do
     def add_mod_groups dir_pattern
       Dir[dir_pattern].each do |path|

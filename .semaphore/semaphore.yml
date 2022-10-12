@@ -67,7 +67,7 @@ blocks:
   - name: Unit Tests
     task:
       env_vars:
-        - name: REPO_TMPSETS
+        - name: TMPSETS
           value: "true"
       prologue:
         commands:
@@ -100,7 +100,7 @@ blocks:
         - name: decko-cypress
         - name: publish-cucumber
       env_vars:
-        - name: REPO_TMPSETS
+        - name: TMPSETS
           value: "true"
       prologue:
         commands:

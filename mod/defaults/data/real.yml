@@ -51,19 +51,19 @@
   :type: :markdown
   :content: |
     ##Basic configuration
-    {{:title|bar}}
-    {{:home|bar}}
-    {{:logo|bar}}
-    {{:main_menu|bar}}
-    {{:header|bar}}
-    {{:footer|bar}}
+    {{:title|closed_bar}}
+    {{:home|closed_bar}}
+    {{:logo|closed_bar}}
+    {{:main_menu|closed_bar}}
+    {{:header|closed_bar}}
+    {{:footer|closed_bar}}
 
     ##Integrations
-    {{:recaptcha_settings|bar}}
+    {{:recaptcha_settings|closed_bar}}
 
     ##Editor configuration
-    {{:tiny_mce|bar}}
-    {{:ace|bar}}
+    {{:tiny_mce|closed_bar}}
+    {{:ace|closed_bar}}
 - :name:
     - :shark
     - :dashboard

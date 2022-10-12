@@ -10,15 +10,15 @@ class Card
         #   # mod/core/set/type/basic.rb
         #   view :my_view, template: :haml  # uses mod/core/view/type/basic/my_view.haml
         #
-        #   view :with_instance_variables, template: :haml do
+        #   view :sample_view, template: :haml do
         #     @actor = "Mark Haml"
         #   end
         #
-        #   # mod/core/view/type/basic/with_instance_variables.haml
+        #   # mod/core/set/type/basic/sample_view.haml
         #   Luke is played by
         #     = actor
         #
-        #   > render :with_instance_variables  # => "Luke is played by Mark Haml"
+        #   > render :sample_view  # => "Luke is played by Mark Haml"
         module HamlViews
           include Card::Set::Format::HamlPaths
 
