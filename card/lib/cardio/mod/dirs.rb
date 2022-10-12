@@ -52,21 +52,14 @@ module Cardio
         @mods = []
         @mods_by_name = {}
         @loaded_gem_mods = ::Set.new
-        # load_core_mods
+        add_core_mods
+        add_gem_mods
         Array(mod_paths).each do |mp|
           @current_path = mp
           add_from_modfile || add_from_dir
         end
-        add_from_gemfile
         super()
         @mods.each { |mod| self << mod.path }
-      end
-
-      def add_gem_mod mod_name, mod_path
-        return if @loaded_gem_mods.include?(mod_name)
-
-        @loaded_gem_mods << mod_name
-        add_mod mod_name, path: mod_path, group: "gem"
       end
 
       # Add a mod to mod load paths
@@ -141,14 +134,21 @@ module Cardio
           yield mod_name, subpath
         end
       end
+      
+      private
 
-      def add_from_gemfile
+      def add_gem_mods
         Cardio::Mod.gem_specs.each do |mod_name, mod_spec|
           add_gem_mod mod_name, mod_spec.full_gem_path
         end
       end
 
-      private
+      def add_gem_mod mod_name, mod_path
+        return if @loaded_gem_mods.include?(mod_name)
+
+        @loaded_gem_mods << mod_name
+        add_mod mod_name, path: mod_path, group: "gem"
+      end
 
       def add_core_mods
         @current_path = File.join Cardio.gem_root, "mod"

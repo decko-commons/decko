@@ -60,8 +60,7 @@ module Cardio
 
           p["lib/tasks"] << "#{card_root}/lib/tasks"
 
-          p.add "mod", with: "#{card_root}/mod"
-          p["mod"] << "mod"
+          p.add "mod"
           p.add "files"
 
           p.add "lib/graph_q_l/types/query.rb"
@@ -85,12 +84,10 @@ module Cardio
             p["late/initializers"] << "#{mod_path}/init/late"
             p["lib/tasks"] << "#{mod_path}/lib/tasks"
             p["mod-data"] << "#{mod_path}/data"
-
-            # locales we use unshift, because the earliest listed paths get precedence
-            # (and the last loaded mods should be able to override)
-            p["config/locales"].unshift "#{mod_path}/locales"
+            p["config/locales"] << "#{mod_path}/locales"
           end
 
+          # Card doesn't use these rails patterns
           p["app/models"] = []
           p["app/mailers"] = []
           p["app/controllers"] = []
