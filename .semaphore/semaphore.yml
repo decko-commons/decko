@@ -13,7 +13,7 @@ global_job_config:
 
   secrets:
     - name: s3-credentials
-    - name: code-climate
+    - name: code-climate-decko
   prologue:
     commands:
       # INSTALL DECKO CODE AND DEPENDENCIES
