@@ -134,7 +134,7 @@ module Cardio
           yield mod_name, subpath
         end
       end
-      
+
       private
 
       def add_gem_mods
