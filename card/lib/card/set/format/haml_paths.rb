@@ -46,7 +46,7 @@ class Card
           end
         end
 
-        TMPSET_REGEXP = %r{^.*/tmp(sets)?/set/\w+/mod\d{3}-(?<modname>[^/]+)}
+        TMPSET_REGEXP = %r{^.*/tmp(sets)?/set/[\w-]+/mod\d{3}-(?<modname>[^/]+)}
 
         def deep_source source
           return source unless tmp_files?

@@ -42,7 +42,7 @@ RSpec.describe Card::Set::All::NameEvents do
   def card_to_rename card
     return card unless card.is_a? String
 
-    Card[card].refresh || raise("Couldn't find card named #{card}")
+    Card[card]&.refresh || raise("Couldn't find card named #{card}")
   end
 
   it "renames simple card to its own child" do

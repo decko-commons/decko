@@ -55,7 +55,8 @@ class DeckoGem
 
   def mod name
     spec.name = "card-mod-#{name}"
-    spec.metadata = standard_metadata.merge "card-mod" => name
+    spec.metadata = standard_metadata.merge "card-mod" => name,
+                                            "card-mod-group" => "gem-defaults"
     spec.files = Dir[
       "{assets,config,data,db,file,init,lib,locales,public,set,vendor}/**/*", "README.md"
     ]
