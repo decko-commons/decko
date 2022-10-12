@@ -58,10 +58,6 @@ module Cardio
         (dep_names << spec).flatten.compact.uniq
       end
 
-      def each_path
-        dirs.each { |path| yield path}
-      end
-
       # @return [Hash] in the form{ modname(String) => Gem::Specification }
       def gem_specs
         Bundler.definition.specs.each_with_object({}) do |gem_spec, h|
@@ -80,10 +76,10 @@ module Cardio
       def ensure_asset_lists
         hash = { script: [], style: [] }
         yield hash
-        puts "updating asset lists"
+        # puts "updating asset lists"
         Card[:all, :script].update! content: hash[:script].compact
         Card[:style_mods].update! content: hash[:style].compact
-        puts "refreshing assets"
+        # puts "refreshing assets"
         Card::Assets.refresh force: true
       end
 

@@ -67,7 +67,7 @@ module Cardio
     def initialize name, path, group, index
       @name = Mod.normalize_name name
       @path = required_path path
-      @group = group || :default
+      @group = group || :custom
       @index = index
     end
 
