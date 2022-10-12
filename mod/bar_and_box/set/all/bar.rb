@@ -28,15 +28,24 @@ format :html do
   view :bar_body, unknown: true, template: :haml
 
   view :accordion_bar, unknown: :mini_bar do
+    build_accordion_bar
+  end
+  view :closed_bar, :accordion_bar
+
+  view :open_bar do
+    build_accordion_bar open: true
+  end
+  view :expanded_bar, :open_bar
+
+  def build_accordion_bar open: false
     prepare_bar mini_bar_cols
     class_up "accordion-item", "bar #{classy 'bar'}"
     accordion_item render_bar_body,
                    subheader: render_menu,
                    body: render_bar_bottom,
+                   open: open,
                    context: :accordion_bar
   end
-  # DEPRECATED
-  view :expanded_bar, :accordion_bar
 
   def build_bar
     wrap { haml :bar }
