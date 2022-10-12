@@ -42,7 +42,7 @@ module Cardio
 
     config.i18n.enforce_available_locales = true
     config.read_only = !ENV["DECKO_READ_ONLY"].nil?
-    config.load_strategy = (ENV["REPO_TMPSETS"] || ENV["TMPSETS"] ? :tmp_files : :eval)
+    config.load_strategy = (ENV["TMPSETS"] ? :tmp_files : :eval)
 
     # TODO: support mod-specific railties
 
@@ -60,8 +60,7 @@ module Cardio
 
           p["lib/tasks"] << "#{card_root}/lib/tasks"
 
-          p.add "mod", with: "#{card_root}/mod"
-          p["mod"] << "mod"
+          p.add "mod"
           p.add "files"
 
           p.add "lib/graph_q_l/types/query.rb"
@@ -75,7 +74,7 @@ module Cardio
           p.add "db/migrate_deck", with: "db/migrate"
           p.add "db/migrate_deck_cards", with: "db/migrate_cards"
 
-          Cardio::Mod.each_path do |mod_path|
+          Cardio::Mod.dirs.each do |mod_path|
             c.autoload_paths += Dir["#{mod_path}/lib"]
             c.watchable_dirs["#{mod_path}/set"] = %i[rb haml]
 
@@ -85,12 +84,10 @@ module Cardio
             p["late/initializers"] << "#{mod_path}/init/late"
             p["lib/tasks"] << "#{mod_path}/lib/tasks"
             p["mod-data"] << "#{mod_path}/data"
-
-            # locales we use unshift, because the earliest listed paths get precedence
-            # (and the last loaded mods should be able to override)
-            p["config/locales"].unshift "#{mod_path}/locales"
+            p["config/locales"] << "#{mod_path}/locales"
           end
 
+          # Card doesn't use these rails patterns
           p["app/models"] = []
           p["app/mailers"] = []
           p["app/controllers"] = []
@@ -101,13 +98,7 @@ module Cardio
     config.before_initialize do |app|
       app.config.tap do |c|
         if c.load_strategy == :tmp_files
-          %w[set set_pattern].each do |dir|
-            if ENV["REPO_TMPSETS"]
-              c.paths.add "tmp/#{dir}", with: "#{Cardio.gem_root}/tmpsets/#{dir}"
-            else
-              c.paths.add "tmp/#{dir}"
-            end
-          end
+          %w[set set_pattern].each { |dir| c.paths.add "tmp/#{dir}" }
         end
       end
     end
