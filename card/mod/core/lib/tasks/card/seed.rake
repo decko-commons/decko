@@ -40,7 +40,7 @@ namespace :card do
 
     desc "reseed from the fixtures of the dependee seed mod"
     task plow: :environment do
-      ENV["UPDATE_SEED"] = "true"
+      ENV["CARD_UPDATE_SEED"] = "true"
       # tells Cardio::Seed to use fixtures upon which the seeds being updated depend
 
       invoke_card_tasks %w[reset_tmp seed:replant]
