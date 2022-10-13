@@ -10,6 +10,8 @@ global_job_config:
       value: "~/bundle/"
     - name: DECKO_REPO_PATH
       value: "~/decko"
+    - name: CARD_LOAD_STRATEGY
+      value: tmp_files
 
   secrets:
     - name: s3-credentials
@@ -42,6 +44,9 @@ global_job_config:
 blocks:
   - name: Smoke
     task:
+      env_vars:
+        - name: CARD_LOAD_STRATEGY
+          value: eval
       prologue:
         commands:
           # occasionally clear:
@@ -72,9 +77,6 @@ blocks:
 
   - name: Unit Tests
     task:
-      env_vars:
-        - name: TMPSETS
-          value: "true"
       prologue:
         commands:
           - sem-service start mysql
@@ -105,9 +107,6 @@ blocks:
       secrets:
         - name: decko-cypress
         - name: publish-cucumber
-      env_vars:
-        - name: TMPSETS
-          value: "true"
       prologue:
         commands:
           - sem-service start mysql

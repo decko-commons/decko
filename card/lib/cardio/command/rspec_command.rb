@@ -27,9 +27,7 @@ module Cardio
         return if @opts[:simplecov]
 
         # no coverage if rspec was started with file argument
-        return unless @opts[:files] || @rspec_args.any?
-
-        "COVERAGE=false"
+        "CARD_NO_COVERAGE=true" if @opts[:files] || @opts[:"no-simplecov"]
       end
     end
   end
