@@ -1,5 +1,5 @@
 
-if ENV["TMPSETS"] && ENV["COVERAGE"] != "false"
+if (ENV["CARD_LOAD_STRATEGY"] == "tmp_files") && ENV["CARD_NO_COVERAGE"] != "true"
   SimpleCov.start do
     def add_mod_groups dir_pattern
       Dir[dir_pattern].each do |path|
