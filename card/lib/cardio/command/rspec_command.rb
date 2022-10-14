@@ -15,6 +15,7 @@ module Cardio
       def command
         "#{env_args} #{@opts[:executer]} #{@opts[:rescue]}" \
           "rspec #{@rspec_args.shelljoin} #{@opts[:files]}"
+          .tap { |c| puts c.red }
       end
 
       private
@@ -24,10 +25,9 @@ module Cardio
       end
 
       def coverage
-        return if @opts[:simplecov]
-
-        # no coverage if rspec was started with file argument
-        "CARD_NO_COVERAGE=true" if @opts[:files] || @opts[:"no-simplecov"]
+        "CARD_LOAD_STRATEGY=tmp_files" if @opts[:simplecov]
+        # # no coverage if rspec was started with file argument
+        # "CARD_NO_COVERAGE=true" if @opts[:files] || @opts[:"no-simplecov"]
       end
     end
   end

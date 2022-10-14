@@ -59,7 +59,7 @@ module Cardio
 
         def other_options parser, opts
           parser.on("-s", "--[no-]simplecov", "Run with simplecov") do |s|
-            opts[:simplecov] = s ? "CARD_LOAD_STRATEGY=tmp_files" : ""
+            opts[:simplecov] = s
           end
           parser.on("--rescue", "Run with pry-rescue") do
             process_rescue_opts opts
