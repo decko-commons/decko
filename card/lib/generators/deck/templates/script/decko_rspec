@@ -4,5 +4,5 @@
 ENV["RAILS_ENV"] = "test"
 ENV["RAILS_ROOT"] = "."
 BUNDLE_GEMFILE = File.expand_path "../../Gemfile",  __FILE__
-ARGV.insert 0, "rspec", "--no-simplecov", "--"
+ARGV.insert 0, "rspec", "--"
 load File.expand_path("../decko",  __FILE__)

@@ -238,14 +238,14 @@
     :from: _user
     :subject: "{{_|name}} signed up for {{:title|core}}"
     :text_message: |
-      {{_|name}} ({{+*account+*email|core}}) has signed up on {{:title|core}}.
+      {{_|name}} has signed up on {{:title|core}}.
   
       See {{_|name}}'s card: {{_|url}}
   
       -- the machines running {{:title|core}}
     :html_message: |
       <p>
-        {{_|name}} ({{+*account+*email|core}})
+        {{_|name}}
         has <a href="{{_|url}}">signed up</a>
         on {{:title|core}}.
       </p>
