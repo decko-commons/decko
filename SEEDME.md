@@ -196,11 +196,10 @@ exist. If you _delete_ pods, it won't notice. In that case you would need to reb
 your seed data from scratch using `card:seed:build`, which starts from the fixtures set
 on which the current fixtures set depends. For example, if you were to run
 `rake card:seed:build` from the _defaults_ mod, it would start by seeding from the
-fixtures in the _core_ mod.
-
-**IMPORTANT**: For both building and updating, _test_ data fixtures are seeded with _real_
-data. So for changes in _real_ pod data to show up in _test_ data, one must first update
-the _real_ fixtures, and then update the _test_ fixtures that depend on them.
+fixtures in the _core_ mod. Note that when building, _test_ data fixtures are seeded with
+_real_ data. So for deletions of _real_ pod data to be removed from _test_ data, one must 
+first  rebuild the _real_ fixtures, and then rebuild the _test_ fixtures that depend on 
+them.
 
 ## Creating a new fixtures set
 

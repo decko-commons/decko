@@ -1,5 +1,5 @@
-# add new indeces for datetime and ref_type fields
-class NewIndeces < ActiveRecord::Migration[4.2]
+# add new indices for datetime and ref_type fields
+class NewIndices < ActiveRecord::Migration[4.2]
   def change
     add_index "card_references", ["ref_type"],
               name: "card_references_ref_type_index" # using: :btree
