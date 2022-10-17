@@ -88,7 +88,7 @@ module Cardio
           elsif @pod_type
             [@pod_type]
           elsif Rails.env.test?
-            [:test]
+            %i[real test]
           else
             [:real]
           end
