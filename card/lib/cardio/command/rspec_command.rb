@@ -15,7 +15,7 @@ module Cardio
       def command
         "#{env_args} #{@opts[:executer]} #{@opts[:rescue]}" \
           "rspec #{@rspec_args.shelljoin} #{@opts[:files]}"
-          .tap { |c| puts c.red }
+        # .tap { |c| puts c.yellow }
       end
 
       private
