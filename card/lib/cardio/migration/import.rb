@@ -22,7 +22,7 @@ module Cardio
       # Merge the import data into the cards table.
       # Bu default it merges only the data that was changed or added
       # since the last merge.
-      # @param [Hash] opts choose which cards to merge
+      # @param opts [Hash] choose which cards to merge
       # @option opts [Boolean] :all merge all available import data
       # @option opts [Array] :only a key/name or list of keys/names to
       #   be merged
@@ -31,8 +31,8 @@ module Cardio
       end
 
       # Get import data from a deck
-      # @param [String] name The name of the card to be imported
-      # @param [Hash] opts pull options
+      # @param name [String] The name of the card to be imported
+      # @param opts [Hash] pull options
       # @option opts [String] remote Use a remote url. The remote url must
       #   have been registered via 'add_remote'
       # @option opts [Boolean] deep if true fetch all nested cards, too

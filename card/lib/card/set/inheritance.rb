@@ -3,8 +3,8 @@ class Card
     # API to inherit other sets and their formats
     module Inheritance
       # include a set module and all its format modules
-      # @param [Module] set
-      # @param [Hash] opts choose the formats you want to include. You can also
+      # @param set [Module]
+      # @param opts [Hash] choose the formats you want to include. You can also
       #    pass arbitrary options to the included set. The option is saved
       #    in the including set. To use the option you need a `included` method
       #    in the included set to fetch the option.
@@ -41,8 +41,8 @@ class Card
       end
 
       # include format modules of a set
-      # @param [Module] set
-      # @param [Hash] opts choose the formats you want to include
+      # @param set [Module]
+      # @param opts [Hash] choose the formats you want to include
       # @option opts [Symbol, Array<Symbol>] :only include only these formats
       # @option opts [Symbol, Array<Symbol>] :except don't include these formats
       # @example
