@@ -152,7 +152,7 @@ module Cardio
 
       def add_core_mods
         @current_path = File.join Cardio.gem_root, "mod"
-        @current_group = "core"
+        @current_group = "gem-card"
         add_from_dir
         @current_group = nil
       end
