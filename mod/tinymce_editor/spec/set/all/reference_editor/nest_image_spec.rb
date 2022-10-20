@@ -2,7 +2,7 @@
 
 RSpec.describe Card::Set::All::ReferenceEditor::NestImage do
   describe "view: nest_image" do
-    check_html_views_for_errors
+  check_views_for_errors
 
     it "finds next new image card", as_bot: true do
       Card.ensure name: "image01"

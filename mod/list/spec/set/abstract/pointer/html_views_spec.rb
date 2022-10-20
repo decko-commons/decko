@@ -8,7 +8,7 @@ RSpec.describe Card::Set::Abstract::Pointer do
       pointer
     end
 
-    check_html_views_for_errors
+    check_views_for_errors
   end
 
   describe "editors" do

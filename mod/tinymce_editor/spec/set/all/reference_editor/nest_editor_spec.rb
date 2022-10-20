@@ -2,7 +2,7 @@
 
 RSpec.describe Card::Set::All::ReferenceEditor::NestEditor do
   describe "view: nest_editor" do
-    check_html_views_for_errors
+    check_views_for_errors
 
     def option_row name, value, state=:selected
       with_tag "div._nest-option-row" do

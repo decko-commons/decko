@@ -110,11 +110,6 @@ class Card
         views ||= views format
         views = Array.wrap views
         include_context_for views, "view without errors", format
-        include_context_for views, "view with valid html" if format == :html
-      end
-
-      def check_html_views_for_errors html_views=nil
-        check_views_for_errors views: (html_views || views(:html))
       end
 
       def include_context_for views, context, format=:html
