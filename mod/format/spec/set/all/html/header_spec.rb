@@ -1,5 +1,5 @@
 RSpec.describe Card::Set::All::Html::Header do
-  check_html_views_for_errors
+  check_views_for_errors
 
   def view_with_show view, show
     render_card_with_args view, { name: "A" }, {}, { show: show }
