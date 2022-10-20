@@ -102,8 +102,9 @@ class Card
     end
 
     module ClassMethods
-      def check_format_for_view_errors format_sym
-        include_context_for views(format_sym).flatten, "view without errors", format_sym
+      def check_views_for_errors format_sym, views=[]
+        views = views(format_sym).flatten unless views.present?
+        include_context_for views, "view without errors", format_sym
       end
 
       def check_html_views_for_errors html_views=[]
