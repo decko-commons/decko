@@ -9,17 +9,19 @@ if (ENV["CARD_LOAD_STRATEGY"] == "tmp_files") && ENV["CARD_NO_COVERAGE"] != "tru
     end
     <% if platypus? %>
     root "<%= expanded_repo_path %>"
-
-    add_filter "/generators/"
-    add_filter "_spec_helper"
+    add_mod_groups "#{root}/{card/,}/mod/*"
 
     add_group "Card", "card/"
     add_group "Cardname", "cardname"
     add_group "Decko", "decko"
 
-    add_mod_groups "#{root}/{card/,}/mod/*"
+    add_filter "/generators/"
+    add_filter "_spec_helper"
     <% else %>
     add_mod_groups "mod/*"
+
+    add_filter "tmp/set/gem"
+    add_filter "tmp/set_pattern"
     <% end %>
     add_filter "/spec/"
     add_filter "/features/"

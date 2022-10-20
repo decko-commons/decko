@@ -93,14 +93,15 @@ blocks:
             - env RAILS_ENV=test bundle exec decko setup # --test
             - be decko rspec -s -- --format RspecJunitFormatter --out junit.xml --format documentation
       epilogue:
+        always:
+          commands:
+            - test-results publish junit.xml
         on_pass:
           commands:
             - cd -
             - ./cc-test-reporter format-coverage --output "coverage/codeclimate.$SEMAPHORE_JOB_ID.json" -t simplecov
             - aws s3 cp "coverage/codeclimate.$SEMAPHORE_JOB_ID.json" $S3_PATH
-        always:
-          commands:
-            - test-results publish junit.xml
+
 
   - name: Integration Tests
     task:
