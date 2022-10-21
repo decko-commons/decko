@@ -4,7 +4,7 @@ shared_examples "view without errors" do |view_name, format=:html|
     include RSpecHtmlMatchers::SyntaxHighlighting
   end
 
-  it "view #{view_name} has #{'valid HTML and ' if format == :html }no errors" do
+  it "view #{view_name} has #{'valid HTML and ' if format == :html}no errors" do
     next unless (rendered = format_subject(format).render view_name)
 
     expect(rendered).to lack_errors
