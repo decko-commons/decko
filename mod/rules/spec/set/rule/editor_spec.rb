@@ -5,7 +5,7 @@ RSpec.describe Card::Set::Rule::Editor do
     Card.fetch("*read+*right+*input type", new: {})
   end
 
-  check_html_views_for_errors
+  check_views_for_errors
 
   describe "#left_type_for_nest_editor_set_selection" do
     def type_for_set_structure set_name

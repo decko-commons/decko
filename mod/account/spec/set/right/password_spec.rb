@@ -13,7 +13,7 @@ RSpec.describe Card::Set::Right::Password do
     password_card
   end
 
-  check_html_views_for_errors
+  check_views_for_errors
 
   describe "#update" do
     it "encrypts password", aggregate_failures: true do

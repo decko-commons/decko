@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 
 RSpec.describe Card::Set::All::Html::Menu do
-  check_html_views_for_errors
+  check_views_for_errors
 
   def edit_menu edit=nil
     args = edit ? { edit: edit } : {}

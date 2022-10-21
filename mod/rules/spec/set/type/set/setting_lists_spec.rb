@@ -13,5 +13,5 @@ RSpec.describe Card::Set::Type::Set::SettingLists do
       .to eq %i[default help input_type content_options content_option_view]
   end
 
-  check_html_views_for_errors
+  check_views_for_errors
 end
