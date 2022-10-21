@@ -3,5 +3,5 @@ RSpec.describe Card::Set::Abstract::Accountable do
     Card["Joe User"]
   end
 
-  check_html_views_for_errors
+  check_views_for_errors
 end
