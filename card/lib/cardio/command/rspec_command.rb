@@ -27,7 +27,7 @@ module Cardio
       def coverage
         "CARD_LOAD_STRATEGY=tmp_files" if @opts[:simplecov]
         # # no coverage if rspec was started with file argument
-        # "CARD_NO_COVERAGE=true" if @opts[:files] || @opts[:"no-simplecov"]
+        # "CARD_SIMPLECOV=false" if @opts[:files] || @opts[:"no-simplecov"]
       end
     end
   end
