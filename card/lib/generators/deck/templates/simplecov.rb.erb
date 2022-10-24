@@ -11,9 +11,10 @@ if (ENV["CARD_LOAD_STRATEGY"] == "tmp_files") && ENV["CARD_SIMPLECOV"] != "false
     root "<%= expanded_repo_path %>"
     add_mod_groups "#{root}/{card/,}/mod/*"
 
-    add_group "Card", "card/"
-    add_group "Cardname", "cardname"
-    add_group "Decko", "decko"
+    add_group "Cardname", "cardname/lib"
+    add_group "Card", "card/lib"
+    add_group "Decko", "decko/lib"
+    add_group "Set Patterns", "tmp/set_pattern"
 
     add_filter "/generators/"
     add_filter "_spec_helper"
