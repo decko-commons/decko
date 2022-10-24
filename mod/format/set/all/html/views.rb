@@ -1,4 +1,4 @@
-require "truncato"
+# require "truncato"
 
 format :html do
   def prepare_content_slot
@@ -115,14 +115,6 @@ format :html do
     set_name ||= "#{card.name}+*type" if card.known? && card.type_id == Card::CardtypeID
     set_name ||= "#{card.name}+*self"
     Card.fetch(set_name)
-  end
-
-  def raw_one_line_content
-    Truncato.truncate render_raw, max_length: one_line_character_limit
-  end
-
-  def one_line_content
-    Truncato.truncate render_core, max_length: one_line_character_limit
   end
 
   # LOCALIZE

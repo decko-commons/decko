@@ -41,11 +41,11 @@ format do
   end
 
   def raw_one_line_content
-    truncate render_raw, length: one_line_character_limit
+    truncate strip_tags(render_raw), length: one_line_character_limit
   end
 
   def one_line_content
-    truncate render_core, length: one_line_character_limit
+    truncate strip_tags(render_core), length: one_line_character_limit
   end
 
   def one_line_character_limit
