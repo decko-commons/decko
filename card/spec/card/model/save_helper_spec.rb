@@ -24,12 +24,6 @@ RSpec.describe Card::Model::SaveHelper, as_bot: true do
       expect_card(:home).to have_name "*Home"
     end
 
-    it "changes name if new name is given" do
-      Card.ensure codename: "home", name: "new home"
-      expect_card("*home").not_to exist
-      expect_card("new home").to exist
-    end
-
     it "renames existing codename cards" do
       expect_card("*home").to exist
       Card.ensure codename: :home, name: "New Home"

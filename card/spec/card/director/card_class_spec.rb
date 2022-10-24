@@ -45,18 +45,18 @@ RSpec.describe Card::Director::CardClass do
         it "updates when `conflict: :override`" do
           expect(ensure!(conflict: :override).content).to eq("updated")
         end
-
       end
     end
 
     context "with codename and name" do
+      after { Card::Codename.reset_cache }
       let(:lookup_key) { :codename }
 
       context "with known codename" do
         let(:ensure_args) { { name: "A", codename: :debug, content: "updated" } }
 
         it "defers when `conflict: :defer`" do
-          expect(ensure!(conflict: :defer).name).to eq("*debug")
+          expect(ensure!(conflict: :defer).name).to eq("A 1")
         end
 
         it "defers when `conflict: :default`", as_bot: true do
@@ -75,13 +75,13 @@ RSpec.describe Card::Director::CardClass do
           expect(ensure!(conflict: :defer).name).to eq("A 1")
         end
 
-        # it "defers when `conflict: :default`", as_bot: true do
-        #   expect(ensure!(conflict: :default).name).to eq("*debug")
-        # end
-        #
-        # it "updates when `conflict: :override`", as_bot: true do
-        #   expect(ensure!(conflict: :override).name).to eq("A")
-        # end
+        it "defers when `conflict: :default`", as_bot: true do
+          expect(ensure!(conflict: :default).name).to eq("*debug")
+        end
+
+        it "updates when `conflict: :override`", as_bot: true do
+          expect(ensure!(conflict: :override).name).to eq("A")
+        end
       end
     end
   end
