@@ -94,7 +94,7 @@ end
 
 def read_bootstrap_variables
   ::File.read ::File.expand_path(
-    "#{mod_root :bootstrap}/vendor/bootstrap/scss/_variables.scss"
+    "#{mod_path :bootstrap}/vendor/bootstrap/scss/_variables.scss"
   )
 end
 
@@ -173,7 +173,7 @@ end
 
 def source_dir
   @source_dir ||= ::File.expand_path(
-    "#{mod_root :bootstrap}/vendor/bootswatch/dist/#{theme_name}", __FILE__
+    "#{mod_path :bootstrap}/vendor/bootswatch/dist/#{theme_name}", __FILE__
   )
 end
 

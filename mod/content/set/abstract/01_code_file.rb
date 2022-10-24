@@ -33,7 +33,7 @@ def source_dir
   end
 end
 
-def mod_path
+def file_mod_path
   modname = file_content_mod_name
   if (match = modname.match(/^card-mod-(\w*)/))
     modname = match[1]
@@ -43,7 +43,7 @@ end
 
 def source_paths
   Array.wrap(source_files).map do |filename|
-    ::File.join mod_path, source_dir, filename
+    ::File.join file_mod_path, source_dir, filename
   end
 end
 
