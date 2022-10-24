@@ -61,8 +61,8 @@ class Card
       def ensuring opts
         opts.symbolize_keys!
         with_conflict_mode opts.delete(:conflict) do
-          card = fetch_for_ensure opts
-          ensuring_purity(card, opts) do |ensured_card, attempt|
+          card, other = fetch_for_ensure opts
+          ensuring_purity(card, other, opts) do |ensured_card, attempt|
             yield ensured_card if attempt
             ensured_card
           end
@@ -78,16 +78,33 @@ class Card
       end
 
       def fetch_for_ensure opts
-        main_mark = opts[:codename]&.to_sym || opts[:name]
-        if id(main_mark)
-          fetch(main_mark).tap { |card| card.assign_attributes opts }
+        if opts[:codename] && opts[:name]
+          fetch_for_ensure_with_codename_and_name opts
+        elsif (mark = opts[:codename]&.to_sym || opts[:name])
+          [fetch_and_assign(mark, opts), nil]
+        else
+          raise Card::Error::ServerError, "Card.ensure must have name or codename"
+        end
+      end
+
+      def fetch_for_ensure_with_codename_and_name opts
+        codename_id = id(opts[:codename].to_sym)
+        name_id = id(opts[:name])
+
+        other_card = name_id && (codename_id != name_id) ? name_id.card : nil
+        [fetch_and_assign(opts[:codename], opts), other_card]
+      end
+
+      def fetch_and_assign mark, opts
+        if id(mark)
+          fetch(mark).tap { |card| card.assign_attributes opts }
         else
           new opts
         end
       end
 
-      def ensuring_purity card, opts, &block
-        if opts[:codename] && (other = other_card_with_name card, opts[:name].to_name)
+      def ensuring_purity card, other, opts, &block
+        if opts[:codename] && other
           ensure_purity_advanced card, other, opts, &block
         else
           ensure_purity_simple card, &block
@@ -135,7 +152,8 @@ class Card
           other
         else
           other.name = other.name.alternative
-          card.subcards.add other
+          other.save
+          card.skip_event! :validate_renaming # so that type and content can also change
           card
         end
       end
@@ -145,14 +163,10 @@ class Card
         card
       end
 
-      def other_card_with_name card, name
-        card_with_name = name.card
-        card_with_name if card_with_name&.id && (card_with_name.id != card.id)
-      end
-
+      # LOCALIZE
       def invalid_conflict_mode!
-        raise Card::ServerError, "invalid conflict mode: #{@conflict_mode}. " \
-                                 "Must be defer, default, or override"
+        raise Card::Error::ServerError, "invalid conflict mode: #{@conflict_mode}. " \
+                                        "Must be defer, default, or override"
       end
     end
   end
