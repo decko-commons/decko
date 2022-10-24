@@ -94,9 +94,7 @@ format do
   end
 
   view :one_line_content, compact: true do
-    with_nest_mode :compact do
-      Card::Content.smart_truncate _render_core
-    end
+    with_nest_mode(:compact) { truncate render_core }
   end
 
   view :labeled_content, unknown: :mini_unknown do

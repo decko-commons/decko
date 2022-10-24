@@ -8,7 +8,6 @@ class Card
   #
   class Content < SimpleDelegator
     extend Clean
-    extend Truncate
 
     Chunk # trigger autoload
 
