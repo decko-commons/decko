@@ -75,13 +75,13 @@ RSpec.describe Card::Director::CardClass do
           expect(ensure!(conflict: :defer).name).to eq("A 1")
         end
 
-        it "defers when `conflict: :default`", as_bot: true do
-          expect(ensure!(conflict: :default).name).to eq("*debug")
-        end
-
-        it "updates when `conflict: :override`", as_bot: true do
-          expect(ensure!(conflict: :override).name).to eq("A")
-        end
+        # it "defers when `conflict: :default`", as_bot: true do
+        #   expect(ensure!(conflict: :default).name).to eq("*debug")
+        # end
+        #
+        # it "updates when `conflict: :override`", as_bot: true do
+        #   expect(ensure!(conflict: :override).name).to eq("A")
+        # end
       end
     end
   end
