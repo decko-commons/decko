@@ -1,18 +1,18 @@
 RSpec.describe Card::Set::TypePlusRight::BootswatchSkin::Colors do
-  let(:card) do
-    Card::Auth.as_bot do
-      create_bootswatch_skin "my skin", fields: { parent: :journal_skin.cardname }
-    end
+  check_views_for_errors views: views(:html).unshift(:bar_right)
+
+  def card_subject
+    "customized yeti skin".card.colors_card
   end
 
-  it "fetches variable value from variable card" do
-    expect(card.colors_card.colors).to include(white: "#fff")
+  example "#colors fetches color definitions" do
+    expect(card_subject.colors).to include(yellow: "#ffc107")
   end
 
-  xit "fetches missing variable value from bootstrap source" do
+  example "#theme_colors fetches variable definitions" do
     # card-cap-bg is temporarily removed from the variables list
-    expect(card.colors_card.theme_colors)
-      .to include("card-cap-bg": "rgba($black, .03)")
+    expect(card_subject.theme_colors)
+      .to include(warning: "$yellow")
   end
 
   specify "view bar_middle" do
@@ -20,6 +20,15 @@ RSpec.describe Card::Set::TypePlusRight::BootswatchSkin::Colors do
       with_tag "div.input-group-addon"
       with_tag "span"
       with_tag "i"
+    end
+  end
+
+  describe "event: translate_variables_to_scss" do
+    it "supports colors param" do
+      Card::Env.with_params colors: { yellow: "#FFCC00" } do
+        card_subject.update!({})
+      end
+      expect(card_subject.colors).to include(yellow: "#FFCC00")
     end
   end
 end
