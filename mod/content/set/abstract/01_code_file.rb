@@ -34,11 +34,7 @@ def source_dir
 end
 
 def file_mod_path
-  modname = file_content_mod_name
-  if (match = modname.match(/^card-mod-(\w*)/))
-    modname = match[1]
-  end
-  Cardio::Mod.dirs.path modname
+  Cardio::Mod.dirs.path file_content_mod_name
 end
 
 def source_paths
