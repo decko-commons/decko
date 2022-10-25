@@ -1,4 +1,5 @@
 require_relative "../query_spec_helper"
+
 RSpec.describe Card::Query::CardQuery::RelationalAttributes do
   include QuerySpecHelper
   A_JOINEES = %w[B C D E F].freeze

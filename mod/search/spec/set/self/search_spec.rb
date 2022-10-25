@@ -1,6 +1,9 @@
 # -*- encoding : utf-8 -*-
 
 RSpec.describe Card::Set::Self::Search do
+  check_views_for_errors
+  check_views_for_errors format: :json
+
   describe "#search_with_params" do
     context "with keyword" do
       def keyword_search value
