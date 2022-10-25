@@ -3,10 +3,11 @@
 RSpec.describe Card::Set::Type::BootswatchSkin do
   CUSTOM_CSS = "body{background-color:#123}".freeze
   YETI_THEME_CSS = "background-color:#f6f6f6;".freeze
+
   check_views_for_errors
 
   let(:customized_skin) { "customized yeti skin".card }
-  let(:style_with_customized_theme) { "A+*self+*style".card }
+  let(:style_with_customized_theme) { "*colors+*self+*style".card }
 
   def generated_css
     File.read(style_with_customized_theme.asset_output_path)

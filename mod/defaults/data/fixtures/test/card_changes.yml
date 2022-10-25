@@ -151,36 +151,36 @@ card_changes_029:
   value: chick
 card_changes_030:
   id: 30
-  card_action_id: 1611
+  card_action_id: 1623
   field: 0
   value:
 card_changes_031:
   id: 31
-  card_action_id: 1611
+  card_action_id: 1623
   field: 1
   value: '2'
 card_changes_032:
   id: 32
-  card_action_id: 1611
+  card_action_id: 1623
   field: 2
   value: ''
 card_changes_033:
   id: 33
-  card_action_id: 1611
+  card_action_id: 1623
   field: 3
   value: f
 card_changes_034:
   id: 34
-  card_action_id: 1611
+  card_action_id: 1623
   field: 4
-  value: '828'
+  value: '837'
 card_changes_035:
   id: 35
-  card_action_id: 1611
+  card_action_id: 1623
   field: 5
-  value: '829'
+  value: '838'
 card_changes_036:
   id: 36
-  card_action_id: 1615
+  card_action_id: 1627
   field: 2
   value: zoom in
