@@ -88,11 +88,12 @@ class Card
       end
 
       def fetch_for_ensure_with_codename_and_name opts
-        codename_id = id(opts[:codename].to_sym)
-        name_id = id(opts[:name])
+        codename = opts[:codename].to_sym
+        codename_id = id codename
+        name_id = id opts[:name]
 
         other_card = name_id && (codename_id != name_id) ? name_id.card : nil
-        [fetch_and_assign(opts[:codename], opts), other_card]
+        [fetch_and_assign(codename, opts), other_card]
       end
 
       def fetch_and_assign mark, opts
