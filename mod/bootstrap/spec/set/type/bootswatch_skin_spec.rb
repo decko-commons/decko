@@ -3,15 +3,10 @@
 RSpec.describe Card::Set::Type::BootswatchSkin do
   CUSTOM_CSS = "body{background-color:#123}".freeze
   YETI_THEME_CSS = "background-color:#f6f6f6;".freeze
+  check_views_for_errors
 
-  let :customized_skin do
-    create "customized yeti skin", type: :bootswatch_skin,
-                                   fields: { parent: :yeti_skin.cardname }
-  end
-
-  let(:style_with_customized_theme) do
-    create "A+*self+*style", type: :pointer, content: customized_skin.name
-  end
+  let(:customized_skin) { "customized yeti skin".card }
+  let(:style_with_customized_theme) { "A+*self+*style".card }
 
   def generated_css
     File.read(style_with_customized_theme.asset_output_path)
@@ -27,12 +22,10 @@ RSpec.describe Card::Set::Type::BootswatchSkin do
   end
 
   example "update old skin", as_bot: true do
-    Card.ensure name: "custom css", type: :css
-    create_skin "old skin", content: ["bootstrap default skin", "custom css"]
     Card["old skin"].update! type: :bootswatch_skin
 
     expect_card("old skin")
-      .to have_a_field(:stylesheets).pointing_to "custom css"
+      .to have_a_field(:stylesheets).pointing_to "old custom css"
   end
 
   describe "+:colors" do
