@@ -1,0 +1,15 @@
+---
+- :name: customized yeti skin
+  :type: :bootswatch_skin
+  :fields:
+    :parent: yeti skin
+- :name: A+*self+*style
+  :type: :pointer
+  :content: customized yeti skin
+- :name: old custom css
+  :type: :css
+- :name: old skin
+  :type: :skin
+  :content:
+    - bootstrap default skin
+    - old custom css

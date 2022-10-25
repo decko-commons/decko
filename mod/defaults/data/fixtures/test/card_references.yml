@@ -5796,86 +5796,121 @@ card_references_828:
   ref_type: L
   is_present:
 card_references_829:
-  id: 977
+  id: 989
+  referer_id: 913
+  referee_key: yeti_skin
+  referee_id: 409
+  ref_type: L
+  is_present:
+card_references_830:
+  id: 990
+  referer_id: 917
+  referee_key: customized_yeti_skin
+  referee_id: 912
+  ref_type: L
+  is_present:
+card_references_831:
+  id: 991
+  referer_id: 479
+  referee_key: "*style"
+  referee_id: 344
+  ref_type: L
+  is_present:
+card_references_832:
+  id: 992
   referer_id: 479
   referee_key: "*layout"
   referee_id: 490
   ref_type: L
   is_present:
-card_references_830:
-  id: 978
+card_references_833:
+  id: 993
   referer_id: 479
   referee_key: "*read"
   referee_id: 9
   ref_type: L
   is_present:
-card_references_831:
-  id: 979
+card_references_834:
+  id: 994
   referer_id: 479
   referee_key: "*follow"
   referee_id: 451
   ref_type: L
   is_present:
-card_references_832:
-  id: 980
+card_references_835:
+  id: 995
   referer_id: 479
   referee_key: "*follow_field"
   referee_id: 460
   ref_type: L
   is_present:
-card_references_833:
-  id: 981
+card_references_836:
+  id: 996
   referer_id: 479
   referee_key: "*default"
   referee_id: 8
   ref_type: L
   is_present:
-card_references_834:
-  id: 982
+card_references_837:
+  id: 997
   referer_id: 479
   referee_key: "*update"
   referee_id: 66
   ref_type: L
   is_present:
-card_references_835:
-  id: 983
+card_references_838:
+  id: 998
   referer_id: 479
   referee_key: "*create"
   referee_id: 65
   ref_type: L
   is_present:
-card_references_836:
-  id: 984
+card_references_839:
+  id: 999
   referer_id: 479
   referee_key: "*content_option"
   referee_id: 59
   ref_type: L
   is_present:
-card_references_837:
-  id: 985
+card_references_840:
+  id: 1000
   referer_id: 479
   referee_key: "*structure"
   referee_id: 28
   ref_type: L
   is_present:
-card_references_838:
-  id: 986
+card_references_841:
+  id: 1001
   referer_id: 479
   referee_key: "*script"
   referee_id: 298
   ref_type: L
   is_present:
-card_references_839:
-  id: 987
+card_references_842:
+  id: 1002
   referer_id: 479
   referee_key: "*captcha"
   referee_id: 510
   ref_type: L
   is_present:
-card_references_840:
-  id: 988
+card_references_843:
+  id: 1003
   referer_id: 479
   referee_key: "*input_type"
   referee_id: 148
+  ref_type: L
+  is_present:
+card_references_844:
+  id: 1004
+  referer_id: 920
+  referee_key: bootstrap_default_skin
+  referee_id:
+  ref_type: L
+  is_present:
+card_references_845:
+  id: 1005
+  referer_id: 920
+  referee_key: old_custom_css
+  referee_id: 919
   ref_type: L
   is_present:

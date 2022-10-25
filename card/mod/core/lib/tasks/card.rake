@@ -12,11 +12,11 @@ namespace :card do
       # Benchmark.bm do |x|
       [:migrate, :eat, :reset_tmp, :reset_cache,
        "mod:uninstall", "mod:install", "mod:symlink"].each do |task|
-        #x.report(task) do
+        # x.report(task) do
         Rake::Task["card:#{task}"].invoke
-        #end
+        # end
       end
-      #end
+      # end
     end
   end
 

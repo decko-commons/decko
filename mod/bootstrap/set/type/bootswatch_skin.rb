@@ -100,7 +100,7 @@ end
 
 format :html do
   view :input do
-    if parent?
+    if card.parent?
       super()
     else
       "Content is stored in file and can't be edited."

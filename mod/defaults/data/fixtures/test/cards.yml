@@ -8305,7 +8305,7 @@ cards_442:
   right_id: 296
   current_revision_id:
   created_at: 2022-10-25 00:27:50.000000000 Z
-  updated_at: 2022-10-25 00:45:51.000000000 Z
+  updated_at: 2022-10-25 02:29:34.000000000 Z
   creator_id: 1
   updater_id: 1
   read_rule_class: "*all plus"
@@ -9008,7 +9008,7 @@ cards_479:
   right_id:
   current_revision_id:
   created_at: 2022-10-25 00:27:51.000000000 Z
-  updated_at: 2022-10-25 00:45:37.000000000 Z
+  updated_at: 2022-10-25 02:29:17.000000000 Z
   creator_id: 1
   updater_id: 1
   read_rule_class: "*self"
@@ -9017,6 +9017,7 @@ cards_479:
   trash: 0
   type_id: 2
   db_content: |-
+    *style
     *layout
     *read
     *follow
@@ -10350,7 +10351,7 @@ cards_541:
   right_id: 296
   current_revision_id:
   created_at: 2022-10-25 00:27:54.000000000 Z
-  updated_at: 2022-10-25 00:45:50.000000000 Z
+  updated_at: 2022-10-25 02:29:33.000000000 Z
   creator_id: 1
   updater_id: 1
   read_rule_class: "*all plus"
@@ -10422,7 +10423,7 @@ cards_545:
   right_id: 296
   current_revision_id:
   created_at: 2022-10-25 00:27:54.000000000 Z
-  updated_at: 2022-10-25 00:45:50.000000000 Z
+  updated_at: 2022-10-25 02:29:33.000000000 Z
   creator_id: 1
   updater_id: 1
   read_rule_class: "*all plus"
@@ -10584,7 +10585,7 @@ cards_554:
   right_id: 296
   current_revision_id:
   created_at: 2022-10-25 00:27:55.000000000 Z
-  updated_at: 2022-10-25 00:45:51.000000000 Z
+  updated_at: 2022-10-25 02:29:33.000000000 Z
   creator_id: 1
   updater_id: 1
   read_rule_class: "*all plus"
@@ -10656,7 +10657,7 @@ cards_558:
   right_id: 296
   current_revision_id:
   created_at: 2022-10-25 00:27:55.000000000 Z
-  updated_at: 2022-10-25 00:45:51.000000000 Z
+  updated_at: 2022-10-25 02:29:33.000000000 Z
   creator_id: 1
   updater_id: 1
   read_rule_class: "*all plus"
@@ -10728,7 +10729,7 @@ cards_562:
   right_id: 296
   current_revision_id:
   created_at: 2022-10-25 00:27:55.000000000 Z
-  updated_at: 2022-10-25 00:45:51.000000000 Z
+  updated_at: 2022-10-25 02:29:33.000000000 Z
   creator_id: 1
   updater_id: 1
   read_rule_class: "*all plus"
@@ -10908,7 +10909,7 @@ cards_572:
   right_id: 296
   current_revision_id:
   created_at: 2022-10-25 00:27:56.000000000 Z
-  updated_at: 2022-10-25 00:45:51.000000000 Z
+  updated_at: 2022-10-25 02:29:34.000000000 Z
   creator_id: 1
   updater_id: 1
   read_rule_class: "*all plus"
@@ -11034,7 +11035,7 @@ cards_579:
   right_id: 296
   current_revision_id:
   created_at: 2022-10-25 00:27:56.000000000 Z
-  updated_at: 2022-10-25 00:45:51.000000000 Z
+  updated_at: 2022-10-25 02:29:34.000000000 Z
   creator_id: 1
   updater_id: 1
   read_rule_class: "*all plus"
@@ -11160,7 +11161,7 @@ cards_586:
   right_id: 296
   current_revision_id:
   created_at: 2022-10-25 00:27:56.000000000 Z
-  updated_at: 2022-10-25 00:45:51.000000000 Z
+  updated_at: 2022-10-25 02:29:34.000000000 Z
   creator_id: 1
   updater_id: 1
   read_rule_class: "*all plus"
@@ -11232,7 +11233,7 @@ cards_590:
   right_id: 296
   current_revision_id:
   created_at: 2022-10-25 00:27:56.000000000 Z
-  updated_at: 2022-10-25 00:45:51.000000000 Z
+  updated_at: 2022-10-25 02:29:34.000000000 Z
   creator_id: 1
   updater_id: 1
   read_rule_class: "*all plus"
@@ -11340,7 +11341,7 @@ cards_596:
   right_id: 296
   current_revision_id:
   created_at: 2022-10-25 00:27:57.000000000 Z
-  updated_at: 2022-10-25 00:45:51.000000000 Z
+  updated_at: 2022-10-25 02:29:34.000000000 Z
   creator_id: 1
   updater_id: 1
   read_rule_class: "*all plus"
@@ -11430,7 +11431,7 @@ cards_601:
   right_id: 296
   current_revision_id:
   created_at: 2022-10-25 00:27:57.000000000 Z
-  updated_at: 2022-10-25 00:45:51.000000000 Z
+  updated_at: 2022-10-25 02:29:34.000000000 Z
   creator_id: 1
   updater_id: 1
   read_rule_class: "*all plus"
@@ -11520,7 +11521,7 @@ cards_606:
   right_id: 296
   current_revision_id:
   created_at: 2022-10-25 00:27:57.000000000 Z
-  updated_at: 2022-10-25 00:45:51.000000000 Z
+  updated_at: 2022-10-25 02:29:34.000000000 Z
   creator_id: 1
   updater_id: 1
   read_rule_class: "*all plus"
@@ -11574,7 +11575,7 @@ cards_609:
   right_id: 296
   current_revision_id:
   created_at: 2022-10-25 00:27:57.000000000 Z
-  updated_at: 2022-10-25 00:45:51.000000000 Z
+  updated_at: 2022-10-25 02:29:34.000000000 Z
   creator_id: 1
   updater_id: 1
   read_rule_class: "*all plus"
@@ -11646,7 +11647,7 @@ cards_613:
   right_id: 296
   current_revision_id:
   created_at: 2022-10-25 00:27:57.000000000 Z
-  updated_at: 2022-10-25 00:45:51.000000000 Z
+  updated_at: 2022-10-25 02:29:34.000000000 Z
   creator_id: 1
   updater_id: 1
   read_rule_class: "*all plus"
@@ -11700,7 +11701,7 @@ cards_616:
   right_id: 296
   current_revision_id:
   created_at: 2022-10-25 00:27:58.000000000 Z
-  updated_at: 2022-10-25 00:45:51.000000000 Z
+  updated_at: 2022-10-25 02:29:34.000000000 Z
   creator_id: 1
   updater_id: 1
   read_rule_class: "*all plus"
@@ -17104,3 +17105,167 @@ cards_911:
   trash: 0
   type_id: 55
   db_content: ''
+cards_912:
+  id: 912
+  name: customized yeti skin
+  key: customized_yeti_skin
+  codename:
+  left_id:
+  right_id:
+  current_revision_id:
+  created_at: 2022-10-25 02:29:15.000000000 Z
+  updated_at: 2022-10-25 02:29:15.000000000 Z
+  creator_id: 1
+  updater_id: 1
+  read_rule_class: "*all"
+  read_rule_id: 10
+  references_expired:
+  trash: 0
+  type_id: 354
+  db_content: ''
+cards_913:
+  id: 913
+  name:
+  key:
+  codename:
+  left_id: 912
+  right_id: 353
+  current_revision_id:
+  created_at: 2022-10-25 02:29:15.000000000 Z
+  updated_at: 2022-10-25 02:29:15.000000000 Z
+  creator_id: 1
+  updater_id: 1
+  read_rule_class: "*all plus"
+  read_rule_id: 10
+  references_expired:
+  trash: 0
+  type_id: 55
+  db_content: yeti skin
+cards_914:
+  id: 914
+  name:
+  key:
+  codename:
+  left_id: 912
+  right_id: 352
+  current_revision_id:
+  created_at: 2022-10-25 02:29:15.000000000 Z
+  updated_at: 2022-10-25 02:29:15.000000000 Z
+  creator_id: 1
+  updater_id: 1
+  read_rule_class: "*all plus"
+  read_rule_id: 10
+  references_expired:
+  trash: 0
+  type_id: 332
+  db_content: ''
+cards_915:
+  id: 915
+  name:
+  key:
+  codename:
+  left_id: 912
+  right_id: 350
+  current_revision_id:
+  created_at: 2022-10-25 02:29:15.000000000 Z
+  updated_at: 2022-10-25 02:29:15.000000000 Z
+  creator_id: 1
+  updater_id: 1
+  read_rule_class: "*all plus"
+  read_rule_id: 10
+  references_expired:
+  trash: 0
+  type_id: 332
+  db_content: ''
+cards_916:
+  id: 916
+  name:
+  key:
+  codename:
+  left_id: 688
+  right_id: 27
+  current_revision_id:
+  created_at: 2022-10-25 02:29:17.000000000 Z
+  updated_at: 2022-10-25 02:29:17.000000000 Z
+  creator_id: 1
+  updater_id: 1
+  read_rule_class: "*all plus"
+  read_rule_id: 10
+  references_expired:
+  trash: 0
+  type_id: 5
+  db_content: ''
+cards_917:
+  id: 917
+  name:
+  key:
+  codename:
+  left_id: 916
+  right_id: 344
+  current_revision_id:
+  created_at: 2022-10-25 02:29:17.000000000 Z
+  updated_at: 2022-10-25 02:29:17.000000000 Z
+  creator_id: 1
+  updater_id: 1
+  read_rule_class: "*all plus"
+  read_rule_id: 10
+  references_expired:
+  trash: 0
+  type_id: 55
+  db_content: customized yeti skin
+cards_918:
+  id: 918
+  name:
+  key:
+  codename:
+  left_id: 917
+  right_id: 296
+  current_revision_id:
+  created_at: 2022-10-25 02:29:17.000000000 Z
+  updated_at: 2022-10-25 02:29:23.000000000 Z
+  creator_id: 1
+  updater_id: 1
+  read_rule_class: "*all plus"
+  read_rule_id: 10
+  references_expired:
+  trash: 0
+  type_id: 282
+  db_content: "~918/1666664963.css"
+cards_919:
+  id: 919
+  name: old custom css
+  key: old_custom_css
+  codename:
+  left_id:
+  right_id:
+  current_revision_id:
+  created_at: 2022-10-25 02:29:17.000000000 Z
+  updated_at: 2022-10-25 02:29:17.000000000 Z
+  creator_id: 1
+  updater_id: 1
+  read_rule_class: "*all"
+  read_rule_id: 10
+  references_expired:
+  trash: 0
+  type_id: 326
+  db_content: ''
+cards_920:
+  id: 920
+  name: old skin
+  key: old_skin
+  codename:
+  left_id:
+  right_id:
+  current_revision_id:
+  created_at: 2022-10-25 02:29:17.000000000 Z
+  updated_at: 2022-10-25 02:29:17.000000000 Z
+  creator_id: 1
+  updater_id: 1
+  read_rule_class: "*all"
+  read_rule_id: 10
+  references_expired:
+  trash: 0
+  type_id: 338
+  db_content: |-
+    bootstrap default skin
+    old custom css
