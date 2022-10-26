@@ -117,6 +117,7 @@ class Card < Cardio::Record
   extend Cache::CardClass
   extend Director::CardClass
   extend Fetch::CardClass
+  extend Query::CardClass
 
   cattr_accessor :action_specific_attributes, :set_specific_attributes
 
