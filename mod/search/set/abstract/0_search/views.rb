@@ -148,8 +148,4 @@ format :html do
       haml :checkbox_item, unique_id: unique_id, item_card: item_card
     end
   end
-
-  def closed_limit
-    [search_params[:limit].to_i, Card.config.closed_search_limit].min
-  end
 end

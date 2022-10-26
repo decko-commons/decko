@@ -17,6 +17,6 @@ end
 
 def event_cards setting
   @card_event_cache ||
-    ((event_rule = rule_card(setting)) && event_rule.extended_item_cards) ||
+    ((event_rule = rule_card(setting)) && event_rule.recursed_item_cards) ||
     []
 end
