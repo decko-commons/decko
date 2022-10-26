@@ -64,3 +64,17 @@ def replace_item old, new
   drop_item old
   add_item new
 end
+
+def items_content array
+  standardized_items(array).to_pointer_content
+end
+
+def standardized_items array
+  array.map { |i| standardize_item i }.reject(&:blank?)
+end
+
+def standardize_item item
+  Card::Name[item]
+rescue Card::Error::NotFound
+  item
+end

@@ -41,11 +41,11 @@ RSpec.describe Card::Set::Abstract::Pointer do
 
     describe "item_name" do
       it "returns the first item's name by default" do
-        expect(pointer.item_name).to eq("Busy")
+        expect(pointer.first_name).to eq("Busy")
       end
 
       it "handles offsets" do
-        expect(pointer.item_name(offset: 1)).to eq("Body")
+        expect(pointer.first_name(offset: 1)).to eq("Body")
       end
     end
   end

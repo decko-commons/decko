@@ -1,6 +1,6 @@
-# ~~~~~~~~~~~~ READING ITEMS ~~~~~~~~~~~~
+# ITEM LISTS
 
-# While each of the three main methods for returning lists of items can handle arguments,
+# Note: while most methods for returning lists of items can handle arguments,
 # they are most commonly used without them.
 
 # @return [Array] list of Card::Name objects
@@ -19,28 +19,28 @@ def item_names args={}
   end.compact
 end
 
-def first_name args={}
-  item_names(args).first
-end
-
-def first_card args={}
-  return unless (name = first_name)
-
-  fetch_item_card name, args
-end
-
-def first_code
-  first_card&.codename
-end
-
-def first_id
-  first_card&.id
-end
-
+# @return [Array] list of cards
+# @param args [Hash] see #item_names
 def item_cards args={}
   standard_item_cards args
 end
 
+# @return [Array] list of integers (card ids of items)
+# @param args [Hash] see #item_names
+def item_ids args={}
+  item_names(args).map(&:card_id).compact
+end
+
+# @return [Array] of String objects
+# @param args [Hash] see #item_names
+def item_keys args={}
+  item_names(args).map do |item|
+    item.to_name.key
+  end
+end
+
+# @return [Array] of String objects
+# @param args [Hash] see #item_names
 def item_strings args={}
   items = raw_item_strings(args[:content] || content)
   return items unless args.present?
@@ -48,21 +48,35 @@ def item_strings args={}
   filtered_items items, limit: args[:limit], offset: args[:offset]
 end
 
-def raw_item_strings content
-  content.to_s.split(/\n+/).map { |i| strip_item i }
+# SINGLE ITEM
+
+# @return [Card::Name]
+# @param args [Hash] see #item_names
+def first_name args={}
+  item_names(args).first
 end
 
-# @return [Array] list of Card objects
-# @param args [Hash] see #item_names for additional options
-# @option args [String] :complete keyword to use in searching among items
-# @option args [True/False] :known_only if true, return only known cards
-# @option args [String] :type name of type to be used for unknown cards
-def standard_item_cards args={}
-  return item_cards_search(args) if args[:complete]
-  return known_item_cards(args) if args[:known_only]
+# @return [Card]
+# @param args [Hash] see #item_names
+def first_card args={}
+  return unless (name = first_name)
 
-  all_item_cards args
+  fetch_item_card name, args
 end
+
+# @return [Symbol]
+# @param args [Hash] see #item_names
+def first_code args={}
+  first_card(args)&.codename
+end
+
+# @return [Integer]
+# @param args [Hash] see #item_names
+def first_id args={}
+  first_name(args)&.card_id
+end
+
+# ITEM TYPES
 
 # typically override EITHER #item_type_id OR #item_type_name
 def item_type_id
@@ -77,38 +91,24 @@ def item_type_card
   item_type_id&.card
 end
 
-def item_keys args={}
-  item_names(args).map do |item|
-    item.to_name.key
-  end
-end
+# MISC
 
 def item_count args={}
   item_names(args).size
-end
-
-def items_content array
-  standardized_items(array).to_pointer_content
-end
-
-def standardized_items array
-  array.map { |i| standardize_item i }.reject(&:blank?)
-end
-
-def standardize_item item
-  Card::Name[item]
-rescue Card::Error::NotFound
-  item
 end
 
 def include_item? item
   item_names.include? Card::Name[item]
 end
 
+# for override, eg by json
+def item_value item_name
+  item_name
+end
 
 format do
   view :count do
-    card.item_names.size
+    card.item_count
   end
 
   def nest_item cardish, options={}, &block
@@ -173,6 +173,26 @@ format :html do
 end
 
 private
+
+def raw_item_strings content
+  content.to_s.split(/\n+/).map { |i| strip_item i }
+end
+
+# FIXME: complete should be handled at the name or string level
+# (and might not really need to use Card::Query here, though it
+# should in search cards)
+
+# @return [Array] list of Card objects
+# @param args [Hash] see #item_names for additional options
+# @option args [String] :complete keyword to use in searching among items
+# @option args [True/False] :known_only if true, return only known cards
+# @option args [String] :type name of type to be used for unknown cards
+def standard_item_cards args={}
+  return item_cards_search(args) if args[:complete]
+  return known_item_cards(args) if args[:known_only]
+
+  all_item_cards args
+end
 
 def no_item_type_recursion
   return nil if @item_type_lookup
