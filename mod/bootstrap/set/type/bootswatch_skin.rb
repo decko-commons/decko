@@ -166,7 +166,7 @@ end
 
 def load_content *names
   cards = names.flatten.map do |n|
-    Card.fetch(n)&.extended_item_cards
+    Card.fetch(n)&.recursed_item_cards
   end
   cards.flatten.compact.map(&:content).join "\n"
 end
