@@ -2,7 +2,7 @@
 
 RSpec.describe Card::Set::Abstract::CodeFile do
   def card_subject
-    :style_mods.card.extended_item_cards.first
+    :style_mods.card.recursed_item_cards.first
   end
 
   specify "#source_paths" do
