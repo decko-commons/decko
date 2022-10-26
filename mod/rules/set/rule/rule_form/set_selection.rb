@@ -22,7 +22,7 @@ format :html do
       yield.inject("") do |res, radio|
         index += 1
         # TODO
-        if false # index.in? [2,3]
+        if false  # index.in? [2,3]
           wrap_with(:li, radio, class: "radio") + res
         else
           wrap_with :ul do

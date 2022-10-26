@@ -1,15 +1,23 @@
 format :html do
-  def rules_filter view, selected_setting=nil, set_options=nil, path_opts={}
+  def filtered_rule_list view, *filter_args
+      [
+        rules_filter(view, *filter_args),
+        render(view)
+      ]
+  end
+
+  def rules_filter view, selected_category=nil, set_options=nil, path_opts={}
     form_tag path(path_opts.merge(view: view)),
              remote: true, method: "get", role: "filter",
              "data-slot-selector": ".card-slot.rule-list",
              class: classy("nodblclick slotter") do
       output [
         set_select(set_options),
-        setting_select(selected_setting)
+        setting_filter(selected_category)
       ].flatten
     end
   end
+
 
   def set_select set_options
     return filter_text.html_safe unless set_options
@@ -21,15 +29,23 @@ format :html do
     end
   end
 
-  def setting_select selected=nil
-    wrap_with :div, class: "form-group" do
+  def setting_filter selected=:all
+    wrap_with :div, class: "my-4 _setting-filter" do
       [
         content_tag(:label, "Settings"),
-        select_tag(:group, grouped_options_for_select(setting_options, selected),
-                   class: "_submit-on-select form-control",
-                   "data-select2-id": "#{unique_id}-#{Time.now.to_i}")
+        filter_radio(:all, "All", selected == :all),
+        filter_radio(:common, "Common", selected == :common),
+        filter_radio(:field, "Field", selected == :field_related),
+        filter_radio(:recent, "Recent", selected == :recent)
       ]
     end
+  end
+
+  def filter_radio name, label, checked=false
+    <<-HTML.strip_heredoc
+        <input type="radio" class="btn-check _setting-category" name="options" id="#{name}" autocomplete="off" #{'checked' if checked}>
+        <label class="btn btn-outline-secondary" for="#{name}">#{label}</label>
+    HTML
   end
 
   def filter_text
