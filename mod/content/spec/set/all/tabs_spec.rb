@@ -70,8 +70,8 @@ RSpec.describe Card::Set::All::Tabs do
     end
 
     it "handles nests as items" do
-      tabs = render_card :tabs, name: "tab_test", type_id: Card::PlainTextID,
-                         content: "{{A|type;title:my tab title}}"
+      tabs = render_card :tabs, name: "tab_test", type: :plain_text,
+                                content: "{{A|type;title:my tab title}}"
       assert_view_select tabs, "div[role=tabpanel]" do
         assert_select 'li > a[data-bs-toggle=tab][href="#tab-tab_test-1-a"]',
                       "my tab title"
@@ -80,7 +80,8 @@ RSpec.describe Card::Set::All::Tabs do
     end
 
     it "works with search cards" do
-      Card.create type: "Search", name: "Asearch",
+      Card.create name: "Asearch",
+                  type: "Search",
                   content: '{"type":"User","sort_by":"name"}'
       tabs = render_content("{{Asearch|tabs|name}}")
       assert_view_select tabs, "div[role=tabpanel]" do

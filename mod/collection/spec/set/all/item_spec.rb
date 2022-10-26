@@ -63,7 +63,6 @@ RSpec.describe Card::Set::All::Item do
     end
   end
 
-
   describe "item_cards" do
     it "handles :complete arg " do
       expect(card_subject.item_cards(complete: "vert")).to eq ["vertical".card]
