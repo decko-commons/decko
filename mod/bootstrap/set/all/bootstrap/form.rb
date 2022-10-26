@@ -4,11 +4,6 @@ format :html do
     super(content_or_options, options, &block)
   end
 
-  def bootstrapify_button options
-    situation = options.delete(:situation) || "primary"
-    options[:class] = [options[:class], "btn", "btn-#{situation}"].compact * " "
-  end
-
   def type_field args={}
     args[:class] ||= ""
     args[:class] += " form-control"
@@ -31,5 +26,12 @@ format :html do
     define_method(method_name) do |name, options={}|
       form.send(method_name, name, bootstrap_options(options))
     end
+  end
+
+  private
+
+  def bootstrapify_button options
+    situation = options.delete(:situation) || "primary"
+    options[:class] = [options[:class], "btn", "btn-#{situation}"].compact * " "
   end
 end

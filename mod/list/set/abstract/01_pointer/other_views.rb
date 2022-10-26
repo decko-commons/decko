@@ -5,12 +5,6 @@ format do
     20
   end
 
-  def item_links args={}
-    card.item_cards(args).map do |item_card|
-      subformat(item_card).render_link
-    end
-  end
-
   def nest_item_array
     card.item_cards.map do |item|
       nest_item item
