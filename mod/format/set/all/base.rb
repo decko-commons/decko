@@ -125,12 +125,4 @@ format do
     "#{card.name}: #{_render_labeled_content}"
   end
   view :closed, :labeled
-
-  # SPECIAL VIEWS
-
-  view :array, cache: :never do
-    card.item_cards(limit: 0).map do |item_card|
-      subformat(item_card)._render_core
-    end.inspect
-  end
 end
