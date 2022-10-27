@@ -10,6 +10,25 @@ event :insert_item_event, :prepare_to_validate, on: :save, when: :item_to_insert
   insert_item index.to_i, item_to_insert
 end
 
+event :validate_item_type, :validate, on: :save, when: :validate_item_type? do
+  item_cards.each do |item|
+    next if ok_item_types.include? item.type_code
+
+    errors.add :content, t(:list_invalid_item_type,
+                           item: item.name,
+                           type: item.type,
+                           allowed_types: ok_item_types.map(&:cardname).to_sentence)
+  end
+end
+
+def ok_item_types
+  nil
+end
+
+def validate_item_type?
+  ok_item_types.present?
+end
+
 def item_to_insert
   Env.params["insert_item"]
 end
