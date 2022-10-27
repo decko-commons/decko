@@ -4,6 +4,6 @@
     no options
   - else
     - options_hash.each do |option_label, option_name|
-      - checked = option_name == card.item_name
+      - checked = option_name == card.first_name
       ._select-item{class: checked && "selected"}
         = nest option_name, view: item_view

@@ -27,12 +27,12 @@ RSpec.describe Card::Format::HtmlFormat do
       end
     end
 
-    it "joins arrays" do
-      format =
-        Card["A"].format_with do
-          view(:array) { ["A", nil, %w[B C]] }
-        end
-      expect(format.render_array).to eq "A\nB\nC"
-    end
+    # it "joins arrays" do
+    #   format =
+    #     Card["A"].format_with do
+    #       view(:array) { ["A", nil, %w[B C]] }
+    #     end
+    #   expect(format.render_array).to eq "A\nB\nC"
+    # end
   end
 end

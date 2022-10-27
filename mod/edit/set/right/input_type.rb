@@ -37,5 +37,5 @@ def option_names
 end
 
 def supports_content_option_view?
-  item_name.in? %w[checkbox radio]
+  first_name.in? %w[checkbox radio]
 end

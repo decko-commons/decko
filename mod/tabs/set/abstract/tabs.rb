@@ -3,7 +3,7 @@ include_set Abstract::BsBadge
 format :html do
   view :tabs, cache: :never do
     tabs tab_map, default_tab, load: :lazy do
-      _render! "#{default_tab}_tab"
+      _render! tab_map.dig(default_tab, :view)
     end
   end
 
@@ -39,7 +39,7 @@ format :html do
     options = tab_options
     tab_list.each_with_object({}) do |tab_key, hash|
       hash[tab_key] = {
-        view: "#{tab_key}_tab",
+        view: (options.dig(tab_key, :view) || "#{tab_key}_tab"),
         title: tab_title_from_map(tab_key, options[tab_key])
       }
     end

@@ -7,8 +7,4 @@ format :html do
       end.join "\n"
     end
   end
-
-  def item_links _args={}
-    raw(render_core).split(/[,\n]/)
-  end
 end
