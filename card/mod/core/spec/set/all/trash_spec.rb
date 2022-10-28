@@ -9,29 +9,10 @@ RSpec.describe Card::Set::All::Trash do
     end
   end
 
-  describe "event: manage_trash" do
-    it "pulls card out of the trash when re-created with same name", as_bot: true do
-      card_subject.delete!
-      Card.create name: "A+*acct"
-      expect(card_subject.trash).to be_falsey
-    end
-  end
-
   it "deletes account of user", as_bot: true do
     expect(Card["Sample User", :account]).to be_a Card
     Card["Sample User"].delete!
     expect(Card["Sample User", :account]).not_to be
-    # @signup =
-    #   create_signup "born to die",
-    #                 "+*account" => { "+*email" => "wolf@decko.org", "+*password" => "wolf" }
-    # @signup.update!({})
-    # Card::Cache.reset_all
-    #
-    # Card::Auth.as_bot do
-    #   expect(Card.search(right: "*account")).not_to be_empty
-    #   Card["born to die"].delete!
-    # end
-    # expect(Card["born to die+*account"]).not_to be
   end
 
   describe "event: validate_delete" do
@@ -41,6 +22,16 @@ RSpec.describe Card::Set::All::Trash do
         .to raise_error(/is an indestructible rule/)
 
       expect(Card[rule]).to be_a Card
+    end
+
+    it "prevents deletion without permission" do
+      a = "a".card
+      Card::Auth.as :anonymous do
+        expect(a.ok?(:delete)).to eq(false)
+        expect(a.delete).to eq(false)
+        expect(a.errors[:permission_denied]).not_to be_empty
+        expect("a".card.trash).to eq(false)
+      end
     end
 
     context "card with account" do
@@ -117,5 +108,82 @@ RSpec.describe Card::Set::All::Trash do
       expect(Card[book2]).not_to be
       expect(Card["#{book2}+value"]).not_to be
     end
+
+    it "handles compound cards", as_bot: true do
+      c = Card.create! name: "zz+top"
+      "zz".card.delete!
+      expect(Card.find(c.id).trash).to be_truthy
+      expect("zz".card).to be_nil
+    end
+  end
+
+  describe "event: manage_trash" do
+    it "pulls deleted card from trash when recreating" do
+      b_id = "basicname".card_id
+      "basicname".card.delete!
+      c = Card.create! name: "basicname", content: "revived content"
+      expect(c.trash).to eq(false)
+      expect(c.actions.count).to eq(3)
+      expect(c.nth_action(1).value(:db_content)).to eq("basiccontent")
+      expect(c.content).to eq("revived content")
+      expect(c.id).to eq(b_id)
+    end
+
+    it "pulls parts out of trash when creating compound", as_bot: true do
+      card_subject.delete!
+      Card.create name: "A+*acct"
+      expect(card_subject.trash).to be_falsey
+    end
+
+    it "pulls compound card out of trash", as_bot: true do
+      %w[a b].card.delete!
+      card = Card.create name: "A+B", content: "revived"
+      expect(card.trash).to eq(false)
+      expect(card.actions.count).to eq(3)
+      expect(card.nth_action(1).value(:db_content)).to eq("AlphaBeta")
+      expect(card.db_content).to eq("revived")
+    end
+  end
+
+  specify "card in trash" do
+    b = "basicname".card
+    b.delete!
+
+    expect(b.trash).to eq(true)
+    expect(Card["basicname"]).to eq(nil)
+    expect(b.actions.count).to eq(2)
+    expect(b.last_change_on(:db_content).value).to eq("basiccontent")
+  end
+
+  example "recreate plus card name variant" do
+    Card.create(name: "rta+rtb").delete
+    Card["rta"].update name: "rta!"
+    Card.create! name: "rta!+rtb"
+    expect(Card["rta!+rtb"]).to be_a Card
+    expect(Card["rta!+rtb"].trash).to be_falsey
+    expect(Card.find_by_key("rtb*trash")).to be_nil
+  end
+
+  example "multiple trash collision" do
+    Card.create(name: "alpha").delete
+    3.times do
+      b = Card.create(name: "beta")
+      b.name = "alpha"
+      assert b.save!
+      b.delete
+    end
   end
 end
+
+# NOT WORKING, BUT IT SHOULD
+# describe Card, "a part of an unremovable card" do
+#  before do
+#     Card::Auth.as(Card::WagnBotID)
+#     # this ugly setup makes it so A+Admin is the actual user with edits..
+#     Card["Wagn Bot"].update! name: "A+Wagn Bot"
+#  end
+#  it "does not be removable" do
+#    @a = Card['A']
+#    @a.delete.should_not be_true
+#  end
+# end

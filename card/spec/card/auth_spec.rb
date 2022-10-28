@@ -26,4 +26,12 @@ RSpec.describe Card::Auth do
     described_class.signin joeuserid
     expect(described_class.current_id).to eq(joeuserid)
   end
+
+  describe "#createable_types" do
+    let(:type_names) { Card::Auth.createable_types }
+
+    it "includes RichText" do
+      expect(type_names).to be_member("RichText")
+    end
+  end
 end
