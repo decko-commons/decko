@@ -1,23 +1,21 @@
 # -*- encoding : utf-8 -*-
 
 RSpec.describe Card::Codename, "Codename" do
-  before do
-    @codename = :default
-  end
+  let(:codename) { :default }
 
   it "is sane" do
-    expect(Card[@codename].codename).to eq(@codename)
-    card_id = described_class.id @codename
+    expect(Card[codename].codename).to eq(codename)
+    card_id = described_class.id codename
     expect(card_id).to be_a_kind_of Integer
-    expect(described_class[card_id]).to eq(@codename)
+    expect(described_class[card_id]).to eq(codename)
   end
 
   it "makes cards indestructible" do
     Card::Auth.as_bot do
-      card = Card[@codename]
+      card = Card[codename]
       card.delete
       expect(card.errors[:delete].first).to match "is a system card"
-      expect(Card[@codename]).to be
+      expect(Card[codename]).to be
     end
   end
 

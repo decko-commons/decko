@@ -1,5 +1,3 @@
-# -*- encoding : utf-8 -*-
-
 RSpec.describe Card::Set::Abstract::CodeFile do
   def card_subject
     :style_mods.card.recursed_item_cards.first

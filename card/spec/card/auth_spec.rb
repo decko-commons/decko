@@ -3,26 +3,35 @@
 RSpec.describe Card::Auth do
   before do
     described_class.signin Card::AnonymousID
-    @joeuserid = Card["Joe User"].id
   end
+
+  let(:joeuserid) { "Joe User".card_id }
 
   it "authenticates user" do
     authenticated = described_class.authenticate "joe@user.com", "joe_pass"
-    expect(authenticated.left_id).to eq(@joeuserid)
+    expect(authenticated.left_id).to eq(joeuserid)
   end
 
   it "authenticates user despite whitespace" do
     authenticated = described_class.authenticate " joe@user.com ", " joe_pass "
-    expect(authenticated.left_id).to eq(@joeuserid)
+    expect(authenticated.left_id).to eq(joeuserid)
   end
 
   it "authenticates user with weird email capitalization" do
     authenticated = described_class.authenticate "JOE@user.com", "joe_pass"
-    expect(authenticated.left_id).to eq(@joeuserid)
+    expect(authenticated.left_id).to eq(joeuserid)
   end
 
   it "sets current directly from id when mark is id" do
-    described_class.signin @joeuserid
-    expect(described_class.current_id).to eq(@joeuserid)
+    described_class.signin joeuserid
+    expect(described_class.current_id).to eq(joeuserid)
+  end
+
+  describe "#createable_types" do
+    let(:type_names) { Card::Auth.createable_types }
+
+    it "includes RichText" do
+      expect(type_names).to be_member("RichText")
+    end
   end
 end

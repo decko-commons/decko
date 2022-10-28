@@ -232,18 +232,21 @@ RSpec.describe Card::Set::All::NameEvents do
   end
 
   describe "event: prepare_left_and_right" do
-    context "when creating junctions" do
-      before do
-        Card.create! name: "Peach+Pear", content: "juicy"
-      end
 
-      it "creates left card" do
-        expect(Card["Peach"]).to be_a(Card)
-      end
+    it "creates left card, right card, and compound card for 2-part names" do
+      Card.create! name: "Peach+Pear", content: "juicy"
+      expect("Peach".card).to be_a(Card)
+      expect("Pear".card).to be_a(Card)
+      expect("Peach+Pear".card).to be_a(Card)
+    end
 
-      it "creates right card" do
-        expect(Card["Pear"]).to be_a(Card)
-      end
+    it "creates all cards for three-part names" do
+      sugar_milk_flour = Card.create! name: "Sugar+Milk+Flour", content: "tasty"
+      sugar_milk = "Sugar+Milk".card
+      expect(sugar_milk_flour.left_id).to eq(sugar_milk.id)
+      expect(sugar_milk_flour.right_id).to eq("Flour".card_id)
+      expect(sugar_milk.left_id).to eq("Sugar".card_id)
+      expect(sugar_milk.right_id).to eq("Milk".card_id)
     end
   end
 
@@ -271,6 +274,20 @@ RSpec.describe Card::Set::All::NameEvents do
       b1 = Card.create! type: "Book"
       expect(b1.name).to eq("b1")
     end
+  end
+
+  specify "event: rename_in_trash", as_bot: true do
+    a = "a".card
+    a.delete!
+
+    b = "b".card
+    b.update! name: "A"
+
+    trashed_a = Card.find a.id
+
+    expect(b.name).to eq("A")
+    expect(trashed_a.name).to eq("A*trash")
+    expect(trashed_a.key).to eq("a*trash")
   end
 
   describe "event: escape_name" do
