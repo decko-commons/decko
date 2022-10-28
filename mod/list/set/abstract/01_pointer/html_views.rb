@@ -3,12 +3,6 @@ format :html do
     standard_pointer_core
   end
 
-  view :item_cores, cache: :never do
-    card.known_item_cards.map do |item|
-      nest item, view: :core
-    end.join "\n"
-  end
-
   def standard_pointer_core
     with_paging do |paging_args|
       wrap_with :div,

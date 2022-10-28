@@ -1,12 +1,12 @@
-def virtual?
-  new?
-end
-
 format :html do
-  view :core do
-    core_section_config(card.left).map do |item|
+  view :debug, perms: :always_ok? do
+    core_section_config(card).map do |item|
       section(*item)
     end
+  end
+
+  def always_ok?
+    Card::Auth.always_ok?
   end
 
   def core_section_config subject
@@ -71,25 +71,25 @@ format :html do
     )
   end
 
-  def class_locations klass
-    methods = defined_methods(klass)
-    file_groups = methods.group_by { |sl| sl[0] }
-    file_counts = file_groups.map do |file, sls|
-      lines = sls.map { |sl| sl[1] }
-      count = lines.size
-      line = lines.min
-      { file: file, count: count, line: line }
-    end
-    file_counts.sort_by! { |fc| fc[:count] }
-    file_counts.map { |fc| [fc[:file], fc[:line]] }
-  end
-
-  def defined_methods klass
-    methods =
-      klass.methods(false).map { |m| klass.method(m) } +
-      klass.instance_methods(false).map { |m| klass.instance_method(m) }
-    methods.map!(&:source_location)
-    methods.compact!
-    methods
-  end
+  # def class_locations klass
+  #   methods = defined_methods(klass)
+  #   file_groups = methods.group_by { |sl| sl[0] }
+  #   file_counts = file_groups.map do |file, sls|
+  #     lines = sls.map { |sl| sl[1] }
+  #     count = lines.size
+  #     line = lines.min
+  #     { file: file, count: count, line: line }
+  #   end
+  #   file_counts.sort_by! { |fc| fc[:count] }
+  #   file_counts.map { |fc| [fc[:file], fc[:line]] }
+  # end
+  #
+  # def defined_methods klass
+  #   methods =
+  #     klass.methods(false).map { |m| klass.method(m) } +
+  #     klass.instance_methods(false).map { |m| klass.instance_method(m) }
+  #   methods.map!(&:source_location)
+  #   methods.compact!
+  #   methods
+  # end
 end
