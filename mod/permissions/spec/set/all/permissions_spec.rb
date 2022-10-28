@@ -1,69 +1,7 @@
 # -*- encoding : utf-8 -*-
 
-RSpec::Matchers.define :be_writeable do |user|
-  match do |card|
-    Card::Auth.as(user.id) { card.ok? :update }
-  end
-end
-
-RSpec::Matchers.define :be_readable_by do |user|
-  match do |card|
-    Card::Auth.as(user.id) { card.ok? :read }
-  end
-end
-
-RSpec::Matchers.define :be_hidden_from do |user|
-  match do |card|
-    Card::Auth.as(user.id) { expect(card).to be_hidden }
-  end
-
-  match_when_negated do |card|
-    Card::Auth.as(user.id) { expect(card).not_to be_hidden }
-  end
-end
-
-RSpec::Matchers.define :be_locked_from do |user|
-  match do |card|
-    Card::Auth.as(user.id) { expect(card).to be_locked }
-  end
-
-  match_when_negated do |card|
-    Card::Auth.as(user.id) { expect(card).not_to be_locked }
-  end
-end
-
-RSpec::Matchers.define :be_hidden do
-  user_name = Card::Auth.as_card.name
-
-  match do |card|
-    expect(card.ok?(:read)).to be_falsey, "expected #{user_name} can't read #{card.name}"
-    expect(Card.search(id: card.id).map(&:name))
-      .to be_empty, "expected #{card.name} hidden from #{user_name}"
-  end
-
-  match_when_negated do |card|
-    expect(card.ok?(:read)).to be_truthy, "expected #{user_name} can read #{card.name}"
-    expect(Card.search(id: card.id).map(&:name))
-      .to eq([card.name]), "#{card.name} not hidden from #{user_name} "
-  end
-end
-
-RSpec::Matchers.define :be_locked do
-  match do |card|
-    expect(card.ok?(:update))
-      .to be_falsey,
-          "expected #{Card::Auth.as_card.name} to be locked from #{card.name}"
-  end
-
-  match_when_negated do |card|
-    expect(card.ok?(:update))
-      .to be_truthy,
-          "expected #{Card::Auth.as_card.name} not to be locked from #{card.name}"
-  end
-end
-
 RSpec.describe Card::Set::All::Permissions do
-  # FIXME: lots of good tests here, but generally disorganized.
+  # FIXME: lots of valuable tests here, but generally disorganized and hard to understand
 
   def create_self_rule num, grantee, task=:read
     Card::Auth.as_bot do
@@ -80,7 +18,7 @@ RSpec.describe Card::Set::All::Permissions do
     create_self_rule num, "u", task
   end
 
-  context "??" do
+  describe "??" do
     let(:u1) { Card["u1"] }
     let(:u2) { Card["u2"] }
     let(:u3) { Card["u3"] }
@@ -122,7 +60,7 @@ RSpec.describe Card::Set::All::Permissions do
       end
     end
 
-    context "with read user permissions" do
+    describe "with read user permissions" do
       it "user can read all cards with read rules granted to him" do
         create_self_user_rule 1
         create_self_user_rule 2
@@ -141,7 +79,7 @@ RSpec.describe Card::Set::All::Permissions do
       end
     end
 
-    context "with write user permissions" do
+    describe "with write user permissions" do
       it "user can edit all cards with update rules granted to him" do
         create_self_user_rule 1, :update
         create_self_user_rule 2, :update
@@ -313,7 +251,7 @@ RSpec.describe Card::Set::All::Permissions do
     end
   end
 
-  context "settings based permissions" do
+  describe "settings based permissions" do
     before do
       Card::Auth.as_bot do
         Card.fetch("*all+*delete", new: {}).update! type_code: :pointer,

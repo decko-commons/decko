@@ -1,6 +1,26 @@
 RSpec.describe Card::Set::All::NameEvents do
   include CardExpectations
 
+  def assert_rename card, new_name
+    card = card_to_rename card
+    attrs_before = name_invariant_attributes(card)
+    actions_count_before = card.actions.count
+    old_name = card.name
+
+    update! card.name, name: new_name
+
+    expect(name_invariant_attributes(card)).to eq(attrs_before)
+    expect_successful_rename old_name, card, (actions_count_before + 1)
+  end
+
+  private
+
+  def expect_successful_rename old_name, card, num_actions
+    expect(card.actions.count).to eq(num_actions)
+    expect(Card.cache.read(old_name)).to eq(nil)
+    expect(card.name.card).to eq(card)
+  end
+
   def name_invariant_attributes card
     descendant_ids = []
     card.each_descendant { |d| descendant_ids << d.id }
@@ -12,31 +32,6 @@ RSpec.describe Card::Set::All::NameEvents do
       referees: card.referees.map(&:name).sort,
       descendants: descendant_ids.sort
     }
-  end
-
-  def assert_rename card, new_name
-    card = card_to_rename card
-    attrs_before = name_invariant_attributes(card)
-    actions_count_before = card.actions.count
-    old_name = card.name
-
-    update! card.name, name: new_name
-    expect_action_added card, actions_count_before
-    expect_old_name_cleared old_name
-    expect_successful_rename card, attrs_before
-  end
-
-  def expect_action_added card, actions_count_before
-    expect(card.actions.count).to eq(actions_count_before + 1)
-  end
-
-  def expect_old_name_cleared old_name
-    expect(Card.cache.read(old_name)).to eq(nil)
-  end
-
-  def expect_successful_rename card, attrs_before
-    expect(name_invariant_attributes(card)).to eq(attrs_before)
-    expect(Card[card.name]).to eq(card)
   end
 
   def card_to_rename card
@@ -107,8 +102,7 @@ RSpec.describe Card::Set::All::NameEvents do
   end
 
   it "fails if name is invalid" do
-    expect { update "T", name: "" }
-      .to raise_error(/Name can't be blank/)
+    expect { update "T", name: "" }.to raise_error(/Name can't be blank/)
   end
 
   example "simple to simple" do
@@ -154,7 +148,7 @@ RSpec.describe Card::Set::All::NameEvents do
   end
 
   context "with self references" do
-    example "renaming card with self link should nothang" do
+    example "renaming card with self link should not hang" do
       pre_content = Card["self_aware"].content
       update "self aware", name: "buttah"
       expect_card("Buttah").to have_content(pre_content)
@@ -232,45 +226,35 @@ RSpec.describe Card::Set::All::NameEvents do
   end
 
   describe "event: prepare_left_and_right" do
-    context "when creating junctions" do
-      before do
-        Card.create! name: "Peach+Pear", content: "juicy"
-      end
+    it "creates left card, right card, and compound card for 2-part names" do
+      Card.create! name: "Peach+Pear", content: "juicy"
+      expect("Peach".card).to be_a(Card)
+      expect("Pear".card).to be_a(Card)
+      expect("Peach+Pear".card).to be_a(Card)
+    end
 
-      it "creates left card" do
-        expect(Card["Peach"]).to be_a(Card)
-      end
-
-      it "creates right card" do
-        expect(Card["Pear"]).to be_a(Card)
-      end
+    it "creates all cards for three-part names" do
+      sugar_milk_flour = Card.create! name: "Sugar+Milk+Flour", content: "tasty"
+      sugar_milk = "Sugar+Milk".card
+      expect(sugar_milk_flour.left_id).to eq(sugar_milk.id)
+      expect(sugar_milk_flour.right_id).to eq("Flour".card_id)
+      expect(sugar_milk.left_id).to eq("Sugar".card_id)
+      expect(sugar_milk.right_id).to eq("Milk".card_id)
     end
   end
 
-  describe "event: autoname" do
-    before do
-      Card::Auth.as_bot do
-        @b1 = Card.create! name: "Book+*type+*autoname", content: "b1"
-      end
-    end
+  specify "event: rename_in_trash", as_bot: true do
+    a = "a".card
+    a.delete!
 
-    it "handles cards without names" do
-      c = Card.create! type: "Book"
-      expect(c.name).to eq("b1")
-    end
+    b = "b".card
+    b.update! name: "A"
 
-    it "increments again if name already exists" do
-      _b1 = Card.create! type: "Book"
-      b2 = Card.create! type: "Book"
-      expect(b2.name).to eq("b2")
-    end
+    trashed_a = Card.find a.id
 
-    it "handles trashed names" do
-      b1 = Card.create! type: "Book"
-      Card::Auth.as_bot { b1.delete }
-      b1 = Card.create! type: "Book"
-      expect(b1.name).to eq("b1")
-    end
+    expect(b.name).to eq("A")
+    expect(trashed_a.name).to eq("A*trash")
+    expect(trashed_a.key).to eq("a*trash")
   end
 
   describe "event: escape_name" do
@@ -289,13 +273,6 @@ RSpec.describe Card::Set::All::NameEvents do
     it "does not allow mismatched name and key" do
       expect { create "Test", key: "foo" }
         .to raise_error(/wrong key/)
-    end
-  end
-
-  describe "reset_codename_cache" do
-    it "resets codename cache when codename is updated" do
-      card = Card.create! name: "Codename Haver", codename: :codename_haver
-      expect(Card::Codename.id(:codename_haver)).to eq(card.id)
     end
   end
 end

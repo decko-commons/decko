@@ -1,6 +1,8 @@
 # -*- encoding : utf-8 -*-
 
 RSpec.describe Card::Set::All::History::Views do
+  check_views_for_errors
+
   specify "view act" do
     expect_view(:act).to have_tag("div.accordion-item") do
       with_tag "h2.accordion-header"
