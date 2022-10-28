@@ -1,6 +1,26 @@
 RSpec.describe Card::Set::All::NameEvents do
   include CardExpectations
 
+  def assert_rename card, new_name
+    card = card_to_rename card
+    attrs_before = name_invariant_attributes(card)
+    actions_count_before = card.actions.count
+    old_name = card.name
+
+    update! card.name, name: new_name
+
+    expect(name_invariant_attributes(card)).to eq(attrs_before)
+    expect_successful_rename old_name, card, (actions_count_before + 1)
+  end
+
+  private
+
+  def expect_successful_rename old_name, card, num_actions
+    expect(card.actions.count).to eq(num_actions)
+    expect(Card.cache.read(old_name)).to eq(nil)
+    expect(card.name.card).to eq(card)
+  end
+
   def name_invariant_attributes card
     descendant_ids = []
     card.each_descendant { |d| descendant_ids << d.id }
@@ -12,20 +32,6 @@ RSpec.describe Card::Set::All::NameEvents do
       referees: card.referees.map(&:name).sort,
       descendants: descendant_ids.sort
     }
-  end
-
-  def assert_rename card, new_name
-    card = card_to_rename card
-    attrs_before = name_invariant_attributes(card)
-    actions_count_before = card.actions.count
-    old_name = card.name
-
-    update! card.name, name: new_name
-    expect(card.actions.count).to eq(actions_count_before + 1)
-    expect(Card.cache.read(old_name)).to eq(nil)
-    expect_successful_rename card, attrs_before
-    expect(name_invariant_attributes(card)).to eq(attrs_before)
-    expect(Card[card.name]).to eq(card)
   end
 
   def card_to_rename card

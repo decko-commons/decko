@@ -74,8 +74,9 @@ RSpec.describe Card::Cache do
         FileUtils.mkdir_p path unless File.directory? path
       end
     end
+
     let :store do
-      ActiveSupport::Cache::FileStore.new(cache_path).tap &:clear
+      ActiveSupport::Cache::FileStore.new(cache_path).tap(&:clear)
     end
 
     describe "#basic operations with special symbols" do

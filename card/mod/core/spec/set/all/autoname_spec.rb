@@ -22,5 +22,4 @@ RSpec.describe Card::Set::All::Autoname do
       expect(b1.name).to eq("b1")
     end
   end
-
 end
