@@ -67,6 +67,6 @@ format :json do
   view :not_found, :errors
   view :bad_address do
     card.errors.add :address, super()
-    render_error
+    render_errors
   end
 end
