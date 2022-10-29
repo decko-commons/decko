@@ -1,3 +1,12 @@
+event :notable_exception_raised do
+  error = Card::Error.current
+  Rails.logger.debug "#{error.message}\n#{error.backtrace * "\n  "}"
+end
+
+def success
+  Env.success name
+end
+
 # The Card#abort method is for cleanly exiting an action without continuing
 # to process any further events.
 #
@@ -60,17 +69,4 @@ def with_transaction_returning_status &block
     raise ActiveRecord::Rollback unless status
   end
   status
-end
-
-# FIXME: these two do not belong here!
-
-public
-
-event :notable_exception_raised do
-  error = Card::Error.current
-  Rails.logger.debug "#{error.message}\n#{error.backtrace * "\n  "}"
-end
-
-def success
-  Env.success(name)
 end

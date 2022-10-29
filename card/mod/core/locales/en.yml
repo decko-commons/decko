@@ -25,5 +25,18 @@ en:
   core_rename: "Rename"
   core_rename_confirm: "Are you sure you want to rename?"
 
+  core_task_clear_cache_link_text: "Clear Cache"
+  core_task_clear_cache_description: "Clear Cache!"
+
+  core_task_empty_trash_link_text: "Empty Trash"
+  core_task_empty_trash_description: "Empty Trash!"
+
+  core_task_regenerate_assets_link_text: "Regenerate Assets"
+  core_task_regenerate_assets_description: "Regen!"
+
+  core_admin_warn: Administrator Warning
+  core_admin_email_off:
+    Email delivery is turned off. Change settings in %{path} to send sign up notifications.
+
   skip_update_referer_content:
     do not update references to this name

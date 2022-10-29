@@ -11,3 +11,9 @@ en:
   carrierwave_replace_item: Replace %{attachment_name}...
   carrierwave_unknown_storage_type: unknown storage type %{new_storage_type}
   carrierwave_url_is_missing: url is missing
+
+  #  carrierwave_task_move_files_link_text: "Move Files"
+  #  carrierwave_task_move_files_description: "Move Files!"
+
+  carrierwave_task_delete_upload_tmp_files_link_text: "Delete upload tmp files"
+  carrierwave_task_delete_upload_tmp_files_description: "Delete upload tmp files!"

@@ -1,11 +1,8 @@
 # -*- encoding : utf-8 -*-
 
-describe Card::Set::Self::Admin do
-  it "renders a table" do
-    Card::Auth.as_bot do
-      @core = render_card :core, name: :admin
-    end
-    assert_view_select @core, "table"
+RSpec.describe Card::Set::Self::Admin do
+  it "renders a table", as_bot: true do
+    assert_view_select render_card(:core, name: :admin), "table"
   end
 
   describe "#update" do
@@ -20,13 +17,13 @@ describe Card::Set::Self::Admin do
 
     it "clearing trash is denied" do
       expect { run_admin_task :empty_trash }
-        .to raise_error Card::Error::PermissionDenied, /The admin task 'empty trash'/
+        .to raise_error Card::Error::PermissionDenied, /The admin task 'Empty Trash'/
     end
 
-    it "clearing history is denied" do
-      expect { run_admin_task :clear_history }
-        .to raise_error Card::Error::PermissionDenied, /The admin task 'clear history'/
-    end
+    # it "clearing history is denied" do
+    #   expect { run_admin_task :clear_history }
+    #     .to raise_error Card::Error::PermissionDenied, /The admin task 'clear history'/
+    # end
 
     context "irreversible tasks allowed" do
       around do |example|
@@ -43,16 +40,16 @@ describe Card::Set::Self::Admin do
         expect(Card.where(trash: true)).to be_empty
       end
 
-      it "triggers deleting old revisions (with right params)" do
-        Card::Auth.as_bot do
-          a = Card["A"]
-          a.update! content: "a new day"
-          a.update! content: "another day"
-          expect(a.actions.count).to eq(3)
-          run_admin_task :clear_history
-          expect(a.actions.count).to eq(1)
-        end
-      end
+      # it "triggers deleting old revisions (with right params)" do
+      #   Card::Auth.as_bot do
+      #     a = Card["A"]
+      #     a.update! content: "a new day"
+      #     a.update! content: "another day"
+      #     expect(a.actions.count).to eq(3)
+      #     run_admin_task :clear_history
+      #     expect(a.actions.count).to eq(1)
+      #   end
+      # end
     end
 
     # it 'is trigger reference repair' do
@@ -66,5 +63,11 @@ describe Card::Set::Self::Admin do
     #
     #   end
     # end
+  end
+
+  specify "view warning" do
+    expect_view(:warning).to have_tag("div.alert.alert-warning.alert-dismissible") do
+      with_tag "button.btn-close"
+    end
   end
 end
