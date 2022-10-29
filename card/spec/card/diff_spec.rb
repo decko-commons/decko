@@ -13,16 +13,15 @@ RSpec.describe Card::Content::Diff do
     "&lt;#{text}&gt;"
   end
 
-  def diff old_s, new_s, opts=opts()
-    Card::Content::Diff.complete(old_s, new_s, opts)
+  def diff old_s, new_s, options=opts
+    Card::Content::Diff.complete(old_s, new_s, options)
   end
 
-  def summary old_s, new_s, opts=opts()
-    Card::Content::Diff.summary(old_s, new_s, opts)
+  def summary old_s, new_s, options=opts
+    Card::Content::Diff.summary(old_s, new_s, options)
   end
 
   old_p = "<p>old</p>"
-  new_p = "<p>new</p>"
   new_h = "<h1>new</h1>"
   def p_diff
     diff "<p>old</p>", "<p>new</p>"

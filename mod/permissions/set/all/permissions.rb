@@ -34,10 +34,6 @@ def ok? action
   end
 end
 
-def ok! action
-  raise Card::Error::PermissionDenied, self unless ok? action
-end
-
 def who_can action
   permission_rule_card(action).item_cards.map(&:id)
 end
