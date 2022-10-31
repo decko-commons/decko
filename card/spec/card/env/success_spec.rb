@@ -8,7 +8,7 @@ RSpec.describe Card::Env::Success do
 
   let :success_object do
     Card::Env.save_location Card["B"]
-    Card::Env::Success.new context, success_params
+    described_class.new context, success_params
   end
 
   describe "#target" do
@@ -20,16 +20,19 @@ RSpec.describe Card::Env::Success do
 
     context "when initialized with hash" do
       let(:success_params) { { id: home.id, view: "closed" } }
+
       it { is_expected.to eq home }
     end
 
     context "when initialized with card object" do
       let(:success_params) { home }
+
       it { is_expected.to eq home }
     end
 
     context "when initialized with url" do
       let(:success_params) { "https://decko.org" }
+
       it { is_expected.to eq "https://decko.org" }
     end
   end
@@ -38,8 +41,9 @@ RSpec.describe Card::Env::Success do
     subject { success_object.to_url }
 
     context "with params" do
-      context "using initialization" do
+      context "when using initialization" do
         let(:success_params) { { id: home.id, view: "closed", layout: "my_layout" } }
+
         it { is_expected.to eq "/Home?layout=my_layout&view=closed" }
       end
 
@@ -61,6 +65,7 @@ RSpec.describe Card::Env::Success do
 
     context "with redirect string" do
       let(:success_params) { { mark: "*previous" } }
+
       it { is_expected.to eq previous }
     end
   end
@@ -70,11 +75,13 @@ RSpec.describe Card::Env::Success do
 
     context "when redirect parameter is 'soft'" do
       let(:success_params) { { redirect: "soft" } }
+
       it { is_expected.to eq "soft" }
     end
 
     context "when redirect parameter is blank" do
       let(:success_params) { { redirect: "" } }
+
       it { is_expected.to be_falsey }
     end
   end
@@ -86,16 +93,19 @@ RSpec.describe Card::Env::Success do
 
     context "with id" do
       let(:success_mark) { home.id }
+
       it { is_expected.to eq home }
     end
 
     context "with name" do
       let(:success_mark) { home.name }
+
       it { is_expected.to eq home }
     end
 
     context "with card" do
       let(:success_mark) { home }
+
       it { is_expected.to eq home }
     end
   end
@@ -114,7 +124,6 @@ RSpec.describe Card::Env::Success do
     end
 
     it 'ignores "id", "name", "mark", "card"", target", and "redirect"' do
-      success_params()
       expect(success_object.params.keys).to eq [:view]
     end
 
