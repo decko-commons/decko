@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_28_040849) do
+ActiveRecord::Schema.define(version: 2022_10_31_182227) do
 
   create_table "card_actions", id: :integer, charset: "utf8mb3", force: :cascade do |t|
     t.integer "card_id"
@@ -42,7 +42,7 @@ ActiveRecord::Schema.define(version: 2021_11_28_040849) do
 
   create_table "card_references", id: :integer, charset: "utf8mb3", force: :cascade do |t|
     t.integer "referer_id", default: 0, null: false
-    t.string "referee_key", default: "", null: false
+    t.string "referee_key", default: ""
     t.integer "referee_id"
     t.string "ref_type", limit: 1, default: "", null: false
     t.integer "is_present"

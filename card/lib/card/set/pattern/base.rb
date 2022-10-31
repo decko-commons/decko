@@ -39,7 +39,7 @@ class Card
 
         def anchor_codenames
           anchor_parts.map do |part|
-            part.cardname&.code || break
+            part.cardname&.codename || break
           end
         end
 
