@@ -53,14 +53,14 @@ RSpec.describe Card::Director::CardClass do
       let(:lookup_key) { :codename }
 
       context "with known codename" do
-        let(:ensure_args) { { name: "A", codename: :debug, content: "updated" } }
+        let(:ensure_args) { { name: "A", codename: :admin, content: "updated" } }
 
         it "defers when `conflict: :defer`" do
-          expect(ensure!(conflict: :defer).name).to eq("*debug")
+          expect(ensure!(conflict: :defer).name).to eq("*admin")
         end
 
         it "defers when `conflict: :default`", as_bot: true do
-          expect(ensure!(conflict: :default).name).to eq("*debug")
+          expect(ensure!(conflict: :default).name).to eq("*admin")
         end
 
         it "updates when `conflict: :override`", as_bot: true do
