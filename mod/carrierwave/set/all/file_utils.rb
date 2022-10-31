@@ -1,10 +1,10 @@
 # TODO: move to lib
 # eg, create new Card::File class in lib/card/file
 module ClassMethods
-  def update_all_storage_locations
-    Card.search(type_id: ["in", Card::FileID, Card::ImageID])
-        .each(&:update_storage_location!)
-  end
+  # def update_all_storage_locations
+  #   Card.search(type_id: ["in", Card::FileID, Card::ImageID])
+  #       .each(&:update_storage_location!)
+  # end
 
   def delete_tmp_files_of_cached_uploads
     cards_with_disposable_attachments do |card, action|
