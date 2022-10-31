@@ -11,7 +11,7 @@ event :insert_item_event, :prepare_to_validate, on: :save, when: :item_to_insert
 end
 
 event :validate_item_type, :validate, on: :save, when: :validate_item_type? do
-  ok_types = Array.wrap ok_item_types
+  ok_types = Array.wrap(ok_item_types).map(&:codename)
   item_cards.each do |item|
     next if ok_types.include? item.type_code
 
