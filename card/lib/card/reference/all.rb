@@ -73,16 +73,6 @@ class Card
 
       private
 
-      def with_normalized_referee referee_name
-        return unless referee_name # eg commented nest has no referee_name
-
-        referee_name = referee_name.to_name
-        referee_key = referee_name.key
-        return if referee_key == key # don't create self reference
-
-        yield referee_name, referee_key, Lexicon.id(referee_name)
-      end
-
       # interpretation phase helps to prevent duplicate references
       # results in hash like:
       # { referee1_key: [referee1_id, referee1_type2],
@@ -94,6 +84,16 @@ class Card
           ref_hash[key] << ref_type
           interpret_partial_references ref_hash, name unless id
         end
+      end
+
+      def with_normalized_referee referee_name
+        return unless referee_name # eg commented nest has no referee_name
+
+        referee_name = referee_name.to_name
+        referee_key = referee_name.key
+        return if referee_key == key # don't create self reference
+
+        yield referee_name, referee_key, Lexicon.id(referee_name)
       end
 
       # translate interpreted reference hash into values array,

@@ -107,7 +107,7 @@ RSpec.describe Card::Set::All::Account do
       # includes lots of account rules...
       Card::Auth.as("joe_admin") do
         ids = Card::Auth.as_card.read_rules
-        expect(ids.length).to eq(@read_rules.size + 12)
+        expect(ids.length).to eq(@read_rules.size + 11)
       end
     end
   end
