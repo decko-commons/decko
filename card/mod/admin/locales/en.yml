@@ -1,4 +1,0 @@
-en:
-  admin_warn: ADMINISTRATOR WARNING
-  admin_email_off:
-    Email delivery is turned off. Change settings in %{path} to send sign up notifications.

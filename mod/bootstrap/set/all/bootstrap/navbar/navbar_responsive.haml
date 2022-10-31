@@ -5,7 +5,7 @@
 - elsif brand
   %a.navbar-brand{ href: brand[:href] || "#" }
     = brand[:name]
-%button{ class: "navbar-toggler navbar-toggler-#{align}",
+%button{ class: "navbar-toggler navbar-toggler-#{opts[:toggle_align]}",
          type: "button",
          "data-bs-toggle": "collapse",
          "data-bs-target": "#navbar-collapse-#{id}",

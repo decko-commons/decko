@@ -1,13 +1,7 @@
-basket[:tasks] << {
-  name: :empty_trash,
+basket[:tasks][:empty_trash] = {
+  mod: :core,
   irreversible: true,
-  execute_policy: -> { Cardio::Utils.empty_trash },
-  stats: {
-    title: "trashed cards",
-    count: -> { Card.where(trash: true) },
-    link_text: "empty trash",
-    task: "empty_trash"
-  }
+  execute_policy: -> { Cardio::Utils.empty_trash }
 }
 
 def trash?
