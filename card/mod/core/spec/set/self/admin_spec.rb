@@ -25,7 +25,7 @@ RSpec.describe Card::Set::Self::Admin do
     #     .to raise_error Card::Error::PermissionDenied, /The admin task 'clear history'/
     # end
 
-    context "irreversible tasks allowed" do
+    context "when irreversible tasks allowed" do
       around do |example|
         Cardio.config.allow_irreversible_admin_tasks = true
         example.run
