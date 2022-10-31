@@ -34,5 +34,5 @@ def create_references_out
   referee_ids = item_ids
   return if referee_ids.empty?
 
-  Reference.mass_insert referee_ids.map { |rid| [id, rid, "null", "'L'"] }
+  Reference.mass_insert(referee_ids.map { |rid| [id, rid, "null", "'L'"] })
 end

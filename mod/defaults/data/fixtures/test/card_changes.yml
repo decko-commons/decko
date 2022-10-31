@@ -31,7 +31,7 @@ card_changes_006:
   value: '179'
 card_changes_007:
   id: 7
-  card_action_id: 1188
+  card_action_id: 1183
   field: 2
   value: |-
     Joe Admin
@@ -68,7 +68,7 @@ card_changes_013:
   value: '179'
 card_changes_014:
   id: 14
-  card_action_id: 1191
+  card_action_id: 1186
   field: 2
   value: |-
     Joe Admin
@@ -106,153 +106,81 @@ card_changes_020:
   value: '179'
 card_changes_021:
   id: 21
-  card_action_id: 1194
+  card_action_id: 1189
   field: 2
   value: Joe Admin
 card_changes_022:
   id: 22
-  card_action_id: 1396
+  card_action_id: 1391
   field: 0
   value: First
 card_changes_023:
   id: 23
-  card_action_id: 1396
+  card_action_id: 1391
   field: 1
   value: '2'
 card_changes_024:
   id: 24
-  card_action_id: 1396
+  card_action_id: 1391
   field: 2
   value: egg
 card_changes_025:
   id: 25
-  card_action_id: 1396
+  card_action_id: 1391
   field: 3
   value: f
 card_changes_026:
   id: 26
-  card_action_id: 1396
+  card_action_id: 1391
   field: 4
   value:
 card_changes_027:
   id: 27
-  card_action_id: 1396
+  card_action_id: 1391
   field: 5
   value:
 card_changes_028:
   id: 28
-  card_action_id: 1398
+  card_action_id: 1393
   field: 2
   value: chicken
 card_changes_029:
   id: 29
-  card_action_id: 1400
+  card_action_id: 1395
   field: 2
   value: chick
 card_changes_030:
   id: 30
-  card_action_id: 1623
+  card_action_id: 1618
   field: 0
   value:
 card_changes_031:
   id: 31
-  card_action_id: 1623
+  card_action_id: 1618
   field: 1
   value: '2'
 card_changes_032:
   id: 32
-  card_action_id: 1623
+  card_action_id: 1618
   field: 2
   value: ''
 card_changes_033:
   id: 33
-  card_action_id: 1623
+  card_action_id: 1618
   field: 3
   value: f
 card_changes_034:
   id: 34
-  card_action_id: 1623
+  card_action_id: 1618
   field: 4
-  value: '837'
+  value: '833'
 card_changes_035:
   id: 35
-  card_action_id: 1623
+  card_action_id: 1618
   field: 5
-  value: '838'
+  value: '834'
 card_changes_036:
   id: 36
-  card_action_id: 1627
+  card_action_id: 1622
   field: 2
   value: zoom in
-card_changes_037:
-  id: 37
-  card_action_id: 1767
-  field: 0
-  value: stacks
-card_changes_038:
-  id: 38
-  card_action_id: 1767
-  field: 1
-  value: '55'
-card_changes_039:
-  id: 39
-  card_action_id: 1767
-  field: 2
-  value: |-
-    horizontal
-    vertical
-card_changes_040:
-  id: 40
-  card_action_id: 1767
-  field: 3
-  value: f
-card_changes_041:
-  id: 41
-  card_action_id: 1767
-  field: 4
-  value:
-card_changes_042:
-  id: 42
-  card_action_id: 1767
-  field: 5
-  value:
-card_changes_043:
-  id: 43
-  card_action_id: 3024
-  field: 1
-  value: '4'
-card_changes_044:
-  id: 44
-  card_action_id: 803
-  field: 0
-  value: 'mod: admin'
-card_changes_045:
-  id: 45
-  card_action_id: 803
-  field: 1
-  value: '15'
-card_changes_046:
-  id: 46
-  card_action_id: 803
-  field: 2
-  value: ''
-card_changes_047:
-  id: 47
-  card_action_id: 803
-  field: 3
-  value: f
-card_changes_048:
-  id: 48
-  card_action_id: 803
-  field: 4
-  value:
-card_changes_049:
-  id: 49
-  card_action_id: 803
-  field: 5
-  value:
-card_changes_050:
-  id: 50
-  card_action_id: 3050
-  field: 3
-  value: t

@@ -72,6 +72,7 @@ class Card
       end
 
       private
+
       # interpretation phase helps to prevent duplicate references
       # results in hash like:
       # { referee1_key: [referee1_id, referee1_type2],
