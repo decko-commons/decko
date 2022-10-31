@@ -71,9 +71,5 @@ class Card
     def rstar?
       right && right[0, 1] == "*"
     end
-
-    def code
-      Card::Codename[card_id]
-    end
   end
 end

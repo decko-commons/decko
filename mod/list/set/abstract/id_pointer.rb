@@ -20,10 +20,19 @@ def item_names args={}
   item_ids(args).map(&:cardname).compact
 end
 
+def export_content
+  item_names.join "\n"
+end
+
 def replace_references _old_name, _new_name
   # noop
 end
 
-def export_content
-  item_names.join "\n"
+# override reference creation so there are no referee_keys
+# (referee_keys can screw things up for these cards when things get renamed)
+def create_references_out
+  referee_ids = item_ids
+  return if referee_ids.empty?
+
+  Reference.mass_insert(referee_ids.map { |rid| [id, rid, "null", "'L'"] })
 end
