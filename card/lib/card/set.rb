@@ -68,6 +68,7 @@ class Card
         }
 
         self.basket = {}
+
       end
     end
 
