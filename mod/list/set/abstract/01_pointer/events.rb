@@ -11,13 +11,14 @@ event :insert_item_event, :prepare_to_validate, on: :save, when: :item_to_insert
 end
 
 event :validate_item_type, :validate, on: :save, when: :validate_item_type? do
+  ok_types = Array.wrap ok_item_types
   item_cards.each do |item|
-    next if ok_item_types.include? item.type_code
+    next if ok_types.include? item.type_code
 
     errors.add :content, t(:list_invalid_item_type,
                            item: item.name,
                            type: item.type,
-                           allowed_types: ok_item_types.map(&:cardname).to_sentence)
+                           allowed_types: ok_types.map(&:cardname).to_sentence)
   end
 end
 
