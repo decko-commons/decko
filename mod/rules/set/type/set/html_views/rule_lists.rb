@@ -31,7 +31,7 @@ format :html do
   setting_list_view_options = { cache: :never, wrap: { slot: { class: "_setting-list" } } }
 
   # rule can be edited in-place
-  view :quick_edit_setting_list, cache: :never, wrap: { slot: { class: "_setting-list" } } do
+  view :quick_edit_setting_list, setting_list_view_options do
     quick_edit_setting_list
   end
 
@@ -41,16 +41,18 @@ format :html do
   end
 
   # a click on a setting opens the rule editor in an overlay
-  view :pill_setting_list, cache: :never, wrap: { slot: { class: "_setting-list" } } do
+  view :pill_setting_list, setting_list_view_options do
     pill_setting_list
   end
 
   # a click on a setting opens the rule editor in a modal
-  view :modal_pill_setting_list, cache: :never, wrap: { slot: { class: "_setting-list" } } do
+  view :modal_pill_setting_list, setting_list_view_options do
+    voo.items[:view] ||=
+    setting_list v
     pill_setting_list true
   end
 
-  view :accordion_rule_list, cache: :never do
+  view :accordion_rule_list, setting_list_view_options do
     [
       accordion do
         Card::Setting.groups.keys.map do |group_key|
@@ -58,6 +60,10 @@ format :html do
         end
       end
     ]
+  end
+
+  def setting_list item_view, grouped=true
+
   end
 
   view :overlay_rule_list_link, cache: :never do
@@ -80,6 +86,11 @@ format :html do
     bridge_pills setting_list_items(item_view)
   end
 
+  def bar_setting_list
+    setting_list_items(:bar, hide: :full_name).join("\n").html_safe
+  end
+
+
   def pill_setting_group_list group_key
     list =
         card.group_setting_list(group_key).map do |setting|
@@ -93,11 +104,8 @@ format :html do
      pill_setting_list
    end
 
-  def bar_setting_list
-    setting_list_items(:bar, hide: :full_name).join("\n").html_safe
-  end
 
-  def setting_list_items item_view, options = {}
+  def  setting_list_items item_view, options = {}
     card.all_settings.map do |setting|
       setting_list_item setting, item_view, options
     end

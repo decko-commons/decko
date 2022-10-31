@@ -4,7 +4,10 @@ format :html do
   end
 
   view :core, cache: :never do
-    filtered_rule_list :bar_setting_list
+    [
+      set_select(:broader),
+      filtered_rule_list(:bar_setting_list)
+    ]
   end
 
   view :nest_rules, cache: :never, unknown: true, wrap: :slot do
