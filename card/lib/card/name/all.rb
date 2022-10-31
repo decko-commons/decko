@@ -11,6 +11,7 @@ class Card
       def name
         @name ||= left_id ? Lexicon.lex_to_name([left_id, right_id]) : super.to_name
       end
+      alias_method :cardname, :name
 
       def key
         @key ||= left_id ? name.key : super
