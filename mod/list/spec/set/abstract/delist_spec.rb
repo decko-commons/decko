@@ -1,10 +1,14 @@
 RSpec.describe Card::Set::Abstract::Delist do
-  # let(:company) { Card["SPECTRE"] }
-  # let(:dataset) { Card["Evil Dataset"] }
-  #
-  # # FIXME: use simpler example. deleting companies is complicated and slow
-  # it "deletes company from dataset when company is deleted", as_bot: true do
-  #   company.delete!
-  #   expect(dataset.wikirate_company_card.item_names).not_to include("SPECTRE")
-  # end
+  def card_subject_name
+    "vertical"
+  end
+
+  let(:list_with_subject) { "stacks".card }
+
+
+  it "deletes company from dataset when company is deleted", as_bot: true do
+    expect(list_with_subject.item_names).to include(card_subject_name)
+    card_subject.delete!
+    expect(list_with_subject.item_names).not_to include(card_subject_name)
+  end
 end
