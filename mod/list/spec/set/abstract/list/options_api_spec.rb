@@ -1,4 +1,4 @@
-RSpec.describe Card::Set::Abstract::Pointer::OptionsApi do
+RSpec.describe Card::Set::Abstract::List::OptionsApi do
   def define_options_rule type_id, content
     Card.create! name: %i[pointer type content_options],
                  type_id: type_id, content: content

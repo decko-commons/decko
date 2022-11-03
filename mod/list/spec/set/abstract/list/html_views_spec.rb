@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-RSpec.describe Card::Set::Abstract::Pointer::HtmlViews do
+RSpec.describe Card::Set::Abstract::List::HtmlViews do
   context "with simple Pointer" do
     def card_subject
       pointer = Card["Sample Pointer"]
