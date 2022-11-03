@@ -97,7 +97,7 @@ describe Card::Set::Abstract::List do
     it "adds an error when there are duplicate items" do
       card_subject.singleton_class.define_method(:validate_item_uniqueness?) { true }
       expect { card_subject.update! content: %w[horizontal horizontal vertical vertical] }
-        .to raise_error /duplicate item names: horizontal and vertical/
+        .to raise_error(/duplicate item names: horizontal and vertical/)
     end
   end
 end
