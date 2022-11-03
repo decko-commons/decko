@@ -1,4 +1,4 @@
-describe Card::Set::Abstract::List do
+RSpec.describe Card::Set::Abstract::List do
   let(:pointer) do
     Card.create! name: "tp", type: :pointer, content: "[[item1]]\n[[item2]]"
   end
@@ -86,6 +86,16 @@ describe Card::Set::Abstract::List do
       create "super card", fields: { "a pointer" => { content: ["b1", "[[b2]]"],
                                                       type: :pointer } }
       expect_card("super card+a pointer").to have_db_content "b1\nb2"
+    end
+  end
+
+  describe "event: validate_item_uniqueness" do
+    let(:list) { "stacks".card }
+
+    it "adds an error when there are duplicate items" do
+      list.singleton_class.define_method(:unique_items?) { true }
+      expect { list.update! content: %w[horizontal horizontal vertical vertical] }
+        .to raise_error(/duplicate item names: horizontal and vertical/)
     end
   end
 end
