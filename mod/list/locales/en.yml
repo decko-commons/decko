@@ -1,3 +1,5 @@
 en:
   list_invalid_item_type:
     "%{item} has an invalid type: %{type}. Allowed types: %{allowed_types}."
+  list_duplicate_items_names:
+    "duplicate item names: %{duplicates}"
