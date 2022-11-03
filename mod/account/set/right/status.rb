@@ -1,5 +1,5 @@
 include_set Abstract::AccountField
-include_set Abstract::Pointer
+include_set Abstract::List
 
 assign_type :phrase
 

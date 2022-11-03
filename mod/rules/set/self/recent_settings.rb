@@ -1,4 +1,4 @@
-include_set Abstract::Pointer
+include_set Abstract::List
 
 def history?
   false
