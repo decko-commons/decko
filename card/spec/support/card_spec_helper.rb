@@ -36,8 +36,12 @@ class Card
       if described_class.pattern_code == :self
         described_class.set_name_parts[3].underscore.to_sym.card
       else
-        "A".card.with_set described_class
+        card_subject_name.card.with_set described_class
       end
+    end
+
+    def card_subject_name
+      "A"
     end
 
     def format_subject format=:html, &block
