@@ -22,6 +22,22 @@ event :validate_item_type, :validate, on: :save, when: :validate_item_type? do
   end
 end
 
+event :validate_item_uniqueness, :validate, on: :save, when: :validate_item_uniqueness? do
+  return unless (dupes = duplicate_item_names)&.present?
+
+  errors.add :content, t(:list_duplicate_items_names, duplicates: dupes.to_sentence)
+end
+
+def duplicate_item_names
+  names = item_names
+  names.uniq.select { |n| names.count(n) > 1 }
+end
+
+# for override
+def validate_item_uniqueness?
+  false
+end
+
 def ok_item_types
   nil
 end
