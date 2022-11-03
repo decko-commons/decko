@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-RSpec.describe Card::Set::Abstract::Pointer do
+RSpec.describe Card::Set::Abstract::List do
   let(:pointer) { Card.new type: "Pointer", content: "[[Busy]]\n[[Body]]" }
 
   context "with two items" do

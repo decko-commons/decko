@@ -62,7 +62,7 @@ end
 
 format :json do
   view :search_box_complete, cache: :never do
-    search_box_items :search_item, :add_item, :goto_items
+    search_box_items :search_item, :new_item, :goto_items
   end
 
   view :complete, cache: :never do
@@ -94,7 +94,7 @@ format :json do
     Card.config.search_box_match_start_only
   end
 
-  def add_item term, exact
+  def new_item term, exact
     exact.format(:json).add_autocomplete_item term
   end
 

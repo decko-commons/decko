@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-RSpec.describe Card::Set::Abstract::Pointer do
+RSpec.describe Card::Set::Abstract::List do
   before do
     Card::Env.params[:max_export_depth] = 4
   end

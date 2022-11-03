@@ -1,4 +1,4 @@
-include_set Abstract::Pointer
+include_set Abstract::List
 
 def self.included host_class
   basket[host_class.basket_name] = []

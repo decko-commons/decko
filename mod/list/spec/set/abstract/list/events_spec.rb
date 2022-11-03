@@ -1,4 +1,4 @@
-describe Card::Set::Abstract::Pointer do
+describe Card::Set::Abstract::List do
   let(:pointer) do
     Card.create! name: "tp", type: :pointer, content: "[[item1]]\n[[item2]]"
   end
