@@ -93,7 +93,7 @@ RSpec.describe Card::Set::Abstract::List do
     let(:list) { "stacks".card }
 
     it "adds an error when there are duplicate items" do
-      list.singleton_class.define_method(:validate_item_uniqueness?) { true }
+      list.singleton_class.define_method(:unique_items?) { true }
       expect { list.update! content: %w[horizontal horizontal vertical vertical] }
         .to raise_error(/duplicate item names: horizontal and vertical/)
     end
