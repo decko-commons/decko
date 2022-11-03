@@ -22,7 +22,7 @@ event :validate_item_type, :validate, on: :save, when: :validate_item_type? do
   end
 end
 
-event :validate_item_uniqueness, :validate, on: :save, when: :validate_item_uniqueness? do
+event :validate_item_uniqueness, :validate, on: :save, when: :unique_items? do
   return unless (dupes = duplicate_item_names)&.present?
 
   errors.add :content, t(:list_duplicate_items_names, duplicates: dupes.to_sentence)
@@ -34,7 +34,7 @@ def duplicate_item_names
 end
 
 # for override
-def validate_item_uniqueness?
+def unique_items?
   false
 end
 
