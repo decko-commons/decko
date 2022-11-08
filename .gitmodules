@@ -18,7 +18,7 @@
 	url = https://github.com/thomaspark/bootswatch
 [submodule "card-mod-bootstrap/vendor/bootstrap-colorpicker"]
 	path = mod/bootstrap/vendor/bootstrap-colorpicker
-	url = https://github.com/farbelous/bootstrap-colorpicker.git
+	url = https://github.com/farbelous/bootstrap-colorpicker
 [submodule "card-mod-bootstrap/vendor/select2"]
 	path = mod/bootstrap/vendor/select2
 	url = https://github.com/select2/select2
