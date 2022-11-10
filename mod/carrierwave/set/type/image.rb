@@ -12,6 +12,7 @@ end
 
 format do
   include File::Format
+  delegate :svg?, to: :card
 
   view :one_line_content do
     _render_core size: :icon
@@ -34,8 +35,8 @@ format do
     size = determine_image_size
     image = card.image
 
-    if size && size != :original && (sized_image = image.versions[size])
-      sized_image
+    if size && size != :original && !svg?
+      image.versions[size]
     else
       image
     end
