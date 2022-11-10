@@ -32,10 +32,12 @@ format do
 
   def selected_version
     size = determine_image_size
-    if size && size != :original
-      card.image.versions[size]
+    image = card.image
+
+    if size && size != :original && (sized_image = image.versions[size])
+      sized_image
     else
-      card.image
+      image
     end
   end
 
