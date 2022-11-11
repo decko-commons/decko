@@ -97,8 +97,8 @@ class Card
       end
 
       def fetch_and_assign mark, opts
-        if id(mark)
-          fetch(mark).tap { |card| card.assign_attributes opts }
+        if id(mark) && (card = fetch mark)
+          card.tap { |c| c.assign_attributes opts }
         else
           new opts
         end

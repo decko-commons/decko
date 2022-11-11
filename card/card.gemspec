@@ -22,6 +22,7 @@ DeckoGem.gem "card" do |s, d|
     ["rake",                       "~> 13.0"],
     ["sprockets-rails",             "~> 3.2"],
     ["colorize",                    "~> 0.8"], # livelier cli outputs
+    ["timecop",                     "~> 0.9"],
     # temporary. bad version(s)
     ["zeitwerk",                  "!= 2.5.0"],
     # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
