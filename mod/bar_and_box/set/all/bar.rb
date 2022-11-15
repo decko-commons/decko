@@ -21,7 +21,8 @@ format :html do
   view(:bar_right, unknown: :blank) { "" }
 
   view :bar_bottom do
-    render(nest_mode == :edit ? :edit : :core)
+    view = nest_mode == :edit ? :edit : :content
+    render view, home_view: view
   end
 
   view :bar_menu, unknown: true, template: :haml
