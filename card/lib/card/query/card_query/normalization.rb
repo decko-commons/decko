@@ -4,6 +4,7 @@ class Card
       # normalize clause's keys and values.
       module Normalization
         private
+
         OK_VALUE_CLASSES = [
           Integer, Float, Hash, Symbol,
           TrueClass, FalseClass, NilClass,
@@ -35,9 +36,9 @@ class Card
 
         def normalize_value val
           case val
-          when *OK_VALUE_CLASSES then val
           when String            then normalize_string_value val
           when Array             then normalize_array_value val
+          when *OK_VALUE_CLASSES then val
           else raise Error::BadQuery, "Invalid value type: #{val.class} (#{val.inspect})"
           end
         end
