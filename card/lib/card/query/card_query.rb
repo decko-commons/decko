@@ -12,6 +12,7 @@ class Card
       include Normalization
       include Sorting
       include Conjunctions
+      include Custom
       # Query Execution
 
       # By default a query returns card objects. This is accomplished by returning
