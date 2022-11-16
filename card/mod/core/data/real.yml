@@ -56,7 +56,7 @@
 - :name: "*all plus"
   :type: :set
   :codename: all_plus
-  :content: '{"left":{}}'
+  :content: '{"compound":true}'
 - :name: "*type"
   :codename: type
 - :name: "*star"
