@@ -3,6 +3,13 @@ class Card
     class CardQuery
       # normalize clause's keys and values.
       module Normalization
+        private
+        OK_VALUE_CLASSES = [
+          Integer, Float, Hash, Symbol,
+          TrueClass, FalseClass, NilClass,
+          ActiveRecord::Relation
+        ].freeze
+
         def normalize_clause clause
           clause = clause_to_hash clause
           clause.symbolize_keys!
@@ -28,9 +35,9 @@ class Card
 
         def normalize_value val
           case val
-          when Integer, Float, Hash, Symbol, NilClass, ActiveRecord::Relation then val
-          when String                                 then normalize_string_value val
-          when Array                                  then normalize_array_value val
+          when *OK_VALUE_CLASSES then val
+          when String            then normalize_string_value val
+          when Array             then normalize_array_value val
           else raise Error::BadQuery, "Invalid value type: #{val.class} (#{val.inspect})"
           end
         end
