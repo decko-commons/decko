@@ -29,7 +29,7 @@ end
 
 format :html do
   view :search_box, cache: :never do
-    search_form { search_box_contents }
+    search_form { search_box_input }
   end
 
   view :title do
@@ -43,20 +43,22 @@ format :html do
 
   view :results_for_keyword, cache: :never, template: :haml
 
+  def search_item term
+    autocomplete_item icon_tag(:search), term
+  end
+
+  private
+
   def search_form &block
     form_tag path, method: "get", role: "search", class: classy("search-box-form"), &block
   end
 
-  def search_box_contents
+  def search_box_input
     keyword = query_params[:keyword]
-    select_tag "query[keyword]", options_for_select([keyword].compact, keyword),
-               class: "_search-box #{classy 'search-box'} form-control " \
-                      "w-100 _no-select2-init",
-               placeholder: t(:search_search_box_placeholder)
-  end
-
-  def search_item term
-    autocomplete_item icon_tag(:search), term
+    text_field_tag "query[keyword]", options_for_select([keyword].compact, keyword),
+                    class: "_search-box #{classy 'search-box'} form-control " \
+                           "w-100 _no-select2-init",
+                    placeholder: t(:search_search_box_placeholder)
   end
 end
 
