@@ -21,7 +21,7 @@ class Card
           @patterns = @concrete_patterns = nil
           @template = @virtual = nil
           @set_mods_loaded = @set_modules = @set_names = @rule_lookup_keys = nil
-          @junction_only = nil # only applies to set cards
+          @compound_only = nil # only applies to set cards
           true
         end
 
