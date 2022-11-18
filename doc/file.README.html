@@ -6,7 +6,7 @@
 <title>
   File: README - Decko on Docker
   
-    &mdash; Documentation by YARD 0.9.27
+    &mdash; Documentation by YARD 0.9.28
   
 </title>
 
@@ -122,14 +122,17 @@ upgrade.</p>
 
 <h3 id="upgrading">Upgrading</h3>
 
-<p>To update an existing docker site to use a more recent docker image:</p>
+<p>To update an existing docker site to use a more recent decko docker image:</p>
 
-<ul>
-  <li><code>docker pull IMAGE:latest</code></li>
+<ol>
+  <li><code>docker compose pull app</code></li>
   <li><code>docker compose down</code></li>
   <li><code>docker compose up -d</code></li>
-  <li><code>docker compose exec app bash</code></li>
-</ul>
+  <li><code>docker compose exec app decko update</code></li>
+</ol>
+
+<p>For some upgrades, it may be necessary to repeat steps two and three to restart things 
+after running the update.</p>
 
 <h2 id="for-monkeys">For Monkeys</h2>
 
@@ -139,9 +142,9 @@ upgrade.</p>
 </div></div>
 
       <div id="footer">
-  Generated on Fri Jan 21 16:01:39 2022 by
-  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.27 (ruby-3.0.1).
+  Generated on Fri Nov 18 14:30:29 2022 by
+  <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.28 (ruby-3.0.1).
 </div>
 
     </div>

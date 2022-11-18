@@ -6,7 +6,7 @@
 <title>
   Module: Card::Setting
   
-    &mdash; Documentation by YARD 0.9.27
+    &mdash; Documentation by YARD 0.9.28
   
 </title>
 
@@ -524,13 +524,13 @@ accessible in E</p>
       <pre class="lines">
 
 
+74
 75
 76
-77
-78</pre>
+77</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/setting.rb', line 75</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/setting.rb', line 74</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_applies_to_cardtype'>applies_to_cardtype</span> <span class='id identifier rubyid_type_id'>type_id</span><span class='comma'>,</span> <span class='id identifier rubyid_prototype'>prototype</span><span class='op'>=</span><span class='kw'>nil</span>
   <span class='lparen'>(</span><span class='op'>!</span><span class='id identifier rubyid_restricted_to_type'>restricted_to_type</span> <span class='op'>||</span> <span class='id identifier rubyid_restricted_to_type'>restricted_to_type</span><span class='period'>.</span><span class='id identifier rubyid_include?'>include?</span><span class='lparen'>(</span><span class='id identifier rubyid_type_id'>type_id</span><span class='rparen'>)</span><span class='rparen'>)</span> <span class='op'>&amp;&amp;</span>
@@ -579,14 +579,14 @@ accessible in E</p>
       <pre class="lines">
 
 
+79
 80
 81
 82
-83
-84</pre>
+83</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/setting.rb', line 80</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/setting.rb', line 79</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_applies_to_prototype?'>applies_to_prototype?</span> <span class='id identifier rubyid_prototype'>prototype</span>
   <span class='kw'>return</span> <span class='kw'>true</span> <span class='kw'>unless</span> <span class='id identifier rubyid_applies'>applies</span>
@@ -627,6 +627,7 @@ setting_opts group:        :permission | :event | …
       <pre class="lines">
 
 
+63
 64
 65
 66
@@ -635,11 +636,10 @@ setting_opts group:        :permission | :event | …
 69
 70
 71
-72
-73</pre>
+72</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/setting.rb', line 64</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/setting.rb', line 63</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_register_setting'>register_setting</span> <span class='id identifier rubyid_opts'>opts</span>
   <span class='id identifier rubyid_group'>group</span> <span class='op'>=</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:group</span><span class='rbracket'>]</span> <span class='op'>||</span> <span class='symbol'>:other</span>
@@ -661,9 +661,9 @@ setting_opts group:        :permission | :event | …
 </div>
 
       <div id="footer">
-  Generated on Fri Jan 21 16:01:40 2022 by
-  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.27 (ruby-3.0.1).
+  Generated on Fri Nov 18 14:30:29 2022 by
+  <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.28 (ruby-3.0.1).
 </div>
 
     </div>
