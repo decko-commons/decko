@@ -17,20 +17,42 @@
 
 ## Basics
 
-Decko (formerly "Wagn") makes serious web development fun.
+Decko (formerly "Wagn") makes elegant web development fun.
 
-Decko creators, or "Card Sharks", use Decko to create open community sites,
-private knowledge management sites, project management systems, wikis, blogs,
-journals, forums, and more.
+Install a new deck, and you can immediately open a browser and start collaborating 
+on content, design, and structure.  Decko creators, or "Card Sharks",
+use Decko to create open community sites, private knowledge management sites, project 
+management systems, wikis, blogs, journals, forums, and more.
 
-Install Decko, open a webpage, and get started. With Decko's wiki-inspired
-building blocks, you can collaborate from day one on content, design, and
-structure create elegant web systems on the fly. And ruby developers can take
-these creations even further with Decko's development framework. Decko's
-innovative Mods API supports boundless creativity while integrating seamlessly
-with structures created on the site.
+Ruby developers can take these creations even further with Decko's development framework.
+As a Decko "Monkey", you can use the innovative Mods API to create sophisticated
+web systems that integrate seamlessly with structures that "Sharks" create on the site.
 
-Try it out!
+
+### Start Sharking
+
+[Installation](#installation) help is below. And there's lots of info at [Decko.org][14], 
+including:
+
+- [Features][15]
+- [Syntax Reference][16]
+- [Installation Troubleshooting][17]
+
+
+And info about contributing to Decko is [right next door][24].
+
+### Start Monkeying
+
+On our [docs site][27]:
+
+- [intro to monkeying][20]
+- [how to generate a mod][19]
+- [mod API: card objects][21]
+- [mod API: formats][22]
+- [existing mods][23]
+
+We also have [API Docs on Swaggerhub][18].
+
 
 ## Installation
 
@@ -155,7 +177,7 @@ See above.
 
 ### Upgrade pre-gem Wagn site
 
-First check the Wagn/Decko version of your existing site.
+First check the Wagn version of your existing site.
 
 #### Version 1.10 or newer
 
@@ -214,31 +236,7 @@ you can instead follow the following procedure:
   2. In your real deck, comment out `ENV['RAILS_ENV'] ||= 'production'` in 
      `config/boot.rb`. This will mean your default mode is now "development."
   3. Configure `config/database.yml` to your liking.
-     
 
-#### Start Monkeying
-
-Learn about:
- 
- - [the architecture][20]
- - [how to generate a mod][19]
- - [card objects][21]
- - [formats][22]
- - [existing mods][23]
-
-etc.
-
-## More Resources
-
-There's lots more info at [Decko.org][14], including:
-
-- [Features][15]
-- [Syntax Reference][16]
-- [Installation Troubleshooting][17]
-
-We also have [API Docs][18] on Swaggerhub.
-
-And info about contributing to Decko is [right next door][24].
 
 
 [1]: https://decko.semaphoreci.com/badges/decko/branches/main.svg "Semaphore Build"
@@ -260,11 +258,12 @@ And info about contributing to Decko is [right next door][24].
 [16]: https://decko.org/Syntax_Reference
 [17]: https://decko.org/troubleshooting
 [18]: https://app.swaggerhub.com/apis-docs/Decko/decko-api/0.8.0
-[19]: https://github.com/decko-commons/decko/blob/main/card/lib/cardio/mod.rb
-[20]: https://github.com/decko-commons/decko/blob/main/card/README.md
-[21]: https://github.com/decko-commons/decko/blob/main/card/lib/card.rb
-[22]: https://github.com/decko-commons/decko/blob/main/card/lib/card/set/format.rb
+[19]: https://docs.decko.org/docs/Cardio/Mod
+[20]: https://docs.decko.org/docs/file/card/README.md
+[21]: https://docs.decko.org/docs/Card
+[22]: https://docs.decko.org/docs/Card/Set/Format
 [23]: https://github.com/decko-commons/card-mods/
-[24]: https://github.com/decko-commons/decko/blob/main/CONTRIBUTING.md
+[24]: https://docs.decko.org/docs/file/CONTRIBUTING.md
 [25]: https://img.shields.io/badge/License-GPLv3-blue.svg
 [26]: https://www.gnu.org/licenses/gpl-3.0
+[27]: https://docs.decko.org

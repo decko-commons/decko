@@ -6,7 +6,7 @@
 <title>
   Module: Card::Set::Pattern::ClassMethods
   
-    &mdash; Documentation by YARD 0.9.27
+    &mdash; Documentation by YARD 0.9.28
   
 </title>
 
@@ -186,7 +186,7 @@
       <li class="public ">
   <span class="summary_signature">
     
-      <a href="#junction_only-instance_method" title="#junction_only (instance method)">#<strong>junction_only</strong>  &#x21d2; Object </a>
+      <a href="#compound_only-instance_method" title="#compound_only (instance method)">#<strong>compound_only</strong>  &#x21d2; Object </a>
     
 
     
@@ -203,7 +203,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'><p>Returns the value of attribute junction_only.</p>
+    <span class="summary_desc"><div class='inline'><p>Returns the value of attribute compound_only.</p>
 </div></span>
   
 </li>
@@ -274,6 +274,29 @@
         <li class="public ">
   <span class="summary_signature">
     
+      <a href="#compound_only%3F-instance_method" title="#compound_only? (instance method)">#<strong>compound_only?</strong>  &#x21d2; Boolean </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
       <a href="#generic_label-instance_method" title="#generic_label (instance method)">#<strong>generic_label</strong>  &#x21d2; Object </a>
     
 
@@ -289,29 +312,6 @@
 
   
     <span class="summary_desc"><div class='inline'><p>label for set pattern if no anchor is given.</p>
-</div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#junction_only%3F-instance_method" title="#junction_only? (instance method)">#<strong>junction_only?</strong>  &#x21d2; Boolean </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'>
 </div></span>
   
 </li>
@@ -579,11 +579,11 @@
 </div>
     
       
-      <span id="junction_only=-instance_method"></span>
+      <span id="compound_only=-instance_method"></span>
       <div class="method_details ">
-  <h3 class="signature " id="junction_only-instance_method">
+  <h3 class="signature " id="compound_only-instance_method">
   
-    #<strong>junction_only</strong>  &#x21d2; <tt><span class='object_link'><a href="../../../Object.html" title="Object (class)">Object</a></span></tt> 
+    #<strong>compound_only</strong>  &#x21d2; <tt><span class='object_link'><a href="../../../Object.html" title="Object (class)">Object</a></span></tt> 
   
 
   
@@ -591,7 +591,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    <p>Returns the value of attribute junction_only.</p>
+    <p>Returns the value of attribute compound_only.</p>
 
 
   </div>
@@ -612,8 +612,8 @@
     <td>
       <pre class="code"><span class="info file"># File 'card/lib/card/set/pattern/class_methods.rb', line 6</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_junction_only'>junction_only</span>
-  <span class='ivar'>@junction_only</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_compound_only'>compound_only</span>
+  <span class='ivar'>@compound_only</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -723,49 +723,9 @@
 </div>
     
       <div class="method_details ">
-  <h3 class="signature " id="generic_label-instance_method">
+  <h3 class="signature " id="compound_only?-instance_method">
   
-    #<strong>generic_label</strong>  &#x21d2; <tt><span class='object_link'><a href="../../../Object.html" title="Object (class)">Object</a></span></tt> 
-  
-
-  
-
-  
-</h3><div class="docstring">
-  <div class="discussion">
-    <p>label for set pattern if no anchor is given</p>
-
-
-  </div>
-</div>
-<div class="tags">
-  
-
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-53
-54
-55</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/set/pattern/class_methods.rb', line 53</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_generic_label'>generic_label</span>
-  <span class='id identifier rubyid_label'>label</span> <span class='kw'>nil</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="junction_only?-instance_method">
-  
-    #<strong>junction_only?</strong>  &#x21d2; <tt>Boolean</tt> 
+    #<strong>compound_only?</strong>  &#x21d2; <tt>Boolean</tt> 
   
 
   
@@ -807,8 +767,48 @@
     <td>
       <pre class="code"><span class="info file"># File 'card/lib/card/set/pattern/class_methods.rb', line 20</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_junction_only?'>junction_only?</span>
-  <span class='id identifier rubyid_junction_only'>junction_only</span> <span class='op'>==</span> <span class='kw'>true</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_compound_only?'>compound_only?</span>
+  <span class='id identifier rubyid_compound_only'>compound_only</span> <span class='op'>==</span> <span class='kw'>true</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="generic_label-instance_method">
+  
+    #<strong>generic_label</strong>  &#x21d2; <tt><span class='object_link'><a href="../../../Object.html" title="Object (class)">Object</a></span></tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>label for set pattern if no anchor is given</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+53
+54
+55</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'card/lib/card/set/pattern/class_methods.rb', line 53</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_generic_label'>generic_label</span>
+  <span class='id identifier rubyid_label'>label</span> <span class='kw'>nil</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -967,7 +967,7 @@
       <pre class="code"><span class="info file"># File 'card/lib/card/set/pattern/class_methods.rb', line 37</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_pattern_applies?'>pattern_applies?</span> <span class='id identifier rubyid_card'>card</span>
-  <span class='id identifier rubyid_junction_only?'>junction_only?</span> <span class='op'>?</span> <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span><span class='period'>.</span><span class='id identifier rubyid_compound?'>compound?</span> <span class='op'>:</span> <span class='kw'>true</span>
+  <span class='id identifier rubyid_compound_only?'>compound_only?</span> <span class='op'>?</span> <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span><span class='period'>.</span><span class='id identifier rubyid_compound?'>compound?</span> <span class='op'>:</span> <span class='kw'>true</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1045,9 +1045,9 @@
 </div>
 
       <div id="footer">
-  Generated on Fri Jan 21 16:01:44 2022 by
-  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.27 (ruby-3.0.1).
+  Generated on Fri Nov 18 14:30:33 2022 by
+  <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.28 (ruby-3.0.1).
 </div>
 
     </div>

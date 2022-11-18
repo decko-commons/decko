@@ -6,7 +6,7 @@
 <title>
   Module: Card::Director::Stages
   
-    &mdash; Documentation by YARD 0.9.27
+    &mdash; Documentation by YARD 0.9.28
   
 </title>
 
@@ -90,7 +90,7 @@
 
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
-    <p>Methods for intepreting stages of an action</p>
+    <p>Methods for interpreting stages of an action</p>
 
 
   </div>
@@ -107,17 +107,28 @@
 
     <dl class="constants">
       
-        <dt id="STAGES-constant" class="">STAGES =
-          
+        <dt id="SYMBOLS-constant" class="">SYMBOLS =
+          <div class="docstring">
+  <div class="discussion">
+    <p>Validation phase</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
         </dt>
-        <dd><pre class="code"><span class='qsymbols_beg'>%i[</span><span class='tstring_content'>initialize</span><span class='words_sep'> </span><span class='tstring_content'>prepare_to_validate</span><span class='words_sep'> </span><span class='tstring_content'>validate</span><span class='words_sep'>
-</span><span class='tstring_content'>prepare_to_store</span><span class='words_sep'> </span><span class='tstring_content'>store</span><span class='words_sep'> </span><span class='tstring_content'>finalize</span><span class='words_sep'> </span><span class='tstring_content'>integrate</span><span class='words_sep'>
-</span><span class='tstring_content'>after_integrate</span><span class='words_sep'> </span><span class='tstring_content'>integrate_with_delay</span><span class='tstring_end'>]</span></span><span class='period'>.</span><span class='id identifier rubyid_freeze'>freeze</span></pre></dd>
+        <dd><pre class="code"><span class='qsymbols_beg'>%i[</span><span class='tstring_content'>initialize</span><span class='words_sep'> </span><span class='tstring_content'>prepare_to_validate</span><span class='words_sep'> </span><span class='tstring_content'>validate</span><span class='tstring_end'>]</span></span> <span class='op'>+</span>      <span class='comment'># Validation phase
+</span><span class='qsymbols_beg'>%i[</span><span class='tstring_content'>prepare_to_store</span><span class='words_sep'> </span><span class='tstring_content'>store</span><span class='words_sep'> </span><span class='tstring_content'>finalize</span><span class='tstring_end'>]</span></span> <span class='op'>+</span>              <span class='comment'># Storage phase
+</span><span class='qsymbols_beg'>%i[</span><span class='tstring_content'>integrate</span><span class='words_sep'> </span><span class='tstring_content'>after_integrate</span><span class='words_sep'> </span><span class='tstring_content'>integrate_with_delay</span><span class='tstring_end'>]</span></span> <span class='comment'># Integration phase
+</span><span class='period'>.</span><span class='id identifier rubyid_freeze'>freeze</span></pre></dd>
       
-        <dt id="STAGE_INDEX-constant" class="">STAGE_INDEX =
+        <dt id="INDECES-constant" class="">INDECES =
           
         </dt>
-        <dd><pre class="code"><span class='const'><span class='object_link'><a href="#STAGES-constant" title="Card::Director::Stages::STAGES (constant)">STAGES</a></span></span><span class='period'>.</span><span class='id identifier rubyid_each_with_index'>each_with_index</span><span class='period'>.</span><span class='id identifier rubyid_with_object'>with_object</span><span class='lparen'>(</span><span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='lparen'>(</span><span class='id identifier rubyid_stage'>stage</span><span class='comma'>,</span> <span class='id identifier rubyid_index'>index</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='id identifier rubyid_hash'>hash</span><span class='op'>|</span>
+        <dd><pre class="code"><span class='const'><span class='object_link'><a href="#SYMBOLS-constant" title="Card::Director::Stages::SYMBOLS (constant)">SYMBOLS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_each_with_index'>each_with_index</span><span class='period'>.</span><span class='id identifier rubyid_with_object'>with_object</span><span class='lparen'>(</span><span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='lparen'>(</span><span class='id identifier rubyid_stage'>stage</span><span class='comma'>,</span> <span class='id identifier rubyid_index'>index</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='id identifier rubyid_hash'>hash</span><span class='op'>|</span>
   <span class='const'><span class='object_link'><a href="../../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_define_callbacks'>define_callbacks</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_stage'>stage</span><span class='embexpr_end'>}</span><span class='tstring_content'>_stage</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_stage'>stage</span><span class='embexpr_end'>}</span><span class='tstring_content'>_final_stage</span><span class='tstring_end'>&quot;</span></span>
   <span class='id identifier rubyid_hash'>hash</span><span class='lbracket'>[</span><span class='id identifier rubyid_stage'>stage</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_index'>index</span>
 <span class='kw'>end</span><span class='period'>.</span><span class='id identifier rubyid_freeze'>freeze</span></pre></dd>
@@ -301,15 +312,15 @@
       <pre class="lines">
 
 
-43
-44
-45</pre>
+45
+46
+47</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/director/stages.rb', line 43</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/director/stages.rb', line 45</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_finished_stage?'>finished_stage?</span> <span class='id identifier rubyid_stage'>stage</span>
-  <span class='ivar'>@stage</span> <span class='op'>&gt;</span> <span class='id identifier rubyid_stage_index'>stage_index</span><span class='lparen'>(</span><span class='id identifier rubyid_stage'>stage</span><span class='rparen'>)</span>
+  <span class='ivar'>@current_stage_index</span> <span class='op'>&gt;</span> <span class='id identifier rubyid_stage_index'>stage_index</span><span class='lparen'>(</span><span class='id identifier rubyid_stage'>stage</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -331,15 +342,15 @@
       <pre class="lines">
 
 
-47
-48
-49</pre>
+49
+50
+51</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/director/stages.rb', line 47</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/director/stages.rb', line 49</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_reset_stage'>reset_stage</span>
-  <span class='ivar'>@stage</span> <span class='op'>=</span> <span class='op'>-</span><span class='int'>1</span>
+  <span class='ivar'>@current_stage_index</span> <span class='op'>=</span> <span class='op'>-</span><span class='int'>1</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -361,8 +372,6 @@
       <pre class="lines">
 
 
-23
-24
 25
 26
 27
@@ -372,15 +381,17 @@
 31
 32
 33
-34</pre>
+34
+35
+36</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/director/stages.rb', line 23</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/director/stages.rb', line 25</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_stage_index'>stage_index</span> <span class='id identifier rubyid_stage'>stage</span>
   <span class='kw'>case</span> <span class='id identifier rubyid_stage'>stage</span>
   <span class='kw'>when</span> <span class='const'>Symbol</span>
-    <span class='const'><span class='object_link'><a href="#STAGE_INDEX-constant" title="Card::Director::Stages::STAGE_INDEX (constant)">STAGE_INDEX</a></span></span><span class='lbracket'>[</span><span class='id identifier rubyid_stage'>stage</span><span class='rbracket'>]</span>
+    <span class='const'><span class='object_link'><a href="#INDECES-constant" title="Card::Director::Stages::INDECES (constant)">INDECES</a></span></span><span class='lbracket'>[</span><span class='id identifier rubyid_stage'>stage</span><span class='rbracket'>]</span>
   <span class='kw'>when</span> <span class='const'>Integer</span>
     <span class='id identifier rubyid_stage'>stage</span>
   <span class='kw'>when</span> <span class='kw'>nil</span>
@@ -432,15 +443,15 @@
       <pre class="lines">
 
 
-36
-37
 38
 39
 40
-41</pre>
+41
+42
+43</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/director/stages.rb', line 36</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/director/stages.rb', line 38</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_stage_ok?'>stage_ok?</span> <span class='id identifier rubyid_opts'>opts</span>
   <span class='kw'>return</span> <span class='kw'>false</span> <span class='kw'>unless</span> <span class='id identifier rubyid_stage'>stage</span>
@@ -462,56 +473,33 @@
   
 
   
-</h3><div class="docstring">
-  <div class="discussion">
-    
-
-
-  </div>
-</div>
-<div class="tags">
-  
-<p class="tag_title">Raises:</p>
-<ul class="raise">
-  
-    <li>
-      
-      
-        <span class='type'>(<tt><span class='object_link'><a href="../Error.html" title="Card::Error (class)">Card::Error</a></span></tt>)</span>
-      
-      
-      
-    </li>
-  
-</ul>
-
-</div><table class="source_code">
+</h3><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-13
-14
 15
 16
 17
 18
 19
 20
-21</pre>
+21
+22
+23</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/director/stages.rb', line 13</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/director/stages.rb', line 15</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_stage_symbol'>stage_symbol</span> <span class='id identifier rubyid_index'>index</span>
-  <span class='kw'>case</span> <span class='id identifier rubyid_index'>index</span>
-  <span class='kw'>when</span> <span class='const'>Symbol</span>
-    <span class='kw'>return</span> <span class='id identifier rubyid_index'>index</span> <span class='kw'>if</span> <span class='const'><span class='object_link'><a href="#STAGE_INDEX-constant" title="Card::Director::Stages::STAGE_INDEX (constant)">STAGE_INDEX</a></span></span><span class='lbracket'>[</span><span class='id identifier rubyid_index'>index</span><span class='rbracket'>]</span>
-  <span class='kw'>when</span> <span class='const'>Integer</span>
-    <span class='kw'>return</span> <span class='const'><span class='object_link'><a href="#STAGES-constant" title="Card::Director::Stages::STAGES (constant)">STAGES</a></span></span><span class='lbracket'>[</span><span class='id identifier rubyid_index'>index</span><span class='rbracket'>]</span> <span class='kw'>if</span> <span class='id identifier rubyid_index'>index</span> <span class='op'>&lt;</span> <span class='const'><span class='object_link'><a href="#STAGES-constant" title="Card::Director::Stages::STAGES (constant)">STAGES</a></span></span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span>
+  <span class='kw'>if</span> <span class='id identifier rubyid_index'>index</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'>Symbol</span><span class='rparen'>)</span> <span class='op'>&amp;&amp;</span> <span class='const'><span class='object_link'><a href="#INDECES-constant" title="Card::Director::Stages::INDECES (constant)">INDECES</a></span></span><span class='lbracket'>[</span><span class='id identifier rubyid_index'>index</span><span class='rbracket'>]</span>
+    <span class='id identifier rubyid_index'>index</span>
+  <span class='kw'>elsif</span> <span class='id identifier rubyid_index'>index</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'>Integer</span><span class='rparen'>)</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_index'>index</span> <span class='op'>&lt;</span> <span class='const'><span class='object_link'><a href="#SYMBOLS-constant" title="Card::Director::Stages::SYMBOLS (constant)">SYMBOLS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span>
+    <span class='const'><span class='object_link'><a href="#SYMBOLS-constant" title="Card::Director::Stages::SYMBOLS (constant)">SYMBOLS</a></span></span><span class='lbracket'>[</span><span class='id identifier rubyid_index'>index</span><span class='rbracket'>]</span>
+  <span class='kw'>else</span>
+    <span class='id identifier rubyid_raise'>raise</span> <span class='const'><span class='object_link'><a href="../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Error.html" title="Card::Error (class)">Error</a></span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>not a valid stage index: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_index'>index</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
   <span class='kw'>end</span>
-  <span class='id identifier rubyid_raise'>raise</span> <span class='const'><span class='object_link'><a href="../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Error.html" title="Card::Error (class)">Error</a></span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>not a valid stage index: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_index'>index</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -523,9 +511,9 @@
 </div>
 
       <div id="footer">
-  Generated on Fri Jan 21 16:01:42 2022 by
-  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.27 (ruby-3.0.1).
+  Generated on Fri Nov 18 14:30:31 2022 by
+  <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.28 (ruby-3.0.1).
 </div>
 
     </div>
