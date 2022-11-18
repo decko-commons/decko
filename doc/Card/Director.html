@@ -6,7 +6,7 @@
 <title>
   Class: Card::Director
   
-    &mdash; Documentation by YARD 0.9.27
+    &mdash; Documentation by YARD 0.9.28
   
 </title>
 
@@ -87,7 +87,7 @@
   
   <dl>
       <dt>Extended by:</dt>
-      <dd><span class='object_link'><a href="Director/ActDirection.html" title="Card::Director::ActDirection (module)">ActDirection</a></span>, <span class='object_link'><a href="Director/EventDelay.html" title="Card::Director::EventDelay (module)">EventDelay</a></span></dd>
+      <dd><span class='object_link'><a href="Director/ClassMethods.html" title="Card::Director::ClassMethods (module)">ClassMethods</a></span></dd>
   </dl>
   
   
@@ -105,7 +105,7 @@
   <dl>
     <dt>Defined in:</dt>
     <dd>card/lib/card/director.rb<span class="defines">,<br />
-  card/lib/card/director/all.rb,<br /> card/lib/card/director/run.rb,<br /> card/lib/card/director/store.rb,<br /> card/lib/card/director/phases.rb,<br /> card/lib/card/director/stages.rb,<br /> card/lib/card/director/card_class.rb,<br /> card/lib/card/director/event_delay.rb,<br /> card/lib/card/director/card_methods.rb,<br /> card/lib/card/director/act_direction.rb,<br /> card/lib/card/director/subdirector_array.rb</span>
+  card/lib/card/director/all.rb,<br /> card/lib/card/director/run.rb,<br /> card/lib/card/director/store.rb,<br /> card/lib/card/director/phases.rb,<br /> card/lib/card/director/stages.rb,<br /> card/lib/card/director/card_class.rb,<br /> card/lib/card/director/event_delay.rb,<br /> card/lib/card/director/class_methods.rb,<br /> card/lib/card/director/subdirector_array.rb</span>
 </dd>
   </dl>
   
@@ -317,7 +317,7 @@ subcards.</li>
 self/bar.rb</p>
 
 <pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_event'>event</span> <span class='symbol'>:met_a_foo_at_the_bar</span><span class='comma'>,</span> <span class='symbol'>:prepare_to_store</span><span class='comma'>,</span> <span class='label'>on:</span> <span class='symbol'>:update</span> <span class='kw'>do</span>
-  <span class='id identifier rubyid_add_subcard'>add_subcard</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>foo</span><span class='tstring_end'>&quot;</span></span>
+  <span class='id identifier rubyid_subcard'>subcard</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>foo</span><span class='tstring_end'>&quot;</span></span>
 <span class='kw'>end</span>
 </code></pre>
 
@@ -381,7 +381,7 @@ is executed BEFORE the supercard’s store stage.</p>
 <p class="children">
   
     
-      <strong class="modules">Modules:</strong> <span class='object_link'><a href="Director/ActDirection.html" title="Card::Director::ActDirection (module)">ActDirection</a></span>, <span class='object_link'><a href="Director/All.html" title="Card::Director::All (module)">All</a></span>, <span class='object_link'><a href="Director/CardClass.html" title="Card::Director::CardClass (module)">CardClass</a></span>, <span class='object_link'><a href="Director/CardMethods.html" title="Card::Director::CardMethods (module)">CardMethods</a></span>, <span class='object_link'><a href="Director/EventDelay.html" title="Card::Director::EventDelay (module)">EventDelay</a></span>, <span class='object_link'><a href="Director/Phases.html" title="Card::Director::Phases (module)">Phases</a></span>, <span class='object_link'><a href="Director/Run.html" title="Card::Director::Run (module)">Run</a></span>, <span class='object_link'><a href="Director/Stages.html" title="Card::Director::Stages (module)">Stages</a></span>, <span class='object_link'><a href="Director/Store.html" title="Card::Director::Store (module)">Store</a></span>
+      <strong class="modules">Modules:</strong> <span class='object_link'><a href="Director/All.html" title="Card::Director::All (module)">All</a></span>, <span class='object_link'><a href="Director/CardClass.html" title="Card::Director::CardClass (module)">CardClass</a></span>, <span class='object_link'><a href="Director/ClassMethods.html" title="Card::Director::ClassMethods (module)">ClassMethods</a></span>, <span class='object_link'><a href="Director/EventDelay.html" title="Card::Director::EventDelay (module)">EventDelay</a></span>, <span class='object_link'><a href="Director/Phases.html" title="Card::Director::Phases (module)">Phases</a></span>, <span class='object_link'><a href="Director/Run.html" title="Card::Director::Run (module)">Run</a></span>, <span class='object_link'><a href="Director/Stages.html" title="Card::Director::Stages (module)">Stages</a></span>, <span class='object_link'><a href="Director/Store.html" title="Card::Director::Store (module)">Store</a></span>
     
   
     
@@ -396,7 +396,7 @@ is executed BEFORE the supercard’s store stage.</p>
   
   <h3 class="inherited">Constants included
      from <span class='object_link'><a href="Director/Stages.html" title="Card::Director::Stages (module)">Stages</a></span></h3>
-  <p class="inherited"><span class='object_link'><a href="Director/Stages.html#STAGES-constant" title="Card::Director::Stages::STAGES (constant)">Stages::STAGES</a></span>, <span class='object_link'><a href="Director/Stages.html#STAGE_INDEX-constant" title="Card::Director::Stages::STAGE_INDEX (constant)">Stages::STAGE_INDEX</a></span></p>
+  <p class="inherited"><span class='object_link'><a href="Director/Stages.html#INDECES-constant" title="Card::Director::Stages::INDECES (constant)">Stages::INDECES</a></span>, <span class='object_link'><a href="Director/Stages.html#SYMBOLS-constant" title="Card::Director::Stages::SYMBOLS (constant)">Stages::SYMBOLS</a></span></p>
 
 
   <h2>Instance Attribute Summary <small><a href="#" class="summary_toggle">collapse</a></small></h2>
@@ -449,6 +449,32 @@ is executed BEFORE the supercard’s store stage.</p>
 
   
     <span class="summary_desc"><div class='inline'><p>Returns the value of attribute card.</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#current_stage_index-instance_method" title="#current_stage_index (instance method)">#<strong>current_stage_index</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Returns the value of attribute current_stage_index.</p>
 </div></span>
   
 </li>
@@ -539,32 +565,6 @@ is executed BEFORE the supercard’s store stage.</p>
       <li class="public ">
   <span class="summary_signature">
     
-      <a href="#stage-instance_method" title="#stage (instance method)">#<strong>stage</strong>  &#x21d2; Object </a>
-    
-
-    
-  </span>
-  
-  
-  
-    
-    
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'><p>Returns the value of attribute stage.</p>
-</div></span>
-  
-</li>
-
-    
-      <li class="public ">
-  <span class="summary_signature">
-    
       <a href="#subdirectors-instance_method" title="#subdirectors (instance method)">#<strong>subdirectors</strong>  &#x21d2; Object </a>
     
 
@@ -594,8 +594,8 @@ is executed BEFORE the supercard’s store stage.</p>
 
   
   
-  <h3 class="inherited">Attributes included from <span class='object_link'><a href="Director/ActDirection.html" title="Card::Director::ActDirection (module)">ActDirection</a></span></h3>
-  <p class="inherited"><span class='object_link'><a href="Director/ActDirection.html#act_card-instance_method" title="Card::Director::ActDirection#act_card (method)">#act_card</a></span></p>
+  <h3 class="inherited">Attributes included from <span class='object_link'><a href="Director/ClassMethods.html" title="Card::Director::ClassMethods (module)">ClassMethods</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="Director/ClassMethods.html#act_card-instance_method" title="Card::Director::ClassMethods#act_card (method)">#act_card</a></span></p>
 
 
   
@@ -919,8 +919,8 @@ is executed BEFORE the supercard’s store stage.</p>
   
   
   
-  <h3 class="inherited">Methods included from <span class='object_link'><a href="Director/EventDelay.html" title="Card::Director::EventDelay (module)">EventDelay</a></span></h3>
-  <p class="inherited"><span class='object_link'><a href="Director/EventDelay.html#contextualize_delayed_event-instance_method" title="Card::Director::EventDelay#contextualize_delayed_event (method)">contextualize_delayed_event</a></span>, <span class='object_link'><a href="Director/EventDelay.html#delaying%3F-instance_method" title="Card::Director::EventDelay#delaying? (method)">delaying?</a></span>, <span class='object_link'><a href="Director/EventDelay.html#run_job_with_act-instance_method" title="Card::Director::EventDelay#run_job_with_act (method)">run_job_with_act</a></span>, <span class='object_link'><a href="Director/EventDelay.html#with_delay_act-instance_method" title="Card::Director::EventDelay#with_delay_act (method)">with_delay_act</a></span>, <span class='object_link'><a href="Director/EventDelay.html#with_env_and_auth-instance_method" title="Card::Director::EventDelay#with_env_and_auth (method)">with_env_and_auth</a></span></p>
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="Director/ClassMethods.html" title="Card::Director::ClassMethods (module)">ClassMethods</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="Director/ClassMethods.html#act_director-instance_method" title="Card::Director::ClassMethods#act_director (method)">act_director</a></span>, <span class='object_link'><a href="Director/ClassMethods.html#add-instance_method" title="Card::Director::ClassMethods#add (method)">add</a></span>, <span class='object_link'><a href="Director/ClassMethods.html#card_changed-instance_method" title="Card::Director::ClassMethods#card_changed (method)">card_changed</a></span>, <span class='object_link'><a href="Director/ClassMethods.html#clear-instance_method" title="Card::Director::ClassMethods#clear (method)">clear</a></span>, <span class='object_link'><a href="Director/ClassMethods.html#deep_delete-instance_method" title="Card::Director::ClassMethods#deep_delete (method)">deep_delete</a></span>, <span class='object_link'><a href="Director/ClassMethods.html#directors-instance_method" title="Card::Director::ClassMethods#directors (method)">directors</a></span>, <span class='object_link'><a href="Director/ClassMethods.html#expire-instance_method" title="Card::Director::ClassMethods#expire (method)">expire</a></span>, <span class='object_link'><a href="Director/ClassMethods.html#expirees-instance_method" title="Card::Director::ClassMethods#expirees (method)">expirees</a></span>, <span class='object_link'><a href="Director/ClassMethods.html#fetch-instance_method" title="Card::Director::ClassMethods#fetch (method)">fetch</a></span>, <span class='object_link'><a href="Director/ClassMethods.html#include%3F-instance_method" title="Card::Director::ClassMethods#include? (method)">include?</a></span>, <span class='object_link'><a href="Director/ClassMethods.html#include_id%3F-instance_method" title="Card::Director::ClassMethods#include_id? (method)">include_id?</a></span>, <span class='object_link'><a href="Director/ClassMethods.html#new_director-instance_method" title="Card::Director::ClassMethods#new_director (method)">new_director</a></span>, <span class='object_link'><a href="Director/ClassMethods.html#run_act-instance_method" title="Card::Director::ClassMethods#run_act (method)">run_act</a></span>, <span class='object_link'><a href="Director/ClassMethods.html#running_act%3F-instance_method" title="Card::Director::ClassMethods#running_act? (method)">running_act?</a></span></p>
 
   
   
@@ -930,8 +930,8 @@ is executed BEFORE the supercard’s store stage.</p>
   
   
   
-  <h3 class="inherited">Methods included from <span class='object_link'><a href="Director/ActDirection.html" title="Card::Director::ActDirection (module)">ActDirection</a></span></h3>
-  <p class="inherited"><span class='object_link'><a href="Director/ActDirection.html#act_director-instance_method" title="Card::Director::ActDirection#act_director (method)">act_director</a></span>, <span class='object_link'><a href="Director/ActDirection.html#add-instance_method" title="Card::Director::ActDirection#add (method)">add</a></span>, <span class='object_link'><a href="Director/ActDirection.html#card_changed-instance_method" title="Card::Director::ActDirection#card_changed (method)">card_changed</a></span>, <span class='object_link'><a href="Director/ActDirection.html#clear-instance_method" title="Card::Director::ActDirection#clear (method)">clear</a></span>, <span class='object_link'><a href="Director/ActDirection.html#deep_delete-instance_method" title="Card::Director::ActDirection#deep_delete (method)">deep_delete</a></span>, <span class='object_link'><a href="Director/ActDirection.html#directors-instance_method" title="Card::Director::ActDirection#directors (method)">directors</a></span>, <span class='object_link'><a href="Director/ActDirection.html#expire-instance_method" title="Card::Director::ActDirection#expire (method)">expire</a></span>, <span class='object_link'><a href="Director/ActDirection.html#expirees-instance_method" title="Card::Director::ActDirection#expirees (method)">expirees</a></span>, <span class='object_link'><a href="Director/ActDirection.html#fetch-instance_method" title="Card::Director::ActDirection#fetch (method)">fetch</a></span>, <span class='object_link'><a href="Director/ActDirection.html#include%3F-instance_method" title="Card::Director::ActDirection#include? (method)">include?</a></span>, <span class='object_link'><a href="Director/ActDirection.html#include_id%3F-instance_method" title="Card::Director::ActDirection#include_id? (method)">include_id?</a></span>, <span class='object_link'><a href="Director/ActDirection.html#new_director-instance_method" title="Card::Director::ActDirection#new_director (method)">new_director</a></span>, <span class='object_link'><a href="Director/ActDirection.html#run_act-instance_method" title="Card::Director::ActDirection#run_act (method)">run_act</a></span>, <span class='object_link'><a href="Director/ActDirection.html#running_act%3F-instance_method" title="Card::Director::ActDirection#running_act? (method)">running_act?</a></span></p>
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="Director/EventDelay.html" title="Card::Director::EventDelay (module)">EventDelay</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="Director/EventDelay.html#contextualize_delayed_event-instance_method" title="Card::Director::EventDelay#contextualize_delayed_event (method)">#contextualize_delayed_event</a></span>, <span class='object_link'><a href="Director/EventDelay.html#delaying%3F-instance_method" title="Card::Director::EventDelay#delaying? (method)">#delaying?</a></span>, <span class='object_link'><a href="Director/EventDelay.html#run_job_with_act-instance_method" title="Card::Director::EventDelay#run_job_with_act (method)">#run_job_with_act</a></span>, <span class='object_link'><a href="Director/EventDelay.html#with_delay_act-instance_method" title="Card::Director::EventDelay#with_delay_act (method)">#with_delay_act</a></span>, <span class='object_link'><a href="Director/EventDelay.html#with_env_and_auth-instance_method" title="Card::Director::EventDelay#with_env_and_auth (method)">#with_env_and_auth</a></span></p>
 
   
   
@@ -1004,6 +1004,7 @@ is executed BEFORE the supercard’s store stage.</p>
       <pre class="lines">
 
 
+147
 148
 149
 150
@@ -1014,18 +1015,17 @@ is executed BEFORE the supercard’s store stage.</p>
 155
 156
 157
-158
-159</pre>
+158</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/director.rb', line 148</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/director.rb', line 147</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span> <span class='id identifier rubyid_card'>card</span><span class='comma'>,</span> <span class='id identifier rubyid_parent'>parent</span>
   <span class='ivar'>@card</span> <span class='op'>=</span> <span class='id identifier rubyid_card'>card</span>
   <span class='ivar'>@card</span><span class='period'>.</span><span class='id identifier rubyid_director'>director</span> <span class='op'>=</span> <span class='kw'>self</span>
   <span class='comment'># for read actions there is no validation phase
 </span>  <span class='comment'># so we have to set the action here
-</span>  <span class='ivar'>@stage</span> <span class='op'>=</span> <span class='kw'>nil</span>
+</span>  <span class='ivar'>@current_stage_index</span> <span class='op'>=</span> <span class='kw'>nil</span>
   <span class='ivar'>@running</span> <span class='op'>=</span> <span class='kw'>false</span>
   <span class='ivar'>@prepared</span> <span class='op'>=</span> <span class='kw'>false</span>
   <span class='ivar'>@parent</span> <span class='op'>=</span> <span class='id identifier rubyid_parent'>parent</span>
@@ -1069,12 +1069,12 @@ is executed BEFORE the supercard’s store stage.</p>
       <pre class="lines">
 
 
+143
 144
-145
-146</pre>
+145</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/director.rb', line 144</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/director.rb', line 143</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_act'>act</span>
   <span class='ivar'>@act</span>
@@ -1111,15 +1111,57 @@ is executed BEFORE the supercard’s store stage.</p>
       <pre class="lines">
 
 
+143
 144
-145
-146</pre>
+145</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/director.rb', line 144</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/director.rb', line 143</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_card'>card</span>
   <span class='ivar'>@card</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id="current_stage_index=-instance_method"></span>
+      <div class="method_details ">
+  <h3 class="signature " id="current_stage_index-instance_method">
+  
+    #<strong>current_stage_index</strong>  &#x21d2; <tt><span class='object_link'><a href="../Object.html" title="Object (class)">Object</a></span></tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Returns the value of attribute current_stage_index.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+143
+144
+145</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'card/lib/card/director.rb', line 143</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_current_stage_index'>current_stage_index</span>
+  <span class='ivar'>@current_stage_index</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1153,12 +1195,12 @@ is executed BEFORE the supercard’s store stage.</p>
       <pre class="lines">
 
 
+143
 144
-145
-146</pre>
+145</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/director.rb', line 144</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/director.rb', line 143</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_head'>head</span>
   <span class='ivar'>@head</span>
@@ -1195,12 +1237,12 @@ is executed BEFORE the supercard’s store stage.</p>
       <pre class="lines">
 
 
+143
 144
-145
-146</pre>
+145</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/director.rb', line 144</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/director.rb', line 143</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_parent'>parent</span>
   <span class='ivar'>@parent</span>
@@ -1241,48 +1283,6 @@ is executed BEFORE the supercard’s store stage.</p>
       <pre class="lines">
 
 
-145
-146
-147</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/director.rb', line 145</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_running'>running</span>
-  <span class='ivar'>@running</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      
-      <span id="stage=-instance_method"></span>
-      <div class="method_details ">
-  <h3 class="signature " id="stage-instance_method">
-  
-    #<strong>stage</strong>  &#x21d2; <tt><span class='object_link'><a href="../Object.html" title="Object (class)">Object</a></span></tt> 
-  
-
-  
-
-  
-</h3><div class="docstring">
-  <div class="discussion">
-    <p>Returns the value of attribute stage.</p>
-
-
-  </div>
-</div>
-<div class="tags">
-  
-
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
 144
 145
 146</pre>
@@ -1290,8 +1290,8 @@ is executed BEFORE the supercard’s store stage.</p>
     <td>
       <pre class="code"><span class="info file"># File 'card/lib/card/director.rb', line 144</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_stage'>stage</span>
-  <span class='ivar'>@stage</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_running'>running</span>
+  <span class='ivar'>@running</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1325,12 +1325,12 @@ is executed BEFORE the supercard’s store stage.</p>
       <pre class="lines">
 
 
+143
 144
-145
-146</pre>
+145</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/director.rb', line 144</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/director.rb', line 143</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_subdirectors'>subdirectors</span>
   <span class='ivar'>@subdirectors</span>
@@ -1362,12 +1362,12 @@ is executed BEFORE the supercard’s store stage.</p>
       <pre class="lines">
 
 
+191
 192
-193
-194</pre>
+193</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/director.rb', line 192</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/director.rb', line 191</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_abort'>abort</span>
   <span class='ivar'>@abort</span> <span class='op'>=</span> <span class='kw'>true</span>
@@ -1392,14 +1392,14 @@ is executed BEFORE the supercard’s store stage.</p>
       <pre class="lines">
 
 
+185
 186
 187
 188
-189
-190</pre>
+189</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/director.rb', line 186</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/director.rb', line 185</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_appoint'>appoint</span> <span class='id identifier rubyid_card'>card</span>
   <span class='id identifier rubyid_reset_stage'>reset_stage</span>
@@ -1426,23 +1426,23 @@ is executed BEFORE the supercard’s store stage.</p>
       <pre class="lines">
 
 
+176
 177
 178
 179
 180
 181
 182
-183
-184</pre>
+183</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/director.rb', line 177</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/director.rb', line 176</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_delete'>delete</span>
   <span class='ivar'>@parent</span><span class='op'>&amp;.</span><span class='id identifier rubyid_subdirectors'>subdirectors</span><span class='op'>&amp;.</span><span class='id identifier rubyid_delete'>delete</span> <span class='kw'>self</span>
   <span class='ivar'>@card</span><span class='period'>.</span><span class='id identifier rubyid_director'>director</span> <span class='op'>=</span> <span class='kw'>nil</span>
   <span class='ivar'>@subdirectors</span><span class='period'>.</span><span class='id identifier rubyid_clear'>clear</span>
-  <span class='ivar'>@stage</span> <span class='op'>=</span> <span class='kw'>nil</span>
+  <span class='ivar'>@current_stage_index</span> <span class='op'>=</span> <span class='kw'>nil</span>
   <span class='ivar'>@action</span> <span class='op'>=</span> <span class='kw'>nil</span>
   <span class='ivar'>@running</span> <span class='op'>=</span> <span class='kw'>false</span>
 <span class='kw'>end</span></pre>
@@ -1489,12 +1489,12 @@ is executed BEFORE the supercard’s store stage.</p>
       <pre class="lines">
 
 
+164
 165
-166
-167</pre>
+166</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/director.rb', line 165</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/director.rb', line 164</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_head?'>head?</span>
   <span class='ivar'>@head</span> <span class='op'>||</span> <span class='id identifier rubyid_main?'>main?</span>
@@ -1542,12 +1542,12 @@ is executed BEFORE the supercard’s store stage.</p>
       <pre class="lines">
 
 
+160
 161
-162
-163</pre>
+162</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/director.rb', line 161</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/director.rb', line 160</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_main?'>main?</span>
   <span class='id identifier rubyid_parent'>parent</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
@@ -1572,19 +1572,19 @@ is executed BEFORE the supercard’s store stage.</p>
       <pre class="lines">
 
 
+202
 203
 204
 205
-206
-207</pre>
+206</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/director.rb', line 203</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/director.rb', line 202</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_main_director'>main_director</span>
   <span class='kw'>return</span> <span class='kw'>self</span> <span class='kw'>if</span> <span class='id identifier rubyid_main?'>main?</span>
 
-  <span class='const'><span class='object_link'><a href="" title="Card::Director (class)">Director</a></span></span><span class='period'>.</span><span class='id identifier rubyid_act_director'><span class='object_link'><a href="Director/ActDirection.html#act_director-instance_method" title="Card::Director::ActDirection#act_director (method)">act_director</a></span></span> <span class='op'>||</span> <span class='ivar'>@parent</span><span class='op'>&amp;.</span><span class='id identifier rubyid_main_director'>main_director</span>
+  <span class='const'><span class='object_link'><a href="" title="Card::Director (class)">Director</a></span></span><span class='period'>.</span><span class='id identifier rubyid_act_director'><span class='object_link'><a href="Director/ClassMethods.html#act_director-instance_method" title="Card::Director::ClassMethods#act_director (method)">act_director</a></span></span> <span class='op'>||</span> <span class='ivar'>@parent</span><span class='op'>&amp;.</span><span class='id identifier rubyid_main_director'>main_director</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1629,15 +1629,15 @@ is executed BEFORE the supercard’s store stage.</p>
       <pre class="lines">
 
 
+195
 196
 197
 198
 199
-200
-201</pre>
+200</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/director.rb', line 196</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/director.rb', line 195</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_need_act'>need_act</span>
   <span class='id identifier rubyid_act_director'>act_director</span> <span class='op'>=</span> <span class='id identifier rubyid_main_director'>main_director</span>
@@ -1665,15 +1665,15 @@ is executed BEFORE the supercard’s store stage.</p>
       <pre class="lines">
 
 
+168
 169
-170
-171</pre>
+170</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/director.rb', line 169</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/director.rb', line 168</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_register'>register</span>
-  <span class='const'><span class='object_link'><a href="" title="Card::Director (class)">Director</a></span></span><span class='period'>.</span><span class='id identifier rubyid_add'><span class='object_link'><a href="Director/ActDirection.html#add-instance_method" title="Card::Director::ActDirection#add (method)">add</a></span></span> <span class='kw'>self</span>
+  <span class='const'><span class='object_link'><a href="" title="Card::Director (class)">Director</a></span></span><span class='period'>.</span><span class='id identifier rubyid_add'><span class='object_link'><a href="Director/ClassMethods.html#add-instance_method" title="Card::Director::ClassMethods#add (method)">add</a></span></span> <span class='kw'>self</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1695,23 +1695,23 @@ is executed BEFORE the supercard’s store stage.</p>
       <pre class="lines">
 
 
+217
 218
 219
 220
 221
 222
-223
-224</pre>
+223</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/director.rb', line 218</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/director.rb', line 217</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_replace_card'>replace_card</span> <span class='id identifier rubyid_card'>card</span>
   <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_action'>action</span> <span class='op'>=</span> <span class='ivar'>@card</span><span class='period'>.</span><span class='id identifier rubyid_action'>action</span>
   <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_director'>director</span> <span class='op'>=</span> <span class='kw'>self</span>
   <span class='ivar'>@card</span> <span class='op'>=</span> <span class='id identifier rubyid_card'>card</span>
   <span class='id identifier rubyid_reset_stage'>reset_stage</span>
-  <span class='id identifier rubyid_catch_up_to_stage'>catch_up_to_stage</span> <span class='ivar'>@stage</span> <span class='kw'>if</span> <span class='ivar'>@stage</span>
+  <span class='id identifier rubyid_catch_up_to_stage'>catch_up_to_stage</span> <span class='ivar'>@current_stage_index</span> <span class='kw'>if</span> <span class='ivar'>@current_stage_index</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1733,17 +1733,17 @@ is executed BEFORE the supercard’s store stage.</p>
       <pre class="lines">
 
 
+208
 209
 210
 211
 212
 213
 214
-215
-216</pre>
+215</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/director.rb', line 209</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/director.rb', line 208</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_to_s'>to_s</span> <span class='id identifier rubyid_level'>level</span><span class='op'>=</span><span class='int'>1</span>
   <span class='id identifier rubyid_str'>str</span> <span class='op'>=</span> <span class='ivar'>@card</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='period'>.</span><span class='id identifier rubyid_clone'>clone</span>
@@ -1773,12 +1773,12 @@ is executed BEFORE the supercard’s store stage.</p>
       <pre class="lines">
 
 
+172
 173
-174
-175</pre>
+174</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/director.rb', line 173</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/director.rb', line 172</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_unregister'>unregister</span>
   <span class='const'><span class='object_link'><a href="" title="Card::Director (class)">Director</a></span></span><span class='period'>.</span><span class='id identifier rubyid_delete'><span class='object_link'><a href="#delete-instance_method" title="Card::Director#delete (method)">delete</a></span></span> <span class='kw'>self</span>
@@ -1803,19 +1803,19 @@ is executed BEFORE the supercard’s store stage.</p>
       <pre class="lines">
 
 
+225
 226
 227
 228
-229
-230</pre>
+229</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/director.rb', line 226</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/director.rb', line 225</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_update_card'>update_card</span> <span class='id identifier rubyid_card'>card</span>
   <span class='id identifier rubyid_old_card'>old_card</span> <span class='op'>=</span> <span class='ivar'>@card</span>
   <span class='ivar'>@card</span> <span class='op'>=</span> <span class='id identifier rubyid_card'>card</span>
-  <span class='const'><span class='object_link'><a href="" title="Card::Director (class)">Director</a></span></span><span class='period'>.</span><span class='id identifier rubyid_card_changed'><span class='object_link'><a href="Director/ActDirection.html#card_changed-instance_method" title="Card::Director::ActDirection#card_changed (method)">card_changed</a></span></span> <span class='id identifier rubyid_old_card'>old_card</span>
+  <span class='const'><span class='object_link'><a href="" title="Card::Director (class)">Director</a></span></span><span class='period'>.</span><span class='id identifier rubyid_card_changed'><span class='object_link'><a href="Director/ClassMethods.html#card_changed-instance_method" title="Card::Director::ClassMethods#card_changed (method)">card_changed</a></span></span> <span class='id identifier rubyid_old_card'>old_card</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1827,9 +1827,9 @@ is executed BEFORE the supercard’s store stage.</p>
 </div>
 
       <div id="footer">
-  Generated on Fri Jan 21 16:01:46 2022 by
-  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.27 (ruby-3.0.1).
+  Generated on Fri Nov 18 14:30:35 2022 by
+  <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.28 (ruby-3.0.1).
 </div>
 
     </div>

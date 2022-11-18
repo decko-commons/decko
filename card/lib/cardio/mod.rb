@@ -15,6 +15,7 @@ module Cardio
   # a README.md file and the following subdirectories:
   #
   # - **assets** - for JavaScript, CSS, and variants (CoffeeScript, SCSS, etc)
+  # - **data** - for seed and test data. see {file:SEEDME.md}.
   # - **lib** - for standard code libraries
   # - **public** - accessible via the web at DECK_URL_ROOT/mod/MOD_NAME/
   # - **set** - the mod's focal point where card sets are configured (see below)
