@@ -24,6 +24,7 @@ PATH
       sassc (~> 2.4)
       sprockets (~> 3.7)
       sprockets-rails (~> 3.2)
+      timecop (~> 0.9)
       uglifier (~> 4.2)
       zeitwerk (!= 2.5.0)
     cardname (0.14.2)
