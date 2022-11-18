@@ -6,7 +6,7 @@
 <title>
   Module: Card::Format::Wrapper
   
-    &mdash; Documentation by YARD 0.9.27
+    &mdash; Documentation by YARD 0.9.28
   
 </title>
 
@@ -382,7 +382,7 @@
   <span class='kw'>if</span> <span class='id identifier rubyid_method'>method</span><span class='lparen'>(</span><span class='id identifier rubyid_method_name'>method_name</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_arity'>arity</span><span class='period'>.</span><span class='id identifier rubyid_zero?'>zero?</span>
     <span class='id identifier rubyid_send'>send</span> <span class='id identifier rubyid_method_name'>method_name</span>
   <span class='kw'>else</span>
-    <span class='id identifier rubyid_send'>send</span> <span class='id identifier rubyid_method_name'>method_name</span><span class='comma'>,</span> <span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span> <span class='op'>||</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_send'>send</span> <span class='id identifier rubyid_method_name'>method_name</span><span class='comma'>,</span> <span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span><span class='op'>&amp;.</span><span class='id identifier rubyid_clone'>clone</span> <span class='op'>||</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -491,9 +491,9 @@
 </div>
 
       <div id="footer">
-  Generated on Fri Jan 21 16:01:42 2022 by
-  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.27 (ruby-3.0.1).
+  Generated on Fri Nov 18 14:30:31 2022 by
+  <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.28 (ruby-3.0.1).
 </div>
 
     </div>

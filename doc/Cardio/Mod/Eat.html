@@ -6,7 +6,7 @@
 <title>
   Class: Cardio::Mod::Eat
   
-    &mdash; Documentation by YARD 0.9.27
+    &mdash; Documentation by YARD 0.9.28
   
 </title>
 
@@ -89,7 +89,7 @@
   
   <dl>
       <dt>Includes:</dt>
-      <dd><span class='object_link'><a href="../../Card/Model/SaveHelper.html" title="Card::Model::SaveHelper (module)">Card::Model::SaveHelper</a></span>, <span class='object_link'><a href="Eat/Edibles.html" title="Cardio::Mod::Eat::Edibles (module)">Edibles</a></span></dd>
+      <dd><span class='object_link'><a href="Eat/Edibles.html" title="Cardio::Mod::Eat::Edibles (module)">Edibles</a></span></dd>
   </dl>
   
   
@@ -131,12 +131,6 @@ https://docs.google.com/document/d/13K_ynFwfpHwc3t5gnLeAkZJZHco1wK063nJNYwU8qfc/
 
 
 
-  <h2>Constant Summary</h2>
-  
-  <h3 class="inherited">Constants included
-     from <span class='object_link'><a href="../../Card/Model/SaveHelper/SaveHelperHelper.html" title="Card::Model::SaveHelper::SaveHelperHelper (module)">Card::Model::SaveHelper::SaveHelperHelper</a></span></h3>
-  <p class="inherited"><span class='object_link'><a href="../../Card/Model/SaveHelper/SaveHelperHelper.html#CARDTYPE_METHOD_REGEXP-constant" title="Card::Model::SaveHelper::SaveHelperHelper::CARDTYPE_METHOD_REGEXP (constant)">Card::Model::SaveHelper::SaveHelperHelper::CARDTYPE_METHOD_REGEXP</a></span></p>
-
 
 
 
@@ -152,7 +146,7 @@ https://docs.google.com/document/d/13K_ynFwfpHwc3t5gnLeAkZJZHco1wK063nJNYwU8qfc/
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#initialize-instance_method" title="#initialize (instance method)">#<strong>initialize</strong>(mod: nil, env: nil, user: nil, verbose: nil)  &#x21d2; Eat </a>
+      <a href="#initialize-instance_method" title="#initialize (instance method)">#<strong>initialize</strong>(mod: nil, type: nil, user: nil, verbose: nil)  &#x21d2; Eat </a>
     
 
     
@@ -211,36 +205,13 @@ https://docs.google.com/document/d/13K_ynFwfpHwc3t5gnLeAkZJZHco1wK063nJNYwU8qfc/
   
   <h3 class="inherited">Methods included from <span class='object_link'><a href="Eat/Edibles.html" title="Cardio::Mod::Eat::Edibles (module)">Edibles</a></span></h3>
   <p class="inherited"><span class='object_link'><a href="Eat/Edibles.html#edibles-instance_method" title="Cardio::Mod::Eat::Edibles#edibles (method)">#edibles</a></span></p>
-
-  
-  
-  
-  
-  
-  
-  
-  
-  <h3 class="inherited">Methods included from <span class='object_link'><a href="../../Card/Model/SaveHelper.html" title="Card::Model::SaveHelper (module)">Card::Model::SaveHelper</a></span></h3>
-  <p class="inherited"><span class='object_link'><a href="../../Card/Model/SaveHelper.html#add_script-instance_method" title="Card::Model::SaveHelper#add_script (method)">#add_script</a></span>, <span class='object_link'><a href="../../Card/Model/SaveHelper.html#create_card-instance_method" title="Card::Model::SaveHelper#create_card (method)">#create_card</a></span>, <span class='object_link'><a href="../../Card/Model/SaveHelper.html#create_card!-instance_method" title="Card::Model::SaveHelper#create_card! (method)">#create_card!</a></span>, <span class='object_link'><a href="../../Card/Model/SaveHelper.html#create_or_update_card-instance_method" title="Card::Model::SaveHelper#create_or_update_card (method)">#create_or_update_card</a></span>, <span class='object_link'><a href="../../Card/Model/SaveHelper.html#create_or_update_card!-instance_method" title="Card::Model::SaveHelper#create_or_update_card! (method)">#create_or_update_card!</a></span>, <span class='object_link'><a href="../../Card/Model/SaveHelper.html#delete_card-instance_method" title="Card::Model::SaveHelper#delete_card (method)">#delete_card</a></span>, <span class='object_link'><a href="../../Card/Model/SaveHelper.html#delete_code_card-instance_method" title="Card::Model::SaveHelper#delete_code_card (method)">#delete_code_card</a></span>, <span class='object_link'><a href="../../Card/Model/SaveHelper.html#ensure_card-instance_method" title="Card::Model::SaveHelper#ensure_card (method)">#ensure_card</a></span>, <span class='object_link'><a href="../../Card/Model/SaveHelper.html#ensure_card!-instance_method" title="Card::Model::SaveHelper#ensure_card! (method)">#ensure_card!</a></span>, <span class='object_link'><a href="../../Card/Model/SaveHelper.html#ensure_code_card-instance_method" title="Card::Model::SaveHelper#ensure_code_card (method)">#ensure_code_card</a></span>, <span class='object_link'><a href="../../Card/Model/SaveHelper.html#ensure_trait-instance_method" title="Card::Model::SaveHelper#ensure_trait (method)">#ensure_trait</a></span>, <span class='object_link'><a href="../../Card/Model/SaveHelper.html#ensure_trait_rule-instance_method" title="Card::Model::SaveHelper#ensure_trait_rule (method)">#ensure_trait_rule</a></span>, <span class='object_link'><a href="../../Card/Model/SaveHelper.html#update_card-instance_method" title="Card::Model::SaveHelper#update_card (method)">#update_card</a></span>, <span class='object_link'><a href="../../Card/Model/SaveHelper.html#update_card!-instance_method" title="Card::Model::SaveHelper#update_card! (method)">#update_card!</a></span>, <span class='object_link'><a href="../../Card/Model/SaveHelper.html#with_user-instance_method" title="Card::Model::SaveHelper#with_user (method)">#with_user</a></span></p>
-
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  <div id="constructor_details" class="method_details_list">
+<div id="constructor_details" class="method_details_list">
   <h2>Constructor Details</h2>
   
     <div class="method_details first">
   <h3 class="signature first" id="initialize-instance_method">
   
-    #<strong>initialize</strong>(mod: nil, env: nil, user: nil, verbose: nil)  &#x21d2; <tt><span class='object_link'><a href="" title="Cardio::Mod::Eat (class)">Eat</a></span></tt> 
+    #<strong>initialize</strong>(mod: nil, type: nil, user: nil, verbose: nil)  &#x21d2; <tt><span class='object_link'><a href="" title="Cardio::Mod::Eat (class)">Eat</a></span></tt> 
   
 
   
@@ -262,19 +233,19 @@ https://docs.google.com/document/d/13K_ynFwfpHwc3t5gnLeAkZJZHco1wK063nJNYwU8qfc/
       <pre class="lines">
 
 
+14
+15
+16
 17
 18
-19
-20
-21
-22</pre>
+19</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/cardio/mod/eat.rb', line 17</span>
+      <pre class="code"><span class="info file"># File 'card/lib/cardio/mod/eat.rb', line 14</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span> <span class='label'>mod:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>env:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>user:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>verbose:</span> <span class='kw'>nil</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span> <span class='label'>mod:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>type:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>user:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>verbose:</span> <span class='kw'>nil</span>
   <span class='ivar'>@mod</span> <span class='op'>=</span> <span class='id identifier rubyid_mod'>mod</span>
-  <span class='ivar'>@env</span> <span class='op'>=</span> <span class='id identifier rubyid_env'>env</span>
+  <span class='ivar'>@pod_type</span> <span class='op'>=</span> <span class='id identifier rubyid_type'>type</span><span class='op'>&amp;.</span><span class='id identifier rubyid_to_sym'>to_sym</span>
   <span class='ivar'>@user_id</span> <span class='op'>=</span> <span class='id identifier rubyid_user'>user</span><span class='op'>&amp;.</span><span class='id identifier rubyid_card_id'>card_id</span>
   <span class='ivar'>@verbose</span> <span class='op'>=</span> <span class='op'>!</span><span class='id identifier rubyid_verbose'>verbose</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
 <span class='kw'>end</span></pre>
@@ -282,16 +253,6 @@ https://docs.google.com/document/d/13K_ynFwfpHwc3t5gnLeAkZJZHco1wK063nJNYwU8qfc/
   </tr>
 </table>
 </div>
-  
-</div>
-<div id="method_missing_details" class="method_details_list">
-  <h2>Dynamic Method Handling</h2>
-  <p class="notice super">
-    This class handles dynamic methods through the <tt>method_missing</tt> method
-    
-      in the class <span class='object_link'>Card::Model::SaveHelper::SaveHelperHelper</span>
-    
-  </p>
   
 </div>
 
@@ -315,6 +276,9 @@ https://docs.google.com/document/d/13K_ynFwfpHwc3t5gnLeAkZJZHco1wK063nJNYwU8qfc/
       <pre class="lines">
 
 
+21
+22
+23
 24
 25
 26
@@ -323,25 +287,18 @@ https://docs.google.com/document/d/13K_ynFwfpHwc3t5gnLeAkZJZHco1wK063nJNYwU8qfc/
 29
 30
 31
-32
-33
-34
-35
-36
-37</pre>
+32</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/cardio/mod/eat.rb', line 24</span>
+      <pre class="code"><span class="info file"># File 'card/lib/cardio/mod/eat.rb', line 21</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_up'>up</span>
-  <span class='const'><span class='object_link'><a href="../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../Card/Cache.html" title="Card::Cache (class)">Cache</a></span></span><span class='period'>.</span><span class='id identifier rubyid_reset_all'><span class='object_link'><a href="../../Card/Cache.html#reset_all-class_method" title="Card::Cache.reset_all (method)">reset_all</a></span></span>
-  <span class='const'><span class='object_link'><a href="../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../Card/Mailer.html" title="Card::Mailer (class)">Mailer</a></span></span><span class='period'>.</span><span class='id identifier rubyid_perform_deliveries'>perform_deliveries</span> <span class='op'>=</span> <span class='kw'>false</span>
-  <span class='const'><span class='object_link'><a href="../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../Card/Auth.html" title="Card::Auth (module)">Auth</a></span></span><span class='period'>.</span><span class='id identifier rubyid_as_bot'><span class='object_link'><a href="../../Card/Auth/Proxy.html#as_bot-instance_method" title="Card::Auth::Proxy#as_bot (method)">as_bot</a></span></span> <span class='kw'>do</span>
+  <span class='id identifier rubyid_handle_up'>handle_up</span> <span class='kw'>do</span>
     <span class='id identifier rubyid_edibles'>edibles</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_edible'>edible</span><span class='op'>|</span>
       <span class='id identifier rubyid_track'>track</span> <span class='id identifier rubyid_edible'>edible</span> <span class='kw'>do</span>
         <span class='id identifier rubyid_current_user'>current_user</span> <span class='id identifier rubyid_edible'>edible</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='symbol'>:user</span><span class='rparen'>)</span>
         <span class='id identifier rubyid_time_machine'>time_machine</span> <span class='id identifier rubyid_edible'>edible</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='symbol'>:time</span><span class='rparen'>)</span> <span class='kw'>do</span>
-          <span class='id identifier rubyid_ensure_card'>ensure_card</span> <span class='id identifier rubyid_edible'>edible</span>
+          <span class='const'><span class='object_link'><a href="../../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_ensure'><span class='object_link'><a href="../../Card/Director/CardClass.html#ensure-instance_method" title="Card::Director::CardClass#ensure (method)">ensure</a></span></span> <span class='id identifier rubyid_edible'>edible</span>
         <span class='kw'>end</span>
       <span class='kw'>end</span>
     <span class='kw'>end</span>
@@ -357,9 +314,9 @@ https://docs.google.com/document/d/13K_ynFwfpHwc3t5gnLeAkZJZHco1wK063nJNYwU8qfc/
 </div>
 
       <div id="footer">
-  Generated on Fri Jan 21 16:01:46 2022 by
-  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.27 (ruby-3.0.1).
+  Generated on Fri Nov 18 14:30:35 2022 by
+  <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.28 (ruby-3.0.1).
 </div>
 
     </div>
