@@ -8,7 +8,7 @@
   :fields:
     # TODO: refactor so that we don't need a compound card to have a codename
     :content_options:
+      :type: :pointer
       :codename: input_options
-      :content: |-
-        overridden
+      :content: overridden
     :input_type: radio
