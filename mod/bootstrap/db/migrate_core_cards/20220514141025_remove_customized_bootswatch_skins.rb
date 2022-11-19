@@ -10,19 +10,14 @@ class RemoveCustomizedBootswatchSkins < Cardio::Migration::Core
   def convert_bootswatch_skins
     parent_field_name = :parent.cardname
     Card.search(type_id: ::Card::CustomizedBootswatchSkinID) do |card|
-      begin
       update_args = { type_id: Card::BootswatchSkinID, skip: :asset_input_changed }
       parent = find_parent(card.name)
       if parent && parent.id != card.id
         update_args[:subcards] = { "+#{parent_field_name}" => { content: parent.name } }
       end
-      #delete_empty_stylesheets card
+      # delete_empty_stylesheets card
       card.field(:variables)&.update content: ""
       card.update! update_args
-      # rescue => e
-      #   binding.pry
-      end
-
     end
     Card::Cache.reset_all
   end
