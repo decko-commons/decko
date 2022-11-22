@@ -246,7 +246,7 @@ GEM
     concurrent-ruby (1.1.10)
     crass (1.0.6)
     daemons (1.4.1)
-    dalli (3.2.0)
+    dalli (3.2.3)
     decko (0.14.2)
       actionpack (~> 6.1.4)
       card (= 1.104.2)
