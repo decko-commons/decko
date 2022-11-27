@@ -53,13 +53,13 @@ format :html do
   end
 
   view :accordion_rule_list, setting_list_view_options do
-    [
+    wrap_with :div, class: "_setting-list" do
       accordion do
         Card::Setting.groups.keys.map do |group_key|
           accordion_item(group_key, body: pill_setting_group_list(group_key)) #list_group(views))
         end
       end
-    ]
+    end
   end
 
   def setting_list item_view, grouped=true

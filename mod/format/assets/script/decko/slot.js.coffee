@@ -25,8 +25,8 @@ jQuery.fn.extend
 
   triggerSlotReady: (slotter) ->
     @trigger "decko.slot.ready", slotter if @isSlot()
-    @find(".card-slot").trigger "decko.slot.ready", slotter  
-    
+    @find(".card-slot").trigger "decko.slot.ready", slotter
+
   slot: (status="success", mode="replace") ->
     return @modalSlot() if mode == "modal"
 
@@ -66,11 +66,12 @@ jQuery.fn.extend
     @slotContent newContent, mode, $(this)
 
   slotContent: (newContent, mode, $slotter) ->
+    debugger
     v = $(newContent)[0] && $(newContent) || newContent
 
     if typeof(v) == "string"
       # Needed to support "TEXT: result" pattern in success (eg deleting nested cards)
-      @slot("success", mode).replaceWith v
+      @slot("success", mode)._slotFillOrReplace v
     else
       if v.hasClass("_overlay")
         mode = "overlay"
@@ -88,8 +89,14 @@ jQuery.fn.extend
       slot_id = @data("slot-id")
       el.attr("data-slot-id", slot_id) if slot_id
       @trigger "decko.slot.destroy"
-      @replaceWith el
+      @_slotFillOrReplace el
       decko.contentLoaded(el, $slotter)
+
+  _slotFillOrReplace: (content) ->
+    if @hasClass("_fixed-slot")
+      @html content
+    else
+      @replaceWith content
 
   _slotSelect: (selectorName) ->
     if selector = @data(selectorName)
@@ -103,7 +110,7 @@ jQuery.fn.extend
     $slot.data "url", url
     $slot.data "remote", true
     $slot.attr 'href', url
-    this[0].href = url 
+    this[0].href = url
     # that's where handleRemote gets the url from
     # .attr(href, url) only works for anchors
     $.rails.handleRemote $slot
@@ -122,8 +129,8 @@ slotPathParams = (slot) ->
     if slotdata?
       slotParams slotdata, params, 'slot'
       params['type'] = slotdata['type'] if slotdata['type']
-  params    
-    
+  params
+
 slotParams = (raw, processed, prefix)->
   $.each raw, (key, value)->
     cgiKey = prefix + '[' + decko.snakeCase(key) + ']'

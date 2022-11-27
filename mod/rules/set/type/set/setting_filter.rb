@@ -1,4 +1,7 @@
 format :html do
+  view :filtered_accordion_rule_list do
+    filtered_rule_list :accordion_rule_list
+  end
   def filtered_rule_list view, *filter_args
       [
         setting_filter(view, *filter_args),
@@ -12,8 +15,6 @@ format :html do
              "data-slot-selector": ".card-slot._setting-list",
              class: classy("nodblclick slotter") do
       output [
-               #set_alert(set_options),
-               set_select(set_options),
                filter_buttons(selected_category)
       ].flatten
     end

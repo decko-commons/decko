@@ -18,9 +18,15 @@ format :html do
   end
 
   view :rules_tab, unknown: true do
+    set_list_type = :related
     class_up "card-slot", "flex-column"
+    set_cards = card.set_list set_list_type
     wrap do
-      nest current_set_card, view: :bridge_rules_tab
+      [
+        set_select(set_list_type),
+        # set_alert(set_list_type)
+        # nest(set_cards.first, view: :bridge_rules_tab)
+      ]
     end
   end
 
