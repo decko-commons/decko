@@ -16,22 +16,12 @@ class Card
 
     attr_reader :opts
 
-    def action
-      @action ||= opts.delete(:action)&.to_sym
-    end
-
     def new_cardtype
-      return unless new_cardtype?
-
-      "#{action}/#{mark}#{query}"
-    end
-
-    def new_cardtype?
-      return false unless action.in? %i[new type]
-
       # "new" and "type" are not really an action and are only
       # a valid value here for this path
-      mark.present?
+      return unless action.in?(%i[new type]) && mark.present?
+
+      "#{action}/#{mark}#{query}"
     end
 
     def standard
@@ -40,16 +30,26 @@ class Card
     end
 
     def base
-      explicit_action? ? action_base : mark
+      if action.in? %i[create update delete]
+        mark.present? ? "#{action}/#{mark}" : "card/#{action}"
+        # the card/ prefix prevents interpreting action as cardname
+      elsif view.present?
+        "#{mark}/#{view}"
+      else
+        mark
+      end
     end
 
-    def action_base
-      mark.present? ? "#{action}/#{mark}" : "card/#{action}"
-      # the card/ prefix prevents interpreting action as cardname
+    def action
+      @action ||= opts.delete(:action)&.to_sym
     end
 
-    def explicit_action?
-      action.in? %i[create update delete]
+    def view
+      @view ||= opts.delete :view
+    end
+
+    def no_mark?
+      @no_mark ||= opts.delete :no_mark
     end
 
     def mark
@@ -65,10 +65,6 @@ class Card
 
     def markless?
       action == :create || no_mark?
-    end
-
-    def no_mark?
-      @no_mark ||= opts.delete :no_mark
     end
 
     def extension

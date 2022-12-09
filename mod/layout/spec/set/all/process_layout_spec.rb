@@ -11,7 +11,7 @@ RSpec.describe Card::Set::All::ProcessLayout do
         with_tag "a.nav-link.dropdown-toggle", text: "Getting started"
         with_tag 'a.nav-link.known-card[href="/*recent"]', text: "Recent Changes"
         with_tag 'form.search-box-form[action="/*search"]' do
-          with_tag 'select[name="query[keyword]"]'
+          with_tag 'input[name="query[keyword]"]'
         end
       end
     end
