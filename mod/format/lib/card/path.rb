@@ -40,12 +40,20 @@ class Card
     end
 
     def base
-      explicit_action? ? action_base : mark
+      explicit_action? ? action_base : read_base
     end
 
     def action_base
       mark.present? ? "#{action}/#{mark}" : "card/#{action}"
       # the card/ prefix prevents interpreting action as cardname
+    end
+
+    def read_base
+      view.present? ? "#{mark}/#{view}" : mark
+    end
+
+    def view
+      @view ||= opts.delete :view
     end
 
     def explicit_action?
