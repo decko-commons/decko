@@ -74,10 +74,6 @@ format :html do
                    },
                    placeholder: t(:search_search_box_placeholder)
   end
-
-  def search_item term
-    autocomplete_item icon_tag(:search), term
-  end
 end
 
 format :json do
