@@ -4,7 +4,7 @@ decko.slot.ready (slot)->
 
 $.extend decko,
   filterRulesByCategory: (container, category) ->
-    $(container).find('._setting-list').each (_i) ->
+    $(container).find('._setting-list ._setting-group').each (_i) ->
       $list = $(this)
       items = $list.find('._rule-item')
       hiddenCount = 0
@@ -21,6 +21,7 @@ $.extend decko,
         $list.hide()
       else
         $list.show()
+        $list.find('._count').html(items.length - hiddenCount)
 
 $(window).ready ->
   # permissions mod

@@ -9,7 +9,7 @@ FIELD_SETTINGS = %i[default help].freeze
 def categories setting
   result = [:all]
   result += [:field, :recent, :common].select do |cat|
-    category_setting_list(cat)&.include? setting
+    category_settings(cat)&.include? setting
   end
   result
 end
@@ -24,10 +24,10 @@ end
 
 # @param val setting category, setting group or single setting
 def setting_list val
-  category_setting_list(val) || group_setting_list(val) || [val]
+  category_settings(val) || group_settings(val) || [val]
 end
 
-def category_setting_list cat
+def category_settings cat
   case cat
   when :all, :all_rules
     all_settings
@@ -42,7 +42,7 @@ def category_setting_list cat
   end
 end
 
-def group_setting_list group
+def group_settings group
   visible_settings(group).map(&:codename) if Card::Setting.groups[group]
 end
 

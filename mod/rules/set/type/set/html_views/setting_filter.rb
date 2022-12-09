@@ -1,7 +1,4 @@
 format :html do
-  view :filtered_accordion_rule_list do
-    filtered_rule_list :accordion_rule_list
-  end
   def filtered_rule_list view, *filter_args
       [
         setting_filter(view, *filter_args),
@@ -21,7 +18,7 @@ format :html do
   end
 
   def filter_buttons selected=:all
-    wrap_with :div, class: "my-4 _setting-filter" do
+    wrap_with :div, class: "my-4 mx-2 _setting-filter" do
       [
         content_tag(:label, "Settings"),
         filter_radio(:all, "All", selected == :all),

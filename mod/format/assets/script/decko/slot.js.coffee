@@ -66,12 +66,11 @@ jQuery.fn.extend
     @slotContent newContent, mode, $(this)
 
   slotContent: (newContent, mode, $slotter) ->
-    debugger
     v = $(newContent)[0] && $(newContent) || newContent
 
     if typeof(v) == "string"
       # Needed to support "TEXT: result" pattern in success (eg deleting nested cards)
-      @slot("success", mode)._slotFillOrReplace v
+      @slot("success", mode)._slotFillOrReplace v, $slotter
     else
       if v.hasClass("_overlay")
         mode = "overlay"
@@ -89,14 +88,15 @@ jQuery.fn.extend
       slot_id = @data("slot-id")
       el.attr("data-slot-id", slot_id) if slot_id
       @trigger "decko.slot.destroy"
-      @_slotFillOrReplace el
+      @_slotFillOrReplace el, $slotter
       decko.contentLoaded(el, $slotter)
 
-  _slotFillOrReplace: (content) ->
+  _slotFillOrReplace: (content, $slotter) ->
     if @hasClass("_fixed-slot")
       @html content
     else
       @replaceWith content
+    decko.contentLoaded(this, $slotter)
 
   _slotSelect: (selectorName) ->
     if selector = @data(selectorName)
