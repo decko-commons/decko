@@ -6,7 +6,7 @@
 <title>
   Module: Card::Auth::Token
   
-    &mdash; Documentation by YARD 0.9.27
+    &mdash; Documentation by YARD 0.9.28
   
 </title>
 
@@ -290,7 +290,7 @@
 <span class='kw'>def</span> <span class='id identifier rubyid_decode'>decode</span> <span class='id identifier rubyid_token'>token</span>
   <span class='id identifier rubyid_decoded'>decoded</span> <span class='op'>=</span> <span class='const'>JWT</span><span class='period'>.</span><span class='id identifier rubyid_decode'>decode</span><span class='lparen'>(</span><span class='id identifier rubyid_token'>token</span><span class='comma'>,</span> <span class='const'><span class='object_link'><a href="#SECRET_KEY-constant" title="Card::Auth::Token::SECRET_KEY (constant)">SECRET_KEY</a></span></span><span class='rparen'>)</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span>
   <span class='const'>HashWithIndifferentAccess</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span> <span class='id identifier rubyid_decoded'>decoded</span>
-<span class='kw'>rescue</span> <span class='const'>JWT</span><span class='op'>::</span><span class='const'>DecodeError</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_e'>e</span>
+<span class='kw'>rescue</span> <span class='const'><span class='object_link'><a href="../../StandardError.html" title="StandardError (class)">StandardError</a></span></span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_e'>e</span>
   <span class='id identifier rubyid_e'>e</span><span class='period'>.</span><span class='id identifier rubyid_message'>message</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -474,9 +474,9 @@
 </div>
 
       <div id="footer">
-  Generated on Fri Jan 21 16:01:40 2022 by
-  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.27 (ruby-3.0.1).
+  Generated on Fri Nov 18 14:30:30 2022 by
+  <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.28 (ruby-3.0.1).
 </div>
 
     </div>

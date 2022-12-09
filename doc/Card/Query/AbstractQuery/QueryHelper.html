@@ -6,7 +6,7 @@
 <title>
   Module: Card::Query::AbstractQuery::QueryHelper
   
-    &mdash; Documentation by YARD 0.9.27
+    &mdash; Documentation by YARD 0.9.28
   
 </title>
 
@@ -208,29 +208,6 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#next_table_suffix-instance_method" title="#next_table_suffix (instance method)">#<strong>next_table_suffix</strong>  &#x21d2; Object </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'>
-</div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
       <a href="#subqueries_with_fasten-instance_method" title="#subqueries_with_fasten (instance method)">#<strong>subqueries_with_fasten</strong>(fasten)  &#x21d2; Object </a>
     
 
@@ -274,6 +251,29 @@
 </li>
 
       
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#table_seq-instance_method" title="#table_seq (instance method)">#<strong>table_seq</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+</div></span>
+  
+</li>
+
+      
     </ul>
   
 
@@ -298,17 +298,17 @@
       <pre class="lines">
 
 
+39
+40
 41
 42
 43
 44
 45
-46
-47
-48</pre>
+46</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/query/abstract_query/query_helper.rb', line 41</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/query/abstract_query/query_helper.rb', line 39</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_add_condition'>add_condition</span> <span class='op'>*</span><span class='id identifier rubyid_args'>args</span>
   <span class='ivar'>@conditions</span> <span class='op'>&lt;&lt;</span>
@@ -338,12 +338,12 @@
       <pre class="lines">
 
 
-50
-51
-52</pre>
+48
+49
+50</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/query/abstract_query/query_helper.rb', line 50</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/query/abstract_query/query_helper.rb', line 48</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_current_conjunction'>current_conjunction</span>
   <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>AND</span><span class='tstring_end'>&quot;</span></span>
@@ -398,49 +398,15 @@
       <pre class="lines">
 
 
-37
-38
-39</pre>
+35
+36
+37</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/query/abstract_query/query_helper.rb', line 37</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/query/abstract_query/query_helper.rb', line 35</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_fld'>fld</span> <span class='id identifier rubyid_field_name'>field_name</span>
   <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_table_alias'>table_alias</span><span class='embexpr_end'>}</span><span class='tstring_content'>.</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_field_name'>field_name</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="next_table_suffix-instance_method">
-  
-    #<strong>next_table_suffix</strong>  &#x21d2; <tt><span class='object_link'><a href="../../../Object.html" title="Object (class)">Object</a></span></tt> 
-  
-
-  
-
-  
-</h3><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-31
-32
-33
-34
-35</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/query/abstract_query/query_helper.rb', line 31</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_next_table_suffix'>next_table_suffix</span>
-  <span class='kw'>return</span> <span class='id identifier rubyid_root'><span class='object_link'><a href="../../../top-level-namespace.html" title="Top Level Namespace (root)">root</a></span></span><span class='period'>.</span><span class='id identifier rubyid_next_table_suffix'>next_table_suffix</span> <span class='kw'>unless</span> <span class='id identifier rubyid_root?'>root?</span>
-
-  <span class='ivar'>@table_suffix</span> <span class='op'>=</span> <span class='lparen'>(</span><span class='ivar'>@table_suffix</span> <span class='op'>||</span> <span class='op'>-</span><span class='int'>1</span><span class='rparen'>)</span> <span class='op'>+</span> <span class='int'>1</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -524,9 +490,39 @@
     <span class='kw'>if</span> <span class='id identifier rubyid_fasten'>fasten</span> <span class='op'>==</span> <span class='symbol'>:direct</span>
       <span class='ivar'>@superquery</span><span class='period'>.</span><span class='id identifier rubyid_table_alias'>table_alias</span>
     <span class='kw'>else</span>
-      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_table_prefix'>table_prefix</span><span class='embexpr_end'>}</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_next_table_suffix'>next_table_suffix</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_table_prefix'>table_prefix</span><span class='embexpr_end'>}</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_root'><span class='object_link'><a href="../../../top-level-namespace.html" title="Top Level Namespace (root)">root</a></span></span><span class='period'>.</span><span class='id identifier rubyid_table_seq'>table_seq</span><span class='embexpr_end'>}</span><span class='embexpr_beg'>#{</span><span class='ivar'>@table_suffix</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
     <span class='kw'>end</span>
   <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="table_seq-instance_method">
+  
+    #<strong>table_seq</strong>  &#x21d2; <tt><span class='object_link'><a href="../../../Object.html" title="Object (class)">Object</a></span></tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+31
+32
+33</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'card/lib/card/query/abstract_query/query_helper.rb', line 31</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_table_seq'>table_seq</span>
+  <span class='ivar'>@table_seq</span> <span class='op'>=</span> <span class='ivar'>@table_seq</span> <span class='op'>?</span> <span class='lparen'>(</span><span class='ivar'>@table_seq</span> <span class='op'>+</span> <span class='int'>1</span><span class='rparen'>)</span> <span class='op'>:</span> <span class='int'>0</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -538,9 +534,9 @@
 </div>
 
       <div id="footer">
-  Generated on Fri Jan 21 16:01:44 2022 by
-  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.27 (ruby-3.0.1).
+  Generated on Fri Nov 18 14:30:34 2022 by
+  <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.28 (ruby-3.0.1).
 </div>
 
     </div>
