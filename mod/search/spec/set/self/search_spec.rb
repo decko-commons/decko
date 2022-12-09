@@ -20,7 +20,7 @@ RSpec.describe Card::Set::Self::Search do
   describe "view: search_box" do
     it "has a form" do
       expect_view(:search_box).to have_tag "form.search-box-form" do
-        with_tag "select.search-box"
+        with_tag "input._search-box"
       end
     end
 
