@@ -117,9 +117,12 @@ format :json do
 
   def goto_items _term, exact
     map_goto_items exact do |item|
-      yield :goto, item, item.card.format.render_goto_autocomplete_item,
-        url: path(mark: item)
+      yield :goto, item, goto_item_label(item), url: path(mark: item)
     end
+  end
+
+  def goto_item_label item
+    item.card.format.render_goto_autocomplete_item
   end
 
   def map_goto_items exact, &block
