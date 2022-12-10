@@ -3,36 +3,7 @@ class Card
     # to be included in Card
     module CardHelper
       module ClassMethods
-        def gimme! name, args={}
-          Card::Auth.as_bot do
-            c = Card.fetch(name, new: args)
-            c.putty args
-            Card.fetch name
-          end
-        end
-
-        def gimme name, args={}
-          Card::Auth.as_bot do
-            c = Card.fetch(name, new: args)
-            if args[:content] && c.content != args[:content]
-              c.putty args
-              c = Card.fetch name
-            end
-            c
-          end
-        end
-
         cattr_accessor :rspec_binding
-      end
-
-      def putty args={}
-        Card::Auth.as_bot do
-          if args.present?
-            update! args
-          else
-            save!
-          end
-        end
       end
 
       # rubocop:disable Lint/Eval

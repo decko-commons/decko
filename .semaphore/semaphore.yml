@@ -10,32 +10,43 @@ global_job_config:
       value: "~/bundle/"
     - name: DECKO_REPO_PATH
       value: "~/decko"
+    - name: CARD_LOAD_STRATEGY
+      value: tmp_files
 
   secrets:
     - name: s3-credentials
-    - name: code-climate
+    - name: code-climate-decko
   prologue:
     commands:
+      # INSTALL DECKO CODE AND DEPENDENCIES
       - checkout # semaphore does git checkout and cds into decko
       # - sem-version ruby 2.6.3 # because pry-stack_explorer doesn't work in 2.5
       - sem-version ruby 2.7.3 # because semaphore certs not working in 2.6.3
       # - sem-version ruby 3.0.1 # temporary
       - gem install bundler:2.3.11
-      - alias be='bundle exec'
       - git submodule init
 
+      # SETUP ALIAS(ES)
+      - alias be='bundle exec'
+
+      # INSTALL CODE CLIMATE REPORTER
       - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
       - chmod +x ./cc-test-reporter
+
+      # TWEAK ENVIRONMENTAL VARIABLES
+      # ...that are too complex for the env_vars config.
 
       # without the following, code climate uses git to get git details.
       # Semaphore uses the merge sha for PRS, so this leads to coverage report failures.
       - if [ $SEMAPHORE_GIT_PR_SHA ]; then export GIT_COMMIT_SHA=$SEMAPHORE_GIT_PR_SHA; fi;
-
       - export S3_PATH="s3://deckodev-test/$SEMAPHORE_PROJECT_NAME/$SEMAPHORE_GIT_BRANCH/coverage/$SEMAPHORE_WORKFLOW_ID/"
 
 blocks:
   - name: Smoke
     task:
+      env_vars:
+        - name: CARD_LOAD_STRATEGY
+          value: eval
       prologue:
         commands:
           # occasionally clear:
@@ -66,9 +77,6 @@ blocks:
 
   - name: Unit Tests
     task:
-      env_vars:
-        - name: REPO_TMPSETS
-          value: "true"
       prologue:
         commands:
           - sem-service start mysql
@@ -85,22 +93,21 @@ blocks:
             - env RAILS_ENV=test bundle exec decko setup # --test
             - be decko rspec -s -- --format RspecJunitFormatter --out junit.xml --format documentation
       epilogue:
+        always:
+          commands:
+            - test-results publish junit.xml
         on_pass:
           commands:
             - cd -
             - ./cc-test-reporter format-coverage --output "coverage/codeclimate.$SEMAPHORE_JOB_ID.json" -t simplecov
             - aws s3 cp "coverage/codeclimate.$SEMAPHORE_JOB_ID.json" $S3_PATH
-        always:
-          commands:
-            - test-results publish junit.xml
+
 
   - name: Integration Tests
     task:
       secrets:
         - name: decko-cypress
-      env_vars:
-        - name: REPO_TMPSETS
-          value: "true"
+        - name: publish-cucumber
       prologue:
         commands:
           - sem-service start mysql
@@ -123,7 +130,7 @@ blocks:
             - pkill -2 -f puma
         - name: Cucumber
           commands:
-            - RAILS_ENV=cucumber bundle exec decko cucumber -- --format pretty --format junit --out /home/semaphore/reports
+            - RAILS_ENV=cucumber bundle exec decko cucumber -- --format pretty --format junit --out /home/semaphore/reports --publish
 
       epilogue:
         always:
@@ -136,6 +143,9 @@ blocks:
             - artifact push job ~/decko/decko/spec/cypress/videos
 
 
+
+  # NOTE: the code climate reporting cannot be handled in after_pipeline, because
+  # after_pipeline does not make secrets available - efm 2022-10-12
   - name: Coverage Report
     task:
       jobs:
@@ -144,6 +154,7 @@ blocks:
             - aws s3 sync $S3_PATH coverage/
             - ./cc-test-reporter sum-coverage --output - --parts $(ls -1 coverage/ | wc -l) coverage/codeclimate.*.json > coverage/codeclimate.json
             - ./cc-test-reporter upload-coverage
+
 after_pipeline:
   task:
     jobs:

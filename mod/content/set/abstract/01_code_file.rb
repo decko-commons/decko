@@ -11,40 +11,8 @@ class << self
   end
 end
 
-# FIXME: these should abstracted and configured on the types
-# (same codes for `rake card:create:codefile`)
-
-# @return [Array<String>, String] the name of file(s) to be loaded
-def source_files
-  case type_id
-  when CoffeeScriptID then "#{codename}.js.coffee"
-  when JavaScriptID   then "#{codename}.js"
-  when CssID          then "#{codename}.css"
-  when ScssID         then "#{codename}.scss"
-  end
-end
-
-def source_dir
-  case type_id
-  when CoffeeScriptID, JavaScriptID then "lib/javascript"
-  when CssID, ScssID then "lib/stylesheets"
-  else
-    "lib"
-  end
-end
-
-def mod_path
-  modname = file_content_mod_name
-  if (match = modname.match(/^card-mod-(\w*)/))
-    modname = match[1]
-  end
-  Cardio::Mod.dirs.path modname
-end
-
 def source_paths
-  Array.wrap(source_files).map do |filename|
-    ::File.join mod_path, source_dir, filename
-  end
+  # OVERRIDE to use paths for content
 end
 
 def content
@@ -78,12 +46,4 @@ format :html do
   def standard_submit_button
     multi_card_editor? ? super : ""
   end
-end
-
-def coffee_files files
-  files.map { |f| "script_#{f}.js.coffee" }
-end
-
-def scss_files files
-  files.map { |f| "style_#{f}.scss" }
 end

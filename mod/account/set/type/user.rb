@@ -43,6 +43,7 @@ format :html do
   end
 end
 
+# FIXME. use trigger
 def setup?
   Card::Env.params[:setup]
 end
@@ -57,7 +58,9 @@ end
 
 event :setup_first_user, :prepare_to_store, on: :create, when: :setup? do
   subcard %i[signup_alert_email to].cardname, content: name
-  field :roles, content: roles_for_first_user
+  roles_for_first_user.each do |role|
+    subcard [role, :members], content: name
+  end
 end
 
 def roles_for_first_user

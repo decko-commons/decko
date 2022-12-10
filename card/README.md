@@ -1,7 +1,7 @@
 <!--
 # @title README - Card
 -->
-# A Developer's introduction to the Decko/Card code base
+# An intro to Decko Monkeying
 
 New folks should start here after playing with Decko but before digging into
 code.
@@ -42,11 +42,10 @@ want.
 
 Ruby-on-Rails developers reading this will find lots of familiar patterns in
 Decko, which indeed depends upon rails gems. **Although Decko is a Rails
-descendant and owes a ton to the Rails community, it is not Rails.** Unlike
-Rails, Decko is not an implementation of the "MVC" (Model-View-Controller)
-architectural pattern (see Architecture below). More concretely, while Rails'
-core pattern is adding new things (especially models, views, and controllers),
-Decko's core pattern is subdividing existing things into new Sets.
+descendant and owes a ton to the Rails community, it is not Rails.** Rails developers'
+primary activities are adding and editing core MVC (Model-View-Controller) structures.
+Decko Monkeys, by contrast, mostly work by code associated with *subsets* of the 
+Card model called *Sets*.
 
 Deck-coders do create lots of card views (though they're quite different from
 Rails views), but we rarely if ever create new controllers or ActiveRecord

@@ -15,6 +15,7 @@ module Cardio
   # a README.md file and the following subdirectories:
   #
   # - **assets** - for JavaScript, CSS, and variants (CoffeeScript, SCSS, etc)
+  # - **data** - for seed and test data. see {file:SEEDME.md}.
   # - **lib** - for standard code libraries
   # - **public** - accessible via the web at DECK_URL_ROOT/mod/MOD_NAME/
   # - **set** - the mod's focal point where card sets are configured (see below)
@@ -62,11 +63,12 @@ module Cardio
   class Mod
     extend ClassMethods
 
-    attr_reader :name, :path, :index
+    attr_reader :name, :path, :group, :index
 
-    def initialize name, path, index
+    def initialize name, path, group, index
       @name = Mod.normalize_name name
       @path = required_path path
+      @group = group || :custom
       @index = index
     end
 
@@ -84,7 +86,7 @@ module Cardio
     end
 
     def tmp_dir type
-      File.join Cardio.paths["tmp/#{type}"].first,
+      File.join Cardio.paths["tmp/#{type}"].first, @group.to_s,
                 "mod#{'%03d' % (@index + 1)}-#{@name}"
     end
 

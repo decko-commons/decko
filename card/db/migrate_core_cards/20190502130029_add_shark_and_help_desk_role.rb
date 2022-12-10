@@ -2,13 +2,6 @@
 
 class AddSharkAndHelpDeskRole < Cardio::Migration::Core
   def up
-    # delete_code_card :eagle
-    ensure_role "Shark", codename: "shark"
-    ensure_role "Help Desk", codename: "help_desk"
-
-    ensure_card "*account settings",
-                codename: "account_settings", type_id: Card::BasicID
-
     update_card! "Decker Menu", name: "Shark Menu"
     update_card! :ace, name: "*ace"
     update_card! "*google_analytics_key", name: "*google analytics key"
@@ -76,7 +69,7 @@ class AddSharkAndHelpDeskRole < Cardio::Migration::Core
 
   def add_help_desk_permissions
     %w[*account *email *password *salt *status *token].each do |name|
-      ensure_card [name, :right, :read], "Help Desk"
+      Card.ensure name: [name, :right, :read], content: "Help Desk"
     end
 
     ["*account", "*email", "*password", "*help", "*add help", "*status",
@@ -87,7 +80,7 @@ class AddSharkAndHelpDeskRole < Cardio::Migration::Core
 
   def ensure_cud_permissions name, set, content, actions: %i[create update delete]
     actions.each do |action|
-      ensure_card [name, set, action].compact, content
+      Card.ensure name: [name, set, action].compact, content: content
     end
   end
 end

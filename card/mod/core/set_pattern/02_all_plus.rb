@@ -1,4 +1,4 @@
-@@options = { junction_only: true }
+@@options = { compound_only: true }
 
 def label _name
   'All "+" cards'

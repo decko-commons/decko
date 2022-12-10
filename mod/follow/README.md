@@ -32,10 +32,10 @@ Special views include:
 
 Each follow preference can point to one or more of the following follow options.
 
-- _always:_ notify user after every create, update, and delete 
-- _never:_ do not notify user
-- _created:_ notify user when a card is created
-- _edited:_ notify user when a card is created or updated
+- _always:_ notify user of changes to all cards in set 
+- _never:_ do not notify user of changes to card in set
+- _created:_ notify user of changes to cards user has created
+- _edited:_ notify user of changes to cards user has edited 
 
 ### Follow dashboard
 

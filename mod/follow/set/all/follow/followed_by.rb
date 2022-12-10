@@ -50,7 +50,7 @@ def all_follow_rule_options follower_id
 end
 
 def follow_rule_option_applies? follower_id, option
-  option_code = option.to_name.code
+  option_code = option.to_name.codename
   candidate_ids = follower_candidate_ids_for_option option_code
   follow_rule_option_applies_to_candidates? follower_id, option_code, candidate_ids
 end

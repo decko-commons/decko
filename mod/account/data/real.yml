@@ -3,32 +3,33 @@
 
 - :name: Role
   :type: :cardtype
-  :codename: :role
+  :codename: role
   :fields:
     :description: |-
       Each [[user]] can be given roles to organize site permissions. 
       [[http://decko.org/Role|Learn more about roles]].
 
 - :name: "*members"
-  :codename: :members
+  :codename: members
+
 
 # Roles
 
 - :name: Anyone
   :type: :role
-  :codename: :anyone
+  :codename: anyone
   :fields:
     :description: |-
       Everyone has this role, whether signed in or not. [[http://decko.org/account|more]]
 - :name: Anyone Signed In
   :type: :role
-  :codename: :anyone_signed_in
+  :codename: anyone_signed_in
   :fields:
     :description: |-
       Anyone who is signed in has this role. [[http://decko.org/account|more]]
 - :name: Administrator
   :type: :role
-  :codename: :administrator
+  :codename: administrator
   :fields:
     :description: |-
       [[_left+:members|Administrators]] can create, read, update and delete any card.
@@ -40,12 +41,12 @@
             :update: Administrator
 - :name: Eagle
   :type: :role
-  :codename: :eagle
+  :codename: eagle
   :fields:
     :description: "[[Eagle+:members|Eagle users]] can add and edit content."
 - :name: Shark
   :type: :role
-  :codename: :shark
+  :codename: shark
   :fields:
     :description: |-
       [[_left+:members|Shark users]] can configure the deck and create structures.
@@ -56,7 +57,7 @@
             :update: Administrator
 - :name: Help Desk
   :type: :role
-  :codename: :help_desk
+  :codename: help_desk
   :fields:
     :description: |-
       [[_left+*members|Help Desk users]] can manage accounts and edit help text.
@@ -66,12 +67,20 @@
           :fields:
             :update: Administrator
 - :name: Anonymous
-  :codename: :anonymous
+  :codename: anonymous
   :content: "<p>Edits made by people who are not signed in are credited to Anonymous.
     [[http://decko.org/account|Learn more about accounts]].</p>"
 
+- :name:
+    - :role
+    - :members
+    - :type_plus_right
+    - :update
+  :content:
+    Help Desk
+
 - :name: "*account"
-  :codename: :account
+  :codename: account
   :fields:
     :right:
       :fields:
@@ -100,13 +109,13 @@
     <ul>
     <li><em>[[http://decko.org/account | Accounts docs]]</em></li>
     <li><em>[[Cards with accounts]]</em></li>
-    <li><em>[[*account+*right+by name|Account cards]]</em></li>
+    <li><em>[[:account+:right+:by_name|Account cards]]</em></li>
     </ul>
 
 # :account fields
 
 - :name: "*email"
-  :codename: :email
+  :codename: email
   :fields:
     :right:
       :fields:
@@ -114,7 +123,7 @@
         :delete: Help Desk
         :read: Help Desk
 - :name: "*password"
-  :codename: :password
+  :codename: password
   :fields:
     :right:
       :fields:
@@ -122,13 +131,13 @@
         :delete: Help Desk
         :read: Help Desk
 - :name: "*salt"
-  :codename: :salt
+  :codename: salt
   :fields:
     :right:
       :fields:
         :read: Help Desk
 - :name: "*status"
-  :codename: :status
+  :codename: status
   :fields:
     :right:
       :fields:
@@ -137,7 +146,7 @@
         :read: Help Desk
 
 - :name: "*account settings"
-  :codename: :account_settings
+  :codename: account_settings
   :fields:
     :right:
       :fields:
@@ -148,7 +157,7 @@
 
 - :name: Sign up
   :type: :cardtype
-  :codename: :signup
+  :codename: signup
   :fields:
     :description: |-
       [[Sign up]] cards represent not-yet-approved accounts. 
@@ -158,7 +167,7 @@
         :structure: |-
           <p>{{+:description|content}}</p>
           <h2>{{_self|name}} Cards</h2>
-          <blockquote><p>{{+:type+by name|content}}</p></blockquote>
+          <blockquote><p>{{+:type+:by_name|content}}</p></blockquote>
     :type:
       :fields:
         :create: Anyone
@@ -180,14 +189,13 @@
     - :account
   :fields:
     :email: no-reply@decko.org
-    :status: system
 
 - :name: welcome email
   :type: :email_template
-  :codename: :welcome_email
+  :codename: welcome_email
 - :name: verification email
   :type: :email_template
-  :codename: :verification_email
+  :codename: verification_email
   :fields:
     :from: Decko Bot
     :subject: verification link for {{:title|core}}
@@ -209,7 +217,7 @@
       (Link will remain valid for {{_|verify_days}} days.)
 - :name: password reset email
   :type: :email_template
-  :codename: :password_reset_email
+  :codename: password_reset_email
   :fields:
     :from: Decko Bot
     :subject: reset password for {{:title|core}}
@@ -225,19 +233,19 @@
       days.</em></p>\n</div>\n\n"
 - :name: signup alert email
   :type: :email_template
-  :codename: :signup_alert_email
+  :codename: signup_alert_email
   :fields:
     :from: _user
     :subject: "{{_|name}} signed up for {{:title|core}}"
     :text_message: |
-      {{_|name}} ({{+*account+*email|core}}) has signed up on {{:title|core}}.
+      {{_|name}} has signed up on {{:title|core}}.
   
       See {{_|name}}'s card: {{_|url}}
   
       -- the machines running {{:title|core}}
     :html_message: |
       <p>
-        {{_|name}} ({{+*account+*email|core}})
+        {{_|name}}
         has <a href="{{_|url}}">signed up</a>
         on {{:title|core}}.
       </p>
@@ -246,13 +254,14 @@
 
 
 - :name: "*signin"
-  :codename: :signin
+  :codename: signin
+  :conflict: :defer
   :fields:
     :self:
       :fields:
         :update: Anyone
 - :name: "*roles"
-  :codename: :roles
+  :codename: roles
   :fields:
     :right:
       :fields:
@@ -263,26 +272,27 @@
 
 
 - :name: "*enabled roles"
-  :codename: :enabled_roles
+  :codename: enabled_roles
 - :name: "*account links"
-  :codename: :account_links
+  :codename: account_links
 
 - :name: Cards with accounts
   :type: :search_type
-  :codename: :cards_with_account
+  :codename: cards_with_account
   :content: '{"right_plus": ":account"}'
 
 - :name: "*thanks"
   :type: :setting
-  :codename: :thanks
+  :codename: thanks
 - :name:
     - :signup
     - :type
     - :thanks
   :type: :phrase
-  :content: Signup_Success
+  :content: :signup_success
 
 - :name: Signup Success
+  :codename: signup_success
   :content: |-
     <div>
       Thank you for signing up with {{:title|core}}. 

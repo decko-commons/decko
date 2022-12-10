@@ -6,7 +6,7 @@
 <title>
   Module: Card::Set::Format::AbstractFormat
   
-    &mdash; Documentation by YARD 0.9.27
+    &mdash; Documentation by YARD 0.9.28
   
 </title>
 
@@ -117,7 +117,7 @@
   
   <h3 class="inherited">Constants included
      from <span class='object_link'><a href="HamlPaths.html" title="Card::Set::Format::HamlPaths (module)">HamlPaths</a></span></h3>
-  <p class="inherited"><span class='object_link'><a href="HamlPaths.html#CORE_MODS-constant" title="Card::Set::Format::HamlPaths::CORE_MODS (constant)">HamlPaths::CORE_MODS</a></span>, <span class='object_link'><a href="HamlPaths.html#TEMPLATE_DIR-constant" title="Card::Set::Format::HamlPaths::TEMPLATE_DIR (constant)">HamlPaths::TEMPLATE_DIR</a></span>, <span class='object_link'><a href="HamlPaths.html#TMPSET_REGEXP-constant" title="Card::Set::Format::HamlPaths::TMPSET_REGEXP (constant)">HamlPaths::TMPSET_REGEXP</a></span></p>
+  <p class="inherited"><span class='object_link'><a href="HamlPaths.html#TMPSET_REGEXP-constant" title="Card::Set::Format::HamlPaths::TMPSET_REGEXP (constant)">HamlPaths::TMPSET_REGEXP</a></span></p>
 
   
   
@@ -310,7 +310,7 @@
   
   
   <h3 class="inherited">Methods included from <span class='object_link'><a href="HamlPaths.html" title="Card::Set::Format::HamlPaths (module)">HamlPaths</a></span></h3>
-  <p class="inherited"><span class='object_link'><a href="HamlPaths.html#deep_source-instance_method" title="Card::Set::Format::HamlPaths#deep_source (method)">#deep_source</a></span>, <span class='object_link'><a href="HamlPaths.html#each_template_path-instance_method" title="Card::Set::Format::HamlPaths#each_template_path (method)">#each_template_path</a></span>, <span class='object_link'><a href="HamlPaths.html#haml_block_locals-instance_method" title="Card::Set::Format::HamlPaths#haml_block_locals (method)">#haml_block_locals</a></span>, <span class='object_link'><a href="HamlPaths.html#haml_template_path-instance_method" title="Card::Set::Format::HamlPaths#haml_template_path (method)">#haml_template_path</a></span>, <span class='object_link'><a href="HamlPaths.html#haml_to_html-instance_method" title="Card::Set::Format::HamlPaths#haml_to_html (method)">#haml_to_html</a></span>, <span class='object_link'><a href="HamlPaths.html#source_mod_dir-instance_method" title="Card::Set::Format::HamlPaths#source_mod_dir (method)">#source_mod_dir</a></span>, <span class='object_link'><a href="HamlPaths.html#template_location-instance_method" title="Card::Set::Format::HamlPaths#template_location (method)">#template_location</a></span>, <span class='object_link'><a href="HamlPaths.html#try_haml_template_path-instance_method" title="Card::Set::Format::HamlPaths#try_haml_template_path (method)">#try_haml_template_path</a></span>, <span class='object_link'><a href="HamlPaths.html#with_template_path-instance_method" title="Card::Set::Format::HamlPaths#with_template_path (method)">#with_template_path</a></span></p>
+  <p class="inherited"><span class='object_link'><a href="HamlPaths.html#deep_source-instance_method" title="Card::Set::Format::HamlPaths#deep_source (method)">#deep_source</a></span>, <span class='object_link'><a href="HamlPaths.html#each_template_path-instance_method" title="Card::Set::Format::HamlPaths#each_template_path (method)">#each_template_path</a></span>, <span class='object_link'><a href="HamlPaths.html#haml_block_locals-instance_method" title="Card::Set::Format::HamlPaths#haml_block_locals (method)">#haml_block_locals</a></span>, <span class='object_link'><a href="HamlPaths.html#haml_template_path-instance_method" title="Card::Set::Format::HamlPaths#haml_template_path (method)">#haml_template_path</a></span>, <span class='object_link'><a href="HamlPaths.html#haml_to_html-instance_method" title="Card::Set::Format::HamlPaths#haml_to_html (method)">#haml_to_html</a></span>, <span class='object_link'><a href="HamlPaths.html#template_location-instance_method" title="Card::Set::Format::HamlPaths#template_location (method)">#template_location</a></span>, <span class='object_link'><a href="HamlPaths.html#try_haml_template_path-instance_method" title="Card::Set::Format::HamlPaths#try_haml_template_path (method)">#try_haml_template_path</a></span>, <span class='object_link'><a href="HamlPaths.html#with_template_path-instance_method" title="Card::Set::Format::HamlPaths#with_template_path (method)">#with_template_path</a></span></p>
 
   
   
@@ -608,7 +608,7 @@ any viewname. Default is <code>:denial</code>. <code>:blank</code> is a common a
       <li><em>:create</em>, <em>:read</em> (default), <em>:update</em>, <em>:delete</em> - only users with the
 given permission for the card viewed.</li>
       <li><em>:none</em> - no permission check; anyone can view</li>
-      <li>a <em>Proc</em> object.  Eg <code>perms: -&gt;(_fmt) { Auth.needs_setup? }</code></li>
+      <li>a format method name.  Eg <code>perms: :is_my_view_ok?</code></li>
     </ul>
   </li>
   <li>
@@ -708,9 +708,9 @@ wrappers and wrapper options. See <span class='object_link'><a href="AbstractFor
 </div>
 
       <div id="footer">
-  Generated on Fri Jan 21 16:01:44 2022 by
-  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.27 (ruby-3.0.1).
+  Generated on Fri Nov 18 14:30:34 2022 by
+  <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.28 (ruby-3.0.1).
 </div>
 
     </div>

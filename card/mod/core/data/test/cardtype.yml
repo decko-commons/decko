@@ -1,21 +1,21 @@
 - :name: Cardtype A
   :type: :cardtype
-  :codename: :cardtype_a
+  :codename: cardtype_a
 - :name: Cardtype B
   :type: :cardtype
-  :codename: :cardtype_b
+  :codename: cardtype_b
 - :name: Cardtype C
   :type: :cardtype
-  :codename: :cardtype_c
+  :codename: cardtype_c
 - :name: Cardtype D
   :type: :cardtype
-  :codename: :cardtype_d
+  :codename: cardtype_d
 - :name: Cardtype E
   :type: :cardtype
-  :codename: :cardtype_e
+  :codename: cardtype_e
 - :name: Cardtype F
   :type: :cardtype
-  :codename: :cardtype_f
+  :codename: cardtype_f
 
 - :name: type-a-card
   :type: :cardtype_a

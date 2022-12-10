@@ -5,7 +5,7 @@ RSpec.describe Card::Set::Rule::BarView do
     Card.fetch("*read+*right+*input type", new: {})
   end
 
-  check_html_views_for_errors
+  check_views_for_errors
 
   it "renders setting view for a *input type rule", as_bot: true do
     expect_view("rule_edit").to have_tag "div.modal" do

@@ -1,9 +1,11 @@
 ENV["CARDIO_COMMANDS"] = "NO_RUN"
 
-require "cardio/commands"
+require "cardio/command"
 
 module Decko
-  class Commands < Cardio::Commands
+  class Commands < Cardio::Command
+    Cardio::Command.bin_name = "decko"
+
     def map
       @map ||= super.merge(
         server: { desc: "start a local web server", group: :shark, alias: :s },

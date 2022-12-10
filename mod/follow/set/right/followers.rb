@@ -2,7 +2,7 @@
 
 # X+*followers provides a list of all users following X.
 
-include_set Abstract::Pointer
+include_set Abstract::List
 
 format :html do
   view :core, cache: :never do

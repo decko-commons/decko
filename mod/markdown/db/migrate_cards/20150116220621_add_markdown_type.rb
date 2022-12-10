@@ -2,6 +2,6 @@
 
 class AddMarkdownType < Cardio::Migration
   def up
-    ensure_card name: "Markdown", codename: "markdown", type_id: Card::CardtypeID
+    Card.ensure name: "Markdown", codename: "markdown", type_id: Card::CardtypeID
   end
 end

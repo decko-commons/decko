@@ -1,14 +1,14 @@
 # -*- encoding : utf-8 -*-
 
 RSpec.describe Card::Set::Type::Set do
-  describe "#junction_only?" do
+  describe "#compound_only?" do
     it "identifies sets that only apply to plus cards", aggregate_failures: true do
-      expect(Card.fetch("*all")).not_to be_junction_only
-      expect(Card.fetch("*all plus")).to be_junction_only
-      expect(Card.fetch("Book+*type")).not_to be_junction_only
-      expect(Card.fetch("*to+*right")).to be_junction_only
+      expect(Card.fetch("*all")).not_to be_compound_only
+      expect(Card.fetch("*all plus")).to be_compound_only
+      expect(Card.fetch("Book+*type")).not_to be_compound_only
+      expect(Card.fetch("*to+*right")).to be_compound_only
       expect(Card.fetch("Book+*to+*type plus right"))
-        .to be_junction_only
+        .to be_compound_only
     end
   end
 

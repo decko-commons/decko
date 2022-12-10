@@ -1,4 +1,5 @@
 require_relative "../query_spec_helper"
+
 RSpec.describe Card::Query::CardQuery::RelationalAttributes do
   include QuerySpecHelper
   A_JOINEES = %w[B C D E F].freeze
@@ -166,8 +167,9 @@ RSpec.describe Card::Query::CardQuery::RelationalAttributes do
           expect(run_query(updater_of: "Magnifier+lens")).to eq(%w[Narcissist])
         end
 
-        it "does not give duplicate results for multiple updates" do
-          expect(run_query(updater_of: "First")).to eq(["Decko Bot"])
+        it "does not give duplicate results for multiple updates", as_bot: true do
+          "First".card.update! content: "pullet"
+          expect(run_query(updater_of: "First")).to eq(["Decko Bot", "Joe User"])
         end
 
         it "does not give results if not updated" do
@@ -180,7 +182,7 @@ RSpec.describe Card::Query::CardQuery::RelationalAttributes do
         end
 
         it "'or' doesn't mess up updater_of SQL" do
-          expect(run_query(or: { updater_of: "First" })).to eq(["Decko Bot"])
+          expect(run_query(or: { updater_of: "First" })).to eq(["Decko Bot", "Joe User"])
         end
       end
     end

@@ -56,7 +56,7 @@ format :html do
   end
 
   def layout_name_from_rule
-    card.rule_card(:layout)&.try :item_name
+    card.rule_card(:layout)&.try :first_name
   end
 
   def render_outside_of_layout view, args

@@ -52,7 +52,7 @@
 - :name: blue linker 2
   :content: "[[blue]]"
 - :name: "*write"
-  :codename: :write
+  :codename: write
 - :name:
   - A
   - C

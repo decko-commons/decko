@@ -33,7 +33,15 @@ class Card
     end
 
     def card_subject
-      Card["A"].with_set(described_class)
+      if described_class.pattern_code == :self
+        described_class.set_name_parts[3].underscore.to_sym.card
+      else
+        card_subject_name.card.with_set described_class
+      end
+    end
+
+    def card_subject_name
+      "A"
     end
 
     def format_subject format=:html, &block
@@ -49,7 +57,7 @@ class Card
     end
 
     def sample_pointer
-      Card["u1+*roles"]
+      Card["r1+*members"]
       # items: r1, r2, r3
     end
 
@@ -102,14 +110,10 @@ class Card
     end
 
     module ClassMethods
-      def check_format_for_view_errors format_sym
-        include_context_for views(format_sym).flatten, "view without errors", format_sym
-      end
-
-      def check_html_views_for_errors
-        html_views = views :html
-        include_context_for html_views, "view without errors"
-        include_context_for html_views, "view with valid html"
+      def check_views_for_errors format: :html, views: nil
+        views ||= views format
+        views = Array.wrap views
+        include_context_for views, "view without errors", format
       end
 
       def include_context_for views, context, format=:html
