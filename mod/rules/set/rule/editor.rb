@@ -40,7 +40,8 @@ format :html do
       class: "edit-rule-link nav-link _rule-item #{category_classes}",
       "data-bs-toggle": "pill",
       "data-category": card.rule_set.categories(card.rule_setting.codename).join(" "),
-      "data-cy": "#{setting_title.to_name.key}-pill")
+      "data-cy": "#{setting_title.to_name.key}-pill"
+    )
     opts[:path].delete(:layout)
     link_to_view(target_view, (setting_title + short_help_text), opts)
   end
@@ -48,7 +49,7 @@ format :html do
   def category_classes
     card.rule_set.categories(card.rule_setting.codename)
         .map { |cat| "_category-#{cat}" }
-        .join(' ')
+        .join(" ")
   end
 
   def edit_link_view

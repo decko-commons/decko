@@ -12,8 +12,8 @@ format :html do
              "data-slot-selector": ".card-slot._setting-list",
              class: classy("nodblclick slotter") do
       output [
-               filter_buttons(selected_category)
-             ].flatten
+        filter_buttons(selected_category)
+      ].flatten
     end
   end
 

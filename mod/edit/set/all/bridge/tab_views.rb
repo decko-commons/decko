@@ -20,11 +20,10 @@ format :html do
   view :rules_tab, unknown: true do
     set_list_type = :related
     class_up "card-slot", "flex-column"
-    set_cards = card.set_list set_list_type
     wrap do
       [
         set_select(set_list_type),
-       # set_alert(set_list_type)
+        # set_alert(set_list_type)
       ]
     end
   end

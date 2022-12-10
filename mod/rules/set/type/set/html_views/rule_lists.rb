@@ -47,8 +47,8 @@ format :html do
               setting_list_item setting, view
             end
           body = yield list
-          accordion_item "#{group_key} <span class=\"_count badge bg-secondary ms-3\">#{list.size}</span>",
-                         body: body
+          count_badge = "<span class=\"_count badge bg-secondary ms-3\">#{list.size}</span>"
+          accordion_item "#{group_key} #{count_badge}", body: body
         end
       end
     end
@@ -80,7 +80,7 @@ format :html do
   end
 
   view :pill_setting_list, cache: :never, wrap: { slot: { class: "_setting-list" } } do
-     pill_setting_list
+    pill_setting_list
   end
 
   def category_setting_list_items category, item_view, options={}

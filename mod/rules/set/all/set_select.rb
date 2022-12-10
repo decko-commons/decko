@@ -12,9 +12,9 @@ format :html do
              "data-slot-selector": ".card-slot._fixed-slot",
              class: "nodblclick slotter" do
       output [
-               set_select_tag(cards, placeholder),
-               content_tag(:div, "", class: "card-slot _fixed-slot")
-             ]
+        set_select_tag(cards, placeholder),
+        content_tag(:div, "", class: "card-slot _fixed-slot")
+      ]
     end
   end
 
@@ -33,23 +33,6 @@ format :html do
                "data-minimum-results-for-search": "Infinity",
                "data-placeholder": "Select set",
                "data-select2-id": "#{unique_id}-#{Time.now.to_i}")
-  end
-
-  def filter_text
-    wrap_with :span, class: "mx-2 small" do
-      "rules that apply to #{_render_set_label.downcase}" # LOCALIZE
-    end
-  end
-
-  def set_select_options set_list_type=:self
-    options = card.set_list(set_list_type).map(&:label_and_url_key)
-    options.unshift("")
-    options_for_select(options, selected_set)
-  end
-
-  def selected_set
-    return nil
-    params[:set]
   end
 
   def set_alert set_list_type
@@ -73,5 +56,3 @@ def set_list set_list_type
     [Card[self, :self]]
   end
 end
-
-
