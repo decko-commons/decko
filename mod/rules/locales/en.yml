@@ -1,4 +1,5 @@
 en:
+  rules_header: Rules
   rules_config: Config
   rules_event: Events
   rules_other: Other
