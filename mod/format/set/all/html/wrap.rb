@@ -109,7 +109,8 @@ format :html do
 
   def body_css_classes
     css_classes = ["d0-card-body"]
-    css_classes += ["d0-card-content", card.safe_set_keys] if @content_body
+    css_classes << "d0-card-content" if @content_body
+    css_classes << card.safe_set_keys if @content_body || @set_keys
     classy(*css_classes)
   end
 
