@@ -36,6 +36,11 @@ format :html do
   end
 
   def pill_rule_link target_view
+    link_to_view target_view, (setting_title + short_help_text),
+                 pill_rule_link_opts
+  end
+
+  def pill_rule_link_opts
     opts = bridge_link_opts(
       class: "edit-rule-link nav-link _rule-item #{category_classes}",
       "data-bs-toggle": "pill",
@@ -43,7 +48,7 @@ format :html do
       "data-cy": "#{setting_title.to_name.key}-pill"
     )
     opts[:path].delete(:layout)
-    link_to_view(target_view, (setting_title + short_help_text), opts)
+    opts
   end
 
   def category_classes

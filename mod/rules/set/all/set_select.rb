@@ -6,7 +6,6 @@ format :html do
   end
 
   def card_select cards, view, path_opts={}, placeholder=nil
-
     form_tag path(path_opts.merge(view: view, mark: "")),
              remote: true, method: "get", role: "filter",
              "data-slot-selector": ".card-slot._fixed-slot",
@@ -40,7 +39,8 @@ format :html do
       [
         "Rules apply to:",
         card.set_list(set_list_type).first.name,
-        link_to_card(card, "More sets and settings", path: { view: :rules }, target: "_blank")
+        link_to_card(card, "More sets and settings",
+                     path: { view: :rules }, target: "_blank")
       ]
     end
   end

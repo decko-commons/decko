@@ -41,17 +41,25 @@ format :html do
     class_up "accordion-item", "_setting-group"
     wrap_with :div, class: "_setting-list" do
       accordion do
-        Card::Setting.groups.keys.map do |group_key|
-          list =
-            card.group_settings(group_key).map do |setting|
-              setting_list_item setting, view
-            end
-          body = yield list
-          count_badge = "<span class=\"_count badge bg-secondary ms-3\">#{list.size}</span>"
-          accordion_item "#{group_key} #{count_badge}", body: body
-        end
+        category_accordion_item(view)
       end
     end
+  end
+
+  def category_accordion_item(view)
+    Card::Setting.groups.keys.map do |group_key|
+      list =
+        card.group_settings(group_key).map do |setting|
+          setting_list_item setting, view
+        end
+      body = yield list
+      accordion_item "#{group_key} #{count_badge(list.size)}",
+                     body: body
+    end
+  end
+
+  def count_badge count
+    "<span class=\"_count badge bg-secondary ms-3\">#{count}</span>"
   end
 
   view :overlay_rule_list_link, cache: :never do
