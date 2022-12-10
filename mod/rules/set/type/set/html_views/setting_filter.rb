@@ -1,19 +1,19 @@
 format :html do
   def filtered_rule_list view, *filter_args
-      [
-        setting_filter(view, *filter_args),
-        render(view)
-      ]
+    [
+      setting_filter(view, *filter_args),
+      render(view)
+    ]
   end
 
-  def setting_filter view, selected_category=:common, set_options=nil, path_opts={}
+  def setting_filter view, selected_category=:common, path_opts={}
     form_tag path(path_opts.merge(view: view)),
              remote: true, method: "get", role: "filter",
              "data-slot-selector": ".card-slot._setting-list",
              class: classy("nodblclick slotter") do
       output [
                filter_buttons(selected_category)
-      ].flatten
+             ].flatten
     end
   end
 

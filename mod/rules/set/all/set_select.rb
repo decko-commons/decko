@@ -1,41 +1,39 @@
 format :html do
-  def set_select set_list_type, setting_list_view=:filtered_accordion_rule_list, path_opts={}
-    # return filter_text.html_safe unless set_options
-
+  def set_select set_list_type,
+                 setting_list_view=:filtered_accordion_rule_list,
+                 path_opts={}
     card_select card.set_list(set_list_type), setting_list_view, path_opts, "Select set"
   end
 
-  def set_select_tag set_options=:related
-    select_tag(:mark, set_select_options(set_options),
+  def card_select cards, view, path_opts={}, placeholder=nil
+
+    form_tag path(path_opts.merge(view: view, mark: "")),
+             remote: true, method: "get", role: "filter",
+             "data-slot-selector": ".card-slot._fixed-slot",
+             class: "nodblclick slotter" do
+      output [
+               set_select_tag(cards, placeholder),
+               content_tag(:div, "", class: "card-slot _fixed-slot")
+             ]
+    end
+  end
+
+  view :card_select, wrap: :slot do
+    card_select card.set_list(:related),
+                :filtered_accordion_rule_list, {}, "Select set"
+  end
+
+  private
+
+  def set_select_tag cards, placeholder=nil
+    options = cards.map(&:label_and_url_key)
+    options.unshift("") if placeholder
+    select_tag(:mark, options_for_select(options),
                class: "_submit-on-select form-control _close-rule-overlay-on-select",
                "data-minimum-results-for-search": "Infinity",
                "data-placeholder": "Select set",
                "data-select2-id": "#{unique_id}-#{Time.now.to_i}")
   end
-
-  view :card_select, wrap: :slot do
-    card_select card.set_list(:related), :filtered_accordion_rule_list, {}, "Select set"
-  end
-
-  def card_select cards, view, path_opts={}, placeholder=nil
-    options = cards.map(&:label_and_url_key)
-    options.unshift("") if placeholder
-    form_tag path(path_opts.merge(view: view, mark: "")),
-                     remote: true, method: "get", role: "filter",
-                     "data-slot-selector": ".card-slot._fixed-slot",
-                     class: "nodblclick slotter" do
-      output [
-        select_tag(:mark, options_for_select(options),
-                   class: "_submit-on-select form-control _close-rule-overlay-on-select",
-                   "data-minimum-results-for-search": "Infinity",
-                   "data-placeholder": "Select set",
-                   "data-select2-id": "#{unique_id}-#{Time.now.to_i}"),
-        content_tag(:div, "", class: "card-slot _fixed-slot")
-             ]
-      end
-  end
-
-  private
 
   def filter_text
     wrap_with :span, class: "mx-2 small" do

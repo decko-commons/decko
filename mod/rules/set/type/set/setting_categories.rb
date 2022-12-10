@@ -8,7 +8,7 @@ FIELD_SETTINGS = %i[default help].freeze
 
 def categories setting
   result = [:all]
-  result += [:field, :recent, :common].select do |cat|
+  result += %i[field recent common].select do |cat|
     category_settings(cat)&.include? setting
   end
   result
@@ -63,4 +63,3 @@ def recent_settings
   recent_settings = Card[:recent_settings].item_cards.map(&:codename)
   recent_settings.map(&:to_sym) & visible_setting_codenames
 end
-

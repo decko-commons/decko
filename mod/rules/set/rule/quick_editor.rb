@@ -1,4 +1,4 @@
- format :html do
+format :html do
   view :quick_edit, unknown: true, wrap: :slot do
     quick_edit
   end

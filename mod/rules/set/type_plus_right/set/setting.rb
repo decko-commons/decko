@@ -1,7 +1,6 @@
 assign_type :list
 
 format :html do
-
 end
 
 def item_cards args={}

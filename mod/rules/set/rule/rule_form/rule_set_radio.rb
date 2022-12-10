@@ -35,7 +35,8 @@ class RuleSetRadio
 
   def radio
     radio_text = "#{@set_name}+#{@tag}"
-    radio_button :name, radio_text, checked: false, warning: warning, class: "form-check-input", id: @id
+    radio_button :name, radio_text,
+                 checked: false, warning: warning, class: "form-check-input", id: @id
   end
 
   def label

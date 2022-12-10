@@ -1,5 +1,6 @@
 format :html do
-  setting_list_view_options = { cache: :never, wrap: { slot: { class: "_setting-list" } } }
+  setting_list_view_options = { cache: :never,
+                                wrap: { slot: { class: "_setting-list" } } }
 
   # rule can be edited in-place
   view :quick_edit_setting_list, setting_list_view_options do
@@ -18,8 +19,7 @@ format :html do
 
   # a click on a setting opens the rule editor in a modal
   view :modal_pill_setting_list, setting_list_view_options do
-    voo.items[:view] ||=
-    setting_list v
+    voo.items[:view] ||= setting_list v
     pill_setting_list true
   end
 
@@ -47,8 +47,8 @@ format :html do
               setting_list_item setting, view
             end
           body = yield list
-          accordion_item("#{group_key} <span class=\"_count badge bg-secondary ms-3\">#{list.size}</span>",
-                         body: body) #list_group(views))
+          accordion_item "#{group_key} <span class=\"_count badge bg-secondary ms-3\">#{list.size}</span>",
+                         body: body
         end
       end
     end
@@ -64,7 +64,8 @@ format :html do
   end
 
   def quick_edit_setting_list
-    list_tag class: "nav nav-pills flex-column bridge-pills _setting-list _setting-group" do
+    classes = "nav nav-pills flex-column bridge-pills _setting-list _setting-group"
+    list_tag class: classes do
       category_setting_list_items :field, :quick_edit
     end
   end
@@ -80,16 +81,15 @@ format :html do
 
   view :pill_setting_list, cache: :never, wrap: { slot: { class: "_setting-list" } } do
      pill_setting_list
-   end
+  end
 
-
-  def category_setting_list_items category, item_view, options = {}
+  def category_setting_list_items category, item_view, options={}
     card.category_settings(category).map do |setting|
       setting_list_item setting, item_view, options
     end
   end
 
-  def all_setting_list_items item_view, options = {}
+  def all_setting_list_items item_view, options={}
     card.all_settings.map do |setting|
       setting_list_item setting, item_view, options
     end

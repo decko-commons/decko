@@ -36,10 +36,11 @@ format :html do
   end
 
   def pill_rule_link target_view
-    opts = bridge_link_opts(class: "edit-rule-link nav-link _rule-item #{category_classes}",
-                            "data-bs-toggle": "pill",
-                            "data-category": card.rule_set.categories(card.rule_setting.codename).join(' '),
-                            "data-cy": "#{setting_title.to_name.key}-pill")
+    opts = bridge_link_opts(
+      class: "edit-rule-link nav-link _rule-item #{category_classes}",
+      "data-bs-toggle": "pill",
+      "data-category": card.rule_set.categories(card.rule_setting.codename).join(" "),
+      "data-cy": "#{setting_title.to_name.key}-pill")
     opts[:path].delete(:layout)
     link_to_view(target_view, (setting_title + short_help_text), opts)
   end

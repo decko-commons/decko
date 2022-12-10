@@ -24,8 +24,7 @@ format :html do
     wrap do
       [
         set_select(set_list_type),
-        # set_alert(set_list_type)
-        # nest(set_cards.first, view: :bridge_rules_tab)
+       # set_alert(set_list_type)
       ]
     end
   end
