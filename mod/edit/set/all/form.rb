@@ -99,10 +99,17 @@ format :html do
 
   def editor_in_multi_card
     add_junction_class
-    formgroup render_title,
-              input: "content", help: true, class: classy("card-editor") do
+    wrap_editor_in_multi_card do
       [content_field, (form.hidden_field(:type_id) if card.new_card?)]
     end
+  end
+
+  def wrap_editor_in_multi_card &block
+    return yield if input_type == :hidden
+
+    formgroup render_title,
+              input: "content", help: true, class: classy("card-editor"),
+              &block
   end
 
   def multi_card_edit fields_only=false

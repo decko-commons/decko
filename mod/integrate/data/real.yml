@@ -1,9 +1,9 @@
 - :name: "*on create"
   :type: :setting
-  :codename: :on_create
+  :codename: on_create
 - :name: "*on update"
   :type: :setting
-  :codename: :on_update
+  :codename: on_update
 - :name: "*on delete"
   :type: :setting
-  :codename: :on_delete
+  :codename: on_delete

@@ -4,7 +4,7 @@ FOLLOW_TABS = { "Follow" => { view: "follow_tab" },
 # a virtual pointer to the sets that a user is following.
 # (data is stored in preferences: `[Set]+[User]+:follow`)
 
-include_set Abstract::Pointer
+include_set Abstract::List
 def virtual?
   new?
 end

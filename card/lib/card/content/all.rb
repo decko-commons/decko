@@ -16,7 +16,7 @@ class Card
       end
 
       def standard_content
-        db_content || (new_card? ? template.db_content : "")
+        db_content || (new_card? ? default_content : "")
       end
 
       def standardize_content value
@@ -24,7 +24,7 @@ class Card
       end
 
       def structured_content
-        structure && template.db_content
+        structure && default_content
       end
 
       def refresh_content

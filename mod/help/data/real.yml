@@ -1,9 +1,9 @@
 - :name: "*guide"
   :type: :setting
-  :codename: :guide
+  :codename: guide
 - :name: "*help"
   :type: :setting
-  :codename: :help
+  :codename: help
   :fields:
     :right:
       :fields:

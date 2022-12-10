@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 
 module Cardio
-  class Migration < ActiveRecord::Migration[4.2]
+  class Migration < ActiveRecord::Migration[6.1]
     include Card::Model::SaveHelper unless ENV["NO_CARD_LOAD"]
     @type = :deck_cards
 

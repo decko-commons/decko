@@ -4,7 +4,7 @@ $bar_stripe_color: $dark !default;
   border: 1px solid $border-color;
   &:hover {
     cursor: pointer;
-    .bar-body, .bar-menu { // }, .accordion-header, .accordion-button {
+    > .bar-body, > .bar-menu, > .accordion-header >.accordion-button {
       background-color: $gray-200;
     }
   }

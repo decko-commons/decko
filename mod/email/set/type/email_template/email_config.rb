@@ -4,11 +4,11 @@ EMAIL_FIELDS =
 EMAIL_FIELD_METHODS =
   { subject: :contextual_content,
     text_message: :contextual_content,
-    attach: :extended_item_contents }.freeze
+    attach: :recursed_item_contents }.freeze
 
-# @param [Card] context  the card in whose context all email fields will be interpreted
-# @param [Hash] fields override any templated field configurations with hash values
-# @param [Hash] opts options for rendering. unknown options become format options
+# @param context [Card]  the card in whose context all email fields will be interpreted
+# @param fields [Hash] override any templated field configurations with hash values
+# @param opts [Hash] options for rendering. unknown options become format options
 # @option opts [Card, String, Integer] :auth user identifier. render as this user
 def email_config context, fields={}, opts={}
   @active_email_context = context || self

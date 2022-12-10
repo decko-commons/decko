@@ -11,8 +11,6 @@ class PointerOverhaul < Cardio::Migration::Core
                           codename: "mirror_list"
     end
     update "Pointer", name: "List", codename: "list" unless Card::Codename[:list]
-    ensure_code_card "Pointer", type_id: Card::CardtypeID
-    ensure_code_card "Link list", type_id: Card::CardtypeID
     Card::Cache.reset_all
     ensure_list_card "list+*input+*type plus right+*options",
                      content: ["List", "Multiselect", "Checkbox", "Filtered list"]

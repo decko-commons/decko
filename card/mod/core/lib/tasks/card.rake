@@ -9,12 +9,14 @@ namespace :card do
   task :update do
     failing_loudly "decko update" do
       ENV["NO_RAILS_CACHE"] = "true"
-      Rake::Task["decko:migrate"].invoke
-      Rake::Task["decko:reset_tmp"].invoke
-      Card::Cache.reset_all
-      Rake::Task["card:mod:uninstall"].invoke
-      Rake::Task["card:mod:install"].invoke
-      Rake::Task["card:mod:symlink"].invoke
+      # Benchmark.bm do |x|
+      [:migrate, :eat, :reset_tmp, :reset_cache,
+       "mod:uninstall", "mod:install", "mod:symlink"].each do |task|
+        # x.report(task) do
+        Rake::Task["card:#{task}"].invoke
+        # end
+      end
+      # end
     end
   end
 

@@ -1,64 +1,33 @@
 # -*- encoding : utf-8 -*-
 
-class ::Card
-  def writeable_by user
-    Card::Auth.as(user.id) { ok? :update }
-  end
-
-  def readable_by user
-    Card::Auth.as(user.id) { ok? :read }
-  end
-end
-
-module PermissionSpecHelper
-  def assert_hidden_from user, card, msg=""
-    Card::Auth.as(user.id) { assert_hidden(card, msg) }
-  end
-
-  def assert_not_hidden_from user, card, msg=""
-    Card::Auth.as(user.id) { assert_not_hidden(card, msg) }
-  end
-
-  def assert_locked_from user, card, msg=""
-    Card::Auth.as(user.id) { assert_locked(card, msg) }
-  end
-
-  def assert_not_locked_from user, card, msg=""
-    Card::Auth.as(user.id) { assert_not_locked(card, msg) }
-  end
-
-  def assert_hidden card, msg=""
-    assert !card.ok?(:read)
-    assert_equal [], Card.search(id: card.id).map(&:name), msg
-  end
-
-  def assert_not_hidden card, msg=""
-    assert card.ok?(:read)
-    assert_equal [card.name], Card.search(id: card.id).map(&:name), msg
-  end
-
-  def assert_locked card, msg=""
-    assert_equal false, card.ok?(:update), msg
-  end
-
-  def assert_not_locked card, msg=""
-    assert_equal true, card.ok?(:update), msg
-  end
-end
-
-include PermissionSpecHelper
-
 RSpec.describe Card::Set::All::Permissions do
-  # FIXME: lots of good tests here, but generally disorganized.
+  # FIXME: lots of valuable tests here, but generally disorganized and hard to understand
 
-  context "??" do
-    before do
-      Card::Auth.as_bot do
-        # Card::Auth.cache.reset
-        @u1, @u2, @u3, @r1, @r2, @r3, @c1, @c2, @c3 =
-          %w[u1 u2 u3 r1 r2 r3 c1 c2 c3].map { |x| Card[x] }
-      end
+  def create_self_rule num, grantee, task=:read
+    Card::Auth.as_bot do
+      Card.create! name: ["c#{num}", :self, task], content: "#{grantee}#{num}"
+      Card::Cache.reset_all
     end
+  end
+
+  def create_self_role_rule num, task=:read
+    create_self_rule num, "r", task
+  end
+
+  def create_self_user_rule num, task=:read
+    create_self_rule num, "u", task
+  end
+
+  describe "??" do
+    let(:u1) { Card["u1"] }
+    let(:u2) { Card["u2"] }
+    let(:u3) { Card["u3"] }
+    let(:r1) { Card["r1"] }
+    let(:r2) { Card["r2"] }
+    let(:r3) { Card["r3"] }
+    let(:c1) { Card["c1"] }
+    let(:c2) { Card["c2"] }
+    let(:c3) { Card["c3"] }
 
     it "checking ok read should not add to errors" do
       Card::Auth.as_bot do
@@ -91,102 +60,81 @@ RSpec.describe Card::Set::All::Permissions do
       end
     end
 
-    it "write user permissions" do
-      Card::Auth.as_bot do
-        (1..3).map do |num|
-          Card.create name: "c#{num}+*self+*update", type: "Pointer",
-                      content: "u#{num}"
-        end
-
-        Card::Cache.renew
-
-        @u1.fetch(:roles, new: {}).items = [@r1, @r2]
-        @u2.fetch(:roles, new: {}).items = [@r1, @r3]
-        @u3.fetch(:roles, new: {}).items = [@r1, @r2, @r3]
+    describe "with read user permissions" do
+      it "user can read all cards with read rules granted to him" do
+        create_self_user_rule 1
+        create_self_user_rule 2
+        expect(c1).not_to be_hidden_from u1
+        expect(c2).not_to be_hidden_from u2
       end
 
-      @c1 = Card["c1"].refresh(true)
-      assert_not_locked_from(@u1, @c1)
-      assert_locked_from(@u2, @c1)
-      assert_locked_from(@u3, @c1)
+      it "user can't read cards without read rules granted to him" do
+        create_self_user_rule 3
+        expect(Card["c3"]).to be_hidden_from u2
+      end
 
-      @c2 = Card["c2"].refresh(true)
-      assert_locked_from(@u1, @c2)
-      assert_not_locked_from(@u2, @c2)
-      assert_locked_from(@u3, @c2)
+      it "admin can read cards even without read rules granted to him" do
+        create_self_user_rule 2
+        expect(c3).not_to be_hidden_from u3
+      end
     end
 
-    it "read group permissions" do
-      Card::Auth.as_bot do
-        @u1.fetch(:roles).items = [@r1, @r2]
-        @u2.fetch(:roles).items = [@r1, @r3]
-
-        (1..3).each do |num|
-          Card.create name: "c#{num}+*self+*read", type: "Pointer",
-                      content: "r#{num}"
-        end
+    describe "with write user permissions" do
+      it "user can edit all cards with update rules granted to him" do
+        create_self_user_rule 1, :update
+        create_self_user_rule 2, :update
+        expect(c1).not_to be_locked_from u1
+        expect(c2).not_to be_locked_from u2
       end
 
-      @c1 = @c1.refresh(true)
-      @c2 = @c2.refresh(true)
-      @c3 = @c3.refresh(true)
+      it "user can't edit cards without update rules granted to him" do
+        create_self_user_rule 1, :update
+        create_self_user_rule 2, :update
+        expect(c1).to be_locked_from u2
+        expect(c2).to be_locked_from u1
+      end
 
-      assert_not_hidden_from(@u1, @c1)
-      assert_not_hidden_from(@u1, @c2)
-      assert_hidden_from(@u1, @c3)
-
-      assert_not_hidden_from(@u2, @c1)
-      assert_hidden_from(@u2, @c2)
-      assert_not_hidden_from(@u2, @c3)
+      it "admin can edit cards even without read rules granted to him" do
+        create_self_user_rule 2
+        expect(c3).not_to be_locked_from u3
+      end
     end
 
-    it "write group permissions" do
-      Card::Auth.as_bot do
-        (1..3).each do |num|
-          Card.create name: "c#{num}+*self+*update", type: "Pointer",
-                      content: "r#{num}"
-        end
-
-        @u3.fetch(:roles, new: {}).items = [@r1]
+    context "with read group permissions" do
+      it "user can read all cards with read rules granted to his roles" do
+        create_self_role_rule 1
+        create_self_role_rule 2
+        expect(c1).not_to be_hidden_from u1
+        expect(c2).not_to be_hidden_from u2
       end
 
-      #          u1 u2 u3
-      #  c1(r1)  T  T  T
-      #  c2(r2)  T  T  F
-      #  c3(r3)  T  F  F
-      assert_equal true,  @c1.writeable_by(@u1), "c1 writeable by u1"
-      assert_equal true,  @c1.writeable_by(@u2), "c1 writeable by u2"
-      assert_equal true,  @c1.writeable_by(@u3), "c1 writeable by u3"
-      assert_equal true,  @c2.writeable_by(@u1), "c2 writeable by u1"
-      assert_equal true,  @c2.writeable_by(@u2), "c2 writeable by u2"
-      assert_equal false, @c2.writeable_by(@u3), "c2 writeable by u3"
-      assert_equal true,  @c3.writeable_by(@u1), "c3 writeable by u1"
-      assert_equal false, @c3.writeable_by(@u2), "c3 writeable by u2"
-      assert_equal false, @c3.writeable_by(@u3), "c3 writeable by u3"
+      it "user can't read cards without read rules granted to his roles" do
+        create_self_role_rule 3
+        expect(c3).to be_hidden_from u2
+      end
+
+      it "admin can read cards even without read rules granted to his roles" do
+        create_self_role_rule 2
+        expect(c2).not_to be_hidden_from u3
+      end
     end
 
-    it "read user permissions" do
-      Card::Auth.as_bot do
-        @u1.fetch(:roles, new: {}).items = [@r1, @r2]
-        @u2.fetch(:roles, new: {}).items = [@r1, @r3]
-        @u3.fetch(:roles, new: {}).items = [@r1, @r2, @r3]
-
-        (1..3).each do |num|
-          Card.create name: "c#{num}+*self+*read", type: "Pointer",
-                      content: "[[u#{num}]]"
-        end
+    context "with write group permissions" do
+      it "user can write all cards with update rules granted to his roles" do
+        create_self_role_rule 1, :update
+        expect(c1).not_to be_locked_from u1
+        expect(c2).not_to be_locked_from u1
       end
 
-      @c1 = @c1.refresh(true)
-      @c2 = @c2.refresh(true)
-      # NOTE: retrieving private cards is known not to work now.
-      # assert_not_hidden_from(@u1, @c1)
-      # assert_not_hidden_from(@u2, @c2)
+      it "user can't write cards without update rules granted to his roles" do
+        create_self_role_rule 3, :update
+        expect(c3).to be_locked_from u2
+      end
 
-      assert_hidden_from(@u2, @c1)
-      assert_hidden_from(@u3, @c1)
-      assert_hidden_from(@u1, @c2)
-      assert_hidden_from(@u3, @c2)
+      it "admin can write cards even without update rules granted to his roles" do
+        create_self_role_rule 2, :update
+        expect(c1).not_to be_locked_from u3
+      end
     end
 
     context "create permissions" do
@@ -219,14 +167,14 @@ RSpec.describe Card::Set::All::Permissions do
     it "private cql" do
       # set up cards of type TestType, 2 with nil reader, 1 with role1 reader
       Card::Auth.as_bot do
-        [@c1, @c2, @c3].each { |c| c.update content: "WeirdWord" }
+        [c1, c2, c3].each { |c| c.update content: "WeirdWord" }
         Card.create(name: "c1+*self+*read", type: "Pointer", content: "u1")
       end
 
-      Card::Auth.as(@u1) do
+      Card::Auth.as(u1) do
         expect(Card.search(content: "WeirdWord").map(&:name).sort).to(eq %w[c1 c2 c3])
       end
-      Card::Auth.as(@u2) do
+      Card::Auth.as(u2) do
         expect(Card.search(content: "WeirdWord").map(&:name).sort).to(eq %w[c2 c3])
       end
     end
@@ -236,16 +184,16 @@ RSpec.describe Card::Set::All::Permissions do
 
       # set up cards of type TestType, 2 with nil reader, 1 with role1 reader
       Card::Auth.as_bot do
-        [@c1, @c2, @c3].each { |c| c.update content: "WeirdWord" }
+        [c1, c2, c3].each { |c| c.update content: "WeirdWord" }
         Card.create(name: "c1+*self+*read", type: "Pointer", content: "r3")
       end
 
-      Card::Auth.as(@u1) do
+      Card::Auth.as(u1) do
         expect(Card.search(content: "WeirdWord").map(&:name).sort).to(eq(%w[c1 c2 c3]))
       end
       # for Card::Auth.as to be effective, you can't have a logged in user
       Card::Auth.signin nil
-      Card::Auth.as(@u2) do
+      Card::Auth.as(u2) do
         expect(Card.search(content: "WeirdWord").map(&:name).sort).to(
           eq(%w[c2 c3])
         )
@@ -303,7 +251,7 @@ RSpec.describe Card::Set::All::Permissions do
     end
   end
 
-  context "settings based permissions" do
+  describe "settings based permissions" do
     before do
       Card::Auth.as_bot do
         Card.fetch("*all+*delete", new: {}).update! type_code: :pointer,

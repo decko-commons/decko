@@ -12,6 +12,7 @@ DeckoGem.gem "decko-cucumber" do |s, d|
                ["email_spec",             "~> 2.2"], # for email-related tests
                ["launchy",                "~> 2.5"], # lets cucumber launch browser
                ["capybara-puma",          "~> 1.0"], # use puma server
+               ["puma",                 "!= 6.0.0"],
                ["webdrivers",             "~> 4.6"],
                ["rspec-html-matchers",    "~> 0.9"],
                ["rspec",                 "~> 3.10"],

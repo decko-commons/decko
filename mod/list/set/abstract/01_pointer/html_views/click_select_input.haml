@@ -1,9 +1,0 @@
-.d-flex.flex-wrap{class:"_click-#{multiselect ? 'multi' : ''}select-editor"}
-  - options_hash = card.options_hash
-  - if options_hash.empty?
-    no options
-  - else
-    - options_hash.each do |option_label, option_name|
-      - checked = option_name == card.item_name
-      ._select-item{class: checked && "selected"}
-        = nest option_name, view: item_view

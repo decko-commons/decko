@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 
 RSpec.describe Card::Set::Type::NestList do
-  check_html_views_for_errors
+  check_views_for_errors
 
   describe "#item_names" do
     let(:test_content) { "{{A|text}}\n{{+B}}\n{{C|title: t}}" }

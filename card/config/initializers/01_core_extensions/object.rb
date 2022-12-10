@@ -40,6 +40,10 @@ module CoreExtensions
       Card.id self
     end
 
+    def codename
+      Card::Codename[card_id]
+    end
+
     def name?
       # Although we want to check for instances of class Card::Name we can't use that
       # class because it is renewed with every request

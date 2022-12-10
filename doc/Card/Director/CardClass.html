@@ -6,7 +6,7 @@
 <title>
   Module: Card::Director::CardClass
   
-    &mdash; Documentation by YARD 0.9.27
+    &mdash; Documentation by YARD 0.9.28
   
 </title>
 
@@ -159,6 +159,52 @@
 </li>
 
       
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#ensure-instance_method" title="#ensure (instance method)">#<strong>ensure</strong>(opts)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>If the conflict setting is “defer”:.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#ensure!-instance_method" title="#ensure! (instance method)">#<strong>ensure!</strong>(opts)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+</div></span>
+  
+</li>
+
+      
     </ul>
   
 
@@ -193,7 +239,7 @@
       <pre class="code"><span class="info file"># File 'card/lib/card/director/card_class.rb', line 11</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_create'>create</span> <span class='id identifier rubyid_opts'>opts</span>
-  <span class='id identifier rubyid_card'>card</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span> <span class='id identifier rubyid_opts'>opts</span>
+  <span class='id identifier rubyid_card'>card</span> <span class='op'>=</span> <span class='id identifier rubyid_new'>new</span> <span class='id identifier rubyid_opts'>opts</span>
   <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_save'>save</span>
   <span class='id identifier rubyid_card'>card</span>
 <span class='kw'>end</span></pre>
@@ -227,9 +273,100 @@
       <pre class="code"><span class="info file"># File 'card/lib/card/director/card_class.rb', line 5</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_create!'>create!</span> <span class='id identifier rubyid_opts'>opts</span>
-  <span class='id identifier rubyid_card'>card</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span> <span class='id identifier rubyid_opts'>opts</span>
+  <span class='id identifier rubyid_card'>card</span> <span class='op'>=</span> <span class='id identifier rubyid_new'>new</span> <span class='id identifier rubyid_opts'>opts</span>
   <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_save!'>save!</span>
   <span class='id identifier rubyid_card'>card</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="ensure-instance_method">
+  
+    #<strong>ensure</strong>(opts)  &#x21d2; <tt><span class='object_link'><a href="../../Object.html" title="Object (class)">Object</a></span></tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>If the conflict setting is “defer”:</p>
+
+<ul>
+  <li>if the <em>codename</em> is NOT already in use, we create a new card with an
+altered name</li>
+  <li>otherwise we do nothing.</li>
+</ul>
+
+<p>If the conflict setting is “default”:
+   - if the <em>codename</em> is NOT already in use:
+     - if the card using the name we want is pristine, we update that card
+     - otherwise we create a new card with an altered name
+   - if the _codename IS already in use
+     - if the card with the codename is pristine, we update everything but the
+       name (which is used by another card)
+     - otherwise we do nothing</p>
+
+<p>If the conflict setting is “override”:
+   - if the _codename is NOT already in use, we update the existing card with the
+     name.
+   - otherwise we alter the card withe the conflicting name and update the card
+     with the codename.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+51
+52
+53</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'card/lib/card/director/card_class.rb', line 51</span>
+
+<span class='kw'>def</span> <span class='kw'>ensure</span> <span class='id identifier rubyid_opts'>opts</span>
+  <span class='id identifier rubyid_ensuring'>ensuring</span> <span class='id identifier rubyid_opts'>opts</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='symbol'>:save_if_needed</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="ensure!-instance_method">
+  
+    #<strong>ensure!</strong>(opts)  &#x21d2; <tt><span class='object_link'><a href="../../Object.html" title="Object (class)">Object</a></span></tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+55
+56
+57</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'card/lib/card/director/card_class.rb', line 55</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_ensure!'>ensure!</span> <span class='id identifier rubyid_opts'>opts</span>
+  <span class='id identifier rubyid_ensuring'>ensuring</span> <span class='id identifier rubyid_opts'>opts</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='symbol'>:save_if_needed!</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -241,9 +378,9 @@
 </div>
 
       <div id="footer">
-  Generated on Fri Jan 21 16:01:43 2022 by
-  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.27 (ruby-3.0.1).
+  Generated on Fri Nov 18 14:30:32 2022 by
+  <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.28 (ruby-3.0.1).
 </div>
 
     </div>

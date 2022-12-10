@@ -26,3 +26,7 @@ de:
   core_rename_confirm: "Sind Sie sicher, dass Sie die Karte umbenennen wollen?"
   skip_update_referer_content:
     Verweise auf diesen Namen nicht aktualisieren
+
+  core_admin_warn: Administrator Warnung
+  core_admin_email_off:
+    E-Mail-Versand ist ausgeschaltet. Ändere die Einstellungen in %{path}, damit Benachrichtigungen verschickt werden, wenn sich neue Nutzer registrieren.

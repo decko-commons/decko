@@ -1,4 +1,7 @@
-# -*- encoding : utf-8 -*-
+RSpec.describe Card::Set::Type::User do
+  before { Card::Auth.signin :anonymous }
 
-describe Card::Set::Type::User do
+  specify "view: :setup" do
+    expect { Card.new(type: :user).format._render_setup }.not_to raise_error
+  end
 end

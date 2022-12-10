@@ -24,3 +24,4 @@ decko/spec/cypress/videos
 vendor
 docker/env
 docker/test
+platypus

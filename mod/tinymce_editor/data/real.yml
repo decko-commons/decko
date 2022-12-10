@@ -1,6 +1,6 @@
 - :name: "*tinyMCE"
   :type: :json
-  :codename: :tiny_mce
+  :codename: tiny_mce
   :content: |
     {
       "theme": "silver",

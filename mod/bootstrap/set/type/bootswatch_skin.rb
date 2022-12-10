@@ -94,13 +94,13 @@ end
 
 def read_bootstrap_variables
   ::File.read ::File.expand_path(
-    "#{mod_root :bootstrap}/vendor/bootstrap/scss/_variables.scss"
+    "#{mod_path :bootstrap}/vendor/bootstrap/scss/_variables.scss"
   )
 end
 
 format :html do
   view :input do
-    if parent?
+    if card.parent?
       super()
     else
       "Content is stored in file and can't be edited."
@@ -166,14 +166,14 @@ end
 
 def load_content *names
   cards = names.flatten.map do |n|
-    Card.fetch(n)&.extended_item_cards
+    Card.fetch(n)&.recursed_item_cards
   end
   cards.flatten.compact.map(&:content).join "\n"
 end
 
 def source_dir
   @source_dir ||= ::File.expand_path(
-    "#{mod_root :bootstrap}/vendor/bootswatch/dist/#{theme_name}", __FILE__
+    "#{mod_path :bootstrap}/vendor/bootswatch/dist/#{theme_name}", __FILE__
   )
 end
 
