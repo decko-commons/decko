@@ -46,7 +46,7 @@ format :html do
     end
   end
 
-  def category_accordion_item(view)
+  def category_accordion_item view
     Card::Setting.groups.keys.map do |group_key|
       list =
         card.group_settings(group_key).map do |setting|
