@@ -2,20 +2,6 @@ def add_autocomplete_ok?
   new_card? && name.valid? && !virtual? && ok?(:create)
 end
 
-format :json do
-  def add_autocomplete_item term
-    return unless card.add_autocomplete_ok?
-
-    { id: term, href: path, text: add_autocomplete_item_text }
-  end
-
-  private
-
-  def add_autocomplete_item_text
-    card.format.render_add_autocomplete_item
-  end
-end
-
 format :html do
   view :goto_autocomplete_item do
     autocomplete_item goto_autocomplete_icon, autocomplete_label
@@ -36,6 +22,10 @@ format :html do
     text_field_tag "pointer_item", item,
                    class: "pointer-item-text form-control _autocomplete #{extra_classes}",
                    "data-options-card": %i[all by_name].to_name
+  end
+
+  def add_autocomplete_item_path
+    path
   end
 
   private
