@@ -84,7 +84,7 @@ def visible_settings group=nil, cardtype_id=nil
 end
 
 def broader_sets
-  prototype.set_names[1..-1]
+  prototype.set_names[1..-1].map(&Card.method(:fetch))
 end
 
 def prototype
@@ -106,4 +106,8 @@ def related_sets with_self=false
   else
     left(new: {}).related_sets with_self
   end
+end
+
+def label_and_url_key
+  [label, name.to_name.url_key]
 end
