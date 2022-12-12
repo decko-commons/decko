@@ -44,22 +44,22 @@ RSpec.describe Card::Env::Success do
       context "when using initialization" do
         let(:success_params) { { id: home.id, view: "closed", layout: "my_layout" } }
 
-        it { is_expected.to eq "/Home?layout=my_layout&view=closed" }
+        it { is_expected.to eq "/Home/closed?layout=my_layout" }
       end
 
       context "when using array assignment" do
         before { success_object[:view] = "closed" }
-        it { is_expected.to eq "/A?view=closed" }
+        it { is_expected.to eq "/A/closed" }
       end
 
       context "when using assignment" do
         before { success_object.view = "closed" }
-        it { is_expected.to eq "/A?view=closed" }
+        it { is_expected.to eq "/A/closed" }
       end
 
       context "when using <<" do
         before { success_object << { card: home, view: "closed" } }
-        it { is_expected.to eq "/Home?view=closed" }
+        it { is_expected.to eq "/Home/closed" }
       end
     end
 

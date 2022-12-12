@@ -18,8 +18,11 @@ jquery:
     # decko depends on autocomplete, sortable, jquery.autosize and jquery.fileupload
     # the dialog widget is not used in decko but in wikirate
     # don't know if iframe-transport is needed but it used to be there
-    - jquery-ui.min.js
-    - jquery.autosize.js
+
+    - jquery/jquery-ui.min.js
+    - jquery/jquery.ui.autocomplete.html.js
+    - jquery/jquery.autosize.js
+
     - ../../vendor/jquery_file_upload/js/jquery.fileupload.js
     - ../../vendor/jquery_file_upload/js/jquery.iframe-transport.js
 
