@@ -31,13 +31,17 @@ class Card
 
     def base
       if action.in? %i[create update delete]
-        mark.present? ? "#{action}/#{mark}" : "card/#{action}"
-        # the card/ prefix prevents interpreting action as cardname
-      elsif view.present?
+        action_base
+      elsif mark.present? && view.present?
         "#{mark}/#{view}"
       else
         mark
       end
+    end
+
+    def action_base
+      mark.present? ? "#{action}/#{mark}" : "card/#{action}"
+      # the card/ prefix prevents interpreting action as cardname
     end
 
     def action
