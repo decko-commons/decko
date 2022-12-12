@@ -184,3 +184,38 @@ card_changes_036:
   card_action_id: 1622
   field: 2
   value: zoom in
+card_changes_037:
+  id: 37
+  card_action_id: 33
+  field: 0
+  value: "*all plus"
+card_changes_038:
+  id: 38
+  card_action_id: 33
+  field: 1
+  value: '5'
+card_changes_039:
+  id: 39
+  card_action_id: 33
+  field: 2
+  value: '{"left":{}}'
+card_changes_040:
+  id: 40
+  card_action_id: 33
+  field: 3
+  value: f
+card_changes_041:
+  id: 41
+  card_action_id: 33
+  field: 4
+  value:
+card_changes_042:
+  id: 42
+  card_action_id: 33
+  field: 5
+  value:
+card_changes_043:
+  id: 43
+  card_action_id: 1805
+  field: 2
+  value: '{"compound":true}'
