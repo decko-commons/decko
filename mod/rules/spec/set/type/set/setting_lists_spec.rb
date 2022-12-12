@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-RSpec.describe Card::Set::Type::Set::SettingLists do
+RSpec.describe Card::Set::Type::Set do
   def card_subject
     Card.fetch("User+*type")
   end
