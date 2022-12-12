@@ -13,7 +13,7 @@ RSpec.describe Card::Set::All::Html::Menu do
       expect(edit_menu)
         .to have_tag("div.card-menu.nodblclick._show-on-hover") do
         with_tag "a.edit-link", with: { "data-modal-class": "modal-lg",
-                                        href: "/A?view=edit" }
+                                        href: "/A/edit" }
       end
     end
 
@@ -23,12 +23,12 @@ RSpec.describe Card::Set::All::Html::Menu do
 
     example "when voo.edit = :full" do
       expect(edit_menu(:full))
-        .to have_tag("a.edit-link", with: { href: "/A?view=bridge" })
+        .to have_tag("a.edit-link", with: { href: "/A/bridge" })
     end
 
     example "when voo.edit = :inline" do
       expect(edit_menu(:inline))
-        .to have_tag("a.edit-link", with: { href: "/A?view=edit_inline" })
+        .to have_tag("a.edit-link", with: { href: "/A/edit_inline" })
     end
   end
 end
