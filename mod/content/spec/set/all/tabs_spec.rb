@@ -41,8 +41,8 @@ RSpec.describe Card::Set::All::Tabs do
 
     it "handles item params" do
       tabs = render_content "{{Fruit+*type+*create|tabs|name;structure:Home}}"
-      params = { slot: { structure: "Home" }, view: :name }.to_param
-      path = "/Anyone?#{params}"
+      params = { slot: { structure: "Home" } }.to_param
+      path = "/Anyone/name?#{params}"
       assert_view_select tabs, "div[role=tabpanel]" do
         assert_select %(li > a[data-bs-toggle="tab"][data-url="#{path}"])
       end
