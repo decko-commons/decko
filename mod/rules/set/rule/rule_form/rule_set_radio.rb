@@ -2,7 +2,7 @@
 class RuleSetRadio
   attr_reader :format
 
-  delegate :link_to_card, :radio_button, :wrap_with, :icon_tag,
+  delegate :link_to_card, :radio_button, :wrap_with, :icon_tag, :unique_id,
            to: :format
 
   # @param state [:current, :overwritten]
@@ -12,14 +12,14 @@ class RuleSetRadio
     @set_name = set_name
     @tag = tag
     @state = state
+    @id = "#{unique_id}-#{Time.now.to_i}"
   end
 
   def html narrower
     @narrower_rules = narrower
 
-    rule_radio do
-      radio_text = "#{@set_name}+#{@tag}"
-      radio_button :name, radio_text, checked: false, warning: warning
+    wrap_with :div, class: "form-check" do
+      [radio, label]
     end
   end
 
@@ -33,18 +33,21 @@ class RuleSetRadio
     @state == :overwritten
   end
 
-  def rule_radio
-    label_classes = ["set-label", ("current-set-label" if current?)]
-    icon = icon_tag "open_in_new", "text-muted"
-    wrap_with :label, class: label_classes.compact.join(" ") do
-      [yield, label, link_to_card(@set_name, icon, target: "decko_set")]
-    end
+  def radio
+    radio_text = "#{@set_name}+#{@tag}"
+    radio_button :name, radio_text,
+                 checked: false, warning: warning, class: "form-check-input", id: @id
   end
 
   def label
-    label = Card.fetch(@set_name).label
-    label += " <em>#{extra_info}</em>".html_safe if extra_info
-    label
+    label_classes = ["set-label", ("current-set-label" if current?)].compact.join(" ")
+    icon = icon_tag "open_in_new", "text-muted"
+    text = Card.fetch(@set_name).label
+    text += " <em>#{extra_info}</em>".html_safe if extra_info
+
+    wrap_with :label, class: "form-check-label #{label_classes}", for: @id do
+      [text, link_to_card(@set_name, icon, target: "decko_set")]
+    end
   end
 
   def extra_info
