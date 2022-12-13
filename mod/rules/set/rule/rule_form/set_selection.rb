@@ -1,6 +1,6 @@
 format :html do
   def bridge_rule_set_selection
-    wrap_with :div, class: "set-list" do
+    wrap_with :div, class: "set-list _set-editor" do
       bridge_rule_set_formgroup
     end
   end
