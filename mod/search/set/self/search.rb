@@ -56,7 +56,7 @@ format :html do
   view :results_for_keyword, cache: :never, template: :haml
 
   def search_item term
-    autocomplete_item icon_tag(:search), term
+    autocomplete_item :search, icon_tag(:search), term
   end
 
   private

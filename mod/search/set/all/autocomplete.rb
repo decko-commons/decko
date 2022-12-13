@@ -4,11 +4,11 @@ end
 
 format :html do
   view :goto_autocomplete_item do
-    autocomplete_item goto_autocomplete_icon, autocomplete_label
+    autocomplete_item :goto, goto_autocomplete_icon, autocomplete_label
   end
 
   view :add_autocomplete_item, unknown: true do
-    autocomplete_item icon_tag(:add), autocomplete_label
+    autocomplete_item :add, icon_tag(:add), autocomplete_label
   end
 
   def autocomplete_field item, options_card_name, extra_classes=""
@@ -30,8 +30,8 @@ format :html do
 
   private
 
-  def autocomplete_item icon, label
-    haml :autocomplete_item, icon: icon, label: label
+  def autocomplete_item type, icon, label
+    haml :autocomplete_item, type: type, icon: icon, label: label
   end
 
   def goto_autocomplete_icon
