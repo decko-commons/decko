@@ -19,7 +19,6 @@ format :html do
 
   # a click on a setting opens the rule editor in a modal
   view :modal_pill_setting_list, setting_list_view_options do
-    voo.items[:view] ||= setting_list v
     pill_setting_list true
   end
 
@@ -37,11 +36,11 @@ format :html do
     end
   end
 
-  def category_accordion view
+  def category_accordion view, &block
     class_up "accordion-item", "_setting-group"
     wrap_with :div, class: "_setting-list" do
       accordion do
-        category_accordion_item(view)
+        category_accordion_item(view, &block)
       end
     end
   end
