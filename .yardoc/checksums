@@ -125,7 +125,7 @@ card/lib/card/subcards/args.rb 1a554436b241d5b2d82fbbe5e93f3c914ad95c32
 card/lib/cardio/application.rb 5700610b22898f6e192d1966bbc277ddbb3cec3d
 cardname/lib/cardname/parts.rb c6026238f38e4beccee60e3a8fcaeceac8bc86af
 decko/lib/decko/application.rb 64fc49af7bf5c2718e7a095409d8527983d3cd72
-card/lib/card/content/parser.rb fc51f8baa7a5c30850a1b0068f65fcc9e7382efd
+card/lib/card/content/parser.rb a725396737c612851dac9eb2e7fc014805fd539a
 card/lib/card/director/store.rb 37a30d0420cf01b0185ca6230b560d729ca37fe1
 card/lib/card/fetch/retrieve.rb 657540df94e5ca80dd05e38073801909a3f0b280
 card/lib/card/format/content.rb cee964b0e41995f2d9885f0b1aa8f100dfbe0778
@@ -270,7 +270,7 @@ card/lib/cardio/generators/deck_helper.rb dc7e68916c57be4e191696937c71a207cec41b
 card/lib/cardio/mod/load_strategy/eval.rb 6229ff2363aa7bc38a3eadcfc7a6432b94305393
 mod/format/lib/card/format/data_format.rb b1b14744cf93c58163876610060b25d60167728f
 mod/format/lib/card/format/file_format.rb 824009396ab2dba6b33c093722742d6971c05204
-mod/format/lib/card/format/html_format.rb 7bf5c659b9b8c70614182dec355bd5816c849492
+mod/format/lib/card/format/html_format.rb 1e62dedc56428195d61cce77c8e06dd0b044b845
 mod/format/lib/card/format/json_format.rb ab40e91ce9a47a6fb2c7415d75ceca1ea604c1f0
 mod/format/lib/card/format/scss_format.rb 002623e7f5f0279e8a4ff6f4d1cbbccd3836437e
 mod/format/lib/card/format/text_format.rb 928b15650d2e5b87e10c9e43ad8d6ffc5f494747

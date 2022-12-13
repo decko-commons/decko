@@ -87,7 +87,6 @@ format :html do
     t :core_admin_email_off, path: "config/application.rb"
   end
 
-
   # def card_stats
   #   [
   #     { title: "cards",
