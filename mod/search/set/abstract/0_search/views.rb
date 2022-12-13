@@ -28,6 +28,10 @@ format do
   def item_cards
     search_with_params
   end
+
+  def term_param
+    params[:term]
+  end
 end
 
 format :json do
@@ -79,10 +83,6 @@ format :json do
     cql = { name_match: term_param }
     cql[:name] = ["not in"] + not_names if not_names.any?
     cql
-  end
-
-  def term_param
-    params[:term]
   end
 end
 
