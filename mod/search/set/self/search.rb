@@ -66,11 +66,10 @@ format :html do
   end
 
   def search_box_contents
-    text_field_tag "query[keyword]", query_params[:keyword],
+    text_field_tag "query[keyword]", search_keyword,
                    class: "_search-box #{classy 'search-box'} form-control w-100",
-                   data: {
-                     completepath: complete_path
-                   },
+                   autocomplete: :off,
+                   data: { completepath: complete_path },
                    placeholder: t(:search_search_box_placeholder)
   end
 end
