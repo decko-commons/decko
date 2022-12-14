@@ -1,12 +1,12 @@
 RSpec.describe Card::Set::All::RelatedSets do
   describe "#related_sets" do
     it "has 1 set (right) for a simple card" do
-      sets = "A".card.related_sets.map { |s| s[0] }
+      sets = "A".card.related_sets.map(&:name)
       expect(sets).to eq(["A+*right"])
     end
 
     it "has 2 sets (type, and right) for a cardtype card" do
-      sets = "Cardtype A".card.related_sets.map { |s| s[0] }
+      sets = "Cardtype A".card.related_sets.map(&:name)
       expect(sets).to eq(["Cardtype A+*type", "Cardtype A+*right"])
     end
 
@@ -27,7 +27,7 @@ RSpec.describe Card::Set::All::RelatedSets do
     # end
 
     it "is empty for a non-simple card" do
-      sets = "A+B".card.related_sets.map { |s| s[0] }
+      sets = "A+B".card.related_sets.map(&:name)
       expect(sets).to eq([])
     end
   end

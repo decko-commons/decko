@@ -37,8 +37,8 @@ def all_members_followed_by? user_id=nil
 end
 
 def broader_set_followed_by? user_id
-  broader_sets.find do |set_name|
-    Card.fetch(set_name)&.directly_followed_by? user_id
+  broader_sets.find do |set_card|
+    set_card&.directly_followed_by? user_id
   end
 end
 
