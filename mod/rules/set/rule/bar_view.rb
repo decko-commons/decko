@@ -7,6 +7,7 @@ format :html do
   end
 
   view :bar, unknown: true do
+    class_up "card-slot", "_rule-item #{category_classes}"
     voo.hide :bar_nav unless existing_rule_card
     super()
   end
@@ -36,7 +37,7 @@ format :html do
   end
 
   view :bar_middle, unknown: true do
-    rule_info
+    # rule_info
   end
 
   view :bar_right, unknown: true do

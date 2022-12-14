@@ -11,4 +11,4 @@
                           role: "tabpanel",
                           "aria-labelledby": heading_id }
   .card-body
-    = bar_rule_list card.visible_settings(group_key).map(&:codename)
+    = bar_setting_list card.visible_settings(group_key).map(&:codename)
