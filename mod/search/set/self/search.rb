@@ -19,9 +19,8 @@ format do
     rescuing_bad_query(query) { Card.search query }
   end
 
-  # TODO: unify with term_param
   def search_keyword
-    @search_keyword ||= search_vars&.dig :keyword
+    @search_keyword ||= term_param || search_vars&.dig(:keyword)
   end
 
   def search_vars
@@ -57,7 +56,7 @@ format :html do
   view :results_for_keyword, cache: :never, template: :haml
 
   def search_item term
-    autocomplete_item icon_tag(:search), term
+    autocomplete_item :search, icon_tag(:search), term
   end
 
   private
@@ -98,7 +97,7 @@ format :json do
   end
 
   def each_search_box_item methods, &block
-    term = term_param
+    term = search_keyword
     exact = Card.fetch term, new: {}
     methods.map { |method| send method, term, exact, &block }
   end
