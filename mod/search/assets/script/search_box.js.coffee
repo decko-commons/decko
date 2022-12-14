@@ -14,13 +14,11 @@ class decko.searchBox
       source: @sourcepath
       select: @select
 
-  init: ->
-    debugger
-    @box.autocomplete @config, html: true
+  init: -> @box.autocomplete @config, html: true
 
   select: (_event, ui) ->
     url = ui.item.url
     window.location = url if url
 
   form: -> @box.closest "form"
-  keyword: -> form.find("#query_keyword").val()
+  keyword: -> @form().find("#query_keyword").val()
