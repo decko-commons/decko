@@ -5,26 +5,22 @@ $(window).ready ->
   el.data "searchBox", box
   box.init()
 
-
 class decko.searchBox
   constructor: (el) ->
     @box = el
+    @sourcepath = @box.data "completepath"
+    @originalpath = @sourcepath
     @config =
-      source: @box.data "completepath"
+      source: @sourcepath
       select: @select
 
-  init: -> @box.autocomplete @config, html: true
+  init: ->
+    debugger
+    @box.autocomplete @config, html: true
 
-  select: (event, ui) ->
-    item = ui.item
-    # sb = $('._search-box').data "searchBox"
-    if item.url
-      window.location = item.url
+  select: (_event, ui) ->
+    url = ui.item.url
+    window.location = url if url
 
-#    switch item.action
-#      when "goto" then sb.goto item.url
-#      when "search" then sb.search item.keyword
-
-  goto: (url) ->
-
-  search: (keyword) ->
+  form: -> @box.closest "form"
+  keyword: -> form.find("#query_keyword").val()
