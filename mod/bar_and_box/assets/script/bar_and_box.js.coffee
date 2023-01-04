@@ -2,14 +2,21 @@ $(window).ready ->
 # $("body").on "click", ".bar-menu", (e) ->
 #   e.stopImmediatePropagation()
 
-  $(document).on 'click', "._card-link", ->
+  $(document).on 'click', "._card-link", (event) ->
     cl = $(this)
     if cl.data("skip") == "on"
       cl.data "skip", null
     else if cl.closest("._card-link-modal")[0]
       cl.find("._modal-page-link").trigger "click"
     else
-      window.location = decko.path cl.data("cardLinkName")
+      url = decko.path cl.data("cardLinkName")
+      if openInNewTab event
+        window.open url, "_tab_" + Math.floor(Math.random() * 1000);
+      else
+        window.location = url
+
+openInNewTab = (event) -> event.metaKey
+
 
 decko.slot.ready (slot)->
   # note: by using slot ready, we can make sure this event is triggered early
