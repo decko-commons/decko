@@ -31,9 +31,7 @@ format :html do
 
   view :accordion_bar_list do
     category_accordion(:bar) do |list|
-      list_tag class: "nav flex-column", items: { class: "nav-item" } do
-        list
-      end
+      list_tag(class: "nav flex-column", items: { class: "nav-item" }) { list }
     end
   end
 
@@ -80,7 +78,7 @@ format :html do
 
   def pill_setting_list open_rule_in_modal=false
     item_view = open_rule_in_modal ? :rule_nest_editor_link : :rule_bridge_link
-    bridge_pills all_setting_list_items(item_view)
+    bridge_pills category_setting_list_items(:all, item_view)
   end
 
   view :pill_setting_list, cache: :never, wrap: { slot: { class: "_setting-list" } } do
