@@ -1,6 +1,6 @@
 format :html do
   def accordion &block
-    wrap_with :div, class: "accordion", &block
+    wrap_with :div, class: classy("accordion"), &block
   end
 
   def accordion_item title, **args

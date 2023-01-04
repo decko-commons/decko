@@ -30,6 +30,7 @@ format :html do
   end
 
   view :accordion_bar_list do
+    class_up "accordion", "bar-accordion"
     category_accordion(:bar) do |list|
       list_tag(class: "nav flex-column", items: { class: "nav-item" }) { list }
     end
