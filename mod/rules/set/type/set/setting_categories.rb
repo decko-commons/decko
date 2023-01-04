@@ -39,6 +39,8 @@ def category_settings cat
     field_related_settings
   when :nest_editor_field_related
     nest_editor_field_related_settings
+  else
+    group_settings cat
   end
 end
 
@@ -60,6 +62,6 @@ def field_related_settings
 end
 
 def recent_settings
-  recent_settings = Card[:recent_settings].item_cards.map(&:codename)
-  recent_settings.map(&:to_sym) & visible_setting_codenames
+  recent_settings = Card[:recent_settings].item_cards.map(&:codename).compact
+  recent_settings & visible_setting_codenames
 end
