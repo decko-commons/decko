@@ -9,7 +9,8 @@ format :html do
 
   # show the settings in bars
   view :bar_setting_list, setting_list_view_options do
-    bar_setting_list
+    group = voo.filter&.to_sym || :all
+    category_setting_list_items(group, :bar, hide: :full_name).join("\n").html_safe
   end
 
   # a click on a setting opens the rule editor in an overlay
@@ -30,9 +31,7 @@ format :html do
 
   view :accordion_bar_list do
     category_accordion(:bar) do |list|
-      list_tag class: "nav flex-column", items: { class: "nav-item" } do
-        list
-      end
+      list_tag(class: "nav flex-column", items: { class: "nav-item" }) { list }
     end
   end
 
@@ -53,7 +52,7 @@ format :html do
         end
       body = yield list
       accordion_item "#{group_key} #{count_badge(list.size)}",
-                     body: body
+                     body: body, context: group_key
     end
   end
 
@@ -79,11 +78,7 @@ format :html do
 
   def pill_setting_list open_rule_in_modal=false
     item_view = open_rule_in_modal ? :rule_nest_editor_link : :rule_bridge_link
-    bridge_pills all_setting_list_items(item_view)
-  end
-
-  def bar_setting_list
-    all_setting_list_items(:bar, hide: :full_name).join("\n").html_safe
+    bridge_pills category_setting_list_items(:all, item_view)
   end
 
   view :pill_setting_list, cache: :never, wrap: { slot: { class: "_setting-list" } } do
@@ -92,12 +87,6 @@ format :html do
 
   def category_setting_list_items category, item_view, options={}
     card.category_settings(category).map do |setting|
-      setting_list_item setting, item_view, options
-    end
-  end
-
-  def all_setting_list_items item_view, options={}
-    card.all_settings.map do |setting|
       setting_list_item setting, item_view, options
     end
   end
