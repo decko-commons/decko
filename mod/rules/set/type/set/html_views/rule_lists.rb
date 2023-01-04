@@ -53,7 +53,7 @@ format :html do
         end
       body = yield list
       accordion_item "#{group_key} #{count_badge(list.size)}",
-                     body: body
+                     body: body, context: group_key
     end
   end
 
