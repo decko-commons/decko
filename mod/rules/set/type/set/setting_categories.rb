@@ -39,6 +39,8 @@ def category_settings cat
     field_related_settings
   when :nest_editor_field_related
     nest_editor_field_related_settings
+  else
+    group_settings cat
   end
 end
 
