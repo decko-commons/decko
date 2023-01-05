@@ -24,12 +24,14 @@ format :html do
   end
 
   view :accordion_rule_list, setting_list_view_options do
+    class_up "accordion", "bar-accordion"
     category_accordion(:rule_bridge_link) do |list|
       bridge_pills list
     end
   end
 
   view :accordion_bar_list do
+    class_up "accordion", "bar-accordion"
     category_accordion(:bar) do |list|
       list_tag(class: "nav flex-column", items: { class: "nav-item" }) { list }
     end
