@@ -6,17 +6,15 @@ $(window).ready ->
     cl = $(this)
     if cl.data("skip") == "on"
       cl.data "skip", null
+    else if openInNewTab event
+      window.open cardLinkPath(cl), "_tab_" + Math.floor(Math.random() * 1000)
     else if cl.closest("._card-link-modal")[0]
       cl.find("._modal-page-link").trigger "click"
     else
-      url = decko.path cl.data("cardLinkName")
-      if openInNewTab event
-        window.open url, "_tab_" + Math.floor(Math.random() * 1000);
-      else
-        window.location = url
+      window.location = cardLinkPath(cl)
 
 openInNewTab = (event) -> event.metaKey
-
+cardLinkPath = (cl) -> decko.path cl.data("cardLinkName")
 
 decko.slot.ready (slot)->
   # note: by using slot ready, we can make sure this event is triggered early
