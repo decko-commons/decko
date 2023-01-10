@@ -46,7 +46,6 @@ end
 def mod_dir new_mod=nil
   mod_name = new_mod || mod
   dir = Cardio::Mod.dirs.path(mod_name) || (mod_name.to_sym == :test && "test")
-
   raise Error, "can't find mod \"#{mod_name}\"" unless dir
 
   dir
