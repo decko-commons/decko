@@ -82,6 +82,7 @@ end
 def assign_set_specific_attributes
   @attaching = set_specific[attachment_name].present?
   # reset content if we really have something to upload
+  @mod = set_specific[:mod]
   self.content = nil if @attaching && !duplicate?
   super
 end
@@ -95,6 +96,8 @@ def duplicate?
     (old = attachment.file) &&
     (new = set_specific[attachment_name]) &&
     old.size == new.size
+  # rescue Card::Error
+  #   false
 end
 
 def delete_files_for_action action
