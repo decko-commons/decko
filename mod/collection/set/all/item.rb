@@ -107,7 +107,7 @@ def item_value item_name
 end
 
 format do
-  view :count do
+  def count
     card.item_count
   end
 
