@@ -108,7 +108,7 @@ end
 
 format do
   view :count do
-    card.item_count
+    count
   end
 
   def nest_item cardish, options={}, &block
@@ -167,6 +167,10 @@ format do
 end
 
 format :html do
+  view :count do
+    number_with_delimiter count
+  end
+
   def wrap_item rendered, item_view
     %(<div class="item-#{item_view}">#{rendered}</div>)
   end

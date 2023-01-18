@@ -106,6 +106,10 @@ format :html do
     end
   end
 
+  view :count, cache: :never do
+    number_with_delimiter count
+  end
+
   def toggle_logic
     show_view?(:title_link, :hide) ? voo.show(:icon_toggle) : voo.show(:title_toggle)
   end
