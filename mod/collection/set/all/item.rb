@@ -108,7 +108,7 @@ end
 
 format do
   view :count do
-    count
+    try :count
   end
 
   def nest_item cardish, options={}, &block
@@ -168,7 +168,7 @@ end
 
 format :html do
   view :count do
-    number_with_delimiter count
+    number_with_delimiter try(:count)
   end
 
   def wrap_item rendered, item_view
