@@ -4,8 +4,8 @@ require "./decko_gem"
 
 DOCKER_IMAGES = %w[base bundled mysql postgres sandbox].map { |name| "decko-#{name}" }
 
-# NOTE: these tasks are not in any gem and are thus not available to mod
-# developers.  Therefore they should contain only tasks for core developers.
+# NOTE: these tasks are not in any gem and are thus not available to monkeys.
+# Therefore they should contain only platypus tasks.
 
 task :push_gems do
   each_gem do |dir, gem|
