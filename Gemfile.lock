@@ -211,6 +211,7 @@ PATH
       puma (!= 6.0.0)
       rspec (~> 3.10)
       rspec-html-matchers (~> 0.9)
+      selenium-webdriver (!= 4.8.0)
       simplecov (~> 0.21)
       webdrivers (~> 4.6)
     decko-cypress (0.15.0)
@@ -412,7 +413,7 @@ GEM
     erubi (1.12.0)
     erubis (2.7.0)
     eventmachine (1.2.7)
-    excon (0.97.2)
+    excon (0.98.0)
     execjs (2.8.1)
     ffi (1.15.5)
     fog-aws (3.16.0)
@@ -512,8 +513,6 @@ GEM
     net-smtp (0.3.3)
       net-protocol
     nio4r (2.5.8)
-    nokogiri (1.14.0-arm64-darwin)
-      racc (~> 1.4)
     nokogiri (1.14.0-x86_64-darwin)
       racc (~> 1.4)
     nokogumbo (2.0.5)
@@ -642,7 +641,7 @@ GEM
       rb-inotify (~> 0.9, >= 0.9.7)
     sassc (2.4.0)
       ffi (~> 1.9)
-    selenium-webdriver (4.8.0)
+    selenium-webdriver (4.7.1)
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
@@ -706,9 +705,7 @@ GEM
     zeitwerk (2.6.6)
 
 PLATFORMS
-  arm64-darwin-21
   x86_64-darwin-20
-  x86_64-darwin-21
 
 DEPENDENCIES
   card!
@@ -726,4 +723,4 @@ DEPENDENCIES
   thin
 
 BUNDLED WITH
-   2.3.11
+   2.3.23
