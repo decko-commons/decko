@@ -254,3 +254,76 @@ card_changes_050:
   card_action_id: 2666
   field: 1
   value: '55'
+card_changes_051:
+  id: 51
+  card_action_id: 789
+  field: 0
+  value:
+card_changes_052:
+  id: 52
+  card_action_id: 789
+  field: 1
+  value: '2'
+card_changes_053:
+  id: 53
+  card_action_id: 789
+  field: 2
+  value: |
+    <h3>Cardtypes </h3>
+    <p> [[/new/cardtype|Add new Type]]</p>
+    <p>{{Cardtype+:type+:by_name|bar; title: all cardtypes}}</p>
+    <h3>Rules</h3>
+    <div>Cards are configured by creating <em>rules</em>.  </div>
+    <div> </div>
+    <h5>Webpage rules</h5>
+    <div>
+    <blockquote>{{:all|bar_rule_list; filter:webpage}}</blockquote>
+    <h5>Permission rules</h5>
+    <blockquote>{{:all|bar_rule_list; filter:permission}}</blockquote>
+    </div>
+    <div><em>[[http://decko.org/rules | More about rules.]]</em></div>
+    <div> </div>
+    <div>
+    <h3>Views</h3>
+    <p>You can try out different views below</p>
+    <p>{{:getting_started|demo}}</p>
+    </div>
+card_changes_054:
+  id: 54
+  card_action_id: 789
+  field: 3
+  value: f
+card_changes_055:
+  id: 55
+  card_action_id: 789
+  field: 4
+  value: '191'
+card_changes_056:
+  id: 56
+  card_action_id: 789
+  field: 5
+  value: '523'
+card_changes_057:
+  id: 57
+  card_action_id: 3658
+  field: 2
+  value: |
+    <h3>Cardtypes </h3>
+    <p> [[/new/cardtype|Add new Type]]</p>
+    <p>{{Cardtype+:type+:by_name|bar; title: all cardtypes}}</p>
+    <h3>Rules</h3>
+    <div>Cards are configured by creating <em>rules</em>.  </div>
+    <div> </div>
+    <h5>Webpage rules</h5>
+    <div>
+    <blockquote>{{:all|bar_setting_list; filter:webpage}}</blockquote>
+    <h5>Permission rules</h5>
+    <blockquote>{{:all|bar_setting_list; filter:permission}}</blockquote>
+    </div>
+    <div><em>[[http://decko.org/rules | More about rules.]]</em></div>
+    <div> </div>
+    <div>
+    <h3>Views</h3>
+    <p>You can try out different views below</p>
+    <p>{{:getting_started|demo}}</p>
+    </div>
