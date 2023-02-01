@@ -31,7 +31,7 @@ RSpec.describe Card::Set::All::Item do
   end
 
   specify "view: :count" do
-    expect_view(:count).to eq(2)
+    expect_view(:count).to eq("2")
   end
 
   specify "html format: #item_links" do

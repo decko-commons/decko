@@ -14,6 +14,16 @@ $bar_stripe_color: $dark !default;
   border: 3px solid $primary !important;
 }
 
+.bar-accordion {
+  .accordion-body {
+    padding: 0;
+    .bar {
+      border-left: 1px solid $border-color !important;
+    }
+  }
+}
+
+
 .bar {
   border-left: 3px solid $bar_stripe_color !important;
 

@@ -96,15 +96,6 @@ end
 
 format :csv do
   view :core, :core, mod: All::Csv::CsvFormat
-  #
-  # view :card_list do
-  #   items = super()
-  #   if depth.zero?
-  #     title_row + items
-  #   else
-  #     items
-  #   end
-  # end
 end
 
 format :html do
