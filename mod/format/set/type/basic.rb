@@ -1,3 +1,3 @@
-def export_type
+def pod_type
   nil
 end
