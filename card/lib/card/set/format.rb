@@ -2,10 +2,13 @@
 
 class Card
   module Set
-    # This document explains how to use format blocks within {Cardio::Mod mods}. To make
-    # use of it, you will need to understand both {Cardio::Mod mods} and {Card::Set sets}.
+    # Card::Set::Format is responsible for the `format` component of the set module DSL,
+    # which is used in {Cardio::Mod Set module} files found in {Cardio::Mod mods'} set
+    # directories. In these files, Monkeys use the DSL to define views, which can then be
+    # used by Monkeys in code and by Sharks via the UI.
     #
-    # Within a card mod, you can define format blocks like the following:
+    # For example, imagine you have a set module file in mod/mymod/type/my_type.rb. There
+    # you can define format blocks like the following:
     #
     #     format :html do
     #       def beethoven
@@ -14,11 +17,23 @@ class Card
     #     end
     #
     # The magic that happens here is that the method #beethoven is now applicable (and
-    # available) _only_ to the cards in the set specified by the mod, and only when
-    # the card is rendering a view in the HTML format.
+    # available) _only_ to the cards in the {Card::Set set} specified by the mod, and
+    # only when rendering a view of the card in the HTML format. {Card::Format Learn
+    # more about formats}.
     #
-    # If you care, you can certainly learn about how all this works. How the set module
-    # creates a module that looks something like `Card::Set::Type::MyType::HtmlFormat`.
+    # So if, for example, I had a card "MyCard" the type "MyType", the following should
+    # use the method above:
+    #
+    # ````
+    # "MyCard".card.format(:html).beethoven
+    # ````
+    #
+    # ...but if the card had a different type, or if I tried to use the method in, say,
+    # the JSON format, this #beethoven method wouldn't be available.
+    #
+    #
+    # Under the hood, the DSL creates a ruby module that looks something like
+    # `Card::Set::Type::MyType::HtmlFormat`.
     # How the format object for a given card in the set includes this module dynamically
     # when it's initialized. And so on...
     #
