@@ -8,21 +8,19 @@ class Card
     # cards in specific formats. The views can then be
     # used by Monkeys in code and by Sharks via the UI.
     #
-    # For example, imagine you have a set module file in mod/mymod/type/my_type.rb. There
-    # you can define a view like this:
+    # For example, imagine you have a set module file in `mod/mymod/type/my_type.rb`.
+    # There you can define a view like this:
     #
-    #   format :html do
-    #     view :hello do
-    #       greeting
+    #     format :html do
+    #       view :hello do
+    #         greeting
+    #       end
     #     end
-    #   end
     #
-    # {AbstractFormat Learn more about defining views}
+    # {AbstractFormat#view Learn more about defining views}
     #
-    # This view will now be available to MyType cards in HTML – but not in other formats.
-    #
-    #
-    # using the format blocks like the following:
+    # This view will now be available to MyType cards in HTML -- but not in other formats.
+    # Similarly, you can define other methods in format blocks:
     #
     #     format :html do
     #       def greeting
@@ -30,34 +28,32 @@ class Card
     #       end
     #     end
     #
-    # The magic that happens here is that the method #beethoven is now applicable (and
+    # The magic that happens here is that the method #greeting is now applicable (and
     # available) _only_ to the cards in the {Card::Set set} specified by the mod, and
     # only when rendering a view of the card in the HTML format. {Card::Format Learn
     # more about formats}.
     #
-    # So if, for example, I had a card "MyCard" the type "MyType", the following should
-    # use the method above:
+    # So if, for example, I had a card "MyCard" with the type "MyType", the following
+    # should use the method above:
     #
     # ````
-    # "MyCard".card.format(:html).beethoven
+    # "MyCard".card.format(:html).greeting
     # ````
     #
     # ...but if the card had a different type, or if I tried to use the method in, say,
     # the JSON format, this #beethoven method wouldn't be available.
     #
-    #
     # Under the hood, the DSL creates a ruby module that looks something like
-    # `Card::Set::Type::MyType::HtmlFormat`.
-    # How the format object for a given card in the set includes this module dynamically
-    # when it's initialized. And so on...
+    # `Card::Set::Type::MyType::HtmlFormat`. This module will then be dynamically included
+    # in HTML format objects for MyCard.
     #
-    # But as monkeys, we don't usually think about all that much, because we work in
+    # As monkeys, we don't usually think about all that much, because we work in
     # the set module space, which lets us focus on the card patterns.
     #
     # Speaking of which, there are a few key patterns to be aware of:
     #
     # 1. Just as in {Card::Set sets}, format methods for narrower sets will override
-    #    format methods for more general sets.  So if a #beethoven method is defined
+    #    format methods for more general sets.  So if a #greeting method is defined
     #    for all cards and again for a specific card type, then the type method will
     #    override the all method when both apply.
     # 2. Similarly, specific formats inherit from more general formats, and all formats
@@ -65,29 +61,28 @@ class Card
     #    will define methods on the base format class.
     #
     #         format do
-    #           def haydn
-    #             :sucks
+    #           def farewell
+    #             "goodbye"
     #           end
     #         end
     #
     # 3. It is possible to use super to refer to overridden methods.  For example
     #
     #         format :html do
-    #           def haydn
+    #           def goodbye
     #             "<em>#{super}</em>"
     #           end
     #         end
     #
     #     Note: Set precedence has a higher priority than Format precedence.
     #
-    # 4. {#view} and {#before} can both be called outside of a format block. They will
-    #   be defined on the base format.
-    #
-    # 5. Some very powerful API calls (including {AbstractFormat#view view} and
+    # 4. Some very powerful API calls (including {AbstractFormat#view view} and
     # {AbstractFormat#before before}) are defined in {AbstractFormat}. These methods are
     # always available in format blocks.
-
-
+    #
+    # 5. {#view} and {#before}, however, can ALSO both be called outside of a format
+    # block. They will be defined on the base format.
+    #
     module Format
       require "card/set/format/haml_paths"
       require "card/set/format/abstract_format"
@@ -120,7 +115,7 @@ class Card
 
       private
 
-      def define_on_format format_name = :base, &block
+      def define_on_format format_name=:base, &block
         # format class name, eg. HtmlFormat
         klass = Card::Format.format_class_name format_name
 

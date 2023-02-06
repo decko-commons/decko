@@ -22,7 +22,8 @@ class Card
       end
 
       def field_event_name action
-        [field, "required_by", parent_set.underscored_name, "on", action].join("__").to_sym
+        [field, "required_by", parent_set.underscored_name, "on", action]
+          .join("__").to_sym
       end
 
       private

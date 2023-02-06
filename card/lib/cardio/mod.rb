@@ -2,8 +2,8 @@ require "cardio/mod/class_methods"
 
 module Cardio
   # A Card Mod (short for "module" or "modification") is a library containing discrete
-  # chunk of card functionality. Mods are how the Decko community develops and shares code.
-  # If you want to customize a deck in a way that can't be done on the site itself,
+  # chunk of card functionality. Mods are how the Decko community develops and shares
+  # code. If you want to customize a deck in a way that can't be done on the site itself,
   # try a mod.
   #
   # The simplest way to add a mod is to run this command in your deck:

@@ -69,7 +69,7 @@ card/lib/card/auth/setup.rb af74cd8bfb935f6b42c954cf5e59c4e10de0110a
 card/lib/card/auth/token.rb 1087c03786bd362913e763795ede9aea46058d77
 card/lib/card/query/join.rb e92ccbf83b172e60f69a9a6abd00e75bcaa364b2
 card/lib/card/rule/cache.rb d2361871ae09725c04aadb71392add7bb62efeef
-card/lib/card/set/format.rb 69811c21a7760f9f979e2b8af8ec5fb6199d212d
+card/lib/card/set/format.rb 0f1af75a43c4a8472a90fdd1109f2b60d5e31ede
 card/lib/card/view/cache.rb c6c1603ddafde1f8a1cc2f33c1cdc44b0d33dae9
 card/lib/cardio/commands.rb 137dd7b06fdfdc111bce22fea51c9323bd1f8497
 card/lib/cardio/delaying.rb 406a5ddedcf56dc7f148da3dfb699736eb076f04
