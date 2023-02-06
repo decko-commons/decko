@@ -2,16 +2,30 @@
 
 class Card
   module Set
-    # Card::Set::Format is responsible for the `format` component of the set module DSL,
-    # which is used in {Cardio::Mod Set module} files found in {Cardio::Mod mods'} set
-    # directories. In these files, Monkeys use the DSL to define views, which can then be
+    # Card::Set::Format is responsible for handling `format` blocks within the set module
+    # DSL, which is used in {Cardio::Mod Set module} files found in {Cardio::Mod mods'}
+    # set directories. Monkeys use the DSL to define views that apply to specific sets of
+    # cards in specific formats. The views can then be
     # used by Monkeys in code and by Sharks via the UI.
     #
     # For example, imagine you have a set module file in mod/mymod/type/my_type.rb. There
-    # you can define format blocks like the following:
+    # you can define a view like this:
+    #
+    #   format :html do
+    #     view :hello do
+    #       greeting
+    #     end
+    #   end
+    #
+    # {AbstractFormat Learn more about defining views}
+    #
+    # This view will now be available to MyType cards in HTML – but not in other formats.
+    #
+    #
+    # using the format blocks like the following:
     #
     #     format :html do
-    #       def beethoven
+    #       def greeting
     #         :rocks
     #       end
     #     end
@@ -72,6 +86,8 @@ class Card
     # 5. Some very powerful API calls (including {AbstractFormat#view view} and
     # {AbstractFormat#before before}) are defined in {AbstractFormat}. These methods are
     # always available in format blocks.
+
+
     module Format
       require "card/set/format/haml_paths"
       require "card/set/format/abstract_format"
@@ -104,7 +120,7 @@ class Card
 
       private
 
-      def define_on_format format_name=:base, &block
+      def define_on_format format_name = :base, &block
         # format class name, eg. HtmlFormat
         klass = Card::Format.format_class_name format_name
 

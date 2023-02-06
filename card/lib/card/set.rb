@@ -45,6 +45,11 @@ class Card
   #        a) the set module's file location to autogenerate ruby module names and
   #        b) Card::Set to provide API for the most common set methods.
   #
+  # Import subclasses of Card::Set include:
+  #
+  #   - {Format}, which handles `format` blocks in the DSL
+  #   - {Format::AbstractFormat}, which handles view definitions
+  #   -
   module Set
     include Event::Api
     include Trait
