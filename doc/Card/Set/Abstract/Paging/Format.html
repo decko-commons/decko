@@ -6,7 +6,7 @@
 <title>
   Module: Card::Set::Abstract::Paging::Format
   
-    &mdash; Documentation by YARD 0.9.26
+    &mdash; Documentation by YARD 0.9.28
   
 </title>
 
@@ -83,7 +83,7 @@
   
   <dl>
     <dt>Defined in:</dt>
-    <dd>card/tmpsets/set/mod006-card-mod-collection/abstract/paging.rb</dd>
+    <dd>platypus/tmp/set/gem-defaults/mod002-collection/abstract/paging.rb</dd>
   </dl>
   
 </div>
@@ -175,7 +175,53 @@
         <li class="public ">
   <span class="summary_signature">
     
+      <a href="#last_item_on_page-instance_method" title="#last_item_on_page (instance method)">#<strong>last_item_on_page</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
       <a href="#limit-instance_method" title="#limit (instance method)">#<strong>limit</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#no_results%3F-instance_method" title="#no_results? (instance method)">#<strong>no_results?</strong>  &#x21d2; Boolean </a>
     
 
     
@@ -294,7 +340,7 @@
 25</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod006-card-mod-collection/abstract/paging.rb', line 23</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod002-collection/abstract/paging.rb', line 23</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_count_with_params'>count_with_params</span>
   <span class='ivar'>@count_with_params</span> <span class='op'>||=</span> <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_item_names'>item_names</span><span class='period'>.</span><span class='id identifier rubyid_count'>count</span>
@@ -319,12 +365,12 @@
       <pre class="lines">
 
 
-32
-33
-34</pre>
+37
+38
+39</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod006-card-mod-collection/abstract/paging.rb', line 32</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod002-collection/abstract/paging.rb', line 37</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_current_page'>current_page</span>
   <span class='lparen'>(</span><span class='id identifier rubyid_offset'>offset</span> <span class='op'>/</span> <span class='id identifier rubyid_limit'>limit</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to_i'>to_i</span>
@@ -359,15 +405,45 @@
       <pre class="lines">
 
 
-37
-38
-39</pre>
+42
+43
+44</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod006-card-mod-collection/abstract/paging.rb', line 37</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod002-collection/abstract/paging.rb', line 42</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_extra_paging_path_args'>extra_paging_path_args</span>
   <span class='lbrace'>{</span><span class='rbrace'>}</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="last_item_on_page-instance_method">
+  
+    #<strong>last_item_on_page</strong>  &#x21d2; <tt><span class='object_link'><a href="../../../../Object.html" title="Object (class)">Object</a></span></tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+46
+47
+48</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod002-collection/abstract/paging.rb', line 46</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_last_item_on_page'>last_item_on_page</span>
+  <span class='lbracket'>[</span><span class='id identifier rubyid_count_with_params'>count_with_params</span><span class='comma'>,</span> <span class='lparen'>(</span><span class='id identifier rubyid_offset'>offset</span> <span class='op'>+</span> <span class='id identifier rubyid_limit'>limit</span><span class='rparen'>)</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_min'>min</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -394,10 +470,63 @@
 13</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod006-card-mod-collection/abstract/paging.rb', line 11</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod002-collection/abstract/paging.rb', line 11</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_limit'>limit</span>
   <span class='ivar'>@limit</span> <span class='op'>||=</span> <span class='id identifier rubyid_contextual_param'>contextual_param</span><span class='lparen'>(</span><span class='symbol'>:limit</span><span class='rparen'>)</span> <span class='op'>||</span> <span class='id identifier rubyid_default_limit'>default_limit</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="no_results?-instance_method">
+  
+    #<strong>no_results?</strong>  &#x21d2; <tt>Boolean</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+27
+28
+29</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod002-collection/abstract/paging.rb', line 27</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_no_results?'>no_results?</span>
+  <span class='id identifier rubyid_count_with_params'>count_with_params</span><span class='period'>.</span><span class='id identifier rubyid_zero?'>zero?</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -424,7 +553,7 @@
 17</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod006-card-mod-collection/abstract/paging.rb', line 15</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod002-collection/abstract/paging.rb', line 15</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_offset'>offset</span>
   <span class='ivar'>@offset</span> <span class='op'>||=</span> <span class='id identifier rubyid_contextual_param'>contextual_param</span><span class='lparen'>(</span><span class='symbol'>:offset</span><span class='rparen'>)</span> <span class='op'>||</span> <span class='int'>0</span>
@@ -454,7 +583,7 @@
 21</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod006-card-mod-collection/abstract/paging.rb', line 19</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod002-collection/abstract/paging.rb', line 19</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_search_with_params'>search_with_params</span>
   <span class='ivar'>@search_with_params</span> <span class='op'>||=</span> <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_item_names'>item_names</span>
@@ -479,16 +608,18 @@
       <pre class="lines">
 
 
-27
-28
-29
-30</pre>
+31
+32
+33
+34
+35</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod006-card-mod-collection/abstract/paging.rb', line 27</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod002-collection/abstract/paging.rb', line 31</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_total_pages'>total_pages</span>
   <span class='kw'>return</span> <span class='int'>1</span> <span class='kw'>if</span> <span class='id identifier rubyid_limit'>limit</span><span class='period'>.</span><span class='id identifier rubyid_zero?'>zero?</span>
+
   <span class='lparen'>(</span><span class='lparen'>(</span><span class='id identifier rubyid_count_with_params'>count_with_params</span> <span class='op'>-</span> <span class='int'>1</span><span class='rparen'>)</span> <span class='op'>/</span> <span class='id identifier rubyid_limit'>limit</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to_i'>to_i</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -501,9 +632,9 @@
 </div>
 
       <div id="footer">
-  Generated on Thu May 13 17:17:34 2021 by
-  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.26 (ruby-2.7.2).
+  Generated on Mon Feb  6 14:15:12 2023 by
+  <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.28 (ruby-3.0.1).
 </div>
 
     </div>

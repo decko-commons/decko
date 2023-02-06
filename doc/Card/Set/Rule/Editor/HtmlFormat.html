@@ -6,7 +6,7 @@
 <title>
   Module: Card::Set::Rule::Editor::HtmlFormat
   
-    &mdash; Documentation by YARD 0.9.26
+    &mdash; Documentation by YARD 0.9.28
   
 </title>
 
@@ -83,7 +83,7 @@
   
   <dl>
     <dt>Defined in:</dt>
-    <dd>card/tmpsets/set/mod036-card-mod-rules/rule/editor.rb</dd>
+    <dd>platypus/tmp/set/gem-defaults/mod010-rules/rule/editor.rb</dd>
   </dl>
   
 </div>
@@ -133,6 +133,29 @@
     </h2>
 
     <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#category_classes-instance_method" title="#category_classes (instance method)">#<strong>category_classes</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+</div></span>
+  
+</li>
+
       
         <li class="public ">
   <span class="summary_signature">
@@ -207,6 +230,52 @@
   <span class="summary_signature">
     
       <a href="#edit_rule_title-instance_method" title="#edit_rule_title (instance method)">#<strong>edit_rule_title</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#pill_rule_link-instance_method" title="#pill_rule_link (instance method)">#<strong>pill_rule_link</strong>(target_view)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#pill_rule_link_opts-instance_method" title="#pill_rule_link_opts (instance method)">#<strong>pill_rule_link_opts</strong>  &#x21d2; Object </a>
     
 
     
@@ -433,6 +502,29 @@
 </li>
 
       
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#view:+rule_nest_editor_link-instance_method" title="#view: rule_nest_editor_link (instance method)">#<strong>view: rule_nest_editor_link</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+</div></span>
+  
+</li>
+
+      
     </ul>
   
 
@@ -473,7 +565,7 @@
 24</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod036-card-mod-rules/rule/editor.rb', line 22</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod010-rules/rule/editor.rb', line 22</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_rule_context'>rule_context</span>
   <span class='ivar'>@rule_context</span>
@@ -491,7 +583,41 @@
 
     
       <div class="method_details first">
-  <h3 class="signature first" id="current_rule-instance_method">
+  <h3 class="signature first" id="category_classes-instance_method">
+  
+    #<strong>category_classes</strong>  &#x21d2; <tt><span class='object_link'><a href="../../../../Object.html" title="Object (class)">Object</a></span></tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+61
+62
+63
+64
+65</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod010-rules/rule/editor.rb', line 61</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_category_classes'>category_classes</span>
+  <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_rule_set'>rule_set</span><span class='period'>.</span><span class='id identifier rubyid_categories'>categories</span><span class='lparen'>(</span><span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_rule_setting'>rule_setting</span><span class='period'>.</span><span class='id identifier rubyid_codename'>codename</span><span class='rparen'>)</span>
+      <span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_cat'>cat</span><span class='op'>|</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>_category-</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_cat'>cat</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span> <span class='rbrace'>}</span>
+      <span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'> </span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="current_rule-instance_method">
   
     #<strong>current_rule</strong>  &#x21d2; <tt><span class='object_link'><a href="../../../../Object.html" title="Object (class)">Object</a></span></tt> 
   
@@ -505,18 +631,18 @@
       <pre class="lines">
 
 
-56
-57
-58
-59
-60
-61
-62
-63
-64</pre>
+78
+79
+80
+81
+82
+83
+84
+85
+86</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod036-card-mod-rules/rule/editor.rb', line 56</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod010-rules/rule/editor.rb', line 78</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_current_rule'>current_rule</span>
   <span class='kw'>if</span> <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:assign</span><span class='rbracket'>]</span>
@@ -547,12 +673,12 @@
       <pre class="lines">
 
 
-99
-100
-101</pre>
+121
+122
+123</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod036-card-mod-rules/rule/editor.rb', line 99</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod010-rules/rule/editor.rb', line 121</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_current_set_key'>current_set_key</span>
   <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_new_card?'>new_card?</span> <span class='op'>?</span> <span class='const'><span class='object_link'><a href="../../../../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_quick_fetch'><span class='object_link'><a href="../../../Fetch/CardClass.html#quick_fetch-instance_method" title="Card::Fetch::CardClass#quick_fetch (method)">quick_fetch</a></span></span><span class='lparen'>(</span><span class='symbol'>:all</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_name'><span class='object_link'><a href="../../../Name/All.html#name-instance_method" title="Card::Name::All#name (method)">name</a></span></span><span class='period'>.</span><span class='id identifier rubyid_key'>key</span> <span class='op'>:</span> <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_rule_set_key'>rule_set_key</span>
@@ -577,12 +703,12 @@
       <pre class="lines">
 
 
-45
-46
-47</pre>
+67
+68
+69</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod036-card-mod-rules/rule/editor.rb', line 45</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod010-rules/rule/editor.rb', line 67</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_edit_link_view'>edit_link_view</span>
   <span class='symbol'>:rule_edit</span>
@@ -607,21 +733,97 @@
       <pre class="lines">
 
 
-49
+71
+72
+73
+74
+75
+76</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod010-rules/rule/editor.rb', line 71</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_edit_rule_title'>edit_rule_title</span>
+  <span class='id identifier rubyid_output'>output</span> <span class='lbracket'>[</span>
+    <span class='id identifier rubyid_wrap_with'>wrap_with</span><span class='lparen'>(</span><span class='symbol'>:h5</span><span class='comma'>,</span> <span class='id identifier rubyid_setting_title'>setting_title</span><span class='comma'>,</span> <span class='label'>class:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>title fw-bold</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+    <span class='comment'># render_overlay_rule_help
+</span>  <span class='rbracket'>]</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="pill_rule_link-instance_method">
+  
+    #<strong>pill_rule_link</strong>(target_view)  &#x21d2; <tt><span class='object_link'><a href="../../../../Object.html" title="Object (class)">Object</a></span></tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+45
+46
+47
+48</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod010-rules/rule/editor.rb', line 45</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_pill_rule_link'>pill_rule_link</span> <span class='id identifier rubyid_target_view'>target_view</span>
+  <span class='id identifier rubyid_link_to_view'>link_to_view</span> <span class='id identifier rubyid_target_view'>target_view</span><span class='comma'>,</span> <span class='lparen'>(</span><span class='id identifier rubyid_setting_title'>setting_title</span> <span class='op'>+</span> <span class='id identifier rubyid_short_help_text'>short_help_text</span><span class='rparen'>)</span><span class='comma'>,</span>
+               <span class='id identifier rubyid_pill_rule_link_opts'>pill_rule_link_opts</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="pill_rule_link_opts-instance_method">
+  
+    #<strong>pill_rule_link_opts</strong>  &#x21d2; <tt><span class='object_link'><a href="../../../../Object.html" title="Object (class)">Object</a></span></tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
 50
 51
 52
 53
-54</pre>
+54
+55
+56
+57
+58
+59</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod036-card-mod-rules/rule/editor.rb', line 49</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod010-rules/rule/editor.rb', line 50</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_edit_rule_title'>edit_rule_title</span>
-  <span class='id identifier rubyid_output'>output</span> <span class='lbracket'>[</span>
-    <span class='id identifier rubyid_wrap_with'>wrap_with</span><span class='lparen'>(</span><span class='symbol'>:h5</span><span class='comma'>,</span> <span class='id identifier rubyid_setting_title'>setting_title</span><span class='comma'>,</span> <span class='label'>class:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>title font-weight-bold</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
-    <span class='comment'># render_overlay_rule_help
-</span>  <span class='rbracket'>]</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_pill_rule_link_opts'>pill_rule_link_opts</span>
+  <span class='id identifier rubyid_opts'>opts</span> <span class='op'>=</span> <span class='id identifier rubyid_bridge_link_opts'>bridge_link_opts</span><span class='lparen'>(</span>
+    <span class='label'>class:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>edit-rule-link nav-link _rule-item </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_category_classes'>category_classes</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+    <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>data-bs-toggle</span><span class='label_end'>&quot;:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>pill</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+    <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>data-category</span><span class='label_end'>&quot;:</span> <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_rule_set'>rule_set</span><span class='period'>.</span><span class='id identifier rubyid_categories'>categories</span><span class='lparen'>(</span><span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_rule_setting'>rule_setting</span><span class='period'>.</span><span class='id identifier rubyid_codename'>codename</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'> </span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='comma'>,</span>
+    <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>data-cy</span><span class='label_end'>&quot;:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_setting_title'>setting_title</span><span class='period'>.</span><span class='id identifier rubyid_to_name'>to_name</span><span class='period'>.</span><span class='id identifier rubyid_key'>key</span><span class='embexpr_end'>}</span><span class='tstring_content'>-pill</span><span class='tstring_end'>&quot;</span></span>
+  <span class='rparen'>)</span>
+  <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:path</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='symbol'>:layout</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_opts'>opts</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -643,12 +845,12 @@
       <pre class="lines">
 
 
-66
-67
-68</pre>
+88
+89
+90</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod036-card-mod-rules/rule/editor.rb', line 66</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod010-rules/rule/editor.rb', line 88</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_quick_editor'>quick_editor</span>
   <span class='id identifier rubyid_rule_content_formgroup'>rule_content_formgroup</span>
@@ -673,12 +875,12 @@
       <pre class="lines">
 
 
-95
-96
-97</pre>
+117
+118
+119</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod036-card-mod-rules/rule/editor.rb', line 95</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod010-rules/rule/editor.rb', line 117</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_rule_content_formgroup'>rule_content_formgroup</span>
   <span class='id identifier rubyid__render_content_formgroup'>_render_content_formgroup</span> <span class='label'>hide:</span> <span class='symbol'>:conflict_tracker</span>
@@ -703,12 +905,12 @@
       <pre class="lines">
 
 
-78
-79
-80</pre>
+100
+101
+102</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod036-card-mod-rules/rule/editor.rb', line 78</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod010-rules/rule/editor.rb', line 100</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_rule_set_description'>rule_set_description</span>
   <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_rule_set'>rule_set</span><span class='period'>.</span><span class='id identifier rubyid_follow_label'>follow_label</span>
@@ -733,21 +935,21 @@
       <pre class="lines">
 
 
-82
-83
-84
-85
-86
-87
-88
-89
-90
-91
-92
-93</pre>
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod036-card-mod-rules/rule/editor.rb', line 82</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod010-rules/rule/editor.rb', line 104</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_rules_type_formgroup'>rules_type_formgroup</span>
   <span class='kw'>return</span> <span class='kw'>unless</span> <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_right'>right</span><span class='period'>.</span><span class='id identifier rubyid_rule_type_editable'>rule_type_editable</span>
@@ -755,8 +957,8 @@
   <span class='id identifier rubyid_success'>success</span> <span class='op'>=</span> <span class='ivar'>@edit_rule_success</span>
   <span class='id identifier rubyid_wrap_type_formgroup'>wrap_type_formgroup</span> <span class='kw'>do</span>
     <span class='id identifier rubyid_type_field'>type_field</span><span class='lparen'>(</span>
-      <span class='label'>href:</span> <span class='id identifier rubyid_path'>path</span><span class='lparen'>(</span><span class='label'>mark:</span> <span class='id identifier rubyid_success'>success</span><span class='lbracket'>[</span><span class='symbol'>:id</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='label'>view:</span> <span class='symbol'>:rule_form</span><span class='comma'>,</span> <span class='label'>assign:</span> <span class='kw'>true</span><span class='rparen'>)</span><span class='comma'>,</span>
-      <span class='label'>class:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>type-field rule-type-field live-type-field</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+      <span class='label'>href:</span> <span class='id identifier rubyid_path'>path</span><span class='lparen'>(</span><span class='label'>mark:</span> <span class='id identifier rubyid_success'>success</span><span class='lbracket'>[</span><span class='symbol'>:id</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='label'>view:</span> <span class='symbol'>:rule_form_card_editor</span><span class='comma'>,</span> <span class='label'>assign:</span> <span class='kw'>true</span><span class='rparen'>)</span><span class='comma'>,</span>
+      <span class='label'>class:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>type-field rule-type-field _live-type-field</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
       <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>data-remote</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='kw'>true</span>
     <span class='rparen'>)</span>
   <span class='kw'>end</span>
@@ -781,12 +983,12 @@
       <pre class="lines">
 
 
-70
-71
-72</pre>
+92
+93
+94</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod036-card-mod-rules/rule/editor.rb', line 70</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod010-rules/rule/editor.rb', line 92</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_setting_title'>setting_title</span>
   <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span><span class='period'>.</span><span class='id identifier rubyid_tag'>tag</span><span class='period'>.</span><span class='id identifier rubyid_tr'>tr</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>*</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span>
@@ -811,12 +1013,12 @@
       <pre class="lines">
 
 
-74
-75
-76</pre>
+96
+97
+98</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod036-card-mod-rules/rule/editor.rb', line 74</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod010-rules/rule/editor.rb', line 96</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_short_help_text'>short_help_text</span>
   <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>&lt;div class=\&quot;help-text\&quot;&gt;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_short_help_text'>short_help_text</span><span class='embexpr_end'>}</span><span class='tstring_content'>&lt;/div&gt;</span><span class='tstring_end'>&quot;</span></span>
@@ -841,23 +1043,15 @@
       <pre class="lines">
 
 
-37
-38
-39
-40
 41
 42
 43</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod036-card-mod-rules/rule/editor.rb', line 37</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod010-rules/rule/editor.rb', line 41</span>
 
 <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:rule_bridge_link</span><span class='comma'>,</span> <span class='label'>unknown:</span> <span class='kw'>true</span> <span class='kw'>do</span>
-  <span class='id identifier rubyid_opts'>opts</span> <span class='op'>=</span> <span class='id identifier rubyid_bridge_link_opts'>bridge_link_opts</span><span class='lparen'>(</span><span class='label'>class:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>edit-rule-link nav-link</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
-                          <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>data-toggle</span><span class='label_end'>&quot;:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>pill</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
-                          <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>data-cy</span><span class='label_end'>&quot;:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_setting_title'>setting_title</span><span class='period'>.</span><span class='id identifier rubyid_to_name'>to_name</span><span class='period'>.</span><span class='id identifier rubyid_key'>key</span><span class='embexpr_end'>}</span><span class='tstring_content'>-pill</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:path</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='symbol'>:layout</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_link_to_view'>link_to_view</span><span class='lparen'>(</span><span class='symbol'>:overlay_rule</span><span class='comma'>,</span> <span class='lparen'>(</span><span class='id identifier rubyid_setting_title'>setting_title</span> <span class='op'>+</span> <span class='id identifier rubyid_short_help_text'>short_help_text</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_pill_rule_link'>pill_rule_link</span> <span class='symbol'>:overlay_rule</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -887,7 +1081,7 @@
 29</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod036-card-mod-rules/rule/editor.rb', line 24</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod010-rules/rule/editor.rb', line 24</span>
 
 <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:rule_edit</span><span class='comma'>,</span> <span class='label'>cache:</span> <span class='symbol'>:never</span><span class='comma'>,</span> <span class='label'>unknown:</span> <span class='kw'>true</span><span class='comma'>,</span>
                  <span class='label'>wrap:</span> <span class='lbrace'>{</span> <span class='label'>modal:</span> <span class='lbrace'>{</span> <span class='label'>size:</span> <span class='symbol'>:large</span><span class='comma'>,</span>
@@ -922,7 +1116,7 @@
 35</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod036-card-mod-rules/rule/editor.rb', line 31</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod010-rules/rule/editor.rb', line 31</span>
 
 <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:rule_help</span><span class='comma'>,</span> <span class='label'>unknown:</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='label'>perms:</span> <span class='symbol'>:none</span><span class='comma'>,</span> <span class='label'>cache:</span> <span class='symbol'>:never</span> <span class='kw'>do</span>
   <span class='id identifier rubyid_wrap_with'>wrap_with</span> <span class='symbol'>:div</span><span class='comma'>,</span> <span class='label'>class:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>alert alert-info rule-instruction</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>do</span>
@@ -934,14 +1128,44 @@
 </table>
 </div>
     
+      <div class="method_details ">
+  <h3 class="signature " id="view: rule_nest_editor_link-instance_method">
+  
+    #<strong>view: rule_nest_editor_link</strong>  &#x21d2; <tt><span class='object_link'><a href="../../../../Object.html" title="Object (class)">Object</a></span></tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+37
+38
+39</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod010-rules/rule/editor.rb', line 37</span>
+
+<span class='id identifier rubyid_view'>view</span> <span class='symbol'>:rule_nest_editor_link</span><span class='comma'>,</span> <span class='label'>unknown:</span> <span class='kw'>true</span> <span class='kw'>do</span>
+  <span class='id identifier rubyid_pill_rule_link'>pill_rule_link</span> <span class='symbol'>:modal_rule</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
   </div>
 
 </div>
 
       <div id="footer">
-  Generated on Thu May 13 17:17:27 2021 by
-  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.26 (ruby-2.7.2).
+  Generated on Mon Feb  6 14:15:04 2023 by
+  <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.28 (ruby-3.0.1).
 </div>
 
     </div>

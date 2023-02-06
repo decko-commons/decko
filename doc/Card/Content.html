@@ -102,7 +102,7 @@
   <dl>
     <dt>Defined in:</dt>
     <dd>card/lib/card/content.rb<span class="defines">,<br />
-  card/lib/card/content/all.rb,<br /> card/lib/card/content/diff.rb,<br /> card/lib/card/content/chunk.rb,<br /> card/lib/card/content/clean.rb,<br /> card/lib/card/content/parser.rb,<br /> card/lib/card/content/diff/l_c_s.rb,<br /> card/lib/card/content/diff/result.rb,<br /> card/lib/card/content/diff/summary.rb,<br /> card/lib/card/content/chunk/abstract.rb,<br /> card/lib/card/content/diff/l_c_s/processor.rb</span>
+  card/lib/card/content/all.rb,<br /> card/lib/card/content/diff.rb,<br /> card/lib/card/content/chunk.rb,<br /> card/lib/card/content/clean.rb,<br /> card/lib/card/content/parser.rb,<br /> card/lib/card/content/diff/l_c_s.rb,<br /> card/lib/card/content/diff/result.rb,<br /> card/lib/card/content/diff/summary.rb,<br /> card/lib/card/content/chunk/abstract.rb,<br /> card/lib/card/content/diff/l_c_s/processor.rb,<br /> mod/content/lib/card/content/chunk/uri.rb,<br /> mod/content/lib/card/content/chunk/link.rb,<br /> mod/content/lib/card/content/chunk/nest.rb,<br /> mod/content/lib/card/content/chunk/reference.rb,<br /> mod/content/lib/card/content/chunk/view_stub.rb,<br /> mod/content/lib/card/content/chunk/escaped_literal.rb,<br /> mod/content/lib/card/content/chunk/query_reference.rb</span>
 </dd>
   </dl>
   
@@ -1355,7 +1355,7 @@ associated with a Card</p>
       <pre class="code"><span class="info file"># File 'card/lib/card/content.rb', line 116</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_strip_nests'>strip_nests</span>
-  <span class='id identifier rubyid_strip_chunks'>strip_chunks</span> <span class='const'><span class='object_link'><a href="Content/Chunk.html" title="Card::Content::Chunk (module)">Chunk</a></span></span><span class='op'>::</span><span class='const'>Nest</span>
+  <span class='id identifier rubyid_strip_chunks'>strip_chunks</span> <span class='const'><span class='object_link'><a href="Content/Chunk.html" title="Card::Content::Chunk (module)">Chunk</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Content/Chunk/Nest.html" title="Card::Content::Chunk::Nest (class)">Nest</a></span></span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1478,7 +1478,7 @@ a string by running to_s on each item.</li>
       <pre class="code"><span class="info file"># File 'card/lib/card/content.rb', line 101</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_without_nests'>without_nests</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span>
-  <span class='id identifier rubyid_without_chunks'>without_chunks</span> <span class='const'><span class='object_link'><a href="Content/Chunk.html" title="Card::Content::Chunk (module)">Chunk</a></span></span><span class='op'>::</span><span class='const'>Nest</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span>
+  <span class='id identifier rubyid_without_chunks'>without_chunks</span> <span class='const'><span class='object_link'><a href="Content/Chunk.html" title="Card::Content::Chunk (module)">Chunk</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Content/Chunk/Nest.html" title="Card::Content::Chunk::Nest (class)">Nest</a></span></span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1508,7 +1508,7 @@ a string by running to_s on each item.</li>
       <pre class="code"><span class="info file"># File 'card/lib/card/content.rb', line 105</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_without_references'>without_references</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span>
-  <span class='id identifier rubyid_without_chunks'>without_chunks</span> <span class='const'><span class='object_link'><a href="Content/Chunk.html" title="Card::Content::Chunk (module)">Chunk</a></span></span><span class='op'>::</span><span class='const'>Nest</span><span class='comma'>,</span> <span class='const'><span class='object_link'><a href="Content/Chunk.html" title="Card::Content::Chunk (module)">Chunk</a></span></span><span class='op'>::</span><span class='const'>Link</span><span class='comma'>,</span> <span class='const'><span class='object_link'><a href="Content/Chunk.html" title="Card::Content::Chunk (module)">Chunk</a></span></span><span class='op'>::</span><span class='const'>EscapedLiteral</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span>
+  <span class='id identifier rubyid_without_chunks'>without_chunks</span> <span class='const'><span class='object_link'><a href="Content/Chunk.html" title="Card::Content::Chunk (module)">Chunk</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Content/Chunk/Nest.html" title="Card::Content::Chunk::Nest (class)">Nest</a></span></span><span class='comma'>,</span> <span class='const'><span class='object_link'><a href="Content/Chunk.html" title="Card::Content::Chunk (module)">Chunk</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Content/Chunk/Link.html" title="Card::Content::Chunk::Link (class)">Link</a></span></span><span class='comma'>,</span> <span class='const'><span class='object_link'><a href="Content/Chunk.html" title="Card::Content::Chunk (module)">Chunk</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Content/Chunk/EscapedLiteral.html" title="Card::Content::Chunk::EscapedLiteral (class)">EscapedLiteral</a></span></span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1520,9 +1520,9 @@ a string by running to_s on each item.</li>
 </div>
 
       <div id="footer">
-  Generated on Fri Nov 18 22:10:19 2022 by
+  Generated on Mon Feb  6 14:15:20 2023 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.28 (ruby-3.0.4).
+  0.9.28 (ruby-3.0.1).
 </div>
 
     </div>

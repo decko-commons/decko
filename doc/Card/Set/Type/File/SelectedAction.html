@@ -6,7 +6,7 @@
 <title>
   Module: Card::Set::Type::File::SelectedAction
   
-    &mdash; Documentation by YARD 0.9.26
+    &mdash; Documentation by YARD 0.9.28
   
 </title>
 
@@ -83,7 +83,7 @@
   
   <dl>
     <dt>Defined in:</dt>
-    <dd>card/tmpsets/set/mod014-card-mod-carrierwave/type/file.rb</dd>
+    <dd>platypus/tmp/set/gem-defaults/mod016-carrierwave/type/file.rb</dd>
   </dl>
   
 </div>
@@ -176,16 +176,14 @@
 17
 18
 19
-20
-21</pre>
+20</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod014-card-mod-carrierwave/type/file.rb', line 17</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod016-carrierwave/type/file.rb', line 17</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_last_content_action_id'>last_content_action_id</span>
-  <span class='kw'>return</span> <span class='kw'>super</span> <span class='kw'>if</span> <span class='id identifier rubyid_temporary_storage_type_change?'>temporary_storage_type_change?</span>
   <span class='comment'># find action id from content (saves lookups)
-</span>  <span class='id identifier rubyid_db_content'>db_content</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='period'>.</span><span class='id identifier rubyid_split'>split</span><span class='lparen'>(</span><span class='tstring'><span class='regexp_beg'>%r{</span><span class='tstring_content'>[/\.]</span><span class='regexp_end'>}</span></span><span class='rparen'>)</span><span class='lbracket'>[</span><span class='op'>-</span><span class='int'>2</span><span class='rbracket'>]</span>
+</span>  <span class='id identifier rubyid_db_content'>db_content</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='period'>.</span><span class='id identifier rubyid_split'>split</span><span class='lparen'>(</span><span class='tstring'><span class='regexp_beg'>%r{</span><span class='tstring_content'>[/.]</span><span class='regexp_end'>}</span></span><span class='rparen'>)</span><span class='lbracket'>[</span><span class='op'>-</span><span class='int'>2</span><span class='rbracket'>]</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -214,7 +212,7 @@
 15</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod014-card-mod-carrierwave/type/file.rb', line 11</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod016-carrierwave/type/file.rb', line 11</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_select_action_by_params'>select_action_by_params</span> <span class='id identifier rubyid_params'>params</span>
   <span class='comment'># skip action table lookups for current revision
@@ -231,9 +229,9 @@
 </div>
 
       <div id="footer">
-  Generated on Thu May 13 17:17:30 2021 by
-  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.26 (ruby-2.7.2).
+  Generated on Mon Feb  6 14:15:08 2023 by
+  <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.28 (ruby-3.0.1).
 </div>
 
     </div>

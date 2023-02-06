@@ -6,7 +6,7 @@
 <title>
   Module: Card::Set::All::Comment::Format
   
-    &mdash; Documentation by YARD 0.9.26
+    &mdash; Documentation by YARD 0.9.28
   
 </title>
 
@@ -83,7 +83,7 @@
   
   <dl>
     <dt>Defined in:</dt>
-    <dd>card/tmpsets/set/mod022-card-mod-comment/all/comment.rb</dd>
+    <dd>platypus/tmp/set/gem-defaults/mod025-comment/all/comment.rb</dd>
   </dl>
   
 </div>
@@ -335,16 +335,16 @@
       <pre class="lines">
 
 
-44
 45
 46
 47
 48
 49
-50</pre>
+50
+51</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod022-card-mod-comment/all/comment.rb', line 44</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod025-comment/all/comment.rb', line 45</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_comment_author'>comment_author</span>
   <span class='kw'>if</span> <span class='const'><span class='object_link'><a href="../../../Auth.html" title="Card::Auth (module)">Auth</a></span></span><span class='period'>.</span><span class='id identifier rubyid_signed_in?'><span class='object_link'><a href="../../../Auth/Current.html#signed_in%3F-instance_method" title="Card::Auth::Current#signed_in? (method)">signed_in?</a></span></span>
@@ -373,16 +373,18 @@
       <pre class="lines">
 
 
-79
-80
 81
-82</pre>
+82
+83
+84
+85</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod022-card-mod-comment/all/comment.rb', line 79</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod025-comment/all/comment.rb', line 81</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_comment_author_label'>comment_author_label</span>
   <span class='kw'>return</span> <span class='kw'>if</span> <span class='const'><span class='object_link'><a href="../../../Auth.html" title="Card::Auth (module)">Auth</a></span></span><span class='period'>.</span><span class='id identifier rubyid_signed_in?'><span class='object_link'><a href="../../../Auth/Current.html#signed_in%3F-instance_method" title="Card::Auth::Current#signed_in? (method)">signed_in?</a></span></span>
+
   <span class='tstring'><span class='tstring_beg'>%(</span><span class='tstring_content'>&lt;label&gt;My Name is:&lt;/label&gt; </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_text_field'>text_field</span> <span class='symbol'>:comment_author</span><span class='embexpr_end'>}</span><span class='tstring_end'>)</span></span>
 <span class='kw'>end</span></pre>
     </td>
@@ -405,12 +407,12 @@
       <pre class="lines">
 
 
-69
-70
-71</pre>
+71
+72
+73</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod022-card-mod-comment/all/comment.rb', line 69</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod025-comment/all/comment.rb', line 71</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_comment_box'>comment_box</span>
   <span class='id identifier rubyid_text_area'>text_area</span> <span class='symbol'>:comment</span><span class='comma'>,</span> <span class='label'>rows:</span> <span class='int'>3</span>
@@ -435,14 +437,14 @@
       <pre class="lines">
 
 
-73
-74
 75
 76
-77</pre>
+77
+78
+79</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod022-card-mod-comment/all/comment.rb', line 73</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod025-comment/all/comment.rb', line 75</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_comment_buttons'>comment_buttons</span>
   <span class='id identifier rubyid_wrap_with'>wrap_with</span> <span class='symbol'>:div</span><span class='comma'>,</span> <span class='label'>class:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>comment-buttons</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>do</span>
@@ -469,14 +471,14 @@
       <pre class="lines">
 
 
-38
 39
 40
 41
-42</pre>
+42
+43</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod022-card-mod-comment/all/comment.rb', line 38</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod025-comment/all/comment.rb', line 39</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_comment_signature'>comment_signature</span>
   <span class='id identifier rubyid_wrap_with'>wrap_with</span> <span class='symbol'>:div</span><span class='comma'>,</span> <span class='label'>class:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>w-comment-author</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>do</span>
@@ -503,15 +505,17 @@
       <pre class="lines">
 
 
-84
-85
-86</pre>
+87
+88
+89
+90</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod022-card-mod-comment/all/comment.rb', line 84</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod025-comment/all/comment.rb', line 87</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_comment_submit_button'>comment_submit_button</span>
-  <span class='id identifier rubyid_submit_button'>submit_button</span> <span class='label'>text:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Comment</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>type:</span> <span class='symbol'>:submit</span><span class='comma'>,</span> <span class='label'>disable_with:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Commenting</span><span class='tstring_end'>&quot;</span></span>
+  <span class='id identifier rubyid_submit_button'>submit_button</span> <span class='label'>text:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Comment</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>type:</span> <span class='symbol'>:submit</span><span class='comma'>,</span> <span class='label'>disable_with:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Commenting</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+                <span class='label'>situation:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>outline-primary</span><span class='tstring_end'>&quot;</span></span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -533,15 +537,15 @@
       <pre class="lines">
 
 
-34
 35
-36</pre>
+36
+37</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod022-card-mod-comment/all/comment.rb', line 34</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod025-comment/all/comment.rb', line 35</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_comment_with_signature'>comment_with_signature</span>
-  <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_clean_comment'>clean_comment</span> <span class='op'>+</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>\n</span><span class='tstring_end'>&quot;</span></span> <span class='op'>+</span> <span class='id identifier rubyid_comment_signature'>comment_signature</span>
+  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_clean_comment'>clean_comment</span><span class='embexpr_end'>}</span><span class='tstring_content'>\n</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_comment_signature'>comment_signature</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -563,19 +567,21 @@
       <pre class="lines">
 
 
-61
 62
 63
 64
 65
 66
-67</pre>
+67
+68
+69</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod022-card-mod-comment/all/comment.rb', line 61</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod025-comment/all/comment.rb', line 62</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_hidden_comment_fields'>hidden_comment_fields</span>
   <span class='kw'>return</span> <span class='kw'>unless</span> <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_new_card?'>new_card?</span>
+
   <span class='id identifier rubyid_hidden_field_tag'>hidden_field_tag</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>card[name]</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span>
   <span class='comment'># FIXME: wish we had more generalized solution for names.
 </span>  <span class='comment'># without this, nonexistent cards will often take left&#39;s linkname.
@@ -601,17 +607,17 @@
       <pre class="lines">
 
 
-52
 53
 54
 55
 56
 57
 58
-59</pre>
+59
+60</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod022-card-mod-comment/all/comment.rb', line 52</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod025-comment/all/comment.rb', line 53</span>
 
 <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:comment_box</span><span class='comma'>,</span> <span class='label'>denial:</span> <span class='symbol'>:blank</span><span class='comma'>,</span> <span class='label'>unknown:</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='label'>perms:</span> <span class='symbol'>:update</span> <span class='kw'>do</span>
   <span class='id identifier rubyid_wrap_with'>wrap_with</span> <span class='symbol'>:div</span><span class='comma'>,</span> <span class='label'>class:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>comment-box nodblclick</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>do</span>
@@ -631,9 +637,9 @@
 </div>
 
       <div id="footer">
-  Generated on Thu May 13 17:17:29 2021 by
-  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.26 (ruby-2.7.2).
+  Generated on Mon Feb  6 14:15:06 2023 by
+  <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.28 (ruby-3.0.1).
 </div>
 
     </div>

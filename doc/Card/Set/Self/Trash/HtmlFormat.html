@@ -6,7 +6,7 @@
 <title>
   Module: Card::Set::Self::Trash::HtmlFormat
   
-    &mdash; Documentation by YARD 0.9.26
+    &mdash; Documentation by YARD 0.9.28
   
 </title>
 
@@ -83,7 +83,7 @@
   
   <dl>
     <dt>Defined in:</dt>
-    <dd>card/tmpsets/set/mod001-admin/self/trash.rb</dd>
+    <dd>platypus/tmp/set/gem-card/mod001-core/self/trash.rb</dd>
   </dl>
   
 </div>
@@ -289,7 +289,6 @@
       <pre class="lines">
 
 
-39
 40
 41
 42
@@ -299,10 +298,11 @@
 46
 47
 48
-49</pre>
+49
+50</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod001-admin/self/trash.rb', line 39</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-card/mod001-core/self/trash.rb', line 40</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_empty_trash_link'>empty_trash_link</span>
   <span class='id identifier rubyid_wrap_with'>wrap_with</span><span class='lparen'>(</span>
@@ -310,7 +310,7 @@
     <span class='id identifier rubyid_button_link'>button_link</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>empty trash</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
                 <span class='label'>btn_type:</span> <span class='symbol'>:default</span><span class='comma'>,</span>
                 <span class='label'>path:</span> <span class='lbrace'>{</span> <span class='label'>mark:</span> <span class='symbol'>:admin</span><span class='comma'>,</span> <span class='label'>action:</span> <span class='symbol'>:update</span><span class='comma'>,</span> <span class='label'>task:</span> <span class='symbol'>:empty_trash</span><span class='comma'>,</span>
-                        <span class='label'>success:</span> <span class='lbrace'>{</span> <span class='label'>id:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>~</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span> <span class='rbrace'>}</span> <span class='rbrace'>}</span><span class='comma'>,</span>
+                        <span class='label'>success:</span> <span class='lbrace'>{</span> <span class='label'>mark:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>~</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span> <span class='rbrace'>}</span> <span class='rbrace'>}</span><span class='comma'>,</span>
                 <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>data-confirm</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Are you sure you want to delete </span><span class='tstring_end'>&quot;</span></span>\
                                   <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>all cards in the trash?</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
   <span class='rparen'>)</span>
@@ -335,13 +335,13 @@
       <pre class="lines">
 
 
-51
 52
 53
-54</pre>
+54
+55</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod001-admin/self/trash.rb', line 51</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-card/mod001-core/self/trash.rb', line 52</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_history_link'>history_link</span> <span class='id identifier rubyid_trashed_card'>trashed_card</span>
   <span class='id identifier rubyid_link_to_card'>link_to_card</span> <span class='id identifier rubyid_trashed_card'>trashed_card</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>history</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
@@ -367,7 +367,6 @@
       <pre class="lines">
 
 
-56
 57
 58
 59
@@ -380,10 +379,11 @@
 66
 67
 68
-69</pre>
+69
+70</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod001-admin/self/trash.rb', line 56</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-card/mod001-core/self/trash.rb', line 57</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_restore_link'>restore_link</span> <span class='id identifier rubyid_trashed_card'>trashed_card</span>
   <span class='id identifier rubyid_before_delete'>before_delete</span> <span class='op'>=</span> <span class='id identifier rubyid_trashed_card'>trashed_card</span><span class='period'>.</span><span class='id identifier rubyid_actions'>actions</span><span class='lbracket'>[</span><span class='op'>-</span><span class='int'>2</span><span class='rbracket'>]</span>
@@ -397,7 +397,7 @@
                              <span class='label'>action:</span> <span class='symbol'>:update</span><span class='comma'>,</span>
                              <span class='label'>restore:</span> <span class='id identifier rubyid_trashed_card'>trashed_card</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span><span class='comma'>,</span>
                              <span class='label'>action_ids:</span> <span class='lbracket'>[</span><span class='id identifier rubyid_before_delete'>before_delete</span><span class='rbracket'>]</span><span class='comma'>,</span>
-                             <span class='label'>success:</span> <span class='lbrace'>{</span> <span class='label'>id:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>~</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span> <span class='rbrace'>}</span> <span class='rbrace'>}</span>
+                             <span class='label'>success:</span> <span class='lbrace'>{</span> <span class='label'>mark:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>~</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span> <span class='rbrace'>}</span> <span class='rbrace'>}</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -425,14 +425,16 @@
 34
 35
 36
-37</pre>
+37
+38</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod001-admin/self/trash.rb', line 31</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-card/mod001-core/self/trash.rb', line 31</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_restored'>restored</span>
-  <span class='kw'>return</span> <span class='kw'>unless</span> <span class='lparen'>(</span><span class='id identifier rubyid_res_id'>res_id</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../../Env.html" title="Card::Env (module)">Env</a></span></span><span class='period'>.</span><span class='id identifier rubyid_params'><span class='object_link'><a href="../../../Env.html#params-class_method" title="Card::Env.params (method)">params</a></span></span><span class='lbracket'>[</span><span class='symbol'>:restore</span><span class='rbracket'>]</span><span class='rparen'>)</span> <span class='op'>&amp;&amp;</span>
+  <span class='kw'>return</span> <span class='kw'>unless</span> <span class='lparen'>(</span><span class='id identifier rubyid_res_id'>res_id</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../../Env.html" title="Card::Env (module)">Env</a></span></span><span class='period'>.</span><span class='id identifier rubyid_params'><span class='object_link'><a href="../../../Env/Serializable.html#params-instance_method" title="Card::Env::Serializable#params (method)">params</a></span></span><span class='lbracket'>[</span><span class='symbol'>:restore</span><span class='rbracket'>]</span><span class='rparen'>)</span> <span class='op'>&amp;&amp;</span>
                 <span class='lparen'>(</span><span class='id identifier rubyid_res_card'>res_card</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../../../Card.html" title="Card (class)">Card</a></span></span><span class='lbracket'>[</span><span class='id identifier rubyid_res_id'>res_id</span><span class='period'>.</span><span class='id identifier rubyid_to_i'>to_i</span><span class='rbracket'>]</span><span class='rparen'>)</span>
+
   <span class='id identifier rubyid_alert'>alert</span> <span class='symbol'>:success</span><span class='comma'>,</span> <span class='kw'>true</span> <span class='kw'>do</span>
     <span class='id identifier rubyid_wrap_with'>wrap_with</span><span class='lparen'>(</span><span class='symbol'>:h5</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>restored</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='op'>+</span> <span class='id identifier rubyid_subformat'>subformat</span><span class='lparen'>(</span><span class='id identifier rubyid_res_card'>res_card</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_render_bar'>render_bar</span>
   <span class='kw'>end</span>
@@ -467,7 +469,7 @@
 29</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod001-admin/self/trash.rb', line 22</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-card/mod001-core/self/trash.rb', line 22</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_trash_table_row'>trash_table_row</span> <span class='id identifier rubyid_card'>card</span>
   <span class='lbracket'>[</span>
@@ -502,7 +504,7 @@
 20</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod001-admin/self/trash.rb', line 18</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-card/mod001-core/self/trash.rb', line 18</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_trashed_cards'>trashed_cards</span>
   <span class='const'><span class='object_link'><a href="../../../../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_where'>where</span><span class='lparen'>(</span><span class='label'>trash:</span> <span class='kw'>true</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_order'>order</span><span class='lparen'>(</span><span class='label'>updated_at:</span> <span class='symbol'>:desc</span><span class='rparen'>)</span>
@@ -537,7 +539,7 @@
 16</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod001-admin/self/trash.rb', line 9</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-card/mod001-core/self/trash.rb', line 9</span>
 
 <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:core</span> <span class='kw'>do</span>
   <span class='id identifier rubyid_rows'>rows</span> <span class='op'>=</span> <span class='id identifier rubyid_trashed_cards'>trashed_cards</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_tc'>tc</span><span class='op'>|</span> <span class='id identifier rubyid_trash_table_row'>trash_table_row</span><span class='lparen'>(</span><span class='id identifier rubyid_tc'>tc</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
@@ -557,9 +559,9 @@
 </div>
 
       <div id="footer">
-  Generated on Thu May 13 17:17:21 2021 by
-  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.26 (ruby-2.7.2).
+  Generated on Mon Feb  6 14:15:00 2023 by
+  <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.28 (ruby-3.0.1).
 </div>
 
     </div>

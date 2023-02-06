@@ -6,7 +6,7 @@
 <title>
   Module: Card::Set::All::Content::Format
   
-    &mdash; Documentation by YARD 0.9.26
+    &mdash; Documentation by YARD 0.9.28
   
 </title>
 
@@ -83,7 +83,7 @@
   
   <dl>
     <dt>Defined in:</dt>
-    <dd>card/tmpsets/set/mod002-core/all/content.rb</dd>
+    <dd>platypus/tmp/set/gem-defaults/mod004-format/all/content.rb</dd>
   </dl>
   
 </div>
@@ -137,29 +137,6 @@
 
   
     <span class="summary_desc"><div class='inline'><p>override to customize by set.</p>
-</div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#cut_with_ellipsis-instance_method" title="#cut_with_ellipsis (instance method)">#<strong>cut_with_ellipsis</strong>(text, limit = one_line_character_limit)  &#x21d2; Object </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'>
 </div></span>
   
 </li>
@@ -430,53 +407,15 @@
       <pre class="lines">
 
 
-40
-41
-42</pre>
+12
+13
+14</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod002-core/all/content.rb', line 40</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod004-format/all/content.rb', line 12</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_chunk_list'>chunk_list</span> <span class='comment'># override to customize by set
-</span>  <span class='symbol'>:default</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="cut_with_ellipsis-instance_method">
-  
-    #<strong>cut_with_ellipsis</strong>(text, limit = one_line_character_limit)  &#x21d2; <tt><span class='object_link'><a href="../../../../Object.html" title="Object (class)">Object</a></span></tt> 
-  
-
-  
-
-  
-</h3><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-86
-87
-88
-89
-90
-91
-92</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod002-core/all/content.rb', line 86</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_cut_with_ellipsis'>cut_with_ellipsis</span> <span class='id identifier rubyid_text'>text</span><span class='comma'>,</span> <span class='id identifier rubyid_limit'>limit</span><span class='op'>=</span><span class='id identifier rubyid_one_line_character_limit'>one_line_character_limit</span>
-  <span class='kw'>if</span> <span class='id identifier rubyid_text'>text</span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span> <span class='op'>&lt;=</span> <span class='id identifier rubyid_limit'>limit</span>
-    <span class='id identifier rubyid_text'>text</span>
-  <span class='kw'>else</span>
-    <span class='id identifier rubyid_text'>text</span><span class='lbracket'>[</span><span class='int'>0</span><span class='op'>..</span><span class='lparen'>(</span><span class='id identifier rubyid_limit'>limit</span> <span class='op'>-</span> <span class='int'>3</span><span class='rparen'>)</span><span class='rbracket'>]</span> <span class='op'>+</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>...</span><span class='tstring_end'>&quot;</span></span>
-  <span class='kw'>end</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_chunk_list'>chunk_list</span>
+  <span class='symbol'>:default</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -508,17 +447,17 @@
       <pre class="lines">
 
 
-72
-73
-74
-75
-76</pre>
+44
+45
+46
+47
+48</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod002-core/all/content.rb', line 72</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod004-format/all/content.rb', line 44</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_label_description'>label_description</span>
-  <span class='kw'>return</span> <span class='kw'>unless</span> <span class='lparen'>(</span><span class='id identifier rubyid_desc'>desc</span> <span class='op'>=</span> <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_field'>field</span> <span class='symbol'>:description</span><span class='rparen'>)</span>
+  <span class='kw'>return</span> <span class='kw'>unless</span> <span class='lparen'>(</span><span class='id identifier rubyid_desc'>desc</span> <span class='op'>=</span> <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_fetch'>fetch</span> <span class='symbol'>:description</span><span class='rparen'>)</span>
 
   <span class='id identifier rubyid_desc'>desc</span><span class='period'>.</span><span class='id identifier rubyid_format'>format</span><span class='period'>.</span><span class='id identifier rubyid_render_core'>render_core</span>
 <span class='kw'>end</span></pre>
@@ -542,14 +481,14 @@
       <pre class="lines">
 
 
-65
-66
-67
-68
-69</pre>
+37
+38
+39
+40
+41</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod002-core/all/content.rb', line 65</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod004-format/all/content.rb', line 37</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_label_with_description'>label_with_description</span> <span class='id identifier rubyid_label'>label</span><span class='comma'>,</span> <span class='id identifier rubyid_description'>description</span>
   <span class='kw'>return</span> <span class='id identifier rubyid_label'>label</span> <span class='kw'>unless</span> <span class='id identifier rubyid_description'>description</span>
@@ -576,12 +515,12 @@
       <pre class="lines">
 
 
-94
-95
-96</pre>
+58
+59
+60</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod002-core/all/content.rb', line 94</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod004-format/all/content.rb', line 58</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_one_line_character_limit'>one_line_character_limit</span>
   <span class='id identifier rubyid_voo'>voo</span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span> <span class='op'>||</span> <span class='const'><span class='object_link'><a href="#ONE_LINE_CHARACTER_LIMIT-constant" title="Card::Set::All::Content::Format::ONE_LINE_CHARACTER_LIMIT (constant)">ONE_LINE_CHARACTER_LIMIT</a></span></span>
@@ -606,15 +545,15 @@
       <pre class="lines">
 
 
-82
-83
-84</pre>
+54
+55
+56</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod002-core/all/content.rb', line 82</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod004-format/all/content.rb', line 54</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_one_line_content'>one_line_content</span>
-  <span class='const'><span class='object_link'><a href="../../../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../../Content.html" title="Card::Content (class)">Content</a></span></span><span class='period'>.</span><span class='id identifier rubyid_smart_truncate'><span class='object_link'><a href="../../../Content/Truncate.html#smart_truncate-instance_method" title="Card::Content::Truncate#smart_truncate (method)">smart_truncate</a></span></span> <span class='id identifier rubyid_render_core'>render_core</span>
+  <span class='id identifier rubyid_truncate'>truncate</span> <span class='id identifier rubyid_strip_tags'>strip_tags</span><span class='lparen'>(</span><span class='id identifier rubyid_render_core'>render_core</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='label'>length:</span> <span class='id identifier rubyid_one_line_character_limit'>one_line_character_limit</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -636,15 +575,15 @@
       <pre class="lines">
 
 
-78
-79
-80</pre>
+50
+51
+52</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod002-core/all/content.rb', line 78</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod004-format/all/content.rb', line 50</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_raw_one_line_content'>raw_one_line_content</span>
-  <span class='id identifier rubyid_cut_with_ellipsis'>cut_with_ellipsis</span> <span class='id identifier rubyid_render_raw'>render_raw</span>
+  <span class='id identifier rubyid_truncate'>truncate</span> <span class='id identifier rubyid_strip_tags'>strip_tags</span><span class='lparen'>(</span><span class='id identifier rubyid_render_raw'>render_raw</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='label'>length:</span> <span class='id identifier rubyid_one_line_character_limit'>one_line_character_limit</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -676,10 +615,10 @@
       <pre class="lines">
 
 
-51</pre>
+23</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod002-core/all/content.rb', line 51</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod004-format/all/content.rb', line 23</span>
 
 <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:closed_content</span><span class='comma'>,</span> <span class='symbol'>:one_line_content</span></pre>
     </td>
@@ -702,12 +641,12 @@
       <pre class="lines">
 
 
-57
-58
-59</pre>
+29
+30
+31</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod002-core/all/content.rb', line 57</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod004-format/all/content.rb', line 29</span>
 
 <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:label</span> <span class='kw'>do</span>
   <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_label'>label</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span>
@@ -732,14 +671,14 @@
       <pre class="lines">
 
 
-44
-45
-46
-47
-48</pre>
+16
+17
+18
+19
+20</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod002-core/all/content.rb', line 44</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod004-format/all/content.rb', line 16</span>
 
 <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:one_line_content</span> <span class='kw'>do</span>
   <span class='id identifier rubyid_with_nest_mode'>with_nest_mode</span> <span class='symbol'>:compact</span> <span class='kw'>do</span>
@@ -766,12 +705,12 @@
       <pre class="lines">
 
 
-53
-54
-55</pre>
+25
+26
+27</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod002-core/all/content.rb', line 53</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod004-format/all/content.rb', line 25</span>
 
 <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:raw_one_line_content</span> <span class='kw'>do</span>
   <span class='id identifier rubyid_raw_one_line_content'>raw_one_line_content</span>
@@ -796,12 +735,12 @@
       <pre class="lines">
 
 
-61
-62
-63</pre>
+33
+34
+35</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod002-core/all/content.rb', line 61</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod004-format/all/content.rb', line 33</span>
 
 <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:smart_label</span><span class='comma'>,</span> <span class='label'>cache:</span> <span class='symbol'>:never</span><span class='comma'>,</span> <span class='label'>unknown:</span> <span class='kw'>true</span> <span class='kw'>do</span>
   <span class='id identifier rubyid_label_with_description'>label_with_description</span> <span class='id identifier rubyid_render_label'>render_label</span><span class='comma'>,</span> <span class='id identifier rubyid_label_description'>label_description</span>
@@ -816,9 +755,9 @@
 </div>
 
       <div id="footer">
-  Generated on Thu May 13 17:17:22 2021 by
-  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.26 (ruby-2.7.2).
+  Generated on Mon Feb  6 14:15:04 2023 by
+  <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.28 (ruby-3.0.1).
 </div>
 
     </div>

@@ -90,79 +90,7 @@
   
 </div>
 
-<h2>Overview</h2><div class="docstring">
-  <div class="discussion">
-    <p>This document explains how to use format blocks within <span class='object_link'><a href="../../Cardio/Mod.html" title="Cardio::Mod (class)">mods</a></span>. To make
-use of it, you will need to understand both <span class='object_link'><a href="../../Cardio/Mod.html" title="Cardio::Mod (class)">mods</a></span> and <span class='object_link'><a href="../Set.html" title="Card::Set (module)">sets</a></span>.</p>
-
-<p>Within a card mod, you can define format blocks like the following:</p>
-
-<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_format'><span class='object_link'><a href="../../top-level-namespace.html#format-instance_method" title="#format (method)">format</a></span></span> <span class='symbol'>:html</span> <span class='kw'>do</span>
-  <span class='kw'>def</span> <span class='id identifier rubyid_beethoven'>beethoven</span>
-    <span class='symbol'>:rocks</span>
-  <span class='kw'>end</span>
-<span class='kw'>end</span>
-</code></pre>
-
-<p>The magic that happens here is that the method #beethoven is now applicable (and
-available) <em>only</em> to the cards in the set specified by the mod, and only when
-the card is rendering a view in the HTML format.</p>
-
-<p>If you care, you can certainly learn about how all this works. How the set module
-creates a module that looks something like <code>Card::Set::Type::MyType::HtmlFormat</code>.
-How the format object for a given card in the set includes this module dynamically
-when it’s initialized. And so on…</p>
-
-<p>But as monkeys, we don’t usually think about all that much, because we work in
-the set module space, which lets us focus on the card patterns.</p>
-
-<p>Speaking of which, there are a few key patterns to be aware of:</p>
-
-<ol>
-  <li>Just as in <span class='object_link'><a href="../Set.html" title="Card::Set (module)">sets</a></span>, format methods for narrower sets will override
-format methods for more general sets.  So if a #beethoven method is defined
-for all cards and again for a specific card type, then the type method will
-override the all method when both apply.</li>
-  <li>
-    <p>Similarly, specific formats inherit from more general formats, and all formats
-inherit from the base format. If a format is not specified, the format block
-will define methods on the base format class.</p>
-
-    <pre class="code ruby"><code class="ruby"> <span class='id identifier rubyid_format'><span class='object_link'><a href="../../top-level-namespace.html#format-instance_method" title="#format (method)">format</a></span></span> <span class='kw'>do</span>
-   <span class='kw'>def</span> <span class='id identifier rubyid_haydn'>haydn</span>
-     <span class='symbol'>:sucks</span>
-   <span class='kw'>end</span>
- <span class='kw'>end</span>
-</code></pre>
-  </li>
-  <li>
-    <p>It is possible to use super to refer to overridden methods.  For example</p>
-
-    <pre class="code ruby"><code class="ruby"> <span class='id identifier rubyid_format'><span class='object_link'><a href="../../top-level-namespace.html#format-instance_method" title="#format (method)">format</a></span></span> <span class='symbol'>:html</span> <span class='kw'>do</span>
-   <span class='kw'>def</span> <span class='id identifier rubyid_haydn'>haydn</span>
-     <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>&lt;em&gt;</span><span class='embexpr_beg'>#{</span><span class='kw'>super</span><span class='embexpr_end'>}</span><span class='tstring_content'>&lt;/em&gt;</span><span class='tstring_end'>&quot;</span></span>
-   <span class='kw'>end</span>
- <span class='kw'>end</span>
-</code></pre>
-
-    <p>Note: Set precedence has a higher priority than Format precedence.</p>
-  </li>
-  <li>
-    <p><span class='object_link'><a href="#view-instance_method" title="Card::Set::Format#view (method)">#view</a></span> and <span class='object_link'><a href="#before-instance_method" title="Card::Set::Format#before (method)">#before</a></span> can both be called outside of a format block. They will
-  be defined on the base format.</p>
-  </li>
-  <li>Some very powerful API calls (including <span class='object_link'><a href="Format/AbstractFormat.html#view-instance_method" title="Card::Set::Format::AbstractFormat#view (method)">view</a></span> and
-<span class='object_link'><a href="Format/AbstractFormat.html#before-instance_method" title="Card::Set::Format::AbstractFormat#before (method)">before</a></span>) are defined in <span class='object_link'><a href="Format/AbstractFormat.html" title="Card::Set::Format::AbstractFormat (module)">AbstractFormat</a></span>. These methods are
-always available in format blocks.</li>
-</ol>
-
-
-  </div>
-</div>
-<div class="tags">
-  
-
-</div><h2>Defined Under Namespace</h2>
+<h2>Defined Under Namespace</h2>
 <p class="children">
   
     
@@ -392,12 +320,12 @@ used by wrapper</p>
       <pre class="lines">
 
 
-134
-135
-136</pre>
+165
+166
+167</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/set/format.rb', line 134</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/set/format.rb', line 165</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_layout_method_name'>layout_method_name</span> <span class='id identifier rubyid_layout'>layout</span>
   <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>_layout_</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_layout'>layout</span><span class='period'>.</span><span class='id identifier rubyid_to_name'>to_name</span><span class='period'>.</span><span class='id identifier rubyid_key'>key</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
@@ -433,12 +361,12 @@ used by #render</p>
       <pre class="lines">
 
 
-146
-147
-148</pre>
+177
+178
+179</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/set/format.rb', line 146</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/set/format.rb', line 177</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_view_method_name'>view_method_name</span> <span class='id identifier rubyid_view'>view</span>
   <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>_view_</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_view'>view</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
@@ -474,12 +402,12 @@ used by #view_setting</p>
       <pre class="lines">
 
 
-152
-153
-154</pre>
+183
+184
+185</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/set/format.rb', line 152</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/set/format.rb', line 183</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_view_setting_method_name'>view_setting_method_name</span> <span class='id identifier rubyid_view'>view</span><span class='comma'>,</span> <span class='id identifier rubyid_setting_name'>setting_name</span>
   <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>_view_</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_view'>view</span><span class='embexpr_end'>}</span><span class='tstring_content'>__</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_setting_name'>setting_name</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
@@ -515,12 +443,12 @@ used by wrapped views</p>
       <pre class="lines">
 
 
-140
-141
-142</pre>
+171
+172
+173</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/set/format.rb', line 140</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/set/format.rb', line 171</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_wrapper_method_name'>wrapper_method_name</span> <span class='id identifier rubyid_wrapper'>wrapper</span>
   <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>_wrapper_</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_wrapper'>wrapper</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
@@ -562,12 +490,12 @@ format block</p>
       <pre class="lines">
 
 
-86
-87
-88</pre>
+117
+118
+119</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/set/format.rb', line 86</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/set/format.rb', line 117</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_before'>before</span> <span class='id identifier rubyid_view'>view</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span>
   <span class='id identifier rubyid_format'><span class='object_link'><a href="../../top-level-namespace.html#format-instance_method" title="#format (method)">format</a></span></span> <span class='lbrace'>{</span> <span class='id identifier rubyid_before'>before</span> <span class='id identifier rubyid_view'>view</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span> <span class='rbrace'>}</span>
@@ -602,21 +530,21 @@ format block</p>
       <pre class="lines">
 
 
-65
-66
-67
-68
-69
-70
-71
-72
-73
-74
-75
-76</pre>
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/set/format.rb', line 65</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/set/format.rb', line 96</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_format'><span class='object_link'><a href="../../top-level-namespace.html#format-instance_method" title="#format (method)">format</a></span></span> <span class='op'>*</span><span class='id identifier rubyid_format_names'>format_names</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span>
   <span class='id identifier rubyid_format_names'>format_names</span><span class='period'>.</span><span class='id identifier rubyid_compact!'>compact!</span>
@@ -661,12 +589,12 @@ block</p>
       <pre class="lines">
 
 
-80
-81
-82</pre>
+111
+112
+113</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/set/format.rb', line 80</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/set/format.rb', line 111</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_view'>view</span> <span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span>
   <span class='id identifier rubyid_format'><span class='object_link'><a href="../../top-level-namespace.html#format-instance_method" title="#format (method)">format</a></span></span> <span class='lbrace'>{</span> <span class='id identifier rubyid_view'>view</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
@@ -681,9 +609,9 @@ block</p>
 </div>
 
       <div id="footer">
-  Generated on Fri Nov 18 22:10:16 2022 by
+  Generated on Mon Feb  6 14:14:55 2023 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.28 (ruby-3.0.4).
+  0.9.28 (ruby-3.0.1).
 </div>
 
     </div>
