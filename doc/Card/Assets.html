@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+  Module: Card::Assets
+  
+    &mdash; Documentation by YARD 0.9.28
+  
+</title>
+
+  <link rel="stylesheet" href="../css/style.css" type="text/css" />
+
+  <link rel="stylesheet" href="../css/common.css" type="text/css" />
+
+<script type="text/javascript">
+  pathId = "Card::Assets";
+  relpath = '../';
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="../js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="../js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div class="nav_wrap">
+      <iframe id="nav" src="../class_list.html?1"></iframe>
+      <div id="resizer"></div>
+    </div>
+
+    <div id="main" tabindex="-1">
+      <div id="header">
+        <div id="menu">
+  
+    <a href="../_index.html">Index (A)</a> &raquo;
+    <span class='title'><span class='object_link'><a href="../Card.html" title="Card (class)">Card</a></span></span>
+     &raquo; 
+    <span class="title">Assets</span>
+  
+</div>
+
+        <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="../class_list.html">
+
+        <svg width="24" height="24">
+          <rect x="0" y="4" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="12" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="20" width="24" height="4" rx="1" ry="1"></rect>
+        </svg>
+    </a>
+  
+</div>
+        <div class="clear"></div>
+      </div>
+
+      <div id="content"><h1>Module: Card::Assets
+  
+  
+  
+</h1>
+<div class="box_info">
+  
+
+  
+  
+  
+  
+  
+
+  
+
+  
+  <dl>
+    <dt>Defined in:</dt>
+    <dd>mod/assets/lib/card/assets.rb</dd>
+  </dl>
+  
+</div>
+
+<h2>Overview</h2><div class="docstring">
+  <div class="discussion">
+    <p>Provides methods to refresh script and style assets</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+  
+    <h2>
+      Constant Summary
+      <small><a href="#" class="constants_summary_toggle">collapse</a></small>
+    </h2>
+
+    <dl class="constants">
+      
+        <dt id="REFRESHED-constant" class="">REFRESHED =
+          
+        </dt>
+        <dd><pre class="code"><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>ASSETS_REFRESHED</span><span class='tstring_end'>&quot;</span></span><span class='period'>.</span><span class='id identifier rubyid_freeze'>freeze</span></pre></dd>
+      
+    </dl>
+  
+
+
+
+
+
+
+
+  
+    <h2>
+      Class Method Summary
+      <small><a href="#" class="summary_toggle">collapse</a></small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#active_theme_cards-class_method" title="active_theme_cards (class method)">.<strong>active_theme_cards</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#inputter_types-class_method" title="inputter_types (class method)">.<strong>inputter_types</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>FIXME: if we need this (not sure we do? see below), these types should probably be in a basket so that monkeys can add them.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#make_output_coded-class_method" title="make_output_coded (class method)">.<strong>make_output_coded</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#refresh-class_method" title="refresh (class method)">.<strong>refresh</strong>(force: false)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#wipe-class_method" title="wipe (class method)">.<strong>wipe</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+</div></span>
+  
+</li>
+
+      
+    </ul>
+  
+
+
+
+  <div id="class_method_details" class="method_details_list">
+    <h2>Class Method Details</h2>
+
+    
+      <div class="method_details first">
+  <h3 class="signature first" id="active_theme_cards-class_method">
+  
+    .<strong>active_theme_cards</strong>  &#x21d2; <tt><span class='object_link'><a href="../Object.html" title="Object (class)">Object</a></span></tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+46
+47
+48
+49
+50
+51</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'mod/assets/lib/card/assets.rb', line 46</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_active_theme_cards'>active_theme_cards</span>
+  <span class='id identifier rubyid_style_rule'>style_rule</span> <span class='op'>=</span> <span class='lbrace'>{</span> <span class='label'>left:</span> <span class='lbrace'>{</span> <span class='label'>type_id:</span> <span class='const'>SetID</span> <span class='rbrace'>}</span><span class='comma'>,</span> <span class='label'>right_id:</span> <span class='const'>StyleID</span> <span class='rbrace'>}</span>
+  <span class='const'><span class='object_link'><a href="../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_search'><span class='object_link'><a href="Query/CardClass.html#search-instance_method" title="Card::Query::CardClass#search (method)">search</a></span></span><span class='lparen'>(</span><span class='label'>referred_to_by:</span> <span class='id identifier rubyid_style_rule'>style_rule</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_select'>select</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_theme'>theme</span><span class='op'>|</span>
+    <span class='id identifier rubyid_theme'>theme</span><span class='period'>.</span><span class='id identifier rubyid_respond_to?'>respond_to?</span> <span class='symbol'>:theme_name</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="inputter_types-class_method">
+  
+    .<strong>inputter_types</strong>  &#x21d2; <tt><span class='object_link'><a href="../Object.html" title="Object (class)">Object</a></span></tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>FIXME: if we need this (not sure we do? see below), these types should probably
+be in a basket so that monkeys can add them.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+9
+10
+11
+12
+13
+14
+15
+16</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'mod/assets/lib/card/assets.rb', line 9</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_inputter_types'>inputter_types</span>
+  <span class='lbracket'>[</span>
+    <span class='const'>JavaScriptID</span><span class='comma'>,</span>
+    <span class='const'>CoffeeScriptID</span><span class='comma'>,</span>
+    <span class='const'>CssID</span><span class='comma'>,</span>
+    <span class='const'>ScssID</span>
+  <span class='rbracket'>]</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="make_output_coded-class_method">
+  
+    .<strong>make_output_coded</strong>  &#x21d2; <tt><span class='object_link'><a href="../Object.html" title="Object (class)">Object</a></span></tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+42
+43
+44</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'mod/assets/lib/card/assets.rb', line 42</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_make_output_coded'>make_output_coded</span>
+  <span class='id identifier rubyid_asset_outputters'>asset_outputters</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='symbol'>:make_asset_output_coded</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="refresh-class_method">
+  
+    .<strong>refresh</strong>(force: false)  &#x21d2; <tt><span class='object_link'><a href="../Object.html" title="Object (class)">Object</a></span></tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'mod/assets/lib/card/assets.rb', line 18</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_refresh'>refresh</span> <span class='label'>force:</span> <span class='kw'>false</span>
+  <span class='kw'>return</span> <span class='kw'>unless</span> <span class='id identifier rubyid_force'>force</span> <span class='op'>||</span> <span class='id identifier rubyid_refresh?'>refresh?</span>
+
+  <span class='id identifier rubyid_inputters'>inputters</span> <span class='op'>=</span> <span class='id identifier rubyid_standard_inputters'>standard_inputters</span>
+
+  <span class='comment'># typically nonstandard inputters are standard cards, so their events
+</span>  <span class='comment'># should manage normal (non-forced) refreshing.
+</span>  <span class='comment'># (standard_inputters, by contrast, are in code, so this refreshing is
+</span>  <span class='comment'># needed eg in development mode to detect changes)
+</span>  <span class='id identifier rubyid_inputters'>inputters</span> <span class='op'>+=</span> <span class='id identifier rubyid_nonstandard_inputters'>nonstandard_inputters</span> <span class='kw'>if</span> <span class='id identifier rubyid_force'>force</span>
+  <span class='id identifier rubyid_inputters'>inputters</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='symbol'>:refresh_asset</span><span class='rparen'>)</span>
+
+  <span class='id identifier rubyid_generate_asset_output_files'>generate_asset_output_files</span> <span class='kw'>if</span> <span class='id identifier rubyid_force'>force</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="wipe-class_method">
+  
+    .<strong>wipe</strong>  &#x21d2; <tt><span class='object_link'><a href="../Object.html" title="Object (class)">Object</a></span></tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+33
+34
+35
+36
+37
+38
+39
+40</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'mod/assets/lib/card/assets.rb', line 33</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_wipe'>wipe</span>
+  <span class='const'><span class='object_link'><a href="Auth.html" title="Card::Auth (module)">Auth</a></span></span><span class='period'>.</span><span class='id identifier rubyid_as_bot'><span class='object_link'><a href="Auth/Proxy.html#as_bot-instance_method" title="Card::Auth::Proxy#as_bot (method)">as_bot</a></span></span> <span class='kw'>do</span>
+    <span class='qsymbols_beg'>%i[</span><span class='tstring_content'>asset_input</span><span class='words_sep'> </span><span class='tstring_content'>asset_output</span><span class='tstring_end'>]</span></span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_field'>field</span><span class='op'>|</span>
+      <span class='const'><span class='object_link'><a href="../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_search'><span class='object_link'><a href="Query/CardClass.html#search-instance_method" title="Card::Query::CardClass#search (method)">search</a></span></span><span class='lparen'>(</span><span class='label'>right:</span> <span class='id identifier rubyid_field'>field</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='symbol'>:delete!</span><span class='rparen'>)</span>
+      <span class='const'><span class='object_link'><a href="Virtual.html" title="Card::Virtual (class)">Virtual</a></span></span><span class='period'>.</span><span class='id identifier rubyid_where'>where</span><span class='lparen'>(</span><span class='label'>right_id:</span> <span class='id identifier rubyid_field'>field</span><span class='period'>.</span><span class='id identifier rubyid_card_id'>card_id</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_destroy_all'>destroy_all</span>
+    <span class='kw'>end</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+</div>
+
+      <div id="footer">
+  Generated on Mon Feb  6 14:14:59 2023 by
+  <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.28 (ruby-3.0.1).
+</div>
+
+    </div>
+  </body>
+</html>

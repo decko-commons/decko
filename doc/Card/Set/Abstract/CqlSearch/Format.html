@@ -6,7 +6,7 @@
 <title>
   Module: Card::Set::Abstract::CqlSearch::Format
   
-    &mdash; Documentation by YARD 0.9.26
+    &mdash; Documentation by YARD 0.9.28
   
 </title>
 
@@ -83,7 +83,7 @@
   
   <dl>
     <dt>Defined in:</dt>
-    <dd>card/tmpsets/set/mod035-card-mod-search/abstract/06_cql_search.rb</dd>
+    <dd>platypus/tmp/set/gem-defaults/mod009-search/abstract/cql_search.rb</dd>
   </dl>
   
 </div>
@@ -149,29 +149,6 @@
 </li>
 
       
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#search_params-instance_method" title="#search_params (instance method)">#<strong>search_params</strong>  &#x21d2; Object </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'>
-</div></span>
-  
-</li>
-
-      
     </ul>
   
 
@@ -197,12 +174,12 @@
       <pre class="lines">
 
 
-89
-90
-91</pre>
+86
+87
+88</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod035-card-mod-search/abstract/06_cql_search.rb', line 89</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod009-search/abstract/cql_search.rb', line 86</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_card_content_limit'>card_content_limit</span>
   <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_cql_hash'>cql_hash</span><span class='op'>&amp;.</span><span class='id identifier rubyid_dig'>dig</span> <span class='symbol'>:limit</span>
@@ -227,45 +204,15 @@
       <pre class="lines">
 
 
-85
-86
-87</pre>
+82
+83
+84</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod035-card-mod-search/abstract/06_cql_search.rb', line 85</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod009-search/abstract/cql_search.rb', line 82</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_default_limit'>default_limit</span>
   <span class='id identifier rubyid_card_content_limit'>card_content_limit</span> <span class='op'>||</span> <span class='kw'>super</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="search_params-instance_method">
-  
-    #<strong>search_params</strong>  &#x21d2; <tt><span class='object_link'><a href="../../../../Object.html" title="Object (class)">Object</a></span></tt> 
-  
-
-  
-
-  
-</h3><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-81
-82
-83</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod035-card-mod-search/abstract/06_cql_search.rb', line 81</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_search_params'>search_params</span>
-  <span class='kw'>super</span><span class='period'>.</span><span class='id identifier rubyid_merge'>merge</span> <span class='id identifier rubyid_filter_and_sort_cql'>filter_and_sort_cql</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -277,9 +224,9 @@
 </div>
 
       <div id="footer">
-  Generated on Thu May 13 17:17:37 2021 by
-  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.26 (ruby-2.7.2).
+  Generated on Mon Feb  6 14:15:12 2023 by
+  <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.28 (ruby-3.0.1).
 </div>
 
     </div>

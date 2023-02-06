@@ -269,9 +269,9 @@ Why does cache clearing need to do this??</p>
   <span class='id identifier rubyid_delete_trashed_files'>delete_trashed_files</span>
   <span class='const'><span class='object_link'><a href="../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_where'>where</span><span class='lparen'>(</span><span class='label'>trash:</span> <span class='kw'>true</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_in_batches'>in_batches</span><span class='period'>.</span><span class='id identifier rubyid_update_all'>update_all</span><span class='lparen'>(</span><span class='label'>left_id:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>right_id:</span> <span class='kw'>nil</span><span class='rparen'>)</span>
   <span class='const'><span class='object_link'><a href="../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_where'>where</span><span class='lparen'>(</span><span class='label'>trash:</span> <span class='kw'>true</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_in_batches'>in_batches</span><span class='period'>.</span><span class='id identifier rubyid_delete_all'>delete_all</span>
-  <span class='const'><span class='object_link'><a href="../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'>Action</span><span class='period'>.</span><span class='id identifier rubyid_delete_cardless'>delete_cardless</span>
-  <span class='const'><span class='object_link'><a href="../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'>Change</span><span class='period'>.</span><span class='id identifier rubyid_delete_actionless'>delete_actionless</span>
-  <span class='const'><span class='object_link'><a href="../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'>Act</span><span class='period'>.</span><span class='id identifier rubyid_delete_actionless'>delete_actionless</span>
+  <span class='const'><span class='object_link'><a href="../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Card/Action.html" title="Card::Action (class)">Action</a></span></span><span class='period'>.</span><span class='id identifier rubyid_delete_cardless'><span class='object_link'><a href="../Card/Action/Admin.html#delete_cardless-instance_method" title="Card::Action::Admin#delete_cardless (method)">delete_cardless</a></span></span>
+  <span class='const'><span class='object_link'><a href="../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Card/Change.html" title="Card::Change (class)">Change</a></span></span><span class='period'>.</span><span class='id identifier rubyid_delete_actionless'><span class='object_link'><a href="../Card/Change.html#delete_actionless-class_method" title="Card::Change.delete_actionless (method)">delete_actionless</a></span></span>
+  <span class='const'><span class='object_link'><a href="../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Card/Act.html" title="Card::Act (class)">Act</a></span></span><span class='period'>.</span><span class='id identifier rubyid_delete_actionless'><span class='object_link'><a href="../Card/Act.html#delete_actionless-class_method" title="Card::Act.delete_actionless (method)">delete_actionless</a></span></span>
   <span class='const'><span class='object_link'><a href="../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Card/Reference.html" title="Card::Reference (class)">Reference</a></span></span><span class='period'>.</span><span class='id identifier rubyid_clean'><span class='object_link'><a href="../Card/Reference.html#clean-class_method" title="Card::Reference.clean (method)">clean</a></span></span>
 <span class='kw'>end</span></pre>
     </td>
@@ -314,9 +314,9 @@ Why does cache clearing need to do this??</p>
 </div>
 
       <div id="footer">
-  Generated on Fri Nov 18 22:10:16 2022 by
+  Generated on Mon Feb  6 14:14:54 2023 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.28 (ruby-3.0.4).
+  0.9.28 (ruby-3.0.1).
 </div>
 
     </div>
