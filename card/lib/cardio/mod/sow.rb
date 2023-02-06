@@ -16,7 +16,7 @@ module Cardio
 
       # @return [Array <Hash>]
       def new_data
-        @new_data ||= cards.map { |c| c.export_hash field_tags: field_tag_marks }
+        @new_data ||= cards.map { |c| c.pod_hash field_tags: field_tag_marks }
       end
 
       def field_tag_marks
