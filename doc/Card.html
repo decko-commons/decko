@@ -117,7 +117,151 @@
 
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
-    <p><span class='object_link'><a href="Card/Auth.html" title="Card::Auth (module)">More on accounts</a></span></p>
+    <p>Cards are wiki-inspired building blocks.</p>
+
+<p>This documentation is for developers who want to understand:</p>
+
+<ol>
+  <li>how ruby Card objects work, and</li>
+  <li>how to extend them.</li>
+</ol>
+
+<p>It assumes that you’ve already read the introductory text in <a href="index.html" title="README - Decko">README - Decko</a>.</p>
+
+<p>Throughout this document we will refer to @card as an instance of a Card object.</p>
+
+<h2 id="names">Names</h2>
+
+<p>There are four important card identifiers, sometimes called “marks”.  Every card has a
+unique <em>name</em>, <em>key</em>, and <em>id</em>. Some cards also have a <em>codename</em>.</p>
+
+<pre class="code ruby"><code class="ruby">  <span class='ivar'>@card</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span>     <span class='comment'># The name, a Card::Name object, is the most recognizable card
+</span>                 <span class='comment'># mark.
+</span>  <span class='ivar'>@card</span><span class='period'>.</span><span class='id identifier rubyid_key'>key</span>      <span class='comment'># The key, a String, is a simple lower-case name variant.
+</span>  <span class='ivar'>@card</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span>       <span class='comment'># The id is an Integer.
+</span>  <span class='ivar'>@card</span><span class='period'>.</span><span class='id identifier rubyid_codename'>codename</span> <span class='comment'># The codename, a Symbol, is the name by which a card can be
+</span>                 <span class='comment'># referred to in code.
+</span></code></pre>
+
+<p>All names with the same key (including the key itself) are considered variants of each
+other. No two cards can have names with the same key. <span class='object_link'><a href="Card/Name.html" title="Card::Name (class)">Name</a></span> objects inherit from
+Strings but add many other methods for common card name patterns, eg
+<code>"A+B".to_name.right =&gt; "B"</code>.</p>
+
+<p>Setting a card’s name, eg <code>@card.name = "New Name"</code>, will automatically update the key.</p>
+
+<ul>
+  <li><span class='object_link'><a href="Card/Name.html" title="Card::Name (class)">More on names.</a></span></li>
+  <li><span class='object_link'><a href="Card/Codename.html" title="Card::Codename (class)">More on codenames.</a></span></li>
+</ul>
+
+<h2 id="type">Type</h2>
+
+<p>Every card has a type, and every type itself has an associated card. For example,
+<em>Paula</em>’s type might be <em>User</em>, so there is also a <em>User</em> card.</p>
+
+<p>The type may be accessed in several ways:</p>
+
+<pre class="code ruby"><code class="ruby">  <span class='ivar'>@card</span><span class='period'>.</span><span class='id identifier rubyid_type_id'>type_id</span>      <span class='comment'># returns id of type card [Integer]
+</span>  <span class='ivar'>@card</span><span class='period'>.</span><span class='id identifier rubyid_type_name'>type_name</span>    <span class='comment'># returns name of type card [Card::Name]
+</span>  <span class='ivar'>@card</span><span class='period'>.</span><span class='id identifier rubyid_type_code'>type_code</span>    <span class='comment'># returns codename of type card [Symbol]
+</span>  <span class='ivar'>@card</span><span class='period'>.</span><span class='id identifier rubyid_type_card'>type_card</span>    <span class='comment'># returns Cardtype card associated with @card&#39;s type [Card]
+</span></code></pre>
+
+<ul>
+  <li><span class='object_link'><a href="Card/Set/All/Type.html" title="Card::Set::All::Type (module)">Common type methods</a></span></li>
+</ul>
+
+<h2 id="content">Content</h2>
+
+<p>There are two primary methods for accessing a card’s content:</p>
+
+<pre class="code ruby"><code class="ruby">  <span class='ivar'>@card</span><span class='period'>.</span><span class='id identifier rubyid_db_content'>db_content</span>   <span class='comment'># the content as it appears in the database
+</span>  <span class='ivar'>@card</span><span class='period'>.</span><span class='id identifier rubyid_content'>content</span>      <span class='comment'># the &quot;official&quot; content, which may be different from db_content when db_content is overridden with a structure rule.
+</span></code></pre>
+
+<ul>
+  <li><span class='object_link'><a href="Card/Content.html" title="Card::Content (class)">Processing card content</a></span></li>
+  <li><span class='object_link'><a href="Card/Set/All/Content.html" title="Card::Set::All::Content (module)">Common content methods</a></span></li>
+</ul>
+
+<h2 id="fetch">Fetch</h2>
+
+<p>The two main ways to retrieve cards are fetching (retrieving cards one at a time) and
+querying (retrieving lists of cards). More on querying below.</p>
+
+<p>Any of the above marks (name, key, id, codename) can be used to fetch a card, eg:</p>
+
+<pre class="code ruby"><code class="ruby"> <span class='ivar'>@card1</span> <span class='op'>=</span> <span class='const'>Card</span><span class='period'>.</span><span class='id identifier rubyid_fetch'><span class='object_link'><a href="Card/Fetch/CardClass.html#fetch-instance_method" title="Card::Fetch::CardClass#fetch (method)">fetch</a></span></span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Garden</span><span class='tstring_end'>&quot;</span></span> <span class='comment'># returns the card with the name &quot;Garden&quot; (or, more precisely, with the key &quot;garden&quot;)
+</span> <span class='ivar'>@card2</span> <span class='op'>=</span> <span class='const'>Card</span><span class='period'>.</span><span class='id identifier rubyid_fetch'><span class='object_link'><a href="Card/Fetch/CardClass.html#fetch-instance_method" title="Card::Fetch::CardClass#fetch (method)">fetch</a></span></span> <span class='int'>100</span>      <span class='comment'># returns the card with the id 100
+</span> <span class='ivar'>@card3</span> <span class='op'>=</span> <span class='const'>Card</span><span class='period'>.</span><span class='id identifier rubyid_fetch'><span class='object_link'><a href="Card/Fetch/CardClass.html#fetch-instance_method" title="Card::Fetch::CardClass#fetch (method)">fetch</a></span></span> <span class='symbol'>:help</span>    <span class='comment'># returns the card with the codename help
+</span></code></pre>
+
+<p>The fetch API will first try to find the card in the cache and will only look in the
+database if necessary.</p>
+
+<p>The <code>Card[]</code> shortcut will return the same results but does not support the full range
+of advanced options and will not return virtual cards
+(cards that can be constructed from naming patterns but are not actually in the
+database).</p>
+
+<pre class="code ruby"><code class="ruby"> <span class='comment'># equivalent to the above but more concise
+</span> <span class='ivar'>@card1</span> <span class='op'>=</span> <span class='const'>Card</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Garden</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
+ <span class='ivar'>@card2</span> <span class='op'>=</span> <span class='const'>Card</span><span class='lbracket'>[</span><span class='int'>100</span><span class='rbracket'>]</span>
+ <span class='ivar'>@card3</span> <span class='op'>=</span> <span class='const'>Card</span><span class='lbracket'>[</span><span class='symbol'>:help</span><span class='rbracket'>]</span>
+</code></pre>
+
+<p>Better still, you can use the <code>#card</code> method on Strings, Integers, Symbols, and Arrays</p>
+
+<pre class="code ruby"><code class="ruby"> <span class='comment'># equivalent to the above but even more concise
+</span> <span class='ivar'>@card1</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Garden</span><span class='tstring_end'>&quot;</span></span><span class='period'>.</span><span class='id identifier rubyid_card'>card</span>
+ <span class='ivar'>@card2</span> <span class='op'>=</span> <span class='int'>100</span><span class='period'>.</span><span class='id identifier rubyid_card'>card</span>
+ <span class='ivar'>@card3</span> <span class='op'>=</span> <span class='symbol'>:help</span><span class='period'>.</span><span class='id identifier rubyid_card'>card</span>
+</code></pre>
+
+<p>The <code>#card_id</code>, <code>#cardname</code>, and <code>#codename</code> methods work on all the same objects and
+provide convenient shortcuts for quickly fetching and returning card attributes.</p>
+
+<ul>
+  <li><span class='object_link'><a href="Card/Fetch/CardClass.html" title="Card::Fetch::CardClass (module)">More on fetching.</a></span></li>
+</ul>
+
+<h2 id="query">Query</h2>
+
+<p>Card queries find and return lists of cards, eg:</p>
+
+<pre class="code ruby"><code class="ruby">  <span class='const'>Card</span><span class='period'>.</span><span class='id identifier rubyid_search'><span class='object_link'><a href="Card/Query/CardClass.html#search-instance_method" title="Card::Query::CardClass#search (method)">search</a></span></span> <span class='label'>type_id:</span> <span class='int'>4</span> <span class='comment'># returns an Array of cards with the type_id of 4.
+</span></code></pre>
+
+<ul>
+  <li><span class='object_link'><a href="Card/Query.html" title="Card::Query (module)">More on queries</a></span></li>
+</ul>
+
+<h2 id="views-and-events">Views and Events</h2>
+
+<p>Views and events are a <em>Shark’s</em> primary tools for manipulating cards. Views customize
+card presentation, while events customize card transactions. Or, if you like, views
+and events respectively alter cards in <em>space</em> and <em>time</em>.</p>
+
+<p>Both views and events are defined in <span class='object_link'><a href="Cardio/Mod.html" title="Cardio::Mod (class)">mods</a></span>, short for modules or
+modifications.</p>
+
+<ul>
+  <li><span class='object_link'><a href="Card/Set/Format/AbstractFormat.html#view-instance_method" title="Card::Set::Format::AbstractFormat#view (method)">More on views</a></span></li>
+  <li><span class='object_link'><a href="Card/Set/Event/Api.html#event-instance_method" title="Card::Set::Event::Api#event (method)">More on events</a></span></li>
+</ul>
+
+<h2 id="accounts-and-permissions">Accounts and Permissions</h2>
+
+<p>Card code is always executed in the context of a given user account. Permissions for
+that account are automatically checked when running a query, performing an action, or
+rendering a view.  A typical query, for example, can only return cards that the current
+user has permission to read.</p>
+
+<p>You can see the current user with <code>Card::Auth.current</code>. The permissions of a proxy user
+can be temporarily assumed using <code>Card::Auth#as</code>.</p>
+
+<p><span class='object_link'><a href="Card/Auth.html" title="Card::Auth (module)">More on accounts</a></span></p>
 
 
   </div>
@@ -825,7 +969,7 @@ minimum they would need to include set modules.</p>
 </div>
 
       <div id="footer">
-  Generated on Mon Feb  6 14:15:19 2023 by
+  Generated on Mon Feb  6 15:49:56 2023 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.28 (ruby-3.0.1).
 </div>

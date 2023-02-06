@@ -108,7 +108,18 @@
   
 </div>
 
-<div id="subclasses">
+<h2>Overview</h2><div class="docstring">
+  <div class="discussion">
+    <p>The Cardname class generalizes the core naming concepts of Decko/Card. The most central
+of these is the idea that compound names can be formed by combining simple names.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><div id="subclasses">
   <h2>Direct Known Subclasses</h2>
   <p class="children"><span class='object_link'><a href="Card/Name.html" title="Card::Name (class)">Card::Name</a></span></p>
 </div>
@@ -595,18 +606,18 @@
       <pre class="lines">
 
 
-80
-81
-82
-83
 84
 85
 86
 87
-88</pre>
+88
+89
+90
+91
+92</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'cardname/lib/cardname.rb', line 80</span>
+      <pre class="code"><span class="info file"># File 'cardname/lib/cardname.rb', line 84</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span> <span class='id identifier rubyid_str'>str</span>
   <span class='kw'>super</span> <span class='id identifier rubyid_str'>str</span>
@@ -655,12 +666,12 @@
       <pre class="lines">
 
 
-78
-79
-80</pre>
+82
+83
+84</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'cardname/lib/cardname.rb', line 78</span>
+      <pre class="code"><span class="info file"># File 'cardname/lib/cardname.rb', line 82</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_key'>key</span>
   <span class='ivar'>@key</span>
@@ -692,12 +703,12 @@
       <pre class="lines">
 
 
-53
-54
-55</pre>
+57
+58
+59</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'cardname/lib/cardname.rb', line 53</span>
+      <pre class="code"><span class="info file"># File 'cardname/lib/cardname.rb', line 57</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_banned_re'>banned_re</span>
   <span class='ivar'>@banned_re</span> <span class='op'>||=</span> <span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>[</span><span class='embexpr_beg'>#{</span><span class='const'>Regexp</span><span class='period'>.</span><span class='id identifier rubyid_escape'>escape</span><span class='lparen'>(</span><span class='lparen'>(</span><span class='id identifier rubyid_banned_array'>banned_array</span> <span class='op'>+</span> <span class='lbracket'>[</span><span class='id identifier rubyid_joint'>joint</span><span class='rbracket'>]</span><span class='rparen'>)</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='embexpr_end'>}</span><span class='tstring_content'>]</span><span class='regexp_end'>/</span></span>
@@ -722,12 +733,12 @@
       <pre class="lines">
 
 
-61
-62
-63</pre>
+65
+66
+67</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'cardname/lib/cardname.rb', line 61</span>
+      <pre class="code"><span class="info file"># File 'cardname/lib/cardname.rb', line 65</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_cache'>cache</span>
   <span class='ivar'>@cache</span> <span class='op'>||=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
@@ -752,15 +763,15 @@
       <pre class="lines">
 
 
-36
-37
-38
-39
 40
-41</pre>
+41
+42
+43
+44
+45</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'cardname/lib/cardname.rb', line 36</span>
+      <pre class="code"><span class="info file"># File 'cardname/lib/cardname.rb', line 40</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_new'>new</span> <span class='id identifier rubyid_obj'>obj</span>
   <span class='kw'>return</span> <span class='id identifier rubyid_obj'>obj</span> <span class='kw'>if</span> <span class='id identifier rubyid_obj'>obj</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span>
@@ -811,14 +822,14 @@
       <pre class="lines">
 
 
-47
-48
-49
-50
-51</pre>
+51
+52
+53
+54
+55</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'cardname/lib/cardname.rb', line 47</span>
+      <pre class="code"><span class="info file"># File 'cardname/lib/cardname.rb', line 51</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_nothing_banned?'>nothing_banned?</span>
   <span class='kw'>return</span> <span class='ivar'>@nothing_banned</span> <span class='kw'>unless</span> <span class='ivar'>@nothing_banned</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
@@ -845,12 +856,12 @@
       <pre class="lines">
 
 
-43
-44
-45</pre>
+47
+48
+49</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'cardname/lib/cardname.rb', line 43</span>
+      <pre class="code"><span class="info file"># File 'cardname/lib/cardname.rb', line 47</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_reset'>reset</span>
   <span class='ivar'>@cache</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
@@ -875,12 +886,12 @@
       <pre class="lines">
 
 
-57
-58
-59</pre>
+61
+62
+63</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'cardname/lib/cardname.rb', line 57</span>
+      <pre class="code"><span class="info file"># File 'cardname/lib/cardname.rb', line 61</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_split_parts'>split_parts</span> <span class='id identifier rubyid_str'>str</span>
   <span class='id identifier rubyid_str'>str</span><span class='period'>.</span><span class='id identifier rubyid_split'>split</span><span class='lparen'>(</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>\s*</span><span class='embexpr_beg'>#{</span><span class='const'><span class='object_link'><a href="#JOINT_RE-constant" title="Cardname::JOINT_RE (constant)">JOINT_RE</a></span></span><span class='embexpr_end'>}</span><span class='tstring_content'>\s*</span><span class='regexp_end'>/</span></span><span class='comma'>,</span> <span class='op'>-</span><span class='int'>1</span><span class='rparen'>)</span>
@@ -911,12 +922,12 @@
       <pre class="lines">
 
 
-107
-108
-109</pre>
+111
+112
+113</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'cardname/lib/cardname.rb', line 107</span>
+      <pre class="code"><span class="info file"># File 'cardname/lib/cardname.rb', line 111</span>
 
 <span class='kw'>def</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_val'>val</span>
   <span class='id identifier rubyid_replace'>replace</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_parts'>parts</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_val'>val</span><span class='rparen'>)</span>
@@ -941,17 +952,17 @@
       <pre class="lines">
 
 
-115
-116
-117
-118
 119
 120
 121
-122</pre>
+122
+123
+124
+125
+126</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'cardname/lib/cardname.rb', line 115</span>
+      <pre class="code"><span class="info file"># File 'cardname/lib/cardname.rb', line 119</span>
 
 <span class='kw'>def</span> <span class='op'>==</span> <span class='id identifier rubyid_other'>other</span>
   <span class='id identifier rubyid_key'>key</span> <span class='op'>==</span>
@@ -981,14 +992,14 @@
       <pre class="lines">
 
 
-101
-102
-103
-104
-105</pre>
+105
+106
+107
+108
+109</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'cardname/lib/cardname.rb', line 101</span>
+      <pre class="code"><span class="info file"># File 'cardname/lib/cardname.rb', line 105</span>
 
 <span class='kw'>def</span> <span class='op'>[]=</span> <span class='id identifier rubyid_index'>index</span><span class='comma'>,</span> <span class='id identifier rubyid_val'>val</span>
   <span class='id identifier rubyid_p'>p</span> <span class='op'>=</span> <span class='id identifier rubyid_parts'>parts</span>
@@ -1019,12 +1030,12 @@
       <pre class="lines">
 
 
-90
-91
-92</pre>
+94
+95
+96</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'cardname/lib/cardname.rb', line 90</span>
+      <pre class="code"><span class="info file"># File 'cardname/lib/cardname.rb', line 94</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_s'>s</span>
   <span class='const'>String</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span> <span class='kw'>self</span>
@@ -1059,12 +1070,12 @@
       <pre class="lines">
 
 
-97
-98
-99</pre>
+101
+102
+103</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'cardname/lib/cardname.rb', line 97</span>
+      <pre class="code"><span class="info file"># File 'cardname/lib/cardname.rb', line 101</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_to_name'>to_name</span>
   <span class='kw'>self</span>
@@ -1079,7 +1090,7 @@
 </div>
 
       <div id="footer">
-  Generated on Mon Feb  6 14:15:20 2023 by
+  Generated on Mon Feb  6 15:49:57 2023 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.28 (ruby-3.0.1).
 </div>
