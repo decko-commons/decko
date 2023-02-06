@@ -6,7 +6,7 @@
 <title>
   Module: Card::Set::Right::Follow::HtmlFormat
   
-    &mdash; Documentation by YARD 0.9.26
+    &mdash; Documentation by YARD 0.9.28
   
 </title>
 
@@ -83,7 +83,7 @@
   
   <dl>
     <dt>Defined in:</dt>
-    <dd>card/tmpsets/set/mod025-card-mod-follow/right/follow.rb</dd>
+    <dd>platypus/tmp/set/gem-defaults/mod028-follow/right/follow.rb</dd>
   </dl>
   
 </div>
@@ -220,21 +220,21 @@
       <pre class="lines">
 
 
-68
-69
-70
-71
-72
-73
 74
 75
 76
 77
 78
-79</pre>
+79
+80
+81
+82
+83
+84
+85</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod025-card-mod-follow/right/follow.rb', line 68</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod028-follow/right/follow.rb', line 74</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_follow_item'>follow_item</span> <span class='id identifier rubyid_condition'>condition</span><span class='comma'>,</span> <span class='id identifier rubyid_button'>button</span><span class='op'>=</span><span class='kw'>true</span>
   <span class='id identifier rubyid_condition'>condition</span> <span class='op'>||=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>*always</span><span class='tstring_end'>&quot;</span></span>
@@ -268,12 +268,12 @@
       <pre class="lines">
 
 
-81
-82
-83</pre>
+87
+88
+89</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod025-card-mod-follow/right/follow.rb', line 81</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod028-follow/right/follow.rb', line 87</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_rule_form_args'>rule_form_args</span>
   <span class='kw'>super</span><span class='period'>.</span><span class='id identifier rubyid_merge'>merge</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>data-update-foreign-slot</span><span class='label_end'>&quot;:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>.card-slot.follow_section-view</span><span class='tstring_end'>&quot;</span></span>
@@ -308,15 +308,15 @@
       <pre class="lines">
 
 
-64
-65
-66</pre>
+70
+71
+72</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod025-card-mod-follow/right/follow.rb', line 64</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod028-follow/right/follow.rb', line 70</span>
 
 <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:follow_item</span><span class='comma'>,</span> <span class='label'>cache:</span> <span class='symbol'>:never</span> <span class='kw'>do</span>
-  <span class='id identifier rubyid_follow_item'>follow_item</span> <span class='const'><span class='object_link'><a href="../../../Env.html" title="Card::Env (module)">Env</a></span></span><span class='period'>.</span><span class='id identifier rubyid_params'><span class='object_link'><a href="../../../Env.html#params-class_method" title="Card::Env.params (method)">params</a></span></span><span class='lbracket'>[</span><span class='symbol'>:condition</span><span class='rbracket'>]</span>
+  <span class='id identifier rubyid_follow_item'>follow_item</span> <span class='const'><span class='object_link'><a href="../../../Env.html" title="Card::Env (module)">Env</a></span></span><span class='period'>.</span><span class='id identifier rubyid_params'><span class='object_link'><a href="../../../Env/Serializable.html#params-instance_method" title="Card::Env::Serializable#params (method)">params</a></span></span><span class='lbracket'>[</span><span class='symbol'>:condition</span><span class='rbracket'>]</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -348,12 +348,12 @@
       <pre class="lines">
 
 
-59
-60
-61</pre>
+65
+66
+67</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod025-card-mod-follow/right/follow.rb', line 59</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod028-follow/right/follow.rb', line 65</span>
 
 <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:follow_status</span><span class='comma'>,</span> <span class='label'>cache:</span> <span class='symbol'>:never</span> <span class='kw'>do</span>
   <span class='id identifier rubyid_wrap'>wrap</span> <span class='lbrace'>{</span> <span class='id identifier rubyid_haml'>haml</span> <span class='symbol'>:follow_status</span> <span class='rbrace'>}</span>
@@ -368,9 +368,9 @@
 </div>
 
       <div id="footer">
-  Generated on Thu May 13 17:17:29 2021 by
-  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.26 (ruby-2.7.2).
+  Generated on Mon Feb  6 15:49:43 2023 by
+  <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.28 (ruby-3.0.1).
 </div>
 
     </div>

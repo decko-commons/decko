@@ -6,7 +6,7 @@
 <title>
   Class: Card::Action
   
-    &mdash; Documentation by YARD 0.9.26
+    &mdash; Documentation by YARD 0.9.28
   
 </title>
 
@@ -69,14 +69,14 @@
   <dl>
     <dt>Inherits:</dt>
     <dd>
-      <span class="inheritName"><span class='object_link'><a href="../ApplicationRecord.html" title="ApplicationRecord (class)">ApplicationRecord</a></span></span>
+      <span class="inheritName"><span class='object_link'><a href="../Cardio/Record.html" title="Cardio::Record (class)">Cardio::Record</a></span></span>
       
         <ul class="fullTree">
           <li><span class='object_link'><a href="../Object.html" title="Object (class)">Object</a></span></li>
           
             <li class="next">ActiveRecord::Base</li>
           
-            <li class="next"><span class='object_link'><a href="../ApplicationRecord.html" title="ApplicationRecord (class)">ApplicationRecord</a></span></li>
+            <li class="next"><span class='object_link'><a href="../Cardio/Record.html" title="Cardio::Record (class)">Cardio::Record</a></span></li>
           
             <li class="next">Card::Action</li>
           
@@ -98,7 +98,7 @@
   
   <dl>
       <dt>Includes:</dt>
-      <dd><span class='object_link'><a href="Action/Differ.html" title="Card::Action::Differ (module)">Differ</a></span></dd>
+      <dd><span class='object_link'><a href="Action/Changes.html" title="Card::Action::Changes (module)">Changes</a></span>, <span class='object_link'><a href="Action/Differ.html" title="Card::Action::Differ (module)">Differ</a></span></dd>
   </dl>
   
   
@@ -108,8 +108,8 @@
   
   <dl>
     <dt>Defined in:</dt>
-    <dd>card-mod-history/lib/card/action.rb<span class="defines">,<br />
-  card-mod-history/lib/card/action/admin.rb,<br /> card-mod-history/lib/card/action/differ.rb,<br /> card-mod-history/lib/card/action/action_renderer.rb</span>
+    <dd>mod/history/lib/card/action.rb<span class="defines">,<br />
+  mod/history/lib/card/action/admin.rb,<br /> mod/history/lib/card/action/differ.rb,<br /> mod/history/lib/card/action/changes.rb,<br /> mod/history/lib/card/action/action_renderer.rb</span>
 </dd>
   </dl>
   
@@ -148,7 +148,7 @@ just one single <span class='object_link'><a href="Act.html" title="Card::Act (c
 <p class="children">
   
     
-      <strong class="modules">Modules:</strong> <span class='object_link'><a href="Action/Admin.html" title="Card::Action::Admin (module)">Admin</a></span>, <span class='object_link'><a href="Action/Differ.html" title="Card::Action::Differ (module)">Differ</a></span>
+      <strong class="modules">Modules:</strong> <span class='object_link'><a href="Action/Admin.html" title="Card::Action::Admin (module)">Admin</a></span>, <span class='object_link'><a href="Action/Changes.html" title="Card::Action::Changes (module)">Changes</a></span>, <span class='object_link'><a href="Action/Differ.html" title="Card::Action::Differ (module)">Differ</a></span>
     
   
     
@@ -347,29 +347,6 @@ just one single <span class='object_link'><a href="Act.html" title="Card::Act (c
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#all_changes-instance_method" title="#all_changes (instance method)">#<strong>all_changes</strong>  &#x21d2; Object </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'>
-</div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
       <a href="#card-instance_method" title="#card (instance method)">#<strong>card</strong>  &#x21d2; Card </a>
     
 
@@ -393,7 +370,7 @@ just one single <span class='object_link'><a href="Act.html" title="Card::Act (c
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#change-instance_method" title="#change (instance method)">#<strong>change</strong>(field)  &#x21d2; Change </a>
+      <a href="#card_id-instance_method" title="#card_id (instance method)">#<strong>card_id</strong>  &#x21d2; Object </a>
     
 
     
@@ -407,76 +384,7 @@ just one single <span class='object_link'><a href="Act.html" title="Card::Act (c
   
 
   
-    <span class="summary_desc"><div class='inline'><p>action’s <span class='object_link'><a href="Change.html" title="Card::Change (class)">Change</a></span> object for given field.</p>
-</div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#changed_values-instance_method" title="#changed_values (instance method)">#<strong>changed_values</strong>  &#x21d2; Object </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'><p>all changed values in hash form.</p>
-</div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#changes-instance_method" title="#changes (instance method)">#<strong>changes</strong>  &#x21d2; Hash </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'><p>all action <span class='object_link'><a href="Change.html" title="Card::Change (class)">changes</a></span> in hash form.</p>
-</div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#current_changes-instance_method" title="#current_changes (instance method)">#<strong>current_changes</strong>  &#x21d2; Hash </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'>
+    <span class="summary_desc"><div class='inline'><p>sometimes Object#card_id interferes with default ActiveRecord attribute def.</p>
 </div></span>
   
 </li>
@@ -508,52 +416,6 @@ just one single <span class='object_link'><a href="Act.html" title="Card::Act (c
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#interpret_field-instance_method" title="#interpret_field (instance method)">#<strong>interpret_field</strong>(field)  &#x21d2; Symbol </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'><p>translate field into fieldname as referred to in database.</p>
-</div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#interpret_value-instance_method" title="#interpret_value (instance method)">#<strong>interpret_value</strong>(field, value)  &#x21d2; Integer, ... </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'><p>value in form prescribed for specific field name.</p>
-</div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
       <a href="#previous_action-instance_method" title="#previous_action (instance method)">#<strong>previous_action</strong>  &#x21d2; Object </a>
     
 
@@ -569,52 +431,6 @@ just one single <span class='object_link'><a href="Act.html" title="Card::Act (c
 
   
     <span class="summary_desc"><div class='inline'>
-</div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#previous_change-instance_method" title="#previous_change (instance method)">#<strong>previous_change</strong>(field)  &#x21d2; Change </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'><p>most recent change to given field before this one.</p>
-</div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#previous_value-instance_method" title="#previous_value (instance method)">#<strong>previous_value</strong>(field)  &#x21d2; Object </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'><p>value of field set by most recent <span class='object_link'><a href="Change.html" title="Card::Change (class)">Change</a></span> before this one.</p>
 </div></span>
   
 </li>
@@ -643,29 +459,6 @@ just one single <span class='object_link'><a href="Act.html" title="Card::Act (c
 </li>
 
       
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#value-instance_method" title="#value (instance method)">#<strong>value</strong>(field)  &#x21d2; Object </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'><p>value set by action’s <span class='object_link'><a href="Change.html" title="Card::Change (class)">Change</a></span> to given field.</p>
-</div></span>
-  
-</li>
-
-      
     </ul>
   
 
@@ -689,8 +482,19 @@ just one single <span class='object_link'><a href="Act.html" title="Card::Act (c
   
   
   
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="Action/Changes.html" title="Card::Action::Changes (module)">Changes</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="Action/Changes.html#all_changes-instance_method" title="Card::Action::Changes#all_changes (method)">#all_changes</a></span>, <span class='object_link'><a href="Action/Changes.html#change-instance_method" title="Card::Action::Changes#change (method)">#change</a></span>, <span class='object_link'><a href="Action/Changes.html#changed_values-instance_method" title="Card::Action::Changes#changed_values (method)">#changed_values</a></span>, <span class='object_link'><a href="Action/Changes.html#changes-instance_method" title="Card::Action::Changes#changes (method)">#changes</a></span>, <span class='object_link'><a href="Action/Changes.html#current_changes-instance_method" title="Card::Action::Changes#current_changes (method)">#current_changes</a></span>, <span class='object_link'><a href="Action/Changes.html#previous_change-instance_method" title="Card::Action::Changes#previous_change (method)">#previous_change</a></span>, <span class='object_link'><a href="Action/Changes.html#previous_value-instance_method" title="Card::Action::Changes#previous_value (method)">#previous_value</a></span>, <span class='object_link'><a href="Action/Changes.html#value-instance_method" title="Card::Action::Changes#value (method)">#value</a></span></p>
+
+  
+  
+  
+  
+  
+  
+  
+  
   <h3 class="inherited">Methods included from <span class='object_link'><a href="Action/Differ.html" title="Card::Action::Differ (module)">Differ</a></span></h3>
-  <p class="inherited"><span class='object_link'><a href="Action/Differ.html#cardtype_diff-instance_method" title="Card::Action::Differ#cardtype_diff (method)">#cardtype_diff</a></span>, <span class='object_link'><a href="Action/Differ.html#content_diff-instance_method" title="Card::Action::Differ#content_diff (method)">#content_diff</a></span>, <span class='object_link'><a href="Action/Differ.html#green%3F-instance_method" title="Card::Action::Differ#green? (method)">#green?</a></span>, <span class='object_link'><a href="Action/Differ.html#name_diff-instance_method" title="Card::Action::Differ#name_diff (method)">#name_diff</a></span>, <span class='object_link'><a href="Action/Differ.html#new_content%3F-instance_method" title="Card::Action::Differ#new_content? (method)">#new_content?</a></span>, <span class='object_link'><a href="Action/Differ.html#new_name%3F-instance_method" title="Card::Action::Differ#new_name? (method)">#new_name?</a></span>, <span class='object_link'><a href="Action/Differ.html#new_type%3F-instance_method" title="Card::Action::Differ#new_type? (method)">#new_type?</a></span>, <span class='object_link'><a href="Action/Differ.html#raw_view-instance_method" title="Card::Action::Differ#raw_view (method)">#raw_view</a></span>, <span class='object_link'><a href="Action/Differ.html#red%3F-instance_method" title="Card::Action::Differ#red? (method)">#red?</a></span>, <span class='object_link'><a href="Action/Differ.html#summary_diff_omits_content%3F-instance_method" title="Card::Action::Differ#summary_diff_omits_content? (method)">#summary_diff_omits_content?</a></span></p>
+  <p class="inherited"><span class='object_link'><a href="Action/Differ.html#cardtype_diff-instance_method" title="Card::Action::Differ#cardtype_diff (method)">#cardtype_diff</a></span>, <span class='object_link'><a href="Action/Differ.html#content_diff-instance_method" title="Card::Action::Differ#content_diff (method)">#content_diff</a></span>, <span class='object_link'><a href="Action/Differ.html#new_content%3F-instance_method" title="Card::Action::Differ#new_content? (method)">#new_content?</a></span>, <span class='object_link'><a href="Action/Differ.html#new_name%3F-instance_method" title="Card::Action::Differ#new_name? (method)">#new_name?</a></span>, <span class='object_link'><a href="Action/Differ.html#new_type%3F-instance_method" title="Card::Action::Differ#new_type? (method)">#new_type?</a></span>, <span class='object_link'><a href="Action/Differ.html#raw_view-instance_method" title="Card::Action::Differ#raw_view (method)">#raw_view</a></span>, <span class='object_link'><a href="Action/Differ.html#summary_diff_omits_content%3F-instance_method" title="Card::Action::Differ#summary_diff_omits_content? (method)">#summary_diff_omits_content?</a></span></p>
 
   
   
@@ -719,12 +523,12 @@ just one single <span class='object_link'><a href="Act.html" title="Card::Act (c
       <pre class="lines">
 
 
-65
 66
-67</pre>
+67
+68</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card-mod-history/lib/card/action.rb', line 65</span>
+      <pre class="code"><span class="info file"># File 'mod/history/lib/card/action.rb', line 66</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_all_viewable'>all_viewable</span>
   <span class='id identifier rubyid_all_with_cards'>all_with_cards</span><span class='period'>.</span><span class='id identifier rubyid_where'>where</span> <span class='const'><span class='object_link'><a href="Query.html" title="Card::Query (module)">Query</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Query/CardQuery.html" title="Card::Query::CardQuery (class)">CardQuery</a></span></span><span class='period'>.</span><span class='id identifier rubyid_viewable_sql'><span class='object_link'><a href="Query/CardQuery.html#viewable_sql-class_method" title="Card::Query::CardQuery.viewable_sql (method)">viewable_sql</a></span></span>
@@ -749,12 +553,12 @@ just one single <span class='object_link'><a href="Act.html" title="Card::Act (c
       <pre class="lines">
 
 
-61
 62
-63</pre>
+63
+64</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card-mod-history/lib/card/action.rb', line 61</span>
+      <pre class="code"><span class="info file"># File 'mod/history/lib/card/action.rb', line 62</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_all_with_cards'>all_with_cards</span>
   <span class='id identifier rubyid_joins'>joins</span> <span class='symbol'>:ar_card</span>
@@ -802,12 +606,12 @@ just one single <span class='object_link'><a href="Act.html" title="Card::Act (c
       <pre class="lines">
 
 
-57
 58
-59</pre>
+59
+60</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card-mod-history/lib/card/action.rb', line 57</span>
+      <pre class="code"><span class="info file"># File 'mod/history/lib/card/action.rb', line 58</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_cache'>cache</span>
   <span class='const'><span class='object_link'><a href="../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Cache.html" title="Card::Cache (class)">Cache</a></span></span><span class='lbracket'>[</span><span class='const'><span class='object_link'><a href="" title="Card::Action (class)">Action</a></span></span><span class='rbracket'>]</span>
@@ -870,14 +674,14 @@ just one single <span class='object_link'><a href="Act.html" title="Card::Act (c
       <pre class="lines">
 
 
-49
 50
 51
 52
-53</pre>
+53
+54</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card-mod-history/lib/card/action.rb', line 49</span>
+      <pre class="code"><span class="info file"># File 'mod/history/lib/card/action.rb', line 50</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_fetch'>fetch</span> <span class='id identifier rubyid_id'>id</span>
   <span class='id identifier rubyid_cache'>cache</span><span class='period'>.</span><span class='id identifier rubyid_fetch'>fetch</span> <span class='id identifier rubyid_id'>id</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span> <span class='kw'>do</span>
@@ -933,14 +737,14 @@ just one single <span class='object_link'><a href="Act.html" title="Card::Act (c
       <pre class="lines">
 
 
-107
-108
-109
-110
-111</pre>
+96
+97
+98
+99
+100</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card-mod-history/lib/card/action.rb', line 107</span>
+      <pre class="code"><span class="info file"># File 'mod/history/lib/card/action.rb', line 96</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_action_type'>action_type</span>
   <span class='kw'>return</span> <span class='symbol'>:draft</span> <span class='kw'>if</span> <span class='id identifier rubyid_draft'>draft</span>
@@ -1005,51 +809,15 @@ just one single <span class='object_link'><a href="Act.html" title="Card::Act (c
       <pre class="lines">
 
 
-101
-102
-103</pre>
+90
+91
+92</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card-mod-history/lib/card/action.rb', line 101</span>
+      <pre class="code"><span class="info file"># File 'mod/history/lib/card/action.rb', line 90</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_action_type='>action_type=</span> <span class='id identifier rubyid_value'>value</span>
   <span class='id identifier rubyid_write_attribute'>write_attribute</span> <span class='symbol'>:action_type</span><span class='comma'>,</span> <span class='const'><span class='object_link'><a href="#TYPE_OPTIONS-constant" title="Card::Action::TYPE_OPTIONS (constant)">TYPE_OPTIONS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_index'>index</span><span class='lparen'>(</span><span class='id identifier rubyid_value'>value</span><span class='rparen'>)</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="all_changes-instance_method">
-  
-    #<strong>all_changes</strong>  &#x21d2; <tt><span class='object_link'><a href="../Object.html" title="Object (class)">Object</a></span></tt> 
-  
-
-  
-
-  
-</h3><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-158
-159
-160
-161
-162
-163</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'card-mod-history/lib/card/action.rb', line 158</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_all_changes'>all_changes</span>
-  <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_cache'>cache</span><span class='period'>.</span><span class='id identifier rubyid_fetch'>fetch</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_id'>id</span><span class='embexpr_end'>}</span><span class='tstring_content'>-changes</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>do</span>
-    <span class='comment'># using card_changes causes caching problem
-</span>    <span class='const'><span class='object_link'><a href="../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Change.html" title="Card::Change (class)">Change</a></span></span><span class='period'>.</span><span class='id identifier rubyid_where'>where</span><span class='lparen'>(</span><span class='label'>card_action_id:</span> <span class='id identifier rubyid_id'>id</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to_a'>to_a</span>
-  <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1094,109 +862,15 @@ just one single <span class='object_link'><a href="Act.html" title="Card::Act (c
       <pre class="lines">
 
 
-72
-73
-74
-75
-76
-77
 78
 79
-80
-81
-82
-83
-84
-85
-86
-87
-88
-89
-90
-91</pre>
+80</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card-mod-history/lib/card/action.rb', line 72</span>
+      <pre class="code"><span class="info file"># File 'mod/history/lib/card/action.rb', line 78</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_card'>card</span>
   <span class='const'><span class='object_link'><a href="../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_fetch'><span class='object_link'><a href="Fetch/CardClass.html#fetch-instance_method" title="Card::Fetch::CardClass#fetch (method)">fetch</a></span></span> <span class='id identifier rubyid_card_id'>card_id</span><span class='comma'>,</span> <span class='label'>look_in_trash:</span> <span class='kw'>true</span>
-
-  <span class='comment'># I&#39;m not sure what the rationale for the following was/is, but it was causing
-</span>  <span class='comment'># problems in cases where slot attributes are overridden (eg see #wrap_data in
-</span>  <span class='comment'># sources on wikirate).  The problem is the format object had the set modules but
-</span>  <span class='comment'># the card didn&#39;t.
-</span>  <span class='comment'>#
-</span>  <span class='comment'># My guess is that the need for the following had something to do with errors
-</span>  <span class='comment'># associated with changed types. If so, the solution probably needs to handle
-</span>  <span class='comment'># including the set modules associated with the type at the time of the action
-</span>  <span class='comment'># rather than including no set modules at all.
-</span>  <span class='comment'>#
-</span>  <span class='comment'># What&#39;s more, we _definitely_ don&#39;t want to hard code special behavior for
-</span>  <span class='comment'># specific types in here!
-</span>
-  <span class='comment'># , skip_modules: true
-</span>  <span class='comment'># return res unless res &amp;&amp; res.type_id.in?([Card::FileID, Card::ImageID])
-</span>  <span class='comment'># res.include_set_modules
-</span><span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="change-instance_method">
-  
-    #<strong>change</strong>(field)  &#x21d2; <tt><span class='object_link'><a href="Change.html" title="Card::Change (class)">Change</a></span></tt> 
-  
-
-  
-
-  
-</h3><div class="docstring">
-  <div class="discussion">
-    <p>action’s <span class='object_link'><a href="Change.html" title="Card::Change (class)">Change</a></span> object for given field</p>
-
-
-  </div>
-</div>
-<div class="tags">
-  
-<p class="tag_title">Returns:</p>
-<ul class="return">
-  
-    <li>
-      
-      
-        <span class='type'>(<tt><span class='object_link'><a href="Change.html" title="Card::Change (class)">Change</a></span></tt>)</span>
-      
-      
-      
-    </li>
-  
-</ul>
-
-  <p class="tag_title">See Also:</p>
-  <ul class="see">
-    
-      <li><span class='object_link'><a href="#interpret_field-instance_method" title="Card::Action#interpret_field (method)">#interpret_field for field param</a></span></li>
-    
-  </ul>
-
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-139
-140
-141</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'card-mod-history/lib/card/action.rb', line 139</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_change'>change</span> <span class='id identifier rubyid_field'>field</span>
-  <span class='id identifier rubyid_changes'>changes</span><span class='lbracket'>[</span><span class='id identifier rubyid_interpret_field'>interpret_field</span> <span class='id identifier rubyid_field'>field</span><span class='rbracket'>]</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1204,9 +878,9 @@ just one single <span class='object_link'><a href="Act.html" title="Card::Act (c
 </div>
     
       <div class="method_details ">
-  <h3 class="signature " id="changed_values-instance_method">
+  <h3 class="signature " id="card_id-instance_method">
   
-    #<strong>changed_values</strong>  &#x21d2; <tt><span class='object_link'><a href="../Object.html" title="Object (class)">Object</a></span></tt> 
+    #<strong>card_id</strong>  &#x21d2; <tt><span class='object_link'><a href="../Object.html" title="Object (class)">Object</a></span></tt> 
   
 
   
@@ -1214,7 +888,7 @@ just one single <span class='object_link'><a href="Act.html" title="Card::Act (c
   
 </h3><div class="docstring">
   <div class="discussion">
-    <p>all changed values in hash form. { field1: new_value }</p>
+    <p>sometimes Object#card_id interferes with default ActiveRecord attribute def</p>
 
 
   </div>
@@ -1228,149 +902,15 @@ just one single <span class='object_link'><a href="Act.html" title="Card::Act (c
       <pre class="lines">
 
 
-179
-180
-181</pre>
+72
+73
+74</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card-mod-history/lib/card/action.rb', line 179</span>
+      <pre class="code"><span class="info file"># File 'mod/history/lib/card/action.rb', line 72</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_changed_values'>changed_values</span>
-  <span class='ivar'>@changed_values</span> <span class='op'>||=</span> <span class='id identifier rubyid_changes'>changes</span><span class='period'>.</span><span class='id identifier rubyid_transform_values'>transform_values</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='symbol'>:value</span><span class='rparen'>)</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="changes-instance_method">
-  
-    #<strong>changes</strong>  &#x21d2; <tt>Hash</tt> 
-  
-
-  
-
-  
-</h3><div class="docstring">
-  <div class="discussion">
-    <p>all action <span class='object_link'><a href="Change.html" title="Card::Change (class)">changes</a></span> in hash form. { field1: Change1 }</p>
-
-
-  </div>
-</div>
-<div class="tags">
-  
-<p class="tag_title">Returns:</p>
-<ul class="return">
-  
-    <li>
-      
-      
-        <span class='type'>(<tt>Hash</tt>)</span>
-      
-      
-      
-    </li>
-  
-</ul>
-
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-167
-168
-169
-170
-171
-172
-173
-174
-175
-176</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'card-mod-history/lib/card/action.rb', line 167</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_changes'>changes</span>
-  <span class='ivar'>@changes</span> <span class='op'>||=</span>
-    <span class='kw'>if</span> <span class='id identifier rubyid_sole?'>sole?</span>
-      <span class='id identifier rubyid_current_changes'>current_changes</span>
-    <span class='kw'>else</span>
-      <span class='id identifier rubyid_all_changes'>all_changes</span><span class='period'>.</span><span class='id identifier rubyid_each_with_object'>each_with_object</span><span class='lparen'>(</span><span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_change'>change</span><span class='comma'>,</span> <span class='id identifier rubyid_hash'>hash</span><span class='op'>|</span>
-        <span class='id identifier rubyid_hash'>hash</span><span class='lbracket'>[</span><span class='id identifier rubyid_change'>change</span><span class='period'>.</span><span class='id identifier rubyid_field'>field</span><span class='period'>.</span><span class='id identifier rubyid_to_sym'>to_sym</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_change'>change</span>
-      <span class='kw'>end</span>
-    <span class='kw'>end</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="current_changes-instance_method">
-  
-    #<strong>current_changes</strong>  &#x21d2; <tt>Hash</tt> 
-  
-
-  
-
-  
-</h3><div class="docstring">
-  <div class="discussion">
-    
-
-
-  </div>
-</div>
-<div class="tags">
-  
-<p class="tag_title">Returns:</p>
-<ul class="return">
-  
-    <li>
-      
-      
-        <span class='type'>(<tt>Hash</tt>)</span>
-      
-      
-      
-    </li>
-  
-</ul>
-
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-184
-185
-186
-187
-188
-189
-190
-191
-192
-193</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'card-mod-history/lib/card/action.rb', line 184</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_current_changes'>current_changes</span>
-  <span class='kw'>return</span> <span class='lbrace'>{</span><span class='rbrace'>}</span> <span class='kw'>unless</span> <span class='id identifier rubyid_card'>card</span>
-
-  <span class='ivar'>@current_changes</span> <span class='op'>||=</span>
-    <span class='const'><span class='object_link'><a href="../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Change.html" title="Card::Change (class)">Change</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Change.html#TRACKED_FIELDS-constant" title="Card::Change::TRACKED_FIELDS (constant)">TRACKED_FIELDS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_each_with_object'>each_with_object</span><span class='lparen'>(</span><span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_field'>field</span><span class='comma'>,</span> <span class='id identifier rubyid_hash'>hash</span><span class='op'>|</span>
-      <span class='id identifier rubyid_hash'>hash</span><span class='lbracket'>[</span><span class='id identifier rubyid_field'>field</span><span class='period'>.</span><span class='id identifier rubyid_to_sym'>to_sym</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Change.html" title="Card::Change (class)">Change</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span> <span class='label'>field:</span> <span class='id identifier rubyid_field'>field</span><span class='comma'>,</span>
-                                            <span class='label'>value:</span> <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_send'>send</span><span class='lparen'>(</span><span class='id identifier rubyid_field'>field</span><span class='rparen'>)</span><span class='comma'>,</span>
-                                            <span class='label'>card_action_id:</span> <span class='id identifier rubyid_id'>id</span>
-    <span class='kw'>end</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_card_id'>card_id</span>
+  <span class='id identifier rubyid__read_attribute'>_read_attribute</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>card_id</span><span class='tstring_end'>&quot;</span></span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1402,213 +942,15 @@ just one single <span class='object_link'><a href="Act.html" title="Card::Act (c
       <pre class="lines">
 
 
-94
-95
-96</pre>
+83
+84
+85</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card-mod-history/lib/card/action.rb', line 94</span>
+      <pre class="code"><span class="info file"># File 'mod/history/lib/card/action.rb', line 83</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_expire'>expire</span>
   <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_cache'>cache</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span> <span class='id identifier rubyid_id'>id</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="interpret_field-instance_method">
-  
-    #<strong>interpret_field</strong>(field)  &#x21d2; <tt>Symbol</tt> 
-  
-
-  
-
-  
-</h3><div class="docstring">
-  <div class="discussion">
-    <p>translate field into fieldname as referred to in database</p>
-
-
-  </div>
-</div>
-<div class="tags">
-  <p class="tag_title">Parameters:</p>
-<ul class="param">
-  
-    <li>
-      
-        <span class='name'>field</span>
-      
-      
-        <span class='type'>(<tt>Symbol</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'><p>can be :type_id, :cardtype, :db_content, :content,
-:name, :trash</p>
-</div>
-      
-    </li>
-  
-</ul>
-
-<p class="tag_title">Returns:</p>
-<ul class="return">
-  
-    <li>
-      
-      
-        <span class='type'>(<tt>Symbol</tt>)</span>
-      
-      
-      
-    </li>
-  
-</ul>
-
-  <p class="tag_title">See Also:</p>
-  <ul class="see">
-    
-      <li><span class='object_link'><a href="Change.html#TRACKED_FIELDS-constant" title="Card::Change::TRACKED_FIELDS (constant)">Change::TRACKED_FIELDS</a></span></li>
-    
-  </ul>
-
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-200
-201
-202
-203
-204
-205
-206</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'card-mod-history/lib/card/action.rb', line 200</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_interpret_field'>interpret_field</span> <span class='id identifier rubyid_field'>field</span>
-  <span class='kw'>case</span> <span class='id identifier rubyid_field'>field</span>
-  <span class='kw'>when</span> <span class='symbol'>:content</span> <span class='kw'>then</span> <span class='symbol'>:db_content</span>
-  <span class='kw'>when</span> <span class='symbol'>:cardtype</span> <span class='kw'>then</span> <span class='symbol'>:type_id</span>
-  <span class='kw'>else</span> <span class='id identifier rubyid_field'>field</span><span class='period'>.</span><span class='id identifier rubyid_to_sym'>to_sym</span>
-  <span class='kw'>end</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="interpret_value-instance_method">
-  
-    #<strong>interpret_value</strong>(field, value)  &#x21d2; <tt>Integer</tt>, ... 
-  
-
-  
-
-  
-</h3><div class="docstring">
-  <div class="discussion">
-    <p>value in form prescribed for specific field name</p>
-
-
-  </div>
-</div>
-<div class="tags">
-  <p class="tag_title">Parameters:</p>
-<ul class="param">
-  
-    <li>
-      
-        <span class='name'>value</span>
-      
-      
-        <span class='type'>(<tt><span class='object_link'><a href="#value-instance_method" title="Card::Action#value (method)">value</a></span> of {<span class='object_link'><a href="Change.html" title="Card::Change (class)">Change</a></span>}</tt>)</span>
-      
-      
-      
-    </li>
-  
-</ul>
-
-<p class="tag_title">Returns:</p>
-<ul class="return">
-  
-    <li>
-      
-      
-        <span class='type'>(<tt>Integer</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'><p>for :type_id</p>
-</div>
-      
-    </li>
-  
-    <li>
-      
-      
-        <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'><p>for :name, :db_content, :content, :cardtype</p>
-</div>
-      
-    </li>
-  
-    <li>
-      
-      
-        <span class='type'>(<tt>True/False</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'><p>for :trash</p>
-</div>
-      
-    </li>
-  
-</ul>
-
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-213
-214
-215
-216
-217
-218
-219
-220
-221</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'card-mod-history/lib/card/action.rb', line 213</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_interpret_value'>interpret_value</span> <span class='id identifier rubyid_field'>field</span><span class='comma'>,</span> <span class='id identifier rubyid_value'>value</span>
-  <span class='kw'>case</span> <span class='id identifier rubyid_field'>field</span><span class='period'>.</span><span class='id identifier rubyid_to_sym'>to_sym</span>
-  <span class='kw'>when</span> <span class='symbol'>:type_id</span>
-    <span class='id identifier rubyid_value'>value</span><span class='op'>&amp;.</span><span class='id identifier rubyid_to_i'>to_i</span>
-  <span class='kw'>when</span> <span class='symbol'>:cardtype</span>
-    <span class='const'><span class='object_link'><a href="../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_fetch_name'><span class='object_link'><a href="Fetch/CardClass.html#fetch_name-instance_method" title="Card::Fetch::CardClass#fetch_name (method)">fetch_name</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_value'>value</span><span class='op'>&amp;.</span><span class='id identifier rubyid_to_i'>to_i</span><span class='rparen'>)</span>
-  <span class='kw'>else</span> <span class='id identifier rubyid_value'>value</span>
-  <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1630,146 +972,15 @@ just one single <span class='object_link'><a href="Act.html" title="Card::Act (c
       <pre class="lines">
 
 
-113
-114
-115</pre>
+102
+103
+104</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card-mod-history/lib/card/action.rb', line 113</span>
+      <pre class="code"><span class="info file"># File 'mod/history/lib/card/action.rb', line 102</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_previous_action'>previous_action</span>
   <span class='const'><span class='object_link'><a href="../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="" title="Card::Action (class)">Action</a></span></span><span class='period'>.</span><span class='id identifier rubyid_where'>where</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>id &lt; ? AND card_id = ?</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_id'>id</span><span class='comma'>,</span> <span class='id identifier rubyid_card_id'>card_id</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_last'>last</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="previous_change-instance_method">
-  
-    #<strong>previous_change</strong>(field)  &#x21d2; <tt><span class='object_link'><a href="Change.html" title="Card::Change (class)">Change</a></span></tt> 
-  
-
-  
-
-  
-</h3><div class="docstring">
-  <div class="discussion">
-    <p>most recent change to given field before this one</p>
-
-
-  </div>
-</div>
-<div class="tags">
-  
-<p class="tag_title">Returns:</p>
-<ul class="return">
-  
-    <li>
-      
-      
-        <span class='type'>(<tt><span class='object_link'><a href="Change.html" title="Card::Change (class)">Change</a></span></tt>)</span>
-      
-      
-      
-    </li>
-  
-</ul>
-
-  <p class="tag_title">See Also:</p>
-  <ul class="see">
-    
-      <li><span class='object_link'><a href="#interpret_field-instance_method" title="Card::Action#interpret_field (method)">#interpret_field for field param</a></span></li>
-    
-  </ul>
-
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-146
-147
-148
-149
-150
-151
-152
-153
-154
-155
-156</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'card-mod-history/lib/card/action.rb', line 146</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_previous_change'>previous_change</span> <span class='id identifier rubyid_field'>field</span>
-  <span class='kw'>return</span> <span class='kw'>nil</span> <span class='kw'>if</span> <span class='id identifier rubyid_action_type'>action_type</span> <span class='op'>==</span> <span class='symbol'>:create</span>
-
-  <span class='id identifier rubyid_field'>field</span> <span class='op'>=</span> <span class='id identifier rubyid_interpret_field'>interpret_field</span> <span class='id identifier rubyid_field'>field</span>
-  <span class='kw'>if</span> <span class='ivar'>@previous_changes</span><span class='op'>&amp;.</span><span class='id identifier rubyid_key?'>key?</span><span class='lparen'>(</span><span class='id identifier rubyid_field'>field</span><span class='rparen'>)</span>
-    <span class='ivar'>@previous_changes</span><span class='lbracket'>[</span><span class='id identifier rubyid_field'>field</span><span class='rbracket'>]</span>
-  <span class='kw'>else</span>
-    <span class='ivar'>@previous_changes</span> <span class='op'>||=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
-    <span class='ivar'>@previous_changes</span><span class='lbracket'>[</span><span class='id identifier rubyid_field'>field</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_last_change_on'>last_change_on</span> <span class='id identifier rubyid_field'>field</span><span class='comma'>,</span> <span class='label'>before:</span> <span class='kw'>self</span>
-  <span class='kw'>end</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="previous_value-instance_method">
-  
-    #<strong>previous_value</strong>(field)  &#x21d2; <tt><span class='object_link'><a href="../Object.html" title="Object (class)">Object</a></span></tt> 
-  
-
-  
-
-  
-</h3><div class="docstring">
-  <div class="discussion">
-    <p>value of field set by most recent <span class='object_link'><a href="Change.html" title="Card::Change (class)">Change</a></span> before this one</p>
-
-
-  </div>
-</div>
-<div class="tags">
-  
-
-  <p class="tag_title">See Also:</p>
-  <ul class="see">
-    
-      <li><span class='object_link'><a href="#interpret_field-instance_method" title="Card::Action#interpret_field (method)">#interpret_field for field param</a></span></li>
-    
-      <li><span class='object_link'><a href="#interpret_field-instance_method" title="Card::Action#interpret_field (method)">#interpret_field for field param</a></span></li>
-    
-  </ul>
-
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-129
-130
-131
-132
-133
-134</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'card-mod-history/lib/card/action.rb', line 129</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_previous_value'>previous_value</span> <span class='id identifier rubyid_field'>field</span>
-  <span class='kw'>return</span> <span class='kw'>if</span> <span class='id identifier rubyid_action_type'>action_type</span> <span class='op'>==</span> <span class='symbol'>:create</span>
-  <span class='kw'>return</span> <span class='kw'>unless</span> <span class='lparen'>(</span><span class='id identifier rubyid_previous_change'>previous_change</span> <span class='op'>=</span> <span class='id identifier rubyid_previous_change'>previous_change</span> <span class='id identifier rubyid_field'>field</span><span class='rparen'>)</span>
-
-  <span class='id identifier rubyid_interpret_value'>interpret_value</span> <span class='id identifier rubyid_field'>field</span><span class='comma'>,</span> <span class='id identifier rubyid_previous_change'>previous_change</span><span class='period'>.</span><span class='id identifier rubyid_value'>value</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1814,70 +1025,17 @@ just one single <span class='object_link'><a href="Act.html" title="Card::Act (c
       <pre class="lines">
 
 
-223
-224
-225
-226</pre>
+106
+107
+108
+109</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card-mod-history/lib/card/action.rb', line 223</span>
+      <pre class="code"><span class="info file"># File 'mod/history/lib/card/action.rb', line 106</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_sole?'>sole?</span>
   <span class='id identifier rubyid_all_changes'>all_changes</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span> <span class='op'>&amp;&amp;</span>
     <span class='lparen'>(</span><span class='id identifier rubyid_action_type'>action_type</span> <span class='op'>==</span> <span class='symbol'>:create</span> <span class='op'>||</span> <span class='const'><span class='object_link'><a href="../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="" title="Card::Action (class)">Action</a></span></span><span class='period'>.</span><span class='id identifier rubyid_where'>where</span><span class='lparen'>(</span><span class='label'>card_id:</span> <span class='id identifier rubyid_card_id'>card_id</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_count'>count</span> <span class='op'>==</span> <span class='int'>1</span><span class='rparen'>)</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="value-instance_method">
-  
-    #<strong>value</strong>(field)  &#x21d2; <tt><span class='object_link'><a href="../Object.html" title="Object (class)">Object</a></span></tt> 
-  
-
-  
-
-  
-</h3><div class="docstring">
-  <div class="discussion">
-    <p>value set by action’s <span class='object_link'><a href="Change.html" title="Card::Change (class)">Change</a></span> to given field</p>
-
-
-  </div>
-</div>
-<div class="tags">
-  
-
-  <p class="tag_title">See Also:</p>
-  <ul class="see">
-    
-      <li><span class='object_link'><a href="#interpret_field-instance_method" title="Card::Action#interpret_field (method)">#interpret_field for field param</a></span></li>
-    
-      <li><span class='object_link'><a href="#interpret_value-instance_method" title="Card::Action#interpret_value (method)">#interpret_value for return values</a></span></li>
-    
-  </ul>
-
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-120
-121
-122
-123
-124</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'card-mod-history/lib/card/action.rb', line 120</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_value'>value</span> <span class='id identifier rubyid_field'>field</span>
-  <span class='kw'>return</span> <span class='kw'>unless</span> <span class='lparen'>(</span><span class='id identifier rubyid_change'>change</span> <span class='op'>=</span> <span class='id identifier rubyid_change'>change</span> <span class='id identifier rubyid_field'>field</span><span class='rparen'>)</span>
-
-  <span class='id identifier rubyid_interpret_value'>interpret_value</span> <span class='id identifier rubyid_field'>field</span><span class='comma'>,</span> <span class='id identifier rubyid_change'>change</span><span class='period'>.</span><span class='id identifier rubyid_value'>value</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1889,9 +1047,9 @@ just one single <span class='object_link'><a href="Act.html" title="Card::Act (c
 </div>
 
       <div id="footer">
-  Generated on Thu May 13 17:17:44 2021 by
-  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.26 (ruby-2.7.2).
+  Generated on Mon Feb  6 15:50:01 2023 by
+  <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.28 (ruby-3.0.1).
 </div>
 
     </div>

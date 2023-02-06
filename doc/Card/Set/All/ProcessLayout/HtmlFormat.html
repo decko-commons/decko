@@ -6,7 +6,7 @@
 <title>
   Module: Card::Set::All::ProcessLayout::HtmlFormat
   
-    &mdash; Documentation by YARD 0.9.26
+    &mdash; Documentation by YARD 0.9.28
   
 </title>
 
@@ -83,7 +83,7 @@
   
   <dl>
     <dt>Defined in:</dt>
-    <dd>card/tmpsets/set/mod030-card-mod-layout/all/process_layout.rb</dd>
+    <dd>platypus/tmp/set/gem-defaults/mod031-layout/all/process_layout.rb</dd>
   </dl>
   
 </div>
@@ -102,6 +102,29 @@
     </h2>
 
     <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#default_page_view-instance_method" title="#default_page_view (instance method)">#<strong>default_page_view</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+</div></span>
+  
+</li>
+
       
         <li class="public ">
   <span class="summary_signature">
@@ -129,7 +152,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#layout_name_from_rule-instance_method" title="#layout_name_from_rule (instance method)">#<strong>layout_name_from_rule</strong>  &#x21d2; Object </a>
+      <a href="#layout_for_view-instance_method" title="#layout_for_view (instance method)">#<strong>layout_for_view</strong>(_view)  &#x21d2; Object </a>
     
 
     
@@ -143,7 +166,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
+    <span class="summary_desc"><div class='inline'><p>for override.</p>
 </div></span>
   
 </li>
@@ -152,53 +175,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#main_render_args-instance_method" title="#main_render_args (instance method)">#<strong>main_render_args</strong>(view, args)  &#x21d2; Object </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'>
-</div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#page_layout-instance_method" title="#page_layout (instance method)">#<strong>page_layout</strong>  &#x21d2; Object </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'>
-</div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#render_outside_of_layout-instance_method" title="#render_outside_of_layout (instance method)">#<strong>render_outside_of_layout</strong>(view, args)  &#x21d2; Object </a>
+      <a href="#page_layout-instance_method" title="#page_layout (instance method)">#<strong>page_layout</strong>(view)  &#x21d2; Object </a>
     
 
     
@@ -287,29 +264,6 @@
 </li>
 
       
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#wrapper_names-instance_method" title="#wrapper_names (instance method)">#<strong>wrapper_names</strong>(wrappers)  &#x21d2; Object </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'>
-</div></span>
-  
-</li>
-
-      
     </ul>
   
 
@@ -321,7 +275,37 @@
 
     
       <div class="method_details first">
-  <h3 class="signature first" id="explicit_modal_wrapper?-instance_method">
+  <h3 class="signature first" id="default_page_view-instance_method">
+  
+    #<strong>default_page_view</strong>  &#x21d2; <tt><span class='object_link'><a href="../../../../Object.html" title="Object (class)">Object</a></span></tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+42
+43
+44</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod031-layout/all/process_layout.rb', line 42</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_default_page_view'>default_page_view</span>
+  <span class='id identifier rubyid_default_nest_view'>default_nest_view</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="explicit_modal_wrapper?-instance_method">
   
     #<strong>explicit_modal_wrapper?</strong>(view)  &#x21d2; <tt>Boolean</tt> 
   
@@ -358,19 +342,19 @@
       <pre class="lines">
 
 
-61
-62
-63
-64
-65</pre>
+50
+51
+52
+53
+54</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod030-card-mod-layout/all/process_layout.rb', line 61</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod031-layout/all/process_layout.rb', line 50</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_explicit_modal_wrapper?'>explicit_modal_wrapper?</span> <span class='id identifier rubyid_view'>view</span>
-  <span class='kw'>return</span> <span class='kw'>unless</span> <span class='id identifier rubyid_view_setting'>view_setting</span><span class='lparen'>(</span><span class='symbol'>:wrap</span><span class='comma'>,</span> <span class='id identifier rubyid_view'>view</span><span class='rparen'>)</span>
+  <span class='kw'>return</span> <span class='kw'>unless</span> <span class='lparen'>(</span><span class='id identifier rubyid_wrap_view'>wrap_view</span> <span class='op'>=</span> <span class='id identifier rubyid_view_setting'>view_setting</span> <span class='symbol'>:wrap</span><span class='comma'>,</span> <span class='id identifier rubyid_view'>view</span><span class='rparen'>)</span>
 
-  <span class='id identifier rubyid_wrapper_names'>wrapper_names</span><span class='lparen'>(</span><span class='id identifier rubyid_view_setting'>view_setting</span><span class='lparen'>(</span><span class='symbol'>:wrap</span><span class='comma'>,</span> <span class='id identifier rubyid_view'>view</span><span class='rparen'>)</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_any?'>any?</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_n'>n</span><span class='op'>|</span> <span class='id identifier rubyid_n'>n</span> <span class='op'>==</span> <span class='symbol'>:modal</span> <span class='op'>||</span> <span class='id identifier rubyid_n'>n</span> <span class='op'>==</span> <span class='symbol'>:bridge</span> <span class='rbrace'>}</span>
+  <span class='lparen'>(</span><span class='id identifier rubyid_wrapper_names'>wrapper_names</span><span class='lparen'>(</span><span class='id identifier rubyid_wrap_view'>wrap_view</span><span class='rparen'>)</span> <span class='op'>&amp;</span> <span class='qsymbols_beg'>%i[</span><span class='tstring_content'>modal</span><span class='words_sep'> </span><span class='tstring_content'>bridge</span><span class='tstring_end'>]</span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_any?'>any?</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -378,65 +362,39 @@
 </div>
     
       <div class="method_details ">
-  <h3 class="signature " id="layout_name_from_rule-instance_method">
+  <h3 class="signature " id="layout_for_view-instance_method">
   
-    #<strong>layout_name_from_rule</strong>  &#x21d2; <tt><span class='object_link'><a href="../../../../Object.html" title="Object (class)">Object</a></span></tt> 
-  
-
+    #<strong>layout_for_view</strong>(_view)  &#x21d2; <tt><span class='object_link'><a href="../../../../Object.html" title="Object (class)">Object</a></span></tt> 
   
 
   
-</h3><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>for override</p>
 
 
-75
-76
-77</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod030-card-mod-layout/all/process_layout.rb', line 75</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_layout_name_from_rule'>layout_name_from_rule</span>
-  <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_rule_card'>rule_card</span><span class='lparen'>(</span><span class='symbol'>:layout</span><span class='rparen'>)</span><span class='op'>&amp;.</span><span class='id identifier rubyid_try'>try</span> <span class='symbol'>:item_name</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
+  </div>
 </div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="main_render_args-instance_method">
-  
-    #<strong>main_render_args</strong>(view, args)  &#x21d2; <tt><span class='object_link'><a href="../../../../Object.html" title="Object (class)">Object</a></span></tt> 
+<div class="tags">
   
 
-  
-
-  
-</h3><table class="source_code">
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-24
-25
-26
-27
-28
-29</pre>
+30
+31
+32</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod030-card-mod-layout/all/process_layout.rb', line 24</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod031-layout/all/process_layout.rb', line 30</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_main_render_args'>main_render_args</span> <span class='id identifier rubyid_view'>view</span><span class='comma'>,</span> <span class='id identifier rubyid_args'>args</span>
-  <span class='id identifier rubyid_args'>args</span><span class='lbracket'>[</span><span class='symbol'>:view</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_view'>view</span> <span class='kw'>if</span> <span class='id identifier rubyid_view'>view</span>
-  <span class='id identifier rubyid_args'>args</span><span class='lbracket'>[</span><span class='symbol'>:main</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='kw'>true</span>
-  <span class='id identifier rubyid_args'>args</span><span class='lbracket'>[</span><span class='symbol'>:main_view</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='kw'>true</span>
-  <span class='id identifier rubyid_args'>args</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_layout_for_view'>layout_for_view</span> <span class='id identifier rubyid__view'>_view</span>
+  <span class='kw'>nil</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -446,7 +404,7 @@
       <div class="method_details ">
   <h3 class="signature " id="page_layout-instance_method">
   
-    #<strong>page_layout</strong>  &#x21d2; <tt><span class='object_link'><a href="../../../../Object.html" title="Object (class)">Object</a></span></tt> 
+    #<strong>page_layout</strong>(view)  &#x21d2; <tt><span class='object_link'><a href="../../../../Object.html" title="Object (class)">Object</a></span></tt> 
   
 
   
@@ -458,65 +416,15 @@
       <pre class="lines">
 
 
-31
-32
-33</pre>
+25
+26
+27</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod030-card-mod-layout/all/process_layout.rb', line 31</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod031-layout/all/process_layout.rb', line 25</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_page_layout'>page_layout</span>
-  <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:layout</span><span class='rbracket'>]</span> <span class='op'>||</span> <span class='id identifier rubyid_layout_name_from_rule'>layout_name_from_rule</span> <span class='op'>||</span> <span class='symbol'>:default</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="render_outside_of_layout-instance_method">
-  
-    #<strong>render_outside_of_layout</strong>(view, args)  &#x21d2; <tt><span class='object_link'><a href="../../../../Object.html" title="Object (class)">Object</a></span></tt> 
-  
-
-  
-
-  
-</h3><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-43
-44
-45
-46
-47
-48
-49
-50
-51
-52
-53
-54
-55</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod030-card-mod-layout/all/process_layout.rb', line 43</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_render_outside_of_layout'>render_outside_of_layout</span> <span class='id identifier rubyid_view'>view</span><span class='comma'>,</span> <span class='id identifier rubyid_args'>args</span>
-  <span class='id identifier rubyid_body'>body</span> <span class='op'>=</span> <span class='id identifier rubyid_render_with_layout'>render_with_layout</span><span class='lparen'>(</span><span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_page_layout'>page_layout</span><span class='comma'>,</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_modal'>modal</span> <span class='op'>=</span> <span class='id identifier rubyid_render!'>render!</span><span class='lparen'>(</span><span class='id identifier rubyid_view'>view</span><span class='comma'>,</span> <span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span>
-  <span class='kw'>if</span> <span class='id identifier rubyid_body'>body</span><span class='period'>.</span><span class='id identifier rubyid_include?'>include?</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>&lt;/body&gt;</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
-    <span class='comment'># a bit hacky
-</span>    <span class='comment'># the problem is that the body tag has to be in the layout
-</span>    <span class='comment'># so that you can add layout css classes like &lt;body class=&quot;right-sidebar&quot;&gt;
-</span>    <span class='id identifier rubyid_body'>body</span><span class='period'>.</span><span class='id identifier rubyid_sub!'>sub!</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>&lt;/body&gt;</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_modal'>modal</span><span class='embexpr_end'>}</span><span class='tstring_content'>&lt;/body&gt;</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
-  <span class='kw'>else</span>
-    <span class='id identifier rubyid_body'>body</span> <span class='op'>+=</span> <span class='id identifier rubyid_modal'>modal</span>
-  <span class='kw'>end</span>
-  <span class='id identifier rubyid_body'>body</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_page_layout'>page_layout</span> <span class='id identifier rubyid_view'>view</span>
+  <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:layout</span><span class='rbracket'>]</span> <span class='op'>||</span> <span class='id identifier rubyid_layout_for_view'>layout_for_view</span><span class='lparen'>(</span><span class='id identifier rubyid_view'>view</span><span class='rparen'>)</span> <span class='op'>||</span> <span class='id identifier rubyid_layout_name_from_rule'>layout_name_from_rule</span> <span class='op'>||</span> <span class='symbol'>:default</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -538,20 +446,20 @@
       <pre class="lines">
 
 
+34
 35
 36
 37
 38
 39
-40
-41</pre>
+40</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod030-card-mod-layout/all/process_layout.rb', line 35</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod031-layout/all/process_layout.rb', line 34</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_render_with_layout'>render_with_layout</span> <span class='id identifier rubyid_view'>view</span><span class='comma'>,</span> <span class='id identifier rubyid_layout'>layout</span><span class='comma'>,</span> <span class='id identifier rubyid_args'>args</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span>
   <span class='id identifier rubyid_view_opts'>view_opts</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../../Layout.html" title="Card::Layout (class)">Layout</a></span></span><span class='period'>.</span><span class='id identifier rubyid_main_nest_opts'><span class='object_link'><a href="../../../Layout.html#main_nest_opts-class_method" title="Card::Layout.main_nest_opts (method)">main_nest_opts</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_layout'>layout</span><span class='comma'>,</span> <span class='kw'>self</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_view'>view</span> <span class='op'>||=</span> <span class='id identifier rubyid_view_opts'>view_opts</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='symbol'>:view</span><span class='rparen'>)</span> <span class='op'>||</span> <span class='id identifier rubyid_default_nest_view'>default_nest_view</span>
+  <span class='id identifier rubyid_view'>view</span> <span class='op'>||=</span> <span class='id identifier rubyid_view_opts'>view_opts</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='symbol'>:view</span><span class='rparen'>)</span> <span class='op'>||</span> <span class='id identifier rubyid_default_page_view'>default_page_view</span>
   <span class='id identifier rubyid_view_opts'>view_opts</span><span class='lbracket'>[</span><span class='symbol'>:home_view</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_view'>view</span>
   <span class='id identifier rubyid_view_opts'>view_opts</span><span class='lbracket'>[</span><span class='symbol'>:layout</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_layout'>layout</span>
   <span class='id identifier rubyid_render!'>render!</span> <span class='id identifier rubyid_view'>view</span><span class='comma'>,</span> <span class='id identifier rubyid_view_opts'>view_opts</span><span class='period'>.</span><span class='id identifier rubyid_reverse_merge'>reverse_merge</span><span class='lparen'>(</span><span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span>
@@ -599,15 +507,15 @@
       <pre class="lines">
 
 
-57
-58
-59</pre>
+46
+47
+48</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod030-card-mod-layout/all/process_layout.rb', line 57</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod031-layout/all/process_layout.rb', line 46</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_show_layout?'>show_layout?</span>
-  <span class='op'>!</span><span class='const'><span class='object_link'><a href="../../../Env.html" title="Card::Env (module)">Env</a></span></span><span class='period'>.</span><span class='id identifier rubyid_ajax?'><span class='object_link'><a href="../../../Env.html#ajax%3F-class_method" title="Card::Env.ajax? (method)">ajax?</a></span></span> <span class='op'>||</span> <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:layout</span><span class='rbracket'>]</span>
+  <span class='op'>!</span><span class='const'><span class='object_link'><a href="../../../Env.html" title="Card::Env (module)">Env</a></span></span><span class='period'>.</span><span class='id identifier rubyid_ajax?'>ajax?</span> <span class='op'>||</span> <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:layout</span><span class='rbracket'>]</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -650,56 +558,20 @@ HAML_LAYOUTS = Mod::Loader.load_layouts(:haml)</p>
 19
 20
 21
-22</pre>
+22
+23</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod030-card-mod-layout/all/process_layout.rb', line 14</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod031-layout/all/process_layout.rb', line 14</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_show_with_page_layout'>show_with_page_layout</span> <span class='id identifier rubyid_view'>view</span><span class='comma'>,</span> <span class='id identifier rubyid_args'>args</span>
   <span class='id identifier rubyid_main!'>main!</span>
+  <span class='id identifier rubyid_layout'>layout</span> <span class='op'>=</span> <span class='id identifier rubyid_page_layout'>page_layout</span> <span class='id identifier rubyid_view'>view</span>
   <span class='id identifier rubyid_args'>args</span> <span class='op'>=</span> <span class='id identifier rubyid_main_render_args'>main_render_args</span> <span class='id identifier rubyid_view'>view</span><span class='comma'>,</span> <span class='id identifier rubyid_args'>args</span>
-  <span class='kw'>if</span> <span class='id identifier rubyid_explicit_modal_wrapper?'>explicit_modal_wrapper?</span><span class='lparen'>(</span><span class='id identifier rubyid_view'>view</span><span class='rparen'>)</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_page_layout'>page_layout</span><span class='period'>.</span><span class='id identifier rubyid_to_sym'>to_sym</span> <span class='op'>!=</span> <span class='symbol'>:modal</span>
+  <span class='kw'>if</span> <span class='id identifier rubyid_explicit_modal_wrapper?'>explicit_modal_wrapper?</span><span class='lparen'>(</span><span class='id identifier rubyid_view'>view</span><span class='rparen'>)</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_layout'>layout</span><span class='period'>.</span><span class='id identifier rubyid_to_sym'>to_sym</span> <span class='op'>!=</span> <span class='symbol'>:modal</span>
     <span class='id identifier rubyid_render_outside_of_layout'>render_outside_of_layout</span> <span class='id identifier rubyid_view'>view</span><span class='comma'>,</span> <span class='id identifier rubyid_args'>args</span>
   <span class='kw'>else</span>
-    <span class='id identifier rubyid_render_with_layout'>render_with_layout</span> <span class='id identifier rubyid_view'>view</span><span class='comma'>,</span> <span class='id identifier rubyid_page_layout'>page_layout</span><span class='comma'>,</span> <span class='id identifier rubyid_args'>args</span>
-  <span class='kw'>end</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="wrapper_names-instance_method">
-  
-    #<strong>wrapper_names</strong>(wrappers)  &#x21d2; <tt><span class='object_link'><a href="../../../../Object.html" title="Object (class)">Object</a></span></tt> 
-  
-
-  
-
-  
-</h3><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-67
-68
-69
-70
-71
-72
-73</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod030-card-mod-layout/all/process_layout.rb', line 67</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_wrapper_names'>wrapper_names</span> <span class='id identifier rubyid_wrappers'>wrappers</span>
-  <span class='kw'>case</span> <span class='id identifier rubyid_wrappers'>wrappers</span>
-  <span class='kw'>when</span> <span class='const'>Hash</span>  <span class='kw'>then</span> <span class='id identifier rubyid_wrappers'>wrappers</span><span class='period'>.</span><span class='id identifier rubyid_keys'>keys</span>
-  <span class='kw'>when</span> <span class='const'>Array</span> <span class='kw'>then</span> <span class='id identifier rubyid_wrapper_names_from_array'>wrapper_names_from_array</span> <span class='id identifier rubyid_wrappers'>wrappers</span>
-  <span class='kw'>else</span>            <span class='lbracket'>[</span><span class='id identifier rubyid_wrappers'>wrappers</span><span class='rbracket'>]</span>
+    <span class='id identifier rubyid_render_with_layout'>render_with_layout</span> <span class='id identifier rubyid_view'>view</span><span class='comma'>,</span> <span class='id identifier rubyid_layout'>layout</span><span class='comma'>,</span> <span class='id identifier rubyid_args'>args</span>
   <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -712,9 +584,9 @@ HAML_LAYOUTS = Mod::Loader.load_layouts(:haml)</p>
 </div>
 
       <div id="footer">
-  Generated on Thu May 13 17:17:33 2021 by
-  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.26 (ruby-2.7.2).
+  Generated on Mon Feb  6 15:49:48 2023 by
+  <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.28 (ruby-3.0.1).
 </div>
 
     </div>

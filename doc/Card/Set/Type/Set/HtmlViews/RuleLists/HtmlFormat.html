@@ -6,7 +6,7 @@
 <title>
   Module: Card::Set::Type::Set::HtmlViews::RuleLists::HtmlFormat
   
-    &mdash; Documentation by YARD 0.9.26
+    &mdash; Documentation by YARD 0.9.28
   
 </title>
 
@@ -83,7 +83,7 @@
   
   <dl>
     <dt>Defined in:</dt>
-    <dd>card/tmpsets/set/mod036-card-mod-rules/type/set/html_views/rule_lists.rb</dd>
+    <dd>platypus/tmp/set/gem-defaults/mod010-rules/type/set/html_views/rule_lists.rb</dd>
   </dl>
   
 </div>
@@ -106,7 +106,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#bar_rule_list-instance_method" title="#bar_rule_list (instance method)">#<strong>bar_rule_list</strong>(settings)  &#x21d2; Object </a>
+      <a href="#category_accordion-instance_method" title="#category_accordion (instance method)">#<strong>category_accordion</strong>(view, &amp;block)  &#x21d2; Object </a>
     
 
     
@@ -129,7 +129,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#pill_rule_list-instance_method" title="#pill_rule_list (instance method)">#<strong>pill_rule_list</strong>(settings)  &#x21d2; Object </a>
+      <a href="#category_accordion_item-instance_method" title="#category_accordion_item (instance method)">#<strong>category_accordion_item</strong>(view)  &#x21d2; Object </a>
     
 
     
@@ -152,7 +152,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#quick_edit_rule_list-instance_method" title="#quick_edit_rule_list (instance method)">#<strong>quick_edit_rule_list</strong>(settings)  &#x21d2; Object </a>
+      <a href="#category_setting_list_items-instance_method" title="#category_setting_list_items (instance method)">#<strong>category_setting_list_items</strong>(category, item_view, options = {})  &#x21d2; Object </a>
     
 
     
@@ -175,7 +175,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#rule_list_item-instance_method" title="#rule_list_item (instance method)">#<strong>rule_list_item</strong>(setting, view, opts = {})  &#x21d2; Object </a>
+      <a href="#count_badge-instance_method" title="#count_badge (instance method)">#<strong>count_badge</strong>(count)  &#x21d2; Object </a>
     
 
     
@@ -198,7 +198,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#setting_list_from_params-instance_method" title="#setting_list_from_params (instance method)">#<strong>setting_list_from_params</strong>(default = :common)  &#x21d2; Object </a>
+      <a href="#pill_setting_list-instance_method" title="#pill_setting_list (instance method)">#<strong>pill_setting_list</strong>(open_rule_in_modal = false)  &#x21d2; Object </a>
     
 
     
@@ -221,7 +221,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#view:+bar_rule_list-instance_method" title="#view: bar_rule_list (instance method)">#<strong>view: bar_rule_list</strong>  &#x21d2; Object </a>
+      <a href="#quick_edit_setting_list-instance_method" title="#quick_edit_setting_list (instance method)">#<strong>quick_edit_setting_list</strong>  &#x21d2; Object </a>
     
 
     
@@ -244,7 +244,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#view:+pill_rule_list-instance_method" title="#view: pill_rule_list (instance method)">#<strong>view: pill_rule_list</strong>  &#x21d2; Object </a>
+      <a href="#setting_list_item-instance_method" title="#setting_list_item (instance method)">#<strong>setting_list_item</strong>(setting, view, opts = {})  &#x21d2; Object </a>
     
 
     
@@ -267,7 +267,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#view:+quick_edit_rule_list-instance_method" title="#view: quick_edit_rule_list (instance method)">#<strong>view: quick_edit_rule_list</strong>  &#x21d2; Object </a>
+      <a href="#view:+accordion_bar_list-instance_method" title="#view: accordion_bar_list (instance method)">#<strong>view: accordion_bar_list</strong>  &#x21d2; Object </a>
     
 
     
@@ -282,6 +282,144 @@
 
   
     <span class="summary_desc"><div class='inline'>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#view:+accordion_rule_list-instance_method" title="#view: accordion_rule_list (instance method)">#<strong>view: accordion_rule_list</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#view:+bar_setting_list-instance_method" title="#view: bar_setting_list (instance method)">#<strong>view: bar_setting_list</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>show the settings in bars.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#view:+modal_pill_setting_list-instance_method" title="#view: modal_pill_setting_list (instance method)">#<strong>view: modal_pill_setting_list</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>a click on a setting opens the rule editor in a modal.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#view:+overlay_rule_list_link-instance_method" title="#view: overlay_rule_list_link (instance method)">#<strong>view: overlay_rule_list_link</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#view:+pill_setting_list-instance_method" title="#view: pill_setting_list (instance method)">#<strong>view: pill_setting_list</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>a click on a setting opens the rule editor in an overlay.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#view:+quick_edit_setting_list-instance_method" title="#view: quick_edit_setting_list (instance method)">#<strong>view: quick_edit_setting_list</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>rule can be edited in-place.</p>
 </div></span>
   
 </li>
@@ -298,9 +436,299 @@
 
     
       <div class="method_details first">
-  <h3 class="signature first" id="bar_rule_list-instance_method">
+  <h3 class="signature first" id="category_accordion-instance_method">
   
-    #<strong>bar_rule_list</strong>(settings)  &#x21d2; <tt><span class='object_link'><a href="../../../../../../Object.html" title="Object (class)">Object</a></span></tt> 
+    #<strong>category_accordion</strong>(view, &amp;block)  &#x21d2; <tt><span class='object_link'><a href="../../../../../../Object.html" title="Object (class)">Object</a></span></tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+47
+48
+49
+50
+51
+52
+53
+54</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod010-rules/type/set/html_views/rule_lists.rb', line 47</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_category_accordion'>category_accordion</span> <span class='id identifier rubyid_view'>view</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span>
+  <span class='id identifier rubyid_class_up'>class_up</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>accordion-item</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>_setting-group</span><span class='tstring_end'>&quot;</span></span>
+  <span class='id identifier rubyid_wrap_with'>wrap_with</span> <span class='symbol'>:div</span><span class='comma'>,</span> <span class='label'>class:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>_setting-list</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>do</span>
+    <span class='id identifier rubyid_accordion'>accordion</span> <span class='kw'>do</span>
+      <span class='id identifier rubyid_category_accordion_item'>category_accordion_item</span><span class='lparen'>(</span><span class='id identifier rubyid_view'>view</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
+    <span class='kw'>end</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="category_accordion_item-instance_method">
+  
+    #<strong>category_accordion_item</strong>(view)  &#x21d2; <tt><span class='object_link'><a href="../../../../../../Object.html" title="Object (class)">Object</a></span></tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod010-rules/type/set/html_views/rule_lists.rb', line 56</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_category_accordion_item'>category_accordion_item</span> <span class='id identifier rubyid_view'>view</span>
+  <span class='const'><span class='object_link'><a href="../../../../../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../../../../Setting.html" title="Card::Setting (module)">Setting</a></span></span><span class='period'>.</span><span class='id identifier rubyid_groups'>groups</span><span class='period'>.</span><span class='id identifier rubyid_keys'>keys</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_group_key'>group_key</span><span class='op'>|</span>
+    <span class='id identifier rubyid_list'>list</span> <span class='op'>=</span>
+      <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_group_settings'>group_settings</span><span class='lparen'>(</span><span class='id identifier rubyid_group_key'>group_key</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_setting'>setting</span><span class='op'>|</span>
+        <span class='id identifier rubyid_setting_list_item'>setting_list_item</span> <span class='id identifier rubyid_setting'>setting</span><span class='comma'>,</span> <span class='id identifier rubyid_view'>view</span>
+      <span class='kw'>end</span>
+    <span class='id identifier rubyid_body'>body</span> <span class='op'>=</span> <span class='kw'>yield</span> <span class='id identifier rubyid_list'>list</span>
+    <span class='id identifier rubyid_accordion_item'>accordion_item</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_group_key'>group_key</span><span class='embexpr_end'>}</span><span class='tstring_content'> </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_count_badge'>count_badge</span><span class='lparen'>(</span><span class='id identifier rubyid_list'>list</span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span><span class='rparen'>)</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+                   <span class='label'>body:</span> <span class='id identifier rubyid_body'>body</span><span class='comma'>,</span> <span class='label'>context:</span> <span class='id identifier rubyid_group_key'>group_key</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="category_setting_list_items-instance_method">
+  
+    #<strong>category_setting_list_items</strong>(category, item_view, options = {})  &#x21d2; <tt><span class='object_link'><a href="../../../../../../Object.html" title="Object (class)">Object</a></span></tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+97
+98
+99
+100
+101</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod010-rules/type/set/html_views/rule_lists.rb', line 97</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_category_setting_list_items'>category_setting_list_items</span> <span class='id identifier rubyid_category'>category</span><span class='comma'>,</span> <span class='id identifier rubyid_item_view'>item_view</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span>
+  <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_category_settings'>category_settings</span><span class='lparen'>(</span><span class='id identifier rubyid_category'>category</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_setting'>setting</span><span class='op'>|</span>
+    <span class='id identifier rubyid_setting_list_item'>setting_list_item</span> <span class='id identifier rubyid_setting'>setting</span><span class='comma'>,</span> <span class='id identifier rubyid_item_view'>item_view</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="count_badge-instance_method">
+  
+    #<strong>count_badge</strong>(count)  &#x21d2; <tt><span class='object_link'><a href="../../../../../../Object.html" title="Object (class)">Object</a></span></tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+68
+69
+70</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod010-rules/type/set/html_views/rule_lists.rb', line 68</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_count_badge'>count_badge</span> <span class='id identifier rubyid_count'>count</span>
+  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>&lt;span class=\&quot;_count badge bg-secondary ms-3\&quot;&gt;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_count'>count</span><span class='embexpr_end'>}</span><span class='tstring_content'>&lt;/span&gt;</span><span class='tstring_end'>&quot;</span></span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="pill_setting_list-instance_method">
+  
+    #<strong>pill_setting_list</strong>(open_rule_in_modal = false)  &#x21d2; <tt><span class='object_link'><a href="../../../../../../Object.html" title="Object (class)">Object</a></span></tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+88
+89
+90
+91</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod010-rules/type/set/html_views/rule_lists.rb', line 88</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_pill_setting_list'>pill_setting_list</span> <span class='id identifier rubyid_open_rule_in_modal'>open_rule_in_modal</span><span class='op'>=</span><span class='kw'>false</span>
+  <span class='id identifier rubyid_item_view'>item_view</span> <span class='op'>=</span> <span class='id identifier rubyid_open_rule_in_modal'>open_rule_in_modal</span> <span class='op'>?</span> <span class='symbol'>:rule_nest_editor_link</span> <span class='op'>:</span> <span class='symbol'>:rule_bridge_link</span>
+  <span class='id identifier rubyid_bridge_pills'>bridge_pills</span> <span class='id identifier rubyid_category_setting_list_items'>category_setting_list_items</span><span class='lparen'>(</span><span class='symbol'>:all</span><span class='comma'>,</span> <span class='id identifier rubyid_item_view'>item_view</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="quick_edit_setting_list-instance_method">
+  
+    #<strong>quick_edit_setting_list</strong>  &#x21d2; <tt><span class='object_link'><a href="../../../../../../Object.html" title="Object (class)">Object</a></span></tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+81
+82
+83
+84
+85
+86</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod010-rules/type/set/html_views/rule_lists.rb', line 81</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_quick_edit_setting_list'>quick_edit_setting_list</span>
+  <span class='id identifier rubyid_classes'>classes</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>nav nav-pills flex-column bridge-pills _setting-list _setting-group</span><span class='tstring_end'>&quot;</span></span>
+  <span class='id identifier rubyid_list_tag'>list_tag</span> <span class='label'>class:</span> <span class='id identifier rubyid_classes'>classes</span> <span class='kw'>do</span>
+    <span class='id identifier rubyid_category_setting_list_items'>category_setting_list_items</span> <span class='symbol'>:field</span><span class='comma'>,</span> <span class='symbol'>:quick_edit</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="setting_list_item-instance_method">
+  
+    #<strong>setting_list_item</strong>(setting, view, opts = {})  &#x21d2; <tt><span class='object_link'><a href="../../../../../../Object.html" title="Object (class)">Object</a></span></tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+103
+104
+105
+106
+107
+108</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod010-rules/type/set/html_views/rule_lists.rb', line 103</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_setting_list_item'>setting_list_item</span> <span class='id identifier rubyid_setting'>setting</span><span class='comma'>,</span> <span class='id identifier rubyid_view'>view</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span>
+  <span class='kw'>return</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>unless</span> <span class='id identifier rubyid_show_view?'>show_view?</span> <span class='id identifier rubyid_setting'>setting</span>
+
+  <span class='id identifier rubyid_rule_card'>rule_card</span> <span class='op'>=</span> <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_fetch'>fetch</span> <span class='id identifier rubyid_setting'>setting</span><span class='comma'>,</span> <span class='label'>new:</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
+  <span class='id identifier rubyid_nest'>nest</span><span class='lparen'>(</span><span class='id identifier rubyid_rule_card'>rule_card</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='period'>.</span><span class='id identifier rubyid_merge'>merge</span><span class='lparen'>(</span><span class='label'>view:</span> <span class='id identifier rubyid_view'>view</span><span class='rparen'>)</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_html_safe'>html_safe</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="view: accordion_bar_list-instance_method">
+  
+    #<strong>view: accordion_bar_list</strong>  &#x21d2; <tt><span class='object_link'><a href="../../../../../../Object.html" title="Object (class)">Object</a></span></tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+40
+41
+42
+43
+44
+45</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod010-rules/type/set/html_views/rule_lists.rb', line 40</span>
+
+<span class='id identifier rubyid_view'>view</span> <span class='symbol'>:accordion_bar_list</span> <span class='kw'>do</span>
+  <span class='id identifier rubyid_class_up'>class_up</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>accordion</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>bar-accordion</span><span class='tstring_end'>&quot;</span></span>
+  <span class='id identifier rubyid_category_accordion'>category_accordion</span><span class='lparen'>(</span><span class='symbol'>:bar</span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_list'>list</span><span class='op'>|</span>
+    <span class='id identifier rubyid_list_tag'>list_tag</span><span class='lparen'>(</span><span class='label'>class:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>nav flex-column</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>items:</span> <span class='lbrace'>{</span> <span class='label'>class:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>nav-item</span><span class='tstring_end'>&quot;</span></span> <span class='rbrace'>}</span><span class='rparen'>)</span> <span class='lbrace'>{</span> <span class='id identifier rubyid_list'>list</span> <span class='rbrace'>}</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="view: accordion_rule_list-instance_method">
+  
+    #<strong>view: accordion_rule_list</strong>  &#x21d2; <tt><span class='object_link'><a href="../../../../../../Object.html" title="Object (class)">Object</a></span></tt> 
   
 
   
@@ -316,82 +744,16 @@
 34
 35
 36
-37</pre>
+37
+38</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod036-card-mod-rules/type/set/html_views/rule_lists.rb', line 33</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod010-rules/type/set/html_views/rule_lists.rb', line 33</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_bar_rule_list'>bar_rule_list</span> <span class='id identifier rubyid_settings'>settings</span>
-  <span class='id identifier rubyid_list_items'>list_items</span> <span class='op'>=</span>
-    <span class='id identifier rubyid_settings'>settings</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_setting'>setting</span><span class='op'>|</span> <span class='id identifier rubyid_rule_list_item'>rule_list_item</span> <span class='id identifier rubyid_setting'>setting</span><span class='comma'>,</span> <span class='symbol'>:bar</span><span class='comma'>,</span> <span class='label'>hide:</span> <span class='symbol'>:full_name</span> <span class='rbrace'>}</span>
-  <span class='id identifier rubyid_list_items'>list_items</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>\n</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_html_safe'>html_safe</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="pill_rule_list-instance_method">
-  
-    #<strong>pill_rule_list</strong>(settings)  &#x21d2; <tt><span class='object_link'><a href="../../../../../../Object.html" title="Object (class)">Object</a></span></tt> 
-  
-
-  
-
-  
-</h3><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-27
-28
-29
-30
-31</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod036-card-mod-rules/type/set/html_views/rule_lists.rb', line 27</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_pill_rule_list'>pill_rule_list</span> <span class='id identifier rubyid_settings'>settings</span>
-  <span class='id identifier rubyid_list_items'>list_items</span> <span class='op'>=</span>
-    <span class='id identifier rubyid_settings'>settings</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_setting'>setting</span><span class='op'>|</span> <span class='id identifier rubyid_rule_list_item'>rule_list_item</span> <span class='id identifier rubyid_setting'>setting</span><span class='comma'>,</span> <span class='symbol'>:rule_bridge_link</span> <span class='rbrace'>}</span>
-  <span class='id identifier rubyid_bridge_pills'>bridge_pills</span> <span class='id identifier rubyid_list_items'>list_items</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="quick_edit_rule_list-instance_method">
-  
-    #<strong>quick_edit_rule_list</strong>(settings)  &#x21d2; <tt><span class='object_link'><a href="../../../../../../Object.html" title="Object (class)">Object</a></span></tt> 
-  
-
-  
-
-  
-</h3><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-21
-22
-23
-24
-25</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod036-card-mod-rules/type/set/html_views/rule_lists.rb', line 21</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_quick_edit_rule_list'>quick_edit_rule_list</span> <span class='id identifier rubyid_settings'>settings</span>
-  <span class='id identifier rubyid_list_tag'>list_tag</span> <span class='label'>class:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>nav nav-pills flex-column bridge-pills</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>do</span>
-    <span class='id identifier rubyid_settings'>settings</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_setting'>setting</span><span class='op'>|</span> <span class='id identifier rubyid_rule_list_item'>rule_list_item</span> <span class='id identifier rubyid_setting'>setting</span><span class='comma'>,</span> <span class='symbol'>:quick_edit</span> <span class='rbrace'>}</span>
+<span class='id identifier rubyid_view'>view</span> <span class='symbol'>:accordion_rule_list</span><span class='comma'>,</span> <span class='id identifier rubyid_setting_list_view_options'>setting_list_view_options</span> <span class='kw'>do</span>
+  <span class='id identifier rubyid_class_up'>class_up</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>accordion</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>bar-accordion</span><span class='tstring_end'>&quot;</span></span>
+  <span class='id identifier rubyid_category_accordion'>category_accordion</span><span class='lparen'>(</span><span class='symbol'>:rule_bridge_link</span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_list'>list</span><span class='op'>|</span>
+    <span class='id identifier rubyid_bridge_pills'>bridge_pills</span> <span class='id identifier rubyid_list'>list</span>
   <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -400,9 +762,91 @@
 </div>
     
       <div class="method_details ">
-  <h3 class="signature " id="rule_list_item-instance_method">
+  <h3 class="signature " id="view: bar_setting_list-instance_method">
   
-    #<strong>rule_list_item</strong>(setting, view, opts = {})  &#x21d2; <tt><span class='object_link'><a href="../../../../../../Object.html" title="Object (class)">Object</a></span></tt> 
+    #<strong>view: bar_setting_list</strong>  &#x21d2; <tt><span class='object_link'><a href="../../../../../../Object.html" title="Object (class)">Object</a></span></tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>show the settings in bars</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+18
+19
+20
+21</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod010-rules/type/set/html_views/rule_lists.rb', line 18</span>
+
+<span class='id identifier rubyid_view'>view</span> <span class='symbol'>:bar_setting_list</span><span class='comma'>,</span> <span class='id identifier rubyid_setting_list_view_options'>setting_list_view_options</span> <span class='kw'>do</span>
+  <span class='id identifier rubyid_group'>group</span> <span class='op'>=</span> <span class='id identifier rubyid_voo'>voo</span><span class='period'>.</span><span class='id identifier rubyid_filter'>filter</span><span class='op'>&amp;.</span><span class='id identifier rubyid_to_sym'>to_sym</span> <span class='op'>||</span> <span class='symbol'>:all</span>
+  <span class='id identifier rubyid_category_setting_list_items'>category_setting_list_items</span><span class='lparen'>(</span><span class='id identifier rubyid_group'>group</span><span class='comma'>,</span> <span class='symbol'>:bar</span><span class='comma'>,</span> <span class='label'>hide:</span> <span class='symbol'>:full_name</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>\n</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_html_safe'>html_safe</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="view: modal_pill_setting_list-instance_method">
+  
+    #<strong>view: modal_pill_setting_list</strong>  &#x21d2; <tt><span class='object_link'><a href="../../../../../../Object.html" title="Object (class)">Object</a></span></tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>a click on a setting opens the rule editor in a modal</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+29
+30
+31</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod010-rules/type/set/html_views/rule_lists.rb', line 29</span>
+
+<span class='id identifier rubyid_view'>view</span> <span class='symbol'>:modal_pill_setting_list</span><span class='comma'>,</span> <span class='id identifier rubyid_setting_list_view_options'>setting_list_view_options</span> <span class='kw'>do</span>
+  <span class='id identifier rubyid_pill_setting_list'>pill_setting_list</span> <span class='kw'>true</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="view: overlay_rule_list_link-instance_method">
+  
+    #<strong>view: overlay_rule_list_link</strong>  &#x21d2; <tt><span class='object_link'><a href="../../../../../../Object.html" title="Object (class)">Object</a></span></tt> 
   
 
   
@@ -414,21 +858,25 @@
       <pre class="lines">
 
 
-39
-40
-41
-42
-43
-44</pre>
+72
+73
+74
+75
+76
+77
+78
+79</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod036-card-mod-rules/type/set/html_views/rule_lists.rb', line 39</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod010-rules/type/set/html_views/rule_lists.rb', line 72</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_rule_list_item'>rule_list_item</span> <span class='id identifier rubyid_setting'>setting</span><span class='comma'>,</span> <span class='id identifier rubyid_view'>view</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span>
-  <span class='kw'>return</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>unless</span> <span class='id identifier rubyid_show_view?'>show_view?</span> <span class='id identifier rubyid_setting'>setting</span>
-
-  <span class='id identifier rubyid_rule_card'>rule_card</span> <span class='op'>=</span> <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_fetch'>fetch</span> <span class='id identifier rubyid_setting'>setting</span><span class='comma'>,</span> <span class='label'>new:</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
-  <span class='id identifier rubyid_nest'>nest</span><span class='lparen'>(</span><span class='id identifier rubyid_rule_card'>rule_card</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='period'>.</span><span class='id identifier rubyid_merge'>merge</span><span class='lparen'>(</span><span class='label'>view:</span> <span class='id identifier rubyid_view'>view</span><span class='rparen'>)</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_html_safe'>html_safe</span>
+<span class='id identifier rubyid_view'>view</span> <span class='symbol'>:overlay_rule_list_link</span><span class='comma'>,</span> <span class='label'>cache:</span> <span class='symbol'>:never</span> <span class='kw'>do</span>
+  <span class='id identifier rubyid_opts'>opts</span> <span class='op'>=</span> <span class='id identifier rubyid_bridge_link_opts'>bridge_link_opts</span><span class='lparen'>(</span><span class='label'>class:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>edit-rule-link btn btn-primary</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+  <span class='comment'># opts[:path].delete(:layout)
+</span>
+  <span class='id identifier rubyid_wrap_with'>wrap_with</span> <span class='symbol'>:div</span> <span class='kw'>do</span>
+    <span class='id identifier rubyid_link_to_view'>link_to_view</span><span class='lparen'>(</span><span class='symbol'>:core</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Show existing rules</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='rparen'>)</span>
+  <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -436,29 +884,39 @@
 </div>
     
       <div class="method_details ">
-  <h3 class="signature " id="setting_list_from_params-instance_method">
+  <h3 class="signature " id="view: pill_setting_list-instance_method">
   
-    #<strong>setting_list_from_params</strong>(default = :common)  &#x21d2; <tt><span class='object_link'><a href="../../../../../../Object.html" title="Object (class)">Object</a></span></tt> 
-  
-
+    #<strong>view: pill_setting_list</strong>  &#x21d2; <tt><span class='object_link'><a href="../../../../../../Object.html" title="Object (class)">Object</a></span></tt> 
   
 
   
-</h3><table class="source_code">
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>a click on a setting opens the rule editor in an overlay</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-46
-47
-48</pre>
+24
+25
+26</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod036-card-mod-rules/type/set/html_views/rule_lists.rb', line 46</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod010-rules/type/set/html_views/rule_lists.rb', line 24</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_setting_list_from_params'>setting_list_from_params</span> <span class='id identifier rubyid_default'>default</span><span class='op'>=</span><span class='symbol'>:common</span>
-  <span class='id identifier rubyid_setting_list'>setting_list</span> <span class='id identifier rubyid_setting_group'>setting_group</span><span class='lparen'>(</span><span class='id identifier rubyid_default'>default</span><span class='rparen'>)</span>
+<span class='id identifier rubyid_view'>view</span> <span class='symbol'>:pill_setting_list</span><span class='comma'>,</span> <span class='id identifier rubyid_setting_list_view_options'>setting_list_view_options</span> <span class='kw'>do</span>
+  <span class='id identifier rubyid_pill_setting_list'>pill_setting_list</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -466,15 +924,25 @@
 </div>
     
       <div class="method_details ">
-  <h3 class="signature " id="view: bar_rule_list-instance_method">
+  <h3 class="signature " id="view: quick_edit_setting_list-instance_method">
   
-    #<strong>view: bar_rule_list</strong>  &#x21d2; <tt><span class='object_link'><a href="../../../../../../Object.html" title="Object (class)">Object</a></span></tt> 
-  
-
+    #<strong>view: quick_edit_setting_list</strong>  &#x21d2; <tt><span class='object_link'><a href="../../../../../../Object.html" title="Object (class)">Object</a></span></tt> 
   
 
   
-</h3><table class="source_code">
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>rule can be edited in-place</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
@@ -485,70 +953,10 @@
 15</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod036-card-mod-rules/type/set/html_views/rule_lists.rb', line 13</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod010-rules/type/set/html_views/rule_lists.rb', line 13</span>
 
-<span class='id identifier rubyid_view'>view</span> <span class='symbol'>:bar_rule_list</span><span class='comma'>,</span> <span class='label'>cache:</span> <span class='symbol'>:never</span><span class='comma'>,</span> <span class='label'>wrap:</span> <span class='lbrace'>{</span> <span class='label'>slot:</span> <span class='lbrace'>{</span> <span class='label'>class:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>rule-list</span><span class='tstring_end'>&quot;</span></span> <span class='rbrace'>}</span> <span class='rbrace'>}</span> <span class='kw'>do</span>
-  <span class='id identifier rubyid_bar_rule_list'>bar_rule_list</span> <span class='id identifier rubyid_setting_list_from_params'>setting_list_from_params</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="view: pill_rule_list-instance_method">
-  
-    #<strong>view: pill_rule_list</strong>  &#x21d2; <tt><span class='object_link'><a href="../../../../../../Object.html" title="Object (class)">Object</a></span></tt> 
-  
-
-  
-
-  
-</h3><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-17
-18
-19</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod036-card-mod-rules/type/set/html_views/rule_lists.rb', line 17</span>
-
-<span class='id identifier rubyid_view'>view</span> <span class='symbol'>:pill_rule_list</span><span class='comma'>,</span> <span class='label'>cache:</span> <span class='symbol'>:never</span><span class='comma'>,</span> <span class='label'>wrap:</span> <span class='lbrace'>{</span> <span class='label'>slot:</span> <span class='lbrace'>{</span> <span class='label'>class:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>rule-list</span><span class='tstring_end'>&quot;</span></span> <span class='rbrace'>}</span> <span class='rbrace'>}</span> <span class='kw'>do</span>
-  <span class='id identifier rubyid_pill_rule_list'>pill_rule_list</span> <span class='id identifier rubyid_setting_list_from_params'>setting_list_from_params</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="view: quick_edit_rule_list-instance_method">
-  
-    #<strong>view: quick_edit_rule_list</strong>  &#x21d2; <tt><span class='object_link'><a href="../../../../../../Object.html" title="Object (class)">Object</a></span></tt> 
-  
-
-  
-
-  
-</h3><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-9
-10
-11</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod036-card-mod-rules/type/set/html_views/rule_lists.rb', line 9</span>
-
-<span class='id identifier rubyid_view'>view</span> <span class='symbol'>:quick_edit_rule_list</span><span class='comma'>,</span> <span class='label'>cache:</span> <span class='symbol'>:never</span><span class='comma'>,</span> <span class='label'>wrap:</span> <span class='lbrace'>{</span> <span class='label'>slot:</span> <span class='lbrace'>{</span> <span class='label'>class:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>rule-list</span><span class='tstring_end'>&quot;</span></span> <span class='rbrace'>}</span> <span class='rbrace'>}</span> <span class='kw'>do</span>
-  <span class='id identifier rubyid_quick_edit_rule_list'>quick_edit_rule_list</span> <span class='id identifier rubyid_setting_list_from_params'>setting_list_from_params</span><span class='lparen'>(</span><span class='symbol'>:field_related</span><span class='rparen'>)</span>
+<span class='id identifier rubyid_view'>view</span> <span class='symbol'>:quick_edit_setting_list</span><span class='comma'>,</span> <span class='id identifier rubyid_setting_list_view_options'>setting_list_view_options</span> <span class='kw'>do</span>
+  <span class='id identifier rubyid_quick_edit_setting_list'>quick_edit_setting_list</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -560,9 +968,9 @@
 </div>
 
       <div id="footer">
-  Generated on Thu May 13 17:17:39 2021 by
-  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.26 (ruby-2.7.2).
+  Generated on Mon Feb  6 15:49:54 2023 by
+  <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.28 (ruby-3.0.1).
 </div>
 
     </div>

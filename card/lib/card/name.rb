@@ -5,10 +5,10 @@
 require "cardname"
 
 class Card
-  # The Cardname class provides generalized of Card naming patterns
+  # The {Cardname} class provides generalized of Card naming patterns
   # (compound names, key-based variants, etc)
   #
-  # Card::Name adds support for deeper card integration
+  # {Card::Name} adds support for deeper card integration
   class Name < Cardname
     include NameVariants
 

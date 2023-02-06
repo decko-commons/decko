@@ -6,7 +6,7 @@
 <title>
   Module: Card::Set::All::Bootstrap::Accordion::HtmlFormat
   
-    &mdash; Documentation by YARD 0.9.26
+    &mdash; Documentation by YARD 0.9.28
   
 </title>
 
@@ -83,7 +83,7 @@
   
   <dl>
     <dt>Defined in:</dt>
-    <dd>card/tmpsets/set/mod021-card-mod-bootstrap/all/bootstrap/accordion.rb</dd>
+    <dd>platypus/tmp/set/gem-defaults/mod024-bootstrap/all/bootstrap/accordion.rb</dd>
   </dl>
   
 </div>
@@ -106,7 +106,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#accordion-instance_method" title="#accordion (instance method)">#<strong>accordion</strong>(title, content, collapse_id = card.name.safe_key)  &#x21d2; Object </a>
+      <a href="#accordion-instance_method" title="#accordion (instance method)">#<strong>accordion</strong>(&amp;block)  &#x21d2; Object </a>
     
 
     
@@ -129,30 +129,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#accordion_group-instance_method" title="#accordion_group (instance method)">#<strong>accordion_group</strong>(list, collapse_id = nil, args = {})  &#x21d2; Object </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'>
-</div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#accordion_panel-instance_method" title="#accordion_panel (instance method)">#<strong>accordion_panel</strong>(title, body, collapse_id, _panel_heading_link = false)  &#x21d2; Object </a>
+      <a href="#accordion_item-instance_method" title="#accordion_item (instance method)">#<strong>accordion_item</strong>(title, **args)  &#x21d2; Object </a>
     
 
     
@@ -185,57 +162,7 @@
       <div class="method_details first">
   <h3 class="signature first" id="accordion-instance_method">
   
-    #<strong>accordion</strong>(title, content, collapse_id = card.name.safe_key)  &#x21d2; <tt><span class='object_link'><a href="../../../../../Object.html" title="Object (class)">Object</a></span></tt> 
-  
-
-  
-
-  
-</h3><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-29
-30
-31
-32
-33
-34
-35
-36
-37
-38
-39
-40
-41</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod021-card-mod-bootstrap/all/bootstrap/accordion.rb', line 29</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_accordion'>accordion</span> <span class='id identifier rubyid_title'>title</span><span class='comma'>,</span> <span class='id identifier rubyid_content'>content</span><span class='comma'>,</span> <span class='id identifier rubyid_collapse_id'>collapse_id</span><span class='op'>=</span><span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span><span class='period'>.</span><span class='id identifier rubyid_safe_key'>safe_key</span>
-  <span class='id identifier rubyid_accordion_content'>accordion_content</span> <span class='op'>=</span>
-    <span class='kw'>case</span> <span class='id identifier rubyid_content'>content</span>
-    <span class='kw'>when</span> <span class='const'>Hash</span>  <span class='kw'>then</span> <span class='id identifier rubyid_accordion_group'>accordion_group</span> <span class='id identifier rubyid_content'>content</span><span class='comma'>,</span> <span class='id identifier rubyid_collapse_id'>collapse_id</span>
-    <span class='kw'>when</span> <span class='const'>Array</span> <span class='kw'>then</span> <span class='id identifier rubyid_content'>content</span><span class='period'>.</span><span class='id identifier rubyid_present?'>present?</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_list_group'>list_group</span><span class='lparen'>(</span><span class='id identifier rubyid_content'>content</span><span class='rparen'>)</span>
-    <span class='kw'>when</span> <span class='const'>String</span> <span class='kw'>then</span> <span class='id identifier rubyid_content'>content</span>
-    <span class='kw'>end</span>
-  <span class='heredoc_beg'>&lt;&lt;-HTML</span><span class='period'>.</span><span class='id identifier rubyid_html_safe'>html_safe</span>
-<span class='tstring_content'>    &lt;div class=&quot;card&quot;&gt;
-      </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_accordion_panel'>accordion_panel</span><span class='lparen'>(</span><span class='id identifier rubyid_title'>title</span><span class='comma'>,</span> <span class='id identifier rubyid_accordion_content'>accordion_content</span><span class='comma'>,</span> <span class='id identifier rubyid_collapse_id'>collapse_id</span><span class='rparen'>)</span><span class='embexpr_end'>}</span><span class='tstring_content'>
-    &lt;/div&gt;
-</span><span class='heredoc_end'>  HTML
-</span><span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="accordion_group-instance_method">
-  
-    #<strong>accordion_group</strong>(list, collapse_id = nil, args = {})  &#x21d2; <tt><span class='object_link'><a href="../../../../../Object.html" title="Object (class)">Object</a></span></tt> 
+    #<strong>accordion</strong>(&amp;block)  &#x21d2; <tt><span class='object_link'><a href="../../../../../Object.html" title="Object (class)">Object</a></span></tt> 
   
 
   
@@ -249,45 +176,13 @@
 
 9
 10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-20
-21
-22
-23
-24
-25
-26
-27</pre>
+11</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod021-card-mod-bootstrap/all/bootstrap/accordion.rb', line 9</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod024-bootstrap/all/bootstrap/accordion.rb', line 9</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_accordion_group'>accordion_group</span> <span class='id identifier rubyid_list'>list</span><span class='comma'>,</span> <span class='id identifier rubyid_collapse_id'>collapse_id</span><span class='op'>=</span><span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_args'>args</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span>
-  <span class='id identifier rubyid_collapse_id'>collapse_id</span> <span class='op'>||=</span> <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span><span class='period'>.</span><span class='id identifier rubyid_safe_key'>safe_key</span>
-  <span class='id identifier rubyid_accordions'>accordions</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span>
-  <span class='id identifier rubyid_index'>index</span> <span class='op'>=</span> <span class='int'>1</span>
-  <span class='kw'>case</span> <span class='id identifier rubyid_list'>list</span>
-  <span class='kw'>when</span> <span class='const'>Array</span> <span class='kw'>then</span> <span class='id identifier rubyid_accordions'>accordions</span> <span class='op'>=</span> <span class='id identifier rubyid_list'>list</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span>
-  <span class='kw'>when</span> <span class='const'>String</span> <span class='kw'>then</span> <span class='id identifier rubyid_accordions'>accordions</span> <span class='op'>=</span> <span class='id identifier rubyid_list'>list</span>
-  <span class='kw'>else</span>
-    <span class='id identifier rubyid_list'>list</span><span class='period'>.</span><span class='id identifier rubyid_each_pair'>each_pair</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_title'>title</span><span class='comma'>,</span> <span class='id identifier rubyid_content'>content</span><span class='op'>|</span>
-      <span class='id identifier rubyid_accordions'>accordions</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_accordion'>accordion</span><span class='lparen'>(</span><span class='id identifier rubyid_title'>title</span><span class='comma'>,</span> <span class='id identifier rubyid_content'>content</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_collapse_id'>collapse_id</span><span class='embexpr_end'>}</span><span class='tstring_content'>-</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_index'>index</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
-      <span class='id identifier rubyid_index'>index</span> <span class='op'>+=</span> <span class='int'>1</span>
-    <span class='kw'>end</span>
-  <span class='kw'>end</span>
-  <span class='id identifier rubyid_add_class'>add_class</span> <span class='id identifier rubyid_args'>args</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>act-accordion-group w-100</span><span class='tstring_end'>&quot;</span></span>
-  <span class='id identifier rubyid_wrap_with'>wrap_with</span> <span class='symbol'>:div</span><span class='comma'>,</span> <span class='label'>class:</span> <span class='id identifier rubyid_args'>args</span><span class='lbracket'>[</span><span class='symbol'>:class</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='label'>id:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>accordion-</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_collapse_id'>collapse_id</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
-                  <span class='label'>role:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>tablist</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>aria-multiselectable</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>true</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>do</span>
-    <span class='id identifier rubyid_accordions'>accordions</span>
-  <span class='kw'>end</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_accordion'>accordion</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span>
+  <span class='id identifier rubyid_wrap_with'>wrap_with</span> <span class='symbol'>:div</span><span class='comma'>,</span> <span class='label'>class:</span> <span class='id identifier rubyid_classy'>classy</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>accordion</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -295,9 +190,9 @@
 </div>
     
       <div class="method_details ">
-  <h3 class="signature " id="accordion_panel-instance_method">
+  <h3 class="signature " id="accordion_item-instance_method">
   
-    #<strong>accordion_panel</strong>(title, body, collapse_id, _panel_heading_link = false)  &#x21d2; <tt><span class='object_link'><a href="../../../../../Object.html" title="Object (class)">Object</a></span></tt> 
+    #<strong>accordion_item</strong>(title, **args)  &#x21d2; <tt><span class='object_link'><a href="../../../../../Object.html" title="Object (class)">Object</a></span></tt> 
   
 
   
@@ -309,63 +204,31 @@
       <pre class="lines">
 
 
-43
-44
-45
-46
-47
-48
-49
-50
-51
-52
-53
-54
-55
-56
-57
-58
-59
-60
-61
-62
-63
-64
-65
-66
-67
-68
-69</pre>
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod021-card-mod-bootstrap/all/bootstrap/accordion.rb', line 43</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod024-bootstrap/all/bootstrap/accordion.rb', line 13</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_accordion_panel'>accordion_panel</span> <span class='id identifier rubyid_title'>title</span><span class='comma'>,</span> <span class='id identifier rubyid_body'>body</span><span class='comma'>,</span> <span class='id identifier rubyid_collapse_id'>collapse_id</span><span class='comma'>,</span> <span class='id identifier rubyid__panel_heading_link'>_panel_heading_link</span><span class='op'>=</span><span class='kw'>false</span>
-  <span class='kw'>if</span> <span class='id identifier rubyid_body'>body</span>
-    <span class='heredoc_beg'>&lt;&lt;-HTML</span>
-<span class='tstring_content'>      &lt;div class=&quot;card-header&quot; role=&quot;tab&quot; id=&quot;heading-</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_collapse_id'>collapse_id</span><span class='embexpr_end'>}</span><span class='tstring_content'>&quot;&gt;
-        &lt;h5 class=&quot;mb-0&quot;&gt;
-          &lt;a data-toggle=&quot;collapse&quot; data-parent=&quot;#accordion-</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_collapse_id'>collapse_id</span><span class='embexpr_end'>}</span><span class='tstring_content'>&quot; \
-</span><span class='tstring_content'>             href=&quot;#</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_collapse_id'>collapse_id</span><span class='embexpr_end'>}</span><span class='tstring_content'>&quot; aria-expanded=&quot;true&quot; \
-</span><span class='tstring_content'>             aria-controls=&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_collapse_id'>collapse_id</span><span class='embexpr_end'>}</span><span class='tstring_content'>&quot;&gt;
-            </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_title'>title</span><span class='embexpr_end'>}</span><span class='tstring_content'>
-          &lt;/a&gt;
-        &lt;/h5&gt;
-      &lt;/div&gt;
-      &lt;div id=&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_collapse_id'>collapse_id</span><span class='embexpr_end'>}</span><span class='tstring_content'>&quot; class=&quot;collapse&quot; \
-</span><span class='tstring_content'>             role=&quot;tabpanel&quot; aria-labelledby=&quot;heading-</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_collapse_id'>collapse_id</span><span class='embexpr_end'>}</span><span class='tstring_content'>&quot;&gt;
-        &lt;div class=&quot;card-body&quot;&gt;
-          </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_body'>body</span><span class='embexpr_end'>}</span><span class='tstring_content'>
-        &lt;/div&gt;
-      &lt;/div&gt;
-</span><span class='heredoc_end'>    HTML
-</span>  <span class='kw'>else</span>
-    <span class='heredoc_beg'>&lt;&lt;-HTML</span>
-<span class='tstring_content'>      &lt;li class=&quot;list-group-item&quot;&gt;
-        &lt;h4 class=&quot;card-header&quot;&gt;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_title'>title</span><span class='embexpr_end'>}</span><span class='tstring_content'>&lt;/h4&gt;
-      &lt;/li&gt;
-</span><span class='heredoc_end'>    HTML
-</span>  <span class='kw'>end</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_accordion_item'>accordion_item</span> <span class='id identifier rubyid_title'>title</span><span class='comma'>,</span> <span class='op'>**</span><span class='id identifier rubyid_args'>args</span>
+  <span class='id identifier rubyid_args'>args</span><span class='period'>.</span><span class='id identifier rubyid_reverse_merge!'>reverse_merge!</span><span class='lparen'>(</span>
+    <span class='label'>title:</span> <span class='id identifier rubyid_title'>title</span><span class='comma'>,</span>
+    <span class='label'>subheader:</span> <span class='kw'>nil</span><span class='comma'>,</span>
+    <span class='label'>data:</span> <span class='kw'>nil</span><span class='comma'>,</span>
+    <span class='label'>body:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+    <span class='label'>open:</span> <span class='kw'>false</span><span class='comma'>,</span>
+    <span class='label'>collapse_id:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>card-</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span><span class='period'>.</span><span class='id identifier rubyid_safe_key'>safe_key</span><span class='embexpr_end'>}</span><span class='tstring_content'>-</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_args'>args</span><span class='lbracket'>[</span><span class='symbol'>:context</span><span class='rbracket'>]</span><span class='embexpr_end'>}</span><span class='tstring_content'>-collapse-id</span><span class='tstring_end'>&quot;</span></span>
+  <span class='rparen'>)</span>
+  <span class='id identifier rubyid_haml'>haml</span> <span class='symbol'>:accordion_item</span><span class='comma'>,</span> <span class='op'>**</span><span class='id identifier rubyid_args'>args</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -377,9 +240,9 @@
 </div>
 
       <div id="footer">
-  Generated on Thu May 13 17:17:38 2021 by
-  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.26 (ruby-2.7.2).
+  Generated on Mon Feb  6 15:49:53 2023 by
+  <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.28 (ruby-3.0.1).
 </div>
 
     </div>

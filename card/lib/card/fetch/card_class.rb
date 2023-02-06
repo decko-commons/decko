@@ -1,29 +1,32 @@
 class Card
   class Fetch
-    # = Card#fetch
-    #
-    # A multipurpose retrieval operator that integrates caching, database lookups,
+    # A multipurpose retrieval system that integrates caching, database lookups,
     # and "virtual" card construction
     module CardClass
       # Look for cards in
-      # * cache
-      # * database
-      # * virtual cards
+      #   * cache
+      #   * database
+      #   * virtual cards
       #
       # @param args [Integer, String, Card::Name, Symbol, Array]
       #    Initials args must be one or more "marks," which uniquely idenfify cards:
+      #
+      #
       #      1. a name/key. (String or Card::Name)
       #      2. a numeric id. Can be (a) an Integer or (b) a String with an integer
       #         prefixed with a tilde, eg "~1234"
       #      3. a codename. Can be (a) a Symbol or (b) a String with a colon prefix,
       #         eg :mycodename
+      #
       #    If you pass more then one mark or an array of marks they get joined with a '+'.
       #    The final argument can be a Hash to set the following options
-      #      :skip_virtual               Real cards only
-      #      :skip_modules               Don't load Set modules
-      #      :look_in_trash              Return trashed card objects
-      #      :local_only                 Use only local cache for lookup and storing
-      #      new: { opts for Card#new }  Return a new card when not found
+      #
+      #        :skip_virtual               Real cards only
+      #        :skip_modules               Don't load Set modules
+      #        :look_in_trash              Return trashed card objects
+      #        :local_only                 Use only local cache for lookup and storing
+      #        new: { opts for Card#new }  Return a new card when not found
+      #
       # @return [Card]
       def fetch *args
         f = Fetch.new(*args)
@@ -32,9 +35,9 @@ class Card
         Card.new name: "card id out of range: #{f.mark}"
       end
 
-      # fetch only real (no virtual) cards
+      # a shortcut for fetch that returns only real cards (no virtuals)
       #
-      # @param mark - see #fetch
+      # @param mark [various] - see {#fetch}
       # @return [Card]
       def [] *mark
         fetch(*mark, skip_virtual: true)
@@ -62,6 +65,9 @@ class Card
       # ATTRIBUTE FETCHING
       # The following methods optimize fetching of specific attributes
 
+      # numerical card id
+      # @params cardish [various] interprets integers as id, symbols as codename, etc
+      # @return [Integer]
       def id cardish
         case cardish
         when Integer then cardish

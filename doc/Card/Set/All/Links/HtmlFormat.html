@@ -6,7 +6,7 @@
 <title>
   Module: Card::Set::All::Links::HtmlFormat
   
-    &mdash; Documentation by YARD 0.9.26
+    &mdash; Documentation by YARD 0.9.28
   
 </title>
 
@@ -83,7 +83,7 @@
   
   <dl>
     <dt>Defined in:</dt>
-    <dd>card/tmpsets/set/mod008-card-mod-format/all/links.rb</dd>
+    <dd>platypus/tmp/set/gem-defaults/mod004-format/all/links.rb</dd>
   </dl>
   
 </div>
@@ -233,21 +233,21 @@ and it adds special handling of “remote” and “method” opts
       <pre class="lines">
 
 
-100
 101
 102
 103
 104
-105</pre>
+105
+106</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod008-card-mod-format/all/links.rb', line 100</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod004-format/all/links.rb', line 101</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_link_to'>link_to</span> <span class='id identifier rubyid_text'>text</span><span class='op'>=</span><span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span>
   <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:href</span><span class='rbracket'>]</span> <span class='op'>||=</span> <span class='id identifier rubyid_path'>path</span> <span class='id identifier rubyid_opts'>opts</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='symbol'>:path</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_text'>text</span> <span class='op'>=</span> <span class='id identifier rubyid_raw'>raw</span><span class='lparen'>(</span><span class='id identifier rubyid_text'>text</span> <span class='op'>||</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:href</span><span class='rbracket'>]</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_interpret_data_opts_to_link_to'>interpret_data_opts_to_link_to</span> <span class='id identifier rubyid_opts'>opts</span>
-  <span class='id identifier rubyid_wrap_with'>wrap_with</span> <span class='symbol'>:a</span><span class='comma'>,</span> <span class='id identifier rubyid_text'>text</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span>
+  <span class='id identifier rubyid_content_tag'>content_tag</span> <span class='symbol'>:a</span><span class='comma'>,</span> <span class='id identifier rubyid_text'>text</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -281,15 +281,15 @@ TODO: upgrade from (known/wanted)-card to (real/virtual/unknown)-card</p>
       <pre class="lines">
 
 
-110
 111
 112
 113
 114
-115</pre>
+115
+116</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod008-card-mod-format/all/links.rb', line 110</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod004-format/all/links.rb', line 111</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_link_to_card'>link_to_card</span> <span class='id identifier rubyid_cardish'>cardish</span><span class='comma'>,</span> <span class='id identifier rubyid_text'>text</span><span class='op'>=</span><span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span>
   <span class='id identifier rubyid_name'>name</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../../Name.html" title="Card::Name (class)">Name</a></span></span><span class='lbracket'>[</span><span class='id identifier rubyid_cardish'>cardish</span><span class='rbracket'>]</span>
@@ -329,13 +329,13 @@ the resource is internal or external</p>
       <pre class="lines">
 
 
-126
 127
 128
-129</pre>
+129
+130</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod008-card-mod-format/all/links.rb', line 126</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod004-format/all/links.rb', line 127</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_link_to_resource'>link_to_resource</span> <span class='id identifier rubyid_resource'>resource</span><span class='comma'>,</span> <span class='id identifier rubyid_text'>text</span><span class='op'>=</span><span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span>
   <span class='id identifier rubyid_add_resource_opts'>add_resource_opts</span> <span class='id identifier rubyid_opts'>opts</span><span class='comma'>,</span> <span class='id identifier rubyid_resource_type'>resource_type</span><span class='lparen'>(</span><span class='id identifier rubyid_resource'>resource</span><span class='rparen'>)</span>
@@ -371,13 +371,13 @@ the resource is internal or external</p>
       <pre class="lines">
 
 
-118
 119
 120
-121</pre>
+121
+122</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod008-card-mod-format/all/links.rb', line 118</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod004-format/all/links.rb', line 119</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_link_to_view'>link_to_view</span> <span class='id identifier rubyid_view'>view</span><span class='comma'>,</span> <span class='id identifier rubyid_text'>text</span><span class='op'>=</span><span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span>
   <span class='id identifier rubyid_slotterify'>slotterify</span> <span class='id identifier rubyid_opts'>opts</span>
@@ -393,9 +393,9 @@ the resource is internal or external</p>
 </div>
 
       <div id="footer">
-  Generated on Thu May 13 17:17:25 2021 by
-  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.26 (ruby-2.7.2).
+  Generated on Mon Feb  6 15:49:39 2023 by
+  <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.28 (ruby-3.0.1).
 </div>
 
     </div>

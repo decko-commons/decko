@@ -6,7 +6,7 @@
 <title>
   Module: Card::Set::Type::Image::EmailHtmlFormat
   
-    &mdash; Documentation by YARD 0.9.26
+    &mdash; Documentation by YARD 0.9.28
   
 </title>
 
@@ -83,7 +83,7 @@
   
   <dl>
     <dt>Defined in:</dt>
-    <dd>card/tmpsets/set/mod014-card-mod-carrierwave/type/image.rb</dd>
+    <dd>platypus/tmp/set/gem-defaults/mod016-carrierwave/type/image.rb</dd>
   </dl>
   
 </div>
@@ -174,13 +174,13 @@
       <pre class="lines">
 
 
-90
-91
-92
-93</pre>
+96
+97
+98
+99</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod014-card-mod-carrierwave/type/image.rb', line 90</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod016-carrierwave/type/image.rb', line 96</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_attach_image'>attach_image</span> <span class='id identifier rubyid_mail'>mail</span><span class='comma'>,</span> <span class='id identifier rubyid_path'>path</span>
   <span class='id identifier rubyid_mail'>mail</span><span class='period'>.</span><span class='id identifier rubyid_attachments'>attachments</span><span class='period'>.</span><span class='id identifier rubyid_inline'>inline</span><span class='lbracket'>[</span><span class='id identifier rubyid_path'>path</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='op'>::</span><span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_read'>read</span> <span class='id identifier rubyid_path'>path</span>
@@ -206,22 +206,24 @@
       <pre class="lines">
 
 
-81
-82
-83
-84
-85
 86
 87
-88</pre>
+88
+89
+90
+91
+92
+93
+94</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod014-card-mod-carrierwave/type/image.rb', line 81</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod016-carrierwave/type/image.rb', line 86</span>
 
 <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:inline</span><span class='comma'>,</span> <span class='label'>cache:</span> <span class='symbol'>:never</span> <span class='kw'>do</span>
   <span class='id identifier rubyid_handle_source'>handle_source</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_source'>source</span><span class='op'>|</span>
     <span class='kw'>return</span> <span class='id identifier rubyid_source'>source</span> <span class='kw'>unless</span> <span class='lparen'>(</span><span class='id identifier rubyid_mail'>mail</span> <span class='op'>=</span> <span class='id identifier rubyid_inherit'>inherit</span> <span class='symbol'>:active_mail</span><span class='rparen'>)</span> <span class='op'>&amp;&amp;</span>
                          <span class='op'>::</span><span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_exist?'>exist?</span><span class='lparen'>(</span><span class='id identifier rubyid_path'>path</span> <span class='op'>=</span> <span class='id identifier rubyid_selected_version'>selected_version</span><span class='period'>.</span><span class='id identifier rubyid_path'>path</span><span class='rparen'>)</span>
+
     <span class='id identifier rubyid_url'>url</span> <span class='op'>=</span> <span class='id identifier rubyid_attach_image'>attach_image</span> <span class='id identifier rubyid_mail'>mail</span><span class='comma'>,</span> <span class='id identifier rubyid_path'>path</span>
     <span class='id identifier rubyid_image_tag'>image_tag</span> <span class='id identifier rubyid_url'>url</span>
   <span class='kw'>end</span>
@@ -236,9 +238,9 @@
 </div>
 
       <div id="footer">
-  Generated on Thu May 13 17:17:31 2021 by
-  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.26 (ruby-2.7.2).
+  Generated on Mon Feb  6 15:49:46 2023 by
+  <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.28 (ruby-3.0.1).
 </div>
 
     </div>

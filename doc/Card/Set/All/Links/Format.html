@@ -6,7 +6,7 @@
 <title>
   Module: Card::Set::All::Links::Format
   
-    &mdash; Documentation by YARD 0.9.26
+    &mdash; Documentation by YARD 0.9.28
   
 </title>
 
@@ -83,7 +83,7 @@
   
   <dl>
     <dt>Defined in:</dt>
-    <dd>card/tmpsets/set/mod008-card-mod-format/all/links.rb</dd>
+    <dd>platypus/tmp/set/gem-defaults/mod004-format/all/links.rb</dd>
   </dl>
   
 </div>
@@ -312,7 +312,7 @@ format, the link looks like [text][absolute path]</p>
 24</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod008-card-mod-format/all/links.rb', line 17</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod004-format/all/links.rb', line 17</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_link_to'>link_to</span> <span class='id identifier rubyid_text'>text</span><span class='op'>=</span><span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span>
   <span class='id identifier rubyid_path'>path</span> <span class='op'>=</span> <span class='id identifier rubyid_path'>path</span><span class='lparen'>(</span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='symbol'>:path</span><span class='rparen'>)</span> <span class='op'>||</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span><span class='rparen'>)</span>
@@ -403,7 +403,7 @@ format, the link looks like [text][absolute path]</p>
 42</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod008-card-mod-format/all/links.rb', line 39</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod004-format/all/links.rb', line 39</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_link_to_card'>link_to_card</span> <span class='id identifier rubyid_cardish'>cardish</span><span class='comma'>,</span> <span class='id identifier rubyid_text'>text</span><span class='op'>=</span><span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span>
   <span class='id identifier rubyid_add_to_path'>add_to_path</span> <span class='id identifier rubyid_opts'>opts</span><span class='comma'>,</span> <span class='label'>mark:</span> <span class='const'><span class='object_link'><a href="../../../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../../Name.html" title="Card::Name (class)">Name</a></span></span><span class='lbracket'>[</span><span class='id identifier rubyid_cardish'>cardish</span><span class='rbracket'>]</span>
@@ -488,7 +488,7 @@ a local url (that decko hasn’t parsed) or a local path.</p>
 53</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod008-card-mod-format/all/links.rb', line 50</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod004-format/all/links.rb', line 50</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_link_to_resource'>link_to_resource</span> <span class='id identifier rubyid_resource'>resource</span><span class='comma'>,</span> <span class='id identifier rubyid_text'>text</span><span class='op'>=</span><span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span>
   <span class='id identifier rubyid_resource'>resource</span> <span class='op'>=</span> <span class='id identifier rubyid_clean_resource'>clean_resource</span> <span class='id identifier rubyid_resource'>resource</span><span class='comma'>,</span> <span class='id identifier rubyid_resource_type'>resource_type</span><span class='lparen'>(</span><span class='id identifier rubyid_resource'>resource</span><span class='rparen'>)</span>
@@ -571,7 +571,7 @@ a local url (that decko hasn’t parsed) or a local path.</p>
 33</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod008-card-mod-format/all/links.rb', line 30</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod004-format/all/links.rb', line 30</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_link_to_view'>link_to_view</span> <span class='id identifier rubyid_view'>view</span><span class='comma'>,</span> <span class='id identifier rubyid_text'>text</span><span class='op'>=</span><span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span>
   <span class='id identifier rubyid_add_to_path'>add_to_path</span> <span class='id identifier rubyid_opts'>opts</span><span class='comma'>,</span> <span class='label'>view:</span> <span class='id identifier rubyid_view'>view</span> <span class='kw'>unless</span> <span class='id identifier rubyid_view'>view</span> <span class='op'>==</span> <span class='symbol'>:home</span>
@@ -621,7 +621,7 @@ kinds of links.</p>
 67</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod008-card-mod-format/all/links.rb', line 61</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod004-format/all/links.rb', line 61</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_smart_link_to'>smart_link_to</span> <span class='id identifier rubyid_text'>text</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span>
   <span class='kw'>if</span> <span class='lparen'>(</span><span class='id identifier rubyid_linktype'>linktype</span> <span class='op'>=</span> <span class='qsymbols_beg'>%i[</span><span class='tstring_content'>view</span><span class='words_sep'> </span><span class='tstring_content'>card</span><span class='words_sep'> </span><span class='tstring_content'>resource</span><span class='tstring_end'>]</span></span><span class='period'>.</span><span class='id identifier rubyid_find'>find</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_key'>key</span><span class='op'>|</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='id identifier rubyid_key'>key</span><span class='rbracket'>]</span> <span class='rbrace'>}</span><span class='rparen'>)</span>
@@ -640,9 +640,9 @@ kinds of links.</p>
 </div>
 
       <div id="footer">
-  Generated on Thu May 13 17:17:25 2021 by
-  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.26 (ruby-2.7.2).
+  Generated on Mon Feb  6 15:49:39 2023 by
+  <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.28 (ruby-3.0.1).
 </div>
 
     </div>

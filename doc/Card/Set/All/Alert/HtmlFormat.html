@@ -6,7 +6,7 @@
 <title>
   Module: Card::Set::All::Alert::HtmlFormat
   
-    &mdash; Documentation by YARD 0.9.26
+    &mdash; Documentation by YARD 0.9.28
   
 </title>
 
@@ -83,7 +83,7 @@
   
   <dl>
     <dt>Defined in:</dt>
-    <dd>card/tmpsets/set/mod030-card-mod-layout/all/alert.rb</dd>
+    <dd>platypus/tmp/set/gem-defaults/mod031-layout/all/alert.rb</dd>
   </dl>
   
 </div>
@@ -215,7 +215,7 @@
 15</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod030-card-mod-layout/all/alert.rb', line 10</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod031-layout/all/alert.rb', line 10</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_alert'>alert</span> <span class='id identifier rubyid_alert_type'>alert_type</span><span class='comma'>,</span> <span class='id identifier rubyid_dismissable'>dismissable</span><span class='op'>=</span><span class='kw'>false</span><span class='comma'>,</span> <span class='id identifier rubyid_disappear'>disappear</span><span class='op'>=</span><span class='kw'>false</span><span class='comma'>,</span> <span class='id identifier rubyid_args'>args</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span>
   <span class='id identifier rubyid_add_class'>add_class</span> <span class='id identifier rubyid_args'>args</span><span class='comma'>,</span> <span class='id identifier rubyid_alert_classes'>alert_classes</span><span class='lparen'>(</span><span class='id identifier rubyid_alert_type'>alert_type</span><span class='comma'>,</span> <span class='id identifier rubyid_dismissable'>dismissable</span><span class='comma'>,</span> <span class='id identifier rubyid_disappear'>disappear</span><span class='rparen'>)</span>
@@ -251,7 +251,7 @@
 22</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod030-card-mod-layout/all/alert.rb', line 17</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod031-layout/all/alert.rb', line 17</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_alert_classes'>alert_classes</span> <span class='id identifier rubyid_alert_type'>alert_type</span><span class='comma'>,</span> <span class='id identifier rubyid_dismissable'>dismissable</span><span class='comma'>,</span> <span class='id identifier rubyid_disappear'>disappear</span>
   <span class='id identifier rubyid_classes'>classes</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>alert</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>alert-</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_alert_type'>alert_type</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
@@ -282,18 +282,14 @@
 24
 25
 26
-27
-28
-29</pre>
+27</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod030-card-mod-layout/all/alert.rb', line 24</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod031-layout/all/alert.rb', line 24</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_alert_close_button'>alert_close_button</span>
-  <span class='id identifier rubyid_wrap_with'>wrap_with</span> <span class='symbol'>:button</span><span class='comma'>,</span> <span class='label'>type:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>button</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>data-dismiss</span><span class='label_end'>&quot;:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>alert</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
-                     <span class='label'>class:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>close</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>aria-label</span><span class='label_end'>&quot;:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Close</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>do</span>
-    <span class='id identifier rubyid_wrap_with'>wrap_with</span> <span class='symbol'>:span</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>&amp;times;</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>aria-hidden</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='kw'>true</span>
-  <span class='kw'>end</span>
+  <span class='id identifier rubyid_wrap_with'>wrap_with</span> <span class='symbol'>:button</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>type:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>button</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>data-bs-dismiss</span><span class='label_end'>&quot;:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>alert</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+                         <span class='label'>class:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>btn-close</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>aria-label</span><span class='label_end'>&quot;:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Close</span><span class='tstring_end'>&quot;</span></span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -305,9 +301,9 @@
 </div>
 
       <div id="footer">
-  Generated on Thu May 13 17:17:25 2021 by
-  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.26 (ruby-2.7.2).
+  Generated on Mon Feb  6 15:49:40 2023 by
+  <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.28 (ruby-3.0.1).
 </div>
 
     </div>

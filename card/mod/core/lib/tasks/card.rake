@@ -36,7 +36,7 @@ namespace :card do
     parse_options :sow do
       add_opt :n, :name, "export card with name/mark (handles : and ~ prefixes)"
       flag_opt :i, :items, "also export card items (with -n)"
-      flag_opt :o, :only_items, "also export card items (with -n)", items: :only
+      flag_opt :o, :only_items, "only export card items (with -n)", items: :only
       add_opt :c, :cql, "export cards found by CQL (in JSON format)"
       add_opt :m, :mod, "output yaml to data/environment.yml file in mod"
       add_opt :e, :env, "environment to dump to (default is current env)"

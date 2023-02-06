@@ -6,7 +6,7 @@
 <title>
   Class: Card::Set::All::Bootstrap::Table::HtmlFormat::TableHelper
   
-    &mdash; Documentation by YARD 0.9.26
+    &mdash; Documentation by YARD 0.9.28
   
 </title>
 
@@ -94,7 +94,7 @@
   
   <dl>
     <dt>Defined in:</dt>
-    <dd>card/tmpsets/set/mod021-card-mod-bootstrap/all/bootstrap/table.rb</dd>
+    <dd>platypus/tmp/set/gem-defaults/mod024-bootstrap/all/bootstrap/table.rb</dd>
   </dl>
   
 </div>
@@ -257,7 +257,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#tag-instance_method" title="#tag (instance method)">#<strong>tag</strong>(elem, content_or_opts = {}, opts = {}, &amp;block)  &#x21d2; Object </a>
+      <a href="#tag-instance_method" title="#tag (instance method)">#<strong>tag</strong>(elem, *args, &amp;block)  &#x21d2; Object </a>
     
 
     
@@ -318,10 +318,10 @@
 17</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod021-card-mod-bootstrap/all/bootstrap/table.rb', line 10</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod024-bootstrap/all/bootstrap/table.rb', line 10</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span> <span class='id identifier rubyid_format'>format</span><span class='comma'>,</span> <span class='id identifier rubyid_content'>content</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span>
-  <span class='ivar'>@format</span> <span class='op'>=</span> <span class='id identifier rubyid_format'>format</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span> <span class='id identifier rubyid_format'><span class='object_link'><a href="../../../../../../top-level-namespace.html#format-instance_method" title="#format (method)">format</a></span></span><span class='comma'>,</span> <span class='id identifier rubyid_content'>content</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span>
+  <span class='ivar'>@format</span> <span class='op'>=</span> <span class='id identifier rubyid_format'><span class='object_link'><a href="../../../../../../top-level-namespace.html#format-instance_method" title="#format (method)">format</a></span></span>
   <span class='ivar'>@div_table</span> <span class='op'>=</span> <span class='id identifier rubyid_opts'>opts</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span> <span class='symbol'>:div_table</span>
   <span class='ivar'>@header</span> <span class='op'>=</span> <span class='id identifier rubyid_initialize_header'>initialize_header</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:header</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_content'>content</span>
   <span class='ivar'>@rows</span> <span class='op'>=</span> <span class='id identifier rubyid_content'>content</span>
@@ -355,16 +355,16 @@
       <pre class="lines">
 
 
-36
 37
 38
 39
 40
 41
-42</pre>
+42
+43</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod021-card-mod-bootstrap/all/bootstrap/table.rb', line 36</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod024-bootstrap/all/bootstrap/table.rb', line 37</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_body'>body</span>
   <span class='id identifier rubyid_tag'>tag</span> <span class='symbol'>:tbody</span> <span class='kw'>do</span>
@@ -393,7 +393,6 @@
       <pre class="lines">
 
 
-61
 62
 63
 64
@@ -404,10 +403,11 @@
 69
 70
 71
-72</pre>
+72
+73</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod021-card-mod-bootstrap/all/bootstrap/table.rb', line 61</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod024-bootstrap/all/bootstrap/table.rb', line 62</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_cell'>cell</span> <span class='id identifier rubyid_cell'>cell</span>
   <span class='kw'>if</span> <span class='id identifier rubyid_cell'>cell</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span> <span class='const'>Hash</span>
@@ -450,13 +450,15 @@
 31
 32
 33
-34</pre>
+34
+35</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod021-card-mod-bootstrap/all/bootstrap/table.rb', line 25</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod024-bootstrap/all/bootstrap/table.rb', line 25</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_header'>header</span>
   <span class='kw'>return</span> <span class='kw'>unless</span> <span class='ivar'>@header</span>
+
   <span class='id identifier rubyid_tag'>tag</span> <span class='symbol'>:thead</span> <span class='kw'>do</span>
     <span class='id identifier rubyid_tag'>tag</span> <span class='symbol'>:tr</span> <span class='kw'>do</span>
       <span class='ivar'>@header</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_item'>item</span><span class='op'>|</span>
@@ -492,7 +494,7 @@
 23</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod021-card-mod-bootstrap/all/bootstrap/table.rb', line 19</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod024-bootstrap/all/bootstrap/table.rb', line 19</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_render'>render</span>
   <span class='id identifier rubyid_tag'>tag</span> <span class='symbol'>:table</span><span class='comma'>,</span> <span class='label'>class:</span> <span class='ivar'>@opts</span><span class='lbracket'>[</span><span class='symbol'>:class</span><span class='rbracket'>]</span> <span class='kw'>do</span>
@@ -519,7 +521,6 @@
       <pre class="lines">
 
 
-44
 45
 46
 47
@@ -534,10 +535,11 @@
 56
 57
 58
-59</pre>
+59
+60</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod021-card-mod-bootstrap/all/bootstrap/table.rb', line 44</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod024-bootstrap/all/bootstrap/table.rb', line 45</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_row'>row</span> <span class='id identifier rubyid_row'>row</span>
   <span class='id identifier rubyid_row_data'>row_data</span><span class='comma'>,</span> <span class='id identifier rubyid_row_class'>row_class</span> <span class='op'>=</span>
@@ -563,7 +565,7 @@
       <div class="method_details ">
   <h3 class="signature " id="tag-instance_method">
   
-    #<strong>tag</strong>(elem, content_or_opts = {}, opts = {}, &amp;block)  &#x21d2; <tt><span class='object_link'><a href="../../../../../../Object.html" title="Object (class)">Object</a></span></tt> 
+    #<strong>tag</strong>(elem, *args, &amp;block)  &#x21d2; <tt><span class='object_link'><a href="../../../../../../Object.html" title="Object (class)">Object</a></span></tt> 
   
 
   
@@ -575,31 +577,23 @@
       <pre class="lines">
 
 
-74
 75
 76
 77
 78
 79
 80
-81
-82
-83
-84</pre>
+81</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod021-card-mod-bootstrap/all/bootstrap/table.rb', line 74</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod024-bootstrap/all/bootstrap/table.rb', line 75</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_tag'>tag</span> <span class='id identifier rubyid_elem'>elem</span><span class='comma'>,</span> <span class='id identifier rubyid_content_or_opts'>content_or_opts</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_tag'>tag</span> <span class='id identifier rubyid_elem'>elem</span><span class='comma'>,</span> <span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span>
   <span class='kw'>if</span> <span class='ivar'>@div_table</span>
-    <span class='kw'>if</span> <span class='id identifier rubyid_content_or_opts'>content_or_opts</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span> <span class='const'>Hash</span>
-      <span class='ivar'>@format</span><span class='period'>.</span><span class='id identifier rubyid_add_class'>add_class</span> <span class='id identifier rubyid_content_or_opts'>content_or_opts</span><span class='comma'>,</span> <span class='id identifier rubyid_elem'>elem</span>
-    <span class='kw'>else</span>
-      <span class='ivar'>@format</span><span class='period'>.</span><span class='id identifier rubyid_add_class'>add_class</span> <span class='id identifier rubyid_opts'>opts</span><span class='comma'>,</span> <span class='id identifier rubyid_elem'>elem</span>
-    <span class='kw'>end</span>
+    <span class='id identifier rubyid_add_div_table_class'>add_div_table_class</span> <span class='id identifier rubyid_elem'>elem</span><span class='comma'>,</span> <span class='op'>*</span><span class='id identifier rubyid_args'>args</span>
     <span class='id identifier rubyid_elem'>elem</span> <span class='op'>=</span> <span class='symbol'>:div</span>
   <span class='kw'>end</span>
-  <span class='ivar'>@format</span><span class='period'>.</span><span class='id identifier rubyid_wrap_with'>wrap_with</span> <span class='id identifier rubyid_elem'>elem</span><span class='comma'>,</span> <span class='id identifier rubyid_content_or_opts'>content_or_opts</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span>
+  <span class='ivar'>@format</span><span class='period'>.</span><span class='id identifier rubyid_wrap_with'>wrap_with</span> <span class='id identifier rubyid_elem'>elem</span><span class='comma'>,</span> <span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -611,9 +605,9 @@
 </div>
 
       <div id="footer">
-  Generated on Thu May 13 17:17:47 2021 by
-  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.26 (ruby-2.7.2).
+  Generated on Mon Feb  6 15:50:02 2023 by
+  <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.28 (ruby-3.0.1).
 </div>
 
     </div>

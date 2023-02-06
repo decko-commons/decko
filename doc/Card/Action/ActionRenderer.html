@@ -6,7 +6,7 @@
 <title>
   Class: Card::Action::ActionRenderer
   
-    &mdash; Documentation by YARD 0.9.26
+    &mdash; Documentation by YARD 0.9.28
   
 </title>
 
@@ -89,7 +89,7 @@
   
   <dl>
       <dt>Includes:</dt>
-      <dd><span class='object_link'><a href="../../Bootstrapper.html" title="Bootstrapper (module)">Bootstrapper</a></span></dd>
+      <dd><span class='object_link'><a href="../Bootstrapper.html" title="Card::Bootstrapper (module)">Bootstrapper</a></span></dd>
   </dl>
   
   
@@ -99,7 +99,7 @@
   
   <dl>
     <dt>Defined in:</dt>
-    <dd>card-mod-history/lib/card/action/action_renderer.rb</dd>
+    <dd>mod/history/lib/card/action/action_renderer.rb</dd>
   </dl>
   
 </div>
@@ -447,8 +447,8 @@
   
   
   
-  <h3 class="inherited">Methods included from <span class='object_link'><a href="../../Bootstrapper.html" title="Bootstrapper (module)">Bootstrapper</a></span></h3>
-  <p class="inherited"><span class='object_link'><a href="../../Bootstrapper.html#bootstrap-instance_method" title="Bootstrapper#bootstrap (method)">#bootstrap</a></span>, <span class='object_link'><a href="../../Bootstrapper.html#bs-instance_method" title="Bootstrapper#bs (method)">#bs</a></span></p>
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="../Bootstrapper.html" title="Card::Bootstrapper (module)">Bootstrapper</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="../Bootstrapper.html#bootstrap-instance_method" title="Card::Bootstrapper#bootstrap (method)">#bootstrap</a></span>, <span class='object_link'><a href="../Bootstrapper.html#bs-instance_method" title="Card::Bootstrapper#bs (method)">#bs</a></span></p>
 
   
   
@@ -458,8 +458,8 @@
   
   
   
-  <h3 class="inherited">Methods included from <span class='object_link'><a href="../../Bootstrap/ComponentLoader.html" title="Bootstrap::ComponentLoader (module)">Bootstrap::ComponentLoader</a></span></h3>
-  <p class="inherited"><span class='object_link'><a href="../../Bootstrap/ComponentLoader.html#components-instance_method" title="Bootstrap::ComponentLoader#components (method)">#components</a></span>, <span class='object_link'><a href="../../Bootstrap/ComponentLoader.html#include_component-instance_method" title="Bootstrap::ComponentLoader#include_component (method)">#include_component</a></span>, <span class='object_link'><a href="../../Bootstrap/ComponentLoader.html#load_components-instance_method" title="Bootstrap::ComponentLoader#load_components (method)">#load_components</a></span>, <span class='object_link'><a href="../../Bootstrap/ComponentLoader.html#to_const-instance_method" title="Bootstrap::ComponentLoader#to_const (method)">#to_const</a></span></p>
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="../Bootstrap/ComponentLoader.html" title="Card::Bootstrap::ComponentLoader (module)">Bootstrap::ComponentLoader</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="../Bootstrap/ComponentLoader.html#components-instance_method" title="Card::Bootstrap::ComponentLoader#components (method)">#components</a></span>, <span class='object_link'><a href="../Bootstrap/ComponentLoader.html#include_component-instance_method" title="Card::Bootstrap::ComponentLoader#include_component (method)">#include_component</a></span>, <span class='object_link'><a href="../Bootstrap/ComponentLoader.html#load_components-instance_method" title="Card::Bootstrap::ComponentLoader#load_components (method)">#load_components</a></span>, <span class='object_link'><a href="../Bootstrap/ComponentLoader.html#to_const-instance_method" title="Card::Bootstrap::ComponentLoader#to_const (method)">#to_const</a></span></p>
 <div id="constructor_details" class="method_details_list">
   <h2>Constructor Details</h2>
   
@@ -497,10 +497,10 @@
 12</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card-mod-history/lib/card/action/action_renderer.rb', line 6</span>
+      <pre class="code"><span class="info file"># File 'mod/history/lib/card/action/action_renderer.rb', line 6</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span> <span class='id identifier rubyid_format'>format</span><span class='comma'>,</span> <span class='id identifier rubyid_action'>action</span><span class='comma'>,</span> <span class='id identifier rubyid_header'>header</span><span class='op'>=</span><span class='kw'>true</span><span class='comma'>,</span> <span class='id identifier rubyid_action_view'>action_view</span><span class='op'>=</span><span class='symbol'>:summary</span><span class='comma'>,</span> <span class='id identifier rubyid_hide_diff'>hide_diff</span><span class='op'>=</span><span class='kw'>false</span>
-  <span class='ivar'>@format</span> <span class='op'>=</span> <span class='id identifier rubyid_format'>format</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span> <span class='id identifier rubyid_format'><span class='object_link'><a href="../../top-level-namespace.html#format-instance_method" title="#format (method)">format</a></span></span><span class='comma'>,</span> <span class='id identifier rubyid_action'>action</span><span class='comma'>,</span> <span class='id identifier rubyid_header'>header</span><span class='op'>=</span><span class='kw'>true</span><span class='comma'>,</span> <span class='id identifier rubyid_action_view'>action_view</span><span class='op'>=</span><span class='symbol'>:summary</span><span class='comma'>,</span> <span class='id identifier rubyid_hide_diff'>hide_diff</span><span class='op'>=</span><span class='kw'>false</span>
+  <span class='ivar'>@format</span> <span class='op'>=</span> <span class='id identifier rubyid_format'><span class='object_link'><a href="../../top-level-namespace.html#format-instance_method" title="#format (method)">format</a></span></span>
   <span class='ivar'>@action</span> <span class='op'>=</span> <span class='id identifier rubyid_action'>action</span>
   <span class='ivar'>@header</span> <span class='op'>=</span> <span class='id identifier rubyid_header'>header</span>
   <span class='ivar'>@action_view</span> <span class='op'>=</span> <span class='id identifier rubyid_action_view'>action_view</span>
@@ -543,7 +543,7 @@
 21</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card-mod-history/lib/card/action/action_renderer.rb', line 15</span>
+      <pre class="code"><span class="info file"># File 'mod/history/lib/card/action/action_renderer.rb', line 15</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_method_missing'>method_missing</span> <span class='id identifier rubyid_method_name'>method_name</span><span class='comma'>,</span> <span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span>
   <span class='kw'>if</span> <span class='id identifier rubyid_block_given?'>block_given?</span>
@@ -594,7 +594,7 @@
 6</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card-mod-history/lib/card/action/action_renderer.rb', line 4</span>
+      <pre class="code"><span class="info file"># File 'mod/history/lib/card/action/action_renderer.rb', line 4</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_action'>action</span>
   <span class='ivar'>@action</span>
@@ -636,7 +636,7 @@
 6</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card-mod-history/lib/card/action/action_renderer.rb', line 4</span>
+      <pre class="code"><span class="info file"># File 'mod/history/lib/card/action/action_renderer.rb', line 4</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_header'>header</span>
   <span class='ivar'>@header</span>
@@ -683,13 +683,13 @@
 54</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card-mod-history/lib/card/action/action_renderer.rb', line 42</span>
+      <pre class="code"><span class="info file"># File 'mod/history/lib/card/action/action_renderer.rb', line 42</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_action_panel'>action_panel</span>
   <span class='id identifier rubyid_bs_panel'>bs_panel</span> <span class='kw'>do</span>
     <span class='kw'>if</span> <span class='id identifier rubyid_header'>header</span>
       <span class='id identifier rubyid_heading'>heading</span> <span class='kw'>do</span>
-        <span class='id identifier rubyid_div'>div</span> <span class='id identifier rubyid_type_diff'>type_diff</span><span class='comma'>,</span> <span class='label'>class:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>float-right</span><span class='tstring_end'>&quot;</span></span>
+        <span class='id identifier rubyid_div'>div</span> <span class='id identifier rubyid_type_diff'>type_diff</span><span class='comma'>,</span> <span class='label'>class:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>float-end</span><span class='tstring_end'>&quot;</span></span>
         <span class='id identifier rubyid_div'>div</span> <span class='id identifier rubyid_name_diff'>name_diff</span>
       <span class='kw'>end</span>
     <span class='kw'>end</span>
@@ -718,14 +718,14 @@
       <pre class="lines">
 
 
-68
-69
-70
 71
-72</pre>
+72
+73
+74
+75</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card-mod-history/lib/card/action/action_renderer.rb', line 68</span>
+      <pre class="code"><span class="info file"># File 'mod/history/lib/card/action/action_renderer.rb', line 71</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_content_diff'>content_diff</span>
   <span class='kw'>return</span> <span class='ivar'>@action</span><span class='period'>.</span><span class='id identifier rubyid_raw_view'>raw_view</span> <span class='kw'>if</span> <span class='ivar'>@action</span><span class='period'>.</span><span class='id identifier rubyid_action_type'>action_type</span> <span class='op'>==</span> <span class='symbol'>:delete</span>
@@ -752,14 +752,14 @@
       <pre class="lines">
 
 
-80
-81
-82
 83
-84</pre>
+84
+85
+86
+87</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card-mod-history/lib/card/action/action_renderer.rb', line 80</span>
+      <pre class="code"><span class="info file"># File 'mod/history/lib/card/action/action_renderer.rb', line 83</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_name_changes'>name_changes</span>
   <span class='kw'>return</span> <span class='id identifier rubyid_old_name'>old_name</span> <span class='kw'>unless</span> <span class='ivar'>@action</span><span class='period'>.</span><span class='id identifier rubyid_new_name?'>new_name?</span>
@@ -796,12 +796,18 @@
 63
 64
 65
-66</pre>
+66
+67
+68
+69</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card-mod-history/lib/card/action/action_renderer.rb', line 56</span>
+      <pre class="code"><span class="info file"># File 'mod/history/lib/card/action/action_renderer.rb', line 56</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_name_diff'>name_diff</span>
+  <span class='kw'>return</span> <span class='ivar'>@action</span><span class='period'>.</span><span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span> <span class='kw'>if</span> <span class='ivar'>@action</span><span class='period'>.</span><span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span><span class='period'>.</span><span class='id identifier rubyid_compound?'>compound?</span>
+  <span class='comment'># TODO: handle compound names better
+</span>
   <span class='kw'>if</span> <span class='ivar'>@action</span><span class='period'>.</span><span class='id identifier rubyid_card'>card</span> <span class='op'>==</span> <span class='ivar'>@format</span><span class='period'>.</span><span class='id identifier rubyid_card'>card</span>
     <span class='id identifier rubyid_name_changes'>name_changes</span>
   <span class='kw'>else</span>
@@ -832,12 +838,12 @@
       <pre class="lines">
 
 
-90
-91
-92</pre>
+93
+94
+95</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card-mod-history/lib/card/action/action_renderer.rb', line 90</span>
+      <pre class="code"><span class="info file"># File 'mod/history/lib/card/action/action_renderer.rb', line 93</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_new_name'>new_name</span>
   <span class='id identifier rubyid_title_in_context'>title_in_context</span> <span class='ivar'>@action</span><span class='period'>.</span><span class='id identifier rubyid_value'>value</span><span class='lparen'>(</span><span class='symbol'>:name</span><span class='rparen'>)</span>
@@ -862,12 +868,12 @@
       <pre class="lines">
 
 
-86
-87
-88</pre>
+89
+90
+91</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card-mod-history/lib/card/action/action_renderer.rb', line 86</span>
+      <pre class="code"><span class="info file"># File 'mod/history/lib/card/action/action_renderer.rb', line 89</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_old_name'>old_name</span>
   <span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span> <span class='op'>=</span> <span class='ivar'>@action</span><span class='period'>.</span><span class='id identifier rubyid_previous_value'>previous_value</span> <span class='symbol'>:name</span><span class='rparen'>)</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_title_in_context'>title_in_context</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='rparen'>)</span>
@@ -908,7 +914,7 @@
 40</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card-mod-history/lib/card/action/action_renderer.rb', line 27</span>
+      <pre class="code"><span class="info file"># File 'mod/history/lib/card/action/action_renderer.rb', line 27</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_render'>render</span>
   <span class='id identifier rubyid_classes'>classes</span> <span class='op'>=</span> <span class='ivar'>@format</span><span class='period'>.</span><span class='id identifier rubyid_classy'>classy</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>action-list</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
@@ -972,7 +978,7 @@
 25</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card-mod-history/lib/card/action/action_renderer.rb', line 23</span>
+      <pre class="code"><span class="info file"># File 'mod/history/lib/card/action/action_renderer.rb', line 23</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_respond_to_missing?'>respond_to_missing?</span> <span class='id identifier rubyid_method_name'>method_name</span><span class='comma'>,</span> <span class='id identifier rubyid__include_private'>_include_private</span><span class='op'>=</span><span class='kw'>false</span>
   <span class='ivar'>@format</span><span class='period'>.</span><span class='id identifier rubyid_respond_to?'>respond_to?</span> <span class='id identifier rubyid_method_name'>method_name</span>
@@ -997,14 +1003,14 @@
       <pre class="lines">
 
 
-74
-75
-76
 77
-78</pre>
+78
+79
+80
+81</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card-mod-history/lib/card/action/action_renderer.rb', line 74</span>
+      <pre class="code"><span class="info file"># File 'mod/history/lib/card/action/action_renderer.rb', line 77</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_type_diff'>type_diff</span>
   <span class='kw'>return</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>unless</span> <span class='ivar'>@action</span><span class='period'>.</span><span class='id identifier rubyid_new_type?'>new_type?</span>
@@ -1021,9 +1027,9 @@
 </div>
 
       <div id="footer">
-  Generated on Thu May 13 17:17:46 2021 by
-  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.26 (ruby-2.7.2).
+  Generated on Mon Feb  6 15:50:01 2023 by
+  <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.28 (ruby-3.0.1).
 </div>
 
     </div>

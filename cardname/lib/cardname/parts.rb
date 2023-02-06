@@ -3,7 +3,6 @@ class Cardname
   # methods that end with _name return name objects
   # the same methods without _name return strings
   module Parts
-    # PARTS
     def part_names
       @part_names ||= generate_part_names
     end
