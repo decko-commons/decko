@@ -18,11 +18,11 @@ class Card
       end
 
       def parent_event_name
-        [parent_set.underscore, "requires_field", field].join("__").to_sym
+        [parent_set.underscored_name, "requires_field", field].join("__").to_sym
       end
 
       def field_event_name action
-        [field, "required_by", parent_set.underscore, "on", action].join("__").to_sym
+        [field, "required_by", parent_set.underscored_name, "on", action].join("__").to_sym
       end
 
       private

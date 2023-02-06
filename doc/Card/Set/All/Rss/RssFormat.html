@@ -6,7 +6,7 @@
 <title>
   Module: Card::Set::All::Rss::RssFormat
   
-    &mdash; Documentation by YARD 0.9.26
+    &mdash; Documentation by YARD 0.9.28
   
 </title>
 
@@ -83,7 +83,7 @@
   
   <dl>
     <dt>Defined in:</dt>
-    <dd>card/tmpsets/set/mod008-card-mod-format/all/rss.rb</dd>
+    <dd>platypus/tmp/set/gem-defaults/mod004-format/all/rss.rb</dd>
   </dl>
   
 </div>
@@ -537,12 +537,12 @@
       <pre class="lines">
 
 
-9
-10
-11</pre>
+11
+12
+13</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod008-card-mod-format/all/rss.rb', line 9</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod004-format/all/rss.rb', line 11</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_xml'>xml</span>
   <span class='ivar'>@xml</span>
@@ -574,13 +574,13 @@
       <pre class="lines">
 
 
-11
-12
 13
-14</pre>
+14
+15
+16</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod008-card-mod-format/all/rss.rb', line 11</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod004-format/all/rss.rb', line 13</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span> <span class='id identifier rubyid_card'>card</span><span class='comma'>,</span> <span class='id identifier rubyid_args'>args</span>
   <span class='kw'>super</span>
@@ -606,14 +606,14 @@
       <pre class="lines">
 
 
-65
-66
-67
 68
-69</pre>
+69
+70
+71
+72</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod008-card-mod-format/all/rss.rb', line 65</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod004-format/all/rss.rb', line 68</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_pub_date'>pub_date</span>
   <span class='lparen'>(</span><span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_updated_at'>updated_at</span> <span class='op'>||</span> <span class='const'>Time</span><span class='period'>.</span><span class='id identifier rubyid_zone'>zone</span><span class='period'>.</span><span class='id identifier rubyid_now'>now</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='lparen'>(</span><span class='symbol'>:rfc822</span><span class='rparen'>)</span>
@@ -640,12 +640,12 @@
       <pre class="lines">
 
 
-40
-41
-42</pre>
+43
+44
+45</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod008-card-mod-format/all/rss.rb', line 40</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod004-format/all/rss.rb', line 43</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_raw_feed_items'>raw_feed_items</span>
   <span class='lbracket'>[</span><span class='id identifier rubyid_card'>card</span><span class='rbracket'>]</span>
@@ -670,13 +670,13 @@
       <pre class="lines">
 
 
-16
-17
 18
-19</pre>
+19
+20
+21</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod008-card-mod-format/all/rss.rb', line 16</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod004-format/all/rss.rb', line 18</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_show'>show</span> <span class='id identifier rubyid_view'>view</span><span class='comma'>,</span> <span class='id identifier rubyid_args'>args</span>
   <span class='id identifier rubyid_view'>view</span> <span class='op'>||=</span> <span class='symbol'>:feed</span>
@@ -702,10 +702,10 @@
       <pre class="lines">
 
 
-82</pre>
+85</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod008-card-mod-format/all/rss.rb', line 82</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod004-format/all/rss.rb', line 85</span>
 
 <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:closed</span><span class='comma'>,</span>       <span class='symbol'>:link</span><span class='comma'>,</span>   <span class='label'>mod:</span> <span class='const'><span class='object_link'><a href="../../All.html" title="Card::Set::All (class)">All</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Base.html" title="Card::Set::All::Base (module)">Base</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Base/Format.html" title="Card::Set::All::Base::Format (module)">Format</a></span></span></pre>
     </td>
@@ -728,10 +728,10 @@
       <pre class="lines">
 
 
-76</pre>
+79</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod008-card-mod-format/all/rss.rb', line 76</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod004-format/all/rss.rb', line 79</span>
 
 <span class='id identifier rubyid_view'>view</span><span class='lparen'>(</span><span class='symbol'>:comment_box</span><span class='rparen'>)</span> <span class='lbrace'>{</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span> <span class='rbrace'>}</span></pre>
     </td>
@@ -754,10 +754,10 @@
       <pre class="lines">
 
 
-80</pre>
+83</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod008-card-mod-format/all/rss.rb', line 80</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod004-format/all/rss.rb', line 83</span>
 
 <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:content</span><span class='comma'>,</span>      <span class='symbol'>:core</span><span class='comma'>,</span>   <span class='label'>mod:</span> <span class='const'><span class='object_link'><a href="../../All.html" title="Card::Set::All (class)">All</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Base.html" title="Card::Set::All::Base (module)">Base</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Base/Format.html" title="Card::Set::All::Base::Format (module)">Format</a></span></span></pre>
     </td>
@@ -790,8 +790,6 @@
       <pre class="lines">
 
 
-22
-23
 24
 25
 26
@@ -806,13 +804,17 @@
 35
 36
 37
-38</pre>
+38
+39
+40
+41</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod008-card-mod-format/all/rss.rb', line 22</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod004-format/all/rss.rb', line 24</span>
 
 <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:feed</span><span class='comma'>,</span> <span class='label'>cache:</span> <span class='symbol'>:never</span> <span class='kw'>do</span>
   <span class='kw'>return</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>RSS feeds disabled</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>unless</span> <span class='const'><span class='object_link'><a href="../../../../Cardio.html" title="Cardio (module)">Cardio</a></span></span><span class='period'>.</span><span class='id identifier rubyid_config'>config</span><span class='period'>.</span><span class='id identifier rubyid_rss_enabled'>rss_enabled</span>
+
   <span class='kw'>begin</span>
     <span class='ivar'>@xml</span><span class='period'>.</span><span class='id identifier rubyid_instruct!'>instruct!</span> <span class='symbol'>:xml</span><span class='comma'>,</span> <span class='label'>version:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>1.0</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>standalone:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>yes</span><span class='tstring_end'>&quot;</span></span>
     <span class='ivar'>@xml</span><span class='period'>.</span><span class='id identifier rubyid_rss'>rss</span> <span class='label'>version:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>2.0</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
@@ -824,7 +826,7 @@
         <span class='id identifier rubyid_render_feed_body'>render_feed_body</span>
       <span class='kw'>end</span>
     <span class='kw'>end</span>
-  <span class='kw'>rescue</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_e'>e</span>
+  <span class='kw'>rescue</span> <span class='const'><span class='object_link'><a href="../../../../StandardError.html" title="StandardError (class)">StandardError</a></span></span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_e'>e</span>
     <span class='ivar'>@xml</span><span class='period'>.</span><span class='id identifier rubyid_error'>error</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>\n\nERROR rendering RSS: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_e'>e</span><span class='period'>.</span><span class='id identifier rubyid_inspect'>inspect</span><span class='embexpr_end'>}</span><span class='tstring_content'>\n\n </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_e'>e</span><span class='period'>.</span><span class='id identifier rubyid_backtrace'>backtrace</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
   <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
@@ -848,16 +850,16 @@
       <pre class="lines">
 
 
-44
-45
-46
 47
 48
 49
-50</pre>
+50
+51
+52
+53</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod008-card-mod-format/all/rss.rb', line 44</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod004-format/all/rss.rb', line 47</span>
 
 <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:feed_body</span><span class='comma'>,</span> <span class='label'>cache:</span> <span class='symbol'>:never</span> <span class='kw'>do</span>
   <span class='id identifier rubyid_raw_feed_items'>raw_feed_items</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_item'>item</span><span class='op'>|</span>
@@ -886,10 +888,10 @@
       <pre class="lines">
 
 
-75</pre>
+78</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod008-card-mod-format/all/rss.rb', line 75</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod004-format/all/rss.rb', line 78</span>
 
 <span class='id identifier rubyid_view'>view</span><span class='lparen'>(</span><span class='symbol'>:feed_description</span><span class='rparen'>)</span> <span class='lbrace'>{</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span> <span class='rbrace'>}</span></pre>
     </td>
@@ -912,17 +914,17 @@
       <pre class="lines">
 
 
-56
-57
-58
 59
 60
 61
 62
-63</pre>
+63
+64
+65
+66</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod008-card-mod-format/all/rss.rb', line 56</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod004-format/all/rss.rb', line 59</span>
 
 <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:feed_item</span> <span class='kw'>do</span>
   <span class='ivar'>@xml</span><span class='period'>.</span><span class='id identifier rubyid_title'>title</span> <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span>
@@ -952,12 +954,12 @@
       <pre class="lines">
 
 
-71
-72
-73</pre>
+74
+75
+76</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod008-card-mod-format/all/rss.rb', line 71</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod004-format/all/rss.rb', line 74</span>
 
 <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:feed_item_description</span> <span class='kw'>do</span>
   <span class='id identifier rubyid_render_open_content'>render_open_content</span>
@@ -982,15 +984,15 @@
       <pre class="lines">
 
 
-52
-53
-54</pre>
+55
+56
+57</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod008-card-mod-format/all/rss.rb', line 52</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod004-format/all/rss.rb', line 55</span>
 
 <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:feed_title</span> <span class='kw'>do</span>
-  <span class='const'><span class='object_link'><a href="../../../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../../Rule.html" title="Card::Rule (module)">Rule</a></span></span><span class='period'>.</span><span class='id identifier rubyid_global_setting'><span class='object_link'><a href="../../../Rule.html#global_setting-class_method" title="Card::Rule.global_setting (method)">global_setting</a></span></span><span class='lparen'>(</span><span class='symbol'>:title</span><span class='rparen'>)</span> <span class='op'>+</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'> : </span><span class='tstring_end'>&quot;</span></span> <span class='op'>+</span> <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span><span class='period'>.</span><span class='id identifier rubyid_gsub'>gsub</span><span class='lparen'>(</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>^\*</span><span class='regexp_end'>/</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='const'><span class='object_link'><a href="../../../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../../Rule.html" title="Card::Rule (module)">Rule</a></span></span><span class='period'>.</span><span class='id identifier rubyid_global_setting'><span class='object_link'><a href="../../../Rule.html#global_setting-class_method" title="Card::Rule.global_setting (method)">global_setting</a></span></span><span class='lparen'>(</span><span class='symbol'>:title</span><span class='rparen'>)</span><span class='embexpr_end'>}</span><span class='tstring_content'> : </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span><span class='period'>.</span><span class='id identifier rubyid_gsub'>gsub</span><span class='lparen'>(</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>^\*</span><span class='regexp_end'>/</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1012,10 +1014,10 @@
       <pre class="lines">
 
 
-77</pre>
+80</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod008-card-mod-format/all/rss.rb', line 77</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod004-format/all/rss.rb', line 80</span>
 
 <span class='id identifier rubyid_view'>view</span><span class='lparen'>(</span><span class='symbol'>:menu</span><span class='rparen'>)</span> <span class='lbrace'>{</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span> <span class='rbrace'>}</span></pre>
     </td>
@@ -1038,10 +1040,10 @@
       <pre class="lines">
 
 
-79</pre>
+82</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod008-card-mod-format/all/rss.rb', line 79</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod004-format/all/rss.rb', line 82</span>
 
 <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:open</span><span class='comma'>,</span>         <span class='symbol'>:titled</span><span class='comma'>,</span> <span class='label'>mod:</span> <span class='const'><span class='object_link'><a href="../../All.html" title="Card::Set::All (class)">All</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Base.html" title="Card::Set::All::Base (module)">Base</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Base/Format.html" title="Card::Set::All::Base::Format (module)">Format</a></span></span></pre>
     </td>
@@ -1064,10 +1066,10 @@
       <pre class="lines">
 
 
-81</pre>
+84</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod008-card-mod-format/all/rss.rb', line 81</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod004-format/all/rss.rb', line 84</span>
 
 <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:open_content</span><span class='comma'>,</span> <span class='symbol'>:core</span><span class='comma'>,</span>   <span class='label'>mod:</span> <span class='const'><span class='object_link'><a href="../../All.html" title="Card::Set::All (class)">All</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Base.html" title="Card::Set::All::Base (module)">Base</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Base/Format.html" title="Card::Set::All::Base::Format (module)">Format</a></span></span></pre>
     </td>
@@ -1080,9 +1082,9 @@
 </div>
 
       <div id="footer">
-  Generated on Thu May 13 17:17:23 2021 by
-  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.26 (ruby-2.7.2).
+  Generated on Mon Feb  6 14:15:01 2023 by
+  <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.28 (ruby-3.0.1).
 </div>
 
     </div>

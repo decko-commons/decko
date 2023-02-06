@@ -1,5 +1,3 @@
-# @
-
 # Card-Mod Markdown Changelog
 
 ## 0.3

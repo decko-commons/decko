@@ -6,7 +6,7 @@
 <title>
   Module: CarrierWave::CardMount
   
-    &mdash; Documentation by YARD 0.9.26
+    &mdash; Documentation by YARD 0.9.28
   
 </title>
 
@@ -83,7 +83,7 @@
   
   <dl>
     <dt>Defined in:</dt>
-    <dd>card-mod-carrierwave/lib/carrier_wave/card_mount.rb</dd>
+    <dd>mod/carrierwave/lib/carrier_wave/card_mount.rb</dd>
   </dl>
   
 </div>
@@ -323,14 +323,10 @@
 129
 130
 131
-132
-133
-134
-135
-136</pre>
+132</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card-mod-carrierwave/lib/carrier_wave/card_mount.rb', line 16</span>
+      <pre class="code"><span class="info file"># File 'mod/carrierwave/lib/carrier_wave/card_mount.rb', line 16</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_mount_uploader'>mount_uploader</span> <span class='id identifier rubyid_column'>column</span><span class='comma'>,</span> <span class='id identifier rubyid_uploader'>uploader</span><span class='op'>=</span><span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span>
   <span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:mount_on</span><span class='rbracket'>]</span> <span class='op'>||=</span> <span class='symbol'>:db_content</span>
@@ -348,8 +344,7 @@
       remove_</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_column'>column</span><span class='embexpr_end'>}</span><span class='tstring_content'>!
     end
 
-    event :mark_remove_</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_column'>column</span><span class='embexpr_end'>}</span><span class='tstring_content'>_false_event, :finalize,
-          on: :update do
+    event :mark_remove_</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_column'>column</span><span class='embexpr_end'>}</span><span class='tstring_content'>_false_event, :finalize, on: :update do
       mark_remove_</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_column'>column</span><span class='embexpr_end'>}</span><span class='tstring_content'>_false
     end
 
@@ -373,6 +368,7 @@
     end
 
     def store_attachment!
+      set_specific.delete :</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_column'>column</span><span class='embexpr_end'>}</span><span class='tstring_content'>
       store_</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_column'>column</span><span class='embexpr_end'>}</span><span class='tstring_content'>!
     end
 
@@ -400,11 +396,11 @@
 
     def assign_file file
       db_column = _mounter(:</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_column'>column</span><span class='embexpr_end'>}</span><span class='tstring_content'>).serialization_column
-      send(:&quot;\#{db_column}_will_change!&quot;) # unless attribute_is_changing? db_column
+      send(:&quot;\#{db_column}_will_change!&quot;) unless duplicate?
       if web?
         self.content = file
       else
-        send(:&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_column'>column</span><span class='embexpr_end'>}</span><span class='tstring_content'>_will_change!&quot;)
+        send(:&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_column'>column</span><span class='embexpr_end'>}</span><span class='tstring_content'>_will_change!&quot;) unless duplicate?
         yield
       end
     end
@@ -435,21 +431,17 @@
       @</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_column'>column</span><span class='embexpr_end'>}</span><span class='tstring_content'>_changed
     end
 
-    def serializable_hash(options=nil)
-      hash = {}
+    def serializable_hash(opts=nil)
+      except = opts&amp;.dig(:except) &amp;&amp; Array.wrap(opts[:except]).map(&amp;:to_s)
+      only = opts&amp;.dig(:only) &amp;&amp; Array.wrap(opts[:only]).map(&amp;:to_s)
 
-      except = options &amp;&amp; options[:except] &amp;&amp;
-               Array.wrap(options[:except]).map(&amp;:to_s)
-      only   = options &amp;&amp; options[:only]   &amp;&amp;
-               Array.wrap(options[:only]).map(&amp;:to_s)
-
-      self.class.uploaders.each do |column, uploader|
-        if (!only &amp;&amp; !except) || (only &amp;&amp; only.include?(column.to_s)) ||
+      self.class.uploaders.each_with_object(super(opts)) do |(column, uploader), hash|
+        if (!only &amp;&amp; !except) ||
+           (only &amp;&amp; only.include?(column.to_s)) ||
            (!only &amp;&amp; except &amp;&amp; !except.include?(column.to_s))
           hash[column.to_s] = _mounter(column).uploader.serializable_hash
         end
       end
-      super(options).merge(hash)
     end
 </span><span class='heredoc_end'>  RUBY
 </span><span class='kw'>end</span></pre>
@@ -478,7 +470,7 @@
 14</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card-mod-carrierwave/lib/carrier_wave/card_mount.rb', line 12</span>
+      <pre class="code"><span class="info file"># File 'mod/carrierwave/lib/carrier_wave/card_mount.rb', line 12</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_uploader_options'>uploader_options</span>
   <span class='const'><span class='object_link'><a href="../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_uploader_options'>uploader_options</span> <span class='op'>||=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
@@ -508,7 +500,7 @@
 10</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card-mod-carrierwave/lib/carrier_wave/card_mount.rb', line 8</span>
+      <pre class="code"><span class="info file"># File 'mod/carrierwave/lib/carrier_wave/card_mount.rb', line 8</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_uploaders'>uploaders</span>
   <span class='const'><span class='object_link'><a href="../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_uploaders'>uploaders</span> <span class='op'>||=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
@@ -523,9 +515,9 @@
 </div>
 
       <div id="footer">
-  Generated on Thu May 13 17:17:20 2021 by
-  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.26 (ruby-2.7.2).
+  Generated on Mon Feb  6 14:15:00 2023 by
+  <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.28 (ruby-3.0.1).
 </div>
 
     </div>

@@ -160,13 +160,6 @@ module CarrierWave
       end.downcase
     end
 
-    # generate identifier that gets stored in the card's db_content field
-    # @param opts [Hash] generate an identifier using the given storage options
-    #   instead of the storage options derived from the model and
-    #   the global configuration
-    # @option opts [Symbol] storage_type
-    # @option opts [String] mod
-    # @option opts [Symbol] bucket
     def db_content
       return model.content if model.web?
       return "" unless file.present?

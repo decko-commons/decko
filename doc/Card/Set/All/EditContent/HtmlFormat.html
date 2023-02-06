@@ -6,7 +6,7 @@
 <title>
   Module: Card::Set::All::EditContent::HtmlFormat
   
-    &mdash; Documentation by YARD 0.9.26
+    &mdash; Documentation by YARD 0.9.28
   
 </title>
 
@@ -83,7 +83,7 @@
   
   <dl>
     <dt>Defined in:</dt>
-    <dd>card/tmpsets/set/mod012-card-mod-edit/all/edit_content.rb</dd>
+    <dd>platypus/tmp/set/gem-defaults/mod011-edit/all/edit_content.rb</dd>
   </dl>
   
 </div>
@@ -286,23 +286,23 @@
 33</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod012-card-mod-edit/all/edit_content.rb', line 16</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod011-edit/all/edit_content.rb', line 16</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_edit_form'>edit_form</span>
   <span class='id identifier rubyid_voo'>voo</span><span class='period'>.</span><span class='id identifier rubyid_hide'>hide</span> <span class='symbol'>:edit_type_row</span>
   <span class='id identifier rubyid_form_opts'>form_opts</span> <span class='op'>=</span> <span class='id identifier rubyid_edit_form_opts'>edit_form_opts</span><span class='period'>.</span><span class='id identifier rubyid_reverse_merge'>reverse_merge</span> <span class='label'>success:</span> <span class='id identifier rubyid_edit_success'>edit_success</span>
-  <span class='id identifier rubyid_card_form'>card_form</span><span class='lparen'>(</span><span class='symbol'>:update</span><span class='comma'>,</span> <span class='id identifier rubyid_form_opts'>form_opts</span><span class='rparen'>)</span> <span class='kw'>do</span>
+  <span class='id identifier rubyid_card_form'>card_form</span> <span class='symbol'>:update</span><span class='comma'>,</span> <span class='id identifier rubyid_form_opts'>form_opts</span> <span class='kw'>do</span>
     <span class='lbracket'>[</span>
       <span class='id identifier rubyid_edit_view_hidden'>edit_view_hidden</span><span class='comma'>,</span>
       <span class='id identifier rubyid__render_edit_type_row'>_render_edit_type_row</span><span class='lparen'>(</span><span class='label'>home_view:</span> <span class='symbol'>:edit_type_row</span><span class='rparen'>)</span><span class='comma'>,</span>
       <span class='comment'># home_view is necessary for cancel to work correctly.
 </span>      <span class='comment'># it seems a little strange to have to think about home_view here,
 </span>      <span class='comment'># but the issue is that something currently has to happen prior to the
-</span>      <span class='comment'># render to get voo.slot_options to have the write home view in
-</span>      <span class='comment'># the slot wrap. Id think this would probably best be handled as an
+</span>      <span class='comment'># render to get voo.slot_options to have the right home view in
+</span>      <span class='comment'># the slot wrap. I&#39;d think this would probably best be handled as an
 </span>      <span class='comment'># option to #wrap that triggers a new heir voo
 </span>      <span class='id identifier rubyid__render_content_formgroups'>_render_content_formgroups</span><span class='comma'>,</span>
-      <span class='id identifier rubyid__render_edit_buttons'>_render_edit_buttons</span>
+      <span class='id identifier rubyid__render'>_render</span><span class='lparen'>(</span><span class='id identifier rubyid_voo'>voo</span><span class='period'>.</span><span class='id identifier rubyid_buttons_view'>buttons_view</span> <span class='op'>||</span> <span class='symbol'>:edit_buttons</span><span class='rparen'>)</span>
     <span class='rbracket'>]</span>
   <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
@@ -326,13 +326,13 @@
       <pre class="lines">
 
 
-63
-64
-65
-66</pre>
+58
+59
+60
+61</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod012-card-mod-edit/all/edit_content.rb', line 63</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod011-edit/all/edit_content.rb', line 58</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_edit_form_opts'>edit_form_opts</span>
   <span class='comment'># for override
@@ -358,14 +358,14 @@
       <pre class="lines">
 
 
-57
-58
-59
-60
-61</pre>
+52
+53
+54
+55
+56</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod012-card-mod-edit/all/edit_content.rb', line 57</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod011-edit/all/edit_content.rb', line 52</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_edit_modal_menu'>edit_modal_menu</span>
   <span class='id identifier rubyid_wrap_with_modal_menu'>wrap_with_modal_menu</span> <span class='kw'>do</span>
@@ -392,12 +392,12 @@
       <pre class="lines">
 
 
-53
-54
-55</pre>
+48
+49
+50</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod012-card-mod-edit/all/edit_content.rb', line 53</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod011-edit/all/edit_content.rb', line 48</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_edit_modal_size'>edit_modal_size</span>
   <span class='symbol'>:large</span>
@@ -433,15 +433,10 @@
 43
 44
 45
-46
-47
-48
-49
-50
-51</pre>
+46</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod012-card-mod-edit/all/edit_content.rb', line 35</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod011-edit/all/edit_content.rb', line 35</span>
 
 <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:edit</span><span class='comma'>,</span> <span class='label'>perms:</span> <span class='symbol'>:update</span><span class='comma'>,</span> <span class='label'>unknown:</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='label'>cache:</span> <span class='symbol'>:never</span><span class='comma'>,</span>
             <span class='label'>wrap:</span> <span class='lbrace'>{</span> <span class='label'>modal:</span> <span class='lbrace'>{</span> <span class='label'>footer:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
@@ -452,12 +447,7 @@
   <span class='id identifier rubyid_with_nest_mode'>with_nest_mode</span> <span class='symbol'>:edit</span> <span class='kw'>do</span>
     <span class='id identifier rubyid_voo'>voo</span><span class='period'>.</span><span class='id identifier rubyid_show'>show</span> <span class='symbol'>:help</span>
     <span class='id identifier rubyid_voo'>voo</span><span class='period'>.</span><span class='id identifier rubyid_hide'>hide</span> <span class='symbol'>:save_button</span>
-    <span class='id identifier rubyid_wrap'>wrap</span> <span class='kw'>true</span> <span class='kw'>do</span>
-      <span class='lbracket'>[</span>
-        <span class='id identifier rubyid_frame_help'>frame_help</span><span class='comma'>,</span>
-        <span class='id identifier rubyid__render_edit_form'>_render_edit_form</span>
-      <span class='rbracket'>]</span>
-    <span class='kw'>end</span>
+    <span class='id identifier rubyid_wrap'>wrap</span><span class='lparen'>(</span><span class='kw'>true</span><span class='rparen'>)</span> <span class='lbrace'>{</span> <span class='lbracket'>[</span><span class='id identifier rubyid_frame_help'>frame_help</span><span class='comma'>,</span> <span class='id identifier rubyid__render_edit_form'>_render_edit_form</span><span class='rbracket'>]</span> <span class='rbrace'>}</span>
   <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -488,7 +478,7 @@
 14</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod012-card-mod-edit/all/edit_content.rb', line 9</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod011-edit/all/edit_content.rb', line 9</span>
 
 <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:edit_form</span><span class='comma'>,</span> <span class='label'>wrap:</span> <span class='symbol'>:slot</span> <span class='kw'>do</span>
   <span class='id identifier rubyid_voo'>voo</span><span class='period'>.</span><span class='id identifier rubyid_show'>show</span> <span class='symbol'>:edit_type_row</span>
@@ -506,9 +496,9 @@
 </div>
 
       <div id="footer">
-  Generated on Thu May 13 17:17:30 2021 by
-  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.26 (ruby-2.7.2).
+  Generated on Mon Feb  6 14:15:08 2023 by
+  <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.28 (ruby-3.0.1).
 </div>
 
     </div>

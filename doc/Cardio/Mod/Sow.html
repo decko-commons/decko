@@ -511,7 +511,7 @@ be used as seed data when the mod is installed.</p>
       <pre class="code"><span class="info file"># File 'card/lib/cardio/mod/sow.rb', line 18</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_new_data'>new_data</span>
-  <span class='ivar'>@new_data</span> <span class='op'>||=</span> <span class='id identifier rubyid_cards'>cards</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_c'>c</span><span class='op'>|</span> <span class='id identifier rubyid_c'>c</span><span class='period'>.</span><span class='id identifier rubyid_export_hash'>export_hash</span> <span class='label'>field_tags:</span> <span class='id identifier rubyid_field_tag_marks'>field_tag_marks</span> <span class='rbrace'>}</span>
+  <span class='ivar'>@new_data</span> <span class='op'>||=</span> <span class='id identifier rubyid_cards'>cards</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_c'>c</span><span class='op'>|</span> <span class='id identifier rubyid_c'>c</span><span class='period'>.</span><span class='id identifier rubyid_pod_hash'>pod_hash</span> <span class='label'>field_tags:</span> <span class='id identifier rubyid_field_tag_marks'>field_tag_marks</span> <span class='rbrace'>}</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -575,9 +575,9 @@ be used as seed data when the mod is installed.</p>
 </div>
 
       <div id="footer">
-  Generated on Fri Nov 18 22:10:19 2022 by
+  Generated on Mon Feb  6 14:15:21 2023 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.28 (ruby-3.0.4).
+  0.9.28 (ruby-3.0.1).
 </div>
 
     </div>

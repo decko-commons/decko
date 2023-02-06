@@ -3,6 +3,10 @@
 require "active_support/inflector"
 require "htmlentities"
 
+# The Cardname class generalizes the core naming concepts of Decko/Card. The most central
+# of these is the idea that compound names can be formed by combining simple names.
+#
+#
 class Cardname < String
   require "cardname/parts"
   require "cardname/pieces"

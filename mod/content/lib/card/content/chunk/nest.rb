@@ -1,7 +1,5 @@
 # -*- encoding : utf-8 -*-
 
-# require File.expand_path("../reference", __FILE__)
-
 class Card
   class Content
     module Chunk
