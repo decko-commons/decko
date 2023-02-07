@@ -122,7 +122,7 @@ blocks:
           commands:
             - RAILS_ENV=cypress bundle exec decko server -p 5002 &
             - cd ~/decko/decko/spec
-            - nvm use 16.0.0
+            - nvm use 16.17.1
             - rm -rf node_modules
             - yarn install --frozen-lockfile
             - yarn run cypress run --record  --reporter junit --reporter-options "mochaFile=/home/semaphore/reports/cypress-output-[hash].xml"

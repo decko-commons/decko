@@ -6,7 +6,7 @@
 <title>
   Module: Card::Set::All::Bridge::BridgePills::HtmlFormat
   
-    &mdash; Documentation by YARD 0.9.26
+    &mdash; Documentation by YARD 0.9.28
   
 </title>
 
@@ -83,7 +83,7 @@
   
   <dl>
     <dt>Defined in:</dt>
-    <dd>card/tmpsets/set/mod012-card-mod-edit/all/bridge/bridge_pills.rb</dd>
+    <dd>platypus/tmp/set/gem-defaults/mod011-edit/all/bridge/bridge_pills.rb</dd>
   </dl>
   
 </div>
@@ -279,10 +279,10 @@
 40</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod012-card-mod-edit/all/bridge/bridge_pills.rb', line 28</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod011-edit/all/bridge/bridge_pills.rb', line 28</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_bridge_pill_item_opts'>bridge_pill_item_opts</span> <span class='id identifier rubyid_breadcrumb'>breadcrumb</span><span class='comma'>,</span> <span class='id identifier rubyid_extra_opts'>extra_opts</span><span class='comma'>,</span> <span class='id identifier rubyid_text'>text</span>
-  <span class='id identifier rubyid_opts'>opts</span> <span class='op'>=</span> <span class='id identifier rubyid_bridge_link_opts'>bridge_link_opts</span><span class='period'>.</span><span class='id identifier rubyid_merge'>merge</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>data-toggle</span><span class='label_end'>&quot;:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>pill</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_opts'>opts</span> <span class='op'>=</span> <span class='id identifier rubyid_bridge_link_opts'>bridge_link_opts</span><span class='period'>.</span><span class='id identifier rubyid_merge'>merge</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>data-bs-toggle</span><span class='label_end'>&quot;:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>pill</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
   <span class='id identifier rubyid_opts'>opts</span><span class='period'>.</span><span class='id identifier rubyid_merge!'>merge!</span> <span class='id identifier rubyid_breadcrumb_data'>breadcrumb_data</span><span class='lparen'>(</span><span class='id identifier rubyid_breadcrumb'>breadcrumb</span><span class='rparen'>)</span>
 
   <span class='kw'>if</span> <span class='id identifier rubyid_extra_opts'>extra_opts</span>
@@ -323,7 +323,7 @@
 26</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod012-card-mod-edit/all/bridge/bridge_pills.rb', line 20</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod011-edit/all/bridge/bridge_pills.rb', line 20</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_bridge_pill_items'>bridge_pill_items</span> <span class='id identifier rubyid_data'>data</span><span class='comma'>,</span> <span class='id identifier rubyid_breadcrumb'>breadcrumb</span>
   <span class='id identifier rubyid_data'>data</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_text'>text</span><span class='comma'>,</span> <span class='id identifier rubyid_field'>field</span><span class='comma'>,</span> <span class='id identifier rubyid_extra_opts'>extra_opts</span><span class='op'>|</span>
@@ -360,10 +360,10 @@
 53</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod012-card-mod-edit/all/bridge/bridge_pills.rb', line 48</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod011-edit/all/bridge/bridge_pills.rb', line 48</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_bridge_pill_section'>bridge_pill_section</span> <span class='id identifier rubyid_tab_name'>tab_name</span><span class='comma'>,</span> <span class='id identifier rubyid_title'>title</span><span class='comma'>,</span> <span class='id identifier rubyid_items'>items</span>
-  <span class='id identifier rubyid_wrap_with'>wrap_with</span><span class='lparen'>(</span><span class='symbol'>:h6</span><span class='comma'>,</span> <span class='id identifier rubyid_title'>title</span><span class='comma'>,</span> <span class='label'>class:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>ml-1 mt-3</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='op'>+</span>
+  <span class='id identifier rubyid_wrap_with'>wrap_with</span><span class='lparen'>(</span><span class='symbol'>:h6</span><span class='comma'>,</span> <span class='id identifier rubyid_title'>title</span><span class='comma'>,</span> <span class='label'>class:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>ms-1 mt-3</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='op'>+</span>
     <span class='id identifier rubyid_wrap_each_with'>wrap_each_with</span><span class='lparen'>(</span><span class='symbol'>:li</span><span class='comma'>,</span> <span class='label'>class:</span> <span class='const'><span class='object_link'><a href="#BRIDGE_PILL_LI_CLASSES-constant" title="Card::Set::All::Bridge::BridgePills::HtmlFormat::BRIDGE_PILL_LI_CLASSES (constant)">BRIDGE_PILL_LI_CLASSES</a></span></span><span class='rparen'>)</span> <span class='kw'>do</span>
       <span class='id identifier rubyid_bridge_pill_items'>bridge_pill_items</span><span class='lparen'>(</span><span class='id identifier rubyid_items'>items</span><span class='comma'>,</span> <span class='id identifier rubyid_tab_name'>tab_name</span><span class='rparen'>)</span>
     <span class='kw'>end</span><span class='period'>.</span><span class='id identifier rubyid_html_safe'>html_safe</span>
@@ -395,7 +395,7 @@
 46</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod012-card-mod-edit/all/bridge/bridge_pills.rb', line 42</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod011-edit/all/bridge/bridge_pills.rb', line 42</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_bridge_pill_sections'>bridge_pill_sections</span> <span class='id identifier rubyid_tab_name'>tab_name</span>
   <span class='id identifier rubyid_wrap_with'>wrap_with</span> <span class='symbol'>:ul</span><span class='comma'>,</span> <span class='label'>class:</span> <span class='const'><span class='object_link'><a href="#BRIDGE_PILL_UL_CLASSES-constant" title="Card::Set::All::Bridge::BridgePills::HtmlFormat::BRIDGE_PILL_UL_CLASSES (constant)">BRIDGE_PILL_UL_CLASSES</a></span></span> <span class='kw'>do</span>
@@ -429,7 +429,7 @@
 18</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod012-card-mod-edit/all/bridge/bridge_pills.rb', line 14</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod011-edit/all/bridge/bridge_pills.rb', line 14</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_bridge_pills'>bridge_pills</span> <span class='id identifier rubyid_items'>items</span>
   <span class='id identifier rubyid_list_tag'>list_tag</span> <span class='label'>class:</span> <span class='const'><span class='object_link'><a href="#BRIDGE_PILL_UL_CLASSES-constant" title="Card::Set::All::Bridge::BridgePills::HtmlFormat::BRIDGE_PILL_UL_CLASSES (constant)">BRIDGE_PILL_UL_CLASSES</a></span></span><span class='comma'>,</span> <span class='label'>items:</span> <span class='lbrace'>{</span> <span class='label'>class:</span> <span class='const'><span class='object_link'><a href="#BRIDGE_PILL_LI_CLASSES-constant" title="Card::Set::All::Bridge::BridgePills::HtmlFormat::BRIDGE_PILL_LI_CLASSES (constant)">BRIDGE_PILL_LI_CLASSES</a></span></span> <span class='rbrace'>}</span> <span class='kw'>do</span>
@@ -446,9 +446,9 @@
 </div>
 
       <div id="footer">
-  Generated on Thu May 13 17:17:35 2021 by
-  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.26 (ruby-2.7.2).
+  Generated on Mon Feb  6 15:49:50 2023 by
+  <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.28 (ruby-3.0.1).
 </div>
 
     </div>

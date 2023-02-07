@@ -47,7 +47,7 @@ ActiveSupport.run_load_hooks(:before_card, self)
 #       @card.type_code    # returns codename of type card [Symbol]
 #       @card.type_card    # returns Cardtype card associated with @card's type [Card]
 #
-# {file:mod/core/set/all/type.rb Common type methods}
+#   - {Set::All::Type Common type methods}
 #
 # ## Content
 #
@@ -57,9 +57,8 @@ ActiveSupport.run_load_hooks(:before_card, self)
 #       @card.content      # the "official" content, which may be different from
 # db_content when db_content is overridden with a structure rule.
 #
-# {Card::Content Processing card content}
-#
-# {file:mod/core/set/all/content.rb Common content methods}
+#   - {Content Processing card content}
+#   - {Set::All::Content Common content methods}
 #
 # ## Fetch
 #
@@ -68,15 +67,35 @@ ActiveSupport.run_load_hooks(:before_card, self)
 #
 # Any of the above marks (name, key, id, codename) can be used to fetch a card, eg:
 #
-#      @card = Card.fetch "Garden" # returns the card with the name "Garden" (or, more
+#      @card1 = Card.fetch "Garden" # returns the card with the name "Garden" (or, more
 # precisely, with the key "garden")
-#      @card = Card.fetch 100      # returns the card with the id 100
-#      @card = Card.fetch :help    # returns the card with the codename help
+#      @card2 = Card.fetch 100      # returns the card with the id 100
+#      @card3 = Card.fetch :help    # returns the card with the codename help
 #
 # The fetch API will first try to find the card in the cache and will only look in the
 # database if necessary.
 #
-# {file:mod/core/set/all/fetch.rb More on fetching.}
+# The `Card[]` shortcut will return the same results but does not support the full range
+# of advanced options and will not return virtual cards
+# (cards that can be constructed from naming patterns but are not actually in the
+# database).
+#
+#      # equivalent to the above but more concise
+#      @card1 = Card["Garden"]
+#      @card2 = Card[100]
+#      @card3 = Card[:help]
+#
+# Better still, you can use the `#card` method on Strings, Integers, Symbols, and Arrays
+#
+#      # equivalent to the above but even more concise
+#      @card1 = "Garden".card
+#      @card2 = 100.card
+#      @card3 = :help.card
+#
+# The `#card_id`, `#cardname`, and `#codename` methods work on all the same objects and
+# provide convenient shortcuts for quickly fetching and returning card attributes.
+#
+#   - {Card::Fetch::CardClass More on fetching.}
 #
 # ## Query
 #
@@ -84,7 +103,7 @@ ActiveSupport.run_load_hooks(:before_card, self)
 #
 #       Card.search type_id: 4 # returns an Array of cards with the type_id of 4.
 #
-# {Card::Query More on queries}
+#   - {Card::Query More on queries}
 #
 # ## Views and Events
 #
@@ -95,9 +114,8 @@ ActiveSupport.run_load_hooks(:before_card, self)
 # Both views and events are defined in {Cardio::Mod mods}, short for modules or
 # modifications.
 #
-# {Card::Set::Format::AbstractFormat More on views}
-#
-# {Card::Set::Event::Api More on events}
+#   - {Set::Format::AbstractFormat#view More on views}
+#   - {Set::Event::Api#event More on events}
 #
 # ## Accounts and Permissions
 #

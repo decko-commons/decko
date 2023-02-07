@@ -6,7 +6,7 @@
 <title>
   Module: Card::Set::Abstract::Attachment::Cloud
   
-    &mdash; Documentation by YARD 0.9.26
+    &mdash; Documentation by YARD 0.9.28
   
 </title>
 
@@ -83,7 +83,7 @@
   
   <dl>
     <dt>Defined in:</dt>
-    <dd>card/tmpsets/set/mod014-card-mod-carrierwave/abstract/attachment/cloud.rb</dd>
+    <dd>platypus/tmp/set/gem-defaults/mod016-carrierwave/abstract/attachment/cloud.rb</dd>
   </dl>
   
 </div>
@@ -113,6 +113,37 @@
      from <span class='object_link'><a href="../../Event/Api.html" title="Card::Set::Event::Api (module)">Event::Api</a></span></h3>
   <p class="inherited"><span class='object_link'><a href="../../Event/Api.html#OPTIONS-constant" title="Card::Set::Event::Api::OPTIONS (constant)">Event::Api::OPTIONS</a></span></p>
 
+
+  <h2>Instance Attribute Summary <small><a href="#" class="summary_toggle">collapse</a></small></h2>
+  <ul class="summary">
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#bucket-instance_method" title="#bucket (instance method)">#<strong>bucket</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+</div></span>
+  
+</li>
+
+    
+  </ul>
 
 
 
@@ -156,52 +187,6 @@
     </h2>
 
     <ul class="summary">
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#bucket-instance_method" title="#bucket (instance method)">#<strong>bucket</strong>  &#x21d2; Object </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'>
-</div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#bucket=-instance_method" title="#bucket= (instance method)">#<strong>bucket=</strong>(value)  &#x21d2; Object </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'>
-</div></span>
-  
-</li>
-
       
         <li class="public ">
   <span class="summary_signature">
@@ -321,7 +306,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#credential_config-instance_method" title="#credential_config (instance method)">#<strong>credential_config</strong>(config) {|config[:credentials]| ... } &#x21d2; Object </a>
+      <a href="#credential_config-instance_method" title="#credential_config (instance method)">#<strong>credential_config</strong>(config) {|| ... } &#x21d2; Object </a>
     
 
     
@@ -437,29 +422,6 @@
   <span class="summary_signature">
     
       <a href="#event:+change_bucket_if_read_only-instance_method" title="#event: change_bucket_if_read_only (instance method)">#<strong>event: change_bucket_if_read_only</strong>  &#x21d2; Object </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'>
-</div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#event:+validate_storage_type_update-instance_method" title="#event: validate_storage_type_update (instance method)">#<strong>event: validate_storage_type_update</strong>  &#x21d2; Object </a>
     
 
     
@@ -653,7 +615,7 @@
   
   
   <h3 class="inherited">Methods included from <span class='object_link'><a href="../../../Set.html" title="Card::Set (module)">Card::Set</a></span></h3>
-  <p class="inherited"><span class='object_link'><a href="../../../Set.html#reset_modules-class_method" title="Card::Set.reset_modules (method)">reset_modules</a></span></p>
+  <p class="inherited"><span class='object_link'><a href="../../../Set.html#reset-class_method" title="Card::Set.reset (method)">reset</a></span></p>
 
   
   
@@ -674,8 +636,8 @@
   
   
   
-  <h3 class="inherited">Methods included from <span class='object_link'><a href="../../Loader.html" title="Card::Set::Loader (module)">Loader</a></span></h3>
-  <p class="inherited"><span class='object_link'><a href="../../Loader.html#clean_empty_module_from_hash-instance_method" title="Card::Set::Loader#clean_empty_module_from_hash (method)">#clean_empty_module_from_hash</a></span>, <span class='object_link'><a href="../../Loader.html#clean_empty_modules-instance_method" title="Card::Set::Loader#clean_empty_modules (method)">#clean_empty_modules</a></span>, <span class='object_link'><a href="../../Loader.html#extended-instance_method" title="Card::Set::Loader#extended (method)">#extended</a></span>, <span class='object_link'><a href="../../Loader.html#process_base_modules-instance_method" title="Card::Set::Loader#process_base_modules (method)">#process_base_modules</a></span>, <span class='object_link'><a href="../../Loader.html#register_set-instance_method" title="Card::Set::Loader#register_set (method)">#register_set</a></span></p>
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="../../Registrar.html" title="Card::Set::Registrar (module)">Registrar</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="../../Registrar.html#extended-instance_method" title="Card::Set::Registrar#extended (method)">#extended</a></span>, <span class='object_link'><a href="../../Registrar.html#finalize_load-instance_method" title="Card::Set::Registrar#finalize_load (method)">#finalize_load</a></span>, <span class='object_link'><a href="../../Registrar.html#process_base_modules-instance_method" title="Card::Set::Registrar#process_base_modules (method)">#process_base_modules</a></span>, <span class='object_link'><a href="../../Registrar.html#register_set-instance_method" title="Card::Set::Registrar#register_set (method)">#register_set</a></span></p>
 
   
   
@@ -686,7 +648,7 @@
   
   
   <h3 class="inherited">Methods included from <span class='object_link'><a href="../../Helpers.html" title="Card::Set::Helpers (module)">Helpers</a></span></h3>
-  <p class="inherited"><span class='object_link'><a href="../../Helpers.html#method_missing-instance_method" title="Card::Set::Helpers#method_missing (method)">#method_missing</a></span>, <span class='object_link'><a href="../../Helpers.html#num_set_parts-instance_method" title="Card::Set::Helpers#num_set_parts (method)">#num_set_parts</a></span>, <span class='object_link'><a href="../../Helpers.html#pattern_code-instance_method" title="Card::Set::Helpers#pattern_code (method)">#pattern_code</a></span>, <span class='object_link'><a href="../../Helpers.html#respond_to_missing%3F-instance_method" title="Card::Set::Helpers#respond_to_missing? (method)">#respond_to_missing?</a></span>, <span class='object_link'><a href="../../Helpers.html#set_name_parts-instance_method" title="Card::Set::Helpers#set_name_parts (method)">#set_name_parts</a></span>, <span class='object_link'><a href="../../Helpers.html#shortname-instance_method" title="Card::Set::Helpers#shortname (method)">#shortname</a></span>, <span class='object_link'><a href="../../Helpers.html#underscore-instance_method" title="Card::Set::Helpers#underscore (method)">#underscore</a></span></p>
+  <p class="inherited"><span class='object_link'><a href="../../Helpers.html#format_module-instance_method" title="Card::Set::Helpers#format_module (method)">#format_module</a></span>, <span class='object_link'><a href="../../Helpers.html#format_modules-instance_method" title="Card::Set::Helpers#format_modules (method)">#format_modules</a></span>, <span class='object_link'><a href="../../Helpers.html#method_missing-instance_method" title="Card::Set::Helpers#method_missing (method)">#method_missing</a></span>, <span class='object_link'><a href="../../Helpers.html#modules-instance_method" title="Card::Set::Helpers#modules (method)">#modules</a></span>, <span class='object_link'><a href="../../Helpers.html#pattern_code-instance_method" title="Card::Set::Helpers#pattern_code (method)">#pattern_code</a></span>, <span class='object_link'><a href="../../Helpers.html#respond_to_missing%3F-instance_method" title="Card::Set::Helpers#respond_to_missing? (method)">#respond_to_missing?</a></span>, <span class='object_link'><a href="../../Helpers.html#set_name_parts-instance_method" title="Card::Set::Helpers#set_name_parts (method)">#set_name_parts</a></span>, <span class='object_link'><a href="../../Helpers.html#shortname-instance_method" title="Card::Set::Helpers#shortname (method)">#shortname</a></span>, <span class='object_link'><a href="../../Helpers.html#underscored_name-instance_method" title="Card::Set::Helpers#underscored_name (method)">#underscored_name</a></span></p>
 
   
   
@@ -697,7 +659,7 @@
   
   
   <h3 class="inherited">Methods included from <span class='object_link'><a href="../../AdvancedApi.html" title="Card::Set::AdvancedApi (module)">Card::Set::AdvancedApi</a></span></h3>
-  <p class="inherited"><span class='object_link'><a href="../../AdvancedApi.html#attachment-instance_method" title="Card::Set::AdvancedApi#attachment (method)">#attachment</a></span>, <span class='object_link'><a href="../../AdvancedApi.html#define_set_from_error-instance_method" title="Card::Set::AdvancedApi#define_set_from_error (method)">#define_set_from_error</a></span>, <span class='object_link'><a href="../../AdvancedApi.html#ensure_set-instance_method" title="Card::Set::AdvancedApi#ensure_set (method)">#ensure_set</a></span>, <span class='object_link'><a href="../../AdvancedApi.html#setting_opts-instance_method" title="Card::Set::AdvancedApi#setting_opts (method)">#setting_opts</a></span>, <span class='object_link'><a href="../../AdvancedApi.html#stage_method-instance_method" title="Card::Set::AdvancedApi#stage_method (method)">#stage_method</a></span></p>
+  <p class="inherited"><span class='object_link'><a href="../../AdvancedApi.html#assign_type-instance_method" title="Card::Set::AdvancedApi#assign_type (method)">#assign_type</a></span>, <span class='object_link'><a href="../../AdvancedApi.html#attachment-instance_method" title="Card::Set::AdvancedApi#attachment (method)">#attachment</a></span>, <span class='object_link'><a href="../../AdvancedApi.html#define_set_from_error-instance_method" title="Card::Set::AdvancedApi#define_set_from_error (method)">#define_set_from_error</a></span>, <span class='object_link'><a href="../../AdvancedApi.html#ensure_set-instance_method" title="Card::Set::AdvancedApi#ensure_set (method)">#ensure_set</a></span>, <span class='object_link'><a href="../../AdvancedApi.html#setting_opts-instance_method" title="Card::Set::AdvancedApi#setting_opts (method)">#setting_opts</a></span>, <span class='object_link'><a href="../../AdvancedApi.html#stage_method-instance_method" title="Card::Set::AdvancedApi#stage_method (method)">#stage_method</a></span></p>
 
   
   
@@ -729,17 +691,6 @@
   
   
   
-  <h3 class="inherited">Methods included from <span class='object_link'><a href="../../Basket.html" title="Card::Set::Basket (module)">Basket</a></span></h3>
-  <p class="inherited"><span class='object_link'><a href="../../Basket.html#abstract_basket-instance_method" title="Card::Set::Basket#abstract_basket (method)">#abstract_basket</a></span>, <span class='object_link'><a href="../../Basket.html#add_to_basket-instance_method" title="Card::Set::Basket#add_to_basket (method)">#add_to_basket</a></span>, <span class='object_link'><a href="../../Basket.html#basket-instance_method" title="Card::Set::Basket#basket (method)">#basket</a></span>, <span class='object_link'><a href="../../Basket.html#unshift_basket-instance_method" title="Card::Set::Basket#unshift_basket (method)">#unshift_basket</a></span></p>
-
-  
-  
-  
-  
-  
-  
-  
-  
   <h3 class="inherited">Methods included from <span class='object_link'><a href="../../Trait.html" title="Card::Set::Trait (module)">Trait</a></span></h3>
   <p class="inherited"><span class='object_link'><a href="../../Trait.html#card_accessor-instance_method" title="Card::Set::Trait#card_accessor (method)">#card_accessor</a></span>, <span class='object_link'><a href="../../Trait.html#card_reader-instance_method" title="Card::Set::Trait#card_reader (method)">#card_reader</a></span>, <span class='object_link'><a href="../../Trait.html#card_writer-instance_method" title="Card::Set::Trait#card_writer (method)">#card_writer</a></span>, <span class='object_link'><a href="../../Trait.html#require_field-instance_method" title="Card::Set::Trait#require_field (method)">#require_field</a></span></p>
 
@@ -753,6 +704,43 @@
   
   <h3 class="inherited">Methods included from <span class='object_link'><a href="../../Event/Api.html" title="Card::Set::Event::Api (module)">Event::Api</a></span></h3>
   <p class="inherited"><span class='object_link'><a href="../../Event/Api.html#event-instance_method" title="Card::Set::Event::Api#event (method)">#event</a></span></p>
+
+  <div id="instance_attr_details" class="attr_details">
+    <h2>Instance Attribute Details</h2>
+    
+      
+      <span id="bucket=-instance_method"></span>
+      <div class="method_details first">
+  <h3 class="signature first" id="bucket-instance_method">
+  
+    #<strong>bucket</strong>  &#x21d2; <tt><span class='object_link'><a href="../../../../Object.html" title="Object (class)">Object</a></span></tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+15
+16
+17</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod016-carrierwave/abstract/attachment/cloud.rb', line 15</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_bucket'>bucket</span>
+  <span class='ivar'>@bucket</span> <span class='op'>||=</span> <span class='id identifier rubyid_cloud?'>cloud?</span> <span class='op'>&amp;&amp;</span> <span class='lparen'>(</span><span class='id identifier rubyid_new_card_bucket'>new_card_bucket</span> <span class='op'>||</span> <span class='id identifier rubyid_bucket_from_content'>bucket_from_content</span> <span class='op'>||</span> <span class='id identifier rubyid_bucket_from_config'>bucket_from_config</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
 
 
   <div id="class_method_details" class="method_details_list">
@@ -777,9 +765,9 @@
 7</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod014-card-mod-carrierwave/abstract/attachment/cloud.rb', line 7</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod016-carrierwave/abstract/attachment/cloud.rb', line 7</span>
 
-<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_source_location'>source_location</span><span class='semicolon'>;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/Users/ethan/dev/decko/gem/card-mod-carrierwave/set/abstract/attachment/cloud.rb</span><span class='tstring_end'>&quot;</span></span><span class='semicolon'>;</span> <span class='kw'>end</span></pre>
+<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_source_location'>source_location</span><span class='semicolon'>;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/Users/ethan/dev/decko/gem/mod/carrierwave/set/abstract/attachment/cloud.rb</span><span class='tstring_end'>&quot;</span></span><span class='semicolon'>;</span> <span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -792,75 +780,7 @@
 
     
       <div class="method_details first">
-  <h3 class="signature first" id="bucket-instance_method">
-  
-    #<strong>bucket</strong>  &#x21d2; <tt><span class='object_link'><a href="../../../../Object.html" title="Object (class)">Object</a></span></tt> 
-  
-
-  
-
-  
-</h3><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-24
-25
-26</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod014-card-mod-carrierwave/abstract/attachment/cloud.rb', line 24</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_bucket'>bucket</span>
-  <span class='ivar'>@bucket</span> <span class='op'>||=</span> <span class='id identifier rubyid_cloud?'>cloud?</span> <span class='op'>&amp;&amp;</span> <span class='lparen'>(</span><span class='id identifier rubyid_new_card_bucket'>new_card_bucket</span> <span class='op'>||</span> <span class='id identifier rubyid_bucket_from_content'>bucket_from_content</span> <span class='op'>||</span> <span class='id identifier rubyid_bucket_from_config'>bucket_from_config</span><span class='rparen'>)</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="bucket=-instance_method">
-  
-    #<strong>bucket=</strong>(value)  &#x21d2; <tt><span class='object_link'><a href="../../../../Object.html" title="Object (class)">Object</a></span></tt> 
-  
-
-  
-
-  
-</h3><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-134
-135
-136
-137
-138
-139
-140</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod014-card-mod-carrierwave/abstract/attachment/cloud.rb', line 134</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_bucket='>bucket=</span> <span class='id identifier rubyid_value'>value</span>
-  <span class='kw'>if</span> <span class='ivar'>@action</span> <span class='op'>==</span> <span class='symbol'>:update</span>
-    <span class='ivar'>@new_bucket</span> <span class='op'>=</span> <span class='id identifier rubyid_value'>value</span>
-  <span class='kw'>else</span>
-    <span class='ivar'>@bucket</span> <span class='op'>=</span> <span class='id identifier rubyid_value'>value</span>
-  <span class='kw'>end</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="bucket_config-instance_method">
+  <h3 class="signature first" id="bucket_config-instance_method">
   
     #<strong>bucket_config</strong>  &#x21d2; <tt><span class='object_link'><a href="../../../../Object.html" title="Object (class)">Object</a></span></tt> 
   
@@ -874,12 +794,12 @@
       <pre class="lines">
 
 
-38
-39
-40</pre>
+30
+31
+32</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod014-card-mod-carrierwave/abstract/attachment/cloud.rb', line 38</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod016-carrierwave/abstract/attachment/cloud.rb', line 30</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_bucket_config'>bucket_config</span>
   <span class='ivar'>@bucket_config</span> <span class='op'>||=</span> <span class='id identifier rubyid_load_bucket_config'>load_bucket_config</span>
@@ -904,13 +824,13 @@
       <pre class="lines">
 
 
-125
-126
-127
-128</pre>
+120
+121
+122
+123</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod014-card-mod-carrierwave/abstract/attachment/cloud.rb', line 125</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod016-carrierwave/abstract/attachment/cloud.rb', line 120</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_bucket_from_config'>bucket_from_config</span>
   <span class='id identifier rubyid_cnf'>cnf</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../../../Cardio.html" title="Cardio (module)">Cardio</a></span></span><span class='period'>.</span><span class='id identifier rubyid_config'>config</span>
@@ -936,16 +856,18 @@
       <pre class="lines">
 
 
-120
-121
-122
-123</pre>
+114
+115
+116
+117
+118</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod014-card-mod-carrierwave/abstract/attachment/cloud.rb', line 120</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod016-carrierwave/abstract/attachment/cloud.rb', line 114</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_bucket_from_content'>bucket_from_content</span>
   <span class='kw'>return</span> <span class='kw'>unless</span> <span class='id identifier rubyid_content'>content</span>
+
   <span class='id identifier rubyid_content'>content</span><span class='period'>.</span><span class='id identifier rubyid_match'>match</span><span class='lparen'>(</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>^\((?&lt;bucket&gt;[^)]+)\)</span><span class='regexp_end'>/</span></span><span class='rparen'>)</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_m'>m</span><span class='op'>|</span> <span class='id identifier rubyid_m'>m</span><span class='lbracket'>[</span><span class='symbol'>:bucket</span><span class='rbracket'>]</span> <span class='rbrace'>}</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -991,12 +913,12 @@
       <pre class="lines">
 
 
-69
-70
-71</pre>
+62
+63
+64</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod014-card-mod-carrierwave/abstract/attachment/cloud.rb', line 69</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod016-carrierwave/abstract/attachment/cloud.rb', line 62</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_cant_find_in_bucket!'>cant_find_in_bucket!</span> <span class='id identifier rubyid_need'>need</span>
   <span class='id identifier rubyid_raise'>raise</span> <span class='const'><span class='object_link'><a href="../../../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../../Error.html" title="Card::Error (class)">Error</a></span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>couldn&#39;t find </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_need'>need</span><span class='embexpr_end'>}</span><span class='tstring_content'> for bucket </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_bucket'>bucket</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
@@ -1044,12 +966,12 @@
       <pre class="lines">
 
 
-130
-131
-132</pre>
+125
+126
+127</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod014-card-mod-carrierwave/abstract/attachment/cloud.rb', line 130</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod016-carrierwave/abstract/attachment/cloud.rb', line 125</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_change_bucket_if_read_only?'>change_bucket_if_read_only?</span>
   <span class='id identifier rubyid_cloud?'>cloud?</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_bucket_config'>bucket_config</span><span class='lbracket'>[</span><span class='symbol'>:read_only</span><span class='rbracket'>]</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_attachment_is_changing?'>attachment_is_changing?</span>
@@ -1062,7 +984,7 @@
       <div class="method_details ">
   <h3 class="signature " id="credential_config-instance_method">
   
-    #<strong>credential_config</strong>(config) {|config[:credentials]| ... } &#x21d2; <tt><span class='object_link'><a href="../../../../Object.html" title="Object (class)">Object</a></span></tt> 
+    #<strong>credential_config</strong>(config) {|| ... } &#x21d2; <tt><span class='object_link'><a href="../../../../Object.html" title="Object (class)">Object</a></span></tt> 
   
 
   
@@ -1083,7 +1005,7 @@
     <li>
       
       
-        <span class='type'>(<tt>config[:credentials]</tt>)</span>
+        <span class='type'>(<tt></tt>)</span>
       
       
       
@@ -1097,15 +1019,15 @@
       <pre class="lines">
 
 
-83
-84
-85
-86
-87
-88</pre>
+76
+77
+78
+79
+80
+81</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod014-card-mod-carrierwave/abstract/attachment/cloud.rb', line 83</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod016-carrierwave/abstract/attachment/cloud.rb', line 76</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_credential_config'>credential_config</span> <span class='id identifier rubyid_config'>config</span>
   <span class='id identifier rubyid_config'>config</span><span class='lbracket'>[</span><span class='symbol'>:credentials</span><span class='rbracket'>]</span> <span class='op'>||=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
@@ -1133,12 +1055,12 @@
       <pre class="lines">
 
 
-110
-111
-112</pre>
+104
+105
+106</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod014-card-mod-carrierwave/abstract/attachment/cloud.rb', line 110</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod016-carrierwave/abstract/attachment/cloud.rb', line 104</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_credential_from_env_regexp'>credential_from_env_regexp</span>
   <span class='const'>Regexp</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>^(?:</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_bucket'>bucket</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='period'>.</span><span class='id identifier rubyid_upcase'>upcase</span><span class='embexpr_end'>}</span><span class='tstring_content'>_)?CREDENTIALS_(?&lt;option&gt;.+)$</span><span class='tstring_end'>&quot;</span></span>
@@ -1163,14 +1085,14 @@
       <pre class="lines">
 
 
-90
-91
-92
-93
-94</pre>
+83
+84
+85
+86
+87</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod014-card-mod-carrierwave/abstract/attachment/cloud.rb', line 90</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod016-carrierwave/abstract/attachment/cloud.rb', line 83</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_each_config_option_from_env'>each_config_option_from_env</span>
   <span class='const'><span class='object_link'><a href="../../../../CarrierWave.html" title="CarrierWave (module)">CarrierWave</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../../../CarrierWave/FileCardUploader.html" title="CarrierWave::FileCardUploader (class)">FileCardUploader</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../../../CarrierWave/FileCardUploader.html#CONFIG_OPTIONS-constant" title="CarrierWave::FileCardUploader::CONFIG_OPTIONS (constant)">CONFIG_OPTIONS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_key'>key</span><span class='op'>|</span>
@@ -1197,21 +1119,23 @@
       <pre class="lines">
 
 
-102
-103
-104
-105
-106
-107
-108</pre>
+95
+96
+97
+98
+99
+100
+101
+102</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod014-card-mod-carrierwave/abstract/attachment/cloud.rb', line 102</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod016-carrierwave/abstract/attachment/cloud.rb', line 95</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_each_credential_from_env'>each_credential_from_env</span>
   <span class='id identifier rubyid_regexp'>regexp</span> <span class='op'>=</span> <span class='id identifier rubyid_credential_from_env_regexp'>credential_from_env_regexp</span>
   <span class='const'>ENV</span><span class='period'>.</span><span class='id identifier rubyid_each_key'>each_key</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_env_key'>env_key</span><span class='op'>|</span>
     <span class='kw'>next</span> <span class='kw'>unless</span> <span class='lparen'>(</span><span class='id identifier rubyid_m'>m</span> <span class='op'>=</span> <span class='id identifier rubyid_regexp'>regexp</span><span class='period'>.</span><span class='id identifier rubyid_match'>match</span> <span class='id identifier rubyid_env_key'>env_key</span><span class='rparen'>)</span>
+
     <span class='kw'>yield</span> <span class='id identifier rubyid_m'>m</span><span class='lbracket'>[</span><span class='symbol'>:option</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_downcase'>downcase</span><span class='period'>.</span><span class='id identifier rubyid_to_sym'>to_sym</span>
   <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
@@ -1235,15 +1159,15 @@
       <pre class="lines">
 
 
-54
-55
-56
-57
-58
-59</pre>
+47
+48
+49
+50
+51
+52</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod014-card-mod-carrierwave/abstract/attachment/cloud.rb', line 54</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod016-carrierwave/abstract/attachment/cloud.rb', line 47</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_ensure_bucket_config'>ensure_bucket_config</span>
   <span class='kw'>yield</span><span class='period'>.</span><span class='id identifier rubyid_tap'>tap</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_config'>config</span><span class='op'>|</span>
@@ -1271,61 +1195,17 @@
       <pre class="lines">
 
 
-8
-9
 10
-11</pre>
+11
+12
+13</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod014-card-mod-carrierwave/abstract/attachment/cloud.rb', line 8</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod016-carrierwave/abstract/attachment/cloud.rb', line 10</span>
 
 <span class='id identifier rubyid_event'>event</span> <span class='symbol'>:change_bucket_if_read_only</span><span class='comma'>,</span> <span class='symbol'>:initialize</span><span class='comma'>,</span>
       <span class='label'>on:</span> <span class='symbol'>:update</span><span class='comma'>,</span> <span class='label'>when:</span> <span class='symbol'>:change_bucket_if_read_only?</span> <span class='kw'>do</span>
-  <span class='ivar'>@new_storage_type</span> <span class='op'>=</span> <span class='id identifier rubyid_storage_type_from_config'>storage_type_from_config</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="event: validate_storage_type_update-instance_method">
-  
-    #<strong>event: validate_storage_type_update</strong>  &#x21d2; <tt><span class='object_link'><a href="../../../../Object.html" title="Object (class)">Object</a></span></tt> 
-  
-
-  
-
-  
-</h3><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-13
-14
-15
-16
-17
-18
-19
-20
-21
-22</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod014-card-mod-carrierwave/abstract/attachment/cloud.rb', line 13</span>
-
-<span class='id identifier rubyid_event'>event</span> <span class='symbol'>:validate_storage_type_update</span><span class='comma'>,</span> <span class='symbol'>:validate</span><span class='comma'>,</span> <span class='label'>on:</span> <span class='symbol'>:update</span><span class='comma'>,</span> <span class='label'>when:</span> <span class='symbol'>:cloud?</span> <span class='kw'>do</span>
-  <span class='comment'># FIXME: make it possible to retrieve the file from cloud storage
-</span>  <span class='comment'>#   to store it somewhere else. Currently, it only works to change the
-</span>  <span class='comment'>#   storage type if a new file is provided
-</span>  <span class='comment'>#   i.e. `update storage_type: :local` fails but
-</span>  <span class='comment'>#        `update storage_type: :local, file: [file handle]` is ok
-</span>  <span class='kw'>return</span> <span class='kw'>unless</span> <span class='id identifier rubyid_storage_type_changed?'>storage_type_changed?</span> <span class='op'>&amp;&amp;</span> <span class='op'>!</span><span class='id identifier rubyid_attachment_is_changing?'>attachment_is_changing?</span>
-
-  <span class='id identifier rubyid_errors'>errors</span><span class='period'>.</span><span class='id identifier rubyid_add'>add</span> <span class='symbol'>:storage_type</span><span class='comma'>,</span> <span class='id identifier rubyid_tr'>tr</span><span class='lparen'>(</span><span class='symbol'>:moving_files_is_not_supported</span><span class='rparen'>)</span>
+  <span class='ivar'>@storage_type</span> <span class='op'>=</span> <span class='id identifier rubyid_storage_type_from_config'>storage_type_from_config</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1347,23 +1227,25 @@
       <pre class="lines">
 
 
+34
+35
+36
+37
+38
+39
+40
+41
 42
 43
 44
-45
-46
-47
-48
-49
-50
-51
-52</pre>
+45</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod014-card-mod-carrierwave/abstract/attachment/cloud.rb', line 42</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod016-carrierwave/abstract/attachment/cloud.rb', line 34</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_load_bucket_config'>load_bucket_config</span>
   <span class='kw'>return</span> <span class='lbrace'>{</span><span class='rbrace'>}</span> <span class='kw'>unless</span> <span class='id identifier rubyid_bucket'>bucket</span>
+
   <span class='id identifier rubyid_bucket_config'>bucket_config</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../../../Cardio.html" title="Cardio (module)">Cardio</a></span></span><span class='period'>.</span><span class='id identifier rubyid_config'>config</span><span class='period'>.</span><span class='id identifier rubyid_file_buckets'>file_buckets</span><span class='op'>&amp;.</span><span class='id identifier rubyid_dig'>dig</span><span class='lparen'>(</span><span class='id identifier rubyid_bucket'>bucket</span><span class='period'>.</span><span class='id identifier rubyid_to_sym'>to_sym</span><span class='rparen'>)</span> <span class='op'>||</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
   <span class='id identifier rubyid_bucket_config'>bucket_config</span><span class='period'>.</span><span class='id identifier rubyid_symbolize_keys!'>symbolize_keys!</span>
   <span class='id identifier rubyid_bucket_config'>bucket_config</span><span class='lbracket'>[</span><span class='symbol'>:credentials</span><span class='rbracket'>]</span><span class='op'>&amp;.</span><span class='id identifier rubyid_symbolize_keys!'>symbolize_keys!</span>
@@ -1393,18 +1275,18 @@
       <pre class="lines">
 
 
+66
+67
+68
+69
+70
+71
+72
 73
-74
-75
-76
-77
-78
-79
-80
-81</pre>
+74</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod014-card-mod-carrierwave/abstract/attachment/cloud.rb', line 73</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod016-carrierwave/abstract/attachment/cloud.rb', line 66</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_load_bucket_config_from_env'>load_bucket_config_from_env</span> <span class='id identifier rubyid_config'>config</span>
   <span class='id identifier rubyid_config'>config</span> <span class='op'>||=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
@@ -1435,14 +1317,14 @@
       <pre class="lines">
 
 
-96
-97
-98
-99
-100</pre>
+89
+90
+91
+92
+93</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod014-card-mod-carrierwave/abstract/attachment/cloud.rb', line 96</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod016-carrierwave/abstract/attachment/cloud.rb', line 89</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_load_bucket_credentials_from_env'>load_bucket_credentials_from_env</span> <span class='id identifier rubyid_cred_config'>cred_config</span>
   <span class='id identifier rubyid_each_credential_from_env'>each_credential_from_env</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_option'>option</span><span class='op'>|</span>
@@ -1469,21 +1351,23 @@
       <pre class="lines">
 
 
-28
-29
-30
-31
-32
-33
-34
-35
-36</pre>
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod014-card-mod-carrierwave/abstract/attachment/cloud.rb', line 28</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod016-carrierwave/abstract/attachment/cloud.rb', line 19</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_new_card_bucket'>new_card_bucket</span>
   <span class='kw'>return</span> <span class='kw'>unless</span> <span class='id identifier rubyid_new_card?'>new_card?</span>
+
   <span class='comment'># If the file is assigned before the bucket option we have to
 </span>  <span class='comment'># check if there is a bucket options in set_specific.
 </span>  <span class='comment'># That happens for exmaple when the file appears before the bucket in the
@@ -1511,14 +1395,14 @@
       <pre class="lines">
 
 
-114
-115
-116
-117
-118</pre>
+108
+109
+110
+111
+112</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod014-card-mod-carrierwave/abstract/attachment/cloud.rb', line 114</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod016-carrierwave/abstract/attachment/cloud.rb', line 108</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_replace_with_env_variable'>replace_with_env_variable</span> <span class='id identifier rubyid_config'>config</span><span class='comma'>,</span> <span class='id identifier rubyid_option'>option</span><span class='comma'>,</span> <span class='id identifier rubyid_prefix'>prefix</span><span class='op'>=</span><span class='kw'>nil</span>
   <span class='id identifier rubyid_env_key'>env_key</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='id identifier rubyid_prefix'>prefix</span><span class='comma'>,</span> <span class='id identifier rubyid_option'>option</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_compact'>compact</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>_</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_upcase'>upcase</span>
@@ -1545,12 +1429,12 @@
       <pre class="lines">
 
 
-61
-62
-63</pre>
+54
+55
+56</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod014-card-mod-carrierwave/abstract/attachment/cloud.rb', line 61</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod016-carrierwave/abstract/attachment/cloud.rb', line 54</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_require_configuration!'>require_configuration!</span> <span class='id identifier rubyid_config'>config</span>
   <span class='id identifier rubyid_cant_find_in_bucket!'>cant_find_in_bucket!</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>configuration</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>unless</span> <span class='id identifier rubyid_config'>config</span><span class='period'>.</span><span class='id identifier rubyid_present?'>present?</span>
@@ -1575,12 +1459,12 @@
       <pre class="lines">
 
 
-65
-66
-67</pre>
+58
+59
+60</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod014-card-mod-carrierwave/abstract/attachment/cloud.rb', line 65</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod016-carrierwave/abstract/attachment/cloud.rb', line 58</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_require_credentials!'>require_credentials!</span> <span class='id identifier rubyid_config'>config</span>
   <span class='id identifier rubyid_cant_find_in_bucket!'>cant_find_in_bucket!</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>credentials</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>unless</span> <span class='id identifier rubyid_config'>config</span><span class='lbracket'>[</span><span class='symbol'>:credentials</span><span class='rbracket'>]</span>
@@ -1595,9 +1479,9 @@
 </div>
 
       <div id="footer">
-  Generated on Thu May 13 17:17:39 2021 by
-  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.26 (ruby-2.7.2).
+  Generated on Mon Feb  6 15:49:54 2023 by
+  <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.28 (ruby-3.0.1).
 </div>
 
     </div>

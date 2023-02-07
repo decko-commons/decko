@@ -6,7 +6,7 @@
 <title>
   Module: Card::Set::All::Bridge::HtmlFormat
   
-    &mdash; Documentation by YARD 0.9.26
+    &mdash; Documentation by YARD 0.9.28
   
 </title>
 
@@ -83,7 +83,7 @@
   
   <dl>
     <dt>Defined in:</dt>
-    <dd>card/tmpsets/set/mod012-card-mod-edit/all/bridge.rb</dd>
+    <dd>platypus/tmp/set/gem-defaults/mod011-edit/all/bridge.rb</dd>
   </dl>
   
 </div>
@@ -312,13 +312,13 @@
       <pre class="lines">
 
 
-67
-68
-69
-70</pre>
+71
+72
+73
+74</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod012-card-mod-edit/all/bridge.rb', line 67</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod011-edit/all/bridge.rb', line 71</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_breadcrumb_data'>breadcrumb_data</span> <span class='id identifier rubyid_title'>title</span><span class='comma'>,</span> <span class='id identifier rubyid_html_class'>html_class</span><span class='op'>=</span><span class='kw'>nil</span>
   <span class='id identifier rubyid_html_class'>html_class</span> <span class='op'>||=</span> <span class='id identifier rubyid_title'>title</span><span class='period'>.</span><span class='id identifier rubyid_underscore'>underscore</span>
@@ -344,19 +344,19 @@
       <pre class="lines">
 
 
-38
-39
-40
-41
 42
 43
 44
 45
 46
-47</pre>
+47
+48
+49
+50
+51</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod012-card-mod-edit/all/bridge.rb', line 38</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod011-edit/all/bridge.rb', line 42</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_bridge_breadcrumbs'>bridge_breadcrumbs</span>
   <span class='heredoc_beg'>&lt;&lt;-HTML</span><span class='period'>.</span><span class='id identifier rubyid_strip_heredoc'>strip_heredoc</span>
@@ -388,17 +388,17 @@
       <pre class="lines">
 
 
-49
-50
-51
-52
 53
 54
 55
-56</pre>
+56
+57
+58
+59
+60</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod012-card-mod-edit/all/bridge.rb', line 49</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod011-edit/all/bridge.rb', line 53</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_bridge_link_opts'>bridge_link_opts</span> <span class='id identifier rubyid_opts'>opts</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span>
   <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:&quot;data-slot-selector&quot;</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_bridge_slot_selector'>bridge_slot_selector</span>
@@ -428,12 +428,12 @@
       <pre class="lines">
 
 
-34
-35
-36</pre>
+38
+39
+40</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod012-card-mod-edit/all/bridge.rb', line 34</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod011-edit/all/bridge.rb', line 38</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_bridge_param'>bridge_param</span> <span class='id identifier rubyid_key'>key</span>
   <span class='id identifier rubyid_params'>params</span><span class='period'>.</span><span class='id identifier rubyid_dig'>dig</span><span class='lparen'>(</span><span class='symbol'>:bridge</span><span class='comma'>,</span> <span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span><span class='op'>&amp;.</span><span class='id identifier rubyid_to_sym'>to_sym</span> <span class='op'>||</span> <span class='id identifier rubyid_try'>try</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>default_bridge_</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_key'>key</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
@@ -458,13 +458,13 @@
       <pre class="lines">
 
 
-58
-59
-60
-61</pre>
+62
+63
+64
+65</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod012-card-mod-edit/all/bridge.rb', line 58</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod011-edit/all/bridge.rb', line 62</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_bridge_slot_selector'>bridge_slot_selector</span>
   <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>.bridge-main &gt; .overlay-container &gt; .card-slot._bottomlay-slot,</span><span class='tstring_end'>&quot;</span></span> \
@@ -490,12 +490,12 @@
       <pre class="lines">
 
 
-30
-31
-32</pre>
+34
+35
+36</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod012-card-mod-edit/all/bridge.rb', line 30</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod011-edit/all/bridge.rb', line 34</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_bridge_tab'>bridge_tab</span>
   <span class='ivar'>@bridge_tab</span> <span class='op'>||=</span> <span class='id identifier rubyid_bridge_param'>bridge_param</span> <span class='symbol'>:tab</span>
@@ -520,18 +520,22 @@
       <pre class="lines">
 
 
-24
-25
 26
 27
-28</pre>
+28
+29
+30
+31
+32</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod012-card-mod-edit/all/bridge.rb', line 24</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod011-edit/all/bridge.rb', line 26</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_bridge_tabs'>bridge_tabs</span>
   <span class='id identifier rubyid_wrap'>wrap</span> <span class='kw'>do</span>
-    <span class='id identifier rubyid_tabs'>tabs</span><span class='lparen'>(</span><span class='id identifier rubyid_visible_bridge_tabs'>visible_bridge_tabs</span><span class='comma'>,</span> <span class='id identifier rubyid_bridge_tab'>bridge_tab</span><span class='comma'>,</span> <span class='label'>load:</span> <span class='symbol'>:lazy</span><span class='rparen'>)</span> <span class='lbrace'>{</span> <span class='id identifier rubyid__render'>_render</span> <span class='id identifier rubyid_bridge_tab'>bridge_tab</span> <span class='rbrace'>}</span>
+    <span class='id identifier rubyid_tabs'>tabs</span><span class='lparen'>(</span><span class='id identifier rubyid_visible_bridge_tabs'>visible_bridge_tabs</span><span class='comma'>,</span> <span class='const'><span class='object_link'><a href="../Bridge.html#BRIDGE_TAB_NAMES-constant" title="Card::Set::All::Bridge::BRIDGE_TAB_NAMES (constant)">BRIDGE_TAB_NAMES</a></span></span><span class='lbracket'>[</span><span class='id identifier rubyid_bridge_tab'>bridge_tab</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='label'>load:</span> <span class='symbol'>:lazy</span><span class='rparen'>)</span> <span class='kw'>do</span>
+      <span class='id identifier rubyid__render'>_render</span> <span class='id identifier rubyid_bridge_tab'>bridge_tab</span>
+    <span class='kw'>end</span>
   <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -554,12 +558,12 @@
       <pre class="lines">
 
 
-63
-64
-65</pre>
+67
+68
+69</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod012-card-mod-edit/all/bridge.rb', line 63</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod011-edit/all/bridge.rb', line 67</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_default_bridge_tab'>default_bridge_tab</span>
   <span class='id identifier rubyid_show_guide_tab?'>show_guide_tab?</span> <span class='op'>?</span> <span class='symbol'>:guide_tab</span> <span class='op'>:</span> <span class='symbol'>:engage_tab</span>
@@ -574,9 +578,9 @@
 </div>
 
       <div id="footer">
-  Generated on Thu May 13 17:17:25 2021 by
-  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.26 (ruby-2.7.2).
+  Generated on Mon Feb  6 15:49:39 2023 by
+  <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.28 (ruby-3.0.1).
 </div>
 
     </div>

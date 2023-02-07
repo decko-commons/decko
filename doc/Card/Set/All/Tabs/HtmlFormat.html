@@ -6,7 +6,7 @@
 <title>
   Module: Card::Set::All::Tabs::HtmlFormat
   
-    &mdash; Documentation by YARD 0.9.26
+    &mdash; Documentation by YARD 0.9.28
   
 </title>
 
@@ -83,7 +83,7 @@
   
   <dl>
     <dt>Defined in:</dt>
-    <dd>card/tmpsets/set/mod030-card-mod-layout/all/tabs.rb</dd>
+    <dd>platypus/tmp/set/gem-defaults/mod030-tabs/all/tabs.rb</dd>
   </dl>
   
 </div>
@@ -167,6 +167,29 @@
 
   
     <span class="summary_desc"><div class='inline'>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#tabs-instance_method" title="#tabs (instance method)">#<strong>tabs</strong>(tab_hash, active_name = nil, args = {}, &amp;block)  &#x21d2; HTML </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>beginning (default is the first).</p>
 </div></span>
   
 </li>
@@ -289,16 +312,16 @@
       <pre class="lines">
 
 
-51
-52
-53
-54
-55
-56
-57</pre>
+91
+92
+93
+94
+95
+96
+97</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod030-card-mod-layout/all/tabs.rb', line 51</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod030-tabs/all/tabs.rb', line 91</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_construct_static_tabs'>construct_static_tabs</span> <span class='id identifier rubyid_tab_type'>tab_type</span>
   <span class='id identifier rubyid_tabs'>tabs</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
@@ -327,18 +350,19 @@
       <pre class="lines">
 
 
-24
-25
-26
-27
-28
-29
-30
-31
-32</pre>
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod030-card-mod-layout/all/tabs.rb', line 24</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod030-tabs/all/tabs.rb', line 63</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_construct_tab'>construct_tab</span> <span class='id identifier rubyid_tabs'>tabs</span><span class='comma'>,</span> <span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='id identifier rubyid_explicit_options'>explicit_options</span>
   <span class='id identifier rubyid_tab_options'>tab_options</span> <span class='op'>=</span> <span class='id identifier rubyid_item_view_options'>item_view_options</span> <span class='id identifier rubyid_explicit_options'>explicit_options</span>
@@ -347,6 +371,7 @@
     <span class='label'>path:</span> <span class='id identifier rubyid_nest_path'>nest_path</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='id identifier rubyid_tab_options'>tab_options</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_html_safe'>html_safe</span>
   <span class='rbrace'>}</span>
   <span class='kw'>return</span> <span class='kw'>unless</span> <span class='id identifier rubyid_tabs'>tabs</span><span class='lbracket'>[</span><span class='symbol'>:active</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span>
+
   <span class='id identifier rubyid_tabs'>tabs</span><span class='lbracket'>[</span><span class='symbol'>:active</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='lbrace'>{</span> <span class='label'>name:</span> <span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='label'>content:</span> <span class='id identifier rubyid_nest'>nest</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='id identifier rubyid_tab_options'>tab_options</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -369,19 +394,19 @@
       <pre class="lines">
 
 
-13
-14
-15
-16
-17
-18
-19
-20
-21
-22</pre>
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod030-card-mod-layout/all/tabs.rb', line 13</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod030-tabs/all/tabs.rb', line 52</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_construct_tabs'>construct_tabs</span> <span class='id identifier rubyid_tab_type'>tab_type</span>
   <span class='id identifier rubyid_tabs'>tabs</span> <span class='op'>=</span> <span class='lbrace'>{</span> <span class='label'>active:</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='comma'>,</span> <span class='label'>paths:</span> <span class='lbrace'>{</span><span class='rbrace'>}</span> <span class='rbrace'>}</span>
@@ -392,6 +417,226 @@
   <span class='id identifier rubyid_tabs'>tabs</span> <span class='id identifier rubyid_tabs'>tabs</span><span class='lbracket'>[</span><span class='symbol'>:paths</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_tabs'>tabs</span><span class='lbracket'>[</span><span class='symbol'>:active</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='symbol'>:name</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='label'>tab_type:</span> <span class='id identifier rubyid_tab_type'>tab_type</span><span class='comma'>,</span> <span class='label'>load:</span> <span class='symbol'>:lazy</span> <span class='kw'>do</span>
     <span class='id identifier rubyid_tabs'>tabs</span><span class='lbracket'>[</span><span class='symbol'>:active</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='symbol'>:content</span><span class='rbracket'>]</span>
   <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="tabs-instance_method">
+  
+    #<strong>tabs</strong>(tab_hash, active_name = nil, args = {}, &amp;block)  &#x21d2; <tt>HTML</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>beginning (default is the first)</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>tab_hash</span>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>keys are the tab names
+Each value can be either a String or a Hash.
+If a Hash can contain the following keys:
+  :title - the label to appear in the clickable tab nav.
+     if title is not specified, the key is used
+  :content - body of tab pane
+  :button_attr - attributes for button link in tab nav.</p>
+
+<p>If using lazy loading (see :load below), the following options also apply
+  :path - explicit path to use for tab pane
+  :view - card view from which to auto-construct path (if missing, uses key)</p>
+
+<p>If the value is a String, it is treated as the tab content for static tabs and
+  the view for lazy tabs</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>active_name</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>nil</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>label of the tab that should be active at the</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>args</span>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>{}</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>options</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>block</span>
+      
+      
+        <span class='type'>(<tt>Block</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>content of the active tab (for lazy-loading)</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+  
+    
+    
+    
+    
+    
+    
+    <p class="tag_title">Options Hash (<tt>args</tt>):</p>
+    <ul class="option">
+      
+        <li>
+          <span class="name">:tab_type</span>
+          <span class="type">(<tt>String</tt>)</span>
+          <span class="default">
+            
+              &mdash; default:
+              <tt>&#39;tabs&#39;</tt>
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>use pills or tabs</p>
+</div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:panel_attr</span>
+          <span class="type">(<tt>Hash</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>html args used for the panel div</p>
+</div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:pane_attr</span>
+          <span class="type">(<tt>Hash</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>html args used for the pane div</p>
+</div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:load.</span>
+          <span class="type">(<tt>Hash</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p><code>:lazy</code> for lazy-loading tabs</p>
+</div>
+          
+        </li>
+      
+    </ul>
+  
+    
+    
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>HTML</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>bootstrap tabs element with all content preloaded</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod030-tabs/all/tabs.rb', line 36</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_tabs'>tabs</span> <span class='id identifier rubyid_tab_hash'>tab_hash</span><span class='comma'>,</span> <span class='id identifier rubyid_active_name'>active_name</span><span class='op'>=</span><span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_args'>args</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span>
+  <span class='id identifier rubyid_klass'>klass</span> <span class='op'>=</span> <span class='id identifier rubyid_args'>args</span><span class='lbracket'>[</span><span class='symbol'>:load</span><span class='rbracket'>]</span> <span class='op'>==</span> <span class='symbol'>:lazy</span> <span class='op'>?</span> <span class='const'><span class='object_link'><a href="../../../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../../LazyTab.html" title="Card::LazyTab (class)">LazyTab</a></span></span> <span class='op'>:</span> <span class='const'><span class='object_link'><a href="../../../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../../Tab.html" title="Card::Tab (class)">Tab</a></span></span>
+  <span class='id identifier rubyid_args'>args</span><span class='period'>.</span><span class='id identifier rubyid_reverse_merge!'>reverse_merge!</span><span class='lparen'>(</span>
+    <span class='label'>panel_attr:</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='comma'>,</span>
+    <span class='label'>pane_attr:</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='comma'>,</span>
+    <span class='label'>tab_type:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>tabs</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+    <span class='label'>block:</span> <span class='id identifier rubyid_block'>block</span><span class='comma'>,</span>
+    <span class='label'>tab_objects:</span> <span class='const'><span class='object_link'><a href="../../../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../../Tab.html" title="Card::Tab (class)">Tab</a></span></span><span class='period'>.</span><span class='id identifier rubyid_tab_objects'><span class='object_link'><a href="../../../Tab.html#tab_objects-class_method" title="Card::Tab.tab_objects (method)">tab_objects</a></span></span><span class='lparen'>(</span><span class='kw'>self</span><span class='comma'>,</span> <span class='id identifier rubyid_tab_hash'>tab_hash</span><span class='comma'>,</span> <span class='id identifier rubyid_active_name'>active_name</span><span class='comma'>,</span> <span class='id identifier rubyid_klass'>klass</span><span class='rparen'>)</span>
+  <span class='rparen'>)</span>
+  <span class='id identifier rubyid_haml'>haml</span> <span class='symbol'>:tab_panel</span><span class='comma'>,</span> <span class='id identifier rubyid_args'>args</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -426,12 +671,12 @@ end</p>
       <pre class="lines">
 
 
-39
-40
-41</pre>
+79
+80
+81</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod030-card-mod-layout/all/tabs.rb', line 39</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod030-tabs/all/tabs.rb', line 79</span>
 
 <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:pills</span> <span class='kw'>do</span>
   <span class='id identifier rubyid_construct_tabs'>construct_tabs</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>pills</span><span class='tstring_end'>&quot;</span></span>
@@ -456,12 +701,12 @@ end</p>
       <pre class="lines">
 
 
-47
-48
-49</pre>
+87
+88
+89</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod030-card-mod-layout/all/tabs.rb', line 47</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod030-tabs/all/tabs.rb', line 87</span>
 
 <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:pills_static</span> <span class='kw'>do</span>
   <span class='id identifier rubyid_construct_static_tabs'>construct_static_tabs</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>pills</span><span class='tstring_end'>&quot;</span></span>
@@ -486,12 +731,12 @@ end</p>
       <pre class="lines">
 
 
-9
-10
-11</pre>
+48
+49
+50</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod030-card-mod-layout/all/tabs.rb', line 9</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod030-tabs/all/tabs.rb', line 48</span>
 
 <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:tabs</span> <span class='kw'>do</span>
   <span class='id identifier rubyid_construct_tabs'>construct_tabs</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>tabs</span><span class='tstring_end'>&quot;</span></span>
@@ -516,12 +761,12 @@ end</p>
       <pre class="lines">
 
 
-43
-44
-45</pre>
+83
+84
+85</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod030-card-mod-layout/all/tabs.rb', line 43</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod030-tabs/all/tabs.rb', line 83</span>
 
 <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:tabs_static</span> <span class='kw'>do</span>
   <span class='id identifier rubyid_construct_static_tabs'>construct_static_tabs</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>tabs</span><span class='tstring_end'>&quot;</span></span>
@@ -536,9 +781,9 @@ end</p>
 </div>
 
       <div id="footer">
-  Generated on Thu May 13 17:17:25 2021 by
-  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.26 (ruby-2.7.2).
+  Generated on Mon Feb  6 15:49:38 2023 by
+  <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.28 (ruby-3.0.1).
 </div>
 
     </div>

@@ -3,7 +3,7 @@
 class Card
   module Set
     # the set loading process has two main phases:
-
+    #
     #  1. Definition: interpret each set file, creating/defining set and
     #     set_format modules
     #  2. Organization: have base classes include modules associated with the

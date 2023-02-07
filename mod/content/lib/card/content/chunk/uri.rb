@@ -2,26 +2,26 @@
 
 require "uri"
 
-# This wiki chunk matches arbitrary URIs, using patterns from the Ruby URI
-# modules.
-# It parses out a variety of fields that could be used by formats to format
-# the links in various ways (shortening domain names, hiding email addresses)
-# It matches email addresses and host.com.au domains without schemes (http://)
-# but adds these on as required.
-#
-# The heuristic used to match a URI is designed to err on the side of caution.
-# That is, it is more likely to not autolink a URI than it is to accidently
-# autolink something that is not a URI. The reason behind this is it is easier
-# to force a URI link by prefixing 'http://' to it than it is to escape and
-# incorrectly marked up non-URI.
-#
-# I'm using a part of the [ISO 3166-1 Standard][iso3166] for country name
-# suffixes.
-# The generic names are from www.bnoack.com/data/countrycode2.html)
-#   [iso3166]: http://geotags.com/iso3166/
 class Card
   class Content
     module Chunk
+      # This wiki chunk matches arbitrary URIs, using patterns from the Ruby URI
+      # modules.
+      # It parses out a variety of fields that could be used by formats to format
+      # the links in various ways (shortening domain names, hiding email addresses)
+      # It matches email addresses and host.com.au domains without schemes (http://)
+      # but adds these on as required.
+      #
+      # The heuristic used to match a URI is designed to err on the side of caution.
+      # That is, it is more likely to not autolink a URI than it is to accidently
+      # autolink something that is not a URI. The reason behind this is it is easier
+      # to force a URI link by prefixing 'http://' to it than it is to escape and
+      # incorrectly marked up non-URI.
+      #
+      # I'm using a part of the [ISO 3166-1 Standard][iso3166] for country name
+      # suffixes.
+      # The generic names are from www.bnoack.com/data/countrycode2.html)
+      #   [iso3166]: http://geotags.com/iso3166/
       class Uri < Abstract
         SCHEMES = %w[irc http https ftp ssh git sftp file ldap ldaps mailto].freeze
 

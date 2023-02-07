@@ -2,35 +2,35 @@ def cast
   real? ? { id: id } : { name: name, type_id: type_id, content: db_content }
 end
 
-def export_hash field_tags: []
-  { name: export_name,
-    type: export_type,
+def pod_hash field_tags: []
+  { name: pod_name,
+    type: pod_type,
     codename: codename,
-    content: export_content,
-    fields: export_fields(field_tags) }.compact_blank
+    content: pod_content,
+    fields: pod_fields(field_tags) }.compact_blank
 end
 
-def export_fields marks
+def pod_fields marks
   marks.each_with_object({}) do |mark, hash|
-    hash[mark] = [name, mark].card&.export_content
+    hash[mark] = [name, mark].card&.pod_content
   end.compact_blank
 end
 
-def export_type
+def pod_type
   type_name.codename_or_string
 end
 
-def export_name
+def pod_name
   simple? ? name.s : name.part_names.map(&:codename_or_string)
 end
 
-def export_content
+def pod_content
   structure ? nil : db_content
 end
 
 format :data do
-  view :export do
-    card.export_hash
+  view :pod do
+    card.pod_hash
   end
 
   view :core, unknown: true do
