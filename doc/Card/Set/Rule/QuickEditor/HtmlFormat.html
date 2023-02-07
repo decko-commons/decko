@@ -6,7 +6,7 @@
 <title>
   Module: Card::Set::Rule::QuickEditor::HtmlFormat
   
-    &mdash; Documentation by YARD 0.9.26
+    &mdash; Documentation by YARD 0.9.28
   
 </title>
 
@@ -83,7 +83,7 @@
   
   <dl>
     <dt>Defined in:</dt>
-    <dd>card/tmpsets/set/mod036-card-mod-rules/rule/quick_editor.rb</dd>
+    <dd>platypus/tmp/set/gem-defaults/mod010-rules/rule/quick_editor.rb</dd>
   </dl>
   
 </div>
@@ -294,7 +294,7 @@
 19</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod036-card-mod-rules/rule/quick_editor.rb', line 17</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod010-rules/rule/quick_editor.rb', line 17</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_quick_edit'>quick_edit</span>
   <span class='id identifier rubyid_haml'>haml</span> <span class='symbol'>:quick_edit</span>
@@ -326,7 +326,7 @@
 25</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod036-card-mod-rules/rule/quick_editor.rb', line 21</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod010-rules/rule/quick_editor.rb', line 21</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_quick_form'>quick_form</span>
   <span class='id identifier rubyid_card_form'>card_form</span> <span class='symbol'>:update</span><span class='comma'>,</span> <span class='id identifier rubyid_quick_form_opts'>quick_form_opts</span> <span class='kw'>do</span>
@@ -359,7 +359,7 @@
 30</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod036-card-mod-rules/rule/quick_editor.rb', line 27</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod010-rules/rule/quick_editor.rb', line 27</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_quick_form_opts'>quick_form_opts</span>
   <span class='lbrace'>{</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>data-slot-selector</span><span class='label_end'>&quot;:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>.set-info.card-slot</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
@@ -392,7 +392,7 @@
 36</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod036-card-mod-rules/rule/quick_editor.rb', line 32</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod010-rules/rule/quick_editor.rb', line 32</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_set_info'>set_info</span> <span class='id identifier rubyid_notify_change'>notify_change</span><span class='op'>=</span><span class='kw'>nil</span>
   <span class='id identifier rubyid_wrap'>wrap</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='label'>class:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>set-info</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>do</span>
@@ -429,11 +429,11 @@
 45</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod036-card-mod-rules/rule/quick_editor.rb', line 38</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod010-rules/rule/quick_editor.rb', line 38</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_undo_button'>undo_button</span>
   <span class='id identifier rubyid_link_to'>link_to</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>undo</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>method:</span> <span class='symbol'>:post</span><span class='comma'>,</span> <span class='label'>rel:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>nofollow</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>remote:</span> <span class='kw'>true</span><span class='comma'>,</span>
-                  <span class='label'>class:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>btn btn-secondary ml-2 btn-sm btn-reduced-padding slotter</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+                  <span class='label'>class:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>btn btn-secondary ms-2 btn-sm btn-reduced-padding slotter</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
                   <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>data-slot-selector</span><span class='label_end'>&quot;:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>.card-slot.quick_edit-view</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
                   <span class='label'>path:</span> <span class='lbrace'>{</span> <span class='label'>action:</span> <span class='symbol'>:update</span><span class='comma'>,</span>
                           <span class='label'>revert_actions:</span> <span class='lbracket'>[</span><span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_last_action_id'>last_action_id</span><span class='rbracket'>]</span><span class='comma'>,</span>
@@ -464,7 +464,7 @@
 11</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod036-card-mod-rules/rule/quick_editor.rb', line 9</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod010-rules/rule/quick_editor.rb', line 9</span>
 
 <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:quick_edit</span><span class='comma'>,</span> <span class='label'>unknown:</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='label'>wrap:</span> <span class='symbol'>:slot</span> <span class='kw'>do</span>
   <span class='id identifier rubyid_quick_edit'>quick_edit</span>
@@ -494,7 +494,7 @@
 15</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod036-card-mod-rules/rule/quick_editor.rb', line 13</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod010-rules/rule/quick_editor.rb', line 13</span>
 
 <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:quick_edit_success</span> <span class='kw'>do</span>
   <span class='id identifier rubyid_set_info'>set_info</span> <span class='kw'>true</span>
@@ -509,9 +509,9 @@
 </div>
 
       <div id="footer">
-  Generated on Thu May 13 17:17:32 2021 by
-  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.26 (ruby-2.7.2).
+  Generated on Mon Feb  6 15:49:46 2023 by
+  <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.28 (ruby-3.0.1).
 </div>
 
     </div>

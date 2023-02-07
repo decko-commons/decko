@@ -6,7 +6,7 @@
 <title>
   Class: Card::Content::Chunk::Reference
   
-    &mdash; Documentation by YARD 0.9.26
+    &mdash; Documentation by YARD 0.9.28
   
 </title>
 
@@ -96,14 +96,14 @@
   
   <dl>
     <dt>Defined in:</dt>
-    <dd>card-mod-content/lib/card/content/chunk/reference.rb</dd>
+    <dd>mod/content/lib/card/content/chunk/reference.rb</dd>
   </dl>
   
 </div>
 
 <div id="subclasses">
   <h2>Direct Known Subclasses</h2>
-  <p class="children"><span class='object_link'><a href="Link.html" title="Card::Content::Chunk::Link (class)">Link</a></span>, <span class='object_link'><a href="QueryReference.html" title="Card::Content::Chunk::QueryReference (class)">QueryReference</a></span></p>
+  <p class="children"><span class='object_link'><a href="QueryReference.html" title="Card::Content::Chunk::QueryReference (class)">QueryReference</a></span></p>
 </div>
 
 
@@ -284,7 +284,7 @@
 10</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card-mod-content/lib/card/content/chunk/reference.rb', line 8</span>
+      <pre class="code"><span class="info file"># File 'mod/content/lib/card/content/chunk/reference.rb', line 8</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_name'>name</span>
   <span class='ivar'>@name</span>
@@ -321,7 +321,7 @@
 17</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card-mod-content/lib/card/content/chunk/reference.rb', line 10</span>
+      <pre class="code"><span class="info file"># File 'mod/content/lib/card/content/chunk/reference.rb', line 10</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_referee_name'>referee_name</span>
   <span class='kw'>return</span> <span class='kw'>if</span> <span class='id identifier rubyid_name'>name</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
@@ -363,7 +363,7 @@
 25</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card-mod-content/lib/card/content/chunk/reference.rb', line 23</span>
+      <pre class="code"><span class="info file"># File 'mod/content/lib/card/content/chunk/reference.rb', line 23</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_referee_card'>referee_card</span>
   <span class='ivar'>@referee_card</span> <span class='op'>||=</span> <span class='id identifier rubyid_referee_name'>referee_name</span> <span class='op'>&amp;&amp;</span> <span class='const'><span class='object_link'><a href="../../../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_fetch'><span class='object_link'><a href="../../Fetch/CardClass.html#fetch-instance_method" title="Card::Fetch::CardClass#fetch (method)">fetch</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_referee_name'>referee_name</span><span class='rparen'>)</span>
@@ -393,7 +393,7 @@
 21</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card-mod-content/lib/card/content/chunk/reference.rb', line 19</span>
+      <pre class="code"><span class="info file"># File 'mod/content/lib/card/content/chunk/reference.rb', line 19</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_referee_raw_name'>referee_raw_name</span>
   <span class='const'><span class='object_link'><a href="../../Name.html" title="Card::Name (class)">Name</a></span></span><span class='lbracket'>[</span><span class='id identifier rubyid_render_obj'>render_obj</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='rparen'>)</span><span class='rbracket'>]</span>
@@ -408,9 +408,9 @@
 </div>
 
       <div id="footer">
-  Generated on Thu May 13 17:17:47 2021 by
-  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.26 (ruby-2.7.2).
+  Generated on Mon Feb  6 15:50:01 2023 by
+  <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.28 (ruby-3.0.1).
 </div>
 
     </div>

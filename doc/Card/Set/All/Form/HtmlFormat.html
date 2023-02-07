@@ -6,7 +6,7 @@
 <title>
   Module: Card::Set::All::Form::HtmlFormat
   
-    &mdash; Documentation by YARD 0.9.26
+    &mdash; Documentation by YARD 0.9.28
   
 </title>
 
@@ -83,7 +83,7 @@
   
   <dl>
     <dt>Defined in:</dt>
-    <dd>card/tmpsets/set/mod012-card-mod-edit/all/form.rb</dd>
+    <dd>platypus/tmp/set/gem-defaults/mod011-edit/all/form.rb</dd>
   </dl>
   
 </div>
@@ -129,7 +129,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#button_formgroup-instance_method" title="#button_formgroup (instance method)">#<strong>button_formgroup</strong>  &#x21d2; Object </a>
+      <a href="#button_formgroup-instance_method" title="#button_formgroup (instance method)">#<strong>button_formgroup</strong>(&amp;block)  &#x21d2; Object </a>
     
 
     
@@ -359,7 +359,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#editor_wrap-instance_method" title="#editor_wrap (instance method)">#<strong>editor_wrap</strong>(type = nil)  &#x21d2; Object </a>
+      <a href="#editor_wrap-instance_method" title="#editor_wrap (instance method)">#<strong>editor_wrap</strong>(type = nil, &amp;block)  &#x21d2; Object </a>
     
 
     
@@ -419,7 +419,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'><p>If you use subfield cards to render a form for a new card then the subfield cards should be created on the new card not the existing card that build the form.</p>
+    <span class="summary_desc"><div class='inline'><p>If you use field cards to render a form for a new card then the field cards should be created on the new card not the existing card that build the form.</p>
 </div></span>
   
 </li>
@@ -589,6 +589,29 @@
         <li class="public ">
   <span class="summary_signature">
     
+      <a href="#interpret_main_success_opts-instance_method" title="#interpret_main_success_opts (instance method)">#<strong>interpret_main_success_opts</strong>(opts)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
       <a href="#multi_card_edit-instance_method" title="#multi_card_edit (instance method)">#<strong>multi_card_edit</strong>(fields_only = false)  &#x21d2; Object </a>
     
 
@@ -673,29 +696,6 @@
 
   
     <span class="summary_desc"><div class='inline'>
-</div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#process_edit_fields-instance_method" title="#process_edit_fields (instance method)">#<strong>process_edit_fields</strong>(fields)  &#x21d2; Object </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'><p>cards or a hash with the fields as keys and a hash with nest options as values.</p>
 </div></span>
   
 </li>
@@ -911,7 +911,30 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#wrap_content_formgroup-instance_method" title="#wrap_content_formgroup (instance method)">#<strong>wrap_content_formgroup</strong>  &#x21d2; Object </a>
+      <a href="#wrap_content_formgroup-instance_method" title="#wrap_content_formgroup (instance method)">#<strong>wrap_content_formgroup</strong>(&amp;block)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#wrap_editor_in_multi_card-instance_method" title="#wrap_editor_in_multi_card (instance method)">#<strong>wrap_editor_in_multi_card</strong>(&amp;block)  &#x21d2; Object </a>
     
 
     
@@ -966,17 +989,17 @@
       <pre class="lines">
 
 
-247
-248
-249
-250
-251</pre>
+257
+258
+259
+260
+261</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod012-card-mod-edit/all/form.rb', line 247</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod011-edit/all/form.rb', line 257</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_add_junction_class'>add_junction_class</span>
-  <span class='kw'>return</span> <span class='kw'>unless</span> <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span><span class='period'>.</span><span class='id identifier rubyid_junction?'>junction?</span>
+  <span class='kw'>return</span> <span class='kw'>unless</span> <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span><span class='period'>.</span><span class='id identifier rubyid_compound?'>compound?</span>
 
   <span class='id identifier rubyid_class_up'>class_up</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>card-editor</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>RIGHT-</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span><span class='period'>.</span><span class='id identifier rubyid_tag_name'>tag_name</span><span class='period'>.</span><span class='id identifier rubyid_safe_key'>safe_key</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
 <span class='kw'>end</span></pre>
@@ -988,7 +1011,7 @@
       <div class="method_details ">
   <h3 class="signature " id="button_formgroup-instance_method">
   
-    #<strong>button_formgroup</strong>  &#x21d2; <tt><span class='object_link'><a href="../../../../Object.html" title="Object (class)">Object</a></span></tt> 
+    #<strong>button_formgroup</strong>(&amp;block)  &#x21d2; <tt><span class='object_link'><a href="../../../../Object.html" title="Object (class)">Object</a></span></tt> 
   
 
   
@@ -1002,17 +1025,13 @@
 
 45
 46
-47
-48
-49</pre>
+47</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod012-card-mod-edit/all/form.rb', line 45</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod011-edit/all/form.rb', line 45</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_button_formgroup'>button_formgroup</span>
-  <span class='id identifier rubyid_wrap_with'>wrap_with</span> <span class='symbol'>:div</span><span class='comma'>,</span> <span class='label'>class:</span> <span class='id identifier rubyid_classy'>classy</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>form-group</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>do</span>
-    <span class='id identifier rubyid_wrap_with'>wrap_with</span> <span class='symbol'>:div</span><span class='comma'>,</span> <span class='kw'>yield</span>
-  <span class='kw'>end</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_button_formgroup'>button_formgroup</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span>
+  <span class='id identifier rubyid_wrap_with'>wrap_with</span> <span class='symbol'>:div</span><span class='comma'>,</span> <span class='label'>class:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>form-group </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_classy'>classy</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>button-form-group</span><span class='tstring_end'>&#39;</span></span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1034,17 +1053,17 @@
       <pre class="lines">
 
 
-195
-196
-197
-198
-199
 200
 201
-202</pre>
+202
+203
+204
+205
+206
+207</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod012-card-mod-edit/all/form.rb', line 195</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod011-edit/all/form.rb', line 200</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_card_form'>card_form</span> <span class='id identifier rubyid_action'>action</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span>
   <span class='ivar'>@form_root</span> <span class='op'>=</span> <span class='kw'>true</span>
@@ -1074,20 +1093,22 @@
       <pre class="lines">
 
 
-220
-221
-222
-223
-224
-225</pre>
+225
+226
+227
+228
+229
+230
+231</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod012-card-mod-edit/all/form.rb', line 220</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod011-edit/all/form.rb', line 225</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_card_form_html_opts'>card_form_html_opts</span> <span class='id identifier rubyid_action'>action</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span>
   <span class='id identifier rubyid_add_class'>add_class</span> <span class='id identifier rubyid_opts'>opts</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>card-form</span><span class='tstring_end'>&quot;</span></span>
   <span class='id identifier rubyid_add_class'>add_class</span> <span class='id identifier rubyid_opts'>opts</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>slotter</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>unless</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:redirect</span><span class='rbracket'>]</span> <span class='op'>||</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:no_slotter</span><span class='rbracket'>]</span>
   <span class='id identifier rubyid_add_class'>add_class</span> <span class='id identifier rubyid_opts'>opts</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>autosave</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='id identifier rubyid_action'>action</span> <span class='op'>==</span> <span class='symbol'>:update</span>
+  <span class='id identifier rubyid_interpret_main_success_opts'>interpret_main_success_opts</span> <span class='id identifier rubyid_opts'>opts</span>
   <span class='id identifier rubyid_opts'>opts</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -1182,16 +1203,16 @@
       <pre class="lines">
 
 
-212
-213
-214
-215
-216
 217
-218</pre>
+218
+219
+220
+221
+222
+223</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod012-card-mod-edit/all/form.rb', line 212</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod011-edit/all/form.rb', line 217</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_card_form_opts'>card_form_opts</span> <span class='id identifier rubyid_action'>action</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span>
   <span class='id identifier rubyid_url'>url</span><span class='comma'>,</span> <span class='id identifier rubyid_action'>action</span> <span class='op'>=</span> <span class='id identifier rubyid_card_form_url_and_action'>card_form_url_and_action</span> <span class='id identifier rubyid_action'>action</span>
@@ -1220,18 +1241,18 @@
       <pre class="lines">
 
 
-227
-228
-229
-230
-231
-232
-233
-234
-235</pre>
+239
+240
+241
+242
+243
+244
+245
+246
+247</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod012-card-mod-edit/all/form.rb', line 227</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod011-edit/all/form.rb', line 239</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_card_form_url_and_action'>card_form_url_and_action</span> <span class='id identifier rubyid_action'>action</span>
   <span class='kw'>case</span> <span class='id identifier rubyid_action'>action</span>
@@ -1262,16 +1283,16 @@
       <pre class="lines">
 
 
+54
+55
 56
 57
 58
 59
-60
-61
-62</pre>
+60</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod012-card-mod-edit/all/form.rb', line 56</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod011-edit/all/form.rb', line 54</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_content_field'>content_field</span>
   <span class='id identifier rubyid_with_nest_mode'>with_nest_mode</span> <span class='symbol'>:normal</span> <span class='kw'>do</span>
@@ -1323,12 +1344,12 @@
       <pre class="lines">
 
 
-92
-93
-94</pre>
+90
+91
+92</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod012-card-mod-edit/all/form.rb', line 92</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod011-edit/all/form.rb', line 90</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_edit_fields?'>edit_fields?</span>
   <span class='id identifier rubyid_edit_fields'>edit_fields</span><span class='period'>.</span><span class='id identifier rubyid_present?'>present?</span>
@@ -1353,12 +1374,12 @@
       <pre class="lines">
 
 
-173
-174
-175</pre>
+178
+179
+180</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod012-card-mod-edit/all/form.rb', line 173</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod011-edit/all/form.rb', line 178</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_edit_in_form_prefix'>edit_in_form_prefix</span>
   <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_parent'>parent</span><span class='period'>.</span><span class='id identifier rubyid_form_prefix'>form_prefix</span><span class='embexpr_end'>}</span><span class='tstring_content'>[subcards][</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span><span class='period'>.</span><span class='id identifier rubyid_from'>from</span> <span class='id identifier rubyid_form_context'>form_context</span><span class='period'>.</span><span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span><span class='embexpr_end'>}</span><span class='tstring_content'>]</span><span class='tstring_end'>&quot;</span></span>
@@ -1396,17 +1417,17 @@ end</p>
       <pre class="lines">
 
 
+67
+68
 69
 70
 71
 72
 73
-74
-75
-76</pre>
+74</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod012-card-mod-edit/all/form.rb', line 69</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod011-edit/all/form.rb', line 67</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_edit_slot'>edit_slot</span>
   <span class='kw'>case</span>
@@ -1436,21 +1457,19 @@ end</p>
       <pre class="lines">
 
 
+107
+108
 109
 110
 111
-112
-113
-114
-115</pre>
+112</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod012-card-mod-edit/all/form.rb', line 109</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod011-edit/all/form.rb', line 107</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_editor_in_multi_card'>editor_in_multi_card</span>
   <span class='id identifier rubyid_add_junction_class'>add_junction_class</span>
-  <span class='id identifier rubyid_formgroup'>formgroup</span> <span class='id identifier rubyid_render_title'>render_title</span><span class='comma'>,</span>
-            <span class='label'>input:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>content</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>help:</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='label'>class:</span> <span class='id identifier rubyid_classy'>classy</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>card-editor</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>do</span>
+  <span class='id identifier rubyid_wrap_editor_in_multi_card'>wrap_editor_in_multi_card</span> <span class='kw'>do</span>
     <span class='lbracket'>[</span><span class='id identifier rubyid_content_field'>content_field</span><span class='comma'>,</span> <span class='lparen'>(</span><span class='id identifier rubyid_form'>form</span><span class='period'>.</span><span class='id identifier rubyid_hidden_field'>hidden_field</span><span class='lparen'>(</span><span class='symbol'>:type_id</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_new_card?'>new_card?</span><span class='rparen'>)</span><span class='rbracket'>]</span>
   <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
@@ -1462,7 +1481,7 @@ end</p>
       <div class="method_details ">
   <h3 class="signature " id="editor_wrap-instance_method">
   
-    #<strong>editor_wrap</strong>(type = nil)  &#x21d2; <tt><span class='object_link'><a href="../../../../Object.html" title="Object (class)">Object</a></span></tt> 
+    #<strong>editor_wrap</strong>(type = nil, &amp;block)  &#x21d2; <tt><span class='object_link'><a href="../../../../Object.html" title="Object (class)">Object</a></span></tt> 
   
 
   
@@ -1474,23 +1493,19 @@ end</p>
       <pre class="lines">
 
 
-237
-238
-239
-240
-241
-242
-243</pre>
+249
+250
+251
+252
+253</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod012-card-mod-edit/all/form.rb', line 237</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod011-edit/all/form.rb', line 249</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_editor_wrap'>editor_wrap</span> <span class='id identifier rubyid_type'>type</span><span class='op'>=</span><span class='kw'>nil</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_editor_wrap'>editor_wrap</span> <span class='id identifier rubyid_type'>type</span><span class='op'>=</span><span class='kw'>nil</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span>
   <span class='id identifier rubyid_html_class'>html_class</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>editor</span><span class='tstring_end'>&quot;</span></span>
   <span class='id identifier rubyid_html_class'>html_class</span> <span class='op'>&lt;&lt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'> </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_type'>type</span><span class='embexpr_end'>}</span><span class='tstring_content'>-editor</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='id identifier rubyid_type'>type</span>
-  <span class='id identifier rubyid_wrap_with'>wrap_with</span> <span class='symbol'>:div</span><span class='comma'>,</span> <span class='label'>class:</span> <span class='id identifier rubyid_html_class'>html_class</span> <span class='kw'>do</span>
-    <span class='kw'>yield</span>
-  <span class='kw'>end</span>
+  <span class='id identifier rubyid_wrap_with'>wrap_with</span> <span class='symbol'>:div</span><span class='comma'>,</span> <span class='label'>class:</span> <span class='id identifier rubyid_html_class'>html_class</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1512,12 +1527,12 @@ end</p>
       <pre class="lines">
 
 
-177
-178
-179</pre>
+182
+183
+184</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod012-card-mod-edit/all/form.rb', line 177</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod011-edit/all/form.rb', line 182</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_explicit_form_prefix'>explicit_form_prefix</span>
   <span class='id identifier rubyid_inherit'>inherit</span> <span class='symbol'>:explicit_form_prefix</span>
@@ -1538,8 +1553,8 @@ end</p>
   
 </h3><div class="docstring">
   <div class="discussion">
-    <p>If you use subfield cards to render a form for a new card
-then the subfield cards should be created on the new card not the existing
+    <p>If you use field cards to render a form for a new card
+then the field cards should be created on the new card not the existing
 card that build the form</p>
 
 
@@ -1554,12 +1569,12 @@ card that build the form</p>
       <pre class="lines">
 
 
-147
-148
-149</pre>
+152
+153
+154</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod012-card-mod-edit/all/form.rb', line 147</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod011-edit/all/form.rb', line 152</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_form'>form</span>
   <span class='ivar'>@form</span> <span class='op'>||=</span> <span class='id identifier rubyid_inherit'>inherit</span><span class='lparen'>(</span><span class='symbol'>:form</span><span class='rparen'>)</span> <span class='op'>||</span> <span class='id identifier rubyid_new_form'>new_form</span>
@@ -1584,12 +1599,12 @@ card that build the form</p>
       <pre class="lines">
 
 
-181
-182
-183</pre>
+186
+187
+188</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod012-card-mod-edit/all/form.rb', line 181</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod011-edit/all/form.rb', line 186</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_form_context'>form_context</span>
   <span class='id identifier rubyid_form_root?'>form_root?</span> <span class='op'>||</span> <span class='op'>!</span><span class='id identifier rubyid_form_root'>form_root</span> <span class='op'>?</span> <span class='kw'>self</span> <span class='op'>:</span> <span class='id identifier rubyid_parent'>parent</span>
@@ -1614,17 +1629,17 @@ card that build the form</p>
       <pre class="lines">
 
 
-160
-161
-162
-163
-164
 165
 166
-167</pre>
+167
+168
+169
+170
+171
+172</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod012-card-mod-edit/all/form.rb', line 160</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod011-edit/all/form.rb', line 165</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_form_prefix'>form_prefix</span>
   <span class='kw'>case</span>
@@ -1654,14 +1669,14 @@ card that build the form</p>
       <pre class="lines">
 
 
-189
-190
-191
-192
-193</pre>
+194
+195
+196
+197
+198</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod012-card-mod-edit/all/form.rb', line 189</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod011-edit/all/form.rb', line 194</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_form_root'>form_root</span>
   <span class='kw'>return</span> <span class='kw'>self</span> <span class='kw'>if</span> <span class='ivar'>@form_root</span>
@@ -1711,12 +1726,12 @@ card that build the form</p>
       <pre class="lines">
 
 
-185
-186
-187</pre>
+190
+191
+192</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod012-card-mod-edit/all/form.rb', line 185</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod011-edit/all/form.rb', line 190</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_form_root?'>form_root?</span>
   <span class='ivar'>@form_root</span> <span class='op'>==</span> <span class='kw'>true</span>
@@ -1741,13 +1756,13 @@ card that build the form</p>
       <pre class="lines">
 
 
-204
-205
-206
-207</pre>
+209
+210
+211
+212</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod012-card-mod-edit/all/form.rb', line 204</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod011-edit/all/form.rb', line 209</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_hidden_form_tags'>hidden_form_tags</span> <span class='id identifier rubyid__action'>_action</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span>
   <span class='id identifier rubyid_success'>success</span> <span class='op'>=</span> <span class='id identifier rubyid_opts'>opts</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span> <span class='symbol'>:success</span>
@@ -1796,12 +1811,12 @@ card that build the form</p>
       <pre class="lines">
 
 
-97
-98
-99</pre>
+95
+96
+97</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod012-card-mod-edit/all/form.rb', line 97</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod011-edit/all/form.rb', line 95</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_in_multi_card_editor?'>in_multi_card_editor?</span>
   <span class='ivar'>@in_multi_card_editor</span><span class='period'>.</span><span class='id identifier rubyid_present?'>present?</span>
@@ -1850,15 +1865,49 @@ card that build the form</p>
       <pre class="lines">
 
 
-80
-81
-82</pre>
+78
+79
+80</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod012-card-mod-edit/all/form.rb', line 80</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod011-edit/all/form.rb', line 78</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_inline_nests_editor?'>inline_nests_editor?</span>
   <span class='id identifier rubyid_voo'>voo</span><span class='period'>.</span><span class='id identifier rubyid_input_type'>input_type</span> <span class='op'>==</span> <span class='symbol'>:inline_nests</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="interpret_main_success_opts-instance_method">
+  
+    #<strong>interpret_main_success_opts</strong>(opts)  &#x21d2; <tt><span class='object_link'><a href="../../../../Object.html" title="Object (class)">Object</a></span></tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+233
+234
+235
+236
+237</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod011-edit/all/form.rb', line 233</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_interpret_main_success_opts'>interpret_main_success_opts</span> <span class='id identifier rubyid_opts'>opts</span>
+  <span class='kw'>return</span> <span class='kw'>unless</span> <span class='lparen'>(</span><span class='id identifier rubyid_hash'>hash</span> <span class='op'>=</span> <span class='id identifier rubyid_opts'>opts</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span> <span class='symbol'>:main_success</span><span class='rparen'>)</span>
+
+  <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>data-main-success</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='const'>JSON</span> <span class='id identifier rubyid_hash'>hash</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1880,17 +1929,17 @@ card that build the form</p>
       <pre class="lines">
 
 
-117
-118
-119
-120
-121
 122
 123
-124</pre>
+124
+125
+126
+127
+128
+129</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod012-card-mod-edit/all/form.rb', line 117</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod011-edit/all/form.rb', line 122</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_multi_card_edit'>multi_card_edit</span> <span class='id identifier rubyid_fields_only'>fields_only</span><span class='op'>=</span><span class='kw'>false</span>
   <span class='id identifier rubyid_field_configs'>field_configs</span> <span class='op'>=</span> <span class='id identifier rubyid_edit_field_configs'>edit_field_configs</span> <span class='id identifier rubyid_fields_only'>fields_only</span>
@@ -1943,14 +1992,14 @@ card that build the form</p>
       <pre class="lines">
 
 
+83
+84
 85
 86
-87
-88
-89</pre>
+87</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod012-card-mod-edit/all/form.rb', line 85</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod011-edit/all/form.rb', line 83</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_multi_card_editor?'>multi_card_editor?</span>
   <span class='id identifier rubyid_voo'>voo</span><span class='period'>.</span><span class='id identifier rubyid_structure'>structure</span> <span class='op'>||</span> <span class='id identifier rubyid_voo'>voo</span><span class='period'>.</span><span class='id identifier rubyid_edit_structure'>edit_structure</span> <span class='op'>||</span> <span class='comment'># structure configured in voo
@@ -1977,13 +2026,13 @@ card that build the form</p>
       <pre class="lines">
 
 
+49
+50
 51
-52
-53
-54</pre>
+52</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod012-card-mod-edit/all/form.rb', line 51</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod011-edit/all/form.rb', line 49</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_name_field'>name_field</span>
   <span class='comment'># value needed because otherwise gets wrong value if there are updates
@@ -2009,81 +2058,17 @@ card that build the form</p>
       <pre class="lines">
 
 
-151
-152
-153
-154</pre>
+156
+157
+158
+159</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod012-card-mod-edit/all/form.rb', line 151</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod011-edit/all/form.rb', line 156</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_new_form'>new_form</span>
   <span class='ivar'>@form_root</span> <span class='op'>=</span> <span class='kw'>true</span> <span class='kw'>unless</span> <span class='id identifier rubyid_parent'>parent</span><span class='op'>&amp;.</span><span class='id identifier rubyid_form_root'>form_root</span>
   <span class='id identifier rubyid_instantiate_builder'>instantiate_builder</span><span class='lparen'>(</span><span class='id identifier rubyid_form_prefix'>form_prefix</span><span class='comma'>,</span> <span class='id identifier rubyid_card'>card</span><span class='comma'>,</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="process_edit_fields-instance_method">
-  
-    #<strong>process_edit_fields</strong>(fields)  &#x21d2; <tt><span class='object_link'><a href="../../../../Object.html" title="Object (class)">Object</a></span></tt> 
-  
-
-  
-
-  
-</h3><div class="docstring">
-  <div class="discussion">
-    <p>cards or a hash with the fields as keys and a hash with nest options as
-values</p>
-
-
-  </div>
-</div>
-<div class="tags">
-  <p class="tag_title">Parameters:</p>
-<ul class="param">
-  
-    <li>
-      
-        <span class='name'>fields</span>
-      
-      
-        <span class='type'>(<tt>Hash|Array</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'><p>either an array with field names and/or field</p>
-</div>
-      
-    </li>
-  
-</ul>
-
-
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-136
-137
-138
-139
-140</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod012-card-mod-edit/all/form.rb', line 136</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_process_edit_fields'>process_edit_fields</span> <span class='id identifier rubyid_fields'>fields</span>
-  <span class='id identifier rubyid_fields'>fields</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_field'>field</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='op'>|</span>
-    <span class='id identifier rubyid_field_nest'>field_nest</span> <span class='id identifier rubyid_field'>field</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span>
-  <span class='kw'>end</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>\n</span><span class='tstring_end'>&quot;</span></span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -2105,12 +2090,12 @@ values</p>
       <pre class="lines">
 
 
-156
-157
-158</pre>
+161
+162
+163</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod012-card-mod-edit/all/form.rb', line 156</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod011-edit/all/form.rb', line 161</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_reset_form'>reset_form</span>
   <span class='ivar'>@form</span> <span class='op'>=</span> <span class='id identifier rubyid_new_form'>new_form</span>
@@ -2158,12 +2143,12 @@ values</p>
       <pre class="lines">
 
 
-169
-170
-171</pre>
+174
+175
+176</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod012-card-mod-edit/all/form.rb', line 169</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod011-edit/all/form.rb', line 174</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_simple_form?'>simple_form?</span>
   <span class='id identifier rubyid_form_root?'>form_root?</span> <span class='op'>||</span> <span class='op'>!</span><span class='id identifier rubyid_form_root'>form_root</span> <span class='op'>||</span> <span class='op'>!</span><span class='id identifier rubyid_parent'>parent</span>
@@ -2188,16 +2173,16 @@ values</p>
       <pre class="lines">
 
 
+99
+100
 101
 102
 103
 104
-105
-106
-107</pre>
+105</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod012-card-mod-edit/all/form.rb', line 101</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod011-edit/all/form.rb', line 99</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_single_card_edit_field'>single_card_edit_field</span>
   <span class='kw'>if</span> <span class='id identifier rubyid_voo'>voo</span><span class='period'>.</span><span class='id identifier rubyid_show?'>show?</span><span class='lparen'>(</span><span class='symbol'>:type_formgroup</span><span class='rparen'>)</span> <span class='op'>||</span> <span class='id identifier rubyid_voo'>voo</span><span class='period'>.</span><span class='id identifier rubyid_show?'>show?</span><span class='lparen'>(</span><span class='symbol'>:name_formgroup</span><span class='rparen'>)</span>
@@ -2226,15 +2211,15 @@ values</p>
       <pre class="lines">
 
 
-126
-127
-128
-129
-130
-131</pre>
+131
+132
+133
+134
+135
+136</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod012-card-mod-edit/all/form.rb', line 126</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod011-edit/all/form.rb', line 131</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_structure_link'>structure_link</span>
   <span class='comment'># LOCALIZE
@@ -2270,7 +2255,7 @@ values</p>
 38</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod012-card-mod-edit/all/form.rb', line 33</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod011-edit/all/form.rb', line 33</span>
 
 <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:conflict_tracker</span><span class='comma'>,</span> <span class='label'>cache:</span> <span class='symbol'>:never</span><span class='comma'>,</span> <span class='label'>unknown:</span> <span class='kw'>true</span> <span class='kw'>do</span>
   <span class='kw'>return</span> <span class='kw'>unless</span> <span class='id identifier rubyid_card'>card</span><span class='op'>&amp;.</span><span class='id identifier rubyid_real?'>real?</span>
@@ -2313,7 +2298,7 @@ values</p>
 25</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod012-card-mod-edit/all/form.rb', line 23</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod011-edit/all/form.rb', line 23</span>
 
 <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:content_formgroup</span><span class='comma'>,</span> <span class='label'>unknown:</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='label'>cache:</span> <span class='symbol'>:never</span> <span class='kw'>do</span>
   <span class='id identifier rubyid_wrap_content_formgroup'>wrap_content_formgroup</span> <span class='lbrace'>{</span> <span class='id identifier rubyid_content_field'>content_field</span> <span class='rbrace'>}</span>
@@ -2353,9 +2338,9 @@ values</p>
 14</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod012-card-mod-edit/all/form.rb', line 12</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod011-edit/all/form.rb', line 12</span>
 
-<span class='id identifier rubyid_view'>view</span> <span class='symbol'>:content_formgroups</span><span class='comma'>,</span> <span class='label'>cache:</span> <span class='symbol'>:never</span> <span class='kw'>do</span>
+<span class='id identifier rubyid_view'>view</span> <span class='symbol'>:content_formgroups</span><span class='comma'>,</span> <span class='label'>unknown:</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='label'>cache:</span> <span class='symbol'>:never</span> <span class='kw'>do</span>
   <span class='id identifier rubyid_wrap_with'>wrap_with</span> <span class='symbol'>:fieldset</span><span class='comma'>,</span> <span class='id identifier rubyid_edit_slot'>edit_slot</span><span class='comma'>,</span> <span class='label'>class:</span> <span class='id identifier rubyid_classy'>classy</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>card-editor</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>editor</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -2385,7 +2370,7 @@ values</p>
 31</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod012-card-mod-edit/all/form.rb', line 27</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod011-edit/all/form.rb', line 27</span>
 
 <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:edit_in_form</span><span class='comma'>,</span> <span class='label'>cache:</span> <span class='symbol'>:never</span><span class='comma'>,</span> <span class='label'>perms:</span> <span class='symbol'>:update</span><span class='comma'>,</span> <span class='label'>unknown:</span> <span class='kw'>true</span> <span class='kw'>do</span>
   <span class='id identifier rubyid_reset_form'>reset_form</span>
@@ -2419,7 +2404,7 @@ values</p>
 20</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod012-card-mod-edit/all/form.rb', line 16</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod011-edit/all/form.rb', line 16</span>
 
 <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:name_formgroup</span> <span class='kw'>do</span>
   <span class='id identifier rubyid_formgroup'>formgroup</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Name</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>input:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>name</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>help:</span> <span class='kw'>false</span> <span class='kw'>do</span>
@@ -2434,7 +2419,7 @@ values</p>
       <div class="method_details ">
   <h3 class="signature " id="wrap_content_formgroup-instance_method">
   
-    #<strong>wrap_content_formgroup</strong>  &#x21d2; <tt><span class='object_link'><a href="../../../../Object.html" title="Object (class)">Object</a></span></tt> 
+    #<strong>wrap_content_formgroup</strong>(&amp;block)  &#x21d2; <tt><span class='object_link'><a href="../../../../Object.html" title="Object (class)">Object</a></span></tt> 
   
 
   
@@ -2452,11 +2437,49 @@ values</p>
 43</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod012-card-mod-edit/all/form.rb', line 40</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod011-edit/all/form.rb', line 40</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_wrap_content_formgroup'>wrap_content_formgroup</span>
-  <span class='id identifier rubyid_formgroup'>formgroup</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Content</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>input:</span> <span class='symbol'>:content</span><span class='comma'>,</span> <span class='label'>help:</span> <span class='kw'>false</span><span class='comma'>,</span>
-                       <span class='label'>class:</span> <span class='id identifier rubyid_classy'>classy</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>card-editor</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='rparen'>)</span> <span class='lbrace'>{</span> <span class='kw'>yield</span> <span class='rbrace'>}</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_wrap_content_formgroup'>wrap_content_formgroup</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span>
+  <span class='id identifier rubyid_formgroup'>formgroup</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Content</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>input:</span> <span class='symbol'>:content</span><span class='comma'>,</span> <span class='label'>help:</span> <span class='kw'>false</span><span class='comma'>,</span>
+                       <span class='label'>class:</span> <span class='id identifier rubyid_classy'>classy</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>card-editor</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="wrap_editor_in_multi_card-instance_method">
+  
+    #<strong>wrap_editor_in_multi_card</strong>(&amp;block)  &#x21d2; <tt><span class='object_link'><a href="../../../../Object.html" title="Object (class)">Object</a></span></tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+114
+115
+116
+117
+118
+119
+120</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod011-edit/all/form.rb', line 114</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_wrap_editor_in_multi_card'>wrap_editor_in_multi_card</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span>
+  <span class='kw'>return</span> <span class='kw'>yield</span> <span class='kw'>if</span> <span class='id identifier rubyid_input_type'>input_type</span> <span class='op'>==</span> <span class='symbol'>:hidden</span>
+
+  <span class='id identifier rubyid_formgroup'>formgroup</span> <span class='id identifier rubyid_render_title'>render_title</span><span class='comma'>,</span>
+            <span class='label'>input:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>content</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>help:</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='label'>class:</span> <span class='id identifier rubyid_classy'>classy</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>card-editor</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='comma'>,</span>
+            <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -2468,9 +2491,9 @@ values</p>
 </div>
 
       <div id="footer">
-  Generated on Thu May 13 17:17:23 2021 by
-  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.26 (ruby-2.7.2).
+  Generated on Mon Feb  6 15:49:37 2023 by
+  <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.28 (ruby-3.0.1).
 </div>
 
     </div>

@@ -6,7 +6,7 @@
 <title>
   Module: Card::Set::All::Error::Format
   
-    &mdash; Documentation by YARD 0.9.26
+    &mdash; Documentation by YARD 0.9.28
   
 </title>
 
@@ -83,7 +83,7 @@
   
   <dl>
     <dt>Defined in:</dt>
-    <dd>card/tmpsets/set/mod008-card-mod-format/all/error.rb</dd>
+    <dd>platypus/tmp/set/gem-defaults/mod004-format/all/error.rb</dd>
   </dl>
   
 </div>
@@ -392,7 +392,7 @@
 47</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod008-card-mod-format/all/error.rb', line 39</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod004-format/all/error.rb', line 39</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_error_messages'>error_messages</span>
   <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_errors'>errors</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_error'>error</span><span class='op'>|</span>
@@ -438,7 +438,7 @@
 52</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod008-card-mod-format/all/error.rb', line 50</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod004-format/all/error.rb', line 50</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_simple_error_message'>simple_error_message</span> <span class='id identifier rubyid_message'>message</span>
   <span class='id identifier rubyid_message'>message</span>
@@ -478,7 +478,7 @@
 57</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod008-card-mod-format/all/error.rb', line 55</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod004-format/all/error.rb', line 55</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_standard_error_message'>standard_error_message</span> <span class='id identifier rubyid_error'>error</span>
   <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_error'>error</span><span class='period'>.</span><span class='id identifier rubyid_attribute'>attribute</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='period'>.</span><span class='id identifier rubyid_upcase'>upcase</span><span class='embexpr_end'>}</span><span class='tstring_content'>: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_error'>error</span><span class='period'>.</span><span class='id identifier rubyid_message'>message</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
@@ -508,10 +508,10 @@
 61</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod008-card-mod-format/all/error.rb', line 59</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod004-format/all/error.rb', line 59</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_unsupported_view_error_message'>unsupported_view_error_message</span> <span class='id identifier rubyid_view'>view</span>
-  <span class='id identifier rubyid_tr'>tr</span><span class='lparen'>(</span><span class='symbol'>:unsupported_view</span><span class='comma'>,</span> <span class='label'>view:</span> <span class='id identifier rubyid_view'>view</span><span class='comma'>,</span> <span class='label'>cardname:</span> <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_t'>t</span> <span class='symbol'>:format_unsupported_view</span><span class='comma'>,</span> <span class='label'>view:</span> <span class='id identifier rubyid_view'>view</span><span class='comma'>,</span> <span class='label'>cardname:</span> <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -539,11 +539,11 @@
 33</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod008-card-mod-format/all/error.rb', line 30</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod004-format/all/error.rb', line 30</span>
 
 <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:bad_address</span><span class='comma'>,</span> <span class='label'>perms:</span> <span class='symbol'>:none</span> <span class='kw'>do</span>
   <span class='id identifier rubyid_root'><span class='object_link'><a href="../../../../top-level-namespace.html" title="Top Level Namespace (root)">root</a></span></span><span class='period'>.</span><span class='id identifier rubyid_error_status'>error_status</span> <span class='op'>=</span> <span class='int'>404</span>
-  <span class='id identifier rubyid_tr'>tr</span><span class='lparen'>(</span><span class='symbol'>:bad_address</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_t'>t</span><span class='lparen'>(</span><span class='symbol'>:format_bad_address</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -570,7 +570,7 @@
 11</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod008-card-mod-format/all/error.rb', line 9</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod004-format/all/error.rb', line 9</span>
 
 <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:compact_missing</span><span class='comma'>,</span> <span class='label'>perms:</span> <span class='symbol'>:none</span><span class='comma'>,</span> <span class='label'>compact:</span> <span class='kw'>true</span> <span class='kw'>do</span>
   <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span>
@@ -600,10 +600,10 @@
 23</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod008-card-mod-format/all/error.rb', line 21</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod004-format/all/error.rb', line 21</span>
 
 <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:denial</span><span class='comma'>,</span> <span class='label'>perms:</span> <span class='symbol'>:none</span> <span class='kw'>do</span>
-  <span class='id identifier rubyid_focal?'>focal?</span> <span class='op'>?</span> <span class='id identifier rubyid_tr'>tr</span><span class='lparen'>(</span><span class='symbol'>:denial</span><span class='rparen'>)</span> <span class='op'>:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span>
+  <span class='id identifier rubyid_focal?'>focal?</span> <span class='op'>?</span> <span class='id identifier rubyid_t'>t</span><span class='lparen'>(</span><span class='symbol'>:format_denial</span><span class='rparen'>)</span> <span class='op'>:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -630,7 +630,7 @@
 37</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod008-card-mod-format/all/error.rb', line 35</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod004-format/all/error.rb', line 35</span>
 
 <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:errors</span> <span class='kw'>do</span>
   <span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Problem:</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_error_messages'>error_messages</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_flatten'>flatten</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>\n</span><span class='tstring_end'>&quot;</span></span>
@@ -661,11 +661,11 @@
 28</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod008-card-mod-format/all/error.rb', line 25</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod004-format/all/error.rb', line 25</span>
 
 <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:not_found</span><span class='comma'>,</span> <span class='label'>perms:</span> <span class='symbol'>:none</span> <span class='kw'>do</span>
-  <span class='id identifier rubyid_error_name'>error_name</span> <span class='op'>=</span> <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span><span class='period'>.</span><span class='id identifier rubyid_present?'>present?</span> <span class='op'>?</span> <span class='id identifier rubyid_safe_name'>safe_name</span> <span class='op'>:</span> <span class='id identifier rubyid_tr'>tr</span><span class='lparen'>(</span><span class='symbol'>:not_found_no_name</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_tr'>tr</span><span class='lparen'>(</span><span class='symbol'>:not_found_named</span><span class='comma'>,</span> <span class='label'>cardname:</span> <span class='id identifier rubyid_error_name'>error_name</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_error_name'>error_name</span> <span class='op'>=</span> <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span><span class='period'>.</span><span class='id identifier rubyid_present?'>present?</span> <span class='op'>?</span> <span class='id identifier rubyid_safe_name'>safe_name</span> <span class='op'>:</span> <span class='id identifier rubyid_t'>t</span><span class='lparen'>(</span><span class='symbol'>:format_not_found_no_name</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_t'>t</span><span class='lparen'>(</span><span class='symbol'>:format_not_found_named</span><span class='comma'>,</span> <span class='label'>cardname:</span> <span class='id identifier rubyid_error_name'>error_name</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -692,10 +692,10 @@
 19</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod008-card-mod-format/all/error.rb', line 17</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod004-format/all/error.rb', line 17</span>
 
 <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:server_error</span><span class='comma'>,</span> <span class='label'>perms:</span> <span class='symbol'>:none</span> <span class='kw'>do</span>
-  <span class='id identifier rubyid_tr'>tr</span><span class='lparen'>(</span><span class='symbol'>:server_error</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_t'>t</span><span class='lparen'>(</span><span class='symbol'>:format_server_error</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -722,7 +722,7 @@
 15</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod008-card-mod-format/all/error.rb', line 13</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod004-format/all/error.rb', line 13</span>
 
 <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:unknown</span><span class='comma'>,</span> <span class='label'>perms:</span> <span class='symbol'>:none</span><span class='comma'>,</span> <span class='label'>cache:</span> <span class='symbol'>:never</span> <span class='kw'>do</span>
   <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span>
@@ -737,9 +737,9 @@
 </div>
 
       <div id="footer">
-  Generated on Thu May 13 17:17:25 2021 by
-  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.26 (ruby-2.7.2).
+  Generated on Mon Feb  6 15:49:39 2023 by
+  <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.28 (ruby-3.0.1).
 </div>
 
     </div>

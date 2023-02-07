@@ -6,7 +6,7 @@
 <title>
   Module: Card::Set::All::Text::TextFormat
   
-    &mdash; Documentation by YARD 0.9.26
+    &mdash; Documentation by YARD 0.9.28
   
 </title>
 
@@ -83,7 +83,7 @@
   
   <dl>
     <dt>Defined in:</dt>
-    <dd>card/tmpsets/set/mod008-card-mod-format/all/text.rb</dd>
+    <dd>platypus/tmp/set/gem-defaults/mod004-format/all/text.rb</dd>
   </dl>
   
 </div>
@@ -120,7 +120,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
+    <span class="summary_desc"><div class='inline'><p>TODO: override this in cards without html content.</p>
 </div></span>
   
 </li>
@@ -145,24 +145,32 @@
   
 
   
-</h3><table class="source_code">
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>TODO: override this in cards without html content</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-10
-11
-12
-13</pre>
+29
+30
+31</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod008-card-mod-format/all/text.rb', line 10</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod004-format/all/text.rb', line 29</span>
 
 <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:core</span> <span class='kw'>do</span>
-  <span class='const'>HTMLEntities</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='period'>.</span><span class='id identifier rubyid_decode'>decode</span> <span class='id identifier rubyid_strip_tags'>strip_tags</span><span class='lparen'>(</span><span class='kw'>super</span><span class='lparen'>(</span><span class='rparen'>)</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span>
-  <span class='comment'># need this string method to get out of html_safe mode
-</span><span class='kw'>end</span></pre>
+  <span class='id identifier rubyid_to_text'>to_text</span> <span class='kw'>super</span><span class='lparen'>(</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -173,9 +181,9 @@
 </div>
 
       <div id="footer">
-  Generated on Thu May 13 17:17:24 2021 by
-  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.26 (ruby-2.7.2).
+  Generated on Mon Feb  6 15:49:39 2023 by
+  <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.28 (ruby-3.0.1).
 </div>
 
     </div>

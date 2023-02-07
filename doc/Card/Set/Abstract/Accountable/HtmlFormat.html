@@ -6,7 +6,7 @@
 <title>
   Module: Card::Set::Abstract::Accountable::HtmlFormat
   
-    &mdash; Documentation by YARD 0.9.26
+    &mdash; Documentation by YARD 0.9.28
   
 </title>
 
@@ -83,7 +83,7 @@
   
   <dl>
     <dt>Defined in:</dt>
-    <dd>card/tmpsets/set/mod011-card-mod-account/abstract/accountable.rb</dd>
+    <dd>platypus/tmp/set/gem-defaults/mod014-account/abstract/accountable.rb</dd>
   </dl>
   
 </div>
@@ -266,13 +266,13 @@
       <pre class="lines">
 
 
-52
-53
-54
-55</pre>
+56
+57
+58
+59</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod011-card-mod-account/abstract/accountable.rb', line 52</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod014-account/abstract/accountable.rb', line 56</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_account_content_items'>account_content_items</span>
   <span class='lbracket'>[</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Created</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='symbol'>:created</span><span class='rbracket'>]</span><span class='comma'>,</span>
@@ -306,18 +306,26 @@
 47
 48
 49
-50</pre>
+50
+51
+52
+53
+54</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod011-card-mod-account/abstract/accountable.rb', line 42</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod014-account/abstract/accountable.rb', line 42</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_account_details_items'>account_details_items</span>
   <span class='lbracket'>[</span>
     <span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Email and Password</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='symbol'>:account</span><span class='comma'>,</span>
      <span class='lbrace'>{</span> <span class='label'>path:</span> <span class='lbrace'>{</span> <span class='label'>slot:</span> <span class='lbrace'>{</span> <span class='label'>hide:</span> <span class='qsymbols_beg'>%i[</span><span class='tstring_content'>help_link</span><span class='words_sep'> </span><span class='tstring_content'>bridge_link</span><span class='tstring_end'>]</span></span> <span class='rbrace'>}</span> <span class='rbrace'>}</span> <span class='rbrace'>}</span><span class='rbracket'>]</span><span class='comma'>,</span>
     <span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Roles</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='symbol'>:roles</span><span class='comma'>,</span>
-     <span class='lbrace'>{</span> <span class='label'>path:</span>  <span class='lbrace'>{</span> <span class='label'>view:</span> <span class='symbol'>:content_with_edit_button</span> <span class='rbrace'>}</span> <span class='rbrace'>}</span><span class='rbracket'>]</span><span class='comma'>,</span>
-    <span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Notifications</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='symbol'>:follow</span><span class='rbracket'>]</span>
+     <span class='lbrace'>{</span> <span class='label'>path:</span>  <span class='lbrace'>{</span> <span class='label'>view:</span> <span class='symbol'>:content</span> <span class='rbrace'>}</span> <span class='rbrace'>}</span><span class='rbracket'>]</span><span class='comma'>,</span>
+    <span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Notifications</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='symbol'>:follow</span><span class='rbracket'>]</span><span class='comma'>,</span>
+    <span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>API</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='symbol'>:account</span><span class='comma'>,</span>
+     <span class='lbrace'>{</span> <span class='label'>path:</span> <span class='lbrace'>{</span> <span class='label'>view:</span> <span class='symbol'>:api_key</span><span class='comma'>,</span>
+               <span class='label'>items:</span> <span class='lbrace'>{</span> <span class='label'>view:</span> <span class='symbol'>:content</span> <span class='rbrace'>}</span><span class='comma'>,</span>
+               <span class='label'>slot:</span> <span class='lbrace'>{</span> <span class='label'>hide:</span> <span class='qsymbols_beg'>%i[</span><span class='tstring_content'>help_link</span><span class='words_sep'> </span><span class='tstring_content'>bridge_link</span><span class='tstring_end'>]</span></span> <span class='rbrace'>}</span> <span class='rbrace'>}</span> <span class='rbrace'>}</span><span class='rbracket'>]</span>
   <span class='rbracket'>]</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -347,7 +355,7 @@
 40</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod011-card-mod-account/abstract/accountable.rb', line 36</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod014-account/abstract/accountable.rb', line 36</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_account_formgroups'>account_formgroups</span>
   <span class='const'><span class='object_link'><a href="../../../Auth.html" title="Card::Auth (module)">Auth</a></span></span><span class='period'>.</span><span class='id identifier rubyid_as_bot'><span class='object_link'><a href="../../../Auth/Proxy.html#as_bot-instance_method" title="Card::Auth::Proxy#as_bot (method)">as_bot</a></span></span> <span class='kw'>do</span>
@@ -379,7 +387,7 @@
 23</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod011-card-mod-account/abstract/accountable.rb', line 21</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod014-account/abstract/accountable.rb', line 21</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_default_bridge_tab'>default_bridge_tab</span>
   <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_current_account?'>current_account?</span> <span class='op'>?</span> <span class='symbol'>:account_tab</span> <span class='op'>:</span> <span class='kw'>super</span>
@@ -432,7 +440,7 @@
 34</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod011-card-mod-account/abstract/accountable.rb', line 32</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod014-account/abstract/accountable.rb', line 32</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_show_account_tab?'>show_account_tab?</span>
   <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_account'>account</span><span class='period'>.</span><span class='id identifier rubyid_real?'>real?</span>
@@ -465,7 +473,7 @@
 30</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod011-card-mod-account/abstract/accountable.rb', line 25</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod014-account/abstract/accountable.rb', line 25</span>
 
 <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:account_tab</span> <span class='kw'>do</span>
   <span class='id identifier rubyid_bridge_pill_sections'>bridge_pill_sections</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Account</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>do</span>
@@ -483,9 +491,9 @@
 </div>
 
       <div id="footer">
-  Generated on Thu May 13 17:17:35 2021 by
-  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.26 (ruby-2.7.2).
+  Generated on Mon Feb  6 15:49:50 2023 by
+  <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.28 (ruby-3.0.1).
 </div>
 
     </div>

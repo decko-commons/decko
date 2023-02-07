@@ -3,9 +3,10 @@
 class Card
   module Set
     module Format
-      # AbstractFormat manages the basic format API, including API to define a {#view}.
-      # Whenever you create a format block in a set module in a {Cardio::Mod mod}, you
-      # create a format module that is extended with AbstractFormat.
+      # AbstractFormat manages the DSL for defining {#view views}.
+      #
+      # Whenever you create a {Format format} block in a {Cardio::Mod set module},
+      # you create a format module that is extended with AbstractFormat.
       module AbstractFormat
         include ViewOpts
         include ViewDefinition
