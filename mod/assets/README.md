@@ -17,20 +17,10 @@ the code comes from) and outputters (where it ends up).
 
 Inputters can be created in multiple ways:
 
-1. By directly creating cards of an inputter type
-2. By adding code to the assets directory in a mod
-3. By adding remote and/or local assets to a manifest.yml file
-4. By combining other inputters
-
-### creating inputter cards
-
-Many Cardtypes are coded to be inputters. If you create a card with the type CSS, 
-for example, it will automatically be treated as an inputter. The same goes for SCSS,
-CoffeeScript, and JavaScript cards. (In code terms, this is achieved by having those
-sets include the `Abstract::AssetInputter` set).
-
-Because these cards are intended for Sharks, they are predominantly documented on
-decko.org
+1. By adding code to the assets directory in a mod
+2. By adding remote and/or local assets to a manifest.yml file
+3. By combining other inputters
+4. By directly creating cards of an inputter type
 
 ### adding code to the assets directory
 
@@ -86,6 +76,16 @@ There are various special cards that combine inputters and are inputters themsel
   - the :style_mods card contains all the standard assets from mods' asset directories
   - skin cards combine a particular set of styles
   - (Mod)+:style and (Mod)+:script assemble the assets for a given mod
+
+### creating inputter cards
+
+Many Cardtypes are coded to be inputters. If you create a card with the type CSS,
+for example, it will automatically be treated as an inputter. The same goes for SCSS,
+CoffeeScript, and JavaScript cards. (In code terms, this is achieved by having those
+sets include the `Abstract::AssetInputter` set).
+
+Because these cards are intended for Sharks, they are predominantly documented on
+decko.org
 
 ## Outputters
 

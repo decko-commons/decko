@@ -16,7 +16,7 @@ card/lib/card/query.rb f7c558e78ac29f02911c8af46d12be8e4a91192a
 card/lib/cardio/all.rb 3d2ff6b24c7cdc6aad7bf842d6127d0b946f5637
 card/lib/cardio/cli.rb a727cb31f88beb6cea296c9dcd83eb1941aa3c8d
 card/lib/cardio/job.rb 0b6a5a1a85d6502daa621908b45172b431fb0fb2
-card/lib/cardio/mod.rb 4b9bcf5e44c4b9a9fba27f80949a5a85bc2828e3
+card/lib/cardio/mod.rb 0fe2cdcbc900d063f3999035a591261cfbaa9c63
 decko/lib/decko/all.rb d3aa97ddd0ed1037239ebd5fc0abb48ea3e84ed3
 decko/lib/decko/cli.rb df4a49f692e219fd019708459ea106242c31f94f
 card/lib/card/format.rb 0e9a0b1e13a31ef9a5ec88e78cd5040e925b1bd3
