@@ -1,7 +1,7 @@
 include_set Abstract::VirtualCache
 
 def virtual_content
-  left.render_asset_input_content
+  left.assemble_asset_input_content
 end
 
 def history?
