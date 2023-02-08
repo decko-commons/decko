@@ -107,9 +107,10 @@ which typically points to a skin card.  The output is managed as a file card at
 ### generating output from input
 
 For each inputter, we generate a VirtualCache card following this pattern: 
-`(Inputter)+:asset_input`. For example, if I have a 
+`(Inputter)+:asset_input`. This card processes the inputs as much as it safely can.
+For example, SCSS cards cannot be converted to CSS here, because they often 
+involve variables that must be used by other inputters. 
 
-This card does as much work as it safely can without impacting
-the outputter. For example, SCSS cards cannot be converted to CSS here, because they often 
-involve variables that must be used by other inputters.
+When changes to inputters are detected, they trigger changes to all inputters and 
+outputters that depend on them.
 
