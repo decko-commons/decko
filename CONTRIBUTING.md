@@ -2,10 +2,12 @@
 # @title Contributing as a Shark, Monkey, or Platypus
 -->
 # Thinking about contributing to Decko?
-Nice! There's tons to do involving lots of different skillsets, and we welcome the help.
-
+Nice! There's tons to do involving lots of different skillsets, and we welcome the help. 
 We want to make contributing to Decko as rewarding an experience as possible. Please 
 jump in, and ask away for help.
+
+For starters, it's helpful to be clear whether you're interested in helping as a Shark,
+a Monkey, or a Platypus. (Or as more than one of these!)
 
 ## Sharks - Masters of Cards
 Decko is built around the _card_ concept, so we call advanced users who create,
@@ -13,7 +15,7 @@ structure, organize, and maintain Decko websites "Card Sharks." There are many t
 Sharks can do to contribute to the project: design, community support, documentation,
 outreach, or even just the occasional kind word. 
 
-Because Sharks live not in the land of code but in the sea of websites, we will
+Because Sharks live not in the land of code but in the sea of websites, we
 maintain information that pertains to them – **including installation troubleshooting, 
 mod lists, and deck configuration** – on [Decko.org][1].
 
@@ -109,6 +111,16 @@ changing code. To do that you can run the following from the development deck ro
  
 BUT: only do this if you're both (a) in development mode and (b) using a decko gem from
 within a copy of the repo.
+
+A few notes on yard documentation:
+
+- It's important to document classes and modules only once. If, for example, `class Card`
+  is preceeded by a comment in multiple files, only one will be used, which often means
+  the intended documentation may get overridden.
+- If comments are broken by uncommented lines, the comments before or after the break
+  (depending on context) may be lost.
+- It's always great to check yardoc links in comments after refactoring to make sure 
+  the changes didn't break them.
 
 [1]: https://decko.org
 [2]: https://groups.google.com/g/decko-sharks

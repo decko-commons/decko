@@ -1,6 +1,7 @@
 bootstrap_decko:
   items:
     - decko_bootstrap.scss
+
 libraries:
   items:
     - font_awesome.css

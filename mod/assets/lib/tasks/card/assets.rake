@@ -1,5 +1,6 @@
 namespace :card do
   namespace :assets do
+    desc ""
     task refresh: :environment do
       Card::Assets.refresh force: true
     end
