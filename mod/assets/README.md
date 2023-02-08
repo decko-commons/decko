@@ -6,8 +6,8 @@
 This mod unifies handling of styles (CSS, SCSS, etc) and scripts 
 (JavaScript, CoffeeScript, etc).
 
-In both cases, the idea is to output optimized files that will support browser caching
-and thus improve users' experience by reducing asset loading times. In other words, we use
+For both, the idea is to output optimized files that will support browser caching
+and thus improve users' experience by reducing loading times. In other words, we use
 a wide variety of asset sources to assemble a ready-for-prime-time outputs.
 
 There are two main kinds of cards in the asset pipeline: inputters (where
@@ -89,16 +89,22 @@ There are various special cards that combine inputters and are inputters themsel
 
 ## Outputters
 
-Outputters produce the final asset files delivered to users' browsers.
+Outputters produce the final asset (.js and .css) files delivered to users' browsers.
 
-They work slightly differently with style and script cards. JavaScript output is 
-produced on a mod-by-mod basis. These files are 
+They work slightly differently with style and script cards. JavaScript (.js) output is 
+produced on a mod-by-mod basis. The `:all+:script` rule maintains a list of all mods
+with script inputters, and output is produced for each mod that assembles all the 
+javascript for that mod. The output is managed with a file card using the name pattern
+`MOD+:asset_ouput`
 
-With style cards, SCSS 
-variables are often shared across many mods, so the output CSS cannot be constructed on
-a mod-by-mod basis.
+With style cards, SCSS variables are often shared across many mods, so the output CSS 
+cannot be constructed on a mod-by-mod basis; it has to be generated across all mods at 
+once. Thus the site's main CSS is served as a single file associated with `:all+:style`,
+which typically points to a skin card.  The output is managed as a file card at 
+`:all+:style+:asset_output`.
 
 
+### generating output from input
 
 For each inputter, we generate a VirtualCache card following this pattern: 
 `(Inputter)+:asset_input`. For example, if I have a 
