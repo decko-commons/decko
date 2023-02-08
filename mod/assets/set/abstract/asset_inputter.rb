@@ -41,13 +41,13 @@ def update_asset_input
 end
 
 def asset_input_content
-  return render_asset_input_content if virtual?
+  return assemble_asset_input_content if virtual?
   update_asset_input if asset_input.blank?
   asset_input
 end
 
-def render_asset_input_content
-  format(input_format).render(input_view)
+def assemble_asset_input_content
+  format(input_format).render input_view
 end
 
 def input_view
