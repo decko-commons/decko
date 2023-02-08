@@ -16,7 +16,7 @@ card/lib/card/query.rb f7c558e78ac29f02911c8af46d12be8e4a91192a
 card/lib/cardio/all.rb 3d2ff6b24c7cdc6aad7bf842d6127d0b946f5637
 card/lib/cardio/cli.rb a727cb31f88beb6cea296c9dcd83eb1941aa3c8d
 card/lib/cardio/job.rb 0b6a5a1a85d6502daa621908b45172b431fb0fb2
-card/lib/cardio/mod.rb d99ae1567e92140f63aed95d71600ce98bfded9c
+card/lib/cardio/mod.rb 4b9bcf5e44c4b9a9fba27f80949a5a85bc2828e3
 decko/lib/decko/all.rb d3aa97ddd0ed1037239ebd5fc0abb48ea3e84ed3
 decko/lib/decko/cli.rb df4a49f692e219fd019708459ea106242c31f94f
 card/lib/card/format.rb 0e9a0b1e13a31ef9a5ec88e78cd5040e925b1bd3
@@ -255,7 +255,7 @@ card/lib/card/view/cache/cache_action.rb a41f74cc2e8e5579affb23be29213d7b512ccdf
 card/lib/card/view/options/visibility.rb de98df24a3b870f60399a12ead7e3da128da3c1c
 card/lib/cardio/command/rspec_command.rb b0797913b881bdc61ea954af3f754eabe19e0959
 card/lib/cardio/mod/loader/set_loader.rb 2fe1393a8df1def1bc2737aa02c0e39c70a91d93
-card/lib/generators/mod/mod_generator.rb 71d557186b8f78685cc90f75f568b7f48653ec18
+card/lib/generators/mod/mod_generator.rb 5f6fbb22cfd52c796ad689e34ec75698b2ae6079
 card/lib/generators/set/set_generator.rb 0596449274639bec28d0e06363e1c360509bf432
 mod/format/lib/card/format/css_format.rb a8b265df1bd9806f3e8d3ee73dadbf1e9b358bf1
 mod/format/lib/card/format/csv_format.rb 5d36dd72509f102870bcfc4e196ea0b87d4885a1

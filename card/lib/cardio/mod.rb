@@ -12,22 +12,23 @@ module Cardio
   #
   # This will create a directory following the pattern `DECK_NAME/mod/MOD_NAME`. This
   # directory contains all the specifications of your mod. By default that includes
-  # a README.md file and the following subdirectories:
+  # a README.md file and the subdirectories in **bold** below:
   #
   # - **assets**
   #   - **script** - JavaScript, CoffeeScript, etc
   #   - **style** - CSS, SCSS, etc
   # - **config**
-  #    - **early** initialization files loaded before Card
-  #    - **lat
-  # - {file:SEEDME.md **data**} - for seed and test data.
+  #    - **early** init files loaded before Card
+  #    - **late** init files loaded after Card
+  #    - **locales** i18n yml files
+  # - {file:SEEDME.md **data**} - seed and test data.
   # - **lib** - standard code libraries
   #   - task - rake tasks
   # - **public** - accessible via the web at DECK_URL_ROOT/mod/MOD_NAME/
   # - **{Card::Set set}** - the mod's focal point where card sets are configured
+  # - {Card::Set::Pattern set_pattern} - (advanced) for adding types of sets.
   # - {file:CONTRIBUTING.md#Testing **spec**} - for rspec tests
-  # - **{Card::Set::Pattern set_pattern}** - (advanced) for adding types of sets.
-  # - **vendor** - for external code, especially git submodules
+  # - vendor - for external code, especially git submodules
   #
   #
   # Learn more:
