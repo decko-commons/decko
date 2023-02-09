@@ -662,7 +662,7 @@ platypus/tmp/set/gem-defaults/mod013-integrate/self/on_update.rb 380814055199893
 platypus/tmp/set/gem-defaults/mod015-history/all/history/acts.rb 1af63540c5f34195020abc1752b90d0a7f510977
 platypus/tmp/set/gem-defaults/mod015-history/all/history/last.rb b223995e7b5bc99425a546d7cf23ded491d109b4
 platypus/tmp/set/gem-defaults/mod016-carrierwave/self/favicon.rb 1f539bde77c7b836432a3a5f95225120c25e30ad
-platypus/tmp/set/gem-defaults/mod018-assets/right/asset_input.rb 54149cc0c36890183ba3c12948ac046a9d1ec9ca
+platypus/tmp/set/gem-defaults/mod018-assets/right/asset_input.rb 9844c4dd0272a093b671a46c902f439c18e8868b
 platypus/tmp/set/gem-defaults/mod025-comment/right/discussion.rb 9430c061d89c1ff1867792269d435b08cdd691aa
 platypus/tmp/set/gem-defaults/mod032-recaptcha/right/site_key.rb 4280f6e590e92e2f496ab6bd7d682d4caeee96e3
 platypus/tmp/set/gem-defaults/mod002-collection/abstract/items.rb 42764a9fc1cfcfabde23112a6e3fa8eff2cf8ff2
@@ -758,7 +758,7 @@ platypus/tmp/set/gem-defaults/mod011-edit/all/bridge/follow_section.rb 8a1c1a686
 platypus/tmp/set/gem-defaults/mod011-edit/all/bridge/tab_visibility.rb c4c0e028bf7e4c59ff21af043edabf78eb895e2e
 platypus/tmp/set/gem-defaults/mod014-account/abstract/account_field.rb 485becdbae3897a4ea634f98308a733eccb3f0ab
 platypus/tmp/set/gem-defaults/mod017-virtual/abstract/virtual_cache.rb adf49edcbd33f1daaf1cb5dd3deb7dfe186f721c
-platypus/tmp/set/gem-defaults/mod018-assets/abstract/asset_inputter.rb f0e944dc1042722a034f1cfee6cef36b900c5399
+platypus/tmp/set/gem-defaults/mod018-assets/abstract/asset_inputter.rb 33dcccaff30ccc0b9c99ac7cfd8bd8199b467737
 platypus/tmp/set/gem-defaults/mod019-script/abstract/01_java_script.rb 9a269f5827c2e91373dc54dbfd6aa51d1ec9e1f3
 platypus/tmp/set/gem-defaults/mod024-bootstrap/all/bootstrap/helper.rb a6b3d5daca04d64d837cf691d0923f2239d0bc88
 platypus/tmp/set/gem-defaults/mod024-bootstrap/all/bootstrap/navbar.rb 6f47c7ff01ebb4e05862d054ea2975c0b12adeb6

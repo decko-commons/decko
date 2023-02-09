@@ -170,6 +170,29 @@
         <li class="public ">
   <span class="summary_signature">
     
+      <a href="#assemble_asset_input_content-instance_method" title="#assemble_asset_input_content (instance method)">#<strong>assemble_asset_input_content</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
       <a href="#asset_input_content-instance_method" title="#asset_input_content (instance method)">#<strong>asset_input_content</strong>  &#x21d2; Object </a>
     
 
@@ -423,29 +446,6 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#render_asset_input_content-instance_method" title="#render_asset_input_content (instance method)">#<strong>render_asset_input_content</strong>  &#x21d2; Object </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'>
-</div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
       <a href="#update_asset_input-instance_method" title="#update_asset_input (instance method)">#<strong>update_asset_input</strong>  &#x21d2; Object </a>
     
 
@@ -630,7 +630,37 @@
 
     
       <div class="method_details first">
-  <h3 class="signature first" id="asset_input_content-instance_method">
+  <h3 class="signature first" id="assemble_asset_input_content-instance_method">
+  
+    #<strong>assemble_asset_input_content</strong>  &#x21d2; <tt><span class='object_link'><a href="../../../Object.html" title="Object (class)">Object</a></span></tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+56
+57
+58</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod018-assets/abstract/asset_inputter.rb', line 56</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_assemble_asset_input_content'>assemble_asset_input_content</span>
+  <span class='id identifier rubyid_format'><span class='object_link'><a href="../../../top-level-namespace.html#format-instance_method" title="#format (method)">format</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_input_format'>input_format</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_render'>render</span> <span class='id identifier rubyid_input_view'>input_view</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="asset_input_content-instance_method">
   
     #<strong>asset_input_content</strong>  &#x21d2; <tt><span class='object_link'><a href="../../../Object.html" title="Object (class)">Object</a></span></tt> 
   
@@ -654,7 +684,7 @@
       <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod018-assets/abstract/asset_inputter.rb', line 50</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_asset_input_content'>asset_input_content</span>
-  <span class='kw'>return</span> <span class='id identifier rubyid_render_asset_input_content'>render_asset_input_content</span> <span class='kw'>if</span> <span class='id identifier rubyid_virtual?'>virtual?</span>
+  <span class='kw'>return</span> <span class='id identifier rubyid_assemble_asset_input_content'>assemble_asset_input_content</span> <span class='kw'>if</span> <span class='id identifier rubyid_virtual?'>virtual?</span>
   <span class='id identifier rubyid_update_asset_input'>update_asset_input</span> <span class='kw'>if</span> <span class='id identifier rubyid_asset_input'>asset_input</span><span class='period'>.</span><span class='id identifier rubyid_blank?'>blank?</span>
   <span class='id identifier rubyid_asset_input'>asset_input</span>
 <span class='kw'>end</span></pre>
@@ -1014,36 +1044,6 @@
 </div>
     
       <div class="method_details ">
-  <h3 class="signature " id="render_asset_input_content-instance_method">
-  
-    #<strong>render_asset_input_content</strong>  &#x21d2; <tt><span class='object_link'><a href="../../../Object.html" title="Object (class)">Object</a></span></tt> 
-  
-
-  
-
-  
-</h3><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-56
-57
-58</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod018-assets/abstract/asset_inputter.rb', line 56</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_render_asset_input_content'>render_asset_input_content</span>
-  <span class='id identifier rubyid_format'><span class='object_link'><a href="../../../top-level-namespace.html#format-instance_method" title="#format (method)">format</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_input_format'>input_format</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_render'>render</span><span class='lparen'>(</span><span class='id identifier rubyid_input_view'>input_view</span><span class='rparen'>)</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
   <h3 class="signature " id="update_asset_input-instance_method">
   
     #<strong>update_asset_input</strong>  &#x21d2; <tt><span class='object_link'><a href="../../../Object.html" title="Object (class)">Object</a></span></tt> 
@@ -1128,7 +1128,7 @@
 </div>
 
       <div id="footer">
-  Generated on Tue Feb  7 10:39:37 2023 by
+  Generated on Thu Feb  9 10:07:44 2023 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.28 (ruby-3.0.1).
 </div>
