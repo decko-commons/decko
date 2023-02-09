@@ -6,8 +6,8 @@
 This mod unifies handling of styles (CSS, SCSS, etc) and scripts 
 (JavaScript, CoffeeScript, etc).
 
-In both cases, the idea is to output optimized files that will support browser caching
-and thus improve users' experience by reducing asset loading times. In other words, we use
+For both, the idea is to output optimized files that will support browser caching
+and thus improve users' experience by reducing loading times. In other words, we use
 a wide variety of asset sources to assemble a ready-for-prime-time outputs.
 
 There are two main kinds of cards in the asset pipeline: inputters (where
@@ -17,20 +17,10 @@ the code comes from) and outputters (where it ends up).
 
 Inputters can be created in multiple ways:
 
-1. By directly creating cards of an inputter type
-2. By adding code to the assets directory in a mod
-3. By adding remote and/or local assets to a manifest.yml file
-4. By combining other inputters
-
-### creating inputter cards
-
-Many Cardtypes are coded to be inputters. If you create a card with the type CSS, 
-for example, it will automatically be treated as an inputter. The same goes for SCSS,
-CoffeeScript, and JavaScript cards. (In code terms, this is achieved by having those
-sets include the `Abstract::AssetInputter` set).
-
-Because these cards are intended for Sharks, they are predominantly documented on
-decko.org
+1. By adding code to the assets directory in a mod
+2. By adding remote and/or local assets to a manifest.yml file
+3. By combining other inputters
+4. By directly creating cards of an inputter type
 
 ### adding code to the assets directory
 
@@ -87,23 +77,40 @@ There are various special cards that combine inputters and are inputters themsel
   - skin cards combine a particular set of styles
   - (Mod)+:style and (Mod)+:script assemble the assets for a given mod
 
+### creating inputter cards
+
+Many Cardtypes are coded to be inputters. If you create a card with the type CSS,
+for example, it will automatically be treated as an inputter. The same goes for SCSS,
+CoffeeScript, and JavaScript cards. (In code terms, this is achieved by having those
+sets include the `Abstract::AssetInputter` set).
+
+Because these cards are intended for Sharks, they are predominantly documented on
+decko.org
+
 ## Outputters
 
-Outputters produce the final asset files delivered to users' browsers.
+Outputters produce the final asset (.js and .css) files delivered to users' browsers.
 
-They work slightly differently with style and script cards. JavaScript output is 
-produced on a mod-by-mod basis. These files are 
+They work slightly differently with style and script cards. JavaScript (.js) output is 
+produced on a mod-by-mod basis. The `:all+:script` rule maintains a list of all mods
+with script inputters, and output is produced for each mod that assembles all the 
+javascript for that mod. The output is managed with a file card using the name pattern
+`MOD+:asset_ouput`
 
-With style cards, SCSS 
-variables are often shared across many mods, so the output CSS cannot be constructed on
-a mod-by-mod basis.
+With style cards, SCSS variables are often shared across many mods, so the output CSS 
+cannot be constructed on a mod-by-mod basis; it has to be generated across all mods at 
+once. Thus the site's main CSS is served as a single file associated with `:all+:style`,
+which typically points to a skin card.  The output is managed as a file card at 
+`:all+:style+:asset_output`.
 
 
+### generating output from input
 
 For each inputter, we generate a VirtualCache card following this pattern: 
-`(Inputter)+:asset_input`. For example, if I have a 
+`(Inputter)+:asset_input`. This card processes the inputs as much as it safely can.
+For example, SCSS cards cannot be converted to CSS here, because they often 
+involve variables that must be used by other inputters. 
 
-This card does as much work as it safely can without impacting
-the outputter. For example, SCSS cards cannot be converted to CSS here, because they often 
-involve variables that must be used by other inputters.
+When changes to inputters are detected, they trigger changes to all inputters and 
+outputters that depend on them.
 

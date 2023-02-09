@@ -8,13 +8,16 @@ module Cardio
   #
   # The simplest way to add a mod is to run this command in your deck:
   #
-  #     card generate card:mod MOD_NAME
+  #     card generate mod MOD_NAME
+  #
+  #     # or, for short:
+  #     card g mod MOD_NAME
   #
   # This will create a directory following the pattern `DECK_NAME/mod/MOD_NAME`. This
   # directory contains all the specifications of your mod. By default that includes
   # a README.md file and the subdirectories in **bold** below:
   #
-  # - **assets**
+  # - {file:mod/assets/README.md **assets**}
   #   - **script** - JavaScript, CoffeeScript, etc
   #   - **style** - CSS, SCSS, etc
   # - **config**
@@ -30,6 +33,7 @@ module Cardio
   # - {file:CONTRIBUTING.md#Testing **spec**} - for rspec tests
   # - vendor - for external code, especially git submodules
   #
+  # Mods also often contain a .gemspec file to specify the mod as a ruby gem.
   #
   # Learn more:
   #
