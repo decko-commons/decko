@@ -9,7 +9,7 @@ module Cardio
         @mod = args[:mod]
         @name = args[:name]
         @cql = args[:cql]
-        @env = args[:env] || (Rails.env.test? ? :test : :production)
+        @podtype = args[:podtype] || (Rails.env.test? ? :test : :real)
         @items = args[:items]
         @field_tags = args[:field_tags]
       end
@@ -27,7 +27,7 @@ module Cardio
 
       # @return [String] -- MOD_DIR/data/ENVIRONMENT.yml
       def filename
-        @filename ||= File.join mod_path, "#{@env}.yml"
+        @filename ||= File.join mod_path, "#{@podtype}.yml"
       end
 
       # if output mod given,

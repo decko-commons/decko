@@ -25,7 +25,8 @@ namespace :card do
     parse_options :eat do
       add_opt :m, :mod, "only eat cards in given mod"
       add_opt :u, :user, "user to credit unless specified (otherwise uses Decko Bot)"
-      add_opt :t, :type, "pod type: real, test, or all"
+      add_opt :p, :podtype, "pod type: real, test, or all " \
+                            "(defaults to all in test env, otherwise real)"
       flag_opt :v, :verbose, "output progress info and error backtraces"
     end
     rake_result(:eat) { Cardio::Mod::Eat.new(**options).up }
@@ -38,8 +39,8 @@ namespace :card do
       flag_opt :i, :items, "also export card items (with -n)"
       flag_opt :o, :only_items, "only export card items (with -n)", items: :only
       add_opt :c, :cql, "export cards found by CQL (in JSON format)"
-      add_opt :m, :mod, "output yaml to data/environment.yml file in mod"
-      add_opt :e, :env, "environment to dump to (default is current env)"
+      add_opt :m, :mod, "output yaml file in mod"
+      add_opt :p, :podtype, "podtype to dump (real or test. default based on current env)"
       add_opt :t, :field_tags, "comma-separated list of field tag marks"
     end
     rake_result(:sow) { Cardio::Mod::Sow.new(**options).out }
