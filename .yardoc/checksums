@@ -46,9 +46,9 @@ card/lib/card/fetch/all.rb 5facf4891284e4001d7c52de3677814c93d48701
 card/lib/card/reference.rb be396a08dfb5e2482239687b935ab49275206be8
 card/lib/card/set/event.rb f78194585f50ecfcc2fd54b592a493783e951ff7
 card/lib/card/set/trait.rb a2ab70caf54142b1d398e8289dbeed65a68999a0
-card/lib/cardio/command.rb e76355e9cecd84931db54a3655e957d94db461c0
-card/lib/cardio/mod/eat.rb 66fbbeb8276c8224fd36a3a8a4b85f742dc2224c
-card/lib/cardio/mod/sow.rb fc7abfc6e24c9ec4f84bc4b1fdf79c4afae1ddda
+card/lib/cardio/command.rb b0942311d67eeb66b9b69e5947bd309103e63310
+card/lib/cardio/mod/eat.rb 5c1d7fb2fb813a9cd06e275456d07a4211324a61
+card/lib/cardio/mod/sow.rb 1a225120db97e9b8894fc9930348f59ccf610ec2
 card/lib/cardio/railtie.rb 8d593dee4ba0dfe6855a6b3c6f4e552e29f3dd4e
 card/lib/cardio/version.rb 9883669b1a1a64648033c8020ade0241b9032d87
 decko/lib/decko/railtie.rb 04980a04695601628b49dede76a1936a6a348dd0
@@ -106,7 +106,7 @@ card/lib/card/set/abstract.rb 8dc14875f71a33d16ba0dc61b0b4a56eb1c4d1ad
 card/lib/card/subcards/add.rb abb3eeb1b657591c0d926042a159d1fc089da7bc
 card/lib/card/subcards/all.rb d2ba1c3ddbc8f039fa720717a3d87de48f8a5d2a
 card/lib/card/view/options.rb 14a4c6614a19c4a07953f1beb55293e01c9f16f7
-card/lib/cardio/generators.rb e993298a5c8d29bbe21f2fc7c0c7bff2aeef9f87
+card/lib/cardio/generators.rb 28e076aa040468298bed28a9a3e59de0aeda8066
 card/lib/cardio/mod/loader.rb 54ac2fb13546f64923e700613939524c0627d76b
 decko/lib/decko/generators.rb 27c106b91172f92a501d23197bde8de3c6f39e51
 decko/lib/rake_tasks/alias.rb 330e86f0fe0b5bfa54f1b21b0c38064be72c53c5
@@ -167,7 +167,7 @@ card/lib/card/set/advanced_api.rb 04f1f18dd12e5e673b0d13fa7ead28514948d8fe
 card/lib/card/set/card_methods.rb cd043a35aa175ad7bd3d375021e3a0f5465c262b
 card/lib/card/set/i18n_scanner.rb 21f18daa38bbd4d4e1b6976dab1aef8911c32b1a
 card/lib/card/set/pattern/base.rb f9705363d8f5207a707a189b1c2afd6022514faf
-card/lib/cardio/command/custom.rb ff755c0af6e34ca81d30789fae4cba4c9ce1d945
+card/lib/cardio/command/custom.rb 42b42973a47b9c05480ba4d20a57f8dc2cbdfa47
 card/lib/cardio/migration/core.rb 0de5d2856ecb446a8a91342778b6b06aebcc6906
 card/lib/cardio/migration/deck.rb da39a3ee5e6b4b0d3255bfef95601890afd80709
 cardname/lib/cardname/variants.rb fef9a0729c804121f6693a6f1ca308d25434c043
@@ -205,7 +205,7 @@ card/lib/card/format/nesting/mode.rb 54bd51327ff144c0931e2bc388692f61ba56c031
 card/lib/card/format/registration.rb be82898b37500931f0f522c6a95816978ab5e624
 card/lib/card/query/sql_statement.rb 9b04de2363ff27ea0847d54dbd0675eb18a79deb
 card/lib/card/set/event/callbacks.rb 601572407f0b7994debc7b47c32e1de6c1d94caa
-card/lib/cardio/mod/class_methods.rb 9bd77f877bbe22e49d0d22bc74580273b4c2997a
+card/lib/cardio/mod/class_methods.rb bbb06f899da81fd627fb2bd68b6a65da3d822656
 card/lib/cardio/mod/load_strategy.rb c45a6af059c188bd73425e005bf245b444ed7f00
 mod/format/spec/set/all/base_spec.rb 9bbf142b435458b4579bd5c4e0f560065fad9356
 mod/format/spec/set/all/file_spec.rb 88ba7cb7685698d4d3b7c6db3e6a2e20641401fb
@@ -312,7 +312,7 @@ card/lib/card/query/card_query/conjunctions.rb d7502805e36fe23dea55cfca5cd630a8f
 card/lib/cardio/command/rake_command/parser.rb bfca5c9d543c56782a366f5866f20effc8d50547
 card/lib/cardio/mod/load_strategy/tmp_files.rb 0172b24d138323817ab718c04e99884242cb9666
 card/lib/card/query/card_query/normalization.rb 19ffd3ff077f8d47fd329e47fb36c04fb53aefde
-card/lib/cardio/command/rspec_command/parser.rb 5e82f9c3fa113ae19c5a79b7a304308c81340485
+card/lib/cardio/command/rspec_command/parser.rb aea1a553472b455055401ca3cad8c0b8d3e37323
 card/lib/card/query/card_query/interpretation.rb 95b1c3a6c68c57e850823c9cca0f86f81af63126
 card/lib/cardio/mod/loader/set_pattern_loader.rb 21f305cf1a7e00bb7b3881d39bdacb78f589c404
 mod/format/spec/format/email_html_format_spec.rb e11684e41d7b3e77c2ed893a49552bccb28a9a96

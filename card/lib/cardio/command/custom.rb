@@ -9,6 +9,7 @@ module Cardio
 
       def run_new
         if !["-h", "--help"].intersection(args).empty?
+          ARGV.unshift "new"
           require "cardio/command/application"
         else
           puts "Can't initialize a new deck within the directory of another, " \

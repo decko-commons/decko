@@ -5,7 +5,7 @@ class Card
     module Format
       # AbstractFormat manages the DSL for defining {#view views}.
       #
-      # Whenever you create a {Format format} block in a {Cardio::Mod set module},
+      # Whenever you create a {Format format} block in a {Cardio::Set set module},
       # you create a format module that is extended with AbstractFormat.
       module AbstractFormat
         include ViewOpts

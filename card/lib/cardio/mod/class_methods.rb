@@ -27,12 +27,12 @@ module Cardio
         name.to_s.sub(/^card-mod-/, "")
       end
 
-      def missing
+      def leftover
         Card.search(type: :mod).reject { |mod_card| fetch mod_card.modname }
       end
 
       def ensure_uninstalled
-        missing.each do |mod_card|
+        leftover.each do |mod_card|
           Card::Auth.as_bot do
             delete_auto_installed_cards mod_card
           end
