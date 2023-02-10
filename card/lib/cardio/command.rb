@@ -1,7 +1,6 @@
 require "English"
 require "colorize"
 require "cardio/command/custom"
-require "pry"
 
 module Cardio
   # manage different types of commands that can be run via bin/card (and bin/decko)

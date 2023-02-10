@@ -91,7 +91,8 @@ module Cardio
         end
 
         def find_mod_file filename, base_dir
-          # FIXME - use Cardio::Mod lookup
+          # FIXME: - use Cardio::Mod lookup
+
           if File.exist?("mod/#{filename}") || File.exist?("#{base_dir}/mod/#{filename}")
             "#{base_dir}/mod/#{filename}"
           elsif (files = find_spec_file(filename, "mod"))&.present?
