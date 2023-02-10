@@ -9,21 +9,22 @@ module Cardio
       class Parser < OptionParser
         RSPEC_PATH_MESSAGE = <<~MESSAGE.freeze
 
-          DECKO ARGS
+          #{Command.bin_name.upcase} ARGS
 
           You don't have to give a full path for FILENAME; the basename is enough.
           If FILENAME does not include '_spec', then rspec searches for the
-          corresponding spec file.
-          The line number always refers to the example in the spec file.
+          corresponding spec file. The line number always refers to the example in the
+          spec file.
 
         MESSAGE
 
         RSPEC_BANNER = <<~BANNER.freeze
 
-          Usage: decko rspec [DECKO ARGS] -- [RSPEC ARGS]
+          Usage: #{Command.bin_name} rspec [#{Command.bin_name.upcase} ARGS] -- [RSPEC ARGS]
 
           RSPEC ARGS
 
+          See https://relishapp.com/rspec/rspec-core/docs/command-line
         BANNER
 
         DESC = {
@@ -90,6 +91,7 @@ module Cardio
         end
 
         def find_mod_file filename, base_dir
+          # FIXME - use Cardio::Mod lookup
           if File.exist?("mod/#{filename}") || File.exist?("#{base_dir}/mod/#{filename}")
             "#{base_dir}/mod/#{filename}"
           elsif (files = find_spec_file(filename, "mod"))&.present?

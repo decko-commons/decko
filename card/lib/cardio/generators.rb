@@ -50,7 +50,7 @@ module Rails
       end
 
       def help command="generate"
-        caller = Command.bin_name
+        caller = Cardio::Command.bin_name
         puts "Usage:"
         puts "  #{caller} #{command} GENERATOR [args] [options]".green
         puts
