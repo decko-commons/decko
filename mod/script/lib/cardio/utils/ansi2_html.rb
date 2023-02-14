@@ -67,8 +67,6 @@ module Cardio
           end
         "#{property}: #{mapping[color_code]}; "
       end
-
-      Utils.extend self
     end
   end
 end
