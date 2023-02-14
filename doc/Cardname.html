@@ -358,29 +358,6 @@ of these is the idea that compound names can be formed by combining simple names
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#<<-instance_method" title="#&lt;&lt; (instance method)">#<strong>&lt;&lt;</strong>(val)  &#x21d2; Object </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'>
-</div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
       <a href="#==-instance_method" title="#== (instance method)">#<strong>==</strong>(other)  &#x21d2; Object </a>
     
 
@@ -404,7 +381,7 @@ of these is the idea that compound names can be formed by combining simple names
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#[]=-instance_method" title="#[]= (instance method)">#<strong>[]=</strong>(index, val)  &#x21d2; Object </a>
+      <a href="#[]-instance_method" title="#[] (instance method)">#<strong>[]</strong>(*args)  &#x21d2; Cardname </a>
     
 
     
@@ -418,7 +395,7 @@ of these is the idea that compound names can be formed by combining simple names
   
 
   
-    <span class="summary_desc"><div class='inline'>
+    <span class="summary_desc"><div class='inline'><p>cardname based on part index.</p>
 </div></span>
   
 </li>
@@ -444,6 +421,29 @@ of these is the idea that compound names can be formed by combining simple names
 
   
     <span class="summary_desc"><div class='inline'><p>A new instance of Cardname.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#num_parts-instance_method" title="#num_parts (instance method)">#<strong>num_parts</strong>  &#x21d2; Integer </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
 </div></span>
   
 </li>
@@ -521,7 +521,7 @@ of these is the idea that compound names can be formed by combining simple names
   
   
   <h3 class="inherited">Methods included from <span class='object_link'><a href="Cardname/Manipulate.html" title="Cardname::Manipulate (module)">Manipulate</a></span></h3>
-  <p class="inherited"><span class='object_link'><a href="Cardname/Manipulate.html#[]-instance_method" title="Cardname::Manipulate#[] (method)">#[]</a></span>, <span class='object_link'><a href="Cardname/Manipulate.html#num_parts-instance_method" title="Cardname::Manipulate#num_parts (method)">#num_parts</a></span>, <span class='object_link'><a href="Cardname/Manipulate.html#prepend_joint-instance_method" title="Cardname::Manipulate#prepend_joint (method)">#prepend_joint</a></span>, <span class='object_link'><a href="Cardname/Manipulate.html#sub_in-instance_method" title="Cardname::Manipulate#sub_in (method)">#sub_in</a></span>, <span class='object_link'><a href="Cardname/Manipulate.html#swap-instance_method" title="Cardname::Manipulate#swap (method)">#swap</a></span>, <span class='object_link'><a href="Cardname/Manipulate.html#swap_part-instance_method" title="Cardname::Manipulate#swap_part (method)">#swap_part</a></span>, <span class='object_link'><a href="Cardname/Manipulate.html#swap_piece-instance_method" title="Cardname::Manipulate#swap_piece (method)">#swap_piece</a></span></p>
+  <p class="inherited"><span class='object_link'><a href="Cardname/Manipulate.html#<<-instance_method" title="Cardname::Manipulate#&lt;&lt; (method)">#<<</a></span>, <span class='object_link'><a href="Cardname/Manipulate.html#[]=-instance_method" title="Cardname::Manipulate#[]= (method)">#[]=</a></span>, <span class='object_link'><a href="Cardname/Manipulate.html#prepend_joint-instance_method" title="Cardname::Manipulate#prepend_joint (method)">#prepend_joint</a></span>, <span class='object_link'><a href="Cardname/Manipulate.html#sub_in-instance_method" title="Cardname::Manipulate#sub_in (method)">#sub_in</a></span>, <span class='object_link'><a href="Cardname/Manipulate.html#swap-instance_method" title="Cardname::Manipulate#swap (method)">#swap</a></span></p>
 
   
   
@@ -565,7 +565,7 @@ of these is the idea that compound names can be formed by combining simple names
   
   
   <h3 class="inherited">Methods included from <span class='object_link'><a href="Cardname/Pieces.html" title="Cardname::Pieces (module)">Pieces</a></span></h3>
-  <p class="inherited"><span class='object_link'><a href="Cardname/Pieces.html#ancestors-instance_method" title="Cardname::Pieces#ancestors (method)">#ancestors</a></span>, <span class='object_link'><a href="Cardname/Pieces.html#piece_names-instance_method" title="Cardname::Pieces#piece_names (method)">#piece_names</a></span>, <span class='object_link'><a href="Cardname/Pieces.html#pieces-instance_method" title="Cardname::Pieces#pieces (method)">#pieces</a></span></p>
+  <p class="inherited"><span class='object_link'><a href="Cardname/Pieces.html#ancestor_pieces-instance_method" title="Cardname::Pieces#ancestor_pieces (method)">#ancestor_pieces</a></span>, <span class='object_link'><a href="Cardname/Pieces.html#ancestors-instance_method" title="Cardname::Pieces#ancestors (method)">#ancestors</a></span>, <span class='object_link'><a href="Cardname/Pieces.html#piece_names-instance_method" title="Cardname::Pieces#piece_names (method)">#piece_names</a></span>, <span class='object_link'><a href="Cardname/Pieces.html#pieces-instance_method" title="Cardname::Pieces#pieces (method)">#pieces</a></span></p>
 
   
   
@@ -908,37 +908,7 @@ of these is the idea that compound names can be formed by combining simple names
 
     
       <div class="method_details first">
-  <h3 class="signature first" id="<<-instance_method">
-  
-    #<strong>&lt;&lt;</strong>(val)  &#x21d2; <tt><span class='object_link'><a href="Object.html" title="Object (class)">Object</a></span></tt> 
-  
-
-  
-
-  
-</h3><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-111
-112
-113</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'cardname/lib/cardname.rb', line 111</span>
-
-<span class='kw'>def</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_val'>val</span>
-  <span class='id identifier rubyid_replace'>replace</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_parts'>parts</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_val'>val</span><span class='rparen'>)</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="==-instance_method">
+  <h3 class="signature first" id="==-instance_method">
   
     #<strong>==</strong>(other)  &#x21d2; <tt><span class='object_link'><a href="Object.html" title="Object (class)">Object</a></span></tt> 
   
@@ -952,17 +922,17 @@ of these is the idea that compound names can be formed by combining simple names
       <pre class="lines">
 
 
-119
-120
-121
-122
-123
-124
-125
-126</pre>
+109
+110
+111
+112
+113
+114
+115
+116</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'cardname/lib/cardname.rb', line 119</span>
+      <pre class="code"><span class="info file"># File 'cardname/lib/cardname.rb', line 109</span>
 
 <span class='kw'>def</span> <span class='op'>==</span> <span class='id identifier rubyid_other'>other</span>
   <span class='id identifier rubyid_key'>key</span> <span class='op'>==</span>
@@ -978,33 +948,105 @@ of these is the idea that compound names can be formed by combining simple names
 </div>
     
       <div class="method_details ">
-  <h3 class="signature " id="[]=-instance_method">
+  <h3 class="signature " id="[]-instance_method">
   
-    #<strong>[]=</strong>(index, val)  &#x21d2; <tt><span class='object_link'><a href="Object.html" title="Object (class)">Object</a></span></tt> 
-  
-
+    #<strong>[]</strong>(*args)  &#x21d2; <tt><span class='object_link'><a href="" title="Cardname (class)">Cardname</a></span></tt> 
   
 
   
-</h3><table class="source_code">
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>cardname based on part index</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="" title="Cardname (class)">Cardname</a></span></tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-105
-106
-107
-108
-109</pre>
+120
+121
+122</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'cardname/lib/cardname.rb', line 105</span>
+      <pre class="code"><span class="info file"># File 'cardname/lib/cardname.rb', line 120</span>
 
-<span class='kw'>def</span> <span class='op'>[]=</span> <span class='id identifier rubyid_index'>index</span><span class='comma'>,</span> <span class='id identifier rubyid_val'>val</span>
-  <span class='id identifier rubyid_p'>p</span> <span class='op'>=</span> <span class='id identifier rubyid_parts'>parts</span>
-  <span class='id identifier rubyid_p'>p</span><span class='lbracket'>[</span><span class='id identifier rubyid_index'>index</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_val'>val</span>
-  <span class='id identifier rubyid_replace'>replace</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_p'>p</span><span class='rparen'>)</span>
+<span class='kw'>def</span> <span class='op'>[]</span> <span class='op'>*</span><span class='id identifier rubyid_args'>args</span>
+  <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span> <span class='id identifier rubyid_part_names'>part_names</span><span class='lbracket'>[</span><span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='rbracket'>]</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="num_parts-instance_method">
+  
+    #<strong>num_parts</strong>  &#x21d2; <tt>Integer</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+125
+126
+127</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'cardname/lib/cardname.rb', line 125</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_num_parts'>num_parts</span>
+  <span class='id identifier rubyid_parts'>parts</span><span class='period'>.</span><span class='id identifier rubyid_length'>length</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1090,7 +1132,7 @@ of these is the idea that compound names can be formed by combining simple names
 </div>
 
       <div id="footer">
-  Generated on Fri Feb 10 11:36:46 2023 by
+  Generated on Tue Feb 14 10:48:53 2023 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.28 (ruby-3.0.1).
 </div>
