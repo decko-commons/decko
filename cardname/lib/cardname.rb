@@ -102,8 +102,6 @@ class Cardname < String
     self
   end
 
-
-
   def key
     @key ||= generate_key.freeze
   end

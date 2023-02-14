@@ -51,6 +51,10 @@ class Cardname
 
     private
 
+    def swap_part oldpart, newpart
+      parts.map { |p| oldpart == p ? newpart : p }.to_name
+    end
+
     def swap_all_subsequences oldseq, newseq
       res = []
       i = 0
@@ -69,36 +73,6 @@ class Cardname
       res
     end
 
-    def ensure_simpleness part, msg=nil
-      return if part.to_name.simple?
 
-      raise StandardError, "'#{part}' has to be simple. #{msg}"
-    end
-
-    def swap_part oldpart, newpart
-      ensure_simpleness oldpart, "Use 'swap' to swap junctions"
-
-      oldpart = oldpart.to_name
-      newpart = newpart.to_name
-
-      parts.map do |p|
-        oldpart == p ? newpart : p
-      end.to_name
-    end
-
-    def swap_piece oldpiece, newpiece
-      oldpiece = oldpiece.to_name
-      newpiece = newpiece.to_name
-
-      if oldpiece.simple?
-        swap_part oldpiece, newpiece
-      elsif !starts_with_parts? oldpiece
-        self
-      elsif oldpiece.num_parts == num_parts
-        newpiece
-      else
-        self.class.new [newpiece, self[oldpiece.num_parts..-1]].flatten
-      end
-    end
   end
 end

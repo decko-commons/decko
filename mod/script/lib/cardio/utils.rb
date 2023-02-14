@@ -1,7 +1,8 @@
 # Converts ansi formatting codes to html
 module Cardio
   module Utils
-    class << self
+    # convert ANSI to html
+    module Ansi2Html
       def ansi2html data
         data.gsub(/\033\[(?<code>[\d\;]{2,})m(?<content>.*?)\033\[0m/) do
           to_span_tag Regexp.last_match(:code), Regexp.last_match(:content)
@@ -67,5 +68,6 @@ module Cardio
         "#{property}: #{mapping[color_code]}; "
       end
     end
+    extend Ansi2Html
   end
 end
