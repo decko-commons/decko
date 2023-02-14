@@ -11,9 +11,10 @@ module Cardio
     class Eat
       include Edibles
 
-      def initialize mod: nil, podtype: nil, user: nil, verbose: nil
+      def initialize mod: nil, podtype: nil, user: nil, verbose: nil, name: nil
         @mod = mod
         @pod_type = podtype&.to_sym
+        @name = name
         @user_id = user&.card_id
         @verbose = !verbose.nil?
       end

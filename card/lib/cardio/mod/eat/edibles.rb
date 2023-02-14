@@ -6,10 +6,22 @@ module Cardio
         # list of card attribute hashes
         # @return [Array <Hash>]
         def edibles
-          mods_with_data.map { |mod| mod_edibles mod }.flatten
+          explicit_edibles { mods_with_data.map { |mod| mod_edibles mod }.flatten }
         end
 
         private
+
+        def explicit_edibles
+          return yield unless @name
+
+          yield.reject do |edible|
+            if @name.match? /^\:/
+              !edible[:codename] || (edible[:codename] != @name[1..-1])
+            else
+              !edible[:name] || (edible[:name].to_name != @name.to_name)
+            end
+          end
+        end
 
         # if mod is specified, consider only that mod
         # @return [Array <Cardio::Mod>]
