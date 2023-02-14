@@ -945,7 +945,7 @@
       <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod002-collection/all/item.rb', line 62</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_first_name'>first_name</span> <span class='id identifier rubyid_args'>args</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span>
-  <span class='id identifier rubyid_item_names'><span class='object_link'><a href="../../../top-level-namespace.html#item_names-instance_method" title="#item_names (method)">item_names</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_first'>first</span>
+  <span class='id identifier rubyid_item_names'>item_names</span><span class='lparen'>(</span><span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_first'>first</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -998,7 +998,7 @@
       <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod002-collection/all/item.rb', line 107</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_include_item?'>include_item?</span> <span class='id identifier rubyid_item'>item</span>
-  <span class='id identifier rubyid_item_names'><span class='object_link'><a href="../../../top-level-namespace.html#item_names-instance_method" title="#item_names (method)">item_names</a></span></span><span class='period'>.</span><span class='id identifier rubyid_include?'>include?</span> <span class='const'><span class='object_link'><a href="../../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../Name.html" title="Card::Name (class)">Name</a></span></span><span class='lbracket'>[</span><span class='id identifier rubyid_item'>item</span><span class='rbracket'>]</span>
+  <span class='id identifier rubyid_item_names'>item_names</span><span class='period'>.</span><span class='id identifier rubyid_include?'>include?</span> <span class='const'><span class='object_link'><a href="../../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../Name.html" title="Card::Name (class)">Name</a></span></span><span class='lbracket'>[</span><span class='id identifier rubyid_item'>item</span><span class='rbracket'>]</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1116,7 +1116,7 @@
       <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod002-collection/all/item.rb', line 103</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_item_count'>item_count</span> <span class='id identifier rubyid_args'>args</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span>
-  <span class='id identifier rubyid_item_names'><span class='object_link'><a href="../../../top-level-namespace.html#item_names-instance_method" title="#item_names (method)">item_names</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span>
+  <span class='id identifier rubyid_item_names'>item_names</span><span class='lparen'>(</span><span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1194,7 +1194,7 @@
       <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod002-collection/all/item.rb', line 37</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_item_ids'>item_ids</span> <span class='id identifier rubyid_args'>args</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span>
-  <span class='id identifier rubyid_item_names'><span class='object_link'><a href="../../../top-level-namespace.html#item_names-instance_method" title="#item_names (method)">item_names</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='symbol'>:card_id</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_compact'>compact</span>
+  <span class='id identifier rubyid_item_names'>item_names</span><span class='lparen'>(</span><span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='symbol'>:card_id</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_compact'>compact</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1274,7 +1274,7 @@
       <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod002-collection/all/item.rb', line 43</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_item_keys'>item_keys</span> <span class='id identifier rubyid_args'>args</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span>
-  <span class='id identifier rubyid_item_names'><span class='object_link'><a href="../../../top-level-namespace.html#item_names-instance_method" title="#item_names (method)">item_names</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_item'>item</span><span class='op'>|</span>
+  <span class='id identifier rubyid_item_names'>item_names</span><span class='lparen'>(</span><span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_item'>item</span><span class='op'>|</span>
     <span class='id identifier rubyid_item'>item</span><span class='period'>.</span><span class='id identifier rubyid_to_name'>to_name</span><span class='period'>.</span><span class='id identifier rubyid_key'>key</span>
   <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
@@ -1412,7 +1412,7 @@ contextualized</p>
     <td>
       <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod002-collection/all/item.rb', line 22</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_item_names'><span class='object_link'><a href="../../../top-level-namespace.html#item_names-instance_method" title="#item_names (method)">item_names</a></span></span> <span class='id identifier rubyid_args'>args</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_item_names'>item_names</span> <span class='id identifier rubyid_args'>args</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span>
   <span class='id identifier rubyid_context'>context</span> <span class='op'>=</span> <span class='id identifier rubyid_args'>args</span><span class='lbracket'>[</span><span class='symbol'>:context</span><span class='rbracket'>]</span>
   <span class='id identifier rubyid_item_strings'>item_strings</span><span class='lparen'>(</span><span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_item'>item</span><span class='op'>|</span>
     <span class='id identifier rubyid_clean_item_name'>clean_item_name</span> <span class='id identifier rubyid_item'>item</span><span class='comma'>,</span> <span class='id identifier rubyid_context'>context</span>
@@ -1639,7 +1639,7 @@ contextualized</p>
     <td>
       <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod002-collection/all/item.rb', line 112</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_item_value'><span class='object_link'><a href="../../../top-level-namespace.html#item_value-instance_method" title="#item_value (method)">item_value</a></span></span> <span class='id identifier rubyid_item_name'>item_name</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_item_value'>item_value</span> <span class='id identifier rubyid_item_name'>item_name</span>
   <span class='id identifier rubyid_item_name'>item_name</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -1652,7 +1652,7 @@ contextualized</p>
 </div>
 
       <div id="footer">
-  Generated on Fri Feb 10 11:36:31 2023 by
+  Generated on Tue Feb 14 10:48:38 2023 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.28 (ruby-3.0.1).
 </div>

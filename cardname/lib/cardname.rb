@@ -102,16 +102,6 @@ class Cardname < String
     self
   end
 
-  def []= index, val
-    p = parts
-    p[index] = val
-    replace self.class.new(p)
-  end
-
-  def << val
-    replace self.class.new(parts << val)
-  end
-
   def key
     @key ||= generate_key.freeze
   end
@@ -123,6 +113,17 @@ class Cardname < String
       when other.respond_to?(:to_name) then other.to_name.key
       else                                  other.to_s.to_name.key
       end
+  end
+
+  # cardname based on part index
+  # @return [Cardname]
+  def [] *args
+    self.class.new part_names[*args]
+  end
+
+  # @return [Integer]
+  def num_parts
+    parts.length
   end
 
   private
