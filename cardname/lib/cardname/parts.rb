@@ -6,17 +6,6 @@ class Cardname
   #   - methods without _name or _key return Strings
   #
   module Parts
-    # @return [Integer]
-    def num_parts
-      parts.length
-    end
-
-    # cardname based on enumerated parts
-    # @return [Cardname]
-    def [] *args
-      self.class.new part_names[*args]
-    end
-
     # the part of a compound name to the left of the rightmost joint.
     # @example
     #     "A".cardname.left -> nil

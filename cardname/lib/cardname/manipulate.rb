@@ -1,6 +1,20 @@
 class Cardname
   # methods for altering name
   module Manipulate
+    # alter cardname based on card index
+    # @return [Cardname]
+    def []= index, val
+      p = parts
+      p[index] = val
+      replace self.class.new(p)
+    end
+
+    # append part to cardname
+    # @return [Cardname]
+    def << val
+      replace self.class.new(parts << val)
+    end
+
     # swap one name for another (keys are used for comparison)
     # @return [Cardname]
     def swap old, new

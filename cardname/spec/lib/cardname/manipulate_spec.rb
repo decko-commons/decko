@@ -20,57 +20,34 @@ RSpec.describe Cardname::Manipulate do
       expect(swap("a+c+b", "c" => "x")).to eq("a+x+b")
     end
 
-    it "swaps all occurences" do
+    it "swaps all occurrences" do
       expect(swap("a+c+b+c+c", "c" => "x")).to eq("a+x+b+x+x")
     end
 
-    it "swaps junction" do
+    it "swaps compound name" do
       expect(swap("a+b+c", "a+b" => "x")).to eq("x+c")
       expect(swap("a+b+c+d", "a+b" => "e+f")).to eq("e+f+c+d")
-    end
-
-    it "swaps two part tag" do
-      expect(swap("a+b+c", "b+c" => "x")).to eq("a+x")
-    end
-
-    it "swaps whole name" do
-      expect(swap("a+b+c", "a+b+c" => "x")).to eq("x")
-    end
-
-    it "swaps based on key match" do
-      expect(swap("A+ b +C?", "a+b+c" => "x")).to eq("x")
-    end
-
-    it "swaps with original format" do
-      expect(swap("a+b", "a+B" => "X?+C")).to eq("X?+C")
     end
 
     it "swaps two part trunk" do
       expect(swap("a+b+c", "a+b" => "x")).to eq("x+c")
     end
 
-    # it "doesn't swap two part tag" do
-    #   expect(swap("a+b+c", "b+c" => "x")).to eq("a+b+c")
-    # end
-
-    it "swaps whole name" do
-      expect(swap("a+b+c", "a+b+c" => "x")).to eq("x")
+    it "swaps two part tag" do
+      expect(swap("a+b+c", "b+c" => "x")).to eq("a+x")
     end
 
     it "swaps based on key match" do
       expect(swap("A+ b +C?", "a+b+c" => "x")).to eq("x")
     end
 
+    it "swaps whole name" do
+      expect(swap("a+b+c", "a+b+c" => "x")).to eq("x")
+    end
+
     it "swaps with original format" do
       expect(swap("a+b", "a+B" => "X?+C")).to eq("X?+C")
     end
-  end
-
-  describe "#swap_piece" do
-    def swap str, change
-      str.to_name.swap_piece(*change.to_a.flatten).to_s
-    end
-
   end
 
   describe "#sub_in" do
