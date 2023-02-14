@@ -72,10 +72,8 @@ class Card
 
       # makes sets ready for dynamic loading via #include_set_modules
       def register_set_of_type set_module, set_type
-        mods = modules[set_type]
-        key = set_module.shortname
-        mods[key] ||= []
-        mods[key] << set_module
+        list = modules[set_type][set_module.shortname] ||= []
+        list << set_module unless list.member? set_module
       end
 
       def process_base_format_modules base_format_modules
