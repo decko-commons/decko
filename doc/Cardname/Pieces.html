@@ -295,7 +295,7 @@ implies. For example if A+B+C exists, that implies that A, B, C, and A+B do too.
       <pre class="code"><span class="info file"># File 'cardname/lib/cardname/pieces.rb', line 10</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_pieces'>pieces</span>
-  <span class='id identifier rubyid_simple?'>simple?</span> <span class='op'>?</span> <span class='lbracket'>[</span><span class='kw'>self</span><span class='rbracket'>]</span> <span class='op'>:</span> <span class='lparen'>(</span><span class='id identifier rubyid_parts'>parts</span> <span class='op'>+</span> <span class='id identifier rubyid_junction_pieces'>junction_pieces</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_simple?'>simple?</span> <span class='op'>?</span> <span class='lbracket'>[</span><span class='kw'>self</span><span class='rbracket'>]</span> <span class='op'>:</span> <span class='lparen'>(</span><span class='id identifier rubyid_parts'>parts</span> <span class='op'>+</span> <span class='id identifier rubyid_compound_pieces'>compound_pieces</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -307,9 +307,9 @@ implies. For example if A+B+C exists, that implies that A, B, C, and A+B do too.
 </div>
 
       <div id="footer">
-  Generated on Fri Feb 10 11:36:23 2023 by
+  Generated on Sun Feb 12 23:15:47 2023 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.28 (ruby-3.0.1).
+  0.9.28 (ruby-3.0.4).
 </div>
 
     </div>

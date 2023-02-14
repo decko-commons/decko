@@ -526,8 +526,8 @@ new: { opts for Card#new }  Return a new card when not found
     <td>
       <pre class="code"><span class="info file"># File 'card/lib/card/fetch/card_class.rb', line 59</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_fetch_from_cast'>fetch_from_cast</span> <span class='id identifier rubyid_cast'><span class='object_link'><a href="../../top-level-namespace.html#cast-instance_method" title="#cast (method)">cast</a></span></span>
-  <span class='id identifier rubyid_fetch_args'>fetch_args</span> <span class='op'>=</span> <span class='id identifier rubyid_cast'><span class='object_link'><a href="../../top-level-namespace.html#cast-instance_method" title="#cast (method)">cast</a></span></span><span class='lbracket'>[</span><span class='symbol'>:id</span><span class='rbracket'>]</span> <span class='op'>?</span> <span class='lbracket'>[</span><span class='id identifier rubyid_cast'><span class='object_link'><a href="../../top-level-namespace.html#cast-instance_method" title="#cast (method)">cast</a></span></span><span class='lbracket'>[</span><span class='symbol'>:id</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_to_i'>to_i</span><span class='rbracket'>]</span> <span class='op'>:</span> <span class='lbracket'>[</span><span class='id identifier rubyid_cast'><span class='object_link'><a href="../../top-level-namespace.html#cast-instance_method" title="#cast (method)">cast</a></span></span><span class='lbracket'>[</span><span class='symbol'>:name</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='lbrace'>{</span> <span class='label'>new:</span> <span class='id identifier rubyid_cast'><span class='object_link'><a href="../../top-level-namespace.html#cast-instance_method" title="#cast (method)">cast</a></span></span> <span class='rbrace'>}</span><span class='rbracket'>]</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_fetch_from_cast'>fetch_from_cast</span> <span class='id identifier rubyid_cast'>cast</span>
+  <span class='id identifier rubyid_fetch_args'>fetch_args</span> <span class='op'>=</span> <span class='id identifier rubyid_cast'>cast</span><span class='lbracket'>[</span><span class='symbol'>:id</span><span class='rbracket'>]</span> <span class='op'>?</span> <span class='lbracket'>[</span><span class='id identifier rubyid_cast'>cast</span><span class='lbracket'>[</span><span class='symbol'>:id</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_to_i'>to_i</span><span class='rbracket'>]</span> <span class='op'>:</span> <span class='lbracket'>[</span><span class='id identifier rubyid_cast'>cast</span><span class='lbracket'>[</span><span class='symbol'>:name</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='lbrace'>{</span> <span class='label'>new:</span> <span class='id identifier rubyid_cast'>cast</span> <span class='rbrace'>}</span><span class='rbracket'>]</span>
   <span class='id identifier rubyid_fetch'>fetch</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_fetch_args'>fetch_args</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -994,9 +994,9 @@ card hash</li>
 </div>
 
       <div id="footer">
-  Generated on Fri Feb 10 11:36:23 2023 by
+  Generated on Sun Feb 12 23:15:47 2023 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.28 (ruby-3.0.1).
+  0.9.28 (ruby-3.0.4).
 </div>
 
     </div>
