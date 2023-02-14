@@ -21,11 +21,11 @@ module Cardio
   #   - **script** - JavaScript, CoffeeScript, etc
   #   - **style** - CSS, SCSS, etc
   # - **config**
-  #    - **early** init files loaded before Card
-  #    - **late** init files loaded after Card
+  #    - **early** ruby init files loaded before Card
+  #    - **late** ruby init files loaded after Card
   #    - **locales** i18n yml files
   # - {file:SEEDME.md **data**} - seed and test data.
-  # - **lib** - standard code libraries
+  # - **lib** - standard ruby libraries
   #   - task - rake tasks
   # - **public** - accessible via the web at DECK_URL_ROOT/mod/MOD_NAME/
   # - **{Card::Set set}** - the mod's focal point where card sets are configured
