@@ -72,7 +72,5 @@ class Cardname
       res += parts[i..-1] if i < num_parts
       res
     end
-
-
   end
 end
