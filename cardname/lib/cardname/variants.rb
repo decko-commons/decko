@@ -2,6 +2,7 @@ require "htmlentities"
 
 class Cardname
   module Variants
+    # @return [String]
     def simple_key
       return "" if empty?
 
@@ -14,6 +15,8 @@ class Cardname
         .join("_")
     end
 
+    # URI-friendly version of name. retains case, underscores for space
+    # @return [String]
     def url_key
       part_names.map do |part_name|
         stripped = part_name.decoded.gsub(/[^#{OK4KEY_RE}]+/, " ").strip
@@ -24,16 +27,14 @@ class Cardname
     # safe to be used in HTML as id ('*' and '+' are not allowed),
     # but the key is no longer unique.
     # For example "A-XB" and "A+*B" have the same safe_key
+    # @return [String]
     def safe_key
       key.tr("*", "X").tr self.class.joint, "-"
     end
 
+    # @return [String]
     def decoded
       @decoded ||= s.index("&") ? HTMLEntities.new.decode(s) : s
-    end
-
-    def to_sym
-      s.to_sym
     end
 
     private
