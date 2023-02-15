@@ -1,8 +1,9 @@
 class Cardname
+  # contextual (or relative) names are names that vary by context
   module Contextual
     RELATIVE_REGEXP = /\b_(left|right|whole|self|user|main|\d+|L*R?)\b/
 
-    # @return true if name is left or right of context
+    # @return [Boolean] true if name is left or right of context
     def child_of? context
       return false unless compound?
 
@@ -10,22 +11,31 @@ class Cardname
       absolute_name(context).parent_keys.include? context_key
     end
 
+    # @return [Boolean]
     def relative?
       starts_with_joint? || (s =~ RELATIVE_REGEXP).present?
     end
 
+    # starts with joint, no other contextual element
+    # @return [Boolean]
     def simple_relative?
       starts_with_joint? && (s =~ RELATIVE_REGEXP).nil?
     end
 
+    # not relative
+    # @return [Boolean]
     def absolute?
       !relative?
     end
 
+    # contextual elements removed
+    # @return [String]
     def stripped
       s.gsub RELATIVE_REGEXP, ""
     end
 
+    # +X
+    # @return [Boolean]
     def starts_with_joint?
       compound? && parts.first.empty?
     end
@@ -44,15 +54,22 @@ class Cardname
       key == compressed.absolute_name(from).key ? compressed : self
     end
 
-    def remove_context *from
-      return false unless from.compact.present?
+    # @return [String]
+    def absolute context
+      context = (context || "").to_name
+      new_parts = absolutize_contextual_parts context
+      return "" if new_parts.empty?
 
-      remaining = parts_excluding(*from)
-      return false if remaining.compact.empty? || # all name parts in context
-                      remaining == parts          # no name parts in context
-
-      remaining
+      absolutize_extremes new_parts, context.s
+      new_parts.join self.class.joint
     end
+
+    # @return [Cardname]
+    def absolute_name *args
+      absolute(*args).to_name
+    end
+
+    private
 
     def parts_excluding *string
       exclude_name = string.to_name
@@ -60,6 +77,17 @@ class Cardname
       parts_minus exclude_keys
     end
 
+    def remove_context *from
+      return false unless from.compact.present?
+
+      remaining = parts_excluding(*from)
+      return false if remaining.compact.empty? || # all name parts in context
+        remaining == parts          # no name parts in context
+
+      remaining
+    end
+
+    # @return [Array <String>]
     def parts_minus keys_to_ignore
       parts.map do |part|
         next if part.empty?
@@ -70,25 +98,10 @@ class Cardname
       end
     end
 
-    def absolute context
-      context = (context || "").to_name
-      new_parts = absolutize_contextual_parts context
-      return "" if new_parts.empty?
-
-      absolutize_extremes new_parts, context.s
-      new_parts.join self.class.joint
-    end
-
-    def absolute_name *args
-      absolute(*args).to_name
-    end
-
     def nth_left n
       # 1 = left; 2= left of left; 3 = left of left of left....
       (n >= length ? parts[0] : parts[0..-n - 1]).to_name
     end
-
-    private
 
     def absolutize_contextual_parts context
       parts.map do |part|
