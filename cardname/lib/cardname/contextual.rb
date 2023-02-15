@@ -70,9 +70,9 @@ class Cardname
     end
 
     # 1 = left; 2= left of left; 3 = left of left of left....
-    # @return [String]
-    def nth_left n
-      n >= length ? parts[0] : parts[0..-n - 1]
+    # @return [Cardname]
+    def nth_left_name n
+      (n >= length ? parts[0] : parts[0..-n - 1]).to_name
     end
 
     private
@@ -132,8 +132,8 @@ class Cardname
     def partmap_part match, context
       l_s = match[1].size
       r_s = !match[2].empty?
-      l_part = context.nth_left l_s
-      r_s ? l_part.to_name.tag : l_part
+      l_part = context.nth_left_name l_s
+      r_s ? l_part.tag : l_part.s
     end
 
     def absolutize_extremes new_parts, context
