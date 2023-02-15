@@ -26,7 +26,7 @@ card/lib/card/content.rb e47c0a75724f89421e35e23dad234a1787c0c688
 card/lib/card/lexicon.rb 1487192e21d0df095b7b654e096376ed29562653
 card/lib/card/setting.rb dc73a296750f11a7ec46f081ecfded33583accf6
 card/lib/cardio/utils.rb 78d2af42ce41d0f3be319fbd817b79552ff58466
-cardname/lib/cardname.rb 1afe6aa64e1820cea6595468efa3438a257acf8b
+cardname/lib/cardname.rb ab2986d01ffc0e82cbd5248faa3f318bffcc677d
 cardname/lib/core_ext.rb 4df6afed8287f28bc198f9e8e3bff208c4e3207e
 mod/tabs/lib/card/tab.rb f9642a2271cd447ba111128eae665f86c9ec279b
 card/lib/card/codename.rb 0909f35d22a5ce8ff5ed19ede61917e4f54ceafe
@@ -106,7 +106,6 @@ cardname/lib/cardname/parts.rb 5fca464e46cd33b99f4a05902924ab6c6eeff07e
 decko/lib/decko/application.rb 64fc49af7bf5c2718e7a095409d8527983d3cd72
 mod/history/lib/card/action.rb 5dc99558e9058946a0e02c4fca13af943812ebca
 mod/history/lib/card/change.rb 0ab70f5732a5b381f9c5b7b35d0f00048c5a23bd
-mod/script/lib/cardio/utils.rb dbb59cf7b5de7f42d2d90828d8881fa729275cb8
 card/lib/card/content/parser.rb a725396737c612851dac9eb2e7fc014805fd539a
 card/lib/card/director/store.rb 37a30d0420cf01b0185ca6230b560d729ca37fe1
 card/lib/card/fetch/retrieve.rb 657540df94e5ca80dd05e38073801909a3f0b280
@@ -145,7 +144,7 @@ card/lib/card/set/pattern/base.rb f9705363d8f5207a707a189b1c2afd6022514faf
 card/lib/cardio/command/custom.rb 42b42973a47b9c05480ba4d20a57f8dc2cbdfa47
 card/lib/cardio/migration/core.rb 0de5d2856ecb446a8a91342778b6b06aebcc6906
 card/lib/cardio/migration/deck.rb da39a3ee5e6b4b0d3255bfef95601890afd80709
-cardname/lib/cardname/variants.rb fef9a0729c804121f6693a6f1ca308d25434c043
+cardname/lib/cardname/variants.rb 365b78800adb0fdc50ef5e677934f1c39c7aabaf
 decko/lib/card_controller/mark.rb 658ac75ba15fa782e2afd5cb7314861ebebf701e
 decko/lib/card_controller/rest.rb af6e06a830bda2bbb6c728b66c82d2fef30f8b1b
 mod/format/lib/card/mod/format.rb 6b18c9d054413be7107a8179b6d6e6636ea3e716
@@ -165,7 +164,7 @@ card/lib/card/env/success/target.rb d2b10a1b0959fc7f6707464278890e29b81b282c
 card/lib/card/name/name_variants.rb c72862c7109fd6f1475aeacb0c5ff98fbe524a76
 card/lib/card/query/action_query.rb 5cae9ac607fb4ff6b4407a20b3a81e3f1e6bb033
 card/lib/card/set/required_field.rb 611642a570ce41e00f6ccb4ccc975c41697fd70e
-cardname/lib/cardname/contextual.rb 0dc0fb9eaf46b510c8bff6e6975f992b1d1c348e
+cardname/lib/cardname/contextual.rb 3bd852342840fc56740c4cb5dd8d252c00489496
 cardname/lib/cardname/manipulate.rb afa1c61e61bdf92435ffd54164d3e37909b73373
 cardname/lib/cardname/predicates.rb b4265ec8a80763d1ef75ea31610b45b405a8c90f
 decko/lib/card_controller/errors.rb 62e57485d012519c03a42f09cae029e38f33b201
@@ -208,6 +207,7 @@ card/lib/card/set/format/haml_paths.rb bf429fd8f468a837319cafdf029729805e34023b
 card/lib/cardio/command/application.rb b6ad064e69b0868394c9d724d7d566aac3a04ac2
 card/lib/cardio/generators/mod_base.rb 8c2afff602179adf8c28681d1c2ab204bd3a2a35
 card/lib/cardio/mod/module_template.rb b94f2acae3d8aa33888f7689b06dcdef39c396b0
+cardname/lib/cardname/class_methods.rb 8b5e2583dccfa5da81a13eec56a0f74ed31bd09b
 mod/bootstrap/lib/card/bootstrapper.rb 88b95b29752f2ef1a6cd235697cd640ad75eca8d
 mod/history/lib/card/action/changes.rb fb9c1ca1472f0e37fa7c20819808771476bb6f34
 card/lib/card/cache/persistent_class.rb 2f66193c98cf9307d2650d3326272dd75ebc4752
@@ -254,6 +254,7 @@ mod/format/lib/card/format/yaml_format.rb 61e996c4a5533d51c3be8560213f0f0d0fefa2
 mod/layout/lib/card/layout/card_layout.rb 5f08d40e03c7996ca4703b0cd12274c1699caa11
 mod/layout/lib/card/layout/code_layout.rb e534f59f9ba8fe9a0c9c1e08d445e029ac8f400d
 mod/layout/lib/card/layout/proc_layout.rb 26ea18f47872c32454764a6b496121c45247e34d
+mod/script/lib/cardio/utils/ansi2_html.rb 6bf79eb749f8e06ebc8fe7c9569fe1fd9cc195e4
 card/lib/card/query/card_query/found_by.rb 6dc501a1d7b441d0eea589504325e85268516c5c
 card/lib/card/query/sql_statement/joins.rb af3f8f8ceabb2d00d36c560a8470fd7201b17e4d
 card/lib/card/query/sql_statement/order.rb 6efaa595c2257b4e51cb54de9da24d4b478c9880
