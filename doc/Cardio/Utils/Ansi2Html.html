@@ -69,26 +69,16 @@
 
   
   
-  <dl>
-      <dt>Extended by:</dt>
-      <dd><span class='object_link'><a href="" title="Cardio::Utils::Ansi2Html (module)">Ansi2Html</a></span></dd>
-  </dl>
-  
   
   
   
 
-  
-  <dl>
-    <dt>Included in:</dt>
-    <dd><span class='object_link'><a href="" title="Cardio::Utils::Ansi2Html (module)">Ansi2Html</a></span></dd>
-  </dl>
   
 
   
   <dl>
     <dt>Defined in:</dt>
-    <dd>mod/script/lib/cardio/utils.rb</dd>
+    <dd>mod/script/lib/cardio/utils/ansi2_html.rb</dd>
   </dl>
   
 </div>
@@ -172,7 +162,7 @@
 10</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'mod/script/lib/cardio/utils.rb', line 6</span>
+      <pre class="code"><span class="info file"># File 'mod/script/lib/cardio/utils/ansi2_html.rb', line 6</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_ansi2html'>ansi2html</span> <span class='id identifier rubyid_data'>data</span>
   <span class='id identifier rubyid_data'>data</span><span class='period'>.</span><span class='id identifier rubyid_gsub'>gsub</span><span class='lparen'>(</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>\033\[(?&lt;code&gt;[\d\;]{2,})m(?&lt;content&gt;.*?)\033\[0m</span><span class='regexp_end'>/</span></span><span class='rparen'>)</span> <span class='kw'>do</span>
@@ -189,9 +179,9 @@
 </div>
 
       <div id="footer">
-  Generated on Tue Feb 14 10:48:29 2023 by
+  Generated on Wed Feb 15 11:54:34 2023 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.28 (ruby-3.0.1).
+  0.9.28 (ruby-3.0.4).
 </div>
 
     </div>
