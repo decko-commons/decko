@@ -11,6 +11,14 @@ def item_titles default_to_name=true
   end
 end
 
+def standardize_item string
+  string.match?(/^\[/) ? string : "[[#{string}]]"
+end
+
+def to_pointer_content
+  map { |item| item.to_s.strip }.join "\n"
+end
+
 format :html do
   def input_type
     :link_list

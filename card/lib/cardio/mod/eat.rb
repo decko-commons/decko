@@ -25,6 +25,7 @@ module Cardio
             track edible do
               current_user edible.delete(:user)
               time_machine edible.delete(:time) do
+                # binding.pry if edible[:type] == :link_list
                 Card.ensure edible
               end
             end
