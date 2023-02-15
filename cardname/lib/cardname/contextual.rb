@@ -69,6 +69,12 @@ class Cardname
       absolute(*args).to_name
     end
 
+    # 1 = left; 2= left of left; 3 = left of left of left....
+    # @return [String]
+    def nth_left n
+      n >= length ? parts[0] : parts[0..-n - 1]
+    end
+
     private
 
     def parts_excluding *string
@@ -82,7 +88,7 @@ class Cardname
 
       remaining = parts_excluding(*from)
       return false if remaining.compact.empty? || # all name parts in context
-        remaining == parts          # no name parts in context
+                      remaining == parts          # no name parts in context
 
       remaining
     end
@@ -96,11 +102,6 @@ class Cardname
 
         part
       end
-    end
-
-    def nth_left n
-      # 1 = left; 2= left of left; 3 = left of left of left....
-      (n >= length ? parts[0] : parts[0..-n - 1]).to_name
     end
 
     def absolutize_contextual_parts context
@@ -132,7 +133,7 @@ class Cardname
       l_s = match[1].size
       r_s = !match[2].empty?
       l_part = context.nth_left l_s
-      r_s ? l_part.tag : l_part.s
+      r_s ? l_part.to_name.tag : l_part
     end
 
     def absolutize_extremes new_parts, context
