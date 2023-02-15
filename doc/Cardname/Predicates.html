@@ -88,7 +88,17 @@
   
 </div>
 
+<h2>Overview</h2><div class="docstring">
+  <div class="discussion">
+    <p>name methods returning true/false</p>
 
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
 
 
 
@@ -239,7 +249,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
+    <span class="summary_desc"><div class='inline'><p>True unless name contains banned characters.</p>
 </div></span>
   
 </li>
@@ -296,12 +306,12 @@
       <pre class="lines">
 
 
-10
 11
-12</pre>
+12
+13</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'cardname/lib/cardname/predicates.rb', line 10</span>
+      <pre class="code"><span class="info file"># File 'cardname/lib/cardname/predicates.rb', line 11</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_compound?'>compound?</span>
   <span class='op'>!</span><span class='id identifier rubyid_simple?'>simple?</span>
@@ -357,13 +367,13 @@
       <pre class="lines">
 
 
-30
-31
 32
-33</pre>
+33
+34
+35</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'cardname/lib/cardname/predicates.rb', line 30</span>
+      <pre class="code"><span class="info file"># File 'cardname/lib/cardname/predicates.rb', line 32</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_ends_with_parts?'>ends_with_parts?</span> <span class='op'>*</span><span class='id identifier rubyid_suffix'>suffix</span>
   <span class='id identifier rubyid_end_name'>end_name</span> <span class='op'>=</span> <span class='id identifier rubyid_suffix'>suffix</span><span class='period'>.</span><span class='id identifier rubyid_to_name'>to_name</span>
@@ -416,13 +426,13 @@
       <pre class="lines">
 
 
-37
-38
 39
-40</pre>
+40
+41
+42</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'cardname/lib/cardname/predicates.rb', line 37</span>
+      <pre class="code"><span class="info file"># File 'cardname/lib/cardname/predicates.rb', line 39</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_include?'>include?</span> <span class='id identifier rubyid_subname'>subname</span>
   <span class='id identifier rubyid_subkey'>subkey</span> <span class='op'>=</span> <span class='id identifier rubyid_subname'>subname</span><span class='period'>.</span><span class='id identifier rubyid_to_name'>to_name</span><span class='period'>.</span><span class='id identifier rubyid_key'>key</span>
@@ -475,13 +485,13 @@
       <pre class="lines">
 
 
-4
 5
 6
-7</pre>
+7
+8</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'cardname/lib/cardname/predicates.rb', line 4</span>
+      <pre class="code"><span class="info file"># File 'cardname/lib/cardname/predicates.rb', line 5</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_simple?'>simple?</span>
   <span class='id identifier rubyid_part_names'>part_names</span> <span class='kw'>if</span> <span class='ivar'>@simple</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
@@ -538,13 +548,13 @@
       <pre class="lines">
 
 
-23
-24
 25
-26</pre>
+26
+27
+28</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'cardname/lib/cardname/predicates.rb', line 23</span>
+      <pre class="code"><span class="info file"># File 'cardname/lib/cardname/predicates.rb', line 25</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_starts_with_parts?'>starts_with_parts?</span> <span class='op'>*</span><span class='id identifier rubyid_prefix'>prefix</span>
   <span class='id identifier rubyid_start_name'>start_name</span> <span class='op'>=</span> <span class='id identifier rubyid_prefix'>prefix</span><span class='period'>.</span><span class='id identifier rubyid_to_name'>to_name</span>
@@ -566,7 +576,7 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    
+    <p>Returns true unless name contains banned characters.</p>
 
 
   </div>
@@ -583,6 +593,10 @@
       
       
       
+        &mdash;
+        <div class='inline'><p>true unless name contains banned characters</p>
+</div>
+      
     </li>
   
 </ul>
@@ -593,16 +607,16 @@
       <pre class="lines">
 
 
-14
-15
 16
 17
 18
 19
-20</pre>
+20
+21
+22</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'cardname/lib/cardname/predicates.rb', line 14</span>
+      <pre class="code"><span class="info file"># File 'cardname/lib/cardname/predicates.rb', line 16</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_valid?'>valid?</span>
   <span class='kw'>return</span> <span class='kw'>true</span> <span class='kw'>if</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_nothing_banned?'>nothing_banned?</span>
@@ -621,7 +635,7 @@
 </div>
 
       <div id="footer">
-  Generated on Fri Feb 10 11:36:24 2023 by
+  Generated on Tue Feb 14 10:48:31 2023 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.28 (ruby-3.0.1).
 </div>

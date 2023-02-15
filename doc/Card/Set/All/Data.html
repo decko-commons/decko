@@ -467,7 +467,7 @@
     <td>
       <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod004-format/all/data.rb', line 8</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_cast'><span class='object_link'><a href="../../../top-level-namespace.html#cast-instance_method" title="#cast (method)">cast</a></span></span>
+<span class='kw'>def</span> <span class='id identifier rubyid_cast'>cast</span>
   <span class='id identifier rubyid_real?'>real?</span> <span class='op'>?</span> <span class='lbrace'>{</span> <span class='label'>id:</span> <span class='id identifier rubyid_id'>id</span> <span class='rbrace'>}</span> <span class='op'>:</span> <span class='lbrace'>{</span> <span class='label'>name:</span> <span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='label'>type_id:</span> <span class='id identifier rubyid_type_id'>type_id</span><span class='comma'>,</span> <span class='label'>content:</span> <span class='id identifier rubyid_db_content'>db_content</span> <span class='rbrace'>}</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -497,7 +497,7 @@
     <td>
       <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod004-format/all/data.rb', line 34</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_pod_content'><span class='object_link'><a href="../../../top-level-namespace.html#pod_content-instance_method" title="#pod_content (method)">pod_content</a></span></span>
+<span class='kw'>def</span> <span class='id identifier rubyid_pod_content'>pod_content</span>
   <span class='id identifier rubyid_structure'>structure</span> <span class='op'>?</span> <span class='kw'>nil</span> <span class='op'>:</span> <span class='id identifier rubyid_db_content'>db_content</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -529,7 +529,7 @@
     <td>
       <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod004-format/all/data.rb', line 20</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_pod_fields'><span class='object_link'><a href="../../../top-level-namespace.html#pod_fields-instance_method" title="#pod_fields (method)">pod_fields</a></span></span> <span class='id identifier rubyid_marks'>marks</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_pod_fields'>pod_fields</span> <span class='id identifier rubyid_marks'>marks</span>
   <span class='id identifier rubyid_marks'>marks</span><span class='period'>.</span><span class='id identifier rubyid_each_with_object'>each_with_object</span><span class='lparen'>(</span><span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_mark'>mark</span><span class='comma'>,</span> <span class='id identifier rubyid_hash'>hash</span><span class='op'>|</span>
     <span class='id identifier rubyid_hash'>hash</span><span class='lbracket'>[</span><span class='id identifier rubyid_mark'>mark</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='id identifier rubyid_mark'>mark</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_card'>card</span><span class='op'>&amp;.</span><span class='id identifier rubyid_pod_content'>pod_content</span>
   <span class='kw'>end</span><span class='period'>.</span><span class='id identifier rubyid_compact_blank'>compact_blank</span>
@@ -565,12 +565,12 @@
     <td>
       <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod004-format/all/data.rb', line 12</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_pod_hash'><span class='object_link'><a href="../../../top-level-namespace.html#pod_hash-instance_method" title="#pod_hash (method)">pod_hash</a></span></span> <span class='label'>field_tags:</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
-  <span class='lbrace'>{</span> <span class='label'>name:</span> <span class='id identifier rubyid_pod_name'><span class='object_link'><a href="../../../top-level-namespace.html#pod_name-instance_method" title="#pod_name (method)">pod_name</a></span></span><span class='comma'>,</span>
-    <span class='label'>type:</span> <span class='id identifier rubyid_pod_type'><span class='object_link'><a href="../../../top-level-namespace.html#pod_type-instance_method" title="#pod_type (method)">pod_type</a></span></span><span class='comma'>,</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_pod_hash'>pod_hash</span> <span class='label'>field_tags:</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
+  <span class='lbrace'>{</span> <span class='label'>name:</span> <span class='id identifier rubyid_pod_name'>pod_name</span><span class='comma'>,</span>
+    <span class='label'>type:</span> <span class='id identifier rubyid_pod_type'>pod_type</span><span class='comma'>,</span>
     <span class='label'>codename:</span> <span class='id identifier rubyid_codename'>codename</span><span class='comma'>,</span>
-    <span class='label'>content:</span> <span class='id identifier rubyid_pod_content'><span class='object_link'><a href="../../../top-level-namespace.html#pod_content-instance_method" title="#pod_content (method)">pod_content</a></span></span><span class='comma'>,</span>
-    <span class='label'>fields:</span> <span class='id identifier rubyid_pod_fields'><span class='object_link'><a href="../../../top-level-namespace.html#pod_fields-instance_method" title="#pod_fields (method)">pod_fields</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_field_tags'>field_tags</span><span class='rparen'>)</span> <span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_compact_blank'>compact_blank</span>
+    <span class='label'>content:</span> <span class='id identifier rubyid_pod_content'>pod_content</span><span class='comma'>,</span>
+    <span class='label'>fields:</span> <span class='id identifier rubyid_pod_fields'>pod_fields</span><span class='lparen'>(</span><span class='id identifier rubyid_field_tags'>field_tags</span><span class='rparen'>)</span> <span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_compact_blank'>compact_blank</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -599,7 +599,7 @@
     <td>
       <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod004-format/all/data.rb', line 30</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_pod_name'><span class='object_link'><a href="../../../top-level-namespace.html#pod_name-instance_method" title="#pod_name (method)">pod_name</a></span></span>
+<span class='kw'>def</span> <span class='id identifier rubyid_pod_name'>pod_name</span>
   <span class='id identifier rubyid_simple?'>simple?</span> <span class='op'>?</span> <span class='id identifier rubyid_name'>name</span><span class='period'>.</span><span class='id identifier rubyid_s'>s</span> <span class='op'>:</span> <span class='id identifier rubyid_name'>name</span><span class='period'>.</span><span class='id identifier rubyid_part_names'>part_names</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='symbol'>:codename_or_string</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -629,7 +629,7 @@
     <td>
       <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod004-format/all/data.rb', line 26</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_pod_type'><span class='object_link'><a href="../../../top-level-namespace.html#pod_type-instance_method" title="#pod_type (method)">pod_type</a></span></span>
+<span class='kw'>def</span> <span class='id identifier rubyid_pod_type'>pod_type</span>
   <span class='id identifier rubyid_type_name'>type_name</span><span class='period'>.</span><span class='id identifier rubyid_codename_or_string'>codename_or_string</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -642,7 +642,7 @@
 </div>
 
       <div id="footer">
-  Generated on Fri Feb 10 11:36:28 2023 by
+  Generated on Tue Feb 14 10:48:35 2023 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.28 (ruby-3.0.1).
 </div>
