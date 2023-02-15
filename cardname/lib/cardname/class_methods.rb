@@ -20,12 +20,12 @@ class Cardname
       @cache ||= {}
     end
 
-    # # reset Cardname cache
-    # # @see #cache
-    # # @return [Hash]
-    # def reset
-    #   @cache = {}
-    # end
+    # reset Cardname cache
+    # @see #cache
+    # @return [Hash]
+    def reset
+      @cache = {}
+    end
 
     # true if there are no banned characters
     # @return [Boolean]
