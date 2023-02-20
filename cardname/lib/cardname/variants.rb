@@ -2,19 +2,6 @@ require "htmlentities"
 
 class Cardname
   module Variants
-    # @return [String]
-    def simple_key
-      return "" if empty?
-
-      decoded
-        .underscore
-        .gsub(/[^#{OK4KEY_RE}]+/, "_")
-        .split(/_+/)
-        .reject(&:empty?)
-        .map { |key| stable_key(key) }
-        .join("_")
-    end
-
     # URI-friendly version of name. retains case, underscores for space
     # @return [String]
     def url_key
@@ -32,6 +19,7 @@ class Cardname
       key.tr("*", "X").tr self.class.joint, "-"
     end
 
+    # HTML Entities decoded
     # @return [String]
     def decoded
       @decoded ||= s.index("&") ? HTMLEntities.new.decode(s) : s
