@@ -1,3 +1,5 @@
+require "colorize"
+
 namespace :card do
   namespace :seed do
     desc "regenerate seed fixtures quickly from current fixtures. " \
