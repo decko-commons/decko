@@ -1,6 +1,6 @@
 format :html do
-  def link_to_mycard
-    link_to_card Auth.current.name, nil,
+  def link_to_mycard text=nil
+    link_to_card Auth.current.name, text,
                  id: "my-card-link", class: "nav-link #{classy('my-card')}"
   end
 
