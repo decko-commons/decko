@@ -136,7 +136,7 @@ format :html do
   end
 
   def menu_icon
-    material_icon "edit"
+    icon_tag "edit"
   end
 
   def full_page_icon
@@ -144,10 +144,10 @@ format :html do
   end
 
   def modal_icon
-    fa_icon :expand
+    icon_tag :modal
   end
 
   def bridge_icon
-    fa_icon :box
+    icon_tag :board
   end
 end

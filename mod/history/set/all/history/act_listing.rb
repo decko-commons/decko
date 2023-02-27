@@ -108,10 +108,10 @@ format :html do
 
   def action_icon action_type, extra_class=nil
     icon = case action_type
-           when :create then :add_circle
-           when :update then :pencil
-           when :delete then :remove_circle
-           when :draft then :wrench
+           when :create then :create_action
+           when :update then :update_action
+           when :delete then :delete_action
+           when :draft then :draft
            end
     icon_tag icon, extra_class
   end

@@ -2,57 +2,50 @@ format :html do
   # same for all:
   # :search,
   ICON_MAP = {
+    bootstrap: {
+      plus: "plus-lg",
+      pencil: "pencil-fill",
+      trash: "trash-fill",
+      wrench: :wrench,
+      new_window: "box-arrow-up-right",
+      history: :clock,
+      triangle_left: "chevron-up",
+      triangle_right: "chevron-down",
+      flag: "flag-fill",
+      reorder: "grip-horizontal",
+    },
     material: {
       plus: :add,
       pencil: :edit,
       trash: :delete,
-      wrench: :build,
       new_window: :open_in_new,
       history: :history,
-      triangle_left: :expand_less,
-      triangle_right: :expand_more,
-      flag: :flag,
-      option_horizontal: :more_horiz,
-      option_vertical: :more_vert,
-      pushpin: :pin_drop,
-      baby_formula: :device_hub,
-      log_out: :call_made,
-      log_in: :call_received,
-      explore: :explore,
-      remove: :close,
+      collapse: :expand_less,
       expand: :expand_more,
-      collapse_down: :expand_less,
-      globe: :public,
-      commenting: :comment
+      flag: :flag,
+      remove: :close,
+      close: :close,
+      board: :space_dashboard,
+      warning: :warning,
+      unknown: :add_box,
+      help: :help,
+      modal: :fullscreen,
+      reorder: :reorder,
+      create_action: :add_circle,
+      update_action: :edit,
+      delete_action: :remove_circle,
+      draft: :build,
     },
     font_awesome: {
-      option_horizontal: :ellipsis_h,
-      pushpin: "thumb-tack",
-      globe: :globe,
-      zoom_out: "search-minus",
       close: :times,
       check_circle: "check-circle",
       reorder: "align-justify",
-      commenting: :comments
+      history: "clock-rotate-left",
+      warning: "exclamation-circle",
+      unknown: "plus-square",
+      help: "question-circle",
+      modal: :expand,
     },
-    glyphicon: {
-      option_horizontal: "option-horizontal",
-      option_vertical: "option-vertical",
-      triangle_left: "triangle-left",
-      triangle_right: "triangle-right",
-      baby_formula: "baby-formula",
-      log_out: "log-out",
-      log_in: "log-in",
-      collapse_down: "collapse-down",
-      globe: :globe,
-      zoom_out: "zoom-out",
-      close: :remove,
-      new_window: "new-window",
-      history: :time,
-      check_circle: "ok-sign",
-      reorder: "align-justify"
-    }
-
   }.freeze
 
   def icon_class library, icon
@@ -69,6 +62,10 @@ format :html do
 
   def fa_icon icon, opts={}
     universal_icon_tag icon, :font_awesome, opts
+  end
+
+  def bs_icon icon, opts={}
+    universal_icon_tag icon, :bootstrap, opts
   end
 
   def icon_tag icon, opts={}
@@ -96,7 +93,6 @@ format :html do
   end
 
   def font_awesome_icon_tag icon, opts={}
-
     prepend_class opts,
                   "fa#{'b' if opts.delete :brand} fa-#{icon_class(:font_awesome, icon)}"
     wrap_with :i, "", opts
@@ -107,10 +103,28 @@ format :html do
     wrap_with :i, icon_class(:material, icon), opts
   end
 
+  def bootstrap_icon_tag icon, opts={}
+    prepend_class opts, "bi-#{icon_class(:bootstrap, icon)}"
+    wrap_with :i, "", opts
+  end
+
   private
 
   def with_icon_tag_opts opts={}
     opts = { class: opts } unless opts.is_a? Hash
     yield opts
+  end
+
+  view :icons do
+    ICON_MAP.keys.map do |collection|
+      "<h3>#{collection}</h3>\n#{icon_collection collection}"
+    end.join "<br/>"
+  end
+
+  def icon_collection name
+    ICON_MAP[name].map do |key, icon|
+      icon_tag = send "#{name}_icon_tag", icon
+      "#{icon_tag} #{key}"
+    end.join "<br/>"
   end
 end
