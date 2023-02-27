@@ -14,7 +14,7 @@ $(window).ready ->
       window.location = cardLinkPath(cl)
 
 openInNewTab = (event) -> event.metaKey
-cardLinkPath = (cl) -> decko.path cl.data("cardLinkName")
+cardLinkPath = (cl) -> decko.path(cl.data("cardLinkUrl") ||cl.data("cardLinkName"))
 
 decko.slot.ready (slot)->
   # note: by using slot ready, we can make sure this event is triggered early

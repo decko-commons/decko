@@ -81,7 +81,7 @@ format :html do
   end
 
   def help_icon
-    material_icon("help")
+    material_icon "help"
   end
 
   def help_title
