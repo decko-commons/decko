@@ -6,7 +6,7 @@
 <title>
   Module: Card::Set::Abstract::Paging::PagingViews::JsonFormat
   
-    &mdash; Documentation by YARD 0.9.26
+    &mdash; Documentation by YARD 0.9.28
   
 </title>
 
@@ -83,7 +83,7 @@
   
   <dl>
     <dt>Defined in:</dt>
-    <dd>card/tmpsets/set/mod006-card-mod-collection/abstract/paging/paging_views.rb</dd>
+    <dd>platypus/tmp/set/gem-defaults/mod002-collection/abstract/paging/paging_views.rb</dd>
   </dl>
   
 </div>
@@ -220,14 +220,14 @@
       <pre class="lines">
 
 
-113
-114
-115
-116
-117</pre>
+104
+105
+106
+107
+108</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod006-card-mod-collection/abstract/paging/paging_views.rb', line 113</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod002-collection/abstract/paging/paging_views.rb', line 104</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_add_paging_url'>add_paging_url</span> <span class='id identifier rubyid_hash'>hash</span><span class='comma'>,</span> <span class='id identifier rubyid_page'>page</span><span class='comma'>,</span> <span class='id identifier rubyid_status'>status</span>
   <span class='kw'>return</span> <span class='kw'>unless</span> <span class='id identifier rubyid_page'>page</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_status'>status</span><span class='period'>.</span><span class='id identifier rubyid_in?'>in?</span><span class='lparen'>(</span><span class='qsymbols_beg'>%i[</span><span class='tstring_content'>next</span><span class='words_sep'> </span><span class='tstring_content'>previous</span><span class='tstring_end'>]</span></span><span class='rparen'>)</span>
@@ -254,17 +254,17 @@
       <pre class="lines">
 
 
-90
-91
-92
-93
-94
-95
-96
-97</pre>
+81
+82
+83
+84
+85
+86
+87
+88</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod006-card-mod-collection/abstract/paging/paging_views.rb', line 90</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod002-collection/abstract/paging/paging_views.rb', line 81</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_page_link_path_args'>page_link_path_args</span> <span class='id identifier rubyid_page'>page</span>
   <span class='lbrace'>{</span>
@@ -294,20 +294,20 @@
       <pre class="lines">
 
 
-105
-106
-107
-108
-109
-110
-111</pre>
+96
+97
+98
+99
+100
+101
+102</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod006-card-mod-collection/abstract/paging/paging_views.rb', line 105</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod002-collection/abstract/paging/paging_views.rb', line 96</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_paging_urls_hash'>paging_urls_hash</span>
   <span class='id identifier rubyid_hash'>hash</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
-  <span class='const'><span class='object_link'><a href="../PagingLinks.html" title="Card::Set::Abstract::Paging::PagingLinks (class)">PagingLinks</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="../PagingLinks.html#initialize-instance_method" title="Card::Set::Abstract::Paging::PagingLinks#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_total_pages'>total_pages</span><span class='comma'>,</span> <span class='id identifier rubyid_current_page'>current_page</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_build'><span class='object_link'><a href="../PagingLinks.html#build-instance_method" title="Card::Set::Abstract::Paging::PagingLinks#build (method)">build</a></span></span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid__text'>_text</span><span class='comma'>,</span> <span class='id identifier rubyid_page'>page</span><span class='comma'>,</span> <span class='id identifier rubyid_status'>status</span><span class='comma'>,</span> <span class='id identifier rubyid__options'>_options</span><span class='op'>|</span>
+  <span class='const'><span class='object_link'><a href="../../../../PagingLinks.html" title="Card::PagingLinks (class)">PagingLinks</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="../../../../PagingLinks.html#initialize-instance_method" title="Card::PagingLinks#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_total_pages'>total_pages</span><span class='comma'>,</span> <span class='id identifier rubyid_current_page'>current_page</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_build'><span class='object_link'><a href="../../../../PagingLinks.html#build-instance_method" title="Card::PagingLinks#build (method)">build</a></span></span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid__text'>_text</span><span class='comma'>,</span> <span class='id identifier rubyid_page'>page</span><span class='comma'>,</span> <span class='id identifier rubyid_status'>status</span><span class='comma'>,</span> <span class='id identifier rubyid__options'>_options</span><span class='op'>|</span>
     <span class='id identifier rubyid_add_paging_url'>add_paging_url</span> <span class='id identifier rubyid_hash'>hash</span><span class='comma'>,</span> <span class='id identifier rubyid_page'>page</span><span class='comma'>,</span> <span class='id identifier rubyid_status'>status</span>
   <span class='kw'>end</span>
   <span class='id identifier rubyid_hash'>hash</span>
@@ -332,14 +332,14 @@
       <pre class="lines">
 
 
-99
-100
-101
-102
-103</pre>
+90
+91
+92
+93
+94</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod006-card-mod-collection/abstract/paging/paging_views.rb', line 99</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod002-collection/abstract/paging/paging_views.rb', line 90</span>
 
 <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:paging_urls</span><span class='comma'>,</span> <span class='label'>cache:</span> <span class='symbol'>:never</span> <span class='kw'>do</span>
   <span class='kw'>return</span> <span class='lbrace'>{</span><span class='rbrace'>}</span> <span class='kw'>unless</span> <span class='id identifier rubyid_total_pages'>total_pages</span> <span class='op'>&gt;</span> <span class='int'>1</span>
@@ -356,9 +356,9 @@
 </div>
 
       <div id="footer">
-  Generated on Thu May 13 17:17:40 2021 by
-  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.26 (ruby-2.7.2).
+  Generated on Wed Feb 15 11:54:43 2023 by
+  <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.28 (ruby-3.0.4).
 </div>
 
     </div>

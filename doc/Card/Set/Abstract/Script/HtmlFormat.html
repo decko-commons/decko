@@ -6,7 +6,7 @@
 <title>
   Module: Card::Set::Abstract::Script::HtmlFormat
   
-    &mdash; Documentation by YARD 0.9.26
+    &mdash; Documentation by YARD 0.9.28
   
 </title>
 
@@ -83,7 +83,7 @@
   
   <dl>
     <dt>Defined in:</dt>
-    <dd>card/tmpsets/set/mod017-card-mod-script/abstract/script.rb</dd>
+    <dd>platypus/tmp/set/gem-defaults/mod019-script/abstract/00_script.rb</dd>
   </dl>
   
 </div>
@@ -218,6 +218,29 @@
 </li>
 
       
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#view:+javascript_include_tag-instance_method" title="#view: javascript_include_tag (instance method)">#<strong>view: javascript_include_tag</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+</div></span>
+  
+</li>
+
+      
     </ul>
   
 
@@ -248,7 +271,7 @@
 74</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod017-card-mod-script/abstract/script.rb', line 72</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod019-script/abstract/00_script.rb', line 72</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_ace_mode'>ace_mode</span>
   <span class='symbol'>:javascript</span>
@@ -278,7 +301,7 @@
 78</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod017-card-mod-script/abstract/script.rb', line 76</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod019-script/abstract/00_script.rb', line 76</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_content_changes'>content_changes</span> <span class='id identifier rubyid_action'>action</span><span class='comma'>,</span> <span class='id identifier rubyid_diff_type'>diff_type</span><span class='comma'>,</span> <span class='id identifier rubyid_hide_diff'>hide_diff</span><span class='op'>=</span><span class='kw'>false</span>
   <span class='id identifier rubyid_wrap_with'>wrap_with</span><span class='lparen'>(</span><span class='symbol'>:pre</span><span class='rparen'>)</span> <span class='lbrace'>{</span> <span class='kw'>super</span> <span class='rbrace'>}</span>
@@ -303,12 +326,12 @@
       <pre class="lines">
 
 
-85
-86
-87</pre>
+89
+90
+91</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod017-card-mod-script/abstract/script.rb', line 85</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod019-script/abstract/00_script.rb', line 89</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_highlight'>highlight</span> <span class='id identifier rubyid_script'>script</span>
   <span class='op'>::</span><span class='const'>CodeRay</span><span class='period'>.</span><span class='id identifier rubyid_scan'>scan</span><span class='lparen'>(</span><span class='id identifier rubyid_script'>script</span><span class='comma'>,</span> <span class='symbol'>:js</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_div'>div</span>
@@ -338,7 +361,7 @@
 70</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod017-card-mod-script/abstract/script.rb', line 68</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod019-script/abstract/00_script.rb', line 68</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_input_type'>input_type</span>
   <span class='symbol'>:ace_editor</span>
@@ -369,11 +392,41 @@
 83</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod017-card-mod-script/abstract/script.rb', line 80</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod019-script/abstract/00_script.rb', line 80</span>
 
 <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:core</span> <span class='kw'>do</span>
-  <span class='id identifier rubyid_script'>script</span> <span class='op'>=</span> <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_format'>format</span><span class='lparen'>(</span><span class='symbol'>:js</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_render_core'>render_core</span>
-  <span class='id identifier rubyid_process_content'>process_content</span> <span class='id identifier rubyid_highlight'>highlight</span><span class='lparen'>(</span><span class='id identifier rubyid_script'>script</span><span class='rparen'>)</span>
+  <span class='comment'># script = card.format(:js).render_core
+</span>  <span class='id identifier rubyid_process_content'>process_content</span> <span class='id identifier rubyid_highlight'>highlight</span><span class='lparen'>(</span><span class='id identifier rubyid_render_raw'>render_raw</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="view: javascript_include_tag-instance_method">
+  
+    #<strong>view: javascript_include_tag</strong>  &#x21d2; <tt><span class='object_link'><a href="../../../../Object.html" title="Object (class)">Object</a></span></tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+85
+86
+87</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod019-script/abstract/00_script.rb', line 85</span>
+
+<span class='id identifier rubyid_view'>view</span> <span class='symbol'>:javascript_include_tag</span> <span class='kw'>do</span>
+  <span class='id identifier rubyid_javascript_include_tag'>javascript_include_tag</span> <span class='id identifier rubyid_path'>path</span><span class='lparen'>(</span><span class='label'>format:</span> <span class='symbol'>:js</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -385,9 +438,9 @@
 </div>
 
       <div id="footer">
-  Generated on Thu May 13 17:17:31 2021 by
-  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.26 (ruby-2.7.2).
+  Generated on Wed Feb 15 11:54:40 2023 by
+  <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.28 (ruby-3.0.4).
 </div>
 
     </div>

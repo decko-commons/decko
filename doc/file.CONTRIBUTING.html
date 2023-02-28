@@ -58,10 +58,12 @@
       </div>
 
       <div id="content"><div id='filecontents'><h1 id="thinking-about-contributing-to-decko">Thinking about contributing to Decko?</h1>
-<p>Nice! There’s tons to do involving lots of different skillsets, and we welcome the help.</p>
-
-<p>We want to make contributing to Decko as rewarding an experience as possible. Please 
+<p>Nice! There’s tons to do involving lots of different skillsets, and we welcome the help. 
+We want to make contributing to Decko as rewarding an experience as possible. Please 
 jump in, and ask away for help.</p>
+
+<p>For starters, it’s helpful to be clear whether you’re interested in helping as a Shark,
+a Monkey, or a Platypus. (Or as more than one of these!)</p>
 
 <h2 id="sharks---masters-of-cards">Sharks - Masters of Cards</h2>
 <p>Decko is built around the <em>card</em> concept, so we call advanced users who create,
@@ -69,7 +71,7 @@ structure, organize, and maintain Decko websites “Card Sharks.” There are ma
 Sharks can do to contribute to the project: design, community support, documentation,
 outreach, or even just the occasional kind word.</p>
 
-<p>Because Sharks live not in the land of code but in the sea of websites, we will
+<p>Because Sharks live not in the land of code but in the sea of websites, we
 maintain information that pertains to them – <strong>including installation troubleshooting, 
 mod lists, and deck configuration</strong> – on <a href="https://decko.org">Decko.org</a>.</p>
 
@@ -174,10 +176,22 @@ changing code. To do that you can run the following from the development deck ro
 <p>BUT: only do this if you’re both (a) in development mode and (b) using a decko gem from
 within a copy of the repo.</p>
 
+<p>A few notes on yard documentation:</p>
+
+<ul>
+  <li>It’s important to document classes and modules only once. If, for example, <code>class Card</code>
+is preceeded by a comment in multiple files, only one will be used, which often means
+the intended documentation may get overridden.</li>
+  <li>If comments are broken by uncommented lines, the comments before or after the break
+(depending on context) may be lost.</li>
+  <li>It’s always great to check yardoc links in comments after refactoring to make sure 
+the changes didn’t break them.</li>
+</ul>
+
 </div></div>
 
       <div id="footer">
-  Generated on Fri Nov 18 22:10:16 2022 by
+  Generated on Wed Feb 15 11:54:31 2023 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.28 (ruby-3.0.4).
 </div>

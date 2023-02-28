@@ -46,10 +46,12 @@ And info about contributing to Decko is [right next door][24].
 On our [docs site][27]:
 
 - [intro to monkeying][20]
-- [how to generate a mod][19]
-- [mod API: card objects][21]
-- [mod API: formats][22]
-- [existing mods][23]
+- [generating a mod][19]
+- [set modules][22]
+- [card objects][21]
+
+Elsewhere on Github:
+- [optional mods][23]
 
 We also have [API Docs on Swaggerhub][18].
 
@@ -261,7 +263,7 @@ you can instead follow the following procedure:
 [19]: https://docs.decko.org/docs/Cardio/Mod
 [20]: https://docs.decko.org/docs/file/card/README.md
 [21]: https://docs.decko.org/docs/Card
-[22]: https://docs.decko.org/docs/Card/Set/Format
+[22]: https://docs.decko.org/docs/Card/Set
 [23]: https://github.com/decko-commons/card-mods/
 [24]: https://docs.decko.org/docs/file/CONTRIBUTING.md
 [25]: https://img.shields.io/badge/License-GPLv3-blue.svg

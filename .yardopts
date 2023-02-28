@@ -1,6 +1,5 @@
-*/{lib,format,chunk}/**/*.rb
-{card/mod,decko/mod,mod/*}/*/{lib,format,chunk}/**/*.rb
-card/tmpsets/set*/**/*.rb
+{card,cardname,decko,mod/*,card/mod/core}/{lib,format}/**/*.rb
+platypus/tmp/set*/**/*.rb
 - mod/*/*.md */*.md *.md GPL LICENSE card/VERSION
 --exclude .*/vendor/.*
 --markup markdown

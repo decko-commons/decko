@@ -6,7 +6,7 @@
 <title>
   Module: Card::Action::Differ
   
-    &mdash; Documentation by YARD 0.9.26
+    &mdash; Documentation by YARD 0.9.28
   
 </title>
 
@@ -83,7 +83,7 @@
   
   <dl>
     <dt>Defined in:</dt>
-    <dd>card-mod-history/lib/card/action/differ.rb</dd>
+    <dd>mod/history/lib/card/action/differ.rb</dd>
   </dl>
   
 </div>
@@ -154,52 +154,6 @@
 
   
     <span class="summary_desc"><div class='inline'><p>compare action’s content value with previous content value.</p>
-</div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#green%3F-instance_method" title="#green? (instance method)">#<strong>green?</strong>  &#x21d2; true/false </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'><p>test whether content was visibly added.</p>
-</div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#name_diff-instance_method" title="#name_diff (instance method)">#<strong>name_diff</strong>(opts = {})  &#x21d2; rendered diff </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'><p>compare action’s name value with previous name value.</p>
 </div></span>
   
 </li>
@@ -291,30 +245,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-</div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#red%3F-instance_method" title="#red? (instance method)">#<strong>red?</strong>  &#x21d2; true/false </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'><p>test whether content was visibly removed.</p>
+    <span class="summary_desc"><div class='inline'><h1 id="test-whether-content-was-visibly-removed--return-truefalse-def-red---contentdiffobjectred-end">test whether content was visibly removed # @return [true/false] def red?   content_diff_object.red? end.</h1>
 </div></span>
   
 </li>
@@ -397,10 +328,10 @@
 25</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card-mod-history/lib/card/action/differ.rb', line 21</span>
+      <pre class="code"><span class="info file"># File 'mod/history/lib/card/action/differ.rb', line 21</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_cardtype_diff'>cardtype_diff</span> <span class='id identifier rubyid_opts'>opts</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span>
-  <span class='kw'>return</span> <span class='kw'>unless</span> <span class='id identifier rubyid_new_type?'>new_type?</span>
+  <span class='kw'>return</span> <span class='kw'>unless</span> <span class='id identifier rubyid_card'>card</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_new_type?'>new_type?</span>
 
   <span class='id identifier rubyid_diff_object'>diff_object</span><span class='lparen'>(</span><span class='symbol'>:cardtype</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_complete'>complete</span>
 <span class='kw'>end</span></pre>
@@ -455,123 +386,13 @@
 40</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card-mod-history/lib/card/action/differ.rb', line 35</span>
+      <pre class="code"><span class="info file"># File 'mod/history/lib/card/action/differ.rb', line 35</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_content_diff'>content_diff</span> <span class='id identifier rubyid_diff_type'>diff_type</span><span class='op'>=</span><span class='symbol'>:expanded</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='op'>=</span><span class='kw'>nil</span>
   <span class='kw'>return</span> <span class='kw'>unless</span> <span class='id identifier rubyid_new_content?'>new_content?</span>
 
   <span class='id identifier rubyid_dobj'>dobj</span> <span class='op'>=</span> <span class='id identifier rubyid_content_diff_object'>content_diff_object</span><span class='lparen'>(</span><span class='id identifier rubyid_opts'>opts</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_diff_type'>diff_type</span> <span class='op'>==</span> <span class='symbol'>:summary</span> <span class='op'>?</span> <span class='id identifier rubyid_dobj'>dobj</span><span class='period'>.</span><span class='id identifier rubyid_summary'>summary</span> <span class='op'>:</span> <span class='id identifier rubyid_dobj'>dobj</span><span class='period'>.</span><span class='id identifier rubyid_complete'>complete</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="green?-instance_method">
-  
-    #<strong>green?</strong>  &#x21d2; <tt>true/false</tt> 
-  
-
-  
-
-  
-</h3><div class="docstring">
-  <div class="discussion">
-    <p>test whether content was visibly added</p>
-
-
-  </div>
-</div>
-<div class="tags">
-  
-<p class="tag_title">Returns:</p>
-<ul class="return">
-  
-    <li>
-      
-      
-        <span class='type'>(<tt>true/false</tt>)</span>
-      
-      
-      
-    </li>
-  
-</ul>
-
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-56
-57
-58</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'card-mod-history/lib/card/action/differ.rb', line 56</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_green?'>green?</span>
-  <span class='id identifier rubyid_content_diff_object'>content_diff_object</span><span class='period'>.</span><span class='id identifier rubyid_green?'>green?</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="name_diff-instance_method">
-  
-    #<strong>name_diff</strong>(opts = {})  &#x21d2; <tt>rendered diff</tt> 
-  
-
-  
-
-  
-</h3><div class="docstring">
-  <div class="discussion">
-    <p>compare action’s name value with previous name value</p>
-
-
-  </div>
-</div>
-<div class="tags">
-  
-<p class="tag_title">Returns:</p>
-<ul class="return">
-  
-    <li>
-      
-      
-        <span class='type'>(<tt>rendered diff</tt>)</span>
-      
-      
-      
-    </li>
-  
-</ul>
-
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-7
-8
-9
-10
-11</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'card-mod-history/lib/card/action/differ.rb', line 7</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_name_diff'>name_diff</span> <span class='id identifier rubyid_opts'>opts</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span>
-  <span class='kw'>return</span> <span class='kw'>unless</span> <span class='id identifier rubyid_new_name?'>new_name?</span>
-
-  <span class='id identifier rubyid_diff_object'>diff_object</span><span class='lparen'>(</span><span class='symbol'>:name</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_complete'>complete</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -621,7 +442,7 @@
 46</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card-mod-history/lib/card/action/differ.rb', line 44</span>
+      <pre class="code"><span class="info file"># File 'mod/history/lib/card/action/differ.rb', line 44</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_new_content?'>new_content?</span>
   <span class='op'>!</span><span class='id identifier rubyid_value'>value</span><span class='lparen'>(</span><span class='symbol'>:db_content</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
@@ -674,7 +495,7 @@
 17</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card-mod-history/lib/card/action/differ.rb', line 15</span>
+      <pre class="code"><span class="info file"># File 'mod/history/lib/card/action/differ.rb', line 15</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_new_name?'>new_name?</span>
   <span class='op'>!</span><span class='id identifier rubyid_value'>value</span><span class='lparen'>(</span><span class='symbol'>:name</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
@@ -727,7 +548,7 @@
 31</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card-mod-history/lib/card/action/differ.rb', line 29</span>
+      <pre class="code"><span class="info file"># File 'mod/history/lib/card/action/differ.rb', line 29</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_new_type?'>new_type?</span>
   <span class='op'>!</span><span class='id identifier rubyid_value'>value</span><span class='lparen'>(</span><span class='symbol'>:type_id</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
@@ -746,7 +567,27 @@
   
 
   
-</h3><table class="source_code">
+</h3><div class="docstring">
+  <div class="discussion">
+    <h1 id="test-whether-content-was-visibly-removed">test whether content was visibly removed</h1>
+<p># @return [true/false]
+def red?
+  content_diff_object.red?
+end</p>
+
+<h1 id="test-whether-content-was-visibly-added">test whether content was visibly added</h1>
+<p># @return [true/false]
+def green?
+  content_diff_object.green?
+end</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
@@ -761,7 +602,7 @@
 66</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card-mod-history/lib/card/action/differ.rb', line 60</span>
+      <pre class="code"><span class="info file"># File 'mod/history/lib/card/action/differ.rb', line 60</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_raw_view'>raw_view</span> <span class='id identifier rubyid_content'>content</span><span class='op'>=</span><span class='kw'>nil</span>
   <span class='id identifier rubyid_original_content'>original_content</span> <span class='op'>=</span> <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_db_content'>db_content</span>
@@ -769,59 +610,6 @@
   <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_format'>format</span><span class='period'>.</span><span class='id identifier rubyid_render_raw'>render_raw</span>
 <span class='kw'>ensure</span>
   <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_db_content'>db_content</span> <span class='op'>=</span> <span class='id identifier rubyid_original_content'>original_content</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="red?-instance_method">
-  
-    #<strong>red?</strong>  &#x21d2; <tt>true/false</tt> 
-  
-
-  
-
-  
-</h3><div class="docstring">
-  <div class="discussion">
-    <p>test whether content was visibly removed</p>
-
-
-  </div>
-</div>
-<div class="tags">
-  
-<p class="tag_title">Returns:</p>
-<ul class="return">
-  
-    <li>
-      
-      
-        <span class='type'>(<tt>true/false</tt>)</span>
-      
-      
-      
-    </li>
-  
-</ul>
-
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-50
-51
-52</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'card-mod-history/lib/card/action/differ.rb', line 50</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_red?'>red?</span>
-  <span class='id identifier rubyid_content_diff_object'>content_diff_object</span><span class='period'>.</span><span class='id identifier rubyid_red?'>red?</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -871,7 +659,7 @@
 70</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card-mod-history/lib/card/action/differ.rb', line 68</span>
+      <pre class="code"><span class="info file"># File 'mod/history/lib/card/action/differ.rb', line 68</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_summary_diff_omits_content?'>summary_diff_omits_content?</span>
   <span class='id identifier rubyid_content_diff_object'>content_diff_object</span><span class='period'>.</span><span class='id identifier rubyid_summary_omits_content?'>summary_omits_content?</span>
@@ -886,9 +674,9 @@
 </div>
 
       <div id="footer">
-  Generated on Thu May 13 17:17:19 2021 by
-  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.26 (ruby-2.7.2).
+  Generated on Wed Feb 15 11:54:33 2023 by
+  <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.28 (ruby-3.0.4).
 </div>
 
     </div>

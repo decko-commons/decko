@@ -84,7 +84,7 @@
   <dl>
     <dt>Defined in:</dt>
     <dd>card/lib/cardio/commands.rb<span class="defines">,<br />
-  card/lib/cardio.rb,<br /> card/lib/cardio/job.rb,<br /> card/lib/cardio/mod.rb,<br /> card/lib/cardio/seed.rb,<br /> card/lib/cardio/utils.rb,<br /> card/lib/cardio/record.rb,<br /> card/lib/cardio/schema.rb,<br /> card/lib/cardio/command.rb,<br /> card/lib/cardio/mod/eat.rb,<br /> card/lib/cardio/mod/sow.rb,<br /> card/lib/cardio/railtie.rb,<br /> card/lib/cardio/version.rb,<br /> card/lib/cardio/delaying.rb,<br /> card/lib/cardio/mod/dirs.rb,<br /> card/lib/cardio/migration.rb,<br /> card/lib/cardio/generators.rb,<br /> card/lib/cardio/mod/loader.rb,<br /> card/lib/cardio/script_loader.rb,<br /> card/lib/cardio/command/custom.rb,<br /> card/lib/cardio/migration/core.rb,<br /> card/lib/cardio/generators/base.rb,<br /> card/lib/cardio/mod/eat/edibles.rb,<br /> card/lib/cardio/mod/modfile_api.rb,<br /> card/lib/cardio/mod/class_methods.rb,<br /> card/lib/cardio/mod/load_strategy.rb,<br /> card/lib/cardio/mod/modfile_loader.rb,<br /> card/lib/cardio/generators/mod_base.rb,<br /> card/lib/cardio/mod/module_template.rb,<br /> card/lib/cardio/command/command_base.rb,<br /> card/lib/cardio/command/rake_command.rb,<br /> card/lib/cardio/command/rspec_command.rb,<br /> card/lib/cardio/mod/loader/set_loader.rb,<br /> card/lib/generators/mod/mod_generator.rb,<br /> card/lib/generators/set/set_generator.rb,<br /> card/lib/cardio/generators/deck_helper.rb,<br /> card/lib/cardio/mod/load_strategy/eval.rb,<br /> card/lib/cardio/mod/loader/set_template.rb,<br /> card/lib/generators/deck/deck_generator.rb,<br /> card/lib/cardio/migration/deck_structure.rb,<br /> decko/lib/generators/deck/deck_generator.rb,<br /> card/lib/cardio/generators/rails_overrides.rb,<br /> card/lib/cardio/mod/load_strategy/tmp_files.rb,<br /> card/lib/cardio/command/rspec_command/parser.rb,<br /> card/lib/cardio/mod/loader/set_pattern_loader.rb,<br /> card/lib/cardio/mod/load_strategy/set_tmp_files.rb,<br /> card/lib/generators/migration/migration_generator.rb,<br /> card/lib/cardio/mod/load_strategy/pattern_tmp_files.rb,<br /> card/lib/cardio/mod/load_strategy/set_binding_magic.rb</span>
+  card/lib/cardio.rb,<br /> card/lib/cardio/job.rb,<br /> card/lib/cardio/mod.rb,<br /> card/lib/cardio/seed.rb,<br /> card/lib/cardio/utils.rb,<br /> card/lib/cardio/record.rb,<br /> card/lib/cardio/schema.rb,<br /> card/lib/cardio/command.rb,<br /> card/lib/cardio/mod/eat.rb,<br /> card/lib/cardio/mod/sow.rb,<br /> card/lib/cardio/railtie.rb,<br /> card/lib/cardio/version.rb,<br /> card/lib/cardio/delaying.rb,<br /> card/lib/cardio/mod/dirs.rb,<br /> card/lib/cardio/migration.rb,<br /> mod/monkey/lib/cardio/pry.rb,<br /> card/lib/cardio/generators.rb,<br /> card/lib/cardio/mod/loader.rb,<br /> card/lib/cardio/script_loader.rb,<br /> card/lib/cardio/command/custom.rb,<br /> card/lib/cardio/migration/core.rb,<br /> card/lib/cardio/generators/base.rb,<br /> card/lib/cardio/mod/eat/edibles.rb,<br /> card/lib/cardio/mod/modfile_api.rb,<br /> card/lib/cardio/mod/class_methods.rb,<br /> card/lib/cardio/mod/load_strategy.rb,<br /> card/lib/cardio/mod/modfile_loader.rb,<br /> mod/monkey/lib/cardio/pry/commands.rb,<br /> card/lib/cardio/generators/mod_base.rb,<br /> card/lib/cardio/mod/module_template.rb,<br /> card/lib/cardio/command/command_base.rb,<br /> card/lib/cardio/command/rake_command.rb,<br /> card/lib/cardio/command/rspec_command.rb,<br /> card/lib/cardio/mod/loader/set_loader.rb,<br /> card/lib/generators/mod/mod_generator.rb,<br /> card/lib/generators/set/set_generator.rb,<br /> card/lib/cardio/generators/deck_helper.rb,<br /> card/lib/cardio/mod/load_strategy/eval.rb,<br /> mod/delayed_job/lib/cardio/delayed_job.rb,<br /> mod/script/lib/cardio/utils/ansi2_html.rb,<br /> card/lib/cardio/mod/loader/set_template.rb,<br /> card/lib/generators/deck/deck_generator.rb,<br /> card/lib/cardio/migration/deck_structure.rb,<br /> decko/lib/generators/deck/deck_generator.rb,<br /> card/lib/cardio/generators/rails_overrides.rb,<br /> card/lib/cardio/mod/load_strategy/tmp_files.rb,<br /> card/lib/cardio/command/rspec_command/parser.rb,<br /> card/lib/cardio/mod/loader/set_pattern_loader.rb,<br /> card/lib/cardio/mod/load_strategy/set_tmp_files.rb,<br /> card/lib/generators/migration/migration_generator.rb,<br /> card/lib/cardio/mod/load_strategy/pattern_tmp_files.rb,<br /> card/lib/cardio/mod/load_strategy/set_binding_magic.rb</span>
 </dd>
   </dl>
   
@@ -92,9 +92,7 @@
 
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
-    <p>We could have used CommandsBase (and may yet move to that), but it’s worth noting
-that this might have caused its own confusion with CommandBase, a base class for
-classes that handle specific kinds of commands.</p>
+    <p>Converts ansi formatting codes to html</p>
 
 
   </div>
@@ -106,7 +104,7 @@ classes that handle specific kinds of commands.</p>
 <p class="children">
   
     
-      <strong class="modules">Modules:</strong> <span class='object_link'><a href="Cardio/Delaying.html" title="Cardio::Delaying (module)">Delaying</a></span>, <span class='object_link'><a href="Cardio/Generators.html" title="Cardio::Generators (module)">Generators</a></span>, <span class='object_link'><a href="Cardio/Schema.html" title="Cardio::Schema (module)">Schema</a></span>, <span class='object_link'><a href="Cardio/ScriptLoader.html" title="Cardio::ScriptLoader (module)">ScriptLoader</a></span>, <span class='object_link'><a href="Cardio/Seed.html" title="Cardio::Seed (module)">Seed</a></span>, <span class='object_link'><a href="Cardio/Utils.html" title="Cardio::Utils (module)">Utils</a></span>, <span class='object_link'><a href="Cardio/Version.html" title="Cardio::Version (module)">Version</a></span>
+      <strong class="modules">Modules:</strong> <span class='object_link'><a href="Cardio/DelayedJob.html" title="Cardio::DelayedJob (module)">DelayedJob</a></span>, <span class='object_link'><a href="Cardio/Delaying.html" title="Cardio::Delaying (module)">Delaying</a></span>, <span class='object_link'><a href="Cardio/Generators.html" title="Cardio::Generators (module)">Generators</a></span>, <span class='object_link'><a href="Cardio/Pry.html" title="Cardio::Pry (module)">Pry</a></span>, <span class='object_link'><a href="Cardio/Schema.html" title="Cardio::Schema (module)">Schema</a></span>, <span class='object_link'><a href="Cardio/ScriptLoader.html" title="Cardio::ScriptLoader (module)">ScriptLoader</a></span>, <span class='object_link'><a href="Cardio/Seed.html" title="Cardio::Seed (module)">Seed</a></span>, <span class='object_link'><a href="Cardio/Utils.html" title="Cardio::Utils (module)">Utils</a></span>, <span class='object_link'><a href="Cardio/Version.html" title="Cardio::Version (module)">Version</a></span>
     
   
     
@@ -664,7 +662,7 @@ classes that handle specific kinds of commands.</p>
 </div>
 
       <div id="footer">
-  Generated on Fri Nov 18 22:10:16 2022 by
+  Generated on Wed Feb 15 11:54:31 2023 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.28 (ruby-3.0.4).
 </div>

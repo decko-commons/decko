@@ -21,4 +21,5 @@ class decko.searchBox
     window.location = url if url
 
   form: -> @box.closest "form"
-  keyword: -> @form().find("#query_keyword").val()
+  keyword: -> @keywordBox().val()
+  keywordBox: -> @form().find "#query_keyword"

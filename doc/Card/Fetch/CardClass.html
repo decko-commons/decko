@@ -90,9 +90,7 @@
 
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
-    <p>= Card#fetch</p>
-
-<p>A multipurpose retrieval operator that integrates caching, database lookups,
+    <p>A multipurpose retrieval system that integrates caching, database lookups,
 and “virtual” card construction</p>
 
 
@@ -133,7 +131,7 @@ and “virtual” card construction</p>
   
 
   
-    <span class="summary_desc"><div class='inline'><p>fetch only real (no virtual) cards.</p>
+    <span class="summary_desc"><div class='inline'><p>a shortcut for fetch that returns only real cards (no virtuals).</p>
 </div></span>
   
 </li>
@@ -156,7 +154,7 @@ and “virtual” card construction</p>
   
 
   
-    <span class="summary_desc"><div class='inline'><p>Look for cards in * cache * database * virtual cards.</p>
+    <span class="summary_desc"><div class='inline'><p>Look for cards in   * cache   * database   * virtual cards.</p>
 </div></span>
   
 </li>
@@ -234,7 +232,7 @@ and “virtual” card construction</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#id-instance_method" title="#id (instance method)">#<strong>id</strong>(cardish)  &#x21d2; Object </a>
+      <a href="#id-instance_method" title="#id (instance method)">#<strong>id</strong>(cardish)  &#x21d2; Integer </a>
     
 
     
@@ -248,7 +246,7 @@ and “virtual” card construction</p>
   
 
   
-    <span class="summary_desc"><div class='inline'><p>———————————————————————- ATTRIBUTE FETCHING The following methods optimize fetching of specific attributes.</p>
+    <span class="summary_desc"><div class='inline'><p>numerical card id.</p>
 </div></span>
   
 </li>
@@ -320,7 +318,7 @@ and “virtual” card construction</p>
   
 </h3><div class="docstring">
   <div class="discussion">
-    <p>fetch only real (no virtual) cards</p>
+    <p>a shortcut for fetch that returns only real cards (no virtuals)</p>
 
 
   </div>
@@ -334,13 +332,13 @@ and “virtual” card construction</p>
         <span class='name'>mark</span>
       
       
-        <span class='type'></span>
+        <span class='type'>(<tt>various</tt>)</span>
       
       
       
         &mdash;
         <div class='inline'><ul>
-  <li>see #fetch</li>
+  <li>see <span class='object_link'><a href="#fetch-instance_method" title="Card::Fetch::CardClass#fetch (method)">#fetch</a></span></li>
 </ul>
 </div>
       
@@ -368,12 +366,12 @@ and “virtual” card construction</p>
       <pre class="lines">
 
 
-39
-40
-41</pre>
+42
+43
+44</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/fetch/card_class.rb', line 39</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/fetch/card_class.rb', line 42</span>
 
 <span class='kw'>def</span> <span class='op'>[]</span> <span class='op'>*</span><span class='id identifier rubyid_mark'>mark</span>
   <span class='id identifier rubyid_fetch'>fetch</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_mark'>mark</span><span class='comma'>,</span> <span class='label'>skip_virtual:</span> <span class='kw'>true</span><span class='rparen'>)</span>
@@ -395,9 +393,9 @@ and “virtual” card construction</p>
 </h3><div class="docstring">
   <div class="discussion">
     <p>Look for cards in
-* cache
-* database
-* virtual cards</p>
+  * cache
+  * database
+  * virtual cards</p>
 
 
   </div>
@@ -416,19 +414,25 @@ and “virtual” card construction</p>
       
       
         &mdash;
-        <div class='inline'><p>Initials args must be one or more “marks,” which uniquely idenfify cards:
-  1. a name/key. (String or Card::Name)
-  2. a numeric id. Can be (a) an Integer or (b) a String with an integer
-     prefixed with a tilde, eg “~1234”
-  3. a codename. Can be (a) a Symbol or (b) a String with a colon prefix,
-     eg :mycodename
-If you pass more then one mark or an array of marks they get joined with a ‘+’.
-The final argument can be a Hash to set the following options
-  :skip_virtual               Real cards only
-  :skip_modules               Don’t load Set modules
-  :look_in_trash              Return trashed card objects
-  :local_only                 Use only local cache for lookup and storing
-  new: { opts for Card#new }  Return a new card when not found</p>
+        <div class='inline'><p>Initials args must be one or more “marks,” which uniquely idenfify cards:</p>
+
+<ol>
+  <li>a name/key. (String or Card::Name)</li>
+  <li>a numeric id. Can be (a) an Integer or (b) a String with an integer
+prefixed with a tilde, eg “~1234”</li>
+  <li>a codename. Can be (a) a Symbol or (b) a String with a colon prefix,
+eg :mycodename</li>
+</ol>
+
+<p>If you pass more then one mark or an array of marks they get joined with a ‘+’.
+The final argument can be a Hash to set the following options</p>
+
+<pre class="code ruby"><code class="ruby">:skip_virtual               Real cards only
+:skip_modules               Don&#39;t load Set modules
+:look_in_trash              Return trashed card objects
+:local_only                 Use only local cache for lookup and storing
+new: { opts for Card#new }  Return a new card when not found
+</code></pre>
 </div>
       
     </li>
@@ -455,15 +459,15 @@ The final argument can be a Hash to set the following options
       <pre class="lines">
 
 
-28
-29
-30
 31
 32
-33</pre>
+33
+34
+35
+36</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/fetch/card_class.rb', line 28</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/fetch/card_class.rb', line 31</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_fetch'>fetch</span> <span class='op'>*</span><span class='id identifier rubyid_args'>args</span>
   <span class='id identifier rubyid_f'>f</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../Fetch.html" title="Card::Fetch (class)">Fetch</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="../Fetch.html#initialize-instance_method" title="Card::Fetch#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span>
@@ -514,16 +518,16 @@ The final argument can be a Hash to set the following options
       <pre class="lines">
 
 
-56
-57
-58
-59</pre>
+59
+60
+61
+62</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/fetch/card_class.rb', line 56</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/fetch/card_class.rb', line 59</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_fetch_from_cast'>fetch_from_cast</span> <span class='id identifier rubyid_cast'><span class='object_link'><a href="../../top-level-namespace.html#cast-instance_method" title="#cast (method)">cast</a></span></span>
-  <span class='id identifier rubyid_fetch_args'>fetch_args</span> <span class='op'>=</span> <span class='id identifier rubyid_cast'><span class='object_link'><a href="../../top-level-namespace.html#cast-instance_method" title="#cast (method)">cast</a></span></span><span class='lbracket'>[</span><span class='symbol'>:id</span><span class='rbracket'>]</span> <span class='op'>?</span> <span class='lbracket'>[</span><span class='id identifier rubyid_cast'><span class='object_link'><a href="../../top-level-namespace.html#cast-instance_method" title="#cast (method)">cast</a></span></span><span class='lbracket'>[</span><span class='symbol'>:id</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_to_i'>to_i</span><span class='rbracket'>]</span> <span class='op'>:</span> <span class='lbracket'>[</span><span class='id identifier rubyid_cast'><span class='object_link'><a href="../../top-level-namespace.html#cast-instance_method" title="#cast (method)">cast</a></span></span><span class='lbracket'>[</span><span class='symbol'>:name</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='lbrace'>{</span> <span class='label'>new:</span> <span class='id identifier rubyid_cast'><span class='object_link'><a href="../../top-level-namespace.html#cast-instance_method" title="#cast (method)">cast</a></span></span> <span class='rbrace'>}</span><span class='rbracket'>]</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_fetch_from_cast'>fetch_from_cast</span> <span class='id identifier rubyid_cast'>cast</span>
+  <span class='id identifier rubyid_fetch_args'>fetch_args</span> <span class='op'>=</span> <span class='id identifier rubyid_cast'>cast</span><span class='lbracket'>[</span><span class='symbol'>:id</span><span class='rbracket'>]</span> <span class='op'>?</span> <span class='lbracket'>[</span><span class='id identifier rubyid_cast'>cast</span><span class='lbracket'>[</span><span class='symbol'>:id</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_to_i'>to_i</span><span class='rbracket'>]</span> <span class='op'>:</span> <span class='lbracket'>[</span><span class='id identifier rubyid_cast'>cast</span><span class='lbracket'>[</span><span class='symbol'>:name</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='lbrace'>{</span> <span class='label'>new:</span> <span class='id identifier rubyid_cast'>cast</span> <span class='rbrace'>}</span><span class='rbracket'>]</span>
   <span class='id identifier rubyid_fetch'>fetch</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_fetch_args'>fetch_args</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -590,18 +594,18 @@ The final argument can be a Hash to set the following options
       <pre class="lines">
 
 
-77
-78
-79
-80
-81
-82
 83
 84
-85</pre>
+85
+86
+87
+88
+89
+90
+91</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/fetch/card_class.rb', line 77</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/fetch/card_class.rb', line 83</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_fetch_name'>fetch_name</span> <span class='op'>*</span><span class='id identifier rubyid_mark'>mark</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span>
   <span class='kw'>if</span> <span class='lparen'>(</span><span class='id identifier rubyid_card'>card</span> <span class='op'>=</span> <span class='id identifier rubyid_quick_fetch'>quick_fetch</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_mark'>mark</span><span class='rparen'>)</span><span class='rparen'>)</span>
@@ -676,12 +680,12 @@ The final argument can be a Hash to set the following options
       <pre class="lines">
 
 
-89
-90
-91</pre>
+95
+96
+97</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/fetch/card_class.rb', line 89</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/fetch/card_class.rb', line 95</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_fetch_type_id'>fetch_type_id</span> <span class='op'>*</span><span class='id identifier rubyid_mark'>mark</span>
   <span class='id identifier rubyid_fetch'>fetch</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_mark'>mark</span><span class='comma'>,</span> <span class='label'>skip_modules:</span> <span class='kw'>true</span><span class='rparen'>)</span><span class='op'>&amp;.</span><span class='id identifier rubyid_type_id'>type_id</span>
@@ -694,7 +698,7 @@ The final argument can be a Hash to set the following options
       <div class="method_details ">
   <h3 class="signature " id="id-instance_method">
   
-    #<strong>id</strong>(cardish)  &#x21d2; <tt><span class='object_link'><a href="../../Object.html" title="Object (class)">Object</a></span></tt> 
+    #<strong>id</strong>(cardish)  &#x21d2; <tt>Integer</tt> 
   
 
   
@@ -702,15 +706,26 @@ The final argument can be a Hash to set the following options
   
 </h3><div class="docstring">
   <div class="discussion">
-    <hr />
-<p>ATTRIBUTE FETCHING
-The following methods optimize fetching of specific attributes</p>
+    <p>numerical card id</p>
 
 
   </div>
 </div>
 <div class="tags">
   
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
 
 </div><table class="source_code">
   <tr>
@@ -718,18 +733,18 @@ The following methods optimize fetching of specific attributes</p>
       <pre class="lines">
 
 
-65
-66
-67
-68
-69
-70
 71
 72
-73</pre>
+73
+74
+75
+76
+77
+78
+79</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/fetch/card_class.rb', line 65</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/fetch/card_class.rb', line 71</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_id'>id</span> <span class='id identifier rubyid_cardish'>cardish</span>
   <span class='kw'>case</span> <span class='id identifier rubyid_cardish'>cardish</span>
@@ -813,12 +828,12 @@ simple attributes</p>
       <pre class="lines">
 
 
-51
-52
-53</pre>
+54
+55
+56</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/fetch/card_class.rb', line 51</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/fetch/card_class.rb', line 54</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_quick_fetch'>quick_fetch</span> <span class='op'>*</span><span class='id identifier rubyid_mark'>mark</span>
   <span class='id identifier rubyid_fetch'>fetch</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_mark'>mark</span><span class='comma'>,</span> <span class='label'>skip_virtual:</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='label'>skip_modules:</span> <span class='kw'>true</span><span class='rparen'>)</span>
@@ -943,20 +958,20 @@ card hash</li>
       <pre class="lines">
 
 
-101
-102
-103
-104
-105
-106
 107
 108
 109
 110
-111</pre>
+111
+112
+113
+114
+115
+116
+117</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/fetch/card_class.rb', line 101</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/fetch/card_class.rb', line 107</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_uri_fetch'>uri_fetch</span> <span class='id identifier rubyid_params'>params</span>
   <span class='id identifier rubyid_card_opts'>card_opts</span> <span class='op'>=</span> <span class='id identifier rubyid_uri_fetch_opts'>uri_fetch_opts</span> <span class='id identifier rubyid_params'>params</span>
@@ -979,7 +994,7 @@ card hash</li>
 </div>
 
       <div id="footer">
-  Generated on Fri Nov 18 22:10:17 2022 by
+  Generated on Wed Feb 15 11:54:33 2023 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.28 (ruby-3.0.4).
 </div>

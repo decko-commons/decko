@@ -6,7 +6,7 @@
 <title>
   Module: Card::Set::All::ReferenceEditor::NestImage::JsFormat
   
-    &mdash; Documentation by YARD 0.9.26
+    &mdash; Documentation by YARD 0.9.28
   
 </title>
 
@@ -83,7 +83,7 @@
   
   <dl>
     <dt>Defined in:</dt>
-    <dd>card/tmpsets/set/mod037-card-mod-tinymce_editor/all/reference_editor/nest_image.rb</dd>
+    <dd>platypus/tmp/set/gem-defaults/mod033-tinymce_editor/all/reference_editor/nest_image.rb</dd>
   </dl>
   
 </div>
@@ -102,6 +102,29 @@
     </h2>
 
     <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#tinymce_id-instance_method" title="#tinymce_id (instance method)">#<strong>tinymce_id</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+</div></span>
+  
+</li>
+
       
         <li class="public ">
   <span class="summary_signature">
@@ -160,7 +183,45 @@
 
     
       <div class="method_details first">
-  <h3 class="signature first" id="view: change_create_to_update-instance_method">
+  <h3 class="signature first" id="tinymce_id-instance_method">
+  
+    #<strong>tinymce_id</strong>  &#x21d2; <tt><span class='object_link'><a href="../../../../../Object.html" title="Object (class)">Object</a></span></tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+59
+60
+61
+62
+63
+64
+65</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod033-tinymce_editor/all/reference_editor/nest_image.rb', line 59</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_tinymce_id'>tinymce_id</span>
+  <span class='kw'>if</span> <span class='const'><span class='object_link'><a href="../../../../Env.html" title="Card::Env (module)">Env</a></span></span><span class='period'>.</span><span class='id identifier rubyid_params'><span class='object_link'><a href="../../../../Env/Serializable.html#params-instance_method" title="Card::Env::Serializable#params (method)">params</a></span></span><span class='lbracket'>[</span><span class='symbol'>:tinymce_id</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_present?'>present?</span>
+    <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>\&quot;</span><span class='embexpr_beg'>#{</span><span class='const'><span class='object_link'><a href="../../../../Env.html" title="Card::Env (module)">Env</a></span></span><span class='period'>.</span><span class='id identifier rubyid_params'><span class='object_link'><a href="../../../../Env/Serializable.html#params-instance_method" title="Card::Env::Serializable#params (method)">params</a></span></span><span class='lbracket'>[</span><span class='symbol'>:tinymce_id</span><span class='rbracket'>]</span><span class='embexpr_end'>}</span><span class='tstring_content'>\&quot;</span><span class='tstring_end'>&quot;</span></span>
+  <span class='kw'>else</span>
+    <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>$(&quot;.tinymce-textarea&quot;).attr(&quot;id&quot;)</span><span class='tstring_end'>&#39;</span></span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="view: change_create_to_update-instance_method">
   
     #<strong>view: change_create_to_update</strong>  &#x21d2; <tt><span class='object_link'><a href="../../../../../Object.html" title="Object (class)">Object</a></span></tt> 
   
@@ -174,30 +235,16 @@
       <pre class="lines">
 
 
-55
-56
-57
-58
-59
-60
-61
-62
-63
-64</pre>
+48
+49
+50</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod037-card-mod-tinymce_editor/all/reference_editor/nest_image.rb', line 55</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod033-tinymce_editor/all/reference_editor/nest_image.rb', line 48</span>
 
 <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:change_create_to_update</span><span class='comma'>,</span> <span class='label'>unknown:</span> <span class='kw'>true</span> <span class='kw'>do</span>
-  <span class='id identifier rubyid_tm_id'>tm_id</span> <span class='op'>=</span> <span class='kw'>if</span> <span class='const'><span class='object_link'><a href="../../../../Env.html" title="Card::Env (module)">Env</a></span></span><span class='period'>.</span><span class='id identifier rubyid_params'><span class='object_link'><a href="../../../../Env.html#params-class_method" title="Card::Env.params (method)">params</a></span></span><span class='lbracket'>[</span><span class='symbol'>:tinymce_id</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_present?'>present?</span>
-            <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>\&quot;</span><span class='embexpr_beg'>#{</span><span class='const'><span class='object_link'><a href="../../../../Env.html" title="Card::Env (module)">Env</a></span></span><span class='period'>.</span><span class='id identifier rubyid_params'><span class='object_link'><a href="../../../../Env.html#params-class_method" title="Card::Env.params (method)">params</a></span></span><span class='lbracket'>[</span><span class='symbol'>:tinymce_id</span><span class='rbracket'>]</span><span class='embexpr_end'>}</span><span class='tstring_content'>\&quot;</span><span class='tstring_end'>&quot;</span></span>
-          <span class='kw'>else</span>
-            <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>$(&quot;.tinymce-textarea&quot;).attr(&quot;id&quot;)</span><span class='tstring_end'>&#39;</span></span>
-          <span class='kw'>end</span>
-  <span class='heredoc_beg'>&lt;&lt;-JAVASCRIPT</span><span class='period'>.</span><span class='id identifier rubyid_strip_heredoc'>strip_heredoc</span>
-<span class='tstring_content'>    nest.changeCreateToUpdate(</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_tm_id'>tm_id</span><span class='embexpr_end'>}</span><span class='tstring_content'>);
-</span><span class='heredoc_end'>  JAVASCRIPT
-</span><span class='kw'>end</span></pre>
+  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>nest.changeCreateToUpdate(</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_tinymce_id'>tinymce_id</span><span class='embexpr_end'>}</span><span class='tstring_content'>);</span><span class='tstring_end'>&quot;</span></span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -218,29 +265,19 @@
       <pre class="lines">
 
 
-66
-67
-68
-69
-70
-71
-72
-73
-74
-75
-76</pre>
+52
+53
+54
+55
+56
+57</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod037-card-mod-tinymce_editor/all/reference_editor/nest_image.rb', line 66</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod033-tinymce_editor/all/reference_editor/nest_image.rb', line 52</span>
 
 <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:open_nest_editor</span><span class='comma'>,</span> <span class='label'>unknown:</span> <span class='kw'>true</span> <span class='kw'>do</span>
-  <span class='id identifier rubyid_tm_id'>tm_id</span> <span class='op'>=</span> <span class='kw'>if</span> <span class='const'><span class='object_link'><a href="../../../../Env.html" title="Card::Env (module)">Env</a></span></span><span class='period'>.</span><span class='id identifier rubyid_params'><span class='object_link'><a href="../../../../Env.html#params-class_method" title="Card::Env.params (method)">params</a></span></span><span class='lbracket'>[</span><span class='symbol'>:tinymce_id</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_present?'>present?</span>
-            <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>\&quot;</span><span class='embexpr_beg'>#{</span><span class='const'><span class='object_link'><a href="../../../../Env.html" title="Card::Env (module)">Env</a></span></span><span class='period'>.</span><span class='id identifier rubyid_params'><span class='object_link'><a href="../../../../Env.html#params-class_method" title="Card::Env.params (method)">params</a></span></span><span class='lbracket'>[</span><span class='symbol'>:tinymce_id</span><span class='rbracket'>]</span><span class='embexpr_end'>}</span><span class='tstring_content'>\&quot;</span><span class='tstring_end'>&quot;</span></span>
-          <span class='kw'>else</span>
-            <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>$(&quot;.tinymce-textarea&quot;).attr(&quot;id&quot;)</span><span class='tstring_end'>&#39;</span></span>
-          <span class='kw'>end</span>
   <span class='heredoc_beg'>&lt;&lt;-JAVASCRIPT</span><span class='period'>.</span><span class='id identifier rubyid_strip_heredoc'>strip_heredoc</span>
-<span class='tstring_content'>    tm = tinymce.get(</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_tm_id'>tm_id</span><span class='embexpr_end'>}</span><span class='tstring_content'>);
+<span class='tstring_content'>    tm = tinymce.get(</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_tinymce_id'>tinymce_id</span><span class='embexpr_end'>}</span><span class='tstring_content'>);
     nest.insertNest(tm, &quot;{{+</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span><span class='period'>.</span><span class='id identifier rubyid_tag'>tag</span><span class='embexpr_end'>}</span><span class='tstring_content'>|view: content; size: medium}}&quot;);
 </span><span class='heredoc_end'>  JAVASCRIPT
 </span><span class='kw'>end</span></pre>
@@ -254,9 +291,9 @@
 </div>
 
       <div id="footer">
-  Generated on Thu May 13 17:17:41 2021 by
-  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.26 (ruby-2.7.2).
+  Generated on Wed Feb 15 11:54:43 2023 by
+  <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.28 (ruby-3.0.4).
 </div>
 
     </div>

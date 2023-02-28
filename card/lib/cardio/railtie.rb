@@ -80,11 +80,11 @@ module Cardio
 
             p["lib/graph_q_l/types/query.rb"] <<
               "#{mod_path}/lib/graph_q_l/types/query.rb"
-            p["config/initializers"] << "#{mod_path}/init/early"
-            p["late/initializers"] << "#{mod_path}/init/late"
+            p["config/initializers"] << "#{mod_path}/config/early"
+            p["late/initializers"] << "#{mod_path}/config/late"
             p["lib/tasks"] << "#{mod_path}/lib/tasks"
             p["mod-data"] << "#{mod_path}/data"
-            p["config/locales"] << "#{mod_path}/locales"
+            p["config/locales"] << "#{mod_path}/config/locales"
           end
 
           # Card doesn't use these rails patterns

@@ -254,7 +254,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#load-instance_method" title="#load (instance method)">#<strong>load</strong>  &#x21d2; Object </a>
+      <a href="#leftover-instance_method" title="#leftover (instance method)">#<strong>leftover</strong>  &#x21d2; Object </a>
     
 
     
@@ -277,7 +277,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#missing-instance_method" title="#missing (instance method)">#<strong>missing</strong>  &#x21d2; Object </a>
+      <a href="#load-instance_method" title="#load (instance method)">#<strong>load</strong>  &#x21d2; Object </a>
     
 
     
@@ -495,7 +495,7 @@
       <pre class="code"><span class="info file"># File 'card/lib/cardio/mod/class_methods.rb', line 34</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_ensure_uninstalled'>ensure_uninstalled</span>
-  <span class='id identifier rubyid_missing'>missing</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_mod_card'>mod_card</span><span class='op'>|</span>
+  <span class='id identifier rubyid_leftover'>leftover</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_mod_card'>mod_card</span><span class='op'>|</span>
     <span class='const'><span class='object_link'><a href="../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../Card/Auth.html" title="Card::Auth (module)">Auth</a></span></span><span class='period'>.</span><span class='id identifier rubyid_as_bot'><span class='object_link'><a href="../../Card/Auth/Proxy.html#as_bot-instance_method" title="Card::Auth::Proxy#as_bot (method)">as_bot</a></span></span> <span class='kw'>do</span>
       <span class='id identifier rubyid_delete_auto_installed_cards'>delete_auto_installed_cards</span> <span class='id identifier rubyid_mod_card'>mod_card</span>
     <span class='kw'>end</span>
@@ -598,6 +598,36 @@
 </div>
     
       <div class="method_details ">
+  <h3 class="signature " id="leftover-instance_method">
+  
+    #<strong>leftover</strong>  &#x21d2; <tt><span class='object_link'><a href="../../Object.html" title="Object (class)">Object</a></span></tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+30
+31
+32</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'card/lib/cardio/mod/class_methods.rb', line 30</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_leftover'>leftover</span>
+  <span class='const'><span class='object_link'><a href="../../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_search'><span class='object_link'><a href="../../Card/Query/CardClass.html#search-instance_method" title="Card::Query::CardClass#search (method)">search</a></span></span><span class='lparen'>(</span><span class='label'>type:</span> <span class='symbol'>:mod</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_reject'>reject</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_mod_card'>mod_card</span><span class='op'>|</span> <span class='id identifier rubyid_fetch'>fetch</span> <span class='id identifier rubyid_mod_card'>mod_card</span><span class='period'>.</span><span class='id identifier rubyid_modname'>modname</span> <span class='rbrace'>}</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
   <h3 class="signature " id="load-instance_method">
   
     #<strong>load</strong>  &#x21d2; <tt><span class='object_link'><a href="../../Object.html" title="Object (class)">Object</a></span></tt> 
@@ -640,36 +670,6 @@
 </div>
     
       <div class="method_details ">
-  <h3 class="signature " id="missing-instance_method">
-  
-    #<strong>missing</strong>  &#x21d2; <tt><span class='object_link'><a href="../../Object.html" title="Object (class)">Object</a></span></tt> 
-  
-
-  
-
-  
-</h3><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-30
-31
-32</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'card/lib/cardio/mod/class_methods.rb', line 30</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_missing'>missing</span>
-  <span class='const'><span class='object_link'><a href="../../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_search'><span class='object_link'><a href="../../Card/Query/CardClass.html#search-instance_method" title="Card::Query::CardClass#search (method)">search</a></span></span><span class='lparen'>(</span><span class='label'>type:</span> <span class='symbol'>:mod</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_reject'>reject</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_mod_card'>mod_card</span><span class='op'>|</span> <span class='id identifier rubyid_fetch'>fetch</span> <span class='id identifier rubyid_mod_card'>mod_card</span><span class='period'>.</span><span class='id identifier rubyid_modname'>modname</span> <span class='rbrace'>}</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
   <h3 class="signature " id="normalize_name-instance_method">
   
     #<strong>normalize_name</strong>(name)  &#x21d2; <tt><span class='object_link'><a href="../../Object.html" title="Object (class)">Object</a></span></tt> 
@@ -704,7 +704,7 @@
 </div>
 
       <div id="footer">
-  Generated on Fri Nov 18 22:10:18 2022 by
+  Generated on Wed Feb 15 11:54:33 2023 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.28 (ruby-3.0.4).
 </div>

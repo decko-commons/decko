@@ -1,6 +1,5 @@
 # -*- encoding : utf-8 -*-
 
-# require File.expand_path("../reference", __FILE__)
 load File.expand_path("reference.rb", __dir__)
 
 class Card

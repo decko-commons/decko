@@ -28,8 +28,8 @@ end
 
 # remove item from list
 # @param cardish [String, Card::Name] item to drop
-def drop_item item
-  item_name = item.cardname
+def drop_item cardish
+  item_name = cardish.cardname
   self.content = (item_names.reject { |i| i == item_name })
 end
 

@@ -6,7 +6,7 @@
 <title>
   Class: Card::FollowerStash
   
-    &mdash; Documentation by YARD 0.9.26
+    &mdash; Documentation by YARD 0.9.28
   
 </title>
 
@@ -94,7 +94,7 @@
   
   <dl>
     <dt>Defined in:</dt>
-    <dd>card-mod-follow/lib/card/follower_stash.rb</dd>
+    <dd>mod/follow/lib/card/follower_stash.rb</dd>
   </dl>
   
 </div>
@@ -256,7 +256,7 @@
 8</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card-mod-follow/lib/card/follower_stash.rb', line 4</span>
+      <pre class="code"><span class="info file"># File 'mod/follow/lib/card/follower_stash.rb', line 4</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span> <span class='id identifier rubyid_card'>card</span><span class='op'>=</span><span class='kw'>nil</span>
   <span class='ivar'>@stash</span> <span class='op'>=</span> <span class='const'>Hash</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_h'>h</span><span class='comma'>,</span> <span class='id identifier rubyid_v'>v</span><span class='op'>|</span> <span class='id identifier rubyid_h'>h</span><span class='lbracket'>[</span><span class='id identifier rubyid_v'>v</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span> <span class='rbrace'>}</span>
@@ -301,7 +301,7 @@
 18</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card-mod-follow/lib/card/follower_stash.rb', line 10</span>
+      <pre class="code"><span class="info file"># File 'mod/follow/lib/card/follower_stash.rb', line 10</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_check_card'>check_card</span> <span class='id identifier rubyid_card'>card</span>
   <span class='kw'>return</span> <span class='kw'>if</span> <span class='ivar'>@checked</span><span class='period'>.</span><span class='id identifier rubyid_include?'>include?</span> <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_key'>key</span>
@@ -340,7 +340,7 @@
 29</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card-mod-follow/lib/card/follower_stash.rb', line 24</span>
+      <pre class="code"><span class="info file"># File 'mod/follow/lib/card/follower_stash.rb', line 24</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_each_follower_with_reason'>each_follower_with_reason</span>
   <span class='comment'># &quot;follower&quot;(=user) is a card object, &quot;followed&quot;(=reasons) a card name
@@ -373,7 +373,7 @@
 22</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card-mod-follow/lib/card/follower_stash.rb', line 20</span>
+      <pre class="code"><span class="info file"># File 'mod/follow/lib/card/follower_stash.rb', line 20</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_followers'>followers</span>
   <span class='ivar'>@stash</span><span class='period'>.</span><span class='id identifier rubyid_keys'>keys</span>
@@ -388,9 +388,9 @@
 </div>
 
       <div id="footer">
-  Generated on Thu May 13 17:17:45 2021 by
-  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.26 (ruby-2.7.2).
+  Generated on Wed Feb 15 11:54:45 2023 by
+  <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.28 (ruby-3.0.4).
 </div>
 
     </div>

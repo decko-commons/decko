@@ -225,12 +225,12 @@ It is available in all formats.</p>
       <pre class="lines">
 
 
+59
 60
-61
-62</pre>
+61</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/set/format/abstract_format/wrapper.rb', line 60</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/set/format/abstract_format/wrapper.rb', line 59</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_interior'>interior</span>
   <span class='ivar'>@interior</span>
@@ -262,20 +262,20 @@ It is available in all formats.</p>
       <pre class="lines">
 
 
+50
 51
 52
 53
 54
 55
 56
-57
-58</pre>
+57</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/set/format/abstract_format/wrapper.rb', line 51</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/set/format/abstract_format/wrapper.rb', line 50</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_layout'>layout</span> <span class='id identifier rubyid_layout'>layout</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span>
-  <span class='const'><span class='object_link'><a href="../../../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'>Layout</span><span class='period'>.</span><span class='id identifier rubyid_register_built_in_layout'>register_built_in_layout</span> <span class='id identifier rubyid_layout'>layout</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span>
+  <span class='const'><span class='object_link'><a href="../../../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../../Layout.html" title="Card::Layout (class)">Layout</a></span></span><span class='period'>.</span><span class='id identifier rubyid_register_built_in_layout'><span class='object_link'><a href="../../../Layout.html#register_built_in_layout-class_method" title="Card::Layout.register_built_in_layout (method)">register_built_in_layout</a></span></span> <span class='id identifier rubyid_layout'>layout</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span>
   <span class='id identifier rubyid_method_name'>method_name</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../../Set.html" title="Card::Set (module)">Set</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../Format.html" title="Card::Set::Format (module)">Format</a></span></span><span class='period'>.</span><span class='id identifier rubyid_layout_method_name'><span class='object_link'><a href="../../Format.html#layout_method_name-class_method" title="Card::Set::Format.layout_method_name (method)">layout_method_name</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_layout'>layout</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_define_method'>define_method</span> <span class='id identifier rubyid_method_name'>method_name</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span>
   <span class='id identifier rubyid_wrapper'>wrapper</span> <span class='id identifier rubyid_layout'>layout</span> <span class='kw'>do</span>
@@ -360,6 +360,7 @@ then use the following syntax:
       <pre class="lines">
 
 
+40
 41
 42
 43
@@ -367,11 +368,10 @@ then use the following syntax:
 45
 46
 47
-48
-49</pre>
+48</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/set/format/abstract_format/wrapper.rb', line 41</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/set/format/abstract_format/wrapper.rb', line 40</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_wrapper'>wrapper</span> <span class='id identifier rubyid_wrapper_name'>wrapper_name</span><span class='comma'>,</span> <span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_wrap_block'>wrap_block</span>
   <span class='id identifier rubyid_method_name'>method_name</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../../Set.html" title="Card::Set (module)">Set</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../Format.html" title="Card::Set::Format (module)">Format</a></span></span><span class='period'>.</span><span class='id identifier rubyid_wrapper_method_name'><span class='object_link'><a href="../../Format.html#wrapper_method_name-class_method" title="Card::Set::Format.wrapper_method_name (method)">wrapper_method_name</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_wrapper_name'>wrapper_name</span><span class='rparen'>)</span>
@@ -392,7 +392,7 @@ then use the following syntax:
 </div>
 
       <div id="footer">
-  Generated on Fri Nov 18 22:10:18 2022 by
+  Generated on Wed Feb 15 11:54:34 2023 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.28 (ruby-3.0.4).
 </div>

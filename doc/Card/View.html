@@ -805,8 +805,8 @@ eg <code>subformat(cardname).method_with_voo_reference</code>.</p>
     <td>
       <pre class="code"><span class="info file"># File 'card/lib/card/view.rb', line 56</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span> <span class='id identifier rubyid_format'><span class='object_link'><a href="../top-level-namespace.html#format-instance_method" title="#format (method)">format</a></span></span><span class='comma'>,</span> <span class='id identifier rubyid_view'>view</span><span class='comma'>,</span> <span class='id identifier rubyid_raw_options'>raw_options</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span><span class='comma'>,</span> <span class='id identifier rubyid_parent'>parent</span><span class='op'>=</span><span class='kw'>nil</span>
-  <span class='ivar'>@format</span> <span class='op'>=</span> <span class='id identifier rubyid_format'><span class='object_link'><a href="../top-level-namespace.html#format-instance_method" title="#format (method)">format</a></span></span>
+<span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span> <span class='id identifier rubyid_format'>format</span><span class='comma'>,</span> <span class='id identifier rubyid_view'>view</span><span class='comma'>,</span> <span class='id identifier rubyid_raw_options'>raw_options</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span><span class='comma'>,</span> <span class='id identifier rubyid_parent'>parent</span><span class='op'>=</span><span class='kw'>nil</span>
+  <span class='ivar'>@format</span> <span class='op'>=</span> <span class='id identifier rubyid_format'>format</span>
   <span class='ivar'>@raw_view</span> <span class='op'>=</span> <span class='id identifier rubyid_view'>view</span>
   <span class='ivar'>@raw_options</span> <span class='op'>=</span> <span class='id identifier rubyid_raw_options'>raw_options</span>
   <span class='ivar'>@parent</span> <span class='op'>=</span> <span class='id identifier rubyid_parent'>parent</span>
@@ -900,7 +900,7 @@ eg <code>subformat(cardname).method_with_voo_reference</code>.</p>
     <td>
       <pre class="code"><span class="info file"># File 'card/lib/card/view.rb', line 29</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_format'><span class='object_link'><a href="../top-level-namespace.html#format-instance_method" title="#format (method)">format</a></span></span>
+<span class='kw'>def</span> <span class='id identifier rubyid_format'>format</span>
   <span class='ivar'>@format</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -1164,7 +1164,7 @@ eg <code>subformat(cardname).method_with_voo_reference</code>.</p>
       <pre class="code"><span class="info file"># File 'card/lib/card/view.rb', line 99</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_deep_root'>deep_root</span>
-  <span class='id identifier rubyid_format'><span class='object_link'><a href="../top-level-namespace.html#format-instance_method" title="#format (method)">format</a></span></span><span class='period'>.</span><span class='id identifier rubyid_root'>root</span><span class='period'>.</span><span class='id identifier rubyid_voo'>voo</span>
+  <span class='id identifier rubyid_format'>format</span><span class='period'>.</span><span class='id identifier rubyid_root'>root</span><span class='period'>.</span><span class='id identifier rubyid_voo'>voo</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1217,7 +1217,7 @@ eg <code>subformat(cardname).method_with_voo_reference</code>.</p>
       <pre class="code"><span class="info file"># File 'card/lib/card/view.rb', line 105</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_deep_root?'>deep_root?</span>
-  <span class='op'>!</span><span class='id identifier rubyid_parent'>parent</span> <span class='op'>&amp;&amp;</span> <span class='op'>!</span><span class='id identifier rubyid_format'><span class='object_link'><a href="../top-level-namespace.html#format-instance_method" title="#format (method)">format</a></span></span><span class='period'>.</span><span class='id identifier rubyid_parent'>parent</span>
+  <span class='op'>!</span><span class='id identifier rubyid_parent'>parent</span> <span class='op'>&amp;&amp;</span> <span class='op'>!</span><span class='id identifier rubyid_format'>format</span><span class='period'>.</span><span class='id identifier rubyid_parent'>parent</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1340,7 +1340,7 @@ eg <code>subformat(cardname).method_with_voo_reference</code>.</p>
       <pre class="code"><span class="info file"># File 'card/lib/card/view.rb', line 120</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_next_format_ancestor'>next_format_ancestor</span>
-  <span class='id identifier rubyid_format'><span class='object_link'><a href="../top-level-namespace.html#format-instance_method" title="#format (method)">format</a></span></span><span class='period'>.</span><span class='id identifier rubyid_parent'>parent</span><span class='op'>&amp;.</span><span class='id identifier rubyid_voo'>voo</span>
+  <span class='id identifier rubyid_format'>format</span><span class='period'>.</span><span class='id identifier rubyid_parent'>parent</span><span class='op'>&amp;.</span><span class='id identifier rubyid_voo'>voo</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1398,7 +1398,7 @@ issues with permissions, recursions, unknown cards, etc.</p>
       <pre class="code"><span class="info file"># File 'card/lib/card/view.rb', line 84</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_ok_view'>ok_view</span>
-  <span class='ivar'>@ok_view</span> <span class='op'>||=</span> <span class='id identifier rubyid_format'><span class='object_link'><a href="../top-level-namespace.html#format-instance_method" title="#format (method)">format</a></span></span><span class='period'>.</span><span class='id identifier rubyid_monitor_depth'>monitor_depth</span> <span class='lbrace'>{</span> <span class='id identifier rubyid_altered_view'>altered_view</span> <span class='op'>||</span> <span class='id identifier rubyid_requested_view'>requested_view</span> <span class='rbrace'>}</span>
+  <span class='ivar'>@ok_view</span> <span class='op'>||=</span> <span class='id identifier rubyid_format'>format</span><span class='period'>.</span><span class='id identifier rubyid_monitor_depth'>monitor_depth</span> <span class='lbrace'>{</span> <span class='id identifier rubyid_altered_view'>altered_view</span> <span class='op'>||</span> <span class='id identifier rubyid_requested_view'>requested_view</span> <span class='rbrace'>}</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1631,7 +1631,7 @@ be overridden, eg for the main view (top view of the main card on a page)</p>
 </div>
 
       <div id="footer">
-  Generated on Fri Nov 18 22:10:19 2022 by
+  Generated on Wed Feb 15 11:54:44 2023 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.28 (ruby-3.0.4).
 </div>
