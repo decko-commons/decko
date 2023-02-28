@@ -80,10 +80,6 @@ format :html do
     popover_opts text, title, opts
   end
 
-  def help_icon
-    material_icon "help"
-  end
-
   def help_title
     "#{name_parts_links} (#{render_type}) #{full_page_link unless card.simple?}"
   end
@@ -136,7 +132,7 @@ format :html do
   end
 
   def menu_icon
-    material_icon "edit"
+    icon_tag "edit"
   end
 
   def full_page_icon
@@ -144,10 +140,10 @@ format :html do
   end
 
   def modal_icon
-    fa_icon :expand
+    icon_tag :modal
   end
 
   def bridge_icon
-    fa_icon :box
+    icon_tag :board
   end
 end
