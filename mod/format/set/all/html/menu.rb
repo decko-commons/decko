@@ -80,10 +80,6 @@ format :html do
     popover_opts text, title, opts
   end
 
-  def help_icon
-    material_icon "help"
-  end
-
   def help_title
     "#{name_parts_links} (#{render_type}) #{full_page_link unless card.simple?}"
   end
