@@ -71,7 +71,7 @@ format :html do
   def help_link text=nil, title=nil
     opts = help_popover_opts text, title
     add_class opts, "_card-menu-popover"
-    link_to help_icon, opts
+    link_to icon_tag(:help), opts
   end
 
   def help_popover_opts text=nil, title=nil

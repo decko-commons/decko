@@ -49,6 +49,8 @@ basket[:icons] = {
 }
 
 format :html do
+  view :icons, template: :haml
+
   def icon_tag icon, opts={}
     with_icon_tag_opts(opts) do |tag_opts|
       library = tag_opts.delete(:library) || default_icon_library
@@ -62,25 +64,6 @@ format :html do
 
   def fa_icon icon, opts={}
     universal_icon_tag icon, :font_awesome, opts
-  end
-
-  def universal_icon_tag icon, icon_library=default_icon_library, opts={}
-    return "" unless icon.present?
-
-    with_icon_tag_opts(opts) do |tag_opts|
-      send "#{icon_library}_icon_tag", icon_lookup(icon_library, icon), tag_opts
-    end
-  end
-
-  def icon_lookup library, icon
-    if (found_in_library = basket[:icons][library][icon])
-      found_in_library
-    elsif (library != default_icon_library) &&
-          (found_in_default_library = basket[:icons][default_icon_library][icon])
-      found_in_default_library
-    else
-      icon
-    end
   end
 
   def glyphicon_icon_tag icon, opts={}
@@ -103,6 +86,29 @@ format :html do
     wrap_with :i, "", opts
   end
 
+  def universal_icon_tag icon, icon_library=default_icon_library, opts={}
+    return "" unless icon.present?
+
+    with_icon_tag_opts(opts) do |tag_opts|
+      send "#{icon_library}_icon_tag", icon_lookup(icon_library, icon), tag_opts
+    end
+  end
+
+  def icon_lookup library, icon
+    if (found_in_library = basket[:icons][library][icon])
+      found_in_library
+    elsif (library != default_icon_library) &&
+          (found_in_default_library = basket[:icons][default_icon_library][icon])
+      found_in_default_library
+    else
+      icon
+    end
+  end
+
+  def all_icon_keys
+    basket[:icons].values.map(&:keys).flatten.uniq
+  end
+
   private
 
   def with_icon_tag_opts opts={}
@@ -110,15 +116,9 @@ format :html do
     yield opts
   end
 
-  view :icons do
-    basket[:icons].keys.map do |collection|
-      "<h3>#{collection}</h3>\n#{icon_collection collection}"
-    end.join "<br/>"
-  end
-
   def icon_collection name
     basket[:icons][name].map do |key, icon|
-      icon_tag = send "#{name}_icon_tag", icon
+      icon_tag =
       "#{icon_tag} #{key}"
     end.join "<br/>"
   end
