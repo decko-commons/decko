@@ -3,49 +3,65 @@ basket[:icons] = {
     plus: :add,
     pencil: :edit,
     trash: :delete,
-    wrench: :build,
     new_window: :open_in_new,
     history: :history,
-    triangle_left: :expand_less,
-    triangle_right: :expand_more,
-    flag: :flag,
-    option_horizontal: :more_horiz,
-    option_vertical: :more_vert,
-    pushpin: :pin_drop,
-    baby_formula: :device_hub,
-    log_out: :call_made,
-    log_in: :call_received,
-    explore: :explore,
-    remove: :close,
+    collapse: :expand_less,
     expand: :expand_more,
-    collapse_down: :expand_less,
-    globe: :public,
-    commenting: :comment
+    flag: :flag,
+    remove: :close,
+    close: :close,
+    board: :space_dashboard,
+    warning: :warning,
+    unknown: :add_box,
+    help: :help,
+    modal: :fullscreen,
+    reorder: :reorder,
+    create_action: :add_circle,
+    update_action: :edit,
+    delete_action: :remove_circle,
+    draft: :build,
+    next: :arrow_forward,
+    previous: :arrow_back,
+    list: :list,
+    search: :search,
+    filter: :filter_alt,
+    quick_filter: :bolt,
+    reset: :restart_alt
+  },
+
+  font_awesome: {
+    plus: :plus,
+    pencil: :pencil,
+    trash: :trash,
+    new_window: "external-link-square-alt",
+    close: :times,
+    reorder: "align-justify",
+    history: :clock,
+    warning: "exclamation-circle",
+    unknown: "plus-square",
+    help: "question-circle",
+    modal: :expand,
+    next: "arrow-right",
+    previous: "arrow-left",
+    flag: :flag,
+    collapse: "chevron-up",
+    expand: "chevron-down",
+    list: :list,
+    filter: :filter,
+    reset: "sync-alt"
   },
 
   bootstrap: {
     plus: "plus-lg",
     pencil: "pencil-fill",
     trash: "trash-fill",
-    wrench: :wrench,
     new_window: "box-arrow-up-right",
     history: :clock,
-    triangle_left: "chevron-up",
-    triangle_right: "chevron-down",
+    collapse: "chevron-up",
+    expand: "chevron-down",
     flag: "flag-fill",
     reorder: "grip-horizontal",
-  },
-
-  font_awesome: {
-    close: :times,
-    check_circle: "check-circle",
-    reorder: "align-justify",
-    history: "clock-rotate-left",
-    warning: "exclamation-circle",
-    unknown: "plus-square",
-    help: "question-circle",
-    modal: :expand,
-  },
+  }
 }
 
 format :html do
@@ -60,10 +76,6 @@ format :html do
 
   def default_icon_library
     :material
-  end
-
-  def fa_icon icon, opts={}
-    universal_icon_tag icon, :font_awesome, opts
   end
 
   def glyphicon_icon_tag icon, opts={}
