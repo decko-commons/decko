@@ -39,7 +39,7 @@ format :html do
   end
 
   def popover_link text, title=nil, link_text=nil, opts={}
-    link_text ||= fa_icon "question-circle"
+    link_text ||= icon_tag :help
     link_to link_text, popover_opts(text, title, opts)
   end
 

@@ -64,7 +64,9 @@ a:focus, a:hover {
 
 a.unknown-link {
   color: $text-muted;
-  font-variant: small-caps;
+  .card-title {
+    font-variant: small-caps;
+  }
   &:hover {
     color: $primary;
   }
