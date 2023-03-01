@@ -2,7 +2,7 @@
   .bar-menu-button.btn.dropdown-toggle{ "aria-expanded": "false",
                     "aria-haspopup": "true",
                     "data-bs-toggle": "dropdown" }
-    %i.fa.fa-ellipsis-h
+    = icon_tag :more
   .bar-menu-list.dropdown-menu{ "aria-labelledby": ".bar-menu-button" }
     - bar_menu_items.each do |item|
       .dropdown-item
