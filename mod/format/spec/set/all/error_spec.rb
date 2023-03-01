@@ -9,7 +9,6 @@ describe Card::Set::All::Error do
       puts render_content("{{+cardipoo|open}}")
       expect(render_content("{{+cardipoo|open}}"))
         .to have_tag("i.material-icons", text: "add_box")
-
     end
   end
 end
