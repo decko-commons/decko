@@ -84,9 +84,15 @@ end
 
 # has not been edited directly by human users.  bleep blorp.
 def pristine?
-  new_card? ||
-    (created_at == updated_at && creator_id == WagnBotID) ||
-    !user_changes?
+  return true if new_card?
+
+  if subcards?
+    return false if subcards.cards.find &:altered?
+  else
+    return true if (created_at == updated_at && creator_id == WagnBotID)
+  end
+
+  !user_changes?
 end
 
 def altered?

@@ -29,7 +29,7 @@ format :html do
   view :overlay_help_link, cache: :never, unknown: true do
     opts = help_popover_opts
     add_open_guide_opts opts
-    overlay_menu_link "question-circle", opts
+    overlay_menu_link :help, opts
   end
 
   def add_open_guide_opts opts
@@ -44,7 +44,7 @@ format :html do
   end
 
   def slotify_overlay_link
-    overlay_menu_link "external-link-square-alt", card: card
+    overlay_menu_link :new_window, card: card
   end
 
   def close_overlay_link
@@ -69,7 +69,7 @@ format :html do
 
   def overlay_menu_link icon, args={}
     add_class args, "border-light text-dark p-1 ms-1"
-    button_link fa_icon(icon, class: "fa-lg"), args.merge(btn_type: "outline-secondary")
+    button_link icon_tag(icon), args.merge(btn_type: "outline-secondary")
   end
 
   def overlay_header title=nil
