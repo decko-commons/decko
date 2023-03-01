@@ -86,11 +86,13 @@ end
 def pristine?
   return true if new_card?
 
+  if subcards?
+    return false if subcards.cards.find &:altered?
+  else
+    return true if (created_at == updated_at && creator_id == WagnBotID)
+  end
 
-
-  new_card? ||
-    (created_at == updated_at && creator_id == WagnBotID) ||
-    !user_changes?
+  !user_changes?
 end
 
 def altered?
