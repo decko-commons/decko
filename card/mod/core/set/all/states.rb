@@ -84,6 +84,10 @@ end
 
 # has not been edited directly by human users.  bleep blorp.
 def pristine?
+  return true if new_card?
+
+
+
   new_card? ||
     (created_at == updated_at && creator_id == WagnBotID) ||
     !user_changes?
