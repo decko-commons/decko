@@ -28,7 +28,7 @@ basket[:icons] = {
     quick_filter: :bolt,
     reset: :restart_alt
   },
-
+  #
   font_awesome: {
     plus: :plus,
     pencil: :pencil,
@@ -50,7 +50,7 @@ basket[:icons] = {
     filter: :filter,
     reset: "sync-alt"
   },
-
+  #
   bootstrap: {
     plus: "plus-lg",
     pencil: "pencil-fill",
@@ -60,7 +60,7 @@ basket[:icons] = {
     collapse: "chevron-up",
     expand: "chevron-down",
     flag: "flag-fill",
-    reorder: "grip-horizontal",
+    reorder: "grip-horizontal"
   }
 }
 
@@ -126,12 +126,5 @@ format :html do
   def with_icon_tag_opts opts={}
     opts = { class: opts } unless opts.is_a? Hash
     yield opts
-  end
-
-  def icon_collection name
-    basket[:icons][name].map do |key, icon|
-      icon_tag =
-      "#{icon_tag} #{key}"
-    end.join "<br/>"
   end
 end
