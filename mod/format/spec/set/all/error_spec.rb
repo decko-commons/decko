@@ -6,7 +6,9 @@ describe Card::Set::All::Error do
 
   describe "unknown view" do
     it "prompts to add" do
-      expect(render_content("{{+cardipoo|open}}")).to match(/fa-plus-square.*cardipoo/)
+      puts render_content("{{+cardipoo|open}}")
+      expect(render_content("{{+cardipoo|open}}"))
+        .to have_tag("i.material-icons", text: "add_box")
     end
   end
 end
