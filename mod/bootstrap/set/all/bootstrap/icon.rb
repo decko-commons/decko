@@ -35,6 +35,8 @@ basket[:icons] = {
     trash: :trash,
     new_window: "external-link-square-alt",
     close: :times,
+    remove: :times,
+    board: "table-columns",
     reorder: "align-justify",
     history: :clock,
     warning: "exclamation-circle",
@@ -43,12 +45,18 @@ basket[:icons] = {
     modal: :expand,
     next: "arrow-right",
     previous: "arrow-left",
+    create_action: "circle-plus",
+    update_action: :edit,
+    delete_action: "circle-minus",
     flag: :flag,
     collapse: "chevron-up",
     expand: "chevron-down",
     list: :list,
+    search: "magnifying-glass",
+    draft: :wrench,
     filter: :filter,
-    reset: "sync-alt"
+    reset: "sync-alt",
+    quick_filter: :bolt
   },
   #
   bootstrap: {
