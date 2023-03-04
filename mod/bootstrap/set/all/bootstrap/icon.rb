@@ -124,8 +124,8 @@ format :html do
 
   def icon_lookup icon
     icon_libraries.each do |library|
-      next unless found_icon = basket[:icons][library][icon]
-      return [library, found_icon]
+      found_icon = basket[:icons][library][icon]
+      return [library, found_icon] if found_icon
     end
 
     [icon_libraries.last, icon]
