@@ -10,10 +10,10 @@ RSpec.describe Card::Set::Type::Html do
   end
 
   it "renders no html tags in one_line_content view" do
-    rendered = render_view :one_line_content,
-                           type: "HTML",
-                           content: "<strong>Lions and Tigers</strong>"
-    expect(rendered.strip).to eq "Tempo Rary"
+    a = "A".card
+    a.assign_attributes type: :html, content: "<strong>Lions and Tigers</strong>"
+    rendered = a.format.render :one_line_content
+    expect(rendered.strip).to eq "Lions and Tigers"
   end
 
   it "renders nests" do

@@ -3,9 +3,6 @@ class Card
     module Format
       # methods for handling paths to HAML templates
       module HamlPaths
-        CORE_MODS = ::Set.new %w[core admin].freeze
-        TEMPLATE_DIR = %w[template set].freeze
-
         delegate :tmp_files?, to: Cardio::Mod::LoadStrategy
 
         def haml_to_html haml, locals={}, a_binding=nil, debug_info={}
@@ -49,34 +46,21 @@ class Card
           end
         end
 
-        TMPSET_REGEXP = %r{(?<carddir>/card)/tmp(sets)?/set/mod\d{3}-(?<modname>[^/]+)/}
+        TMPSET_REGEXP = %r{^.*/tmp(sets)?/set/[\w-]+/mod\d{3}-(?<modname>[^/]+)}
 
         def deep_source source
           return source unless tmp_files?
 
-          source&.gsub TMPSET_REGEXP do
-            match = Regexp.last_match
-            source_mod_dir match[:modname], match[:carddir]
+          source&.sub TMPSET_REGEXP do
+            "#{Cardio::Mod.fetch(Regexp.last_match[:modname]).path}/set"
           end
-        end
-
-        def source_mod_dir modname, carddir
-          # TODO: handle non-standard mod dirs
-          dir = "/mod/#{modname}/set/"
-          return dir unless modname.in? CORE_MODS
-
-          "#{carddir}/#{dir}/"
         end
 
         def try_haml_template_path template_path, view, source_dir, ext="haml"
           template_path = File.join(template_path, view.to_s) if view.present?
           template_path += ".#{ext}"
-          TEMPLATE_DIR.each do |template_dir|
-            path = ::File.expand_path(template_path, source_dir)
-                         .sub(%r{(/mod/[^/]+)/set/}, "\\1/#{template_dir}/")
-            return path if ::File.exist?(path)
-          end
-          false
+          path = ::File.expand_path(template_path, source_dir)
+          path if ::File.exist? path
         end
 
         def haml_block_locals &block

@@ -6,7 +6,7 @@
 <title>
   Class: Card::Cache::Persistent
   
-    &mdash; Documentation by YARD 0.9.27
+    &mdash; Documentation by YARD 0.9.28
   
 </title>
 
@@ -618,13 +618,15 @@ re-included after retrieval from the persistent cache.</p>
 28
 29
 30
-31</pre>
+31
+32</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'card/lib/card/cache/persistent.rb', line 26</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span> <span class='id identifier rubyid_opts'>opts</span>
   <span class='ivar'>@store</span> <span class='op'>=</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:store</span><span class='rbracket'>]</span>
+  <span class='ivar'>@file_cache</span> <span class='op'>=</span> <span class='ivar'>@store</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span> <span class='const'>ActiveSupport</span><span class='op'>::</span><span class='const'>Cache</span><span class='op'>::</span><span class='const'>FileStore</span>
   <span class='ivar'>@klass</span> <span class='op'>=</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:class</span><span class='rbracket'>]</span>
   <span class='ivar'>@class_key</span> <span class='op'>=</span> <span class='ivar'>@klass</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='period'>.</span><span class='id identifier rubyid_to_name'>to_name</span><span class='period'>.</span><span class='id identifier rubyid_key'>key</span>
   <span class='ivar'>@database</span> <span class='op'>=</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:database</span><span class='rbracket'>]</span> <span class='op'>||</span> <span class='const'><span class='object_link'><a href="../../Cardio.html" title="Cardio (module)">Cardio</a></span></span><span class='period'>.</span><span class='id identifier rubyid_database'><span class='object_link'><a href="../../Cardio.html#database-class_method" title="Cardio.database (method)">database</a></span></span>
@@ -666,12 +668,12 @@ re-included after retrieval from the persistent cache.</p>
       <pre class="lines">
 
 
-67
 68
-69</pre>
+69
+70</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/cache/persistent.rb', line 67</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/cache/persistent.rb', line 68</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_prefix'>prefix</span>
   <span class='ivar'>@prefix</span>
@@ -714,12 +716,12 @@ cache engine. keep in mind mutually assured destruction.</p>
       <pre class="lines">
 
 
-50
 51
-52</pre>
+52
+53</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/cache/persistent.rb', line 50</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/cache/persistent.rb', line 51</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_annihilate'>annihilate</span>
   <span class='ivar'>@store</span><span class='period'>.</span><span class='id identifier rubyid_clear'>clear</span>
@@ -744,14 +746,14 @@ cache engine. keep in mind mutually assured destruction.</p>
       <pre class="lines">
 
 
-95
-96
-97
 98
-99</pre>
+99
+100
+101
+102</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/cache/persistent.rb', line 95</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/cache/persistent.rb', line 98</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_deep_read'>deep_read</span> <span class='id identifier rubyid_key'>key</span>
   <span class='id identifier rubyid_local_cache'>local_cache</span> <span class='op'>=</span> <span class='ivar'>@store</span><span class='period'>.</span><span class='id identifier rubyid_send'>send</span> <span class='symbol'>:local_cache</span>
@@ -778,12 +780,12 @@ cache engine. keep in mind mutually assured destruction.</p>
       <pre class="lines">
 
 
-114
-115
-116</pre>
+117
+118
+119</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/cache/persistent.rb', line 114</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/cache/persistent.rb', line 117</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_delete'>delete</span> <span class='id identifier rubyid_key'>key</span>
   <span class='ivar'>@store</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span> <span class='id identifier rubyid_full_key'>full_key</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span>
@@ -831,12 +833,12 @@ cache engine. keep in mind mutually assured destruction.</p>
       <pre class="lines">
 
 
-118
-119
-120</pre>
+121
+122
+123</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/cache/persistent.rb', line 118</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/cache/persistent.rb', line 121</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_exist?'>exist?</span> <span class='id identifier rubyid_key'>key</span>
   <span class='ivar'>@store</span><span class='period'>.</span><span class='id identifier rubyid_exist?'>exist?</span> <span class='id identifier rubyid_full_key'>full_key</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span>
@@ -861,12 +863,12 @@ cache engine. keep in mind mutually assured destruction.</p>
       <pre class="lines">
 
 
-110
-111
-112</pre>
+113
+114
+115</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/cache/persistent.rb', line 110</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/cache/persistent.rb', line 113</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_fetch'>fetch</span> <span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span>
   <span class='ivar'>@store</span><span class='period'>.</span><span class='id identifier rubyid_fetch'>fetch</span> <span class='id identifier rubyid_full_key'>full_key</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span>
@@ -929,15 +931,19 @@ cache engine. keep in mind mutually assured destruction.</p>
       <pre class="lines">
 
 
-74
 75
-76</pre>
+76
+77
+78
+79</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/cache/persistent.rb', line 74</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/cache/persistent.rb', line 75</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_full_key'>full_key</span> <span class='id identifier rubyid_key'>key</span>
-  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_prefix'>prefix</span><span class='embexpr_end'>}</span><span class='tstring_content'>/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_key'>key</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+  <span class='id identifier rubyid_fk'>fk</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_prefix'>prefix</span><span class='embexpr_end'>}</span><span class='tstring_content'>/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_key'>key</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+  <span class='id identifier rubyid_fk'>fk</span><span class='period'>.</span><span class='id identifier rubyid_tr!'>tr!</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>*</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>X</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='ivar'>@file_cache</span> <span class='comment'># save for windows fs
+</span>  <span class='id identifier rubyid_fk'>fk</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -959,12 +965,12 @@ cache engine. keep in mind mutually assured destruction.</p>
       <pre class="lines">
 
 
-78
-79
-80</pre>
+81
+82
+83</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/cache/persistent.rb', line 78</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/cache/persistent.rb', line 81</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_read'>read</span> <span class='id identifier rubyid_key'>key</span>
   <span class='ivar'>@store</span><span class='period'>.</span><span class='id identifier rubyid_read'>read</span> <span class='id identifier rubyid_full_key'>full_key</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span>
@@ -989,13 +995,13 @@ cache engine. keep in mind mutually assured destruction.</p>
       <pre class="lines">
 
 
-101
-102
-103
-104</pre>
+104
+105
+106
+107</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/cache/persistent.rb', line 101</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/cache/persistent.rb', line 104</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_read_attribute'>read_attribute</span> <span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_attribute'>attribute</span>
   <span class='id identifier rubyid_object'>object</span> <span class='op'>=</span> <span class='id identifier rubyid_deep_read'>deep_read</span> <span class='id identifier rubyid_key'>key</span>
@@ -1032,13 +1038,13 @@ reaffirming the stamp and prefix</p>
       <pre class="lines">
 
 
-35
 36
 37
-38</pre>
+38
+39</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/cache/persistent.rb', line 35</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/cache/persistent.rb', line 36</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_renew'>renew</span>
   <span class='ivar'>@stamp</span> <span class='op'>=</span> <span class='kw'>nil</span>
@@ -1075,14 +1081,14 @@ unlike annihilate, it won’t bother other apps using the same cache engine.</p>
       <pre class="lines">
 
 
-42
 43
 44
 45
-46</pre>
+46
+47</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/cache/persistent.rb', line 42</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/cache/persistent.rb', line 43</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_reset'>reset</span>
   <span class='ivar'>@stamp</span> <span class='op'>=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_new_stamp'>new_stamp</span>
@@ -1121,12 +1127,12 @@ a Card::Cache object.</p>
       <pre class="lines">
 
 
-57
 58
-59</pre>
+59
+60</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/cache/persistent.rb', line 57</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/cache/persistent.rb', line 58</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_stamp'>stamp</span>
   <span class='ivar'>@stamp</span> <span class='op'>||=</span> <span class='const'><span class='object_link'><a href="../../Cardio.html" title="Cardio (module)">Cardio</a></span></span><span class='period'>.</span><span class='id identifier rubyid_cache'><span class='object_link'><a href="../../Cardio.html#cache-class_method" title="Cardio.cache (method)">cache</a></span></span><span class='period'>.</span><span class='id identifier rubyid_fetch'>fetch</span><span class='lparen'>(</span><span class='id identifier rubyid_stamp_key'>stamp_key</span><span class='rparen'>)</span> <span class='lbrace'>{</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_new_stamp'>new_stamp</span> <span class='rbrace'>}</span>
@@ -1161,12 +1167,12 @@ a Card::Cache object.</p>
       <pre class="lines">
 
 
-62
 63
-64</pre>
+64
+65</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/cache/persistent.rb', line 62</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/cache/persistent.rb', line 63</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_stamp_key'>stamp_key</span>
   <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='ivar'>@database</span><span class='embexpr_end'>}</span><span class='tstring_content'>-</span><span class='embexpr_beg'>#{</span><span class='ivar'>@class_key</span><span class='embexpr_end'>}</span><span class='tstring_content'>-</span><span class='embexpr_beg'>#{</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_stamp'>stamp</span><span class='embexpr_end'>}</span><span class='tstring_content'>-stamp</span><span class='tstring_end'>&quot;</span></span>
@@ -1191,12 +1197,12 @@ a Card::Cache object.</p>
       <pre class="lines">
 
 
-106
-107
-108</pre>
+109
+110
+111</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/cache/persistent.rb', line 106</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/cache/persistent.rb', line 109</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_write'>write</span> <span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_value'>value</span>
   <span class='ivar'>@store</span><span class='period'>.</span><span class='id identifier rubyid_write'>write</span> <span class='id identifier rubyid_full_key'>full_key</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='id identifier rubyid_value'>value</span>
@@ -1257,18 +1263,18 @@ a Card::Cache object.</p>
       <pre class="lines">
 
 
-85
-86
-87
 88
 89
 90
 91
 92
-93</pre>
+93
+94
+95
+96</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/cache/persistent.rb', line 85</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/cache/persistent.rb', line 88</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_write_attribute'>write_attribute</span> <span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_attribute'>attribute</span><span class='comma'>,</span> <span class='id identifier rubyid_value'>value</span>
   <span class='kw'>return</span> <span class='id identifier rubyid_value'>value</span> <span class='kw'>unless</span> <span class='ivar'>@store</span>
@@ -1289,9 +1295,9 @@ a Card::Cache object.</p>
 </div>
 
       <div id="footer">
-  Generated on Fri Jan 21 16:01:47 2022 by
-  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.27 (ruby-3.0.1).
+  Generated on Wed Feb 15 11:54:45 2023 by
+  <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.28 (ruby-3.0.4).
 </div>
 
     </div>

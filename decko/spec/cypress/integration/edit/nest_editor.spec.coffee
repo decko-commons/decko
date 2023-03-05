@@ -92,29 +92,23 @@ describe 'nest editor', () ->
         .contains ".alert", "nest name required"
         .should "not.exist"
 
-    cy.get("select._submit-on-select").eq(1).select2("All")
-    cy.contains("a.edit-rule-link", "help").click()
-    cy.contains("Define rule")
-    cy.get(".rule-type-field").select2("PlainText")
-    cy.get(":nth-child(2) > .card-editor > .editor > #card_content").type "help nana{enter}"
-    cy.contains("All \"+NaNa\" cards on \"RichText\" cards").click()
-    cy.contains("Save and Close").click()
+    cy.get ".card-slot.RIGHT-Xhelp input#card_content"
+      .type "help nana{enter}"
+    cy.contains "undo", timeout: 10000
+    cy.get ".card-slot.RIGHT-Xhelp .form-control-feedback"
+      .should "contain", "All \"+NaNa\" cards"
+      .should "contain", "Applied!"
 
-#      cy.contains "undo", timeout: 10000
-#      cy.get ".card-slot.RIGHT-Xhelp .form-control-feedback"
-#        .should "contain", "All \"+NaNa\" cards"
-#        .should "contain", "Applied!"
-#
-#      cy.get ".card-slot.RIGHT-Xhelp input#card_content"
-#        .type "remove this{enter}"
-#      cy.get ".card-slot.RIGHT-Xhelp"
-#        .should "not.contain", "undo"
-#      cy.contains("undo").click()
-#      cy.get ".card-slot.RIGHT-Xhelp input#card_content", timeout: 10000
-#        .should "have.value", "help nana"
-#      cy.get ".card-slot.RIGHT-Xhelp"
-#        .should "contain", "All \"+NaNa\" cards"
-#        .should "not.contain", "undo"
+    cy.get ".card-slot.RIGHT-Xhelp input#card_content"
+      .type "remove this{enter}"
+    cy.get ".card-slot.RIGHT-Xhelp"
+      .should "not.contain", "undo"
+    cy.contains("undo").click()
+    cy.get ".card-slot.RIGHT-Xhelp input#card_content", timeout: 10000
+      .should "have.value", "help nana"
+    cy.get ".card-slot.RIGHT-Xhelp"
+      .should "contain", "All \"+NaNa\" cards"
+      .should "not.contain", "undo"
 
 
     cy.visit "RichText+NaNa+*type plus right+*help"

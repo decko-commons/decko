@@ -91,7 +91,7 @@ format :html do
 
   # @param [Array<Array,String>] content the content for the table. Accepts
   # strings or arrays for each row.
-  # @param [Hash] opts
+  # @param opts [Hash]
   # @option opts [String, Array] :header use first row of content as header or
   # value of this option if it is a string
   # @return [HTML] bootstrap table

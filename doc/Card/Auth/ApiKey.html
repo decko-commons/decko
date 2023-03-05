@@ -6,7 +6,7 @@
 <title>
   Module: Card::Auth::ApiKey
   
-    &mdash; Documentation by YARD 0.9.26
+    &mdash; Documentation by YARD 0.9.28
   
 </title>
 
@@ -78,7 +78,7 @@
   
   <dl>
     <dt>Defined in:</dt>
-    <dd>card-mod-api_key/lib/card/auth/api_key.rb</dd>
+    <dd>mod/api_key/lib/card/auth/api_key.rb</dd>
   </dl>
   
 </div>
@@ -111,6 +111,29 @@
         <li class="public ">
   <span class="summary_signature">
     
+      <a href="#api_act%3F-instance_method" title="#api_act? (instance method)">#<strong>api_act?</strong>  &#x21d2; Boolean </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
       <a href="#find_account_by_api_key-instance_method" title="#find_account_by_api_key (instance method)">#<strong>find_account_by_api_key</strong>(api_key)  &#x21d2; +*account card<sup>?</sup> </a>
     
 
@@ -134,7 +157,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#signin_with-instance_method" title="#signin_with (instance method)">#<strong>signin_with</strong>(opts = {})  &#x21d2; Object </a>
+      <a href="#signin_with-instance_method" title="#signin_with (instance method)">#<strong>signin_with</strong>(token: nil, api_key: nil)  &#x21d2; Object </a>
     
 
     
@@ -187,7 +210,60 @@
 
     
       <div class="method_details first">
-  <h3 class="signature first" id="find_account_by_api_key-instance_method">
+  <h3 class="signature first" id="api_act?-instance_method">
+  
+    #<strong>api_act?</strong>  &#x21d2; <tt>Boolean</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+34
+35
+36</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'mod/api_key/lib/card/auth/api_key.rb', line 34</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_api_act?'>api_act?</span>
+  <span class='const'><span class='object_link'><a href="../Env.html" title="Card::Env (module)">Env</a></span></span><span class='period'>.</span><span class='id identifier rubyid_controller'><span class='object_link'><a href="../Env.html#controller-class_method" title="Card::Env.controller (method)">controller</a></span></span><span class='op'>&amp;.</span><span class='id identifier rubyid_try'>try</span><span class='lparen'>(</span><span class='symbol'>:authenticators</span><span class='rparen'>)</span><span class='op'>&amp;.</span><span class='id identifier rubyid_values'>values</span><span class='op'>&amp;.</span><span class='id identifier rubyid_compact'>compact</span><span class='period'>.</span><span class='id identifier rubyid_present?'>present?</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="find_account_by_api_key-instance_method">
   
     #<strong>find_account_by_api_key</strong>(api_key)  &#x21d2; <tt>+*account card</tt><sup>?</sup> 
   
@@ -244,7 +320,7 @@
 32</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card-mod-api_key/lib/card/auth/api_key.rb', line 30</span>
+      <pre class="code"><span class="info file"># File 'mod/api_key/lib/card/auth/api_key.rb', line 30</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_find_account_by_api_key'>find_account_by_api_key</span> <span class='id identifier rubyid_api_key'>api_key</span>
   <span class='id identifier rubyid_find_account_by'>find_account_by</span> <span class='symbol'>:api_key</span><span class='comma'>,</span> <span class='id identifier rubyid_api_key'>api_key</span><span class='period'>.</span><span class='id identifier rubyid_strip'>strip</span>
@@ -257,7 +333,7 @@
       <div class="method_details ">
   <h3 class="signature " id="signin_with-instance_method">
   
-    #<strong>signin_with</strong>(opts = {})  &#x21d2; <tt><span class='object_link'><a href="../../Object.html" title="Object (class)">Object</a></span></tt> 
+    #<strong>signin_with</strong>(token: nil, api_key: nil)  &#x21d2; <tt><span class='object_link'><a href="../../Object.html" title="Object (class)">Object</a></span></tt> 
   
 
   
@@ -280,13 +356,13 @@
 15</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card-mod-api_key/lib/card/auth/api_key.rb', line 7</span>
+      <pre class="code"><span class="info file"># File 'mod/api_key/lib/card/auth/api_key.rb', line 7</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_signin_with'>signin_with</span> <span class='id identifier rubyid_opts'>opts</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span>
-  <span class='kw'>if</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:token</span><span class='rbracket'>]</span>
-    <span class='id identifier rubyid_signin_with_token'>signin_with_token</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:token</span><span class='rbracket'>]</span>
-  <span class='kw'>elsif</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:api_key</span><span class='rbracket'>]</span>
-    <span class='id identifier rubyid_signin_with_api_key'>signin_with_api_key</span> <span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:api_key</span><span class='rbracket'>]</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_signin_with'>signin_with</span> <span class='label'>token:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>api_key:</span> <span class='kw'>nil</span>
+  <span class='kw'>if</span> <span class='id identifier rubyid_token'>token</span>
+    <span class='id identifier rubyid_signin_with_token'>signin_with_token</span> <span class='id identifier rubyid_token'>token</span>
+  <span class='kw'>elsif</span> <span class='id identifier rubyid_api_key'>api_key</span>
+    <span class='id identifier rubyid_signin_with_api_key'>signin_with_api_key</span> <span class='id identifier rubyid_api_key'>api_key</span>
   <span class='kw'>else</span>
     <span class='id identifier rubyid_signin_with_session'>signin_with_session</span>
   <span class='kw'>end</span>
@@ -331,7 +407,7 @@
 25</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card-mod-api_key/lib/card/auth/api_key.rb', line 18</span>
+      <pre class="code"><span class="info file"># File 'mod/api_key/lib/card/auth/api_key.rb', line 18</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_signin_with_api_key'>signin_with_api_key</span> <span class='id identifier rubyid_api_key'>api_key</span>
   <span class='id identifier rubyid_account'>account</span> <span class='op'>=</span> <span class='id identifier rubyid_find_account_by_api_key'>find_account_by_api_key</span> <span class='id identifier rubyid_api_key'>api_key</span>
@@ -351,9 +427,9 @@
 </div>
 
       <div id="footer">
-  Generated on Thu May 13 17:17:19 2021 by
-  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.26 (ruby-2.7.2).
+  Generated on Wed Feb 15 11:54:33 2023 by
+  <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.28 (ruby-3.0.4).
 </div>
 
     </div>

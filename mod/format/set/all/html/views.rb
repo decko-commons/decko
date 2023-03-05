@@ -1,3 +1,5 @@
+# require "truncato"
+
 format :html do
   def prepare_content_slot
     class_up "card-slot", "d0-card-content"
@@ -102,18 +104,6 @@ format :html do
     set_name ||= "#{card.name}+*type" if card.known? && card.type_id == Card::CardtypeID
     set_name ||= "#{card.name}+*self"
     Card.fetch(set_name)
-  end
-
-  def raw_one_line_content
-    cleaned = Card::Content.clean! render_raw, {}
-    cut_with_ellipsis cleaned
-  end
-
-  def one_line_content
-    # TODO: use a version of Card::Content.smart_truncate
-    #       that counts characters instead of clean!
-    cleaned = Card::Content.clean! render_core, {}
-    cut_with_ellipsis cleaned
   end
 
   # LOCALIZE

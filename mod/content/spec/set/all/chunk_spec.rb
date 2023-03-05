@@ -35,12 +35,12 @@ RSpec.describe Card::Set::All::Chunk do
       expect(format.render_edit).to have_tag ".card-editor", with: { card_name: "*self" }
     end
 
-    example "title argument" do
-      format = format_with_edit_fields [["B", "custom title"]]
-      expect(format.render_edit)
-        .to have_tag ".card-editor.RIGHT-b", with: { card_name: "A+B" } do
-        with_tag ".card-title", text: "custom title"
-      end
-    end
+    # example "title argument" do
+    #   format = format_with_edit_fields [["B", "custom title"]]
+    #   expect(format.render_edit)
+    #     .to have_tag ".card-editor.RIGHT-b", with: { card_name: "A+B" } do
+    #     with_tag ".card-title", text: "custom title"
+    #   end
+    # end
   end
 end

@@ -6,7 +6,7 @@
 <title>
   Module: Card::Director::Run
   
-    &mdash; Documentation by YARD 0.9.27
+    &mdash; Documentation by YARD 0.9.28
   
 </title>
 
@@ -307,7 +307,7 @@
 
 <span class='kw'>def</span> <span class='id identifier rubyid_restart'>restart</span>
   <span class='ivar'>@running</span> <span class='op'>=</span> <span class='kw'>false</span>
-  <span class='ivar'>@stage</span> <span class='op'>=</span> <span class='kw'>nil</span>
+  <span class='ivar'>@current_stage_index</span> <span class='op'>=</span> <span class='kw'>nil</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -343,7 +343,7 @@
 <span class='kw'>def</span> <span class='id identifier rubyid_run_delayed_event'>run_delayed_event</span> <span class='id identifier rubyid_act'>act</span>
   <span class='ivar'>@running</span> <span class='op'>=</span> <span class='kw'>true</span>
   <span class='ivar'>@act</span> <span class='op'>=</span> <span class='id identifier rubyid_act'>act</span>
-  <span class='ivar'>@stage</span> <span class='op'>=</span> <span class='id identifier rubyid_stage_index'>stage_index</span> <span class='symbol'>:integrate_with_delay</span>
+  <span class='ivar'>@current_stage_index</span> <span class='op'>=</span> <span class='id identifier rubyid_stage_index'>stage_index</span> <span class='symbol'>:integrate_with_delay</span>
   <span class='kw'>yield</span>
   <span class='id identifier rubyid_run_subcard_stages'>run_subcard_stages</span> <span class='symbol'>:integrate_with_delay</span>
 <span class='kw'>end</span></pre>
@@ -357,9 +357,9 @@
 </div>
 
       <div id="footer">
-  Generated on Fri Jan 21 16:01:40 2022 by
-  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.27 (ruby-3.0.1).
+  Generated on Wed Feb 15 11:54:32 2023 by
+  <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.28 (ruby-3.0.4).
 </div>
 
     </div>

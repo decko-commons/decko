@@ -6,7 +6,7 @@
 <title>
   Module: Card::Query::SqlStatement::Where
   
-    &mdash; Documentation by YARD 0.9.27
+    &mdash; Documentation by YARD 0.9.28
   
 </title>
 
@@ -415,7 +415,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#where-instance_method" title="#where (instance method)">#<strong>where</strong>  &#x21d2; Object </a>
+      <a href="#where-instance_method" title="#where (instance method)">#<strong>where</strong>(explicit = true)  &#x21d2; Object </a>
     
 
     
@@ -947,7 +947,7 @@ only applies to card queries</p>
       <div class="method_details ">
   <h3 class="signature " id="where-instance_method">
   
-    #<strong>where</strong>  &#x21d2; <tt><span class='object_link'><a href="../../../Object.html" title="Object (class)">Object</a></span></tt> 
+    #<strong>where</strong>(explicit = true)  &#x21d2; <tt><span class='object_link'><a href="../../../Object.html" title="Object (class)">Object</a></span></tt> 
   
 
   
@@ -968,10 +968,10 @@ only applies to card queries</p>
     <td>
       <pre class="code"><span class="info file"># File 'card/lib/card/query/sql_statement/where.rb', line 6</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_where'>where</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_where'>where</span> <span class='id identifier rubyid_explicit'>explicit</span><span class='op'>=</span><span class='kw'>true</span>
   <span class='id identifier rubyid_conditions'>conditions</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='id identifier rubyid_explicit_conditions'>explicit_conditions</span><span class='lparen'>(</span><span class='ivar'>@query</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='id identifier rubyid_implicit_conditions'>implicit_conditions</span><span class='lparen'>(</span><span class='ivar'>@query</span><span class='rparen'>)</span><span class='rbracket'>]</span>
   <span class='id identifier rubyid_conditions'>conditions</span> <span class='op'>=</span> <span class='id identifier rubyid_conditions'>conditions</span><span class='period'>.</span><span class='id identifier rubyid_reject'>reject</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='symbol'>:blank?</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'> AND </span><span class='tstring_end'>&quot;</span></span>
-  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>WHERE </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_conditions'>conditions</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>unless</span> <span class='id identifier rubyid_conditions'>conditions</span><span class='period'>.</span><span class='id identifier rubyid_blank?'>blank?</span>
+  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>WHERE </span><span class='tstring_end'>&#39;</span></span> <span class='kw'>if</span> <span class='id identifier rubyid_explicit'>explicit</span><span class='embexpr_end'>}</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_conditions'>conditions</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>unless</span> <span class='id identifier rubyid_conditions'>conditions</span><span class='period'>.</span><span class='id identifier rubyid_blank?'>blank?</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -983,9 +983,9 @@ only applies to card queries</p>
 </div>
 
       <div id="footer">
-  Generated on Fri Jan 21 16:01:44 2022 by
-  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.27 (ruby-3.0.1).
+  Generated on Wed Feb 15 11:54:34 2023 by
+  <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.28 (ruby-3.0.4).
 </div>
 
     </div>

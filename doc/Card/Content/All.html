@@ -6,7 +6,7 @@
 <title>
   Module: Card::Content::All
   
-    &mdash; Documentation by YARD 0.9.27
+    &mdash; Documentation by YARD 0.9.28
   
 </title>
 
@@ -733,7 +733,7 @@
       <pre class="code"><span class="info file"># File 'card/lib/card/content/all.rb', line 50</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_nests?'>nests?</span>
-  <span class='id identifier rubyid_content_object'>content_object</span><span class='period'>.</span><span class='id identifier rubyid_has_chunk?'>has_chunk?</span> <span class='const'><span class='object_link'><a href="../Content.html" title="Card::Content (class)">Content</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Chunk.html" title="Card::Content::Chunk (module)">Chunk</a></span></span><span class='op'>::</span><span class='const'>Nest</span>
+  <span class='id identifier rubyid_content_object'>content_object</span><span class='period'>.</span><span class='id identifier rubyid_has_chunk?'>has_chunk?</span> <span class='const'><span class='object_link'><a href="../Content.html" title="Card::Content (class)">Content</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Chunk.html" title="Card::Content::Chunk (module)">Chunk</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Chunk/Nest.html" title="Card::Content::Chunk::Nest (class)">Nest</a></span></span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -823,7 +823,7 @@
       <pre class="code"><span class="info file"># File 'card/lib/card/content/all.rb', line 18</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_standard_content'>standard_content</span>
-  <span class='id identifier rubyid_db_content'>db_content</span> <span class='op'>||</span> <span class='lparen'>(</span><span class='id identifier rubyid_new_card?'>new_card?</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_template'>template</span><span class='period'>.</span><span class='id identifier rubyid_db_content'>db_content</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_db_content'>db_content</span> <span class='op'>||</span> <span class='lparen'>(</span><span class='id identifier rubyid_new_card?'>new_card?</span> <span class='op'>?</span> <span class='id identifier rubyid_default_content'>default_content</span> <span class='op'>:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -883,7 +883,7 @@
       <pre class="code"><span class="info file"># File 'card/lib/card/content/all.rb', line 26</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_structured_content'>structured_content</span>
-  <span class='id identifier rubyid_structure'>structure</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_template'>template</span><span class='period'>.</span><span class='id identifier rubyid_db_content'>db_content</span>
+  <span class='id identifier rubyid_structure'>structure</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_default_content'>default_content</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -895,9 +895,9 @@
 </div>
 
       <div id="footer">
-  Generated on Fri Jan 21 16:01:40 2022 by
-  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.27 (ruby-3.0.1).
+  Generated on Wed Feb 15 11:54:31 2023 by
+  <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.28 (ruby-3.0.4).
 </div>
 
     </div>

@@ -6,7 +6,7 @@
 <title>
   Module: Card::Set::Abstract::Search::Views::HtmlFormat
   
-    &mdash; Documentation by YARD 0.9.26
+    &mdash; Documentation by YARD 0.9.28
   
 </title>
 
@@ -83,7 +83,7 @@
   
   <dl>
     <dt>Defined in:</dt>
-    <dd>card/tmpsets/set/mod035-card-mod-search/abstract/05_search/views.rb</dd>
+    <dd>platypus/tmp/set/gem-defaults/mod009-search/abstract/0_search/views.rb</dd>
   </dl>
   
 </div>
@@ -172,29 +172,6 @@
 </li>
 
       
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#view:+select_item-instance_method" title="#view: select_item (instance method)">#<strong>view: select_item</strong>  &#x21d2; Object </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'>
-</div></span>
-  
-</li>
-
-      
     </ul>
   
 
@@ -220,22 +197,20 @@
       <pre class="lines">
 
 
-117
-118
-119
-120
-121
-122
-123</pre>
+109
+110
+111
+112
+113
+114</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod035-card-mod-search/abstract/05_search/views.rb', line 117</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod009-search/abstract/0_search/views.rb', line 109</span>
 
 <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:card_list</span><span class='comma'>,</span> <span class='label'>cache:</span> <span class='symbol'>:never</span> <span class='kw'>do</span>
   <span class='id identifier rubyid_with_results'>with_results</span> <span class='kw'>do</span>
-    <span class='id identifier rubyid_search_result_list'>search_result_list</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>search-result-list</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_item_card'>item_card</span><span class='op'>|</span>
-      <span class='id identifier rubyid_card_list_item'>card_list_item</span> <span class='id identifier rubyid_item_card'>item_card</span>
-    <span class='kw'>end</span>
+    <span class='id identifier rubyid_klasses'>klasses</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>card-list card-list-</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_item_view_options'>item_view_options</span><span class='lbracket'>[</span><span class='symbol'>:view</span><span class='rbracket'>]</span><span class='embexpr_end'>}</span><span class='tstring_content'> search-result-list</span><span class='tstring_end'>&quot;</span></span>
+    <span class='id identifier rubyid_search_result_list'>search_result_list</span><span class='lparen'>(</span><span class='id identifier rubyid_klasses'>klasses</span><span class='rparen'>)</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_item_card'>item_card</span><span class='op'>|</span> <span class='id identifier rubyid_card_list_item'>card_list_item</span> <span class='id identifier rubyid_item_card'>item_card</span> <span class='rbrace'>}</span>
   <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -258,20 +233,20 @@
       <pre class="lines">
 
 
-135
-136
-137
-138
-139
-140
-141</pre>
+116
+117
+118
+119
+120
+121
+122</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod035-card-mod-search/abstract/05_search/views.rb', line 135</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod009-search/abstract/0_search/views.rb', line 116</span>
 
 <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:checkbox_list</span><span class='comma'>,</span> <span class='label'>cache:</span> <span class='symbol'>:never</span> <span class='kw'>do</span>
   <span class='id identifier rubyid_with_results'>with_results</span> <span class='kw'>do</span>
-    <span class='id identifier rubyid_search_result_list'>search_result_list</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>_search-checkbox-list pr-2</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_item_card'>item_card</span><span class='op'>|</span>
+    <span class='id identifier rubyid_search_result_list'>search_result_list</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>_search-checkbox-list pe-2</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_item_card'>item_card</span><span class='op'>|</span>
       <span class='id identifier rubyid_checkbox_item'>checkbox_item</span> <span class='id identifier rubyid_item_card'>item_card</span>
     <span class='kw'>end</span>
   <span class='kw'>end</span>
@@ -296,49 +271,15 @@
       <pre class="lines">
 
 
-143
-144
-145</pre>
+124
+125
+126</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod035-card-mod-search/abstract/05_search/views.rb', line 143</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod009-search/abstract/0_search/views.rb', line 124</span>
 
 <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:no_search_results</span> <span class='kw'>do</span>
   <span class='id identifier rubyid_wrap_with'>wrap_with</span> <span class='symbol'>:div</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>class:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>search-no-results</span><span class='tstring_end'>&quot;</span></span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="view: select_item-instance_method">
-  
-    #<strong>view: select_item</strong>  &#x21d2; <tt><span class='object_link'><a href="../../../../../Object.html" title="Object (class)">Object</a></span></tt> 
-  
-
-  
-
-  
-</h3><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-125
-126
-127
-128
-129</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod035-card-mod-search/abstract/05_search/views.rb', line 125</span>
-
-<span class='id identifier rubyid_view'>view</span> <span class='symbol'>:select_item</span><span class='comma'>,</span> <span class='label'>cache:</span> <span class='symbol'>:never</span> <span class='kw'>do</span>
-  <span class='id identifier rubyid_wrap'>wrap</span> <span class='kw'>do</span>
-    <span class='id identifier rubyid_haml'>haml</span> <span class='symbol'>:select_item</span>
-  <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -350,9 +291,9 @@
 </div>
 
       <div id="footer">
-  Generated on Thu May 13 17:17:38 2021 by
-  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.26 (ruby-2.7.2).
+  Generated on Wed Feb 15 11:54:42 2023 by
+  <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.28 (ruby-3.0.4).
 </div>
 
     </div>

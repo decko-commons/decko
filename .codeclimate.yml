@@ -31,7 +31,7 @@ exclude_paths:
 - "decko/spec/**/*.js"
 - "doc/**/*"
 - "coverage/**/*"
-- "mod/*/{lib,assets}/{style,stylesheets}/*.css"
-- "mod/*/{lib,assets}/{script,javascript}/*.js"
+- "mod/*/{lib,assets}/{style,stylesheets}/**/*.css"
+- "mod/*/{lib,assets}/{script,javascript}/**/*.js"
 - "mod/*/{data/files,public,vendor}/**/*"
 

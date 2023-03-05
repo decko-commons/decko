@@ -5,5 +5,5 @@ RSpec.describe Card::Set::Type::Set::HtmlViews do
     Card.fetch "User+*type"
   end
 
-  check_html_views_for_errors
+  check_views_for_errors
 end

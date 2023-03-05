@@ -12,8 +12,6 @@ class CustomizableSkin < Cardio::Migration::Core
   class CustomSkin
     THEME_FIELDS = %w[colors components spacing cards fonts more].freeze
 
-    include ::Card::Model::SaveHelper
-
     def initialize theme_name, data_dir
       @theme_name = theme_name.downcase
       @skin_name = "#{theme_name} skin"
@@ -36,7 +34,7 @@ class CustomizableSkin < Cardio::Migration::Core
     end
 
     def update_skin
-      ensure_card @skin_name,
+      Card.ensure name: @skin_name,
                   content: "[[themeless bootstrap skin]]\n[[+custom theme]]",
                   subcards: create_subcard_args
       THEME_FIELDS.each do |f|
@@ -45,8 +43,8 @@ class CustomizableSkin < Cardio::Migration::Core
     end
 
     def update_scss_field field_name
-      ensure_card "#{@skin_name}+custom theme+#{field_name}",
-                  theme_field_args(field_name)
+      skin_name = "#{@skin_name}+custom theme+#{field_name}"
+      Card.ensure theme_field_args(field_name).merge(name: skin_name)
     end
 
     def create_subcard_args

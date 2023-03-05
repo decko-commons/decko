@@ -28,7 +28,7 @@ Feature: Notifications
     Then the card Phrase+*type+*followers should not point to "Joe Admin"
 
   Scenario: Watching a Card
-    Given Joe User is watching "Home+*self"
-    When Joe Admin deletes "Home"
-    Then Joe User should be notified that "Joe Admin deleted \"Home\""
+    Given Joe User is watching "A+*self"
+    When Joe Admin deletes "A"
+    Then Joe User should be notified that "Joe Admin deleted \"A\""
 

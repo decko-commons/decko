@@ -44,11 +44,7 @@ class Card
       end
 
       def name codename=nil
-        return super() if codename.nil?
-
-        name! codename
-      rescue Error::CodenameNotFound => _e
-        yield if block_given?
+        id(codename)&.cardname
       end
 
       def card codename
@@ -86,7 +82,7 @@ class Card
       # @param codename [Symbol, String]
       # @return [Card::Name]
       def name! codename
-        Card::Name[codename.to_sym]
+        id!(codename)&.cardname
       end
 
       def generate_id_constants

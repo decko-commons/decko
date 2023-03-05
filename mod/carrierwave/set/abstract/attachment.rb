@@ -1,3 +1,5 @@
+Card.action_specific_attributes << :duplicate_file
+
 attr_writer :empty_ok
 
 def self.included host_class
@@ -80,8 +82,22 @@ end
 def assign_set_specific_attributes
   @attaching = set_specific[attachment_name].present?
   # reset content if we really have something to upload
-  self.content = nil if @attaching
+  @mod = set_specific[:mod]
+  self.content = nil if @attaching && !duplicate?
   super
+end
+
+# FIXME: this is weak duplicate detection and currently only catches duplicate
+# updates to coded cards.  Tried #read but wasn't getting the same value on both
+# files even when they were definitely duplicates.
+def duplicate?
+  real? &&
+    storage_type == :coded &&
+    (old = attachment.file) &&
+    (new = set_specific[attachment_name]) &&
+    old.size == new.size
+  # rescue Card::Error
+  #   false
 end
 
 def delete_files_for_action action

@@ -54,20 +54,16 @@ describe Card::Set::All::Templating do
   describe "with right default" do
     before do
       Card::Auth.as_bot do
-        @bt = Card.create! name: "birthday+*right+*default",
-                           type: "Date",
-                           content: "Today!"
+        Card.create! name: "birthday+*right+*default",
+                     type: "Date",
+                     content: "Today!"
       end
-      @bb = Card.new name: "Bob+birthday"
-      @jb = Card.create! name: "Jim+birthday"
     end
 
-    it "has default cardtype" do
-      expect(@jb.type_code).to eq(:date)
-    end
-
-    it "has default content" do
-      expect(Card["Jim+birthday"].content).to eq("Today!")
+    it "sets default type and content on created cards" do
+      jb = Card.create! name: "Jim+birthday"
+      expect(jb.type_code).to eq(:date)
+      expect(jb.content).to eq("Today!")
     end
 
     it "applies to new cards" do
@@ -80,7 +76,7 @@ describe Card::Set::All::Templating do
   describe "with type structure" do
     before do
       Card::Auth.as_bot do
-        @dt = create_basic "Date+*type+*structure", "Tomorrow"
+        create_basic "Date+*type+*structure", "Tomorrow"
       end
     end
 
@@ -93,9 +89,9 @@ describe Card::Set::All::Templating do
       before do
         Card::Auth.as_bot do
           Card.create name: "Jim+birthday", content: "Yesterday"
-          @bt = Card.create! name: "birthday+*right+*structure",
-                             type: "Date",
-                             content: "Today"
+          Card.create! name: "birthday+*right+*structure",
+                       type: "Date",
+                       content: "Today"
         end
       end
 

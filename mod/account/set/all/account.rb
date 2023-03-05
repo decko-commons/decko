@@ -86,14 +86,11 @@ def enabled_roles_card
 end
 
 def fetch_roles
-  [AnyoneSignedInID] + role_ids_from_roles_trait
+  [AnyoneSignedInID] + role_ids_from_role_member_cards
 end
 
-def role_ids_from_roles_trait
-  Auth.as_bot do
-    role_trait = fetch :roles
-    role_trait ? role_trait.item_ids : []
-  end
+def role_ids_from_role_member_cards
+  Self::Role.role_ids id
 end
 
 event :generate_token do

@@ -4,10 +4,10 @@ setting_opts group: :permission,
                         "[[http://decko.org/captcha|captcha]] before adding or editing "\
                         "cards (where permitted)."
 
-def used?
-  !@used.nil?
+def captcha_used?
+  !@captcha_used.nil?
 end
 
-def used!
-  @used = true
+def captcha_used!
+  @captcha_used = true
 end

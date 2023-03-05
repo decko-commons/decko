@@ -13,7 +13,8 @@ namespace :decko do
     #
     # IMPORTANT: Only works if using source code from github.
     task :update do
-      Rake::Task["decko:tmpsets:trigger"].invoke
+      Cardio.config.load_strategy = :tmp_files
+      Rake::Task["decko:docs:dummy"].invoke
       Rake::Task["decko:docs:yardoc"].invoke
     end
 
@@ -26,18 +27,8 @@ namespace :decko do
       doc_dir = File.expand_path "..", Decko.gem_root
       system %(cd #{doc_dir}; yardoc)
     end
-  end
 
-  namespace :tmpsets do
-    # We have to load the environment with `env REPO_TMPSETS=true` in
-    # development mode to trigger the tmpset generation.
-    # There's probably a more elegant way?
-    task :trigger do
-      ENV["REPO_TMPSETS"] = "true"
-      Rake::Task["decko:tmpsets:dummy"].invoke
-    end
-
-    # just load environment and trigger Card load
+    # just load environment and trigger Card load (used to generate tmpsets)
     task dummy: :environment do
       Card
     end

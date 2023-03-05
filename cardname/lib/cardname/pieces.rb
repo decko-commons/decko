@@ -5,23 +5,35 @@ class Cardname
   module Pieces
     # self and all ancestors (= parts and recursive lefts)
     # @example
-    #   "A+B+C+D".to_name.pieces
-    #   # => ["A", "B", "C", "D", "A+B", "A+B+C", "A+B+C+D"]
+    #   "A+B+C+D".to_name.pieces => ["A", "B", "C", "D", "A+B", "A+B+C", "A+B+C+D"]
+    # @return [Array <String>]
     def pieces
-      simple? ? [self] : (parts + junction_pieces)
+      simple? ? [self] : (parts + compound_pieces)
     end
 
+    # @see #pieces
+    # @return [Array <Cardname>]
     def piece_names
       pieces.map(&:to_name)
     end
 
+    # parents, parents' parents, etc
+    # @example
+    #   "A+B+C+D".to_name.ancestors => ["A", "B", "C", "D", "A+B", "A+B+C"]
+    # @return [Array <String>]
     def ancestors
       pieces.reject { |p| p == self }
     end
 
+    # @see #ancestors
+    # @return [Array <Cardname>]
+    def ancestor_pieces
+      ancestors.map(&:to_name)
+    end
+
     private
 
-    def junction_pieces
+    def compound_pieces
       [].tap do |pieces|
         parts[1..-1].inject parts[0] do |left, right|
           piece = [left, right] * self.class.joint

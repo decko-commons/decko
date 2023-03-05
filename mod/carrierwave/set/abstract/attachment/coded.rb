@@ -29,7 +29,7 @@ def storage_type_error error_name
 end
 
 def mod_from_content
-  if (m = content.match %r{^:[^/]+/([^.]+)})
+  if (m = content&.match %r{^:[^/]+/([^.]+)})
     m[1] # current mod_file format
   else
     mod_from_deprecated_content
@@ -46,7 +46,6 @@ end
 def mod_dir new_mod=nil
   mod_name = new_mod || mod
   dir = Cardio::Mod.dirs.path(mod_name) || (mod_name.to_sym == :test && "test")
-
   raise Error, "can't find mod \"#{mod_name}\"" unless dir
 
   dir

@@ -6,7 +6,7 @@
 <title>
   Module: Card::Set::All::Error::JsonFormat
   
-    &mdash; Documentation by YARD 0.9.26
+    &mdash; Documentation by YARD 0.9.28
   
 </title>
 
@@ -83,7 +83,7 @@
   
   <dl>
     <dt>Defined in:</dt>
-    <dd>card/tmpsets/set/mod008-card-mod-format/all/error.rb</dd>
+    <dd>platypus/tmp/set/gem-defaults/mod004-format/all/error.rb</dd>
   </dl>
   
 </div>
@@ -102,52 +102,6 @@
     </h2>
 
     <ul class="summary">
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#error_list-instance_method" title="#error_list (instance method)">#<strong>error_list</strong>  &#x21d2; Object </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'>
-</div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#format_error-instance_method" title="#format_error (instance method)">#<strong>format_error</strong>(error)  &#x21d2; Object </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'>
-</div></span>
-  
-</li>
-
       
         <li class="public ">
   <span class="summary_signature">
@@ -275,71 +229,7 @@
 
     
       <div class="method_details first">
-  <h3 class="signature first" id="error_list-instance_method">
-  
-    #<strong>error_list</strong>  &#x21d2; <tt><span class='object_link'><a href="../../../../Object.html" title="Object (class)">Object</a></span></tt> 
-  
-
-  
-
-  
-</h3><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-81
-82
-83
-84
-85</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod008-card-mod-format/all/error.rb', line 81</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_error_list'>error_list</span>
-  <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_errors'>errors</span><span class='period'>.</span><span class='id identifier rubyid_each_with_object'>each_with_object</span><span class='lparen'>(</span><span class='lbracket'>[</span><span class='rbracket'>]</span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='lparen'>(</span><span class='id identifier rubyid_field'>field</span><span class='comma'>,</span> <span class='id identifier rubyid_message'>message</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='id identifier rubyid_list'>list</span><span class='op'>|</span>
-    <span class='id identifier rubyid_list'>list</span> <span class='op'>&lt;&lt;</span> <span class='lbrace'>{</span> <span class='label'>field:</span> <span class='id identifier rubyid_field'>field</span><span class='comma'>,</span> <span class='label'>message:</span> <span class='id identifier rubyid_message'>message</span> <span class='rbrace'>}</span>
-  <span class='kw'>end</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="format_error-instance_method">
-  
-    #<strong>format_error</strong>(error)  &#x21d2; <tt><span class='object_link'><a href="../../../../Object.html" title="Object (class)">Object</a></span></tt> 
-  
-
-  
-
-  
-</h3><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-77
-78
-79</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod008-card-mod-format/all/error.rb', line 77</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_format_error'>format_error</span> <span class='id identifier rubyid_error'>error</span>
-  <span class='lbrace'>{</span> <span class='label'>error_status:</span> <span class='id identifier rubyid_error_status'>error_status</span><span class='comma'>,</span> <span class='label'>errors:</span> <span class='id identifier rubyid_error'>error</span> <span class='rbrace'>}</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="view: bad_address-instance_method">
+  <h3 class="signature first" id="view: bad_address-instance_method">
   
     #<strong>view: bad_address</strong>  &#x21d2; <tt><span class='object_link'><a href="../../../../Object.html" title="Object (class)">Object</a></span></tt> 
   
@@ -353,15 +243,17 @@
       <pre class="lines">
 
 
-73
-74
-75</pre>
+75
+76
+77
+78</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod008-card-mod-format/all/error.rb', line 73</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod004-format/all/error.rb', line 75</span>
 
 <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:bad_address</span> <span class='kw'>do</span>
-  <span class='id identifier rubyid_format_error'>format_error</span> <span class='kw'>super</span><span class='lparen'>(</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_errors'>errors</span><span class='period'>.</span><span class='id identifier rubyid_add'>add</span> <span class='symbol'>:address</span><span class='comma'>,</span> <span class='kw'>super</span><span class='lparen'>(</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_render_errors'>render_errors</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -383,10 +275,10 @@
       <pre class="lines">
 
 
-70</pre>
+73</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod008-card-mod-format/all/error.rb', line 70</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod004-format/all/error.rb', line 73</span>
 
 <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:denial</span><span class='comma'>,</span> <span class='symbol'>:errors</span></pre>
     </td>
@@ -411,13 +303,19 @@
 
 65
 66
-67</pre>
+67
+68
+69
+70</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod008-card-mod-format/all/error.rb', line 65</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod004-format/all/error.rb', line 65</span>
 
 <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:errors</span> <span class='kw'>do</span>
-  <span class='id identifier rubyid_format_error'>format_error</span> <span class='id identifier rubyid_error_list'>error_list</span>
+  <span class='lbrace'>{</span>
+    <span class='label'>error_status:</span> <span class='id identifier rubyid_error_status'>error_status</span><span class='comma'>,</span>
+    <span class='label'>errors:</span> <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_errors'>errors</span><span class='period'>.</span><span class='id identifier rubyid_each_with_object'>each_with_object</span><span class='lparen'>(</span><span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_e'>e</span><span class='comma'>,</span> <span class='id identifier rubyid_h'>h</span><span class='op'>|</span> <span class='id identifier rubyid_h'>h</span><span class='lbracket'>[</span><span class='id identifier rubyid_e'>e</span><span class='period'>.</span><span class='id identifier rubyid_attribute'>attribute</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_e'>e</span><span class='period'>.</span><span class='id identifier rubyid_message'>message</span> <span class='rbrace'>}</span>
+  <span class='rbrace'>}</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -439,10 +337,10 @@
       <pre class="lines">
 
 
-71</pre>
+74</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod008-card-mod-format/all/error.rb', line 71</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod004-format/all/error.rb', line 74</span>
 
 <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:not_found</span><span class='comma'>,</span> <span class='symbol'>:errors</span></pre>
     </td>
@@ -465,10 +363,10 @@
       <pre class="lines">
 
 
-69</pre>
+72</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod008-card-mod-format/all/error.rb', line 69</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod004-format/all/error.rb', line 72</span>
 
 <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:server_error</span><span class='comma'>,</span> <span class='symbol'>:errors</span></pre>
     </td>
@@ -481,9 +379,9 @@
 </div>
 
       <div id="footer">
-  Generated on Thu May 13 17:17:25 2021 by
-  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.26 (ruby-2.7.2).
+  Generated on Wed Feb 15 11:54:36 2023 by
+  <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.28 (ruby-3.0.4).
 </div>
 
     </div>

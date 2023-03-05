@@ -29,7 +29,7 @@ decko.imageComplete =
   init: (el) ->
     decko.select2Autocomplete.init el, @_options(el),
       data: (params) ->
-        query: { keyword: params.term }
+        term: params.term
         view: "image_complete"
 
   _options: (el) ->

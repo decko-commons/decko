@@ -4,21 +4,6 @@ def all_action_ids
   Card::Action.where(card_id: id).pluck :id
 end
 
-def action_from_id action_id
-  return unless action_id.is_a?(Integer) || action_id =~ /^\d+$/
-
-  # if not an integer, action_id is probably a mod (e.g. if you request
-  # files/:logo/standard.png)
-
-  action_if_on_self Action.fetch(action_id)
-end
-
-def action_if_on_self action
-  return unless action.is_a? Action
-
-  action if action.card_id == id
-end
-
 def old_actions
   actions.where("id != ?", last_action_id)
 end
@@ -33,16 +18,6 @@ def nth_action index
 
   Action.where("draft is not true AND card_id = #{id}")
         .order(:id).limit(1).offset(index - 1).first
-end
-
-def new_content_action_id
-  return unless @current_action && current_action_changes_content?
-
-  @current_action.id
-end
-
-def current_action_changes_content?
-  new_card? || @current_action.new_content? || db_content_is_changing?
 end
 
 format :html do
@@ -90,7 +65,7 @@ format :html do
   end
 
   def action_arrow_dir view_type
-    view_type == :expanded ? :triangle_left : :triangle_right
+    view_type == :expanded ? :collapse : :expand
   end
 
   def revert_actions_link link_text, path_args, html_args={}

@@ -1,76 +1,329 @@
 ---
 card_changes_001:
   id: 1
-  card_action_id: 762
+  card_action_id: 297
   field: 0
-  value: First
+  value:
 card_changes_002:
   id: 2
-  card_action_id: 762
+  card_action_id: 297
   field: 1
-  value: '2'
+  value: '4'
 card_changes_003:
   id: 3
-  card_action_id: 762
+  card_action_id: 297
   field: 2
-  value: egg
+  value: ''
 card_changes_004:
   id: 4
-  card_action_id: 762
+  card_action_id: 297
   field: 3
   value: f
 card_changes_005:
   id: 5
-  card_action_id: 762
+  card_action_id: 297
   field: 4
-  value:
+  value: '184'
 card_changes_006:
   id: 6
-  card_action_id: 762
+  card_action_id: 297
   field: 5
-  value:
+  value: '179'
 card_changes_007:
   id: 7
-  card_action_id: 763
+  card_action_id: 1183
   field: 2
-  value: chicken
+  value: |-
+    Joe Admin
+    u3
 card_changes_008:
   id: 8
-  card_action_id: 764
-  field: 2
-  value: chick
-card_changes_009:
-  id: 9
-  card_action_id: 804
+  card_action_id: 306
   field: 0
   value:
+card_changes_009:
+  id: 9
+  card_action_id: 306
+  field: 1
+  value: '4'
 card_changes_010:
   id: 10
-  card_action_id: 804
-  field: 1
-  value: '2'
-card_changes_011:
-  id: 11
-  card_action_id: 804
+  card_action_id: 306
   field: 2
   value: ''
-card_changes_012:
-  id: 12
-  card_action_id: 804
+card_changes_011:
+  id: 11
+  card_action_id: 306
   field: 3
   value: f
+card_changes_012:
+  id: 12
+  card_action_id: 306
+  field: 4
+  value: '191'
 card_changes_013:
   id: 13
-  card_action_id: 804
-  field: 4
-  value: '829'
+  card_action_id: 306
+  field: 5
+  value: '179'
 card_changes_014:
   id: 14
-  card_action_id: 804
-  field: 5
-  value: '830'
+  card_action_id: 1186
+  field: 2
+  value: |-
+    Joe Admin
+    Joe User
+    u3
 card_changes_015:
   id: 15
-  card_action_id: 807
+  card_action_id: 312
+  field: 0
+  value:
+card_changes_016:
+  id: 16
+  card_action_id: 312
+  field: 1
+  value: '4'
+card_changes_017:
+  id: 17
+  card_action_id: 312
+  field: 2
+  value: ''
+card_changes_018:
+  id: 18
+  card_action_id: 312
+  field: 3
+  value: f
+card_changes_019:
+  id: 19
+  card_action_id: 312
+  field: 4
+  value: '196'
+card_changes_020:
+  id: 20
+  card_action_id: 312
+  field: 5
+  value: '179'
+card_changes_021:
+  id: 21
+  card_action_id: 1189
+  field: 2
+  value: Joe Admin
+card_changes_022:
+  id: 22
+  card_action_id: 1391
+  field: 0
+  value: First
+card_changes_023:
+  id: 23
+  card_action_id: 1391
+  field: 1
+  value: '2'
+card_changes_024:
+  id: 24
+  card_action_id: 1391
+  field: 2
+  value: egg
+card_changes_025:
+  id: 25
+  card_action_id: 1391
+  field: 3
+  value: f
+card_changes_026:
+  id: 26
+  card_action_id: 1391
+  field: 4
+  value:
+card_changes_027:
+  id: 27
+  card_action_id: 1391
+  field: 5
+  value:
+card_changes_028:
+  id: 28
+  card_action_id: 1393
+  field: 2
+  value: chicken
+card_changes_029:
+  id: 29
+  card_action_id: 1395
+  field: 2
+  value: chick
+card_changes_030:
+  id: 30
+  card_action_id: 1618
+  field: 0
+  value:
+card_changes_031:
+  id: 31
+  card_action_id: 1618
+  field: 1
+  value: '2'
+card_changes_032:
+  id: 32
+  card_action_id: 1618
+  field: 2
+  value: ''
+card_changes_033:
+  id: 33
+  card_action_id: 1618
+  field: 3
+  value: f
+card_changes_034:
+  id: 34
+  card_action_id: 1618
+  field: 4
+  value: '833'
+card_changes_035:
+  id: 35
+  card_action_id: 1618
+  field: 5
+  value: '834'
+card_changes_036:
+  id: 36
+  card_action_id: 1622
   field: 2
   value: zoom in
+card_changes_037:
+  id: 37
+  card_action_id: 33
+  field: 0
+  value: "*all plus"
+card_changes_038:
+  id: 38
+  card_action_id: 33
+  field: 1
+  value: '5'
+card_changes_039:
+  id: 39
+  card_action_id: 33
+  field: 2
+  value: '{"left":{}}'
+card_changes_040:
+  id: 40
+  card_action_id: 33
+  field: 3
+  value: f
+card_changes_041:
+  id: 41
+  card_action_id: 33
+  field: 4
+  value:
+card_changes_042:
+  id: 42
+  card_action_id: 33
+  field: 5
+  value:
+card_changes_043:
+  id: 43
+  card_action_id: 1805
+  field: 2
+  value: '{"compound":true}'
+card_changes_044:
+  id: 44
+  card_action_id: 244
+  field: 0
+  value:
+card_changes_045:
+  id: 45
+  card_action_id: 244
+  field: 1
+  value: '4'
+card_changes_046:
+  id: 46
+  card_action_id: 244
+  field: 2
+  value: overridden
+card_changes_047:
+  id: 47
+  card_action_id: 244
+  field: 3
+  value: f
+card_changes_048:
+  id: 48
+  card_action_id: 244
+  field: 4
+  value: '149'
+card_changes_049:
+  id: 49
+  card_action_id: 244
+  field: 5
+  value: '59'
+card_changes_050:
+  id: 50
+  card_action_id: 2666
+  field: 1
+  value: '55'
+card_changes_051:
+  id: 51
+  card_action_id: 789
+  field: 0
+  value:
+card_changes_052:
+  id: 52
+  card_action_id: 789
+  field: 1
+  value: '2'
+card_changes_053:
+  id: 53
+  card_action_id: 789
+  field: 2
+  value: |
+    <h3>Cardtypes </h3>
+    <p> [[/new/cardtype|Add new Type]]</p>
+    <p>{{Cardtype+:type+:by_name|bar; title: all cardtypes}}</p>
+    <h3>Rules</h3>
+    <div>Cards are configured by creating <em>rules</em>.  </div>
+    <div> </div>
+    <h5>Webpage rules</h5>
+    <div>
+    <blockquote>{{:all|bar_rule_list; filter:webpage}}</blockquote>
+    <h5>Permission rules</h5>
+    <blockquote>{{:all|bar_rule_list; filter:permission}}</blockquote>
+    </div>
+    <div><em>[[http://decko.org/rules | More about rules.]]</em></div>
+    <div> </div>
+    <div>
+    <h3>Views</h3>
+    <p>You can try out different views below</p>
+    <p>{{:getting_started|demo}}</p>
+    </div>
+card_changes_054:
+  id: 54
+  card_action_id: 789
+  field: 3
+  value: f
+card_changes_055:
+  id: 55
+  card_action_id: 789
+  field: 4
+  value: '191'
+card_changes_056:
+  id: 56
+  card_action_id: 789
+  field: 5
+  value: '523'
+card_changes_057:
+  id: 57
+  card_action_id: 3658
+  field: 2
+  value: |
+    <h3>Cardtypes </h3>
+    <p> [[/new/cardtype|Add new Type]]</p>
+    <p>{{Cardtype+:type+:by_name|bar; title: all cardtypes}}</p>
+    <h3>Rules</h3>
+    <div>Cards are configured by creating <em>rules</em>.  </div>
+    <div> </div>
+    <h5>Webpage rules</h5>
+    <div>
+    <blockquote>{{:all|bar_setting_list; filter:webpage}}</blockquote>
+    <h5>Permission rules</h5>
+    <blockquote>{{:all|bar_setting_list; filter:permission}}</blockquote>
+    </div>
+    <div><em>[[http://decko.org/rules | More about rules.]]</em></div>
+    <div> </div>
+    <div>
+    <h3>Views</h3>
+    <p>You can try out different views below</p>
+    <p>{{:getting_started|demo}}</p>
+    </div>

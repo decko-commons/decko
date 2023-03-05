@@ -12,11 +12,13 @@ def referers_responding_to method_name
   referers.select { |referer| referer.respond_to? method_name }
 end
 
-event :asset_input_changed, :finalize, on: :save, skip: :allowed do
+event :asset_input_changed, :finalize,
+      on: :save, when: :asset_inputter?, skip: :allowed do
   update_asset_input
 end
 
-event :asset_input_changed_on_delete, :finalize, on: :delete, before: :clear_references do
+event :asset_input_changed_on_delete, :finalize,
+      on: :delete, when: :asset_inputter?, before: :clear_references do
   update_referers_after_input_changed
 end
 
@@ -39,13 +41,13 @@ def update_asset_input
 end
 
 def asset_input_content
-  return render_asset_input_content if virtual?
+  return assemble_asset_input_content if virtual?
   update_asset_input if asset_input.blank?
   asset_input
 end
 
-def render_asset_input_content
-  format(input_format).render(input_view)
+def assemble_asset_input_content
+  format(input_format).render input_view
 end
 
 def input_view
@@ -62,6 +64,11 @@ end
 
 def asset_input_needs_refresh?
   false
+end
+
+# for override
+def asset_inputter?
+  true
 end
 
 format :html do

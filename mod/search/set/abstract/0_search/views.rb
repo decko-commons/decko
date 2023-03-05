@@ -28,6 +28,10 @@ format do
   def item_cards
     search_with_params
   end
+
+  def term_param
+    params[:term]
+  end
 end
 
 format :json do
@@ -80,10 +84,6 @@ format :json do
     cql[:name] = ["not in"] + not_names if not_names.any?
     cql
   end
-
-  def term_param
-    params[:term]
-  end
 end
 
 format :data do
@@ -96,15 +96,6 @@ end
 
 format :csv do
   view :core, :core, mod: All::Csv::CsvFormat
-  #
-  # view :card_list do
-  #   items = super()
-  #   if depth.zero?
-  #     title_row + items
-  #   else
-  #     items
-  #   end
-  # end
 end
 
 format :html do
@@ -147,9 +138,5 @@ format :html do
     subformat(item_card).wrap do
       haml :checkbox_item, unique_id: unique_id, item_card: item_card
     end
-  end
-
-  def closed_limit
-    [search_params[:limit].to_i, Card.config.closed_search_limit].min
   end
 end

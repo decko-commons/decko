@@ -27,6 +27,9 @@ describe 'edit type', () ->
   specify "edit type for rule", () ->
     cy.visit_bridge()
     cy.bridge_sidebar().find('.nav-tabs a:last').click()
-    cy.bridge_sidebar().el("default-pill").click()
+    cy.bridge_sidebar().select2_by_name("mark", "The card \"A\"")
+    cy.bridge_sidebar().contains("templating").click()
+    cy.bridge_sidebar().contains("template for new cards").click()
+    cy.get("input[value='*all+*default']").check()
     cy.select2_by_name("card[type]", "PlainText")
     cy.get("input[name='card[content]']")

@@ -12,6 +12,7 @@ end
 
 format do
   include File::Format
+  delegate :svg?, to: :card
 
   view :one_line_content do
     _render_core size: :icon
@@ -22,6 +23,10 @@ format do
   end
 
   view :source, unknown: :blank do
+    source
+  end
+
+  def source
     return card.content if card.web?
 
     image = selected_version
@@ -32,10 +37,12 @@ format do
 
   def selected_version
     size = determine_image_size
-    if size && size != :original
-      card.image.versions[size]
+    image = card.image
+
+    if size && size != :original && !svg?
+      image.versions[size]
     else
-      card.image
+      image
     end
   end
 

@@ -6,7 +6,7 @@
 <title>
   Module: Card::View::Permission
   
-    &mdash; Documentation by YARD 0.9.27
+    &mdash; Documentation by YARD 0.9.28
   
 </title>
 
@@ -106,6 +106,22 @@ with the <code>perms</code> directive, eg</p>
   
 
 </div>
+  
+    <h2>
+      Constant Summary
+      <small><a href="#" class="constants_summary_toggle">collapse</a></small>
+    </h2>
+
+    <dl class="constants">
+      
+        <dt id="CRUD-constant" class="">CRUD =
+          
+        </dt>
+        <dd><pre class="code"><span class='op'>::</span><span class='const'>Set</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='qsymbols_beg'>%i[</span><span class='tstring_content'>create</span><span class='words_sep'> </span><span class='tstring_content'>read</span><span class='words_sep'> </span><span class='tstring_content'>update</span><span class='words_sep'> </span><span class='tstring_content'>delete</span><span class='tstring_end'>]</span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_freeze'>freeze</span></pre></dd>
+      
+    </dl>
+  
+
 
 
 
@@ -167,12 +183,12 @@ with the <code>perms</code> directive, eg</p>
       <pre class="lines">
 
 
-11
-12
-13</pre>
+13
+14
+15</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/view/permission.rb', line 11</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/view/permission.rb', line 13</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_view_perms'>view_perms</span>
   <span class='ivar'>@view_perms</span> <span class='op'>=</span> <span class='id identifier rubyid_setting'>setting</span><span class='lparen'>(</span><span class='symbol'>:perms</span><span class='rparen'>)</span> <span class='op'>||</span> <span class='symbol'>:read</span>
@@ -187,9 +203,9 @@ with the <code>perms</code> directive, eg</p>
 </div>
 
       <div id="footer">
-  Generated on Fri Jan 21 16:01:42 2022 by
-  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.27 (ruby-3.0.1).
+  Generated on Wed Feb 15 11:54:33 2023 by
+  <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.28 (ruby-3.0.4).
 </div>
 
     </div>

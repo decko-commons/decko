@@ -3,7 +3,7 @@ format :html do
     Auth.signed_in? && card.can_approve?
   end
 
-  view :new do
+  view :new, cache: :never do
     voo.title = invitation? ? t(:account_invite) : t(:account_sign_up)
     super()
   end
@@ -12,7 +12,7 @@ format :html do
     [account_formgroups, (card.structure ? edit_slot : "")].join
   end
 
-  view :new_buttons do
+  view :new_buttons, cache: :never do
     button_formgroup do
       [standard_create_button, invite_button].compact
     end
@@ -24,7 +24,7 @@ format :html do
     button_tag "Send Invitation", situation: "primary"
   end
 
-  view :core, template: :haml do
+  view :core, template: :haml, cache: :never do
     @lines = [signup_line] + account_lines
     @body = process_content _render_raw
   end

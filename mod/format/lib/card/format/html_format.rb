@@ -1,7 +1,5 @@
 # -*- encoding : utf-8 -*-
 
-# # require "card/content/diff"
-
 class Card
   class Format
     # Main Format class for formatting card views in HTML

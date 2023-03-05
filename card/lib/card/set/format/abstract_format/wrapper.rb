@@ -1,7 +1,6 @@
 class Card
   module Set
     module Format
-      # AbstractFormat extends all format classes
       module AbstractFormat
         # The Wrapper module provides an API to define wrap methods.
         # It is available in all formats.

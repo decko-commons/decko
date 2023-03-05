@@ -9,14 +9,14 @@ module Cardio
         @mod = args[:mod]
         @name = args[:name]
         @cql = args[:cql]
-        @env = args[:env] || (Rails.env.test? ? :test : :production)
+        @podtype = args[:podtype] || (Rails.env.test? ? :test : :real)
         @items = args[:items]
         @field_tags = args[:field_tags]
       end
 
       # @return [Array <Hash>]
       def new_data
-        @new_data ||= cards.map { |c| c.export_hash field_tags: field_tag_marks }
+        @new_data ||= cards.map { |c| c.pod_hash field_tags: field_tag_marks }
       end
 
       def field_tag_marks
@@ -27,7 +27,7 @@ module Cardio
 
       # @return [String] -- MOD_DIR/data/ENVIRONMENT.yml
       def filename
-        @filename ||= File.join mod_path, "#{@env}.yml"
+        @filename ||= File.join mod_path, "#{@podtype}.yml"
       end
 
       # if output mod given,

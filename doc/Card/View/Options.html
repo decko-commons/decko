@@ -6,7 +6,7 @@
 <title>
   Module: Card::View::Options
   
-    &mdash; Documentation by YARD 0.9.27
+    &mdash; Documentation by YARD 0.9.28
   
 </title>
 
@@ -238,7 +238,7 @@ via #render or #nest.</p>
   
   
   <h3 class="inherited">Methods included from <span class='object_link'><a href="Options/Visibility.html" title="Card::View::Options::Visibility (module)">Visibility</a></span></h3>
-  <p class="inherited"><span class='object_link'><a href="Options/Visibility.html#hide-instance_method" title="Card::View::Options::Visibility#hide (method)">#hide</a></span>, <span class='object_link'><a href="Options/Visibility.html#hide!-instance_method" title="Card::View::Options::Visibility#hide! (method)">#hide!</a></span>, <span class='object_link'><a href="Options/Visibility.html#hide%3F-instance_method" title="Card::View::Options::Visibility#hide? (method)">#hide?</a></span>, <span class='object_link'><a href="Options/Visibility.html#optional%3F-instance_method" title="Card::View::Options::Visibility#optional? (method)">#optional?</a></span>, <span class='object_link'><a href="Options/Visibility.html#process_visibility-instance_method" title="Card::View::Options::Visibility#process_visibility (method)">#process_visibility</a></span>, <span class='object_link'><a href="Options/Visibility.html#show-instance_method" title="Card::View::Options::Visibility#show (method)">#show</a></span>, <span class='object_link'><a href="Options/Visibility.html#show!-instance_method" title="Card::View::Options::Visibility#show! (method)">#show!</a></span>, <span class='object_link'><a href="Options/Visibility.html#show%3F-instance_method" title="Card::View::Options::Visibility#show? (method)">#show?</a></span>, <span class='object_link'><a href="Options/Visibility.html#visible%3F-instance_method" title="Card::View::Options::Visibility#visible? (method)">#visible?</a></span>, <span class='object_link'><a href="Options/Visibility.html#viz-instance_method" title="Card::View::Options::Visibility#viz (method)">#viz</a></span>, <span class='object_link'><a href="Options/Visibility.html#viz_hash-instance_method" title="Card::View::Options::Visibility#viz_hash (method)">#viz_hash</a></span></p>
+  <p class="inherited"><span class='object_link'><a href="Options/Visibility.html#explicit_show%3F-instance_method" title="Card::View::Options::Visibility#explicit_show? (method)">#explicit_show?</a></span>, <span class='object_link'><a href="Options/Visibility.html#hide-instance_method" title="Card::View::Options::Visibility#hide (method)">#hide</a></span>, <span class='object_link'><a href="Options/Visibility.html#hide!-instance_method" title="Card::View::Options::Visibility#hide! (method)">#hide!</a></span>, <span class='object_link'><a href="Options/Visibility.html#hide%3F-instance_method" title="Card::View::Options::Visibility#hide? (method)">#hide?</a></span>, <span class='object_link'><a href="Options/Visibility.html#optional%3F-instance_method" title="Card::View::Options::Visibility#optional? (method)">#optional?</a></span>, <span class='object_link'><a href="Options/Visibility.html#process_visibility-instance_method" title="Card::View::Options::Visibility#process_visibility (method)">#process_visibility</a></span>, <span class='object_link'><a href="Options/Visibility.html#show-instance_method" title="Card::View::Options::Visibility#show (method)">#show</a></span>, <span class='object_link'><a href="Options/Visibility.html#show!-instance_method" title="Card::View::Options::Visibility#show! (method)">#show!</a></span>, <span class='object_link'><a href="Options/Visibility.html#show%3F-instance_method" title="Card::View::Options::Visibility#show? (method)">#show?</a></span>, <span class='object_link'><a href="Options/Visibility.html#visible%3F-instance_method" title="Card::View::Options::Visibility#visible? (method)">#visible?</a></span>, <span class='object_link'><a href="Options/Visibility.html#viz-instance_method" title="Card::View::Options::Visibility#viz (method)">#viz</a></span>, <span class='object_link'><a href="Options/Visibility.html#viz_hash-instance_method" title="Card::View::Options::Visibility#viz_hash (method)">#viz_hash</a></span></p>
 
   
   
@@ -281,12 +281,12 @@ via #render or #nest.</p>
       <pre class="lines">
 
 
-79
 80
-81</pre>
+81
+82</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/view/options.rb', line 79</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/view/options.rb', line 80</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_keymap'>keymap</span>
   <span class='ivar'>@keymap</span>
@@ -318,17 +318,17 @@ via #render or #nest.</p>
       <pre class="lines">
 
 
-81
 82
 83
 84
 85
 86
 87
-88</pre>
+88
+89</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/view/options.rb', line 81</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/view/options.rb', line 82</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_add_option'>add_option</span> <span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='id identifier rubyid_type'>type</span>
   <span class='id identifier rubyid_raise'>raise</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>invalid option type: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_type'>type</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>unless</span> <span class='ivar'>@keymap</span><span class='period'>.</span><span class='id identifier rubyid_key?'>key?</span><span class='lparen'>(</span><span class='id identifier rubyid_type'>type</span><span class='rparen'>)</span>
@@ -348,9 +348,9 @@ via #render or #nest.</p>
 </div>
 
       <div id="footer">
-  Generated on Fri Jan 21 16:01:41 2022 by
-  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.27 (ruby-3.0.1).
+  Generated on Wed Feb 15 11:54:32 2023 by
+  <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.28 (ruby-3.0.4).
 </div>
 
     </div>

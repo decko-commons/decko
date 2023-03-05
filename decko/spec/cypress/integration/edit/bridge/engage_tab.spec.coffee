@@ -21,7 +21,7 @@ describe 'engage tab', () ->
     cy.get("[data-cy=follow-advanced]").click()
     cy.bridge().get(".title").should("contain", "follow")
     cy.get(".pointer-radio-list input").first().check()
-    cy.get("#card_name_aselfjoe_adminfollow").check()
+    cy.get("input[value='A+*self+Joe Admin+*follow']").check()
     cy.get("[data-cy=submit-overlay]").click().should("not.exist")
 
     cy.bridge_sidebar()

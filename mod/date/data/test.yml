@@ -1,10 +1,10 @@
 - :name: "*test context"
-  :codename: :test_context
-  :fields:
-    :right:
-      :fields:
-        :default:
-          :type: :list
+  :codename: test_context
+- :name:
+    - :test_context
+    - :right
+    - :default
+  :type: :list
 - :name:
     - :verification_email
     - :test_context
