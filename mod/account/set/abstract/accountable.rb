@@ -37,7 +37,9 @@ format :html do
       ["Email and Password", :account,
        { path: { slot: { hide: %i[help_link bridge_link] } } }],
       ["Roles", :roles,
-       { path:  { view: :content_with_edit_button } }],
+       { path:  { view: :content,
+                  slot: { show: :edit_button } } }
+      ],
       ["Notifications", :follow],
       ["API", :account,
        { path: { view: :api_key,
