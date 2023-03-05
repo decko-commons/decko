@@ -56,8 +56,6 @@ a:focus, a:hover {
 //  }
 //}
 
-
-
 .titled-view > .d0-card-header {
   min-height: 1.5em;
 }
@@ -66,7 +64,9 @@ a:focus, a:hover {
 
 a.unknown-link {
   color: $text-muted;
-  font-variant: small-caps;
+  .card-title {
+    font-variant: small-caps;
+  }
   &:hover {
     color: $primary;
   }

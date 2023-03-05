@@ -1,0 +1,18 @@
+- libraries = basket[:icons].keys
+%table
+  %tr
+    %th lookup key
+    - libraries.map do |library|
+      %th
+        = library
+  - all_icon_keys.each do |icon_key|
+    %tr
+      %td
+        = icon_key
+      - libraries.each do |library|
+        %td
+          - if (mapping = basket[:icons][library][icon_key])
+            = send "#{library}_icon_tag", mapping
+            = mapping
+          - else
+            &nbsp;

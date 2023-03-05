@@ -1,6 +1,8 @@
 # -*- encoding : utf-8 -*-
 
 RSpec.describe Card::Set::All::Editing do
+  check_views_for_errors
+
   describe "edit_nests view" do
     it "shows editors for both absolute and relative nests" do
       card_subject.content = "{{absolute}} AND {{+relative}}"
@@ -10,6 +12,4 @@ RSpec.describe Card::Set::All::Editing do
       end
     end
   end
-
-  check_html_views_for_errors
 end

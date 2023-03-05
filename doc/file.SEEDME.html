@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+  File: SEEDME
+  
+    &mdash; Documentation by YARD 0.9.28
+  
+</title>
+
+  <link rel="stylesheet" href="css/style.css" type="text/css" />
+
+  <link rel="stylesheet" href="css/common.css" type="text/css" />
+
+<script type="text/javascript">
+  pathId = "SEEDME";
+  relpath = '';
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div class="nav_wrap">
+      <iframe id="nav" src="file_list.html?1"></iframe>
+      <div id="resizer"></div>
+    </div>
+
+    <div id="main" tabindex="-1">
+      <div id="header">
+        <div id="menu">
+  
+    <a href="_index.html">Index</a> &raquo; 
+    <span class="title">File: SEEDME</span>
+  
+</div>
+
+        <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="class_list.html">
+
+        <svg width="24" height="24">
+          <rect x="0" y="4" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="12" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="20" width="24" height="4" rx="1" ry="1"></rect>
+        </svg>
+    </a>
+  
+</div>
+        <div class="clear"></div>
+      </div>
+
+      <div id="content"><div id='filecontents'><h1 id="seeding-cards">Seeding Cards</h1>
+
+<p><strong>IMPORTANT</strong>: always back up any valuable data before running any seed commands.</p>
+
+<h2 id="i-just-want-to-seed-my-deck">I just want to seed my deck</h2>
+
+<p>If you’re starting from scratch, run <code>decko setup</code>. This will create the databases
+specified in your database.yml, the tables specified in the decko schema, and the
+data specified in the mods.</p>
+
+<p>If you have recently added a mod and need to take in its seed data, run <code>decko update</code>.</p>
+
+<p>If you already have tables but want to start over, you can use <code>rake card:seed:replant</code>,
+which will truncate (as in, delete everything from) the existing tables and then
+add the seed data.</p>
+
+<p>You can also use Ruby-on-Rails db tasks (eg <code>db:reset</code>, <code>db:drop</code>) for their original
+purpose, but caution is advised.</p>
+
+<h1 id="advanced">Advanced</h1>
+
+<p><em>The remainder of these docs are intended as an introduction for Monkeys who may be
+creating or modifying seed data. You probably don’t need it if you’re working exclusively
+as a Shark.</em></p>
+
+<h2 id="background-seeded-cards-often-connect-code-with-data">Background: seeded cards often connect code with data</h2>
+
+<p>Decko blurs the line between data and code. That is by design, because Decko helps people
+who aren’t coders do things that usually only coders do. In Decko terms, we extend the
+capacities of sharks (ie advanced web users, so ultimately <strong>data</strong> people) into the
+realm of the capacities of monkeys (ie <strong>code</strong> people).</p>
+
+<p><a href="https://github.com/decko-commons/decko/blob/main/card/lib/cardio/mod.rb">Mods</a> often add cards used to configure things. These cards can
+be influenced in data (by sharks), in code (by monkeys), or both. Cards that are
+referred to in code have a <strong>codename</strong> used by coders, and those cards are generally
+added to decks via seeding.</p>
+
+<p><strong>IMPORTANT</strong>: Monkeys (coders) should never refer to a card in shared code by its name
+(which can change) or its id (which can vary from site to site). Instead, they should
+always use a <strong>codename</strong>, which is an independent permanent identifier. Often a card’s
+codename is the same as its name, but if a user changes the name, the codename remains the
+same, so the connection to the code is not broken.</p>
+
+<h2 id="how-seeding-works">How seeding works</h2>
+
+<h3 id="fixtures">Fixtures</h3>
+
+<h4 id="fast-to-load-hard-to-write"><em>Fast to load, hard to write.</em></h4>
+
+<p>Fixtures are fast-loading YAML files that are used by important tasks like <code>decko setup</code>
+and <code>rake card:seed:replant</code>.</p>
+
+<p>Every deck is configured with a list of mods that contain fixtures. You can configure that
+list in <code>config/application.rb</code> or environment-specific
+config files using <code>config.seed_mods</code>. To see the current mod list, you can run
+<code>decko runner 'puts Cardio.config.seed_mods'</code>. A default installation will return the
+following:</p>
+
+<p><code>
+defaults
+core
+</code></p>
+
+<p>This tells you:</p>
+
+<ol>
+  <li>Running <code>be decko setup</code> will use fixtures from the <strong>defaults</strong> mod, the first mod on
+the list. To see those fixtures, look in the <code>data/fixtures</code> directory of the defaults
+mod in the card gem. (You can use <code>rake card:mod:list</code> to see where all your mods are
+installed.)</li>
+  <li>The defaults mod’s seed data is generated using seed data in the <strong>core</strong> mod.</li>
+</ol>
+
+<p>If you were to look in the <code>data/fixtures</code> directory of either the <em>core</em> mod or the
+<em>defaults</em> mod, you would find directories of yaml files that correspond to tables in
+the database.</p>
+
+<p>The deck described in the <em>core</em> mod is very small: just 11 cards. This is the minimal
+seed dataset, and it is the only one in which these fixtures files are edited by hand.
+Here is one example of a card in cards.yml:</p>
+
+<p><code>
+list:
+   id: 4
+   name: List
+   key: list
+   codename: list
+   creator_id: 1
+   updater_id: 1
+   read_rule_class: all
+   read_rule_id: 10
+   trash: false
+   type_id: 3
+   db_content: ""
+</code></p>
+
+<p>For a card’s representation to be complete, we also need to represent the action
+that created it, the act of that action, and any references it makes to other cards.
+Each of these involves <strong>lots of ids and repeated fields that are very easy to get wrong
+when working by hand.</strong> So generally speaking, the fixtures in the core mod are the <em>only</em>
+fixtures that ever get edited by hand (and even that is very rare).</p>
+
+<h3 id="pods">Pods</h3>
+
+<h4 id="easy-to-use"><em>Easy to use.</em></h4>
+
+<p>Because fixtures are hard to write, we almost always generate fixtures from simpler YAML
+files in mods’ data directories. The data in these “pod” files are based not on the final
+database structure but on the api by which cards are created.</p>
+
+<p>For example, here is how the “List” card described above would look in pod yaml:</p>
+
+<p><code>
+- :name: List
+  :codename: list
+  :type: :cardtype
+</code></p>
+
+<p>Pod data are used not only in generating fixtures but also by <code>decko update</code>, which is
+used when updating code or installing mods. The idea is that in most cases Monkeys
+just need to maintain their mod data in one place.</p>
+
+<p>If you want more nuanced control of which cards you ingest – for example to ingest
+only the cards from a given mod – you can use <code>card eat</code> (or
+<code>rake card:eat</code>). See <code>card eat -h</code> for more details.</p>
+
+<blockquote>
+  <h4 id="generating-pod-yaml">Generating pod YAML</h4>
+</blockquote>
+
+<p>There are two main ways to generate seed pods:</p>
+
+<ol>
+  <li>Write it by hand</li>
+  <li>Export it from your deck using <code>card sow</code></li>
+</ol>
+
+<p><em>(See <code>card sow -h</code> for more)</em></p>
+
+<p>Pods can use all the same arguments that are used with <code>Card.create</code> or <code>card.update</code>.
+The most common are:</p>
+
+<ul>
+  <li>name</li>
+  <li>type</li>
+  <li>codename</li>
+  <li>content</li>
+  <li>fields</li>
+  <li>skip</li>
+  <li>trigger</li>
+</ul>
+
+<p>Because pods are ingested using <code>Card.ensure</code> (which creates or updates the card as
+necessary), they can also handle the <code>conflict</code> argument, which manages situations where
+an existing card differs from the pod. The default conflict handling will override cards
+that are “pristine” – that is to say, that have not been directly edited by a user other
+than Decko Bot. Setting <code>conflict</code> to <code>defer</code> will mean existing content is never
+overridden. Setting it to <code>override</code> will mean it always is.</p>
+
+<p>The eat task also adds support for two additional arguments:</p>
+
+<ul>
+  <li>user — who is credited with the action. Default is Decko Bot.</li>
+  <li>time — when did the action take place. If not specified, uses actual time of action.
+Useful for test data (see below). Value is an integer representing
+<a href="https://kb.narrative.io/what-is-unix-time">unix time</a>. If prefaced by a “+” or “-”,
+we compute a time in the future or past respectively from <code>Time.now</code>.</li>
+</ul>
+
+<p>You can also use <code>user</code> to specify who should perform the action.</p>
+
+<p>The standard way to ingest card pods is by using <code>decko update</code>, but you can also
+use <code>card eat</code> for more control over your meal.</p>
+
+<h3 id="real-vs-test-data"><em>Real</em> vs <em>Test</em> data</h3>
+
+<p>Test data is dummy data added to facilitate code testing. It is not intended to be
+included in live sites. <em>Real</em> data, by contrast, <em>is</em> intended for production sites.</p>
+
+<p>When you add seed data to mods, you typically put it in one of two files:</p>
+
+<ul>
+  <li>data/real.yml</li>
+  <li>data/test.yml</li>
+</ul>
+
+<p>If you have a <em>lot</em> of data, you can break them into more files. For example if you want
+to add “project” data, you can add them to a file called <code>data/real/projects.yml</code> and then
+add a line with <code>- projects</code> in the real.yml file.</p>
+
+<h3 id="updating-fixtures">Updating fixtures</h3>
+
+<p>The primary rake task for updating seed fixtures is <code>card:seed:update</code>. When pods are
+updated, you will need to run this <code>update</code> task in order for the fixtures to be updated
+and any changes to be reflected in the seed data.</p>
+
+<p>Here’s how the fixtures are updated with <code>rake card:seed:update</code>:</p>
+
+<ol>
+  <li>seed with the existing fixtures</li>
+  <li>run <code>decko update</code> to “eat” the pod data, run migrations, and install the mods</li>
+  <li>do some minor cleanup of mods / assets</li>
+  <li>dump the results to the <code>data/fixtures</code> directory</li>
+</ol>
+
+<p>Note that <code>card:seed:update</code> simply loops through the card pods and ensures that they
+exist. If you <em>delete</em> pods, it won’t notice. In that case you would need to rebuild
+your seed data from scratch using <code>card:seed:build</code>, which starts from the fixtures set
+on which the current fixtures set depends. For example, if you were to run
+<code>rake card:seed:build</code> from the <em>defaults</em> mod, it would start by seeding from the
+fixtures in the <em>core</em> mod. Note that when building, <em>test</em> data fixtures are seeded with
+<em>real</em> data. So for deletions of <em>real</em> pod data to be removed from <em>test</em> data, one must 
+first  rebuild the <em>real</em> fixtures, and then rebuild the <em>test</em> fixtures that depend on 
+them.</p>
+
+<h2 id="creating-a-new-fixtures-set">Creating a new fixtures set</h2>
+
+<h4 id="for-advanced-monkeys"><em>For advanced monkeys</em></h4>
+
+<p>Fixtures sets are for packaged deployments of specific applications that combine many
+mods.</p>
+
+<p>Let’s say you’re creating a site called <code>mydeck</code>, and you want to install multiple copies
+of that deck with the same seed data. Here’s how:</p>
+
+<ol>
+  <li>Choose a mod where you want to save the seed fixtures and add the required
+directories in <code>[mymod]/data/fixtures</code></li>
+  <li>Add the following line to <code>config/application.rb</code>:
+<code>
+config.seed_mods.unshift :mymod
+</code></li>
+  <li>Run <code>rake card:seed:build</code></li>
+</ol>
+
+<p>This will generate fixtures that include all your data in addition to the data from the
+defaults mod.</p>
+
+<p>If you would like to publish your new seed data in a gem mod, then rather than
+configuring the seed mod list in <code>config/application.rb</code>, you will need to configure it
+in the gem’s default required ruby file.</p>
+
+<p>For example if you create a gem mod called <code>card-mod-mymod</code>, then inside
+<code>lib/card/mod/mymod.rb</code> you will want something like the following:</p>
+
+<p><code>
+Cardio::Railtie.config.seed_mods.unshift :defaults
+</code></p>
+
+</div></div>
+
+      <div id="footer">
+  Generated on Wed Feb 15 11:54:31 2023 by
+  <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.28 (ruby-3.0.4).
+</div>
+
+    </div>
+  </body>
+</html>

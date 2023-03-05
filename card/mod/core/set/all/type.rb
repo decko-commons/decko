@@ -5,7 +5,7 @@ module ClassMethods
 end
 
 event :validate_type_change, :validate, on: :update, changed: :type_id do
-  return unless (c = dup) && c.action == :create && !c.valid?
+  return unless (c = dup) && (c.action == :create) && !c.valid?
 
   errors.add :type, t(:core_error_cant_change_errors,
                       name: name,

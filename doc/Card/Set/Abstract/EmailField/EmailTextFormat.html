@@ -6,7 +6,7 @@
 <title>
   Module: Card::Set::Abstract::EmailField::EmailTextFormat
   
-    &mdash; Documentation by YARD 0.9.26
+    &mdash; Documentation by YARD 0.9.28
   
 </title>
 
@@ -83,7 +83,7 @@
   
   <dl>
     <dt>Defined in:</dt>
-    <dd>card/tmpsets/set/mod005-card-mod-email/abstract/email_field.rb</dd>
+    <dd>platypus/tmp/set/gem-defaults/mod012-email/abstract/email_field.rb</dd>
   </dl>
   
 </div>
@@ -259,15 +259,15 @@ end#</p>
       <pre class="lines">
 
 
+35
 36
-37
-38</pre>
+37</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod005-card-mod-email/abstract/email_field.rb', line 36</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod012-email/abstract/email_field.rb', line 35</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_email_address?'>email_address?</span> <span class='id identifier rubyid_string'>string</span>
-  <span class='id identifier rubyid_string'>string</span> <span class='op'>=~</span> <span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>.+\@.+\..+</span><span class='regexp_end'>/</span></span>
+  <span class='id identifier rubyid_string'>string</span> <span class='op'>=~</span> <span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>.+@.+\..+</span><span class='regexp_end'>/</span></span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -289,13 +289,13 @@ end#</p>
       <pre class="lines">
 
 
+39
 40
 41
-42
-43</pre>
+42</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod005-card-mod-email/abstract/email_field.rb', line 40</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod012-email/abstract/email_field.rb', line 39</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_email_address_from_card'>email_address_from_card</span> <span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='id identifier rubyid_context'>context</span>
   <span class='id identifier rubyid_card'>card</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../../../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_fetch'><span class='object_link'><a href="../../../Fetch/CardClass.html#fetch-instance_method" title="Card::Fetch::CardClass#fetch (method)">fetch</a></span></span> <span class='id identifier rubyid_name'>name</span>
@@ -321,6 +321,7 @@ end#</p>
       <pre class="lines">
 
 
+24
 25
 26
 27
@@ -329,11 +330,10 @@ end#</p>
 30
 31
 32
-33
-34</pre>
+33</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod005-card-mod-email/abstract/email_field.rb', line 25</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod012-email/abstract/email_field.rb', line 24</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_email_addresses'>email_addresses</span> <span class='id identifier rubyid_context'>context</span>
   <span class='id identifier rubyid_context'>context</span> <span class='op'>||=</span> <span class='kw'>self</span>
@@ -365,12 +365,12 @@ end#</p>
       <pre class="lines">
 
 
+44
 45
-46
-47</pre>
+46</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod005-card-mod-email/abstract/email_field.rb', line 45</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod012-email/abstract/email_field.rb', line 44</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_email_addresses_from_card_content'>email_addresses_from_card_content</span> <span class='id identifier rubyid_card'>card</span><span class='comma'>,</span> <span class='id identifier rubyid_context'>context</span>
   <span class='id identifier rubyid_subformat'>subformat</span><span class='lparen'>(</span><span class='id identifier rubyid_card'>card</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_contextual_content'>contextual_content</span><span class='lparen'>(</span><span class='id identifier rubyid_context'>context</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_split'>split</span><span class='lparen'>(</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>[,\n]</span><span class='regexp_end'>/</span></span><span class='rparen'>)</span>
@@ -385,9 +385,9 @@ end#</p>
 </div>
 
       <div id="footer">
-  Generated on Thu May 13 17:17:34 2021 by
-  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.26 (ruby-2.7.2).
+  Generated on Wed Feb 15 11:54:40 2023 by
+  <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.28 (ruby-3.0.4).
 </div>
 
     </div>

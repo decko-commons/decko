@@ -1,7 +1,7 @@
 # Patterned field names on a specific type
 
 @@options = {
-  junction_only: true,
+  compound_only: true,
   assigns_type: true,
   anchor_parts_count: 2
 }

@@ -6,7 +6,7 @@
 <title>
   Class: Card::Format::HtmlFormat
   
-    &mdash; Documentation by YARD 0.9.27
+    &mdash; Documentation by YARD 0.9.28
   
 </title>
 
@@ -113,7 +113,7 @@
 
 </div><div id="subclasses">
   <h2>Direct Known Subclasses</h2>
-  <p class="children"><span class='object_link'><a href="RssFormat.html" title="Card::Format::RssFormat (class)">RssFormat</a></span></p>
+  <p class="children"><span class='object_link'><a href="EmailHtmlFormat.html" title="Card::Format::EmailHtmlFormat (class)">EmailHtmlFormat</a></span>, <span class='object_link'><a href="RssFormat.html" title="Card::Format::RssFormat (class)">RssFormat</a></span></p>
 </div>
 
 
@@ -375,7 +375,7 @@
   
   
   <h3 class="inherited">Methods inherited from <span class='object_link'><a href="../Format.html" title="Card::Format (class)">Card::Format</a></span></h3>
-  <p class="inherited"><span class='object_link'><a href="../Format.html#controller-instance_method" title="Card::Format#controller (method)">#controller</a></span>, <span class='object_link'><a href="../Format.html#include_set_format_modules-instance_method" title="Card::Format#include_set_format_modules (method)">#include_set_format_modules</a></span>, <span class='object_link'><a href="../Format.html#initialize-instance_method" title="Card::Format#initialize (method)">#initialize</a></span>, <span class='object_link'><a href="../Format.html#page-instance_method" title="Card::Format#page (method)">#page</a></span>, <span class='object_link'><a href="../Format.html#require_card_to_initialize!-instance_method" title="Card::Format#require_card_to_initialize! (method)">#require_card_to_initialize!</a></span>, <span class='object_link'><a href="../Format.html#to_sym-instance_method" title="Card::Format#to_sym (method)">#to_sym</a></span>, <span class='object_link'><a href="../Format.html#view_caching%3F-class_method" title="Card::Format.view_caching? (method)">view_caching?</a></span></p>
+  <p class="inherited"><span class='object_link'><a href="../Format.html#controller-instance_method" title="Card::Format#controller (method)">#controller</a></span>, <span class='object_link'><a href="../Format.html#include_set_format_modules-instance_method" title="Card::Format#include_set_format_modules (method)">#include_set_format_modules</a></span>, <span class='object_link'><a href="../Format.html#initialize-instance_method" title="Card::Format#initialize (method)">#initialize</a></span>, <span class='object_link'><a href="../Format.html#page-instance_method" title="Card::Format#page (method)">#page</a></span>, <span class='object_link'><a href="../Format.html#request_url-instance_method" title="Card::Format#request_url (method)">#request_url</a></span>, <span class='object_link'><a href="../Format.html#require_card_to_initialize!-instance_method" title="Card::Format#require_card_to_initialize! (method)">#require_card_to_initialize!</a></span>, <span class='object_link'><a href="../Format.html#to_sym-instance_method" title="Card::Format#to_sym (method)">#to_sym</a></span>, <span class='object_link'><a href="../Format.html#view_caching%3F-class_method" title="Card::Format.view_caching? (method)">view_caching?</a></span></p>
 
   
   
@@ -409,7 +409,7 @@
   
   
   <h3 class="inherited">Methods included from <span class='object_link'><a href="Error.html" title="Card::Format::Error (module)">Error</a></span></h3>
-  <p class="inherited"><span class='object_link'><a href="Error.html#anyone_can%3F-instance_method" title="Card::Format::Error#anyone_can? (method)">#anyone_can?</a></span>, <span class='object_link'><a href="Error.html#error_cardname-instance_method" title="Card::Format::Error#error_cardname (method)">#error_cardname</a></span>, <span class='object_link'><a href="Error.html#log_error-instance_method" title="Card::Format::Error#log_error (method)">#log_error</a></span>, <span class='object_link'><a href="Error.html#loud_error-instance_method" title="Card::Format::Error#loud_error (method)">#loud_error</a></span>, <span class='object_link'><a href="Error.html#loud_error%3F-instance_method" title="Card::Format::Error#loud_error? (method)">#loud_error?</a></span>, <span class='object_link'><a href="Error.html#monitor_depth-instance_method" title="Card::Format::Error#monitor_depth (method)">#monitor_depth</a></span>, <span class='object_link'><a href="Error.html#ok%3F-instance_method" title="Card::Format::Error#ok? (method)">#ok?</a></span>, <span class='object_link'><a href="Error.html#quiet_error-instance_method" title="Card::Format::Error#quiet_error (method)">#quiet_error</a></span>, <span class='object_link'><a href="Error.html#rendering_error-instance_method" title="Card::Format::Error#rendering_error (method)">#rendering_error</a></span>, <span class='object_link'><a href="Error.html#rescue_view-instance_method" title="Card::Format::Error#rescue_view (method)">#rescue_view</a></span>, <span class='object_link'><a href="Error.html#view_for_denial-instance_method" title="Card::Format::Error#view_for_denial (method)">#view_for_denial</a></span>, <span class='object_link'><a href="Error.html#view_for_unknown-instance_method" title="Card::Format::Error#view_for_unknown (method)">#view_for_unknown</a></span></p>
+  <p class="inherited"><span class='object_link'><a href="Error.html#anyone_can%3F-instance_method" title="Card::Format::Error#anyone_can? (method)">#anyone_can?</a></span>, <span class='object_link'><a href="Error.html#error_cardname-instance_method" title="Card::Format::Error#error_cardname (method)">#error_cardname</a></span>, <span class='object_link'><a href="Error.html#loud_error-instance_method" title="Card::Format::Error#loud_error (method)">#loud_error</a></span>, <span class='object_link'><a href="Error.html#loud_error%3F-instance_method" title="Card::Format::Error#loud_error? (method)">#loud_error?</a></span>, <span class='object_link'><a href="Error.html#monitor_depth-instance_method" title="Card::Format::Error#monitor_depth (method)">#monitor_depth</a></span>, <span class='object_link'><a href="Error.html#ok%3F-instance_method" title="Card::Format::Error#ok? (method)">#ok?</a></span>, <span class='object_link'><a href="Error.html#quiet_error-instance_method" title="Card::Format::Error#quiet_error (method)">#quiet_error</a></span>, <span class='object_link'><a href="Error.html#rendering_error-instance_method" title="Card::Format::Error#rendering_error (method)">#rendering_error</a></span>, <span class='object_link'><a href="Error.html#rescue_view-instance_method" title="Card::Format::Error#rescue_view (method)">#rescue_view</a></span>, <span class='object_link'><a href="Error.html#view_for_denial-instance_method" title="Card::Format::Error#view_for_denial (method)">#view_for_denial</a></span>, <span class='object_link'><a href="Error.html#view_for_unknown-instance_method" title="Card::Format::Error#view_for_unknown (method)">#view_for_unknown</a></span></p>
 
   
   
@@ -556,12 +556,12 @@
       <pre class="lines">
 
 
-11
-12
-13</pre>
+9
+10
+11</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'mod/format/lib/card/format/html_format.rb', line 11</span>
+      <pre class="code"><span class="info file"># File 'mod/format/lib/card/format/html_format.rb', line 9</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_options_need_save'>options_need_save</span>
   <span class='ivar'>@options_need_save</span>
@@ -598,12 +598,12 @@
       <pre class="lines">
 
 
-11
-12
-13</pre>
+9
+10
+11</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'mod/format/lib/card/format/html_format.rb', line 11</span>
+      <pre class="code"><span class="info file"># File 'mod/format/lib/card/format/html_format.rb', line 9</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_skip_autosave'>skip_autosave</span>
   <span class='ivar'>@skip_autosave</span>
@@ -640,12 +640,12 @@
       <pre class="lines">
 
 
-11
-12
-13</pre>
+9
+10
+11</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'mod/format/lib/card/format/html_format.rb', line 11</span>
+      <pre class="code"><span class="info file"># File 'mod/format/lib/card/format/html_format.rb', line 9</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_start_time'>start_time</span>
   <span class='ivar'>@start_time</span>
@@ -677,12 +677,12 @@
       <pre class="lines">
 
 
-22
-23
-24</pre>
+20
+21
+22</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'mod/format/lib/card/format/html_format.rb', line 22</span>
+      <pre class="code"><span class="info file"># File 'mod/format/lib/card/format/html_format.rb', line 20</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_escape_literal'>escape_literal</span> <span class='id identifier rubyid_literal'>literal</span>
   <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>&lt;span&gt;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_literal'>literal</span><span class='embexpr_end'>}</span><span class='tstring_content'>&lt;/span&gt;</span><span class='tstring_end'>&quot;</span></span>
@@ -707,13 +707,13 @@
       <pre class="lines">
 
 
+28
+29
 30
-31
-32
-33</pre>
+31</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'mod/format/lib/card/format/html_format.rb', line 30</span>
+      <pre class="code"><span class="info file"># File 'mod/format/lib/card/format/html_format.rb', line 28</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_final_render_call'>final_render_call</span> <span class='id identifier rubyid_method'>method</span>
   <span class='id identifier rubyid_rendered'>rendered</span> <span class='op'>=</span> <span class='kw'>super</span>
@@ -762,12 +762,12 @@
       <pre class="lines">
 
 
-18
-19
-20</pre>
+16
+17
+18</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'mod/format/lib/card/format/html_format.rb', line 18</span>
+      <pre class="code"><span class="info file"># File 'mod/format/lib/card/format/html_format.rb', line 16</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_focal?'>focal?</span>
   <span class='ivar'>@focal</span> <span class='op'>||=</span> <span class='id identifier rubyid_show_layout?'>show_layout?</span> <span class='op'>?</span> <span class='id identifier rubyid_main?'>main?</span> <span class='op'>:</span> <span class='id identifier rubyid_depth'>depth</span><span class='period'>.</span><span class='id identifier rubyid_zero?'>zero?</span>
@@ -815,12 +815,12 @@
       <pre class="lines">
 
 
-13
-14
-15</pre>
+11
+12
+13</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'mod/format/lib/card/format/html_format.rb', line 13</span>
+      <pre class="code"><span class="info file"># File 'mod/format/lib/card/format/html_format.rb', line 11</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_main?'>main?</span>
   <span class='op'>!</span><span class='ivar'>@main</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
@@ -845,12 +845,12 @@
       <pre class="lines">
 
 
-26
-27
-28</pre>
+24
+25
+26</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'mod/format/lib/card/format/html_format.rb', line 26</span>
+      <pre class="code"><span class="info file"># File 'mod/format/lib/card/format/html_format.rb', line 24</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_mime_type'>mime_type</span>
   <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>text/html</span><span class='tstring_end'>&quot;</span></span>
@@ -875,12 +875,12 @@
       <pre class="lines">
 
 
-35
-36
-37</pre>
+33
+34
+35</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'mod/format/lib/card/format/html_format.rb', line 35</span>
+      <pre class="code"><span class="info file"># File 'mod/format/lib/card/format/html_format.rb', line 33</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_stylesheet_link_tag'>stylesheet_link_tag</span> <span class='id identifier rubyid_path'>path</span>
   <span class='id identifier rubyid_tag'>tag</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>link</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>href:</span> <span class='id identifier rubyid_path'>path</span><span class='comma'>,</span> <span class='label'>media:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>all</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>rel:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>stylesheet</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>type:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>text/css</span><span class='tstring_end'>&quot;</span></span>
@@ -895,9 +895,9 @@
 </div>
 
       <div id="footer">
-  Generated on Fri Jan 21 16:01:48 2022 by
-  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.27 (ruby-3.0.1).
+  Generated on Wed Feb 15 11:54:46 2023 by
+  <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.28 (ruby-3.0.4).
 </div>
 
     </div>

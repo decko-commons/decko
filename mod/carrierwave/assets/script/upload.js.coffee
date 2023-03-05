@@ -61,6 +61,12 @@ $(window).ready ->
     editor.find('#progress').hide()
 
   $('body').on "submit", "form", ->
-    uploader = $(this).find ".file-upload[type=file]"
-    if uploader[0]
-      uploader.prop "disabled", true
+    disableUploader this, true
+
+  $("body").on "ajax:complete", "form", ->
+    disableUploader this, false
+
+disableUploader = (form, toggle) ->
+  uploader = $(form).find ".file-upload[type=file]"
+  if uploader[0]
+    uploader.prop "disabled", toggle

@@ -1,5 +1,3 @@
-# require "card/content/chunk"
-
 class Card
   class Content
     # The Content::Parser breaks content strings into an Array of "chunks",

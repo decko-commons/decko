@@ -19,7 +19,7 @@ def pattern
 end
 
 def inheritable?
-  junction_only? || (anchor_name&.compound? && self_set?)
+  compound_only? || (anchor_name&.compound? && self_set?)
 end
 
 def self_set?
@@ -31,8 +31,8 @@ def subclass_for_set
   Pattern.concrete.find { |set| set.pattern_code == current_set_pattern_code }
 end
 
-def junction_only?
-  @junction_only.nil? ? (@junction_only = subclass_for_set.junction_only) : @junction_only
+def compound_only?
+  @compound_only.nil? ? (@compound_only = subclass_for_set.compound_only) : @compound_only
 end
 
 def label
@@ -84,7 +84,7 @@ def visible_settings group=nil, cardtype_id=nil
 end
 
 def broader_sets
-  prototype.set_names[1..-1]
+  prototype.set_names[1..-1].map(&Card.method(:fetch))
 end
 
 def prototype
@@ -106,4 +106,8 @@ def related_sets with_self=false
   else
     left(new: {}).related_sets with_self
   end
+end
+
+def label_and_url_key
+  [label, name.to_name.url_key]
 end

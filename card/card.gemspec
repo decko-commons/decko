@@ -22,6 +22,9 @@ DeckoGem.gem "card" do |s, d|
     ["rake",                       "~> 13.0"],
     ["sprockets-rails",             "~> 3.2"],
     ["colorize",                    "~> 0.8"], # livelier cli outputs
+    ["timecop",                     "~> 0.9"],
+    # temporary. bad version(s)
+    ["zeitwerk",                  "!= 2.5.0"],
     # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     # MOVE TO MODS?
     # card-mod-format
@@ -38,11 +41,9 @@ DeckoGem.gem "card" do |s, d|
     # pagination
     ["kaminari",                    "~> 1.2"],
     ["bootstrap4-kaminari-views",   "~> 1.0"],
-    # other
+    # history
     ["diff-lcs",                    "~> 1.4"], # content diffs in histories
-    ["activerecord-import",         "~> 1.1"],
-    # temporary. bad version(s)
-    ["zeitwerk",                  "!= 2.5.0"]
+    ["activerecord-import",         "~> 1.1"]
   )
   %w[
     activerecord

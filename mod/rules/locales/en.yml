@@ -1,9 +1,0 @@
-en:
-  rules_config: Config
-  rules_event: Events
-  rules_other: Other
-  rules_permission: Permissions
-  rules_pointer: Pointer
-  rules_templating: Templating
-  rules_webpage: Webpage
-  rules_editing: Editing

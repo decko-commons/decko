@@ -147,6 +147,16 @@ RSpec.describe Card::Subcards do
     end
   end
 
+  describe "card#update with subcards arg" do
+    it "creates subcards if they don't already exist" do
+      "A".card.update! subcards: { "+peel" => { content: "yellow" } }
+
+      peel = "A+peel".card
+      expect(peel.content).to eq("yellow")
+      expect(peel.creator_id).to eq("joe user".card_id)
+    end
+  end
+
   # TODO: move to a more appropriate place (renaming no longer uses subcards)
   describe "handle_subcard_errors" do
     let(:referee) { Card["T"] }

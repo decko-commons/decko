@@ -6,7 +6,7 @@
 <title>
   Module: Card::Set::Self::Admin
   
-    &mdash; Documentation by YARD 0.9.26
+    &mdash; Documentation by YARD 0.9.28
   
 </title>
 
@@ -83,8 +83,8 @@
   
   <dl>
     <dt>Defined in:</dt>
-    <dd>card/tmpsets/set/mod001-admin/self/admin.rb<span class="defines">,<br />
-  card/tmpsets/set/mod014-card-mod-carrierwave/self/admin.rb</span>
+    <dd>platypus/tmp/set/gem-card/mod001-core/self/admin.rb<span class="defines">,<br />
+  platypus/tmp/set/gem-defaults/mod032-recaptcha/self/admin.rb,<br /> platypus/tmp/set/gem-defaults/mod016-carrierwave/self/admin.rb</span>
 </dd>
   </dl>
   
@@ -172,29 +172,6 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#current_memory_usage-instance_method" title="#current_memory_usage (instance method)">#<strong>current_memory_usage</strong>  &#x21d2; Object </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'>
-</div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
       <a href="#event:+admin_tasks-instance_method" title="#event: admin_tasks (instance method)">#<strong>event: admin_tasks</strong>  &#x21d2; Object </a>
     
 
@@ -241,6 +218,29 @@
         <li class="public ">
   <span class="summary_signature">
     
+      <a href="#no_email_delivery%3F-instance_method" title="#no_email_delivery? (instance method)">#<strong>no_email_delivery?</strong>  &#x21d2; Boolean </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>(eg #my_warning_message).</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
       <a href="#not_allowed-instance_method" title="#not_allowed (instance method)">#<strong>not_allowed</strong>(task)  &#x21d2; Object </a>
     
 
@@ -264,7 +264,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#profile_memory-instance_method" title="#profile_memory (instance method)">#<strong>profile_memory</strong>(&amp;block)  &#x21d2; Object </a>
+      <a href="#recaptcha_config_issues%3F-instance_method" title="#recaptcha_config_issues? (instance method)">#<strong>recaptcha_config_issues?</strong>  &#x21d2; Boolean </a>
     
 
     
@@ -287,7 +287,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#run_task_from_task_basket-instance_method" title="#run_task_from_task_basket (instance method)">#<strong>run_task_from_task_basket</strong>(task)  &#x21d2; Object </a>
+      <a href="#run_task_from_task_basket-instance_method" title="#run_task_from_task_basket (instance method)">#<strong>run_task_from_task_basket</strong>(task, task_config)  &#x21d2; Object </a>
     
 
     
@@ -320,7 +320,7 @@
   
   
   <h3 class="inherited">Methods included from <span class='object_link'><a href="../../Set.html" title="Card::Set (module)">Card::Set</a></span></h3>
-  <p class="inherited"><span class='object_link'><a href="../../Set.html#reset_modules-class_method" title="Card::Set.reset_modules (method)">reset_modules</a></span></p>
+  <p class="inherited"><span class='object_link'><a href="../../Set.html#reset-class_method" title="Card::Set.reset (method)">reset</a></span></p>
 
   
   
@@ -341,8 +341,8 @@
   
   
   
-  <h3 class="inherited">Methods included from <span class='object_link'><a href="../Loader.html" title="Card::Set::Loader (module)">Loader</a></span></h3>
-  <p class="inherited"><span class='object_link'><a href="../Loader.html#clean_empty_module_from_hash-instance_method" title="Card::Set::Loader#clean_empty_module_from_hash (method)">#clean_empty_module_from_hash</a></span>, <span class='object_link'><a href="../Loader.html#clean_empty_modules-instance_method" title="Card::Set::Loader#clean_empty_modules (method)">#clean_empty_modules</a></span>, <span class='object_link'><a href="../Loader.html#extended-instance_method" title="Card::Set::Loader#extended (method)">#extended</a></span>, <span class='object_link'><a href="../Loader.html#process_base_modules-instance_method" title="Card::Set::Loader#process_base_modules (method)">#process_base_modules</a></span>, <span class='object_link'><a href="../Loader.html#register_set-instance_method" title="Card::Set::Loader#register_set (method)">#register_set</a></span></p>
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="../Registrar.html" title="Card::Set::Registrar (module)">Registrar</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="../Registrar.html#extended-instance_method" title="Card::Set::Registrar#extended (method)">#extended</a></span>, <span class='object_link'><a href="../Registrar.html#finalize_load-instance_method" title="Card::Set::Registrar#finalize_load (method)">#finalize_load</a></span>, <span class='object_link'><a href="../Registrar.html#process_base_modules-instance_method" title="Card::Set::Registrar#process_base_modules (method)">#process_base_modules</a></span>, <span class='object_link'><a href="../Registrar.html#register_set-instance_method" title="Card::Set::Registrar#register_set (method)">#register_set</a></span></p>
 
   
   
@@ -353,7 +353,7 @@
   
   
   <h3 class="inherited">Methods included from <span class='object_link'><a href="../Helpers.html" title="Card::Set::Helpers (module)">Helpers</a></span></h3>
-  <p class="inherited"><span class='object_link'><a href="../Helpers.html#method_missing-instance_method" title="Card::Set::Helpers#method_missing (method)">#method_missing</a></span>, <span class='object_link'><a href="../Helpers.html#num_set_parts-instance_method" title="Card::Set::Helpers#num_set_parts (method)">#num_set_parts</a></span>, <span class='object_link'><a href="../Helpers.html#pattern_code-instance_method" title="Card::Set::Helpers#pattern_code (method)">#pattern_code</a></span>, <span class='object_link'><a href="../Helpers.html#respond_to_missing%3F-instance_method" title="Card::Set::Helpers#respond_to_missing? (method)">#respond_to_missing?</a></span>, <span class='object_link'><a href="../Helpers.html#set_name_parts-instance_method" title="Card::Set::Helpers#set_name_parts (method)">#set_name_parts</a></span>, <span class='object_link'><a href="../Helpers.html#shortname-instance_method" title="Card::Set::Helpers#shortname (method)">#shortname</a></span>, <span class='object_link'><a href="../Helpers.html#underscore-instance_method" title="Card::Set::Helpers#underscore (method)">#underscore</a></span></p>
+  <p class="inherited"><span class='object_link'><a href="../Helpers.html#format_module-instance_method" title="Card::Set::Helpers#format_module (method)">#format_module</a></span>, <span class='object_link'><a href="../Helpers.html#format_modules-instance_method" title="Card::Set::Helpers#format_modules (method)">#format_modules</a></span>, <span class='object_link'><a href="../Helpers.html#method_missing-instance_method" title="Card::Set::Helpers#method_missing (method)">#method_missing</a></span>, <span class='object_link'><a href="../Helpers.html#modules-instance_method" title="Card::Set::Helpers#modules (method)">#modules</a></span>, <span class='object_link'><a href="../Helpers.html#pattern_code-instance_method" title="Card::Set::Helpers#pattern_code (method)">#pattern_code</a></span>, <span class='object_link'><a href="../Helpers.html#respond_to_missing%3F-instance_method" title="Card::Set::Helpers#respond_to_missing? (method)">#respond_to_missing?</a></span>, <span class='object_link'><a href="../Helpers.html#set_name_parts-instance_method" title="Card::Set::Helpers#set_name_parts (method)">#set_name_parts</a></span>, <span class='object_link'><a href="../Helpers.html#shortname-instance_method" title="Card::Set::Helpers#shortname (method)">#shortname</a></span>, <span class='object_link'><a href="../Helpers.html#underscored_name-instance_method" title="Card::Set::Helpers#underscored_name (method)">#underscored_name</a></span></p>
 
   
   
@@ -364,7 +364,7 @@
   
   
   <h3 class="inherited">Methods included from <span class='object_link'><a href="../AdvancedApi.html" title="Card::Set::AdvancedApi (module)">AdvancedApi</a></span></h3>
-  <p class="inherited"><span class='object_link'><a href="../AdvancedApi.html#attachment-instance_method" title="Card::Set::AdvancedApi#attachment (method)">#attachment</a></span>, <span class='object_link'><a href="../AdvancedApi.html#define_set_from_error-instance_method" title="Card::Set::AdvancedApi#define_set_from_error (method)">#define_set_from_error</a></span>, <span class='object_link'><a href="../AdvancedApi.html#ensure_set-instance_method" title="Card::Set::AdvancedApi#ensure_set (method)">#ensure_set</a></span>, <span class='object_link'><a href="../AdvancedApi.html#setting_opts-instance_method" title="Card::Set::AdvancedApi#setting_opts (method)">#setting_opts</a></span>, <span class='object_link'><a href="../AdvancedApi.html#stage_method-instance_method" title="Card::Set::AdvancedApi#stage_method (method)">#stage_method</a></span></p>
+  <p class="inherited"><span class='object_link'><a href="../AdvancedApi.html#assign_type-instance_method" title="Card::Set::AdvancedApi#assign_type (method)">#assign_type</a></span>, <span class='object_link'><a href="../AdvancedApi.html#attachment-instance_method" title="Card::Set::AdvancedApi#attachment (method)">#attachment</a></span>, <span class='object_link'><a href="../AdvancedApi.html#define_set_from_error-instance_method" title="Card::Set::AdvancedApi#define_set_from_error (method)">#define_set_from_error</a></span>, <span class='object_link'><a href="../AdvancedApi.html#ensure_set-instance_method" title="Card::Set::AdvancedApi#ensure_set (method)">#ensure_set</a></span>, <span class='object_link'><a href="../AdvancedApi.html#setting_opts-instance_method" title="Card::Set::AdvancedApi#setting_opts (method)">#setting_opts</a></span>, <span class='object_link'><a href="../AdvancedApi.html#stage_method-instance_method" title="Card::Set::AdvancedApi#stage_method (method)">#stage_method</a></span></p>
 
   
   
@@ -387,17 +387,6 @@
   
   <h3 class="inherited">Methods included from <span class='object_link'><a href="../Inheritance.html" title="Card::Set::Inheritance (module)">Inheritance</a></span></h3>
   <p class="inherited"><span class='object_link'><a href="../Inheritance.html#include_set-instance_method" title="Card::Set::Inheritance#include_set (method)">#include_set</a></span>, <span class='object_link'><a href="../Inheritance.html#include_set_formats-instance_method" title="Card::Set::Inheritance#include_set_formats (method)">#include_set_formats</a></span></p>
-
-  
-  
-  
-  
-  
-  
-  
-  
-  <h3 class="inherited">Methods included from <span class='object_link'><a href="../Basket.html" title="Card::Set::Basket (module)">Basket</a></span></h3>
-  <p class="inherited"><span class='object_link'><a href="../Basket.html#abstract_basket-instance_method" title="Card::Set::Basket#abstract_basket (method)">#abstract_basket</a></span>, <span class='object_link'><a href="../Basket.html#add_to_basket-instance_method" title="Card::Set::Basket#add_to_basket (method)">#add_to_basket</a></span>, <span class='object_link'><a href="../Basket.html#basket-instance_method" title="Card::Set::Basket#basket (method)">#basket</a></span>, <span class='object_link'><a href="../Basket.html#unshift_basket-instance_method" title="Card::Set::Basket#unshift_basket (method)">#unshift_basket</a></span></p>
 
   
   
@@ -441,12 +430,12 @@
       <pre class="lines">
 
 
-8</pre>
+7</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod001-admin/self/admin.rb', line 8</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-card/mod001-core/self/admin.rb', line 7</span>
 
-<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_source_location'>source_location</span><span class='semicolon'>;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/Users/ethan/dev/decko/gem/card/mod/admin/set/self/admin.rb</span><span class='tstring_end'>&quot;</span></span><span class='semicolon'>;</span> <span class='kw'>end</span></pre>
+<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_source_location'>source_location</span><span class='semicolon'>;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/Users/ethan/dev/decko/gem/card/mod/core/set/self/admin.rb</span><span class='tstring_end'>&quot;</span></span><span class='semicolon'>;</span> <span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -459,37 +448,7 @@
 
     
       <div class="method_details first">
-  <h3 class="signature first" id="current_memory_usage-instance_method">
-  
-    #<strong>current_memory_usage</strong>  &#x21d2; <tt><span class='object_link'><a href="../../../Object.html" title="Object (class)">Object</a></span></tt> 
-  
-
-  
-
-  
-</h3><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-138
-139
-140</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod001-admin/self/admin.rb', line 138</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_current_memory_usage'>current_memory_usage</span>
-  <span class='backtick'>`</span><span class='tstring_content'>ps -o rss= -p </span><span class='embexpr_beg'>#{</span><span class='const'>Process</span><span class='period'>.</span><span class='id identifier rubyid_pid'>pid</span><span class='embexpr_end'>}</span><span class='tstring_end'>`</span></span><span class='period'>.</span><span class='id identifier rubyid_to_i'>to_i</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="event: admin_tasks-instance_method">
+  <h3 class="signature first" id="event: admin_tasks-instance_method">
   
     #<strong>event: admin_tasks</strong>  &#x21d2; <tt><span class='object_link'><a href="../../../Object.html" title="Object (class)">Object</a></span></tt> 
   
@@ -503,13 +462,6 @@
       <pre class="lines">
 
 
-22
-23
-24
-25
-26
-27
-28
 29
 30
 31
@@ -520,27 +472,26 @@
 36
 37
 38
-39</pre>
+39
+40
+41
+42</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod001-admin/self/admin.rb', line 22</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-card/mod001-core/self/admin.rb', line 29</span>
 
 <span class='id identifier rubyid_event'>event</span> <span class='symbol'>:admin_tasks</span><span class='comma'>,</span> <span class='symbol'>:initialize</span><span class='comma'>,</span> <span class='label'>on:</span> <span class='symbol'>:update</span> <span class='kw'>do</span>
-  <span class='kw'>return</span> <span class='kw'>unless</span> <span class='lparen'>(</span><span class='id identifier rubyid_task'>task</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../Env.html" title="Card::Env (module)">Env</a></span></span><span class='period'>.</span><span class='id identifier rubyid_params'><span class='object_link'><a href="../../Env.html#params-class_method" title="Card::Env.params (method)">params</a></span></span><span class='lbracket'>[</span><span class='symbol'>:task</span><span class='rbracket'>]</span><span class='rparen'>)</span>
+  <span class='kw'>return</span> <span class='kw'>unless</span> <span class='lparen'>(</span><span class='id identifier rubyid_task'>task</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../Env.html" title="Card::Env (module)">Env</a></span></span><span class='period'>.</span><span class='id identifier rubyid_params'><span class='object_link'><a href="../../Env/Serializable.html#params-instance_method" title="Card::Env::Serializable#params (method)">params</a></span></span><span class='lbracket'>[</span><span class='symbol'>:task</span><span class='rbracket'>]</span><span class='op'>&amp;.</span><span class='id identifier rubyid_to_sym'>to_sym</span><span class='rparen'>)</span> <span class='op'>&amp;&amp;</span> <span class='lparen'>(</span><span class='id identifier rubyid_task_config'>task_config</span> <span class='op'>=</span> <span class='id identifier rubyid_basket'>basket</span><span class='lbracket'>[</span><span class='symbol'>:tasks</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_task'>task</span><span class='rbracket'>]</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_raise'>raise</span> <span class='const'><span class='object_link'><a href="../../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../Error.html" title="Card::Error (class)">Error</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../Error/PermissionDenied.html" title="Card::Error::PermissionDenied (class)">PermissionDenied</a></span></span><span class='comma'>,</span> <span class='kw'>self</span> <span class='kw'>unless</span> <span class='const'><span class='object_link'><a href="../../Auth.html" title="Card::Auth (module)">Auth</a></span></span><span class='period'>.</span><span class='id identifier rubyid_always_ok?'><span class='object_link'><a href="../../Auth/Permissions.html#always_ok%3F-instance_method" title="Card::Auth::Permissions#always_ok? (method)">always_ok?</a></span></span>
-  <span class='kw'>case</span> <span class='id identifier rubyid_task'>task</span><span class='period'>.</span><span class='id identifier rubyid_to_sym'>to_sym</span>
-  <span class='kw'>when</span> <span class='symbol'>:clear_cache</span>          <span class='kw'>then</span> <span class='const'><span class='object_link'><a href="../../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../Cache.html" title="Card::Cache (class)">Cache</a></span></span><span class='period'>.</span><span class='id identifier rubyid_reset_all'><span class='object_link'><a href="../../Cache.html#reset_all-class_method" title="Card::Cache.reset_all (method)">reset_all</a></span></span>
-  <span class='kw'>when</span> <span class='symbol'>:repair_references</span>    <span class='kw'>then</span> <span class='const'><span class='object_link'><a href="../../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../Reference.html" title="Card::Reference (class)">Reference</a></span></span><span class='period'>.</span><span class='id identifier rubyid_repair_all'><span class='object_link'><a href="../../Reference.html#repair_all-class_method" title="Card::Reference.repair_all (method)">repair_all</a></span></span>
-  <span class='kw'>when</span> <span class='symbol'>:repair_permissions</span>   <span class='kw'>then</span> <span class='const'><span class='object_link'><a href="../../../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_repair_all_permissions'>repair_all_permissions</span>
-  <span class='kw'>when</span> <span class='symbol'>:clear_solid_cache</span>    <span class='kw'>then</span> <span class='const'><span class='object_link'><a href="../../../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_clear_solid_cache'>clear_solid_cache</span>
-  <span class='kw'>when</span> <span class='symbol'>:clear_machine_cache</span>  <span class='kw'>then</span> <span class='const'><span class='object_link'><a href="../../../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_reset_all_machines'>reset_all_machines</span>
-  <span class='kw'>when</span> <span class='symbol'>:clear_script_cache</span>   <span class='kw'>then</span> <span class='const'><span class='object_link'><a href="../../../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_reset_script_machine'>reset_script_machine</span>
-  <span class='kw'>when</span> <span class='symbol'>:clear_history</span>
-    <span class='id identifier rubyid_not_allowed'>not_allowed</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>clear history</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>unless</span> <span class='id identifier rubyid_irreversibles_tasks_allowed?'>irreversibles_tasks_allowed?</span>
-    <span class='const'><span class='object_link'><a href="../../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../Action.html" title="Card::Action (class)">Action</a></span></span><span class='period'>.</span><span class='id identifier rubyid_delete_old'><span class='object_link'><a href="../../Action/Admin.html#delete_old-instance_method" title="Card::Action::Admin#delete_old (method)">delete_old</a></span></span>
-  <span class='kw'>else</span>
-    <span class='id identifier rubyid_run_task_from_task_basket'>run_task_from_task_basket</span> <span class='id identifier rubyid_task'>task</span>
-  <span class='kw'>end</span>
+
+  <span class='comment'># when :repair_references    then Card::Reference.repair_all
+</span>  <span class='comment'># when :repair_permissions   then Card.repair_all_permissions
+</span>  <span class='comment'># # when :regenerate_scripts   then Card::Assets.refresh_scripts
+</span>  <span class='comment'># when :clear_history
+</span>  <span class='comment'>#   not_allowed &quot;clear history&quot; unless irreversibles_tasks_allowed?
+</span>  <span class='comment'>#   Card::Action.delete_old
+</span>
+  <span class='id identifier rubyid_run_task_from_task_basket'>run_task_from_task_basket</span> <span class='id identifier rubyid_task'>task</span><span class='comma'>,</span> <span class='id identifier rubyid_task_config'>task_config</span>
   <span class='id identifier rubyid_abort'>abort</span> <span class='symbol'>:success</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -586,15 +537,68 @@
       <pre class="lines">
 
 
-47
-48
-49</pre>
+58
+59
+60</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod001-admin/self/admin.rb', line 47</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-card/mod001-core/self/admin.rb', line 58</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_irreversibles_tasks_allowed?'>irreversibles_tasks_allowed?</span>
   <span class='const'><span class='object_link'><a href="../../../Cardio.html" title="Cardio (module)">Cardio</a></span></span><span class='period'>.</span><span class='id identifier rubyid_config'>config</span><span class='period'>.</span><span class='id identifier rubyid_allow_irreversible_admin_tasks'>allow_irreversible_admin_tasks</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="no_email_delivery?-instance_method">
+  
+    #<strong>no_email_delivery?</strong>  &#x21d2; <tt>Boolean</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>(eg #my_warning_message).</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+25
+26
+27</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-card/mod001-core/self/admin.rb', line 25</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_no_email_delivery?'>no_email_delivery?</span>
+  <span class='const'><span class='object_link'><a href="../../../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_config'>config</span><span class='period'>.</span><span class='id identifier rubyid_action_mailer'>action_mailer</span><span class='period'>.</span><span class='id identifier rubyid_perform_deliveries'>perform_deliveries</span> <span class='op'>==</span> <span class='kw'>false</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -639,14 +643,14 @@
       <pre class="lines">
 
 
-41
-42
-43
-44
-45</pre>
+52
+53
+54
+55
+56</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod001-admin/self/admin.rb', line 41</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-card/mod001-core/self/admin.rb', line 52</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_not_allowed'>not_allowed</span> <span class='id identifier rubyid_task'>task</span>
   <span class='id identifier rubyid_raise'>raise</span> <span class='const'><span class='object_link'><a href="../../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../Error.html" title="Card::Error (class)">Error</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../Error/PermissionDenied.html" title="Card::Error::PermissionDenied (class)">PermissionDenied</a></span></span><span class='comma'>,</span>
@@ -659,41 +663,52 @@
 </div>
     
       <div class="method_details ">
-  <h3 class="signature " id="profile_memory-instance_method">
+  <h3 class="signature " id="recaptcha_config_issues?-instance_method">
   
-    #<strong>profile_memory</strong>(&amp;block)  &#x21d2; <tt><span class='object_link'><a href="../../../Object.html" title="Object (class)">Object</a></span></tt> 
-  
-
+    #<strong>recaptcha_config_issues?</strong>  &#x21d2; <tt>Boolean</tt> 
   
 
   
-</h3><table class="source_code">
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-142
-143
-144
-145
-146
-147
-148
-149
-150</pre>
+10
+11
+12</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod001-admin/self/admin.rb', line 142</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod032-recaptcha/self/admin.rb', line 10</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_profile_memory'>profile_memory</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span>
-  <span class='id identifier rubyid_before'>before</span> <span class='op'>=</span> <span class='id identifier rubyid_current_memory_usage'>current_memory_usage</span>
-  <span class='kw'>if</span> <span class='id identifier rubyid_block_given?'>block_given?</span>
-    <span class='id identifier rubyid_instance_eval'>instance_eval</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
-  <span class='kw'>else</span>
-    <span class='id identifier rubyid_before'>before</span> <span class='op'>=</span> <span class='int'>0</span>
-  <span class='kw'>end</span>
-  <span class='lparen'>(</span><span class='id identifier rubyid_current_memory_usage'>current_memory_usage</span> <span class='op'>-</span> <span class='id identifier rubyid_before'>before</span><span class='rparen'>)</span> <span class='op'>/</span> <span class='int'>1024</span><span class='period'>.</span><span class='id identifier rubyid_to_i'>to_i</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_recaptcha_config_issues?'>recaptcha_config_issues?</span>
+  <span class='const'>RecaptchaCard</span><span class='period'>.</span><span class='id identifier rubyid_using_defaults?'>using_defaults?</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -703,7 +718,7 @@
       <div class="method_details ">
   <h3 class="signature " id="run_task_from_task_basket-instance_method">
   
-    #<strong>run_task_from_task_basket</strong>(task)  &#x21d2; <tt><span class='object_link'><a href="../../../Object.html" title="Object (class)">Object</a></span></tt> 
+    #<strong>run_task_from_task_basket</strong>(task, task_config)  &#x21d2; <tt><span class='object_link'><a href="../../../Object.html" title="Object (class)">Object</a></span></tt> 
   
 
   
@@ -715,26 +730,22 @@
       <pre class="lines">
 
 
-12
-13
-14
-15
-16
-17
-18
-19
-20</pre>
+44
+45
+46
+47
+48
+49
+50</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod001-admin/self/admin.rb', line 12</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-card/mod001-core/self/admin.rb', line 44</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_run_task_from_task_basket'>run_task_from_task_basket</span> <span class='id identifier rubyid_task'>task</span>
-  <span class='id identifier rubyid_task'>task</span> <span class='op'>=</span> <span class='id identifier rubyid_task'>task</span><span class='period'>.</span><span class='id identifier rubyid_to_sym'>to_sym</span>
-  <span class='id identifier rubyid_task_data'>task_data</span> <span class='op'>=</span> <span class='id identifier rubyid_tasks'>tasks</span><span class='period'>.</span><span class='id identifier rubyid_find'>find</span> <span class='lbrace'>{</span><span class='op'>|</span><span class='id identifier rubyid_h'>h</span><span class='op'>|</span> <span class='id identifier rubyid_h'>h</span><span class='lbracket'>[</span><span class='symbol'>:name</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_to_sym'>to_sym</span> <span class='op'>==</span> <span class='id identifier rubyid_task'>task</span><span class='period'>.</span><span class='id identifier rubyid_to_sym'>to_sym</span><span class='rbrace'>}</span>
-  <span class='kw'>if</span> <span class='op'>!</span><span class='id identifier rubyid_irreversibles_tasks_allowed?'>irreversibles_tasks_allowed?</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_task_data'>task_data</span><span class='lbracket'>[</span><span class='symbol'>:irreversible</span><span class='rbracket'>]</span>
-    <span class='id identifier rubyid_not_allowed'>not_allowed</span> <span class='id identifier rubyid_task_data'>task_data</span><span class='lbracket'>[</span><span class='symbol'>:stats</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='symbol'>:link_text</span><span class='rbracket'>]</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_run_task_from_task_basket'>run_task_from_task_basket</span> <span class='id identifier rubyid_task'>task</span><span class='comma'>,</span> <span class='id identifier rubyid_task_config'>task_config</span>
+  <span class='kw'>if</span> <span class='op'>!</span><span class='id identifier rubyid_irreversibles_tasks_allowed?'>irreversibles_tasks_allowed?</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_task_config'>task_config</span><span class='lbracket'>[</span><span class='symbol'>:irreversible</span><span class='rbracket'>]</span>
+    <span class='id identifier rubyid_not_allowed'>not_allowed</span> <span class='id identifier rubyid_t'>t</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_task_config'>task_config</span><span class='lbracket'>[</span><span class='symbol'>:mod</span><span class='rbracket'>]</span><span class='embexpr_end'>}</span><span class='tstring_content'>_task_</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_task'>task</span><span class='embexpr_end'>}</span><span class='tstring_content'>_link_text</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
   <span class='kw'>else</span>
-    <span class='id identifier rubyid_task_data'>task_data</span><span class='lbracket'>[</span><span class='symbol'>:execute_policy</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_call'>call</span> <span class='kw'>if</span> <span class='id identifier rubyid_task_data'>task_data</span>
+    <span class='id identifier rubyid_task_config'>task_config</span><span class='lbracket'>[</span><span class='symbol'>:execute_policy</span><span class='rbracket'>]</span><span class='op'>&amp;.</span><span class='id identifier rubyid_call'>call</span>
   <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -747,9 +758,9 @@
 </div>
 
       <div id="footer">
-  Generated on Thu May 13 17:17:21 2021 by
-  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.26 (ruby-2.7.2).
+  Generated on Wed Feb 15 11:54:34 2023 by
+  <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.28 (ruby-3.0.4).
 </div>
 
     </div>

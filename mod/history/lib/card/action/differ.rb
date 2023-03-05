@@ -2,13 +2,13 @@ class Card
   class Action
     # a collection of methods for comparing actions
     module Differ
-      # compare action's name value with previous name value
-      # @return [rendered diff]
-      def name_diff opts={}
-        return unless new_name?
-
-        diff_object(:name, opts).complete
-      end
+      # # compare action's name value with previous name value
+      # # @return [rendered diff]
+      # def name_diff opts={}
+      #   return unless new_name?
+      #
+      #   diff_object(:name, opts).complete
+      # end
 
       # does action change card's name?
       # @return [true/false]
@@ -45,17 +45,17 @@ class Card
         !value(:db_content).nil?
       end
 
-      # test whether content was visibly removed
-      # @return [true/false]
-      def red?
-        content_diff_object.red?
-      end
-
-      # test whether content was visibly added
-      # @return [true/false]
-      def green?
-        content_diff_object.green?
-      end
+      # # test whether content was visibly removed
+      # # @return [true/false]
+      # def red?
+      #   content_diff_object.red?
+      # end
+      #
+      # # test whether content was visibly added
+      # # @return [true/false]
+      # def green?
+      #   content_diff_object.green?
+      # end
 
       def raw_view content=nil
         original_content = card.db_content

@@ -16,13 +16,13 @@ format :html do
   #
   # @param active_name [String] label of the tab that should be active at the
   #
-  # @param [Hash] args options
+  # @param args [Hash] options
   # @option args [String] :tab_type ('tabs') use pills or tabs
   # @option args [Hash] :panel_attr html args used for the panel div
   # @option args [Hash] :pane_attr html args used for the pane div
   # @option args [Hash] :load. `:lazy` for lazy-loading tabs
   #
-  # @param [Block] block content of the active tab (for lazy-loading)
+  # @param block [Block] content of the active tab (for lazy-loading)
   # beginning (default is the first)
   #
   # @return [HTML] bootstrap tabs element with all content preloaded

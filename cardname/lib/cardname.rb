@@ -3,6 +3,10 @@
 require "active_support/inflector"
 require "htmlentities"
 
+# The Cardname class generalizes the core naming concepts of Decko/Card. The most central
+# of these is the idea that compound names can be formed by combining simple names.
+#
+#
 class Cardname < String
   require "cardname/parts"
   require "cardname/pieces"
@@ -11,6 +15,7 @@ class Cardname < String
   require "cardname/predicates"
   require "cardname/manipulate"
   require "cardname/fields"
+  require "cardname/class_methods"
 
   include Parts
   include Pieces
@@ -19,8 +24,7 @@ class Cardname < String
   include Predicates
   include Manipulate
   include Fields
-
-  OK4KEY_RE = '\p{Word}\*'
+  extend ClassMethods
 
   cattr_accessor :joint, :banned_array, :var_re, :uninflect, :params, :session, :stabilize
 
@@ -30,48 +34,8 @@ class Cardname < String
   self.uninflect      = :singularize
   self.stabilize      = false
 
+  OK4KEY_RE = '\p{Word}\*'
   JOINT_RE = Regexp.escape joint
-
-  class << self
-    def new obj
-      return obj if obj.is_a? self.class
-
-      str = stringify(obj)
-      cache[str] ||= super(str)
-    end
-
-    def reset
-      @cache = {}
-    end
-
-    def nothing_banned?
-      return @nothing_banned unless @nothing_banned.nil?
-
-      @nothing_banned = banned_array.empty?
-    end
-
-    def banned_re
-      @banned_re ||= /[#{Regexp.escape((banned_array + [joint])).join}]/
-    end
-
-    def split_parts str
-      str.split(/\s*#{JOINT_RE}\s*/, -1)
-    end
-
-    def cache
-      @cache ||= {}
-    end
-
-    private
-
-    def stringify obj
-      if obj.is_a?(Array)
-        obj.map(&:to_s) * joint
-      else
-        obj.to_s
-      end
-    end
-  end
 
   # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   # ~~~~~~~~~~~~~~~~~~~~~~ INSTANCE ~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -87,31 +51,32 @@ class Cardname < String
     freeze
   end
 
+  # simple string version of name
+  # @return [String]
   def s
     String.new self
   end
   alias_method :to_s, :s
   alias_method :to_str, :s
-  # alias_method :dup, :clone
 
+  # @return [Cardname]
   def to_name
     self
   end
 
-  def []= index, val
-    p = parts
-    p[index] = val
-    replace self.class.new(p)
+  # @return [Symbol]
+  def to_sym
+    s.to_sym
   end
 
-  def << val
-    replace self.class.new(parts << val)
-  end
-
+  # the key defines the namespace
+  # @return [String]
   def key
     @key ||= generate_key.freeze
   end
 
+  # test for same key
+  # @return [Boolean]
   def == other
     key ==
       case
@@ -119,6 +84,18 @@ class Cardname < String
       when other.respond_to?(:to_name) then other.to_name.key
       else                                  other.to_s.to_name.key
       end
+  end
+
+  # cardname based on part index
+  # @return [Cardname]
+  def [] *args
+    self.class.new part_names[*args]
+  end
+
+  # @see #parts
+  # @return [Integer]
+  def num_parts
+    parts.length
   end
 
   private

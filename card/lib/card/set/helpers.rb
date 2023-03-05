@@ -1,42 +1,32 @@
 class Card
   module Set
+    # These helper methods provide easy access to metadata, such as information about
+    # the set modified by a module. These methods are seldom used by Monkeys; they are
+    # primarily Platypus tools.
     module Helpers
       SET_PATTERN_TEST_REGEXP = /^(?<pattern>\w+)_set\?$/
 
+      # @return [String] short name of card module. For example, returns Type::User for
+      # Card::Set::Type::User
       def shortname
         first = 2 # shortname eliminates Card::Set
         last = first + num_set_parts(pattern_code)
         set_name_parts[first..last].join "::"
       end
 
-      def underscore
+      # @return [String] name of card module with underscores. For example, returns
+      # Card__Set__Type__User for Card::Set::Type::User
+      def underscored_name
         shortname.tr(":", "_").underscore
       end
 
-      def num_set_parts pattern_code
-        return 1 if pattern_code == :abstract
-
-        Pattern.find(pattern_code).anchor_parts_count
-      end
-
-      def set_format_type_key
-        @set_format_type_key ||= :"#{set_type_key}_format"
-      end
-
-      def set_type_key
-        if all_set?
-          :base
-        elsif abstract_set?
-          :abstract
-        else
-          :nonbase
-        end
-      end
-
+      # @return [Array] list of strings of parts of set module's name
+      # Eg, returns ["Card", "Set", "Type", "User"] for Card::Set::Type::User
       def set_name_parts
         @set_name_parts ||= name.split "::"
       end
 
+      # @return [Symbol] codename associated with set's pattern. Eg :type, :right, etc
       def pattern_code
         @pattern_code ||= set_name_parts[2].underscore.to_sym
       end
@@ -50,6 +40,8 @@ class Card
         end
       end
 
+      # @return [true/false]
+      # handles all_set?, abstract_set?, type_set?, etc.
       def respond_to_missing? method_name, _include_private=false
         method_name.match? SET_PATTERN_TEST_REGEXP
       end
@@ -62,21 +54,6 @@ class Card
         else
           Set.modules[:nonbase][shortname] || []
         end
-      end
-
-      def test_set
-        # rubocop:disable Lint/Eval
-        ::Card::Set::Self.const_remove_if_defined :TestSet
-        eval <<-RUBY, binding, __FILE__, __LINE__ + 1
-          class ::Card::Set::Self
-            module TestSet
-              extend Card::Set
-              include_set #{name}
-            end
-          end
-        RUBY
-        ::Card::Set::Self::TestSet
-        # rubocop:enable Lint/Eval
       end
 
       def format_modules format_sym, test: true
@@ -95,6 +72,36 @@ class Card
 
       private
 
+      # @return [Symbol] base_format,
+      def set_format_type_key
+        @set_format_type_key ||= :"#{set_type_key}_format"
+      end
+
+      def set_type_key
+        if all_set?
+          :base
+        elsif abstract_set?
+          :abstract
+        else
+          :nonbase
+        end
+      end
+
+      def test_set
+        # rubocop:disable Lint/Eval
+        ::Card::Set::Self.const_remove_if_defined :TestSet
+        eval <<-RUBY, binding, __FILE__, __LINE__ + 1
+          class ::Card::Set::Self
+            module TestSet
+              extend Card::Set
+              include_set #{name}
+            end
+          end
+        RUBY
+        ::Card::Set::Self::TestSet
+        # rubocop:enable Lint/Eval
+      end
+
       def base_format_modules?
         !set_format_type_key || set_format_type_key == :base_format
       end
@@ -106,6 +113,12 @@ class Card
       def nonbase_format_modules format_sym
         format_class = Card::Format.format_class format: format_sym
         Card::Set.modules[set_format_type_key][format_class][shortname] || []
+      end
+
+      def num_set_parts pattern_code
+        return 1 if pattern_code == :abstract
+
+        Pattern.find(pattern_code).anchor_parts_count
       end
     end
   end

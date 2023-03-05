@@ -1,4 +1,4 @@
-include_set Abstract::Pointer
+include_set Abstract::List
 include_set Abstract::ReadOnly
 
 def item_cards _args={}
@@ -80,6 +80,7 @@ def manifest_group_minimize? group_name
 end
 
 def manifest
+  # FIXME: sometimes this needs to get cleared!
   @manifest ||= load_manifest
 end
 

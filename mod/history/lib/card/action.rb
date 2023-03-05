@@ -77,23 +77,6 @@ class Card
     # @return [Card]
     def card
       Card.fetch card_id, look_in_trash: true
-
-      # I'm not sure what the rationale for the following was/is, but it was causing
-      # problems in cases where slot attributes are overridden (eg see #wrap_data in
-      # sources on wikirate).  The problem is the format object had the set modules but
-      # the card didn't.
-      #
-      # My guess is that the need for the following had something to do with errors
-      # associated with changed types. If so, the solution probably needs to handle
-      # including the set modules associated with the type at the time of the action
-      # rather than including no set modules at all.
-      #
-      # What's more, we _definitely_ don't want to hard code special behavior for
-      # specific types in here!
-
-      # , skip_modules: true
-      # return res unless res && res.type_id.in?([Card::FileID, Card::ImageID])
-      # res.include_set_modules
     end
 
     # remove action from action cache

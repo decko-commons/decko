@@ -20,7 +20,7 @@ RSpec.describe Card::Auth::Token do
 
     it "handles invalid tokens" do
       expect(described_class.decode("#{encoded_token}XYZ"))
-        .to eq("Invalid segment encoding")
+        .to eq("Signature verification failed")
     end
 
     it "detects expired tokens" do

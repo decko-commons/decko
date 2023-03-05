@@ -84,7 +84,7 @@ class Card
           @item_options << extract_options(item_options, true)
           item_options = next_item_options
         end
-        # @item_options << default_item_options
+        # # @item_options << default_item_options
       end
 
       def default_item_options

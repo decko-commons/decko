@@ -1,4 +1,8 @@
 
+.d0-search-box {
+  width: 100%;
+}
+
 .search-keyword {
   font-style: italic;
 }
@@ -41,9 +45,16 @@
   padding: 0.2em 0;
 }
 
+.ui-autocomplete {
+  z-index: 2000 !important; // to move it in front of modals (= 1050)
+  .ui-menu-item-wrapper {
+    display: block;
+  }
+}
 
 .autocomplete-item {
   display: flex;
+  margin: 0.4em 0;
   .autocomplete-icon {
     width: 30px;
     margin-right: 1em;

@@ -9,14 +9,14 @@ module Cardio
     # (list of card attributes)
     # https://docs.google.com/document/d/13K_ynFwfpHwc3t5gnLeAkZJZHco1wK063nJNYwU8qfc/edit#
     class Eat
-      include Card::Model::SaveHelper
       include Edibles
 
-      def initialize mod: nil, type: nil, user: nil, verbose: nil
+      def initialize mod: nil, podtype: nil, user: nil, verbose: nil, name: nil
         @mod = mod
-        @pod_type = type&.to_sym
+        @pod_type = podtype&.to_sym
+        @name = name
         @user_id = user&.card_id
-        @verbose = true # !verbose.nil?
+        @verbose = !verbose.nil?
       end
 
       def up
@@ -25,7 +25,8 @@ module Cardio
             track edible do
               current_user edible.delete(:user)
               time_machine edible.delete(:time) do
-                ensure_card edible
+                # binding.pry if edible[:type] == :link_list
+                Card.ensure edible
               end
             end
           end

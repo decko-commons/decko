@@ -6,7 +6,7 @@
 <title>
   Module: Card::Set::Event::All
   
-    &mdash; Documentation by YARD 0.9.27
+    &mdash; Documentation by YARD 0.9.28
   
 </title>
 
@@ -95,7 +95,7 @@
 
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
-    <p>card methods for testing event applicability</p>
+    <p>card methods for scheduling events and testing event applicability</p>
 
 
   </div>
@@ -141,6 +141,29 @@
 </li>
 
       
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#schedule-instance_method" title="#schedule (instance method)">#<strong>schedule</strong>(event)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+</div></span>
+  
+</li>
+
+      
     </ul>
   
 
@@ -154,7 +177,7 @@
   
   
   <h3 class="inherited">Methods included from <span class='object_link'><a href="SkipAndTrigger.html" title="Card::Set::Event::SkipAndTrigger (module)">SkipAndTrigger</a></span></h3>
-  <p class="inherited"><span class='object_link'><a href="SkipAndTrigger.html#skip_event!-instance_method" title="Card::Set::Event::SkipAndTrigger#skip_event! (method)">#skip_event!</a></span>, <span class='object_link'><a href="SkipAndTrigger.html#skip_event%3F-instance_method" title="Card::Set::Event::SkipAndTrigger#skip_event? (method)">#skip_event?</a></span>, <span class='object_link'><a href="SkipAndTrigger.html#skip_event_in_action!-instance_method" title="Card::Set::Event::SkipAndTrigger#skip_event_in_action! (method)">#skip_event_in_action!</a></span>, <span class='object_link'><a href="SkipAndTrigger.html#skip_hash-instance_method" title="Card::Set::Event::SkipAndTrigger#skip_hash (method)">#skip_hash</a></span>, <span class='object_link'><a href="SkipAndTrigger.html#trigger_event!-instance_method" title="Card::Set::Event::SkipAndTrigger#trigger_event! (method)">#trigger_event!</a></span>, <span class='object_link'><a href="SkipAndTrigger.html#trigger_event%3F-instance_method" title="Card::Set::Event::SkipAndTrigger#trigger_event? (method)">#trigger_event?</a></span>, <span class='object_link'><a href="SkipAndTrigger.html#trigger_event_in_action!-instance_method" title="Card::Set::Event::SkipAndTrigger#trigger_event_in_action! (method)">#trigger_event_in_action!</a></span>, <span class='object_link'><a href="SkipAndTrigger.html#trigger_hash-instance_method" title="Card::Set::Event::SkipAndTrigger#trigger_hash (method)">#trigger_hash</a></span></p>
+  <p class="inherited"><span class='object_link'><a href="SkipAndTrigger.html#skip=-instance_method" title="Card::Set::Event::SkipAndTrigger#skip= (method)">#skip=</a></span>, <span class='object_link'><a href="SkipAndTrigger.html#skip_event!-instance_method" title="Card::Set::Event::SkipAndTrigger#skip_event! (method)">#skip_event!</a></span>, <span class='object_link'><a href="SkipAndTrigger.html#skip_event%3F-instance_method" title="Card::Set::Event::SkipAndTrigger#skip_event? (method)">#skip_event?</a></span>, <span class='object_link'><a href="SkipAndTrigger.html#skip_event_in_action!-instance_method" title="Card::Set::Event::SkipAndTrigger#skip_event_in_action! (method)">#skip_event_in_action!</a></span>, <span class='object_link'><a href="SkipAndTrigger.html#skip_hash-instance_method" title="Card::Set::Event::SkipAndTrigger#skip_hash (method)">#skip_hash</a></span>, <span class='object_link'><a href="SkipAndTrigger.html#skip_in_action=-instance_method" title="Card::Set::Event::SkipAndTrigger#skip_in_action= (method)">#skip_in_action=</a></span>, <span class='object_link'><a href="SkipAndTrigger.html#trigger=-instance_method" title="Card::Set::Event::SkipAndTrigger#trigger= (method)">#trigger=</a></span>, <span class='object_link'><a href="SkipAndTrigger.html#trigger_event!-instance_method" title="Card::Set::Event::SkipAndTrigger#trigger_event! (method)">#trigger_event!</a></span>, <span class='object_link'><a href="SkipAndTrigger.html#trigger_event%3F-instance_method" title="Card::Set::Event::SkipAndTrigger#trigger_event? (method)">#trigger_event?</a></span>, <span class='object_link'><a href="SkipAndTrigger.html#trigger_event_in_action!-instance_method" title="Card::Set::Event::SkipAndTrigger#trigger_event_in_action! (method)">#trigger_event_in_action!</a></span>, <span class='object_link'><a href="SkipAndTrigger.html#trigger_hash-instance_method" title="Card::Set::Event::SkipAndTrigger#trigger_hash (method)">#trigger_hash</a></span>, <span class='object_link'><a href="SkipAndTrigger.html#trigger_in_action=-instance_method" title="Card::Set::Event::SkipAndTrigger#trigger_in_action= (method)">#trigger_in_action=</a></span></p>
 
 
   <div id="instance_method_details" class="method_details_list">
@@ -199,14 +222,14 @@
       <pre class="lines">
 
 
-8
-9
-10
-11
-12</pre>
+16
+17
+18
+19
+20</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/set/event/all.rb', line 8</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/set/event/all.rb', line 16</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_event_applies?'>event_applies?</span> <span class='id identifier rubyid_event'>event</span>
   <span class='kw'>return</span> <span class='kw'>unless</span> <span class='id identifier rubyid_set_condition_applies?'>set_condition_applies?</span> <span class='id identifier rubyid_event'>event</span><span class='period'>.</span><span class='id identifier rubyid_set_module'>set_module</span><span class='comma'>,</span> <span class='id identifier rubyid_event'>event</span><span class='period'>.</span><span class='id identifier rubyid_opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:changing</span><span class='rbracket'>]</span>
@@ -218,14 +241,52 @@
 </table>
 </div>
     
+      <div class="method_details ">
+  <h3 class="signature " id="schedule-instance_method">
+  
+    #<strong>schedule</strong>(event)  &#x21d2; <tt><span class='object_link'><a href="../../../Object.html" title="Object (class)">Object</a></span></tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+6
+7
+8
+9
+10
+11
+12</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'card/lib/card/set/event/all.rb', line 6</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_schedule'>schedule</span> <span class='id identifier rubyid_event'>event</span>
+  <span class='ivar'>@scheduled</span> <span class='op'>||=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
+  <span class='kw'>return</span> <span class='kw'>if</span> <span class='ivar'>@scheduled</span><span class='lbracket'>[</span><span class='id identifier rubyid_event'>event</span><span class='period'>.</span><span class='id identifier rubyid_to_sym'>to_sym</span><span class='rbracket'>]</span>
+
+  <span class='id identifier rubyid_send'>send</span> <span class='symbol'>:&quot;#{</span><span class='id identifier rubyid_event'>event</span><span class='embexpr_end'>}</span><span class='tstring_content'>_with_delay</span><span class='tstring_end'>&quot;</span></span>
+  <span class='ivar'>@scheduled</span><span class='lbracket'>[</span><span class='id identifier rubyid_event'>event</span><span class='period'>.</span><span class='id identifier rubyid_to_sym'>to_sym</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='kw'>true</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
   </div>
 
 </div>
 
       <div id="footer">
-  Generated on Fri Jan 21 16:01:41 2022 by
-  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.27 (ruby-3.0.1).
+  Generated on Wed Feb 15 11:54:32 2023 by
+  <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.28 (ruby-3.0.4).
 </div>
 
     </div>

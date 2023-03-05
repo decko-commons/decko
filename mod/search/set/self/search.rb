@@ -1,4 +1,10 @@
+def match_start_only?
+  Card.config.search_box_match_start_only
+end
+
 format do
+  delegate :match_start_only?, to: :card
+
   view :search_error, cache: :never do
     # don't show card content; not very helpful in this case
     %(#{search_with_params.class} :: #{search_with_params.message})
@@ -13,9 +19,8 @@ format do
     rescuing_bad_query(query) { Card.search query }
   end
 
-  # TODO: unify with term_param
   def search_keyword
-    @search_keyword ||= search_vars&.dig :keyword
+    @search_keyword ||= term_param || search_vars&.dig(:keyword)
   end
 
   def search_vars
@@ -25,12 +30,19 @@ format do
   def cql_keyword?
     search_keyword&.match?(/^\{.+\}$/)
   end
+
+  def complete_path
+    path mark: :search, view: :search_box_complete, format: :json
+    # path mark: :search, view: :test, format: :json
+  end
+
+  def results_path keyword
+    path mark: :search, query: { keyword: keyword }
+  end
 end
 
 format :html do
-  view :search_box, cache: :never do
-    search_form { search_box_contents }
-  end
+  view :search_box, template: :haml, cache: :never
 
   view :title do
     voo.title ||= t(:search_results_title)
@@ -43,20 +55,22 @@ format :html do
 
   view :results_for_keyword, cache: :never, template: :haml
 
+  def search_item term
+    autocomplete_item :search, icon_tag(:search), term
+  end
+
+  private
+
   def search_form &block
     form_tag path, method: "get", role: "search", class: classy("search-box-form"), &block
   end
 
   def search_box_contents
-    keyword = query_params[:keyword]
-    select_tag "query[keyword]", options_for_select([keyword].compact, keyword),
-               class: "_search-box #{classy 'search-box'} form-control " \
-                      "w-100 _no-select2-init",
-               placeholder: t(:search_search_box_placeholder)
-  end
-
-  def search_item term
-    autocomplete_item icon_tag(:search), term
+    text_field_tag "query[keyword]", search_keyword,
+                   class: "_search-box #{classy 'search-box'} form-control w-100",
+                   autocomplete: :off,
+                   data: { completepath: complete_path },
+                   placeholder: t(:search_search_box_placeholder)
   end
 end
 
@@ -67,46 +81,46 @@ format :json do
 
   view :complete, cache: :never do
     complete_or_match_search(start_only: match_start_only?).map do |name|
-      goto_item_text name
+      goto_item_label name
     end
   end
 
   private
 
   def search_box_items *methods
-    term_and_exact do |term, exact|
-      methods.map do |method|
-        send method, term, exact
-      end.flatten.compact
+    [].tap do |items|
+      each_search_box_item methods do |action, value, label, data|
+        items << data.merge(action: action, value: value, label: label)
+      end
     end
   end
 
+  def each_search_box_item methods, &block
+    term = search_keyword
+    exact = Card.fetch term, new: {}
+    methods.map { |method| send method, term, exact, &block }
+  end
+
   def search_item term, _exact
-    { id: term, text: card.format.search_item(term) }
-  end
-
-  def term_and_exact
-    term = term_param
-    yield term, Card.fetch(term, new: {})
-  end
-
-  def match_start_only?
-    Card.config.search_box_match_start_only
+    yield :search, term, card.format.search_item(term), url: card_url(results_path(term))
   end
 
   def add_item term, exact
-    exact.format(:json).add_autocomplete_item term
+    return unless exact.add_autocomplete_ok?
+
+    fmt = exact.format
+    yield :add, term, fmt.render_add_autocomplete_item,
+          url: card_url(fmt.add_autocomplete_item_path)
   end
 
   def goto_items _term, exact
     map_goto_items exact do |item|
-      { id: item, href: item.url_key, text: goto_item_text(item) }
+      yield :goto, item, goto_item_label(item), url: path(mark: item)
     end
   end
 
-  # TODO: handle highlighting (with #highlight method)
-  def goto_item_text item
-    item.card.format.render :goto_autocomplete_item
+  def goto_item_label item
+    item.card.format.render_goto_autocomplete_item
   end
 
   def map_goto_items exact, &block
@@ -116,9 +130,11 @@ format :json do
   end
 
   def term_param
-    return nil unless query_params.present?
+    # return nil unless query_params.present?
+    #
+    # term = query_params[:keyword]
+    return unless (term = super)&.present?
 
-    term = query_params[:keyword]
     if (term =~ /^\+/) && (main = params["main"])
       term = main + term
     end

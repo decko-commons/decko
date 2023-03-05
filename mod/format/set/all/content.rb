@@ -41,19 +41,11 @@ format do
   end
 
   def raw_one_line_content
-    cut_with_ellipsis render_raw
+    truncate strip_tags(render_raw), length: one_line_character_limit
   end
 
   def one_line_content
-    Content.smart_truncate render_core
-  end
-
-  def cut_with_ellipsis text, limit=one_line_character_limit
-    if text.size <= limit
-      text
-    else
-      "#{text[0..(limit - 3)]}..."
-    end
+    truncate strip_tags(render_core), length: one_line_character_limit
   end
 
   def one_line_character_limit

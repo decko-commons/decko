@@ -7,8 +7,8 @@ class Card
   # frequently used directly in code.
   #
   # Query "statements" (objects, really) are made in CQL (Card Query
-  # Language). Because CQL is used by Sharks, the primary language
-  # documentation is on decko.org. (https://decko.org/CQL_Syntax). Note that the
+  # Language). Because CQL is used by Sharks, [the primary CQL Syntax documentation is
+  # on decko.org](https://decko.org/CQL_Syntax). Note that the
   # examples there are in JSON, like Search card content, but statements in
   # Card::Query are in ruby form.
   #
@@ -17,9 +17,11 @@ class Card
   # CQL statement interpretation.
   #
   # The most common way to use Card::Query is as follows:
+  #
   #     list_of_cards = Card::Query.run(statement)
   #
   # This is equivalent to:
+  #
   #     query = Card::Query.new(statement)
   #     list_of_cards = query.run
   #
@@ -32,7 +34,8 @@ class Card
   # - @subqueries - a list of other queries nested within this one
   #
   # Each condition is either a SQL-ready string (boo) or an Array in this form:
-  #    [ field_string_or_sym, Card::Value::Query object ]
+  #
+  #     [field_string_or_sym, (Card::Value::Query object)]
   module Query
     require "card/query/clause"
     require "card/query/card_query"
@@ -68,6 +71,7 @@ class Card
 
       plus_relational: %i[plus left_plus right_plus],
       conjunction: %i[and or all any],
+      custom: [:compound],
       ignore: %i[prepend append vars],
       deprecated: %i[view params size]
     }.each_with_object({}) do |pair, h|

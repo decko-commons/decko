@@ -6,7 +6,7 @@
 <title>
   Class: Cardio::Generators::Deck::DeckGenerator
   
-    &mdash; Documentation by YARD 0.9.27
+    &mdash; Documentation by YARD 0.9.28
   
 </title>
 
@@ -425,15 +425,15 @@
       <pre class="lines">
 
 
-45
-46
-47</pre>
+48
+49
+50</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/generators/deck/deck_generator.rb', line 45</span>
+      <pre class="code"><span class="info file"># File 'card/lib/generators/deck/deck_generator.rb', line 48</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_banner'>banner</span>
-  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>decko new </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_arguments'>arguments</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='symbol'>:usage</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'> </span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span><span class='embexpr_end'>}</span><span class='tstring_content'> [options]</span><span class='tstring_end'>&quot;</span></span>
+  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_banner_command'>banner_command</span><span class='embexpr_end'>}</span><span class='tstring_content'> new </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_arguments'>arguments</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='symbol'>:usage</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'> </span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span><span class='embexpr_end'>}</span><span class='tstring_content'> [options]</span><span class='tstring_end'>&quot;</span></span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -461,9 +461,6 @@
       <pre class="lines">
 
 
-73
-74
-75
 76
 77
 78
@@ -474,10 +471,13 @@
 83
 84
 85
-86</pre>
+86
+87
+88
+89</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/generators/deck/deck_generator.rb', line 73</span>
+      <pre class="code"><span class="info file"># File 'card/lib/generators/deck/deck_generator.rb', line 76</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_config'>config</span>
   <span class='id identifier rubyid_inside'>inside</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>config</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>do</span>
@@ -523,19 +523,19 @@
       <pre class="lines">
 
 
-51
-52
-53
 54
 55
 56
 57
 58
 59
-60</pre>
+60
+61
+62
+63</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/generators/deck/deck_generator.rb', line 51</span>
+      <pre class="code"><span class="info file"># File 'card/lib/generators/deck/deck_generator.rb', line 54</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_core_files'>core_files</span>
   <span class='id identifier rubyid_erb_template'>erb_template</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>config.ru</span><span class='tstring_end'>&quot;</span></span>
@@ -567,15 +567,15 @@
       <pre class="lines">
 
 
-66
-67
-68
 69
 70
-71</pre>
+71
+72
+73
+74</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/generators/deck/deck_generator.rb', line 66</span>
+      <pre class="code"><span class="info file"># File 'card/lib/generators/deck/deck_generator.rb', line 69</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_dotfiles'>dotfiles</span>
   <span class='id identifier rubyid_copy_file'>copy_file</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>pryrc</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>.pryrc</span><span class='tstring_end'>&quot;</span></span>
@@ -603,12 +603,12 @@
       <pre class="lines">
 
 
-62
-63
-64</pre>
+65
+66
+67</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/generators/deck/deck_generator.rb', line 62</span>
+      <pre class="code"><span class="info file"># File 'card/lib/generators/deck/deck_generator.rb', line 65</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_empty_dirs'>empty_dirs</span>
   <span class='qwords_beg'>%w[</span><span class='tstring_content'>mod</span><span class='words_sep'> </span><span class='tstring_content'>log</span><span class='words_sep'> </span><span class='tstring_content'>files</span><span class='words_sep'> </span><span class='tstring_content'>tmp</span><span class='tstring_end'>]</span></span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_dirname'>dirname</span><span class='op'>|</span> <span class='id identifier rubyid_empty_directory_with_keep_file'>empty_directory_with_keep_file</span> <span class='id identifier rubyid_dirname'>dirname</span> <span class='rbrace'>}</span>
@@ -633,15 +633,15 @@
       <pre class="lines">
 
 
-88
-89
-90
 91
 92
-93</pre>
+93
+94
+95
+96</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/generators/deck/deck_generator.rb', line 88</span>
+      <pre class="code"><span class="info file"># File 'card/lib/generators/deck/deck_generator.rb', line 91</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_public'>public</span>
   <span class='id identifier rubyid_inside'>inside</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>public</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>do</span>
@@ -669,13 +669,13 @@
       <pre class="lines">
 
 
-99
-100
-101
-102</pre>
+102
+103
+104
+105</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/generators/deck/deck_generator.rb', line 99</span>
+      <pre class="code"><span class="info file"># File 'card/lib/generators/deck/deck_generator.rb', line 102</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_script'>script</span>
   <span class='id identifier rubyid_directory'>directory</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>script</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_content'>content</span><span class='op'>|</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_shebang'>shebang</span><span class='embexpr_end'>}</span><span class='tstring_content'>\n</span><span class='tstring_end'>&quot;</span></span> <span class='op'>+</span> <span class='id identifier rubyid_content'>content</span> <span class='rbrace'>}</span>
@@ -701,9 +701,6 @@
       <pre class="lines">
 
 
-117
-118
-119
 120
 121
 122
@@ -711,10 +708,13 @@
 124
 125
 126
-127</pre>
+127
+128
+129
+130</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/generators/deck/deck_generator.rb', line 117</span>
+      <pre class="code"><span class="info file"># File 'card/lib/generators/deck/deck_generator.rb', line 120</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_seed_data'>seed_data</span>
   <span class='kw'>if</span> <span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>interactive</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
@@ -747,19 +747,19 @@
       <pre class="lines">
 
 
-104
-105
-106
 107
 108
 109
 110
 111
 112
-113</pre>
+113
+114
+115
+116</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/generators/deck/deck_generator.rb', line 104</span>
+      <pre class="code"><span class="info file"># File 'card/lib/generators/deck/deck_generator.rb', line 107</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_spec'>spec</span>
   <span class='id identifier rubyid_inside'>inside</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>spec</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>do</span>
@@ -791,12 +791,12 @@
       <pre class="lines">
 
 
-95
-96
-97</pre>
+98
+99
+100</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/generators/deck/deck_generator.rb', line 95</span>
+      <pre class="code"><span class="info file"># File 'card/lib/generators/deck/deck_generator.rb', line 98</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_spring'>spring</span>
   <span class='id identifier rubyid_inside'>inside</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>bin</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='lbrace'>{</span> <span class='id identifier rubyid_erb_template'>erb_template</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>spring</span><span class='tstring_end'>&quot;</span></span> <span class='rbrace'>}</span>
@@ -811,9 +811,9 @@
 </div>
 
       <div id="footer">
-  Generated on Fri Jan 21 16:01:49 2022 by
-  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.27 (ruby-3.0.1).
+  Generated on Wed Feb 15 11:54:46 2023 by
+  <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.28 (ruby-3.0.4).
 </div>
 
     </div>

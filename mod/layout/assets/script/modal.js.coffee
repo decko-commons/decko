@@ -61,9 +61,6 @@ jQuery.fn.extend {
                         .data("modal-origin-slot-id")
     @find(".modal-body .card-slot").attr("data-modal-origin-slot-id", origin_slot_id)
 
-  modalOriginSlot: ()->
-
-
   modalSlot: ->
     slot = $("#modal-container")
     if slot.length > 0 then slot else decko.createModalSlot()

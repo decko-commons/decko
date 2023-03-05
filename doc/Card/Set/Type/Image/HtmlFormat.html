@@ -6,7 +6,7 @@
 <title>
   Module: Card::Set::Type::Image::HtmlFormat
   
-    &mdash; Documentation by YARD 0.9.26
+    &mdash; Documentation by YARD 0.9.28
   
 </title>
 
@@ -83,7 +83,7 @@
   
   <dl>
     <dt>Defined in:</dt>
-    <dd>card/tmpsets/set/mod020-card-mod-bar_and_box/type/image.rb</dd>
+    <dd>platypus/tmp/set/gem-defaults/mod023-bar_and_box/type/image.rb</dd>
   </dl>
   
 </div>
@@ -297,7 +297,7 @@
 26</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod020-card-mod-bar_and_box/type/image.rb', line 21</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod023-bar_and_box/type/image.rb', line 21</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_image_box'>image_box</span>
   <span class='id identifier rubyid_voo'>voo</span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span> <span class='op'>||=</span> <span class='symbol'>:medium</span>
@@ -330,10 +330,10 @@
 36</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod020-card-mod-bar_and_box/type/image.rb', line 34</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod023-bar_and_box/type/image.rb', line 34</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_image_box_card_name'>image_box_card_name</span>
-  <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span><span class='period'>.</span><span class='id identifier rubyid_junction?'>junction?</span> <span class='op'>?</span> <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span><span class='period'>.</span><span class='id identifier rubyid_left'>left</span> <span class='op'>:</span> <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span>
+  <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span><span class='period'>.</span><span class='id identifier rubyid_compound?'>compound?</span> <span class='op'>?</span> <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span><span class='period'>.</span><span class='id identifier rubyid_left'>left</span> <span class='op'>:</span> <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -360,7 +360,7 @@
 40</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod020-card-mod-bar_and_box/type/image.rb', line 38</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod023-bar_and_box/type/image.rb', line 38</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_image_box_link_target'>image_box_link_target</span>
   <span class='id identifier rubyid_image_box_card_name'>image_box_card_name</span>
@@ -400,7 +400,7 @@
 32</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod020-card-mod-bar_and_box/type/image.rb', line 30</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod023-bar_and_box/type/image.rb', line 30</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_image_box_size'>image_box_size</span>
   <span class='const'><span class='object_link'><a href="../Image.html#IMAGE_BOX_SIZE_MAP-constant" title="Card::Set::Type::Image::IMAGE_BOX_SIZE_MAP (constant)">IMAGE_BOX_SIZE_MAP</a></span></span><span class='lbracket'>[</span><span class='id identifier rubyid_voo'>voo</span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span><span class='period'>.</span><span class='id identifier rubyid_to_sym'>to_sym</span><span class='rbracket'>]</span> <span class='op'>||</span> <span class='symbol'>:medium</span>
@@ -430,7 +430,7 @@
 44</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod020-card-mod-bar_and_box/type/image.rb', line 42</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod023-bar_and_box/type/image.rb', line 42</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_image_box_title'>image_box_title</span>
   <span class='id identifier rubyid_voo'>voo</span><span class='period'>.</span><span class='id identifier rubyid_title'>title</span> <span class='op'>||</span> <span class='id identifier rubyid_image_box_card_name'>image_box_card_name</span>
@@ -460,7 +460,7 @@
 15</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod020-card-mod-bar_and_box/type/image.rb', line 13</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod023-bar_and_box/type/image.rb', line 13</span>
 
 <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:boxed</span><span class='comma'>,</span> <span class='label'>unknown:</span> <span class='kw'>true</span> <span class='kw'>do</span>
   <span class='id identifier rubyid_image_box'>image_box</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_size'>size</span><span class='op'>|</span> <span class='id identifier rubyid_render_core'>render_core</span> <span class='label'>size:</span> <span class='id identifier rubyid_size'>size</span> <span class='rbrace'>}</span>
@@ -490,7 +490,7 @@
 19</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod020-card-mod-bar_and_box/type/image.rb', line 17</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod023-bar_and_box/type/image.rb', line 17</span>
 
 <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:boxed_link</span><span class='comma'>,</span> <span class='label'>unknown:</span> <span class='kw'>true</span> <span class='kw'>do</span>
   <span class='id identifier rubyid_image_box'>image_box</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_size'>size</span><span class='op'>|</span> <span class='id identifier rubyid_link_to_card'>link_to_card</span> <span class='id identifier rubyid_image_box_link_target'>image_box_link_target</span><span class='comma'>,</span> <span class='id identifier rubyid_render_core'>render_core</span><span class='lparen'>(</span><span class='label'>size:</span> <span class='id identifier rubyid_size'>size</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
@@ -505,9 +505,9 @@
 </div>
 
       <div id="footer">
-  Generated on Thu May 13 17:17:31 2021 by
-  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.26 (ruby-2.7.2).
+  Generated on Wed Feb 15 11:54:39 2023 by
+  <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.28 (ruby-3.0.4).
 </div>
 
     </div>

@@ -1,19 +1,19 @@
 ---
 - :name: "style: mods"
   :type: :list
-  :codename: :style_mods
+  :codename: style_mods
 
 - :name: Local style folder group
   :type: :cardtype
-  :codename: :local_style_folder_group
+  :codename: local_style_folder_group
 - :name: Local style manifest group
   :type: :cardtype
-  :codename: :local_style_manifest_group
+  :codename: local_style_manifest_group
 
 
 - :name: CSS
   :type: :cardtype
-  :codename: :css
+  :codename: css
   :fields:
     :description: |-
       <p>Customize styles for [[Skins]]. [[http://decko.org/CSS|more]]</p>
@@ -24,7 +24,7 @@
         :delete: Shark
 - :name: SCSS
   :type: :cardtype
-  :codename: :scss
+  :codename: scss
   :fields:
     :description: |-
       <p>Customize styles for [[Skins]]. [[http://decko.org/SCSS|more]]</p>
@@ -35,7 +35,7 @@
         :delete: Shark
 - :name: Skin
   :type: :cardtype
-  :codename: :skin
+  :codename: skin
   :fields:
     :description: |-
       <p>
@@ -49,7 +49,7 @@
         :delete: Shark
 - :name: "*style"
   :type: :setting
-  :codename: :style
+  :codename: style
   :fields:
     :right:
       :fields:

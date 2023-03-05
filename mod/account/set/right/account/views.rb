@@ -50,7 +50,8 @@ format :html do
   end
 
   before :content_formgroups do
-    voo.edit_structure = [[:email, "email"], [:password, "password"]]
+    voo.edit_structure = [[:email, title: "email"],
+                          [:password, title: "password"]]
   end
 
   view :token_expiry do

@@ -1,72 +1,53 @@
 require "cardio/mod/class_methods"
 
 module Cardio
-  # A Card Mod (short for "module" or "modification") is a discrete piece of Decko
-  # functionality. Mods are how the Decko community develops and shares code.
-  # If you want to customize a deck in a way that can't be done on the site itself,
+  # A Card Mod (short for "module" or "modification") is a library containing discrete
+  # chunk of card functionality. Mods are how the Decko community develops and shares
+  # code. If you want to customize a deck in a way that can't be done on the site itself,
   # try a mod.
   #
   # The simplest way to add a mod is to run this command in your deck:
   #
-  #     decko generate card:mod MOD_NAME
+  #     card generate mod MOD_NAME
+  #
+  #     # or, for short:
+  #     card g mod MOD_NAME
   #
   # This will create a directory following the pattern `DECK_NAME/mod/MOD_NAME`. This
   # directory contains all the specifications of your mod. By default that includes
-  # a README.md file and the following subdirectories:
+  # a README.md file and the subdirectories in **bold** below:
   #
-  # - **assets** - for JavaScript, CSS, and variants (CoffeeScript, SCSS, etc)
-  # - **lib** - for standard code libraries
+  # - {file:mod/assets/README.md **assets**}
+  #   - **script** - JavaScript, CoffeeScript, etc
+  #   - **style** - CSS, SCSS, etc
+  # - **config**
+  #    - **early** ruby init files loaded before Card
+  #    - **late** ruby init files loaded after Card
+  #    - **locales** i18n yml files
+  # - {file:SEEDME.md **data**} - seed and test data.
+  # - **lib** - standard ruby libraries
+  #   - task - rake tasks
   # - **public** - accessible via the web at DECK_URL_ROOT/mod/MOD_NAME/
-  # - **set** - the mod's focal point where card sets are configured (see below)
-  # - **spec** - for rspec tests
+  # - **{Card::Set set}** - the mod's focal point where card sets are configured
+  # - {Card::Set::Pattern set_pattern} - (advanced) for adding types of sets.
+  # - {file:CONTRIBUTING.md#Testing **spec**} - for rspec tests
+  # - vendor - for external code, especially git submodules
   #
-  # ## Set Modules
-  #
-  # Set modules define methods for a given set of cards and their format objects.
-  # They are defined in a mod's _set_ directory. For example, suppose you've created a
-  # mod that called *biz*, your deck has Company cards, and you want to extend the
-  # behavior of those cards.
-  #
-  # You can add a set module like so:
-  #
-  #       decko generate set biz type company
-  #
-  # This will create the following two files:
-  #
-  #       mod/biz/set/type/company.rb
-  #       mod/biz/spec/set/type/company.rb
-  #
-  # If you would like to break this code into smaller files, you can extend this
-  # pattern into another directory, eg:
-  #
-  #       mod/biz/set/type/company/foo.rb
-  #       mod/biz/set/type/company/bar.rb
-  #
-  # The general pattern can be expressed as follows:
-  #
-  #       DECKNAME/mod/MODNAME/set/SET_PATTERN/ANCHOR[/FREENAME].rb
+  # Mods also often contain a .gemspec file to specify the mod as a ruby gem.
   #
   # Learn more:
+  #
   #   - {Card} introduces card objects
-  #   - {Card::Set} provides an overview of how set modules work
-  #   - {Card::Set::Format} explains the basics of the format API
-  #   - {Card::Set::Format::AbstractFormat} explains the basics of the view definition API
-  #   - {Card::Set::Event::Api} explains the basics of the event API
-  #
-  # ## Other Directories
-  #
-  # Other ways your mod can extend Decko functionality include:
-  #   - **set_pattern** for additional {Card::Set::Pattern set patterns},
-  #     or types of sets.
-  #   - **file** for fixed initial card content
+  #   - {Card::Set} explains of how set modules work
   class Mod
     extend ClassMethods
 
-    attr_reader :name, :path, :index
+    attr_reader :name, :path, :group, :index
 
-    def initialize name, path, index
+    def initialize name, path, group, index
       @name = Mod.normalize_name name
       @path = required_path path
+      @group = group || :custom
       @index = index
     end
 
@@ -84,7 +65,7 @@ module Cardio
     end
 
     def tmp_dir type
-      File.join Cardio.paths["tmp/#{type}"].first,
+      File.join Cardio.paths["tmp/#{type}"].first, @group.to_s,
                 "mod#{'%03d' % (@index + 1)}-#{@name}"
     end
 
@@ -103,7 +84,10 @@ module Cardio
     def required_path path
       return path if File.exist? path
 
-      raise Card::Error::NotFound, "mod not found: #{@name}"
+      raise StandardError, "mod not found: #{@name}"
+
+      # FIXME: - need non-Card based error class
+      # raise Card::Error::NotFound,
     end
   end
 end

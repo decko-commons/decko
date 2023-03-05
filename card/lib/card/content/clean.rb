@@ -1,6 +1,6 @@
 class Card
   class Content
-    # tools for cleaning content, especially for restricing unwanted HTML
+    # tools for cleaning content, especially for restricting unwanted HTML
     module Clean
       allowed_tags = {}
       %w[

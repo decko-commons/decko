@@ -1,5 +1,6 @@
 namespace :card do
   namespace :mod do
+    desc "list current mods in load order"
     task list: :environment do
       Cardio.mods.each { |m| puts "#{m.name}: #{m.path}".green }
     end
@@ -15,10 +16,12 @@ namespace :card do
       end
     end
 
-    task missing: :environment do
-      Cardio::Mod.missing.each { |m| puts m.modname.yellow }
+    desc "list mods still installed but not configured for use"
+    task leftover: :environment do
+      Cardio::Mod.leftover.each { |m| puts m.modname.yellow }
     end
 
+    desc "uninstall leftover mods"
     task uninstall: :environment do
       Cardio::Mod.ensure_uninstalled
     end

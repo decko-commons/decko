@@ -1,0 +1,19 @@
+en:
+  carrierwave_add_item: Add %{attachment_name}...
+  carrierwave_codename_needed_for_storage: codename needed for storage type coded
+  carrierwave_delete: Delete
+  carrierwave_download: Download %{title}
+  carrierwave_error_invalid_storage_type: "%{type} is not a valid file storage option"
+  carrierwave_file_error: File Error
+  carrierwave_is_missing: is missing
+  carrierwave_mod_argument_needed_to_save: mod argument needed to save card as coded
+  carrierwave_moving_files_is_not_supported: moving files from cloud elsewhere is not supported
+  carrierwave_replace_item: Replace %{attachment_name}...
+  carrierwave_unknown_storage_type: unknown storage type %{new_storage_type}
+  carrierwave_url_is_missing: url is missing
+
+  #  carrierwave_task_move_files_link_text: "Move Files"
+  #  carrierwave_task_move_files_description: "Move Files!"
+
+  carrierwave_task_delete_upload_tmp_files_link_text: "Delete upload tmp files"
+  carrierwave_task_delete_upload_tmp_files_description: "Delete upload tmp files!"

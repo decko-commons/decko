@@ -1,6 +1,6 @@
 - :name: Session
   :type: :cardtype
-  :codename: :session
+  :codename: session
   :fields:
     :description: |-
       Session cards are for non-permanent content. They are not stored in the database 
@@ -9,7 +9,7 @@
 # FIXME: this code is in rules, but neither session cards nor permissions are that early
 - :name: "*recent settings"
   # :type: :session
-  :codename: :recent_settings
+  :codename: recent_settings
   :fields:
     :self:
       :fields:

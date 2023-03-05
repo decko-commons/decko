@@ -13,16 +13,15 @@ RSpec.describe Card::Content::Diff do
     "&lt;#{text}&gt;"
   end
 
-  def diff old_s, new_s, opts=@opts
-    Card::Content::Diff.complete(old_s, new_s, opts)
+  def diff old_s, new_s, options=opts
+    Card::Content::Diff.complete(old_s, new_s, options)
   end
 
-  def summary old_s, new_s, opts=@opts
-    Card::Content::Diff.summary(old_s, new_s, opts)
+  def summary old_s, new_s, options=opts
+    Card::Content::Diff.summary(old_s, new_s, options)
   end
 
   old_p = "<p>old</p>"
-  new_p = "<p>new</p>"
   new_h = "<h1>new</h1>"
   def p_diff
     diff "<p>old</p>", "<p>new</p>"
@@ -63,9 +62,7 @@ RSpec.describe Card::Content::Diff do
   end
 
   describe "summary" do
-    before(:all) do
-      @opts = { diff_format: :html }
-    end
+    let(:opts) { { diff_format: :html } }
 
     it "omits unchanged text" do
       a = "<p>this was the original string</p>"
@@ -133,9 +130,7 @@ RSpec.describe Card::Content::Diff do
   end
 
   context "html format" do
-    before(:all) do
-      @opts = { diff_format: :html }
-    end
+    let(:opts) { { diff_format: :html } }
 
     it "doesn't change a text without changes" do
       text = "Hello World!\n How are you?"
@@ -165,9 +160,7 @@ RSpec.describe Card::Content::Diff do
   end
 
   context "text format" do
-    before(:all) do
-      @opts = { diff_format: :text }
-    end
+    let(:opts) { { diff_format: :text } }
 
     it "removes html" do
       expect(p_diff).to eq("#{del 'old'}#{ins 'new'}")
@@ -187,9 +180,7 @@ RSpec.describe Card::Content::Diff do
   end
 
   context "raw format" do
-    before(:all) do
-      @opts = { diff_format: :raw }
-    end
+    let(:opts) { { diff_format: :raw } }
 
     it "excapes html" do
       expect(p_diff).to eq("#{tag 'p'}#{del 'old'}#{ins 'new'}#{tag '/p'}")
@@ -202,9 +193,7 @@ RSpec.describe Card::Content::Diff do
   end
 
   context "pointer format" do
-    before(:all) do
-      @opts = { diff_format: :pointer }
-    end
+    let(:opts) { { diff_format: :pointer } }
 
     it "removes square brackets" do
       expect(diff("[[Hello]]", "[[Hi]]")).to eq(del("Hello<br>") + ins("Hi<br>"))

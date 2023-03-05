@@ -6,7 +6,7 @@
 <title>
   Module: Card::Set::Type::Image::HtmlViews::HtmlFormat
   
-    &mdash; Documentation by YARD 0.9.26
+    &mdash; Documentation by YARD 0.9.28
   
 </title>
 
@@ -88,7 +88,7 @@
   
   <dl>
     <dt>Defined in:</dt>
-    <dd>card/tmpsets/set/mod014-card-mod-carrierwave/type/image/html_views.rb</dd>
+    <dd>platypus/tmp/set/gem-defaults/mod016-carrierwave/type/image/html_views.rb</dd>
   </dl>
   
 </div>
@@ -112,6 +112,29 @@
   <span class="summary_signature">
     
       <a href="#content_changes-instance_method" title="#content_changes (instance method)">#<strong>content_changes</strong>(action, diff_type, hide_diff = false)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#goto_autocomplete_icon-instance_method" title="#goto_autocomplete_icon (instance method)">#<strong>goto_autocomplete_icon</strong>  &#x21d2; Object </a>
     
 
     
@@ -181,6 +204,29 @@
   <span class="summary_signature">
     
       <a href="#old_image-instance_method" title="#old_image (instance method)">#<strong>old_image</strong>(action, hide_diff)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#old_image_change-instance_method" title="#old_image_change (instance method)">#<strong>old_image_change</strong>(action) {|change.card_action_id| ... } &#x21d2; Object </a>
     
 
     
@@ -375,17 +421,47 @@
       <pre class="lines">
 
 
-58
-59
 60
-61</pre>
+61
+62
+63</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod014-card-mod-carrierwave/type/image/html_views.rb', line 58</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod016-carrierwave/type/image/html_views.rb', line 60</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_content_changes'>content_changes</span> <span class='id identifier rubyid_action'>action</span><span class='comma'>,</span> <span class='id identifier rubyid_diff_type'>diff_type</span><span class='comma'>,</span> <span class='id identifier rubyid_hide_diff'>hide_diff</span><span class='op'>=</span><span class='kw'>false</span>
   <span class='id identifier rubyid_voo'>voo</span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span> <span class='op'>=</span> <span class='id identifier rubyid_diff_type'>diff_type</span> <span class='op'>==</span> <span class='symbol'>:summary</span> <span class='op'>?</span> <span class='symbol'>:icon</span> <span class='op'>:</span> <span class='symbol'>:medium</span>
   <span class='lbracket'>[</span><span class='id identifier rubyid_old_image'>old_image</span><span class='lparen'>(</span><span class='id identifier rubyid_action'>action</span><span class='comma'>,</span> <span class='id identifier rubyid_hide_diff'>hide_diff</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='id identifier rubyid_new_image'>new_image</span><span class='lparen'>(</span><span class='id identifier rubyid_action'>action</span><span class='rparen'>)</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_compact'>compact</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="goto_autocomplete_icon-instance_method">
+  
+    #<strong>goto_autocomplete_icon</strong>  &#x21d2; <tt><span class='object_link'><a href="../../../../../Object.html" title="Object (class)">Object</a></span></tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+87
+88
+89</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod016-carrierwave/type/image/html_views.rb', line 87</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_goto_autocomplete_icon'>goto_autocomplete_icon</span>
+  <span class='id identifier rubyid_render'>render</span> <span class='symbol'>:core</span><span class='comma'>,</span> <span class='label'>size:</span> <span class='symbol'>:small</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -407,13 +483,13 @@
       <pre class="lines">
 
 
-37
 38
 39
-40</pre>
+40
+41</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod014-card-mod-carrierwave/type/image/html_views.rb', line 37</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod016-carrierwave/type/image/html_views.rb', line 38</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_invalid_image'>invalid_image</span> <span class='id identifier rubyid_source'>source</span>
   <span class='comment'># (&quot;missing&quot; is the view for &quot;unknown&quot; now, so we shouldn&#39;t further confuse things)
@@ -439,14 +515,14 @@
       <pre class="lines">
 
 
-71
-72
-73
-74
-75</pre>
+81
+82
+83
+84
+85</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod014-card-mod-carrierwave/type/image/html_views.rb', line 71</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod016-carrierwave/type/image/html_views.rb', line 81</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_new_image'>new_image</span> <span class='id identifier rubyid_action'>action</span>
   <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_with_selected_action_id'>with_selected_action_id</span> <span class='id identifier rubyid_action'>action</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span> <span class='kw'>do</span>
@@ -473,23 +549,84 @@
       <pre class="lines">
 
 
-63
-64
 65
 66
 67
 68
-69</pre>
+69
+70
+71
+72
+73</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod014-card-mod-carrierwave/type/image/html_views.rb', line 63</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod016-carrierwave/type/image/html_views.rb', line 65</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_old_image'>old_image</span> <span class='id identifier rubyid_action'>action</span><span class='comma'>,</span> <span class='id identifier rubyid_hide_diff'>hide_diff</span>
   <span class='kw'>return</span> <span class='kw'>if</span> <span class='id identifier rubyid_hide_diff'>hide_diff</span> <span class='op'>||</span> <span class='op'>!</span><span class='id identifier rubyid_action'>action</span>
-  <span class='kw'>return</span> <span class='kw'>unless</span> <span class='lparen'>(</span><span class='id identifier rubyid_last_change'>last_change</span> <span class='op'>=</span> <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_last_change_on'>last_change_on</span><span class='lparen'>(</span><span class='symbol'>:db_content</span><span class='comma'>,</span> <span class='label'>before:</span> <span class='id identifier rubyid_action'>action</span><span class='rparen'>)</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_with_selected_action_id'>with_selected_action_id</span> <span class='id identifier rubyid_last_change'>last_change</span><span class='period'>.</span><span class='id identifier rubyid_card_action_id'>card_action_id</span> <span class='kw'>do</span>
-    <span class='const'><span class='object_link'><a href="../../../../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../../../Content.html" title="Card::Content (class)">Content</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../../../Content/Diff.html" title="Card::Content::Diff (class)">Diff</a></span></span><span class='period'>.</span><span class='id identifier rubyid_render_deleted_chunk'><span class='object_link'><a href="../../../../Content/Diff.html#render_deleted_chunk-class_method" title="Card::Content::Diff.render_deleted_chunk (method)">render_deleted_chunk</a></span></span> <span class='id identifier rubyid__render_core'>_render_core</span>
+
+  <span class='id identifier rubyid_old_image_change'>old_image_change</span> <span class='id identifier rubyid_action'>action</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_old_action_id'>old_action_id</span><span class='op'>|</span>
+    <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_with_selected_action_id'>with_selected_action_id</span> <span class='id identifier rubyid_old_action_id'>old_action_id</span> <span class='kw'>do</span>
+      <span class='const'><span class='object_link'><a href="../../../../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../../../Content.html" title="Card::Content (class)">Content</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../../../Content/Diff.html" title="Card::Content::Diff (class)">Diff</a></span></span><span class='period'>.</span><span class='id identifier rubyid_render_deleted_chunk'><span class='object_link'><a href="../../../../Content/Diff.html#render_deleted_chunk-class_method" title="Card::Content::Diff.render_deleted_chunk (method)">render_deleted_chunk</a></span></span> <span class='id identifier rubyid__render_core'>_render_core</span>
+    <span class='kw'>end</span>
   <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="old_image_change-instance_method">
+  
+    #<strong>old_image_change</strong>(action) {|change.card_action_id| ... } &#x21d2; <tt><span class='object_link'><a href="../../../../../Object.html" title="Object (class)">Object</a></span></tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Yields:</p>
+<ul class="yield">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>change.card_action_id</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+75
+76
+77
+78
+79</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod016-carrierwave/type/image/html_views.rb', line 75</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_old_image_change'>old_image_change</span> <span class='id identifier rubyid_action'>action</span>
+  <span class='kw'>return</span> <span class='kw'>unless</span> <span class='lparen'>(</span><span class='id identifier rubyid_change'>change</span> <span class='op'>=</span> <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_last_change_on'>last_change_on</span><span class='lparen'>(</span><span class='symbol'>:db_content</span><span class='comma'>,</span> <span class='label'>before:</span> <span class='id identifier rubyid_action'>action</span><span class='rparen'>)</span><span class='rparen'>)</span>
+
+  <span class='kw'>yield</span> <span class='id identifier rubyid_change'>change</span><span class='period'>.</span><span class='id identifier rubyid_card_action_id'>card_action_id</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -511,19 +648,21 @@
       <pre class="lines">
 
 
-42
 43
 44
 45
 46
 47
-48</pre>
+48
+49
+50</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod014-card-mod-carrierwave/type/image/html_views.rb', line 42</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod016-carrierwave/type/image/html_views.rb', line 43</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_preview'>preview</span>
   <span class='kw'>return</span> <span class='kw'>if</span> <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_new_card?'>new_card?</span> <span class='op'>&amp;&amp;</span> <span class='op'>!</span><span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_preliminary_upload?'>preliminary_upload?</span>
+
   <span class='id identifier rubyid_wrap_with'>wrap_with</span> <span class='symbol'>:div</span><span class='comma'>,</span> <span class='label'>class:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>attachment-preview</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
                   <span class='label'>id:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_attachment'>attachment</span><span class='period'>.</span><span class='id identifier rubyid_filename'>filename</span><span class='embexpr_end'>}</span><span class='tstring_content'>-preview</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>do</span>
     <span class='id identifier rubyid__render_core'>_render_core</span> <span class='label'>size:</span> <span class='symbol'>:medium</span>
@@ -572,12 +711,12 @@
       <pre class="lines">
 
 
-50
-51
-52</pre>
+52
+53
+54</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod014-card-mod-carrierwave/type/image/html_views.rb', line 50</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod016-carrierwave/type/image/html_views.rb', line 52</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_show_action_content_toggle?'>show_action_content_toggle?</span> <span class='id identifier rubyid__action'>_action</span><span class='comma'>,</span> <span class='id identifier rubyid__view_type'>_view_type</span>
   <span class='kw'>true</span>
@@ -602,12 +741,12 @@
       <pre class="lines">
 
 
-54
-55
-56</pre>
+56
+57
+58</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod014-card-mod-carrierwave/type/image/html_views.rb', line 54</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod016-carrierwave/type/image/html_views.rb', line 56</span>
 
 <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:content_changes</span> <span class='kw'>do</span>
   <span class='id identifier rubyid_content_changes'>content_changes</span> <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_last_action'>last_action</span><span class='comma'>,</span> <span class='symbol'>:expanded</span>
@@ -647,13 +786,15 @@
 14
 15
 16
-17</pre>
+17
+18</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod014-card-mod-carrierwave/type/image/html_views.rb', line 12</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod016-carrierwave/type/image/html_views.rb', line 12</span>
 
 <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:core</span> <span class='kw'>do</span>
-  <span class='kw'>return</span> <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_attachment'>attachment</span><span class='period'>.</span><span class='id identifier rubyid_read'>read</span> <span class='kw'>if</span> <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_svg?'>svg?</span>
+  <span class='kw'>return</span> <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_attachment'>attachment</span><span class='period'>.</span><span class='id identifier rubyid_read'>read</span><span class='period'>.</span><span class='id identifier rubyid_html_safe'>html_safe</span> <span class='kw'>if</span> <span class='id identifier rubyid_svg?'>svg?</span>
+
   <span class='id identifier rubyid_with_valid_source'>with_valid_source</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_source'>source</span><span class='op'>|</span>
     <span class='id identifier rubyid_image_tag'>image_tag</span> <span class='id identifier rubyid_source'>source</span><span class='comma'>,</span> <span class='label'>alt:</span> <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span>
   <span class='kw'>end</span>
@@ -678,14 +819,14 @@
       <pre class="lines">
 
 
-31
 32
 33
 34
-35</pre>
+35
+36</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod014-card-mod-carrierwave/type/image/html_views.rb', line 31</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod016-carrierwave/type/image/html_views.rb', line 32</span>
 
 <span class='id identifier rubyid_view'>view</span> <span class='symbol'>:full_width</span> <span class='kw'>do</span>
   <span class='id identifier rubyid_with_valid_source'>with_valid_source</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_source'>source</span><span class='op'>|</span>
@@ -712,7 +853,6 @@
       <pre class="lines">
 
 
-19
 20
 21
 22
@@ -722,10 +862,11 @@
 26
 27
 28
-29</pre>
+29
+30</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod014-card-mod-carrierwave/type/image/html_views.rb', line 19</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod016-carrierwave/type/image/html_views.rb', line 20</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_with_valid_source'>with_valid_source</span>
   <span class='id identifier rubyid_handle_source'>handle_source</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_source'>source</span><span class='op'>|</span>
@@ -748,9 +889,9 @@
 </div>
 
       <div id="footer">
-  Generated on Thu May 13 17:17:38 2021 by
-  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.26 (ruby-2.7.2).
+  Generated on Wed Feb 15 11:54:42 2023 by
+  <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.28 (ruby-3.0.4).
 </div>
 
     </div>

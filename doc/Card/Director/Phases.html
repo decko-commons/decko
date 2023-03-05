@@ -6,7 +6,7 @@
 <title>
   Module: Card::Director::Phases
   
-    &mdash; Documentation by YARD 0.9.27
+    &mdash; Documentation by YARD 0.9.28
   
 </title>
 
@@ -275,7 +275,6 @@
       <pre class="lines">
 
 
-43
 44
 45
 46
@@ -284,13 +283,17 @@
 49
 50
 51
-52</pre>
+52
+53
+54
+55</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/lib/card/director/phases.rb', line 43</span>
+      <pre class="code"><span class="info file"># File 'card/lib/card/director/phases.rb', line 44</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_integration_phase'>integration_phase</span>
-  <span class='kw'>return</span> <span class='kw'>if</span> <span class='ivar'>@abort</span>
+  <span class='comment'># puts &quot;integration phase: #{@card.name}&quot;
+</span>  <span class='kw'>return</span> <span class='kw'>if</span> <span class='ivar'>@abort</span>
 
   <span class='ivar'>@card</span><span class='period'>.</span><span class='id identifier rubyid_restore_changes_information'>restore_changes_information</span>
   <span class='id identifier rubyid_run_stage'>run_stage</span> <span class='symbol'>:integrate</span>
@@ -298,7 +301,8 @@
   <span class='id identifier rubyid_run_stage'>run_stage</span> <span class='symbol'>:integrate_with_delay</span>
 <span class='kw'>ensure</span>
   <span class='ivar'>@card</span><span class='period'>.</span><span class='id identifier rubyid_clear_changes_information'>clear_changes_information</span> <span class='kw'>unless</span> <span class='ivar'>@abort</span>
-<span class='kw'>end</span></pre>
+  <span class='ivar'>@card</span><span class='period'>.</span><span class='id identifier rubyid_expire'>expire</span> <span class='kw'>unless</span> <span class='const'><span class='object_link'><a href="../../Cardio.html" title="Cardio (module)">Cardio</a></span></span><span class='period'>.</span><span class='id identifier rubyid_delaying?'><span class='object_link'><a href="../../Cardio/Delaying.html#delaying%3F-instance_method" title="Cardio::Delaying#delaying? (method)">delaying?</a></span></span> <span class='comment'># if delaying, then expired by clear
+</span><span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -350,7 +354,7 @@
       <pre class="code"><span class="info file"># File 'card/lib/card/director/phases.rb', line 13</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_integration_phase_callback?'>integration_phase_callback?</span>
-  <span class='op'>!</span><span class='ivar'>@only_storage_phase</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_main?'>main?</span>
+  <span class='op'>!</span><span class='ivar'>@abort</span> <span class='op'>&amp;&amp;</span> <span class='op'>!</span><span class='ivar'>@only_storage_phase</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_main?'>main?</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -426,16 +430,18 @@ because it is called by an “around” callback</p>
 38
 39
 40
-41</pre>
+41
+42</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'card/lib/card/director/phases.rb', line 34</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_storage_phase'>storage_phase</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span>
-  <span class='id identifier rubyid_catch_up_to_stage'>catch_up_to_stage</span> <span class='symbol'>:prepare_to_store</span>
-  <span class='id identifier rubyid_run_stage'>run_stage</span> <span class='symbol'>:store</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span>
-  <span class='id identifier rubyid_run_stage'>run_stage</span> <span class='symbol'>:finalize</span>
-  <span class='id identifier rubyid_raise'>raise</span> <span class='const'>ActiveRecord</span><span class='op'>::</span><span class='const'>RecordInvalid</span><span class='comma'>,</span> <span class='ivar'>@card</span> <span class='kw'>if</span> <span class='ivar'>@card</span><span class='period'>.</span><span class='id identifier rubyid_errors'>errors</span><span class='period'>.</span><span class='id identifier rubyid_any?'>any?</span>
+  <span class='id identifier rubyid_catch_up_to_stage'>catch_up_to_stage</span> <span class='symbol'>:prepare_to_store</span> <span class='comment'># unless @abort
+</span>  <span class='comment'># puts &quot;before store #{@card.name}: abort:#{@abort}&quot;
+</span>  <span class='id identifier rubyid_run_stage'>run_stage</span> <span class='symbol'>:store</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span> <span class='comment'># unless @abort
+</span>  <span class='id identifier rubyid_run_stage'>run_stage</span> <span class='symbol'>:finalize</span> <span class='comment'># unless @abort
+</span>  <span class='id identifier rubyid_raise'>raise</span> <span class='const'>ActiveRecord</span><span class='op'>::</span><span class='const'>RecordInvalid</span><span class='comma'>,</span> <span class='ivar'>@card</span> <span class='kw'>if</span> <span class='ivar'>@card</span><span class='period'>.</span><span class='id identifier rubyid_errors'>errors</span><span class='period'>.</span><span class='id identifier rubyid_any?'>any?</span>
 <span class='kw'>ensure</span>
   <span class='ivar'>@from_trash</span> <span class='op'>=</span> <span class='kw'>nil</span>
 <span class='kw'>end</span></pre>
@@ -540,9 +546,9 @@ because it is called by an “around” callback</p>
 </div>
 
       <div id="footer">
-  Generated on Fri Jan 21 16:01:42 2022 by
-  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.27 (ruby-3.0.1).
+  Generated on Wed Feb 15 11:54:32 2023 by
+  <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.28 (ruby-3.0.4).
 </div>
 
     </div>

@@ -41,7 +41,6 @@ format :html do
     if depth > max_depth
       "..."
     else
-      search_params[:limit] = closed_limit
       render_core hide: "paging", items: { view: :link }
       # TODO: if item is queryified to be "name", then that should work.
       # otherwise use link

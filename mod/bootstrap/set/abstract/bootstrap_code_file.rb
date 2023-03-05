@@ -21,20 +21,20 @@ module OverrideCodeFile
     end
   end
 
-  def mod_path
-    mod_root :bootstrap
+  def mod_root
+    mod_path :bootstrap
   end
 
   def bootstrap_path
-    "#{mod_path}/vendor/bootstrap/scss"
+    "#{mod_root}/vendor/bootstrap/scss"
   end
 
   def add_stylesheet filename, type: :scss
-    load_from_path "#{mod_path}/lib/stylesheets/#{filename}.#{type}"
+    load_from_path "#{mod_root}/lib/stylesheets/#{filename}.#{type}"
   end
 
   def add_stylesheet_file path
-    load_from_path File.join(mod_path, path)
+    load_from_path File.join(mod_root, path)
   end
 
   def add_bs_stylesheet filename, type: :scss, subdir: nil

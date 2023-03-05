@@ -6,6 +6,7 @@ class Card
         INTERPRET_METHOD = { basic: :add_condition,
                              relational: :relate,
                              plus_relational: :relate_compound,
+                             custom: :send,
                              conjunction: :send }.freeze
 
         # normalize and extract meaning from a clause

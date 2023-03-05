@@ -1,2 +1,5 @@
 include_set Abstract::SkinField
-include_set Abstract::ItemsTypeValidation, allowed_types: %i[css scss]
+
+def ok_item_types
+  %i[css scss]
+end

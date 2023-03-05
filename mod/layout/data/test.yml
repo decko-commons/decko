@@ -3,7 +3,7 @@
   :type: :layout_type
   :content: 'Greatest {{_main|title: Callahan!; view: labeled}}'
 - :name: stacks
-  :type: :pointer
+  :type: :list
   :content: |-
     horizontal
     vertical

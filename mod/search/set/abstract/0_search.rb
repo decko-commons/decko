@@ -50,6 +50,8 @@ def each_item_name_with_options _content=nil
 end
 
 format do
+  view(:count, cache: :never) { super() }
+
   def search_with_params
     @search_with_params ||= search_with_rescue search_params
   end
@@ -75,4 +77,8 @@ format do
     view = voo_items_view || default_item_view
     Card::View.normalize view
   end
+end
+
+format :html do
+  view(:count, cache: :never) { super() }
 end

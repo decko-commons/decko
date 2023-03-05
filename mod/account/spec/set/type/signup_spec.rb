@@ -108,7 +108,6 @@ RSpec.describe Card::Set::Type::Signup do
       [0, 1].each do |part|
         body = signup_alert.body.parts[part].body.raw_source
         expect(body).to include(@signup.name)
-        expect(body).to include("wolf@decko.org")
       end
     end
 

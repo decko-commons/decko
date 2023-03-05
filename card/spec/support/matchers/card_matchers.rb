@@ -67,7 +67,7 @@ RSpec::Matchers.define :have_a_field do |field_key|
     if @content
       values_match?(@content, @field.content)
     elsif @pointing_to
-      @field.is_a?(Card::Set::Abstract::Pointer) && @field.content.include?(@pointing_to)
+      @field.is_a?(Card::Set::Abstract::List) && @field.content.include?(@pointing_to)
     elsif @refering_to
       @field.content.include? "[[#{@refering_to}]]"
     else

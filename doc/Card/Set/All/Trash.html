@@ -6,7 +6,7 @@
 <title>
   Module: Card::Set::All::Trash
   
-    &mdash; Documentation by YARD 0.9.26
+    &mdash; Documentation by YARD 0.9.28
   
 </title>
 
@@ -83,7 +83,7 @@
   
   <dl>
     <dt>Defined in:</dt>
-    <dd>card/tmpsets/set/mod002-core/all/trash.rb</dd>
+    <dd>platypus/tmp/set/gem-card/mod001-core/all/trash.rb</dd>
   </dl>
   
 </div>
@@ -98,17 +98,7 @@
 <div class="tags">
   
 
-</div><h2>Defined Under Namespace</h2>
-<p class="children">
-  
-    
-      <strong class="modules">Modules:</strong> <span class='object_link'><a href="Trash/ClassMethods.html" title="Card::Set::All::Trash::ClassMethods (module)">ClassMethods</a></span>
-    
-  
-    
-  
-</p>
-
+</div>
 
 
   <h2>Constant Summary</h2>
@@ -170,7 +160,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#add_to_trash-instance_method" title="#add_to_trash (instance method)">#<strong>add_to_trash</strong>(args) {|args.merge trash: true| ... } &#x21d2; Object </a>
+      <a href="#add_to_trash-instance_method" title="#add_to_trash (instance method)">#<strong>add_to_trash</strong>(args) {|args.merge(trash: true)| ... } &#x21d2; Object </a>
     
 
     
@@ -285,6 +275,29 @@
         <li class="public ">
   <span class="summary_signature">
     
+      <a href="#event:+delete_children-instance_method" title="#event: delete_children (instance method)">#<strong>event: delete_children</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
       <a href="#event:+manage_trash-instance_method" title="#event: manage_trash (instance method)">#<strong>event: manage_trash</strong>  &#x21d2; Object </a>
     
 
@@ -331,7 +344,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#event:+validate_delete_children-instance_method" title="#event: validate_delete_children (instance method)">#<strong>event: validate_delete_children</strong>  &#x21d2; Object </a>
+      <a href="#pull_from_trash!-instance_method" title="#pull_from_trash! (instance method)">#<strong>pull_from_trash!</strong>  &#x21d2; Object </a>
     
 
     
@@ -354,7 +367,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#pull_from_trash!-instance_method" title="#pull_from_trash! (instance method)">#<strong>pull_from_trash!</strong>  &#x21d2; Object </a>
+      <a href="#trash%3F-instance_method" title="#trash? (instance method)">#<strong>trash?</strong>  &#x21d2; Boolean </a>
     
 
     
@@ -387,7 +400,7 @@
   
   
   <h3 class="inherited">Methods included from <span class='object_link'><a href="../../Set.html" title="Card::Set (module)">Card::Set</a></span></h3>
-  <p class="inherited"><span class='object_link'><a href="../../Set.html#reset_modules-class_method" title="Card::Set.reset_modules (method)">reset_modules</a></span></p>
+  <p class="inherited"><span class='object_link'><a href="../../Set.html#reset-class_method" title="Card::Set.reset (method)">reset</a></span></p>
 
   
   
@@ -408,8 +421,8 @@
   
   
   
-  <h3 class="inherited">Methods included from <span class='object_link'><a href="../Loader.html" title="Card::Set::Loader (module)">Loader</a></span></h3>
-  <p class="inherited"><span class='object_link'><a href="../Loader.html#clean_empty_module_from_hash-instance_method" title="Card::Set::Loader#clean_empty_module_from_hash (method)">#clean_empty_module_from_hash</a></span>, <span class='object_link'><a href="../Loader.html#clean_empty_modules-instance_method" title="Card::Set::Loader#clean_empty_modules (method)">#clean_empty_modules</a></span>, <span class='object_link'><a href="../Loader.html#extended-instance_method" title="Card::Set::Loader#extended (method)">#extended</a></span>, <span class='object_link'><a href="../Loader.html#process_base_modules-instance_method" title="Card::Set::Loader#process_base_modules (method)">#process_base_modules</a></span>, <span class='object_link'><a href="../Loader.html#register_set-instance_method" title="Card::Set::Loader#register_set (method)">#register_set</a></span></p>
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="../Registrar.html" title="Card::Set::Registrar (module)">Registrar</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="../Registrar.html#extended-instance_method" title="Card::Set::Registrar#extended (method)">#extended</a></span>, <span class='object_link'><a href="../Registrar.html#finalize_load-instance_method" title="Card::Set::Registrar#finalize_load (method)">#finalize_load</a></span>, <span class='object_link'><a href="../Registrar.html#process_base_modules-instance_method" title="Card::Set::Registrar#process_base_modules (method)">#process_base_modules</a></span>, <span class='object_link'><a href="../Registrar.html#register_set-instance_method" title="Card::Set::Registrar#register_set (method)">#register_set</a></span></p>
 
   
   
@@ -420,7 +433,7 @@
   
   
   <h3 class="inherited">Methods included from <span class='object_link'><a href="../Helpers.html" title="Card::Set::Helpers (module)">Helpers</a></span></h3>
-  <p class="inherited"><span class='object_link'><a href="../Helpers.html#method_missing-instance_method" title="Card::Set::Helpers#method_missing (method)">#method_missing</a></span>, <span class='object_link'><a href="../Helpers.html#num_set_parts-instance_method" title="Card::Set::Helpers#num_set_parts (method)">#num_set_parts</a></span>, <span class='object_link'><a href="../Helpers.html#pattern_code-instance_method" title="Card::Set::Helpers#pattern_code (method)">#pattern_code</a></span>, <span class='object_link'><a href="../Helpers.html#respond_to_missing%3F-instance_method" title="Card::Set::Helpers#respond_to_missing? (method)">#respond_to_missing?</a></span>, <span class='object_link'><a href="../Helpers.html#set_name_parts-instance_method" title="Card::Set::Helpers#set_name_parts (method)">#set_name_parts</a></span>, <span class='object_link'><a href="../Helpers.html#shortname-instance_method" title="Card::Set::Helpers#shortname (method)">#shortname</a></span>, <span class='object_link'><a href="../Helpers.html#underscore-instance_method" title="Card::Set::Helpers#underscore (method)">#underscore</a></span></p>
+  <p class="inherited"><span class='object_link'><a href="../Helpers.html#format_module-instance_method" title="Card::Set::Helpers#format_module (method)">#format_module</a></span>, <span class='object_link'><a href="../Helpers.html#format_modules-instance_method" title="Card::Set::Helpers#format_modules (method)">#format_modules</a></span>, <span class='object_link'><a href="../Helpers.html#method_missing-instance_method" title="Card::Set::Helpers#method_missing (method)">#method_missing</a></span>, <span class='object_link'><a href="../Helpers.html#modules-instance_method" title="Card::Set::Helpers#modules (method)">#modules</a></span>, <span class='object_link'><a href="../Helpers.html#pattern_code-instance_method" title="Card::Set::Helpers#pattern_code (method)">#pattern_code</a></span>, <span class='object_link'><a href="../Helpers.html#respond_to_missing%3F-instance_method" title="Card::Set::Helpers#respond_to_missing? (method)">#respond_to_missing?</a></span>, <span class='object_link'><a href="../Helpers.html#set_name_parts-instance_method" title="Card::Set::Helpers#set_name_parts (method)">#set_name_parts</a></span>, <span class='object_link'><a href="../Helpers.html#shortname-instance_method" title="Card::Set::Helpers#shortname (method)">#shortname</a></span>, <span class='object_link'><a href="../Helpers.html#underscored_name-instance_method" title="Card::Set::Helpers#underscored_name (method)">#underscored_name</a></span></p>
 
   
   
@@ -431,7 +444,7 @@
   
   
   <h3 class="inherited">Methods included from <span class='object_link'><a href="../AdvancedApi.html" title="Card::Set::AdvancedApi (module)">Card::Set::AdvancedApi</a></span></h3>
-  <p class="inherited"><span class='object_link'><a href="../AdvancedApi.html#attachment-instance_method" title="Card::Set::AdvancedApi#attachment (method)">#attachment</a></span>, <span class='object_link'><a href="../AdvancedApi.html#define_set_from_error-instance_method" title="Card::Set::AdvancedApi#define_set_from_error (method)">#define_set_from_error</a></span>, <span class='object_link'><a href="../AdvancedApi.html#ensure_set-instance_method" title="Card::Set::AdvancedApi#ensure_set (method)">#ensure_set</a></span>, <span class='object_link'><a href="../AdvancedApi.html#setting_opts-instance_method" title="Card::Set::AdvancedApi#setting_opts (method)">#setting_opts</a></span>, <span class='object_link'><a href="../AdvancedApi.html#stage_method-instance_method" title="Card::Set::AdvancedApi#stage_method (method)">#stage_method</a></span></p>
+  <p class="inherited"><span class='object_link'><a href="../AdvancedApi.html#assign_type-instance_method" title="Card::Set::AdvancedApi#assign_type (method)">#assign_type</a></span>, <span class='object_link'><a href="../AdvancedApi.html#attachment-instance_method" title="Card::Set::AdvancedApi#attachment (method)">#attachment</a></span>, <span class='object_link'><a href="../AdvancedApi.html#define_set_from_error-instance_method" title="Card::Set::AdvancedApi#define_set_from_error (method)">#define_set_from_error</a></span>, <span class='object_link'><a href="../AdvancedApi.html#ensure_set-instance_method" title="Card::Set::AdvancedApi#ensure_set (method)">#ensure_set</a></span>, <span class='object_link'><a href="../AdvancedApi.html#setting_opts-instance_method" title="Card::Set::AdvancedApi#setting_opts (method)">#setting_opts</a></span>, <span class='object_link'><a href="../AdvancedApi.html#stage_method-instance_method" title="Card::Set::AdvancedApi#stage_method (method)">#stage_method</a></span></p>
 
   
   
@@ -454,17 +467,6 @@
   
   <h3 class="inherited">Methods included from <span class='object_link'><a href="../Inheritance.html" title="Card::Set::Inheritance (module)">Inheritance</a></span></h3>
   <p class="inherited"><span class='object_link'><a href="../Inheritance.html#include_set-instance_method" title="Card::Set::Inheritance#include_set (method)">#include_set</a></span>, <span class='object_link'><a href="../Inheritance.html#include_set_formats-instance_method" title="Card::Set::Inheritance#include_set_formats (method)">#include_set_formats</a></span></p>
-
-  
-  
-  
-  
-  
-  
-  
-  
-  <h3 class="inherited">Methods included from <span class='object_link'><a href="../Basket.html" title="Card::Set::Basket (module)">Basket</a></span></h3>
-  <p class="inherited"><span class='object_link'><a href="../Basket.html#abstract_basket-instance_method" title="Card::Set::Basket#abstract_basket (method)">#abstract_basket</a></span>, <span class='object_link'><a href="../Basket.html#add_to_basket-instance_method" title="Card::Set::Basket#add_to_basket (method)">#add_to_basket</a></span>, <span class='object_link'><a href="../Basket.html#basket-instance_method" title="Card::Set::Basket#basket (method)">#basket</a></span>, <span class='object_link'><a href="../Basket.html#unshift_basket-instance_method" title="Card::Set::Basket#unshift_basket (method)">#unshift_basket</a></span></p>
 
   
   
@@ -511,7 +513,7 @@
 7</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod002-core/all/trash.rb', line 7</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-card/mod001-core/all/trash.rb', line 7</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_source_location'>source_location</span><span class='semicolon'>;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/Users/ethan/dev/decko/gem/card/mod/core/set/all/trash.rb</span><span class='tstring_end'>&quot;</span></span><span class='semicolon'>;</span> <span class='kw'>end</span></pre>
     </td>
@@ -528,7 +530,7 @@
       <div class="method_details first">
   <h3 class="signature first" id="add_to_trash-instance_method">
   
-    #<strong>add_to_trash</strong>(args) {|args.merge trash: true| ... } &#x21d2; <tt><span class='object_link'><a href="../../../Object.html" title="Object (class)">Object</a></span></tt> 
+    #<strong>add_to_trash</strong>(args) {|args.merge(trash: true)| ... } &#x21d2; <tt><span class='object_link'><a href="../../../Object.html" title="Object (class)">Object</a></span></tt> 
   
 
   
@@ -549,7 +551,7 @@
     <li>
       
       
-        <span class='type'>(<tt>args.merge trash: true</tt>)</span>
+        <span class='type'>(<tt>args.merge(trash: true)</tt>)</span>
       
       
       
@@ -563,17 +565,15 @@
       <pre class="lines">
 
 
-72
-73
-74
-75</pre>
+79
+80
+81</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod002-core/all/trash.rb', line 72</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-card/mod001-core/all/trash.rb', line 79</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_add_to_trash'>add_to_trash</span> <span class='id identifier rubyid_args'>args</span>
-  <span class='kw'>return</span> <span class='kw'>if</span> <span class='id identifier rubyid_new_card?'>new_card?</span>
-  <span class='kw'>yield</span> <span class='id identifier rubyid_args'>args</span><span class='period'>.</span><span class='id identifier rubyid_merge'>merge</span> <span class='label'>trash:</span> <span class='kw'>true</span>
+  <span class='kw'>yield</span> <span class='id identifier rubyid_args'>args</span><span class='period'>.</span><span class='id identifier rubyid_merge'>merge</span><span class='lparen'>(</span><span class='label'>trash:</span> <span class='kw'>true</span><span class='rparen'>)</span> <span class='kw'>unless</span> <span class='id identifier rubyid_new_card?'>new_card?</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -595,12 +595,12 @@
       <pre class="lines">
 
 
-95
-96
-97</pre>
+83
+84
+85</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod002-core/all/trash.rb', line 95</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-card/mod001-core/all/trash.rb', line 83</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_db_attributes'>db_attributes</span>
   <span class='id identifier rubyid_send'>send</span><span class='lparen'>(</span><span class='symbol'>:mutations_from_database</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_send'>send</span> <span class='symbol'>:attributes</span>
@@ -625,14 +625,14 @@
       <pre class="lines">
 
 
-60
-61
-62
-63
-64</pre>
+18
+19
+20
+21
+22</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod002-core/all/trash.rb', line 60</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-card/mod001-core/all/trash.rb', line 18</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_delete'>delete</span> <span class='id identifier rubyid_args'>args</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span>
   <span class='id identifier rubyid_add_to_trash'>add_to_trash</span> <span class='id identifier rubyid_args'>args</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_delete_args'>delete_args</span><span class='op'>|</span>
@@ -659,14 +659,14 @@
       <pre class="lines">
 
 
-66
-67
-68
-69
-70</pre>
+24
+25
+26
+27
+28</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod002-core/all/trash.rb', line 66</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-card/mod001-core/all/trash.rb', line 24</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_delete!'>delete!</span> <span class='id identifier rubyid_args'>args</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span>
   <span class='id identifier rubyid_add_to_trash'>add_to_trash</span> <span class='id identifier rubyid_args'>args</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_delete_args'>delete_args</span><span class='op'>|</span>
@@ -693,17 +693,65 @@
       <pre class="lines">
 
 
-131
-132
-133
-134</pre>
+87
+88
+89
+90</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod002-core/all/trash.rb', line 131</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-card/mod001-core/all/trash.rb', line 87</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_delete_as_subcard'>delete_as_subcard</span> <span class='id identifier rubyid_subcard'>subcard</span>
   <span class='id identifier rubyid_subcard'>subcard</span><span class='period'>.</span><span class='id identifier rubyid_trash'>trash</span> <span class='op'>=</span> <span class='kw'>true</span>
-  <span class='id identifier rubyid_add_subcard'>add_subcard</span> <span class='id identifier rubyid_subcard'>subcard</span>
+  <span class='id identifier rubyid_subcard'>subcard</span> <span class='id identifier rubyid_subcard'>subcard</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="event: delete_children-instance_method">
+  
+    #<strong>event: delete_children</strong>  &#x21d2; <tt><span class='object_link'><a href="../../../Object.html" title="Object (class)">Object</a></span></tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-card/mod001-core/all/trash.rb', line 53</span>
+
+<span class='id identifier rubyid_event'>event</span> <span class='symbol'>:delete_children</span><span class='comma'>,</span> <span class='label'>after:</span> <span class='symbol'>:validate_delete</span><span class='comma'>,</span> <span class='label'>on:</span> <span class='symbol'>:delete</span> <span class='kw'>do</span>
+  <span class='kw'>return</span> <span class='kw'>if</span> <span class='id identifier rubyid_errors'>errors</span><span class='period'>.</span><span class='id identifier rubyid_any?'>any?</span>
+
+  <span class='id identifier rubyid_each_child'>each_child</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_child'>child</span><span class='op'>|</span>
+    <span class='id identifier rubyid_child'>child</span><span class='period'>.</span><span class='id identifier rubyid_include_set_modules'>include_set_modules</span>
+    <span class='id identifier rubyid_delete_as_subcard'>delete_as_subcard</span> <span class='id identifier rubyid_child'>child</span>
+    <span class='comment'># next if child.valid?
+</span>    <span class='comment'># child.errors.each do |field, message|
+</span>    <span class='comment'>#   errors.add field, &quot;can&#39;t delete #{child.name}: #{message}&quot;
+</span>    <span class='comment'># end
+</span>  <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -725,14 +773,14 @@
       <pre class="lines">
 
 
-77
-78
-79
-80
-81</pre>
+30
+31
+32
+33
+34</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod002-core/all/trash.rb', line 77</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-card/mod001-core/all/trash.rb', line 30</span>
 
 <span class='id identifier rubyid_event'>event</span> <span class='symbol'>:manage_trash</span><span class='comma'>,</span> <span class='symbol'>:prepare_to_store</span><span class='comma'>,</span> <span class='label'>on:</span> <span class='symbol'>:create</span> <span class='kw'>do</span>
   <span class='id identifier rubyid_pull_from_trash!'>pull_from_trash!</span>
@@ -759,93 +807,41 @@
       <pre class="lines">
 
 
-99
-100
-101
-102
-103
-104
-105
-106
-107
-108
-109
-110
-111
-112
-113
-114</pre>
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod002-core/all/trash.rb', line 99</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-card/mod001-core/all/trash.rb', line 36</span>
 
 <span class='id identifier rubyid_event'>event</span> <span class='symbol'>:validate_delete</span><span class='comma'>,</span> <span class='symbol'>:validate</span><span class='comma'>,</span> <span class='label'>on:</span> <span class='symbol'>:delete</span> <span class='kw'>do</span>
   <span class='kw'>unless</span> <span class='id identifier rubyid_codename'>codename</span><span class='period'>.</span><span class='id identifier rubyid_blank?'>blank?</span>
-    <span class='id identifier rubyid_errors'>errors</span><span class='period'>.</span><span class='id identifier rubyid_add'>add</span> <span class='symbol'>:delete</span><span class='comma'>,</span> <span class='id identifier rubyid_tr'>tr</span><span class='lparen'>(</span><span class='symbol'>:error_system_card</span><span class='comma'>,</span> <span class='label'>name:</span> <span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='label'>codename:</span> <span class='id identifier rubyid_codename'>codename</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_errors'>errors</span><span class='period'>.</span><span class='id identifier rubyid_add'>add</span> <span class='symbol'>:delete</span><span class='comma'>,</span> <span class='id identifier rubyid_t'>t</span><span class='lparen'>(</span><span class='symbol'>:core_error_system_card</span><span class='comma'>,</span> <span class='label'>name:</span> <span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='label'>codename:</span> <span class='id identifier rubyid_codename'>codename</span><span class='rparen'>)</span>
   <span class='kw'>end</span>
 
   <span class='id identifier rubyid_undeletable_all_rules_tags'>undeletable_all_rules_tags</span> <span class='op'>=</span>
     <span class='qwords_beg'>%w[</span><span class='tstring_content'>default</span><span class='words_sep'> </span><span class='tstring_content'>style</span><span class='words_sep'> </span><span class='tstring_content'>layout</span><span class='words_sep'> </span><span class='tstring_content'>create</span><span class='words_sep'> </span><span class='tstring_content'>read</span><span class='words_sep'> </span><span class='tstring_content'>update</span><span class='words_sep'> </span><span class='tstring_content'>delete</span><span class='tstring_end'>]</span></span>
   <span class='comment'># FIXME: HACK! should be configured in the rule
 </span>
-  <span class='kw'>if</span> <span class='id identifier rubyid_junction?'>junction?</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_left'>left</span><span class='op'>&amp;.</span><span class='id identifier rubyid_codename'>codename</span> <span class='op'>==</span> <span class='symbol'>:all</span> <span class='op'>&amp;&amp;</span>
+  <span class='kw'>if</span> <span class='id identifier rubyid_compound?'>compound?</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_left'>left</span><span class='op'>&amp;.</span><span class='id identifier rubyid_codename'>codename</span> <span class='op'>==</span> <span class='symbol'>:all</span> <span class='op'>&amp;&amp;</span>
      <span class='id identifier rubyid_undeletable_all_rules_tags'>undeletable_all_rules_tags</span><span class='period'>.</span><span class='id identifier rubyid_member?'>member?</span><span class='lparen'>(</span><span class='id identifier rubyid_right'>right</span><span class='period'>.</span><span class='id identifier rubyid_codename'>codename</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='rparen'>)</span>
-    <span class='id identifier rubyid_errors'>errors</span><span class='period'>.</span><span class='id identifier rubyid_add'>add</span> <span class='symbol'>:delete</span><span class='comma'>,</span> <span class='id identifier rubyid_tr'>tr</span><span class='lparen'>(</span><span class='symbol'>:error_indestructible</span><span class='comma'>,</span> <span class='label'>name:</span> <span class='id identifier rubyid_name'>name</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_errors'>errors</span><span class='period'>.</span><span class='id identifier rubyid_add'>add</span> <span class='symbol'>:delete</span><span class='comma'>,</span> <span class='id identifier rubyid_t'>t</span><span class='lparen'>(</span><span class='symbol'>:core_error_indestructible</span><span class='comma'>,</span> <span class='label'>name:</span> <span class='id identifier rubyid_name'>name</span><span class='rparen'>)</span>
   <span class='kw'>end</span>
 
-  <span class='id identifier rubyid_errors'>errors</span><span class='period'>.</span><span class='id identifier rubyid_add'>add</span> <span class='symbol'>:delete</span><span class='comma'>,</span> <span class='id identifier rubyid_tr'>tr</span><span class='lparen'>(</span><span class='symbol'>:error_user_edits</span><span class='comma'>,</span> <span class='label'>name:</span> <span class='id identifier rubyid_name'>name</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='id identifier rubyid_account'>account</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_has_edits?'>has_edits?</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="event: validate_delete_children-instance_method">
-  
-    #<strong>event: validate_delete_children</strong>  &#x21d2; <tt><span class='object_link'><a href="../../../Object.html" title="Object (class)">Object</a></span></tt> 
-  
-
-  
-
-  
-</h3><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-116
-117
-118
-119
-120
-121
-122
-123
-124
-125
-126
-127
-128
-129</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod002-core/all/trash.rb', line 116</span>
-
-<span class='id identifier rubyid_event'>event</span> <span class='symbol'>:validate_delete_children</span><span class='comma'>,</span> <span class='label'>after:</span> <span class='symbol'>:validate_delete</span><span class='comma'>,</span> <span class='label'>on:</span> <span class='symbol'>:delete</span> <span class='kw'>do</span>
-  <span class='kw'>return</span> <span class='kw'>if</span> <span class='id identifier rubyid_errors'>errors</span><span class='period'>.</span><span class='id identifier rubyid_any?'>any?</span>
-  <span class='id identifier rubyid_each_child'>each_child</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_child'>child</span><span class='op'>|</span>
-    <span class='kw'>next</span> <span class='kw'>unless</span> <span class='id identifier rubyid_child'>child</span>
-    <span class='comment'># prevents errors in cases where a child is deleted prior to this point
-</span>    <span class='comment'># and thus is not returned by the fetch in #children
-</span>
-    <span class='id identifier rubyid_delete_as_subcard'>delete_as_subcard</span> <span class='id identifier rubyid_child'>child</span>
-    <span class='comment'># next if child.valid?
-</span>    <span class='comment'># child.errors.each do |field, message|
-</span>    <span class='comment'>#   errors.add field, &quot;can&#39;t delete #{child.name}: #{message}&quot;
-</span>    <span class='comment'># end
-</span>  <span class='kw'>end</span>
+  <span class='id identifier rubyid_errors'>errors</span><span class='period'>.</span><span class='id identifier rubyid_add'>add</span> <span class='symbol'>:delete</span><span class='comma'>,</span> <span class='id identifier rubyid_t'>t</span><span class='lparen'>(</span><span class='symbol'>:core_error_user_edits</span><span class='comma'>,</span> <span class='label'>name:</span> <span class='id identifier rubyid_name'>name</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='id identifier rubyid_account'>account</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_has_edits?'>has_edits?</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -867,24 +863,26 @@
       <pre class="lines">
 
 
-83
-84
-85
-86
-87
-88
-89
-90
-91
-92
-93</pre>
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod002-core/all/trash.rb', line 83</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-card/mod001-core/all/trash.rb', line 66</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_pull_from_trash!'>pull_from_trash!</span>
   <span class='kw'>return</span> <span class='kw'>unless</span> <span class='lparen'>(</span><span class='id identifier rubyid_id'>id</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../Lexicon.html" title="Card::Lexicon (module)">Lexicon</a></span></span><span class='period'>.</span><span class='id identifier rubyid_id'><span class='object_link'><a href="../../Lexicon.html#id-class_method" title="Card::Lexicon.id (method)">id</a></span></span> <span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span> <span class='comment'># name is already known
 </span>  <span class='kw'>return</span> <span class='kw'>unless</span> <span class='lparen'>(</span><span class='id identifier rubyid_trashed_card'>trashed_card</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../../Card.html" title="Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_where'>where</span><span class='lparen'>(</span><span class='label'>id:</span> <span class='id identifier rubyid_id'>id</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_take'>take</span><span class='rparen'>)</span><span class='op'>&amp;.</span><span class='id identifier rubyid_trash'>trash</span>
+
   <span class='comment'># confirm name is actually in trash
 </span>
   <span class='id identifier rubyid_db_attributes'>db_attributes</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>id</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_trashed_card'>trashed_card</span><span class='period'>.</span><span class='id identifier rubyid_db_attributes'>db_attributes</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>id</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
@@ -898,14 +896,67 @@
 </table>
 </div>
     
+      <div class="method_details ">
+  <h3 class="signature " id="trash?-instance_method">
+  
+    #<strong>trash?</strong>  &#x21d2; <tt>Boolean</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+14
+15
+16</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-card/mod001-core/all/trash.rb', line 14</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_trash?'>trash?</span>
+  <span class='id identifier rubyid_trash'>trash</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
   </div>
 
 </div>
 
       <div id="footer">
-  Generated on Thu May 13 17:17:21 2021 by
-  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.26 (ruby-2.7.2).
+  Generated on Wed Feb 15 11:54:34 2023 by
+  <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.28 (ruby-3.0.4).
 </div>
 
     </div>

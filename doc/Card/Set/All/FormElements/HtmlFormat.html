@@ -6,7 +6,7 @@
 <title>
   Module: Card::Set::All::FormElements::HtmlFormat
   
-    &mdash; Documentation by YARD 0.9.26
+    &mdash; Documentation by YARD 0.9.28
   
 </title>
 
@@ -83,7 +83,7 @@
   
   <dl>
     <dt>Defined in:</dt>
-    <dd>card/tmpsets/set/mod012-card-mod-edit/all/form_elements.rb</dd>
+    <dd>platypus/tmp/set/gem-defaults/mod011-edit/all/form_elements.rb</dd>
   </dl>
   
 </div>
@@ -328,13 +328,15 @@
 65
 66
 67
-68</pre>
+68
+69</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod012-card-mod-edit/all/form_elements.rb', line 60</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod011-edit/all/form_elements.rb', line 60</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_cancel_button'>cancel_button</span> <span class='id identifier rubyid_args'>args</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span>
   <span class='kw'>return</span> <span class='kw'>unless</span> <span class='id identifier rubyid_voo'>voo</span><span class='period'>.</span><span class='id identifier rubyid_show?'>show?</span> <span class='symbol'>:cancel_button</span>
+
   <span class='id identifier rubyid_text'>text</span> <span class='op'>=</span> <span class='id identifier rubyid_args'>args</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='symbol'>:text</span><span class='rparen'>)</span> <span class='op'>||</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Cancel</span><span class='tstring_end'>&quot;</span></span>
   <span class='id identifier rubyid_add_class'>add_class</span> <span class='id identifier rubyid_args'>args</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>btn btn-</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_args'>args</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='symbol'>:situation</span><span class='rparen'>)</span> <span class='op'>||</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>secondary</span><span class='tstring_end'>&#39;</span></span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
   <span class='id identifier rubyid_add_class'>add_class</span> <span class='id identifier rubyid_args'>args</span><span class='comma'>,</span> <span class='id identifier rubyid_cancel_strategy'>cancel_strategy</span><span class='lparen'>(</span><span class='id identifier rubyid_args'>args</span><span class='lbracket'>[</span><span class='symbol'>:redirect</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_args'>args</span><span class='lbracket'>[</span><span class='symbol'>:href</span><span class='rbracket'>]</span><span class='rparen'>)</span>
@@ -362,13 +364,13 @@
       <pre class="lines">
 
 
-70
 71
 72
-73</pre>
+73
+74</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod012-card-mod-edit/all/form_elements.rb', line 70</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod011-edit/all/form_elements.rb', line 71</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_cancel_strategy'>cancel_strategy</span> <span class='id identifier rubyid_redirect'>redirect</span><span class='comma'>,</span> <span class='id identifier rubyid_href'>href</span>
   <span class='id identifier rubyid_redirect'>redirect</span> <span class='op'>=</span> <span class='id identifier rubyid_href'>href</span><span class='period'>.</span><span class='id identifier rubyid_blank?'>blank?</span> <span class='kw'>if</span> <span class='id identifier rubyid_redirect'>redirect</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
@@ -413,7 +415,7 @@
 22</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod012-card-mod-edit/all/form_elements.rb', line 16</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod011-edit/all/form_elements.rb', line 16</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_hidden_tags'>hidden_tags</span> <span class='id identifier rubyid_hash'>hash</span><span class='comma'>,</span> <span class='id identifier rubyid_base'>base</span><span class='op'>=</span><span class='kw'>nil</span>
   <span class='id identifier rubyid_hash'>hash</span> <span class='op'>||=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
@@ -442,12 +444,12 @@
       <pre class="lines">
 
 
-75
 76
-77</pre>
+77
+78</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod012-card-mod-edit/all/form_elements.rb', line 75</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod011-edit/all/form_elements.rb', line 76</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_path_to_previous'>path_to_previous</span>
   <span class='id identifier rubyid_path'>path</span> <span class='label'>mark:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>*previous</span><span class='tstring_end'>&quot;</span></span>
@@ -487,7 +489,7 @@
 36</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod012-card-mod-edit/all/form_elements.rb', line 24</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod011-edit/all/form_elements.rb', line 24</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_process_hidden_value'>process_hidden_value</span> <span class='id identifier rubyid_val'>val</span><span class='comma'>,</span> <span class='id identifier rubyid_base'>base</span>
   <span class='kw'>case</span> <span class='id identifier rubyid_val'>val</span>
@@ -530,7 +532,7 @@
 57</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod012-card-mod-edit/all/form_elements.rb', line 52</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod011-edit/all/form_elements.rb', line 52</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_submit_button'>submit_button</span> <span class='id identifier rubyid_args'>args</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span>
   <span class='id identifier rubyid_text'>text</span> <span class='op'>=</span> <span class='id identifier rubyid_args'>args</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='symbol'>:text</span><span class='rparen'>)</span> <span class='op'>||</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Submit</span><span class='tstring_end'>&quot;</span></span>
@@ -565,7 +567,7 @@
 13</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'card/tmpsets/set/mod012-card-mod-edit/all/form_elements.rb', line 9</span>
+      <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod011-edit/all/form_elements.rb', line 9</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_success_tags'>success_tags</span> <span class='id identifier rubyid_opts'>opts</span>
   <span class='kw'>return</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>unless</span> <span class='id identifier rubyid_opts'>opts</span><span class='period'>.</span><span class='id identifier rubyid_present?'>present?</span>
@@ -582,9 +584,9 @@
 </div>
 
       <div id="footer">
-  Generated on Thu May 13 17:17:31 2021 by
-  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.26 (ruby-2.7.2).
+  Generated on Wed Feb 15 11:54:39 2023 by
+  <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.28 (ruby-3.0.4).
 </div>
 
     </div>

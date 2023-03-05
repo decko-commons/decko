@@ -4,10 +4,12 @@ def cql_content
   { type_id: id, sort_by: :name }
 end
 
-format :json do
-  def add_autocomplete_item term
-    return unless card.create_ok?
+def add_autocomplete_ok?
+  card.create_ok?
+end
 
-    { id: term, href: path(action: :new), text: add_autocomplete_item_text }
+format :html do
+  def add_autocomplete_item_path
+    path action: :new
   end
 end
