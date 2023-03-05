@@ -53,12 +53,10 @@ format :html do
     bridge_link
   end
 
-  def bridge_link text: "", in_modal: true
+  def bridge_link text: "", in_modal: true, confirm: false
     opts = { class: "bridge-link" }
-    if in_modal
-      # add_class opts, "close"
-      opts["data-slotter-mode"] = "modal-replace"
-    end
+    opts["data-slotter-mode"] = "modal-replace" if in_modal
+    confirm_edit_loss opts if confirm
     link_to_view :bridge, "#{bridge_icon} #{text}", opts
   end
 
@@ -145,5 +143,10 @@ format :html do
 
   def bridge_icon
     icon_tag :board
+  end
+
+  def confirm_edit_loss opts
+    add_class opts, "_confirm"
+    opts["data-confirm-msg"] = t(:format_confirm_edit_loss)
   end
 end
