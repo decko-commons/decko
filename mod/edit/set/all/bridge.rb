@@ -79,10 +79,10 @@ format :html do
 
   def switch_to_edit_link
     edit_link_opts = {
-          "data-slotter-mode": "modal-replace",
-          "data-modal-class": "modal-lg"
-        }
-        confirm_edit_loss(edit_link_opts)
+      "data-slotter-mode": "modal-replace",
+      "data-modal-class": "modal-lg"
+    }
+    confirm_edit_loss(edit_link_opts)
     link_to_view(:edit, menu_icon, edit_link_opts)
   end
 end
