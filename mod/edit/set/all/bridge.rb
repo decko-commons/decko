@@ -45,6 +45,7 @@ format :html do
 
   def bridge_link_opts opts={}
     opts[:"data-slot-selector"] = bridge_slot_selector
+    opts[:"data-slotter-mode"] = :override
     opts[:remote] = true
     add_class opts, "slotter"
     opts.bury :path, :layout, :overlay
