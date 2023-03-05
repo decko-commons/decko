@@ -38,8 +38,7 @@ format :html do
        { path: { slot: { hide: %i[help_link bridge_link] } } }],
       ["Roles", :roles,
        { path:  { view: :content,
-                  slot: { show: :edit_button } } }
-      ],
+                  slot: { show: :edit_button } } }],
       ["Notifications", :follow],
       ["API", :account,
        { path: { view: :api_key,
