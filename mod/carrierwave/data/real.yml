@@ -33,6 +33,17 @@
     :self:
       :fields:
         :read: Anyone
+
+- :name: "Decko logo"
+  :type: :image
+  :codename: decko_logo
+  :storage_type: :coded
+  :image: logo.svg
+  :fields:
+    :self:
+      :fields:
+        :read: Anyone
+
 - :name: "*favicon"
   :type: :image
   :codename: favicon

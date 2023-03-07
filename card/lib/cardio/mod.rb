@@ -84,8 +84,10 @@ module Cardio
     def required_path path
       return path if File.exist? path
 
+      raise StandardError, "mod not found: #{@name}"
+
       # FIXME: - need non-Card based error class
-      raise Card::Error::NotFound, "mod not found: #{@name}"
+      # raise Card::Error::NotFound,
     end
   end
 end

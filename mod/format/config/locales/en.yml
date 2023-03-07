@@ -3,6 +3,7 @@ en:
   format_bad_address: "404: Bad Address"
   format_close: Close
   format_configure_card: Configure %{cardname}
+  format_confirm_edit_loss: Unsaved changes will be lost. Do you want to proceed?
   format_denial: Permission Denied
   format_denied_task: to %{denied_task} this
   format_invalid_json: invalid json

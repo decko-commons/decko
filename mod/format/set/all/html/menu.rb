@@ -53,12 +53,10 @@ format :html do
     bridge_link
   end
 
-  def bridge_link text: "", in_modal: true
+  def bridge_link text: "", in_modal: true, confirm: false
     opts = { class: "bridge-link" }
-    if in_modal
-      # add_class opts, "close"
-      opts["data-slotter-mode"] = "modal-replace"
-    end
+    opts["data-slotter-mode"] = "modal-replace" if in_modal
+    confirm_edit_loss opts if confirm
     link_to_view :bridge, "#{bridge_icon} #{text}", opts
   end
 
@@ -71,17 +69,13 @@ format :html do
   def help_link text=nil, title=nil
     opts = help_popover_opts text, title
     add_class opts, "_card-menu-popover"
-    link_to help_icon, opts
+    link_to icon_tag(:help), opts
   end
 
   def help_popover_opts text=nil, title=nil
     text ||= render_help_text
     opts = { "data-bs-placement": :left, class: "help-link" }
     popover_opts text, title, opts
-  end
-
-  def help_icon
-    material_icon("help")
   end
 
   def help_title
@@ -136,7 +130,7 @@ format :html do
   end
 
   def menu_icon
-    material_icon "edit"
+    icon_tag "edit"
   end
 
   def full_page_icon
@@ -144,10 +138,15 @@ format :html do
   end
 
   def modal_icon
-    fa_icon :expand
+    icon_tag :modal
   end
 
   def bridge_icon
-    fa_icon :box
+    icon_tag :board
+  end
+
+  def confirm_edit_loss opts
+    add_class opts, "_confirm"
+    opts["data-confirm-msg"] = t(:format_confirm_edit_loss)
   end
 end

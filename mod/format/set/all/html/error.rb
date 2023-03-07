@@ -27,7 +27,7 @@ format :html do
   end
 
   def unknown_icon
-    fa_icon "plus-square"
+    icon_tag :unknown
   end
 
   view :compact_missing, perms: :none do
