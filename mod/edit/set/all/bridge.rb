@@ -11,7 +11,9 @@ format :html do
   wrapper :bridge do
     class_up "modal-dialog", "no-gaps"
     voo.hide! :modal_footer
-    wrap_with_modal size: :full, title: bridge_breadcrumbs do
+    wrap_with_modal(size: :full,
+                    title: bridge_breadcrumbs,
+                    menu: :bridge_menu) do
       haml :bridge
     end
   end
@@ -64,5 +66,23 @@ format :html do
   def breadcrumb_data title, html_class=nil
     html_class ||= title.underscore
     { "data-breadcrumb": title, "data-breadcrumb-class": html_class }
+  end
+
+  def bridge_menu
+    wrap_with_modal_menu do
+      [
+        close_modal_window,
+        switch_to_edit_link
+      ]
+    end
+  end
+
+  def switch_to_edit_link
+    edit_link_opts = {
+      "data-slotter-mode": "modal-replace",
+      "data-modal-class": "modal-lg"
+    }
+    confirm_edit_loss(edit_link_opts)
+    link_to_view(:edit, menu_icon, edit_link_opts)
   end
 end

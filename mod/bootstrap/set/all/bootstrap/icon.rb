@@ -20,8 +20,10 @@ basket[:icons] = {
     update_action: :edit,
     delete_action: :remove_circle,
     draft: :build,
-    next: :arrow_forward,
-    previous: :arrow_back,
+    next: :chevron_right,
+    previous: :chevron_left,
+    forward: :arrow_forward,
+    back: :arrow_back,
     list: :list,
     search: :search,
     filter: :filter_alt,
@@ -75,15 +77,17 @@ basket[:icons] = {
 format :html do
   view :icons, template: :haml
 
-  def icon_tag icon, opts={}
+  def icon_tag icon_key, opts={}
+    return "" unless icon_key.present?
+
+    library, icon = icon_lookup icon_key
     with_icon_tag_opts(opts) do |tag_opts|
-      library = tag_opts.delete(:library) || default_icon_library
-      universal_icon_tag icon, library, tag_opts
+      universal_icon_tag library, icon, tag_opts
     end
   end
 
-  def default_icon_library
-    :material
+  def icon_libraries
+    @icon_libraries ||= Cardio.config.icon_libraries
   end
 
   def glyphicon_icon_tag icon, opts={}
@@ -106,22 +110,9 @@ format :html do
     wrap_with :i, "", opts
   end
 
-  def universal_icon_tag icon, icon_library=default_icon_library, opts={}
-    return "" unless icon.present?
-
+  def universal_icon_tag library, icon, opts={}
     with_icon_tag_opts(opts) do |tag_opts|
-      send "#{icon_library}_icon_tag", icon_lookup(icon_library, icon), tag_opts
-    end
-  end
-
-  def icon_lookup library, icon
-    if (found_in_library = basket[:icons][library][icon])
-      found_in_library
-    elsif (library != default_icon_library) &&
-          (found_in_default_library = basket[:icons][default_icon_library][icon])
-      found_in_default_library
-    else
-      icon
+      send "#{library}_icon_tag", icon, tag_opts
     end
   end
 
@@ -130,6 +121,15 @@ format :html do
   end
 
   private
+
+  def icon_lookup icon
+    icon_libraries.each do |library|
+      found_icon = basket[:icons][library][icon]
+      return [library, found_icon] if found_icon
+    end
+
+    [icon_libraries.last, icon]
+  end
 
   def with_icon_tag_opts opts={}
     opts = { class: opts } unless opts.is_a? Hash
