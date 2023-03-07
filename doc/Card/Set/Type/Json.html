@@ -469,8 +469,8 @@
     <td>
       <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod004-format/type/json.rb', line 14</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_check_json_syntax'><span class='object_link'><a href="../../../top-level-namespace.html#check_json_syntax-instance_method" title="#check_json_syntax (method)">check_json_syntax</a></span></span>
-  <span class='id identifier rubyid_parse_content'><span class='object_link'><a href="../../../top-level-namespace.html#parse_content-instance_method" title="#parse_content (method)">parse_content</a></span></span>
+<span class='kw'>def</span> <span class='id identifier rubyid_check_json_syntax'>check_json_syntax</span>
+  <span class='id identifier rubyid_parse_content'>parse_content</span>
 <span class='kw'>rescue</span> <span class='const'>JSON</span><span class='op'>::</span><span class='const'>ParserError</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_e'>e</span>
   <span class='id identifier rubyid_errors'>errors</span><span class='period'>.</span><span class='id identifier rubyid_add'>add</span> <span class='id identifier rubyid_t'>t</span><span class='lparen'>(</span><span class='symbol'>:format_invalid_json</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='id identifier rubyid_e'>e</span><span class='period'>.</span><span class='id identifier rubyid_message'>message</span><span class='period'>.</span><span class='id identifier rubyid_sub'>sub</span><span class='lparen'>(</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>^\d+: </span><span class='regexp_end'>/</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span>
 <span class='kw'>end</span></pre>
@@ -502,7 +502,7 @@
       <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod004-format/type/json.rb', line 10</span>
 
 <span class='id identifier rubyid_event'>event</span> <span class='symbol'>:validate_json</span><span class='comma'>,</span> <span class='symbol'>:validate</span><span class='comma'>,</span> <span class='label'>on:</span> <span class='symbol'>:save</span><span class='comma'>,</span> <span class='label'>changed:</span> <span class='symbol'>:content</span> <span class='kw'>do</span>
-  <span class='id identifier rubyid_check_json_syntax'><span class='object_link'><a href="../../../top-level-namespace.html#check_json_syntax-instance_method" title="#check_json_syntax (method)">check_json_syntax</a></span></span> <span class='kw'>if</span> <span class='id identifier rubyid_content'>content</span><span class='period'>.</span><span class='id identifier rubyid_present?'>present?</span>
+  <span class='id identifier rubyid_check_json_syntax'>check_json_syntax</span> <span class='kw'>if</span> <span class='id identifier rubyid_content'>content</span><span class='period'>.</span><span class='id identifier rubyid_present?'>present?</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -531,8 +531,8 @@
     <td>
       <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod004-format/type/json.rb', line 24</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_item_names'><span class='object_link'><a href="../../../top-level-namespace.html#item_names-instance_method" title="#item_names (method)">item_names</a></span></span> <span class='id identifier rubyid__args'>_args</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span>
-  <span class='id identifier rubyid_parse_content'><span class='object_link'><a href="../../../top-level-namespace.html#parse_content-instance_method" title="#parse_content (method)">parse_content</a></span></span><span class='period'>.</span><span class='id identifier rubyid_keys'>keys</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='symbol'>:to_name</span><span class='rparen'>)</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_item_names'>item_names</span> <span class='id identifier rubyid__args'>_args</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span>
+  <span class='id identifier rubyid_parse_content'>parse_content</span><span class='period'>.</span><span class='id identifier rubyid_keys'>keys</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='symbol'>:to_name</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -561,8 +561,8 @@
     <td>
       <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod004-format/type/json.rb', line 32</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_item_value'><span class='object_link'><a href="../../../top-level-namespace.html#item_value-instance_method" title="#item_value (method)">item_value</a></span></span> <span class='id identifier rubyid_name'>name</span>
-  <span class='id identifier rubyid_parse_content'><span class='object_link'><a href="../../../top-level-namespace.html#parse_content-instance_method" title="#parse_content (method)">parse_content</a></span></span><span class='lbracket'>[</span><span class='id identifier rubyid_name'>name</span><span class='rbracket'>]</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_item_value'>item_value</span> <span class='id identifier rubyid_name'>name</span>
+  <span class='id identifier rubyid_parse_content'>parse_content</span><span class='lbracket'>[</span><span class='id identifier rubyid_name'>name</span><span class='rbracket'>]</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -591,8 +591,8 @@
     <td>
       <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod004-format/type/json.rb', line 28</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_item_values'><span class='object_link'><a href="../../../top-level-namespace.html#item_values-instance_method" title="#item_values (method)">item_values</a></span></span>
-  <span class='id identifier rubyid_parse_content'><span class='object_link'><a href="../../../top-level-namespace.html#parse_content-instance_method" title="#parse_content (method)">parse_content</a></span></span><span class='period'>.</span><span class='id identifier rubyid_values'>values</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_item_values'>item_values</span>
+  <span class='id identifier rubyid_parse_content'>parse_content</span><span class='period'>.</span><span class='id identifier rubyid_values'>values</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -621,7 +621,7 @@
     <td>
       <pre class="code"><span class="info file"># File 'platypus/tmp/set/gem-defaults/mod004-format/type/json.rb', line 20</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_parse_content'><span class='object_link'><a href="../../../top-level-namespace.html#parse_content-instance_method" title="#parse_content (method)">parse_content</a></span></span>
+<span class='kw'>def</span> <span class='id identifier rubyid_parse_content'>parse_content</span>
   <span class='id identifier rubyid_content'>content</span><span class='period'>.</span><span class='id identifier rubyid_blank?'>blank?</span> <span class='op'>?</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span> <span class='op'>:</span> <span class='const'>JSON</span><span class='period'>.</span><span class='id identifier rubyid_parse'>parse</span><span class='lparen'>(</span><span class='id identifier rubyid_content'>content</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -634,9 +634,9 @@
 </div>
 
       <div id="footer">
-  Generated on Fri Feb 10 11:36:29 2023 by
+  Generated on Wed Feb 15 11:54:36 2023 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.28 (ruby-3.0.1).
+  0.9.28 (ruby-3.0.4).
 </div>
 
     </div>

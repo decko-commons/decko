@@ -19,6 +19,6 @@ $credit_color: $primary !default;
 }
 
 [id^='svg-card-']:nth-child(even) use { // even cards
-  fill: $secondary;
+  fill: $light;
 }
 

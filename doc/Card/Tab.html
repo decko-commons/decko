@@ -402,8 +402,8 @@
     <td>
       <pre class="code"><span class="info file"># File 'mod/tabs/lib/card/tab.rb', line 25</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span> <span class='id identifier rubyid_format'><span class='object_link'><a href="../top-level-namespace.html#format-instance_method" title="#format (method)">format</a></span></span><span class='comma'>,</span> <span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='id identifier rubyid_active_name'>active_name</span><span class='comma'>,</span> <span class='id identifier rubyid_config'>config</span>
-  <span class='ivar'>@format</span> <span class='op'>=</span> <span class='id identifier rubyid_format'><span class='object_link'><a href="../top-level-namespace.html#format-instance_method" title="#format (method)">format</a></span></span>
+<span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span> <span class='id identifier rubyid_format'>format</span><span class='comma'>,</span> <span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='id identifier rubyid_active_name'>active_name</span><span class='comma'>,</span> <span class='id identifier rubyid_config'>config</span>
+  <span class='ivar'>@format</span> <span class='op'>=</span> <span class='id identifier rubyid_format'>format</span>
   <span class='ivar'>@name</span> <span class='op'>=</span> <span class='id identifier rubyid_name'>name</span>
   <span class='ivar'>@active_name</span> <span class='op'>=</span> <span class='id identifier rubyid_active_name'>active_name</span>
   <span class='ivar'>@config</span> <span class='op'>=</span> <span class='id identifier rubyid_config'>config</span>
@@ -452,7 +452,7 @@
     <td>
       <pre class="code"><span class="info file"># File 'mod/tabs/lib/card/tab.rb', line 4</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_format'><span class='object_link'><a href="../top-level-namespace.html#format-instance_method" title="#format (method)">format</a></span></span>
+<span class='kw'>def</span> <span class='id identifier rubyid_format'>format</span>
   <span class='ivar'>@format</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -535,11 +535,11 @@
     <td>
       <pre class="code"><span class="info file"># File 'mod/tabs/lib/card/tab.rb', line 7</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_tab_objects'>tab_objects</span> <span class='id identifier rubyid_format'><span class='object_link'><a href="../top-level-namespace.html#format-instance_method" title="#format (method)">format</a></span></span><span class='comma'>,</span> <span class='id identifier rubyid_tab_hash'>tab_hash</span><span class='comma'>,</span> <span class='id identifier rubyid_active_name'>active_name</span><span class='comma'>,</span> <span class='id identifier rubyid_klass'>klass</span><span class='op'>=</span><span class='kw'>nil</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_tab_objects'>tab_objects</span> <span class='id identifier rubyid_format'>format</span><span class='comma'>,</span> <span class='id identifier rubyid_tab_hash'>tab_hash</span><span class='comma'>,</span> <span class='id identifier rubyid_active_name'>active_name</span><span class='comma'>,</span> <span class='id identifier rubyid_klass'>klass</span><span class='op'>=</span><span class='kw'>nil</span>
   <span class='id identifier rubyid_klass'>klass</span> <span class='op'>||=</span> <span class='const'><span class='object_link'><a href="../Card.html" title="Card (class)">Card</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="" title="Card::Tab (class)">Tab</a></span></span>
   <span class='id identifier rubyid_active_name'>active_name</span> <span class='op'>=</span> <span class='id identifier rubyid_active'>active</span> <span class='id identifier rubyid_active_name'>active_name</span><span class='comma'>,</span> <span class='id identifier rubyid_tab_hash'>tab_hash</span><span class='period'>.</span><span class='id identifier rubyid_keys'>keys</span>
   <span class='id identifier rubyid_tab_hash'>tab_hash</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='id identifier rubyid_config'>config</span><span class='op'>|</span>
-    <span class='id identifier rubyid_klass'>klass</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span> <span class='id identifier rubyid_format'><span class='object_link'><a href="../top-level-namespace.html#format-instance_method" title="#format (method)">format</a></span></span><span class='comma'>,</span> <span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='id identifier rubyid_active_name'>active_name</span><span class='comma'>,</span> <span class='id identifier rubyid_config'>config</span>
+    <span class='id identifier rubyid_klass'>klass</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span> <span class='id identifier rubyid_format'>format</span><span class='comma'>,</span> <span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='id identifier rubyid_active_name'>active_name</span><span class='comma'>,</span> <span class='id identifier rubyid_config'>config</span>
   <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -722,9 +722,9 @@
 </div>
 
       <div id="footer">
-  Generated on Fri Feb 10 11:36:49 2023 by
+  Generated on Wed Feb 15 11:54:44 2023 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.28 (ruby-3.0.1).
+  0.9.28 (ruby-3.0.4).
 </div>
 
     </div>

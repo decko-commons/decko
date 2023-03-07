@@ -23,6 +23,10 @@ format do
   end
 
   view :source, unknown: :blank do
+    source
+  end
+
+  def source
     return card.content if card.web?
 
     image = selected_version

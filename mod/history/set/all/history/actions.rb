@@ -65,7 +65,7 @@ format :html do
   end
 
   def action_arrow_dir view_type
-    view_type == :expanded ? :triangle_left : :triangle_right
+    view_type == :expanded ? :collapse : :expand
   end
 
   def revert_actions_link link_text, path_args, html_args={}
