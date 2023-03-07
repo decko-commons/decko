@@ -1,5 +1,0 @@
-datepicker:
-  items:
-    - ../../vendor/moment/min/moment-with-locales.min.js
-    - ../../vendor/tempusdominus/build/js/tempusdominus-bootstrap-4.js
-    - script_datepicker_config.js.coffee

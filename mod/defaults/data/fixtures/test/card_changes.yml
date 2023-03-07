@@ -327,3 +327,139 @@ card_changes_057:
     <p>You can try out different views below</p>
     <p>{{:getting_started|demo}}</p>
     </div>
+card_changes_058:
+  id: 58
+  card_action_id: 869
+  field: 0
+  value:
+card_changes_059:
+  id: 59
+  card_action_id: 869
+  field: 1
+  value: '4'
+card_changes_060:
+  id: 60
+  card_action_id: 869
+  field: 2
+  value: |-
+    mod: format+*script
+    mod: list+*script
+    mod: search+*script
+    mod: rules+*script
+    mod: edit+*script
+    mod: carrierwave+*script
+    mod: ace editor+*script
+    mod: bar and box+*script
+    mod: bootstrap+*script
+    mod: date+*script
+    mod: follow+*script
+    mod: tabs+*script
+    mod: layout+*script
+    mod: recaptcha+*script
+    mod: tinymce editor+*script
+card_changes_061:
+  id: 61
+  card_action_id: 869
+  field: 3
+  value: f
+card_changes_062:
+  id: 62
+  card_action_id: 869
+  field: 4
+  value: '7'
+card_changes_063:
+  id: 63
+  card_action_id: 869
+  field: 5
+  value: '298'
+card_changes_064:
+  id: 64
+  card_action_id: 5539
+  field: 2
+  value: |-
+    mod: format+*script
+    mod: list+*script
+    mod: search+*script
+    mod: rules+*script
+    mod: edit+*script
+    mod: carrierwave+*script
+    mod: ace editor+*script
+    mod: bar and box+*script
+    mod: bootstrap+*script
+    mod: follow+*script
+    mod: tabs+*script
+    mod: layout+*script
+    mod: recaptcha+*script
+    mod: tinymce editor+*script
+card_changes_065:
+  id: 65
+  card_action_id: 870
+  field: 0
+  value: 'style: mods'
+card_changes_066:
+  id: 66
+  card_action_id: 870
+  field: 1
+  value: '4'
+card_changes_067:
+  id: 67
+  card_action_id: 870
+  field: 2
+  value: |-
+    mod: format+*style
+    mod: list+*style
+    mod: permissions+*style
+    mod: help+*style
+    mod: search+*style
+    mod: rules+*style
+    mod: edit+*style
+    mod: account+*style
+    mod: history+*style
+    mod: carrierwave+*style
+    mod: api key+*style
+    mod: style+*style
+    mod: bar and box+*style
+    mod: bootstrap+*style
+    mod: comment+*style
+    mod: date+*style
+    mod: follow+*style
+    mod: layout+*style
+    mod: tinymce editor+*style
+card_changes_068:
+  id: 68
+  card_action_id: 870
+  field: 3
+  value: f
+card_changes_069:
+  id: 69
+  card_action_id: 870
+  field: 4
+  value:
+card_changes_070:
+  id: 70
+  card_action_id: 870
+  field: 5
+  value:
+card_changes_071:
+  id: 71
+  card_action_id: 5540
+  field: 2
+  value: |-
+    mod: format+*style
+    mod: list+*style
+    mod: permissions+*style
+    mod: help+*style
+    mod: search+*style
+    mod: rules+*style
+    mod: edit+*style
+    mod: account+*style
+    mod: history+*style
+    mod: carrierwave+*style
+    mod: api key+*style
+    mod: style+*style
+    mod: bar and box+*style
+    mod: bootstrap+*style
+    mod: comment+*style
+    mod: follow+*style
+    mod: layout+*style
+    mod: tinymce editor+*style
