@@ -65,7 +65,7 @@ module Cardio
       # Add a mod to mod load paths
       def add_mod mod_name, path: nil, group: nil
         if @mods_by_name.key? Mod.normalize_name(mod_name)
-          raise ::Card::Error,
+          raise StandardError,
                 "name conflict: mod with name \"#{mod_name}\" already loaded"
         end
 
