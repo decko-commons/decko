@@ -50,8 +50,9 @@ format :html do
 
   def checkbox_input
     card.ensure_roles
+    voo.show! :role_item_checkbox
     wrap_with :div, class: "pointer-checkbox-list" do
-      account_dropdown(&method(:role_item_checkbox))
+      account_dropdown
     end
   end
 
@@ -59,5 +60,9 @@ format :html do
     haml :role_checkbox, id: "pointer-checkbox-#{role_name.to_name.key}",
                          checked: card.item_names.include?(role_name),
                          option_name: role_name
+  end
+
+  def account_dropdown_role_items
+    Auth.current_roles.map { |role| role_item_checkbox role }
   end
 end
