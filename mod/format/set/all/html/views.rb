@@ -10,7 +10,11 @@ format :html do
 
   view :content do
     wrap do
-      [render_menu, render_core, render_edit_button(edit: :inline)]
+      [
+        render_menu,
+        render_core,
+        render_edit_button(edit: :inline)
+      ]
     end
   end
 
