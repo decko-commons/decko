@@ -164,7 +164,7 @@ format :html do
   end
 
   view :edit_buttons do
-    button_tag t(:account_reset_my_password),
+    button_tag t(:account_reset_password),
                situation: "primary", class: "_close-modal-on-success"
   end
 

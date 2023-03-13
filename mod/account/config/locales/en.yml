@@ -20,8 +20,7 @@ en:
   account_password_length: must be at least 4 characters
   account_password_missing: password can't be blank
   account_private_data: Private data
-  account_reset_my_password: Reset my password
-  account_reset_password: Forgot password?
+  account_reset_password: Reset password
   account_search_email_duplicate: email duplicate? (%{content})
   account_sign_in: Sign in
   account_sign_in_title: Sign In
