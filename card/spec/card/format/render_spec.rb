@@ -15,7 +15,7 @@ describe Card::Format::Render do
 
     let(:cache_key) do
       "#{'Z'.card_id}-Card::Format::HtmlFormat-normal-home_view:content;" \
-      "nest_name:Z;nest_syntax:Z|content;view:contentcontent:show;menu:hide"
+      "nest_name:Z;nest_syntax:Z|content;view:contentcontent:show;edit_button:hide;menu:hide"
     end
 
     it "can be changed with nest option" do
