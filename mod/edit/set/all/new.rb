@@ -181,7 +181,7 @@ format :html do
     end
   end
 
-  def standard_create_button
-    submit_button class: "submit-button create-submit-button"
+  def standard_create_button args={}
+    submit_button args.merge(class: "submit-button create-submit-button")
   end
 end
