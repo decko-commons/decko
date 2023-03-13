@@ -112,7 +112,6 @@ def signin_error_key account
 end
 
 format :html do
-
   before :core do
     voo.edit_structure = [signin_field(:email), signin_field(:password)]
   end
