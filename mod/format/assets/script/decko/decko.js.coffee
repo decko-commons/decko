@@ -29,4 +29,9 @@ window.decko =
 $(window).ready ->
   $.ajaxSetup cache: false
 
+  $('body').on 'click', '._confirm', ->
+    confirm $(this).data('confirm-msg') || 'Are you sure?'
+
+
+
 

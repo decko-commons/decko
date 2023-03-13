@@ -10,12 +10,4 @@
   :codename: when_last_edited
 - :name: "*now"
   :codename: now
-- :name: "*datepicker"
-  :type: :json
-  :codename: datepicker
-  :content: |
-    {
-      "format": "YY-MM-DD",
-      "useCurrent": true,
-      "defaultDate": false
-    }
+
