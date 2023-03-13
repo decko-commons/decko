@@ -4,12 +4,6 @@
 [submodule "card-mod-script/vendor/jquery_rails"]
 	path = mod/format/vendor/jquery_rails
 	url = https://github.com/rails/jquery-rails
-[submodule "card-mod-date/vendor/moment"]
-	path = mod/date/vendor/moment
-	url = https://github.com/moment/moment
-[submodule "card-mod-date/vendor/tempusdominus"]
-	path = mod/date/vendor/tempusdominus
-	url = https://github.com/tempusdominus/bootstrap-4
 [submodule "card-mod-bootstrap/vendor/bootstrap"]
 	path = mod/bootstrap/vendor/bootstrap
 	url = https://github.com/twbs/bootstrap
