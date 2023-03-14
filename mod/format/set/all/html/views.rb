@@ -3,7 +3,6 @@
 format :html do
   def prepare_content_slot
     class_up "card-slot", "d0-card-content"
-    voo.hide :menu, :edit_button
   end
 
   before(:content) { prepare_content_slot }
@@ -11,9 +10,9 @@ format :html do
   view :content do
     wrap do
       [
-        render_menu,
+        render_menu(optional: :hide),
         render_core,
-        render_edit_button(edit: :inline)
+        render_edit_button(optional: :hide, edit: :inline)
       ]
     end
   end

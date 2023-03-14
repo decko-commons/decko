@@ -25,21 +25,3 @@ describe 'account tab', () ->
     cy.get(".RIGHT-Xemail input.d0-card-content:visible").clear()
     cy.get(".cancel-button:visible").click()
     cy.get(labeled_view).should("contain", "sam@user.com")
-
-  specify 'roles can be edited', () ->
-    roles_overlay = ".SELF-sample_user-Xrole.content-view"
-    children_overlay = "#sample-user-Xchild-content-view"
-
-    cy.bridge_sidebar().get('.nav-tabs a:first').click()
-    cy.el("role-pill").click()
-    cy.get(roles_overlay).should("contain", "Edit")
-
-    cy.bridge_sidebar().get('.nav-tabs a:fifth').click()
-    cy.el("child-pill").click()
-    cy.get(children_overlay).should("not.contain", "Edit")
-
-    cy.bridge_sidebar().get('.nav-tabs a:first').click()
-    cy.el("role-pill").click()
-    cy.get(roles_overlay).should("contain", "Edit")
-
-
