@@ -41,10 +41,8 @@
         or_sign_up: '...oder registrieren!'
         reset_password: PASSWORT ZURÜCKSETZEN
         forgot_password: Passwort vergessen
-        reset_my_password: Setze mein Passwort zurück
         check_email: Sie erhalten in Kürze eine E-Mail mit einem Link um ihr Passwort zurück zu setzen.
         error_unknown_email: Unbekannte E-Mail-Adresse.
-        error_not_active: Entschuldigung, der Account ist nicht aktiviert.
         error_wrong_password: Falsches Passwort
         error_blank: fehlt
         email_missing: E-Mail-Addresse fehlt
@@ -103,7 +101,6 @@ de:
   account_password_length: muss mindestens 4 Zeichen lang sein
   account_password_missing: Passwort muss angegeben werden
   account_private_data: Private Daten
-  account_reset_my_password: Passwort zurücksetzen
   account_reset_password: Password Zurücksetzen
   account_search_email_duplicate: E-Mail-Duplikat? (%{content})
   account_sign_in: Anmelden

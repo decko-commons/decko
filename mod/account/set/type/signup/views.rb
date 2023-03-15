@@ -9,7 +9,7 @@ format :html do
   end
 
   view :content_formgroups do
-    [account_formgroups, (card.structure ? edit_slot : "")].join
+    [account_formgroups, (multi_card_editor? ? multi_card_edit(true) : "")].join
   end
 
   view :new_buttons, cache: :never do
@@ -29,6 +29,7 @@ format :html do
     @body = process_content _render_raw
   end
 
+  # TODO: localize
   def signup_line
     ["<strong>#{safe_name}</strong>",
      ("was" if invited?),

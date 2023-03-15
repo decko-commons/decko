@@ -211,7 +211,7 @@ PATH
       puma (!= 6.0.0)
       rspec (~> 3.10)
       rspec-html-matchers (~> 0.9)
-      selenium-webdriver (!= 4.8.0)
+      selenium-webdriver (~> 4.7.1)
       simplecov (~> 0.21)
       webdrivers (~> 4.6)
     decko-cypress (0.15.0)

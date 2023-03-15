@@ -14,6 +14,19 @@ module Cardio
         @field_tags = args[:field_tags]
       end
 
+      # if output mod given,
+      def out
+        Card::Cache.reset_all
+        @mod ? dump : puts(new_data.to_yaml.yellow)
+        :success
+      rescue Card::Error::NotFound => e
+        e.message
+      rescue JSON::ParserError => e
+        e.message
+      end
+
+      private
+
       # @return [Array <Hash>]
       def new_data
         @new_data ||= cards.map { |c| c.pod_hash field_tags: field_tag_marks }
@@ -30,25 +43,12 @@ module Cardio
         @filename ||= File.join mod_path, "#{@podtype}.yml"
       end
 
-      # if output mod given,
-      def out
-        Card::Cache.reset_all
-        @mod ? dump : puts(new_data.to_yaml.yellow)
-        :success
-      rescue Card::Error::NotFound => e
-        e.message
-      rescue JSON::ParserError => e
-        e.message
-      end
-
       # write yaml to file
       def dump
         hash = output_hash
         File.write filename, hash.to_yaml
         puts "#{filename} now contains #{hash.size} items".green
       end
-
-      private
 
       def cards
         if @name
