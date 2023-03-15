@@ -112,14 +112,14 @@ def signin_error_key account
 end
 
 format :html do
-  view :core, cache: :never do
+  before :core do
     voo.edit_structure = [signin_field(:email), signin_field(:password)]
+  end
+
+  view :core, cache: :never do
     with_nest_mode :edit do
       card_form :update, recaptcha: :off, success: signin_success do
-        [
-          _render_content_formgroups,
-          _render_signin_buttons
-        ]
+        haml :core
       end
     end
   end
@@ -150,16 +150,6 @@ format :html do
     frame { t :account_check_email }
   end
 
-  view :signin_buttons do
-    class_up "button-form-group", "signin-buttons justify-content-between"
-    button_formgroup do
-      [
-        wrap_with("div", class: "pe-2") { [signin_button, signup_link] },
-        reset_password_link
-      ]
-    end
-  end
-
   # FORGOT PASSWORD
   view :edit do
     reset_password_voo
@@ -173,7 +163,7 @@ format :html do
   end
 
   view :edit_buttons do
-    button_tag t(:account_reset_my_password),
+    button_tag t(:account_reset_password),
                situation: "primary", class: "_close-modal-on-success"
   end
 
@@ -186,13 +176,13 @@ format :html do
   end
 
   def signup_link
-    subformat(Card[:account_links]).render! :sign_up, title: t(:account_or_sign_up)
+    link_to_card :signup, t(:account_or_sign_up),
+                 path: { action: :new, mark: :signup }
   end
 
   def reset_password_link
     link_to_view :edit, t(:account_reset_password),
-                 path: { slot: { hide: :bridge_link } },
-                 class: "btn btn-secondary btn-reset-password"
+                 path: { slot: { hide: :bridge_link } }
   end
 
   def edit_view_hidden

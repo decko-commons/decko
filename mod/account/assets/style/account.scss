@@ -1,5 +1,25 @@
 /*----------- (Account Request)--------------*/
 
+.SELF-Xsignin {
+  > .d0-card-body {
+    display: flex;
+    justify-content: center;
+    > .card-form {
+      width: 400px;
+      max-width: 400px;
+    }
+    .signin-buttons > div {
+      margin-bottom: 1em;
+      button {
+        width: 100%
+      }
+    }
+    .signup-button {
+      text-align: center;
+    }
+  }
+}
+
 .invite-links {
   padding: 10px;
   margin-top: 10px;
