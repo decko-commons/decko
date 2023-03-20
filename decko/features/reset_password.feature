@@ -10,9 +10,9 @@ Feature: Reset password
   Scenario: Resetting password
     When I go to the homepage
     And I follow "Sign in"
-    And I follow "Reset Password"
+    And I follow "Reset password"
     And I enter "joe@user.com" into "*email" in modal
-    And I press "Reset my password"
+    And I press "Reset password"
     And I wait 4 seconds
     Then "joe@user.com" should receive an email with subject "reset password for My Deck"
 
