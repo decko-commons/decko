@@ -25,7 +25,7 @@ namespace :card do
     parse_options :eat do
       add_opt :m, :mod, "only eat cards in given mod"
       add_opt :n, :name, "only eat card with name"
-      # FIXME: - name seem to work, especially in combination with other options
+      # FIXME: - name seems not to work, especially in combination with other options
 
       add_opt :u, :user, "user to credit unless specified (otherwise uses Decko Bot)"
       add_opt :p, :podtype, "pod type: real, test, or all " \

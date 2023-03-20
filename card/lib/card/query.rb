@@ -51,8 +51,8 @@ class Card
       # their values are translated fairly directly into SQL-safe values.
       # (These are referred to as "properties" in CQL documentation. Need to
       # reconcile #EFM)
-      basic: %i[id name key type_id content left_id right_id
-                creator_id updater_id codename read_rule_id],
+      basic: %i[id name key type_id content left_id right_id codename read_rule_id
+                created_at updated_at creator_id updater_id ],
       # "Relational" values can involve tying multiple queries together
       relational: %i[type
                      part left right
