@@ -22,7 +22,7 @@ event :signout, :validate, on: :delete do
   abort :success
 end
 
-# triggered by clicking "Reset my Password", this sends out the verification password
+# triggered by clicking "Reset Password", this sends out the verification password
 # and aborts (does not sign in)
 event :send_reset_password_token, before: :signin, on: :update, trigger: :required do
   aborting do

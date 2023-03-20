@@ -36,6 +36,8 @@
 #        possible values are
 #          replace (default)
 #             replace the closest slot with new slot
+#          override
+#             the same as replace, but overrides the slot options of the slot that is replaced
 #          modal
 #             show new slot in modal; if there is already a modal then put it on top
 #          modal-replace
@@ -201,8 +203,8 @@ jQuery.fn.extend
     slotter.addClass "_close-#{type}"
 
   slotterBeforeSend: (opt) ->
-    return if opt.noSlotParams
-
     # avoiding duplication. could be better test?
-    unless (opt.url.match(/home_view/) or @data("slotter-mode") == "modal")
-      opt.url = decko.slot.path opt.url, @slot()
+    return if opt.noSlotParams or opt.url.match(/home_view/) or
+      @data("slotter-mode") == "modal" or @data("slotter-mode") == "override"
+
+    opt.url = decko.slot.path opt.url, @slot()

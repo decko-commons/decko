@@ -84,7 +84,7 @@ de:
   account_deny_email_restricted: E-Mail-Adresse ist nur für Administratoren und Kontoinhaber
   account_deny_not_change_own_account: den Status des eigenen Kontos ändern
   account_email_missing: E-Mail darf nicht frei bleiben
-  account_encrypted: verschlüssel
+  account_encrypted: verschlüsselt
   account_error_blank: darf nicht frei bleiben
   account_error_invalid_address: muss eine gültige Adresse sein
   account_error_not_active: Sorry, dieses Konto ist nicht aktiviert

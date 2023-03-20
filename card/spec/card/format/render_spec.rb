@@ -1,4 +1,4 @@
-describe Card::Format::Render do
+RSpec.describe Card::Format::Render do
   describe "render" do
     it "return nil with 'optional: :hide' argument" do
       rendered = Card["A"].format(:html).render(:open, optional: :hide)
@@ -15,7 +15,7 @@ describe Card::Format::Render do
 
     let(:cache_key) do
       "#{'Z'.card_id}-Card::Format::HtmlFormat-normal-home_view:content;" \
-      "nest_name:Z;nest_syntax:Z|content;view:contentcontent:show;menu:hide"
+      "nest_name:Z;nest_syntax:Z|content;view:contentcontent:show"
     end
 
     it "can be changed with nest option" do
