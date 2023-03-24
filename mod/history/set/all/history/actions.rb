@@ -59,7 +59,7 @@ format :html do
     other_view_type = view_type == :expanded ? :summary : :expanded
     css_class = "revision-#{action.card_act_id} float-end"
     link_to_view "action_#{other_view_type}",
-                 icon_tag(action_arrow_dir(view_type), class: "md-24"),
+                 icon_tag(action_arrow_dir(view_type)),
                  class: css_class,
                  path: { action_id: action.id, look_in_trash: true }
   end
