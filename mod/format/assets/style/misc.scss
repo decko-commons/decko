@@ -23,7 +23,6 @@ pre,
   font-size: .85em;
 }
 
-
 .one-line {
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -62,11 +61,8 @@ pre,
 /* Material icon placement */
 .material-icons {
   vertical-align: sub;
-  font-size: medium;
+  //font-size: medium;
 }
-
-.material-icons.md-24 { font-size: 24px; }
-
 
 //a.external-link {
 //  // color: $warning;

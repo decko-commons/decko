@@ -1,6 +1,6 @@
 basket[:head_views] =
   %i[page_title_tag meta_tags favicon_tag
-     head_stylesheet head_remote_stylesheets
+     head_remote_stylesheets head_stylesheet
      universal_edit_button rss_links]
 # TODO: the last two should be in mods
 
