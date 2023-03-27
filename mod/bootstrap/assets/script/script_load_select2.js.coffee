@@ -17,7 +17,7 @@ $.extend decko,
     else
       opts = {
         dropdownAutoWidth: "true",
-        containerCssClass: ":all:",
+        # containerCssClass: ":all:",
         width: "auto",
         dropdownParent: elem.parent()
       }
