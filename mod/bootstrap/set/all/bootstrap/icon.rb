@@ -123,6 +123,8 @@ format :html do
   private
 
   def icon_lookup icon
+    icon = icon.to_sym
+
     icon_libraries.each do |library|
       found_icon = basket[:icons][library][icon]
       return [library, found_icon] if found_icon
