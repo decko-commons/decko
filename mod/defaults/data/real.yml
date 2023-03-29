@@ -25,7 +25,7 @@
     {{+:dashboard|content}}
     {{+:members|titled;title: Members}}
 
-- :name: dashboard
+- :name: Dashboard
   :codename: dashboard
 
 - :name: "*main menu"

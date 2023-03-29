@@ -1,11 +1,15 @@
 # History views
 
 format :html do
-  view :history, cache: :never do
+  view :history, cache: :never do # why no cache?
     frame do
       class_up "d0-card-body",  "history-slot"
-      acts_layout card.history_acts, :relative, :show
+      render_relative_history
     end
+  end
+
+  view :relative_history do
+    acts_layout card.history_acts, :relative, :show
   end
 
   view :act, cache: :never do
