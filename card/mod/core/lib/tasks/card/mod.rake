@@ -1,12 +1,12 @@
 namespace :card do
   namespace :mod do
     desc "list current mods in load order"
-    task list: :environment do
+    task :list do
       Cardio.mods.each { |m| puts "#{m.name}: #{m.path}".green }
     end
 
     desc "symlink from deck public/{modname} to mod's public directory"
-    task symlink: :environment do
+    task :symlink do
       FileUtils.rm_rf public_mod_dir
       FileUtils.mkdir_p public_mod_dir
       Cardio::Mod.dirs.each_subpath "public" do |mod, target|
