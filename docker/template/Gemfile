@@ -1,6 +1,7 @@
 source "http://rubygems.org"
 
 gem "decko"
+gem "card", ">= 1.105.2.pre1"
 
 # default mods
 gem "card-mod-defaults"
