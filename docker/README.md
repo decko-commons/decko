@@ -44,7 +44,7 @@ The most straightforward way to install decko chambers is with decko compose.
    - File storage (eg for uploaded files and images). Default is to store files on the host. For that to work, you'll only need to make a directory named `files` in your deck directory. See comments if you'd prefer cloud storage. 
 3. Run the following:
    - `docker compose up -d` # this creates your volumes, starts your containers, etc.
-   - `docker compose exec app decko seed` # this creates and seeds your decko database
+   - `docker compose exec app decko setup` # this creates and seeds your decko database
 
 As with the sandbox this will by default make a site available on port 4444, though that too can be configured in the docker-compose.yml file. 
 

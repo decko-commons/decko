@@ -124,7 +124,7 @@ module Cardio
             prefix = "bundle exec " if options["platypus"]
             puts "Now:
       1. Run `cd #{File.basename(destination_root)}` to enter your new deck directory
-      2. Run `#{prefix}decko seed` to seed your database (see config/database.yml).
+      2. Run `#{prefix}decko setup` to seed your database (see config/database.yml).
       3. Run `#{prefix}decko server` to start your server"
           end
         end
