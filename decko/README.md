@@ -101,7 +101,7 @@ configuration at https://www.decko.org/database_configuration.
 Then run
 
     cd MY_DECK
-    decko seed
+    decko setup
 
 ..to create and seed the database
 

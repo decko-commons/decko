@@ -4,6 +4,8 @@ require "./decko_gem"
 
 DOCKER_IMAGES = %w[base bundled mysql postgres sandbox].map { |name| "decko-#{name}" }
 
+# DOCKER_IMAGES = ["decko-base", "decko-bundled"]
+
 # NOTE: these tasks are not in any gem and are thus not available to monkeys.
 # Therefore they should contain only platypus tasks.
 
@@ -32,6 +34,7 @@ task :build_images do
   system "cd docker/template; bundle update"
 
   DOCKER_IMAGES.each do |i|
+    system "echo '\nBUILDING: #{i}'"
     system "cd docker; "\
            "docker build -f repos/#{i}.dockerfile "\
            "-t ethn/#{i} -t ethn/#{i}:latest -t ethn/#{i}:v#{version} ."
