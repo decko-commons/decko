@@ -41,7 +41,7 @@ task :build_images do
     system "docker push ethn/#{i}:latest"
     system "docker push ethn/#{i}:v#{version}"
   end
-end
+endf
 
 # task :retag_latest do
 #   DOCKER_IMAGES.each do |i|
