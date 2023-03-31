@@ -10,13 +10,15 @@ module Cardio
       end
 
       def card_release
-        @card_release ||= [1, minor, point].compact.map(&:to_s).join "."
+        @card_release ||= [1, minor, point, pre].compact.map(&:to_s).join "."
       end
 
       private
 
       def bits
-        release.split(".").map(&:to_i)
+        release.split(".").map do |bit|
+          bit.match?(/^\d/) ? bit.to_i : bit
+        end
       end
 
       def major
@@ -29,6 +31,10 @@ module Cardio
 
       def point
         bits[2]
+      end
+
+      def pre
+        bits[3]
       end
     end
   end

@@ -77,7 +77,7 @@ module Decko
           def add_common_seed_option
             @menu["s"] = {
               desc: "seed #{Rails.env}#{' and test' if dev_options?} database",
-              command: "decko seed",
+              command: "decko setup",
               code: proc do
                 bundle_exec "rake decko:seed"
                 bundle_exec "rake decko:seed", rails_env: "test" if dev_options?
@@ -89,7 +89,7 @@ module Decko
           def add_seed_all_option
             @menu["a"] = {
               desc: "seed all databases (production, development, and test)",
-              command: "decko seed --all",
+              command: "decko setup --all",
               code: proc do
                 %w[production development test].each do |env|
                   bundle_exec "rake decko:seed", rails_env: env
@@ -101,7 +101,7 @@ module Decko
 
           def add_exit_option
             @menu["x"] = {
-              desc: "exit (run 'decko seed' to complete the installation later)"
+              desc: "exit (run 'decko setup' to complete the installation later)"
             }
           end
 
