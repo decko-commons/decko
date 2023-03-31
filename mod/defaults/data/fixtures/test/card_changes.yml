@@ -498,3 +498,52 @@ card_changes_078:
   card_action_id: 6157
   field: 0
   value: Dashboard
+card_changes_079:
+  id: 79
+  card_action_id: 791
+  field: 0
+  value:
+card_changes_080:
+  id: 80
+  card_action_id: 791
+  field: 1
+  value: '2'
+card_changes_081:
+  id: 81
+  card_action_id: 791
+  field: 2
+  value: |
+    <h3>Accounts</h3>
+    <p>{{:accounts|content}}</p>
+    <h3>Help Texts</h3>
+    <p>{{:help|bar}}</p>
+    <h3>Emails </h3>
+    <p>Here are the current [[Email Templates|Email templates]] for your site.</p>
+    <p>{{Email Templates+*type+by update|content}} </p>
+card_changes_082:
+  id: 82
+  card_action_id: 791
+  field: 3
+  value: f
+card_changes_083:
+  id: 83
+  card_action_id: 791
+  field: 4
+  value: '196'
+card_changes_084:
+  id: 84
+  card_action_id: 791
+  field: 5
+  value: '523'
+card_changes_085:
+  id: 85
+  card_action_id: 7413
+  field: 2
+  value: |
+    <h3>Accounts</h3>
+    <p>{{:account|content}}</p>
+    <h3>Help Texts</h3>
+    <p>{{:help|bar}}</p>
+    <h3>Emails </h3>
+    <p>Here are the current [[Email Templates|Email templates]] for your site.</p>
+    <p>{{Email Templates+*type+by update|content}} </p>

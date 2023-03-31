@@ -81,27 +81,6 @@ format :html do
                                  items: (opts[:items] || {}).merge(view: item_view))
   end
 
-  view :open do
-    toggle_logic
-    @toggle_mode = :open
-    @content_body = true
-    frame { _render_open_content }
-  end
-
-  view :closed do
-    with_nest_mode :compact do
-      toggle_logic
-      class_up "d0-card-body", "closed-content"
-      @content_body = false
-      @toggle_mode = :close
-      frame
-    end
-  end
-
-  def toggle_logic
-    show_view?(:title_link, :hide) ? voo.show(:icon_toggle) : voo.show(:title_toggle)
-  end
-
   def current_set_card
     set_name = params[:current_set]
     set_name ||= "#{card.name}+*type" if card.known? && card.type_id == Card::CardtypeID

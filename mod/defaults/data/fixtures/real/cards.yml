@@ -8298,7 +8298,7 @@ cards_442:
   right_id: 296
   current_revision_id:
   created_at: 2022-10-31 19:08:23.000000000 Z
-  updated_at: 2023-03-31 16:23:14.000000000 Z
+  updated_at: 2023-03-31 20:59:41.000000000 Z
   creator_id: 1
   updater_id: 1
   read_rule_class: "*all plus"
@@ -9986,7 +9986,7 @@ cards_527:
   right_id: 523
   current_revision_id:
   created_at: 2022-10-31 19:08:27.000000000 Z
-  updated_at: 2022-10-31 19:08:27.000000000 Z
+  updated_at: 2023-03-31 20:59:22.000000000 Z
   creator_id: 1
   updater_id: 1
   read_rule_class: "*all plus"
@@ -9996,7 +9996,7 @@ cards_527:
   type_id: 2
   db_content: |
     <h3>Accounts</h3>
-    <p>{{:accounts|content}}</p>
+    <p>{{:account|content}}</p>
     <h3>Help Texts</h3>
     <p>{{:help|bar}}</p>
     <h3>Emails </h3>
@@ -10267,7 +10267,7 @@ cards_537:
   right_id: 296
   current_revision_id:
   created_at: 2022-10-31 19:08:29.000000000 Z
-  updated_at: 2023-03-31 16:23:12.000000000 Z
+  updated_at: 2023-03-31 20:59:40.000000000 Z
   creator_id: 1
   updater_id: 1
   read_rule_class: "*all plus"
@@ -10339,7 +10339,7 @@ cards_541:
   right_id: 296
   current_revision_id:
   created_at: 2022-10-31 19:08:30.000000000 Z
-  updated_at: 2023-03-31 16:23:13.000000000 Z
+  updated_at: 2023-03-31 20:59:40.000000000 Z
   creator_id: 1
   updater_id: 1
   read_rule_class: "*all plus"
@@ -10501,7 +10501,7 @@ cards_550:
   right_id: 296
   current_revision_id:
   created_at: 2022-10-31 19:08:31.000000000 Z
-  updated_at: 2023-03-31 16:23:13.000000000 Z
+  updated_at: 2023-03-31 20:59:40.000000000 Z
   creator_id: 1
   updater_id: 1
   read_rule_class: "*all plus"
@@ -10573,7 +10573,7 @@ cards_554:
   right_id: 296
   current_revision_id:
   created_at: 2022-10-31 19:08:31.000000000 Z
-  updated_at: 2023-03-31 16:23:13.000000000 Z
+  updated_at: 2023-03-31 20:59:40.000000000 Z
   creator_id: 1
   updater_id: 1
   read_rule_class: "*all plus"
@@ -10645,7 +10645,7 @@ cards_558:
   right_id: 296
   current_revision_id:
   created_at: 2022-10-31 19:08:32.000000000 Z
-  updated_at: 2023-03-31 16:23:13.000000000 Z
+  updated_at: 2023-03-31 20:59:40.000000000 Z
   creator_id: 1
   updater_id: 1
   read_rule_class: "*all plus"
@@ -10825,7 +10825,7 @@ cards_568:
   right_id: 296
   current_revision_id:
   created_at: 2022-10-31 19:08:33.000000000 Z
-  updated_at: 2023-03-31 16:23:13.000000000 Z
+  updated_at: 2023-03-31 20:59:40.000000000 Z
   creator_id: 1
   updater_id: 1
   read_rule_class: "*all plus"
@@ -10951,7 +10951,7 @@ cards_575:
   right_id: 296
   current_revision_id:
   created_at: 2022-10-31 19:08:34.000000000 Z
-  updated_at: 2023-03-31 16:23:13.000000000 Z
+  updated_at: 2023-03-31 20:59:40.000000000 Z
   creator_id: 1
   updater_id: 1
   read_rule_class: "*all plus"
@@ -11077,7 +11077,7 @@ cards_582:
   right_id: 296
   current_revision_id:
   created_at: 2022-10-31 19:08:35.000000000 Z
-  updated_at: 2023-03-31 16:23:13.000000000 Z
+  updated_at: 2023-03-31 20:59:40.000000000 Z
   creator_id: 1
   updater_id: 1
   read_rule_class: "*all plus"
@@ -11149,7 +11149,7 @@ cards_586:
   right_id: 296
   current_revision_id:
   created_at: 2022-10-31 19:08:36.000000000 Z
-  updated_at: 2023-03-31 16:23:13.000000000 Z
+  updated_at: 2023-03-31 20:59:41.000000000 Z
   creator_id: 1
   updater_id: 1
   read_rule_class: "*all plus"
@@ -11257,7 +11257,7 @@ cards_592:
   right_id: 296
   current_revision_id:
   created_at: 2022-10-31 19:08:37.000000000 Z
-  updated_at: 2023-03-31 16:23:13.000000000 Z
+  updated_at: 2023-03-31 20:59:41.000000000 Z
   creator_id: 1
   updater_id: 1
   read_rule_class: "*all plus"
@@ -11347,7 +11347,7 @@ cards_597:
   right_id: 296
   current_revision_id:
   created_at: 2022-10-31 19:08:37.000000000 Z
-  updated_at: 2023-03-31 16:23:13.000000000 Z
+  updated_at: 2023-03-31 20:59:41.000000000 Z
   creator_id: 1
   updater_id: 1
   read_rule_class: "*all plus"
@@ -11437,7 +11437,7 @@ cards_602:
   right_id: 296
   current_revision_id:
   created_at: 2022-10-31 19:08:38.000000000 Z
-  updated_at: 2023-03-31 16:23:13.000000000 Z
+  updated_at: 2023-03-31 20:59:41.000000000 Z
   creator_id: 1
   updater_id: 1
   read_rule_class: "*all plus"
@@ -11491,7 +11491,7 @@ cards_605:
   right_id: 296
   current_revision_id:
   created_at: 2022-10-31 19:08:38.000000000 Z
-  updated_at: 2023-03-31 16:23:13.000000000 Z
+  updated_at: 2023-03-31 20:59:41.000000000 Z
   creator_id: 1
   updater_id: 1
   read_rule_class: "*all plus"
@@ -11563,7 +11563,7 @@ cards_609:
   right_id: 296
   current_revision_id:
   created_at: 2022-10-31 19:08:39.000000000 Z
-  updated_at: 2023-03-31 16:23:14.000000000 Z
+  updated_at: 2023-03-31 20:59:41.000000000 Z
   creator_id: 1
   updater_id: 1
   read_rule_class: "*all plus"
@@ -11617,7 +11617,7 @@ cards_612:
   right_id: 296
   current_revision_id:
   created_at: 2022-10-31 19:08:40.000000000 Z
-  updated_at: 2023-03-31 16:23:14.000000000 Z
+  updated_at: 2023-03-31 20:59:41.000000000 Z
   creator_id: 1
   updater_id: 1
   read_rule_class: "*all plus"
