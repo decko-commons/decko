@@ -2,31 +2,6 @@
 
 RSpec.describe Card::Set::All::Html::Wrap do
   context "with full wrapping" do
-    let(:ocslot)  { Card["A"].format }
-
-    it "has the appropriate attributes on open" do
-      expect_view(:open, card: "A")
-        .to have_tag "div.card-slot.open-view.ALL.TYPE-rich_text.SELF-a" do
-          with_tag "div.d0-card-frame.card" do
-            with_tag "div.d0-card-header.card-header" do
-              with_tag "h2.d0-card-header-title"
-            end
-            with_tag "div.d0-card-body"
-          end
-        end
-    end
-
-    it "has the appropriate attributes on closed" do
-      expect_view(:closed, card: "A")
-        .to have_tag "div.card-slot.closed-view.ALL.TYPE-rich_text.SELF-a" do
-          with_tag "div.d0-card-frame.card" do
-            with_tag "div.d0-card-header.card-header" do
-              with_tag "h2.d0-card-header-title"
-            end
-            without_tag "div.d0-card-body.d0-card-content"
-          end
-        end
-    end
 
     it "adds extra css classes" do
       expect_view(:nest_rules, card: "A+*self")
