@@ -52,7 +52,8 @@ Docker gives you a lot of power to manipulate the containers, and you can consul
 
 - `docker compose down` # shut down the containers
 - `docker compose exec app bash` # open a bash shell to the app container 
-- `docker compose exec db bash` # open a bash shell to the database container
+- `docker compose exec db bash` # open a bash shell to
+- the database container
 
 ### Upgrading
 
