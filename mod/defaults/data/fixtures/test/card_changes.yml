@@ -463,3 +463,38 @@ card_changes_071:
     mod: follow+*style
     mod: layout+*style
     mod: tinymce editor+*style
+card_changes_072:
+  id: 72
+  card_action_id: 781
+  field: 0
+  value: dashboard
+card_changes_073:
+  id: 73
+  card_action_id: 781
+  field: 1
+  value: '2'
+card_changes_074:
+  id: 74
+  card_action_id: 781
+  field: 2
+  value: ''
+card_changes_075:
+  id: 75
+  card_action_id: 781
+  field: 3
+  value: f
+card_changes_076:
+  id: 76
+  card_action_id: 781
+  field: 4
+  value:
+card_changes_077:
+  id: 77
+  card_action_id: 781
+  field: 5
+  value:
+card_changes_078:
+  id: 78
+  card_action_id: 6157
+  field: 0
+  value: Dashboard
