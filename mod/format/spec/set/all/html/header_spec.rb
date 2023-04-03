@@ -12,7 +12,7 @@ RSpec.describe Card::Set::All::Html::Header do
       with_tag :i, "expand_more"
     end
   end
-  
+
   describe "titled view" do
     it "has no title toggle" do
       expect_view(:titled)

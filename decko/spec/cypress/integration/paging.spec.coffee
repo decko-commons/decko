@@ -23,7 +23,7 @@ describe 'paging', () ->
     cy.visit "/list_basic_types"
     cy.contains(".page-item", "2").click()
     cy.contains(".page-item.active", "2")
-    cy.contains(".search-result-item .closed-view ", "*from")
+    cy.contains(".search-result-item .accordion-item", "*from")
     cy.contains(".page-item", "3").click()
     cy.contains(".page-item.active", "3")
-    cy.get(".TYPE-search.open-view .search-result-item .closed-view")
+    cy.get(".TYPE-search.bar .search-result-item .accordion-item")
