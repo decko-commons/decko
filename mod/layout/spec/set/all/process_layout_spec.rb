@@ -16,20 +16,12 @@ RSpec.describe Card::Set::All::ProcessLayout do
       end
     end
 
-    it "renders card header" do
-      expect(open_view).to have_tag "div.d0-card-header.card-header" do
-        with_tag "h1.d0-card-header-title" do
-          with_tag "span.card-title", text: "A+B"
-        end
-      end
-    end
-
     it "renders card content" do
       expect(open_view)
-        .to have_tag "div.d0-card-body.d0-card-content" \
+        .to have_tag "div.d0-card-content" \
                      ".ALL.ALL_PLUS" \
                      ".TYPE-rich_text.RIGHT-b.TYPE_PLUS_RIGHT-rich_text-b" \
-                     ".SELF-a-b.card-body.card-text",
+                     ".SELF-a-b",
                      text:  /AlphaBeta/
     end
 

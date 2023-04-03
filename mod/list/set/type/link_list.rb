@@ -24,8 +24,8 @@ format :html do
     :link_list
   end
 
-  view :link_list_input, cache: :never do
-    link_list_input
+  view :input, cache: :never do
+    _render_hidden_content_field + super()
   end
 
   def items_for_input items=nil
