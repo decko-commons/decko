@@ -40,13 +40,21 @@ $bridge-line-color: $border-color;
   border-right: 1px solid $bridge-line-color;
   padding-left: 0;
   padding-right: 0;
-  > ._overlay-container-placeholder > .bridge-view {
-    padding-top: 10px;
-    padding-left: 15px;
-    padding-right: 15px;
+
+  > .overlay-container {
+    > .bridge-view {
+      padding-top: 0px;
+    }
+
+    > .card-slot > .d0-card-frame > .d0-card-body {
+      padding: 1em;
+    }
   }
-  > .overlay-container > .bridge-view {
-    padding-top: 0px;
+
+  > ._overlay-container-placeholder > .bridge-view {
+    padding-top: 1em;
+    padding-left: 1.5em;
+    padding-right: 1.5em;
   }
 }
 

@@ -18,9 +18,16 @@
   font-size: 1.2em
 }
 
-.modal-menu a {
-  color: $text-muted !important;
+.modal-menu, .overlay-menu {
+  a {
+    color: $text-muted !important;
+    opacity: 0.6 !important;
+    &:hover {
+      opacity: 1 !important;
+    }
+  }
 }
+
 
 @include media-breakpoint-up(xs) {
   // Hover over these, and only the card menus that are immediate children will appear

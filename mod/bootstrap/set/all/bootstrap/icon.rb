@@ -28,7 +28,8 @@ basket[:icons] = {
     search: :search,
     filter: :filter_alt,
     quick_filter: :bolt,
-    reset: :restart_alt
+    reset: :restart_alt,
+    more: :more_horiz
   },
   #
   font_awesome: {
