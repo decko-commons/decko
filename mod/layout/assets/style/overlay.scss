@@ -8,6 +8,9 @@
   overflow: auto;
   .card-slot.overlay_rule-view {
     border-left: 5px solid $primary;
+    .d0-card-body {
+      padding: 0 1em;
+    }
   }
 
   .d0-card-overlay
@@ -41,6 +44,11 @@
       }
     }
   }
+}
+
+.overlay-menu {
+  display: inline-flex;
+  vertical-align: middle;
 }
 
 // FIXME: this directly overrides above rule.

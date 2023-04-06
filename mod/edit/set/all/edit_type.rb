@@ -18,7 +18,7 @@ format :html do
   view :edit_type_row do
     return _render_bridge_type_formgroup if voo.visible?(:type_form) { false }
 
-    edit_row_fixed_width "Type", link_to_card(card.type), :bridge_type_formgroup
+    edit_row "Type", link_to_card(card.type), :bridge_type_formgroup
   end
 
   view :bridge_type_formgroup, unknown: true, wrap: :slot do
