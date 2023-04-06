@@ -19,9 +19,8 @@
 }
 
 .modal-menu a {
-  color: $text-muted;
+  color: $text-muted !important;
 }
-
 
 @include media-breakpoint-up(xs) {
   // Hover over these, and only the card menus that are immediate children will appear
