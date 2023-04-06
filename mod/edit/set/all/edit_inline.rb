@@ -14,7 +14,7 @@ format :html do
   end
 
   view :edit_name_row do
-    edit_row_fixed_width "Name", card.name, :name_form
+    edit_row "Name", card.name, :name_form
   end
 
   view :edit_inline_buttons do
@@ -31,15 +31,15 @@ format :html do
   #  and a fixed width for the labels so that the content column is aligned
   #  There is also the problem that label and content are not vertically aligned
   view :edit_row do
-    edit_row_fixed_width render_title, render_core, :edit_inline, 75
+    edit_row render_title, render_core, :edit_inline
   end
 
-  def edit_row_fixed_width title, content, edit_view, width=50
+  def edit_row title, content, edit_view
     class_up "card-slot", "d-flex form-group"
-    wrap do
-      ["<label style='width: #{width}px'>#{title}</label>",
-       content,
-       edit_inline_link(edit_view, align: :right)]
+    wrap true, class: :row do
+      haml :edit_row, title: title,
+                      content: content,
+                      edit_link: edit_inline_link(edit_view)
     end
   end
 
