@@ -351,3 +351,5 @@ schema_migrations_core_cards_175:
   version: '20220815112551'
 schema_migrations_core_cards_176:
   version: '20230130141025'
+schema_migrations_core_cards_177:
+  version: '20230406205931'

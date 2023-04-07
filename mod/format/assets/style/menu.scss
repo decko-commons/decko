@@ -18,8 +18,14 @@
   font-size: 1.2em
 }
 
-.modal-menu a {
-  color: $text-muted;
+.modal-menu, .overlay-menu {
+  a {
+    color: $text-muted !important;
+    opacity: 0.6 !important;
+    &:hover {
+      opacity: 1 !important;
+    }
+  }
 }
 
 
