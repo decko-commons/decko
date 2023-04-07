@@ -39,6 +39,7 @@ format :html do
       ["Roles", :roles,
        { path:  { view: :content } }],
       ["Notifications", :follow],
+      # FIXME: this should be added in api_key mod!
       ["API", :account,
        { path: { view: :api_key,
                  items: { view: :content },
