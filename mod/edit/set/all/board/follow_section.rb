@@ -16,13 +16,13 @@ format :html do
   def follow_overview_button
     link_to_card [Auth.current, :follow], "all followed cards",
                  board_link_opts(class: "btn btn-sm btn-secondary",
-                                  "data-cy": "follow-overview")
+                                 "data-cy": "follow-overview")
   end
 
   def follow_advanced
     opts = board_link_opts(class: "btn btn-sm btn-primary",
-                            path: { view: :overlay_rule },
-                            "data-cy": "follow-advanced")
+                           path: { view: :overlay_rule },
+                           "data-cy": "follow-advanced")
     opts[:path].delete :layout
     link_to_card card.follow_rule_card(Auth.current.name, new: {}),
                  icon_tag("more_horiz"), opts
@@ -32,6 +32,6 @@ format :html do
     cnt = card.followers_count
     link_to_card card.name.field(:followers), "#{cnt} follower#{'s' unless cnt == 1}",
                  board_link_opts(class: "btn btn-sm ms-2 btn-secondary slotter",
-                                  remote: true, "data-cy": "followers")
+                                 remote: true, "data-cy": "followers")
   end
 end

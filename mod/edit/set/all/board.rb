@@ -1,9 +1,9 @@
 BOARD_TABS = { "Account" => :account_tab,
-                "Guide" => :guide_tab,
-                "Engage" => :engage_tab,
-                "History" => :history_tab,
-                "Related" => :related_tab,
-                "Rules" => :rules_tab }.freeze
+               "Guide" => :guide_tab,
+               "Engage" => :engage_tab,
+               "History" => :history_tab,
+               "Related" => :related_tab,
+               "Rules" => :rules_tab }.freeze
 
 BOARD_TAB_NAMES = BOARD_TABS.invert.freeze
 
