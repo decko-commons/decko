@@ -1,5 +1,5 @@
 RSpec.describe Card::Set::All::Follow::StopFollowLink do
-  describe "bridge link" do
+  describe "board link" do
     subject(:button) do
       described_class.new(Card["A"].format).button
     end

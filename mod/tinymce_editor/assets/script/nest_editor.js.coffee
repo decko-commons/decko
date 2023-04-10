@@ -65,7 +65,7 @@ $.extend nest,
 
 
   request: (card, overlay_view, modal_view, slotter, params) ->
-    slot = $(".bridge-sidebar > ._overlay-container-placeholder > .card-slot")
+    slot = $(".board-sidebar > ._overlay-container-placeholder > .card-slot")
 
     if false #slot[0]
       view = overlay_view

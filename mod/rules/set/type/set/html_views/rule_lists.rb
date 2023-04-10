@@ -25,8 +25,8 @@ format :html do
 
   view :accordion_rule_list, setting_list_view_options do
     class_up "accordion", "bar-accordion"
-    category_accordion(:rule_bridge_link) do |list|
-      bridge_pills list
+    category_accordion(:rule_board_link) do |list|
+      board_pills list
     end
   end
 
@@ -63,7 +63,7 @@ format :html do
   end
 
   view :overlay_rule_list_link, cache: :never do
-    opts = bridge_link_opts(class: "edit-rule-link btn btn-primary")
+    opts = board_link_opts(class: "edit-rule-link btn btn-primary")
     # opts[:path].delete(:layout)
 
     wrap_with :div do
@@ -72,15 +72,15 @@ format :html do
   end
 
   def quick_edit_setting_list
-    classes = "nav nav-pills flex-column bridge-pills _setting-list _setting-group"
+    classes = "nav nav-pills flex-column board-pills _setting-list _setting-group"
     list_tag class: classes do
       category_setting_list_items :field, :quick_edit
     end
   end
 
   def pill_setting_list open_rule_in_modal=false
-    item_view = open_rule_in_modal ? :rule_nest_editor_link : :rule_bridge_link
-    bridge_pills category_setting_list_items(:all, item_view)
+    item_view = open_rule_in_modal ? :rule_nest_editor_link : :rule_board_link
+    board_pills category_setting_list_items(:all, item_view)
   end
 
   view :pill_setting_list, cache: :never, wrap: { slot: { class: "_setting-list" } } do

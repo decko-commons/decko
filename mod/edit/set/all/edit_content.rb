@@ -44,7 +44,7 @@ format :html do
 
   def edit_modal_menu
     wrap_with_modal_menu do
-      [close_modal_window, bridge_link(confirm: true)]
+      [close_modal_window, board_link(confirm: true)]
     end
   end
 

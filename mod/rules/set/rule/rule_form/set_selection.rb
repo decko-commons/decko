@@ -1,11 +1,11 @@
 format :html do
-  def bridge_rule_set_selection
+  def board_rule_set_selection
     wrap_with :div, class: "set-list _set-editor" do
-      bridge_rule_set_formgroup
+      board_rule_set_formgroup
     end
   end
 
-  def bridge_rule_set_formgroup
+  def board_rule_set_formgroup
     tag = @rule_context.rule_user_setting_name
     narrower = []
 

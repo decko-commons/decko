@@ -46,7 +46,7 @@ format :html do
 
   def account_field_nest field, title
     field_nest field, title: title, view: :labeled
-    # edit: :inline, hide: [:help_link, :bridge_link]
+    # edit: :inline, hide: [:help_link, :board_link]
   end
 
   before :content_formgroups do

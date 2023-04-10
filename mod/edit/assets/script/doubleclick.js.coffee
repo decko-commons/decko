@@ -40,5 +40,5 @@ slotEditLink = (slot) ->
 slotEditView = (slot) ->
   switch slot.data("slot").edit
     when "inline" then "edit_inline"
-    when "full"   then "bridge"
+    when "full"   then "board"
     else "edit"

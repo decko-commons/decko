@@ -31,7 +31,7 @@ format :html do
     pill_rule_link :modal_rule
   end
 
-  view :rule_bridge_link, unknown: true do
+  view :rule_board_link, unknown: true do
     pill_rule_link :overlay_rule
   end
 
@@ -41,7 +41,7 @@ format :html do
   end
 
   def pill_rule_link_opts
-    opts = bridge_link_opts(
+    opts = board_link_opts(
       class: "edit-rule-link nav-link _rule-item #{category_classes}",
       "data-bs-toggle": "pill",
       "data-category": card.rule_set.categories(card.rule_setting.codename).join(" "),
