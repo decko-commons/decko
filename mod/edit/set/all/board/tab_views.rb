@@ -6,11 +6,11 @@ format :html do
   view :history_tab, wrap: :slot do
     class_up "d0-card-body",  "history-slot"
     voo.hide :act_legend
-    acts_bridge_layout card.history_acts
+    acts_board_layout card.history_acts
   end
 
   view :related_tab do
-    bridge_pill_sections "Related" do
+    board_pill_sections "Related" do
       %w[name content type].map do |section_name|
         ["by #{section_name}", send("related_by_#{section_name}_items")]
       end

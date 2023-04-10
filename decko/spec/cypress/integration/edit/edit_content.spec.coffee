@@ -20,9 +20,9 @@ describe 'edit content', () ->
 #    cy.get(".SELF-t.card-slot").click().dblclick()
 #    cy.get("iframe.tox-edit-area__iframe")
 #    cy.wait(1000)
-#    cy.get(".bridge-main #t-bridge-view").contains("Cancel").click()
+#    cy.get(".board-main #t-board-view").contains("Cancel").click()
 #    cy.wait(1000)
-#    cy.get(".bridge-main").should "not.exist"
+#    cy.get(".board-main").should "not.exist"
 #    cy.get(".SELF-z.card-slot").dblclick()
 #    cy.get("iframe.tox-edit-area__iframe")
 #    cy.wait(1000)

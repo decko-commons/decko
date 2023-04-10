@@ -23,7 +23,7 @@ RSpec.describe Card::Set::All::Html::Menu do
 
     example "when voo.edit = :full" do
       expect(edit_menu(:full))
-        .to have_tag("a.edit-link", with: { href: "/A/bridge" })
+        .to have_tag("a.edit-link", with: { href: "/A/board" })
     end
 
     example "when voo.edit = :inline" do

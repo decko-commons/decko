@@ -27,7 +27,7 @@
   :type: :markdown
   :content: "Every Decko card has one and only one __type__.\n\n[[RichText]], [[List]],
     [[Image]], [[Search]], [[JavaScript]], [[User]]... All of these are types. \nTo
-    see a given card's type, click its ellipses icon ({{\\_|bridge_link}})\nto go
+    see a given card's type, click its ellipses icon ({{\\_|board_link}})\nto go
     to the card dashboard (or \"cardboard\").\n\nTypes are defined with [[Cardtype]]
     cards. For example, the Cardtype card named [[Image]] defines the image\ntype.
     You can create a new type by creating a [[/new/Cardtype|new Cardtype]] card.\n\nTypes

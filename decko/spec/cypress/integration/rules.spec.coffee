@@ -34,8 +34,8 @@ describe 'rules', () ->
              conflict: "override" # because it's also edited in pointer
 
     cy.wait(500)
-    cy.visit_bridge("Joe User")
-    cy.bridge().should "contain", "your favorite"
+    cy.visit_board("Joe User")
+    cy.board().should "contain", "your favorite"
 
     cy.visit("Joe Admin+cereal")
     cy.main_slot()

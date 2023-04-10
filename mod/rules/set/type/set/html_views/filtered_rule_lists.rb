@@ -10,7 +10,7 @@ format :html do
     filtered_rule_list :quick_edit_setting_list, :field_related
   end
 
-  view :bridge_rules_tab,
+  view :board_rules_tab,
        cache: :never,
        wrap: { slot: { class: "d-flex flex-column gap-3 mx-3 mt-2" } }  do
     class_up "accordion-item", "_setting-list"

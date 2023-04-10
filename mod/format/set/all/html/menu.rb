@@ -6,7 +6,7 @@ format :html do
     wrap_with :div, class: "card-menu #{menu_link_classes}" do
       [render_help_link,
        menu_link,
-       (voo.show?(:bridge_link) ? bridge_link(in_modal: false) : nil)]
+       (voo.show?(:board_link) ? board_link(in_modal: false) : nil)]
     end
   end
 
@@ -15,7 +15,7 @@ format :html do
     when :inline
       edit_inline_link
     when :full
-      edit_in_bridge_link
+      edit_in_board_link
     else # :standard
       edit_link
     end
@@ -49,15 +49,15 @@ format :html do
     full_page_link
   end
 
-  view :bridge_link, unknown: true do
-    bridge_link
+  view :board_link, unknown: true do
+    board_link
   end
 
-  def bridge_link text: "", in_modal: true, confirm: false
-    opts = { class: "bridge-link" }
+  def board_link text: "", in_modal: true, confirm: false
+    opts = { class: "board-link" }
     opts["data-slotter-mode"] = "modal-replace" if in_modal
     confirm_edit_loss opts if confirm
-    link_to_view :bridge, "#{bridge_icon} #{text}", opts
+    link_to_view :board, "#{board_icon} #{text}", opts
   end
 
   # no caching because help_text view doesn't cache, and we can't have a
@@ -106,8 +106,8 @@ format :html do
     card
   end
 
-  def edit_in_bridge_link opts={}
-    edit_link :bridge, *opts
+  def edit_in_board_link opts={}
+    edit_link :board, *opts
   end
 
   def edit_link view=:edit, link_text: nil, text: "", modal: nil
@@ -141,7 +141,7 @@ format :html do
     icon_tag :modal
   end
 
-  def bridge_icon
+  def board_icon
     icon_tag :board
   end
 

@@ -12,7 +12,7 @@
 
 .d0-card-header a {
   color: $body-color;
-  &.edit-link, &.bridge-link, &.help-link {
+  &.edit-link, &.board-link, &.help-link {
     color: $text-muted;
   }
 }

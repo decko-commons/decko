@@ -1,18 +1,18 @@
 format :html do
   ###---( TOP_LEVEL (used by menu) NEW / EDIT VIEWS )
-  view :bridge, perms: :update, unknown: true, cache: :never, wrap: :bridge do
+  view :board, perms: :update, unknown: true, cache: :never, wrap: :board do
     with_nest_mode :edit do
       add_name_context
       voo.show :help
       wrap true, breadcrumb_data("Editing", "edit") do
-        bridge_parts
+        board_parts
       end
     end
   end
 
-  view :cardboard, :bridge
+  view :cardboard, :board
 
-  def bridge_parts
+  def board_parts
     voo.show! :edit_type_row
 
     [
@@ -48,7 +48,7 @@ format :html do
   end
 
   view :edit_rules, cache: :never, unknown: true do
-    nest current_set_card, view: :bridge_rules_tab
+    nest current_set_card, view: :board_rules_tab
   end
 
   view :edit_structure, cache: :never do

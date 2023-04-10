@@ -21,7 +21,7 @@ describe 'editing pointers', () ->
   specify "create a structured card including select input", ->
     cy.ensure "User+*type+*structure", content: "{{+friends}}"
     input "select"
-    cy.visit_bridge("Joe User")
+    cy.visit_board("Joe User")
     cy.contains(".form-group", "+friends").find("select")
       .select2("Joe Camel")
     cy.contains("Save and Close").click()
