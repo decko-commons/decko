@@ -144,18 +144,18 @@ RSpec.describe Card::Set::Format::AbstractFormat::Wrapper do
 
     let(:format) do
       Card["A"].format_with do
-        view :kwai, wrap: :bridge do
+        view :kwai, wrap: :board do
           "water"
         end
       end
     end
 
-    it "wrapped with bridge" do
+    it "wrapped with board" do
       is_expected.to have_tag "div#modal-container.modal._modal-slot" do
         with_tag "div.modal-dialog" do
           with_tag "div.modal-content" do
             with_tag "div.modal-body" do
-              with_tag "div.bridge", /water/
+              with_tag "div.board", /water/
             end
           end
         end

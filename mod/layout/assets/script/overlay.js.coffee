@@ -26,7 +26,7 @@ jQuery.fn.extend
   replaceOverlay: (overlay) ->
     @overlaySlot().trigger "decko.slot.destroy"
     @overlaySlot().replaceWith overlay
-    $(".bridge-sidebar .tab-pane:not(.active) .bridge-pills > .nav-item > .nav-link.active").removeClass("active")
+    $(".board-sidebar .tab-pane:not(.active) .board-pills > .nav-item > .nav-link.active").removeClass("active")
 
   isInOverlay: ->
     return @closest(".card-slot._overlay").length
@@ -45,7 +45,7 @@ jQuery.fn.extend
           bottomlay.parent().removeClass("overlay-container")
         else
           bottomlay.unwrap()
-        bottomlay.removeClass("_bottomlay-slot").updateBridge(true, bottomlay)
+        bottomlay.removeClass("_bottomlay-slot").updateBoard(true, bottomlay)
 
         #bottomlay.find(".tinymce-textarea").each ->
         #  tinymce.EditorManager.execCommand('mceAddControl',true, editor_id);

@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-RSpec.describe Card::Set::All::Bridge::TabViews do
+RSpec.describe Card::Set::All::Board::TabViews do
   check_views_for_errors
 
   specify "view :related_tab" do

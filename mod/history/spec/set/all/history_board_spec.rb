@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-RSpec.describe Card::Set::All::HistoryBridge do
+RSpec.describe Card::Set::All::HistoryBoard do
   describe "view: updated_by" do
     it "is blank if no updates after create" do
       expect(format_subject.render_updated_by).not_to be_match(/Joe/)

@@ -11,12 +11,12 @@ def current_account?
 end
 
 format :html do
-  def default_bridge_tab
+  def default_board_tab
     card.current_account? ? :account_tab : super
   end
 
   view :account_tab do
-    bridge_pill_sections "Account" do
+    board_pill_sections "Account" do
       [["Settings", account_details_items],
        ["Content", account_content_items]]
     end
@@ -35,7 +35,7 @@ format :html do
   def account_details_items
     [
       ["Email and Password", :account,
-       { path: { slot: { hide: %i[help_link bridge_link] } } }],
+       { path: { slot: { hide: %i[help_link board_link] } } }],
       ["Roles", :roles,
        { path:  { view: :content } }],
       ["Notifications", :follow],
@@ -43,7 +43,7 @@ format :html do
       ["API", :account,
        { path: { view: :api_key,
                  items: { view: :content },
-                 slot: { hide: %i[help_link bridge_link] } } }]
+                 slot: { hide: %i[help_link board_link] } } }]
     ]
   end
 
