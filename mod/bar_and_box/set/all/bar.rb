@@ -59,7 +59,7 @@ format :html do
       full_page_link(text: "page"),
       modal_page_link(text: "modal"),
       edit_link(:edit, text: card.new? ? "create" : "edit"),
-      bridge_link(text: "advanced")
+      board_link(text: "advanced")
     ]
   end
 

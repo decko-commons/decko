@@ -17,7 +17,7 @@ describe Card::Set::All::Bar do
     expect_view(:bar_menu).to have_tag("div.bar-menu") do
       with_tag "a.edit-link"
       with_tag "a.full-page-link"
-      with_tag "a.bridge-link"
+      with_tag "a.board-link"
     end
   end
 

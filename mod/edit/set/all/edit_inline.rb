@@ -24,7 +24,7 @@ format :html do
   end
 
   # TODO: better styling for this so that is reusable
-  #  At the moment it is used for the name and type field in the bridge
+  #  At the moment it is used for the name and type field in the board
   #  (with fixed 50px width for the title column) and
   #  for password and email for accounts (with fixed 75px width for the title column)
   #  The view is very similar to labeled but with fixed edit link on the right

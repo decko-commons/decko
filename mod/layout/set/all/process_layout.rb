@@ -43,7 +43,7 @@ format :html do
   def explicit_modal_wrapper? view
     return unless (wrap_view = view_setting :wrap, view)
 
-    (wrapper_names(wrap_view) & %i[modal bridge]).any?
+    (wrapper_names(wrap_view) & %i[modal board]).any?
   end
 
   private

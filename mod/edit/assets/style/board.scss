@@ -1,5 +1,5 @@
 
-// Bridge
+// Board
 ._modal-stack {
   z-index: 1010;
 }
@@ -18,9 +18,9 @@
   }
 }
 
-$bridge-line-color: $border-color;
+$board-line-color: $border-color;
 
-.bridge-sidebar {
+.board-sidebar {
   background-color: darken($body-bg, 15%);
   padding-left: 0;
   padding-right: 0;
@@ -36,13 +36,13 @@ $bridge-line-color: $border-color;
   background-color: $body-bg !important;
 }
 
-.bridge-main {
-  border-right: 1px solid $bridge-line-color;
+.board-main {
+  border-right: 1px solid $board-line-color;
   padding-left: 0;
   padding-right: 0;
 
   > .overlay-container {
-    > .bridge-view {
+    > .board-view {
       padding-top: 0px;
     }
 
@@ -51,7 +51,7 @@ $bridge-line-color: $border-color;
     }
   }
 
-  > ._overlay-container-placeholder > .bridge-view {
+  > ._overlay-container-placeholder > .board-view {
     padding-top: 1em;
     padding-left: 1.5em;
     padding-right: 1.5em;
@@ -60,7 +60,7 @@ $bridge-line-color: $border-color;
 
 
 
-.bridge-pills {
+.board-pills {
   .help-text {
     font-size: 0.8rem;
   }
@@ -80,7 +80,7 @@ $bridge-line-color: $border-color;
   }
 }
 
-.bridge {
+.board {
   .perm-editor {
     margin-left: 0;
   }
@@ -97,13 +97,13 @@ $bridge-line-color: $border-color;
     }
     li.radio {
       padding: 10px 0px 0px 15px;
-      border-left: 1px solid $bridge-line-color;
-      border-top: 1px solid $bridge-line-color;
+      border-left: 1px solid $board-line-color;
+      border-top: 1px solid $board-line-color;
       margin-top: 10px;
     }
   }
 
-  .bridge-sidebar {
+  .board-sidebar {
     .history_tab-view > div {
       margin: 0.5rem;
     }
