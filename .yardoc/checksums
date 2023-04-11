@@ -327,7 +327,7 @@ card/lib/card/query/card_query/relational_attributes.rb 556fc2318864fb28f4bd00fe
 mod/carrierwave/lib/carrier_wave/image_card_uploader.rb d62004c8a8e92db2b15b1ae4799380a178608faf
 card/lib/card/set/format/abstract_format/view_definition.rb 693b821ac1f43ae7354bd4f272c7d67def0364a0
 mod/carrierwave/lib/carrier_wave/file_card_uploader/path.rb b9303804028b7416559bcc0897a2f849af4cb669
-mod/history/lib/card/act/act_renderer/bridge_act_renderer.rb 3b6c2c94aef25ca222aacc33082c7c6f53d25594
+mod/history/lib/card/act/act_renderer/board_act_renderer.rb 3b6c2c94aef25ca222aacc33082c7c6f53d25594
 mod/bootstrap/lib/card/bootstrap/component/horizontal_form.rb b4b72490c421e859776c0f44c15159a14fa95339
 mod/history/lib/card/act/act_renderer/absolute_act_renderer.rb eb536dd1e9ab4c381e94d49718eafde39eee39f6
 mod/history/lib/card/act/act_renderer/relative_act_renderer.rb 0addc97a3113c2b894ea452aae4bf77484f1489c
@@ -389,7 +389,7 @@ platypus/tmp/set/gem-defaults/mod004-format/all/yaml.rb 4a9fd3d0595025819eff44f3
 platypus/tmp/set/gem-defaults/mod004-format/type/uri.rb d286bd50501ae9c2f1601fc3a3280028415fac35
 platypus/tmp/set/gem-defaults/mod008-help/right/help.rb 2a9fb6135b2260f5ba3feb6d6e3b9d4742811290
 platypus/tmp/set/gem-defaults/mod008-help/self/guide.rb 24d4dc80a5165cbeb08e2d092b1d0875a995dec6
-platypus/tmp/set/gem-defaults/mod011-edit/all/bridge.rb f16ce296b30907c14848565f8d1002351fac38b0
+platypus/tmp/set/gem-defaults/mod011-edit/all/board.rb f16ce296b30907c14848565f8d1002351fac38b0
 platypus/tmp/set/gem-defaults/mod011-edit/all/editor.rb 8ee725ab9fd176c22cd6d13d8b779c98022d9a2f
 platypus/tmp/set/gem-defaults/mod012-email/right/bcc.rb a61f8f5f80c4bd185ed89c74f45adc11d7eff613
 platypus/tmp/set/gem-defaults/mod018-assets/type/mod.rb cdccd3a5cc20ab3a756bb9bc513cf434074ecf2b
@@ -597,7 +597,7 @@ platypus/tmp/set/gem-defaults/mod005-list/self/content_options.rb d5194a2fdac13c
 platypus/tmp/set/gem-defaults/mod009-search/right/linked_to_by.rb 4a58d95c0d3a58c1552268f8247bd2ef57af6af3
 platypus/tmp/set/gem-defaults/mod010-rules/all/cardtype_groups.rb 1f304177453bee7ab15b31f822b35b5e08c1c398
 platypus/tmp/set/gem-defaults/mod010-rules/type/set/html_views.rb cc414b4eb16334b3660c8c04e86eeead3501af0f
-platypus/tmp/set/gem-defaults/mod011-edit/all/bridge/tab_views.rb a53ad5294b7a7a547f9fb65ecaee92d96cd3468a
+platypus/tmp/set/gem-defaults/mod011-edit/all/board/tab_views.rb a53ad5294b7a7a547f9fb65ecaee92d96cd3468a
 platypus/tmp/set/gem-defaults/mod012-email/type/email_template.rb 2390d66727f2d934d3988aa382c0976bf7307c51
 platypus/tmp/set/gem-defaults/mod013-integrate/right/on_create.rb 7ca4ca5c9d23c005f1cf945322fdad52e4ad8f3d
 platypus/tmp/set/gem-defaults/mod013-integrate/right/on_delete.rb 73d5c70ccd7fc016a7e7878f0424f9bfa6aa2df9
@@ -621,7 +621,7 @@ platypus/tmp/set/gem-defaults/mod010-rules/abstract/virtual_set.rb 59f9540c1ec30
 platypus/tmp/set/gem-defaults/mod010-rules/self/recent_settings.rb 97e86c6d89635c5c40c884b5c79d3edc593cb9e1
 platypus/tmp/set/gem-defaults/mod012-email/abstract/email_field.rb 8b3bb020865ccc31d090c42bcc1b36241a328270
 platypus/tmp/set/gem-defaults/mod015-history/all/history/events.rb ac851f27e983591149f07ea5c1441a3b61471fb5
-platypus/tmp/set/gem-defaults/mod015-history/all/history_bridge.rb 807d23ca94a41fe779ec903b20262a0730ea4b60
+platypus/tmp/set/gem-defaults/mod015-history/all/history_board.rb 807d23ca94a41fe779ec903b20262a0730ea4b60
 platypus/tmp/set/gem-defaults/mod016-carrierwave/all/file_utils.rb 2c71d45d4c09527521a18a7de3c8005fe3557d66
 platypus/tmp/set/gem-defaults/mod016-carrierwave/self/new_image.rb 5841eb4a5f9ceaa54dc5e6d17018cc79607a7f48
 platypus/tmp/set/gem-defaults/mod018-assets/abstract/asset_file.rb 1cfd48c76b01fbc35b22cb3d99f697f74314fa56
@@ -650,7 +650,7 @@ platypus/tmp/set/gem-defaults/mod005-list/abstract/01_list/events.rb 59b2f425076
 platypus/tmp/set/gem-defaults/mod005-list/abstract/reference_list.rb da8f2c0cbe135c42346fc0a11a556e296cc31f5e
 platypus/tmp/set/gem-defaults/mod009-search/abstract/search_views.rb 49c674f25e4c1c13b8a01a238f980dc086423746
 platypus/tmp/set/gem-defaults/mod010-rules/rule/rule_form/buttons.rb 717b4b92fe2ee483ab486381b7cb4b6e1c3c35c0
-platypus/tmp/set/gem-defaults/mod011-edit/all/bridge/bridge_pills.rb 6d117c2c44e9de45adadd53f01a451547a18280d
+platypus/tmp/set/gem-defaults/mod011-edit/all/board/board_pills.rb 6d117c2c44e9de45adadd53f01a451547a18280d
 platypus/tmp/set/gem-defaults/mod014-account/abstract/accountable.rb ed74d59438028268475b54941b1eee8bf6d600b2
 platypus/tmp/set/gem-defaults/mod014-account/right/account/events.rb 4ee33470c0088bf6b308ecdb02ead20b7f529d43
 platypus/tmp/set/gem-defaults/mod015-history/all/history/revision.rb caec7e0ec27cdcd615e9a4313e293112e04c7235
@@ -680,9 +680,9 @@ platypus/tmp/set/gem-defaults/mod003-content/all/contextual_content.rb 2ad40a5e0
 platypus/tmp/set/gem-defaults/mod005-list/right/content_option_view.rb ff551a0f0a03033e6b164c777b6ca606d9c6633f
 platypus/tmp/set/gem-defaults/mod009-search/abstract/0_search/views.rb eaaffd3297f83e48152bbf98aac246d940ab6da1
 platypus/tmp/set/gem-defaults/mod009-search/abstract/virtual_search.rb 9427499e6962cb0039cc5833bdb0550ca712b7b6
-platypus/tmp/set/gem-defaults/mod010-rules/rule/bridge_rules_editor.rb b600de764562b8154a187622204b3fc7246a6527
-platypus/tmp/set/gem-defaults/mod011-edit/all/bridge/follow_section.rb 8a1c1a6861a44b3ff0b9f4c4b150855f7b640d15
-platypus/tmp/set/gem-defaults/mod011-edit/all/bridge/tab_visibility.rb c4c0e028bf7e4c59ff21af043edabf78eb895e2e
+platypus/tmp/set/gem-defaults/mod010-rules/rule/board_rules_editor.rb b600de764562b8154a187622204b3fc7246a6527
+platypus/tmp/set/gem-defaults/mod011-edit/all/board/follow_section.rb 8a1c1a6861a44b3ff0b9f4c4b150855f7b640d15
+platypus/tmp/set/gem-defaults/mod011-edit/all/board/tab_visibility.rb c4c0e028bf7e4c59ff21af043edabf78eb895e2e
 platypus/tmp/set/gem-defaults/mod014-account/abstract/account_field.rb 485becdbae3897a4ea634f98308a733eccb3f0ab
 platypus/tmp/set/gem-defaults/mod017-virtual/abstract/virtual_cache.rb adf49edcbd33f1daaf1cb5dd3deb7dfe186f721c
 platypus/tmp/set/gem-defaults/mod018-assets/abstract/asset_inputter.rb 33dcccaff30ccc0b9c99ac7cfd8bd8199b467737
@@ -692,7 +692,7 @@ platypus/tmp/set/gem-defaults/mod024-bootstrap/all/bootstrap/navbar.rb 6f47c7ff0
 platypus/tmp/set/gem-defaults/mod024-bootstrap/type/bootswatch_skin.rb 070f984afef9622fd7fe7760e3a7f0497381299a
 platypus/tmp/set/gem-defaults/mod028-follow/all/follow/follower_ids.rb ead1f991b3f1bd3d81dd86f63ca5be5c21271b94
 platypus/tmp/set/gem-defaults/mod007-permissions/abstract/permission.rb 3f065f83649aae47d3253cb4d2f296adf7311558
-platypus/tmp/set/gem-defaults/mod011-edit/all/bridge/related_section.rb adad1047f6200c758456d8cf6d252a3e20a01962
+platypus/tmp/set/gem-defaults/mod011-edit/all/board/related_section.rb adad1047f6200c758456d8cf6d252a3e20a01962
 platypus/tmp/set/gem-defaults/mod015-history/all/history/act_listing.rb 6efd31e4ab748e6e3d03c27546dd3e670983c45b
 platypus/tmp/set/gem-defaults/mod016-carrierwave/abstract/attachment.rb 83a3aa255daac1c0cd16f0f2ce96ae81388e1285
 platypus/tmp/set/gem-defaults/mod018-assets/abstract/asset_outputter.rb 1d8754cf9d6d0dbcb9789b81906bb38c2f7c8e86

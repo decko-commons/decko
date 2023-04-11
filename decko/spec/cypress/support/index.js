@@ -17,7 +17,7 @@
 import './commands'
 import './on-rails'
 import './decko'
-import './bridge'
+import './board'
 
 // Alternatively you can use CommonJS syntax:
 // require('./commands')

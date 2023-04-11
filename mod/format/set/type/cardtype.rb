@@ -68,8 +68,8 @@ format :html do
     voo.title ||= t(:format_configure_card, cardname: safe_name.pluralize)
     title = _render_title
     link_to_card card, title,
-                 path: { view: :bridge,
-                         bridge: { tab: :rules_tab },
+                 path: { view: :board,
+                         board: { tab: :rules_tab },
                          set: Card::Name[safe_name, :type] },
                  class: css_classes("configure-type-link ms-3", css_class)
   end

@@ -182,7 +182,7 @@ format :html do
 
   def reset_password_link
     link_to_view :edit, t(:account_reset_password),
-                 path: { slot: { hide: :bridge_link } }
+                 path: { slot: { hide: :board_link } }
   end
 
   def edit_view_hidden

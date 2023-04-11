@@ -122,8 +122,8 @@ format :html do
     case context
     when :absolute
       Act::ActRenderer::AbsoluteActRenderer
-    when :bridge
-      Act::ActRenderer::BridgeActRenderer
+    when :board
+      Act::ActRenderer::BoardActRenderer
     else # relative
       Act::ActRenderer::RelativeActRenderer
     end

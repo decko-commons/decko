@@ -5,8 +5,8 @@ describe 'engage tab', () ->
     # cy.clear_machine_cache()
 
   beforeEach ->
-    cy.visit_bridge()
-    cy.bridge_sidebar().find('.nav-tabs a').eq(1).click()
+    cy.visit_board()
+    cy.board_sidebar().find('.nav-tabs a').eq(1).click()
 
   specify 'follow button', () ->
     cy.contains("follow")
@@ -19,12 +19,12 @@ describe 'engage tab', () ->
 
   specify "advanced button", () ->
     cy.get("[data-cy=follow-advanced]").click()
-    cy.bridge().get(".title").should("contain", "follow")
+    cy.board().get(".title").should("contain", "follow")
     cy.get(".pointer-radio-list input").first().check()
     cy.get("input[value='A+*self+Joe Admin+*follow']").check()
     cy.get("[data-cy=submit-overlay]").click().should("not.exist")
 
-    cy.bridge_sidebar()
+    cy.board_sidebar()
       .should("contain", "1 follower")
       .and("contain", "following")
     # .get('.follow-link').click()
@@ -32,7 +32,7 @@ describe 'engage tab', () ->
 
   specify "all followed cards", () ->
     cy.el("follow-overview").click()
-    cy.bridge()
+    cy.board()
       .should("contain", "Follow")
       .and("contain", "Ignore")
 
@@ -40,18 +40,18 @@ describe 'engage tab', () ->
     cy.follow("A")
     cy.contains("following")
     cy.el("followers").click()
-    cy.bridge()
+    cy.board()
       .should("contain", "followers")
       .and("contain", "Joe Admin")
     cy.get(".follow-link").click()
-    cy.bridge()
+    cy.board()
       .should("contain", "followers")
       .and("not.contain", "Joe Admin")
 
   specify "discussion", () ->
     cy.get('#card_comment').type("yeah")
     cy.get(".comment-buttons > [type=submit]").click()
-    cy.bridge_sidebar()
+    cy.board_sidebar()
       .get(".RIGHT-discussion")
       .should("contain", "yeah")
       .and("contain", "Joe Admin")

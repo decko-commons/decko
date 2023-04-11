@@ -125,8 +125,12 @@ format :json do
 
   def map_goto_items exact, &block
     goto_names = complete_or_match_search start_only: match_start_only?
-    goto_names.unshift exact.name if exact.known?
+    goto_names.unshift exact.name if go_to_exact_match? exact
     goto_names.uniq.map(&block)
+  end
+
+  def go_to_exact_match? exact
+    exact.known?
   end
 
   def term_param

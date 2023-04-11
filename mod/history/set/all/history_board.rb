@@ -15,7 +15,7 @@ format :html do
     "Updated by #{links}"
   end
 
-  def acts_bridge_layout acts, context=:bridge
+  def acts_board_layout acts, context=:board
     output [
       _render_creator_credit,
       act_link_list(acts, context),
@@ -27,26 +27,26 @@ format :html do
     items = acts_for_accordion(acts, context) do |act, seq|
       act_link_list_item act, seq, context
     end
-    bridge_pills items
+    board_pills items
   end
 
   def act_link_list_item act, seq=nil, _context=nil
     opts = act_listing_opts_from_params(seq)
     opts[:slot_class] = "revision-#{act.id} history-slot nav-item"
-    act_renderer(:bridge).new(self, act, opts).bridge_link
+    act_renderer(:board).new(self, act, opts).board_link
   end
 
   def act_list_group acts, context, &block
     list_group acts_for_accordion(acts, context, &block), class: "clear-both"
   end
 
-  view :bridge_act, cache: :never do
+  view :board_act, cache: :never do
     opts = act_listing_opts_from_params(nil)
     act = act_from_context
-    ar = act_renderer(:bridge).new(self, act, opts)
+    ar = act_renderer(:board).new(self, act, opts)
     class_up "action-list", "my-3"
     wrap_with_overlay title: ar.overlay_title, slot: breadcrumb_data("History") do
-      act_listing(act, opts[:act_seq], :bridge)
+      act_listing(act, opts[:act_seq], :board)
     end
   end
 

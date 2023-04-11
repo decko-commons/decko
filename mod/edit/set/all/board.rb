@@ -1,43 +1,43 @@
-BRIDGE_TABS = { "Account" => :account_tab,
-                "Guide" => :guide_tab,
-                "Engage" => :engage_tab,
-                "History" => :history_tab,
-                "Related" => :related_tab,
-                "Rules" => :rules_tab }.freeze
+BOARD_TABS = { "Account" => :account_tab,
+               "Guide" => :guide_tab,
+               "Engage" => :engage_tab,
+               "History" => :history_tab,
+               "Related" => :related_tab,
+               "Rules" => :rules_tab }.freeze
 
-BRIDGE_TAB_NAMES = BRIDGE_TABS.invert.freeze
+BOARD_TAB_NAMES = BOARD_TABS.invert.freeze
 
 format :html do
-  wrapper :bridge do
+  wrapper :board do
     class_up "modal-dialog", "no-gaps"
     voo.hide! :modal_footer
     wrap_with_modal(size: :full,
-                    title: bridge_breadcrumbs,
-                    menu: :bridge_menu) do
-      haml :bridge
+                    title: board_breadcrumbs,
+                    menu: :board_menu) do
+      haml :board
     end
   end
 
-  def bridge_tabs
+  def board_tabs
     wrap do
-      tabs(visible_bridge_tabs, BRIDGE_TAB_NAMES[bridge_tab], load: :lazy) do
-        _render bridge_tab
+      tabs(visible_board_tabs, BOARD_TAB_NAMES[board_tab], load: :lazy) do
+        _render board_tab
       end
     end
   end
 
-  def bridge_tab
-    @bridge_tab ||= bridge_param :tab
+  def board_tab
+    @board_tab ||= board_param :tab
   end
 
-  def bridge_param key
-    params.dig(:bridge, key)&.to_sym || try("default_bridge_#{key}")
+  def board_param key
+    params.dig(:board, key)&.to_sym || try("default_board_#{key}")
   end
 
-  def bridge_breadcrumbs
+  def board_breadcrumbs
     <<-HTML.strip_heredoc
     <nav aria-label="breadcrumb">
-      <ol class="breadcrumb _bridge-breadcrumb">
+      <ol class="breadcrumb _board-breadcrumb">
         <li class="breadcrumb-item">#{card.name}</li>
         <li class="breadcrumb-item active">Edit</li>
       </ol>
@@ -45,8 +45,8 @@ format :html do
     HTML
   end
 
-  def bridge_link_opts opts={}
-    opts[:"data-slot-selector"] = bridge_slot_selector
+  def board_link_opts opts={}
+    opts[:"data-slot-selector"] = board_slot_selector
     opts[:"data-slotter-mode"] = :override
     opts[:remote] = true
     add_class opts, "slotter"
@@ -55,12 +55,12 @@ format :html do
     opts
   end
 
-  def bridge_slot_selector
-    ".bridge-main > .overlay-container > .card-slot._bottomlay-slot," \
-    ".bridge-main > ._overlay-container-placeholder > .card-slot"
+  def board_slot_selector
+    ".board-main > .overlay-container > .card-slot._bottomlay-slot," \
+    ".board-main > ._overlay-container-placeholder > .card-slot"
   end
 
-  def default_bridge_tab
+  def default_board_tab
     show_guide_tab? ? :guide_tab : :engage_tab
   end
 
@@ -69,7 +69,7 @@ format :html do
     { "data-breadcrumb": title, "data-breadcrumb-class": html_class }
   end
 
-  def bridge_menu
+  def board_menu
     wrap_with_modal_menu do
       [
         close_modal_window,
