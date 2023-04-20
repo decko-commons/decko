@@ -36,7 +36,22 @@ class DeathToMachines < Cardio::Migration::Core
     "style: classic cards"
   ].freeze
 
+  ASSET_TYPES =  [
+    "Local Script Manifest Group",
+    "Local Style Manifest Group",
+    "Local Script Folder Group",
+    "Local Style Folder Group",
+    "Mod"
+  ]
+
   def up
+    ASSET_TYPES.each do |typename|
+      Card.ensure! name: typename, codename: typename.to_name.key, type: :cardtype
+    end
+
+    Card.ensure! name: "*asset output", codename: "asset_output"
+    Card.ensure! name: "*asset input", codename: "asset_input"
+
     delete_machine_cards :machine_output
     delete_machine_cards :machine_input
     delete_machine_cards :machine_cache
