@@ -10,7 +10,7 @@ class DeathToMachines < Cardio::Migration::Core
     style_libraries script_html5shiv_printshiv smartmenu_css smartmenu_js
     mod_script_assets mod_style_assets style_bootstrap_compatible style_right_sidebar
     style_bootstrap_mixins style_bootstrap_breakpoints script_bootstrap script_datepicker
-     script_jquery_helper style_jquery_ui_smoothness style_cards
+    script_jquery_helper style_jquery_ui_smoothness style_cards
   ].freeze
 
   DEPRECATED_CARD_NAMES = [
