@@ -10,7 +10,7 @@ $(document).ready ->
 
   $('body').on 'click', 'button._change-create-to-update', () ->
     tm_id = $(this).closest("form").find("#success_tinymce_id").val()
-    nest.changeCreateToUpdate(tm_id)
+    changeCreateToUpdate(tm_id)
 
   $('body').on 'click', 'button._open-nest-editor', () ->
     form = $(this).closest("._nest-form")
@@ -32,8 +32,8 @@ $.extend nest,
     this.openEditorForTm(tm, params, "nest_editor", "modal_nest_editor")
 
   openNestEditorForSlot: (slot, slotter, params) ->
-    card = if slot[0] then $(slot[0]).attr('data-card-name') else ":update"
-    nest.request(card, "nest_editor", "modal_nest_editor", slotter, params)
+    card = cardFromSlotOrDefault(slot[0])
+    request(card, "nest_editor", "modal_nest_editor", slotter, params)
 
   openEditorForTm: (tm, params, overlay_view, modal_view) ->
     params += "&tinymce_id=#{tm.id}"
@@ -41,49 +41,22 @@ $.extend nest,
     editor = $("##{tm.id}").closest(".card-editor")
     slotter = $("##{tm.id}")
 
-    card = (editor[0] and $(editor[0]).attr('card_name')) or
-           (slot[0] and $(slot[0]).attr('data-card-name')) or ":update"
+    card = cardFromEditor(editor[0]) or
+           cardFromSlotOrDefault(slot[0])
     if card.length == 0
       card = ":update"
-    nest.request(card, overlay_view, modal_view, slotter, params)
+    request(card, overlay_view, modal_view, slotter, params)
 
   # called by TinyMCE
   openImageEditor: (tm) ->
     params = nest.editParams(tm, "{{", "}}", false) unless params?
     this.openEditorForTm(tm, params,"nest_image", "modal_nest_image")
 
-  changeCreateToUpdate: (tm_id) ->
-    form = $("##{tm_id}").closest("form")
-    new_action = form.attr("action").replace("card/create", "card/update")
-    form.attr("action", new_action)
-
   insertNest: (tm, nest_string) ->
     tm.insertContent(nest_string)
     # insertIndex = nest.offsetAfterInsert(tm, nest_string)
     # params = nest.paramsStr(insertIndex, nest_string)
     # nest.openNestEditor(etm, params)
-
-
-  request: (card, overlay_view, modal_view, slotter, params) ->
-    slot = $(".board-sidebar > ._overlay-container-placeholder > .card-slot")
-
-    if false #slot[0]
-      view = overlay_view
-      mode = "overlay"
-    else
-      slot = $($(".card-slot")[0])
-      view = modal_view
-      mode = "modal"
-
-    nest.sendRequest(slotter, slot, mode, card, view, params)
-
-  sendRequest: (slotter, slot, mode, card, view, params) ->
-      params = "" unless params?
-      url = "/#{card}?view=#{view}&#{params}"
-      $.ajax
-        url: url
-        success: (html) ->
-          slot.slotContent html, mode, slotter
 
   editParams: (tm, prefix="{{", postfix="}}", edit=true) ->
     sel = tm.selection.getSel()
@@ -113,24 +86,11 @@ $.extend nest,
         nest_size = index.after.close + offset + 2 - nest_start
         name = text.substr(nest_start, nest_size)
       if edit
-        nest.paramsStr(nest_start, name)
+        paramsStr(nest_start, name)
       else
-        nest.paramsStr(nest_start + nest_size)
+        paramsStr(nest_start + nest_size)
     else
-      nest.paramsStr(offset)
-
-  paramsStr: (start, name) ->
-    params = ""
-    if start?
-      params += "&tm_snippet_start=#{start}"
-    if name? and name.length > 0
-      params += "&tm_snippet_raw=#{encodeURIComponent(name)}"
-
-    params
-
-  offsetAfterInsert: (editor, content) ->
-    offset = editor.selection.getSel().anchorOffset
-    offset - content.lengthr
+      paramsStr(offset)
 
   applyNestToTinymceEditor: (tinymce_id, nest_start, nest_size) ->
     nest.applySnippet("nest", tinymce_id, nest_start, nest_size)
@@ -145,23 +105,13 @@ $.extend nest,
     content = $("._#{snippet_type}-preview").val()
     editor = tinymce.get(tinymce_id)
     if start?
-      nest.replaceSnippet(editor, start, size, content)
+      replaceSnippet(editor, start, size, content)
     else
       editor.insertContent content
-      offset = nest.offsetAfterInsert(editor, content)
+      offset = offsetAfterInsert(editor, content)
       $("button._#{snippet_type}-apply").attr("data-tm-snippet-start", offset)
 
     $("button._#{snippet_type}-apply").attr("data-tm-snippet-size", content.length)
-
-  replaceSnippet: (editor, start, size, content) ->
-    sel = editor.selection.getSel()
-    if sel? and sel.anchorNode? and sel.anchorNode.data?
-      text = sel.anchorNode.data
-      size = 0 unless size?
-      text = "#{text.substr(0, start)}#{content}#{text.substr(start + size)}"
-      sel.anchorNode.data = text
-    else
-      editor.insertContent content
 
   updatePreview: (new_val) ->
     new_val = "{{ #{nest.name()}|#{nest.options()} }}" unless new_val?
@@ -169,3 +119,66 @@ $.extend nest,
     preview.val new_val
     preview.data("nest-options", nest.options())
     preview.data("reference", nest.name())
+
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~
+# "private" helper methods
+
+cardFromSlotOrDefault = (slot) ->
+  if slot then $(slot).attr('data-card-link-name') else ":update"
+
+cardFromEditor = (editor) ->
+  return unless editor
+
+  ($(editor).attr('data-card-id') and "~#{$(editor).attr('card-id')}") or
+    $(editor).attr('data-card-link-name')
+
+changeCreateToUpdate = (tm_id) ->
+  form = $("##{tm_id}").closest("form")
+  new_action = form.attr("action").replace("card/create", "card/update")
+  form.attr("action", new_action)
+
+request: (card, overlay_view, modal_view, slotter, params) ->
+  slot = $(".board-sidebar > ._overlay-container-placeholder > .card-slot")
+
+  if false #slot[0]
+    view = overlay_view
+    mode = "overlay"
+  else
+    slot = $($(".card-slot")[0])
+    view = modal_view
+    mode = "modal"
+
+  sendRequest(slotter, slot, mode, card, view, params)
+
+paramsStr = (start, name) ->
+  params = ""
+  if start?
+    params += "&tm_snippet_start=#{start}"
+  if name? and name.length > 0
+    params += "&tm_snippet_raw=#{encodeURIComponent(name)}"
+
+  params
+
+sendRequest = (slotter, slot, mode, card, view, params) ->
+  params = "" unless params?
+  url = "/#{card}?view=#{view}&#{params}"
+  $.ajax
+    url: url
+    success: (html) ->
+      slot.slotContent html, mode, slotter
+
+offsetAfterInsert = (editor, content) ->
+  offset = editor.selection.getSel().anchorOffset
+  offset - content.length
+
+
+replaceSnippet = (editor, start, size, content) ->
+  sel = editor.selection.getSel()
+  if sel? and sel.anchorNode? and sel.anchorNode.data?
+    text = sel.anchorNode.data
+    size = 0 unless size?
+    text = "#{text.substr(0, start)}#{content}#{text.substr(start + size)}"
+    sel.anchorNode.data = text
+  else
+    editor.insertContent content
