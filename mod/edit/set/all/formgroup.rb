@@ -34,8 +34,9 @@ format :html do
 
   def formgroup_div_args html_class
     div_args = { class: ["form-group", html_class].compact.join(" ") }
-    div_args[:card_id] = card.id if card.real?
-    div_args[:card_name] = h card.name if card.name.present?
+    div_args["data-card-id"] = card.id if card.real?
+    div_args["data-card-name"] = h card.name if card.name.present?
+    div_args["data-card-link-name"] = h card.name.url_key if card.name.present?
     div_args
   end
 

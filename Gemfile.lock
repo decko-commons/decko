@@ -150,7 +150,8 @@ PATH
       card-mod-format (= 0.15.5)
     card-mod-markdown (0.15.5)
       card (= 1.105.5)
-      kramdown (~> 2.3)
+      kramdown (~> 2.4)
+      kramdown-syntax-coderay (~> 1.0)
     card-mod-monkey (0.15.5)
       better_errors (~> 2.9)
       break (~> 0.30)
@@ -306,10 +307,10 @@ GEM
     addressable (2.8.4)
       public_suffix (>= 2.0.2, < 6.0)
     ast (2.4.2)
-    better_errors (2.9.1)
-      coderay (>= 1.0.0)
+    better_errors (2.10.0)
       erubi (>= 1.0.0)
       rack (>= 0.9.0)
+      rouge (>= 1.0.0)
     binding_of_caller (1.0.0)
       debug_inspector (>= 0.0.1)
     bootstrap4-kaminari-views (1.0.1)
@@ -444,7 +445,7 @@ GEM
       nokogiri (>= 1.6.0)
       ruby_parser (~> 3.5)
     htmlentities (4.3.4)
-    i18n (1.12.0)
+    i18n (1.13.0)
       concurrent-ruby (~> 1.0)
     i18n-tasks (0.9.37)
       activesupport (>= 4.0.2)
@@ -476,6 +477,9 @@ GEM
     kaminari-core (1.2.2)
     kramdown (2.4.0)
       rexml
+    kramdown-syntax-coderay (1.0.1)
+      coderay (~> 1.1)
+      kramdown (~> 2.0)
     launchy (2.5.2)
       addressable (~> 2.8)
     listen (3.8.0)
@@ -513,12 +517,12 @@ GEM
     net-smtp (0.3.3)
       net-protocol
     nio4r (2.5.9)
-    nokogiri (1.14.3-x86_64-darwin)
+    nokogiri (1.14.3-arm64-darwin)
       racc (~> 1.4)
     nokogumbo (2.0.5)
       nokogiri (~> 1.8, >= 1.8.4)
     parallel (1.23.0)
-    parser (3.2.2.0)
+    parser (3.2.2.1)
       ast (~> 2.4.1)
     pry (0.14.2)
       coderay (~> 1.1)
@@ -535,7 +539,7 @@ GEM
     puma (6.2.2)
       nio4r (~> 2.0)
     racc (1.6.2)
-    rack (2.2.6.4)
+    rack (2.2.7)
     rack-protection (3.0.6)
       rack
     rack-test (2.1.0)
@@ -582,6 +586,7 @@ GEM
       json
     regexp_parser (2.8.0)
     rexml (3.2.5)
+    rouge (4.1.0)
     rr (3.1.0)
     rspec (3.12.0)
       rspec-core (~> 3.12.0)
@@ -619,9 +624,9 @@ GEM
       rubocop-ast (>= 1.28.0, < 2.0)
       ruby-progressbar (~> 1.7)
       unicode-display_width (>= 2.4.0, < 3.0)
-    rubocop-ast (1.28.0)
+    rubocop-ast (1.28.1)
       parser (>= 3.2.1.0)
-    rubocop-capybara (2.17.1)
+    rubocop-capybara (2.18.0)
       rubocop (~> 1.41)
     rubocop-rspec (2.20.0)
       rubocop (~> 1.33)
@@ -701,10 +706,10 @@ GEM
     xpath (3.2.0)
       nokogiri (~> 1.8)
     yard (0.9.34)
-    zeitwerk (2.6.7)
+    zeitwerk (2.6.8)
 
 PLATFORMS
-  x86_64-darwin-20
+  arm64-darwin-21
 
 DEPENDENCIES
   card!
@@ -722,4 +727,4 @@ DEPENDENCIES
   thin
 
 BUNDLED WITH
-   2.4.10
+   2.4.6
