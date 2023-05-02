@@ -1,10 +1,11 @@
 require "kramdown"
-require 'kramdown-syntax-coderay'
+require "kramdown-syntax-coderay"
 
 format :html do
   view :core do
     safe_process_content do |content|
-      Kramdown::Document.new(content, syntax_highlighter: :coderay,
+      Kramdown::Document.new(content,
+                             syntax_highlighter: :coderay,
                              syntax_highlighter_opts: {
                                line_numbers: false,
                                default_lang: :ruby
