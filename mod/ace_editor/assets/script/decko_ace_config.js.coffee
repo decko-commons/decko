@@ -19,6 +19,7 @@ $.extend decko,
       tabSize: 2
       useSoftTabs: true
       maxLines: 30
+      minLines: 10
     #user_conf = if decko.aceConfig? then decko.aceConfig else {}
     # $.extend conf, user_conf['default'], user_conf[mode] #, hard_conf
     editor.setOptions conf
