@@ -7,7 +7,8 @@ format :html do
       Kramdown::Document.new(content, syntax_highlighter: :coderay,
                              syntax_highlighter_opts: {
                                line_numbers: false,
-                               default_lang: :ruby}).to_html
+                               default_lang: :ruby
+                             }).to_html
     end
   end
 
