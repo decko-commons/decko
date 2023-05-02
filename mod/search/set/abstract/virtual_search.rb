@@ -14,4 +14,3 @@ end
 #     super() + card.cql_content.to_s
 #   end
 # end
-#
