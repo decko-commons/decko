@@ -20,6 +20,6 @@ format :html do
   end
 
   def visible_cardtype_groups
-    { "Organize" => %w[List Pointer] }
+    { "Organize" => %w[List Pointer Search] }
   end
 end

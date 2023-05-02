@@ -1,3 +1,9 @@
+$(document).ready ->
+  # make tinymce work in modals
+  document.addEventListener 'focusin', (e) ->
+    if e.target.closest('.tox-tinymce-aux, .moxman-window, .tam-assetmanager-root') != null
+      e.stopImmediatePropagation()
+
 decko.editors.add ".tinymce-textarea",
   -> decko.initTinyMCE @[0].id,
   ->
