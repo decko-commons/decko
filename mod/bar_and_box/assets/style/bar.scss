@@ -8,12 +8,18 @@ $bar_stripe_color: $dark !default;
       background-color: $gray-200;
     }
   }
+  &.accordion-item {
+    .bar-left, .bar-right {
+      padding: 0;
+    }
+  }
 }
 
 .selected .bar, .selected .box {
   border: 3px solid $primary !important;
 }
 
+// not sure this ever gets used:
 .bar-accordion {
   .accordion-body {
     padding: 0;
