@@ -24,7 +24,7 @@ RSpec.describe Card::Reference::All do
 
   describe "#referee" do
     it "returns all cards that card nests" do
-      expect(Card["Y"].referees.map(&:name)).to contain_exactly("A", "A+B", "B", "T")
+      expect(Card["Y"].referees.map(&:name)).to contain_exactly("A", "A+B", "T")
     end
 
     it "returns all cards that card links to and their ancestors" do

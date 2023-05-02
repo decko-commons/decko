@@ -80,6 +80,10 @@
       {{:credit|core}}
     </div>
 
+- :name: Menu
+  :codename: sidebar_menu
+  :content: "<p>[[/?view=new|Add a card]]</p>"
+
 - :name: "*sidebar"
   :codename: sidebar
   :content: |-
@@ -90,9 +94,6 @@
       :fields:
         :read: Anyone
 
-- :name: Menu
-  :codename: sidebar_menu
-  :content: "<p>[[/?view=new|Add a card]]</p>"
 
 - :name: Default Layout
   :codename: default_layout
