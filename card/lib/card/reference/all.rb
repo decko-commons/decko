@@ -45,7 +45,7 @@ class Card
       end
 
       # delete old references from this card's content, create new ones
-      def update_references_out
+       def update_references_out
         delete_references_out
         create_references_out
       end
