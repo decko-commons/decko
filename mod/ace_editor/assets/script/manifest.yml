@@ -1,8 +1,8 @@
 remote:
   items:
-#     - src : https://ace.c9.io/build/src/ace.js
-   - src: https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.14/ace.js
-     integrity: sha512-6ts6Fu561/yzWvD6uwQp3XVYwiWNpWnZ0hdeQrETqtnQiGjTfOS06W76aUDnq51hl1SxXtJaqy7IsZ3oP/uZEg==
+   # - src : https://ace.c9.io/build/src/ace.js
+   - src: https://cdnjs.cloudflare.com/ajax/libs/ace/1.18.0/ace.min.js
+     integrity: sha512-xcE2qpHHeRGdUixQ0W0CRrb5RcfFLPol+7Kbix/fxXMnB+Dg4ECW3pldd3gY3bOOqcKQ3wv4IHJKUbSlgn83Qw==
      crossorigin: anonymous
 
 ace_config:

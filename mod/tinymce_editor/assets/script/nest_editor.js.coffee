@@ -60,10 +60,10 @@ $.extend nest,
 
   editParams: (tm, prefix="{{", postfix="}}", edit=true) ->
     sel = tm.selection.getSel()
-    return nest.paramsStr(0) unless sel? and sel.anchorNode?
+    return paramsStr(0) unless sel? and sel.anchorNode?
 
     text = sel.anchorNode.data
-    return nest.paramsStr(sel.anchorOffset) unless text
+    return paramsStr(sel.anchorOffset) unless text
 
     offset = sel.anchorOffset
     before = text.substr(0, offset)
