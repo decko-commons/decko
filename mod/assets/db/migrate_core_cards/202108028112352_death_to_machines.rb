@@ -2,30 +2,15 @@
 
 class DeathToMachines < Cardio::Migration::Core
   DEPRECATED_CODE_NAMES = %i[
-    machine_input machine_output machine_cache
-    style_media
-    style_prosemirror script_prosemirror script_prosemirror_config
-    script_ace script_ace_config
-    script_datepicker_config style_datepicker
-    script_tinymce script_tinymce_config
-    script_load_select2 style_select2 script_select2
-    style_bootstrap_cards
-    font_awesome
-    material_icons
-    style_bootstrap_colorpicker
-    style_select2_bootstrap
-    style_libraries
-    script_html5shiv_printshiv
-    smartmenu_css smartmenu_js
-    mod_script_assets mod_style_assets
-    style_bootstrap_compatible
-    style_right_sidebar
-    style_bootstrap_mixins
-    style_bootstrap_breakpoints
-    script_bootstrap
-    script_datepicker
-    script_jquery_helper style_jquery_ui_smoothness
-    style_cards
+    machine_input machine_output machine_cache style_media style_prosemirror
+    script_prosemirror script_prosemirror_config script_ace script_ace_config
+    script_datepicker_config style_datepicker script_tinymce script_tinymce_config
+    script_load_select2 style_select2 script_select2 style_bootstrap_cards
+    font_awesome material_icons style_bootstrap_colorpicker style_select2_bootstrap
+    style_libraries script_html5shiv_printshiv smartmenu_css smartmenu_js
+    mod_script_assets mod_style_assets style_bootstrap_compatible style_right_sidebar
+    style_bootstrap_mixins style_bootstrap_breakpoints script_bootstrap script_datepicker
+    script_jquery_helper style_jquery_ui_smoothness style_cards
   ].freeze
 
   DEPRECATED_CARD_NAMES = [
@@ -36,7 +21,20 @@ class DeathToMachines < Cardio::Migration::Core
     "style: classic cards"
   ].freeze
 
+  ASSET_TYPES = [
+    "Local Script Manifest Group", "Local Style Manifest Group",
+    "Local Script Folder Group", "Local Style Folder Group",
+    "Mod"
+  ].freeze
+
   def up
+    ASSET_TYPES.each do |typename|
+      Card.ensure! name: typename, codename: typename.to_name.key, type: :cardtype
+    end
+
+    Card.ensure! name: "*asset output", codename: "asset_output"
+    Card.ensure! name: "*asset input", codename: "asset_input"
+
     delete_machine_cards :machine_output
     delete_machine_cards :machine_input
     delete_machine_cards :machine_cache

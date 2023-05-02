@@ -32,18 +32,10 @@
   :content: "[[:recent|Recent Changes]]"
   :codename: main_menu
   :conflict: :defer
-  :fields:
-    :self:
-      :fields:
-        :read: Anyone
 
 - :name: "*header"
   :type: :html
   :codename: header
-  :fields:
-    :self:
-      :fields:
-        :read: Anyone
   :content: |
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-3 nodblclick">
       <div class="container">
@@ -67,6 +59,18 @@
         </div>
       </div>
     </nav>
+
+- :name:
+    - :header
+    - :self
+    - :read
+  :content: Anyone
+
+- :name:
+    - :main_menu
+    - :self
+    - :read
+  :content: Anyone
 
 - :name: "*footer"
   :codename: footer

@@ -515,8 +515,6 @@ GEM
     nio4r (2.5.9)
     nokogiri (1.14.3-arm64-darwin)
       racc (~> 1.4)
-    nokogiri (1.14.3-x86_64-darwin)
-      racc (~> 1.4)
     nokogumbo (2.0.5)
       nokogiri (~> 1.8, >= 1.8.4)
     parallel (1.23.0)
@@ -708,7 +706,6 @@ GEM
 
 PLATFORMS
   arm64-darwin-21
-  x86_64-darwin-20
 
 DEPENDENCIES
   card!
