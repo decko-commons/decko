@@ -62,7 +62,8 @@ RSpec.describe Card::Set::All::NameEvents do
 
   it "wipes old references by default" do
     update "Menu", name: "manure", skip: :update_referer_content
-    expect(Card["manure"].references_in.size).to eq(0)
+    expect(Card["manure"].references_in.size).to eq(1)
+    # codename reference does not get wiped
   end
 
   it "picks up new references" do
