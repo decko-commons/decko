@@ -138,7 +138,7 @@ changeCreateToUpdate = (tm_id) ->
   new_action = form.attr("action").replace("card/create", "card/update")
   form.attr("action", new_action)
 
-request: (card, overlay_view, modal_view, slotter, params) ->
+request = (card, overlay_view, modal_view, slotter, params) ->
   slot = $(".board-sidebar > ._overlay-container-placeholder > .card-slot")
 
   if false #slot[0]
