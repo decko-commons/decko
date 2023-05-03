@@ -547,3 +547,68 @@ card_changes_085:
     <h3>Emails </h3>
     <p>Here are the current [[Email Templates|Email templates]] for your site.</p>
     <p>{{Email Templates+*type+by update|content}} </p>
+card_changes_086:
+  id: 86
+  card_action_id: 163
+  field: 0
+  value:
+card_changes_087:
+  id: 87
+  card_action_id: 163
+  field: 1
+  value: '64'
+card_changes_088:
+  id: 88
+  card_action_id: 163
+  field: 2
+  value: "Every Decko card has one and only one __type__.\n\n[[RichText]], [[List]],
+    [[Image]], [[Search]], [[JavaScript]], [[User]]... All of these are types. \nTo
+    see a given card's type, click its ellipses icon ({{\\_|bridge_link}})\nto go
+    to the card dashboard (or \"cardboard\").\n\nTypes are defined with [[Cardtype]]
+    cards. For example, the Cardtype card named [[Image]] defines the image\ntype.
+    You can create a new type by creating a [[/new/Cardtype|new Cardtype]] card.\n\nTypes
+    are a core tool for organizing cards. To decide whether you need\na new type for
+    a group of cards, consider whether you want to:\n\n1. ...think up a name for each
+    card?\n2. ...create a patterned structure for the group?\n\nAs a rule of thumb,
+    if the answer to both is yes, you probably want a new type. There are exceptions,
+    of\ncourse: [[\\*autoname|autonaming]], casual [[\\*structure|structures]], etc.\n\nBy
+    convention, Cardtype names are usually singular, capitalized nouns. \n\nTo configure
+    the structure for a Cardtype,  click the \"Configure\" button on a Cardtype cards
+    or edit\nthe type's structure rule in the cardboard of _either_ the Cardtype card
+    _or_ of any of the cards of that type.\n\nA Cardtype card cannot be deleted as
+    long as there are instances of that type."
+card_changes_089:
+  id: 89
+  card_action_id: 163
+  field: 3
+  value: f
+card_changes_090:
+  id: 90
+  card_action_id: 163
+  field: 4
+  value: '29'
+card_changes_091:
+  id: 91
+  card_action_id: 163
+  field: 5
+  value: '88'
+card_changes_092:
+  id: 92
+  card_action_id: 8236
+  field: 2
+  value: "Every Decko card has one and only one __type__.\n\n[[RichText]], [[List]],
+    [[Image]], [[Search]], [[JavaScript]], [[User]]... All of these are types. \nTo
+    see a given card's type, click its ellipses icon ({{\\_|board_link}})\nto go to
+    the card dashboard (or \"cardboard\").\n\nTypes are defined with [[Cardtype]]
+    cards. For example, the Cardtype card named [[Image]] defines the image\ntype.
+    You can create a new type by creating a [[/new/Cardtype|new Cardtype]] card.\n\nTypes
+    are a core tool for organizing cards. To decide whether you need\na new type for
+    a group of cards, consider whether you want to:\n\n1. ...think up a name for each
+    card?\n2. ...create a patterned structure for the group?\n\nAs a rule of thumb,
+    if the answer to both is yes, you probably want a new type. There are exceptions,
+    of\ncourse: [[\\*autoname|autonaming]], casual [[\\*structure|structures]], etc.\n\nBy
+    convention, Cardtype names are usually singular, capitalized nouns. \n\nTo configure
+    the structure for a Cardtype,  click the \"Configure\" button on a Cardtype cards
+    or edit\nthe type's structure rule in the cardboard of _either_ the Cardtype card
+    _or_ of any of the cards of that type.\n\nA Cardtype card cannot be deleted as
+    long as there are instances of that type."
