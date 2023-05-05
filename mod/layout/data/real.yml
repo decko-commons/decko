@@ -32,18 +32,10 @@
   :content: "[[:recent|Recent Changes]]"
   :codename: main_menu
   :conflict: :defer
-  :fields:
-    :self:
-      :fields:
-        :read: Anyone
 
 - :name: "*header"
   :type: :html
   :codename: header
-  :fields:
-    :self:
-      :fields:
-        :read: Anyone
   :content: |
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-3 nodblclick">
       <div class="container">
@@ -68,6 +60,18 @@
       </div>
     </nav>
 
+- :name:
+    - :header
+    - :self
+    - :read
+  :content: Anyone
+
+- :name:
+    - :main_menu
+    - :self
+    - :read
+  :content: Anyone
+
 - :name: "*footer"
   :codename: footer
   :type: :html
@@ -75,6 +79,10 @@
     <div class="d-flex justify-content-center align-items-center">
       {{:credit|core}}
     </div>
+
+- :name: Menu
+  :codename: sidebar_menu
+  :content: "<p>[[/?view=new|Add a card]]</p>"
 
 - :name: "*sidebar"
   :codename: sidebar
@@ -86,9 +94,6 @@
       :fields:
         :read: Anyone
 
-- :name: Menu
-  :codename: sidebar_menu
-  :content: "<p>[[/?view=new|Add a card]]</p>"
 
 - :name: Default Layout
   :codename: default_layout
