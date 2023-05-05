@@ -18,7 +18,7 @@ format :html do
     # removed invite for now
     navbar_item_views.map do |link_view|
       rendered = render link_view
-      wrap_with_nav_item rendered if rendered
+      wrap_with_nav_item rendered if rendered.present?
     end.compact
   end
 
