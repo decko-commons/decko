@@ -1,10 +1,6 @@
 format :json do
   def atom
-    super.tap do |atom|
-      if voo.explicit_show? :acts
-        atom[:acts] = render_acts
-      end
-    end
+    super.tap { |atom| atom[:acts] = render_acts if voo.explicit_show? :acts }
   end
 
   view :acts do
@@ -16,12 +12,12 @@ format :json do
   end
 
   def act_hash act
-    { act_id: act.id,
+    {
+      act_id: act.id,
       actor_id: act.actor_id,
       acted_at: act.acted_at,
       act_card_id: act.card_id,
       actions: [action_hash(act.action_on(card.id))]
-
     }
   end
 
