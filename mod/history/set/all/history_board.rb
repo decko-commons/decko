@@ -15,6 +15,16 @@ format :html do
     "Updated by #{links}"
   end
 
+  view :board_act, cache: :never do
+    opts = act_listing_opts_from_params(nil)
+    act = act_from_context
+    ar = act_renderer(:board).new(self, act, opts)
+    class_up "action-list", "my-3"
+    wrap_with_overlay title: ar.overlay_title, slot: breadcrumb_data("History") do
+      act_listing(act, opts[:act_seq], :board)
+    end
+  end
+
   def acts_board_layout acts, context=:board
     output [
       _render_creator_credit,
@@ -22,6 +32,13 @@ format :html do
       act_paging(acts, context)
     ]
   end
+
+  # not in use?
+  # def act_list_group acts, context, &block
+  #   list_group acts_for_accordion(acts, context, &block), class: "clear-both"
+  # end
+
+  private
 
   def act_link_list acts, context
     items = acts_for_accordion(acts, context) do |act, seq|
@@ -36,21 +53,25 @@ format :html do
     act_renderer(:board).new(self, act, opts).board_link
   end
 
-  def act_list_group acts, context, &block
-    list_group acts_for_accordion(acts, context, &block), class: "clear-both"
-  end
+  def act_paging acts, context
+    return unless controller.request # paginate requires a request
 
-  view :board_act, cache: :never do
-    opts = act_listing_opts_from_params(nil)
-    act = act_from_context
-    ar = act_renderer(:board).new(self, act, opts)
-    class_up "action-list", "my-3"
-    wrap_with_overlay title: ar.overlay_title, slot: breadcrumb_data("History") do
-      act_listing(act, opts[:act_seq], :board)
+    wrap_with :div, class: "slotter btn-sm" do
+      # normally we let method_missing handle the action_view stuff,
+      # but that doesn't handle **arguments yet
+      action_view.send :paginate, current_page_acts(acts), **act_paging_opts(context)
     end
   end
 
-  private
+  def act_paging_opts context
+    { remote: true, theme: "twitter-bootstrap-4" }.tap do |opts|
+      opts[:total_pages] = 10 if limited_paging? context
+    end
+  end
+
+  def limited_paging? context
+    context == :absolute && Act.count > 1000
+  end
 
   def updater_links updaters, item_view: :link, max_count: 3, others_target: card
     total = updaters.size
