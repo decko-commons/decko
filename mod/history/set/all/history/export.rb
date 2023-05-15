@@ -1,12 +1,12 @@
 format :json do
   def atom
-    super.tap { |atom| atom[:actions] = render_actions if voo.explicit_show? :actions }
+    super.tap { |atom| atom[:history] = render_history if voo.explicit_show? :history }
   end
 
-  view :actions do
+  view :history do
     return [] unless card.real?
 
-    card.actions.map do |action|
+    card.history_actions.map do |action|
       act_hash(action.act).merge action_hash(action)
     end
   end

@@ -35,12 +35,6 @@ format :html do
       hide_diff: params["hide_diff"].to_s.strip == "true" }
   end
 
-  def act_accordion acts, context, &block
-    accordion do
-      acts_for_accordion(acts, context, &block).join
-    end
-  end
-
   def acts_for_accordion acts, context
     clean_acts(current_page_acts(acts)).map do |act|
       with_act_seq(context, acts) do |seq|
@@ -95,6 +89,12 @@ format :html do
     act_accordion acts, context do |act, seq|
       fmt = context == :relative ? self : act.card.format(:html)
       fmt.act_listing act, seq, context
+    end
+  end
+
+  def act_accordion acts, context, &block
+    accordion do
+      acts_for_accordion(acts, context, &block).join
     end
   end
 

@@ -1,11 +1,3 @@
-event :update_ancestor_timestamps, :integrate do
-  ids = history_ancestor_ids
-  return unless ids.present?
-
-  Card.where(id: ids).update_all(updater_id: Auth.current_id, updated_at: Time.now)
-  ids.map { |anc_id| Card.expire anc_id.cardname }
-end
-
 # track history (acts, actions, changes) on this card
 def history?
   true
@@ -86,7 +78,7 @@ def delete_old_actions
 end
 
 def delete_all_changes
-  Card::Change.where(card_action_id: all_action_ids).delete_all
+  Card::Change.where(card_action_id: action_ids).delete_all
 end
 
 def save_content_draft content
