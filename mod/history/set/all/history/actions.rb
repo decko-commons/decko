@@ -1,8 +1,12 @@
 # -*- encoding : utf-8 -*-
 
 # actions directly on current card
-#   see also
 def action_ids
+  actions.pluck :id
+end
+
+# includes drafts
+def all_action_ids
   Card::Action.where(card_id: id).pluck :id
 end
 

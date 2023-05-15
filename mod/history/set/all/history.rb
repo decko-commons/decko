@@ -78,7 +78,7 @@ def delete_old_actions
 end
 
 def delete_all_changes
-  Card::Change.where(card_action_id: action_ids).delete_all
+  Card::Change.where(card_action_id: all_action_ids).delete_all
 end
 
 def save_content_draft content
