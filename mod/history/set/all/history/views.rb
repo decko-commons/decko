@@ -4,12 +4,8 @@ format :html do
   view :history, cache: :never do # why no cache?
     frame do
       class_up "d0-card-body",  "history-slot"
-      render_relative_history
+      relative_history
     end
-  end
-
-  view :relative_history do
-    acts_layout card.history_acts, :relative, :show
   end
 
   view :act, cache: :never do
@@ -66,5 +62,11 @@ format :html do
     else
       link_to_view :history, "edited", class: "last-edited", rel: "nofollow"
     end
+  end
+
+  private
+
+  def relative_history
+    acts_layout card.history_acts, :relative, :show
   end
 end

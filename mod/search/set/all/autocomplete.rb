@@ -38,7 +38,7 @@ format :html do
     if card.fetch :image
       field_nest :image, view: :core, size: :small
     else
-      icon_tag :arrow_forward
+      icon_tag :forward
     end
   end
 
