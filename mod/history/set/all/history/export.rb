@@ -26,7 +26,7 @@ format :json do
       act_id: act.id,
       actor_id: act.actor_id,
       acted_at: act.acted_at,
-      act_card_id: act.card_id,
+      act_card_id: act.card_id
     }
   end
 
