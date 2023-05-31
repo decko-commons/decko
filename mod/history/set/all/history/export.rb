@@ -1,13 +1,23 @@
 format :json do
   def atom
-    super.tap { |atom| atom[:acts] = render_acts if voo.explicit_show? :acts }
+    super.tap do |atom|
+      %i[history actions].each do |view|
+        atom[view] = render(view) if voo.explicit_show?(view)
+      end
+    end
   end
 
-  view :acts do
-    return [] unless card.real?
+  view :history do
+    card.real? ? action_hash_list(card.history_actions) : []
+  end
 
-    card.acts.map do |act|
-      act_hash act
+  view :actions do
+    card.real? ? action_hash_list(card.actions) : []
+  end
+
+  def action_hash_list actions
+    actions.map do |action|
+      act_hash(action.act).merge action_hash(action)
     end
   end
 
@@ -17,7 +27,6 @@ format :json do
       actor_id: act.actor_id,
       acted_at: act.acted_at,
       act_card_id: act.card_id,
-      actions: [action_hash(act.action_on(card.id))]
     }
   end
 

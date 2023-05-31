@@ -2,6 +2,6 @@
 
 class RepairAllReferences < Cardio::Migration
   def up
-    Card::Reference.repair_all
+    # Card::Reference.repair_all
   end
 end

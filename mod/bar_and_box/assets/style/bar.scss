@@ -1,5 +1,9 @@
 $bar_stripe_color: $dark !default;
 
+._card-link {
+  cursor: pointer;
+}
+
 .bar {
   border: 1px solid $border-color;
   &:hover {
