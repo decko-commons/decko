@@ -31,13 +31,13 @@ module Cardio
         Schema.migration_paths mig_type
       end
 
-      def schema_suffix mig_type=type
-        Schema.suffix mig_type
-      end
-
-      def schema_mode mig_type=type, &block
-        Schema.mode mig_type, &block
-      end
+      # def schema_suffix mig_type=type
+      #   Schema.suffix mig_type
+      # end
+      #
+      # def schema_mode mig_type=type, &block
+      #   Schema.mode mig_type, &block
+      # end
 
       def assume_migrated_upto_version
         Schema.assume_migrated_upto_version type
