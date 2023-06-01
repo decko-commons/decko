@@ -15,43 +15,20 @@ module Cardio
         end
       end
 
-      def suffix type
-        case type
-        when :core_cards then "_core_cards"
-        when :deck_cards then "_deck_cards"
-        when :deck then "_deck"
-        else ""
-        end
-      end
-
-      def mode type
-        with_suffix type do
-          yield migration_paths(type)
-        end
-      end
-
       def version type=nil
         path = stamp_path type
         File.exist?(path) ? File.read(path).strip : nil
       end
 
       def stamp_path type
-        root_dir = deck_migration?(type) ? Cardio.root : Cardio.gem_root
-        stamp_dir = ENV["SCHEMA_STAMP_PATH"] || File.join(root_dir, "db")
+        stamp_dir = ENV["SCHEMA_STAMP_PATH"] || File.join(Cardio.root, "db")
 
         File.join stamp_dir, "version#{suffix type}.txt"
       end
 
       def migration_paths type
-        list = Cardio.paths["db/migrate#{suffix type}"].to_a
-        case type
-        when :core_cards
-          list += mod_migration_paths "migrate_core_cards"
-        when :deck_cards
-          list += mod_migration_paths "migrate_cards"
-        when :deck
-          list += mod_migration_paths "migrate"
-        end
+        list = Cardio.paths["data/#{type}"].to_a
+        list += mod_migration_paths type
         list.flatten
       end
 
@@ -62,15 +39,21 @@ module Cardio
         end
       end
 
+      def suffix type
+        type == :transform ? "_deck_cards" : ""
+      end
+
       private
 
-      def deck_migration? type
-        type.in? %i[deck_cards deck]
+      def mode type
+        with_suffix type do
+          yield migration_paths(type)
+        end
       end
 
       def mod_migration_paths dir
         [].tap do |list|
-          Mod.dirs.each("db/#{dir}") { |path| list.concat Dir.glob path }
+          Mod.dirs.each("data/#{dir}") { |path| list.concat Dir.glob path }
         end
       end
 
