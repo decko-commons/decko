@@ -1756,7 +1756,7 @@ cards_095:
   right_id: 88
   current_revision_id:
   created_at: 2022-10-31 19:06:38.000000000 Z
-  updated_at: 2022-10-31 19:06:38.000000000 Z
+  updated_at: 2023-05-04 18:39:31.000000000 Z
   creator_id: 1
   updater_id: 1
   read_rule_class: "*all plus"
@@ -1766,8 +1766,8 @@ cards_095:
   type_id: 64
   db_content: "Every Decko card has one and only one __type__.\n\n[[RichText]], [[List]],
     [[Image]], [[Search]], [[JavaScript]], [[User]]... All of these are types. \nTo
-    see a given card's type, click its ellipses icon ({{\\_|bridge_link}})\nto go
-    to the card dashboard (or \"cardboard\").\n\nTypes are defined with [[Cardtype]]
+    see a given card's type, click its ellipses icon ({{\\_|board_link}})\nto go to
+    the card dashboard (or \"cardboard\").\n\nTypes are defined with [[Cardtype]]
     cards. For example, the Cardtype card named [[Image]] defines the image\ntype.
     You can create a new type by creating a [[/new/Cardtype|new Cardtype]] card.\n\nTypes
     are a core tool for organizing cards. To decide whether you need\na new type for
@@ -8298,7 +8298,7 @@ cards_442:
   right_id: 296
   current_revision_id:
   created_at: 2022-10-31 19:08:23.000000000 Z
-  updated_at: 2023-03-31 20:59:41.000000000 Z
+  updated_at: 2023-05-04 18:40:07.000000000 Z
   creator_id: 1
   updater_id: 1
   read_rule_class: "*all plus"
@@ -9001,7 +9001,7 @@ cards_479:
   right_id:
   current_revision_id:
   created_at: 2022-10-31 19:08:25.000000000 Z
-  updated_at: 2023-03-31 16:22:58.000000000 Z
+  updated_at: 2023-05-04 18:39:31.000000000 Z
   creator_id: 1
   updater_id: 1
   read_rule_class: "*self"
@@ -9010,6 +9010,7 @@ cards_479:
   trash: 0
   type_id: 2
   db_content: |-
+    *guide
     *script
     *read
     *content options
@@ -10267,7 +10268,7 @@ cards_537:
   right_id: 296
   current_revision_id:
   created_at: 2022-10-31 19:08:29.000000000 Z
-  updated_at: 2023-03-31 20:59:40.000000000 Z
+  updated_at: 2023-05-04 18:40:05.000000000 Z
   creator_id: 1
   updater_id: 1
   read_rule_class: "*all plus"
@@ -10339,7 +10340,7 @@ cards_541:
   right_id: 296
   current_revision_id:
   created_at: 2022-10-31 19:08:30.000000000 Z
-  updated_at: 2023-03-31 20:59:40.000000000 Z
+  updated_at: 2023-05-04 18:40:05.000000000 Z
   creator_id: 1
   updater_id: 1
   read_rule_class: "*all plus"
@@ -10501,7 +10502,7 @@ cards_550:
   right_id: 296
   current_revision_id:
   created_at: 2022-10-31 19:08:31.000000000 Z
-  updated_at: 2023-03-31 20:59:40.000000000 Z
+  updated_at: 2023-05-04 18:40:05.000000000 Z
   creator_id: 1
   updater_id: 1
   read_rule_class: "*all plus"
@@ -10573,7 +10574,7 @@ cards_554:
   right_id: 296
   current_revision_id:
   created_at: 2022-10-31 19:08:31.000000000 Z
-  updated_at: 2023-03-31 20:59:40.000000000 Z
+  updated_at: 2023-05-04 18:40:05.000000000 Z
   creator_id: 1
   updater_id: 1
   read_rule_class: "*all plus"
@@ -10645,7 +10646,7 @@ cards_558:
   right_id: 296
   current_revision_id:
   created_at: 2022-10-31 19:08:32.000000000 Z
-  updated_at: 2023-03-31 20:59:40.000000000 Z
+  updated_at: 2023-05-04 18:40:06.000000000 Z
   creator_id: 1
   updater_id: 1
   read_rule_class: "*all plus"
@@ -10825,7 +10826,7 @@ cards_568:
   right_id: 296
   current_revision_id:
   created_at: 2022-10-31 19:08:33.000000000 Z
-  updated_at: 2023-03-31 20:59:40.000000000 Z
+  updated_at: 2023-05-04 18:40:06.000000000 Z
   creator_id: 1
   updater_id: 1
   read_rule_class: "*all plus"
@@ -10951,7 +10952,7 @@ cards_575:
   right_id: 296
   current_revision_id:
   created_at: 2022-10-31 19:08:34.000000000 Z
-  updated_at: 2023-03-31 20:59:40.000000000 Z
+  updated_at: 2023-05-04 18:40:06.000000000 Z
   creator_id: 1
   updater_id: 1
   read_rule_class: "*all plus"
@@ -11077,7 +11078,7 @@ cards_582:
   right_id: 296
   current_revision_id:
   created_at: 2022-10-31 19:08:35.000000000 Z
-  updated_at: 2023-03-31 20:59:40.000000000 Z
+  updated_at: 2023-05-04 18:40:06.000000000 Z
   creator_id: 1
   updater_id: 1
   read_rule_class: "*all plus"
@@ -11149,7 +11150,7 @@ cards_586:
   right_id: 296
   current_revision_id:
   created_at: 2022-10-31 19:08:36.000000000 Z
-  updated_at: 2023-03-31 20:59:41.000000000 Z
+  updated_at: 2023-05-04 18:40:06.000000000 Z
   creator_id: 1
   updater_id: 1
   read_rule_class: "*all plus"
@@ -11257,7 +11258,7 @@ cards_592:
   right_id: 296
   current_revision_id:
   created_at: 2022-10-31 19:08:37.000000000 Z
-  updated_at: 2023-03-31 20:59:41.000000000 Z
+  updated_at: 2023-05-04 18:40:06.000000000 Z
   creator_id: 1
   updater_id: 1
   read_rule_class: "*all plus"
@@ -11347,7 +11348,7 @@ cards_597:
   right_id: 296
   current_revision_id:
   created_at: 2022-10-31 19:08:37.000000000 Z
-  updated_at: 2023-03-31 20:59:41.000000000 Z
+  updated_at: 2023-05-04 18:40:06.000000000 Z
   creator_id: 1
   updater_id: 1
   read_rule_class: "*all plus"
@@ -11437,7 +11438,7 @@ cards_602:
   right_id: 296
   current_revision_id:
   created_at: 2022-10-31 19:08:38.000000000 Z
-  updated_at: 2023-03-31 20:59:41.000000000 Z
+  updated_at: 2023-05-04 18:40:06.000000000 Z
   creator_id: 1
   updater_id: 1
   read_rule_class: "*all plus"
@@ -11491,7 +11492,7 @@ cards_605:
   right_id: 296
   current_revision_id:
   created_at: 2022-10-31 19:08:38.000000000 Z
-  updated_at: 2023-03-31 20:59:41.000000000 Z
+  updated_at: 2023-05-04 18:40:07.000000000 Z
   creator_id: 1
   updater_id: 1
   read_rule_class: "*all plus"
@@ -11563,7 +11564,7 @@ cards_609:
   right_id: 296
   current_revision_id:
   created_at: 2022-10-31 19:08:39.000000000 Z
-  updated_at: 2023-03-31 20:59:41.000000000 Z
+  updated_at: 2023-05-04 18:40:07.000000000 Z
   creator_id: 1
   updater_id: 1
   read_rule_class: "*all plus"
@@ -11617,7 +11618,7 @@ cards_612:
   right_id: 296
   current_revision_id:
   created_at: 2022-10-31 19:08:40.000000000 Z
-  updated_at: 2023-03-31 20:59:41.000000000 Z
+  updated_at: 2023-05-04 18:40:07.000000000 Z
   creator_id: 1
   updater_id: 1
   read_rule_class: "*all plus"
