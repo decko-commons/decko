@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-class BootstrapCleanup < Cardio::Migration::Core
+class BootstrapCleanup < Cardio::Migration::TransformMigration
   def up
     delete_code_card :bootstrap_breakpoints
     delete_code_card :bootstrap_variables

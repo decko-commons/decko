@@ -11,7 +11,6 @@ module Cardio
       def migrate type, version=nil, verbose=true
         migration_context type do |mc|
           ActiveRecord::Migration.verbose = verbose
-          # binding.pry
           mc.migrate version
         end
       end
@@ -28,9 +27,7 @@ module Cardio
       end
 
       def migration_paths type
-        list = Cardio.paths["data/#{type}"].to_a
-        list += mod_migration_paths type
-        list.flatten
+        Cardio.paths["data/#{type}"].existent.to_a
       end
 
       def migration_context type
@@ -49,12 +46,6 @@ module Cardio
       def mode type
         with_suffix type do
           yield migration_paths(type)
-        end
-      end
-
-      def mod_migration_paths dir
-        [].tap do |list|
-          Mod.dirs.each("data/#{dir}") { |path| list.concat Dir.glob path }
         end
       end
 

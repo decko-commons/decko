@@ -2,7 +2,7 @@
 
 require_relative "lib/skin"
 
-class AddTypeCustomizedBootswatchSkin < Cardio::Migration::Core
+class AddTypeCustomizedBootswatchSkin < Cardio::Migration::TransformMigration
   def up
     rename_customized_bootswatch_skin
     Card.ensure name: "*stylesheets", codename: "stylesheets"

@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-class InputType < Cardio::Migration::Core
+class InputType < Cardio::Migration::TransformMigration
   def up
     update_card! :input, name: "*input type", codename: "input_type"
     update_card! :options, name: "*content options", codename: "content_options"

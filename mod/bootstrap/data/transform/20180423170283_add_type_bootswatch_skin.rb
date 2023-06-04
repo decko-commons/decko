@@ -2,7 +2,7 @@
 
 require_relative "lib/skin"
 
-class AddTypeBootswatchSkin < Cardio::Migration::Core
+class AddTypeBootswatchSkin < Cardio::Migration::TransformMigration
   STYLE_INPUT_SEARCH = <<-JSON.strip_heredoc
     {
       "type": {

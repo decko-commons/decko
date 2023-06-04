@@ -29,42 +29,60 @@ class MoveRevisionsToActions < ActiveRecord::Migration[4.2]
 
   def up
     TmpRevision.delete_cardless
+    TmpRevision.find_each { |rev| migrate_revision rev }
+    TmpCard.find_each { |card| update_tmp_card card }
+  end
 
-    conn = TmpRevision.connection
-    created = ::Set.new
+  private
 
-    TmpRevision.find_each do |rev|
-      TmpAct.create(
-        { id: rev.id, card_id: rev.card_id, actor_id: rev.creator_id,
-          acted_at: rev.created_at }, without_protection: true
-      )
-      if created.include? rev.card_id
-        TmpAction.connection.execute "INSERT INTO card_actions (id, card_id, card_act_id, action_type) VALUES
-                                                               ('#{rev.id}', '#{rev.card_id}', '#{rev.id}', 1)"
-        TmpChange.connection.execute "INSERT INTO card_changes (card_action_id, field, value) VALUES
-                                                               ('#{rev.id}', 2, #{conn.quote(rev.content)})"
-      else
-        TmpAction.connection.execute "INSERT INTO card_actions (id, card_id, card_act_id, action_type) VALUES
-                                                              ('#{rev.id}', '#{rev.card_id}', '#{rev.id}', 0)"
+  def conn
+    @conn ||= TmpRevision.connection
+  end
 
-        if (tmp_card = rev.tmp_card)
-          TmpChange.connection.execute "INSERT INTO card_changes (card_action_id, field, value) VALUES
+  def created
+    @created ||= ::Set.new
+  end
+
+  def migrate_revision rev
+    create_tmp_act rev
+
+    if created.include? rev.card_id
+      create_update_action rev
+    else
+      create_create_action rev
+    end
+  end
+
+  def create_create_action rev
+    TmpAction.connection.execute(
+      "INSERT INTO card_actions (id, card_id, card_act_id, action_type) VALUES "\
+      "('#{rev.id}', '#{rev.card_id}', '#{rev.id}', 0)")
+    if (tmp_card = rev.tmp_card)
+      TmpChange.connection.execute "INSERT INTO card_changes (card_action_id, field, value) VALUES
               ('#{rev.id}', 0, #{conn.quote tmp_card.name}),
               ('#{rev.id}', 1, '#{tmp_card.type_id}'),
               ('#{rev.id}', 2, #{conn.quote(rev.content)}),
               ('#{rev.id}', 3, #{tmp_card.trash})"
-        end
-        created.add rev.card_id
-      end
     end
-
-    TmpCard.find_each do |card|
-      card.update_column(:db_content, card.tmp_revision.content) if card.tmp_revision
-    end
-
-    # drop_table :card_revisions
-    # remove_column :cards, :current_revision
+    created.add rev.card_id
   end
 
-  def down; end
+  def create_update_action rev
+    TmpAction.connection.execute(
+      "INSERT INTO card_actions (id, card_id, card_act_id, action_type) VALUES " \
+      "('#{rev.id}', '#{rev.card_id}', '#{rev.id}', 1)")
+    TmpChange.connection.execute(
+      "INSERT INTO card_changes (card_action_id, field, value) VALUES " \
+      "('#{rev.id}', 2, #{conn.quote(rev.content)})")
+  end
+
+  def create_tmp_act rev
+    TmpAct.create({ id: rev.id, card_id: rev.card_id,
+                    actor_id: rev.creator_id, acted_at: rev.created_at },
+                  without_protection: true)
+  end
+
+  def update_tmp_card card
+    card.update_column(:db_content, card.tmp_revision.content) if card.tmp_revision
+  end
 end

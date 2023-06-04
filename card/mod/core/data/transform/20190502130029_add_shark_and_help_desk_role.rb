@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-class AddSharkAndHelpDeskRole < Cardio::Migration::Core
+class AddSharkAndHelpDeskRole < Cardio::Migration::TransformMigration
   def up
     update_card! "Decker Menu", name: "Shark Menu"
     update_card! :ace, name: "*ace"

@@ -1,5 +1,5 @@
 
-class RemoveCustomizedBootswatchSkins < Cardio::Migration::Core
+class RemoveCustomizedBootswatchSkins < Cardio::Migration::TransformMigration
   def up
     Card.ensure! codename: "parent", name: "parent"
     return unless Card::Codename[:customized_bootswatch_skin]

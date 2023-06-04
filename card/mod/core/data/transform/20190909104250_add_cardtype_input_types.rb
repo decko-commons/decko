@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-class AddCardtypeInputTypes < Cardio::Migration::Core
+class AddCardtypeInputTypes < Cardio::Migration::TransformMigration
   def up
     Card.ensure name: %i[input_type right default],
                 type_id: Card::PointerID

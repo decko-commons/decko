@@ -24,9 +24,9 @@ module Cardio
         return unless update_seed?
 
         Cardio::Migration.assume_current
-        Cardio::Migration::Core.assume_current
+        Cardio::Migration::TransformMigration.assume_current
         Cardio::Migration::DeckStructure.assume_current
-        # Cardio::Migration::Core.assume_current
+        # Cardio::Migration::TransformMigration.assume_current
       end
 
       def dump

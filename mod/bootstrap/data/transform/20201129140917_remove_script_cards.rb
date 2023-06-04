@@ -1,5 +1,5 @@
 
-class RemoveScriptCards < Cardio::Migration::Core
+class RemoveScriptCards < Cardio::Migration::TransformMigration
   def up
     delete_code_card :script_select2
     delete_code_card :script_bootstrap

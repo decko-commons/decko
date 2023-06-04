@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-class FollowingToFollowRule < Cardio::Migration::Core
+class FollowingToFollowRule < Cardio::Migration::TransformMigration
   def up
     Card.search(right: { codename: "following" },
                 left: { type: "user" }).each do |following_card|

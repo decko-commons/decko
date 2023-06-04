@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-class UpdateFileAndImageCards < Cardio::Migration::Core
+class UpdateFileAndImageCards < Cardio::Migration::TransformMigration
   def up
     # use codenames for the filecards not for the left parts
     if (credit = Card[:credit]) && (card = credit.fetch(:image))

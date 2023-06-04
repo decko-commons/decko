@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-class FixSkinCodenames < Cardio::Migration::Core
+class FixSkinCodenames < Cardio::Migration::TransformMigration
   def up
     # This is needed because the bootswatch_themes migration removed codenames.
     # They were no longer needed for style handling but are still needed for images

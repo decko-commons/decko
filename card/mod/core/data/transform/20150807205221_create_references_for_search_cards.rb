@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-class CreateReferencesForSearchCards < Cardio::Migration::Core
+class CreateReferencesForSearchCards < Cardio::Migration::TransformMigration
   def up
     Card.where(
       type_id: Card::SearchTypeID

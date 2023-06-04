@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-class AccountRequestsToSignups < Cardio::Migration::Core
+class AccountRequestsToSignups < Cardio::Migration::TransformMigration
   def up
     newname = "Sign up"
     newname = "*signup" if Card.exists? newname
