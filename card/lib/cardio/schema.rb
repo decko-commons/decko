@@ -41,18 +41,19 @@ module Cardio
         type == :transform ? "_deck_cards" : ""
       end
 
-      private
-
       def mode type
-        with_suffix type do
+        with_suffix(type) do
           yield migration_paths(type)
         end
       end
 
+      private
+
+
       def with_suffix type, &block
         return yield unless (new_suffix = suffix type).present?
 
-        original_name = ActiveRecord::Base.schema_migrations_table_name
+        original_name = "schema_migrations"
         with_migration_table "#{original_name}#{new_suffix}", original_name, &block
       end
 

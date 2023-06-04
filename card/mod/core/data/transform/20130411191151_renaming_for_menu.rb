@@ -15,7 +15,7 @@ class RenamingForMenu < Cardio::Migration::TransformMigration
     }
     renames.each do |oldname, newname|
       puts "updating: #{oldname}"
-      c = Card[oldname]
+      next unless (c = Card[oldname])
       c.name = newname
       c.save!
     end
@@ -39,7 +39,7 @@ class RenamingForMenu < Cardio::Migration::TransformMigration
     ]
     codenames.each do |codename|
       name = codename =~ /^by|disc/ ? codename : "*#{codename}"
-      c = Card[name]
+      next unless (c = Card[name])
       c.codename = codename
       c.save!
     end

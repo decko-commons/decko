@@ -66,7 +66,7 @@ module Cardio
     def contentedly
       return yield if ENV["NO_CARD_LOAD"]
       Card::Cache.reset_all
-      Schema.mode "" do
+      Schema.mode :transform do
         Card::Auth.as_bot do
           yield
         ensure
