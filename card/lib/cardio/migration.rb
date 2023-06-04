@@ -3,7 +3,6 @@
 module Cardio
   class Migration < ActiveRecord::Migration[6.1]
     include Card::Model::SaveHelper unless ENV["NO_CARD_LOAD"]
-    @type = :deck_cards
 
     class << self
       # Rake tasks use class methods, migrations use instance methods.
@@ -13,8 +12,8 @@ module Cardio
       # class variable @@type. It has to be a class instance variable.
       # Migrations are subclasses of Cardio::Migration or Card::CoreMigration
       # but they don't inherit the @type. The method below solves this problem.
-      def type
-        @type || ancestors[1]&.type
+      def migration_type
+        @migration_type || ancestors[1]&.migration_type
       end
 
       def find_unused_name base_name
@@ -27,20 +26,12 @@ module Cardio
         test_name
       end
 
-      def migration_paths mig_type=type
+      def migration_paths mig_type=migration_type
         Schema.migration_paths mig_type
       end
 
-      def schema_suffix mig_type=type
-        Schema.suffix mig_type
-      end
-
-      def schema_mode mig_type=type, &block
-        Schema.mode mig_type, &block
-      end
-
       def assume_migrated_upto_version
-        Schema.assume_migrated_upto_version type
+        Schema.assume_migrated_upto_version migration_type
       end
 
       def assume_current
@@ -68,7 +59,7 @@ module Cardio
       end
 
       def migration_context &block
-        Schema.migration_context type, &block
+        Schema.migration_context migration_type, &block
       end
     end
 
@@ -111,4 +102,3 @@ module Cardio
   end
 end
 
-require "cardio/migration/core"
