@@ -48,7 +48,7 @@ namespace :card do
       Cardio::Migration.new_for(args[:type]).stamp
     end
 
-    task :port do
+    task port: :environment do
       Cardio::Migration.port_all
     end
 

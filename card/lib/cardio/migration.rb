@@ -17,18 +17,18 @@ module Cardio
 
       def port_all
         %i[schema transform].each do |type|
-          new_for(type).port
+          migration_class(type).port
         end
       end
 
-      private
-
       def port
         return unless connection.table_exists? old_deck_table
-        connection.rename_table old_table, table
-        connection.execute "INSERT INTO #{table} SELECT * from #{old_deck_table}"
+        connection.rename_table old_table, table if old_table
+        connection.execute "INSERT INTO #{table} (SELECT * from #{old_deck_table})"
         connection.drop_table old_deck_table
       end
+
+      private
 
       def table
         "#{migration_type}_migrations"
@@ -38,8 +38,6 @@ module Cardio
         ActiveRecord::Base.connection
       end
     end
-
-    delegate :connection, to: :class
 
     def migration_type
       self.class.migration_type || :schema
@@ -105,6 +103,10 @@ module Cardio
     end
 
     private
+
+    def connection
+      self.class.connection
+    end
 
     def stamp_path
       stamp_dir = ENV["SCHEMA_STAMP_PATH"] || File.join(Cardio.root, "db")

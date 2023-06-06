@@ -121,7 +121,7 @@ module Patches
     module Migration
       module ClassMethods
         def check_pending! connection=::ActiveRecord::Base.connection
-          %i[scheme transform].each do |migration_type|
+          %i[schema transform].each do |migration_type|
             Cardio::Migration.new_for(migration_type).mode do |paths|
               ::ActiveRecord::Migrator.migrations_paths = paths
               super
