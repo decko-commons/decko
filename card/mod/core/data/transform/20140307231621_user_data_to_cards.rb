@@ -3,7 +3,7 @@
 class User < Cardio::Record
 end
 
-class UserDataToCards < Cardio::Migration::TransformMigration
+class UserDataToCards < Cardio::Migration::Transform
   def up
     puts "importing all user details (for those not in trash) into +*account attributes"
     User.all.each do |user|

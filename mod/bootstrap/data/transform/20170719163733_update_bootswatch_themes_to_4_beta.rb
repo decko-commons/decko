@@ -2,7 +2,7 @@
 
 require_relative "lib/skin"
 
-class UpdateBootswatchThemesTo4Beta < Cardio::Migration::TransformMigration
+class UpdateBootswatchThemesTo4Beta < Cardio::Migration::Transform
   def up
     remove_old_stuff
     update_bootstrap_cards

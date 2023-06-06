@@ -1,4 +1,4 @@
-class RenamePresentInReferenceTable < ActiveRecord::Migration[4.2]
+class RenamePresentInReferenceTable < Cardio::Migration::Schema
   def up
     rename_column :card_references, :present, :is_present
   end

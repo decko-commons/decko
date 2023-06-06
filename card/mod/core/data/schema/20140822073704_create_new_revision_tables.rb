@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-class CreateNewRevisionTables < ActiveRecord::Migration[4.2]
+class CreateNewRevisionTables < Cardio::Migration::Schema
   def up
     add_column :cards, :db_content, :text
 

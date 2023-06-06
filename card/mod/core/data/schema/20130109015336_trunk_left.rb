@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-class TrunkLeft < ActiveRecord::Migration[4.2]
+class TrunkLeft < Cardio::Migration::Schema
   def up
     rename_column :card_references, :link_type, :ref_type
     rename_column :cards, :tag_id, :right_id

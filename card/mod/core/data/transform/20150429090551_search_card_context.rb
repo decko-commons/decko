@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-class SearchCardContext < Cardio::Migration::TransformMigration
+class SearchCardContext < Cardio::Migration::Transform
   def up
     sep = /\W/
     replace = [

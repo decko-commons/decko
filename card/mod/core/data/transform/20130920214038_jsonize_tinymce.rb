@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-class JsonizeTinymce < Cardio::Migration::TransformMigration
+class JsonizeTinymce < Cardio::Migration::Transform
   def up
     card = Card[:tiny_mce]
     cleaned_rows = card.db_content.strip.split(/\s*,\s+/).map do |row|

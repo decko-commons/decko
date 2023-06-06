@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-class TableCleanup < ActiveRecord::Migration[4.2]
+class TableCleanup < Cardio::Migration::Schema
   def up
     drop_table :cardtypes
     drop_table :multihost_mappings

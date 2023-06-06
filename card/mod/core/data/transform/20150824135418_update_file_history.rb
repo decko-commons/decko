@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-class UpdateFileHistory < Cardio::Migration::TransformMigration
+class UpdateFileHistory < Cardio::Migration::Transform
   def up
     Card.search(type: [:in, "file", "image"]).each do |card|
       card.actions.each do |action|

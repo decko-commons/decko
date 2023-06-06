@@ -1,4 +1,4 @@
-class CompoundNamesDoNotStoreNameAndKey < ActiveRecord::Migration[6.0]
+class CompoundNamesDoNotStoreNameAndKey < Cardio::Migration::Schema
   def change
     change_column_null :cards, :name, true
     change_column_null :cards, :key, true

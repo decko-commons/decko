@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-class RenamingForMenu < Cardio::Migration::TransformMigration
+class RenamingForMenu < Cardio::Migration::Transform
   def up
     renames = {
       "*content" => "*structure",

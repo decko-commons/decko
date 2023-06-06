@@ -1,4 +1,4 @@
-class IncreaseTextSizeForDelayedJobs < ActiveRecord::Migration[5.1]
+class IncreaseTextSizeForDelayedJobs < Cardio::Migration::Schema
   def self.up
     change_column :delayed_jobs, :handler, :text, limit: 16_777_215
   end

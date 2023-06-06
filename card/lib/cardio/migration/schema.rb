@@ -2,8 +2,8 @@ require "cardio/migration"
 
 module Cardio
   class Migration
-    class StructureMigration < Migration
-      @migration_type = :structure
+    class Schema < Migration
+      @migration_type = :schema
     end
   end
 end

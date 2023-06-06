@@ -1,4 +1,4 @@
-class MoveFavicon < Cardio::Migration::TransformMigration
+class MoveFavicon < Cardio::Migration::Transform
   def up
     card = Card[:favicon]
     if card.db_content == ":favicon/standard.png"

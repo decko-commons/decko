@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-class DeathToMachines < Cardio::Migration::TransformMigration
+class DeathToMachines < Cardio::Migration::Transform
   DEPRECATED_CODE_NAMES = %i[
     machine_input machine_output machine_cache style_media style_prosemirror
     script_prosemirror script_prosemirror_config script_ace script_ace_config

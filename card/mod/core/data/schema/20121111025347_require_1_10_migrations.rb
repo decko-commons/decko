@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-class Require110Migrations < ActiveRecord::Migration[4.2]
+class Require110Migrations < Cardio::Migration::Schema
   def self.up
     raise %(
 Your database is not ready to be migrated to #{Cardio::Version.release}.

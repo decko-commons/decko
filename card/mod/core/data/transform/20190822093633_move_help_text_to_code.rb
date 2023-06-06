@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-class MoveHelpTextToCode < Cardio::Migration::TransformMigration
+class MoveHelpTextToCode < Cardio::Migration::Transform
   def up
     update_card! "*sidebar", codename: "sidebar"
     Card::Cache.reset_all

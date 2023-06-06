@@ -1,4 +1,4 @@
-class AddCommentToActions < ActiveRecord::Migration[4.2]
+class AddCommentToActions < Cardio::Migration::Schema
   def up
     add_column :card_actions, :comment, :text
   end

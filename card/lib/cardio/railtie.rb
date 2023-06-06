@@ -65,7 +65,7 @@ module Cardio
 
           p.add "lib/graph_q_l/types/query.rb"
           p.add "mod-data"
-          p.add "data/structure"
+          p.add "data/schema"
           p.add "data/transform"
 
           p.add "db", with: "#{card_root}/db"
@@ -85,7 +85,7 @@ module Cardio
             p["lib/tasks"] << "#{mod_path}/lib/tasks"
 
             p["mod-data"] << "#{mod_path}/data"
-            p["data/structure"] << "#{mod_path}/data/structure"
+            p["data/schema"] << "#{mod_path}/data/schema"
             p["data/transform"] << "#{mod_path}/data/transform"
 
             p["config/locales"] << "#{mod_path}/config/locales"

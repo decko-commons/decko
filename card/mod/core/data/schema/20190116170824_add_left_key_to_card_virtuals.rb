@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-class AddLeftKeyToCardVirtuals < ActiveRecord::Migration[4.2]
+class AddLeftKeyToCardVirtuals < Cardio::Migration::Schema
   def up
     add_column :card_virtuals, :left_key, :string
   end

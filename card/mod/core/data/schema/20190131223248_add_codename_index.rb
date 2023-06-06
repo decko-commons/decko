@@ -1,4 +1,4 @@
-class AddCodenameIndex < ActiveRecord::Migration[5.2]
+class AddCodenameIndex < Cardio::Migration::Schema
   def up
     add_index :cards, [:codename], name: "cards_codename_index"
   end

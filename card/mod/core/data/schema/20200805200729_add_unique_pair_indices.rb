@@ -1,4 +1,4 @@
-class AddUniquePairIndices < ActiveRecord::Migration[6.0]
+class AddUniquePairIndices < Cardio::Migration::Schema
   def change
     stash_duplicate_cards
     delete_duplicate_virtuals

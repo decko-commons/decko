@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-class PointerOverhaul < Cardio::Migration::TransformMigration
+class PointerOverhaul < Cardio::Migration::Transform
   def up
     unless Card::Codename[:mirrored_list]
       update "List", name: "Mirrored List",

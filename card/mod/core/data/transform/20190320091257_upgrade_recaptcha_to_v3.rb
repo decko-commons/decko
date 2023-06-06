@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-class UpgradeRecaptchaToV3 < Cardio::Migration::TransformMigration
+class UpgradeRecaptchaToV3 < Cardio::Migration::Transform
   def up
     update_card! %i[recaptcha_settings self structure],
                  content: <<~STRING

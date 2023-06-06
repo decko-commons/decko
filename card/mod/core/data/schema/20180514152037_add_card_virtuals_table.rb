@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-class AddCardVirtualsTable < ActiveRecord::Migration[4.2]
+class AddCardVirtualsTable < Cardio::Migration::Schema
   def up
     drop_table :card_virtuals if table_exists? :card_virtuals
     create_table :card_virtuals do |t|

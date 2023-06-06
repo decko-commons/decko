@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-class UpdateCodenames < ActiveRecord::Migration[4.2]
+class UpdateCodenames < Cardio::Migration::Schema
   def up
     { content: :structure, edit_help: :help }.each do |oldname, newname|
       execute %(update cards set codename = "#{newname}" where codename = "#{oldname}";)

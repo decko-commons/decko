@@ -1,4 +1,4 @@
-class RenameCardMigrationTable < ActiveRecord::Migration[4.2]
+class RenameCardMigrationTable < Cardio::Migration::Schema
   def self.up
     if ActiveRecord::Base.connection.table_exists? :schema_migrations_cards
       rename_table :schema_migrations_cards, :schema_migrations_core_cards

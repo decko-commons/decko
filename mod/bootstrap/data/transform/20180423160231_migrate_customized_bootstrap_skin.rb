@@ -32,7 +32,7 @@ class Skin
   # end
 end
 
-class MigrateCustomizedBootstrapSkin < Cardio::Migration::TransformMigration
+class MigrateCustomizedBootstrapSkin < Cardio::Migration::Transform
   NEW_SKIN = "customized bootstrap skin".freeze
   OLD_SKIN = :customizable_bootstrap_skin
 
