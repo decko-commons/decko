@@ -3,24 +3,17 @@ namespace :card do
   desc "migrate structure and cards"
   task migrate: :environment do
     ENV["NO_RAILS_CACHE"] = "true"
-    stamp = ENV["STAMP_MIGRATIONS"]
 
-    puts "running structure migrations"
     Rake::Task["card:migrate:schema"].invoke
-    Rake::Task["card:migrate:stamp"].invoke :structure if stamp
-
     Rake::Task["card:migrate:transform"].execute
-    if stamp
-      Rake::Task["card:migrate:stamp"].reenable
-      Rake::Task["card:migrate:stamp"].invoke :transform
-    end
-
     Card::Cache.reset_all
   end
 
   namespace :migrate do
     desc "run structure migrations"
     task schema: :environment do
+      puts "running schema migrations"
+
       interpret_env_schema
       without_dumping do
         run_migration :schema
@@ -32,7 +25,6 @@ namespace :card do
     desc "run transform migrations"
     task transform: :environment do
       puts "running transform migrations"
-      require "cardio/migration/transform"
 
       without_dumping do
         prepare_migration
@@ -40,17 +32,7 @@ namespace :card do
       end
     end
 
-    # desc "migrate deck structure"
-    #
-    # def migrate_deck_structure
-    #   require "cardio/migration/deck_structure"
-    #   set_schema_path
-    #   Cardio::Schema.migrate :deck, version
-    #   Rake::Task["db:_dump"].invoke # write schema.rb
-    #   reset_column_information true
-    # end
-
-    desc "Redo the deck cards migration given by VERSION."
+    desc "Redo the transform migration given by VERSION."
     task redo: :environment do
       raise "VERSION is required" unless version.present?
 
@@ -59,21 +41,15 @@ namespace :card do
       run_migration :transform
     end
 
-    # TODO: move this to a method in Cardio::Schema
     desc "write the version to a file (not usually called directly)"
     task :stamp, [:type] => [:environment] do |_t, args|
       interpret_env_schema
       Cardio.config.action_mailer.perform_deliveries = false
+      Cardio::Migration.new_for(args[:type]).stamp
+    end
 
-      stamp_file = Cardio::Migration.new_for(args[:type]).stamp_path
-
-      Cardio::Migration.new_for(args[:type]).mode do
-        version = ActiveRecord::Migrator.current_version
-        if version.to_i.positive? && (file = ::File.open(stamp_file, "w"))
-          puts ">>  writing version: #{version} to #{stamp_file}"
-          file.puts version
-        end
-      end
+    task :port do
+      Cardio::Migration.port_all
     end
 
     def version
@@ -93,7 +69,16 @@ end
 
 def run_migration type
   verbose = ENV["VERBOSE"] ? ENV["VERBOSE"] == "true" : true
-  Cardio::Migration.new_for(type).migrate version, verbose
+  Cardio::Migration.new_for(type).run version, verbose
+  stamp_migration type
+end
+
+def stamp_migration type
+  return unless ENV["STAMP_MIGRATIONS"]
+
+  task = Rake::Task["card:migrate:stamp"]
+  task.reenable
+  task.invoke type
 end
 
 def prepare_migration

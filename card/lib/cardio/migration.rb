@@ -5,20 +5,41 @@ module Cardio
     include Card::Model::SaveHelper unless ENV["NO_CARD_LOAD"]
 
     class << self
-      attr_reader :migration_type
+      attr_reader :migration_type, :old_table, :old_deck_table
 
       def migration_class type
-        if type == :schema
-          Migration::Schema
-        else
-          Migration::Transform
-        end
+        type == :schema ? Migration::Schema : Migration::Transform
       end
 
       def new_for type
         migration_class(type).new
       end
+
+      def port_all
+        %i[schema transform].each do |type|
+          new_for(type).port
+        end
+      end
+
+      private
+
+      def port
+        return unless connection.table_exists? old_deck_table
+        connection.rename_table old_table, table
+        connection.execute "INSERT INTO #{table} SELECT * from #{old_deck_table}"
+        connection.drop_table old_deck_table
+      end
+
+      def table
+        "#{migration_type}_migrations"
+      end
+
+      def connection
+        ActiveRecord::Base.connection
+      end
     end
+
+    delegate :connection, to: :class
 
     def migration_type
       self.class.migration_type || :schema
@@ -40,7 +61,7 @@ module Cardio
       end
     end
 
-    def migrate version=nil, verbose=true
+    def run version=nil, verbose=true
       context do |mc|
         ActiveRecord::Migration.verbose = verbose
         mc.migrate version
@@ -52,10 +73,15 @@ module Cardio
       File.exist?(path) ? File.read(path).strip : nil
     end
 
-    def stamp_path
-      stamp_dir = ENV["SCHEMA_STAMP_PATH"] || File.join(Cardio.root, "db")
+    def stamp
+      mode do
+        return unless (version = ActiveRecord::Migrator.current_version).to_i.positive?
+        path = stamp_path
+        return unless (file = ::File.open path, "w")
 
-      File.join stamp_dir, "version_#{migration_type}.txt"
+        puts ">>  writing version: #{version} to #{path}"
+        file.puts version
+      end
     end
 
     def migration_paths
@@ -80,6 +106,12 @@ module Cardio
 
     private
 
+    def stamp_path
+      stamp_dir = ENV["SCHEMA_STAMP_PATH"] || File.join(Cardio.root, "db")
+
+      File.join stamp_dir, "version_#{migration_type}.txt"
+    end
+
     def with_migration_table
       yield
     end
@@ -93,10 +125,6 @@ module Cardio
     def mark_as_migrated versions
       sql = connection.send :insert_versions_sql, versions
       connection.execute sql
-    end
-
-    def connection
-      ActiveRecord::Base.connection
     end
   end
 end

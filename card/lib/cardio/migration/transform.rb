@@ -4,6 +4,8 @@ module Cardio
   class Migration
     class Transform < Migration
       @migration_type = :transform
+      @old_table = "schema_migrations_core_cards"
+      @old_deck_table = "schema_migrations_deck_cards"
 
       private
 
