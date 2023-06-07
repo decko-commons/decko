@@ -26,11 +26,6 @@ Lint/AmbiguousRegexpLiteral:
 # Configuration parameters: AllowSafeAssignment.
 Lint/AssignmentInCondition:
   Exclude:
-    - 'card/db/migrate_core_cards/20140629222005_add_email_cards.rb'
-    - 'card/db/migrate_core_cards/20141204061304_watchers_to_following.rb'
-    - 'card/db/migrate_core_cards/20150202143810_import_bootstrap_layout.rb'
-    - 'card/db/migrate_core_cards/20150317162412_bootstrap_themes.rb'
-    - 'card/db/migrate_core_cards/20150910085603_remove_performance_log_card.rb'
     - 'card/lib/card/exceptions.rb'
     - 'card/lib/card/query/value.rb'
     - 'card/lib/card/view_name.rb'
@@ -82,7 +77,6 @@ Lint/HandleExceptions:
 # Offense count: 2
 Lint/ShadowingOuterLocalVariable:
   Exclude:
-    - 'card/db/migrate_core_cards/20120611203506_rails_inflection_updates.rb'
     - 'card/mod/email/set/type_plus_right/user/follow.rb'
 
 # Offense count: 1
@@ -279,8 +273,6 @@ Style/FileName:
 # Configuration parameters: MinBodyLength.
 Style/GuardClause:
   Exclude:
-    - 'card/db/migrate_core_cards/20130920291703_update_stylesheets.rb'
-    - 'card/db/migrate_core_cards/20150903130006_attachment_upload_cards.rb'
     - 'card-mod-carrierwave/set/abstract/attachment.rb'
     - 'card/mod/standard/set/type/set.rb'
     - 'decko/rails/controllers/card_controller.rb'
@@ -370,7 +362,6 @@ Style/MultilineBlockChain:
 # SupportedStyles: symmetrical, new_line, same_line
 Style/MultilineHashBraceLayout:
   Exclude:
-    - 'card/db/migrate_core_cards/20150610171702_add_debugger_session_card.rb'
     - 'card/lib/card/auth.rb'
     - 'card/mod/core/set/all/rules.rb'
     - 'card/mod/machines/spec/set/type/skin_spec.rb'
@@ -439,7 +430,6 @@ Style/NumericLiteralPrefix:
 # SupportedStyles: predicate, comparison
 Style/NumericPredicate:
   Exclude:
-    - 'card/db/migrate_core_cards/20150807205221_create_references_for_search_cards.rb'
     - 'card/lib/card/format/render.rb'
     - 'card/mod/basic_formats/set/all/all_csv.rb'
     - 'card/mod/core/set/all/cache_action.rb'
@@ -478,7 +468,6 @@ Style/PredicateName:
 # SupportedStyles: compact, exploded
 Style/RaiseArgs:
   Exclude:
-    - 'card/db/migrate_core_cards/20120611203506_rails_inflection_updates.rb'
     - 'card/mod/admin/set/self/admin.rb'
 
 # Offense count: 33
@@ -525,7 +514,6 @@ Style/SpaceAroundOperators:
 # Cop supports --auto-correct.
 Style/SpaceInsideArrayPercentLiteral:
   Exclude:
-    - 'card/db/migrate_core_cards/20140512155840_add_script_cards.rb'
     - 'card/lib/card/diff/lcs.rb'
 
 # Offense count: 1

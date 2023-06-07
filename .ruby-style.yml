@@ -70,7 +70,7 @@ Style/StringLiterals:
   EnforcedStyle: double_quotes
 Style/Documentation:
   Exclude:
-    - '**/migrate*/*.rb'
+    - "**/data/{transform,schema}/*.rb"
 Style/FrozenStringLiteralComment:
   Enabled: false
 Style/Alias:
