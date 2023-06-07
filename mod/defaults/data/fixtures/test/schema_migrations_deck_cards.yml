@@ -1,5 +1,0 @@
----
-schema_migrations_deck_cards_001:
-  version: '20150116220621'
-schema_migrations_deck_cards_002:
-  version: '20210504195646'

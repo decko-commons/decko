@@ -1,0 +1,361 @@
+---
+schema_migrations_core_cards_001:
+  version: '20120611203506'
+schema_migrations_core_cards_002:
+  version: '20130411191151'
+schema_migrations_core_cards_003:
+  version: '20130411211600'
+schema_migrations_core_cards_004:
+  version: '20130419215612'
+schema_migrations_core_cards_005:
+  version: '20130823192433'
+schema_migrations_core_cards_006:
+  version: '20130910183318'
+schema_migrations_core_cards_007:
+  version: '20130920214038'
+schema_migrations_core_cards_008:
+  version: '20130920291703'
+schema_migrations_core_cards_009:
+  version: '20130927191728'
+schema_migrations_core_cards_010:
+  version: '20131016172445'
+schema_migrations_core_cards_011:
+  version: '20140110193325'
+schema_migrations_core_cards_012:
+  version: '20140307231621'
+schema_migrations_core_cards_013:
+  version: '20140317035504'
+schema_migrations_core_cards_014:
+  version: '20140512155840'
+schema_migrations_core_cards_015:
+  version: '20140629222005'
+schema_migrations_core_cards_016:
+  version: '20140725180118'
+schema_migrations_core_cards_017:
+  version: '20141111083921'
+schema_migrations_core_cards_018:
+  version: '20141115034214'
+schema_migrations_core_cards_019:
+  version: '20141119001955'
+schema_migrations_core_cards_020:
+  version: '20141120120605'
+schema_migrations_core_cards_021:
+  version: '20141204061304'
+schema_migrations_core_cards_022:
+  version: '20141208132416'
+schema_migrations_core_cards_023:
+  version: '20141216155251'
+schema_migrations_core_cards_024:
+  version: '20141230204340'
+schema_migrations_core_cards_025:
+  version: '20150116220620'
+schema_migrations_core_cards_026:
+  version: '20150202143810'
+schema_migrations_core_cards_027:
+  version: '20150220134731'
+schema_migrations_core_cards_028:
+  version: '20150317162412'
+schema_migrations_core_cards_029:
+  version: '20150326205655'
+schema_migrations_core_cards_030:
+  version: '20150331135745'
+schema_migrations_core_cards_031:
+  version: '20150429090551'
+schema_migrations_core_cards_032:
+  version: '20150501010515'
+schema_migrations_core_cards_033:
+  version: '20150508212032'
+schema_migrations_core_cards_034:
+  version: '20150510031118'
+schema_migrations_core_cards_035:
+  version: '20150528084659'
+schema_migrations_core_cards_036:
+  version: '20150601133433'
+schema_migrations_core_cards_037:
+  version: '20150605115802'
+schema_migrations_core_cards_038:
+  version: '20150610171702'
+schema_migrations_core_cards_039:
+  version: '20150610180019'
+schema_migrations_core_cards_040:
+  version: '20150627205133'
+schema_migrations_core_cards_041:
+  version: '20150702130543'
+schema_migrations_core_cards_042:
+  version: '20150708224756'
+schema_migrations_core_cards_043:
+  version: '20150724123438'
+schema_migrations_core_cards_044:
+  version: '20150807205221'
+schema_migrations_core_cards_045:
+  version: '20150824135418'
+schema_migrations_core_cards_046:
+  version: '20150903130006'
+schema_migrations_core_cards_047:
+  version: '20150910085603'
+schema_migrations_core_cards_048:
+  version: '20151120180631'
+schema_migrations_core_cards_049:
+  version: '20160801143221'
+schema_migrations_core_cards_050:
+  version: '20160801175002'
+schema_migrations_core_cards_051:
+  version: '20160804112340'
+schema_migrations_core_cards_052:
+  version: '20160804112510'
+schema_migrations_core_cards_053:
+  version: '20160804112538'
+schema_migrations_core_cards_054:
+  version: '20160804112547'
+schema_migrations_core_cards_055:
+  version: '20160804112548'
+schema_migrations_core_cards_056:
+  version: '20160804112560'
+schema_migrations_core_cards_057:
+  version: '20160805112548'
+schema_migrations_core_cards_058:
+  version: '20160806112710'
+schema_migrations_core_cards_059:
+  version: '20160811115836'
+schema_migrations_core_cards_060:
+  version: '20160812112513'
+schema_migrations_core_cards_061:
+  version: '20160908154210'
+schema_migrations_core_cards_062:
+  version: '20160914132636'
+schema_migrations_core_cards_063:
+  version: '20161102202156'
+schema_migrations_core_cards_064:
+  version: '20161103154836'
+schema_migrations_core_cards_065:
+  version: '20170209132834'
+schema_migrations_core_cards_066:
+  version: '20170314175313'
+schema_migrations_core_cards_067:
+  version: '20170515101262'
+schema_migrations_core_cards_068:
+  version: '20170608083819'
+schema_migrations_core_cards_069:
+  version: '20170608200649'
+schema_migrations_core_cards_070:
+  version: '20170719163733'
+schema_migrations_core_cards_071:
+  version: '20170720093738'
+schema_migrations_core_cards_072:
+  version: '20170726111053'
+schema_migrations_core_cards_073:
+  version: '20170726145012'
+schema_migrations_core_cards_074:
+  version: '20170830210517'
+schema_migrations_core_cards_075:
+  version: '20171110164934'
+schema_migrations_core_cards_076:
+  version: '20171113233151'
+schema_migrations_core_cards_077:
+  version: '20180215143733'
+schema_migrations_core_cards_078:
+  version: '20180216173344'
+schema_migrations_core_cards_079:
+  version: '20180404144130'
+schema_migrations_core_cards_080:
+  version: '20180423120222'
+schema_migrations_core_cards_081:
+  version: '20180423143146'
+schema_migrations_core_cards_082:
+  version: '20180423143147'
+schema_migrations_core_cards_083:
+  version: '20180423160231'
+schema_migrations_core_cards_084:
+  version: '20180423170283'
+schema_migrations_core_cards_085:
+  version: '20180425174432'
+schema_migrations_core_cards_086:
+  version: '20180425174433'
+schema_migrations_core_cards_087:
+  version: '20180508210903'
+schema_migrations_core_cards_088:
+  version: '20180509090433'
+schema_migrations_core_cards_089:
+  version: '20180509141814'
+schema_migrations_core_cards_090:
+  version: '20180509141815'
+schema_migrations_core_cards_091:
+  version: '20180515175726'
+schema_migrations_core_cards_092:
+  version: '20180516153037'
+schema_migrations_core_cards_093:
+  version: '20180601133753'
+schema_migrations_core_cards_094:
+  version: '20180712042655'
+schema_migrations_core_cards_095:
+  version: '20180805112548'
+schema_migrations_core_cards_096:
+  version: '20180905061534'
+schema_migrations_core_cards_097:
+  version: '20180905061536'
+schema_migrations_core_cards_098:
+  version: '20180905061537'
+schema_migrations_core_cards_099:
+  version: '20181108181219'
+schema_migrations_core_cards_100:
+  version: '20181120200937'
+schema_migrations_core_cards_101:
+  version: '20181129140917'
+schema_migrations_core_cards_102:
+  version: '20190125125150'
+schema_migrations_core_cards_103:
+  version: '20190204195038'
+schema_migrations_core_cards_104:
+  version: '20190204195039'
+schema_migrations_core_cards_105:
+  version: '20190228122633'
+schema_migrations_core_cards_106:
+  version: '20190228122634'
+schema_migrations_core_cards_107:
+  version: '20190228122635'
+schema_migrations_core_cards_108:
+  version: '20190228122636'
+schema_migrations_core_cards_109:
+  version: '20190228122638'
+schema_migrations_core_cards_110:
+  version: '20190228122739'
+schema_migrations_core_cards_111:
+  version: '20190306172622'
+schema_migrations_core_cards_112:
+  version: '20190306172623'
+schema_migrations_core_cards_113:
+  version: '20190306172890'
+schema_migrations_core_cards_114:
+  version: '20190320091257'
+schema_migrations_core_cards_115:
+  version: '20190321085735'
+schema_migrations_core_cards_116:
+  version: '20190322095534'
+schema_migrations_core_cards_117:
+  version: '20190417142612'
+schema_migrations_core_cards_118:
+  version: '20190424100531'
+schema_migrations_core_cards_119:
+  version: '20190424101004'
+schema_migrations_core_cards_120:
+  version: '20190502130024'
+schema_migrations_core_cards_121:
+  version: '201905021300268'
+schema_migrations_core_cards_122:
+  version: '20190502130029'
+schema_migrations_core_cards_123:
+  version: '20190503122738'
+schema_migrations_core_cards_124:
+  version: '20190503122739'
+schema_migrations_core_cards_125:
+  version: '20190528131330'
+schema_migrations_core_cards_126:
+  version: '20190528141530'
+schema_migrations_core_cards_127:
+  version: '20190605133556'
+schema_migrations_core_cards_128:
+  version: '20190618110446'
+schema_migrations_core_cards_129:
+  version: '20190621143156'
+schema_migrations_core_cards_130:
+  version: '20190625153614'
+schema_migrations_core_cards_131:
+  version: '20190625153615'
+schema_migrations_core_cards_132:
+  version: '20190625153616'
+schema_migrations_core_cards_133:
+  version: '20190710090205'
+schema_migrations_core_cards_134:
+  version: '20190710090207'
+schema_migrations_core_cards_135:
+  version: '20190710090208'
+schema_migrations_core_cards_136:
+  version: '20190710090209'
+schema_migrations_core_cards_137:
+  version: '20190718140125'
+schema_migrations_core_cards_138:
+  version: '20190718140126'
+schema_migrations_core_cards_139:
+  version: '20190820155833'
+schema_migrations_core_cards_140:
+  version: '20190822093633'
+schema_migrations_core_cards_141:
+  version: '20190823220017'
+schema_migrations_core_cards_142:
+  version: '20190823220018'
+schema_migrations_core_cards_143:
+  version: '20190826132738'
+schema_migrations_core_cards_144:
+  version: '20190829093961'
+schema_migrations_core_cards_145:
+  version: '20190829151731'
+schema_migrations_core_cards_146:
+  version: '20190829205148'
+schema_migrations_core_cards_147:
+  version: '20190830131820'
+schema_migrations_core_cards_148:
+  version: '20190902161223'
+schema_migrations_core_cards_149:
+  version: '20190902193208'
+schema_migrations_core_cards_150:
+  version: '20190904174403'
+schema_migrations_core_cards_151:
+  version: '20190909104250'
+schema_migrations_core_cards_152:
+  version: '20190918200115'
+schema_migrations_core_cards_153:
+  version: '20190927112151'
+schema_migrations_core_cards_154:
+  version: '20191008201046'
+schema_migrations_core_cards_155:
+  version: '20191014204655'
+schema_migrations_core_cards_156:
+  version: '20191028135243'
+schema_migrations_core_cards_157:
+  version: '20191115160748'
+schema_migrations_core_cards_158:
+  version: '20191118145629'
+schema_migrations_core_cards_159:
+  version: '20200804112345'
+schema_migrations_core_cards_160:
+  version: '20200804112346'
+schema_migrations_core_cards_161:
+  version: '20200804112347'
+schema_migrations_core_cards_162:
+  version: '20200804112348'
+schema_migrations_core_cards_163:
+  version: '20200805112346'
+schema_migrations_core_cards_164:
+  version: '20200806112346'
+schema_migrations_core_cards_165:
+  version: '20200809112346'
+schema_migrations_core_cards_166:
+  version: '20200821231558'
+schema_migrations_core_cards_167:
+  version: '20201115133753'
+schema_migrations_core_cards_168:
+  version: '20201129140917'
+schema_migrations_core_cards_169:
+  version: '20210509141814'
+schema_migrations_core_cards_170:
+  version: '202108028112350'
+schema_migrations_core_cards_171:
+  version: '202108028112351'
+schema_migrations_core_cards_172:
+  version: '202108028112352'
+schema_migrations_core_cards_173:
+  version: '20211107155032'
+schema_migrations_core_cards_174:
+  version: '20220514141025'
+schema_migrations_core_cards_175:
+  version: '20220815112551'
+schema_migrations_core_cards_176:
+  version: '20230130141025'
+schema_migrations_core_cards_177:
+  version: '20230406205931'
+schema_migrations_core_cards_178:
+  version: '20230502094848'
+schema_migrations_deck_cards_001:
+  version: '20150116220621'
+schema_migrations_deck_cards_002:
+  version: '20210504195646'
