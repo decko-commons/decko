@@ -31,7 +31,7 @@ card_changes_006:
   value: '179'
 card_changes_007:
   id: 7
-  card_action_id: 1183
+  card_action_id: 2236
   field: 2
   value: |-
     Joe Admin
@@ -68,7 +68,7 @@ card_changes_013:
   value: '179'
 card_changes_014:
   id: 14
-  card_action_id: 1186
+  card_action_id: 2239
   field: 2
   value: |-
     Joe Admin
@@ -106,509 +106,81 @@ card_changes_020:
   value: '179'
 card_changes_021:
   id: 21
-  card_action_id: 1189
+  card_action_id: 2242
   field: 2
   value: Joe Admin
 card_changes_022:
   id: 22
-  card_action_id: 1391
+  card_action_id: 2444
   field: 0
   value: First
 card_changes_023:
   id: 23
-  card_action_id: 1391
+  card_action_id: 2444
   field: 1
   value: '2'
 card_changes_024:
   id: 24
-  card_action_id: 1391
+  card_action_id: 2444
   field: 2
   value: egg
 card_changes_025:
   id: 25
-  card_action_id: 1391
+  card_action_id: 2444
   field: 3
   value: f
 card_changes_026:
   id: 26
-  card_action_id: 1391
+  card_action_id: 2444
   field: 4
   value:
 card_changes_027:
   id: 27
-  card_action_id: 1391
+  card_action_id: 2444
   field: 5
   value:
 card_changes_028:
   id: 28
-  card_action_id: 1393
+  card_action_id: 2446
   field: 2
   value: chicken
 card_changes_029:
   id: 29
-  card_action_id: 1395
+  card_action_id: 2448
   field: 2
   value: chick
 card_changes_030:
   id: 30
-  card_action_id: 1618
+  card_action_id: 2673
   field: 0
   value:
 card_changes_031:
   id: 31
-  card_action_id: 1618
+  card_action_id: 2673
   field: 1
   value: '2'
 card_changes_032:
   id: 32
-  card_action_id: 1618
+  card_action_id: 2673
   field: 2
   value: ''
 card_changes_033:
   id: 33
-  card_action_id: 1618
+  card_action_id: 2673
   field: 3
   value: f
 card_changes_034:
   id: 34
-  card_action_id: 1618
+  card_action_id: 2673
   field: 4
-  value: '833'
+  value: '836'
 card_changes_035:
   id: 35
-  card_action_id: 1618
+  card_action_id: 2673
   field: 5
-  value: '834'
+  value: '837'
 card_changes_036:
   id: 36
-  card_action_id: 1622
+  card_action_id: 2677
   field: 2
   value: zoom in
-card_changes_037:
-  id: 37
-  card_action_id: 33
-  field: 0
-  value: "*all plus"
-card_changes_038:
-  id: 38
-  card_action_id: 33
-  field: 1
-  value: '5'
-card_changes_039:
-  id: 39
-  card_action_id: 33
-  field: 2
-  value: '{"left":{}}'
-card_changes_040:
-  id: 40
-  card_action_id: 33
-  field: 3
-  value: f
-card_changes_041:
-  id: 41
-  card_action_id: 33
-  field: 4
-  value:
-card_changes_042:
-  id: 42
-  card_action_id: 33
-  field: 5
-  value:
-card_changes_043:
-  id: 43
-  card_action_id: 1805
-  field: 2
-  value: '{"compound":true}'
-card_changes_044:
-  id: 44
-  card_action_id: 244
-  field: 0
-  value:
-card_changes_045:
-  id: 45
-  card_action_id: 244
-  field: 1
-  value: '4'
-card_changes_046:
-  id: 46
-  card_action_id: 244
-  field: 2
-  value: overridden
-card_changes_047:
-  id: 47
-  card_action_id: 244
-  field: 3
-  value: f
-card_changes_048:
-  id: 48
-  card_action_id: 244
-  field: 4
-  value: '149'
-card_changes_049:
-  id: 49
-  card_action_id: 244
-  field: 5
-  value: '59'
-card_changes_050:
-  id: 50
-  card_action_id: 2666
-  field: 1
-  value: '55'
-card_changes_051:
-  id: 51
-  card_action_id: 789
-  field: 0
-  value:
-card_changes_052:
-  id: 52
-  card_action_id: 789
-  field: 1
-  value: '2'
-card_changes_053:
-  id: 53
-  card_action_id: 789
-  field: 2
-  value: |
-    <h3>Cardtypes </h3>
-    <p> [[/new/cardtype|Add new Type]]</p>
-    <p>{{Cardtype+:type+:by_name|bar; title: all cardtypes}}</p>
-    <h3>Rules</h3>
-    <div>Cards are configured by creating <em>rules</em>.  </div>
-    <div> </div>
-    <h5>Webpage rules</h5>
-    <div>
-    <blockquote>{{:all|bar_rule_list; filter:webpage}}</blockquote>
-    <h5>Permission rules</h5>
-    <blockquote>{{:all|bar_rule_list; filter:permission}}</blockquote>
-    </div>
-    <div><em>[[http://decko.org/rules | More about rules.]]</em></div>
-    <div> </div>
-    <div>
-    <h3>Views</h3>
-    <p>You can try out different views below</p>
-    <p>{{:getting_started|demo}}</p>
-    </div>
-card_changes_054:
-  id: 54
-  card_action_id: 789
-  field: 3
-  value: f
-card_changes_055:
-  id: 55
-  card_action_id: 789
-  field: 4
-  value: '191'
-card_changes_056:
-  id: 56
-  card_action_id: 789
-  field: 5
-  value: '523'
-card_changes_057:
-  id: 57
-  card_action_id: 3658
-  field: 2
-  value: |
-    <h3>Cardtypes </h3>
-    <p> [[/new/cardtype|Add new Type]]</p>
-    <p>{{Cardtype+:type+:by_name|bar; title: all cardtypes}}</p>
-    <h3>Rules</h3>
-    <div>Cards are configured by creating <em>rules</em>.  </div>
-    <div> </div>
-    <h5>Webpage rules</h5>
-    <div>
-    <blockquote>{{:all|bar_setting_list; filter:webpage}}</blockquote>
-    <h5>Permission rules</h5>
-    <blockquote>{{:all|bar_setting_list; filter:permission}}</blockquote>
-    </div>
-    <div><em>[[http://decko.org/rules | More about rules.]]</em></div>
-    <div> </div>
-    <div>
-    <h3>Views</h3>
-    <p>You can try out different views below</p>
-    <p>{{:getting_started|demo}}</p>
-    </div>
-card_changes_058:
-  id: 58
-  card_action_id: 869
-  field: 0
-  value:
-card_changes_059:
-  id: 59
-  card_action_id: 869
-  field: 1
-  value: '4'
-card_changes_060:
-  id: 60
-  card_action_id: 869
-  field: 2
-  value: |-
-    mod: format+*script
-    mod: list+*script
-    mod: search+*script
-    mod: rules+*script
-    mod: edit+*script
-    mod: carrierwave+*script
-    mod: ace editor+*script
-    mod: bar and box+*script
-    mod: bootstrap+*script
-    mod: date+*script
-    mod: follow+*script
-    mod: tabs+*script
-    mod: layout+*script
-    mod: recaptcha+*script
-    mod: tinymce editor+*script
-card_changes_061:
-  id: 61
-  card_action_id: 869
-  field: 3
-  value: f
-card_changes_062:
-  id: 62
-  card_action_id: 869
-  field: 4
-  value: '7'
-card_changes_063:
-  id: 63
-  card_action_id: 869
-  field: 5
-  value: '298'
-card_changes_064:
-  id: 64
-  card_action_id: 5539
-  field: 2
-  value: |-
-    mod: format+*script
-    mod: list+*script
-    mod: search+*script
-    mod: rules+*script
-    mod: edit+*script
-    mod: carrierwave+*script
-    mod: ace editor+*script
-    mod: bar and box+*script
-    mod: bootstrap+*script
-    mod: follow+*script
-    mod: tabs+*script
-    mod: layout+*script
-    mod: recaptcha+*script
-    mod: tinymce editor+*script
-card_changes_065:
-  id: 65
-  card_action_id: 870
-  field: 0
-  value: 'style: mods'
-card_changes_066:
-  id: 66
-  card_action_id: 870
-  field: 1
-  value: '4'
-card_changes_067:
-  id: 67
-  card_action_id: 870
-  field: 2
-  value: |-
-    mod: format+*style
-    mod: list+*style
-    mod: permissions+*style
-    mod: help+*style
-    mod: search+*style
-    mod: rules+*style
-    mod: edit+*style
-    mod: account+*style
-    mod: history+*style
-    mod: carrierwave+*style
-    mod: api key+*style
-    mod: style+*style
-    mod: bar and box+*style
-    mod: bootstrap+*style
-    mod: comment+*style
-    mod: date+*style
-    mod: follow+*style
-    mod: layout+*style
-    mod: tinymce editor+*style
-card_changes_068:
-  id: 68
-  card_action_id: 870
-  field: 3
-  value: f
-card_changes_069:
-  id: 69
-  card_action_id: 870
-  field: 4
-  value:
-card_changes_070:
-  id: 70
-  card_action_id: 870
-  field: 5
-  value:
-card_changes_071:
-  id: 71
-  card_action_id: 5540
-  field: 2
-  value: |-
-    mod: format+*style
-    mod: list+*style
-    mod: permissions+*style
-    mod: help+*style
-    mod: search+*style
-    mod: rules+*style
-    mod: edit+*style
-    mod: account+*style
-    mod: history+*style
-    mod: carrierwave+*style
-    mod: api key+*style
-    mod: style+*style
-    mod: bar and box+*style
-    mod: bootstrap+*style
-    mod: comment+*style
-    mod: follow+*style
-    mod: layout+*style
-    mod: tinymce editor+*style
-card_changes_072:
-  id: 72
-  card_action_id: 781
-  field: 0
-  value: dashboard
-card_changes_073:
-  id: 73
-  card_action_id: 781
-  field: 1
-  value: '2'
-card_changes_074:
-  id: 74
-  card_action_id: 781
-  field: 2
-  value: ''
-card_changes_075:
-  id: 75
-  card_action_id: 781
-  field: 3
-  value: f
-card_changes_076:
-  id: 76
-  card_action_id: 781
-  field: 4
-  value:
-card_changes_077:
-  id: 77
-  card_action_id: 781
-  field: 5
-  value:
-card_changes_078:
-  id: 78
-  card_action_id: 6157
-  field: 0
-  value: Dashboard
-card_changes_079:
-  id: 79
-  card_action_id: 791
-  field: 0
-  value:
-card_changes_080:
-  id: 80
-  card_action_id: 791
-  field: 1
-  value: '2'
-card_changes_081:
-  id: 81
-  card_action_id: 791
-  field: 2
-  value: |
-    <h3>Accounts</h3>
-    <p>{{:accounts|content}}</p>
-    <h3>Help Texts</h3>
-    <p>{{:help|bar}}</p>
-    <h3>Emails </h3>
-    <p>Here are the current [[Email Templates|Email templates]] for your site.</p>
-    <p>{{Email Templates+*type+by update|content}} </p>
-card_changes_082:
-  id: 82
-  card_action_id: 791
-  field: 3
-  value: f
-card_changes_083:
-  id: 83
-  card_action_id: 791
-  field: 4
-  value: '196'
-card_changes_084:
-  id: 84
-  card_action_id: 791
-  field: 5
-  value: '523'
-card_changes_085:
-  id: 85
-  card_action_id: 7413
-  field: 2
-  value: |
-    <h3>Accounts</h3>
-    <p>{{:account|content}}</p>
-    <h3>Help Texts</h3>
-    <p>{{:help|bar}}</p>
-    <h3>Emails </h3>
-    <p>Here are the current [[Email Templates|Email templates]] for your site.</p>
-    <p>{{Email Templates+*type+by update|content}} </p>
-card_changes_086:
-  id: 86
-  card_action_id: 163
-  field: 0
-  value:
-card_changes_087:
-  id: 87
-  card_action_id: 163
-  field: 1
-  value: '64'
-card_changes_088:
-  id: 88
-  card_action_id: 163
-  field: 2
-  value: "Every Decko card has one and only one __type__.\n\n[[RichText]], [[List]],
-    [[Image]], [[Search]], [[JavaScript]], [[User]]... All of these are types. \nTo
-    see a given card's type, click its ellipses icon ({{\\_|bridge_link}})\nto go
-    to the card dashboard (or \"cardboard\").\n\nTypes are defined with [[Cardtype]]
-    cards. For example, the Cardtype card named [[Image]] defines the image\ntype.
-    You can create a new type by creating a [[/new/Cardtype|new Cardtype]] card.\n\nTypes
-    are a core tool for organizing cards. To decide whether you need\na new type for
-    a group of cards, consider whether you want to:\n\n1. ...think up a name for each
-    card?\n2. ...create a patterned structure for the group?\n\nAs a rule of thumb,
-    if the answer to both is yes, you probably want a new type. There are exceptions,
-    of\ncourse: [[\\*autoname|autonaming]], casual [[\\*structure|structures]], etc.\n\nBy
-    convention, Cardtype names are usually singular, capitalized nouns. \n\nTo configure
-    the structure for a Cardtype,  click the \"Configure\" button on a Cardtype cards
-    or edit\nthe type's structure rule in the cardboard of _either_ the Cardtype card
-    _or_ of any of the cards of that type.\n\nA Cardtype card cannot be deleted as
-    long as there are instances of that type."
-card_changes_089:
-  id: 89
-  card_action_id: 163
-  field: 3
-  value: f
-card_changes_090:
-  id: 90
-  card_action_id: 163
-  field: 4
-  value: '29'
-card_changes_091:
-  id: 91
-  card_action_id: 163
-  field: 5
-  value: '88'
-card_changes_092:
-  id: 92
-  card_action_id: 8236
-  field: 2
-  value: "Every Decko card has one and only one __type__.\n\n[[RichText]], [[List]],
-    [[Image]], [[Search]], [[JavaScript]], [[User]]... All of these are types. \nTo
-    see a given card's type, click its ellipses icon ({{\\_|board_link}})\nto go to
-    the card dashboard (or \"cardboard\").\n\nTypes are defined with [[Cardtype]]
-    cards. For example, the Cardtype card named [[Image]] defines the image\ntype.
-    You can create a new type by creating a [[/new/Cardtype|new Cardtype]] card.\n\nTypes
-    are a core tool for organizing cards. To decide whether you need\na new type for
-    a group of cards, consider whether you want to:\n\n1. ...think up a name for each
-    card?\n2. ...create a patterned structure for the group?\n\nAs a rule of thumb,
-    if the answer to both is yes, you probably want a new type. There are exceptions,
-    of\ncourse: [[\\*autoname|autonaming]], casual [[\\*structure|structures]], etc.\n\nBy
-    convention, Cardtype names are usually singular, capitalized nouns. \n\nTo configure
-    the structure for a Cardtype,  click the \"Configure\" button on a Cardtype cards
-    or edit\nthe type's structure rule in the cardboard of _either_ the Cardtype card
-    _or_ of any of the cards of that type.\n\nA Cardtype card cannot be deleted as
-    long as there are instances of that type."

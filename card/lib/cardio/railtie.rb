@@ -70,9 +70,6 @@ module Cardio
 
           p.add "db", with: "#{card_root}/db"
           p.add "db/seeds.rb", with: "#{card_root}/db/seeds.rb"
-          p.add "db/migrate", with: "#{card_root}/db/migrate"
-          p.add "db/migrate_core_cards", with: "#{card_root}/db/migrate_core_cards"
-
 
           Cardio::Mod.dirs.each do |mod_path|
             c.autoload_paths += Dir["#{mod_path}/lib"]
