@@ -14,16 +14,16 @@
 - :name: B
   :content: Beta {{Z}}
   :user: Joe User
+- :name:
+    - A
+    - B
+  :content: AlphaBeta
 - :name: T
   :content: Theta
 - :name: X
   :content: "[[A]] [[A+B]] [[T]]"
 - :name: Y
   :content: "{{B}} {{A+B}} {{A}} {{T}}"
-- :name:
-  - A
-  - B
-  :content: AlphaBeta
 - :name:
   - A
   - B
