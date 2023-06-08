@@ -31,7 +31,7 @@ card_changes_006:
   value: '179'
 card_changes_007:
   id: 7
-  card_action_id: 2236
+  card_action_id: 1185
   field: 2
   value: |-
     Joe Admin
@@ -68,7 +68,7 @@ card_changes_013:
   value: '179'
 card_changes_014:
   id: 14
-  card_action_id: 2239
+  card_action_id: 1188
   field: 2
   value: |-
     Joe Admin
@@ -106,81 +106,81 @@ card_changes_020:
   value: '179'
 card_changes_021:
   id: 21
-  card_action_id: 2242
+  card_action_id: 1191
   field: 2
   value: Joe Admin
 card_changes_022:
   id: 22
-  card_action_id: 2444
+  card_action_id: 1393
   field: 0
   value: First
 card_changes_023:
   id: 23
-  card_action_id: 2444
+  card_action_id: 1393
   field: 1
   value: '2'
 card_changes_024:
   id: 24
-  card_action_id: 2444
+  card_action_id: 1393
   field: 2
   value: egg
 card_changes_025:
   id: 25
-  card_action_id: 2444
+  card_action_id: 1393
   field: 3
   value: f
 card_changes_026:
   id: 26
-  card_action_id: 2444
+  card_action_id: 1393
   field: 4
   value:
 card_changes_027:
   id: 27
-  card_action_id: 2444
+  card_action_id: 1393
   field: 5
   value:
 card_changes_028:
   id: 28
-  card_action_id: 2446
+  card_action_id: 1395
   field: 2
   value: chicken
 card_changes_029:
   id: 29
-  card_action_id: 2448
+  card_action_id: 1397
   field: 2
   value: chick
 card_changes_030:
   id: 30
-  card_action_id: 2673
+  card_action_id: 1622
   field: 0
   value:
 card_changes_031:
   id: 31
-  card_action_id: 2673
+  card_action_id: 1622
   field: 1
   value: '2'
 card_changes_032:
   id: 32
-  card_action_id: 2673
+  card_action_id: 1622
   field: 2
   value: ''
 card_changes_033:
   id: 33
-  card_action_id: 2673
+  card_action_id: 1622
   field: 3
   value: f
 card_changes_034:
   id: 34
-  card_action_id: 2673
+  card_action_id: 1622
   field: 4
-  value: '836'
+  value: '832'
 card_changes_035:
   id: 35
-  card_action_id: 2673
+  card_action_id: 1622
   field: 5
-  value: '837'
+  value: '833'
 card_changes_036:
   id: 36
-  card_action_id: 2677
+  card_action_id: 1626
   field: 2
   value: zoom in
