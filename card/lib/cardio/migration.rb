@@ -2,10 +2,8 @@
 
 module Cardio
   class Migration < ActiveRecord::Migration[6.1]
-    include Card::Model::SaveHelper unless ENV["NO_CARD_LOAD"]
-
     class << self
-      attr_reader :migration_type, :old_table, :old_deck_table
+      attr_reader :migration_type, :old_tables, :old_deck_table
 
       def migration_class type
         type == :schema ? Migration::Schema : Migration::Transform
@@ -23,7 +21,10 @@ module Cardio
 
       def port
         return unless connection.table_exists? old_deck_table
-        connection.rename_table old_table, table if old_table
+        old_tables.each do |old_table_name|
+          next unless connection.table_exists? old_table_name
+          connection.rename_table old_table_name, table
+        end
         connection.execute "INSERT INTO #{table} (SELECT * from #{old_deck_table})"
         connection.drop_table old_deck_table
       end
@@ -62,6 +63,7 @@ module Cardio
     def run version=nil, verbose=true
       context do |mc|
         ActiveRecord::Migration.verbose = verbose
+        # binding.pry
         mc.migrate version
       end
     end
@@ -105,7 +107,7 @@ module Cardio
     private
 
     def connection
-      self.class.connection
+      Cardio::Migration.connection
     end
 
     def stamp_path
@@ -119,6 +121,7 @@ module Cardio
     end
 
     def table_name= table_name
+      # binding.pry
       ActiveRecord::Base.schema_migrations_table_name = table_name
       ActiveRecord::SchemaMigration.table_name = table_name
       ActiveRecord::SchemaMigration.reset_column_information

@@ -3,8 +3,10 @@ require "cardio/migration"
 module Cardio
   class Migration
     class Transform < Migration
+      include Card::Model::SaveHelper unless ENV["NO_CARD_LOAD"]
+
       @migration_type = :transform
-      @old_table = "schema_migrations_core_cards"
+      @old_tables = ["schema_migrations_core_cards", "schema_migrations_cards"]
       @old_deck_table = "schema_migrations_deck_cards"
 
       private
@@ -30,13 +32,13 @@ module Cardio
       def contentedly
         return yield if ENV["NO_CARD_LOAD"]
         Card::Cache.reset_all
-        mode do
+        # mode do
           Card::Auth.as_bot do
             yield
           ensure
             ::Card::Cache.reset_all
           end
-        end
+        # end
       end
     end
   end

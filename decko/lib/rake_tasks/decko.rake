@@ -5,7 +5,7 @@ CARD_TASKS = (
   %i[eat migrate reset_cache reset_tmp seed setup sow update] +
   # { assets: %i[refresh code wipe] },
   # above caused loading problem because of .sort is rails' #run_tasks_blocks
-  [{ migrate: %i[schema transform redo stamp] },
+  [{ migrate: %i[schema transform redo stamp port] },
    { mod: %i[list symlink leftover uninstall install] },
    { seed: %i[build clean dump plow polish replant update] }]
 ).freeze

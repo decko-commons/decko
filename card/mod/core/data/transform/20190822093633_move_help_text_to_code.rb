@@ -17,6 +17,7 @@ class MoveHelpTextToCode < Cardio::Migration::Transform
   def remove_search_help_rules
     %i[created edited children includes refers_to links_to included_by linked_to_by
        referred_to_by mates editors follow].each do |trait|
+      next unless Card::Codename.exists? trait
       delete_card [trait, :right, :help]
     end
   end
@@ -31,6 +32,7 @@ class MoveHelpTextToCode < Cardio::Migration::Transform
 
   def remove_self_help_rules *anchors
     anchors.each do |a|
+      next unless Card::Codename.exists? a
       delete_card [a, :self, :help]
     end
   end

@@ -48,7 +48,7 @@ class UpdateBootswatchThemesTo4Beta < Cardio::Migration::Transform
   def add_icon_cards
     %w[font_awesome material_icons].each do |name|
       ensure_css name.tr("_", " "), codename: name
-      Card["themeless bootstrap skin"].add_item! name.tr("_", " ")
+      Card["themeless bootstrap skin"]&.add_item! name.tr("_", " ")
     end
   end
 end

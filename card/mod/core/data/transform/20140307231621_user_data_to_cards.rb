@@ -7,22 +7,34 @@ class UserDataToCards < Cardio::Migration::Transform
   def up
     puts "importing all user details (for those not in trash) into +*account attributes"
     User.all.each do |user|
-      base = Card[user.card_id]
-      next unless base && !base.trash
-
+      next unless (base = user.card_id.card)
       puts "~ importing details for #{base.name}"
-      date_args = { created_at: user.created_at, updated_at: user.updated_at }
-      %i[email salt password status].each do |field|
-        cardname = [base.name, :account, field].cardname
-        user_field = (field == :password ? :crypted_password : field)
-        next unless (content = user.send(user_field))
-
-        begin
-          Card.create! date_args.merge(name: cardname, content: content)
-        rescue StandardError => e
-          puts "error importing #{cardname}: #{e.message}"
-        end
-      end
+      import_user_fields user, base
     end
+  end
+
+  def import_user_fields user, base
+    date_args = date_args user
+    %i[email salt password status].each do |field|
+      cardname = [base.name, :account, field].cardname
+      next unless (content = field_content field, user)
+
+      import_user_field cardname, date_args, content
+    end
+  end
+
+  def date_args user
+    { created_at: user.created_at, updated_at: user.updated_at }
+  end
+
+  def field_content field, user
+    user_field = (field == :password ? :crypted_password : field)
+    user.send user_field
+  end
+
+  def import_user_field cardname, date_args, content
+    Card.create! date_args.merge(name: cardname, content: content)
+  rescue StandardError => e
+    puts "error importing #{cardname}: #{e.message}"
   end
 end

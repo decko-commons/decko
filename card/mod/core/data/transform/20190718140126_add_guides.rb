@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-class AddGuides < Cardio::Migration
+class AddGuides < Cardio::Migration::Transform
   GUIDE = <<-MD.strip_heredoc
     #### Editing Guide
 

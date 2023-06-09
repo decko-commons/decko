@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-class FixOldNavbarIssue < Cardio::Migration
+class FixOldNavbarIssue < Cardio::Migration::Transform
   NEST_REGEP = /\{\{\*navbox\|navbar\}\}/
 
   def up

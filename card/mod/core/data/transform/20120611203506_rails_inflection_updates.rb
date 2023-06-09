@@ -19,15 +19,19 @@ class RailsInflectionUpdates < Cardio::Migration::Transform
         twin.destroy
         yield
       elsif !card.trash
-        raise Card::Error::Oops,
-              "Your deck has two different cards with names '#{card.name}' and "\
-              "'#{twin.name}'. After this update it's no longer possible to "\
-              "differentiate between those two names. Please rename or delete one of "\
-              "the two cards and run the update again."
+        unresolvable_name_collision! card, twin
       end
     else
       yield
     end
+  end
+
+  def unresolvable_name_collision! card, twin
+    raise Card::Error::Oops,
+          "Your deck has two different cards with names '#{card.name}' and " \
+          "'#{twin.name}'. After this update it's no longer possible to " \
+          "differentiate between those two names. Please rename or delete one of " \
+          "the two cards and run the update again."
   end
 
   def up

@@ -76,7 +76,7 @@ class UpdateFileAndImageCards < Cardio::Migration::Transform
        journal_skin lumen_skin paper_skin readable_skin sandstone_skin
        simplex_skin slate_skin spacelab_skin superhero_skin united_skin
        yeti_skin].each do |name|
-      next unless (card = Card[name.to_sym])
+      next unless (Card::Codename.exists?(name) && (card = name.to_sym.card))
 
       card.update! codename: nil
       if (card = Card.fetch name, :image)

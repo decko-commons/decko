@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-class  MoveRoles < Cardio::Migration
+class MoveRoles < Cardio::Migration::Transform
   def up
     remove_member_structure_rule
     change_existing_member_cards_to_lists

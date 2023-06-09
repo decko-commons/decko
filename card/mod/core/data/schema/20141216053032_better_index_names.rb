@@ -18,9 +18,15 @@ class BetterIndexNames < Cardio::Migration::Schema
 
     rename_index :cards, "cards_key_uniq",              "cards_key_index"
     rename_index :cards, "card_type_index",             "cards_type_id_index"
-    rename_index :cards, "index_cards_on_trunk_id",     "cards_left_id_index"
-    rename_index :cards, "index_cards_on_tag_id",       "cards_right_id_index"
-    rename_index :cards, "index_cards_on_read_rule_id", "cards_read_rule_id_index"
+    rename_index_robustly :trunk, :left
+    rename_index_robustly :tag, :right
+    rename_index_robustly :read_rule, :read_rule
+  end
+
+  def rename_index_robustly old, new
+    rename_index :cards, "index_cards_on_#{old}_id", "cards_#{new}_id_index"
+  rescue ActiveRecord::StatementInvalid
+    rename_index :cards, "index_cards_on_#{new}_id", "cards_#{new}_id_index"
   end
 
   def down; end

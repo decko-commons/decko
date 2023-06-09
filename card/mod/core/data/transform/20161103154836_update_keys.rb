@@ -1,8 +1,8 @@
-l# -*- encoding : utf-8 -*-
+# -*- encoding : utf-8 -*-
 
 class UpdateKeys < Cardio::Migration::Transform
   def up
-    Card.pluck(:id, :name, :key).each do |id, name, key|
+    Card.where("name is not null").pluck(:id, :name, :key).each do |id, name, key|
       new_key = name.to_name.key
       next if new_key == key
 

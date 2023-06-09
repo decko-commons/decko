@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 
 # delete brackets from card content
-class OutWithTheBrackets < Cardio::Migration
+class OutWithTheBrackets < Cardio::Migration::Transform
   def up
     Card["*getting started links"]&.update_column :type_id, :link_list.card_id
 

@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-class HistoryCleanup < Cardio::Migration
+class HistoryCleanup < Cardio::Migration::Transform
   def up
     delete_create_only_changes
   end
