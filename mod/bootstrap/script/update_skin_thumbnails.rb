@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-require_relative "../db/migrate_core_cards/lib/skin"
+require_relative "../data/transform/lib/skin"
 
 puts "Updating bootstrap themes ..."
 Skin.themes.each do |theme_name|

@@ -21,8 +21,14 @@ class Card
           method_name, cardtype_card = extract_cardtype_from_method_name method
           return super unless method_name
 
-          sargs = standardize_args(*args)
-          send "#{method_name}_card", sargs.merge(type_id: cardtype_card.id)
+          sargs = standardize_args(*args).merge(type_id: cardtype_card.id)
+          if method_name == "ensure"
+            Card.ensure sargs
+          else
+            send "#{method_name}_card", sargs
+          end
+        rescue
+          binding.pry
         end
 
         def respond_to_missing? method, _include_private=false
