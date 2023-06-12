@@ -2,6 +2,7 @@
 
 module Cardio
   class Migration < ActiveRecord::Migration[6.1]
+    include Assumption
     class << self
       attr_reader :migration_type, :old_tables, :old_deck_table
 
@@ -21,15 +22,19 @@ module Cardio
 
       def port
         return unless connection.table_exists? old_deck_table
-        old_tables.each do |old_table_name|
-          next unless connection.table_exists? old_table_name
-          connection.rename_table old_table_name, table
-        end
+        rename_old_tables
         connection.execute "INSERT INTO #{table} (SELECT * from #{old_deck_table})"
         connection.drop_table old_deck_table
       end
 
       private
+
+      def rename_old_tables
+        old_tables.each do |old_table_name|
+          next unless connection.table_exists? old_table_name
+          connection.rename_table old_table_name, table
+        end
+      end
 
       def table
         "#{migration_type}_migrations"
@@ -42,22 +47,6 @@ module Cardio
 
     def migration_type
       self.class.migration_type || :schema
-    end
-
-    def assume_current
-      context do |mc|
-        versions = mc.migrations.map(&:version)
-        migrated = mc.get_all_versions
-        to_mark = versions - migrated
-        mark_as_migrated to_mark if to_mark.present?
-      end
-    end
-
-    def assume_migrated_upto_version version=nil
-      mode do |_paths|
-        version ||= self.version
-        ActiveRecord::Schema.assume_migrated_upto_version version
-      end
     end
 
     def run version=nil, verbose=true
@@ -74,7 +63,7 @@ module Cardio
 
     def stamp
       mode do
-        return unless (version = ActiveRecord::Migrator.current_version).to_i.positive?
+        return unless (version = stampable_version)
         path = stamp_path
         return unless (file = ::File.open path, "w")
 
@@ -103,6 +92,11 @@ module Cardio
 
     private
 
+    def stampable_version
+      version = ActiveRecord::Migrator.current_version
+      version.to_i.positive? && version
+    end
+
     def connection
       Cardio::Migration.connection
     end
@@ -122,11 +116,5 @@ module Cardio
       ActiveRecord::SchemaMigration.table_name = table_name
       ActiveRecord::SchemaMigration.reset_column_information
     end
-
-    def mark_as_migrated versions
-      sql = connection.send :insert_versions_sql, versions
-      connection.execute sql
-    end
   end
 end
-

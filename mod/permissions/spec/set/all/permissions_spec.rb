@@ -30,12 +30,8 @@ RSpec.describe Card::Set::All::Permissions do
     let(:c3) { Card["c3"] }
 
     it "checking ok read should not add to errors" do
-      Card::Auth.as_bot do
-        expect(Card::Auth.always_ok?).to eq(true)
-      end
-      Card::Auth.as("joe_user") do
-        expect(Card::Auth.always_ok?).to eq(false)
-      end
+      Card::Auth.as_bot { expect(Card::Auth.always_ok?).to eq(true) }
+      Card::Auth.as("joe_user") { expect(Card::Auth.always_ok?).to eq(false) }
       Card::Auth.as("joe_admin") do
         expect(Card::Auth.always_ok?).to eq(true)
         Card.create! name: "Hidden"
@@ -53,10 +49,9 @@ RSpec.describe Card::Set::All::Permissions do
     it "reader setting", aggregate_failures: true do
       Card.where(trash: false).each do |ca|
         rule_id, rule_class = ca.permission_rule_id_and_class :read
-        expect(ca.read_rule_class).to eq(rule_class),
-                                      "read rule class mismatch for #{ca.name}"
-        expect(ca.read_rule_id).to eq(rule_id),
-                                   "read rule id mismatch for #{ca.name}"
+        expect(ca.read_rule_class)
+          .to eq(rule_class), "read rule class mismatch for #{ca.name}"
+        expect(ca.read_rule_id).to eq(rule_id), "read rule id mismatch for #{ca.name}"
       end
     end
 
@@ -140,10 +135,8 @@ RSpec.describe Card::Set::All::Permissions do
     context "create permissions" do
       before do
         Card::Auth.as_bot do
-          Card.create! name: "*structure+*right+*create", type: "Pointer",
-                       content: "Anyone Signed In"
-          Card.create! name: "*self+*right+*create",      type: "Pointer",
-                       content: "Anyone Signed In"
+          Card.create! name: "*structure+*right+*create", content: "Anyone Signed In"
+          Card.create! name: "*self+*right+*create", content: "Anyone Signed In"
         end
       end
 
@@ -229,15 +222,11 @@ RSpec.describe Card::Set::All::Permissions do
     let(:c) { Card.create! name: "sky blue" }
 
     it "lets anonymous users view basic cards" do
-      Card::Auth.as :anonymous do
-        expect(c).to be_ok(:read)
-      end
+      Card::Auth.as(:anonymous) { expect(c).to be_ok(:read) }
     end
 
     it "lets joe user basic cards" do
-      Card::Auth.as "joe_user" do
-        expect(c).to be_ok(:read)
-      end
+      Card::Auth.as("joe_user") { expect(c).to be_ok(:read) }
     end
   end
 
@@ -253,27 +242,16 @@ RSpec.describe Card::Set::All::Permissions do
 
   describe "settings based permissions" do
     before do
-      Card::Auth.as_bot do
-        Card.fetch("*all+*delete", new: {}).update! type_code: :pointer,
-                                                    content: "Joe User"
-      end
+      Card::Auth.as_bot { Card.fetch("*all+*delete").update! content: "Joe User" }
     end
 
     it "handles delete as a setting" do
       c = Card.new name: "whatever"
       expect(c.who_can(:delete)).to eq([Card["joe_user"].id])
-      Card::Auth.as("joe_user") do
-        expect(c.ok?(:delete)).to eq(true)
-      end
-      Card::Auth.as("u1") do
-        expect(c.ok?(:delete)).to eq(false)
-      end
-      Card::Auth.as(:anonymous) do
-        expect(c.ok?(:delete)).to eq(false)
-      end
-      Card::Auth.as_bot do
-        expect(c.ok?(:delete)).to eq(true) # because administrator
-      end
+      Card::Auth.as("joe_user") { expect(c.ok?(:delete)).to eq(true) }
+      Card::Auth.as("u1") { expect(c.ok?(:delete)).to eq(false) }
+      Card::Auth.as(:anonymous) { expect(c.ok?(:delete)).to eq(false) }
+      Card::Auth.as_bot { expect(c.ok?(:delete)).to eq(true) } # because administrator
     end
   end
 

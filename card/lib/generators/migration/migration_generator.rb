@@ -41,10 +41,9 @@ module Cardio
       def set_local_assigns!
         @migration_template = "card_migration.erb"
         @migration_parent_class = Cardio::Migration.migration_class migration_type
-        if file_name.match /^(import)_(.*)(?:\.json)?/
-          @migration_action = Regexp.last_match(1)
-          @json_filename    = "#{Regexp.last_match(2)}.json"
-        end
+        return unless file_name.match?(/^(import)_(.*)(?:\.json)?/)
+        @migration_action = Regexp.last_match(1)
+        @json_filename = "#{Regexp.last_match(2)}.json"
       end
     end
   end
