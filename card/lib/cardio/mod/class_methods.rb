@@ -46,11 +46,11 @@ module Cardio
           ensure_asset_lists do |hash|
             puts "ensuring mod and asset cards"
             Cardio.mods.each { |mod|
-              begin
-                ensure_asset_cards mod.ensure_card, hash
-              rescue
-                binding.pry
-              end
+              # begin
+              ensure_asset_cards mod.ensure_card, hash
+              # rescue
+              #   binding.pry
+              # end
             }
           end
         end

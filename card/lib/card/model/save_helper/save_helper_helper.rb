@@ -27,8 +27,8 @@ class Card
           else
             send "#{method_name}_card", sargs
           end
-        rescue
-          binding.pry
+        # rescue
+        #   binding.pry
         end
 
         def respond_to_missing? method, _include_private=false
