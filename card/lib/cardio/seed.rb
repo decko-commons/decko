@@ -2,8 +2,7 @@ module Cardio
   # methods in support of seeding
   module Seed
     TABLES = %w[cards card_actions card_acts card_changes card_references
-                schema_migrations schema_migrations_core_cards
-                schema_migrations_deck schema_migrations_deck_cards].freeze
+                schema_migrations transform_migrations].freeze
 
     class << self
       def default_path
@@ -23,10 +22,8 @@ module Cardio
 
         return unless update_seed?
 
-        Cardio::Migration.assume_current
-        Cardio::Migration::Core.assume_current
-        Cardio::Migration::DeckStructure.assume_current
-        # Cardio::Migration::Core.assume_current
+        Cardio::Migration::Schema.new.assume_current
+        Cardio::Migration::Transform.new.assume_current
       end
 
       def dump
