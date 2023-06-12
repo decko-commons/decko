@@ -277,15 +277,21 @@ RSpec.describe Card::Set::All::Permissions do
     end
   end
 
+  it "creates self read rule", as_bot: true do
+    read_rule = Card.ensure! name: %i[uri self read], content: "Anyone"
+    expect(:uri.card.read_rule_class).to eq("*self")
+    expect(:uri.card.read_rule_id).to eq(read_rule.id)
+    expect(%i[uri self].card.read_rule_id).to eq(read_rule.id)
+  end
+
   it "create read rule as subcard" do
     Card::Auth.as_bot do
       Card.create! name: "read rule test",
                    subcards: { "+*self+*read" => { content: "Administrator" } }
-      expect(Card["read rule test"].read_rule_class)
-        .to eq("*self")
+      expect(Card["read rule test"].read_rule_class).to eq("*self")
       rule_id = "read rule test+*self+*read".card_id
-      expect(Card["read rule test"].read_rule_id)
-        .to eq(rule_id)
+      expect(Card["read rule test"].read_rule_id).to eq(rule_id)
+      expect(Card["read rule test+:self"].read_rule_id).to eq(rule_id)
     end
   end
 

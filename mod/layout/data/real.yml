@@ -60,17 +60,17 @@
       </div>
     </nav>
 
-- :name:
-    - :header
-    - :self
-    - :read
-  :content: Anyone
+- :codename: header
+  :fields:
+    :self:
+      :fields:
+        :read: Anyone
 
-- :name:
-    - :main_menu
-    - :self
-    - :read
-  :content: Anyone
+- :codename: main_menu
+  :fields:
+    :self:
+      :fields:
+        :read: Anyone
 
 - :name: "*footer"
   :codename: footer
