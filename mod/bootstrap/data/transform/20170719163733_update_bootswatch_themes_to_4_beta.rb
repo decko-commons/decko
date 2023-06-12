@@ -22,11 +22,11 @@ class UpdateBootswatchThemesTo4Beta < Cardio::Migration::Transform
       ensure_scss "bootstrap: #{n}", codename: "bootstrap_#{n}"
       delete_code_card "style: bootstrap #{n}"
     end
-    if Card::Codename.exist? :bootstrap_cards
-      update_card! :bootstrap_cards,
-                   name: "style: bootstrap cards",
-                   codename: "style_bootstrap_cards"
-    end
+    return unless Card::Codename.exist? :bootstrap_cards
+
+    update_card! :bootstrap_cards,
+                 name: "style: bootstrap cards",
+                 codename: "style_bootstrap_cards"
   end
 
   def remove_old_stuff

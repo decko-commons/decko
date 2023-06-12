@@ -6,9 +6,9 @@ class BootstrapCleanup < Cardio::Migration::Transform
     delete_code_card :bootstrap_variables
     delete_code_card :bootstrap_mixins
     Card.ensure name: "script: bootstrap", codename: "script_bootstrap"
-    if (card = Card.fetch(:all, :script))
-      card.drop_item! "script: bootstrap"
-      card.drop_item! "script: jquery helper"
-    end
+    return unless (card = Card.fetch :all, :script)
+
+    card.drop_item! "script: bootstrap"
+    card.drop_item! "script: jquery helper"
   end
 end

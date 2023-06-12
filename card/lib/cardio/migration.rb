@@ -3,6 +3,8 @@
 module Cardio
   class Migration < ActiveRecord::Migration[6.1]
     include Assumption
+    include Stamp
+
     class << self
       attr_reader :migration_type, :old_tables, :old_deck_table
 
@@ -61,17 +63,6 @@ module Cardio
       File.exist?(path) ? File.read(path).strip : nil
     end
 
-    def stamp
-      mode do
-        return unless (version = stampable_version)
-        path = stamp_path
-        return unless (file = ::File.open path, "w")
-
-        puts ">>  writing version: #{version} to #{path}"
-        file.puts version
-      end
-    end
-
     def migration_paths
       Cardio.paths["data/#{migration_type}"].existent.to_a
     end
@@ -92,19 +83,8 @@ module Cardio
 
     private
 
-    def stampable_version
-      version = ActiveRecord::Migrator.current_version
-      version.to_i.positive? && version
-    end
-
     def connection
       Cardio::Migration.connection
-    end
-
-    def stamp_path
-      stamp_dir = ENV["SCHEMA_STAMP_PATH"] || File.join(Cardio.root, "db")
-
-      File.join stamp_dir, "version_#{migration_type}.txt"
     end
 
     def with_migration_table
