@@ -63,7 +63,6 @@ module Cardio
     def run version=nil, verbose=true
       context do |mc|
         ActiveRecord::Migration.verbose = verbose
-        # binding.pry
         mc.migrate version
       end
     end
@@ -96,8 +95,6 @@ module Cardio
 
     def mode
       with_migration_table { yield migration_paths }
-    # rescue
-    #   binding.pry
     end
 
     def down
@@ -121,7 +118,6 @@ module Cardio
     end
 
     def table_name= table_name
-      # binding.pry
       ActiveRecord::Base.schema_migrations_table_name = table_name
       ActiveRecord::SchemaMigration.table_name = table_name
       ActiveRecord::SchemaMigration.reset_column_information

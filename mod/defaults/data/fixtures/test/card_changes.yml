@@ -31,7 +31,7 @@ card_changes_006:
   value: '179'
 card_changes_007:
   id: 7
-  card_action_id: 1185
+  card_action_id: 1187
   field: 2
   value: |-
     Joe Admin
@@ -68,7 +68,7 @@ card_changes_013:
   value: '179'
 card_changes_014:
   id: 14
-  card_action_id: 1188
+  card_action_id: 1190
   field: 2
   value: |-
     Joe Admin
@@ -106,81 +106,125 @@ card_changes_020:
   value: '179'
 card_changes_021:
   id: 21
-  card_action_id: 1191
+  card_action_id: 1193
   field: 2
   value: Joe Admin
 card_changes_022:
   id: 22
-  card_action_id: 1393
+  card_action_id: 1395
   field: 0
   value: First
 card_changes_023:
   id: 23
-  card_action_id: 1393
+  card_action_id: 1395
   field: 1
   value: '2'
 card_changes_024:
   id: 24
-  card_action_id: 1393
+  card_action_id: 1395
   field: 2
   value: egg
 card_changes_025:
   id: 25
-  card_action_id: 1393
+  card_action_id: 1395
   field: 3
   value: f
 card_changes_026:
   id: 26
-  card_action_id: 1393
+  card_action_id: 1395
   field: 4
   value:
 card_changes_027:
   id: 27
-  card_action_id: 1393
+  card_action_id: 1395
   field: 5
   value:
 card_changes_028:
   id: 28
-  card_action_id: 1395
+  card_action_id: 1397
   field: 2
   value: chicken
 card_changes_029:
   id: 29
-  card_action_id: 1397
+  card_action_id: 1399
   field: 2
   value: chick
 card_changes_030:
   id: 30
-  card_action_id: 1622
+  card_action_id: 1624
   field: 0
   value:
 card_changes_031:
   id: 31
-  card_action_id: 1622
+  card_action_id: 1624
   field: 1
   value: '2'
 card_changes_032:
   id: 32
-  card_action_id: 1622
+  card_action_id: 1624
   field: 2
   value: ''
 card_changes_033:
   id: 33
-  card_action_id: 1622
+  card_action_id: 1624
   field: 3
   value: f
 card_changes_034:
   id: 34
-  card_action_id: 1622
+  card_action_id: 1624
   field: 4
   value: '832'
 card_changes_035:
   id: 35
-  card_action_id: 1622
+  card_action_id: 1624
   field: 5
   value: '833'
 card_changes_036:
   id: 36
-  card_action_id: 1626
+  card_action_id: 1628
   field: 2
   value: zoom in
+card_changes_037:
+  id: 37
+  card_action_id: 789
+  field: 0
+  value: "*main menu"
+card_changes_038:
+  id: 38
+  card_action_id: 789
+  field: 1
+  value: '58'
+card_changes_039:
+  id: 39
+  card_action_id: 789
+  field: 2
+  value: |-
+    [[:getting_started_links|Getting started]]
+    [[:recent|Recent Changes]]
+card_changes_040:
+  id: 40
+  card_action_id: 789
+  field: 3
+  value: f
+card_changes_041:
+  id: 41
+  card_action_id: 789
+  field: 4
+  value:
+card_changes_042:
+  id: 42
+  card_action_id: 789
+  field: 5
+  value:
+card_changes_043:
+  id: 43
+  card_action_id: 1759
+  field: 2
+  value: "[[:recent|Recent Changes]]"
+card_changes_044:
+  id: 44
+  card_action_id: 1795
+  field: 2
+  value: |-
+    [[:getting_started_links|Getting started]]
+    [[:recent|Recent Changes]]
