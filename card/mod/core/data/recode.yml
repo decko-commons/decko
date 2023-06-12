@@ -1,0 +1,7 @@
+---
+content: structure
+edit_help: help
+input: input_type
+options: content_options
+options_label: content_option_view
+token: api_key

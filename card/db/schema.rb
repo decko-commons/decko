@@ -114,24 +114,16 @@ ActiveRecord::Schema.define(version: 2022_10_31_182227) do
     t.index ["priority", "run_at"], name: "delayed_jobs_priority"
   end
 
-  create_table "schema_migrations_core_cards", id: false, charset: "utf8mb3", force: :cascade do |t|
-    t.string "version", null: false
-    t.index ["version"], name: "unique_schema_migrations_cards", unique: true
-  end
-
-  create_table "schema_migrations_deck", primary_key: "version", id: :string, charset: "utf8mb3", force: :cascade do |t|
-  end
-
-  create_table "schema_migrations_deck_cards", id: false, charset: "utf8mb3", force: :cascade do |t|
-    t.string "version", null: false
-    t.index ["version"], name: "unique_schema_migrations_deck_cards", unique: true
-  end
-
   create_table "sessions", id: :integer, charset: "utf8mb3", force: :cascade do |t|
     t.string "session_id"
     t.text "data"
     t.datetime "updated_at"
     t.index ["session_id"], name: "sessions_session_id_index"
+  end
+
+  create_table "transform_migrations", id: false, charset: "utf8mb3", force: :cascade do |t|
+    t.string "version", null: false
+    t.index ["version"], name: "unique_schema_migrations_cards", unique: true
   end
 
   create_table "users", id: :integer, charset: "utf8mb3", force: :cascade do |t|
