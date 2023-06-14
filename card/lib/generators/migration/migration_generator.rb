@@ -3,25 +3,32 @@
 module Cardio
   module Generators
     # generate structure and card migrations
-    class MigrationGenerator < Base
+    class MigrationGenerator < ActiveRecord::Generators::Base
+      extend ClassMethods
       source_root File.expand_path("templates", __dir__)
 
-      class_option "mod", aliases: "-m", group: :runtime, desc: "mod"
+      argument :name, required: true
 
-      class_option "schema", type: :boolean, aliases: "-s",
-                             default: false, group: :runtime,
-                             desc: "Create schema migration"
+      class_option "mod", aliases: "-m", group: :runtime, desc: "mod", required: true
+
+      class_option "schema",
+                   type: :boolean, lazy_default: true, group: :runtime,
+                   desc: "Create schema migration"
 
       def create_migration_file
         set_local_assigns!
-        migration_template @migration_template,
-                           File.join(mig_paths.first, "#{file_name}.rb")
+        migration_template "card_migration.erb",
+                           File.join(migration_path, "#{file_name}.rb")
       end
 
       protected
 
+      def mod_object
+        @mod_object ||= Cardio::Mod.fetch(options[:mod]) || raise("unknown mod: #{mod}")
+      end
+
       def migration_path
-        migration_object.mod_path options["mod"]
+        mod_object.subpath "data", migration_type.to_s, force: true
       end
 
       def migration_type
@@ -39,11 +46,8 @@ module Cardio
       # and the table name instance variables are setup.
 
       def set_local_assigns!
-        @migration_template = "card_migration.erb"
+        @migration_template =
         @migration_parent_class = Cardio::Migration.migration_class migration_type
-        return unless file_name.match?(/^(import)_(.*)(?:\.json)?/)
-        @migration_action = Regexp.last_match(1)
-        @json_filename = "#{Regexp.last_match(2)}.json"
       end
     end
   end
