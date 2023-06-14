@@ -71,7 +71,7 @@ Style/StringLiterals:
   EnforcedStyle: double_quotes
 Style/Documentation:
   Exclude:
-    - "**/data/{transform,schema}/*.rb"
+    - "{mod,card}/**/data/{transform,schema}/*.rb"
 Style/FrozenStringLiteralComment:
   Enabled: false
 Style/Alias:
