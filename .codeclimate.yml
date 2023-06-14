@@ -31,6 +31,6 @@ exclude_paths:
 - "coverage/**/*"
 - "mod/*/{lib,assets}/{style,stylesheets}/**/*.css"
 - "mod/*/{lib,assets}/{script,javascript}/**/*.js"
-- "mod/*/{data/files,public,vendor}/**/*"
+- "mod/*/{data,public,vendor}/**/*"
 - "card/mod/core/data/**/*"
 
