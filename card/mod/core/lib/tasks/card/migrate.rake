@@ -52,6 +52,14 @@ namespace :card do
       Cardio::Migration.port_all
     end
 
+    task recode: :environment do
+      Cardio::Mod.dirs.subpaths("data", "recode.yml").each do |_mod, path|
+        YAML.load_file(path).each do |oldcode, newcode|
+          Card::Codename.recode oldcode, newcode
+        end
+      end
+    end
+
     def version
       ENV["VERSION"] ? ENV["VERSION"].to_i : nil
     end
