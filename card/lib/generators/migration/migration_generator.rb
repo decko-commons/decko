@@ -39,14 +39,7 @@ module Cardio
         Migration.new_for migration_type
       end
 
-      # sets the default migration template that is being used for the
-      # generation of the migration
-      # depending on the arguments which would be sent out in the command line,
-      # the migration template
-      # and the table name instance variables are setup.
-
       def set_local_assigns!
-        @migration_template =
         @migration_parent_class = Cardio::Migration.migration_class migration_type
       end
     end

@@ -53,7 +53,7 @@ namespace :card do
     end
 
     task recode: :environment do
-      Cardio::Mod.dirs.subpaths("data", "recode.yml").each do |_mod, path|
+      Cardio::Mod.dirs.subpaths("data", "recode.yml").each_value do |path|
         YAML.load_file(path).each do |oldcode, newcode|
           Card::Codename.recode oldcode, newcode
         end
