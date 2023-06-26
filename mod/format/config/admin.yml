@@ -1,0 +1,14 @@
+configurations:
+  basic:
+    - title
+    - head
+    - credit
+cardtypes:
+  - json
+  - basic
+  - number
+  - plain_text
+  - html
+  - toggle
+  - phrase
+  - uri

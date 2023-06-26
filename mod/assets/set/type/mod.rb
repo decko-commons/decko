@@ -1,10 +1,3 @@
-# TODO: We can't detect file removal for folder group
-
-include_set List
-
-def modname
-  codename.to_s.gsub(/^mod_/, "")
-end
 
 def ensure_mod_asset_card asset_type
   asset_card = fetch_mod_assets_card asset_type
