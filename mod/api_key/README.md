@@ -26,12 +26,12 @@ the account holder and to users with the "Help Desk" role.
 
 #### Views
 
-| view name | format | purpose |
-|:---------:|:------:|:-------:|
-| core | HTML | show key to permitted user and provide form to generate new one |
-| generate_button | HTML | button for generating new API Key |
-| token_link | HTML | links to json view returning a JWT token |
-| token | JSON | return a JWT token for rapid authentication |
+| view name       | format | purpose                                                         |
+|:----------------|:-------|:----------------------------------------------------------------|
+| core            | HTML   | show key to permitted user and provide form to generate new one |
+| generate_button | HTML   | button for generating new API Key                               |
+| token_link      | HTML   | links to json view returning a JWT token                        |
+| token           | JSON   | return a JWT token for rapid authentication                     |
 
 ### {Card::Set::Right::Account [accounted card]+:account}
 
