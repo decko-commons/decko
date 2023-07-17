@@ -25,7 +25,6 @@ module Cardio
             track edible do
               current_user edible.delete(:user)
               time_machine edible.delete(:time) do
-                # binding.pry if edible[:type] == :link_list
                 Card.ensure edible
               end
             end
@@ -47,6 +46,8 @@ module Cardio
 
       def track edible
         rescuing edible do
+          # n = edible[:name]
+          # binding.pry if (n.is_a? Array) && n.first.to_s == "main_menu"
           # puts "eating: #{edible}" if @verbose
           card = yield
           puts "eaten: #{card.name}".cyan if @verbose

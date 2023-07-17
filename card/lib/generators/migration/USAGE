@@ -1,24 +1,23 @@
 
 Description:
-    Generates a migration of database content.
-
-    To import database content from a json file move your json file to db/migrate_cards/data
-    and choose as migration name import_<filename>.
+    Generates a migration of database schema or content.
 
 Example:
-    <%= banner_command %> generate card:migration better_commented_search_cards
+    <%= banner_command %> generate migration better_comments -m mymod
 
     This will create:
 
-        db/migrate_cards/(migration_number)_better_commented_search_cards.rb
-
-    ...which is set up to use methods in lib/card/migration.rb
+        mod/mymod/data/transform/(migration_number)_better_comments.rb
 
 
-    <%= banner_command %> generate card:migration import_better_search_cards
+    <%= banner_command %> generate migration better_comments -m mymod --schema
 
     This will create:
 
-        db/migrate_cards/(migration_number)_import_better_search_cards.rb
+        mod/mymod/data/schema/(migration_number)_better_comments.rb
 
-    ...which is set up to import data from db/migrate_cards/data/better_search_cards.json
+
+
+
+
+
