@@ -90,7 +90,34 @@ class Card
   #  ...then mycard will include the set modules associated with each of those sets in the
   # above order.
   #
+  # ### Abstract set modules
   #
+  # Suppose you have code that you'd like to reuse in more than one set.
+  #
+  # Well, set modules are just ruby, so it's possible to just define a standard ruby
+  # module (eg `module MySimpleModule...`) in a lib directory and then include that
+  # set (`include MySimpleModule`). That will work just fine so long as you only want
+  # to add simple ruby code and include it in the base ruby module. But what if you
+  # want the reusable code to use the DSL? What if you want to define reusable events,
+  # for example? Or if you want to define reusable views on formats?
+  #
+  # For this purpose, you can use _abstract set modules_. These are modules that use
+  # the set DSL but are not defined directly onto a specific set. Instead, they can
+  # be included in a set using the `include_set` command.
+  #
+  # For example, suppose you create a file at `mod/biz/set/abstract/special_views.rb`.
+  # And within that file you define a view such as the following:
+  #
+  #     format :html do
+  #       view :bizzy do
+  #         "I'm so busy"
+  #       end
+  #     end
+  #
+  # This will create an abstract set that can be included in any other set by invoking
+  # `include_set Card::Set::Abstract::SpecialViews`. Or just `include_set
+  # Abstract::SpecialViews` for short. And then the including set will have access to the
+  # "bizzy" view.
   module Set
     include Event::Api
     include Trait
