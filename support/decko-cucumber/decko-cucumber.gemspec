@@ -14,7 +14,7 @@ DeckoGem.gem "decko-cucumber" do |s, d|
                ["capybara-puma",          "~> 1.0"], # use puma server
                ["puma",                 "!= 6.0.0"],
                ["webdrivers",             "~> 4.6"],
-               ["selenium-webdriver",   "~> 4.9.1"], # 4.10.0 caused problems on semaphore
+               ["selenium-webdriver",     "=4.9.0"], # 4.9.1+ requires ruby 3
                ["rspec-html-matchers",    "~> 0.9"],
                ["rspec",                 "~> 3.10"],
                ["simplecov",             "~> 0.21"]
