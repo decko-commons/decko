@@ -2,8 +2,8 @@ version: v1.0
 name: Decko Standard
 agent:
   machine:
-    type: e2-standard-2
-    os_image: ubuntu2204
+    type: e1-standard-2
+    os_image: ubuntu2004
 global_job_config:
   env_vars:
     - name: BUNDLE_PATH
