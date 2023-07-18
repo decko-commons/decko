@@ -1,6 +1,6 @@
 format do
   view :title_link do
-    link_to_resource _render_raw, render_title
+    link_to_resource _render_raw, render_title_no_link
   end
 
   view :url_link do
@@ -10,7 +10,7 @@ end
 
 format :html do
   view :core do
-    render_url_link
+    render_title_link
   end
 
   def input_type
