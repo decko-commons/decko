@@ -13,7 +13,7 @@ DeckoGem.gem "decko-cucumber" do |s, d|
                ["launchy",                "~> 2.5"], # lets cucumber launch browser
                ["capybara-puma",          "~> 1.0"], # use puma server
                ["puma",                 "!= 6.0.0"],
-               ["webdrivers",             "~> 4.6"],
+               ["webdrivers",             "~> 5.2"],
                ["selenium-webdriver",     "=4.9.0"], # 4.9.1+ requires ruby 3
                ["rspec-html-matchers",    "~> 0.9"],
                ["rspec",                 "~> 3.10"],
