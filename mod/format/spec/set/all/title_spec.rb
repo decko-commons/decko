@@ -1,5 +1,5 @@
 RSpec.describe Card::Set::All::Title do
-  context "in text format" do
+  context "with text format" do
     it "renders title" do
       expect(format_subject(:base).render_title).to eq "A"
     end
