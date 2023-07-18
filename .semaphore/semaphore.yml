@@ -50,13 +50,13 @@ blocks:
       prologue:
         commands:
           # occasionally clear:
-          # - cache delete bundle-gems-baseline
-          - cache restore bundle-gems-baseline
+          - cache delete bundle-gems-baseline
+          #- cache restore bundle-gems-baseline
           - GLCHECK=`checksum Gemfile.lock`
-          - cache restore bundle-gems-$GLCHECK
+          #- cache restore bundle-gems-$GLCHECK
           - bundle install
-          - cache store bundle-gems-$GLCHECK ~/bundle
-          - cache store bundle-gems-baseline ~/bundle
+          #- cache store bundle-gems-$GLCHECK ~/bundle
+          #- cache store bundle-gems-baseline ~/bundle
 
           - sem-service start mysql
 
