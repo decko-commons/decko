@@ -44,5 +44,15 @@ RSpec.describe Card::Set::All::Base do
     it "core for new card" do
       expect(Card.new.format._render_core).to eq("")
     end
+
+    specify "url_link" do
+      expect_view(:url_link, format: :base).to eq("/A")
+    end
+
+    specify "url_link in html format" do
+      expect(card_subject.format.render_url_link)
+        .to have_tag('a[class="internal-link"][href="/A"]',
+                     text: "/A")
+    end
   end
 end
