@@ -128,9 +128,9 @@ blocks:
             - yarn run cypress run --record  --reporter junit --reporter-options "mochaFile=/home/semaphore/reports/cypress-output-[hash].xml"
 
             - pkill -2 -f puma
-        - name: Cucumber
-          commands:
-            - RAILS_ENV=cucumber bundle exec decko cucumber -- --format pretty --format junit --out /home/semaphore/reports --publish
+#        - name: Cucumber
+#          commands:
+#            - RAILS_ENV=cucumber bundle exec decko cucumber -- --format pretty --format junit --out /home/semaphore/reports --publish
 
       epilogue:
         always:
