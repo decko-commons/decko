@@ -31,7 +31,8 @@ basket[:icons] = {
     quick_filter: :bolt,
     reset: :restart_alt,
     more: :more_horiz,
-    menu: :more_vert
+    menu: :more_vert,
+    bar_menu: :more_horiz
   },
   #
   font_awesome: {

@@ -3,14 +3,10 @@ format :html do
     return "" unless card.known?
     # would be preferable to do this with unknown: :blank, but that fails with view
     # caching on, because voo always thinks it's the root.
-    wrap_with :div, class: "card-menu #{menu_link_classes}" do
-      [render_help_link,
-       menu_link,
-       (voo.show?(:board_link) ? board_link(in_modal: false) : nil)]
-    end
+    wrap_with(:div, class: "card-menu #{menu_link_classes}" ) { menu_items }
   end
 
-  def menu_link
+  def menu_edit_link
     case voo.edit
     when :inline
       edit_inline_link
@@ -19,6 +15,14 @@ format :html do
     else # :standard
       edit_link
     end
+  end
+
+  def menu_board_link
+    voo.show?(:board_link) ? board_link(in_modal: false) : nil
+  end
+
+  def menu_items
+    [render_help_link, menu_edit_link, menu_board_link]
   end
 
   def edit_view
