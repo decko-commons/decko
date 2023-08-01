@@ -3,14 +3,10 @@ format :html do
     return "" unless card.known?
     # would be preferable to do this with unknown: :blank, but that fails with view
     # caching on, because voo always thinks it's the root.
-    wrap_with :div, class: "card-menu #{menu_link_classes}" do
-      [render_help_link,
-       menu_link,
-       (voo.show?(:board_link) ? board_link(in_modal: false) : nil)]
-    end
+    wrap_with(:div, class: "card-menu #{menu_link_classes}" ) { menu_items }
   end
 
-  def menu_link
+  def menu_edit_link
     case voo.edit
     when :inline
       edit_inline_link
@@ -19,6 +15,14 @@ format :html do
     else # :standard
       edit_link
     end
+  end
+
+  def menu_board_link
+    voo.show?(:board_link) ? board_link(in_modal: false) : nil
+  end
+
+  def menu_items
+    [render_help_link, menu_edit_link, menu_board_link]
   end
 
   def edit_view
@@ -93,6 +97,12 @@ format :html do
                  class: classy("full-page-link")
   end
 
+  def new_window_link text: ""
+    link_to_card new_window_card, "#{new_window_icon} #{text}",
+                 class: classy("new-window-link"),
+                 target: "window_#{rand 999}"
+  end
+
   def modal_page_link text: ""
     modal_link "#{modal_icon} #{text}",
                path: { mark: card }, size: modal_page_size, class: "_modal-page-link"
@@ -104,6 +114,10 @@ format :html do
 
   def full_page_card
     card
+  end
+
+  def new_window_card
+    full_page_card
   end
 
   def edit_in_board_link opts={}
@@ -134,7 +148,11 @@ format :html do
   end
 
   def full_page_icon
-    icon_tag :open_in_new
+    icon_tag :full_page
+  end
+
+  def new_window_icon
+    icon_tag :new_window
   end
 
   def modal_icon
