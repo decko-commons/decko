@@ -18,7 +18,7 @@ def history_ancestor_ids recursion_level=0
 
   ids = history_parent_ids +
         history_parent_ids.map { |id| id.card&.history_ancestor_ids(recursion_level + 1) }
-  ids.flatten.compress
+  ids.flatten.compact
 end
 
 # ~~FIXME~~: optimize (no need to instantiate all actions and changes!)

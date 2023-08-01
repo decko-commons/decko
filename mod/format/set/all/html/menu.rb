@@ -93,6 +93,12 @@ format :html do
                  class: classy("full-page-link")
   end
 
+  def new_window_link text: ""
+    link_to_card new_window_card, "#{new_window_icon} #{text}",
+                 class: classy("new-window-link"),
+                 target: "window_#{rand 999}"
+  end
+
   def modal_page_link text: ""
     modal_link "#{modal_icon} #{text}",
                path: { mark: card }, size: modal_page_size, class: "_modal-page-link"
@@ -104,6 +110,10 @@ format :html do
 
   def full_page_card
     card
+  end
+
+  def new_window_card
+    full_page_card
   end
 
   def edit_in_board_link opts={}
@@ -134,7 +144,11 @@ format :html do
   end
 
   def full_page_icon
-    icon_tag :open_in_new
+    icon_tag :full_page
+  end
+
+  def new_window_icon
+    icon_tag :new_window
   end
 
   def modal_icon
