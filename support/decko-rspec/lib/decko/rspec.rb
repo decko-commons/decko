@@ -1,6 +1,6 @@
 require "i18n/tasks"
 require "minitest"
-require "nokogumbo"
+# require "nokogumbo"
 require "rails/controller/testing"
 require "rr"
 require "rspec-html-matchers"
