@@ -47,7 +47,7 @@ format :html do
   def groups item_names
     group_options.map do |option|
       checked = !item_names.delete(option.name).nil?
-      icon = icon_tag "open_in_new", "text-muted"
+      icon = icon_tag :new_window, "text-muted"
       option_link = link_to_card option.name, icon, target: "decko_role"
       box = check_box_tag "#{option.key}-perm-checkbox",
                           option.name, checked, class: "perm-checkbox-button"

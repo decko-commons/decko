@@ -82,11 +82,11 @@ $bar_stripe_color: $dark !default;
 }
 
 .bar-menu-button {
-  padding: 0.2em 0.75em;
+  padding: 0.25em;
+  // border-radius: 5px;
   &:hover {
     background-color: $secondary;
     color: $white;
-    border-radius: 5px;
   }
   // disable bootstrap dropdown caret
   &:after {
@@ -111,6 +111,6 @@ $bar_stripe_color: $dark !default;
   }
 
   ._card-link:hover .bar-menu-button {
-    display: block;
+    display: flex;
   }
 }

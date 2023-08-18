@@ -49,10 +49,15 @@ format :html do
   end
 
   def text_field_input
-    text_field :content, class: classy("d0-card-content")
+    text_field :content, class: classy("d0-card-content"), placeholder: placeholder_text
   end
 
   def hidden_input
     hidden_field :content, class: classy("d0-card-content")
+  end
+
+  # for override (placeholder for placeholders)
+  def placeholder_text
+    ""
   end
 end
