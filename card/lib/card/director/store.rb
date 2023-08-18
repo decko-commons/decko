@@ -7,7 +7,7 @@ class Card
         @after_store << block
       end
 
-      protected
+      # protected
 
       def after_store?
         @after_store.present?

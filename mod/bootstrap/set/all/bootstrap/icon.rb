@@ -3,7 +3,8 @@ basket[:icons] = {
     plus: :add,
     pencil: :edit,
     trash: :delete,
-    new_window: :open_in_new,
+    full_page: :open_in_full,
+    new_window: :close_fullscreen,
     history: :history,
     collapse: :expand_less,
     expand: :expand_more,
@@ -30,7 +31,8 @@ basket[:icons] = {
     quick_filter: :bolt,
     reset: :restart_alt,
     more: :more_horiz,
-    menu: :more_vert
+    menu: :more_vert,
+    bar_menu: :more_horiz
   },
   #
   font_awesome: {

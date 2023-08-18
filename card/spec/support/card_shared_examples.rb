@@ -1,6 +1,6 @@
 shared_examples "view without errors" do |view_name, format=:html|
   if format == :html
-    require "nokogumbo"
+    # require "nokogumbo"
     include RSpecHtmlMatchers::SyntaxHighlighting
   end
 
