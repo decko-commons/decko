@@ -3,7 +3,7 @@ format :html do
     return "" unless card.known?
     # would be preferable to do this with unknown: :blank, but that fails with view
     # caching on, because voo always thinks it's the root.
-    wrap_with(:div, class: "card-menu #{menu_link_classes}" ) { menu_items }
+    wrap_with(:div, class: "card-menu #{menu_link_classes}") { menu_items }
   end
 
   def menu_edit_link
