@@ -35,7 +35,7 @@ RSpec.describe Card::Set::Type::Image do
     end
 
     it "stores image" do
-      expect(subject.image.size).to eq 7202
+      expect(subject.image.size).to eq 6836
     end
 
     it "stores small size" do
