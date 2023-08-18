@@ -7,6 +7,6 @@
     "nonGlobalStepDefinitions": true
   },
   "dependencies": {
-    "wait-on": "^3.2.0"
+    "wait-on": "^7.0.1"
   }
 }
