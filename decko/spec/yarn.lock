@@ -2654,7 +2654,7 @@ jsonparse@^1.2.0:
 
 jsprim@^2.0.2:
   version "2.0.2"
-  resolved "https://registry.npmjs.org/jsprim/-/jsprim-2.0.2.tgz"
+  resolved "https://registry.yarnpkg.com/jsprim/-/jsprim-2.0.2.tgz#77ca23dbcd4135cd364800d22ff82c2185803d4d"
   dependencies:
     assert-plus "1.0.0"
     extsprintf "1.3.0"
