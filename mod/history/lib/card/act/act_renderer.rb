@@ -77,7 +77,7 @@ class Card
       end
 
       def link_to_act_card
-        link_to_card @act_card, icon_tag(:new_window), class: "_stop_propagation"
+        link_to_card @act_card, icon_tag(:full_page), class: "_stop_propagation"
       end
 
       def link_to_history

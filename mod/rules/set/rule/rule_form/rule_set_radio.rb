@@ -41,7 +41,7 @@ class RuleSetRadio
 
   def label
     label_classes = ["set-label", ("current-set-label" if current?)].compact.join(" ")
-    icon = icon_tag "open_in_new", "text-muted"
+    icon = icon_tag :new_window, "text-muted"
     text = Card.fetch(@set_name).label
     text += " <em>#{extra_info}</em>".html_safe if extra_info
 

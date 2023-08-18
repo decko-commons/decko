@@ -15,18 +15,18 @@
   :codename: home
   :content: Home
 
+- :name: Dashboard
+  :codename: dashboard
+
 - :name:
     - :role
     - :type
     - :structure
-  :type: :nestr_list
+  :type: :nest_list
   :content: |-
     {{+:description|lead}}
     {{+:dashboard|content}}
     {{+:members|titled;title: Members}}
-
-- :name: Dashboard
-  :codename: dashboard
 
 - :name: "*main menu"
   :codename: main_menu
