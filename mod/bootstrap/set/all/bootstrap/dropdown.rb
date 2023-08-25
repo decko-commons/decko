@@ -26,7 +26,6 @@ format :html do
   end
 
   def split_dropdown_button_toggle div_attributes={}
-
     wrap_with :a, div_attributes.reverse_merge(
       href: "#",
       class: "dropdown-toggle #{classy 'dropdown-toggle-split'}",

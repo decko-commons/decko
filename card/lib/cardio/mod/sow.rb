@@ -114,8 +114,9 @@ module Cardio
       end
 
       def old_data
+        return unless File.exist? filename
         # YAML.safe_load File.read(filename), [Symbol] if File.exist? filename
-        YAML.safe_load File.read(filename), permitted_classes: [Symbol] if File.exist? filename
+        YAML.safe_load File.read(filename), permitted_classes: [Symbol]
       end
 
       # @return Path
