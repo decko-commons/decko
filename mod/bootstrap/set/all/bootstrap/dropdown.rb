@@ -25,13 +25,15 @@ format :html do
     content_tag(:h6, text, class: "dropdown-header")
   end
 
-  def split_dropdown_button_toggle
-    wrap_with :a,
-              href: "#",
-              class: "dropdown-toggle #{classy 'dropdown-toggle-split'}",
-              "data-bs-toggle" => "dropdown",
-              "aria-haspopup" => "true",
-              "aria-expanded" => "false" do
+  def split_dropdown_button_toggle div_attributes={}
+
+    wrap_with :a, div_attributes.reverse_merge(
+      href: "#",
+      class: "dropdown-toggle #{classy 'dropdown-toggle-split'}",
+      "data-bs-toggle" => "dropdown",
+      "aria-haspopup" => "true",
+      "aria-expanded" => "false"
+    ) do
       '<span class="sr-only">Toggle Dropdown</span>'
     end
   end
