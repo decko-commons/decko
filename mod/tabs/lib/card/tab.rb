@@ -33,7 +33,7 @@ class Card
       add_class button_attrib, "active" if active?
       wrap_with :li, tab_button_link,
                 role: :presentation,
-                class: "nav-item tab-li-#{name}"
+                class: "nav-item tab-li-#{name.to_name.key}"
     end
 
     def tab_pane args=nil
