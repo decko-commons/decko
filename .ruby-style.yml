@@ -50,6 +50,10 @@ RSpec/NestedGroups:
   Description: Checks for nested example groups.
   Enabled: true
   Max: 5
+RSpec/ExpectActual:
+  Enabled: true
+  Exclude:
+    - "**/spec/routing/**/*"
 
 Style/Encoding:
   Description: Use UTF-8 as the source file encoding.

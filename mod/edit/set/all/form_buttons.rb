@@ -6,7 +6,7 @@ format :html do
   def standard_save_button opts={}
     return if voo&.hide?(:save_button)
 
-    add_class opts, "submit-button btn-sm me-3 _update-history-pills"
+    add_class opts, "submit-button me-3 _update-history-pills"
     opts[:text] ||= "Save"
     opts["data-cy"] = "save"
     submit_button opts
@@ -18,7 +18,7 @@ format :html do
   def standard_save_and_close_button opts={}
     close = opts.delete(:close) || :modal
     text = opts[:text] || "Save and Close"
-    add_class opts, "submit-button btn-sm me-3 _close-on-success"
+    add_class opts, "submit-button me-3 _close-on-success"
     add_class opts, "_update-origin" unless opts[:no_origin_update]
     opts.reverse_merge! text: text, "data-cy": "submit-#{close}"
 
@@ -31,7 +31,7 @@ format :html do
   end
 
   def modal_cancel_button
-    modal_close_button "Cancel", situation: "secondary", class: "btn-sm cancel-button"
+    modal_close_button "Cancel", situation: "secondary", class: "cancel-button"
   end
 
   def edit_cancel_button
@@ -49,7 +49,7 @@ format :html do
   end
 
   def delete_button_opts opts={}
-    add_class opts,  "slotter btn btn-outline-danger ms-auto btn-sm"
+    add_class opts,  "slotter btn btn-outline-danger ms-auto"
     opts["data-confirm"] = delete_confirm opts
     opts[:path] = { action: :delete }
     opts[:path][:success] = delete_success(opts)

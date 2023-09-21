@@ -1,4 +1,5 @@
 $(window).ready ->
+  # remove the modal
   $('body').on 'hidden.bs.modal', (_event) ->
     decko.removeModal()
 
