@@ -30,6 +30,8 @@ Decko::Engine.routes.draw do
   patch  "/" => "card#update"
   delete "/" => "card#delete"
 
+  post  "/type/:type" => "card#create"
+
   # RESTful (with mark)
   match ":mark(.:format)" => "card#create", via: :post
   match ":mark(.:format)" => "card#update", via: %i[put patch]

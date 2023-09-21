@@ -50,6 +50,10 @@ Decko::RestSpecHelper.describe_api do
       expect(post: "/chicken").to route_to_card(action: "create", mark: "chicken")
     end
 
+    it "routes http POST to create action with type" do
+      expect(post: "type/fruit").to route_to_card(action: "create", type: "fruit")
+    end
+
     it "routes http PATCH to update action without mark" do
       expect(patch: "/").to route_to_card(action: "update")
     end
@@ -58,7 +62,7 @@ Decko::RestSpecHelper.describe_api do
       expect(patch: "/nibble").to route_to_card(action: "update", mark: "nibble")
     end
 
-    it "routes http DELETE to delete action with mark" do
+    it "routes http DELETE to delete action without mark" do
       expect(delete: "/").to route_to_card(action: "delete")
     end
 
@@ -71,7 +75,7 @@ Decko::RestSpecHelper.describe_api do
         .to route_to_card(action: "asset", mark: "application", format: "js")
     end
 
-    it "handles deprecated asset requests" do
+    it "handles deprecated javascript requests" do
       expect(get: "/javascripts/application.js")
         .to route_to_card(action: "asset", mark: "application", format: "js")
     end
