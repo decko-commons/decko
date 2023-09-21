@@ -30,6 +30,7 @@ Naming/AccessorMethodName:
 #    Max: 10
 RSpec/ExpectActual:
   Enabled: true
-  Exclude: "decko/spec/routing"
+  Exclude:
+    - "**/spec/routing/**/*"
 AllCops:
   TargetRubyVersion: 2.5
