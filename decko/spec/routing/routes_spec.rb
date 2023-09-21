@@ -62,7 +62,7 @@ Decko::RestSpecHelper.describe_api do
       expect(patch: "/nibble").to route_to_card(action: "update", mark: "nibble")
     end
 
-    it "routes http DELETE to delete action with mark" do
+    it "routes http DELETE to delete action without mark" do
       expect(delete: "/").to route_to_card(action: "delete")
     end
 
@@ -75,7 +75,7 @@ Decko::RestSpecHelper.describe_api do
         .to route_to_card(action: "asset", mark: "application", format: "js")
     end
 
-    it "handles deprecated asset requests" do
+    it "handles deprecated javascript requests" do
       expect(get: "/javascripts/application.js")
         .to route_to_card(action: "asset", mark: "application", format: "js")
     end

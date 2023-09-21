@@ -28,5 +28,8 @@ Naming/AccessorMethodName:
 #    Enabled: true
 #    CountComments: false
 #    Max: 10
+RSpec/ExpectActual:
+  Enabled: true
+  Exclude: "decko/spec/routing"
 AllCops:
   TargetRubyVersion: 2.5
