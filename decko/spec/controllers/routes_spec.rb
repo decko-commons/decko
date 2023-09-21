@@ -50,6 +50,10 @@ Decko::RestSpecHelper.describe_api do
       expect(post: "/chicken").to route_to_card(action: "create", mark: "chicken")
     end
 
+    it "routes http POST to create action with type" do
+      expect(post: "type/fruit").to route_to_card(action: "create", type: "fruit")
+    end
+
     it "routes http PATCH to update action without mark" do
       expect(patch: "/").to route_to_card(action: "update")
     end
