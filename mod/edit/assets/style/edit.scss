@@ -10,11 +10,11 @@
   margin-right: 1rem;
 }
 
-.d0-card-header a {
+.d0-card-header-title a {
   color: $body-color;
-  &.edit-link, &.board-link, &.help-link {
-    color: $text-muted;
-  }
+  //&.edit-link, &.board-link, &.help-link {
+  //  color: $text-muted;
+  //}
 }
 
 //
