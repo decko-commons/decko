@@ -2,15 +2,15 @@
   //, "data-backdrop": "static"}
   %div{class: classes}
     .modal-content
-      .modal-header
-        = title
-        - if voo.show? :modal_menu
-          = menu
-        -# - else
-        -#   else
-        -#   %button.btn-close{ type: "button",
-        -#                      "data-bs-dismiss": "modal",
-        -#                      "aria-label": "Close" }
+      - if voo.show? :modal_header
+        .modal-header
+          = title
+          - if voo.show? :modal_menu
+            = menu
+          -# - else
+          -#   %button.btn-close{ type: "button",
+          -#                      "data-bs-dismiss": "modal",
+          -#                      "aria-label": "Close" }
       .modal-body
         = body
       - if footer.present?
