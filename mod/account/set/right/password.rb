@@ -20,7 +20,11 @@ event :encrypt_password, :store, on: :save, changed: :content do
 end
 
 event :validate_password, :validate, on: :save do
-  return if content.length > 3
+  event :validate_password, :validate, on: :save do
+    return if content.length > 3
+  
+    errors.add :password, t(:account_password_length)
+  end
 
   errors.add :password, t(:account_password_length)
 end
@@ -38,8 +42,16 @@ format :html do
     render_raw
   end
 
-  view :input do
+  def input_type
+    :password
+  end
+
+  def password_input
     haml :password_input
+  end
+
+  view :input do
+    password_input
     # card.content = ""
     # password_field :content, class: "d0-card-content", autocomplete: autocomplete?
   end
