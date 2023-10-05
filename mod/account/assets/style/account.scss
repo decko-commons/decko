@@ -50,6 +50,14 @@
   display: inline;
 }
 
+#toggle-password {
+  float: right;
+  margin-right: 0.6rem;
+  margin-top: -1.95rem;
+  position: relative;
+  z-index: 2;
+}
+
 // FIXME - decko should handle better
 //#my-card-link {
 //  padding-right: 0.6em;
