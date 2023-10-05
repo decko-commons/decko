@@ -52,8 +52,6 @@ format :html do
 
   view :input do
     password_input
-    # card.content = ""
-    # password_field :content, class: "d0-card-content", autocomplete: autocomplete?
   end
 
   def autocomplete?
