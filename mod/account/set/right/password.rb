@@ -39,8 +39,9 @@ format :html do
   end
 
   view :input do
-    card.content = ""
-    password_field :content, class: "d0-card-content", autocomplete: autocomplete?
+    haml :password_input
+    # card.content = ""
+    # password_field :content, class: "d0-card-content", autocomplete: autocomplete?
   end
 
   def autocomplete?
