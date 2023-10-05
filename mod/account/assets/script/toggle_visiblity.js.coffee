@@ -2,7 +2,7 @@
 #   passwordField = $("#password-field");
 #   togglePassword = $("#toggle-password");
 
-#   togglePassword.on "click", () ->
+#   togglePassword.addEventListener "click", () ->
 #     if passwordField.type is "password"
 #       passwordField.type = "text"
 #       togglePassword.querySelector('i').textContent = "visibility"
