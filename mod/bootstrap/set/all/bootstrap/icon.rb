@@ -32,7 +32,9 @@ basket[:icons] = {
     reset: :restart_alt,
     more: :more_horiz,
     menu: :more_vert,
-    bar_menu: :more_horiz
+    bar_menu: :more_horiz,
+    eye_open: :visibility,
+    eye_slash: :visibility_off
   },
   #
   font_awesome: {
