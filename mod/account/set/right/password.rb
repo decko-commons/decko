@@ -19,12 +19,18 @@ event :encrypt_password, :store, on: :save, changed: :content do
   # not sure when that broke??
 end
 
-event :validate_password, :validate, on: :save do
-  event :validate_password, :validate, on: :save do
-    return if content.length > 3
+# def validate_password_length_and_char(password)
+#   pattern = /[0-9!§$%&#]/
+#   if password =~ pattern && password.length >= 8
+#     return true
+#   else
+#     return false
+#   end
+# end
 
-    errors.add :password, t(:account_password_length)
-  end
+event :validate_password, :validate, on: :save do
+  return if content.length > 3
+  # return if validate_password_length_and_char(content)
 
   errors.add :password, t(:account_password_length)
 end
