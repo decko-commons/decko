@@ -22,7 +22,7 @@ end
 event :validate_password, :validate, on: :save do
   event :validate_password, :validate, on: :save do
     return if content.length > 3
-  
+
     errors.add :password, t(:account_password_length)
   end
 
