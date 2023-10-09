@@ -4,11 +4,14 @@ configurations:
     - head
     - credit
 cardtypes:
-  - json
-  - basic
-  - number
-  - plain_text
-  - html
-  - toggle
-  - phrase
-  - uri
+  text:
+    - basic
+    - plain_text
+    - html
+    - phrase
+  scripting:
+    - json
+  data:
+    - number
+    - toggle
+    - uri

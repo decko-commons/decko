@@ -30,13 +30,6 @@ def asset_output_updated_at
 end
 
 format :html do
-  view :core do
-    card.item_cards.map do |item|
-      "<p><h5>#{item.cardname.tag}</h5>" +
-        list_group(item.input_item_cards.map { |ic| ic.name }) + "</p>"
-    end.join(" ") + card.remote_group_urls.map {|h| h["src"]}.join(" ")
-  end
-
   view :javascript_include_tag do
     [remote_include_tags, local_include_tag].flatten.compact.join "\n"
   end

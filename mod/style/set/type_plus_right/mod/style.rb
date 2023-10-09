@@ -30,13 +30,6 @@ format :html do
           media: "all", rel: "stylesheet", type: "text/css"
     end
   end
-
-  view :core do
-    card.item_cards.map do |item|
-      "<p><h5>#{item.cardname.tag}</h5>" +
-      list_group(item.input_item_cards.map { |ic| ic.name }) + "</p>"
-    end.join(" ") + remote_group_urls
-  end
 end
 
 def asset_input_needs_refresh?

@@ -1,0 +1,6 @@
+settings:
+  - captcha
+
+cardtypes:
+  template:
+    - notification_template

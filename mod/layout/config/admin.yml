@@ -1,0 +1,7 @@
+settings:
+  - layout
+  - head
+
+cardtypes:
+  styling:
+    - layout_type

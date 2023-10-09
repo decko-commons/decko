@@ -5,30 +5,24 @@ include_set Abstract::TaskTable
 
 format :html do
   view :core do
-    output [
-             content_tag(:p, card.description),
-             render_settings,
-             render_configurations,
-             render_cardtypes,
-             render_styles,
-             render_scripts,
-             render_tasks,
-             render_depends_on
-           ]
+    render_views %i[
+      description
+      settings
+      configurations
+      cardtypes
+      styles
+      scripts
+      tasks
+      depends_on
+    ].select {  |name| card.send("has_#{name}?")}
   end
 
-  def section title, content
-    "<h2>#{title}</h2><p>#{content}</p>"
+  view :description do
+    content_tag(:p, card.description)
   end
 
-  def list_section title, items
-    content =
-      items&.map do |card|
-        nest card, view: :bar
-      end&.join(" ")
-    return unless content.present?
-
-    section title, content
+  def render_views list
+    list.map { |view_name| send("render_#{view_name}") }.compact.join "<br/>"
   end
 
   view :settings do
@@ -36,7 +30,7 @@ format :html do
   end
 
   view :cardtypes do
-    list_section "Cardtypes", card.cardtypes
+    nested_list_section "Cardtypes", card.cardtypes
   end
 
   view :configurations do
@@ -77,19 +71,52 @@ format :html do
   end
 end
 
+def has_settings?
+  settings.present?
+end
+
+def has_cardtypes?
+  cardtypes.present?
+end
+
+def has_configurations?
+  configurations.present?
+end
+
+def has_tasks?
+  tasks.present?
+end
+
+def has_styles?
+  fetch(:style).present?
+end
+
+def has_scripts?
+  fetch(:script).present?
+end
+
+def  has_depends_on?
+  mod&.spec&.dependencies.present?
+end
+
+def has_description?
+  true
+end
+
 def depends_on
   mod&.spec&.dependencies
     &.map { |dep| dep.name }
-    .select { |name| name.starts_with? "card-mod" }
-    .map { |name| "mod_#{name[8..-1]}" }
+    &.select { |name| name.starts_with? "card-mod" }
+    &.map { |name| "mod_#{name[8..-1]}" }
 end
-
 
 def tasks
-  basket[:tasks].select { |k, v| v[:mod] == modname.to_sym   }
+  basket[:tasks].select { |_k, v| v[:mod] == modname.to_sym   }
 end
+
 def settings
   return unless admin_config
+
   admin_config["settings"]&.map do |setting|
     setting.to_sym
   end
@@ -97,20 +124,22 @@ end
 
 def configurations
   return unless admin_config
+
   admin_config["configurations"]
 end
 
 def cardtypes
   return unless admin_config
-  admin_config["cardtypes"]&.map do |setting|
-    setting.to_sym
-  end
+
+  config_codenames_grouped_by_title admin_config_section(:cardtypes)
 end
+
 
 def description
   t("#{modname}_mod_description",
     default: mod&.spec&.description.present? ? mod&.spec&.description : mod&.spec&.summary)
 end
+
 
 def modname
   codename.to_s.gsub(/^mod_/, "")
@@ -120,9 +149,32 @@ def mod
   @mod ||= Cardio::Mod.fetch modname
 end
 
+def admin_config_section category
+  admin_config_objects_by_category[category.to_s]
+end
+
+
 def admin_config
   @admin_config ||= load_admin_config
 end
+
+def admin_config_objects
+  @admin_config_objects ||= admin_config.map do |category, values|
+    if values.is_a? Hash
+      values.map do |subcategory, subvalues|
+        create_config_objects mod, category, subcategory, subvalues
+      end.flatten
+    else
+      create_config_objects mod, category, nil, values
+    end
+  end.flatten
+end
+
+def admin_config_objects_by_category
+  @admin_config_objects_by_category ||= admin_config_objects.group_by { |config| config.category }
+end
+
+
 
 def load_admin_config
   return unless admin_config_exists?

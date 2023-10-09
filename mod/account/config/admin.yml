@@ -1,0 +1,4 @@
+cardtypes:
+  admin:
+    - role
+    - signup

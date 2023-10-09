@@ -1,0 +1,3 @@
+cardtypes:
+  admin:
+    - session

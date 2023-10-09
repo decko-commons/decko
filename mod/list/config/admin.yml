@@ -1,0 +1,10 @@
+settings:
+  - content_options
+  - content_option_view
+
+cardtypes:
+  organize:
+    - list
+    - pointer
+    - nest_list
+    - link_list

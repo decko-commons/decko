@@ -7,7 +7,6 @@ def ensure_mod_asset_card asset_type
 end
 
 private
-
 def fetch_mod_assets_card asset_type
   Card.fetch [name, asset_type], new: { type: :list }
 end

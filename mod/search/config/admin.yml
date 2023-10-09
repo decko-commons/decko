@@ -1,0 +1,6 @@
+settings:
+  - script
+
+cardtypes:
+  organize:
+    - search_type

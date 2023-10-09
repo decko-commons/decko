@@ -11,7 +11,7 @@ DeckoGem.gem "decko-rspec" do |s, d|
                ["rails-controller-testing", "~> 1.0"],
                ["rr",                       "~> 3.0"],
                ["rspec-html-matchers",      "~> 0.9"],
-               ["rspec",                   "~> 3.10"],
+               ["rspec",                   "~> 3.12"],
                ["rspec-rails",              "~> 5.0"],
                ["rubocop-rspec",            "~> 2.4"],
                ["simplecov",               "~> 0.21"],
