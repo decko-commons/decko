@@ -19,8 +19,18 @@ event :encrypt_password, :store, on: :save, changed: :content do
   # not sure when that broke??
 end
 
+# def validate_password_length_and_char(password)
+#   pattern = /[0-9!§$%&#]/
+#   if password =~ pattern && password.length >= 8
+#     return true
+#   else
+#     return false
+#   end
+# end
+
 event :validate_password, :validate, on: :save do
   return if content.length > 3
+  # return if validate_password_length_and_char(content)
 
   errors.add :password, t(:account_password_length)
 end
@@ -38,9 +48,16 @@ format :html do
     render_raw
   end
 
+  def input_type
+    :password
+  end
+
+  def password_input
+    haml :password_input
+  end
+
   view :input do
-    card.content = ""
-    password_field :content, class: "d0-card-content", autocomplete: autocomplete?
+    password_input
   end
 
   def autocomplete?
