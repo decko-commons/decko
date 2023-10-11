@@ -1,6 +1,6 @@
 $ ->
-  passwordField = $("#card_subcards___password_content")
-  togglePassword = $("#toggle-password")
+  passwordField = $("input._toggle_password")
+  togglePassword = $("span._toggle-password")
 
   togglePassword.on "click", () ->
     if passwordField.prop("type") is "password"

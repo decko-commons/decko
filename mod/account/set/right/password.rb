@@ -38,10 +38,6 @@ format :html do
     render_raw
   end
 
-  def input_type
-    :password
-  end
-
   def password_input
     haml :password_input
   end
