@@ -75,7 +75,7 @@ jQuery.fn.extend {
     else
       modalSlot = $('<div/>', id: "modal-container", class: "modal fade _modal-slot")
       modalSlot.append(
-        $('<div/>' , class: "modal-dialog").append(
+        $('<div/>' , class: "modal-dialog modal-dialog-centered").append(
           $('<div/>', class: "modal-content").append(this)
         )
       )
