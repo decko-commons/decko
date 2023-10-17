@@ -71,13 +71,18 @@ module Cardio
         end
 
         # for processing that needs to happen on all cards, including fields
-        def each_card_hash items
+        def each_card_hash items, &block
           items.each do |item|
             raise Card::Error, "inedible pod data: #{item}" unless item.is_a? Hash
+
             yield item
-            item[:fields]&.values&.each { |val| yield val if val.is_a? Hash }
+            process_fields item, &block
           end
           items
+        end
+
+        def process_fields item
+          item[:fields]&.values&.each { |val| yield val if val.is_a? Hash }
         end
 
         def handle_attachments mod, hash
