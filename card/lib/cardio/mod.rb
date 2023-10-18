@@ -60,9 +60,12 @@ module Cardio
       "mod_#{name}"
     end
 
-    def subpath *parts
+    def subpath *parts, force: false
       path = File.join [@path] + parts
-      path if File.exist? path
+      return path if File.exist? path
+      return unless force
+
+      FileUtils.mkdir_p path
     end
 
     def tmp_dir type

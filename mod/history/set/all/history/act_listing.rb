@@ -20,13 +20,6 @@ format :html do
     end
   end
 
-  def act_list acts, context
-    act_accordion acts, context do |act, seq|
-      fmt = context == :relative ? self : act.card.format(:html)
-      fmt.act_listing act, seq, context
-    end
-  end
-
   def act_listing act, seq=nil, context=nil
     opts = act_listing_opts_from_params(seq)
     opts[:slot_class] = "revision-#{act.id} history-slot list-group-item"
@@ -40,12 +33,6 @@ format :html do
     { act_seq: (seq || params["act_seq"]),
       action_view: (params["action_view"] || "summary").to_sym,
       hide_diff: params["hide_diff"].to_s.strip == "true" }
-  end
-
-  def act_accordion acts, context, &block
-    accordion do
-      acts_for_accordion(acts, context, &block).join
-    end
   end
 
   def acts_for_accordion acts, context
@@ -86,26 +73,6 @@ format :html do
     @acts_page_from_params ||= params["page"].present? ? params["page"].to_i : 1
   end
 
-  def act_paging acts, context
-    return unless controller.request # paginate requires a request
-
-    wrap_with :div, class: "slotter btn-sm" do
-      # normally we let method_missing handle the action_view stuff,
-      # but that doesn't handle **arguments yet
-      action_view.send :paginate, current_page_acts(acts), **act_paging_opts(context)
-    end
-  end
-
-  def act_paging_opts context
-    { remote: true, theme: "twitter-bootstrap-4" }.tap do |opts|
-      opts[:total_pages] = 10 if limited_paging? context
-    end
-  end
-
-  def limited_paging? context
-    context == :absolute && Act.count > 1000
-  end
-
   def action_icon action_type, extra_class=nil
     icon = case action_type
            when :create then :create_action
@@ -117,6 +84,19 @@ format :html do
   end
 
   private
+
+  def act_list acts, context
+    act_accordion acts, context do |act, seq|
+      fmt = context == :relative ? self : act.card.format(:html)
+      fmt.act_listing act, seq, context
+    end
+  end
+
+  def act_accordion acts, context, &block
+    accordion do
+      acts_for_accordion(acts, context, &block).join
+    end
+  end
 
   def act_renderer context
     case context

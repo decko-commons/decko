@@ -95,6 +95,14 @@ class Card
         end
       end
 
+      def recode oldcode, newcode
+        return unless id(oldcode) && !id(newcode)
+
+        puts "recode #{oldcode}, #{newcode}"
+        Card.where(codename: oldcode).take.update_column :codename, newcode
+        reset_cache
+      end
+
       private
 
       # iterate through every card with a codename

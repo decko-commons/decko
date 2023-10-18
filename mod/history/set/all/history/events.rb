@@ -1,3 +1,11 @@
+event :update_ancestor_timestamps, :integrate do
+  ids = history_ancestor_ids
+  return unless ids.present?
+
+  Card.where(id: ids).update_all(updater_id: Auth.current_id, updated_at: Time.now)
+  ids.map { |anc_id| Card.expire anc_id.cardname }
+end
+
 # must be called on all actions and before :set_name, :process_subcards and
 # :delete_children
 event :assign_action, :initialize, when: :actionable? do
@@ -12,20 +20,8 @@ event :assign_action, :initialize, when: :actionable? do
   end
 end
 
-# can we store an action? (can be overridden, eg in files)
-def actionable?
-  history?
-end
-
 event :detect_conflict, :validate, on: :update, when: :edit_conflict? do
   errors.add :conflict, ::I18n.t(:history_error_not_latest_revision)
-end
-
-def edit_conflict?
-  last_action_id_before_edit &&
-    last_action_id_before_edit.to_i != last_action_id &&
-    (la = last_action) &&
-    la.act.actor_id != Auth.current_id
 end
 
 # stores changes in the changes table and assigns them to the current action
@@ -44,6 +40,46 @@ event :finalize_action, :finalize, when: :finalize_action? do
     @current_action = nil
   end
 end
+
+event :rollback_actions, :prepare_to_validate, on: :update, when: :rollback_request? do
+  update_args = process_revert_actions
+  Env.params["revert_actions"] = nil
+  update! update_args
+  clear_drafts
+  abort :success
+end
+
+event :finalize_act, after: :finalize_action, when: :act_card? do
+  Card::Director.act.update! card_id: id
+end
+
+event :remove_empty_act, :integrate_with_delay_final,
+      priority: 100, when: :remove_empty_act? do
+  # Card::Director.act.delete
+  # Card::Director.act = nil
+end
+
+# can we store an action? (can be overridden, eg in files)
+def actionable?
+  history?
+end
+
+def remove_empty_act?
+  act_card? && Director.act&.ar_actions&.reload&.empty?
+end
+
+def finalize_action?
+  actionable? && current_action
+end
+
+def edit_conflict?
+  last_action_id_before_edit &&
+    last_action_id_before_edit.to_i != last_action_id &&
+    (la = last_action) &&
+    la.act.actor_id != Auth.current_id
+end
+
+private
 
 # changes for the create action are stored after the first update
 def store_card_changes_for_create_action
@@ -72,30 +108,4 @@ def store_each_history_field action_id, fields=nil
                           card_action_id: action_id
     end
   end
-end
-
-def finalize_action?
-  actionable? && current_action
-end
-
-event :rollback_actions, :prepare_to_validate, on: :update, when: :rollback_request? do
-  update_args = process_revert_actions
-  Env.params["revert_actions"] = nil
-  update! update_args
-  clear_drafts
-  abort :success
-end
-
-event :finalize_act, after: :finalize_action, when: :act_card? do
-  Card::Director.act.update! card_id: id
-end
-
-event :remove_empty_act, :integrate_with_delay_final,
-      priority: 100, when: :remove_empty_act? do
-  # Card::Director.act.delete
-  # Card::Director.act = nil
-end
-
-def remove_empty_act?
-  act_card? && Director.act&.ar_actions&.reload&.empty?
 end

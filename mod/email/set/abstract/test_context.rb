@@ -8,7 +8,7 @@ format :html do
   end
 
   def test_context_card
-    card.left.fetch(:test_context)&.item_card
+    card.left.fetch(:test_context)&.first_card
   end
 end
 

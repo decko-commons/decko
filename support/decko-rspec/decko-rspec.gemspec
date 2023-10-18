@@ -7,7 +7,7 @@ DeckoGem.gem "decko-rspec" do |s, d|
   s.description = ""
   d.depends_on ["i18n-tasks",               "~> 0.9"],
                ["minitest",                "~> 5.14"],
-               ["nokogumbo",                "~> 2.0"],
+               # ["nokogumbo",                "~> 2.0"],
                ["rails-controller-testing", "~> 1.0"],
                ["rr",                       "~> 3.0"],
                ["rspec-html-matchers",      "~> 0.9"],

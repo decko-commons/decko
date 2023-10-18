@@ -43,6 +43,7 @@ format :html do
     add_class opts, "slotter"
   end
 
+  # FIXME: probably shouldn't be new window. overlay?
   def slotify_overlay_link
     overlay_menu_link :new_window, card: card
   end

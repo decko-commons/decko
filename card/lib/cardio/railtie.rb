@@ -65,14 +65,11 @@ module Cardio
 
           p.add "lib/graph_q_l/types/query.rb"
           p.add "mod-data"
+          p.add "data/schema"
+          p.add "data/transform"
 
           p.add "db", with: "#{card_root}/db"
           p.add "db/seeds.rb", with: "#{card_root}/db/seeds.rb"
-          p.add "db/migrate", with: "#{card_root}/db/migrate"
-          p.add "db/migrate_core_cards", with: "#{card_root}/db/migrate_core_cards"
-
-          p.add "db/migrate_deck", with: "db/migrate"
-          p.add "db/migrate_deck_cards", with: "db/migrate_cards"
 
           Cardio::Mod.dirs.each do |mod_path|
             c.autoload_paths += Dir["#{mod_path}/lib"]
@@ -83,7 +80,11 @@ module Cardio
             p["config/initializers"] << "#{mod_path}/config/early"
             p["late/initializers"] << "#{mod_path}/config/late"
             p["lib/tasks"] << "#{mod_path}/lib/tasks"
+
             p["mod-data"] << "#{mod_path}/data"
+            p["data/schema"] << "#{mod_path}/data/schema"
+            p["data/transform"] << "#{mod_path}/data/transform"
+
             p["config/locales"] << "#{mod_path}/config/locales"
           end
 

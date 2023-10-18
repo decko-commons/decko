@@ -1,7 +1,17 @@
 # -*- encoding : utf-8 -*-
 
+# actions directly on current card
+def action_ids
+  actions.pluck :id
+end
+
+# includes drafts
 def all_action_ids
   Card::Action.where(card_id: id).pluck :id
+end
+
+def history_actions
+  Action.where card_id: history_card_ids
 end
 
 def old_actions

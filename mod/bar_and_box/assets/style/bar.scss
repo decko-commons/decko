@@ -1,5 +1,9 @@
 $bar_stripe_color: $dark !default;
 
+._card-link {
+  cursor: pointer;
+}
+
 .bar {
   border: 1px solid $border-color;
   &:hover {
@@ -8,12 +12,18 @@ $bar_stripe_color: $dark !default;
       background-color: $gray-200;
     }
   }
+  &.accordion-item {
+    .bar-left, .bar-right {
+      padding: 0;
+    }
+  }
 }
 
 .selected .bar, .selected .box {
   border: 3px solid $primary !important;
 }
 
+// not sure this ever gets used:
 .bar-accordion {
   .accordion-body {
     padding: 0;
@@ -72,11 +82,11 @@ $bar_stripe_color: $dark !default;
 }
 
 .bar-menu-button {
-  padding: 0.2em 0.75em;
+  padding: 0.25em;
+  // border-radius: 5px;
   &:hover {
     background-color: $secondary;
     color: $white;
-    border-radius: 5px;
   }
   // disable bootstrap dropdown caret
   &:after {
@@ -101,6 +111,6 @@ $bar_stripe_color: $dark !default;
   }
 
   ._card-link:hover .bar-menu-button {
-    display: block;
+    display: flex;
   }
 }

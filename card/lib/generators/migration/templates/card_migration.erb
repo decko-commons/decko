@@ -2,8 +2,6 @@
 
 class <%= migration_class_name %> < <%= @migration_parent_class %>
   def up
-<% if @migration_action == 'import' -%>
-    import_cards '<%= @json_filename %>'
-<% end -%>
+
   end
 end

@@ -3,7 +3,8 @@ basket[:icons] = {
     plus: :add,
     pencil: :edit,
     trash: :delete,
-    new_window: :open_in_new,
+    full_page: :open_in_full,
+    new_window: :close_fullscreen,
     history: :history,
     collapse: :expand_less,
     expand: :expand_more,
@@ -20,8 +21,8 @@ basket[:icons] = {
     update_action: :edit,
     delete_action: :remove_circle,
     draft: :build,
-    next: :chevron_right,
-    previous: :chevron_left,
+    next: :arrow_forward_ios,
+    previous: :arrow_back_ios,
     forward: :arrow_forward,
     back: :arrow_back,
     list: :list,
@@ -29,7 +30,9 @@ basket[:icons] = {
     filter: :filter_alt,
     quick_filter: :bolt,
     reset: :restart_alt,
-    more: :more_horiz
+    more: :more_horiz,
+    menu: :more_vert,
+    bar_menu: :more_horiz
   },
   #
   font_awesome: {
