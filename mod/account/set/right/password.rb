@@ -34,22 +34,15 @@ event :validate_password_length, :validate, on: :save do
 end
 
 def check_password_regex(char_types, regex_hash, password)
-  char_types.each do |char_type|
-    if regex_hash.key?(char_type)
-      # regex_pattern = Regexp.new(regex_hash[char_type])
-      return char_type if password !~ regex_hash[char_type]
-    end
-  end
-  true
+  char_types.each { |char_type| return char_type if regex_hash.key?(char_type) && password !~ regex_hash[char_type] } || true
 end
 
 event :validate_password_chars, :validate, on: :save do
   result = check_password_regex(Cardio.config.account_password_chars, PASSWORD_REGEX, content)
   requirement = ""
-  
+
   case result
-    when :upper
-      requirement = "an upper case letter"
+    when :upper then requirement = "an upper case letter"
     when :lower then requirement = "a lower case letter"
     when :number then requirement = "a number"
     when :symbol then requirement = "a special character (!@#$%^&*())"
