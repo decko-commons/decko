@@ -98,8 +98,8 @@ de:
   account_invite: Einladen
   account_missing_account: "FEHLER: Registrierkarte ohne Konto"
   account_or_sign_up: '...oder registrieren!'
-  account_password_length: muss mindestens 8 Zeichen lang sein
-  account_password_chars: muss mindestens 1 Zahl und ein Sonderzeichen enthalten (!§$%&#)
+  account_password_length: muss mindestens %{num_char} Zeichen lang sein
+  account_password_chars: muss mindestens 1 Zahl und ein Sonderzeichen enthalten (!§$%&#) #TODO: Error message must match requriements
   account_password_missing: Passwort muss angegeben werden
   account_private_data: Private Daten
   account_reset_password: Password Zurücksetzen
