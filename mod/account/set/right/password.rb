@@ -34,13 +34,17 @@ event :validate_password_length, :validate, on: :save do
 end
 
 def check_password_regex char_types, regex_hash, password
-  char_types.each { |char_type| return char_type if 
-  regex_hash.key?(char_type) && password !~ regex_hash[char_type] } || true
+  char_types.each do |char_type| return char_type if
+  regex_hash.key?(char_type) && password !~ regex_hash[char_type] 
+  end || true
 end
 
 event :validate_password_chars, :validate, on: :save do
   result = check_password_regex(
-    Cardio.config.account_password_chars, PASSWORD_REGEX, content)
+    Cardio.config.account_password_chars,
+    PASSWORD_REGEX,
+    content
+  )
   requirement = ""
 
   case result
