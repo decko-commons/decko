@@ -32,7 +32,9 @@ basket[:icons] = {
     reset: :restart_alt,
     more: :more_horiz,
     menu: :more_vert,
-    bar_menu: :more_horiz
+    bar_menu: :more_horiz,
+    show_password: :visibility,
+    hide_password: :visibility_off
   },
   #
   font_awesome: {
@@ -62,7 +64,9 @@ basket[:icons] = {
     draft: :wrench,
     filter: :filter,
     reset: "sync-alt",
-    quick_filter: :bolt
+    quick_filter: :bolt,
+    show_password: "eye",
+    hide_password: "eye-slash"
   },
   #
   bootstrap: {
