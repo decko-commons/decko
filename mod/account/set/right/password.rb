@@ -46,17 +46,17 @@ event :validate_password_chars, :validate, on: :save do
     PASSWORD_REGEX,
     content
   )
-  requirement = ""
+  pw_requirement = ""
 
   case result
-  when :upper then requirement = "an upper case letter"
-  when :lower then requirement = "a lower case letter"
-  when :number then requirement = "a number"
-  when :symbol then requirement = "a special character (!@#$%^&*())"
+  when :upper then pw_requirement = "an upper case letter"
+  when :lower then pw_requirement = "a lower case letter"
+  when :number then pw_requirement = "a number"
+  when :symbol then pw_requirement = "a special character (!@#$%^&*())"
   else return
   end
 
-  errors.add :password, t(:account_password_chars, char_type: requirement)
+  errors.add :password, t(:account_password_chars, char_type: pw_requirement)
 end
 
 event :validate_password_present, :prepare_to_validate, on: :update do
