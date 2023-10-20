@@ -102,7 +102,7 @@ class Card
           if (single_id = id_from_val val)
             "= #{single_id}"
           elsif list_of_ids? val
-            "in (#{val.map { |v| id_from_val v}.join ', '})"
+            "in (#{val.map { |v| id_from_val v }.join ', '})"
           end
         end
 
