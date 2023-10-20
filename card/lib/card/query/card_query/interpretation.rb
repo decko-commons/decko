@@ -80,6 +80,7 @@ class Card
         def relate key, val, opts={}
           multiple = opts[:multiple].nil? ? val.is_a?(Array) : opts[:multiple]
           method = opts[:method] || :send
+
           if multiple
             relate_multi_value method, key, val
           else
@@ -87,14 +88,34 @@ class Card
           end
         end
 
+        private
+
         def relate_multi_value method, key, val
           conj = conjunction(val.first) ? conjunction(val.shift) : :and
-          if conj == current_conjunction
+          if list_of_ids_supported?(conj, key) && list_of_ids?(val)
+            relate key, val, multiple: false
+          elsif conj == current_conjunction
             # same conjunction as container, no need for subcondition
-            val.each { |v| send method, key, v }
+            relate_multi_value_without_subcondition method, key, val
           else
-            send conj, (val.map { |v| { key => v } })
+            relate_multi_value_with_subcondition key, conj, val
           end
+        end
+
+        def relate_multi_value_with_subcondition key, conj, val
+          send conj, (val.map { |v| { key => v } })
+        end
+
+        def relate_multi_value_without_subcondition method, key, val
+          val.each { |v| send method, key, v }
+        end
+
+        # the #list_of_ids optimization is intended to avoid unnecessary joins and
+        # can probably be applied more broadly, but in the name of caution, we went
+        # with an initial implementation that would only apply to reference attributes
+        # (because reference_query can handle lists of values)
+        def list_of_ids_supported? conj, key
+          (conj == :or) && key.to_s.start_with?(/refer|nest|include|link|member/)
         end
       end
     end
