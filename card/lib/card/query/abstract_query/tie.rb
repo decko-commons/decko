@@ -97,6 +97,20 @@ class Card
           when String, Symbol  then val.card_id || -999
           end
         end
+
+        def op_and_id_or_ids_from_val val
+          if (single_id = id_from_val val)
+            "= #{single_id}"
+          elsif list_of_ids? val
+            "in (#{val.map { |v| id_from_val v }.join ', '})"
+          end
+        end
+
+        def list_of_ids? val
+          return unless val.is_a? Array
+
+          !val.find { |v| !id_from_val v }
+        end
       end
     end
   end

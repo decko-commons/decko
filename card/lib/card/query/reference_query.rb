@@ -26,8 +26,8 @@ class Card
       def add_outfield_condition outfield, outcard
         if outcard == "_none"
           non_outfield
-        elsif (id = id_from_val(outcard))
-          outfield_id outfield, id
+        elsif (op_and_id = op_and_id_or_ids_from_val(outcard))
+          outfield_id outfield, op_and_id
         else
           tie :card, outcard, from: outfield
         end
@@ -37,8 +37,8 @@ class Card
         add_condition "#{fld :is_present} = 0"
       end
 
-      def outfield_id outfield, id
-        add_condition "#{fld(outfield)} = #{id}"
+      def outfield_id outfield, op_and_id
+        add_condition "#{fld(outfield)} #{op_and_id}"
       end
 
       def add_reftype_condition reftype
