@@ -1,5 +1,4 @@
 require "decko/application"
-require_relative "alias"
 
 CARD_TASKS = (
   %i[eat migrate reset_cache reset_tmp seed setup sow update] +

@@ -97,6 +97,13 @@ class Card
           when String, Symbol  then val.card_id || -999
           end
         end
+
+        def op_and_id_or_ids_from_val val
+          single_id = id_from_val val
+          return "= #{single_id}" if single_id
+
+          "in (#{val.map { |v| id_from_val v}.join ', '})"
+        end
       end
     end
   end
