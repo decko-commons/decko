@@ -92,7 +92,7 @@ class Card
 
         def relate_multi_value method, key, val
           conj = conjunction(val.first) ? conjunction(val.shift) : :and
-          if list_of_ids? key, conj, val
+          if list_of_ids_supported?(conj, key) && list_of_ids?(val)
             relate key, val, multiple: false
           elsif conj == current_conjunction
             # same conjunction as container, no need for subcondition
@@ -114,15 +114,8 @@ class Card
         # can probably be applied more broadly, but in the name of caution, we went
         # with an initial implementation that would only apply to reference attributes
         # (because reference_query can handle lists of values)
-        def list_of_ids_supported? key
-          key.to_s.start_with?(/refer|nest|include|link|member/)
-        end
-
-        def list_of_ids? key, conj, val
-          puts "#{(conj == :or)} && #{key}"
-          return unless (conj == :or) && list_of_ids_supported?(key)
-
-          !val.find { |v| !id_from_val v }
+        def list_of_ids_supported? conj, key
+          (conj == :or) && key.to_s.start_with?(/refer|nest|include|link|member/)
         end
       end
     end
