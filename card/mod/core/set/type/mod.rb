@@ -134,6 +134,12 @@ def cardtypes
   config_codenames_grouped_by_title admin_config_section(:cardtypes)
 end
 
+def views
+  return unless admin_config
+
+  admin_config["views"]
+end
+
 
 def description
   t("#{modname}_mod_description",
@@ -173,7 +179,6 @@ end
 def admin_config_objects_by_category
   @admin_config_objects_by_category ||= admin_config_objects.group_by { |config| config.category }
 end
-
 
 
 def load_admin_config

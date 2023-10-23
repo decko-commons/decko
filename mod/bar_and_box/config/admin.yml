@@ -1,0 +1,8 @@
+views:
+  - bar
+  - expanded_bar
+  - one_line_content
+  - mini_bar
+  - closed
+  - open
+  - box

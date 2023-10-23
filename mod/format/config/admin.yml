@@ -15,3 +15,16 @@ cardtypes:
     - number
     - toggle
     - uri
+views:
+  - name
+  - link
+  - url_link
+  - content
+  - short_content
+  - core
+  - raw
+  - titled
+  - labeled
+  - smart_label
+  - title
+  - title_link

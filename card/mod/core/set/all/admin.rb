@@ -23,7 +23,7 @@ Config = Struct.new(:mod, :category, :subcategory, :codename, :roles) do
 
   def title
     subcategory ? Card::Set::All::Admin::basket[:config_title][subcategory.to_sym] || subcategory.capitalize :
-      Card::Set::All::Admin::basket[:config_title][category.to_sym]  || category.capitalize
+      Card::Set::All::Admin::dbasket[:config_title][category.to_sym]  || category.capitalize
   end
 end
 
@@ -57,14 +57,18 @@ def all_admin_configs_grouped_by property1, property2=nil
 
   result = Hash.new {|hash, k| hash[k] = [] }
   all_configs.each_with_object(result) do |config, h|
-    if property == :roles
+    if property1 == :roles
       config.roles.each do |role|
         h[role] << config
       end
     else
-      h[config.send(property)] << config
+      h[config.send(property1)] << config
     end
   end
+end
+
+def all_admin_configs_of_category category
+  all_admin_configs_grouped_by(:category)[category]
 end
 
 def config_codenames_grouped_by_title configs
@@ -73,10 +77,9 @@ def config_codenames_grouped_by_title configs
   end
 end
 
-
 format :html do
   def section title, content
-    "#{section_title(title)}<p>#{content}</p>"
+    "<p>#{section_title(title)}#{content}</p>"
   end
 
   def section_title title

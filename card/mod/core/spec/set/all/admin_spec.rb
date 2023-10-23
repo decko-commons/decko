@@ -1,6 +1,6 @@
 RSpec.describe Card::Set::All::Admin do
   specify "admin_config_by_mods" do
-    expect(Card[:all].all_admin_configs_grouped_by(:mod["mod: permissions"])
+    expect(Card[:all].all_admin_configs_grouped_by(:mod["mod: permissions"]))
       .to eq({ "settings" => %w[create read update delete]})
   end
 
@@ -22,5 +22,10 @@ RSpec.describe Card::Set::All::Admin do
                           "local_script_folder_group", "local_script_manifest_group", "local_style_folder_group",
                           "nest_list", "remote_manifest_group", "role", "local_style_manifest_group", "bootswatch_skin",
                           "date", "notification_template", "session")
+  end
+
+  specify "all_admin_configs_of_category" do
+    views = Card[:all].all_admin_configs_of_category("views").map(&:codename)
+    expect(views).to include("name", "link", "content")
   end
 end

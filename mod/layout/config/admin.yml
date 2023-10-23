@@ -5,3 +5,6 @@ settings:
 cardtypes:
   styling:
     - layout_type
+
+views:
+  - modal_link

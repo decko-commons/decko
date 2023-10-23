@@ -14,6 +14,8 @@ format :html do
     configs_by_cat.map do |(cat, configs)|
       if cat == "cardtypes"
         nested_list_section cat.capitalize, card.config_codenames_grouped_by_title(configs)
+      elsif cat == "views"
+        next
       else
         list_section cat.capitalize, configs.map { |c| c.codename.to_sym }, :closed_bar
       end
