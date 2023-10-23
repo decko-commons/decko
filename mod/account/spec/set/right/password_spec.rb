@@ -17,9 +17,9 @@ RSpec.describe Card::Set::Right::Password do
 
   describe "#update" do
     it "encrypts password", aggregate_failures: true do
-      password_card.update! content: "new password"
+      password_card.update! content: "new Pas5word!"
       expect(password).not_to eq("new password")
-      authenticated = Card::Auth.authenticate "joe@user.com", "new password"
+      authenticated = Card::Auth.authenticate "joe@user.com", "new Pas5word!"
       expect(account).to eq authenticated
     end
 
