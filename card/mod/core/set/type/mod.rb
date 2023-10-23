@@ -5,7 +5,7 @@ include_set Abstract::TaskTable
 
 format :html do
   view :core do
-    render_views %i[
+    render_section_views(%i[
       description
       settings
       configurations
@@ -13,15 +13,16 @@ format :html do
       styles
       scripts
       tasks
+      views
       depends_on
-    ].select {  |name| card.send("has_#{name}?")}
+    ].select { |name| card.send("has_#{name}?")})
   end
 
   view :description do
     content_tag(:p, card.description)
   end
 
-  def render_views list
+  def render_section_views list
     list.map { |view_name| send("render_#{view_name}") }.compact.join "<br/>"
   end
 
@@ -62,12 +63,22 @@ format :html do
 
   view :gem_info do
     return unless card.mod&.spec
+    properties = %w[name summary version authors description email homepage].map do |property|
+      "#{property}: #{card.mod.spec.send(property)}"
+    end
 
-    list_section "Depends on", card.depends_on
+    section "Gem info",
+            list_group(properties) +
+              accordion_item("files", body: list_group(card.mod.spec.files), context: "files") +
+              accordion_item("depends on ", body: list_section_content(card.depends_on), context: "depends_on")
   end
 
   view :depends_on do
     list_section "Depends on", card.depends_on
+  end
+
+  view :views do
+    section "Views", list_group(card.views)
   end
 end
 
@@ -95,12 +106,16 @@ def has_scripts?
   fetch(:script).present?
 end
 
-def  has_depends_on?
+def has_depends_on?
   mod&.spec&.dependencies.present?
 end
 
 def has_description?
   true
+end
+
+def has_views?
+  views.present?
 end
 
 def depends_on
