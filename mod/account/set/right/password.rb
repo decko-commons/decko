@@ -72,12 +72,12 @@ format :html do
     render_raw
   end
 
-  def password_input
-    haml :password_input
+  def input_type
+    :password
   end
 
   view :input do
-    password_input
+    input_type
   end
 
   def autocomplete?
