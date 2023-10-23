@@ -12,7 +12,7 @@ class Card
           @items = []
           instance_exec(&block)
 
-          @html.div class: "carousel slide", id: id, "data-ride" => "carousel" do
+          @html.div class: "carousel slide", id: id, "data-bs-ride" => "true" do
             indicators
             items
             control_prev
@@ -25,7 +25,7 @@ class Card
         end
 
         def items
-          @html.div class: "carousel-inner", role: "listbox" do
+          @html.div class: "carousel-inner" do
             @items.each_with_index do |item, index|
               carousel_item item, carousel_item_opts(index)
             end
@@ -46,31 +46,35 @@ class Card
         end
 
         def control_prev
-          @html.a class: "carousel-control-prev", href: "##{@id}", role: "button",
-                  "data-slide" => "prev" do
-            @html.span class: "carousel-control-prev-icon", "aria-hidden" => "true"
-            @html.span "Previous", class: "sr-only"
+          @html.button class: "carousel-control-prev", "data-bs-target": "##{@id}", type: "button" do
+              @html.span(class: "carousel-control-prev-icon", "aria-hidden" => "true") do
+                ""
+              end
+              @html.span("Previous", class: "visually-hidden")
           end
         end
 
         def control_next
-          @html.a class: "carousel-control-next", href: "##{@id}", role: "button",
-                  "data-slide": "next"  do
-            @html.span class: "carousel-control-next-icon", "aria-hidden" => "true"
-            @html.span "Next", class: "sr-only"
+          @html.button class: "carousel-control-next", "data-bs-target": "##{@id}", type: "button" do
+            @html.span class: "carousel-control-next-icon", "aria-hidden" => "true" do
+              ""
+            end
+            @html.span "Next", class: "visually-hidden"
           end
         end
 
         def indicators
-          @html.ol class: "carousel-indicators" do
+          @html.div class: "carousel-indicators" do
             @items.size.times { |i| indicator i }
           end
         end
 
+
         def indicator index
-          html_opts = { "data-slide-to" => index, "data-bs-target": "##{@id}" }
+          html_opts = { "data-bs-slide-to": index, "data-bs-target": "##{@id}",
+                        type: "button", "aria-label": "Slide #{index + 1}" }
           add_class html_opts, "active" if index == @active_item_index
-          @html.li html_opts
+          @html.button html_opts
         end
       end
     end

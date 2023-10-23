@@ -1,0 +1,7 @@
+settings:
+  - help
+  - guide
+views:
+  - help
+  - guide
+  - lead

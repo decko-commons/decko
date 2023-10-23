@@ -3,7 +3,7 @@ format :html do
   bar_cols 5, 4, 3
 
   def existing_rule_card
-    @existing_rule_card ||= find_existing_rule_card
+    @existing_rule_card ||= card.find_existing_rule_card
   end
 
   view :bar, unknown: true do
@@ -15,6 +15,7 @@ format :html do
   view :one_line_content,
        wrap: { div: { class: "text-muted one-line" } }, unknown: true do
     return render_mini_unknown unless existing_rule_card
+
 
     with_nest_mode :compact do
       one_line_content
@@ -46,7 +47,6 @@ format :html do
 
   def rule_short_content
     return "" unless existing_rule_card
-
     nest existing_rule_card,
          { view: :one_line_content },
          { set_context: card.name.trunk_name }
