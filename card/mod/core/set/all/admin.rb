@@ -23,7 +23,7 @@ Config = Struct.new(:mod, :category, :subcategory, :codename, :roles) do
 
   def title
     subcategory ? Card::Set::All::Admin::basket[:config_title][subcategory.to_sym] || subcategory.capitalize :
-      Card::Set::All::Admin::dbasket[:config_title][category.to_sym]  || category.capitalize
+      Card::Set::All::Admin::basket[:config_title][category.to_sym]  || category.capitalize
   end
 end
 

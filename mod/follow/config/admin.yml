@@ -1,5 +1,6 @@
 settings:
-  - captcha
+  - follow_fields
+  - follow
 
 cardtypes:
   template:

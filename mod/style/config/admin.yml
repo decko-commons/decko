@@ -1,3 +1,5 @@
+settings:
+  - style
 cardtypes:
   assets:
     - local_style_folder_group

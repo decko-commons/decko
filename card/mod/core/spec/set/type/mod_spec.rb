@@ -2,7 +2,7 @@ RSpec.describe Card::Set::Type::Mod do
   check_views_for_errors
 
   specify "cardtypes" do
-    expect(Card[:mod_format].cardtypes.keys).to contain_exactly("admin", "text", "styling", "basic")
+    expect(Card[:mod_format].cardtypes).to eq [["Text", %i[basic plain_text html phrase]], ["Scripting", [:json]], ["Data", %i[number toggle uri]]]
   end
 
   specify "admin_config_objects" do
