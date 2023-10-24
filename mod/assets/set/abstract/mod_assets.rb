@@ -162,4 +162,16 @@ format :html do
 
     remote_items.map { |args| yield args.clone }
   end
+
+  view :core do
+    groups =
+      card.item_cards.map do |item|
+        [item.cardname.tag, item.input_item_cards.map { |ic| ic.name }]
+      end
+    if card.remote_group_urls.present?
+      groups << ["group: remote", card.remote_group_urls.map { |remote| remote["src"] }]
+    end
+
+    haml :group_list, groups: groups
+  end
 end

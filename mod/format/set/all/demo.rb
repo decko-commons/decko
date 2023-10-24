@@ -28,10 +28,15 @@ format :html do
   def view_select
     card_form :get, success: { view: :demo } do
       select_tag :demo_view,
-                 options_for_select(all_views, demo_view),
+                 options_for_select(all_views_from_admin_config, demo_view),
                  class: "_submit-on-select"
     end
   end
+
+  def all_views_from_admin_config
+    card.all_admin_configs_of_category("views").map(&:codename)
+  end
+
 
   def all_views
     Card::Set::Format::AbstractFormat::ViewDefinition
