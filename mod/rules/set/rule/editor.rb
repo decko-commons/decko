@@ -71,7 +71,7 @@ format :html do
   def current_rule
     if params[:assign]
       card
-    elsif (existing = find_existing_rule_card)
+    elsif (existing = card.find_existing_rule_card)
       existing
     else
       card
@@ -114,19 +114,17 @@ format :html do
   def current_set_key
     card.new_card? ? Card.quick_fetch(:all).name.key : card.rule_set_key
   end
+end
 
-  private
+def find_existing_rule_card
+  new_card? ? existing_rule_from_prototype : self
+end
 
-  def find_existing_rule_card
-    card.new_card? ? existing_rule_from_prototype : card
-  end
+# self.card is a POTENTIAL rule; it quacks like a rule but may or may not exist.
+# This generates a prototypical member of the POTENTIAL rule's set
+# and returns that member's ACTUAL rule for the POTENTIAL rule's setting
+def existing_rule_from_prototype
+  return unless (setting = right)
 
-  # self.card is a POTENTIAL rule; it quacks like a rule but may or may not exist.
-  # This generates a prototypical member of the POTENTIAL rule's set
-  # and returns that member's ACTUAL rule for the POTENTIAL rule's setting
-  def existing_rule_from_prototype
-    return unless (setting = card.right)
-
-    card.set_prototype.rule_card setting.codename, user: card.rule_user
-  end
+  set_prototype.rule_card setting.codename, user: rule_user
 end

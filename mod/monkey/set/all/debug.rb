@@ -64,12 +64,6 @@ format :html do
     )
   end
 
-  def section title, content
-    %(
-      <h2>#{title}</h2>
-      #{content}
-    )
-  end
 
   # def class_locations klass
   #   methods = defined_methods(klass)

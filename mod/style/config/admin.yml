@@ -1,0 +1,10 @@
+settings:
+  - style
+cardtypes:
+  assets:
+    - local_style_folder_group
+    - local_style_manifest_group
+  styling:
+    - css
+    - scss
+    - skin

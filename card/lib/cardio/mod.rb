@@ -42,13 +42,14 @@ module Cardio
   class Mod
     extend ClassMethods
 
-    attr_reader :name, :path, :group, :index
+    attr_reader :name, :path, :group, :index, :spec
 
-    def initialize name, path, group, index
+    def initialize name, path, group, index, spec=nil
       @name = Mod.normalize_name name
       @path = required_path path
       @group = group || :custom
       @index = index
+      @spec = spec
     end
 
     def mod_card_name
