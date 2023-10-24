@@ -30,7 +30,6 @@
   :type: :cardtype
   :codename: setting
 
-
 - :name: "*version"
   :codename: version
 - :name: "*autoname"

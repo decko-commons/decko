@@ -1,0 +1,4 @@
+settings:
+  - on_create
+  - on_update
+  - on_delete
