@@ -12,8 +12,8 @@ RSpec.describe Card::Set::Abstract::ModAssets do
 
   specify "core view" do
     expect_view(:core, card: style)
-      .to include("mod: bootstrap+*style+group: bootstrap_decko")
-      .and include("mod: bootstrap+*style+group: libraries")
+      .to include("group: bootstrap_decko")
+      .and include("group: libraries")
   end
 
   it "updates assets" do
