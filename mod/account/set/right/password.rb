@@ -76,10 +76,6 @@ format :html do
     :password
   end
 
-  view :input do
-    input_type
-  end
-
   def autocomplete?
     return "on" if @parent && @parent.card.name == "*signin+*account" # HACK
 
