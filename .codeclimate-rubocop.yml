@@ -1,4 +1,4 @@
 require: rubocop-rspec
 inherit_from: .ruby-style.yml
 AllCops:
-  TargetRubyVersion: 2.6
+  TargetRubyVersion: 2.5
