@@ -1,0 +1,10 @@
+settings:
+  - layout
+  - head
+
+cardtypes:
+  styling:
+    - layout_type
+
+views:
+  - modal_link
