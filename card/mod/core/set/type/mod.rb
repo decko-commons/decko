@@ -15,7 +15,7 @@ format :html do
       tasks
       views
       depends_on
-    ].select { |name| card.send("has_#{name}?")})
+    ].select { |name| card.send("#{name}?") })
   end
 
   view :description do
@@ -38,7 +38,8 @@ format :html do
     return unless card.configurations
 
     card.configurations.map do |category, names|
-      list_section "#{category.capitalize} Configuration", names.map { |name| name.to_sym }
+      list_section("#{category.capitalize} Configuration",
+                   names.map { |name| name.to_sym })
     end.join " "
   end
 
@@ -63,14 +64,18 @@ format :html do
 
   view :gem_info do
     return unless card.mod&.spec
-    properties = %w[name summary version authors description email homepage].map do |property|
+    properties =
+      %w[name summary version authors description email homepage].map do |property|
       "#{property}: #{card.mod.spec.send(property)}"
     end
 
     section "Gem info",
             list_group(properties) +
-              accordion_item("files", body: list_group(card.mod.spec.files), context: "files") +
-              accordion_item("depends on ", body: list_section_content(card.depends_on), context: "depends_on")
+              accordion_item("files",
+                             body: list_group(card.mod.spec.files),
+                             context: "files") +
+              accordion_item("depends on ", body: list_section_content(card.depends_on),
+                             context: "depends_on")
   end
 
   view :depends_on do
@@ -82,39 +87,39 @@ format :html do
   end
 end
 
-def has_settings?
+def settings?
   settings.present?
 end
 
-def has_cardtypes?
+def cardtypes?
   cardtypes.present?
 end
 
-def has_configurations?
+def configurations?
   configurations.present?
 end
 
-def has_tasks?
+def tasks?
   tasks.present?
 end
 
-def has_styles?
+def styles?
   fetch(:style).present?
 end
 
-def has_scripts?
+def scripts?
   fetch(:script).present?
 end
 
-def has_depends_on?
+def depends_on?
   mod&.spec&.dependencies.present?
 end
 
-def has_description?
+def description?
   true
 end
 
-def has_views?
+def views?
   views.present?
 end
 
@@ -155,12 +160,11 @@ def views
   admin_config["views"]
 end
 
-
 def description
   t("#{modname}_mod_description",
-    default: mod&.spec&.description.present? ? mod&.spec&.description : mod&.spec&.summary)
+    default: mod&.spec&.description.present? ?
+               mod&.spec&.description : mod&.spec&.summary)
 end
-
 
 def modname
   codename.to_s.gsub(/^mod_/, "")
@@ -183,18 +187,18 @@ def admin_config_objects
   @admin_config_objects ||= admin_config.map do |category, values|
     if values.is_a? Hash
       values.map do |subcategory, subvalues|
-        create_config_objects mod, category, subcategory, subvalues
+        create_admin_items mod, category, subcategory, subvalues
       end.flatten
     else
-      create_config_objects mod, category, nil, values
+      create_admin_items mod, category, nil, values
     end
   end.flatten
 end
 
 def admin_config_objects_by_category
-  @admin_config_objects_by_category ||= admin_config_objects.group_by { |config| config.category }
+  @admin_config_objects_by_category ||=
+    admin_config_objects.group_by { |config| config.category }
 end
-
 
 def load_admin_config
   return unless admin_config_exists?
@@ -208,7 +212,6 @@ def admin_config_exists?
   @admin_config_exists = !admin_config_path.nil? if @admin_config_exists.nil?
   @admin_config_exists
 end
-
 
 def admin_config_path
   @admin_config_path ||= mod&.subpath "config","admin.yml"

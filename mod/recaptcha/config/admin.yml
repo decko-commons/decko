@@ -1,4 +1,4 @@
-configurations:
+zconfigurations:
   basic:
     - recaptcha_settings
 settings:

@@ -15,7 +15,8 @@ format :html do
     view view_name do
       [
         content_tag(:h1, view_name),
-        card.all_admin_configs_grouped_by(:category, :mod)[view_name.to_s].map do |(mod, configs)|
+        card.all_admin_configs_grouped_by(:category, :mod)[view_name.to_s]
+          .map do |(mod, configs)|
           list_section mod.name, configs.map { |c| c.codename.to_sym }
         end.join("<br\>")
       ]
