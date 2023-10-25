@@ -24,7 +24,6 @@ RSpec.describe Card::Set::Right::Password do
     end
 
     it "validates password" do
-      password_card = account.password_card
       password_card.update content: "2b"
       expect(password_card.errors[:password]).not_to be_empty
     end
@@ -44,4 +43,9 @@ RSpec.describe Card::Set::Right::Password do
       end
     end
   end
+
+  context "when login or signup"
+    it "renders the password view" do
+      expect(password_card.format.render(:input)).to have_tag("input._toggle-password")
+    end
 end

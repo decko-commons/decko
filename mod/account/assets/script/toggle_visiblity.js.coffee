@@ -1,5 +1,5 @@
 $ ->
-  passwordField = $("input._toggle_password")
+  passwordField = $("input._toggle-password")
   togglePassword = $("span._toggle-password")
 
   togglePassword.on "click", () ->
