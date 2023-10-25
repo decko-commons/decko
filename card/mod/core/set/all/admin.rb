@@ -24,8 +24,11 @@ end
 def create_admin_items mod, category, subcategory, values
   Array.wrap(values).map do |value|
     config = ::AdminItem.new(mod, category, subcategory, value)
-    config.roles = Card::Codename.exist?(config.codename.to_sym) ?
-                     Card[config.codename.to_sym].responsible_role : []
+    config.roles = if Card::Codename.exist?(config.codename.to_sym)
+                     Card[config.codename.to_sym].responsible_role
+                   else
+                     []
+                   end
     config
   end
 end
@@ -47,12 +50,9 @@ def all_admin_configs_grouped_by property1, property2=nil
 
   result = Hash.new { |hash, k| hash[k] = [] }
   all_configs.each_with_object(result) do |config, h|
-    if property1 == :roles
-      config.roles.each do |role|
-        h[role] << config
-      end
-    else
-      h[config.send(property1)] << config
+    property_values = Array.wrap(config.send(property1))
+    property_values.each do |value|
+      h[value] << config
     end
   end
 end
@@ -113,16 +113,13 @@ private
 def admin_config_by_by property1, property2
   result = Hash.new { |hash, k| hash[k] = Hash.new { |hash2, k2| hash2[k2] = [] } }
   all_configs.each_with_object(result) do |config, h|
-    if property1 == :roles
-      config.roles.each do |role|
-        h[role][config.send(property2)] << config
+    property1_values = Array.wrap(config.send(property1))
+    property2_values = Array.wrap(config.send(property2))
+
+    property1_values.each do |p1v|
+      property2_values.each do |p2v|
+        h[p1v][p2v] << config
       end
-    elsif property2 == :roles
-      config.roles.each do |role|
-        h[config.send(property1)][role] << config
-      end
-    else
-      h[config.send(property1)][config.send(property2)] << config
     end
   end
 end

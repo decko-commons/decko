@@ -66,17 +66,17 @@ format :html do
     return unless card.mod&.spec
     properties =
       %w[name summary version authors description email homepage].map do |property|
-      "#{property}: #{card.mod.spec.send(property)}"
-    end
+        "#{property}: #{card.mod.spec.send(property)}"
+      end
 
     section "Gem info",
             list_group(properties) +
-              accordion_item("files",
-                             body: list_group(card.mod.spec.files),
-                             context: "files") +
-              accordion_item("depends on ",
-                             body: list_section_content(card.depends_on),
-                             context: "depends_on")
+            accordion_item("files",
+                           body: list_group(card.mod.spec.files),
+                           context: "files") +
+            accordion_item("depends on ",
+                           body: list_section_content(card.depends_on),
+                           context: "depends_on")
   end
 
   view :depends_on do
@@ -162,9 +162,12 @@ def views
 end
 
 def description
-  t("#{modname}_mod_description",
-    default: mod&.spec&.description.present? ?
-               mod&.spec&.description : mod&.spec&.summary)
+  default = if mod&.spec&.description.present?
+              mod&.spec&.description
+            else
+              mod&.spec&.summary
+            end
+  t("#{modname}_mod_description", default: default)
 end
 
 def modname
@@ -214,7 +217,7 @@ def admin_config_exists?
 end
 
 def admin_config_path
-  @admin_config_path ||= mod&.subpath "config","admin.yml"
+  @admin_config_path ||= mod&.subpath "config", "admin.yml"
 end
 
 private

@@ -14,7 +14,8 @@ RSpec.describe Card::Bootstrap::Component::Carousel do
 
     expect(carousel).to have_tag "div.carousel.slide#csID", "data-bs-ride" => "true" do
       with_tag "div.carousel-indicators" do
-        with_tag "button.active", with: { "data-bs-target": "##{id}", "data-bs-slide-to": "0" }
+        with_tag "button.active", with: { "data-bs-target": "##{id}",
+                                          "data-bs-slide-to": "0" }
         with_tag "button", with: { "data-bs-target": "##{id}", "data-bs-slide-to": "1" }
       end
       with_tag "div.carousel-inner", role: "listbox" do
@@ -23,13 +24,15 @@ RSpec.describe Card::Bootstrap::Component::Carousel do
         end
         with_tag("div.carousel-item") { with_text(/item 2/) }
       end
-      with_tag "button.carousel-control-prev", "data-bs-target": "##{id}", type: "button",
-                                          "data-bs-slide": "prev" do
+      with_tag "button.carousel-control-prev",
+               "data-bs-target": "##{id}",
+               type: "button",
+               "data-bs-slide": "prev" do
         with_tag "span.carousel-control-prev-icon"
         with_tag "span.visually-hidden", text: "Previous"
       end
       with_tag "button.carousel-control-next", "data-bs-target": "##{id}", type: "button",
-                                          "data-bs-slide": "next" do
+                                               "data-bs-slide": "next" do
         with_tag "span.carousel-control-next-icon"
         with_tag "span.visually-hidden", text: "Next"
       end

@@ -12,8 +12,10 @@ class AdminItem
 
   def title
     config_titles = Card::Set::All::Admin.basket[:config_title]
-    subcategory ?
-      config_titles[subcategory.to_sym] || subcategory.capitalize :
+    if subcategory
+      config_titles[subcategory.to_sym] || subcategory.capitalize
+    else
       config_titles[category.to_sym] || category.capitalize
+    end
   end
 end
