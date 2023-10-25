@@ -6,7 +6,8 @@ RSpec.describe Card::Set::All::Admin do
     end
 
     it "create setting has the correct role" do
-      create_config = Card[:all].all_admin_configs_of_category("settings").find { |x| x.codename == "create" }
+      create_config = Card[:all].all_admin_configs_of_category("settings")
+                                .find { |x| x.codename == "create" }
       expect(create_config.roles).to eq([:shark])
     end
 

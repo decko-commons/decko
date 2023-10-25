@@ -1,5 +1,5 @@
-RSpec.describe "permissions mod" do
-  specify "admin config" do
+RSpec.describe Card::Set::Type::Mod do
+  specify "admin config of permissions mod" do
     card = Card.fetch(:mod_permissions)
     aggregate_failures do
       expect(card.settings).to eq %i[create read update delete]

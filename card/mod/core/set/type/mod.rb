@@ -39,7 +39,7 @@ format :html do
 
     card.configurations.map do |category, names|
       list_section("#{category.capitalize} Configuration",
-                   names.map { |name| name.to_sym })
+                   names.map(&:to_sym))
     end.join " "
   end
 
@@ -74,7 +74,8 @@ format :html do
               accordion_item("files",
                              body: list_group(card.mod.spec.files),
                              context: "files") +
-              accordion_item("depends on ", body: list_section_content(card.depends_on),
+              accordion_item("depends on ",
+                             body: list_section_content(card.depends_on),
                              context: "depends_on")
   end
 
@@ -178,7 +179,6 @@ def admin_config_section category
   admin_config_objects_by_category[category.to_s]
 end
 
-
 def admin_config
   @admin_config ||= load_admin_config
 end
@@ -197,7 +197,7 @@ end
 
 def admin_config_objects_by_category
   @admin_config_objects_by_category ||=
-    admin_config_objects.group_by { |config| config.category }
+    admin_config_objects.group_by(&:category)
 end
 
 def load_admin_config

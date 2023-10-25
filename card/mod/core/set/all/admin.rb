@@ -21,9 +21,9 @@ def mod_cards_with_config
   Card.search(type_id: Card::ModID).select { |mod| mod.admin_config.present? }
 end
 
-def create_admin_items mod, category, subcategory=nil, values
+def create_admin_items mod, category, subcategory, values
   Array.wrap(values).map do |value|
-    config = AdminItem(mod, category, subcategory, value)
+    config = ::AdminItem.new(mod, category, subcategory, value)
     config.roles = Card::Codename.exist?(config.codename.to_sym) ?
                      Card[config.codename.to_sym].responsible_role : []
     config
@@ -63,7 +63,7 @@ end
 
 def config_codenames_grouped_by_title configs
   configs&.group_by { |c| c.title }&.map do |title, grouped_configs|
-    [title, grouped_configs.map { |config | config.codename.to_sym }]
+    [title, grouped_configs.map { |config| config.codename.to_sym }]
   end
 end
 
@@ -84,9 +84,9 @@ format :html do
 
   def nested_list_section title, grouped_items
     output [
-             section_title(title),
-             wrap_with(:div, accordion_sections(grouped_items), class: "accordion")
-           ]
+      section_title(title),
+      wrap_with(:div, accordion_sections(grouped_items), class: "accordion")
+    ]
   end
 
   def accordion_sections grouped_items
@@ -98,7 +98,6 @@ format :html do
                      body: list_section_content(codenames),
                      open: false,
                      context: title.hash)
-
     end.join " "
   end
 

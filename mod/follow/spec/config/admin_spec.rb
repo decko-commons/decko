@@ -1,5 +1,5 @@
-RSpec.describe "layout mod" do
-  specify "admin config" do
+RSpec.describe Card::Set::Type::Mod do
+  specify "admin config of layout mod" do
     card = Card.fetch(:mod_follow)
     aggregate_failures do
       expect(card.settings).to eq %i[follow_fields follow]

@@ -1,5 +1,5 @@
-RSpec.describe "list mod" do
-  specify "admin config" do
+RSpec.describe Card::Set::Type::Mod do
+  specify "admin config of list mod" do
     card = Card.fetch(:mod_list)
     aggregate_failures do
       expect(card.settings).to eq %i[content_options content_option_view]

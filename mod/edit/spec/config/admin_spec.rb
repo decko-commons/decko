@@ -1,5 +1,5 @@
-RSpec.describe "edit mod" do
-  specify "admin config" do
+RSpec.describe Card::Set::Type::Mod do
+  specify "admin config of edit mod" do
     card = Card.fetch(:mod_edit)
     aggregate_failures do
       expect(card.settings).to eq %i[input_type]

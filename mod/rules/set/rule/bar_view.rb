@@ -16,7 +16,6 @@ format :html do
        wrap: { div: { class: "text-muted one-line" } }, unknown: true do
     return render_mini_unknown unless existing_rule_card
 
-
     with_nest_mode :compact do
       one_line_content
     end
