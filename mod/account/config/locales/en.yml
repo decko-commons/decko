@@ -17,7 +17,8 @@ en:
   account_invite: Invite
   account_missing_account: "ERROR: signup card missing account"
   account_or_sign_up: '...or sign up!'
-  account_password_length: must be at least 4 characters
+  account_password_length: must be at least %{num_char} characters
+  account_password_chars: must contain %{char_type}
   account_password_missing: password can't be blank
   account_private_data: Private data
   account_reset_password: Reset password
