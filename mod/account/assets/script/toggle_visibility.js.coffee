@@ -1,7 +1,7 @@
 $ ->
-  $("body").on "click", "._toggle-password", (event) ->
-    passwordField = $("input._toggle-password")
-    togglePassword = $("span._toggle-password")
+  $("body").on "click", "._toggle-pw-visibility", (event) ->
+    passwordField = $("._pw-input")
+    togglePassword = $("._pw-text-area")
 
     if passwordField.prop("type") is "password"
       passwordField.prop("type", "text")
