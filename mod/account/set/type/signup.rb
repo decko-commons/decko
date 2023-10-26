@@ -37,6 +37,8 @@ event :act_as_current_for_integrate_stage, :integrate, on: :create do
   Auth.current_id = id
 end
 
+private
+
 def request_verification
   acct = field :account
   acct.field :status, content: "unverified"
