@@ -46,7 +46,7 @@ RSpec.describe Card::Set::Right::Password do
 
   context "when login or signup" do
     it "renders the password view" do
-      expect(password_card.format.render(:input)).to have_tag("input._toggle-password")
+      expect(password_card.format.render(:input)).to have_tag("input._pw-input")
     end
   end
 end
