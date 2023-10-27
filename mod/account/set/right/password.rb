@@ -49,7 +49,20 @@ event :validate_password_chars, :validate, on: :save do
   )
   return if !pw_requirements
 
-  errors.add :password, t(:account_password_requirements, char_type: t(pw_requirements))
+  def format_error_message array_of_strings
+    if array_of_strings.length > 2
+      error_message = "#{t(array_of_strings)[0...-1].join(', ')}, and #{t(array_of_strings).last}"
+    elsif array_of_strings.length == 2
+      error_message = "#{t(array_of_strings).first} and #{t(array_of_strings).last}"
+    else
+      error_message = "#{t(array_of_strings).first}"
+    end
+    return error_message
+  end
+
+  error_message = format_error_message(pw_requirements)
+
+  errors.add :password, t(:account_password_requirements, char_type: error_message)
 end
 
 event :validate_password_present, :prepare_to_validate, on: :update do
