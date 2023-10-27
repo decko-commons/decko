@@ -2,11 +2,11 @@ include_set Abstract::AccountField
 
 assign_type :phrase
 
-PASSWORD_REGEX = {
-  lower: /[a-z]/,
-  upper: /[A-Z]/,
-  symbol: /[!@#$%^&*()]/,
-  number: /\d+/
+PASSWORD_REGEX_REQ = {
+  lower: [/[a-z]/, :account_password_requirement_lower],
+  upper: [/[A-Z]/, :account_password_requirement_upper],
+  special_char: [/[!@#$%^&*()]/, :account_password_requirement_special_char],
+  number: [/\d+/, :account_password_requirement_number]
 }.freeze
 
 def history?
@@ -34,29 +34,22 @@ event :validate_password_length, :validate, on: :save do
 end
 
 def check_password_regex char_types, regex_hash, password
+  pw_requirements = []
   char_types.each do |char_type|
-    return char_type if regex_hash.key?(char_type) && password !~ regex_hash[char_type]
+    pw_requirements << regex_hash[char_type][1] if regex_hash.key?(char_type) && password !~ regex_hash[char_type][0]
   end
-  true
+  return pw_requirements.length > 0 ? pw_requirements : true
 end
 
 event :validate_password_chars, :validate, on: :save do
-  result = check_password_regex(
-    Cardio.config.account_password_chars,
-    PASSWORD_REGEX,
+  pw_requirements = check_password_regex(
+    Cardio.config.account_password_requirements,
+    PASSWORD_REGEX_REQ,
     content
   )
-  pw_requirement = ""
+  return if pw_requirements == true
 
-  case result
-  when :upper then pw_requirement = "an upper case letter"
-  when :lower then pw_requirement = "a lower case letter"
-  when :number then pw_requirement = "a number"
-  when :symbol then pw_requirement = "a special character (!@#$%^&*())"
-  else return
-  end
-
-  errors.add :password, t(:account_password_chars, char_type: pw_requirement)
+  errors.add :password, t(:account_password_requirements, char_type: t(pw_requirements))
 end
 
 event :validate_password_present, :prepare_to_validate, on: :update do
@@ -82,3 +75,4 @@ format :html do
     "off"
   end
 end
+
