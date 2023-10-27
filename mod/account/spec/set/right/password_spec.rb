@@ -23,9 +23,38 @@ RSpec.describe Card::Set::Right::Password do
       expect(account).to eq authenticated
     end
 
-    it "validates password" do
+    it "validates length, upper case, and special character requirements" do
       password_card.update content: "2b"
-      expect(password_card.errors[:password]).not_to be_empty
+      expect(password_card.errors[:password]).to eq [
+        "must be at least 8 characters", 
+        "must contain an upper case letter and a special character (!@\#$%^&*())"
+      ]
+    end
+
+    it "validates three errors: lower case, number, and special character requirements" do
+      password_card.update content: "ALLUPPER"
+      expect(password_card.errors[:password]).to eq [
+        "must contain a lower case letter, a special character (!@\#$%^&*()), and a number"
+      ]
+    end
+
+    it "validates two erors: a special character (!@\#$%^&*()) and a number" do
+      password_card.update content: "UPloooow"
+      expect(password_card.errors[:password]).to eq [
+        "must contain a special character (!@\#$%^&*()) and a number"
+      ]
+    end
+
+    it "validates one error: a number" do
+      password_card.update content: "UPloooow!"
+      expect(password_card.errors[:password]).to eq [
+        "must contain a number"
+      ]
+    end
+
+    it "validates empty array when all requirements are met" do
+      password_card.update content: "UPloooow8!"
+      expect(password_card.errors[:password]).to eq []
     end
 
     context "blank password" do
