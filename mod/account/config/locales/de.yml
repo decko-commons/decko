@@ -99,7 +99,11 @@ de:
   account_missing_account: "FEHLER: Registrierkarte ohne Konto"
   account_or_sign_up: '...oder registrieren!'
   account_password_length: muss mindestens %{num_char} Zeichen lang sein
-  account_password_chars: muss mindestens 1 Zahl und ein Sonderzeichen enthalten (!§$%&#) #TODO: Error message must match requirements
+  account_password_requirements: muss %{char_type} enthalten
+  account_password_requirement_upper: einen Grossbuchstaben
+  account_password_requirement_lower: einene Kleinbuchstaben
+  account_password_requirement_special_char: ein Sonderzeichen (!@#$%^&*())
+  account_password_requirement_number: eien Zahl
   account_password_missing: Passwort muss angegeben werden
   account_private_data: Private Daten
   account_reset_password: Password Zurücksetzen

@@ -33,21 +33,21 @@ event :validate_password_length, :validate, on: :save do
   errors.add :password, t(:account_password_length, num_char: min_pw_length)
 end
 
-def check_password_regex(char_types, regex_hash, password)
+def check_password_regex char_types, regex_hash, password
   pw_requirements = char_types.each_with_object([]) do |char_type, pw_requirements|
     if regex_hash.key?(char_type) && password !~ regex_hash[char_type][0]
       pw_requirements << regex_hash[char_type][1]
     end
   end
-  pw_requirements if !pw_requirements.empty?
+  pw_requirements unless pw_requirements.empty?
 end
 
 def format_error_message(err_messages)
   error_message = err_messages.map { |message| t(message) }
-  error_message = if error_message.length > 2
-    "#{error_message[0...-1].join(', ')}, and #{error_message[-1]}"
+  if error_message.length > 2
+    "#{error_message[0...-1].join(", ")}, and #{error_message[-1]}"
   else
-    error_message.join(' and ')
+    error_message.join(" and ")
   end
 end
 
@@ -86,4 +86,3 @@ format :html do
     "off"
   end
 end
-
