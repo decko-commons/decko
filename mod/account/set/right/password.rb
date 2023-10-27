@@ -42,7 +42,7 @@ def check_password_regex char_types, regex_hash, password
   pw_requirements unless pw_requirements.empty?
 end
 
-def format_error_message(err_messages)
+def format_error_message err_messages
   error_message = err_messages.map { |message| t(message) }
   if error_message.length > 2
     "#{error_message[0...-1].join(", ")}, and #{error_message[-1]}"

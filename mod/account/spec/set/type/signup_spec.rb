@@ -5,17 +5,20 @@ RSpec.describe Card::Set::Type::Signup do
     Card::Auth.signin :anonymous
   end
 
-  let :big_bad_signup do
+  let(:big_bad_signup) do
     Mail::TestMailer.deliveries.clear
-    Card.create! name: "Big Bad Wolf", type: :signup,
-                 fields: {
-                   account: {
-                    fields: {
-                      email: "wolf@decko.org",
-                      password: "b1gbadWolf!"
-                    }
-                  }
-                 }
+    Card.create!(
+      name: "Big Bad Wolf",
+      type: :signup,
+      fields: {
+        account: {
+          fields: {
+            email: "wolf@decko.org",
+            password: "b1gbadWolf!"
+          }
+        }
+      }
+    )
   end
 
   context "signup form form" do
