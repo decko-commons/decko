@@ -17,14 +17,13 @@ RSpec.describe Card::Set::Right::Password do
 
   describe "#update" do
     it "encrypts password", aggregate_failures: true do
-      password_card.update! content: "new password"
+      password_card.update! content: "new Pas5word!"
       expect(password).not_to eq("new password")
-      authenticated = Card::Auth.authenticate "joe@user.com", "new password"
+      authenticated = Card::Auth.authenticate "joe@user.com", "new Pas5word!"
       expect(account).to eq authenticated
     end
 
     it "validates password" do
-      password_card = account.password_card
       password_card.update content: "2b"
       expect(password_card.errors[:password]).not_to be_empty
     end
@@ -42,6 +41,12 @@ RSpec.describe Card::Set::Right::Password do
         expect(account.email).to eq("joe2@user.com")
         expect(account.password).not_to be_empty
       end
+    end
+  end
+
+  context "when login or signup" do
+    it "renders the password view" do
+      expect(password_card.format.render(:input)).to have_tag("input._pw-input")
     end
   end
 end
