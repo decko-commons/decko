@@ -2,6 +2,13 @@ include_set Abstract::AccountField
 
 assign_type :phrase
 
+PASSWORD_REGEX_REQ = {
+  lower: [/[a-z]/, :account_password_requirement_lower],
+  upper: [/[A-Z]/, :account_password_requirement_upper],
+  special_char: [/[!@#$%^&*()]/, :account_password_requirement_special_char],
+  number: [/\d+/, :account_password_requirement_number]
+}.freeze
+
 def history?
   false
 end
@@ -15,14 +22,45 @@ event :encrypt_password, :store, on: :save, changed: :content do
   self.content = Auth.encrypt content, salt
 
   # errors.add :password, 'need a valid salt'
-  # turns out we have a lot of existing account without a salt.
+  # turns out we have a lot of existing accounts without a salt.
   # not sure when that broke??
 end
 
-event :validate_password, :validate, on: :save do
-  return if content.length > 3
+event :validate_password_length, :validate, on: :save do
+  min_pw_length = Cardio.config.account_password_length
+  return if content.length >= min_pw_length
 
-  errors.add :password, t(:account_password_length)
+  errors.add :password, t(:account_password_length, num_char: min_pw_length)
+end
+
+def check_password_regex char_types, regex_hash, password
+  pw_requirements = char_types.each_with_object([]) do |char_type, pw_requirements|
+    if regex_hash.key?(char_type) && password !~ regex_hash[char_type][0]
+      pw_requirements << regex_hash[char_type][1]
+    end
+  end
+  pw_requirements unless pw_requirements.empty?
+end
+
+def format_error_message err_messages
+  error_message = err_messages.map { |message| t(message) }
+  if error_message.length > 2
+    "#{error_message[0...-1].join(", ")}, and #{error_message[-1]}"
+  else
+    error_message.join(" and ")
+  end
+end
+
+event :validate_password_chars, :validate, on: :save do
+  pw_requirements = check_password_regex(
+    Cardio.config.account_password_requirements,
+    PASSWORD_REGEX_REQ,
+    content
+  )
+  return unless pw_requirements
+
+  error_message = format_error_message(pw_requirements)
+  errors.add :password, t(:account_password_requirements, char_type: error_message)
 end
 
 event :validate_password_present, :prepare_to_validate, on: :update do
@@ -38,9 +76,8 @@ format :html do
     render_raw
   end
 
-  view :input do
-    card.content = ""
-    password_field :content, class: "d0-card-content", autocomplete: autocomplete?
+  def input_type
+    :password
   end
 
   def autocomplete?
