@@ -38,7 +38,7 @@ def check_password_regex char_types, regex_hash, password
   char_types.each do |char_type|
     pw_requirements << regex_hash[char_type][1] if regex_hash.key?(char_type) && password !~ regex_hash[char_type][0]
   end
-  return pw_requirements.length > 0 ? pw_requirements : true
+  return pw_requirements if pw_requirements.length > 0
 end
 
 event :validate_password_chars, :validate, on: :save do
@@ -47,7 +47,7 @@ event :validate_password_chars, :validate, on: :save do
     PASSWORD_REGEX_REQ,
     content
   )
-  return if pw_requirements == true
+  return if !pw_requirements
 
   errors.add :password, t(:account_password_requirements, char_type: t(pw_requirements))
 end
