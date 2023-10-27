@@ -33,12 +33,22 @@ event :validate_password_length, :validate, on: :save do
   errors.add :password, t(:account_password_length, num_char: min_pw_length)
 end
 
-def check_password_regex char_types, regex_hash, password
-  pw_requirements = []
-  char_types.each do |char_type|
-    pw_requirements << regex_hash[char_type][1] if regex_hash.key?(char_type) && password !~ regex_hash[char_type][0]
+def check_password_regex(char_types, regex_hash, password)
+  pw_requirements = char_types.each_with_object([]) do |char_type, pw_requirements|
+    if regex_hash.key?(char_type) && password !~ regex_hash[char_type][0]
+      pw_requirements << regex_hash[char_type][1]
+    end
   end
-  return pw_requirements if pw_requirements.length > 0
+  pw_requirements if !pw_requirements.empty?
+end
+
+def format_error_message(err_messages)
+  error_message = err_messages.map { |message| t(message) }
+  error_message = if error_message.length > 2
+    "#{error_message[0...-1].join(', ')}, and #{error_message[-1]}"
+  else
+    error_message.join(' and ')
+  end
 end
 
 event :validate_password_chars, :validate, on: :save do
@@ -47,21 +57,9 @@ event :validate_password_chars, :validate, on: :save do
     PASSWORD_REGEX_REQ,
     content
   )
-  return if !pw_requirements
-
-  def format_error_message array_of_strings
-    if array_of_strings.length > 2
-      error_message = "#{t(array_of_strings)[0...-1].join(', ')}, and #{t(array_of_strings).last}"
-    elsif array_of_strings.length == 2
-      error_message = "#{t(array_of_strings).first} and #{t(array_of_strings).last}"
-    else
-      error_message = "#{t(array_of_strings).first}"
-    end
-    return error_message
-  end
+  return unless pw_requirements
 
   error_message = format_error_message(pw_requirements)
-
   errors.add :password, t(:account_password_requirements, char_type: error_message)
 end
 
