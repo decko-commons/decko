@@ -26,7 +26,7 @@ RSpec.describe Card::Set::Right::Password do
     it "validates length, upper case, and special character requirements" do
       password_card.update content: "2b"
       expect(password_card.errors[:password]).to eq [
-        "must be at least 8 characters", 
+        "must be at least 8 characters",
         "must contain an upper case letter and a special character (!@\#$%^&*())"
       ]
     end

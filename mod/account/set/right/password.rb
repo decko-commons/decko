@@ -69,7 +69,7 @@ private
 def consolidated_password_error_message err_messages
   error_message = err_messages.map { |message| t(message) }
   if error_message.length > 2
-    "#{error_message[0...-1].join(", ")}, and #{error_message[-1]}"
+    "#{error_message[0...-1].join(', ')}, and #{error_message[-1]}"
   else
     error_message.join(" and ")
   end
