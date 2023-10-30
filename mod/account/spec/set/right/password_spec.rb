@@ -31,10 +31,10 @@ RSpec.describe Card::Set::Right::Password do
       ]
     end
 
-    it "validates three errors: lower case, number, and special character requirements" do
-      password_card.update content: "ALLUPPER"
+    it "validates three errors: lower case, upper case, and number" do
+      password_card.update content: "!@\#$%^&*()"
       expect(password_card.errors[:password]).to eq [
-        "must contain a lower case letter, a special character (!@\#$%^&*()), and a number"
+        "must contain a lower case letter, an upper case letter, and a number"
       ]
     end
 
