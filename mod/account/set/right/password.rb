@@ -2,11 +2,11 @@ include_set Abstract::AccountField
 
 assign_type :phrase
 
-PASSWORD_REGEX_REQ = {
-  lower: [/[a-z]/, :account_password_requirement_lower],
-  upper: [/[A-Z]/, :account_password_requirement_upper],
-  special_char: [/[!@#$%^&*()]/, :account_password_requirement_special_char],
-  number: [/\d+/, :account_password_requirement_number]
+PASSWORD_REGEX = {
+  lower: /[a-z]/,
+  upper: /[A-Z]/,
+  special_char: /[!@#$%^&*()]/,
+  number: /\d+/
 }.freeze
 
 def history?
@@ -36,7 +36,7 @@ end
 event :validate_password_chars, :validate, on: :save do
   pw_requirements = check_password_regex(
     Cardio.config.account_password_requirements,
-    PASSWORD_REGEX_REQ,
+    PASSWORD_REGEX,
     content
   )
   return unless pw_requirements
@@ -56,9 +56,11 @@ end
 private
 
 def check_password_regex char_types, regex_hash, password
-  pw_requirements = char_types.each_with_object([]) do |char_type, pw_requirements|
-    if regex_hash.key?(char_type) && password !~ regex_hash[char_type][0]
-      pw_requirements << regex_hash[char_type][1]
+  pw_requirements = []
+
+  char_types.each do |char_type|
+    if regex_hash.key?(char_type) && password !~ regex_hash[char_type]
+      pw_requirements << :"account_password_requirement_#{char_type}"
     end
   end
   pw_requirements unless pw_requirements.empty?
