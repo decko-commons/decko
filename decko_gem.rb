@@ -58,7 +58,9 @@ class DeckoGem
     spec.metadata = standard_metadata.merge "card-mod" => name,
                                             "card-mod-group" => "gem-defaults"
     spec.files = Dir[
-      "{assets,config,data,db,file,init,lib,locales,public,set,vendor}/**/*", "README.md"
+      "{assets,config,data,db,file,init,lib,locales,public,set,vendor}/**/*",
+      "README.md",
+      "LICENSE"
     ]
     spec.add_runtime_dependency "card", card_version
   end
