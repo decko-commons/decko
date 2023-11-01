@@ -4,12 +4,11 @@ describe 'save change in board', () ->
     cy.appScenario("board/save_changes")
 
   specify "'save and close' updates main slot", () ->
-    cy.visit_board("snow")
-
-    cy.tinymce_set_content "white"
-    cy.el("submit-modal").click()
-    cy.expect_main_content "white"
-    cy.board().should "not.be.visible"
+    cy.visit_board("snow").then ->
+      cy.tinymce_set_content "white"
+      cy.el("submit-modal").click()
+      cy.expect_main_content "white"
+      cy.board().should "not.be.visible"
 
   specify "'save' updates main slot", () ->
       cy.visit_board("snow")

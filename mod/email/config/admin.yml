@@ -1,0 +1,3 @@
+cardtypes:
+  template:
+    - email_template
