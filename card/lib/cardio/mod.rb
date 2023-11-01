@@ -44,7 +44,7 @@ module Cardio
 
     attr_reader :name, :path, :group, :index, :spec
 
-    def initialize name, path, group, index, spec=nil
+    def initialize name, path, group:, index:, spec: nil
       @name = Mod.normalize_name name
       @path = required_path path
       @group = group || :custom

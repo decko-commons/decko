@@ -72,7 +72,7 @@ module Cardio
         path ||= File.join @current_path, mod_name
         group ||= @current_group
 
-        mod = Mod.new mod_name, path, group, @mods.size, spec
+        mod = Mod.new mod_name, path, group: group, index: @mods.size, spec: spec
         @mods << mod
         @mods_by_name[mod.name] = mod
       end
