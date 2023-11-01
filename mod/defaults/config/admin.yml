@@ -1,0 +1,5 @@
+configurations:
+  basic:
+    - home
+    - main_menu
+    - getting_started_links
