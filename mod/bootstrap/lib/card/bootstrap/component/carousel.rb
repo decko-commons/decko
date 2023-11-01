@@ -46,22 +46,20 @@ class Card
         end
 
         def control_prev
-          @html.button class: "carousel-control-prev",
-                       "data-bs-target": "##{@id}", type: "button" do
-            @html.span(class: "carousel-control-prev-icon", "aria-hidden" => "true") do
-              ""
-            end
-            @html.span("Previous", class: "visually-hidden")
-          end
+          control_button :prev, "Previous"
         end
 
         def control_next
-          @html.button class: "carousel-control-next",
+          control_button :next, "Next"
+        end
+
+        def control_button direction, description
+          @html.button class: "carousel-control-#{direction}",
                        "data-bs-target": "##{@id}", type: "button" do
-            @html.span class: "carousel-control-next-icon", "aria-hidden" => "true" do
+            @html.span class: "carousel-control-#{direction}-icon", "aria-hidden" => "true" do
               ""
             end
-            @html.span "Next", class: "visually-hidden"
+            @html.span description, class: "visually-hidden"
           end
         end
 
