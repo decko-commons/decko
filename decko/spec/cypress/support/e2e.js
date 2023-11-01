@@ -28,14 +28,3 @@ Cypress.on('uncaught:exception', (err, runnable) => {
   // failing the test
   return false;
 })
-
-
-Cypress.Cookies.defaults({
-  preserve: function(cookie) {
-    // implement your own logic here
-    // if the function returns truthy
-    // then the cookie will not be cleared
-    // before each test runs
-    return true;
-  }
-})
