@@ -85,3 +85,7 @@ format :html do
     end
   end
 end
+
+def responsible_set_card
+  Card.fetch([self, :type, :update], new: {})
+end

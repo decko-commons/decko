@@ -1,0 +1,7 @@
+settings:
+  - follow_fields
+  - follow
+
+cardtypes:
+  template:
+    - notification_template

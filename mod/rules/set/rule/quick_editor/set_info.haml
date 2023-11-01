@@ -2,7 +2,7 @@
   %label
     Set
   %p.text-muted
-    = find_existing_rule_card&.left&.label || "--"
+    = card.find_existing_rule_card&.left&.label || "--"
   - if notify_change
     %p.autosubmit-success-notification
       %span.text-success
