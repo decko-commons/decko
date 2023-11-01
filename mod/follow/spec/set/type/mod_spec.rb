@@ -1,4 +1,4 @@
-RSpec.describe Card::Set::Mod::Type do
+RSpec.describe Card::Set::Type::Mod do
   include_examples "mod admin config", :mod_follow,
                    %i[follow_fields follow],
                    nil,
