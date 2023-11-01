@@ -46,16 +46,18 @@ class Card
         end
 
         def control_prev
-          @html.button class: "carousel-control-prev", "data-bs-target": "##{@id}", type: "button" do
-              @html.span(class: "carousel-control-prev-icon", "aria-hidden" => "true") do
-                ""
-              end
-              @html.span("Previous", class: "visually-hidden")
+          @html.button class: "carousel-control-prev",
+                       "data-bs-target": "##{@id}", type: "button" do
+            @html.span(class: "carousel-control-prev-icon", "aria-hidden" => "true") do
+              ""
+            end
+            @html.span("Previous", class: "visually-hidden")
           end
         end
 
         def control_next
-          @html.button class: "carousel-control-next", "data-bs-target": "##{@id}", type: "button" do
+          @html.button class: "carousel-control-next",
+                       "data-bs-target": "##{@id}", type: "button" do
             @html.span class: "carousel-control-next-icon", "aria-hidden" => "true" do
               ""
             end
@@ -68,7 +70,6 @@ class Card
             @items.size.times { |i| indicator i }
           end
         end
-
 
         def indicator index
           html_opts = { "data-bs-slide-to": index, "data-bs-target": "##{@id}",

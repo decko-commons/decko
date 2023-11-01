@@ -37,7 +37,6 @@ format :html do
     card.all_admin_configs_of_category("views").map(&:codename)
   end
 
-
   def all_views
     Card::Set::Format::AbstractFormat::ViewDefinition
       .views.slice(*self.class.ancestors).values.map(&:keys).flatten.uniq.sort

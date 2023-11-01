@@ -13,7 +13,8 @@ format :html do
     configs_by_cat = card.all_admin_configs_grouped_by(:roles, :category)[card.codename]
     configs_by_cat.map do |(cat, configs)|
       if cat == "cardtypes"
-        nested_list_section cat.capitalize, card.config_codenames_grouped_by_title(configs)
+        nested_list_section cat.capitalize,
+                            card.config_codenames_grouped_by_title(configs)
       elsif cat == "views"
         next
       else
@@ -21,9 +22,6 @@ format :html do
       end
     end
   end
-
-
-
 
   def role_checkbox
     name = card.disabled? ? "add_item" : "drop_item"

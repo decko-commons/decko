@@ -17,24 +17,18 @@ basket[:config_title] = {
 #   MOD_task_TASK_NAME_link_text: LINK_TEXT
 #   MOD_task_TASK_NAME_description: DESCRIPTION
 
-
-Config = Struct.new(:mod, :category, :subcategory, :codename, :roles) do
-  # self::SUBCATEGORY_TITLE = basket[:config_title]
-
-  def title
-    subcategory ? Card::Set::All::Admin::basket[:config_title][subcategory.to_sym] || subcategory.capitalize :
-      Card::Set::All::Admin::dbasket[:config_title][category.to_sym]  || category.capitalize
-  end
-end
-
 def mod_cards_with_config
   Card.search(type_id: Card::ModID).select { |mod| mod.admin_config.present? }
 end
 
-def create_config_objects mod, category, subcategory=nil, values
+def create_admin_items mod, category, subcategory, values
   Array.wrap(values).map do |value|
-    config = Config.new(mod, category, subcategory, value)
-    config.roles = Card::Codename.exist?(config.codename.to_sym) ? Card[config.codename.to_sym].responsible_role : []
+    config = ::AdminItem.new(mod, category, subcategory, value)
+    config.roles = if Card::Codename.exist?(config.codename.to_sym)
+                     Card[config.codename.to_sym].responsible_role
+                   else
+                     []
+                   end
     config
   end
 end
@@ -51,18 +45,14 @@ def all_configs
   mod_cards_with_config.map(&:admin_config_objects).flatten
 end
 
-
 def all_admin_configs_grouped_by property1, property2=nil
   return admin_config_by_by property1, property2 if property2
 
-  result = Hash.new {|hash, k| hash[k] = [] }
+  result = Hash.new { |hash, k| hash[k] = [] }
   all_configs.each_with_object(result) do |config, h|
-    if property1 == :roles
-      config.roles.each do |role|
-        h[role] << config
-      end
-    else
-      h[config.send(property1)] << config
+    property_values = Array.wrap(config.send(property1))
+    property_values.each do |value|
+      h[value] << config
     end
   end
 end
@@ -72,8 +62,8 @@ def all_admin_configs_of_category category
 end
 
 def config_codenames_grouped_by_title configs
-  configs&.group_by { |c| c.title }&.map do |title, configs|
-    [title, configs.map { |config | config.codename.to_sym }]
+  configs&.group_by { |c| c.title }&.map do |title, grouped_configs|
+    [title, grouped_configs.map { |config| config.codename.to_sym }]
   end
 end
 
@@ -94,19 +84,20 @@ format :html do
 
   def nested_list_section title, grouped_items
     output [
-             section_title(title),
-             wrap_with(:div, accordion_sections(grouped_items), class: "accordion")
-           ]
+      section_title(title),
+      wrap_with(:div, accordion_sections(grouped_items), class: "accordion")
+    ]
   end
 
   def accordion_sections grouped_items
+    return unless grouped_items.present?
+
     grouped_items.map do |title, codenames|
       accordion_item(title,
                      subheader: nil,
                      body: list_section_content(codenames),
                      open: false,
                      context: title.hash)
-
     end.join " "
   end
 
@@ -119,20 +110,16 @@ end
 
 private
 
-
 def admin_config_by_by property1, property2
-  result = Hash.new {|hash, k| hash[k] = Hash.new {|hash2, k2| hash2[k2] = [] } }
+  result = Hash.new { |hash, k| hash[k] = Hash.new { |hash2, k2| hash2[k2] = [] } }
   all_configs.each_with_object(result) do |config, h|
-    if property1 == :roles
-      config.roles.each do |role|
-        h[role][config.send(property2)] << config
+    property1_values = Array.wrap(config.send(property1))
+    property2_values = Array.wrap(config.send(property2))
+
+    property1_values.each do |p1v|
+      property2_values.each do |p2v|
+        h[p1v][p2v] << config
       end
-    elsif property2 == :roles
-      config.roles.each do |role|
-        h[config.send(property1)][role] << config
-      end
-    else
-      h[config.send(property1)][config.send(property2)] << config
     end
   end
 end

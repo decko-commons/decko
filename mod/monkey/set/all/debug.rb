@@ -64,7 +64,6 @@ format :html do
     )
   end
 
-
   # def class_locations klass
   #   methods = defined_methods(klass)
   #   file_groups = methods.group_by { |sl| sl[0] }

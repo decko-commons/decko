@@ -5,7 +5,7 @@ format :html do
 
   view :bar_right do
     %w[settings configurations tasks cardtypes scripts styles].filter do |name|
-      card.send("has_#{name}?")
+      card.send("#{name}?")
     end.join ", "
   end
 
