@@ -75,6 +75,7 @@ describe 'nest editor', () ->
 
   specify "nest rules editor", () ->
     cy.delete "NaNa+*right+*help"
+    cy.delete "RichText+NaNa+*type plus right+*help"
     cy.visit_board "c2"
     open_nest_editor()
 
