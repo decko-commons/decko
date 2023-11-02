@@ -42,6 +42,7 @@ Cypress.Commands.add "tinymce_set_content", (text) =>
 
 Cypress.Commands.add "tinymce", (fun) =>
   cy.get("iframe.tox-edit-area__iframe").then -> # wait for tinymce
+    cy.wait(200)
     cy.get(".tinymce-textarea").invoke("attr", "id").then (id) ->
       cy.window().then (win) ->
         fun(win.tinymce.get(id), win)
@@ -63,7 +64,7 @@ Cypress.Commands.add "tinymce_type", (text) =>
 #        win.jQuery(doc).trigger(e)
 
 Cypress.Commands.add "tinymce_content", () =>
-  cy.get("iframe.tox-edit-area__iframe") # wait for tinymce
+  cy.get("iframe.tox-edit-area__iframe") -> # wait for tinymce
   cy.get(".tinymce-textarea").invoke("attr", "id").then (id) ->
     cy.window().then (win) ->
       win.tinymce.get(id).getContent()
