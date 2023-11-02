@@ -41,10 +41,11 @@ Cypress.Commands.add "tinymce_set_content", (text) =>
     ed.setContent(text)
 
 Cypress.Commands.add "tinymce", (fun) =>
-  cy.get("iframe.tox-edit-area__iframe") # wait for tinymce
-  cy.get(".tinymce-textarea").invoke("attr", "id").then (id) ->
-    cy.window().then (win) ->
-      fun(win.tinymce.get(id), win)
+  cy.get("iframe.tox-edit-area__iframe").then -> # wait for tinymce
+    cy.wait(1000)
+    cy.get(".tinymce-textarea").invoke("attr", "id").then (id) ->
+      cy.window().then (win) ->
+        fun(win.tinymce.get(id), win)
 
 Cypress.Commands.add "tinymce_type", (text) =>
   cy.tinymce (ed, win) ->
@@ -73,14 +74,15 @@ Cypress.Commands.add "tinymce_content", () =>
 
 Cypress.Commands.add "login", (email="joe@admin.com", password="joe_pass") =>
   # cy.setCookie("user_testdeck_test", "11862")
-  cy.request
-    method: "POST",
-    url: "/update/:signin",
-    body:
-      card:
-        fields:
-          ":email": email
-          ":password": password
+  cy.session([email, password], () =>
+    cy.request
+      method: "POST",
+      url: "/update/:signin",
+      body:
+        card:
+          fields:
+            ":email": email
+            ":password": password)
 
 
 Cypress.Commands.add "logout", () =>

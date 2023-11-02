@@ -1,0 +1,8 @@
+settings:
+  - input_type
+views:
+  - edit_form
+  - edit_inline
+  - edit_name
+  - edit_type
+  - board

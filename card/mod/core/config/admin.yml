@@ -1,0 +1,10 @@
+cardtypes:
+  admin:
+    - mod
+    - user
+    - setting
+    - cardtype
+tasks:
+  - empty_trash
+  - clear_cash
+  - regenerate_assets
