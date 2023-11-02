@@ -3,6 +3,9 @@ describe 'edit type', () ->
     cy.login()
     cy.ensure "ice", type: 'basic'
 
+  beforeEach ->
+    cy.login()
+
   specify "edit type in board", () ->
     cy.visit_board("ice")
     cy.slot("ice", "edit_type_row").el("edit-link").click(force: true)

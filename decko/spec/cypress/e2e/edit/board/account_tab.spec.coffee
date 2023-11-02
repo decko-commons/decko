@@ -1,8 +1,6 @@
 describe 'account tab', () ->
-  before ->
-    cy.login("sample@user.com", "sample_pass")
-
   beforeEach ->
+    cy.login("sample@user.com", "sample_pass")
     cy.visit_board("Sample User")
 
   after ->

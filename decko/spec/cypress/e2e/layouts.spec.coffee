@@ -1,5 +1,5 @@
 describe 'layouts', () ->
-  before ->
+  beforeEach ->
     cy.login()
 
   specify "visit card with simple layout", ->

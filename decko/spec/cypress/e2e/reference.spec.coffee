@@ -1,5 +1,5 @@
 describe 'reference', () ->
-  before ->
+  beforeEach ->
     cy.login()
     # cy.clear_machine_cache()
 

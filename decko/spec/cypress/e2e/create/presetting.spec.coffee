@@ -1,5 +1,5 @@
 describe 'presetting', () ->
-  before ->
+  beforeEach ->
     cy.login()
 
   specify "presetting content in url", ->

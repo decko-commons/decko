@@ -5,6 +5,11 @@ describe 'paging', () ->
               type: "search",
               content: '{"type":"RichText","sort":"name", "not": { "right": {} }}'
 
+
+
+  beforeEach ->
+    cy.login()
+
   it "keeps item structure when jumping to pages", ->
     cy.ensure "basic item structure", content: "{{_|name}}"
     cy.ensure "list all basic cards",

@@ -1,5 +1,5 @@
 describe 'edit content', () ->
-  before ->
+  beforeEach ->
     cy.login()
 
   specify "edit content modal", () ->

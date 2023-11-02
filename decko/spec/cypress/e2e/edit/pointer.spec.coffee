@@ -2,10 +2,8 @@ input = (content) ->
   cy.ensure "friends+*right+*input_type", type: "phrase", content: content
 
 describe 'editing pointers', () ->
-  before ->
-    cy.login()
-
   beforeEach ->
+    cy.login()
     cy.delete "Joe User+friends"
 
   specify "create with select input", ->

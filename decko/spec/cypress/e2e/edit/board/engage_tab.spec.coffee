@@ -5,6 +5,7 @@ describe 'engage tab', () ->
     # cy.clear_machine_cache()
 
   beforeEach ->
+    cy.login()
     cy.visit_board()
     cy.board_sidebar().find('.nav-tabs a').eq(1).click()
 

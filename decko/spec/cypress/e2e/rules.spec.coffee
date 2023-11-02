@@ -1,5 +1,5 @@
 describe 'rules', () ->
-  before ->
+  beforeEach ->
     cy.login()
 
   specify "default setting and plus card override", ->

@@ -1,8 +1,6 @@
 describe 'rules tab', () ->
-  before ->
-    cy.login()
-
   beforeEach ->
+    cy.login()
     cy.visit_board()
 
   specify 'no set selected', () ->

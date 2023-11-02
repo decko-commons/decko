@@ -5,6 +5,7 @@
     cy.ensure "no history", content: "add history"
 
   beforeEach ->
+    cy.login()
     cy.visit_board('no history')
     cy.board_sidebar().find('.nav-tabs a').eq(2).click()
 

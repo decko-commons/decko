@@ -3,6 +3,9 @@ describe 'save change in board', () ->
     cy.login()
     cy.appScenario("board/save_changes")
 
+  beforeEach ->
+    cy.login()
+
   specify "'save and close' updates main slot", () ->
     cy.visit_board("snow").then ->
       cy.tinymce_set_content "white"

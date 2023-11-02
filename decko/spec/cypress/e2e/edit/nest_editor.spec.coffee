@@ -29,7 +29,7 @@ type_nest = (text) ->
     ed.insertContent(" ")
 
 describe 'nest editor', () ->
-  before ->
+  beforeEach ->
     cy.login()
 
   specify "nest editor", () ->

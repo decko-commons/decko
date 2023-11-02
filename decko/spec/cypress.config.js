@@ -16,6 +16,6 @@ module.exports = defineConfig({
     },
     baseUrl: 'http://localhost:5002',
     specPattern: 'cypress/e2e/**/*.{js,jsx,ts,tsx,coffee,feature}',
-    testIsolation: false
+    // testIsolation: false
   },
 })
