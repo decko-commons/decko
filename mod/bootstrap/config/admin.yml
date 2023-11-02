@@ -1,0 +1,5 @@
+cardtypes:
+  styling:
+    - bootswatch_skin
+views:
+  - carousel

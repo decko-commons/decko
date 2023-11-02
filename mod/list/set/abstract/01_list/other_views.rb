@@ -5,12 +5,6 @@ format do
     20
   end
 
-  def nest_item_array
-    card.item_cards.map do |item|
-      nest_item item
-    end
-  end
-
   view :core do
     pointer_items.join ", "
   end
