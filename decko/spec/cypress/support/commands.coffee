@@ -42,7 +42,7 @@ Cypress.Commands.add "tinymce_set_content", (text) =>
 
 Cypress.Commands.add "tinymce", (fun) =>
   cy.get("iframe.tox-edit-area__iframe").then -> # wait for tinymce
-    cy.wait(1000)
+    cy.wait(500)
     cy.get(".tinymce-textarea").invoke("attr", "id").then (id) ->
       cy.window().then (win) ->
         fun(win.tinymce.get(id), win)
