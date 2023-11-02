@@ -1,0 +1,30 @@
+configurations:
+  basic:
+    - title
+    - head
+    - credit
+cardtypes:
+  text:
+    - basic
+    - plain_text
+    - html
+    - phrase
+  scripting:
+    - json
+  data:
+    - number
+    - toggle
+    - uri
+views:
+  - name
+  - link
+  - url_link
+  - content
+  - short_content
+  - core
+  - raw
+  - titled
+  - labeled
+  - smart_label
+  - title
+  - title_link

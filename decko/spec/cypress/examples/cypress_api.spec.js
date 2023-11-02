@@ -60,14 +60,6 @@ context('Cypress.Cookies', () => {
     cy.setCookie('lastCookie', '789XYZ')
     Cypress.Cookies.preserveOnce('lastCookie')
   })
-
-  it('.defaults() - set defaults for all cookies', () => {
-    // now any cookie with the name 'session_id' will
-    // not be cleared before each new test runs
-    Cypress.Cookies.defaults({
-      preserve: 'session_id',
-    })
-  })
 })
 
 
