@@ -24,11 +24,11 @@ class Card
         #   { class: "col-sm-#{right_col_width}" }
         # end
 
-        def label_col label, id:
+        def label_col label, id: nil
           @html.label label, for: id, class: "col-sm-#{left_col_width} control-label"
         end
 
-        def input type, label:, id:
+        def input type, label: nil, id: nil
           label_col label, id: id
           @html.div class: "col-sm-#{right_col_width}" do
             @html.input type: type, id: id, class: "form-control"
