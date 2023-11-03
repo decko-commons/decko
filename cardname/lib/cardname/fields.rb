@@ -27,7 +27,7 @@ class Cardname
     # name is relative name containing only the rightmost part
     # @return [True/False]
     def field_only?
-      relative? && stripped.to_name.parts.reject(&:blank?).first == parts.last
+      relative? && stripped.parts.reject(&:blank?).first == parts.last
     end
 
     def relative_field_name tag_name

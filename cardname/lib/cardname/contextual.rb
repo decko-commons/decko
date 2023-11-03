@@ -31,7 +31,11 @@ class Cardname
     # contextual elements removed
     # @return [String]
     def stripped
-      s.gsub RELATIVE_REGEXP, ""
+      s.gsub(RELATIVE_REGEXP, "").to_name
+    end
+
+    def fully_stripped
+      stripped.parts.reject(&:blank?).cardname
     end
 
     # +X

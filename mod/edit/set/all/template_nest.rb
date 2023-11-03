@@ -21,7 +21,7 @@ format do
   end
 
   def template_link_set_name_for_relative_name name
-    name = name.stripped.gsub(/^\+/, "")
+    name = name.fully_stripped
 
     if (type = on_type_set)
       [type, name].to_name.field_name :type_plus_right
