@@ -21,6 +21,10 @@ RSpec.describe Card::Content::Chunk::Link do
     assert_link "[[A]]", class: "known-card", href: "/A", text: "A"
   end
 
+  xit "uses variant" do
+    assert_link "[[a]]", class: "known-card", href: "/A", text: "a"
+  end
+
   it "handles custom text" do
     assert_link "[[Baines|Lyndon]]", class: "wanted-card", href: "/Baines",
                                      text: "Lyndon"
@@ -30,13 +34,13 @@ RSpec.describe Card::Content::Chunk::Link do
     @card = Card.new name: "Kennedy"
     assert_link "[[+Monroe]]", class: "wanted-card",
                                href: "/Kennedy+Monroe",
-                               text: "Kennedy+Monroe"
+                               text: "Monroe"
     assert_link "[[_self+Exner]]", class: "wanted-card",
                                    href: "/Kennedy+Exner",
-                                   text: "Kennedy+Exner"
+                                   text: "Exner"
     assert_link "[[Onassis+]]", class: "wanted-card",
                                 href: "/Onassis+Kennedy",
-                                text: "Onassis+Kennedy"
+                                text: "Onassis"
   end
 
   it "handles relative names in context" do
@@ -45,15 +49,15 @@ RSpec.describe Card::Content::Chunk::Link do
     assert_link "[[+Monroe]]", format_args: format_args,
                                class: "wanted-card",
                                href: "/Kennedy+Monroe",
-                               text: "+Monroe"
+                               text: "Monroe"
     assert_link "[[_self+Exner]]", format_args: format_args,
                                    class: "wanted-card",
                                    href: "/Kennedy+Exner",
-                                   text: "+Exner"
+                                   text: "Exner"
     assert_link "[[Onassis+]]", format_args: format_args,
                                 class: "wanted-card",
                                 href: "/Onassis+Kennedy",
-                                text: "Onassis+Kennedy"
+                                text: "Onassis"
   end
 
   it "handles relative urls" do

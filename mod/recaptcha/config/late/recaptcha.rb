@@ -18,8 +18,8 @@ module RecaptchaCard
     secret_key: :recaptcha_private_key
   }
   @defaults = {
-    site_key: "6LdoqpgUAAAAAEdhJ4heI1h3XLlpXcDf0YubriCG",
-    secret_key: "6LdoqpgUAAAAAP4Sz1L5PY6VKrum_RFxq4-awj4BH"
+    site_key: "6Lc3c-EoAAAAALnzfnHIWb5Rqy-rNui8l8qsguYG",
+    secret_key: "6Lc3c-EoAAAAAEg9K_IAUNgx73eTbtBucCGnOQqf"
   }
 
   class << self
