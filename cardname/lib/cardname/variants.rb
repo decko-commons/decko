@@ -25,6 +25,16 @@ class Cardname
       @decoded ||= s.index("&") ? HTMLEntities.new.decode(s) : s
     end
 
+    # contextual elements removed
+    # @return [String]
+    def stripped
+      s.gsub(Contextual::RELATIVE_REGEXP, "").to_name
+    end
+
+    def fully_stripped
+      stripped.parts.reject(&:blank?).cardname
+    end
+
     private
 
     def uninflect_method

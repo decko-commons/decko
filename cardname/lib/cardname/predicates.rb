@@ -24,6 +24,12 @@ class Cardname
       end
     end
 
+    # +X
+    # @return [Boolean]
+    def starts_with_joint?
+      compound? && parts.first.empty?
+    end
+
     # true if name starts with the same parts as `prefix`
     # @return [Boolean]
     def starts_with_parts? *prefix

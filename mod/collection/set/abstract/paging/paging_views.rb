@@ -1,3 +1,20 @@
+format do
+  def show_paging?
+    return false if limit < 1
+    return false if fewer_results_than_limit? # avoid extra count search
+
+    # count search result instead
+    limit < count_with_params
+  end
+
+  # clear we don't need paging even before running count query
+  def fewer_results_than_limit?
+    return false unless offset.zero?
+
+    limit > offset + search_with_params.length
+  end
+end
+
 format :html do
   PAGE_LI_CLASS = { ellipses: "disabled", current: "active" }.freeze
 
@@ -53,21 +70,6 @@ format :html do
   def page_link_path_args page
     paging_path_args.merge offset: page * limit
   end
-
-  def paging_needed?
-    return false if limit < 1
-    return false if fewer_results_than_limit? # avoid extra count search
-
-    # count search result instead
-    limit < count_with_params
-  end
-
-  # clear we don't need paging even before running count query
-  def fewer_results_than_limit?
-    return false unless offset.zero?
-
-    limit > offset + search_with_params.length
-  end
 end
 
 format :json do
@@ -81,7 +83,7 @@ format :json do
   end
 
   view :paging_urls, cache: :never do
-    return {} unless total_pages > 1
+    return {} unless show_paging?
 
     { paging: paging_urls_hash }
   end
