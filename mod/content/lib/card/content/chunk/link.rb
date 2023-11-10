@@ -28,7 +28,7 @@ class Card
 
         # view options
         def options
-          link_text ? { title: link_text } : {}
+          { title: link_text || @name.to_name.fully_stripped }
         end
 
         def swap_name old_name, new_name
