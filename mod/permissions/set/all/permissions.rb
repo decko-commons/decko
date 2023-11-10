@@ -27,7 +27,7 @@ end
 def ok? action
   @ok ||= {}
   aok = @ok[Auth.as_id] ||= {}
-  if (cached = aok[action])
+  if (cached = aok[action]).present?
     cached
   else
     aok[action] = send "ok_to_#{action}"
