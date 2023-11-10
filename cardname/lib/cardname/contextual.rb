@@ -29,22 +29,6 @@ class Cardname
       !relative?
     end
 
-    # contextual elements removed
-    # @return [String]
-    def stripped
-      s.gsub(RELATIVE_REGEXP, "").to_name
-    end
-
-    def fully_stripped
-      stripped.parts.reject(&:blank?).cardname
-    end
-
-    # +X
-    # @return [Boolean]
-    def starts_with_joint?
-      compound? && parts.first.empty?
-    end
-
     # @return [String]
     def from *from
       name_from(*from).s
