@@ -1,0 +1,4 @@
+cardtypes:
+  upload:
+    - file
+    - image

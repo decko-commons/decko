@@ -64,7 +64,7 @@ core
 
 This tells you:
 
-1. Running `be decko setup` will use fixtures from the **defaults** mod, the first mod on
+1. Running `bundle execute decko setup` will use fixtures from the **defaults** mod, the first mod on
    the list. To see those fixtures, look in the `data/fixtures` directory of the defaults
    mod in the card gem. (You can use `rake card:mod:list` to see where all your mods are
    installed.)

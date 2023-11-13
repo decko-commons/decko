@@ -50,27 +50,13 @@
     - :dashboard
   :type: :markdown
   :content: |
-    ##Basic configuration
-    {{:title|closed_bar}}
-    {{:home|closed_bar}}
-    {{:logo|closed_bar}}
-    {{:main_menu|closed_bar}}
-    {{:header|closed_bar}}
-    {{:footer|closed_bar}}
-
-    ##Integrations
-    {{:recaptcha_settings|closed_bar}}
-
-    ##Editor configuration
-    {{:tiny_mce|closed_bar}}
-    {{:ace|closed_bar}}
+    {{_L|configs}}
 - :name:
     - :shark
     - :dashboard
   :content: |
-    <h3>Cardtypes </h3>
-    <p> [[/new/cardtype|Add new Type]]</p>
-    <p>{{Cardtype+:type+:by_name|bar; title: all cardtypes}}</p>
+    {{_L|configs}}
+    
     <h3>Rules</h3>
     <div>Cards are configured by creating <em>rules</em>.  </div>
     <div> </div>
@@ -92,6 +78,7 @@
     - :help_desk
     - dashboard
   :content: |
+    {{_L|configs}}
     <h3>Accounts</h3>
     <p>{{:account|content}}</p>
     <h3>Help Texts</h3>
