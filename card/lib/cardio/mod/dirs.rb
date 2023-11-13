@@ -63,7 +63,7 @@ module Cardio
       end
 
       # Add a mod to mod load paths
-      def add_mod mod_name, path: nil, group: nil
+      def add_mod mod_name, path: nil, group: nil, spec: nil
         if @mods_by_name.key? Mod.normalize_name(mod_name)
           raise StandardError,
                 "name conflict: mod with name \"#{mod_name}\" already loaded"
@@ -72,7 +72,7 @@ module Cardio
         path ||= File.join @current_path, mod_name
         group ||= @current_group
 
-        mod = Mod.new mod_name, path, group, @mods.size
+        mod = Mod.new mod_name, path, group: group, index: @mods.size, spec: spec
         @mods << mod
         @mods_by_name[mod.name] = mod
       end
@@ -139,15 +139,15 @@ module Cardio
 
       def add_gem_mods
         Cardio::Mod.gem_specs.each do |mod_name, spec|
-          add_gem_mod mod_name, spec.full_gem_path, spec.metadata["card-mod-group"]
+          add_gem_mod mod_name, spec.full_gem_path, spec.metadata["card-mod-group"], spec
         end
       end
 
-      def add_gem_mod mod_name, mod_path, group
+      def add_gem_mod mod_name, mod_path, group, spec
         return if @loaded_gem_mods.include?(mod_name)
 
         @loaded_gem_mods << mod_name
-        add_mod mod_name, path: mod_path, group: (group || "gem")
+        add_mod mod_name, path: mod_path, group: (group || "gem"), spec: spec
       end
 
       def add_core_mods
