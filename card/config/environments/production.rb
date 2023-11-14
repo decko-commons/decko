@@ -69,5 +69,4 @@ Cardio.application.class.configure do
 
   # cache the list of set module objects on card objects
   config.cache_set_module_list = true
-
 end
