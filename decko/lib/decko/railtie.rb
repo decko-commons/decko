@@ -4,6 +4,10 @@ module Decko
     config.assets.enabled = false
     # config.assets.version = "1.0" # does the version matter if not enabled??
 
+    # if false, errors that reach the controller make the app fail loudly
+    # if true, errors are rescued and then error messages are rendered
+    config.rescue_all_in_controller = false
+
     config.before_configuration do |app|
       gem_root = Decko.gem_root
       app.config.tap do |c|
