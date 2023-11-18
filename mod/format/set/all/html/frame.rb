@@ -36,14 +36,16 @@ format :html do
     end
   end
 
+  def panel &block
+    wrap_with :div, class: classy("d0-card-frame"), &block
+  end
+
+  private
+
   def frame_and_form action, form_opts={}, &block
     form_opts ||= {}
     frame do
       card_form action, form_opts, &block
     end
-  end
-
-  def panel &block
-    wrap_with :div, class: classy("d0-card-frame"), &block
   end
 end
