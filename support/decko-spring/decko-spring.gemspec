@@ -7,7 +7,7 @@ DeckoGem.gem "decko-spring" do |s, d|
   s.description = "Spring speeds up development by keeping your application running " \
                   "in the background. Read more: https://github.com/rails/spring"
   d.depends_on ["listen",                   "~> 3.8"],
-               ["spring",                   "~> 3"],
+               ["spring",                   "~> 4"],
                ["spring-commands-rspec",    "~> 1.0"],
                ["spring-commands-cucumber", "~> 1.0"]
 end

@@ -235,9 +235,9 @@ PATH
       timecop (~> 0.9)
     decko-spring (0.16.0)
       listen (~> 3.8)
-      spring (> 3)
-      spring-commands-cucumber (> 1.0)
-      spring-commands-rspec (> 1.0)
+      spring (~> 4)
+      spring-commands-cucumber (~> 1.0)
+      spring-commands-rspec (~> 1.0)
 
 GEM
   remote: http://rubygems.org/
