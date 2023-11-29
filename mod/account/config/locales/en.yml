@@ -21,8 +21,9 @@ en:
   account_password_requirements: must contain %{char_type}
   account_password_requirement_upper: an upper case letter
   account_password_requirement_lower: a lower case letter
-  account_password_requirement_special_char: a special character (!@#$%^&*())
+  account_password_requirement_special_char: a special character (!§$%&#)
   account_password_requirement_number: a number
+  account_password_requirement_letter: a letter
   account_password_missing: password can't be blank
   account_private_data: Private data
   account_reset_password: Reset password

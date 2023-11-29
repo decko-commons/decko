@@ -102,8 +102,9 @@ de:
   account_password_requirements: muss %{char_type} enthalten
   account_password_requirement_upper: einen Grossbuchstaben
   account_password_requirement_lower: einene Kleinbuchstaben
-  account_password_requirement_special_char: ein Sonderzeichen (!@#$%^&*())
-  account_password_requirement_number: eien Zahl
+  account_password_requirement_special_char: ein Sonderzeichen (!§$%&#)
+  account_password_requirement_number: eine Zahl
+  account_password_requirement_letter: einen Buchstaben
   account_password_missing: Passwort muss angegeben werden
   account_private_data: Private Daten
   account_reset_password: Password Zurücksetzen
