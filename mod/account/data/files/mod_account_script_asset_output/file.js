@@ -1,0 +1,2 @@
+// toggle_visiblity.js.coffee
+(function(){$(function(){var t,i;return t=$("input._toggle_password"),(i=$("span._toggle-password")).on("click",function(){return"password"===t.prop("type")?(t.prop("type","text"),i.find("i").text("visibility")):(t.prop("type","password"),i.find("i").text("visibility_off"))})})}).call(this);

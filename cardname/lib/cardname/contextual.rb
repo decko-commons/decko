@@ -3,7 +3,8 @@ class Cardname
   module Contextual
     RELATIVE_REGEXP = /\b_(left|right|whole|self|user|main|\d+|L*R?)\b/
 
-    # @return [Boolean] true if name is left or right of context
+    # true if name is left or right of context
+    # @return [Boolean]
     def child_of? context
       return false unless compound?
 
@@ -28,18 +29,7 @@ class Cardname
       !relative?
     end
 
-    # contextual elements removed
     # @return [String]
-    def stripped
-      s.gsub RELATIVE_REGEXP, ""
-    end
-
-    # +X
-    # @return [Boolean]
-    def starts_with_joint?
-      compound? && parts.first.empty?
-    end
-
     def from *from
       name_from(*from).s
     end
@@ -47,6 +37,7 @@ class Cardname
     # if possible, relativize name into one beginning with a "+".
     # The new name must absolutize back to the correct
     # original name in the context of "from"
+    # @return [Cardname]
     def name_from *from
       return self unless (remaining = remove_context(*from))
 
@@ -54,6 +45,7 @@ class Cardname
       key == compressed.absolute_name(from).key ? compressed : self
     end
 
+    # interpret contextual name
     # @return [String]
     def absolute context
       context = (context || "").to_name
@@ -65,8 +57,8 @@ class Cardname
     end
 
     # @return [Cardname]
-    def absolute_name *args
-      absolute(*args).to_name
+    def absolute_name context
+      absolute(context).to_name
     end
 
     # 1 = left; 2= left of left; 3 = left of left of left....

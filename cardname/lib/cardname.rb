@@ -103,4 +103,17 @@ class Cardname < String
   def generate_key
     @simple ? simple_key : part_keys.join(self.class.joint)
   end
+
+  # @return [String]
+  def simple_key
+    return "" if empty?
+
+    decoded
+      .underscore
+      .gsub(/[^#{OK4KEY_RE}]+/, "_")
+      .split(/_+/)
+      .reject(&:empty?)
+      .map { |key| stable_key(key) }
+      .join("_")
+  end
 end
