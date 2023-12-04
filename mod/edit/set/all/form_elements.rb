@@ -47,12 +47,15 @@ format :html do
   #   - 'text' (str, optional): The text content of the button (default is "Submit")
   #   - 'situation' (str, optional): The visual style of the button
   #   - 'data' (dict, optional): A dictionary for additional data attributes
-  #   - 'disable_with' (str, optional): Text to display on the button when disabled (default is "Submitting")
+  #   - 'disable_with' (str, optional): Text to display on the button when disabled
   # Returns:
   #   - None: The generated submit button is rendered.
   # Example:
-  # submit_button({'text': 'Confirm', 'situation': 'success', 'data': {'disable_with': 'Processing'}})
-  # This example generates a customized submit button with the text "Confirm", a success visual style,
+  # submit_button({'text': 'Confirm', 
+  #                'situation': 'success',
+  #                'data': {'disable_with': 'Processing'}})
+  # This example generates a customized submit button with the text "Confirm",
+  # a success visual style,
   # and a 'disable_with' attribute set to "Processing".
   def submit_button args={}
     text = args.delete(:text) || "Submit"

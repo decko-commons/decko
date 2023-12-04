@@ -13,7 +13,8 @@ format :html do
   #   - None: If the save button is not generated due to the hide condition.
   # Example:
   #   standard_save_button({"text": "Submit", "data-cy": "submit_button"})
-  #   This example generates a customized save button with the text "Submit" and a "data-cy" attribute for testing.
+  #   This example generates a customized save button with the text "Submit"
+  #   and a "data-cy" attribute for testing.
   def standard_save_button opts={}
     return if voo&.hide?(:save_button)
 
