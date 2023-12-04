@@ -6,7 +6,8 @@ PASSWORD_REGEX = {
   lower: /[a-z]/,
   upper: /[A-Z]/,
   special_char: /[!@#$%^&*()]/,
-  number: /\d+/
+  number: /\d+/,
+  letter: /[a-zA-Z]/
 }.freeze
 
 def history?
