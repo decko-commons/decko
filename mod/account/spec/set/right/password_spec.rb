@@ -27,7 +27,7 @@ RSpec.describe Card::Set::Right::Password do
       password_card.update content: "2b"
       expect(password_card.errors[:password]).to eq [
         "must be 8 characters or longer",
-        "must contain an upper case letter and a special character (!§$%&#)"
+        "must contain an upper case letter and a special character (!@#$%^&*())"
       ]
     end
 
@@ -38,10 +38,10 @@ RSpec.describe Card::Set::Right::Password do
       ]
     end
 
-    it "validates two erors: a special character (!§$%&#) and a number" do
+    it "validates two erors: a special character (!@#$%^&*()) and a number" do
       password_card.update content: "UPloooow"
       expect(password_card.errors[:password]).to eq [
-        "must contain a special character (!§$%&#) and a number"
+        "must contain a special character (!@#$%^&*()) and a number"
       ]
     end
 
