@@ -9,10 +9,14 @@ class Card
           %(<span class="nr">##{@args[:act_seq]}</span> #{actor_and_ago})
         end
 
+        def relative_title
+          @act_card.name.from @card.name
+        end
+
         def subtitle
           return "" unless @act.card_id != @format.card.id
 
-          wrap_with :small, "act on #{absolute_title}"
+          wrap_with :small, "act on #{relative_title}"
         end
 
         def act_links
