@@ -6,7 +6,7 @@ view :title do
   super()
 end
 
-# FIXME - this should not be a CQL search card
+# FIXME: this should not be a CQL search card
 def cql_content
   {}
 end
