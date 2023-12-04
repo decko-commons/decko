@@ -26,7 +26,7 @@ RSpec.describe Card::Set::Right::Password do
     it "validates length, upper case, and special character requirements" do
       password_card.update content: "2b"
       expect(password_card.errors[:password]).to eq [
-        "must be at least 8 characters",
+        "must be 8 characters or longer",
         "must contain an upper case letter and a special character (!§$%&#)"
       ]
     end
@@ -61,7 +61,7 @@ RSpec.describe Card::Set::Right::Password do
       Cardio.with_config account_password_requirements: [:letter] do
         password_card.update content: "1234567890"
         expect(password_card.errors[:password]).to eq [
-        "must contain a letter"
+          "must contain a letter"
         ]
       end
     end

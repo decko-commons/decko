@@ -17,7 +17,7 @@ en:
   account_invite: Invite
   account_missing_account: "ERROR: signup card missing account"
   account_or_sign_up: '...or sign up!'
-  account_password_length: must be at least %{num_char} characters
+  account_password_length: must be %{num_char} characters or longer
   account_password_requirements: must contain %{char_type}
   account_password_requirement_upper: an upper case letter
   account_password_requirement_lower: a lower case letter
