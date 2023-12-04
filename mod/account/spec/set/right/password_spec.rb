@@ -31,10 +31,10 @@ RSpec.describe Card::Set::Right::Password do
       ]
     end
 
-    it "validates four errors: lower case, upper case, number, and letter" do
+    it "validates three errors: lower case, upper case, and number" do
       password_card.update content: "!§$%&#@%^&"
       expect(password_card.errors[:password]).to eq [
-        "must contain a lower case letter, an upper case letter, a number, and a letter"
+        "must contain a lower case letter, an upper case letter, and a number"
       ]
     end
 
@@ -55,6 +55,15 @@ RSpec.describe Card::Set::Right::Password do
     it "validates empty array when all requirements are met" do
       password_card.update content: "UPloooow8!"
       expect(password_card.errors[:password]).to eq []
+    end
+
+    it "works with 'letter' requirement" do
+      Cardio.with_config account_password_requirements: [:letter] do
+        password_card.update content: "1234567890"
+        expect(password_card.errors[:password]).to eq [
+        "must contain a letter"
+        ]
+      end
     end
 
     context "blank password" do
