@@ -6,7 +6,7 @@ format :html do
   # Generates a standard save button with optional customization.
   # @param opts (dict, optional): A dictionary containing customization options
   #   - If voo is not nil and does not hide the save button, a save button is generated
-  #   - If present, "text" key in opts sets the text content of the button (default is "Save")
+  #   - If present, "text" key in opts sets the text content of the button
   #   - "data-cy" attribute is set to "save" for end-to-end testing purposes
   #   - CSS class "submit-button me-3 _update-history-pills" is applied
   # Returns:

@@ -51,7 +51,7 @@ format :html do
   # Returns:
   #   - None: The generated submit button is rendered.
   # Example:
-  # submit_button({'text': 'Confirm', 
+  # submit_button({'text': 'Confirm',
   #                'situation': 'success',
   #                'data': {'disable_with': 'Processing'}})
   # This example generates a customized submit button with the text "Confirm",

@@ -81,10 +81,10 @@ format do
     end
   end
 
-  # Adds key-value pairs from a new hash to the 'path' key 
+  # Adds key-value pairs from a new hash to the 'path' key
   # in the given options dictionary.
   # @params opts [dict]: The options dictionary to be modified.
-  # @params new_hash [dict]: The new hash containing 
+  # @params new_hash [dict]: The new hash containing
   # key-value pairs to be added to the 'path'.
   # Returns:
   #   None
