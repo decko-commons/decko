@@ -55,22 +55,3 @@
     }
   }
 }
-
-.card-menu.nodblclick {
-  position: relative;
-}
-
-.card-menu.nodblclick::before {
-  content: attr(data-tooltip);
-  position: absolute;
-  background-color: #333;
-  color: #fff;
-  padding: 5px;
-  border-radius: 5px;
-  bottom: 125%;
-  left: 50%;
-  transform: translateX(-50%);
-  white-space: nowrap;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
