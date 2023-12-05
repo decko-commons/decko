@@ -6,6 +6,11 @@ view :title do
   super()
 end
 
+# FIXME: this should not be a CQL search card
+def cql_content
+  {}
+end
+
 def recent_acts
   limiting_scan do
     Act.joins(ar_actions: :ar_card).distinct

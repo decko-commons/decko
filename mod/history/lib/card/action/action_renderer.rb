@@ -53,19 +53,29 @@ class Card
         end
       end
 
+      def relative_name
+        @action.card.name.from @format.card.name
+      end
+
       def name_diff
-        return @action.card.name if @action.card.name.compound?
+        return relative_name if @action.card.name.compound?
         # TODO: handle compound names better
 
-        if @action.card == @format.card
-          name_changes
-        else
-          link_to_view(
-            :related, name_changes,
-            path: { slot: { items: { view: "history", nest_name: @action.card.name } } }
-            # "data-slot-selector" => ".card-slot.history-view"
-          )
-        end
+        # if @action.card == @format.card
+        name_changes
+
+        # I commented out the following because it's hard to imagine it working; there
+        # no "related" view! But perhaps we do still need handling for this case, which
+        # is evidently for when there is a change involving a simple card that is not the
+        # act card??
+        #
+        # else
+        #   link_to_view(
+        #     :related, name_changes,
+        #     path: { slot: { items: { view: "history", nest_name: @action.card.name } } }
+        #     # "data-slot-selector" => ".card-slot.history-view"
+        #   )
+        # end
       end
 
       def content_diff
