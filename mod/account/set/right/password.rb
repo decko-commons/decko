@@ -5,8 +5,9 @@ assign_type :phrase
 PASSWORD_REGEX = {
   lower: /[a-z]/,
   upper: /[A-Z]/,
-  special_char: /[!@#$%^&*()]/,
-  number: /\d+/
+  special_char: /[!\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~]/,
+  number: /\d+/,
+  letter: /[a-zA-Z]/
 }.freeze
 
 def history?
