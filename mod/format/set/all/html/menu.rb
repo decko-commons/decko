@@ -58,7 +58,7 @@ format :html do
   end
 
   def board_link text: "", in_modal: true, confirm: false
-    opts = { class: "board-link" }
+    opts = { class: "board-link", title: "Advanced" }
     opts["data-slotter-mode"] = "modal-replace" if in_modal
     confirm_edit_loss opts if confirm
     link_to_view :board, "#{board_icon} #{text}", opts
@@ -131,7 +131,7 @@ format :html do
 
   # @param modal [Symbol] modal size
   def edit_link_opts modal: nil
-    opts = { class: classy("edit-link") }
+    opts = { class: classy("edit-link"), title: "Edit" }
     if modal
       opts[:"data-slotter-mode"] = "modal"
       opts[:"data-modal-class"] = "modal-#{modal}"

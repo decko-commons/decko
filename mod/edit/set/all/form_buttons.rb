@@ -27,7 +27,6 @@ format :html do
 
   # @param opts [Hash]
   # @option close [:modal, :overlay]
-  #
   def standard_save_and_close_button opts={}
     close = opts.delete(:close) || :modal
     text = opts[:text] || "Save and Close"
