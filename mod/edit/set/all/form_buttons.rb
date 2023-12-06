@@ -3,6 +3,19 @@ format :html do
     output [standard_save_button, standard_save_and_close_button]
   end
 
+# Generates a standard save button with optional parameters.
+#
+# @param [Hash] opts The options for the save button.
+# @option opts [String] :text ("Save") The text displayed on the button.
+# @option opts [String] :data-cy ("save") The value for the 'data-cy' attribute
+#   used for testing or identification purposes.
+#
+# @return [String] The HTML code for the standard save button.
+#
+# @example
+#   standard_save_button(text: "Update")
+#   #=> "<button class='submit-button me-3 _update-history-pills' data-cy='save'\
+#        data-disable-with='Submitting'>Update</button>"
   def standard_save_button opts={}
     return if voo&.hide?(:save_button)
 
