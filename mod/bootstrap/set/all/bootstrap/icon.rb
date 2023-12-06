@@ -85,6 +85,19 @@ basket[:icons] = {
 format :html do
   view :icons, template: :haml
 
+# Generates an HTML tag for an icon with optional parameters.
+#
+# @param [String] icon_key The key representing the desired icon.
+# @param [Hash] opts The options for the icon tag.
+# @option opts [String] :class Additional CSS classes for the icon tag.
+# @option opts [String] :style Additional inline styles for the icon tag.
+#
+# @return [String] The HTML code for the icon tag.
+#
+# @example
+#   icon_tag(:heart, class: 'favorite-icon', style: 'color: red',
+#   #=> "<i class='universal-icon universal-icon-heart favorite-icon'
+#        style='color: red'></i>"
   def icon_tag icon_key, opts={}
     return "" unless icon_key.present?
 
