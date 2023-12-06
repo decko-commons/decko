@@ -57,6 +57,7 @@ format :html do
 # @example
 #   submit_button(text: "Create", situation: "success", disable_with: "Creating")
 #   #=> "<button data-disable-with='Creating' data-situation='success'>Create</button>"
+# 
   def submit_button args={}
     text = args.delete(:text) || "Submit"
     args.reverse_merge! situation: "primary", data: {}
