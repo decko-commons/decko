@@ -3,16 +3,19 @@ format :html do
     output [standard_save_button, standard_save_and_close_button]
   end
 
-  # Generates a standard save button with optional customization.
-  # If voo is not nil and does not hide the save button, a save button is generated
-  # CSS classes "submit-button me-3 _update-history-pills" is applied to button
-  # @param opts [Hash] (optional) The options to create a save button with
-  # @option opts [String] :text Sets the text content of the button
-  # @option opts [String] :data-cy Attribute for end-to-end testing purposes
-  # @return None: If the save button is not generated due to the hide condition
-  # Example:
-  #   standard_save_button({"text": "Submit"})
-  #   This example generates a customized save button with the text "Submit"
+# Generates a standard save button with optional parameters.
+#
+# @param [Hash] opts The options for the save button.
+# @option opts [String] :text ("Save") The text displayed on the button.
+# @option opts [String] :data-cy ("save") The value for the 'data-cy' attribute
+#   used for testing or identification purposes.
+#
+# @return [String] The HTML code for the standard save button.
+#
+# @example
+#   standard_save_button(text: "Update")
+#   #=> "<button class='submit-button me-3 _update-history-pills' data-cy='save'\
+#        data-disable-with='Submitting'>Update</button>"
   def standard_save_button opts={}
     return if voo&.hide?(:save_button)
 
