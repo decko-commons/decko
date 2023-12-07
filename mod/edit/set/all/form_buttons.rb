@@ -15,8 +15,7 @@ format :html do
 # @example
 #   standard_save_button(text: "Update")
 #   #=> "<button class='submit-button me-3 _update-history-pills' data-cy='save'\
-#        data-disable-with='Submitting'>Update</button>"
-# 
+#   data-disable-with='Submitting'>Update</button>"
   def standard_save_button opts={}
     return if voo&.hide?(:save_button)
 
