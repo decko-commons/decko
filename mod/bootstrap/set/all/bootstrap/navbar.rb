@@ -42,8 +42,7 @@ format :html do
 
   # Generates HTML markup for a breadcrumb trail.
   # @param items [list]: A list of items representing the breadcrumb trail.
-  # Returns:
-  # str: HTML markup for the breadcrumb trail.
+  # @return [String] HTML markup for the breadcrumb trail.
   def breadcrumb items
     wrap_with :ol, class: "breadcrumb" do
       items.map do |item|
