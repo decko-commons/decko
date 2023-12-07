@@ -95,9 +95,7 @@ format :html do
 # @return [String] The HTML code for the icon tag.
 #
 # @example
-#   icon_tag(:heart, class: 'favorite-icon', style: 'color: red',
-#   #=> "<i class='universal-icon universal-icon-heart favorite-icon'
-#        style='color: red'></i>"
+#   icon_tag(:heart, class: 'favorite-icon', style: 'color: red')
   def icon_tag icon_key, opts={}
     return "" unless icon_key.present?
 
