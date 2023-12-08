@@ -42,6 +42,20 @@ format :html do
     end
   end
 
+  # Generates an HTML submit button with optional parameters.
+  #
+  # @param [Hash] args The options for the submit button.
+  # @option args [String] :text ("Submit") The text displayed on the button.
+  # @option args [String] :situation ("primary") The visual style of the button.
+  #   Possible values: "primary", "secondary", "success", "danger", etc.
+  # @option args [Hash] :data ({}) Additional data attributes for the button.
+  # @option args [String] :disable_with ("Submitting") Text to display on the button
+  #   while it is being submitted/disabled.
+  #
+  # @return [String] The HTML code for the submit button.
+  #
+  # @example 
+  #   submit_button(text: "Create", situation: "success", disable_with: "Creating")
   def submit_button args={}
     text = args.delete(:text) || "Submit"
     args.reverse_merge! situation: "primary", data: {}
