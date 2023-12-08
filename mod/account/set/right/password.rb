@@ -5,8 +5,7 @@ assign_type :phrase
 PASSWORD_REGEX = {
   lower: /[a-z]/,
   upper: /[A-Z]/,
-  # special_char: /[!"#$%&'()*+,\-\.\/:;<=>?@\[\]\\^_`{|}~]/,
-  special_char: /[!$%]/,
+  special_char: /[!"#$%&'()*+,-.\/:;<=>?@\[\]\\^_`{|}~]/,
   number: /\d+/,
   letter: /[a-zA-Z]/
 }.freeze
