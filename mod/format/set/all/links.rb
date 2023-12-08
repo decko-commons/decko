@@ -26,9 +26,10 @@ format do
   end
 
   # link to a card other than the current card.
-  # @param cardish [Integer, Symbol, String, Card] a card identifier
-  # @param text [String]
-  # @param opts [Hash]
+  # @param cardish [Integer, Symbol, String, Card]: A card identifier
+  # @param text [String], optional: The text content of the link.
+  # @param opts [Hash], optional: Additional options for the link.
+  # @return [String] HTML markup for the generated link.
   def link_to_card cardish, text=nil, opts={}
     add_to_path opts, mark: Card::Name[cardish]
     link_to text, opts
@@ -79,6 +80,12 @@ format do
     end
   end
 
+  # Adds key-value pairs from a new hash to the 'path' key
+  # in the given options dictionary.
+  # @params opts [dict]: The options dictionary to be modified.
+  # @params new_hash [dict]: The new hash containing
+  #   key-value pairs to be added to the 'path'.
+  # @return [Hash] The value of opts[:path]
   def add_to_path opts, new_hash
     opts[:path] = (opts[:path] || {}).merge new_hash
   end
