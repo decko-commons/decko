@@ -1,2 +1,2 @@
-// toggle_visiblity.js.coffee
-(function(){$(function(){var t,i;return t=$("input._toggle_password"),(i=$("span._toggle-password")).on("click",function(){return"password"===t.prop("type")?(t.prop("type","text"),i.find("i").text("visibility")):(t.prop("type","password"),i.find("i").text("visibility_off"))})})}).call(this);
+// toggle_visibility.js.coffee
+(function(){$(function(){return $("body").on("click","._toggle-pw-visibility",function(){var i,t;return i=$("._pw-input"),t=$("._pw-text-area"),"password"===i.prop("type")?(i.prop("type","text"),t.find("i").text("visibility")):(i.prop("type","password"),t.find("i").text("visibility_off"))})})}).call(this);
