@@ -57,19 +57,18 @@ format :html do
     board_link
   end
 
-# Generates a link to a board with optional parameters.
-#
-# @param [String] text The text displayed on the link.
-# @param [Boolean] in_modal (true) Indicates whether the board link should open in a modal.
-# @param [Boolean] confirm (false) Indicates whether to show a confirmation for potential data loss.
-#
-# @return [String] The HTML code for the board link.
-#
-# @example
-#   board_link(text: "Advanced", in_modal: true, confirm: true)
-#   #=> "<a href='/view/board' title='Advanced' data-bs-toggle='tooltip'
-#        data-bs-placement='bottom' data-slotter-mode='modal-replace'
-#        class='board-link'><i class='board-icon'></i> Advanced</a>"
+  # Generates a link to a board with optional parameters.
+  #
+  # @param [String] text The text displayed on the link.
+  # @param [Boolean] in_modal (true) Indicates whether the board
+  #   link should open in a modal.
+  # @param [Boolean] confirm (false) Indicates whether to show a
+  #   confirmation for potential data loss.
+  #
+  # @return [String] The HTML code for the board link.
+  #
+  # @example
+  #   board_link(text: "Advanced", in_modal: true, confirm: true)
   def board_link text: "", in_modal: true, confirm: false
     opts = {
       class: "board-link",
