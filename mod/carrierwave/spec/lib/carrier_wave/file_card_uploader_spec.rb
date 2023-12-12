@@ -33,4 +33,12 @@ RSpec.describe CarrierWave::FileCardUploader do
       end
     end
   end
+
+  context "with StringIO file" do
+    # see #handle_file issues
+    xit "should be manageable" do
+      local_file.update file: StringIO.new("hello world")
+      expect(local_file.file.read).to eq("hello world")
+    end
+  end
 end
