@@ -12,7 +12,7 @@ describe "redirect to signin page", () =>
       .should "contain", "Sorry!"
     cy.get(".modal-content a.signin-link")
       .click(force: true)
-    cy.get(".modal")
+    cy.get(".SELF-Xsignin")
     cy.field "*email"
       .type "joe@admin.com"
     cy.field "*password"
