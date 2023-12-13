@@ -17,7 +17,7 @@ describe 'save change in board', () ->
       cy.tinymce_set_content("black").then ->
         cy.el("save").click(force: true)
         cy.expect_main_content "black"
-        #cy.board().should "be.visible"
+        cy.board().should "be.visible"
 
 #  specify "'save and close' updates non-main origin slot", () ->
 #    cy.visit("/")
