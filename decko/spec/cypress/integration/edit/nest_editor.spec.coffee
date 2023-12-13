@@ -112,7 +112,7 @@ describe 'nest editor', () ->
 
 
     cy.visit "RichText+NaNa+*type plus right+*help"
-    # cy.expect_main_content "help nana"
+    cy.expect_main_content "help nana"
 
   specify "nest image editor", () ->
     cy.visit_board "c3"

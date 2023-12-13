@@ -19,9 +19,9 @@ Cypress.Commands.add "expect_main_title", (text) =>
   cy.get("#main > .card-slot > .d0-card-header > .d0-card-header-title .card-title")
     .should("contain", text)
 
-# Cypress.Commands.add "expect_main_content", (text) =>
-#   cy.get("#main > .card-slot > .d0-card-body")
-#     .should("contain", text)
+Cypress.Commands.add "expect_main_content", (text) =>
+  cy.get("#main > .card-slot > .d0-card-body")
+    .should("contain", text)
 
 Cypress.Commands.add "rename", (old_name, new_name) =>
   cy.request
