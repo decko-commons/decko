@@ -20,6 +20,10 @@ def set_classes_with_rules
   end.compact
 end
 
+def scoping_rule_card
+  Card.fetch([self, :right, :update], new: {})
+end
+
 def rules_for_set_class set_class
   cql = { left: { type: SetID }, right: id, sort_by: %w[content name], limit: 0 }
   cql[:left][(set_class.anchorless? ? :id : :right_id)] = set_class.pattern_id
