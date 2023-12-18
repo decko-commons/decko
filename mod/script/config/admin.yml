@@ -1,0 +1,10 @@
+settings:
+  - script
+
+cardtypes:
+  scripting:
+    - java_script
+    - coffee_script
+  assets:
+    - local_script_folder_group
+    - local_script_manifest_group
