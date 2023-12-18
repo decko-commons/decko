@@ -3,6 +3,15 @@ format :html do
     output [standard_save_button, standard_save_and_close_button]
   end
 
+  # Generates a standard save button with optional parameters.
+  #
+  # @param [Hash] opts The options for the save button.
+  # @option opts [String] :text ("Save") The text displayed on the button.
+  # 
+  # @return [String] The HTML code for the standard save button.
+  #
+  # @example
+  #   standard_save_button(text: "Update")
   def standard_save_button opts={}
     return if voo&.hide?(:save_button)
 
@@ -14,7 +23,6 @@ format :html do
 
   # @param opts [Hash]
   # @option close [:modal, :overlay]
-  #
   def standard_save_and_close_button opts={}
     close = opts.delete(:close) || :modal
     text = opts[:text] || "Save and Close"

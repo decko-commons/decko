@@ -59,6 +59,4 @@ Cardio.application.class.configure do
   config.active_support.deprecation = :stderr
 
   config.raise_all_rendering_errors = true
-
-  config.rescue_all_in_controller = false
 end

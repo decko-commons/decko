@@ -18,27 +18,24 @@ basket[:config_title] = {
 #   MOD_task_TASK_NAME_description: DESCRIPTION
 
 def mod_cards_with_config
-  Card.search(type_id: Card::ModID).select { |mod| mod.admin_config.present? }
+  Card.search(type: :mod).select { |mod| mod.admin_config.present? }
 end
 
 def create_admin_items mod, category, subcategory, values
   Array.wrap(values).map do |value|
-    config = ::AdminItem.new(mod, category, subcategory, value)
-    config.roles = if Card::Codename.exist?(config.codename.to_sym)
-                     Card[config.codename.to_sym].responsible_role
-                   else
-                     []
-                   end
-    config
+    ::AdminItem.new(mod, category, subcategory, value).tap do |config|
+      codenamed = Card::Codename.exist? config.codename.to_sym
+      config.roles = codenamed ? Card[config.codename.to_sym].responsible_role : []
+    end
   end
 end
 
-def responsible_set_card
+def scoping_rule_card
   Card.fetch([self, :self, :update], new: {})
 end
 
 def responsible_role
-  responsible_set_card.find_existing_rule_card.item_cards.map(&:codename)
+  scoping_rule_card.find_existing_rule_card.item_cards.map(&:codename)
 end
 
 def all_configs
@@ -46,7 +43,7 @@ def all_configs
 end
 
 def all_admin_configs_grouped_by property1, property2=nil
-  return admin_config_by_by property1, property2 if property2
+  return admin_config_group_by_properties property1, property2 if property2
 
   result = Hash.new { |hash, k| hash[k] = [] }
   all_configs.each_with_object(result) do |config, h|
@@ -110,7 +107,7 @@ end
 
 private
 
-def admin_config_by_by property1, property2
+def admin_config_group_by_properties property1, property2
   result = Hash.new { |hash, k| hash[k] = Hash.new { |hash2, k2| hash2[k2] = [] } }
   all_configs.each_with_object(result) do |config, h|
     property1_values = Array.wrap(config.send(property1))
