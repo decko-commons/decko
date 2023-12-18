@@ -1,10 +1,12 @@
 {
   "devDependencies": {
-    "cypress": "9.5.3",
+    "@cypress/webpack-preprocessor": "^6.0.0",
+    "cypress": "^13.4.0",
     "cypress-cucumber-preprocessor": "^4.3.1"
   },
   "cypress-cucumber-preprocessor": {
-    "nonGlobalStepDefinitions": true
+    "nonGlobalStepDefinitions": true,
+    "step_definitions": "./cypress/e2e"
   },
   "dependencies": {
     "wait-on": "^7.0.1"

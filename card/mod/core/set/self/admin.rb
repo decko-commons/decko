@@ -1,3 +1,5 @@
+include_set Abstract::TaskTable
+
 basket[:tasks].merge!(
   clear_cache: {
     mod: :core,
@@ -54,18 +56,7 @@ end
 
 format :html do
   view :core, cache: :never do
-    table_content = basket[:tasks].map do |task, task_config|
-      task_row task, task_config[:mod]
-    end
-    table table_content, header: %w[Task Description]
-  end
-
-  def task_row task, mod
-    base = "#{mod}_task_#{task}"
-    [
-      link_to_card(:admin, t("#{base}_link_text"), path: { action: :update, task: task }),
-      t("#{base}_description")
-    ]
+    task_table basket[:tasks]
   end
 
   view :warning do
