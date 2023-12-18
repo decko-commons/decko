@@ -86,6 +86,6 @@ format :html do
   end
 end
 
-def responsible_set_card
+def scoping_rule_card
   Card.fetch([self, :type, :update], new: {})
 end

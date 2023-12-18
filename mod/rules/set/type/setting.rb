@@ -20,7 +20,7 @@ def set_classes_with_rules
   end.compact
 end
 
-def responsible_set_card
+def scoping_rule_card
   Card.fetch([self, :right, :update], new: {})
 end
 

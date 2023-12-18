@@ -139,15 +139,16 @@ module Cardio
 
       def add_gem_mods
         Cardio::Mod.gem_specs.each do |mod_name, spec|
-          add_gem_mod mod_name, spec.full_gem_path, spec.metadata["card-mod-group"], spec
+          add_gem_mod mod_name, spec
         end
       end
 
-      def add_gem_mod mod_name, mod_path, group, spec
+      def add_gem_mod mod_name, spec
         return if @loaded_gem_mods.include?(mod_name)
 
         @loaded_gem_mods << mod_name
-        add_mod mod_name, path: mod_path, group: (group || "gem"), spec: spec
+        group = spec.metadata["card-mod-group"] || "gem"
+        add_mod mod_name, path: spec.full_gem_path, group: group, spec: spec
       end
 
       def add_core_mods
