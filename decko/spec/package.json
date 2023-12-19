@@ -9,6 +9,6 @@
     "step_definitions": "./cypress/e2e"
   },
   "dependencies": {
-    "wait-on": "^7.0.1"
+    "wait-on": "^7.2.0"
   }
 }
