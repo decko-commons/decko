@@ -7,12 +7,7 @@ class Card
       # FIXME: if we need this (not sure we do? see below), these types should probably
       # be in a basket so that monkeys can add them.
       def inputter_types
-        [
-          JavaScriptID,
-          CoffeeScriptID,
-          CssID,
-          ScssID
-        ]
+        %i[java_script coffee_script css scss]
       end
 
       def refresh force: false
@@ -44,7 +39,7 @@ class Card
       end
 
       def active_theme_cards
-        style_rule = { left: { type_id: SetID }, right_id: StyleID }
+        style_rule = { left: { type: :set }, right: :style }
         Card.search(referred_to_by: style_rule).select do |theme|
           theme.respond_to? :theme_name
         end
@@ -57,7 +52,7 @@ class Card
       end
 
       def script_outputters
-        Card.search(left: { type: :mod }, right_id: ScriptID).flatten
+        Card.search(left: { type: :mod }, right: :script).flatten
       end
 
       def style_outputters
@@ -72,13 +67,13 @@ class Card
       # and MOD/assets/script directories respectively
       def standard_inputters
         @standard_inputter_ids ||=
-          Card.search left: { type: :mod }, right_id: [StyleID, ScriptID], return: :id
+          Card.search left: { type: :mod }, right: [:script, :style], return: :id
         @standard_inputter_ids.map(&:card)
       end
 
       # standalone cards, NOT in mod assets directories
       def nonstandard_inputters
-        Card.search type_id: inputter_types.unshift("in")
+        Card.search type: inputter_types.unshift("in")
       end
 
       def refresh?
