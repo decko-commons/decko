@@ -10,8 +10,8 @@ RSpec.describe Card::Set::Abstract::ModAssets do
 
   specify "core view" do
     expect_view(:core, card: script)
-      .to include("+group: decko")
-      .and include("+group: jquery")
+      .to include("group: decko")
+      .and include("group: jquery")
   end
 
   specify "javascript_include_tag view" do
