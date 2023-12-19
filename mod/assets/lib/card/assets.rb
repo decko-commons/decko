@@ -67,7 +67,7 @@ class Card
       # and MOD/assets/script directories respectively
       def standard_inputters
         @standard_inputter_ids ||=
-          Card.search left: { type: :mod }, right: [:script, :style], return: :id
+          Card.search left: { type: :mod }, right: %i[script style], return: :id
         @standard_inputter_ids.map(&:card)
       end
 
