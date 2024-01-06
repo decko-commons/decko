@@ -475,3 +475,15 @@ card_changes_074:
     mod: layout+*script
     mod: recaptcha+*script
     mod: tinymce editor+*script
+card_changes_075:
+  id: 75
+  card_action_id: 3032
+  field: 2
+  value: "[[:recent|Recent Changes]]"
+card_changes_076:
+  id: 76
+  card_action_id: 3062
+  field: 2
+  value: |-
+    [[:getting_started_links|Getting started]]
+    [[:recent|Recent Changes]]
