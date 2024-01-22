@@ -76,6 +76,8 @@ blocks:
             - be decko setup
 
   - name: Unit Tests (Postgres)
+    run:
+      when: "branch = 'main'"
     task:
       prologue:
         commands:
