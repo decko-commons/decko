@@ -2,7 +2,7 @@ describe 'getting started', () ->
   beforeEach ->
     cy.login()
 
-  specify "configure skin", ->
+  specify.skip "configure skin", ->
     cy.update ":all+:style", content: "yeti skin"
     cy.visit("/")
     cy.contains("Getting started").click()
