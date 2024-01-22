@@ -75,18 +75,18 @@ blocks:
             - cd monkey
             - be decko setup
 
-  - name: Unit Tests (PostgreSql)
+  - name: Unit Tests (Postgres)
     task:
       prologue:
         commands:
-          - sem-service start postgresql
+          - sem-service start postgres
           - git submodule update
           - cache restore bundle-gems-$(checksum Gemfile.lock)
           - ./cc-test-reporter before-build
           - bundle install
 
       jobs:
-        - name: RSpec PostgreSql
+        - name: RSpec Postgres
           commands:
             - be decko new platypus --platypus -d postgresql
             - cd platypus
