@@ -80,6 +80,8 @@ blocks:
       prologue:
         commands:
           - sem-service start postgres
+          - psql -U postgres -h localhost -c "CREATE USER platypus WITH PASSWORD 'developer';"
+          -  psql -U postgres -h localhost -c "ALTER USER platypus WITH SUPERUSER;"
           - git submodule update
           - cache restore bundle-gems-$(checksum Gemfile.lock)
           - ./cc-test-reporter before-build
