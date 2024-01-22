@@ -1,9 +1,7 @@
 # -*- encoding : utf-8 -*-
 
 RSpec.describe ::Card::Bootstrap::Component::Carousel do
-  let(:id) { "csID"}
-
-  subject do
+  subject(:carousel) do
     card = ::Card["A"].format(:html)
     card.bs_carousel id, 0 do
       item do
@@ -13,9 +11,11 @@ RSpec.describe ::Card::Bootstrap::Component::Carousel do
     end
   end
 
+  let(:id) { "csID" }
+
   describe "carousel helper" do
     it "has indicators" do
-      expect(subject).to have_tag "div.carousel.slide#csID", "data-bs-ride" => "true" do
+      expect(carousel).to have_tag "div.carousel.slide#csID", "data-bs-ride" => "true" do
         with_tag "div.carousel-indicators" do
           with_tag "button.active", with: { "data-bs-target": "##{id}",
                                             "data-bs-slide-to": "0" }
@@ -25,7 +25,7 @@ RSpec.describe ::Card::Bootstrap::Component::Carousel do
     end
 
     it "has items" do
-      expect(subject).to have_tag "div.carousel.slide#csID" do
+      expect(carousel).to have_tag "div.carousel.slide#csID" do
         with_tag "div.carousel-inner", role: "listbox" do
           with_tag "div.carousel-item.active" do
             with_tag :img, with: { src: "item1" }
@@ -36,7 +36,7 @@ RSpec.describe ::Card::Bootstrap::Component::Carousel do
     end
 
     it "has previous button" do
-      expect(subject).to have_tag "div.carousel.slide#csID" do
+      expect(carousel).to have_tag "div.carousel.slide#csID" do
         with_tag "button.carousel-control-prev",
                  "data-bs-target": "##{id}",
                  type: "button",
@@ -48,8 +48,9 @@ RSpec.describe ::Card::Bootstrap::Component::Carousel do
     end
 
     it "has next button" do
-      expect(subject).to have_tag "div.carousel.slide#csID" do
-        with_tag "button.carousel-control-next", "data-bs-target": "##{id}", type: "button",
+      expect(carousel).to have_tag "div.carousel.slide#csID" do
+        with_tag "button.carousel-control-next", "data-bs-target": "##{id}",
+                                                 type: "button",
                                                  "data-bs-slide": "next" do
           with_tag "span.carousel-control-next-icon"
           with_tag "span.visually-hidden", text: "Next"
