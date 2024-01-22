@@ -75,6 +75,36 @@ blocks:
             - cd monkey
             - be decko setup
 
+  - name: Unit Tests (Postgres)
+    task:
+      prologue:
+        commands:
+          - sem-service start postgres
+          - psql -U postgres -h localhost -c "CREATE USER platypus WITH PASSWORD 'developer';"
+          -  psql -U postgres -h localhost -c "ALTER USER platypus WITH SUPERUSER;"
+          - git submodule update
+          - cache restore bundle-gems-$(checksum Gemfile.lock)
+          - ./cc-test-reporter before-build
+          - bundle install
+
+      jobs:
+        - name: RSpec Postgres
+          commands:
+            - be decko new platypus --platypus -d postgresql
+            - cd platypus
+            - env RAILS_ENV=test bundle exec decko setup # --test
+            - be decko rspec -s -- --format RspecJunitFormatter --out junit.xml --format documentation
+
+      epilogue:
+        always:
+          commands:
+            - test-results publish junit.xml
+        on_pass:
+          commands:
+            - cd -
+            - ./cc-test-reporter format-coverage --output "coverage/codeclimate.$SEMAPHORE_JOB_ID.json" -t simplecov
+            - aws s3 cp "coverage/codeclimate.$SEMAPHORE_JOB_ID.json" $S3_PATH
+
   - name: Unit Tests (MySql)
     run:
       when: "branch != 'main'"
@@ -94,36 +124,6 @@ blocks:
             - cd platypus
             - env RAILS_ENV=test bundle exec decko setup # --test
             - be decko rspec -s -- --format RspecJunitFormatter --out junit.xml --format documentation
-      epilogue:
-        always:
-          commands:
-            - test-results publish junit.xml
-        on_pass:
-          commands:
-            - cd -
-            - ./cc-test-reporter format-coverage --output "coverage/codeclimate.$SEMAPHORE_JOB_ID.json" -t simplecov
-            - aws s3 cp "coverage/codeclimate.$SEMAPHORE_JOB_ID.json" $S3_PATH
-
-  - name: Unit Tests (Postgres)
-    run:
-      when: "branch = 'main' or branch = '184156911_run_postgres_test_on_semapohore'"
-    task:
-      prologue:
-        commands:
-          - sem-service start mysql
-          - git submodule update
-          - cache restore bundle-gems-$(checksum Gemfile.lock)
-          - ./cc-test-reporter before-build
-          - bundle install
-
-      jobs:
-        - name: RSpec Postgres
-          commands:
-            - be decko new platypus --platypus -d postgresql
-            - cd platypus
-            - env RAILS_ENV=test bundle exec decko setup # --test
-            - be decko rspec -s -- --format RspecJunitFormatter --out junit.xml --format documentation
-
       epilogue:
         always:
           commands:
