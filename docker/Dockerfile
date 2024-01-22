@@ -19,6 +19,10 @@ WORKDIR /deck
 # Assumes Dockerfile is in the root directory of your deck
 COPY . .
 
+# If you use `bundle install`, then installing sassc separately in advance avoids 
+# that `docker build` has to repeat the slow sassc build everytime when you change the Gemfile
+# (see https://www.prefab.cloud/blog/slow-docker-ruby-gems-solved/)
+RUN gem install sassc:2.4.0 
 # Depending on your use case, you may or may not want gems pre-installed inside your
 # docker image.  Only use `bundle install` if you do.
 RUN bundle install
