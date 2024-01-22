@@ -94,14 +94,6 @@ blocks:
             - cd platypus
             - env RAILS_ENV=test bundle exec decko setup # --test
             - be decko rspec -s -- --format RspecJunitFormatter --out junit.xml --format documentation
-        - name: RSpec Postgresql
-          when: "branch = 'main' or branch = '184156911_run_postgres_test_on_semapohore'"
-          commands:
-            - be decko new platypus --platypus -d postgresql
-            - cd platypus
-            - env RAILS_ENV=test bundle exec decko setup # --test
-            - be decko rspec -s -- --format RspecJunitFormatter --out junit.xml --format documentation
-
       epilogue:
         always:
           commands:
@@ -125,12 +117,6 @@ blocks:
           - bundle install
 
       jobs:
-        - name: RSpec MySql
-          commands:
-            - be decko new platypus --platypus
-            - cd platypus
-            - env RAILS_ENV=test bundle exec decko setup # --test
-            - be decko rspec -s -- --format RspecJunitFormatter --out junit.xml --format documentation
         - name: RSpec Postgres
           commands:
             - be decko new platypus --platypus -d postgresql
