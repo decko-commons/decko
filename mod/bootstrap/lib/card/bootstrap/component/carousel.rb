@@ -56,7 +56,8 @@ class Card
         def control_button direction, description
           @html.button class: "carousel-control-#{direction}",
                        "data-bs-target": "##{@id}", type: "button" do
-            @html.span class: "carousel-control-#{direction}-icon", "aria-hidden" => "true" do
+            @html.span class: "carousel-control-#{direction}-icon",
+                       "aria-hidden": "true" do
               ""
             end
             @html.span description, class: "visually-hidden"
