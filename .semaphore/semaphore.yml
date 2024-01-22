@@ -105,19 +105,17 @@ blocks:
             - aws s3 cp "coverage/codeclimate.$SEMAPHORE_JOB_ID.json" $S3_PATH
 
   - name: Unit Tests (Postgres)
-    run:
-      when: "branch = 'main' or branch = '184156911_run_postgres_test_on_semapohore'"
     task:
       prologue:
         commands:
-          - sem-service start mysql
+          - sem-service start postgresql
           - git submodule update
           - cache restore bundle-gems-$(checksum Gemfile.lock)
           - ./cc-test-reporter before-build
           - bundle install
 
       jobs:
-        - name: RSpec Postgres
+        - name: RSpec PostgreSql
           commands:
             - be decko new platypus --platypus -d postgresql
             - cd platypus
