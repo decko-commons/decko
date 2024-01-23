@@ -36,7 +36,6 @@ module Cardio
 
     config.allow_irreversible_admin_tasks = false
     config.raise_all_rendering_errors = false
-    config.rescue_all_in_controller = true
 
     config.cache_set_module_list = false
 

@@ -3,7 +3,7 @@ require "optparse"
 namespace :card do
   desc "Creates the database, loads the schema, initializes seed data, " \
        "and adds symlinks to public directories"
-  task setup: %w[db:setup card:mod:symlink]
+  task setup: %w[db:setup card:update]
 
   desc "Runs migrations, installs mods, and updates symlinks"
   task :update do
