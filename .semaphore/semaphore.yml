@@ -3,7 +3,7 @@ name: Decko Standard
 agent:
   machine:
     type: e1-standard-2
-    os_image: ubuntu1804
+    os_image: ubuntu2004
 global_job_config:
   env_vars:
     - name: BUNDLE_PATH
@@ -21,10 +21,13 @@ global_job_config:
       # INSTALL DECKO CODE AND DEPENDENCIES
       - checkout # semaphore does git checkout and cds into decko
       # - sem-version ruby 2.6.3 # because pry-stack_explorer doesn't work in 2.5
-      - sem-version ruby 2.7.3 # because semaphore certs not working in 2.6.3
+      - sem-version ruby 3.0.2 # because semaphore certs not working in 2.6.3
       # - sem-version ruby 3.0.1 # temporary
-      - gem install bundler:2.3.11
+      - gem install bundler:2.4.18
+
       - git submodule init
+      # don't update submodules in the prologue. they're not supposed to be needed
+      # here. if something goes wrong, odds are we need to reseed
 
       # SETUP ALIAS(ES)
       - alias be='bundle exec'
