@@ -9,7 +9,7 @@ class RemoveCustomizedBootswatchSkins < Cardio::Migration::Transform
   end
 
   def convert_bootswatch_skins
-    Card.search(type_id: ::Card::CustomizedBootswatchSkinID) do |card|
+    Card.search(type: :customized_bootswatch_skin) do |card|
       update_args = { type_id: Card::BootswatchSkinID, skip: :asset_input_changed }
       parent = find_parent(card.name)
       if parent && parent.id != card.id
