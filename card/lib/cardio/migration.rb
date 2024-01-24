@@ -25,11 +25,16 @@ module Cardio
       def port
         return unless connection.table_exists? old_deck_table
         rename_old_tables
-        connection.execute "INSERT INTO #{table} (SELECT * from #{old_deck_table})"
+        connection.execute "INSERT INTO #{table} (#{select_nonduplicate_versions})"
         connection.drop_table old_deck_table
       end
 
       private
+
+      def select_nonduplicate_versions
+        "SELECT * FROM #{old_deck_table} o WHERE NOT EXISTS " \
+          "(SELECT * FROM #{table} n WHERE o.version = n.version)"
+      end
 
       def rename_old_tables
         old_tables.each do |old_table_name|
