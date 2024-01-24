@@ -3,7 +3,9 @@ require "optparse"
 namespace :card do
   desc "Creates the database, loads the schema, initializes seed data, " \
        "and adds symlinks to public directories"
-  task setup: %w[db:setup card:update]
+  task setup: %w[db:setup card:mod:symlink]
+  # task setup: %w[db:setup card:update] # can't do update yet, because it overrides
+  # coded assets, which breaks testing
 
   desc "Runs migrations, installs mods, and updates symlinks"
   task :update do
