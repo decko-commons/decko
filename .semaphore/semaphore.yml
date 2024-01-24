@@ -156,6 +156,7 @@ blocks:
           commands:
             - RAILS_ENV=cypress bundle exec decko server -p 5002 &
             - cd ~/decko/decko/spec
+            - nvm install 16.17.1 # TODO: try to get working with a pre-installed nvm version
             - nvm use 16.17.1
             - rm -rf node_modules
             - yarn install --frozen-lockfile
