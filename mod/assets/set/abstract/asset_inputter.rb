@@ -13,7 +13,7 @@ def referers_responding_to method_name
 end
 
 event :asset_input_changed, :finalize,
-      on: :save, when: :asset_inputter?, skip: :allowed do
+      on: :save, when: :asset_inputter?, changed: :content, skip: :allowed do
   update_asset_input
 end
 
