@@ -29,8 +29,8 @@ class CardController
     private
 
     def setup
-      Card::Assets.refresh unless params[:explicit_file]
       Card::Cache.renew
+      Card::Assets.refresh unless params[:explicit_file]
       Card::Env.reset self
     end
 
