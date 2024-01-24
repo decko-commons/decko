@@ -46,7 +46,6 @@ RSpec.describe Card::Set::Type::Set do
     end
 
     it "renders nest as a link to template editor of nested card's +*right set" do
-      puts structure_rule.format.render_open
       expect(structure_rule.format.render_open)
         .to have_tag("a.slotter") do
         with_text(/#{Regexp.escape nest_syntax}/)
