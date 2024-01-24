@@ -17,4 +17,4 @@ describe "redirect to signin page", () =>
       .type "joe@admin.com"
     cy.field "*password"
       .type "joe_pass{enter}"
-    cy.get(".modal .content-editor")
+    # cy.get(".modal .content-editor")

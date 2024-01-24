@@ -228,3 +228,286 @@ card_changes_044:
   value: |-
     [[:getting_started_links|Getting started]]
     [[:recent|Recent Changes]]
+card_changes_045:
+  id: 45
+  card_action_id: 2396
+  field: 2
+  value: "[[:recent|Recent Changes]]"
+card_changes_046:
+  id: 46
+  card_action_id: 2426
+  field: 2
+  value: |-
+    [[:getting_started_links|Getting started]]
+    [[:recent|Recent Changes]]
+card_changes_047:
+  id: 47
+  card_action_id: 793
+  field: 0
+  value:
+card_changes_048:
+  id: 48
+  card_action_id: 793
+  field: 1
+  value: '64'
+card_changes_049:
+  id: 49
+  card_action_id: 793
+  field: 2
+  value: |
+    ##Basic configuration
+    {{:title|closed_bar}}
+    {{:home|closed_bar}}
+    {{:logo|closed_bar}}
+    {{:main_menu|closed_bar}}
+    {{:header|closed_bar}}
+    {{:footer|closed_bar}}
+
+    ##Integrations
+    {{:recaptcha_settings|closed_bar}}
+
+    ##Editor configuration
+    {{:tiny_mce|closed_bar}}
+    {{:ace|closed_bar}}
+card_changes_050:
+  id: 50
+  card_action_id: 793
+  field: 3
+  value: f
+card_changes_051:
+  id: 51
+  card_action_id: 793
+  field: 4
+  value: '184'
+card_changes_052:
+  id: 52
+  card_action_id: 793
+  field: 5
+  value: '525'
+card_changes_053:
+  id: 53
+  card_action_id: 2429
+  field: 2
+  value: "{{_L|configs}}\n"
+card_changes_054:
+  id: 54
+  card_action_id: 795
+  field: 0
+  value:
+card_changes_055:
+  id: 55
+  card_action_id: 795
+  field: 1
+  value: '2'
+card_changes_056:
+  id: 56
+  card_action_id: 795
+  field: 2
+  value: |
+    <h3>Cardtypes </h3>
+    <p> [[/new/cardtype|Add new Type]]</p>
+    <p>{{Cardtype+:type+:by_name|bar; title: all cardtypes}}</p>
+    <h3>Rules</h3>
+    <div>Cards are configured by creating <em>rules</em>.  </div>
+    <div> </div>
+    <h5>Webpage rules</h5>
+    <div>
+    <blockquote>{{:all|bar_setting_list; filter:webpage}}</blockquote>
+    <h5>Permission rules</h5>
+    <blockquote>{{:all|bar_setting_list; filter:permission}}</blockquote>
+    </div>
+    <div><em>[[http://decko.org/rules | More about rules.]]</em></div>
+    <div> </div>
+    <div>
+    <h3>Views</h3>
+    <p>You can try out different views below</p>
+    <p>{{:getting_started|demo}}</p>
+    </div>
+card_changes_057:
+  id: 57
+  card_action_id: 795
+  field: 3
+  value: f
+card_changes_058:
+  id: 58
+  card_action_id: 795
+  field: 4
+  value: '191'
+card_changes_059:
+  id: 59
+  card_action_id: 795
+  field: 5
+  value: '525'
+card_changes_060:
+  id: 60
+  card_action_id: 2431
+  field: 2
+  value: |
+    {{_L|configs}}
+
+    <h3>Rules</h3>
+    <div>Cards are configured by creating <em>rules</em>.  </div>
+    <div> </div>
+    <h5>Webpage rules</h5>
+    <div>
+    <blockquote>{{:all|bar_setting_list; filter:webpage}}</blockquote>
+    <h5>Permission rules</h5>
+    <blockquote>{{:all|bar_setting_list; filter:permission}}</blockquote>
+    </div>
+    <div><em>[[http://decko.org/rules | More about rules.]]</em></div>
+    <div> </div>
+    <div>
+    <h3>Views</h3>
+    <p>You can try out different views below</p>
+    <p>{{:getting_started|demo}}</p>
+    </div>
+card_changes_061:
+  id: 61
+  card_action_id: 797
+  field: 0
+  value:
+card_changes_062:
+  id: 62
+  card_action_id: 797
+  field: 1
+  value: '2'
+card_changes_063:
+  id: 63
+  card_action_id: 797
+  field: 2
+  value: |
+    <h3>Accounts</h3>
+    <p>{{:account|content}}</p>
+    <h3>Help Texts</h3>
+    <p>{{:help|bar}}</p>
+    <h3>Emails </h3>
+    <p>Here are the current [[Email Templates|Email templates]] for your site.</p>
+    <p>{{Email Templates+*type+by update|content}} </p>
+card_changes_064:
+  id: 64
+  card_action_id: 797
+  field: 3
+  value: f
+card_changes_065:
+  id: 65
+  card_action_id: 797
+  field: 4
+  value: '196'
+card_changes_066:
+  id: 66
+  card_action_id: 797
+  field: 5
+  value: '525'
+card_changes_067:
+  id: 67
+  card_action_id: 2433
+  field: 2
+  value: |
+    {{_L|configs}}
+    <h3>Accounts</h3>
+    <p>{{:account|content}}</p>
+    <h3>Help Texts</h3>
+    <p>{{:help|bar}}</p>
+    <h3>Emails </h3>
+    <p>Here are the current [[Email Templates|Email templates]] for your site.</p>
+    <p>{{Email Templates+*type+by update|content}} </p>
+card_changes_068:
+  id: 68
+  card_action_id: 873
+  field: 0
+  value:
+card_changes_069:
+  id: 69
+  card_action_id: 873
+  field: 1
+  value: '4'
+card_changes_070:
+  id: 70
+  card_action_id: 873
+  field: 2
+  value: |-
+    mod: format+*script
+    mod: list+*script
+    mod: search+*script
+    mod: rules+*script
+    mod: edit+*script
+    mod: carrierwave+*script
+    mod: ace editor+*script
+    mod: bar and box+*script
+    mod: bootstrap+*script
+    mod: follow+*script
+    mod: tabs+*script
+    mod: layout+*script
+    mod: recaptcha+*script
+    mod: tinymce editor+*script
+card_changes_071:
+  id: 71
+  card_action_id: 873
+  field: 3
+  value: f
+card_changes_072:
+  id: 72
+  card_action_id: 873
+  field: 4
+  value: '7'
+card_changes_073:
+  id: 73
+  card_action_id: 873
+  field: 5
+  value: '301'
+card_changes_074:
+  id: 74
+  card_action_id: 2439
+  field: 2
+  value: |-
+    mod: format+*script
+    mod: list+*script
+    mod: search+*script
+    mod: rules+*script
+    mod: edit+*script
+    mod: account+*script
+    mod: carrierwave+*script
+    mod: ace editor+*script
+    mod: bar and box+*script
+    mod: bootstrap+*script
+    mod: follow+*script
+    mod: tabs+*script
+    mod: layout+*script
+    mod: recaptcha+*script
+    mod: tinymce editor+*script
+card_changes_075:
+  id: 75
+  card_action_id: 3032
+  field: 2
+  value: "[[:recent|Recent Changes]]"
+card_changes_076:
+  id: 76
+  card_action_id: 3062
+  field: 2
+  value: |-
+    [[:getting_started_links|Getting started]]
+    [[:recent|Recent Changes]]
+card_changes_077:
+  id: 77
+  card_action_id: 3663
+  field: 2
+  value: "[[:recent|Recent Changes]]"
+card_changes_078:
+  id: 78
+  card_action_id: 3693
+  field: 2
+  value: |-
+    [[:getting_started_links|Getting started]]
+    [[:recent|Recent Changes]]
+card_changes_079:
+  id: 79
+  card_action_id: 4294
+  field: 2
+  value: "[[:recent|Recent Changes]]"
+card_changes_080:
+  id: 80
+  card_action_id: 4324
+  field: 2
+  value: |-
+    [[:getting_started_links|Getting started]]
+    [[:recent|Recent Changes]]
