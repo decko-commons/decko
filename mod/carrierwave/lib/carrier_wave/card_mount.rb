@@ -29,9 +29,9 @@ module CarrierWave
           remove_#{column}!
         end
 
-        event :mark_remove_#{column}_false_event, :finalize, on: :update do
-          mark_remove_#{column}_false
-        end
+        # event :mark_remove_#{column}_false_event, :finalize, on: :update do
+        #   mark_remove_#{column}_false
+        # end
 
         event :reset_previous_changes_for_#{column}_event, :store,
               on: :update, when: proc { |c| !c.history? } do
