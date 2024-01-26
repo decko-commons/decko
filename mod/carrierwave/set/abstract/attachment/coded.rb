@@ -29,7 +29,7 @@ def storage_type_error error_name
 end
 
 def mod_from_content
-  if (m = mod_name_match(content) || mod_name_match(db_content_before_act))
+  if (m = mod_name_match content) # || mod_name_match(db_content_before_act))
     m[1] # current mod_file format
   else
     mod_from_deprecated_content
