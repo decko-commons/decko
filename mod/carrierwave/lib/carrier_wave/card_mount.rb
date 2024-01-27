@@ -1,7 +1,10 @@
 require "carrierwave"
 
 module CarrierWave
-  # adapt carrierwave mount to cards
+  # Adapt carrierwave mount to cards.
+  # We translate the active record hooks in
+  # https://github.com/carrierwaveuploader/carrierwave/blob/v3.0.5/lib/carrierwave/orm/activerecord.rb
+  # to card events.
   module CardMount
     include CarrierWave::Mount
 
