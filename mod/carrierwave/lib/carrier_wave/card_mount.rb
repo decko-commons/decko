@@ -19,7 +19,7 @@ module CarrierWave
 
       class_eval <<-RUBY, __FILE__, __LINE__ + 1
         event :store_#{column}_event, :finalize,
-              on: :save, when: :store_#{column}_event? do
+              when: :store_#{column}_event? do
           store_#{column}!
         end
 
@@ -34,7 +34,7 @@ module CarrierWave
         # end
 
         event :reset_previous_changes_for_#{column}_event, :store,
-              on: :update, when: proc { |c| !c.history? } do
+              when: proc { |c| !c.history? } do
           reset_previous_changes_for_#{column}
         end
 

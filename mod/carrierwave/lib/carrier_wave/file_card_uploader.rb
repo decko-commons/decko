@@ -175,9 +175,9 @@ module CarrierWave
       end
     end
 
-    # def temporary_identifier
-    #   db_content
-    # end
+    def temporary_identifier
+       db_content
+    end
 
     # @option opts [Symbol] :absolute - return absolute url
     def url opts={}
