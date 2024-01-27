@@ -1,7 +1,10 @@
 require "carrierwave"
 
 module CarrierWave
-  # adapt carrierwave mount to cards
+  # Adapt carrierwave mount to cards.
+  # We translate the active record hooks in
+  # https://github.com/carrierwaveuploader/carrierwave/blob/v3.0.5/lib/carrierwave/orm/activerecord.rb
+  # to card events.
   module CardMount
     include CarrierWave::Mount
 
@@ -19,7 +22,7 @@ module CarrierWave
 
       class_eval <<-RUBY, __FILE__, __LINE__ + 1
         event :store_#{column}_event, :finalize,
-              on: :save, when: :store_#{column}_event? do
+              when: :store_#{column}_event? do
           store_#{column}!
         end
 
@@ -29,13 +32,13 @@ module CarrierWave
           remove_#{column}!
         end
 
-        event :mark_remove_#{column}_false_event, :finalize, on: :update do
-          mark_remove_#{column}_false
-        end
+        # event :mark_remove_#{column}_false_event, :finalize, on: :update do
+        #   mark_remove_#{column}_false
+        # end
 
-        event :store_previous_changes_for_#{column}_event, :store,
-              on: :update, when: proc { |c| !c.history? } do
-          store_previous_changes_for_#{column}
+        event :reset_previous_changes_for_#{column}_event, :store,
+              when: proc { |c| !c.history? } do
+          reset_previous_changes_for_#{column}
         end
 
         event :remove_previously_stored_#{column}_event, :finalize,
