@@ -8,9 +8,9 @@ This mod unifies handling of styles (CSS, SCSS, etc) and scripts
 (JavaScript, CoffeeScript, etc).
 
 For both styles and scripts, the idea is to output optimized files for
-browser caching and thus improve users' experience by reducing loading times. In other
-words, we use a wide variety of asset sources to assemble a ready-for-prime-time
-.js and .css files.
+browser caching and thus reduce load times. Basically, we use a wide variety 
+of asset sources (cards, mod files, remote urls...) to assemble 
+ready-for-prime-time .js and .css files.
 
 There are two main kinds of cards in the asset pipeline: inputters (where
 the code comes from) and outputters (where it ends up).
