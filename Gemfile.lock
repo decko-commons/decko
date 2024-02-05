@@ -227,7 +227,7 @@ PATH
       rr (~> 3.0)
       rspec (~> 3.12)
       rspec-html-matchers (~> 0.9)
-      rspec-rails (~> 5.0)
+      rspec-rails (~> 6.0)
       rspec_junit_formatter (~> 0.4)
       rubocop-rspec (~> 2.4)
       simplecov (~> 0.21)
@@ -605,14 +605,14 @@ GEM
     rspec-mocks (3.12.6)
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.12.0)
-    rspec-rails (5.1.2)
-      actionpack (>= 5.2)
-      activesupport (>= 5.2)
-      railties (>= 5.2)
-      rspec-core (~> 3.10)
-      rspec-expectations (~> 3.10)
-      rspec-mocks (~> 3.10)
-      rspec-support (~> 3.10)
+    rspec-rails (6.1.1)
+      actionpack (>= 6.1)
+      activesupport (>= 6.1)
+      railties (>= 6.1)
+      rspec-core (~> 3.12)
+      rspec-expectations (~> 3.12)
+      rspec-mocks (~> 3.12)
+      rspec-support (~> 3.12)
     rspec-support (3.12.1)
     rspec_junit_formatter (0.6.0)
       rspec-core (>= 2, < 4, != 2.12.0)
@@ -716,6 +716,7 @@ GEM
     zeitwerk (2.6.12)
 
 PLATFORMS
+  x86_64-darwin-21
   x86_64-darwin-22
 
 DEPENDENCIES
