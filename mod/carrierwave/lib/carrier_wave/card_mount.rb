@@ -1,7 +1,10 @@
 require "carrierwave"
 
 module CarrierWave
-  # adapt carrierwave mount to cards
+  # Adapt carrierwave mount to cards.
+  # We translate the active record hooks in
+  # https://github.com/carrierwaveuploader/carrierwave/blob/v3.0.5/lib/carrierwave/orm/activerecord.rb
+  # to card events.
   module CardMount
     include CarrierWave::Mount
 
@@ -19,9 +22,13 @@ module CarrierWave
 
       class_eval <<-RUBY, __FILE__, __LINE__ + 1
         event :store_#{column}_event, :finalize,
-              on: :save, when: :store_#{column}_event? do
+              when: :store_#{column}_event? do
           store_#{column}!
         end
+
+        # event :write_#{column}_identifier_event, :prepare_to_store do
+        #   write_#{column}_identifier
+        # end
 
         # remove files only if card has no history
         event :remove_#{column}_event, :finalize,
@@ -33,13 +40,13 @@ module CarrierWave
           mark_remove_#{column}_false
         end
 
-        event :store_previous_changes_for_#{column}_event, :store,
-              on: :update, when: proc { |c| !c.history? } do
-          store_previous_changes_for_#{column}
+        event :reset_previous_changes_for_#{column}_event, :finalize,
+              when: proc { |c| !c.history? } do
+          reset_previous_changes_for_#{column}
         end
 
-        event :remove_previously_stored_#{column}_event, :finalize,
-              on: :update, when: proc { |c| !c.history?} do
+        event :remove_previously_stored_#{column}_event, :finalize, on: :update, 
+              when: proc { |c| !c.history?} do
           remove_previously_stored_#{column}
         end
 
@@ -128,7 +135,37 @@ module CarrierWave
             end
           end
         end
+
+        def reload(*)
+          @_mounters = nil
+          super
+        end
+
+        # Reset cached mounter on record dup
+        def initialize_dup(other)
+          old_uploaders = _mounter(:"#{column}").uploaders
+          super
+          @_mounters[:"#{column}"] = nil
+          # The attribute needs to be cleared to prevent it from picked up as identifier
+          write_attribute(_mounter(:#{column}).serialization_column, nil)
+          _mounter(:"#{column}").cache(old_uploaders)
+        end
+
+        def write_#{column}_identifier
+          return unless has_attribute?(_mounter(:#{column}).serialization_column)
+          super
+        end
+
+        # def mark_remove_#{column}_false
+        #   _mounter(:#{column}).instance_variable_set "@remove", false
+        # end
       RUBY
+    end
+  end
+
+  class Mounter
+    def write_temporary_identifier
+      # noop
     end
   end
 end
