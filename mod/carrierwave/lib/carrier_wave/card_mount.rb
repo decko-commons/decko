@@ -21,18 +21,12 @@ module CarrierWave
       super
 
       class_eval <<-RUBY, __FILE__, __LINE__ + 1
-        event :store_#{column}_event, :finalize,
-              when: :store_#{column}_event? do
+        event :store_#{column}_event, :finalize, when: :store_#{column}_event? do
           store_#{column}!
         end
 
-        # event :write_#{column}_identifier_event, :prepare_to_store do
-        #   write_#{column}_identifier
-        # end
-
         # remove files only if card has no history
-        event :remove_#{column}_event, :finalize,
-              on: :delete, when: proc { |c| !c.history? } do
+        event :remove_#{column}_event, :finalize, on: :delete, when: :no_history? do
           remove_#{column}!
         end
 
@@ -41,12 +35,12 @@ module CarrierWave
         end
 
         event :reset_previous_changes_for_#{column}_event, :finalize,
-              when: proc { |c| !c.history? } do
+              when: :no_history? do
           reset_previous_changes_for_#{column}
         end
 
         event :remove_previously_stored_#{column}_event, :finalize, on: :update,
-              when: proc { |c| !c.history?} do
+              when: :no_history? do
           remove_previously_stored_#{column}
         end
 
