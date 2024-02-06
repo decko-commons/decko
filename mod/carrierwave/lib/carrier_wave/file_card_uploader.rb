@@ -253,7 +253,7 @@ module CarrierWave
       return unless path
 
       type = Marcel::Magic.by_path(original_filename).to_s
-      if type.start_with?('text/') || type.start_with?('application/json')
+      if type.start_with? "text/", "application/json'"
         type
       elsif type == "application/javascript"
         "text/javascript"
