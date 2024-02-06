@@ -29,11 +29,15 @@ def storage_type_error error_name
 end
 
 def mod_from_content
-  if (m = content&.match %r{^:[^/]+/([^.]+)})
+  if (m = mod_name_match content)
     m[1] # current mod_file format
   else
     mod_from_deprecated_content
   end
+end
+
+def mod_name_match cont
+  cont&.match %r{^:[^/]+/([^.]+)}
 end
 
 # place for files of mod file cards
