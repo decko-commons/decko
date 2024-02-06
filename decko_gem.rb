@@ -5,6 +5,7 @@ require_relative "card/lib/cardio/version"
 class DeckoGem
   attr_reader :spec
 
+  RUBY_VERSION = ">= 3.0".freeze
   RAILS_VERSION = "~> 6.1.4".freeze
   # reduce digits after 6.2 (mimemagic issue)
 
@@ -40,7 +41,7 @@ class DeckoGem
     spec.email = ["info@decko.org"]
     spec.homepage = "https://decko.org"
     spec.licenses = ["GPL-3.0"]
-    spec.required_ruby_version = ">= 2.5"
+    spec.required_ruby_version = RUBY_VERSION
     spec.version = decko_version
   end
 
