@@ -3,6 +3,10 @@ def history?
   true
 end
 
+def no_history?
+  !history?
+end
+
 # all cards whose acts are considered part of this card's history
 def history_card_ids
   nestee_ids << id
