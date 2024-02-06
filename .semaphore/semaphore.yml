@@ -20,14 +20,10 @@ global_job_config:
     commands:
       # INSTALL DECKO CODE AND DEPENDENCIES
       - checkout # semaphore does git checkout and cds into decko
-      # - sem-version ruby 2.6.3 # because pry-stack_explorer doesn't work in 2.5
       - sem-version ruby 3.0.2
-      - gem install bundler:2.4.18
+      - gem update --system
 
       - git submodule init
-      # - git submodule update --init
-      # FIXME: don't update submodules in the prologue. they're not supposed to be needed
-      # here. if something goes wrong, odds are we need to reseed
 
       # SETUP ALIAS(ES)
       - alias be='bundle exec'
@@ -78,6 +74,38 @@ blocks:
             - cd monkey
             - be decko setup
 
+  - name: Unit Tests (Postgres)
+    run:
+      when: "branch = 'main'"
+    task:
+      prologue:
+        commands:
+          - sem-service start postgres
+          - psql -U postgres -h localhost -c "CREATE USER platypus WITH PASSWORD 'developer';"
+          -  psql -U postgres -h localhost -c "ALTER USER platypus WITH SUPERUSER;"
+          - git submodule update
+          - cache restore bundle-gems-$(checksum Gemfile.lock)
+          - ./cc-test-reporter before-build
+          - bundle install
+
+      jobs:
+        - name: RSpec Postgres
+          commands:
+            - be decko new platypus --platypus -d postgresql
+            - cd platypus
+            - env RAILS_ENV=test bundle exec decko setup # --test
+            - be decko rspec -s -- --format RspecJunitFormatter --out junit.xml --format documentation
+
+      epilogue:
+        always:
+          commands:
+            - test-results publish junit.xml
+        on_pass:
+          commands:
+            - cd -
+            - ./cc-test-reporter format-coverage --output "coverage/codeclimate.$SEMAPHORE_JOB_ID.json" -t simplecov
+            - aws s3 cp "coverage/codeclimate.$SEMAPHORE_JOB_ID.json" $S3_PATH
+
   - name: Unit Tests (MySql)
     run:
       when: "branch != 'main'"
@@ -107,36 +135,6 @@ blocks:
             - ./cc-test-reporter format-coverage --output "coverage/codeclimate.$SEMAPHORE_JOB_ID.json" -t simplecov
             - aws s3 cp "coverage/codeclimate.$SEMAPHORE_JOB_ID.json" $S3_PATH
 
-  - name: Unit Tests (Postgres)
-    run:
-      when: "branch = 'main' or branch = '184156911_run_postgres_test_on_semapohore'"
-    task:
-      prologue:
-        commands:
-          - sem-service start mysql
-          - git submodule update
-          - cache restore bundle-gems-$(checksum Gemfile.lock)
-          - ./cc-test-reporter before-build
-          - bundle install
-
-      jobs:
-        - name: RSpec Postgres
-          commands:
-            - be decko new platypus --platypus -d postgresql
-            - cd platypus
-            - env RAILS_ENV=test bundle exec decko setup # --test
-            - be decko rspec -s -- --format RspecJunitFormatter --out junit.xml --format documentation
-
-      epilogue:
-        always:
-          commands:
-            - test-results publish junit.xml
-        on_pass:
-          commands:
-            - cd -
-            - ./cc-test-reporter format-coverage --output "coverage/codeclimate.$SEMAPHORE_JOB_ID.json" -t simplecov
-            - aws s3 cp "coverage/codeclimate.$SEMAPHORE_JOB_ID.json" $S3_PATH
-
   - name: Integration Tests
     task:
       secrets:
@@ -156,8 +154,6 @@ blocks:
           commands:
             - RAILS_ENV=cypress bundle exec decko server -p 5002 &
             - cd ~/decko/decko/spec
-            - nvm install 16.17.1 # TODO: try to get working with a pre-installed nvm version
-            - nvm use 16.17.1
             - rm -rf node_modules
             - yarn install --frozen-lockfile
             - yarn run cypress run --record  --reporter junit --reporter-options "mochaFile=/home/semaphore/reports/cypress-output-[hash].xml"
