@@ -62,13 +62,8 @@ module CarrierWave
           "#{column}".to_sym
         end
 
-        def read_uploader *args
-          read_attribute *args
-        end
-
-        def write_uploader *args
-          write_attribute *args
-        end
+        def read_uploader *args; read_attribute *args; end
+        def write_uploader *args; write_attribute *args; end
 
         def #{column}=(new_file)
           return if new_file.blank?
