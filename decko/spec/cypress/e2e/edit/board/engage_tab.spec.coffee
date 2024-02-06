@@ -1,5 +1,5 @@
 describe 'engage tab', () ->
-  before ->
+  beforeEach ->
     cy.login()
     cy.unfollow("A")
     # cy.clear_machine_cache()

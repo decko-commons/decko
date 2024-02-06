@@ -1,5 +1,5 @@
  describe 'history tab', () ->
-  before ->
+  beforeEach ->
     cy.login()
     cy.ensure "no history", type: 'basic'
     cy.ensure "no history", content: "add history"

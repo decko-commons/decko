@@ -1,5 +1,5 @@
 describe 'paging', () ->
-  before ->
+  beforeEach ->
     cy.login()
     cy.ensure "basic card search",
               type: "search",

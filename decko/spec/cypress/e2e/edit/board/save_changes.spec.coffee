@@ -1,5 +1,5 @@
 describe 'save change in board', () ->
-  before ->
+  beforeEach ->
     cy.login()
     cy.appScenario("board/save_changes")
 
