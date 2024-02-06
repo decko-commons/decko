@@ -1,7 +1,10 @@
 require "carrierwave"
 
 module CarrierWave
-  # adapt carrierwave mount to cards
+  # Adapt carrierwave mount to cards.
+  # We translate the active record hooks in
+  # https://github.com/carrierwaveuploader/carrierwave/blob/v3.0.5/lib/carrierwave/orm/activerecord.rb
+  # to card events.
   module CardMount
     include CarrierWave::Mount
 
@@ -18,14 +21,12 @@ module CarrierWave
       super
 
       class_eval <<-RUBY, __FILE__, __LINE__ + 1
-        event :store_#{column}_event, :finalize,
-              on: :save, when: :store_#{column}_event? do
+        event :store_#{column}_event, :finalize, when: :store_#{column}_event? do
           store_#{column}!
         end
 
         # remove files only if card has no history
-        event :remove_#{column}_event, :finalize,
-              on: :delete, when: proc { |c| !c.history? } do
+        event :remove_#{column}_event, :finalize, on: :delete, when: :no_history? do
           remove_#{column}!
         end
 
@@ -33,13 +34,13 @@ module CarrierWave
           mark_remove_#{column}_false
         end
 
-        event :store_previous_changes_for_#{column}_event, :store,
-              on: :update, when: proc { |c| !c.history? } do
-          store_previous_changes_for_#{column}
+        event :reset_previous_changes_for_#{column}_event, :finalize,
+              when: :no_history? do
+          reset_previous_changes_for_#{column}
         end
 
-        event :remove_previously_stored_#{column}_event, :finalize,
-              on: :update, when: proc { |c| !c.history?} do
+        event :remove_previously_stored_#{column}_event, :finalize, on: :update,
+              when: :no_history? do
           remove_previously_stored_#{column}
         end
 
@@ -128,7 +129,20 @@ module CarrierWave
             end
           end
         end
+
+        def reload(*)
+          @_mounters = nil
+          super
+        end
       RUBY
+    end
+  end
+
+  # The temporary identifiers from Carrierwave's mounters kill CardMount;
+  # We don't seem to need them.
+  class Mounter
+    def write_temporary_identifier
+      # noop
     end
   end
 end
