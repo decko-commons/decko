@@ -59,13 +59,13 @@ module Cardio
           platypus? ? File.expand_path("#{repo_path}/decko/features/") : "mod/"
       end
 
-      def database_gem_and_version
-        entry = database_gemfile_entry
-        text = %("#{entry.name}")
-        text << %(, '#{[entry.version].flatten.join "', '"}') if entry.version
-        # single quotes to prevent, eg: `gem "pg", ">= 0.18', '< 2.0"`
-        text
-      end
+      # def database_gem_and_version
+      #   entry = database_gemfile_entry
+      #   text = %("#{entry.name}")
+      #   text << %(, '#{[entry.version].flatten.join "', '"}') if entry.version
+      #   # single quotes to prevent, eg: `gem "pg", ">= 0.18', '< 2.0"`
+      #   text
+      # end
 
       def jasmine_yml prefix
         inside("javascripts/support") do
