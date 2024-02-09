@@ -6,8 +6,7 @@ class DeckoGem
   attr_reader :spec
 
   RUBY_VERSION = ">= 3.0".freeze
-  RAILS_VERSION = "~> 6.1.4".freeze
-  # reduce digits after 6.2 (mimemagic issue)
+  RAILS_VERSION = "~> 7.1".freeze
 
   class << self
     def gem name, mod=false
