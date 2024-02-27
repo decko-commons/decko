@@ -98,8 +98,8 @@ module Cardio
 
     def table_name= table_name
       ActiveRecord::Base.schema_migrations_table_name = table_name
-      ActiveRecord::SchemaMigration.table_name = table_name
-      ActiveRecord::SchemaMigration.reset_column_information
+      # ActiveRecord::SchemaMigration.table_name = table_name
+      # ActiveRecord::SchemaMigration.reset_column_information
     end
   end
 end
