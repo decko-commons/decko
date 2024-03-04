@@ -1,5 +1,5 @@
 describe "redirect to signin page", () =>
-  beforeEach ->
+  before ->
     cy.clearCookies()
     cy.logout()
 

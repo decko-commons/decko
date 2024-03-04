@@ -1,5 +1,5 @@
 describe "setting up", () =>
-  beforeEach ->
+  before ->
     cy.clearCookies()
     cy.logout()
     #Cypress.Cookies.debug(true)

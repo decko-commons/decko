@@ -1,5 +1,5 @@
 describe 'edit type', () ->
-  beforeEach ->
+  before ->
     cy.login()
     cy.ensure "ice", type: 'basic'
 
