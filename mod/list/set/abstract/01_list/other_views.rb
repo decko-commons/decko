@@ -27,6 +27,10 @@ end
 
 format :data do
   view :core do
+    card.known? ? render_content : []
+  end
+
+  view :content do
     nest_item_array
   end
 end
@@ -63,11 +67,9 @@ format :css do
     %(#{major_comment "STYLE GROUP: \"#{card.name}\"", '='}#{_render_core})
   end
 
-  view :core do
+  view :content do
     nest_item_array.join "\n\n"
   end
-
-  view :content, :core
 end
 
 # RSS views
