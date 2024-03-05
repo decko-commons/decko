@@ -74,6 +74,7 @@ PATH
       card-mod-history (= 0.16.0)
       card-mod-permissions (= 0.16.0)
       carrierwave (~> 3.0)
+      marcel (= 1.0.2)
       mini_magick (~> 4.12)
       ssrf_filter (~> 1.1)
     card-mod-collection (0.16.0)
@@ -494,7 +495,7 @@ GEM
       net-imap
       net-pop
       net-smtp
-    marcel (1.0.4)
+    marcel (1.0.2)
     matrix (0.4.2)
     method_source (1.0.0)
     mime-types (3.5.2)
