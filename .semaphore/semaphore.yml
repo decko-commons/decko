@@ -82,7 +82,7 @@ blocks:
         commands:
           - sem-service start postgres
           - psql -U postgres -h localhost -c "CREATE USER platypus WITH PASSWORD 'developer';"
-          -  psql -U postgres -h localhost -c "ALTER USER platypus WITH SUPERUSER;"
+          - psql -U postgres -h localhost -c "ALTER USER platypus WITH SUPERUSER;"
           - git submodule update
           - cache restore bundle-gems-$(checksum Gemfile.lock)
           - ./cc-test-reporter before-build
@@ -156,7 +156,7 @@ blocks:
             - cd ~/decko/decko/spec
             - rm -rf node_modules
             - yarn install --frozen-lockfile
-            - yarn run cypress run --record  --reporter junit --reporter-options "mochaFile=/home/semaphore/reports/cypress-output-[hash].xml"
+            - yarn run cypress run --record --reporter junit --reporter-options "mochaFile=/home/semaphore/reports/cypress-output-[hash].xml"
 
             - pkill -2 -f puma
 #        - name: Cucumber
@@ -172,7 +172,6 @@ blocks:
             - aws s3 cp "coverage/codeclimate.$SEMAPHORE_JOB_ID.json" $S3_PATH
             - artifact push job ~/decko/decko/spec/cypress/screenshots
             - artifact push job ~/decko/decko/spec/cypress/videos
-
 
 
   # NOTE: the code climate reporting cannot be handled in after_pipeline, because
