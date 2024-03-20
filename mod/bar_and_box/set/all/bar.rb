@@ -43,11 +43,13 @@ format :html do
   def build_accordion_bar open: false
     prepare_bar mini_bar_cols
     class_up "accordion-item", "bar #{classy 'bar'}"
-    accordion_item render_bar_body,
-                   subheader: render_menu,
-                   body: render_bar_bottom,
-                   open: open,
-                   context: :accordion_bar
+    wrap do
+      accordion_item render_bar_body,
+                     subheader: render_menu,
+                     body: render_bar_bottom,
+                     open: open,
+                     context: :accordion_bar
+    end
   end
 
   def build_bar
