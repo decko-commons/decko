@@ -7,7 +7,7 @@ class Card
       # FIXME: if we need this (not sure we do? see below), these types should probably
       # be in a basket so that monkeys can add them.
       def inputter_types
-        %i[java_script coffee_script css scss]
+        [JavaScriptID, CoffeeScriptID, CssID, ScssID]
       end
 
       def refresh force: false
@@ -67,13 +67,13 @@ class Card
       # and MOD/assets/script directories respectively
       def standard_inputters
         @standard_inputter_ids ||=
-          Card.search left: { type: :mod }, right: %i[script style], return: :id
+          Card.search left: { type: :mod }, right_id: [StyleID, ScriptID], return: :id
         @standard_inputter_ids.map(&:card)
       end
 
       # standalone cards, NOT in mod assets directories
       def nonstandard_inputters
-        Card.search type: inputter_types.unshift("in")
+        Card.search type_id: inputter_types.unshift("in")
       end
 
       def refresh?
