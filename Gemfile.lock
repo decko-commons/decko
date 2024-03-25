@@ -331,7 +331,7 @@ GEM
     capybara-puma (1.0.1)
       capybara
       puma
-    carrierwave (3.0.6)
+    carrierwave (3.0.7)
       activemodel (>= 6.0.0)
       activesupport (>= 6.0.0)
       addressable (~> 2.6)
