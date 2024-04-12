@@ -24,12 +24,10 @@ module Cardio
 
           RSPEC ARGS
 
-          See https://relishapp.com/rspec/rspec-core/docs/command-line
+          See https://rspec.info/features/3-12/rspec-core/command-line/ or run card rspec -- -hbe
         BANNER
 
         DESC = {
-          d: "Run spec for a Decko deck file",
-          c: "Run spec for a Decko core file",
           m: "Run all specs for a mod or matching a mod"
         }.freeze
 
@@ -47,14 +45,8 @@ module Cardio
         private
 
         def file_options parser, opts
-          parser.on("-d", "--spec FILENAME(:LINE)", DESC[:d]) do |file|
-            opts[:files] = find_spec_file(file, "#{Decko.root}/mod")
-          end
           parser.on("-m", "--mod MODNAME", DESC[:m]) do |file|
             opts[:files] = find_mod_file(file, Cardio.gem_root)
-          end
-          parser.on("-c", "--core-spec FILENAME(:LINE)", DESC[:c]) do |file|
-            opts[:files] = find_spec_file(file, Cardio.gem_root)
           end
         end
 

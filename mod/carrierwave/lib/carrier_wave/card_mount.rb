@@ -21,6 +21,10 @@ module CarrierWave
       super
 
       class_eval <<-RUBY, __FILE__, __LINE__ + 1
+        event :write_#{column}_identifier_event, :prepare_to_store do
+          write_#{column}_identifier
+        end
+
         event :store_#{column}_event, :finalize,
               when: :store_#{column}_event? do
           store_#{column}!
