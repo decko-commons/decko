@@ -21,32 +21,26 @@ module CarrierWave
       super
 
       class_eval <<-RUBY, __FILE__, __LINE__ + 1
-        event :write_#{column}_identifier_event, :prepare_to_store do
-          write_#{column}_identifier
-        end
-
-        event :store_#{column}_event, :finalize,
-              when: :store_#{column}_event? do
+        event :store_#{column}_event, :finalize, when: :store_#{column}_event? do
           store_#{column}!
         end
 
         # remove files only if card has no history
-        event :remove_#{column}_event, :finalize,
-              on: :delete, when: proc { |c| !c.history? } do
+        event :remove_#{column}_event, :finalize, on: :delete, when: :no_history? do
           remove_#{column}!
         end
 
-        # event :mark_remove_#{column}_false_event, :finalize, on: :update do
-        #   mark_remove_#{column}_false
-        # end
+        event :mark_remove_#{column}_false_event, :finalize, on: :update do
+          mark_remove_#{column}_false
+        end
 
-        event :reset_previous_changes_for_#{column}_event, :store,
-              when: proc { |c| !c.history? } do
+        event :reset_previous_changes_for_#{column}_event, :finalize,
+              when: :no_history? do
           reset_previous_changes_for_#{column}
         end
 
-        event :remove_previously_stored_#{column}_event, :finalize,
-              on: :update, when: proc { |c| !c.history?} do
+        event :remove_previously_stored_#{column}_event, :finalize, on: :update,
+              when: :no_history? do
           remove_previously_stored_#{column}
         end
 
@@ -68,13 +62,8 @@ module CarrierWave
           "#{column}".to_sym
         end
 
-        def read_uploader *args
-          read_attribute *args
-        end
-
-        def write_uploader *args
-          write_attribute *args
-        end
+        def read_uploader *args; read_attribute *args; end
+        def write_uploader *args; write_attribute *args; end
 
         def #{column}=(new_file)
           return if new_file.blank?
@@ -135,7 +124,20 @@ module CarrierWave
             end
           end
         end
+
+        def reload(*)
+          @_mounters = nil
+          super
+        end
       RUBY
+    end
+  end
+
+  # The temporary identifiers from Carrierwave's mounters kill CardMount;
+  # We don't seem to need them.
+  class Mounter
+    def write_temporary_identifier
+      # noop
     end
   end
 end

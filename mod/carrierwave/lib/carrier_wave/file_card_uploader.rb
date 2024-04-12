@@ -235,6 +235,32 @@ module CarrierWave
     end
   end
 
+  class SanitizedFile
+    def content_type
+      # the original content_type method doesn't seem to be very reliable
+      # It uses declared_content_type  - which sometimes returns "text/plain" for asset
+      # files for unknown reasons.  (we switch the order and use it as the third option)
+      @content_type ||=
+        guessed_safe_content_type ||
+        identified_content_type ||
+        declared_content_type ||
+        Marcel::MimeType::BINARY
+    end
+
+    def guessed_safe_content_type
+      # overrides the default method which was returning "application/javascript" instead
+      # of "text/javascript" for our .js files.
+      return unless path
+
+      type = Marcel::Magic.by_path(original_filename).to_s
+      if type.start_with? "text/", "application/json'"
+        type
+      elsif type == "application/javascript"
+        "text/javascript"
+      end
+    end
+  end
+
   module Uploader
     # Implements a different name pattern for versions than CarrierWave's
     # default: we expect the version name at the end of the filename separated
