@@ -9,6 +9,7 @@ module Cardio
         @mod = args[:mod]
         @name = args[:name]
         @cql = args[:cql]
+        @url = args[:url]
         @podtype = args[:podtype] || (Rails.env.test? ? :test : :real)
         @items = args[:items]
         @field_tags = args[:field_tags]
@@ -29,7 +30,12 @@ module Cardio
 
       # @return [Array <Hash>]
       def new_data
-        @new_data ||= cards.map { |c| c.pod_hash field_tags: field_tag_marks }
+        @new_data ||=
+          @url ? pod_hash_from_url : new_data_from_cards
+      end
+
+      def new_data_from_card
+        cards.map { |c| c.pod_hash field_tags: field_tag_marks }
       end
 
       def field_tag_marks
@@ -115,14 +121,21 @@ module Cardio
 
       def old_data
         return unless File.exist? filename
-        # YAML.safe_load File.read(filename), [Symbol] if File.exist? filename
-        YAML.safe_load File.read(filename), permitted_classes: [Symbol]
+        parse_pod_yaml File.read(filename)
       end
 
       # @return Path
       def mod_path
         Mod.dirs.subpaths("data")[@mod] ||
           raise(Card::Error::NotFound, "no data directory found for mod: #{@mod}")
+      end
+
+      def pod_hash_from_url
+        parse_pod_yaml URI.open(@url).read
+      end
+
+      def parse_pod_yaml pod_yaml
+        YAML.safe_load pod_yaml, permitted_classes: [Symbol]
       end
     end
   end
