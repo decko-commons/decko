@@ -5,6 +5,9 @@ module Cardio
     #
     # https://docs.google.com/document/d/13K_ynFwfpHwc3t5gnLeAkZJZHco1wK063nJNYwU8qfc/edit#
     class Sow
+      include YamlDump
+      include CardSource
+
       def initialize **args
         @mod = args[:mod]
         @name = args[:name]
@@ -18,7 +21,7 @@ module Cardio
       # if output mod given,
       def out
         Card::Cache.reset_all
-        @mod ? dump : puts(new_data.to_yaml.yellow)
+        @mod ? dump(output_hash) : puts(new_data.to_yaml.yellow)
         :success
       rescue Card::Error::NotFound => e
         e.message
@@ -28,64 +31,6 @@ module Cardio
 
       private
 
-      # @return [Array <Hash>]
-      def new_data
-        @new_data ||=
-          @url ? pod_hash_from_url : new_data_from_cards
-      end
-
-      def new_data_from_card
-        cards.map { |c| c.pod_hash field_tags: field_tag_marks }
-      end
-
-      def field_tag_marks
-        @field_tag_marks ||= @field_tags.to_s.split(",").map do |mark|
-          mark.strip.cardname.codename_or_string
-        end
-      end
-
-      # @return [String] -- MOD_DIR/data/ENVIRONMENT.yml
-      def filename
-        @filename ||= File.join mod_path, "#{@podtype}.yml"
-      end
-
-      # write yaml to file
-      def dump
-        hash = output_hash
-        File.write filename, hash.to_yaml
-        puts "#{filename} now contains #{hash.size} items".green
-      end
-
-      def cards
-        if @name
-          cards_from_name
-        elsif @cql
-          Card.search JSON.parse(@cql).reverse_merge(limit: 0)
-        else
-          raise Card::Error::NotFound, "must specify either name (-n) or CQL (-c)"
-        end
-      end
-
-      def cards_from_name
-        case @items
-        when :only then item_cards
-        when true  then main_cards + item_cards
-        else            main_cards
-        end
-      end
-
-      def item_cards
-        main_cards.map(&:item_cards).flatten
-      end
-
-      def main_cards
-        @main_cards ||= @name.split(",").map { |n| require_card n }
-      end
-
-      def require_card name
-        Card.fetch(name) || raise(Card::Error::NotFound, "card not found: #{name}")
-      end
-
       def output_hash
         if target.present?
           merge_data
@@ -93,6 +38,12 @@ module Cardio
         else
           new_data
         end
+      end
+
+      # @return [Array <Hash>]
+      def new_data
+        @new_data ||=
+          @url ? pod_hash_from_url : new_data_from_cards
       end
 
       def merge_data
@@ -105,6 +56,10 @@ module Cardio
         end
       end
 
+      def target
+        @target ||= (old_data || nil)
+      end
+
       def target_index new_item
         new_code = new_item[:codename]
         new_name = new_item[:name].to_name
@@ -115,19 +70,9 @@ module Cardio
         end
       end
 
-      def target
-        @target ||= (old_data || nil)
-      end
-
       def old_data
         return unless File.exist? filename
         parse_pod_yaml File.read(filename)
-      end
-
-      # @return Path
-      def mod_path
-        Mod.dirs.subpaths("data")[@mod] ||
-          raise(Card::Error::NotFound, "no data directory found for mod: #{@mod}")
       end
 
       def pod_hash_from_url
