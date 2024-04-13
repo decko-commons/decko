@@ -31,7 +31,11 @@ module Cardio
       # @return [Array <Hash>]
       def new_data
         @new_data ||=
-          @url ? pod_hash_from_url : cards.map { |c| c.pod_hash field_tags: field_tag_marks }
+          @url ? pod_hash_from_url : new_data_from_cards
+      end
+
+      def new_data_from_card
+        cards.map { |c| c.pod_hash field_tags: field_tag_marks }
       end
 
       def field_tag_marks

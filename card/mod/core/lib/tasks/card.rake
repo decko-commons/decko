@@ -39,7 +39,8 @@ namespace :card do
 
   def adjust_environment options, task
     if (env = options.delete(:env))
-      system "env RAILS_ENV=#{env} bundle exec rake card:#{task} #{options.map { |k,v| "--#{k}=#{v}" }.join(" ")}"
+      task_options = options.map { |k, v| "--#{k}=#{v}" }.join(" ")
+      system "env RAILS_ENV=#{env} bundle exec rake card:#{task} #{task_options}"
     else
       yield
     end
