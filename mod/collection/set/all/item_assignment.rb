@@ -78,3 +78,7 @@ def standardize_item item
 rescue Card::Error::NotFound
   item
 end
+
+def duplicate_item_names
+  item_names.group_by{ |e| e }.select { |_k, v| v.size > 1 }.keys
+end
