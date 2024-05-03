@@ -44,11 +44,11 @@ format :json do
 
   # TODO: design better autocomplete API
   view :name_complete, cache: :never do
-    complete_search limit: AUTOCOMPLETE_LIMIT
+    format_json_search { complete_search limit: AUTOCOMPLETE_LIMIT }
   end
 
   view :name_match, cache: :never do
-    complete_or_match_search limit: AUTOCOMPLETE_LIMIT
+    format_json_search { complete_or_match_search limit: AUTOCOMPLETE_LIMIT }
   end
 
   def complete_or_match_search limit: AUTOCOMPLETE_LIMIT, start_only: false,
@@ -68,8 +68,12 @@ format :json do
   end
 
   def match_search limit: AUTOCOMPLETE_LIMIT, not_names: [], additional_cql: {}
+    return [] unless term_param.present?
+
     card.search name_cql(limit).merge(match_cql(not_names)).merge(additional_cql)
   end
+
+  private
 
   def name_cql limit
     { limit: limit, sort_by: "name", return: "name" }
@@ -83,6 +87,14 @@ format :json do
     cql = { name_match: term_param }
     cql[:name] = ["not in"] + not_names if not_names.any?
     cql
+  end
+
+  def format_json_search
+    results = yield
+    return results if item_view_options.dig(:view)&.to_sym == :name
+    results.map do |item_card|
+      nest_item item_card
+    end.to_json
   end
 end
 

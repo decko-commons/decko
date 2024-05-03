@@ -56,7 +56,7 @@ class Card
       # get :user id from session and set Auth.current_id
       def signin_with_session
         card_id = session[session_user_key]
-        card_id = nil unless Card.exists? card_id
+        card_id = nil unless card_id.card&.account.present?
         signin card_id
       end
 
