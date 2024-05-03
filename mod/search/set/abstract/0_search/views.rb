@@ -45,7 +45,6 @@ format :json do
   # TODO: design better autocomplete API
   view :name_complete, cache: :never do
     format_json_search { complete_search limit: AUTOCOMPLETE_LIMIT }
-
   end
 
   view :name_match, cache: :never do

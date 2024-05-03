@@ -80,5 +80,5 @@ rescue Card::Error::NotFound
 end
 
 def duplicate_item_names
-  item_names.group_by{ |e| e }.select { |_k, v| v.size > 1 }.keys
+  item_names.group_by { |e| e }.select { |_k, v| v.size > 1 }.keys
 end
