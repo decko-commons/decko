@@ -28,11 +28,6 @@ event :validate_item_uniqueness, :validate, on: :save, when: :unique_items? do
   errors.add :content, t(:list_duplicate_items_names, duplicates: dupes.to_sentence)
 end
 
-def duplicate_item_names
-  names = item_names
-  names.uniq.select { |n| names.count(n) > 1 }
-end
-
 # for override
 def unique_items?
   false

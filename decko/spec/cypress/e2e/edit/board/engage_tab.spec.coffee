@@ -56,4 +56,3 @@ describe 'engage tab', () ->
       .get(".RIGHT-discussion")
       .should("contain", "yeah")
       .and("contain", "Joe Admin")
-

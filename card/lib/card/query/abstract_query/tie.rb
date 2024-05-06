@@ -2,9 +2,9 @@ class Card
   module Query
     class AbstractQuery
       # The "Tie" methods support tying two queries (CardQuery, ReferenceQuery, etc)
-      # together.  The "fasten" variable determines which tying strategy is used.
+      # together.  The "subquery_type" variable determines which tying strategy is used.
       #
-      # We currently support three values for "fasten": :join, :exist, and :in
+      # We currently support three values for "subquery_type": :join, :exist, and :in
       #
       # In concept, here's how the different strategies would tie table A to table B
       # in SQL assuming A.id = B.a_id
