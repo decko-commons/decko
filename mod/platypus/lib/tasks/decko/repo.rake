@@ -1,4 +1,4 @@
-require 'rake/hooks'
+require "rake/hooks"
 
 namespace :decko do
   namespace :repo do
