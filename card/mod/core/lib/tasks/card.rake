@@ -10,8 +10,6 @@ namespace :card do
   desc "Runs migrations, installs mods, and updates symlinks"
   task :update do
     failing_loudly "decko update" do
-      Rake::Task["decko:repo:update"].invoke if Rake::Task.task_defined?("decko:repo:update")
-
       ENV["NO_RAILS_CACHE"] = "true"
       # Benchmark.bm do |x|
       ["migrate:port", "migrate:schema", "migrate:recode", :eat, "migrate:transform",
