@@ -107,7 +107,7 @@ format :data do
 end
 
 format :csv do
-  view :core, :core, mod: All::Csv::CsvFormat
+  view :body, :body, mod: All::Csv::CsvFormat
 end
 
 format :html do
