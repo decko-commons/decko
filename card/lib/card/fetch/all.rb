@@ -6,7 +6,7 @@ class Card
       def fetch field_marks, opts={}
         opts[:new][:supercard] = self if opts[:new]
         Array.wrap(field_marks).inject(self) do |card, mark|
-          Card.fetch card.name.field(mark.cardname), opts
+          Card.fetch (card.id || card.name), mark, opts
         end
       end
 
