@@ -744,3 +744,15 @@ card_changes_122:
   card_action_id: 5611
   field: 3
   value: t
+card_changes_123:
+  id: 123
+  card_action_id: 6204
+  field: 2
+  value: "[[:recent|Recent Changes]]"
+card_changes_124:
+  id: 124
+  card_action_id: 6234
+  field: 2
+  value: |-
+    [[:getting_started_links|Getting started]]
+    [[:recent|Recent Changes]]
