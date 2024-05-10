@@ -20,10 +20,10 @@ format :csv do
 
   view :titled do
     voo.items[:view] ||= :row
-    (render_header + render_core).map { |row| CSV.generate_line row }.join
+    (render_header + render_body).map { |row| CSV.generate_line row }.join
   end
 
-  view :core do
+  view :body do
     item_cards.map { |item_card| nest item_card }
   end
 
