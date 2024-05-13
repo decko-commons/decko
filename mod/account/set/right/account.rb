@@ -1,5 +1,7 @@
 # -*- encoding : utf-8 -*-
 
+delegate :own_account?, to: :accounted
+
 card_accessor :email
 card_accessor :password
 card_accessor :salt
@@ -15,12 +17,12 @@ def accounted_id
   left_id
 end
 
-def ok_to_read
+def ok_to_read?
   own_account? || super
 end
 
 # allow account owner to update account field content
-def ok_to_update
+def ok_to_update?
   (own_account? && !name_changed? && !type_id_changed?) || super
 end
 
