@@ -1,3 +1,5 @@
-def always_ok?
+include_set Abstract::Accountable
+
+def admin?
   true
 end

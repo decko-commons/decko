@@ -54,6 +54,10 @@ def ok_to_update?
   own_account? || super
 end
 
+def admin?
+  all_enabled_roles.include? AdministratorID
+end
+
 private
 
 def enabled_role_ids
