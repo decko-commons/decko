@@ -67,7 +67,7 @@ def ok_to_create
   left.parent? && super
 end
 
-def ok_to_update
+def ok_to_update?
   left.parent? && super
 end
 
