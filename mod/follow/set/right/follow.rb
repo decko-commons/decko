@@ -28,7 +28,7 @@ def ok_to_update?
   permit :update
 end
 
-def ok_to_create
+def ok_to_create?
   permit :create
 end
 

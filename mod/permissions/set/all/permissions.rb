@@ -113,7 +113,7 @@ def permit action, verb=nil
   deny_because you_cant("#{verb} #{name.present? ? name : 'this'}")
 end
 
-def ok_to_create
+def ok_to_create?
   return false unless permit :create
   return true if simple?
 

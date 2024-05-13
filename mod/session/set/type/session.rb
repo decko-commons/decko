@@ -44,7 +44,7 @@ event :delete_in_session, :prepare_to_store, on: :delete do
   abort :success
 end
 
-def ok_to_create
+def ok_to_create?
   true
 end
 

@@ -10,7 +10,7 @@ def ok_to_update?
   left_id == Auth.current_id
 end
 
-def ok_to_create
+def ok_to_create?
   left_id == Auth.current_id
 end
 

@@ -1,4 +1,7 @@
+# -*- encoding : utf-8 -*-
+
 delegate :accounted, to: :account_card
+delegate :own_account?, to: :accounted
 
 def account_card
   left

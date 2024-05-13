@@ -25,7 +25,7 @@ def ok_to_read?
   own_account? || super
 end
 
-def ok_to_create
+def ok_to_create?
   own_account? || super
 end
 

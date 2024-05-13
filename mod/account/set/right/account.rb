@@ -1,4 +1,5 @@
 # -*- encoding : utf-8 -*-
+
 delegate :own_account?, to: :accounted
 
 card_accessor :email
