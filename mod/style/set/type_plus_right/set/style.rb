@@ -6,7 +6,7 @@ def ok_item_types
   %i[css scss skin bootswatch_skin]
 end
 
-def ok_to_read
+def ok_to_read?
   true
 end
 

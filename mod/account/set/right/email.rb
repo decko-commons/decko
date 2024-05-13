@@ -36,7 +36,7 @@ def email_required?
   !left&.left&.codename == :wagn_bot
 end
 
-def ok_to_read
+def ok_to_read?
   if own_email? || Auth.always_ok?
     true
   else
