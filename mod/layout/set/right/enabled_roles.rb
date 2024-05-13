@@ -2,11 +2,11 @@ include_set Abstract::AccountDropdown
 
 assign_type :session
 
-def ok_to_read
+def ok_to_read?
   true
 end
 
-def ok_to_update
+def ok_to_update?
   left_id == Auth.current_id
 end
 
@@ -26,7 +26,7 @@ event :validate_role_enabling, :validate, on: :save do
 end
 
 event :clear_roles_cache, :prepare_to_store, before: :store_in_session do
-  clear_roles
+  Auth.current.clear_roles
   Auth.update_always_cache nil
 end
 

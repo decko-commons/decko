@@ -5,7 +5,7 @@ def account_card
 end
 
 # allow account owner to update account field content
-def ok_to_update
+def ok_to_update?
   (own_account? && !name_changed? && !type_id_changed?) || super
 end
 

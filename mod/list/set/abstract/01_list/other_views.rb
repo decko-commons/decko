@@ -17,6 +17,12 @@ end
 
 # JavaScript views
 
+format :csv do
+  view :core do
+    pointer_items.join ";"
+  end
+end
+
 format :js do
   view :core do
     nest_item_array.join "\n\n"

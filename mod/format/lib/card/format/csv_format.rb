@@ -2,7 +2,7 @@
 
 class Card
   class Format
-    class CsvFormat < TextFormat
+    class CsvFormat < Format
       register :csv
 
       def mime_type

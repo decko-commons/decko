@@ -30,7 +30,7 @@ def ok? action
   if (cached = aok[action]).present?
     cached
   else
-    aok[action] = send "ok_to_#{action}"
+    aok[action] = send "ok_to_#{action}?"
   end
 end
 
@@ -101,7 +101,7 @@ def permitted? action
 end
 
 def permit action, verb=nil
-  # not called by ok_to_read
+  # not called by ok_to_read?
   if Card.config.read_only
     deny_because "Currently in read-only mode"
     return false
@@ -132,7 +132,7 @@ def ok_to_create_side side
   false
 end
 
-def ok_to_read
+def ok_to_read?
   return true if Auth.always_ok?
 
   self.read_rule_id ||= permission_rule_id :read
@@ -141,14 +141,14 @@ def ok_to_read
   deny_because you_cant "read this"
 end
 
-def ok_to_update
+def ok_to_update?
   return false unless permit(:update)
   return true unless type_id_changed? && !permitted?(:create)
 
   deny_because you_cant("change to this type (need create permission)")
 end
 
-def ok_to_delete
+def ok_to_delete?
   permit :delete
 end
 

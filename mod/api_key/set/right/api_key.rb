@@ -21,7 +21,7 @@ def history?
   false
 end
 
-def ok_to_read
+def ok_to_read?
   own_account? || super
 end
 

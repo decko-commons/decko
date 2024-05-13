@@ -2,8 +2,8 @@ def followable?
   false
 end
 
-def ok_to_read
-  left.ok_to_read
+def ok_to_read?
+  left.ok_to_read?
 end
 
 def history?

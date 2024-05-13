@@ -1,6 +1,6 @@
 include_set Abstract::AccountDropdown
 
-def ok_to_read
+def ok_to_read?
   true
 end
 

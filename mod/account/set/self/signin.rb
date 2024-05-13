@@ -34,7 +34,7 @@ def email_from_field
   @email_from_field ||= field_content(:email)
 end
 
-def ok_to_read
+def ok_to_read?
   true
 end
 
