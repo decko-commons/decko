@@ -51,7 +51,7 @@ def clear_roles
 end
 
 def ok_to_update?
-  own_account? || super
+  (own_account? && !type_id_changed?) || super
 end
 
 def admin?
