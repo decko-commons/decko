@@ -45,7 +45,7 @@ format :html do
   end
 
   def account_lines
-    if card.account
+    if card.account?
       verification_lines
     else
       [t(:account_missing_account)]

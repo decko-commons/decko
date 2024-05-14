@@ -1,11 +1,19 @@
-delegate :accounted, to: :account_card
+# -*- encoding : utf-8 -*-
 
 def account_card
-  left
+  left.tap { |l| return nil unless l.right_id == AccountID }
+end
+
+def accounted
+  account_card&.accounted
+end
+
+def own_account?
+  account_card&.own_account?
 end
 
 # allow account owner to update account field content
-def ok_to_update
+def ok_to_update?
   (own_account? && !name_changed? && !type_id_changed?) || super
 end
 
