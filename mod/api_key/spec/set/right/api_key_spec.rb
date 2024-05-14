@@ -1,7 +1,9 @@
 RSpec.describe Card::Set::Right::ApiKey do
-  let(:new_key) { subject.generate }
+  subject { key_card }
+
   let(:user) { "Joe User".card }
-  subject { user.account.api_key_card }
+  let(:key_card) { user.account.api_key_card }
+  let(:new_key) { key_card.generate }
 
   describe "#generate" do
     it "creates a new key of at least twenty characters" do
@@ -12,17 +14,17 @@ RSpec.describe Card::Set::Right::ApiKey do
   describe "#authenticate_api_key" do
     before do
       new_key
-      subject.save!
+      key_card.save!
     end
 
     it "fails if api key is not exact match" do
-      subject.authenticate_api_key "#{new_key}!"
-      expect(subject.errors[:api_key_incorrect].first).to match(/API key mismatch/)
+      key_card.authenticate_api_key "#{new_key}!"
+      expect(key_card.errors[:api_key_incorrect].first).to match(/API key mismatch/)
     end
 
     it "succeeds if api key is not exact match" do
-      subject.authenticate_api_key new_key
-      expect(subject.errors.first).to be_nil
+      key_card.authenticate_api_key new_key
+      expect(key_card.errors.first).to be_nil
     end
   end
 
@@ -33,7 +35,7 @@ RSpec.describe Card::Set::Right::ApiKey do
     end
 
     it "validates length" do
-      subject.content = "abcdefg555"
+      key_card.content = "abcdefg555"
       is_expected.not_to be_valid
     end
 
@@ -45,7 +47,7 @@ RSpec.describe Card::Set::Right::ApiKey do
   end
 
   specify "#accounted" do
-    expect(subject.accounted).to eq(user)
+    expect(key_card.accounted).to eq(user)
   end
 
   describe "permissions" do
@@ -59,8 +61,8 @@ RSpec.describe Card::Set::Right::ApiKey do
 
     it "allows users to update their own key" do
       Card::Auth.as_bot do
-        subject.generate
-        subject.save!
+        key_card.generate
+        key_card.save!
       end
       is_expected.to be_ok(:update)
     end
