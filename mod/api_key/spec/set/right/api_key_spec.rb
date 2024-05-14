@@ -10,7 +10,10 @@ RSpec.describe Card::Set::Right::ApiKey do
   end
 
   describe "#authenticate_api_key" do
-    before { new_key } # trigger generation
+    before do
+      new_key
+      subject.save!
+    end
 
     it "fails if api key is not exact match" do
       subject.authenticate_api_key "#{new_key}!"
