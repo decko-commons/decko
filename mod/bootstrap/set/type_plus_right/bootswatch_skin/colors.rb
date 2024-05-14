@@ -63,11 +63,11 @@ def virtual?
   new?
 end
 
-def ok_to_create
+def ok_to_create?
   left.parent? && super
 end
 
-def ok_to_update
+def ok_to_update?
   left.parent? && super
 end
 
