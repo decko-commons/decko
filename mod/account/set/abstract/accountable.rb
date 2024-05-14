@@ -31,7 +31,7 @@ def among? ok_ids
 end
 
 def all_enabled_roles
-  @all_active_roles ||= (id == AnonymousID ? [] : enabled_role_ids)
+  @all_enabled_roles ||= (id == AnonymousID ? [] : enabled_role_ids)
 end
 
 def all_roles
@@ -47,7 +47,7 @@ def read_rules_hash
 end
 
 def clear_roles
-  @parties = @all_roles = @all_active_roles = @read_rules = nil
+  @parties = @all_roles = @all_enabled_roles = @read_rules = nil
 end
 
 def ok_to_update?
@@ -55,7 +55,11 @@ def ok_to_update?
 end
 
 def admin?
-  all_enabled_roles.include? AdministratorID
+  role? AdministratorID
+end
+
+def role? role_mark
+  all_enabled_roles.include? role_mark.card_id
 end
 
 private
