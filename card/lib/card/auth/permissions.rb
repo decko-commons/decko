@@ -34,15 +34,7 @@ class Card
       # @param user_mark [Cardish]
       # @return [true/false]
       def admin? user_mark=nil
-        user_mark ||= as_id
-        has_role? Card::AdministratorID, user_mark
-      end
-
-      def has_role? role_mark, user_mark=nil
-        user_mark ||= as_id
-        return false unless (role_id = role_mark&.card_id)
-
-        Card[user_mark].all_enabled_roles.include? role_id
+        (user_mark || as_id).card&.admin?
       end
 
       def update_always_cache value

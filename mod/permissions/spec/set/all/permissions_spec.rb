@@ -141,7 +141,7 @@ RSpec.describe Card::Set::All::Permissions do
       end
 
       it "inherits" do
-        Card::Auth.as(:anyone_signed_in) do
+        Card::Auth.as("Joe Camel") do
           # explicitly granted above
           expect(Card.fetch("A+*self")).to be_ok(:create)
           # by default restricted

@@ -1,6 +1,6 @@
 require "coderay"
 
-def ok_to_read
+def ok_to_read?
   true
 end
 
