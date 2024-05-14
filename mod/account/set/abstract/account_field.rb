@@ -1,10 +1,15 @@
 # -*- encoding : utf-8 -*-
 
-delegate :accounted, to: :account_card
-delegate :own_account?, to: :accounted
-
 def account_card
-  left
+  left.tap { |l| return nil unless l.right_id == AccountID }
+end
+
+def accounted
+  account_card&.accounted
+end
+
+def own_account?
+  account_card&.own_account?
 end
 
 # allow account owner to update account field content
