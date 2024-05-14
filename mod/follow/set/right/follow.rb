@@ -24,15 +24,15 @@ def add_follow_item? condition
   new_card? || !include_item?(condition)
 end
 
-def ok_to_update
+def ok_to_update?
   permit :update
 end
 
-def ok_to_create
+def ok_to_create?
   permit :create
 end
 
-def ok_to_delete
+def ok_to_delete?
   permit :delete
 end
 
