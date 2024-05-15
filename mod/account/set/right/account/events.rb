@@ -54,7 +54,7 @@ end
 def verifying_token success, failure
   requiring_token do |token|
     result = Auth::Token.decode token
-    if result.is_a?(String)
+    if result.is_a?(String) || (result[:user_id] != accounted_id)
       send failure, result
     else
       send success

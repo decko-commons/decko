@@ -7,10 +7,12 @@
   :fields:
     :right:
       :fields:
-        :create: Help Desk
-        :update: Help Desk
-        :delete: Help Desk
-
+        :create:
+          - :help_desk
+        :update:
+          - :help_desk
+        :delete:
+          - :help_desk
 - :name:
     - :all
     - :guide
