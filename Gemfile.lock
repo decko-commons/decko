@@ -596,7 +596,8 @@ GEM
     recaptcha (4.13.2)
       json
     regexp_parser (2.9.1)
-    rexml (3.2.6)
+    rexml (3.2.8)
+      strscan (>= 3.0.9)
     rouge (4.2.1)
     rr (3.1.0)
     rspec (3.13.0)
@@ -696,6 +697,7 @@ GEM
       activesupport (>= 5.2)
       sprockets (>= 3.0.0)
     ssrf_filter (1.1.2)
+    strscan (3.1.0)
     sys-uname (1.2.3)
       ffi (~> 1.1)
     temple (0.10.3)
