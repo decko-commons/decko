@@ -6,6 +6,7 @@
   position: absolute;
   right: 8px;
   top: 5px;
+  width: auto;
 }
 
 .d0-card-content, .titled-view > .d0-card-header {
@@ -14,8 +15,10 @@
   }
 }
 
-.d0-card-content .card-menu i {
-  font-size: 1.2em
+.d0-card-content, .labeled-view {
+  .card-menu i {
+    font-size: 1.2em
+  }
 }
 
 .modal-menu, .overlay-menu {
@@ -33,7 +36,7 @@
   // Hover over these, and only the card menus that are immediate children will appear
   .card-slot > .d0-card-frame > .d0-card-header,
   .card-slot > .d0-card-header,
-  .card-slot.labeled-view > .labeled-content > .d0-card-body,
+  .card-slot.labeled-view,
   .card-slot,
   .card > .card-body,
   .card > .card-header {

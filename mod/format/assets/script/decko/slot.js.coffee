@@ -1,7 +1,8 @@
 decko.slot =
   # returns full path with slot parameters
-  path: (path, slot)->
+  path: (path, slot, slotterMode)->
     params = slotPathParams slot
+    params["slotter_mode"] = slotterMode if slotterMode?
     decko.path(path) + ( (if path.match /\?/ then '&' else '?') + $.param(params) )
 
   ready: (func)->
