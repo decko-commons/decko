@@ -1,5 +1,5 @@
 event :validate_account_holder_name_change, :validate, on: :update, changed: :name do
-  return unless account? && !(own_account? || parties.member?(HelpDeskID))
+  return unless account? && !Card::Auth.as_card.account_manager?
 
   errors.add :name, "cannot rename Account Holder"
 end
@@ -66,6 +66,10 @@ end
 
 def role? role_mark
   all_enabled_roles.include? role_mark.card_id
+end
+
+def account_manager?
+  own_account? || parties.member?(HelpDeskID)
 end
 
 private
