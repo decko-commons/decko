@@ -204,7 +204,9 @@ jQuery.fn.extend
 
   slotterBeforeSend: (opt) ->
     # avoiding duplication. could be better test?
-    return if opt.noSlotParams or opt.url.match(/home_view/) or
-      @data("slotter-mode") == "modal" or @data("slotter-mode") == "override"
+    mode = @data "slotter-mode"
 
-    opt.url = decko.slot.path opt.url, @slot()
+    return if opt.noSlotParams or opt.url.match(/home_view/) or
+      mode == "modal" or mode == "override"
+
+    opt.url = decko.slot.path opt.url, @slot(), mode

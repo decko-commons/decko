@@ -60,15 +60,23 @@ class CardController
       show
     end
 
-    def reload
-      render json: { reload: true }
-    end
-
     def soft_redirect_params
       new_params = params.clone
       new_params.delete :card
       new_params.delete :action
       new_params.merge Card::Env.success.params
+    end
+
+    def reload
+      render json: { reload: true }
+    end
+
+    def slotter_magic_response
+      render json: { magic: true }
+    end
+
+    def slotter_magic?
+      params["slotter_mode"]&.in? %w[silent-success update-modal-origin update-origin]
     end
 
     def require_card_for_soft_redirect!
