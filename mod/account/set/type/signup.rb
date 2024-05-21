@@ -1,4 +1,4 @@
-include_set Abstract::Accountable
+include_set Abstract::AccountHolder
 
 basket[:non_createable_types] << :signup
 

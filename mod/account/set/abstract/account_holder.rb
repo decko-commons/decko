@@ -1,3 +1,9 @@
+event :validate_account_holder_name_change, :validate, on: :update, changed: :name do
+  return unless account? && !(own_account? || parties.member?(HelpDeskID))
+
+  errors.add :name, "cannot rename Account Holder"
+end
+
 def account
   fetch :account, new: {}
 end

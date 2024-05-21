@@ -79,13 +79,6 @@
   :content:
     - :help_desk
 
-- :name:
-    - :user
-    - :type
-    - :update
-  :content:
-    - :help_desk
-
 - :name: "*account"
   :codename: account
   :fields:
