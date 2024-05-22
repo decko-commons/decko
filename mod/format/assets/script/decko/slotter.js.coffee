@@ -204,7 +204,7 @@ jQuery.fn.extend
 
   slotterBeforeSend: (opt) ->
     # avoiding duplication. could be better test?
-    mode = slotterMode()
+    mode = @slotterMode()
 
     return if opt.noSlotParams or opt.url.match(/home_view/) or
       mode == "modal" or mode == "override"
@@ -213,5 +213,5 @@ jQuery.fn.extend
 
   slotterMode: () ->
     mode = @data "slotter-mode"
-    return if mode.match(/origin/) && !slotOrigin()
+    return if !mode? || (mode.match(/origin/) && !slotOrigin())
     mode
