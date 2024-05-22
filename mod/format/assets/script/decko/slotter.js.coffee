@@ -213,5 +213,5 @@ jQuery.fn.extend
 
   slotterMode: () ->
     mode = @data "slotter-mode"
-    return if !mode? || (mode.match(/origin/) && !slotOrigin())
+    return if !mode? || (mode.match(/origin/) && !@slotOrigin())
     mode
