@@ -1,4 +1,4 @@
-include_set Abstract::Accountable
+include_set Abstract::AccountHolder
 
 def account
   nil
