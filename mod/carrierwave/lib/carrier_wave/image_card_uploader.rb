@@ -48,7 +48,7 @@ module CarrierWave
     # add 'original' if no version is given
     def full_filename for_file
       name = super(for_file)
-      if version_name
+      if name.blank? || version_name
         name
       else
         parts = name.split "."

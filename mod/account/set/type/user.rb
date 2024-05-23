@@ -5,7 +5,7 @@ attr_accessor :email
 format :html do
   delegate :needs_setup?, to: Card::Auth
 
-  view :setup, unknown: true, perms: :needs_setup? do
+  view :setup, unknown: true, perms: :needs_setup?, cache: :never do
     with_nest_mode :edit do
       voo.title = "Your deck is ready to go!" # LOCALIZE
       voo.show! :help
