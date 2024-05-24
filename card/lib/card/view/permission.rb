@@ -46,7 +46,7 @@ class Card
       def denial
         return unless (task = denied_task)
 
-        format.view_for_denial requested_view, task
+        format.view_for_denial requested_view, (crud?(task) && task)
       end
 
       def crud? task
