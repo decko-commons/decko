@@ -271,6 +271,8 @@ module CarrierWave
       # put version at the end of the filename
       def full_filename for_file
         name = super(for_file)
+        return unless name.present?
+
         parts = name.split "."
         basename = [parts.shift, version_name].compact.join("-")
         "#{basename}.#{parts.join('.')}"
