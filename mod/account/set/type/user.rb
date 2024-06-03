@@ -1,5 +1,7 @@
 include_set Abstract::AccountHolder
 
+basket[:roles_for_first_user] = %i[help_desk shark administrator]
+
 attr_accessor :email
 
 format :html do
@@ -35,22 +37,18 @@ format :html do
   end
 
   def setup_hidden_fields
-    hidden_tags(
-      setup: true,
-      success: { redirect: true, mark: path(mark: "") },
-      "card[type_id]" => Card.default_accounted_type_id
-    )
+    hidden_tags card: {
+                  type_id: Card.default_accounted_type_id,
+                  trigger: %w[check_setup]
+                },
+                success: { redirect: true, mark: path(mark: "") }
   end
 end
 
-# FIXME. use trigger
-def setup?
-  Card::Env.params[:setup]
-end
-
-event :setup_as_bot, before: :check_permissions, on: :create, when: :setup? do
+event :check_setup, before: :check_permissions, on: :create, trigger: :required do
   abort :failure unless Auth.needs_setup?
   Auth.as_bot
+  @setup_approved = true
   # we need bot authority to set the initial administrator roles
   # this is granted and inspected here as a separate event for
   # flexibility and security when configuring initial setups
@@ -58,15 +56,17 @@ end
 
 event :setup_first_user, :prepare_to_store, on: :create, when: :setup? do
   subcard %i[signup_alert_email to].cardname, content: name
-  roles_for_first_user.each do |role|
-    subcard [role, :members], content: name
+  basket[:roles_for_first_user].map(&:cardname).each do |role|
+    subcard [role, :members].cardname, content: name
   end
-end
-
-def roles_for_first_user
-  %i[help_desk shark administrator].map(&:cardname)
 end
 
 event :signin_after_setup, :integrate, on: :create, when: :setup? do
   Auth.signin id
+end
+
+private
+
+def setup?
+  @setup_approved == true
 end
