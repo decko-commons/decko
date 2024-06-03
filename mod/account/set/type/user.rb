@@ -56,7 +56,6 @@ end
 
 event :setup_first_user, :prepare_to_store, on: :create, when: :setup? do
   subcard %i[signup_alert_email to].cardname, content: name
-  binding.pry
   basket[:roles_for_first_user].map(&:cardname).each do |role|
     subcard [role, :members].cardname, content: name
   end
