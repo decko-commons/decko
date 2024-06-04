@@ -37,11 +37,13 @@ format :html do
   end
 
   def setup_hidden_fields
-    hidden_tags card: {
-      type_id: Card.default_accounted_type_id,
-      trigger: %w[check_setup]
-    },
-    success: { redirect: true, mark: path(mark: "") }
+    hidden_tags(
+      card: {
+        type_id: Card.default_accounted_type_id,
+        trigger: %w[check_setup]
+      },
+      success: { redirect: true, mark: path(mark: "") }
+    )
   end
 end
 
