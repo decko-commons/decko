@@ -97,6 +97,7 @@ $(window).ready ->
 
   $('body').on 'submit', 'form.slotter', ->
     form = $(this)
+    form.slot().slotReloading()
     if form.data("main-success") and form.isMainOrMainModal()
       form.mainSuccess()
 
