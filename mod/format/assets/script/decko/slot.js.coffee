@@ -20,7 +20,6 @@ decko.slot =
         e.stopPropagation()
         func.call this, $(this)
 
-
 jQuery.fn.extend
   isSlot: -> $(this).hasClass "card-slot"
 
@@ -61,6 +60,9 @@ jQuery.fn.extend
 
   slotReload: (url) ->
     @each -> $(this)._slotReloadSingle url
+
+  slotReloading: ()->
+    # TODO: add default spinner behavior
 
   slotUpdate: (newContent, mode) ->
     mode ||= "replace"
@@ -115,6 +117,7 @@ jQuery.fn.extend
     # that's where handleRemote gets the url from
     # .attr(href, url) only works for anchors
     $.rails.handleRemote $slot
+    $slot.slotReloading()
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~
 # "private" helper methods
