@@ -65,11 +65,17 @@
 #
 #
 $(window).ready ->
+  $('body').on 'ajax:send', '.slotter', (event, data) ->
+    $(this).slot().slotReloading()
+
   $('body').on 'ajax:success', '.slotter', (event, data) ->
     $(this).slotterSuccess event, data
 
   $('body').on 'ajax:error', '.slotter', (event, xhr) ->
     $(this).showErrorResponse xhr.status, xhr.responseText
+
+  $('body').on 'ajax:complete', '.slotter', (event, data) ->
+    $(this).slot().slotLoadingComplete()
 
   $('body').on 'click', 'button.slotter', ->
     return false if !$.rails.allowAction $(this)
@@ -97,7 +103,6 @@ $(window).ready ->
 
   $('body').on 'submit', 'form.slotter', ->
     form = $(this)
-    form.slot().slotReloading()
     if form.data("main-success") and form.isMainOrMainModal()
       form.mainSuccess()
 
