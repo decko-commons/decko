@@ -357,3 +357,15 @@ card_changes_069:
   value: |-
     [[:getting_started_links|Getting started]]
     [[:recent|Recent Changes]]
+card_changes_070:
+  id: 70
+  card_action_id: 3660
+  field: 2
+  value: "[[:recent|Recent Changes]]"
+card_changes_071:
+  id: 71
+  card_action_id: 3690
+  field: 2
+  value: |-
+    [[:getting_started_links|Getting started]]
+    [[:recent|Recent Changes]]
