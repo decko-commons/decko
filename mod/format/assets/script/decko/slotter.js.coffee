@@ -109,6 +109,15 @@ $(window).ready ->
   $('body').on 'ajax:beforeSend', '.slotter', (event, xhr, opt)->
     $(this).slotterBeforeSend opt
 
+  # NOTE: without the following two propagation checks, slotter events can propagate
+  # from one slot to another and cause weird problems, as with the type editor
+  $('body').on 'ajax:beforeSend', '.card-slot', (event)->
+    event.stopPropagation()
+
+  $('body').on 'ajax:send', '.card-slot', (event)->
+    event.stopPropagation()
+
+
 jQuery.fn.extend
   mainSuccess: ()->
     form = $(this)

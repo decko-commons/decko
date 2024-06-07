@@ -2332,7 +2332,7 @@ this._delay(function(){n===this.counter&&this.refreshPositions(!s)})},_clear:fun
       overlaySlot = this.closest("[data-" + type + "-origin-slot-id]");
       origin_slot_id = overlaySlot.data(type + "-origin-slot-id");
       origin_slot = $("[data-slot-id=" + origin_slot_id + "]");
-      if (origin_slot[0] != null) {
+      if (origin_slot.length > 0) {
         return origin_slot;
       } else {
         return decko.warn("couldn't find origin with slot id " + origin_slot_id);
@@ -2351,7 +2351,7 @@ this._delay(function(){n===this.counter&&this.refreshPositions(!s)})},_clear:fun
     },
     slotContent: function(newContent, mode, $slotter) {
       var v;
-      v = $(newContent)[0] && $(newContent) || newContent;
+      v = $(newContent).length > 0 && $(newContent) || newContent;
       if (typeof v === "string") {
         this.slot("success", mode)._slotFillOrReplace(v, $slotter);
       } else {
@@ -2502,8 +2502,14 @@ this._delay(function(){n===this.counter&&this.refreshPositions(!s)})},_clear:fun
         return form.mainSuccess();
       }
     });
-    return $('body').on('ajax:beforeSend', '.slotter', function(event, xhr, opt) {
+    $('body').on('ajax:beforeSend', '.slotter', function(event, xhr, opt) {
       return $(this).slotterBeforeSend(opt);
+    });
+    $('body').on('ajax:beforeSend', '.card-slot', function(event) {
+      return event.stopPropagation();
+    });
+    return $('body').on('ajax:send', '.card-slot', function(event) {
+      return event.stopPropagation();
     });
   });
 

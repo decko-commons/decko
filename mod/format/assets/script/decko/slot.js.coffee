@@ -53,7 +53,7 @@ jQuery.fn.extend
     overlaySlot = @closest("[data-#{type}-origin-slot-id]")
     origin_slot_id = overlaySlot.data("#{type}-origin-slot-id")
     origin_slot = $("[data-slot-id=#{origin_slot_id}]")
-    if origin_slot[0]?
+    if origin_slot.length > 0
       origin_slot
     else
       decko.warn "couldn't find origin with slot id #{origin_slot_id}"
@@ -72,7 +72,7 @@ jQuery.fn.extend
     @slotContent newContent, mode, $(this)
 
   slotContent: (newContent, mode, $slotter) ->
-    v = $(newContent)[0] && $(newContent) || newContent
+    v = $(newContent).length > 0 && $(newContent) || newContent
 
     if typeof(v) == "string"
       # Needed to support "TEXT: result" pattern in success (eg deleting nested cards)
