@@ -69,12 +69,24 @@ format :file do
     args_for_send_file
   end
 
+  private
+
   def args_for_send_file
     file = selected_version
     [file.path, { type: file.content_type,
                   filename: "#{card.name.safe_key}#{file.extension}",
                   x_sendfile: true,
-                  disposition: (params[:format] == "file" ? "attachment" : "inline") }]
+                  disposition: disposition }]
+  end
+
+  def disposition
+    if params[:disposition]
+      params[:disposition]
+    elsif params[:format] == "file"
+      "attachment"
+    else
+      "inline"
+    end
   end
 
   def set_response_headers
