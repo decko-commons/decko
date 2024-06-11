@@ -56,7 +56,7 @@ event :check_setup, before: :check_permissions, on: :create, trigger: :required 
   # flexibility and security when configuring initial setups
 end
 
-event :setup_first_user, :prepare_to_store, on: :create, when: :setup? do
+event :setup_first_user, :finalize, on: :create, when: :setup? do
   subcard %i[signup_alert_email to].cardname, content: name
   basket[:roles_for_first_user].map(&:cardname).each do |role|
     subcard [role, :members].cardname, content: name
