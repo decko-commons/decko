@@ -8,9 +8,7 @@ format do
   end
 
   view :card_list, cache: :never do
-    if search_with_params.empty?
-      "no results"
-    else
+    with_results do
       search_with_params.map do |item_card|
         nest_item item_card
       end.join "\n"
@@ -112,15 +110,17 @@ end
 
 format :html do
   view :card_list, cache: :never do
-    with_results do
-      klasses = "card-list card-list-#{item_view_options[:view]} search-result-list"
-      search_result_list(klasses) { |item_card| card_list_item item_card }
+    klasses = "card-list card-list-#{item_view_options[:view]} search-result-list"
+    search_result_list(klasses) do
+      search_with_params.map do|item_card|
+        card_list_item item_card
+      end
     end
   end
 
   view :checkbox_list, cache: :never do
-    with_results do
-      search_result_list "_search-checkbox-list pe-2" do |item_card|
+    search_result_list "_search-checkbox-list pe-2" do
+      search_with_params.map do|item_card|
         checkbox_item item_card
       end
     end
@@ -139,11 +139,7 @@ format :html do
   end
 
   def search_result_list klass, &block
-    with_paging do
-      wrap_with :div, class: klass do
-        search_with_params.map(&block)
-      end
-    end
+    with_results { with_paging { wrap_with(:div, class: klass) &block } }
   end
 
   def checkbox_item item_card
