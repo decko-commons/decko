@@ -54,7 +54,7 @@ format :html do
 
   def new_modal_menu
     wrap_with_modal_menu do
-      [close_modal_window, render_board_link]
+      [render_close_modal_link, render_board_link]
     end
   end
 
