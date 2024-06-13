@@ -16,24 +16,9 @@ format :html do
     ""
   end
 
-  def show_in_modal_link link_text, body
-    link_to_view :modal, link_text, "data-modal-body": body, "data-slotter-mode": "modal"
-  end
-
-  def modal_close_button link_text="Close", opts={}
-    classes = opts.delete(:class)
-    button_opts = opts.merge(MODAL_CLOSE_OPTS)
-    add_class button_opts, classes if classes
-    button_tag link_text, button_opts
-  end
-
-  def modal_submit_button opts={}
-    add_class opts, "submit-button _close-modal"
-    submit_button opts
-  end
-
   view :modal_menu, unknown: true, wrap: :modal_menu do
-    [close_modal_window, pop_out_modal_window]
+    [render_close_modal_link,
+     render_pop_out_modal_link(optional: :show)]
   end
 
   wrapper :modal_menu, :div, class: "modal-menu _modal-menu ms-auto"
@@ -50,6 +35,32 @@ format :html do
 
   view :modal_link do
     modal_link _render_title, size: voo.size
+  end
+
+  view :close_modal_link, unknown: true do
+    link_to icon_tag(:close), path: "",
+            class: "_close-modal btn-close",
+            "data-bs-dismiss": "modal"
+  end
+
+  view :pop_out_modal_link, unknown: :blank do
+    link_to icon_tag(:modal), path: {}, class: "pop-out-modal btn-close"
+  end
+
+  def show_in_modal_link link_text, body
+    link_to_view :modal, link_text, "data-modal-body": body, "data-slotter-mode": "modal"
+  end
+
+  def modal_close_button link_text="Close", opts={}
+    classes = opts.delete(:class)
+    button_opts = opts.merge(MODAL_CLOSE_OPTS)
+    add_class button_opts, classes if classes
+    button_tag link_text, button_opts
+  end
+
+  def modal_submit_button opts={}
+    add_class opts, "submit-button _close-modal"
+    submit_button opts
   end
 
   def modal_link text=nil, opts={}
@@ -85,18 +96,6 @@ format :html do
 
   def normalize_modal_size_class size
     size.in?(MODAL_SIZE.keys) ? size : cast_modal_option(size)
-  end
-
-  def close_modal_window
-    link_to icon_tag(:close), path: "",
-                              class: "_close-modal btn-close",
-                              "data-bs-dismiss": "modal"
-  end
-
-  def pop_out_modal_window
-    return unless card.known?
-
-    link_to icon_tag(:modal), path: {}, class: "pop-out-modal btn-close"
   end
 
   private

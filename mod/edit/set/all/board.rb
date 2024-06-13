@@ -73,7 +73,7 @@ format :html do
   def board_menu
     wrap_with_modal_menu do
       [
-        close_modal_window,
+        render_close_modal_link,
         switch_to_edit_link
       ]
     end
