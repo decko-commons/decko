@@ -112,7 +112,7 @@ format :html do
   view :card_list, cache: :never do
     klasses = "card-list card-list-#{item_view_options[:view]} search-result-list"
     search_result_list(klasses) do
-      search_with_params.map do|item_card|
+      search_with_params.map do |item_card|
         card_list_item item_card
       end
     end
@@ -120,7 +120,7 @@ format :html do
 
   view :checkbox_list, cache: :never do
     search_result_list "_search-checkbox-list pe-2" do
-      search_with_params.map do|item_card|
+      search_with_params.map do |item_card|
         checkbox_item item_card
       end
     end
@@ -139,7 +139,7 @@ format :html do
   end
 
   def search_result_list klass, &block
-    with_results { with_paging { wrap_with(:div, class: klass) &block } }
+    with_results { with_paging { wrap_with :div, class: klass, &block } }
   end
 
   def checkbox_item item_card

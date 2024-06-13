@@ -39,8 +39,8 @@ format :html do
 
   view :close_modal_link, unknown: true do
     link_to icon_tag(:close), path: "",
-            class: "_close-modal btn-close",
-            "data-bs-dismiss": "modal"
+                              class: "_close-modal btn-close",
+                              "data-bs-dismiss": "modal"
   end
 
   view :pop_out_modal_link, unknown: :blank do
