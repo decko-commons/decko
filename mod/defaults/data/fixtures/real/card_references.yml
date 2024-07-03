@@ -4172,14 +4172,14 @@ card_references_596:
   ref_type: L
   is_present:
 card_references_597:
-  id: 644
+  id: 647
   referer_id: 496
   referee_key: "*getting_started_link"
   referee_id: 526
   ref_type: L
   is_present:
 card_references_598:
-  id: 645
+  id: 648
   referer_id: 496
   referee_key: "*recent"
   referee_id: 100
