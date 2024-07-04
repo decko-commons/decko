@@ -5,6 +5,7 @@ format :html do
   bar_cols 9, 3
   mini_bar_cols 9, 3
 
+  # drops bar-middle in small viewports
   view :bar, unknown: :mini_bar do
     cols = bar_cols.size == 3 ? [mini_bar_cols, bar_cols] : [bar_cols]
     prepare_bar(*cols)
@@ -13,6 +14,12 @@ format :html do
 
   view :mini_bar, unknown: true do
     prepare_bar mini_bar_cols
+    build_bar
+  end
+
+  view :full_bar, unknown: :mini_bar do
+    class_up "bar", full_page_card.safe_set_keys
+    class_up_cols %w[bar-left bar-middle bar-right], bar_cols
     build_bar
   end
 
