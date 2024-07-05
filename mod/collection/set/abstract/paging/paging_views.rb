@@ -27,7 +27,7 @@ format :html do
   view :paging, cache: :never, template: :haml
 
   def paging_links
-    PagingLinks.new(total_pages, current_page).build do |text, page, status, options|
+    PagingLinks.new(total_pages, current_page).build 5 do |text, page, status, options|
       page_link_li text, page, status, options
     end
   end
