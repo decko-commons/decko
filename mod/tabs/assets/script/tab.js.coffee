@@ -1,12 +1,18 @@
 $(window).ready ->
   $('body').on 'show.bs.tab', 'a.load[data-bs-toggle="tab"][data-url]', (e) ->
-    tab_id = $(e.target).attr('href')
-    url    = $(e.target).data('url')
+    targ = $(e.target)
+    tab_id = targ.attr "href"
+    url    = targ.data "url"
     tabname = $(this).data "tabName"
-    $(e.target).removeClass('load')
+    targ.removeClass "load"
+    tab_content = $(tab_id)
+    # tab_content.slotReloading()
+
     $.ajax
       url: url
       success: (html) ->
-        $(tab_id).append(html)
+        tab_content.append(html)
         window.history.pushState("tab", "", "?tab=" + tabname)
-        decko.contentLoaded $(tab_id), $(this)
+        decko.contentLoaded tab_content, $(this)
+#      complete: ()->
+#        tab_content.slotLoadingComplete()
