@@ -6,7 +6,11 @@ class Card
       register :csv
 
       def mime_type
-        "text/comma-separated-values"
+        if params[:disposition] == "inline"
+          "text/plain"
+        else
+          "text/comma-separated-values"
+        end
       end
 
       def self.view_caching?
