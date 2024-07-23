@@ -202,7 +202,6 @@ event :update_read_rule do
     self.read_rule_class = rclass
     Card.where(id: id).update_all read_rule_id: rcard_id, read_rule_class: rclass
     expire :hard
-    # binding.pry if field_cards.include? nil
     update_field_read_rules
   end
 end
