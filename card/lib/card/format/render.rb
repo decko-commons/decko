@@ -86,7 +86,7 @@ class Card
 
       def stub_debugging
         result = yield
-        if Rails.env.development? && result =~ /StUb/
+        if Rails.env.development? && result.is_a?(String) && result =~ /StUb/
           Rails.logger.debug "STUB IN RENDERED VIEW: #{card.name}: " \
                             "#{voo.ok_view}\n#{result}"
         end
