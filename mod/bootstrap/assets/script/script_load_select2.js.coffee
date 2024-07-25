@@ -17,8 +17,6 @@ $.extend decko,
     else
       initSingleSelect2 elem
 
-
-
   uniqSelect2Id: (id) ->
     return id unless $("[data-select2-id=" + id + "]").length > 0
     decko.uniqSelect2Id id + "1"
