@@ -21,8 +21,7 @@ class Card
         def complete val
           val = val.to_name
           if val.compound?
-            interpret left: val.left
-            interpret right: { complete: val.right } if val.right.present?
+            complete_compound val
           else
             add_condition "#{table_alias}.key LIKE '#{val.to_name.key}%'" if val.present?
             name_not_null
@@ -37,6 +36,11 @@ class Card
         end
 
         private
+
+        def complete_compound val
+          interpret left: val.left
+          interpret right: { complete: val.right } if val.right.present?
+        end
 
         def name_not_null
           add_condition "#{table_alias}.key IS NOT NULL"
