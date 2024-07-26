@@ -38,7 +38,7 @@ class Card
       end
 
       def select
-        "#{leading_space}SELECT DISTINCT #{@fields}"
+        "#{leading_space}SELECT #{'DISTINCT' if @joins.present?} #{@fields}"
       end
 
       def from
