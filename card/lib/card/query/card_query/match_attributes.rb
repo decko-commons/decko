@@ -24,17 +24,23 @@ class Card
             interpret left: val.left
             interpret right: { complete: val.right } if val.right.present?
           else
-            add_condition "#{table_alias}.key LIKE '#{val.to_name.key}%'"
+            add_condition "#{table_alias}.key LIKE '#{val.to_name.key}%'" if val.present?
+            name_not_null
           end
         end
 
         # match term anywhere in name
         # DEPRECATE - move handling to name: ["match", val]
         def name_match val
-          interpret name: [:match, val]
+          interpret name: [:match, val] if val.present?
+          name_not_null
         end
 
         private
+
+        def name_not_null
+          add_condition "#{table_alias}.key IS NOT NULL"
+        end
 
         def or_join conditions
           "(#{Array(conditions).join ' OR '})"
