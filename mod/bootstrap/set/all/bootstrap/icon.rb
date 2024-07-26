@@ -130,6 +130,7 @@ format :html do
   end
 
   def universal_icon_tag library, icon, opts={}
+    add_class opts, "notranslate"
     with_icon_tag_opts(opts) do |tag_opts|
       send "#{library}_icon_tag", icon, tag_opts
     end
