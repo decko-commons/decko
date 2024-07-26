@@ -78,7 +78,7 @@ format :json do
   end
 
   def complete_cql
-    term_param.present? ? { complete: term_param } : {}
+    { complete: term_param.to_s }
   end
 
   def match_cql not_names
