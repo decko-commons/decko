@@ -171,9 +171,9 @@ Decko::RestSpecHelper.describe_api do
 
     it "update type_code" do
       post :update, xhr: true, params: { mark: "Sample Basic",
-                                         card: { type: "Date" } }
+                                         card: { type: "PlainText" } }
       assert_response :success, "changed card type"
-      expect(Card["Sample Basic"].type_code).to eq(:date)
+      expect(Card["Sample Basic"].type_code).to eq(:plain_text)
     end
   end
 

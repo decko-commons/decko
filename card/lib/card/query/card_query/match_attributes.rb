@@ -21,20 +21,30 @@ class Card
         def complete val
           val = val.to_name
           if val.compound?
-            interpret left: val.left
-            interpret right: { complete: val.right } if val.right.present?
+            complete_compound val
           else
-            add_condition "#{table_alias}.key LIKE '#{val.to_name.key}%'"
+            add_condition "#{table_alias}.key LIKE '#{val.to_name.key}%'" if val.present?
+            name_not_null
           end
         end
 
         # match term anywhere in name
         # DEPRECATE - move handling to name: ["match", val]
         def name_match val
-          interpret name: [:match, val]
+          interpret name: [:match, val] if val.present?
+          name_not_null
         end
 
         private
+
+        def complete_compound val
+          interpret left: val.left
+          interpret right: { complete: val.right } if val.right.present?
+        end
+
+        def name_not_null
+          add_condition "#{table_alias}.key IS NOT NULL"
+        end
 
         def or_join conditions
           "(#{Array(conditions).join ' OR '})"
