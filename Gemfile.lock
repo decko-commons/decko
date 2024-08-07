@@ -598,7 +598,7 @@ GEM
     recaptcha (4.13.2)
       json
     regexp_parser (2.9.2)
-    rexml (3.3.1)
+    rexml (3.3.3)
       strscan
     rouge (4.3.0)
     rr (3.1.0)
