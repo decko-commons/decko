@@ -53,11 +53,5 @@ module DockerDeck
     # ORIGIN AND RELATIVE_ROOT
     config.deck_origin = ENV["DECKO_ORIGIN"]
     config.relative_url_root = ENV["DECKO_RELATIVE_URL_ROOT"]
-
-    # MISCELLANEOUS
-    # You can use the following to disallow creating, updating, and deleting
-    # cards:
-    #
-    config.read_only = (ENV["DECKO_READ_ONLY"] || false)
   end
 end
