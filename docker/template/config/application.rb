@@ -39,7 +39,8 @@ module DockerDeck
             endpoint: ENV["DECKO_FILE_ENDPOINT"],
             aws_access_key_id: ENV["DECKO_FILE_KEY"],
             aws_secret_access_key: ENV["DECKO_FILE_SECRET"],
-            region: ENV["DECKO_FILE_REGION"]
+            region: ENV["DECKO_FILE_REGION"],
+            enable_signature_v4_streaming: ENV["ENABLE_SIGNATURE_V4_STREAMING"].present?
           },
           attributes: { "Cache-Control" => "max-age=#{365.day.to_i}" },
           public: true,
