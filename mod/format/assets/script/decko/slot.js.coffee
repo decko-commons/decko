@@ -1,7 +1,8 @@
 decko.slot =
   # returns full path with slot parameters
-  path: (path, slot)->
+  path: (path, slot, slotterMode)->
     params = slotPathParams slot
+    params["slotter_mode"] = slotterMode if slotterMode?
     decko.path(path) + ( (if path.match /\?/ then '&' else '?') + $.param(params) )
 
   ready: (func)->
@@ -18,7 +19,6 @@ decko.slot =
       $('body').on 'decko.slot.destroy', '.card-slot, ._modal-slot', (e) ->
         e.stopPropagation()
         func.call this, $(this)
-
 
 jQuery.fn.extend
   isSlot: -> $(this).hasClass "card-slot"
@@ -53,7 +53,7 @@ jQuery.fn.extend
     overlaySlot = @closest("[data-#{type}-origin-slot-id]")
     origin_slot_id = overlaySlot.data("#{type}-origin-slot-id")
     origin_slot = $("[data-slot-id=#{origin_slot_id}]")
-    if origin_slot[0]?
+    if origin_slot.length > 0
       origin_slot
     else
       decko.warn "couldn't find origin with slot id #{origin_slot_id}"
@@ -61,12 +61,18 @@ jQuery.fn.extend
   slotReload: (url) ->
     @each -> $(this)._slotReloadSingle url
 
+  slotReloading: ()->
+    # TODO: add default spinner behavior
+
+  slotLoadingComplete: ()->
+    # TODO: add default spinner behavior
+
   slotUpdate: (newContent, mode) ->
     mode ||= "replace"
     @slotContent newContent, mode, $(this)
 
   slotContent: (newContent, mode, $slotter) ->
-    v = $(newContent)[0] && $(newContent) || newContent
+    v = $(newContent).length > 0 && $(newContent) || newContent
 
     if typeof(v) == "string"
       # Needed to support "TEXT: result" pattern in success (eg deleting nested cards)
@@ -114,6 +120,7 @@ jQuery.fn.extend
     # that's where handleRemote gets the url from
     # .attr(href, url) only works for anchors
     $.rails.handleRemote $slot
+    $slot.slotReloading()
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~
 # "private" helper methods

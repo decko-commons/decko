@@ -1,4 +1,7 @@
 $bar_stripe_color: $dark !default;
+$bar-body-hover-color: rgba($gray-100, 0.5) !default;
+$bar-transition: $accordion-transition !default;
+
 
 ._card-link {
   cursor: pointer;
@@ -6,13 +9,16 @@ $bar_stripe_color: $dark !default;
 
 .bar {
   border: 1px solid $border-color;
-  &:hover {
+  > .bar-body, > .bar-menu, > .accordion-header > .accordion-button {
+    @include transition($bar-transition);
+  }
+  &:hover:not(.no-bar-hover) {
     cursor: pointer;
-    > .bar-body, > .bar-menu, > .accordion-header >.accordion-button {
-      background-color: $gray-200;
+    > .bar-body, > .bar-menu, > .accordion-header > .accordion-button {
+      background-color: $bar-body-hover-color;
     }
   }
-  &.accordion-item {
+  &.accordion-item > .accordion-header {
     .bar-left, .bar-right {
       padding: 0;
     }

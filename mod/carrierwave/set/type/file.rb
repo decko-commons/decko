@@ -16,8 +16,7 @@ include SelectedAction
 
 format do
   view :source do
-    file = card.attachment
-    file.valid? ? contextualize_path(file.url) : ""
+    source
   end
 
   view :core do
@@ -32,15 +31,20 @@ format do
 
   def handle_source
     rescuing_file_source_error do
-      source = _render_source
-      if source.blank?
+      src = source
+      if src.blank?
         ""
       elsif block_given?
-        yield source
+        yield src
       else
-        source
+        src
       end
     end
+  end
+
+  def source
+    file = card.attachment
+    file.valid? ? contextualize_path(file.url) : ""
   end
 
   def selected_version
@@ -69,12 +73,24 @@ format :file do
     args_for_send_file
   end
 
+  private
+
   def args_for_send_file
     file = selected_version
     [file.path, { type: file.content_type,
                   filename: "#{card.name.safe_key}#{file.extension}",
                   x_sendfile: true,
-                  disposition: (params[:format] == "file" ? "attachment" : "inline") }]
+                  disposition: disposition }]
+  end
+
+  def disposition
+    if params[:disposition]
+      params[:disposition]
+    elsif params[:format] == "file"
+      "attachment"
+    else
+      "inline"
+    end
   end
 
   def set_response_headers

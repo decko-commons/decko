@@ -1,9 +1,38 @@
 format :html do
+  view :menu_block do
+    wrap_with :div, class: "menu-block position-relative py-2" do
+      [render_menu, "&nbsp;"]
+    end
+  end
+
   view :menu, denial: :blank, unknown: true do
     return "" unless card.known?
     # would be preferable to do this with unknown: :blank, but that fails with view
     # caching on, because voo always thinks it's the root.
     wrap_with(:div, class: "card-menu #{menu_link_classes}") { menu_items }
+  end
+
+  view :edit_link, unknown: true, denial: :blank do
+    edit_link edit_link_view
+  end
+
+  view :edit_button do
+    view = voo.edit == :inline ? :edit_inline : :edit
+    link_to_view view, "Edit", class: "btn btn-sm btn-outline-primary me-2"
+  end
+
+  view :full_page_link do
+    full_page_link
+  end
+
+  view :board_link, unknown: true do
+    board_link
+  end
+
+  # no caching because help_text view doesn't cache, and we can't have a
+  # stub in the data-content attribute or it will get html escaped.
+  view :help_link, cache: :never, unknown: true do
+    help_link render_help_text, help_title
   end
 
   def menu_edit_link
@@ -36,25 +65,8 @@ format :html do
     end
   end
 
-  view :edit_link, unknown: true, denial: :blank do
-    edit_link edit_link_view
-  end
-
-  view :edit_button do
-    view = voo.edit == :inline ? :edit_inline : :edit
-    link_to_view view, "Edit", class: "btn btn-sm btn-outline-primary me-2"
-  end
-
   def edit_link_view
     :edit
-  end
-
-  view :full_page_link do
-    full_page_link
-  end
-
-  view :board_link, unknown: true do
-    board_link
   end
 
   # Generates a link to a board with optional parameters.
@@ -79,12 +91,6 @@ format :html do
     opts["data-slotter-mode"] = "modal-replace" if in_modal
     confirm_edit_loss opts if confirm
     link_to_view :board, "#{board_icon} #{text}", opts
-  end
-
-  # no caching because help_text view doesn't cache, and we can't have a
-  # stub in the data-content attribute or it will get html escaped.
-  view :help_link, cache: :never, unknown: true do
-    help_link render_help_text, help_title
   end
 
   def help_link text=nil, title=nil

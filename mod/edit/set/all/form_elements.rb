@@ -6,25 +6,25 @@ format :html do
   end
 
   # convert hash into a collection of hidden tags
-  def hidden_tags hash, base=nil
+  def hidden_tags hash, base=nil, options={}
     hash ||= {}
     hash.inject("") do |result, (key, val)|
       new_base = base ? "#{base}[#{key}]" : key
-      result + process_hidden_value(val, new_base)
+      result + process_hidden_value(val, new_base, options)
     end
   end
 
-  def process_hidden_value val, base
+  def process_hidden_value val, base, options={}
     case val
     when Hash
-      hidden_tags val, base
+      hidden_tags val, base, options
     when Array
       base += "[]"
       val.map do |v|
-        hidden_field_tag base, v
+        hidden_field_tag base, v, options
       end.join
     else
-      hidden_field_tag base, val
+      hidden_field_tag base, val, options
     end
   end
 

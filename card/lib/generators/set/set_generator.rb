@@ -6,8 +6,9 @@ module Cardio
     class SetGenerator < ModBase
       source_root File.expand_path("templates", __dir__)
 
+      argument :name, type: :string, banner: "MOD"
       argument :set_pattern, required: true
-      argument :anchors, required: true, type: :array
+      argument :anchors, required: true, type: :array, banner: "[ANCHOR1] [ANCHOR2]"
 
       class_option "spec-only", type: :boolean,
                                 default: false, group: :runtime,

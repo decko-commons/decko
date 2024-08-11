@@ -1,2 +1,2 @@
 // tab.js.coffee
-(function(){$(window).ready(function(){return $("body").on("show.bs.tab",'a.load[data-bs-toggle="tab"][data-url]',function(t){var a,r;return a=$(t.target).attr("href"),r=$(t.target).data("url"),$(t.target).removeClass("load"),$.ajax({url:r,success:function(t){return $(a).append(t),decko.contentLoaded($(a),$(this))}})})})}).call(this);
+(function(){$(window).ready(function(){return $("body").on("show.bs.tab",'a.load[data-bs-toggle="tab"][data-url]',function(t){var a,n,o,e,r;return n=(e=$(t.target)).attr("href"),r=e.data("url"),o=$(this).data("tabName"),e.removeClass("load"),a=$(n),$.ajax({url:r,success:function(t){return a.append(t),window.history.pushState("tab","","?tab="+o),decko.contentLoaded(a,$(this))}})})})}).call(this);

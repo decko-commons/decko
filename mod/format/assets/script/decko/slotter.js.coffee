@@ -65,11 +65,17 @@
 #
 #
 $(window).ready ->
+  $('body').on 'ajax:send', '.slotter', (event, data) ->
+    $(this).slot().slotReloading()
+
   $('body').on 'ajax:success', '.slotter', (event, data) ->
     $(this).slotterSuccess event, data
 
   $('body').on 'ajax:error', '.slotter', (event, xhr) ->
     $(this).showErrorResponse xhr.status, xhr.responseText
+
+  $('body').on 'ajax:complete', '.slotter', (event, data) ->
+    $(this).slot().slotLoadingComplete()
 
   $('body').on 'click', 'button.slotter', ->
     return false if !$.rails.allowAction $(this)
@@ -102,6 +108,15 @@ $(window).ready ->
 
   $('body').on 'ajax:beforeSend', '.slotter', (event, xhr, opt)->
     $(this).slotterBeforeSend opt
+
+  # NOTE: without the following two propagation checks, slotter events can propagate
+  # from one slot to another and cause weird problems, as with the type editor
+  $('body').on 'ajax:beforeSend', '.card-slot', (event)->
+    event.stopPropagation()
+
+  $('body').on 'ajax:send', '.card-slot', (event)->
+    event.stopPropagation()
+
 
 jQuery.fn.extend
   mainSuccess: ()->
@@ -204,7 +219,14 @@ jQuery.fn.extend
 
   slotterBeforeSend: (opt) ->
     # avoiding duplication. could be better test?
-    return if opt.noSlotParams or opt.url.match(/home_view/) or
-      @data("slotter-mode") == "modal" or @data("slotter-mode") == "override"
+    mode = @slotterMode()
 
-    opt.url = decko.slot.path opt.url, @slot()
+    return if opt.noSlotParams or opt.url.match(/home_view/) or
+      mode == "modal" or mode == "override"
+
+    opt.url = decko.slot.path opt.url, @slot(), mode
+
+  slotterMode: () ->
+    mode = @data "slotter-mode"
+    return if !mode? || (mode.match(/origin/) && !@slotOrigin())
+    mode

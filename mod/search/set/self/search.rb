@@ -24,7 +24,8 @@ format do
   end
 
   def search_vars
-    root.respond_to?(:search_params) ? root.search_params[:vars] : search_params[:vars]
+    # root.respond_to?(:search_params) ? root.search_params[:vars] :
+    search_params[:vars]
   end
 
   def cql_keyword?
