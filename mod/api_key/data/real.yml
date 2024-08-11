@@ -3,6 +3,9 @@
   :fields:
     :right:
       :fields:
-        :read: Help Desk
-        :update: Help Desk
-        :delete: Help Desk
+        :read:
+          - :help_desk
+        :update:
+          - :help_desk
+        :delete:
+          - :help_desk

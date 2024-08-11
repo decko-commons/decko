@@ -45,7 +45,7 @@ namespace :card do
       ENV["CARD_UPDATE_SEED"] = "true"
       # tells Cardio::Seed to use fixtures upon which the seeds being updated depend
 
-      invoke_card_tasks %w[reset_tmp seed:replant]
+      invoke_card_tasks %w[reset seed:replant]
     end
 
     def invoke_card_tasks tasks

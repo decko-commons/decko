@@ -1,4 +1,4 @@
-RSpec.describe Card::Set::Abstract::Accountable do
+RSpec.describe Card::Set::Abstract::AccountHolder do
   def card_subject
     Card["Joe User"]
   end

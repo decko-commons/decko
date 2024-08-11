@@ -5,6 +5,7 @@ format :html do
   bar_cols 9, 3
   mini_bar_cols 9, 3
 
+  # drops bar-middle in small viewports
   view :bar, unknown: :mini_bar do
     cols = bar_cols.size == 3 ? [mini_bar_cols, bar_cols] : [bar_cols]
     prepare_bar(*cols)
@@ -13,6 +14,12 @@ format :html do
 
   view :mini_bar, unknown: true do
     prepare_bar mini_bar_cols
+    build_bar
+  end
+
+  view :full_bar, unknown: :mini_bar do
+    class_up "bar", full_page_card.safe_set_keys
+    class_up_cols %w[bar-left bar-middle bar-right], bar_cols
     build_bar
   end
 
@@ -28,26 +35,31 @@ format :html do
   view :bar_menu, unknown: true, template: :haml
   view :bar_body, unknown: true, template: :haml
 
-  view :accordion_bar, unknown: :mini_bar do
+  view :closed, unknown: :mini_bar do
     build_accordion_bar
   end
-  view :closed_bar, :accordion_bar
-  view :closed, :accordion_bar
 
-  view :open_bar do
+  view :open do
     build_accordion_bar open: true
   end
-  view :expanded_bar, :open_bar
-  view :open, :open_bar
+
+  # DEPRECATED
+  view :closed_bar, :closed
+  view :accordion_bar, :closed
+
+  view :open_bar, :open
+  view :expanded_bar, :open
 
   def build_accordion_bar open: false
     prepare_bar mini_bar_cols
     class_up "accordion-item", "bar #{classy 'bar'}"
-    accordion_item render_bar_body,
-                   subheader: render_menu,
-                   body: render_bar_bottom,
-                   open: open,
-                   context: :accordion_bar
+    wrap do
+      accordion_item render_bar_body,
+                     subheader: render_menu,
+                     body: render_bar_bottom,
+                     open: open,
+                     context: :closed
+    end
   end
 
   def build_bar

@@ -83,6 +83,8 @@ class CardController
       success = Card::Env.success.in_context card.name
       if success.reload?
         reload # instruct JSON to reload
+      elsif slotter_magic?
+        slotter_magic_response
       else
         redirect_cud_success success
       end

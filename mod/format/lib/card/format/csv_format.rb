@@ -2,11 +2,15 @@
 
 class Card
   class Format
-    class CsvFormat < TextFormat
+    class CsvFormat < Format
       register :csv
 
       def mime_type
-        "text/comma-separated-values"
+        if params[:disposition] == "inline"
+          "text/plain"
+        else
+          "text/comma-separated-values"
+        end
       end
 
       def self.view_caching?

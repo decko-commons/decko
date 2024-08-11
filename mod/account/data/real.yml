@@ -77,17 +77,21 @@
     - :type_plus_right
     - :update
   :content:
-    Help Desk
+    - :help_desk
 
 - :name: "*account"
   :codename: account
   :fields:
     :right:
       :fields:
-        :create: Administrator
-        :read: Help Desk
-        :update: Help Desk
-        :delete: Help Desk
+        :create:
+          - :administrator
+        :read:
+          - :help_desk
+        :update:
+          - :help_desk
+        :delete:
+          - :help_desk
   :content: |-
     <div>When someone signs up, they create a [[Sign up]] card...</div>
     <blockquote>
@@ -119,31 +123,41 @@
   :fields:
     :right:
       :fields:
-        :update: Help Desk
-        :delete: Help Desk
-        :read: Help Desk
+        :read:
+          - :help_desk
+        :update:
+          - :help_desk
+        :delete:
+          - :help_desk
 - :name: "*password"
   :codename: password
   :fields:
     :right:
       :fields:
-        :update: Help Desk
-        :delete: Help Desk
-        :read: Help Desk
+        :read:
+          - :help_desk
+        :update:
+          - :help_desk
+        :delete:
+          - :help_desk
 - :name: "*salt"
   :codename: salt
   :fields:
     :right:
       :fields:
-        :read: Help Desk
+        :read:
+          - :help_desk
 - :name: "*status"
   :codename: status
   :fields:
     :right:
       :fields:
-        :update: Help Desk
-        :delete: Help Desk
-        :read: Help Desk
+        :read:
+          - :help_desk
+        :update:
+          - :help_desk
+        :delete:
+          - :help_desk
 
 - :name: "*account settings"
   :codename: account_settings

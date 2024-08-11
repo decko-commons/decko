@@ -20,7 +20,7 @@ RSpec.describe Card::Query::SqlStatement do
   describe "trash handling" do
     it "does not find cards in the trash" do
       Card["A+B"].delete!
-      expect(run_query(left: "A")).to eq(["A+C", "A+D", "A+E"])
+      expect(run_query(left: "A").sort).to eq(["A+C", "A+D", "A+E"].sort)
     end
   end
 

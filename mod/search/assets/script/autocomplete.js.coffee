@@ -2,8 +2,8 @@ decko.slot.ready (slot) ->
   slot.find('._autocomplete').each (_i) ->
     decko.initAutoCardPlete($(this))
 
-  slot.find('._select2autocomplete').each (_i) ->
-    decko.select2Autocomplete.init $(this)
+#  slot.find('._select2autocomplete').each (_i) ->
+#    decko.select2Autocomplete.init $(this)
 
 decko.initAutoCardPlete = (input) ->
   optionsCard = input.data 'options-card'

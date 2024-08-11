@@ -14,7 +14,7 @@ module Cardio
         def explicit_edibles
           return yield unless @name
 
-          yield.reject do |edible|
+          yield.select do |edible|
             if @name.match?(/^\:/)
               explicit_codename_match? edible[:codename]
             else

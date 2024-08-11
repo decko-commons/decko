@@ -40,6 +40,7 @@ format :html do
         "card-id": card.id,
         "card-name": slot_cardname,
         "card-type-id": card.type_id,
+        "card-type-name": card.type_name,
         "card-link-name": card.name.url_key,
         "slot-id": SecureRandom.hex(10)
       }

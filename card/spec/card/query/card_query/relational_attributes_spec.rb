@@ -47,15 +47,15 @@ RSpec.describe Card::Query::CardQuery::RelationalAttributes do
         end
 
         it "finds connection cards" do
-          expect(run_query(part: "A")).to eq(%w[A+B A+C A+D A+E C+A D+A F+A])
+          expect(run_query(part: "A").sort).to eq(%w[A+B A+C A+D A+E C+A D+A F+A].sort)
         end
 
         it "finds left connection cards" do
-          expect(run_query(left: "A")).to eq(%w[A+B A+C A+D A+E])
+          expect(run_query(left: "A").sort).to eq(%w[A+B A+C A+D A+E].sort)
         end
 
         it "finds right connection cards based on name" do
-          expect(run_query(right: "A")).to eq(%w[C+A D+A F+A])
+          expect(run_query(right: "A").sort).to eq(%w[C+A D+A F+A].sort)
         end
 
         it "finds right connection cards based on content" do

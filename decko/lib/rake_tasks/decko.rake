@@ -1,7 +1,7 @@
 require "decko/application"
 
 CARD_TASKS = (
-  %i[eat migrate reset_cache reset_tmp seed setup sow update] +
+  %i[eat migrate reset seed setup sow update] +
   # { assets: %i[refresh code wipe] },
   # above caused loading problem because of .sort is rails' #run_tasks_blocks
   [{ migrate: %i[schema transform redo stamp port recode] },

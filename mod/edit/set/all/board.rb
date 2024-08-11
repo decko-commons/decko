@@ -51,7 +51,7 @@ format :html do
     opts[:remote] = true
     add_class opts, "slotter"
     opts.bury :path, :layout, :overlay
-    opts.bury :path, :slot, :items, :view, :accordion_bar
+    opts.bury :path, :slot, :items, :view, :closed
     opts[:path][:view] ||= :content
     opts
   end
@@ -73,7 +73,7 @@ format :html do
   def board_menu
     wrap_with_modal_menu do
       [
-        close_modal_window,
+        render_close_modal_link,
         switch_to_edit_link
       ]
     end

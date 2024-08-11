@@ -3,7 +3,7 @@ require "mini_magick"
 module CarrierWave
   # Adds image specific version handling to {FileCardUploader}.
   # The ImageCardUploader creates five versions of different sizes when it
-  # uploads an imagae file:
+  # uploads an image file:
   # icon (16x16), small (75x75), medium (200X200), large (500x500) and
   # the original size.
   class ImageCardUploader < FileCardUploader
@@ -48,7 +48,7 @@ module CarrierWave
     # add 'original' if no version is given
     def full_filename for_file
       name = super(for_file)
-      if version_name
+      if name.blank? || version_name
         name
       else
         parts = name.split "."

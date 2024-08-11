@@ -13,7 +13,7 @@ namespace :card do
       ENV["NO_RAILS_CACHE"] = "true"
       # Benchmark.bm do |x|
       ["migrate:port", "migrate:schema", "migrate:recode", :eat, "migrate:transform",
-       :reset_tmp, :reset_cache,
+       :reset,
        "mod:uninstall", "mod:install", "mod:symlink"].each do |task|
         Rake::Task["card:#{task}"].invoke
       end
@@ -24,15 +24,26 @@ namespace :card do
   task eat: :environment do
     parse_options :eat do
       add_opt :m, :mod, "only eat cards in given mod"
-      add_opt :n, :name, "only eat card with name"
-      # FIXME: - name seems not to work, especially in combination with other options
-
-      add_opt :u, :user, "user to credit unless specified (otherwise uses Decko Bot)"
+      add_opt :n, :name, "only eat card with name (handles : for codenames)"
+      add_opt :u, :user, "user to credit unless specified (default is Decko Bot)"
       add_opt :p, :podtype, "pod type: real, test, or all " \
                             "(defaults to all in test env, otherwise real)"
+      add_opt :e, :env, "environment (test, production, etc)"
       flag_opt :v, :verbose, "output progress info and error backtraces"
     end
-    rake_result(:eat) { Cardio::Mod::Eat.new(**options).up }
+
+    adjust_environment options, :eat do
+      rake_result(:eat) { Cardio::Mod::Eat.new(**options).up }
+    end
+  end
+
+  def adjust_environment options, task
+    if (env = options.delete(:env))
+      task_options = options.map { |k, v| "--#{k}=#{v}" }.join(" ")
+      system "env RAILS_ENV=#{env} bundle exec rake card:#{task} #{task_options}"
+    else
+      yield
+    end
   end
 
   desc "Exports card data to mod yaml"
@@ -42,30 +53,25 @@ namespace :card do
       flag_opt :i, :items, "also export card items (with -n)"
       flag_opt :o, :only_items, "only export card items (with -n)", items: :only
       add_opt :c, :cql, "export cards found by CQL (in JSON format)"
+      add_opt_without_shortcut :url, "source card details from url"
       add_opt :m, :mod, "output yaml file in mod"
       add_opt :p, :podtype, "podtype to dump (real or test. default based on current env)"
       add_opt :t, :field_tags, "comma-separated list of field tag marks"
+      add_opt :e, :env, "environment (test, production, etc)"
     end
-    rake_result(:sow) { Cardio::Mod::Sow.new(**options).out }
+    adjust_environment options, :sow do
+      rake_result(:sow) { Cardio::Mod::Sow.new(**options).out }
+    end
   end
 
-  desc "Resets cache"
-  task reset_cache: :environment do
-    Card::Cache.reset_all
-  end
-
-  desc "reset with an empty tmp directory"
-  task :reset_tmp do
-    tmp_dir = Cardio.paths["tmp"].first
-    if Cardio.paths["tmp"].existent
-      Dir.foreach(tmp_dir) do |filename|
-        next if filename.match?(/^\./)
-
-        FileUtils.rm_rf File.join(tmp_dir, filename), secure: true
-      end
-    else
-      Dir.mkdir tmp_dir
+  desc "Clears both cache and tmpfiles"
+  task reset: :environment do
+    parse_options :reset do
+      flag_opt :c, :cache, "cache only"
+      flag_opt :t, :tmpfiles, "tmpfiles only"
     end
+    reset_tmpfiles unless options[:cache]
+    Card::Cache.reset_all unless options[:tmpfiles]
   end
 
   desc "Loads seed data"
@@ -91,9 +97,19 @@ namespace :card do
   end
 
   def add_opt letter, key, desc
-    op.on "-#{letter}", "--#{key.to_s.tr '_', '-'} #{key.to_s.upcase}", desc do |val|
+    op.on "-#{letter}", key_to_option_description(key), desc do |val|
       options[key] = val
     end
+  end
+
+  def add_opt_without_shortcut key, desc
+    op.on key_to_option_description(key), desc do |val|
+      options[key] = val
+    end
+  end
+
+  def key_to_option_description key
+    "--#{key.to_s.tr '_', '-'} #{key.to_s.upcase}"
   end
 
   def op
@@ -101,7 +117,7 @@ namespace :card do
   end
 
   def parse_options task
-    op.banner = "Usage: rake card:#{task} -- [options]"
+    op.banner = "Usage: card #{task} [options]"
     yield if block_given?
     args = op.order!(ARGV) {}
     # args << "-h" if args.empty?
@@ -115,5 +131,18 @@ namespace :card do
     # Solution should ensure that rake still exits with error code 1!
     raise "\n>>>>>> FAILURE! #{task} did not complete successfully." \
           "\n>>>>>> Please address errors and re-run:\n\n\n"
+  end
+
+  def reset_tmpfiles
+    tmp_dir = Cardio.paths["tmp"].first
+    if Cardio.paths["tmp"].existent
+      Dir.foreach(tmp_dir) do |filename|
+        next if filename.match?(/^\./)
+
+        FileUtils.rm_rf File.join(tmp_dir, filename), secure: true
+      end
+    else
+      Dir.mkdir tmp_dir
+    end
   end
 end

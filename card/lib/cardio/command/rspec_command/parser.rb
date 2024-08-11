@@ -1,6 +1,8 @@
 # -*- encoding : utf-8 -*-
 
 require "optparse"
+require "cardio/mod"
+require "pry"
 
 module Cardio
   class Command
@@ -11,11 +13,6 @@ module Cardio
 
           #{Command.bin_name.upcase} ARGS
 
-          You don't have to give a full path for FILENAME; the basename is enough.
-          If FILENAME does not include '_spec', then rspec searches for the
-          corresponding spec file. The line number always refers to the example in the
-          spec file.
-
         MESSAGE
 
         RSPEC_BANNER = <<~BANNER.freeze
@@ -24,12 +21,11 @@ module Cardio
 
           RSPEC ARGS
 
-          See https://relishapp.com/rspec/rspec-core/docs/command-line
+          See https://rspec.info/features/3-12/rspec-core/command-line/ or 
+          run card rspec -- -hb
         BANNER
 
         DESC = {
-          d: "Run spec for a Decko deck file",
-          c: "Run spec for a Decko core file",
           m: "Run all specs for a mod or matching a mod"
         }.freeze
 
@@ -38,7 +34,7 @@ module Cardio
             parser.banner = RSPEC_BANNER
             parser.separator RSPEC_PATH_MESSAGE
 
-            file_options parser, opts
+            # file_options parser, opts
             other_options parser, opts
             parser.separator "\n"
           end
@@ -47,25 +43,19 @@ module Cardio
         private
 
         def file_options parser, opts
-          parser.on("-d", "--spec FILENAME(:LINE)", DESC[:d]) do |file|
-            opts[:files] = find_spec_file(file, "#{Decko.root}/mod")
-          end
           parser.on("-m", "--mod MODNAME", DESC[:m]) do |file|
             opts[:files] = find_mod_file(file, Cardio.gem_root)
-          end
-          parser.on("-c", "--core-spec FILENAME(:LINE)", DESC[:c]) do |file|
-            opts[:files] = find_spec_file(file, Cardio.gem_root)
           end
         end
 
         def other_options parser, opts
-          parser.on("-s", "--[no-]simplecov", "Run with simplecov") do |s|
+          parser.on("-s", "--simplecov", "Run with simplecov") do |s|
             opts[:simplecov] = s
           end
-          parser.on("--rescue", "Run with pry-rescue") do
+          parser.on("--pry-rescue", "Run with pry-rescue") do
             process_rescue_opts opts
           end
-          parser.on("--[no-]spring", "Run with spring") do |spring|
+          parser.on("--spring", "Run with spring") do |spring|
             process_spring_opts spring, opts
           end
         end
@@ -98,7 +88,7 @@ module Cardio
           elsif (files = find_spec_file(filename, "mod"))&.present?
             files
           else
-            find_spec_file(file, "#{base_dir}/mod")
+            find_spec_file(filename, "#{base_dir}/mod")
           end
         end
 
