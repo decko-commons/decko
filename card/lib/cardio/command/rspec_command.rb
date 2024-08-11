@@ -1,4 +1,5 @@
 require File.expand_path("command_base", __dir__)
+require "cardio"
 
 module Cardio
   class Command
@@ -25,9 +26,12 @@ module Cardio
       end
 
       def coverage
-        "CARD_LOAD_STRATEGY=tmp_files" if @opts[:simplecov]
-        # # no coverage if rspec was started with file argument
-        # "CARD_SIMPLECOV=false" if @opts[:files] || @opts[:"no-simplecov"]
+        if @opts[:simplecov]
+          "CARD_LOAD_STRATEGY=tmp_files"
+        elsif @opts[:files]
+          # explicitly no coverage if rs pec was started with file argument
+          "CARD_SIMPLECOV=false"
+        end
       end
     end
   end
