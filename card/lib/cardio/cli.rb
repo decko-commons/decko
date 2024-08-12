@@ -8,7 +8,7 @@ Cardio::ScriptLoader.script_name = "card"
 # the rest of this script is not run.
 Cardio::ScriptLoader.exec!
 
-require "rails/ruby_version_check"
+# require "rails/ruby_version_check"
 Signal.trap("INT") { exit(1) }
 
 require "cardio/command/application"

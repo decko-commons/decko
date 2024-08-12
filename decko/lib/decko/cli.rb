@@ -6,7 +6,7 @@ Cardio::ScriptLoader.script_name = "decko"
 # the rest of this script is not run.
 Cardio::ScriptLoader.exec!
 
-require "rails/ruby_version_check"
+# require "rails/ruby_version_check"
 Signal.trap("INT") { exit(1) }
 
 require "decko/commands/application"
