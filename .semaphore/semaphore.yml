@@ -107,8 +107,8 @@ blocks:
             - aws s3 cp "coverage/codeclimate.$SEMAPHORE_JOB_ID.json" $S3_PATH
 
   - name: Unit Tests (MySql)
-    run:
-      when: "false" # skip to get faster to cypress for debugging #"branch != 'main'"
+#    run:
+#      when: "false" # skip to get faster to cypress for debugging #"branch != 'main'"
     task:
       prologue:
         commands:

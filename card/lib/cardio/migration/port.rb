@@ -2,7 +2,6 @@ module Cardio
   class Migration
     # methods for porting migrations from old table to new table
     module Port
-
       def port_all
         %i[schema transform].each do |type|
           migration_class(type).port
@@ -31,7 +30,7 @@ module Cardio
       end
 
       def lease_connection
-         ActiveRecord::Base.lease_connection
+        ActiveRecord::Base.lease_connection
       end
     end
   end
