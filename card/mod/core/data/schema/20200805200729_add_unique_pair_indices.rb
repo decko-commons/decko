@@ -36,6 +36,6 @@ class AddUniquePairIndices < Cardio::Migration::Schema
   end
 
   def connection
-    ActiveRecord::Base.connection
+    ActiveRecord::Base.lease_connection
   end
 end
