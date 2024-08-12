@@ -20,7 +20,7 @@ global_job_config:
     commands:
       # INSTALL DECKO CODE AND DEPENDENCIES
       - checkout # semaphore does git checkout and cds into decko
-      - sem-version ruby 3.0.2
+      - sem-version ruby 3.2.4
       - gem update --system
 
       - git submodule init
@@ -107,8 +107,8 @@ blocks:
             - aws s3 cp "coverage/codeclimate.$SEMAPHORE_JOB_ID.json" $S3_PATH
 
   - name: Unit Tests (MySql)
-    run:
-      when: "branch != 'main'"
+#    run:
+#      when: "false" # skip to get faster to cypress for debugging #"branch != 'main'"
     task:
       prologue:
         commands:
