@@ -5,6 +5,7 @@ describe 'presetting', () ->
   specify "presetting content in url", ->
     cy.visit "/new/book?card[name]=HarryPotter&_author=JKRowling"
     cy.get("iframe.tox-edit-area__iframe")
+    cy.wait(1000)
     cy.contains("Submit").click()
     cy.visit "HarryPotter+author"
     cy.main_slot().should "contain", "JKRowling"
