@@ -5,11 +5,11 @@ describe 'presetting', () ->
   specify "presetting content in url", ->
     cy.visit "/new/book?card[name]=HarryPotter&_author=JKRowling"
     cy.get("iframe.tox-edit-area__iframe")
-    cy.window().then (win) =>
-      Cypress.$(win.document).on 'tinymceLoaded', () =>
-        cy.contains("Submit").click()
-        cy.visit "HarryPotter+author"
-        cy.main_slot().should "contain", "JKRowling"
+    cy.wait(100) # some time is needed before the content is set in tinymce. Otherwise
+    # on semaphore clicking on submit sends empty content
+    cy.contains("Submit").click()
+    cy.visit "HarryPotter+author"
+    cy.main_slot().should "contain", "JKRowling"
 
 
   specify "simple cardtype autoname", ->
