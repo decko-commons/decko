@@ -2,7 +2,7 @@
 
 require "../decko_gem"
 
-DeckoGem.gem "cardname" do |s, _d|
+DeckoGem.gem "cardname" do |s, d|
   s.description = "Naming patterns abstracted from Decko cards"
   s.summary = "Card names without all the cards"
 
@@ -12,6 +12,6 @@ DeckoGem.gem "cardname" do |s, _d|
     "lib/**/*"
   ]
 
-  s.add_dependency "activesupport", "~> 6.1"
+  s.add_dependency "activesupport", d.rails_version
   s.add_dependency "htmlentities", "~> 4.3"
 end
