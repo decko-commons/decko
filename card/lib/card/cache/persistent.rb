@@ -88,21 +88,24 @@ class Card
       def write_attribute key, attribute, value
         return value unless @store
 
-        if (object = deep_read key)
+        # if (object = deep_read key)
+        if (object = read key)
           object.instance_variable_set "@#{attribute}", value
           write key, object
         end
         value
       end
 
-      def deep_read key
-        local_cache = @store.send :local_cache
-        local_cache&.clear
-        read key
-      end
+      # def deep_read key
+      #   binding.pry
+      #   # local_cache = @store.send :local_cache
+      #   # local_cache&.clear
+      #   read key
+      # end
 
       def read_attribute key, attribute
-        object = deep_read key
+        # object = deep_read key
+        object = read key
         object.instance_variable_get "@#{attribute}"
       end
 

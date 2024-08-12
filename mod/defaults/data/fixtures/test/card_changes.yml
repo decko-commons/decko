@@ -405,3 +405,155 @@ card_changes_077:
   value: |-
     [[:getting_started_links|Getting started]]
     [[:recent|Recent Changes]]
+card_changes_078:
+  id: 78
+  card_action_id: 6184
+  field: 2
+  value: "[[:recent|Recent Changes]]"
+card_changes_079:
+  id: 79
+  card_action_id: 6214
+  field: 2
+  value: |-
+    [[:getting_started_links|Getting started]]
+    [[:recent|Recent Changes]]
+card_changes_080:
+  id: 80
+  card_action_id: 874
+  field: 0
+  value:
+card_changes_081:
+  id: 81
+  card_action_id: 874
+  field: 1
+  value: '4'
+card_changes_082:
+  id: 82
+  card_action_id: 874
+  field: 2
+  value: |-
+    mod: format+*script
+    mod: list+*script
+    mod: search+*script
+    mod: rules+*script
+    mod: edit+*script
+    mod: account+*script
+    mod: carrierwave+*script
+    mod: ace editor+*script
+    mod: bar and box+*script
+    mod: bootstrap+*script
+    mod: follow+*script
+    mod: tabs+*script
+    mod: layout+*script
+    mod: recaptcha+*script
+    mod: tinymce editor+*script
+card_changes_083:
+  id: 83
+  card_action_id: 874
+  field: 3
+  value: f
+card_changes_084:
+  id: 84
+  card_action_id: 874
+  field: 4
+  value: '7'
+card_changes_085:
+  id: 85
+  card_action_id: 874
+  field: 5
+  value: '301'
+card_changes_086:
+  id: 86
+  card_action_id: 6229
+  field: 2
+  value: |-
+    mod: format+*script
+    mod: list+*script
+    mod: search+*script
+    mod: rules+*script
+    mod: edit+*script
+    mod: account+*script
+    mod: carrierwave+*script
+    mod: ace editor+*script
+    mod: bar and box+*script
+    mod: bootstrap+*script
+    mod: follow+*script
+    mod: tabs+*script
+    mod: layout+*script
+    mod: recaptcha+*script
+    mod: tinymce editor+*script
+    mod: plummy+*script
+    mod: plummy2+*script
+card_changes_087:
+  id: 87
+  card_action_id: 875
+  field: 0
+  value: 'style: mods'
+card_changes_088:
+  id: 88
+  card_action_id: 875
+  field: 1
+  value: '4'
+card_changes_089:
+  id: 89
+  card_action_id: 875
+  field: 2
+  value: |-
+    mod: format+*style
+    mod: list+*style
+    mod: permissions+*style
+    mod: help+*style
+    mod: search+*style
+    mod: rules+*style
+    mod: edit+*style
+    mod: account+*style
+    mod: history+*style
+    mod: carrierwave+*style
+    mod: api key+*style
+    mod: style+*style
+    mod: bar and box+*style
+    mod: bootstrap+*style
+    mod: comment+*style
+    mod: follow+*style
+    mod: layout+*style
+    mod: tinymce editor+*style
+card_changes_090:
+  id: 90
+  card_action_id: 875
+  field: 3
+  value: f
+card_changes_091:
+  id: 91
+  card_action_id: 875
+  field: 4
+  value:
+card_changes_092:
+  id: 92
+  card_action_id: 875
+  field: 5
+  value:
+card_changes_093:
+  id: 93
+  card_action_id: 6230
+  field: 2
+  value: |-
+    mod: format+*style
+    mod: list+*style
+    mod: permissions+*style
+    mod: help+*style
+    mod: search+*style
+    mod: rules+*style
+    mod: edit+*style
+    mod: account+*style
+    mod: history+*style
+    mod: carrierwave+*style
+    mod: api key+*style
+    mod: style+*style
+    mod: bar and box+*style
+    mod: bootstrap+*style
+    mod: comment+*style
+    mod: follow+*style
+    mod: layout+*style
+    mod: tinymce editor+*style
+    mod: plummy+*style
+    mod: plummy2+*style
