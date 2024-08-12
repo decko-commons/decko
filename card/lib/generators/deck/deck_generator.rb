@@ -16,6 +16,10 @@ module Cardio
 
         source_root File.expand_path("templates", __dir__)
 
+        def self.databases
+          Rails::Generators::Database::DATABASES.join "/"
+        end
+
         # All but the first aliases should be considered deprecated
         class_option "monkey",
                      type: :boolean, aliases: %w[-M --mod-dev],
@@ -36,7 +40,7 @@ module Cardio
         class_option :database,
                      type: :string, aliases: %w[-D -d], default: "mysql",
                      desc: "Preconfigure for selected database " \
-                           "(options: #{DATABASES.join('/')})"
+                           "(options: #{databases})"
 
         class_option "interactive",
                      type: :boolean, aliases: %w[-I -i], default: false, group: :runtime,
