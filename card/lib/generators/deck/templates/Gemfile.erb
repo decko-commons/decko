@@ -6,7 +6,7 @@ gem "decko"<%= repo_path_constraint %>
 # DATABASE
 # Decko currently supports MySQL (best tested), PostgreSQL (well tested), and SQLite
 # (not well tested).
-gem <%= database_gem_and_version %>
+<%= database_gemfile_entry %>
 
 
 # WEBSERVER
@@ -43,7 +43,7 @@ gem "card-mod-defaults"<%= repo_path_constraint :mod %>
 <%= "# " if shark? %>gem "decko-cucumber", group: :cucumber<%= repo_path_constraint :support %>
 <%= "# " if shark? %>gem "decko-cypress", group: :cypress<%= repo_path_constraint :support %>
 <%= "# " if shark? %>gem "decko-profile", group: :profile<%= repo_path_constraint :support %>
-<%= "# " if shark? || !spring_install? %>gem "decko-spring"<%= repo_path_constraint :support %>
+<%# "# " if shark? || !spring_install? >gem "decko-spring"<%= repo_path_constraint :support %>
 
 <% if platypus? %>
 # PLATYPUSES

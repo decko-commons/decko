@@ -96,6 +96,15 @@ cypress interface. Cypress upgrades can be installed in that same directory via 
 [//]: # ()
 [//]: # (See the [Jasmine README][7] for more information.)
 
+#### JavaScript changes
+
+If you made JavaScript/CoffeeScript changes, you have to update the test fixtures
+with
+
+`RAILS_ENV=test rake card:seed:update` 
+
+and commit the updated `file.js` and yml files.
+
 ### Documentation
 
 We use `yard`. You can run your own documentation server by calling this from the repo
