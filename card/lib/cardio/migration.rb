@@ -46,8 +46,8 @@ module Cardio
 
     def context
       mode do |paths|
-        schema_migrations = ActiveRecord::SchemaMigration.new ActiveRecord::Base.connection_pool
-        yield ActiveRecord::MigrationContext.new(paths, schema_migrations)
+        migrations = ActiveRecord::SchemaMigration.new ActiveRecord::Base.connection_pool
+        yield ActiveRecord::MigrationContext.new(paths, migrations)
       end
     end
 
