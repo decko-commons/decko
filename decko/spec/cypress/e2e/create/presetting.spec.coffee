@@ -5,10 +5,12 @@ describe 'presetting', () ->
   specify "presetting content in url", ->
     cy.visit "/new/book?card[name]=HarryPotter&_author=JKRowling"
     cy.get("iframe.tox-edit-area__iframe")
-    cy.wait(1000)
-    cy.contains("Submit").click()
-    cy.visit "HarryPotter+author"
-    cy.main_slot().should "contain", "JKRowling"
+    cy.window().then (win) =>
+      Cypress.$(win.document).on 'tinymceLoaded', () =>
+        cy.contains("Submit").click()
+        cy.visit "HarryPotter+author"
+        cy.main_slot().should "contain", "JKRowling"
+
 
   specify "simple cardtype autoname", ->
     cy.ensure "Book+*type+*autoname", content: "Book_1"
