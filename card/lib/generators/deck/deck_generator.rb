@@ -128,16 +128,6 @@ module Cardio
       3. Run `#{prefix}decko server` to start your server"
           end
         end
-
-        protected
-
-        def database_gemfile_entry
-          return [] if options[:skip_active_record]
-
-          gem_name, gem_version = gem_for_database
-          msg = "Use #{options[:database]} as the database for Active Record"
-          GemfileEntry.version gem_name, gem_version, msg
-        end
       end
     end
   end
