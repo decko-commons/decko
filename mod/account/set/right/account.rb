@@ -1,13 +1,15 @@
 # -*- encoding : utf-8 -*-
 
-delegate :own_account?, to: :accounted
-
 card_accessor :email
 card_accessor :password
 card_accessor :salt
 card_accessor :status
 
 require_field :email
+
+def own_account?
+  accounted&.try :own_account?
+end
 
 def accounted
   left
