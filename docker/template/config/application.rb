@@ -39,7 +39,8 @@ module DockerDeck
             endpoint: ENV["DECKO_FILE_ENDPOINT"],
             aws_access_key_id: ENV["DECKO_FILE_KEY"],
             aws_secret_access_key: ENV["DECKO_FILE_SECRET"],
-            region: ENV["DECKO_FILE_REGION"]
+            region: ENV["DECKO_FILE_REGION"],
+            enable_signature_v4_streaming: ENV["ENABLE_SIGNATURE_V4_STREAMING"].present?
           },
           attributes: { "Cache-Control" => "max-age=#{365.day.to_i}" },
           public: true,
@@ -53,11 +54,5 @@ module DockerDeck
     # ORIGIN AND RELATIVE_ROOT
     config.deck_origin = ENV["DECKO_ORIGIN"]
     config.relative_url_root = ENV["DECKO_RELATIVE_URL_ROOT"]
-
-    # MISCELLANEOUS
-    # You can use the following to disallow creating, updating, and deleting
-    # cards:
-    #
-    config.read_only = (ENV["DECKO_READ_ONLY"] || false)
   end
 end
