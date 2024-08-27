@@ -13,6 +13,6 @@ format :html do
     if count.try(:zero?) && !opts[:zero_ok]
       opts[:klass] = [opts[:klass], "disabled-o"].compact.join " "
     end
-    opts[:color] ||= "secondary"
+    opts[:color] ||= "light"
   end
 end
