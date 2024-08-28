@@ -70,10 +70,8 @@ format :html do
   end
 
   def select_input
-    options = { "-- Select --" => "" }.merge card.options_hash
-    select_tag("pointer_select-#{unique_id}",
-               options_for_select(options, card.first_name),
-               class: "pointer-select form-control")
+    select_tag "pointer_select-#{unique_id}", select_input_options,
+               class: "pointer-select form-control"
   end
 
   def bar_select_input
@@ -107,6 +105,11 @@ format :html do
   end
 
   private
+
+  def select_input_options
+    options = { "-- Select --" => "" }.merge card.options_hash
+    options_for_select options, card.first_name
+  end
 
   # currently only used by :list and :autocomplete. could be generalized?
   def items_for_input items=nil
