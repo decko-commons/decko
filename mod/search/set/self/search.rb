@@ -19,15 +19,6 @@ format do
     rescuing_bad_query(query) { Card.search query }
   end
 
-  def search_keyword
-    @search_keyword ||= term_param || search_vars&.dig(:keyword)
-  end
-
-  def search_vars
-    # root.respond_to?(:search_params) ? root.search_params[:vars] :
-    search_params[:vars]
-  end
-
   def cql_keyword?
     search_keyword&.match?(/^\{.+\}$/)
   end
