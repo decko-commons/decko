@@ -51,7 +51,7 @@ format :html do
     opts[:remote] = true
     add_class opts, "slotter"
     opts.bury :path, :layout, :overlay
-    opts.bury :path, :slot, :items, :view, :accordion_bar
+    opts.bury :path, :slot, :items, :view, :closed
     opts[:path][:view] ||= :content
     opts
   end

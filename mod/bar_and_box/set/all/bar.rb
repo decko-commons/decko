@@ -35,17 +35,20 @@ format :html do
   view :bar_menu, unknown: true, template: :haml
   view :bar_body, unknown: true, template: :haml
 
-  view :accordion_bar, unknown: :mini_bar do
+  view :closed, unknown: :mini_bar do
     build_accordion_bar
   end
-  view :closed_bar, :accordion_bar
-  view :closed, :accordion_bar
 
-  view :open_bar do
+  view :open do
     build_accordion_bar open: true
   end
-  view :expanded_bar, :open_bar
-  view :open, :open_bar
+
+  # DEPRECATED
+  view :closed_bar, :closed
+  view :accordion_bar, :closed
+
+  view :open_bar, :open
+  view :expanded_bar, :open
 
   def build_accordion_bar open: false
     prepare_bar mini_bar_cols
@@ -55,7 +58,7 @@ format :html do
                      subheader: render_menu,
                      body: render_bar_bottom,
                      open: open,
-                     context: :accordion_bar
+                     context: :closed
     end
   end
 
