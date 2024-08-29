@@ -107,8 +107,7 @@ class Card
         "#{time_ago_in_words(@act.acted_at)} ago"
       end
 
-      def
-        accordion_item
+      def accordion_item
         # context = @act.main_action&.draft ? :warning : :default
         @format.accordion_item header,
                                subheader: act_links,

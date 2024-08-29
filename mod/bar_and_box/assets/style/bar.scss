@@ -18,7 +18,7 @@ $bar-transition: $accordion-transition !default;
       background-color: $bar-body-hover-color;
     }
   }
-  &.accordion-item {
+  &.accordion-item > .accordion-header {
     .bar-left, .bar-right {
       padding: 0;
     }

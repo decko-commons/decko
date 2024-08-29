@@ -82,19 +82,28 @@ If you want to run only a single spec file use
 `bundle exec decko rspec -- <path_to_spec_file>`.
 For more options run `bundle exec decko rspec --help`. 
 
-#### Cucumber
-Similar to rspec run `bundle exec decko cucumber` in your platypus deck directory.
+[//]: # (#### Cucumber)
+[//]: # (Similar to rspec run `bundle exec decko cucumber` in your platypus deck directory.)
 
 #### Cypress
 Start the server for your platypus deck with `RAILS_ENV=cypress bundle exec decko s -p 
 5002` and then in the gem in `decko/spec` run `yarn run cypress open` to open the 
 cypress interface. Cypress upgrades can be installed in that same directory via npm. 
 
-#### Jasmine
-Some special configuration is required for Jasmine
-testing, which is currently very limited. 
+[//]: # (#### Jasmine)
+[//]: # (Some special configuration is required for Jasmine)
+[//]: # (testing, which is currently very limited. )
+[//]: # ()
+[//]: # (See the [Jasmine README][7] for more information.)
 
-See the [Jasmine README][7] for more information.
+#### JavaScript changes
+
+If you made JavaScript/CoffeeScript changes, you have to update the test fixtures
+with
+
+`RAILS_ENV=test rake card:seed:update` 
+
+and commit the updated `file.js` and yml files.
 
 ### Documentation
 
