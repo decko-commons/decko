@@ -26,15 +26,9 @@ format do
   def item_cards
     search_with_params
   end
-
-  def term_param
-    params[:term]
-  end
 end
 
 format :json do
-  AUTOCOMPLETE_LIMIT = 8 # number of name suggestions for autocomplete text fields
-
   # NOCACHE because paging_urls is uncacheable hash and thus not safe to merge
   view :molecule, cache: :never do
     molecule.merge render_paging_urls
