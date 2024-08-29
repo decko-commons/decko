@@ -1,5 +1,7 @@
 include_set Abstract::Paging
 
+AUTOCOMPLETE_LIMIT = 8 # number of name suggestions for autocomplete text fields
+
 def search _args={}
   raise Error, "search not overridden"
 end
