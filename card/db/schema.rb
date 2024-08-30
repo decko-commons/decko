@@ -91,7 +91,7 @@ ActiveRecord::Schema.define(version: 2022_10_31_182227) do
     t.integer "references_expired"
     t.boolean "trash", null: false
     t.integer "type_id", null: false
-    t.text "db_content", 16.megabytes - 1
+    t.text "db_content", limit: 16.megabytes - 1
     t.index ["codename"], name: "cards_codename_index"
     t.index ["created_at"], name: "cards_created_at_index"
     t.index ["key"], name: "cards_key_index", unique: true
@@ -106,7 +106,7 @@ ActiveRecord::Schema.define(version: 2022_10_31_182227) do
   create_table "delayed_jobs", charset: "utf8mb3", force: :cascade do |t|
     t.integer "priority", default: 0, null: false
     t.integer "attempts", default: 0, null: false
-    t.text "handler", 16.megabytes - 1, null: false
+    t.text "handler", limit: 16.megabytes - 1, null: false
     t.text "last_error"
     t.datetime "run_at"
     t.datetime "locked_at"
