@@ -20,6 +20,24 @@ format do
     (vars = params[:query]) ? Env.hash(vars) : {}
   end
 
+  def type_param
+    type = query_params[:type]
+    type.present? && type
+  end
+
+  def term_param
+    params[:term]
+  end
+
+  def search_keyword
+    @search_keyword ||= term_param || search_vars&.dig(:keyword)
+  end
+
+  def search_vars
+    # root.respond_to?(:search_params) ? root.search_params[:vars] :
+    search_params[:vars]
+  end
+
   def default_limit
     100
   end

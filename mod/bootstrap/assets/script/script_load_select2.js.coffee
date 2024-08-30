@@ -71,15 +71,16 @@ initSingleSelect2 = (elem) ->
       delay: 200
       cache: true
       url: decko.path elem.data("options-card")
-      processResults: (data) ->
-        results: $.map(data, (card, i) ->
-          { id: "~" + card.id, text: card.name }
-        )
+      processResults: (data) -> results: data
       data: (params) ->
         term: params.term
         format: "json"
-        view: "name_match"
-        slot: { items: { view: "nucleus" } }
-
+        view: elem.data("options-view") || "name_match"
+        slot: { items: { view: elem.data("options-item-view") || "select2_option" } }
+    opts.templateResult = (data) ->
+      if data.html
+        $(data.html)
+      else
+        data.text
 
   elem.select2(opts)

@@ -21,7 +21,9 @@
   font-weight: bold;
   font-style: italic;
   text-align: center;
-  margin: 0 0 4px 0;
+  > div {
+    margin: 1em;
+  }
 
   .card-error-msg {
     text-align: left;
