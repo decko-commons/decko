@@ -18,7 +18,7 @@ namespace :card do
       without_dumping do
         run_migration :schema
       end
-      Rake::Task["db:_dump"].invoke # write schema.rb
+      Rake::Task["db:schema:dump"].invoke # write schema.rb
       reset_column_information true
     end
 
