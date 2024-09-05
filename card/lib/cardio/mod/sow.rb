@@ -7,6 +7,7 @@ module Cardio
     class Sow
       include YamlDump
       include CardSource
+      include RemoteSource
 
       def initialize **args
         @mod = args[:mod]
@@ -44,16 +45,10 @@ module Cardio
       # @return [Array <Hash>]
       def new_data
         @new_data ||= fetch_new_data
-
       end
 
       def fetch_new_data
-        if @remote
-          raise Card::Error::NotFound, "must specify name (-n)" unless @name
-          @url = URI.join(@remote, "/#{@name.cardname.url_key}/", "pod.yml")
-        end
-        puts "name #{@name}"
-        @url ? pod_hash_from_url : new_data_from_cards
+        remote_source ? pod_from_url : new_data_from_cards
       end
 
       def merge_data
@@ -83,19 +78,6 @@ module Cardio
       def old_data
         return unless File.exist? filename
         parse_pod_yaml File.read(filename)
-      end
-
-      def pod_hash_from_url
-        parsed_yaml = parse_pod_yaml yaml_from_url
-        Array.wrap(parsed_yaml)
-      rescue Psych::SyntaxError
-        raise "Url #{@url} provided invalid yaml"
-      end
-
-      def yaml_from_url
-        @yaml_from_url ||= URI.open(@url).read
-      rescue OpenURI::HTTPError => e
-        raise "#{@url} not available\n#{e}"
       end
 
       def parse_pod_yaml pod_yaml
