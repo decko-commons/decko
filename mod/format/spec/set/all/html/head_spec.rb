@@ -2,7 +2,7 @@
 
 describe Card::Set::All::Html::Head do
   specify "view head" do
-    expect_view(:head).to have_tag("title"), "A - WikiRate"
+    expect_view(:head).to have_tag("title")
     expect_view(:head).to have_tag("link")
     expect_view(:head).to have_tag("script")
   end

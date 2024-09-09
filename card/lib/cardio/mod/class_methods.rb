@@ -78,6 +78,7 @@ module Cardio
         yield hash
         # puts "updating asset lists"
         Card[:all, :script].update! content: hash[:script].compact
+        Card::Auth.as_bot # FIXME: should not be necessary
         Card[:style_mods].update! content: hash[:style].compact
         # puts "refreshing assets"
         Card::Assets.refresh force: true
