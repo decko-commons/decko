@@ -22,15 +22,14 @@ event :validate_item_type, :validate, on: :save, when: :validate_item_type? do
   end
 end
 
+# At present this may never generate an error, because the uniqueness is enforced
+# by `#standardize_items`. It's possible we may want to separate the policy about
+# whether duplicates are allowed and the policy about whether we autocorrect vs.
+# raise an error?
 event :validate_item_uniqueness, :validate, on: :save, when: :unique_items? do
   return unless (dupes = duplicate_item_names)&.present?
 
   errors.add :content, t(:list_duplicate_items_names, duplicates: dupes.to_sentence)
-end
-
-# for override
-def unique_items?
-  false
 end
 
 def ok_item_types
