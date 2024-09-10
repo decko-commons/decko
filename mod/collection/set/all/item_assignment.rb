@@ -1,3 +1,7 @@
+def unique_items?
+  false
+end
+
 # set card content based on array and save card
 # @param array [Array] list of strings/names (Cardish)
 def items= array

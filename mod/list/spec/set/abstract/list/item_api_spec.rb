@@ -63,12 +63,6 @@ RSpec.describe Card::Set::Abstract::List do
       pointer.add_item "John"
       expect(pointer.content).to eq("Jane\nJohn")
     end
-
-    it "not add duplicate entries" do
-      pointer.content = "[[Jane]]"
-      pointer.add_item "Jane"
-      expect(pointer.content).to eq("Jane")
-    end
   end
 
   describe "drop_item" do

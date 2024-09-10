@@ -4,6 +4,13 @@ format :html do
     nil
   end
 
+  # public for testing
+  def explicit_modal_wrapper? view
+    return unless (wrap_view = view_setting :wrap, view)
+
+    (wrapper_names(wrap_view) & %i[modal board]).any?
+  end
+
   private
 
   def show_with_page_layout view, args
@@ -43,12 +50,6 @@ format :html do
     view_opts[:home_view] = view
     view_opts[:layout] = layout
     render! view, view_opts.reverse_merge(args)
-  end
-
-  def explicit_modal_wrapper? view
-    return unless (wrap_view = view_setting :wrap, view)
-
-    (wrapper_names(wrap_view) & %i[modal board]).any?
   end
 
   def body_with_modal body, modal
