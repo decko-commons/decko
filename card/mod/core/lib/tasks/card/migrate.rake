@@ -49,10 +49,12 @@ namespace :card do
     end
 
     task port: :environment do
+      puts "porting"
       Cardio::Migration.port_all
     end
 
     task recode: :environment do
+      puts "recoding"
       Cardio::Mod.dirs.subpaths("data", "recode.yml").each_value do |path|
         YAML.load_file(path).each do |oldcode, newcode|
           Card::Codename.recode oldcode, newcode
