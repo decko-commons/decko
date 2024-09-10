@@ -22,6 +22,7 @@ namespace :card do
 
   desc "Ingests card data from mod yaml"
   task eat: :environment do
+    puts "eating"
     parse_options :eat do
       add_opt :m, :mod, "only eat cards in given mod"
       add_opt :n, :name, "only eat card with name (handles : for codenames)"
@@ -48,6 +49,7 @@ namespace :card do
 
   desc "Exports card data to mod yaml"
   task sow: :environment do
+    puts "sowing"
     parse_options :sow do
       add_opt :n, :name, "export card with name/mark (handles : and ~ prefixes)"
       flag_opt :i, :items, "also export card items (with -n)"
@@ -66,6 +68,7 @@ namespace :card do
 
   desc "Clears both cache and tmpfiles"
   task reset: :environment do
+    puts "resetting"
     parse_options :reset do
       flag_opt :c, :cache, "cache only"
       flag_opt :t, :tmpfiles, "tmpfiles only"
