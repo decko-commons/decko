@@ -1,8 +1,10 @@
 format :html do
-  # TODO: use CodeFile cards for these
-  # builtin layouts allow for rescue / testing
-  # HTML_LAYOUTS = Mod::Loader.load_layouts(:html).merge "none" => "{{_main}}"
-  # HAML_LAYOUTS = Mod::Loader.load_layouts(:haml)
+  # for override
+  def layout_for_view _view
+    nil
+  end
+
+  private
 
   def show_with_page_layout view, args
     main!
@@ -19,9 +21,20 @@ format :html do
     params[:layout] || layout_for_view(view) || layout_name_from_rule || :default
   end
 
-  # for override
-  def layout_for_view _view
-    nil
+  def layout_name_from_rule
+    card.rule_card(:layout)&.try :first_name
+  end
+
+  def main_render_args view, args
+    args[:view] = view if view
+    args[:main] = true
+    args[:main_view] = true
+    args
+  end
+
+  def render_outside_of_layout view, args
+    body = render_with_layout nil, page_layout(view), {}
+    body_with_modal body, render!(view, args)
   end
 
   def render_with_layout view, layout, args={}
@@ -32,36 +45,10 @@ format :html do
     render! view, view_opts.reverse_merge(args)
   end
 
-  def default_page_view
-    default_nest_view
-  end
-
-  def show_layout?
-    !Env.ajax? || params[:layout]
-  end
-
   def explicit_modal_wrapper? view
     return unless (wrap_view = view_setting :wrap, view)
 
     (wrapper_names(wrap_view) & %i[modal board]).any?
-  end
-
-  private
-
-  def main_render_args view, args
-    args[:view] = view if view
-    args[:main] = true
-    args[:main_view] = true
-    args
-  end
-
-  def layout_name_from_rule
-    card.rule_card(:layout)&.try :first_name
-  end
-
-  def render_outside_of_layout view, args
-    body = render_with_layout nil, page_layout(view), {}
-    body_with_modal body, render!(view, args)
   end
 
   def body_with_modal body, modal
