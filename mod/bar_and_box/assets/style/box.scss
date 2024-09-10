@@ -59,9 +59,10 @@ $box_stripe_color: $secondary !default;
 
 // wrapper around box in list context
 .item-box {
-  display: inline-block;
+  display: flex;
   padding: 1rem 0;
   vertical-align: top;
+  justify-content: center;
 }
 
 .box, .item-box {
