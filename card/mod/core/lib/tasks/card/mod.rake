@@ -23,11 +23,14 @@ namespace :card do
 
     desc "uninstall leftover mods"
     task uninstall: :environment do
+      puts "uninstalling unconfigured mods"
       Cardio::Mod.ensure_uninstalled
     end
 
     desc "install all mods"
     task install: :environment do
+      puts "installing mods"
+      Card::Auth.signin :wagn_bot.card
       # Cardio.config.compress_assets = true # should not be here, imo #efm
       Cardio::Mod.ensure_installed
     end
