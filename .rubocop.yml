@@ -29,4 +29,4 @@ Naming/AccessorMethodName:
 #    CountComments: false
 #    Max: 10
 AllCops:
-  TargetRubyVersion: 2.5
+  TargetRubyVersion: 3.0
