@@ -3,7 +3,7 @@ languages:
   JavaScript: true
   PHP: false
   Python: false
-engines:
+plugins:
   rubocop:
     enabled: true
     config: .codeclimate-rubocop.yml
