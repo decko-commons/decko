@@ -19,7 +19,7 @@ module Cardio
         @verbose = !verbose.nil?
       end
 
-      def up
+      def run
         handle_up do
           edibles.each do |edible|
             track edible do
