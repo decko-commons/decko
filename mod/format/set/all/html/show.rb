@@ -25,7 +25,15 @@ format :html do
     render! view, args
   end
 
+  def default_page_view
+    default_nest_view
+  end
+
   def show_method
     "show_#{show_layout? ? :with : :without}_page_layout"
+  end
+
+  def show_layout?
+    !Env.ajax? || params[:layout]
   end
 end

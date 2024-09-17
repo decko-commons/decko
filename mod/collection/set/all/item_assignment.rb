@@ -1,3 +1,7 @@
+def unique_items?
+  false
+end
+
 # set card content based on array and save card
 # @param array [Array] list of strings/names (Cardish)
 def items= array
@@ -13,11 +17,8 @@ end
 
 # append item to list (does not save)
 # @param cardish [String, Card::Name] item name
-# @param allow_duplicates [True/False] permit duplicate items (default is False)
-def add_item cardish, allow_duplicates=false
-  return if !allow_duplicates && include_item?(cardish)
-
-  self.content = (item_strings << cardish)
+def add_item cardish
+  self.content = item_strings + Array.wrap(cardish)
 end
 
 # append item to list and save card
@@ -70,7 +71,9 @@ def items_content array
 end
 
 def standardized_items array
-  array.map { |i| standardize_item i }.reject(&:blank?)
+  array.map! { |i| standardize_item i }.reject!(&:blank?)
+  array.uniq! if unique_items?
+  array
 end
 
 def standardize_item item

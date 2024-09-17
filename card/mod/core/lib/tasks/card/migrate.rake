@@ -18,7 +18,7 @@ namespace :card do
       without_dumping do
         run_migration :schema
       end
-      Rake::Task["db:_dump"].invoke # write schema.rb
+      Rake::Task["db:schema:dump"].invoke # write schema.rb
       reset_column_information true
     end
 
@@ -49,10 +49,12 @@ namespace :card do
     end
 
     task port: :environment do
+      puts "porting"
       Cardio::Migration.port_all
     end
 
     task recode: :environment do
+      puts "recoding"
       Cardio::Mod.dirs.subpaths("data", "recode.yml").each_value do |path|
         YAML.load_file(path).each do |oldcode, newcode|
           Card::Codename.recode oldcode, newcode
