@@ -16,7 +16,7 @@ Layout/SpaceAroundEqualsInParameterDefault:
 Layout/ExtraSpacing:
   Description: Do not use unnecessary spacing.
   Enabled: false
-Metrics/LineLength:
+Layout/LineLength:
   Enabled: true
   Max: 90
   Exclude:
