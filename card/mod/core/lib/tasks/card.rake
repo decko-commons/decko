@@ -22,8 +22,7 @@ namespace :card do
 
   desc "Ingests card data from mod yaml"
   task eat: :environment do
-    puts "eating"
-    parse_options :eat do
+    run_with_options :eat, Cardio::Mod::Eat, "eating" do
       add_opt :m, :mod, "only eat cards in given mod"
       add_opt :n, :name, "only eat card with name (handles : for codenames)"
       add_opt :u, :user, "user to credit unless specified (default is Decko Bot)"
@@ -32,25 +31,44 @@ namespace :card do
       add_opt :e, :env, "environment (test, production, etc)"
       flag_opt :v, :verbose, "output progress info and error backtraces"
     end
+    exit 0 # to avoid that rake tries to run the arguments as rake tasks
+  end
 
-    adjust_environment options, :eat do
-      rake_result(:eat) { Cardio::Mod::Eat.new(**options).up }
+  def args_without_env_arg
+    env_index = ARGV.find_index { |entry| entry == "-e" || entry == "--env" }
+    args =
+      if env_index
+        ARGV[1..].select.with_index do |_, index|
+          (index != env_index - 1) && (index != env_index)
+        end
+      else
+        ARGV[1..]
+      end
+    args.join " "
+  end
+
+  def adjust_environment options, args_without_env, task, task_message
+    if (env = options.delete(:env))
+      command = "env RAILS_ENV=#{env} bundle exec rake card:#{task} #{args_without_env}"
+      puts command
+      system command
+    else
+      puts task_message
+      yield
     end
   end
 
-  def adjust_environment options, task
-    if (env = options.delete(:env))
-      task_options = options.map { |k, v| "--#{k}=#{v}" }.join(" ")
-      system "env RAILS_ENV=#{env} bundle exec rake card:#{task} #{task_options}"
-    else
-      yield
+  def run_with_options task_name, task_class, start_message, &block
+    args_without_env = args_without_env_arg
+    parse_options task_name, &block
+    adjust_environment options, args_without_env, task_name, start_message do
+      rake_result(task_name) { task_class.new(**options).run }
     end
   end
 
   desc "Exports card data to mod yaml"
   task sow: :environment do
-    puts "sowing"
-    parse_options :sow do
+    run_with_options :sow, Cardio::Mod::Sow, "sowing" do
       add_opt :n, :name, "export card with name/mark (handles : and ~ prefixes)"
       flag_opt :i, :items, "also export card items (with -n)"
       flag_opt :o, :only_items, "only export card items (with -n)", items: :only
@@ -61,9 +79,7 @@ namespace :card do
       add_opt :t, :field_tags, "comma-separated list of field tag marks"
       add_opt :e, :env, "environment (test, production, etc)"
     end
-    adjust_environment options, :sow do
-      rake_result(:sow) { Cardio::Mod::Sow.new(**options).out }
-    end
+    exit 0 # to avoid that rake tries to run the arguments as rake tasks
   end
 
   desc "Clears both cache and tmpfiles"
