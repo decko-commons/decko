@@ -114,4 +114,4 @@ Style/CollectionMethods:
     find_all: 'select'
     reduce: 'inject'
 RSpec/ImplicitSubject:
-  enabled: false
+  Enabled: false
