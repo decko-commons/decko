@@ -3,10 +3,11 @@
 require "../../decko_gem"
 
 DeckoGem.mod "monkey" do |s, d|
+  required_ruby_version = ">= 3.0.0"
   s.summary = "dev support for mod developers (monkeys)"
   s.description = ""
   d.depends_on ["html2haml",            "~> 2.2"],
-               ["rubocop",             "~> 1.17"],
+               ["rubocop",             "~> 1.66"],
                # ["rubocop-decko"],
                # DEBUGGING
                ["better_errors",        "~> 2.9"],

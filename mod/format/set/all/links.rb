@@ -1,4 +1,4 @@
-RESOURCE_TYPE_REGEXP = /^([a-zA-Z][\-+.a-zA-Z\d]*):/
+RESOURCE_TYPE_REGEXP = /^([a-zA-Z][\-+.a-zA-Z\d]*):/.freeze
 
 # The #link_to methods support smart formatting of links in multiple formats.
 format do

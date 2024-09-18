@@ -88,7 +88,7 @@ class Card
       end
 
       def test_set
-        # rubocop:disable Lint/Eval
+        # rubocop:disable Security/Eval
         ::Card::Set::Self.const_remove_if_defined :TestSet
         eval <<-RUBY, binding, __FILE__, __LINE__ + 1
           class ::Card::Set::Self
@@ -99,7 +99,7 @@ class Card
           end
         RUBY
         ::Card::Set::Self::TestSet
-        # rubocop:enable Lint/Eval
+        # rubocop:enable Security/Eval
       end
 
       def base_format_modules?
