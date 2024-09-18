@@ -3,6 +3,7 @@
 require "../../decko_gem"
 
 DeckoGem.mod "carrierwave" do |s, d|
+  s.required_ruby_version ">= 3.0.0"
   s.summary = "File and Image handling"
   s.description = ""
   d.depends_on ["carrierwave", "~> 3.0"],
@@ -14,5 +15,4 @@ DeckoGem.mod "carrierwave" do |s, d|
   # presumably a carrierwave update will fix that soon
 
   d.depends_on_mod :history, :permissions
-  d.required_ruby_version ">= 3.0.0"
 end

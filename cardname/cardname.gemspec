@@ -3,6 +3,7 @@
 require "../decko_gem"
 
 DeckoGem.gem "cardname" do |s, d|
+  s.required_ruby_version ">= 3.0.0"
   s.description = "Naming patterns abstracted from Decko cards"
   s.summary = "Card names without all the cards"
 
@@ -14,5 +15,4 @@ DeckoGem.gem "cardname" do |s, d|
 
   s.add_dependency "activesupport", d.rails_version
   s.add_dependency "htmlentities", "~> 4.3"
-  d.required_ruby_version ">= 3.0.0"
 end
