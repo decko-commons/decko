@@ -58,7 +58,7 @@ module Cardio
 
       def all_file_ids
         dir = Card.paths["files"].existent.first
-        Dir.entries(dir)[2..-1].map(&:to_i)
+        Dir.entries(dir)[2..].map(&:to_i)
       end
 
       def all_trashed_card_ids

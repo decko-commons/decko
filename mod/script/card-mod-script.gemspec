@@ -6,4 +6,5 @@ DeckoGem.mod "script" do |s, d|
   s.summary = "JavaScript, CoffeeScript, etc."
   s.description = ""
   d.depends_on_mod :assets, :list
+  d.required_ruby_version ">= 3.0.0"
 end

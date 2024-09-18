@@ -6,4 +6,5 @@ DeckoGem.mod "integrate" do |s, d|
   s.summary = "card configurable integration events"
   s.description = ""
   d.depends_on_mod :rules
+  d.required_ruby_version ">= 3.0.0"
 end
