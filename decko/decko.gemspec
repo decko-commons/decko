@@ -18,4 +18,5 @@ DeckoGem.gem "decko" do |s, d|
   # It is just a temporary fix so that old sites continue to work without having to
   # edit their Gemfile.
   d.depends_on_mod :defaults
+  d.required_ruby_version ">= 3.0.0"
 end

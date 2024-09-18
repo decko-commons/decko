@@ -6,4 +6,5 @@ DeckoGem.mod "email" do |s, d|
   s.summary = "Email handling"
   s.description = ""
   d.depends_on_mod :search, :list, :permissions
+  d.required_ruby_version ">= 3.0.0"
 end

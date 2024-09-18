@@ -10,6 +10,7 @@ module Cardio
 
       def port
         return unless lease_connection.table_exists? old_deck_table
+
         rename_old_tables
         lease_connection.execute "INSERT INTO #{table} (#{select_nonduplicate_versions})"
         lease_connection.drop_table old_deck_table

@@ -7,4 +7,5 @@ DeckoGem.mod "format" do |s, d|
   s.description = ""
   # d.depends_on ["truncato", "~> 0.7"] # truncates html strings
   d.depends_on_mod :content
+  d.required_ruby_version ">= 3.0.0"
 end

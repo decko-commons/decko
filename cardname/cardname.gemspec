@@ -14,4 +14,5 @@ DeckoGem.gem "cardname" do |s, d|
 
   s.add_dependency "activesupport", d.rails_version
   s.add_dependency "htmlentities", "~> 4.3"
+  d.required_ruby_version ">= 3.0.0"
 end

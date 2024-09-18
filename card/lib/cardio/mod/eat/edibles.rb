@@ -24,7 +24,7 @@ module Cardio
         end
 
         def explicit_codename_match? codename
-          codename && (codename == @name[1..-1])
+          codename && (codename == @name[1..])
         end
 
         def explicit_name_match? name
