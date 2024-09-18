@@ -3,7 +3,7 @@
 require "../../decko_gem"
 
 DeckoGem.gem "decko-rspec" do |s, d|
-  s.required_ruby_version ">= 3.0.0"
+  required_ruby_version = ">= 3.0.0"
   s.summary = "rspec support for decko monkeys"
   s.description = ""
   d.depends_on ["i18n-tasks",               "~> 0.9"],

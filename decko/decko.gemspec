@@ -3,7 +3,7 @@
 require "../decko_gem"
 
 DeckoGem.gem "decko" do |s, d|
-  s.required_ruby_version ">= 3.0.0"
+  required_ruby_version = ">= 3.0.0"
   s.summary = "structured wiki web platform"
   s.description =
     "a wiki approach to structured data, dynamic interaction,  and web design"
