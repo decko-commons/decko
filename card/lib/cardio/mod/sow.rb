@@ -72,6 +72,7 @@ module Cardio
 
       def old_data
         return unless File.exist? filename
+
         parse_pod_yaml File.read(filename)
       end
 

@@ -14,4 +14,5 @@ DeckoGem.mod "carrierwave" do |s, d|
   # presumably a carrierwave update will fix that soon
 
   d.depends_on_mod :history, :permissions
+  d.required_ruby_version ">= 3.0.0"
 end
