@@ -25,6 +25,7 @@ class RemoveCustomizedBootswatchSkins < Cardio::Migration::Transform
   def fix_stylesheets_field skin
     fld = skin.field :stylesheets
     return unless fld.real? && fld.try(:item_names).present?
+
     fld.content = fld.item_names.select do |i|
       fld.try(:ok_item_types)&.include? i.card&.type_code
     end

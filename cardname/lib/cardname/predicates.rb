@@ -42,7 +42,7 @@ class Cardname
     # @return [Boolean]
     def ends_with_parts? *suffix
       end_name = suffix.to_name
-      end_name == self[-end_name.num_parts..-1]
+      end_name == self[-end_name.num_parts..]
     end
     alias_method :end_with_parts?, :ends_with_parts?
 

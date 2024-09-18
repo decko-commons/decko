@@ -3,6 +3,7 @@
 require "../../decko_gem"
 
 DeckoGem.mod "delayed_job" do |s, d|
+  s.required_ruby_version ">= 3.0.0"
   s.summary = "Background processing with Delayed Job"
   s.description = ""
   d.depends_on ["daemons",                   "~> 1.4"],
