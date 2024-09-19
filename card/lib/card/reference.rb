@@ -18,7 +18,9 @@ class Card
       # bulk insert improves performance considerably
       # array takes form [ [referer_id, referee_id, referee_key, ref_type], ...]
       def mass_insert array
-        Card.connection.execute mass_insert_sql(array) if array.present?
+        array.each_slice(5000) do |slice|
+          insert_all mass_insert_values(slice)
+        end
       end
 
       # map existing reference to name to card via id
@@ -70,11 +72,17 @@ class Card
         end
       end
 
-      # why not use insert_all ??
-      def mass_insert_sql array
-        value_statements = array.map { |values| "\n(#{values.join ', '})" }
-        "INSERT into card_references (referer_id, referee_id, referee_key, ref_type) " \
-        "VALUES #{value_statements.join ', '}"
+      def mass_insert_values slice
+        [].tap do |values|
+          slice.each do |v|
+            values << {
+              referer_id: v[0],
+              referee_id: v[1],
+              referee_key: v[2],
+              ref_type: v[3]
+            }
+          end
+        end
       end
     end
   end
