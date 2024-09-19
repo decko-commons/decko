@@ -16,10 +16,9 @@ class Card
 
     class << self
       # bulk insert improves performance considerably
-      # array takes form [ [referer_id, referee_id, referee_key, ref_type], ...]
-      def mass_insert array
+      def insert_in_slices array
         array.each_slice(5000) do |slice|
-          insert_all mass_insert_values(slice)
+          insert_all slice
         end
       end
 
@@ -69,19 +68,6 @@ class Card
         Card.where(trash: false).find_each do |card|
           Rails.logger.debug "references from #{card.name}"
           yield card.include_set_modules
-        end
-      end
-
-      def mass_insert_values slice
-        [].tap do |values|
-          slice.each do |v|
-            values << {
-              referer_id: v[0],
-              referee_id: v[1],
-              referee_key: v[2],
-              ref_type: v[3]
-            }
-          end
         end
       end
     end
