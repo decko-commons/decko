@@ -70,6 +70,7 @@ class Card
         end
       end
 
+      # why not use insert_all ??
       def mass_insert_sql array
         value_statements = array.map { |values| "\n(#{values.join ', '})" }
         "INSERT into card_references (referer_id, referee_id, referee_key, ref_type) " \

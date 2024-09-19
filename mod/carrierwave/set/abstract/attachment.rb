@@ -101,10 +101,10 @@ def duplicate?
 end
 
 def delete_files_for_action action
-  with_selected_action_id(action.id) do
+  with_selected_action_id action.id do
     attachment.file.delete
     attachment.versions.each_value do |version|
-      version.file.delete
+      version.file&.delete
     end
   end
 end
