@@ -1,6 +1,13 @@
 include_set Abstract::Paging
 include_set Abstract::Items
 
+# for override
+# if false, item names that match cardnames will
+# NOT be treated like references to those cards
+def item_references?
+  true
+end
+
 def diff_args
   { diff_format: :pointer }
 end
@@ -44,5 +51,7 @@ def chunk_class
 end
 
 def each_reference_out
+  return unless item_references?
+
   item_names.each { |name| yield name, chunk_class::CODE }
 end

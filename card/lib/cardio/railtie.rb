@@ -76,6 +76,7 @@ module Cardio
 
             p["lib/graph_q_l/types/query.rb"] <<
               "#{mod_path}/lib/graph_q_l/types/query.rb"
+            p["config/environments"] << "#{mod_path}/config/environments"
             p["config/initializers"] << "#{mod_path}/config/early"
             p["late/initializers"] << "#{mod_path}/config/late"
             p["lib/tasks"] << "#{mod_path}/lib/tasks"
