@@ -59,7 +59,7 @@ class Card
         end
         return if ref_hash.empty?
 
-        Reference.mass_insert reference_values_array(ref_hash)
+        Reference.insert_in_slices reference_values_array(ref_hash)
       end
 
       # replace references in card content
@@ -101,9 +101,14 @@ class Card
       def reference_values_array ref_hash
         [].tap do |values|
           ref_hash.each do |referee_key, hash_val|
-            referee_id = hash_val.shift || "null"
+            referee_id = hash_val.shift
             each_reference_type hash_val.uniq do |ref_type|
-              values << [id, referee_id, "'#{referee_key}'", "'#{ref_type}'"]
+              values << {
+                referer_id: id,
+                referee_id: referee_id,
+                referee_key: referee_key,
+                ref_type: ref_type
+              }
             end
           end
         end
