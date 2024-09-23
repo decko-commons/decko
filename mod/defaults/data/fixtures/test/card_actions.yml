@@ -12167,3 +12167,19 @@ card_actions_1521:
   action_type: 1
   draft: 0
   comment:
+card_actions_1522:
+  id: 3702
+  card_id: 496
+  card_act_id: 106795
+  super_action_id:
+  action_type: 1
+  draft: 0
+  comment:
+card_actions_1523:
+  id: 3703
+  card_id: 496
+  card_act_id: 106796
+  super_action_id:
+  action_type: 1
+  draft: 0
+  comment:

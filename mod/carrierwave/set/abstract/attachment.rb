@@ -12,7 +12,10 @@ end
 
 # we need a card id for the path so we have to update db_content when we have
 # an id
-event :correct_identifier, :finalize, on: :create, when: proc { |c| !c.web? } do
+event :correct_identifier, :finalize, on: :save, when: proc { |c| !c.web? } do
+  correct_id = attachment.db_content
+  return if db_content == correct_id
+
   update_column :db_content, attachment.db_content
   expire
 end
@@ -20,7 +23,7 @@ end
 event :save_original_filename, :prepare_to_store, on: :save, when: :file_ready_to_save? do
   return unless @current_action
 
-  @current_action.update! comment: original_filename
+  @current_action.comment = original_filename
 end
 
 event :validate_file_exist, :validate, on: :create, skip: :allowed do
