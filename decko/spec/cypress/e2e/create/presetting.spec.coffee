@@ -27,4 +27,3 @@ describe 'presetting', () ->
     cy.expect_main_title "Book_2"
 
     cy.delete "Book+*type+*autoname"
-

@@ -9,7 +9,6 @@ end
 # must be called on all actions and before :set_name, :process_subcards and
 # :delete_children
 event :assign_action, :initialize, when: :actionable? do
-  act = director.need_act
   @current_action = new_action
 end
 
@@ -46,12 +45,6 @@ event :finalize_act, after: :finalize_action, when: :act_card? do
   Card::Director.act.update! card_id: id
 end
 
-event :remove_empty_act, :integrate_with_delay_final,
-      priority: 100, when: :remove_empty_act? do
-  # Card::Director.act.delete
-  # Card::Director.act = nil
-end
-
 # can we store an action? (can be overridden, eg in files)
 def actionable?
   history?
@@ -76,7 +69,7 @@ private
 
 def new_action
   Card::Action.new(
-    card_act_id: act.id,
+    act: director.need_act,
     action_type: action,
     draft: draft_action?,
     super_action: super_action
