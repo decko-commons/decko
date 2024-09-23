@@ -70,6 +70,7 @@ private
 def new_action
   Card::Action.new(
     act: director.need_act,
+    # ar_card: self,
     action_type: action,
     draft: draft_action?,
     super_action: super_action
