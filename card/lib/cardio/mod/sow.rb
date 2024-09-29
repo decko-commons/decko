@@ -7,12 +7,14 @@ module Cardio
     class Sow
       include YamlDump
       include CardSource
+      include RemoteSource
 
       def initialize **args
         @mod = args[:mod]
         @name = args[:name]
         @cql = args[:cql]
         @url = args[:url]
+        @remote = args[:remote]
         @podtype = args[:podtype] || (Rails.env.test? ? :test : :real)
         @items = args[:items]
         @field_tags = args[:field_tags]
@@ -42,8 +44,11 @@ module Cardio
 
       # @return [Array <Hash>]
       def new_data
-        @new_data ||=
-          @url ? pod_hash_from_url : new_data_from_cards
+        @new_data ||= fetch_new_data
+      end
+
+      def fetch_new_data
+        remote_source ? pod_from_url : new_data_from_cards
       end
 
       def merge_data
@@ -73,10 +78,6 @@ module Cardio
       def old_data
         return unless File.exist? filename
         parse_pod_yaml File.read(filename)
-      end
-
-      def pod_hash_from_url
-        parse_pod_yaml URI.open(@url).read
       end
 
       def parse_pod_yaml pod_yaml
