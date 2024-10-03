@@ -16,9 +16,10 @@ class Card
 
     class << self
       # bulk insert improves performance considerably
-      # array takes form [ [referer_id, referee_id, referee_key, ref_type], ...]
-      def mass_insert array
-        Card.connection.execute mass_insert_sql(array) if array.present?
+      def insert_in_slices array
+        array.each_slice(5000) do |slice|
+          insert_all slice
+        end
       end
 
       # map existing reference to name to card via id
@@ -68,12 +69,6 @@ class Card
           Rails.logger.debug "references from #{card.name}"
           yield card.include_set_modules
         end
-      end
-
-      def mass_insert_sql array
-        value_statements = array.map { |values| "\n(#{values.join ', '})" }
-        "INSERT into card_references (referer_id, referee_id, referee_key, ref_type) " \
-        "VALUES #{value_statements.join ', '}"
       end
     end
   end
