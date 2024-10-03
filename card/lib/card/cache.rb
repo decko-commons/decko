@@ -22,9 +22,6 @@ class Card
   class Cache
     extend Card::Cache::Prepopulate
 
-    @@cache_by_class = {}
-    cattr_reader :cache_by_class
-
     class << self
       attr_accessor :no_renewal
 
@@ -34,19 +31,7 @@ class Card
       def [] klass
         raise "nil klass" if klass.nil?
 
-        cache_type = persistent_cache || nil
-        cache_by_class[klass] ||= new class: klass, store: cache_type
-      end
-
-      def persistent_cache
-        return @persistent_cache unless @persistent_cache.nil?
-
-        @persistent_cache =
-          case
-          when ENV["NO_RAILS_CACHE"]          then false
-          when Cardio.config.persistent_cache then Cardio.cache
-          else                                     false
-          end
+        cache_by_class[klass] ||= new class: klass, store: (persistent_cache || nil)
       end
 
       # clear the temporary caches and ensure we're using the latest stamp
@@ -110,6 +95,25 @@ class Card
         Cardio::Utils.delete_tmp_files!
       end
 
+      def persistent_on!
+        return if @persistent_cache
+
+        @cache_by_class = {}
+        @persistent_cache = Cardio.config.persistent_cache && Cardio.cache
+      end
+
+      def cache_by_class
+        @cache_by_class ||= {}
+      end
+
+      private
+
+      def persistent_cache
+        return @persistent_cache unless @persistent_cache.nil?
+
+        @persistent_cache = (ENV["NO_RAILS_CACHE"] != "true") && persistent_on!
+      end
+
       # generate a cache key from an object
       # @param obj [Object]
       # @return [String]
@@ -134,7 +138,6 @@ class Card
     # @option opts [Constant] :class
     def initialize opts={}
       @klass = opts[:class]
-      cache_by_class[@klass] = self
       @hard = Persistent.new opts if opts[:store]
       @soft = Temporary.new
     end
