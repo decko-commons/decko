@@ -106,13 +106,13 @@ class Card
         @cache_by_class ||= {}
       end
 
-      private
-
       def persistent_cache
         return @persistent_cache unless @persistent_cache.nil?
 
         @persistent_cache = (ENV["NO_RAILS_CACHE"] != "true") && persistent_on!
       end
+
+      private
 
       # generate a cache key from an object
       # @param obj [Object]
