@@ -1,5 +1,6 @@
 class Card
   class Cache
+    # class methods for Card::Cache
     module ClassMethods
       attr_accessor :no_renewal
       attr_accessor :counter
@@ -16,8 +17,8 @@ class Card
       # clear the temporary caches and ensure we're using the latest stamp
       # on the persistent caches.
       def renew
-        Cardio.config.view_cache = true
-        Cardio.config.prepopulate_cache = true
+        # Cardio.config.view_cache = true
+        # Cardio.config.prepopulate_cache = true
 
         Card::Cache.counter = nil
         return if no_renewal
@@ -103,11 +104,7 @@ class Card
       end
 
       def tallies
-        s = "Cache calls ("
-        counter.each do |k, v|
-          s += "#{k}=#{v} "
-        end
-        s + ")"
+        "Cache calls (" + counter.each { |k, v| s += "#{k}=#{v} " }.to_s + ")"
       end
 
       private
@@ -130,7 +127,8 @@ class Card
       end
 
       def prepopulate_lexicon_caches
-        Card::Lexicon.cache.read_multi Codename.strings.map { |s| "L-#{s}" }
+        cache_keys = Codename.strings.map { |s| "L-#{s}" }
+        Card::Lexicon.cache.read_multi cache_keys
       end
 
       def prepopulate_rule_caches

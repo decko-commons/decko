@@ -1,16 +1,28 @@
-module ClassMethods
-  def repair_all_permissions
-    Card.where("(read_rule_class is null or read_rule_id is null) and trash is false")
-        .each do |broken_card|
-      broken_card.include_set_modules
-      broken_card.repair_permissions!
-    end
+event :set_read_rule, :store, on: :save, changed: %i[type_id name] do
+  read_rule_id, read_rule_class = permission_rule_id_and_class(:read)
+  self.read_rule_id = read_rule_id
+  self.read_rule_class = read_rule_class
+end
+
+event :set_field_read_rules, after: :set_read_rule, on: :update, changed: :type_id do
+  each_field_as_bot(&:update_read_rule)
+end
+
+event :update_read_rule do
+  without_timestamps do
+    reset_patterns # why is this needed?
+    set_read_rule
+    Card.where(id: id).update_all read_rule_id: read_rule_id,
+                                  read_rule_class: read_rule_class
+    expire :hard
+    update_field_read_rules
   end
 end
 
-def repair_permissions!
-  rule_id, rule_class = permission_rule_id_and_class :read
-  update_columns read_rule_id: rule_id, read_rule_class: rule_class
+event :check_permissions, :validate do
+  track_permission_errors do
+    ok? action_for_permission_check
+  end
 end
 
 # ok? and ok! are public facing methods to approve one action at a time
@@ -40,12 +52,6 @@ end
 
 def anyone_can? action
   who_can(action).include? AnyoneID
-end
-
-def direct_rule_card action
-  direct_rule_id = rule_card_id action
-  require_permission_rule! direct_rule_id, action
-  Card.quick_fetch direct_rule_id
 end
 
 def permission_rule_id action
@@ -159,15 +165,6 @@ end
 #   self.read_rule_id = self.read_rule_class = nil
 # end
 
-event :set_read_rule, :store, on: :save, changed: %i[type_id name] do
-  read_rule_id, read_rule_class = permission_rule_id_and_class(:read)
-  self.read_rule_id = read_rule_id
-  self.read_rule_class = read_rule_class
-end
-
-event :set_field_read_rules, after: :set_read_rule, on: :update, changed: :type_id do
-  each_field_as_bot(&:update_read_rule)
-end
 
 def update_field_read_rules
   return unless type_id_changed? || read_rule_id_changed?
@@ -186,34 +183,18 @@ def each_field_as_bot &block
   end
 end
 
+def repair_permissions!
+  rule_id, rule_class = permission_rule_id_and_class :read
+  update_columns read_rule_id: rule_id, read_rule_class: rule_class
+end
+
+private
+
 def without_timestamps
   Card.record_timestamps = false
   yield
 ensure
   Card.record_timestamps = true
-end
-
-event :update_read_rule do
-  without_timestamps do
-    reset_patterns # why is this needed?
-    rcard_id, rclass = permission_rule_id_and_class :read
-    # these two are just to make sure vals are correct on current object
-    self.read_rule_id = rcard_id
-    self.read_rule_class = rclass
-    Card.where(id: id).update_all read_rule_id: rcard_id, read_rule_class: rclass
-    expire :hard
-    update_field_read_rules
-  end
-end
-
-def add_to_read_rule_update_queue updates
-  @read_rule_update_queue = Array.wrap(@read_rule_update_queue).concat updates
-end
-
-event :check_permissions, :validate do
-  track_permission_errors do
-    ok? action_for_permission_check
-  end
 end
 
 def action_for_permission_check
@@ -226,4 +207,21 @@ def track_permission_errors
   @permission_errors.each { |msg| errors.add :permission_denied, msg }
   @permission_errors = nil
   result
+end
+
+def direct_rule_card action
+  direct_rule_id = rule_card_id action
+  require_permission_rule! direct_rule_id, action
+  Card.quick_fetch direct_rule_id
+end
+
+
+module ClassMethods
+  def repair_all_permissions
+    Card.where("(read_rule_class is null or read_rule_id is null) and trash is false")
+        .each do |broken_card|
+      broken_card.include_set_modules
+      broken_card.repair_permissions!
+    end
+  end
 end

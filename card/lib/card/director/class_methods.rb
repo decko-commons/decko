@@ -53,7 +53,10 @@ class Card
         return directors[card] if directors[card]
 
         directors.each_key do |dir_card|
-          return dir_card.director if dir_card.name == card.name && dir_card.director
+          if dir_card.name == card.name && (dir = dir_card.director)
+            add dir
+            return dir
+          end
         end
         add new_director(card, parent)
       end
@@ -64,14 +67,6 @@ class Card
 
       def include_id? id
         directors.keys.any? { |card| card.id == id }
-      end
-
-      def new_director card, parent
-        if !parent && act_card && act_card != card && running_act?
-          act_card.director.subdirectors.add card
-        else
-          Director.new card, parent
-        end
       end
 
       def card name
@@ -106,15 +101,23 @@ class Card
         delete director
       end
 
-      def running_act?
-        act_director&.running?
-      end
-
       def to_s
         act_director.to_s
       end
 
       private
+
+      def new_director card, parent
+        if !parent && act_card && act_card != card && running_act?
+          act_card.director.subdirectors.add card
+        else
+          Director.new card, parent
+        end
+      end
+
+      def running_act?
+        act_director&.running?
+      end
 
       def delete_card card
         card_key = @directors.keys.find { |key| key == card }
