@@ -20,114 +20,7 @@ class Card
   # directly, because caching is automatically handled by Card#fetch
   #
   class Cache
-    extend Card::Cache::Prepopulate
-
-    class << self
-      attr_accessor :no_renewal
-
-      # create a new cache for the ruby class provided
-      # @param klass [Class]
-      # @return [{Card::Cache}]
-      def [] klass
-        raise "nil klass" if klass.nil?
-
-        cache_by_class[klass] ||= new class: klass, store: (persistent_cache || nil)
-      end
-
-      # clear the temporary caches and ensure we're using the latest stamp
-      # on the persistent caches.
-      def renew
-        return if no_renewal
-
-        renew_persistent
-        cache_by_class.each_value do |cache|
-          cache.soft.reset
-          cache.hard&.renew
-        end
-      end
-
-      def renew_persistent
-        Card::Cache::Persistent.renew if persistent_cache
-      end
-
-      # reset standard cached for all classes
-      def reset
-        reset_hard
-        reset_soft
-      end
-
-      # reset all caches for all classes
-      def reset_all
-        reset_hard
-        reset_soft
-        reset_other
-      end
-
-      # completely wipe out all caches, often including the Persistent cache of
-      # other decks using the same mechanism.
-      # Generally prefer {.reset_all}
-      # @see .reset_all
-      def reset_global
-        cache_by_class.each_value do |cache|
-          cache.soft.reset
-          cache.hard&.annihilate
-        end
-        reset_other
-      end
-
-      # reset the Persistent cache for all classes
-      def reset_hard
-        Card::Cache::Persistent.reset if persistent_cache
-        cache_by_class.each_value do |cache|
-          cache.hard&.reset
-        end
-      end
-
-      # reset the Temporary cache for all classes
-      def reset_soft
-        cache_by_class.each_value { |cache| cache.soft.reset }
-      end
-
-      # reset Codename cache and delete tmp files
-      # (the non-standard caches)
-      def reset_other
-        Card::Codename.reset_cache
-        Cardio::Utils.delete_tmp_files!
-      end
-
-      def persistent_on!
-        return if @persistent_cache
-
-        @cache_by_class = {}
-        @persistent_cache = Cardio.config.persistent_cache && Cardio.cache
-      end
-
-      def cache_by_class
-        @cache_by_class ||= {}
-      end
-
-      def persistent_cache
-        return @persistent_cache unless @persistent_cache.nil?
-
-        @persistent_cache = (ENV["NO_RAILS_CACHE"] != "true") && persistent_on!
-      end
-
-      private
-
-      # generate a cache key from an object
-      # @param obj [Object]
-      # @return [String]
-      def obj_to_key obj
-        case obj
-        when Hash
-          obj.sort.map { |key, value| "#{key}=>(#{obj_to_key(value)})" } * ","
-        when Array
-          obj.map { |value| obj_to_key(value) }
-        else
-          obj.to_s
-        end
-      end
-    end
+    extend Card::Cache::ClassMethods
 
     attr_reader :hard, :soft
 
@@ -145,14 +38,26 @@ class Card
     # read cache value (and write to soft cache if missing)
     # @param key [String]
     def read key
-      @soft.read(key) ||
-        (@hard && (ret = @hard.read(key)) && @soft.write(key, ret))
+      unless @soft.exist?(key)
+        # Rails.logger.info "READ (#{@klass}): #{key}"
+        tally :read
+      end
+
+      @soft.fetch(key) { @hard&.read key }
+    end
+
+    def read_multi keys
+      tally :read_multi
+      @soft.fetch_multi keys do |missing_keys|
+        @hard ? @hard.read_multi(missing_keys) : {}
+      end
     end
 
     # write to hard (where applicable) and soft cache
     # @param key [String]
     # @param value
     def write key, value
+      tally :write
       @hard&.write key, value
       @soft.write key, value
     end
@@ -160,12 +65,18 @@ class Card
     # read and (if not there yet) write
     # @param key [String]
     def fetch key, &block
-      @soft.fetch(key) { @hard ? @hard.fetch(key, &block) : yield }
+      unless @soft.exist?(key)
+        # Rails.logger.info "FETCH (#{@klass}): #{key}"
+        tally :fetch
+      end
+
+      @soft.fetch(key) { @hard ? @hard.fetch(key, &block) : yield(key) }
     end
 
     # delete specific cache entries by key
     # @param key [String]
     def delete key
+      tally :delete
       @hard&.delete key
       @soft.delete key
     end
@@ -180,6 +91,15 @@ class Card
     # @return [true/false]
     def exist? key
       @soft.exist?(key) || @hard&.exist?(key)
+    end
+
+    private
+
+    def tally type
+      h = Card::Cache.counter ||= {}
+      t = h[@klass] ||= {}
+      t[type] ||= 0
+      t[type] += 1
     end
   end
 end
