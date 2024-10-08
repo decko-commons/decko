@@ -5,10 +5,23 @@ assign_type :list
 format :html do include Abstract::Permission::HtmlFormat end
 
 event :cascade_read_rule, :finalize, after: :update_rule_cache, when: :rule? do
+  left&.update_lexicon
   return unless name_is_changing? || trash_is_changing?
 
   update_read_ruled_cards
 end
+
+def rule_pattern_index
+  return if trash
+
+  @rule_pattern_index ||= pattern_index rule_set&.tag&.id
+end
+
+def pattern_index pattern_id
+  Pattern.ids.index(pattern_id) || invalid_pattern_id(pattern_id)
+end
+
+private
 
 def update_read_ruled_cards
   Card::Rule.clear_read_rule_cache
@@ -57,20 +70,6 @@ def all_members
   rule_set.item_cards limit: 0
 end
 
-def rule_pattern_index
-  return if trash
-
-  @rule_pattern_index ||= pattern_index rule_set&.tag&.id
-end
-
-def pattern_index pattern_id
-  Pattern.ids.index(pattern_id) || invalid_pattern_id(pattern_id)
-end
-
 def invalid_pattern_id pattern_id
   Rails.logger.info "invalid pattern id for read rule: #{pattern_id}"
-end
-
-event :process_read_rule_update_queue, :finalize do
-  left&.update_read_rule
 end
