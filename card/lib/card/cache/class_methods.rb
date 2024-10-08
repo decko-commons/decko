@@ -104,7 +104,7 @@ class Card
       end
 
       def tallies
-        "Cache calls (" + counter.each { |k, v| s += "#{k}=#{v} " }.to_s + ")"
+        "Cache calls (" + counter.map { |k, v| "#{k}=#{v} " }.join + ")"
       end
 
       private
