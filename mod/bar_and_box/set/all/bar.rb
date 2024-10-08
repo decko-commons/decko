@@ -53,7 +53,7 @@ format :html do
     wrap do
       accordion_item render_bar_body,
                      subheader: render_menu,
-                     body: render_bar_bottom,
+                     body: bar_bottom,
                      open: open,
                      context: :accordion_bar
     end
@@ -92,5 +92,20 @@ format :html do
 
   def bar_wrap_data
     full_page_card == card ? wrap_data : full_page_card.format.wrap_data
+  end
+
+  # TODO: make card_stubs work
+  def bar_bottom _open: false
+    # open ? render_bar_bottom : card_stub(view: :bar_bottom)
+    render_bar_bottom
+  end
+
+  # TODO: move to a more general accessible place (or its own abstract module)
+  def card_stub path_args
+    wrap_with :div,
+              class: "card-slot card-slot-stub",
+              data: { "stub-url": path(path_args) } do
+      ""
+    end
   end
 end
