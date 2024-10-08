@@ -26,7 +26,7 @@ def content
 end
 
 format :html do
-  view :javascript_include_tag do
+  view :javascript_include_tag, cache: :never do
     paths.map do |path|
       javascript_include_tag path
     end.join("\n")
