@@ -5,7 +5,7 @@ def ok_to_read?
 end
 
 format :html do
-  view :javascript_include_tag do
+  view :javascript_include_tag, cache: :never do
     card.item_cards.map do |script|
       script.format(:html).render :javascript_include_tag
     end
