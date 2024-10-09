@@ -6,6 +6,10 @@ event :update_ancestor_timestamps, :integrate do
   ids.map { |anc_id| Card.expire anc_id.cardname }
 end
 
+# event :update_temporary_cache, :initialize do
+#   Card.cache.soft.write key, self if key.present?
+# end
+
 # must be called on all actions and before :set_name, :process_subcards and
 # :delete_children
 event :assign_action, :initialize, when: :actionable? do
