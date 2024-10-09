@@ -71,14 +71,14 @@ event :prepare_left_and_right, :store, changed: :name, on: :save do
   prepare_side :right
 end
 
-event :update_lexicon, :_post_store, changed: :name, on: :save do
-  lexicon_action = @action == :create ? :add : :update
-  Card::Lexicon.send lexicon_action, self
+# as soon as the name has an id, we have to update the lexicon.
+# (the after_store callbacks are called _right_ after the storage)
+event :update_lexicon, :store, changed: :name, on: :save do
+  director.after_store do |card|
+    lexicon_action = @action == :create ? :add : :update
+    Card::Lexicon.send lexicon_action, card
+  end
 end
-
-# event :confirm_soft_cache, :_post_store, on: :save do
-#   Card.cache.soft.write key, self
-# end
 
 protected
 
