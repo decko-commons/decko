@@ -406,7 +406,7 @@ GEM
       ffi (~> 1.0)
     recaptcha (4.13.2)
       json
-    rexml (3.3.1)
+    rexml (3.3.6)
       strscan
     ruby-vips (2.2.1)
       ffi (~> 1.12)
