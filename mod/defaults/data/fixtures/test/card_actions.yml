@@ -12183,3 +12183,19 @@ card_actions_1523:
   action_type: 1
   draft: 0
   comment:
+card_actions_1524:
+  id: 3704
+  card_id: 496
+  card_act_id: 106799
+  super_action_id:
+  action_type: 1
+  draft: 0
+  comment:
+card_actions_1525:
+  id: 3705
+  card_id: 496
+  card_act_id: 106800
+  super_action_id:
+  action_type: 1
+  draft: 0
+  comment:

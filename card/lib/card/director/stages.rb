@@ -3,7 +3,7 @@ class Card
     # Methods for interpreting stages of an action
     module Stages
       SYMBOLS = %i[initialize prepare_to_validate validate] +      # Validation phase
-                %i[prepare_to_store store finalize] +              # Storage phase
+                %i[prepare_to_store store _post_store finalize] +  # Storage phase
                 %i[integrate after_integrate integrate_with_delay] # Integration phase
                 .freeze
 

@@ -82,6 +82,12 @@ class Card
         @store.read full_key(key)
       end
 
+      def read_multi keys
+        map = keys.each_with_object({}) { |k, h| h[full_key k] = k }
+        raw = @store.read_multi(*map.keys)
+        raw.each_with_object({}) { |(k, v), h| h[map[k]] = v }
+      end
+
       # update an attribute of an object already in the cache
       # @param key [String]
       # @param attribute [String, Symbol]
