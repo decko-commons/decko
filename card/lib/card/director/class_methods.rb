@@ -53,10 +53,7 @@ class Card
         return directors[card] if directors[card]
 
         directors.each_key do |dir_card|
-          if dir_card.name == card.name && (dir = dir_card.director)
-            add dir
-            return dir
-          end
+          return dir_card.director if dir_card.name == card.name && dir_card.director
         end
         add new_director(card, parent)
       end
