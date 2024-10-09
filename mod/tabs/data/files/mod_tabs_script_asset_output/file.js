@@ -1,23 +1,2 @@
 // tab.js.coffee
-(function() {
-  $(window).ready(function() {
-    return $('body').on('show.bs.tab', 'a.load[data-bs-toggle="tab"][data-url]', function(e) {
-      var tab_content, tab_id, tabname, targ, url;
-      targ = $(e.target);
-      tab_id = targ.attr("href");
-      url = targ.data("url");
-      tabname = $(this).data("tabName");
-      targ.removeClass("load");
-      tab_content = $(tab_id);
-      return $.ajax({
-        url: url,
-        success: function(html) {
-          tab_content.append(html);
-          window.history.pushState("tab", "", "?tab=" + tabname);
-          return decko.contentLoaded(tab_content, $(this));
-        }
-      });
-    });
-  });
-
-}).call(this);
+(function(){$(window).ready(function(){return $("body").on("show.bs.tab",'a.load[data-bs-toggle="tab"][data-url]',function(t){var a,n,o,e,r;return n=(e=$(t.target)).attr("href"),r=e.data("url"),o=$(this).data("tabName"),e.removeClass("load"),a=$(n),$.ajax({url:r,success:function(t){return a.append(t),window.history.pushState("tab","","?tab="+o),decko.contentLoaded(a,$(this))}})})})}).call(this);
