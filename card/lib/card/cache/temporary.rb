@@ -27,8 +27,9 @@ class Card
         @store[key] = value
       end
 
-      # @paracm key [String]
+      # @param key [String]
       def fetch key
+        # read(key) || write(key, yield)
         exist?(key) ? read(key) : write(key, yield)
       end
 

@@ -71,10 +71,14 @@ event :prepare_left_and_right, :store, changed: :name, on: :save do
   prepare_side :right
 end
 
-event :update_lexicon, :finalize, changed: :name, on: :save do
+event :update_lexicon, :_post_store, changed: :name, on: :save do
   lexicon_action = @action == :create ? :add : :update
   Card::Lexicon.send lexicon_action, self
 end
+
+# event :confirm_soft_cache, :_post_store, on: :save do
+#   Card.cache.soft.write key, self
+# end
 
 protected
 

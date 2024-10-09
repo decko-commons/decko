@@ -5,7 +5,7 @@ assign_type :list
 format :html do include Abstract::Permission::HtmlFormat end
 
 event :cascade_read_rule, :finalize, after: :update_rule_cache, when: :rule? do
-  left&.update_lexicon
+  # left&.update_lexicon
   return unless name_is_changing? || trash_is_changing?
 
   update_read_ruled_cards
