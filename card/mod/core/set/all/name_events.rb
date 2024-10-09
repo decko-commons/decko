@@ -74,10 +74,8 @@ end
 # as soon as the name has an id, we have to update the lexicon.
 # (the after_store callbacks are called _right_ after the storage)
 event :update_lexicon, :store, changed: :name, on: :save do
-  director.after_store do |card|
-    lexicon_action = @action == :create ? :add : :update
-    Card::Lexicon.send lexicon_action, card
-  end
+  lexicon_action = @action == :create ? :add : :update
+  director.after_store { |card| Lexicon.send lexicon_action, card }
 end
 
 protected
