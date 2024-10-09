@@ -30,7 +30,7 @@ def asset_output_updated_at
 end
 
 format :html do
-  view :javascript_include_tag do
+  view :javascript_include_tag, cache: :never do
     [remote_include_tags, local_include_tag].flatten.compact.join "\n"
   end
 

@@ -85,6 +85,10 @@ class Card
         id!(codename)&.cardname
       end
 
+      def strings
+        codehash.keys.select { |k| k.is_a? Symbol }.map(&:to_s)
+      end
+
       def generate_id_constants
         # If a card has the codename _example_, then Card::ExampleID will
         # return the id for that card.

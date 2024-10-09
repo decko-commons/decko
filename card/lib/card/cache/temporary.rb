@@ -19,8 +19,6 @@ class Card
 
       # @param key [String]
       def read key
-        return unless @store.key? key
-
         @store[key]
       end
 
@@ -30,8 +28,21 @@ class Card
       end
 
       # @param key [String]
-      def fetch key, &_block
-        read(key) || write(key, yield)
+      def fetch key
+        # read(key) || write(key, yield)
+        exist?(key) ? read(key) : write(key, yield)
+      end
+
+      def fetch_multi keys
+        @store.slice(keys).tap do |found|
+          missing = keys - found.keys
+          if missing.present?
+            if (newfound = yield missing).present?
+              found.merge! newfound
+              @store.merge! newfound
+            end
+          end
+        end
       end
 
       # @param key [String]

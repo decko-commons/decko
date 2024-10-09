@@ -36,6 +36,8 @@ class Card
           Card.cache.write cache_key, nil
         end
 
+        private
+
         def lookup_hash
           rows.each_with_object({}) do |row, hash|
             next unless (key = lookup_key row)
