@@ -154,7 +154,7 @@ RSpec.describe Card::Set::All::Notify do
     # Normally, delayed events renew the cache, which entails clearing the local cache.
     # That breaks these tests, because if the local cache is cleared, then the +*account
     # card that receives the :send_change_notice method is a _different_ object than
-    # the one expecting it.
+    # the one expecting it. (The mock tests assume it's the same one)
     #
     # An alternative approach would be to insert _only_ the account object into the
     # cache when the delayed job is started.  This would more reliably test that the

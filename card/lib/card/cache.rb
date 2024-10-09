@@ -39,7 +39,7 @@ class Card
     # @param key [String]
     def read key
       unless @soft.exist?(key)
-        # Rails.logger.info "READ (#{@klass}): #{key}"
+        Rails.logger.info "READ (#{@klass}): #{key}"
         tally :read
       end
 

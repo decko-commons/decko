@@ -17,7 +17,7 @@ class Card
       # clear the temporary caches and ensure we're using the latest stamp
       # on the persistent caches.
       def renew
-        # Cardio.config.view_cache = true
+        Cardio.config.view_cache = false
         # Cardio.config.prepopulate_cache = true
 
         Card::Cache.counter = nil
@@ -29,7 +29,7 @@ class Card
           cache.hard&.renew
         end
 
-        prepopulate_lexicon_caches
+        seed_local_lexicon
       end
 
       def renew_persistent
@@ -104,10 +104,14 @@ class Card
       end
 
       def tallies
-        "Cache calls (" + counter.map { |k, v| "#{k}=#{v} " }.join + ")"
+        "#{tally_total} Cache calls (" + counter.map { |k, v| "#{k}=#{v} " }.join + ")"
       end
 
       private
+
+      def tally_total
+        counter.values.map(&:values).flatten.sum
+      end
 
       def prepopulate?
         Cardio.config.prepopulate_cache
@@ -117,7 +121,6 @@ class Card
         return unless prepopulate?
 
         prepopulate_rule_caches
-        prepopulate_lexicon_caches
       end
 
       def prepopulate_cache variable
@@ -126,9 +129,14 @@ class Card
         Card.cache.soft.write variable, value.clone
       end
 
-      def prepopulate_lexicon_caches
-        cache_keys = Codename.strings.map { |s| "L-#{s}" }
-        Card::Lexicon.cache.read_multi cache_keys
+      def seed_local_lexicon
+        return unless persistent_cache
+
+        names = Lexicon.cache.read_multi(Codename.ids.map(&:to_s)).values
+        keys = names.map { |n| n.to_name.key }
+        Lexicon.cache.read_multi keys.map { |k| "L-#{k}" }
+        Card.cache.read_multi keys
+        "deleteme"
       end
 
       def prepopulate_rule_caches
