@@ -22,7 +22,7 @@ format :html do
     javascript_tag { (script_configs << trigger_slot_ready).join "\n\n" }
   end
 
-  view :javascript_include_tag, unknown: true, perms: :none do
+  view :javascript_include_tag, cache: :never, unknown: true, perms: :none do
     "\n<!-- javascript_include_tag not overridden for #{card.name} -->\n"
   end
 

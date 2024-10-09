@@ -168,7 +168,7 @@ class Card
   def rescuing_integration
     yield
   rescue StandardError => e
-    # puts "integration error: #{e.message}".red
+    # puts "integration error: #{e.message}"
     Card::Error.report e, self
   ensure
     true

@@ -52,7 +52,7 @@ format do
 end
 
 format :html do
-  view :javascript_include_tag do
+  view :javascript_include_tag, cache: :never do
     card.existing_source_paths.map do |path|
       javascript_include_tag(path)
     end.join "\n"
