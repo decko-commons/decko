@@ -86,7 +86,7 @@ class Card
       end
 
       def strings
-        codehash.keys.select { |k| k.is_a? Symbol }.map &:to_s
+        codehash.keys.select { |k| k.is_a? Symbol }.map(&:to_s)
       end
 
       def generate_id_constants

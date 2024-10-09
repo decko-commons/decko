@@ -33,8 +33,6 @@ end
 #      trait: :account      would fetch this card plus a tag codenamed :account
 #      trait: :roles, new: {} would initialize a new card with default ({})
 # options.
-#
-#
 
 def ok? action
   @ok ||= {}
@@ -165,7 +163,6 @@ end
 #   self.read_rule_id = self.read_rule_class = nil
 # end
 
-
 def update_field_read_rules
   return unless type_id_changed? || read_rule_id_changed?
 
@@ -214,7 +211,6 @@ def direct_rule_card action
   require_permission_rule! direct_rule_id, action
   Card.quick_fetch direct_rule_id
 end
-
 
 module ClassMethods
   def repair_all_permissions

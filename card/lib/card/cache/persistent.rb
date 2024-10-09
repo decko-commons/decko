@@ -84,7 +84,7 @@ class Card
 
       def read_multi keys
         map = keys.each_with_object({}) { |k, h| h[full_key k] = k }
-        raw = @store.read_multi *map.keys
+        raw = @store.read_multi(*map.keys)
         raw.each_with_object({}) { |(k, v), h| h[map[k]] = v }
       end
 
