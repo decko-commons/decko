@@ -100,7 +100,8 @@ class Card
       def lex_to_id lex
         cache.fetch cache_key(lex) do
           Card.where(lex_query(lex)).pluck(:id).first.tap do |id|
-            cache.write id.to_s, lex
+            # don't store name, because lex might not be the canonical name
+            cache.write id.to_s, lex if lex.is_a?(Array)
           end
         end
       end
