@@ -35,7 +35,6 @@ class Card
         catch_up_to_stage :prepare_to_store # unless @abort
         # puts "before store #{@card.name}: abort:#{@abort}"
         run_stage :store, &block # unless @abort
-        run_stage :_post_store
         run_stage :finalize # unless @abort
         raise ActiveRecord::RecordInvalid, @card if @card.errors.any?
       ensure
