@@ -5,6 +5,27 @@ class Card
     def cache
       Card::Cache[Card]
     end
+
+    def seed_cache_ids ids
+      # use ids to look up names
+      names = Lexicon.cache.read_multi(ids.map(&:to_s)).values
+      keys = names.map { |n| n.to_name.key }
+
+      # use keys to look up
+      Card.cache.read_multi(keys).each do |key, card|
+        Lexicon.cache.soft.write "L-#{key}", card.id
+      end
+    end
+
+    def seed_cache_names names
+      keys = names.map { |n| n.to_name.key }
+      cache_keys = []
+      Card.cache.read_multi(keys).values.each do |card|
+        cache_keys << card.id.to_s if card.id.present?
+        cache_keys << Lexicon.name_to_cache_key(card.name)
+      end
+      Lexicon.cache.read_multi cache_keys
+    end
   end
 
   # The {Cache} class manages and integrates {Temporary} and {Persistent}
@@ -66,7 +87,7 @@ class Card
     # @param key [String]
     def fetch key, &block
       unless @soft.exist?(key)
-        # Rails.logger.info "FETCH (#{@klass}): #{key}"
+        Rails.logger.info "FETCH (#{@klass}): #{key}"
         tally :fetch
       end
 
