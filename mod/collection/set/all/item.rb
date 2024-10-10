@@ -215,6 +215,7 @@ end
 
 def all_item_cards args={}
   names = args[:item_names] || item_names(args)
+  Card.seed_cache_names names
   names.map { |name| fetch_item_card name, args }
 end
 

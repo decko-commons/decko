@@ -17,7 +17,8 @@ class Card
         cardish = cardish.first if cardish.size <= 1
         case cardish
         when Card             then cardish.name
-        when Symbol, Integer  then Card.fetch_name(cardish)
+        when Integer          then Lexicon.name cardish
+        when Symbol           then Lexicon.name Codename.id(cardish)
         when Array            then compose cardish
         when String, NilClass then new cardish
         else
