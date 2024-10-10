@@ -47,6 +47,7 @@ class Card
       def name_to_cache_key name
         cache_key name_to_lex(name)
       end
+
       # this is to address problems whereby renaming errors leave the lexicon broken.
       # NEEDS TESTING
       def rescuing
