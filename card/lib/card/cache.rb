@@ -19,12 +19,17 @@ class Card
 
     def seed_cache_names names
       keys = names.map { |n| n.to_name.key }
-      cache_keys = []
-      Card.cache.read_multi(keys).values.each do |card|
+      cards = Card.cache.read_multi keys
+      Lexicon.cache.read_multi lexicon_cache_keys(cards)
+    end
+
+    private
+
+    def lexicon_cache_keys cards
+      cards.each_value.with_object([]) do |card, cache_keys|
         cache_keys << card.id.to_s if card.id.present?
         cache_keys << Lexicon.name_to_cache_key(card.name)
       end
-      Lexicon.cache.read_multi cache_keys
     end
   end
 
