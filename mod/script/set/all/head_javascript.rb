@@ -4,7 +4,7 @@ format :html do
   #  - value is the argument to send to the method
   basket[:script_calls] = {}
 
-  basket[:head_views] += %w[head_javascript script_variables script_calls]
+  basket[:head_views] += %w[javascript_tags script_variables script_calls]
 
   view :script_variables, unknown: true, cache: :never, perms: :none do
     javascript_tag do
@@ -14,7 +14,7 @@ format :html do
     end
   end
 
-  view :head_javascript, unknown: true, cache: :never, perms: :none do
+  view :javascript_tags, unknown: true, cache: :never, perms: :none do
     Array.wrap(head_javascript_paths).reject(&:empty?).join
   end
 

@@ -21,7 +21,7 @@ class Card
       # on the persistent caches.
       def renew
         # TODO: remove these!!!
-        # Cardio.config.view_cache = true
+        # Cardio.config.view_cache = false
         # Cardio.config.asset_refresh = :cautious
         # Cardio.config.prepopulate_cache = true
 
@@ -119,12 +119,7 @@ class Card
       end
 
       def seed_soft_lexicon
-        return unless persistent_cache
-
-        names = Lexicon.cache.read_multi(Codename.ids.map(&:to_s)).values
-        keys = names.map { |n| n.to_name.key }
-        Lexicon.cache.read_multi keys.map { |k| "L-#{k}" }
-        Card.cache.read_multi keys
+        Card.seed_cache_ids Codename.ids if persistent_cache
       end
     end
   end
