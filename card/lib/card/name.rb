@@ -18,7 +18,7 @@ class Card
         case cardish
         when Card             then cardish.name
         when Integer          then Lexicon.name cardish
-        when Symbol           then Codename.name cardish
+        when Symbol           then Codename.name! cardish
         when Array            then compose cardish
         when String, NilClass then new cardish
         else
