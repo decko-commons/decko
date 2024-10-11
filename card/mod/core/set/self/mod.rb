@@ -28,7 +28,7 @@ format :html do
       content_tag(:h1, "Roles"),
       card.all_admin_configs_grouped_by(:roles, :category).map do |(role, configs_by_cat)|
         output [
-          content_tag(:h2, Card[role.to_sym].name),
+          content_tag(:h2, role.to_sym.cardname),
           (configs_by_cat.map do |(cat, configs)|
             list_section cat, configs.map(&:codename)
           end)
