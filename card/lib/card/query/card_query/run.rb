@@ -11,8 +11,6 @@ class Card
           send return_method, run_sql, retrn
         end
 
-        private
-
         # @return [(not an Array)]
         def return_simple sql_result, retrn
           send result_method(retrn), sql_result, retrn
