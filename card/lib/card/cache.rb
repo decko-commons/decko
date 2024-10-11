@@ -66,7 +66,7 @@ class Card
     # @param key [String]
     def fetch key, &block
       unless @soft.exist?(key)
-        # Rails.logger.info "FETCH (#{@klass}): #{key}"
+        Rails.logger.info "FETCH (#{@klass}): #{key}"
         tally :fetch
       end
 

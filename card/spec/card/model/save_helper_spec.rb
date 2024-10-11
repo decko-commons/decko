@@ -27,7 +27,7 @@ RSpec.describe Card::Model::SaveHelper, as_bot: true do
     it "renames existing codename cards" do
       expect_card("*home").to exist
       Card.ensure codename: :home, name: "New Home"
-      expect(Card[:home].name).to eq "New Home"
+      expect(:home.cardname).to eq "New Home"
     end
 
     it "doesn't fail if codename doesn't exist" do
