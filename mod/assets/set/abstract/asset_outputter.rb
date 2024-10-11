@@ -74,7 +74,7 @@ end
 
 def asset_output_codename
   asset_output_card.name.parts.map do |part|
-    Card[part].codename&.to_s || Card[part].name.safe_key
+    Card[part].codename&.to_s || part.cardname.safe_key
   end.join "_"
 end
 

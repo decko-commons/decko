@@ -15,7 +15,13 @@ class Card
 
       # @return [Card::Name] standardized based on card names
       def standard
-        self.class.compose(parts.map { |part| Card.fetch_name(part) || part })
+        if simple?
+          id = Lexicon.id self
+          std = Lexicon.name id
+          std.present? ? std : self
+        else
+          self.class.compose(parts.map { |part| part.cardname.standard })
+        end
       end
 
       def card

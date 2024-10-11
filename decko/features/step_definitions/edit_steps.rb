@@ -196,7 +196,7 @@ def preserve_existing_session
   was_signed_in = Card::Auth.current_id if Card::Auth.signed_in?
   yield
   msg = if was_signed_in
-          "I am signed in as #{Card[was_signed_in].name}"
+          "I am signed in as #{was_signed_in.cardname}"
         else
           'I follow "Sign out"'
         end

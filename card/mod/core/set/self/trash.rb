@@ -16,7 +16,7 @@ format :html do
     [
       card.name,
       "#{time_ago_in_words(card.updated_at)} ago",
-      Card[card.updater_id].name,
+      card.updater_id.cardname,
       "#{history_link(card)} | #{restore_link(card)}"
     ]
   end
