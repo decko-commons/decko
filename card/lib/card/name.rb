@@ -13,16 +13,10 @@ class Card
     include NameVariants
 
     class << self
+      # @return [Card::Name]
       def [] *cardish
         cardish = cardish.first if cardish.size <= 1
-        case cardish
-        when Card             then cardish.name
-        when Symbol, Integer  then Card.fetch_name(cardish)
-        when Array            then compose cardish
-        when String, NilClass then new cardish
-        else
-          raise ArgumentError, "#{cardish.class} not supported as name identifier"
-        end
+        from_cardish(cardish) || unsupported_class!(cardish)
       end
 
       def session
@@ -39,7 +33,7 @@ class Card
         str = str.to_s
 
         if !validated_parts && str.include?(joint)
-          string_compose Cardname.split_parts(str)
+          new_from_compound_string str
         elsif (id = Card.id_from_string str)  # handles ~[id] and :[codename]
           Card.name_from_id_from_string id, str
         else
@@ -54,7 +48,22 @@ class Card
 
       private
 
-      def string_compose parts
+      def from_cardish cardish
+        case cardish
+        when Card             then cardish.name
+        when Integer          then Lexicon.name cardish
+        when Symbol           then Codename.name! cardish
+        when Array            then compose cardish
+        when String, NilClass then new cardish
+        end
+      end
+
+      def unsupported_class! cardish
+        raise ArgumentError, "#{cardish.class} not supported as name identifier"
+      end
+
+      def new_from_compound_string string
+        parts = Cardname.split_parts string
         new_from_parts(parts) { |part| new part }
       end
 
