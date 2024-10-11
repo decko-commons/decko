@@ -44,7 +44,7 @@ class Card
       end
 
       def name codename=nil
-        id(codename)&.cardname
+        (card_id = id codename) && Lexicon.name(card_id)
       end
 
       def card codename
@@ -82,7 +82,7 @@ class Card
       # @param codename [Symbol, String]
       # @return [Card::Name]
       def name! codename
-        id!(codename)&.cardname
+        (card_id = id! codename) && Lexicon.name(card_id)
       end
 
       def ids
