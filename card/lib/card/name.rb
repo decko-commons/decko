@@ -13,8 +13,8 @@ class Card
     include NameVariants
 
     class << self
-      ID_MARK_RE = /^~(?<id>\d+)$/.freeze
-      CODENAME_MARK_RE = /^:(?<codename>\w+)$/.freeze
+      ID_MARK_RE = /^~(?<id>\d+)$/
+      CODENAME_MARK_RE = /^:(?<codename>\w+)$/
 
       # @return [Card::Name]
       def [] *cardish

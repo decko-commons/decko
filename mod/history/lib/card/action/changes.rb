@@ -102,11 +102,9 @@ class Card
       # @return [True/False] for :trash
       def interpret_value field, value
         case field.to_sym
-        when :type_id
-          value&.to_i
-        when :cardtype
-          value&.to_i.cardname
-        else value
+        when :type_id   then value&.to_i
+        when :cardtype  then value&.to_i&.cardname
+        else                 value
         end
       end
     end
