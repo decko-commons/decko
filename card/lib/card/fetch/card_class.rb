@@ -78,16 +78,18 @@ class Card
         end
       end
 
+      # DEPRECATED
+      # - use mark.cardname
+      #
       # @param mark - see #fetch
       # @return [Card::Name]
-      def fetch_name *mark, &block
-        if (card = quick_fetch(*mark))
-          card.name
-        elsif block_given?
-          yield.to_name
-        end
-      rescue StandardError => e
-        rescue_fetch_name e, &block
+      def fetch_name *mark
+        quick_fetch(*mark)&.name
+      #   elsif block_given?
+      #     yield.to_name
+      #   end
+      # rescue StandardError => e
+      #   rescue_fetch_name e, &block
       end
 
       # @param mark - see #fetch
@@ -135,21 +137,21 @@ class Card
         end
       end
 
-      def rescue_fetch_name error, &block
-        if rescued_fetch_name_to_name? error, &block
-          yield.to_name
-        elsif error.is_a? ActiveModel::RangeError
-          nil
-        else
-          raise error
-        end
-      end
-
-      def rescued_fetch_name_to_name? error
-        return unless block_given?
-
-        error.is_a?(ActiveModel::RangeError) || error.is_a?(Error::CodenameNotFound)
-      end
+      # def rescue_fetch_name error, &block
+      #   if rescued_fetch_name_to_name? error, &block
+      #     yield.to_name
+      #   elsif error.is_a? ActiveModel::RangeError
+      #     nil
+      #   else
+      #     raise error
+      #   end
+      # end
+      #
+      # def rescued_fetch_name_to_name? error
+      #   return unless block_given?
+      #
+      #   error.is_a?(ActiveModel::RangeError) || error.is_a?(Error::CodenameNotFound)
+      # end
     end
   end
 end

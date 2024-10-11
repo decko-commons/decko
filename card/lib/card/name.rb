@@ -13,16 +13,13 @@ class Card
     include NameVariants
 
     class << self
+      ID_MARK_RE = /^~(?<id>\d+)$/.freeze
+      CODENAME_MARK_RE = /^:(?<codename>\w+)$/.freeze
+
+      # @return [Card::Name]
       def [] *cardish
         cardish = cardish.first if cardish.size <= 1
-        case cardish
-        when Card             then cardish.name
-        when Symbol, Integer  then Card.fetch_name(cardish)
-        when Array            then compose cardish
-        when String, NilClass then new cardish
-        else
-          raise ArgumentError, "#{cardish.class} not supported as name identifier"
-        end
+        from_cardish(cardish) || unsupported_class!(cardish)
       end
 
       def session
@@ -39,9 +36,9 @@ class Card
         str = str.to_s
 
         if !validated_parts && str.include?(joint)
-          string_compose Cardname.split_parts(str)
-        elsif (id = Card.id_from_string str)  # handles ~[id] and :[codename]
-          Card.name_from_id_from_string id, str
+          new_from_compound_string str
+        elsif (id = id_from_string str)  # handles ~[id] and :[codename]
+          Lexicon.name(id) || bad_mark(string)
         else
           super str
         end
@@ -52,15 +49,55 @@ class Card
         new_from_parts(parts) { |part| self[part] }
       end
 
+      # translates string identifiers into an id:
+      #   - string id notation (eg "~75")
+      #   - string codename notation (eg ":options")
+      #
+      # @param string [String]
+      # @return [Integer or nil]
+      def id_from_string string
+        case string
+        when ID_MARK_RE       then Regexp.last_match[:id].to_i
+        when CODENAME_MARK_RE then Card::Codename.id! Regexp.last_match[:codename]
+        end
+      end
+
       private
 
-      def string_compose parts
+      def from_cardish cardish
+        case cardish
+        when Card             then cardish.name
+        when Integer          then Lexicon.name cardish
+        when Symbol           then Codename.name! cardish
+        when Array            then compose cardish
+        when String, NilClass then new cardish
+        end
+      end
+
+      def unsupported_class! cardish
+        raise ArgumentError, "#{cardish.class} not supported as name identifier"
+      end
+
+      def new_from_compound_string string
+        parts = Cardname.split_parts string
         new_from_parts(parts) { |part| new part }
       end
 
       def new_from_parts parts, &block
         name_parts = parts.flatten.map(&block)
         new name_parts.join(joint), true
+      end
+
+      def bad_mark string
+        case string
+        when ID_MARK_RE
+          raise Card::Error::NotFound, "id doesn't exist: #{Regexp.last_match[:id]}"
+        when CODENAME_MARK_RE
+          raise Card::Error::CodenameNotFound,
+                "codename doesn't exist: #{Regexp.last_match[:codename]}"
+        else
+          raise Card::Error, "invalid mark: #{string}"
+        end
       end
     end
 
