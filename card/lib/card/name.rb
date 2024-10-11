@@ -13,6 +13,9 @@ class Card
     include NameVariants
 
     class << self
+      ID_MARK_RE = /^~(?<id>\d+)$/.freeze
+      CODENAME_MARK_RE = /^:(?<codename>\w+)$/.freeze
+
       # @return [Card::Name]
       def [] *cardish
         cardish = cardish.first if cardish.size <= 1
@@ -34,8 +37,8 @@ class Card
 
         if !validated_parts && str.include?(joint)
           new_from_compound_string str
-        elsif (id = Card.id_from_string str)  # handles ~[id] and :[codename]
-          Card.name_from_id_from_string id, str
+        elsif (id = id_from_string str)  # handles ~[id] and :[codename]
+          Lexicon.name(id) || bad_mark(string)
         else
           super str
         end
@@ -44,6 +47,19 @@ class Card
       # interprets symbols/integers as codenames/ids
       def compose parts
         new_from_parts(parts) { |part| self[part] }
+      end
+
+      # translates string identifiers into an id:
+      #   - string id notation (eg "~75")
+      #   - string codename notation (eg ":options")
+      #
+      # @param string [String]
+      # @return [Integer or nil]
+      def id_from_string string
+        case string
+        when ID_MARK_RE       then Regexp.last_match[:id].to_i
+        when CODENAME_MARK_RE then Card::Codename.id! Regexp.last_match[:codename]
+        end
       end
 
       private
@@ -70,6 +86,18 @@ class Card
       def new_from_parts parts, &block
         name_parts = parts.flatten.map(&block)
         new name_parts.join(joint), true
+      end
+
+      def bad_mark string
+        case string
+        when ID_MARK_RE
+          raise Card::Error::NotFound, "id doesn't exist: #{Regexp.last_match[:id]}"
+        when CODENAME_MARK_RE
+          raise Card::Error::CodenameNotFound,
+                "codename doesn't exist: #{Regexp.last_match[:codename]}"
+        else
+          raise Card::Error, "invalid mark: #{string}"
+        end
       end
     end
 
