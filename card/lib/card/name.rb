@@ -38,7 +38,7 @@ class Card
         if !validated_parts && str.include?(joint)
           new_from_compound_string str
         elsif (id = id_from_string str)  # handles ~[id] and :[codename]
-          Lexicon.name(id) || bad_mark(string)
+          from_id_from_string id, str
         else
           super str
         end
@@ -92,6 +92,11 @@ class Card
       def new_from_parts parts, &block
         name_parts = parts.flatten.map(&block)
         new name_parts.join(joint), true
+      end
+
+      def from_id_from_string id, str
+        name = Lexicon.name id
+        name.present? ? name : bad_mark(str)
       end
 
       def bad_mark string

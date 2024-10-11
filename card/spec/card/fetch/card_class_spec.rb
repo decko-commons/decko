@@ -24,37 +24,37 @@ RSpec.describe Card::Fetch::CardClass do
     end
   end
 
-  describe "#fetch_name" do
+  describe "#quick_fetch" do
     example "symbol" do
-      expect(Card.fetch_name(:all)).to eq "*all"
+      expect(Card.quick_fetch(:all).name).to eq "*all"
     end
 
     example "string" do
-      expect(Card.fetch_name("home")).to eq "Home"
+      expect(Card.quick_fetch("home").name).to eq "Home"
     end
 
     example "id" do
-      expect(Card.fetch_name(Card::BasicID)).to eq "RichText"
+      expect(Card.quick_fetch(Card::BasicID).name).to eq "RichText"
     end
 
     example "invalid id" do
-      expect(Card.fetch_name("~1836/[[/assets/fonts")).to be_nil
+      expect(Card.quick_fetch("~1836/[[/assets/fonts")).to be_nil
     end
 
     example "array" do
-      expect(Card.fetch_name(%w[a b])).to eq "A+B"
+      expect(Card.quick_fetch(%w[a b]).name).to eq "A+B"
     end
 
     example "param list" do
-      expect(Card.fetch_name("fruit", :type, "*create")).to eq "Fruit+*type+*create"
+      expect(Card.quick_fetch("fruit", :type, "*create").name).to eq "Fruit+*type+*create"
     end
 
     example "name doesn't exist" do
-      expect(Card.fetch_name("unknown_name")).to eq nil
+      expect(Card.quick_fetch("unknown_name")).to eq nil
     end
 
     it "doesn't fetch virtual names" do
-      expect(Card.fetch_name(:all, :self, :create)).to eq nil
+      expect(Card.quick_fetch(:all, :self, :create)).to eq nil
     end
   end
 end
