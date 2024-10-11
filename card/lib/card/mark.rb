@@ -29,7 +29,7 @@ class Card
       case mark
       when Integer then mark
       when Symbol  then Codename.id! mark
-      when String  then Name.id_from_string mark
+      when String  then Name.id_from_string! mark
       when Card    then mark.id
       end
     end

@@ -62,6 +62,12 @@ class Card
         end
       end
 
+      def id_from_string! string
+        return unless (id = id_from_string string)
+
+        Lexicon.name(id) ? id : bad_mark(string)
+      end
+
       private
 
       def from_cardish cardish

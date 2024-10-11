@@ -1,3 +1,5 @@
+require_relative "persistent_identifier"
+
 module CoreExtensions
   # extensions to Integer class
   module Integer
