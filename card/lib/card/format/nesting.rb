@@ -26,7 +26,7 @@ class Card
       #   home.field_nest :self   # => nest for 'Home+*self'
       def field_nest field, opts={}
         fullname = card.name.field(field) unless field.is_a? Card
-        opts[:title] ||= Card.fetch_name(field).vary("capitalized")
+        opts[:title] ||= field.cardname.vary("capitalized")
         nest fullname, opts
       end
 
