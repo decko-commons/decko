@@ -10,10 +10,12 @@ def standardize_item cardish
 end
 
 def item_ids args={}
-  item_strings(args).map do |item|
-    item = standardize_item item unless item.match?(/^~/)
-    item.to_s.tr("~", "").to_i
-  end.compact
+  seeding_ids do
+    item_strings(args).map do |item|
+      item = standardize_item item unless item.match?(/^~/)
+      item.to_s.tr("~", "").to_i
+    end.compact
+  end
 end
 
 def item_names args={}

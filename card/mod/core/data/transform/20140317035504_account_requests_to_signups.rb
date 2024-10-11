@@ -18,9 +18,8 @@ class AccountRequestsToSignups < Cardio::Migration::Transform
     new_signup.save!
 
     # move old "*signup+*thanks" to "Sign up+*type+*thanks"
-    thanks = Card[:thanks]
-    if (signup_thanks = Card["#{old_signup.name}+#{thanks.name}"])
-      signup_thanks.name = "#{new_signup.name}+#{Card[:type].name}+#{thanks.name}"
+    if (signup_thanks = [old_signup, :thanks].card)
+      signup_thanks.name = [new_signup, :type, :thanks].cardname
       signup_thanks.save!
     end
 
@@ -28,8 +27,7 @@ class AccountRequestsToSignups < Cardio::Migration::Transform
     old_signup.delete! unless Card.search(return: :id, left_id: old_signup.id).first
 
     # turn captcha off by default on signup
-    rulename = %i[signup type captcha].map { |code| Card[code].name } * "+"
-    captcha_rule = Card.fetch rulename, new: {}
+    captcha_rule = Card.fetch %i[signup type captcha].cardname, new: {}
     captcha_rule.content = "0"
     captcha_rule.save!
   end

@@ -25,6 +25,14 @@ format :html do
   HIDDEN_SKINS = %w[bootstrap_default_skin themeless_bootstrap_skin bootstrap_default_skin
                     classic_bootstrap_skin].freeze
 
+  view :stylesheet_path, cache: :never, perms: :none do
+    if params[:debug] == "style"
+      path mark: card.name, item: :import, format: :css
+    else
+      card.asset_output_url
+    end
+  end
+
   def input_type
     :box_select
   end
