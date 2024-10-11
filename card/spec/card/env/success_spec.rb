@@ -1,9 +1,9 @@
 # -*- encoding : utf-8 -*-
 
 RSpec.describe Card::Env::Success do
-  let(:context) { Card["A"].name }
+  let(:context) { "A".cardname }
   let(:previous) { "/B" }
-  let(:home)     { Card["Home"] }
+  let(:home)     { "Home".card }
   let(:success_params) { nil }
 
   let :success_object do

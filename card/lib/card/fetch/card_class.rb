@@ -78,16 +78,13 @@ class Card
         end
       end
 
+      # DEPRECATED
+      # - use mark.cardname
+      #
       # @param mark - see #fetch
       # @return [Card::Name]
-      def fetch_name *mark, &block
-        if (card = quick_fetch(*mark))
-          card.name
-        elsif block_given?
-          yield.to_name
-        end
-      rescue StandardError => e
-        rescue_fetch_name e, &block
+      def fetch_name *mark
+        quick_fetch(*mark)&.name
       end
 
       # @param mark - see #fetch
@@ -133,22 +130,6 @@ class Card
           opts[:type] ||= params[:type] if params[:type] # for /new/:type shortcut.
           opts[:name] ||= Name[params[:mark]]&.tr "_", " "
         end
-      end
-
-      def rescue_fetch_name error, &block
-        if rescued_fetch_name_to_name? error, &block
-          yield.to_name
-        elsif error.is_a? ActiveModel::RangeError
-          nil
-        else
-          raise error
-        end
-      end
-
-      def rescued_fetch_name_to_name? error
-        return unless block_given?
-
-        error.is_a?(ActiveModel::RangeError) || error.is_a?(Error::CodenameNotFound)
       end
     end
   end
