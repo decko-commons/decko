@@ -38,13 +38,18 @@ format :html do
   def head_javascript_paths
     return unless (asset_card = param_or_rule_card :script)
 
-    Cache.seed_names asset_card.item_names.map { |name| [name, :asset_output].cardname }
+    seed_asset_outputs asset_card
     asset_card.item_cards.map do |script|
       script.format(:html).render :javascript_include_tag
     end
   end
 
   private
+
+  def seed_asset_outputs asset_card
+    asset_outputs = asset_card.item_names.map { |name| [name, :asset_output].cardname }
+    Cache.seed_names asset_outputs
+  end
 
   def trigger_slot_ready
     "$('document').ready(function() { $('.card-slot').trigger('decko.slot.ready'); })"
