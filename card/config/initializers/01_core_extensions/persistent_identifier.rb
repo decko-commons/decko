@@ -7,11 +7,6 @@ module CoreExtensions
       Card[self]
     end
 
-    # interpret symbol/integer as codename/id
-    def cardname
-      Card.quick_fetch(self)&.name
-    end
-
     # don't interpret symbol/integer as codename/id
     def to_name
       Card::Name.new to_s

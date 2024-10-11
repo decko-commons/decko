@@ -44,6 +44,10 @@ class Card
         lex.map { |side_id| name side_id or return }.join(Card::Name.joint).to_name
       end
 
+      def name_to_cache_key name
+        cache_key name_to_lex(name)
+      end
+
       # this is to address problems whereby renaming errors leave the lexicon broken.
       # NEEDS TESTING
       def rescuing
@@ -80,7 +84,9 @@ class Card
           result = Card.where(id: id).pluck(:name, :left_id, :right_id).first
           return unless result
 
-          result[0] || [result[1], result[2]]
+          (result[0] || [result[1], result[2]]).tap do |lex|
+            cache.write cache_key(lex), id
+          end
         end
       end
 
@@ -94,7 +100,10 @@ class Card
 
       def lex_to_id lex
         cache.fetch cache_key(lex) do
-          Card.where(lex_query(lex)).pluck(:id).first
+          Card.where(lex_query(lex)).pluck(:id).first.tap do |id|
+            # don't store name, because lex might not be the canonical name
+            cache.write id.to_s, lex if lex.is_a?(Array)
+          end
         end
       end
 

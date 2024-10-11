@@ -44,7 +44,7 @@ class Card
       end
 
       def name codename=nil
-        id(codename)&.cardname
+        (card_id = id codename) && Lexicon.name(card_id)
       end
 
       def card codename
@@ -82,11 +82,11 @@ class Card
       # @param codename [Symbol, String]
       # @return [Card::Name]
       def name! codename
-        id!(codename)&.cardname
+        (card_id = id! codename) && Lexicon.name(card_id)
       end
 
-      def strings
-        codehash.keys.select { |k| k.is_a? Symbol }.map(&:to_s)
+      def ids
+        codehash.keys.select { |k| k.is_a? Integer }
       end
 
       def generate_id_constants

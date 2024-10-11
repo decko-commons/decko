@@ -1,7 +1,10 @@
+
 class Card
   class Cache
     # class methods for Card::Cache
     module ClassMethods
+      include Prepopulate
+
       attr_accessor :no_renewal
       attr_accessor :counter
 
@@ -17,7 +20,9 @@ class Card
       # clear the temporary caches and ensure we're using the latest stamp
       # on the persistent caches.
       def renew
-        # Cardio.config.view_cache = true
+        # TODO: remove these!!!
+        # Cardio.config.view_cache = false
+        # Cardio.config.asset_refresh = :cautious
         # Cardio.config.prepopulate_cache = true
 
         Card::Cache.counter = nil
@@ -29,7 +34,7 @@ class Card
           cache.hard&.renew
         end
 
-        prepopulate_lexicon_caches
+        seed_codenamed
       end
 
       def renew_persistent
@@ -81,6 +86,11 @@ class Card
         Cardio::Utils.delete_tmp_files!
       end
 
+      def restore
+        reset_soft
+        prepopulate
+      end
+
       def persistent_on!
         return if @persistent_cache
 
@@ -98,57 +108,42 @@ class Card
         @persistent_cache = (ENV["NO_RAILS_CACHE"] != "true") && persistent_on!
       end
 
-      def restore
-        reset_soft
-        prepopulate
+      def tallies
+        "#{tally_total} Cache calls (" + counter.map { |k, v| "#{k}=#{v} " }.join + ")"
       end
 
-      def tallies
-        "Cache calls (" + counter.map { |k, v| "#{k}=#{v} " }.join + ")"
+      def seed_ids ids
+        # use ids to look up names
+        names = Lexicon.cache.read_multi(ids.map(&:to_s)).values
+        keys = names.map { |n| n.to_name.key }
+
+        # use keys to look up
+        Card.cache.read_multi(keys).each do |key, card|
+          Lexicon.cache.soft.write "L-#{key}", card.id
+        end
+      end
+
+      def seed_names names
+        keys = names.map { |n| n.to_name.key }
+        cards = Card.cache.read_multi keys
+        Lexicon.cache.read_multi lexicon_cache_keys(cards)
       end
 
       private
 
-      def prepopulate?
-        Cardio.config.prepopulate_cache
-      end
-
-      def prepopulate
-        return unless prepopulate?
-
-        prepopulate_rule_caches
-        prepopulate_lexicon_caches
-      end
-
-      def prepopulate_cache variable
-        @prepopulated ||= {}
-        value = @prepopulated[variable] ||= yield
-        Card.cache.soft.write variable, value.clone
-      end
-
-      def prepopulate_lexicon_caches
-        cache_keys = Codename.strings.map { |s| "L-#{s}" }
-        Card::Lexicon.cache.read_multi cache_keys
-      end
-
-      def prepopulate_rule_caches
-        prepopulate_cache("RULES") { Card::Rule.rule_cache }
-        prepopulate_cache("READRULES") { Card::Rule.read_rule_cache }
-        prepopulate_cache("PREFERENCES") { Card::Rule.preference_cache }
-      end
-
-      # generate a cache key from an object
-      # @param obj [Object]
-      # @return [String]
-      def obj_to_key obj
-        case obj
-        when Hash
-          obj.sort.map { |key, value| "#{key}=>(#{obj_to_key(value)})" } * ","
-        when Array
-          obj.map { |value| obj_to_key(value) }
-        else
-          obj.to_s
+      def lexicon_cache_keys cards
+        cards.each_value.with_object([]) do |card, cache_keys|
+          cache_keys << card.id.to_s if card.id.present?
+          cache_keys << Lexicon.name_to_cache_key(card.name)
         end
+      end
+
+      def tally_total
+        counter.values.map(&:values).flatten.sum
+      end
+
+      def seed_codenamed
+        Cache.seed_ids Codename.ids if persistent_cache
       end
     end
   end
