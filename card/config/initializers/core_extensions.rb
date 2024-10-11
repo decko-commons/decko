@@ -9,8 +9,8 @@ module CoreExtensions
   ::String.include String
   ::Array.include Array
   ::Hash.include Hash::Merging
-  ::Symbol.include PersistentIdentifier
-  ::Integer.include PersistentIdentifier
+  ::Symbol.include Symbol
+  ::Integer.include Integer
   ::Hash.extend Hash::ClassMethods::Nesting
   ::MatchData.include MatchData
 end

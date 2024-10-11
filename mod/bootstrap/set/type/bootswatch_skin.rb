@@ -50,7 +50,7 @@ end
 def item_names _args={}
   (PRE_VARIABLES_CARD_NAMES + variables_card_names +
     POST_VARIABLES_CARD_NAMES + stylesheets_card_names).compact.map do |n|
-    Card.fetch_name(n)
+    Codename.name n
   end.compact
 end
 
@@ -81,11 +81,11 @@ def editable_item_cards
 end
 
 def variables_card_names
-  %i[colors variables].map { |s| Card.fetch_name name, s }
+  %i[colors variables].map { |s| [name, s].cardname }
 end
 
 def stylesheets_card_names
-  [Card.fetch_name(name, :stylesheets)]
+  [[name, :stylesheets].cardname]
 end
 
 def content_from_theme field

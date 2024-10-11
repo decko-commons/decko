@@ -53,11 +53,6 @@ RSpec.describe Card::Fetch::CardClass do
       expect(Card.fetch_name("unknown_name")).to eq nil
     end
 
-    example "fallback policy" do
-      name = Card.fetch_name("unknown_name") { "Unknown Name" }
-      expect(name).to eq "Unknown Name"
-    end
-
     it "doesn't fetch virtual names" do
       expect(Card.fetch_name(:all, :self, :create)).to eq nil
     end

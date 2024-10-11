@@ -105,7 +105,7 @@ class Card
         when :type_id
           value&.to_i
         when :cardtype
-          Card.fetch_name(value&.to_i)
+          value&.to_i.cardname
         else value
         end
       end
