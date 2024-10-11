@@ -80,6 +80,5 @@ class Card
     def rstar?
       right && right[0, 1] == "*"
     end
-
   end
 end
