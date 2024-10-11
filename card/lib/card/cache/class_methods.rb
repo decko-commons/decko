@@ -34,7 +34,7 @@ class Card
           cache.hard&.renew
         end
 
-        seed_soft_lexicon
+        seed_codenamed
       end
 
       def renew_persistent
@@ -112,14 +112,38 @@ class Card
         "#{tally_total} Cache calls (" + counter.map { |k, v| "#{k}=#{v} " }.join + ")"
       end
 
+      def seed_ids ids
+        # use ids to look up names
+        names = Lexicon.cache.read_multi(ids.map(&:to_s)).values
+        keys = names.map { |n| n.to_name.key }
+
+        # use keys to look up
+        Card.cache.read_multi(keys).each do |key, card|
+          Lexicon.cache.soft.write "L-#{key}", card.id
+        end
+      end
+
+      def seed_names names
+        keys = names.map { |n| n.to_name.key }
+        cards = Card.cache.read_multi keys
+        Lexicon.cache.read_multi lexicon_cache_keys(cards)
+      end
+
       private
+
+      def lexicon_cache_keys cards
+        cards.each_value.with_object([]) do |card, cache_keys|
+          cache_keys << card.id.to_s if card.id.present?
+          cache_keys << Lexicon.name_to_cache_key(card.name)
+        end
+      end
 
       def tally_total
         counter.values.map(&:values).flatten.sum
       end
 
-      def seed_soft_lexicon
-        Card.seed_cache_ids Codename.ids if persistent_cache
+      def seed_codenamed
+        Cache.seed_ids Codename.ids if persistent_cache
       end
     end
   end

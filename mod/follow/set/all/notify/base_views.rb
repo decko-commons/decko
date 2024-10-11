@@ -45,7 +45,7 @@ format do
   view :unfollow_url, perms: :none, compact: true, cache: :never do
     return "" unless (rule_name = live_follow_rule_name)
 
-    card_url path(mark: ["#{active_notice(:follower)}", :follow].cardname,
+    card_url path(mark: [active_notice(:follower), :follow].cardname,
                   action: :update,
                   card: { subcards: { rule_name => :never.cardname } })
   end

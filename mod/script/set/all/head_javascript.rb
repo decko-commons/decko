@@ -38,6 +38,7 @@ format :html do
   def head_javascript_paths
     return unless (asset_card = param_or_rule_card :script)
 
+    Cache.seed_names asset_card.item_names.map { |name| [name, :asset_output].cardname }
     asset_card.item_cards.map do |script|
       script.format(:html).render :javascript_include_tag
     end
