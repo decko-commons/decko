@@ -15,12 +15,12 @@ class UpgradeRecaptchaToV3 < Cardio::Migration::Transform
       next unless Card::Codename[codename]
 
       update_card! codename,
-                   name: "#{Card[:recaptcha_settings].name}+#{new_name} key",
+                   name: [:recaptcha_settings, "#{new_name} key"].cardname,
                    codename: "recaptcha_#{new_name}_key"
     end
 
-    Card.ensure name: [Card[:recaptcha_settings].name, "minimum score"],
+    Card.ensure name: [:recaptcha_settings, "minimum score"].cardname,
                 codename: "recaptcha_minimum_score",
-                type_id: Card::NumberID
+                type: :number
   end
 end
