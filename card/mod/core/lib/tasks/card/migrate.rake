@@ -18,7 +18,6 @@ namespace :card do
       without_dumping do
         run_migration :schema
       end
-      Rake::Task["db:schema:dump"].invoke # write schema.rb
       reset_column_information true
     end
 
@@ -116,6 +115,8 @@ def load_mod_lib
 end
 
 def without_dumping
-  ActiveRecord::Base.dump_schema_after_migration = false
+  unless ENV["DECKO_DUMP_SCHEMA"] == "true"
+    ActiveRecord.dump_schema_after_migration = false
+  end
   yield
 end
