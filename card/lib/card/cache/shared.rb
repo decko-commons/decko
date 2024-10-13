@@ -14,8 +14,8 @@ class Card
     # classes, therefore {Card cards} generally must have set_modules
     # re-included after retrieval from the shared cache.
     #
-    class reset_temp
-      extend reset_tempClass
+    class Shared
+      extend SharedClass
 
       attr_accessor :prefix
 

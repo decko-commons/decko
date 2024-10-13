@@ -38,7 +38,7 @@ class Card
       end
 
       def renew_shared
-        Card::Cache::reset_temp.renew if shared_cache
+        Card::Cache::Shared.renew if shared_cache
       end
 
       # reset standard cached for all classes
@@ -68,7 +68,7 @@ class Card
 
       # reset the reset_temp cache for all classes
       def reset_shared
-        Card::Cache::reset_temp.reset if shared_cache
+        Card::Cache::Shared.reset if shared_cache
         cache_by_class.each_value do |cache|
           cache.shared&.reset
         end

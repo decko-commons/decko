@@ -1,6 +1,6 @@
 class Card
   class Cache
-    # class methods for Card::Cache::reset_temp
+    # class methods for Card::Cache::Shared
     module SharedClass
       def stamp
         @stamp ||= Cardio.cache.fetch(stamp_key) { new_stamp }

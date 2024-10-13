@@ -5,6 +5,10 @@ class Card
     def cache
       Card::Cache[Card]
     end
+
+    def after_write_to_temp_cache key, card
+
+    end
   end
 
   # The {Cache} class manages and integrates {Temporary} and {Shared}
