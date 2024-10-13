@@ -14,11 +14,11 @@ class Card
       def [] klass
         raise "nil klass" if klass.nil?
 
-        cache_by_class[klass] ||= new class: klass, store: (persistent_cache || nil)
+        cache_by_class[klass] ||= new class: klass, store: (shared_cache || nil)
       end
 
       # clear the temporary caches and ensure we're using the latest stamp
-      # on the persistent caches.
+      # on the shared caches.
       def renew
         # TODO: remove these!!!
         # Cardio.config.view_cache = false
@@ -28,55 +28,55 @@ class Card
         Card::Cache.counter = nil
         return if no_renewal
 
-        renew_persistent
+        renew_shared
         cache_by_class.each_value do |cache|
-          cache.soft.reset
-          cache.hard&.renew
+          cache.temp.reset
+          cache.shared&.renew
         end
 
         seed_codenamed
       end
 
-      def renew_persistent
-        Card::Cache::Persistent.renew if persistent_cache
+      def renew_shared
+        Card::Cache::reset_temp.renew if shared_cache
       end
 
       # reset standard cached for all classes
       def reset
-        reset_hard
-        reset_soft
+        reset_shared
+        reset_temp
       end
 
       # reset all caches for all classes
       def reset_all
-        reset_hard
-        reset_soft
+        reset_shared
+        reset_temp
         reset_other
       end
 
-      # completely wipe out all caches, often including the Persistent cache of
+      # completely wipe out all caches, often including the reset_temp cache of
       # other decks using the same mechanism.
       # Generally prefer {.reset_all}
       # @see .reset_all
       def reset_global
         cache_by_class.each_value do |cache|
-          cache.soft.reset
-          cache.hard&.annihilate
+          cache.temp.reset
+          cache.shared&.annihilate
         end
         reset_other
       end
 
-      # reset the Persistent cache for all classes
-      def reset_hard
-        Card::Cache::Persistent.reset if persistent_cache
+      # reset the reset_temp cache for all classes
+      def reset_shared
+        Card::Cache::reset_temp.reset if shared_cache
         cache_by_class.each_value do |cache|
-          cache.hard&.reset
+          cache.shared&.reset
         end
       end
 
       # reset the Temporary cache for all classes
-      def reset_soft
-        cache_by_class.each_value { |cache| cache.soft.reset }
+      def reset_temp
+        cache_by_class.each_value { |cache| cache.temp.reset }
       end
 
       # reset Codename cache and delete tmp files
@@ -87,25 +87,25 @@ class Card
       end
 
       def restore
-        reset_soft
+        reset_temp
         prepopulate
       end
 
-      def persistent_on!
-        return if @persistent_cache
+      def shared_on!
+        return if @shared_cache
 
         @cache_by_class = {}
-        @persistent_cache = Cardio.config.persistent_cache && Cardio.cache
+        @shared_cache = Cardio.config.shared_cache && Cardio.cache
       end
 
       def cache_by_class
         @cache_by_class ||= {}
       end
 
-      def persistent_cache
-        return @persistent_cache unless @persistent_cache.nil?
+      def shared_cache
+        return @shared_cache unless @shared_cache.nil?
 
-        @persistent_cache = (ENV["NO_RAILS_CACHE"] != "true") && persistent_on!
+        @shared_cache = (ENV["NO_RAILS_CACHE"] != "true") && shared_on!
       end
 
       def tallies
@@ -119,7 +119,7 @@ class Card
 
         # use keys to look up
         Card.cache.read_multi(keys).each do |key, card|
-          Lexicon.cache.soft.write "L-#{key}", card.id
+          Lexicon.cache.temp.write "L-#{key}", card.id
         end
       end
 
@@ -143,7 +143,7 @@ class Card
       end
 
       def seed_codenamed
-        Cache.seed_ids Codename.ids if persistent_cache
+        Cache.seed_ids Codename.ids if shared_cache
       end
     end
   end

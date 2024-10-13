@@ -2,20 +2,20 @@
 
 class Card
   class Cache
-    # _Persistent_ (or _Hard_) caches closely mirror the database and are
+    # _reset_temp_ caches closely mirror the database and are
     # intended to be altered only upon database alterations.
     #
-    # Unlike the database, the persistent cache stores records of records that
+    # Unlike the database, the shared cache stores records of records that
     # have been requested but are missing or, in the case of some {Card cards},
     # "virtual", meaning that they follow known patterns but do not exist in the
     # database.
     #
-    # Most persistent cache implementations cannot store objects with singleton
+    # Most shared cache implementations cannot store objects with singleton
     # classes, therefore {Card cards} generally must have set_modules
-    # re-included after retrieval from the persistent cache.
+    # re-included after retrieval from the shared cache.
     #
-    class Persistent
-      extend PersistentClass
+    class reset_temp
+      extend reset_tempClass
 
       attr_accessor :prefix
 

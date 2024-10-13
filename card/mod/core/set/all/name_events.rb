@@ -4,7 +4,7 @@ event :validate_name, :validate, on: :save, changed: :name, when: :no_autoname? 
   validate_legality_of_name
   return if errors.any?
 
-  Card.write_to_soft_cache self
+  Card.write_to_temp_cache self
   validate_uniqueness_of_name
 end
 

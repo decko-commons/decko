@@ -7,7 +7,7 @@ event :update_ancestor_timestamps, :integrate do
 end
 
 # event :update_temporary_cache, :initialize do
-#   Card.cache.soft.write key, self if key.present?
+#   Card.cache.temp.write key, self if key.present?
 # end
 
 # must be called on all actions and before :set_name, :process_subcards and

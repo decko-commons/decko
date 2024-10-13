@@ -29,7 +29,7 @@ module Cardio
 
     config.rich_text_editor = :tinymce
 
-    config.persistent_cache = true
+    config.sharedcache = true
     config.prepopulate_cache = false
     config.asset_refresh = :cautious
     config.compress_assets = true
