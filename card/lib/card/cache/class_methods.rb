@@ -54,7 +54,7 @@ class Card
         reset_other
       end
 
-      # completely wipe out all caches, often including the reset_temp cache of
+      # completely wipe out all caches, often including the Shared cache of
       # other decks using the same mechanism.
       # Generally prefer {.reset_all}
       # @see .reset_all
@@ -66,7 +66,7 @@ class Card
         reset_other
       end
 
-      # reset the reset_temp cache for all classes
+      # reset the Shared cache for all classes
       def reset_shared
         Card::Cache::Shared.reset if shared_cache
         cache_by_class.each_value do |cache|

@@ -2,7 +2,7 @@
 
 class Card
   class Cache
-    # _reset_temp_ caches closely mirror the database and are
+    # _Shared_ caches closely mirror the database and are
     # intended to be altered only upon database alterations.
     #
     # Unlike the database, the shared cache stores records of records that

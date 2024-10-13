@@ -23,7 +23,7 @@ class Card
 
       private
 
-      def shared_shared_read_view_cache_keys key_root=key
+      def shared_read_view_cache_keys key_root=key
         Card.cache.shared&.read_attribute key_root, :view_cache_keys
       end
 
@@ -37,7 +37,7 @@ class Card
       end
 
       def view_cache_keys
-        @view_cache_keys ||= shared_shared_read_view_cache_keys(key) || []
+        @view_cache_keys ||= shared_read_view_cache_keys(key) || []
       end
 
       def expire_names cache
@@ -58,7 +58,7 @@ class Card
       def expire_views
         each_key_version do |key|
           # puts "EXPIRE VIEW CACHE (#{name}): #{view_cache_keys}"
-          view_keys = shared_shared_read_view_cache_keys key
+          view_keys = shared_read_view_cache_keys key
           next unless view_keys.present?
 
           expire_view_cache_keys view_keys

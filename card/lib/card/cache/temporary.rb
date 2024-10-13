@@ -8,7 +8,7 @@ class Card
     # In practice, it's a set of Cache-like methods for using a
     # simple Hash.
     #
-    # Unlike the reset_temp cache, the Temporary cache can handle objects with
+    # Unlike the Shared cache, the Temporary cache can handle objects with
     # singleton classes.
     class Temporary
       attr_reader :store
