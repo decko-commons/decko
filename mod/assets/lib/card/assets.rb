@@ -89,7 +89,7 @@ class Card
 
       # only refresh when cache was cleared
       def cautious_refresh?
-        return false unless Cache.sharedcache
+        return false unless Cache.shared_cache
         return false if Card.cache.read REFRESHED
 
         Card.cache.write REFRESHED, true
