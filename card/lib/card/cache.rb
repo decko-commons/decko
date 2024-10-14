@@ -12,9 +12,9 @@ class Card
   end
 
   def write_lexicon
-    Lexicon.cache.temp.write id.to_s, name
+    Lexicon.cache.temp.write id.to_s, name if id.present? && name.present?
     lx = lex
-    Lexicon.cache.temp.write Lexicon.cache_key(lx), id if lx
+    Lexicon.cache.temp.write Lexicon.cache_key(lx), id if lx && id.present?
   end
 
   def lex
@@ -65,7 +65,6 @@ class Card
     end
 
     def read_multi keys
-      return {}
       tally :read_multi
       @temp.fetch_multi keys do |missing_keys|
         @shared ? @shared.read_multi(missing_keys) : {}
