@@ -39,7 +39,7 @@ class Card
       def fetch_multi keys
         @store.slice(keys).tap do |found|
           missing = keys - found.keys
-          if newfound = missing.present? && yield(missing)
+          if (newfound = missing.present? && yield(missing))
             found.merge! newfound
             newfound.each { |key, value| write key, value }
           end

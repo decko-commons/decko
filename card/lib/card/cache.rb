@@ -13,7 +13,16 @@ class Card
 
   def update_lexicon
     Lexicon.cache.temp.write id.to_s, name
-    Lexicon.cache.temp.write Lexicon.name_to_cache_key(name), id
+    lx = lex
+    Lexicon.cache.temp.write Lexicon.cache_key(lx), id if lx
+  end
+
+  def lex
+    if simple?
+      name
+    elsif left_id && right_id
+      [left_id, right_id]
+    end
   end
 
   # The {Cache} class manages and integrates {Temporary} and {Shared}

@@ -1,3 +1,5 @@
+basket[:cache_seed_names] << %i[all layout]
+
 format :html do
   # for override
   def layout_for_view _view

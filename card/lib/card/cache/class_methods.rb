@@ -34,7 +34,7 @@ class Card
           cache.shared&.renew
         end
 
-        seed_codenamed
+        seed_temp_cache
       end
 
       def renew_shared
@@ -115,7 +115,7 @@ class Card
       def seed_ids ids
         # use ids to look up names
         names = Lexicon.cache.read_multi(ids.map(&:to_s)).values
-        keys = names.map { |n| n.to_name.key }
+        keys = names.map { |n| n.to_name.key if n.is_a? String }.compact
 
         # use keys to look up
         Card.cache.read_multi keys
@@ -123,24 +123,28 @@ class Card
 
       def seed_names names
         keys = names.map { |n| n.to_name.key }
-        cards = Card.cache.read_multi keys
-        #Lexicon.cache.read_multi lexicon_cache_keys(cards)
+        Card.cache.read_multi keys
+      end
+
+      def populate_fields list, *fields
+        name_arrays = list.each_with_object([]) do |item, arrays|
+          fields.flatten.each do |field|
+            arrays << [item, field]
+          end
+        end
+        seed_names name_arrays
       end
 
       private
-
-      def lexicon_cache_keys cards
-        cards.each_value.with_object([]) do |card, cache_keys|
-
-        end
-      end
 
       def tally_total
         counter.values.map(&:values).flatten.sum
       end
 
-      def seed_codenamed
-        Cache.seed_ids Codename.ids if shared_cache
+      def seed_temp_cache
+        seed_ids Codename.ids if shared_cache
+        Card.cache.read_multi Set.basket[:cache_seed_strings]
+        seed_names Set.basket[:cache_seed_names]
       end
     end
   end

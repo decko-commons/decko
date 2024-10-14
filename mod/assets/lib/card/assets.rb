@@ -20,7 +20,7 @@ class Card
         # (standard_inputters, by contrast, are in code, so this refreshing is
         # needed eg in development mode to detect changes)
         inputters += nonstandard_inputters if force
-        Cache.seed_names(inputters.map { |inp| [inp, :asset_input] })
+        Cache.populate_fields inputters, :asset_input
         inputters.each(&:refresh_asset)
 
         generate_asset_output_files if force
@@ -69,8 +69,7 @@ class Card
       def standard_inputters
         @standard_inputter_ids ||=
           Card.search left: { type: :mod }, right_id: [StyleID, ScriptID], return: :id
-        Cache.seed_names(@standard_inputter_ids.map { |id| [id, :style] })
-        Cache.seed_names(@standard_inputter_ids.map { |id| [id, :script] })
+        Cache.populate_fields @standard_inputter_ids, :style, :script
         @standard_inputter_ids.map(&:card)
       end
 
