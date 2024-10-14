@@ -17,7 +17,7 @@ class Card
       def prepopulate_cache variable
         @prepopulated ||= {}
         value = @prepopulated[variable] ||= yield
-        Card.cache.soft.write variable, value.clone
+        Card.cache.temp.write variable, value.clone
       end
 
       def prepopulate_rule_caches
