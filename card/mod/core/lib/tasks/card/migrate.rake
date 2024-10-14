@@ -116,7 +116,7 @@ end
 
 def without_dumping
   unless ENV["DECKO_DUMP_SCHEMA"] == "true"
-    ActiveRecord.dump_schema_after_migration = false
+    ActiveRecord::Base.dump_schema_after_migration = false
   end
   yield
 end
