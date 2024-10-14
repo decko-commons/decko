@@ -14,7 +14,7 @@ event :update_read_rule do
     set_read_rule
     Card.where(id: id).update_all read_rule_id: read_rule_id,
                                   read_rule_class: read_rule_class
-    expire :hard
+    expire :shared
     update_field_read_rules
   end
 end

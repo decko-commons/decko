@@ -8,12 +8,13 @@ class Card
     # In practice, it's a set of Cache-like methods for using a
     # simple Hash.
     #
-    # Unlike the Persistent cache, the Temporary cache can handle objects with
+    # Unlike the Shared cache, the Temporary cache can handle objects with
     # singleton classes.
     class Temporary
       attr_reader :store
 
-      def initialize
+      def initialize klass
+        @klass = klass
         @store = {}
       end
 
@@ -23,8 +24,10 @@ class Card
       end
 
       # @param key [String]
-      def write key, value
-        @store[key] = value
+      def write key, value, callback: true
+        @store[key] = value.tap do
+          @klass.try :after_write_to_temp_cache, value if callback
+        end
       end
 
       # @param key [String]
@@ -36,11 +39,9 @@ class Card
       def fetch_multi keys
         @store.slice(keys).tap do |found|
           missing = keys - found.keys
-          if missing.present?
-            if (newfound = yield missing).present?
-              found.merge! newfound
-              @store.merge! newfound
-            end
+          if (newfound = missing.present? && yield(missing))
+            found.merge! newfound
+            newfound.each { |key, value| write key, value }
           end
         end
       end

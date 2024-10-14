@@ -68,7 +68,7 @@ namespace :card do
   desc "Clears both cache and tmpfiles"
   task reset: :environment do
     puts "resetting"
-    Card::Cache.persistent_on!
+    Card::Cache.shared_on!
 
     parse_options :reset do
       flag_opt :c, :cache, "cache only"

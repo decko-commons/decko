@@ -19,7 +19,7 @@ RSpec.describe Card::Cache do
   describe "with same cache_id" do
     let(:store) { ActiveSupport::Cache::MemoryStore.new }
     let(:cache) { described_class.new store: store }
-    let(:prefix) { cache.hard.prefix }
+    let(:prefix) { cache.shared.prefix }
 
     it "#read" do
       expect(store).to receive(:read).with("#{prefix}/foo")
@@ -43,11 +43,11 @@ RSpec.describe Card::Cache do
       cache.delete "foo"
     end
 
-    it "#soft.write" do
-      cache.soft.write("a", "foo")
+    it "#temp.write" do
+      cache.temp.write("a", "foo")
       expect(cache.read("a")).to eq("foo")
       expect(store).not_to receive(:write)
-      expect(cache.hard.read("a")).to eq(nil)
+      expect(cache.shared.read("a")).to eq(nil)
     end
   end
 
@@ -55,17 +55,17 @@ RSpec.describe Card::Cache do
     store = ActiveSupport::Cache::MemoryStore.new
     cache = described_class.new store: store, database: "mydb"
 
-    expect(cache.hard.prefix).to match(/^mydb-/)
+    expect(cache.shared.prefix).to match(/^mydb-/)
     cache.write("foo", "bar")
     expect(cache.read("foo")).to eq("bar")
 
     # reset
     cache.reset
-    expect(cache.hard.prefix).to match(/^mydb-/)
+    expect(cache.shared.prefix).to match(/^mydb-/)
     expect(cache.read("foo")).to be_nil
 
     cache2 = described_class.new store: store, database: "mydb"
-    expect(cache2.hard.prefix).to match(/^mydb-/)
+    expect(cache2.shared.prefix).to match(/^mydb-/)
   end
 
   describe "with file store" do
