@@ -6,13 +6,13 @@ class Card
       Card::Cache[Card]
     end
 
-    def after_write_to_temp_cache card
-      card.write_lexicon if card.is_a? Card
+    def after_write_to_temp_cache card, blank_id_ok: false
+      card.write_lexicon blank_id_ok if card.is_a? Card
     end
   end
 
-  def write_lexicon
-    return unless id.present?
+  def write_lexicon blank_id_ok
+    return if id.blank? && !blank_id_ok
     # without this return, we have trash problems. The issue is that the lexicon and
     # card cashes don't have very compatible trash handling yet. The lexicon returns
     # an id even for trashed cards; the card cache returns a new card.
@@ -90,7 +90,7 @@ class Card
     # @param key [String]
     def fetch key, &block
       unless @temp.exist?(key)
-        # Rails.logger.info "FETCH (#{@klass}): #{key}"
+        Rails.logger.info "FETCH (#{@klass}): #{key}"
         tally :fetch
       end
 
