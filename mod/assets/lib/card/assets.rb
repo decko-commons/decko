@@ -20,6 +20,7 @@ class Card
         # (standard_inputters, by contrast, are in code, so this refreshing is
         # needed eg in development mode to detect changes)
         inputters += nonstandard_inputters if force
+        Cache.populate_fields inputters, :asset_input
         inputters.each(&:refresh_asset)
 
         generate_asset_output_files if force
@@ -68,6 +69,7 @@ class Card
       def standard_inputters
         @standard_inputter_ids ||=
           Card.search left: { type: :mod }, right_id: [StyleID, ScriptID], return: :id
+        Cache.populate_fields @standard_inputter_ids, :style, :script
         @standard_inputter_ids.map(&:card)
       end
 
@@ -89,7 +91,7 @@ class Card
 
       # only refresh when cache was cleared
       def cautious_refresh?
-        return false unless Cache.persistent_cache
+        return false unless Cache.shared_cache
         return false if Card.cache.read REFRESHED
 
         Card.cache.write REFRESHED, true

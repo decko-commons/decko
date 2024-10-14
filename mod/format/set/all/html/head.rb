@@ -4,6 +4,14 @@ basket[:head_views] =
      universal_edit_button rss_links]
 # TODO: the last two should be in mods
 
+basket[:cache_seed_names] += [
+  %i[all head],
+  %i[all style],
+  %i[all style asset_output],
+  %i[all script],
+  %i[script right content_options]
+]
+
 format do
   view :page_title, unknown: true, perms: :none do
     title_parts = [Card::Rule.global_setting(:title)]

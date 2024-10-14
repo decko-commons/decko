@@ -18,18 +18,18 @@ class Card
         return if view_cache_keys.include? cache_key
 
         view_cache_keys << cache_key
-        hard_write_view_cache_keys
+        shared_write_view_cache_keys
       end
 
       private
 
-      def hard_read_view_cache_keys key_root=key
-        Card.cache.hard&.read_attribute key_root, :view_cache_keys
+      def shared_read_view_cache_keys key_root=key
+        Card.cache.shared&.read_attribute key_root, :view_cache_keys
       end
 
-      def hard_write_view_cache_keys
+      def shared_write_view_cache_keys
         # puts "WRITE VIEW CACHE KEYS (#{name}): #{view_cache_keys}"
-        Card.cache.hard&.write_attribute key, :view_cache_keys, view_cache_keys
+        Card.cache.shared&.write_attribute key, :view_cache_keys, view_cache_keys
       end
 
       def cache_class_from_type cache_type
@@ -37,7 +37,7 @@ class Card
       end
 
       def view_cache_keys
-        @view_cache_keys ||= hard_read_view_cache_keys(key) || []
+        @view_cache_keys ||= shared_read_view_cache_keys(key) || []
       end
 
       def expire_names cache
@@ -58,7 +58,7 @@ class Card
       def expire_views
         each_key_version do |key|
           # puts "EXPIRE VIEW CACHE (#{name}): #{view_cache_keys}"
-          view_keys = hard_read_view_cache_keys key
+          view_keys = shared_read_view_cache_keys key
           next unless view_keys.present?
 
           expire_view_cache_keys view_keys

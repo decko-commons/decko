@@ -26,7 +26,7 @@ class Card
           Director.deep_delete subcard.director
           subcard.current_action&.delete
         end
-        Card.cache.soft.delete key
+        Card.cache.temp.delete key
         subcard
       end
 
