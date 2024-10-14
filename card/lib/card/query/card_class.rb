@@ -25,7 +25,7 @@ class Card
         if block_given?
           super do |records|
             yield(records)
-            Card::Cache.reset_soft
+            Card::Cache.reset_temp
           end
         else
           super

@@ -54,7 +54,7 @@ def abort_success
     @supercard.subcards.remove key
     @supercard.director.subdirectors.delete self
   end
-  expire :soft
+  expire :temp
   true
 end
 

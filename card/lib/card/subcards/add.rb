@@ -55,7 +55,7 @@ class Card
         card.supercard = @context_card
         card.update_superleft card.name
         @keys << card.key
-        Card.write_to_soft_cache card
+        Card.write_to_temp_cache card
         card.director = @context_card.director.subdirectors.add card
         card
       end

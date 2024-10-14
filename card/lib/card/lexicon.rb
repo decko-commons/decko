@@ -44,8 +44,8 @@ class Card
         lex.map { |side_id| name side_id or return }.join(Card::Name.joint).to_name
       end
 
-      def name_to_cache_key name
-        cache_key name_to_lex(name)
+      def cache_key lex
+        "L-#{lex.is_a?(Array) ? lex.join('-') : lex.to_name.key}"
       end
 
       # this is to address problems whereby renaming errors leave the lexicon broken.
@@ -113,10 +113,6 @@ class Card
         else
           { key: lex.to_name.key }
         end
-      end
-
-      def cache_key lex
-        "L-#{lex.is_a?(Array) ? lex.join('-') : lex.to_name.key}"
       end
     end
   end
