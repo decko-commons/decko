@@ -7,11 +7,11 @@ class Card
     end
 
     def after_write_to_temp_cache card
-      card.update_lexicon if card.is_a? Card
+      card.write_lexicon if card.is_a? Card
     end
   end
 
-  def update_lexicon
+  def write_lexicon
     Lexicon.cache.temp.write id.to_s, name
     lx = lex
     Lexicon.cache.temp.write Lexicon.cache_key(lx), id if lx
@@ -65,6 +65,7 @@ class Card
     end
 
     def read_multi keys
+      return {}
       tally :read_multi
       @temp.fetch_multi keys do |missing_keys|
         @shared ? @shared.read_multi(missing_keys) : {}
