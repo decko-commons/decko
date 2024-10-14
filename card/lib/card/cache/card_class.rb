@@ -30,7 +30,7 @@ class Card
       def write_to_temp_cache card
         return unless cache
 
-        cache.temp.write card.key, card
+        cache.temp.write card.key, card, callback: false
       end
 
       def expire name
