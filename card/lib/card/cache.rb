@@ -66,8 +66,10 @@ class Card
     end
 
     def read_multi keys
-      tally :read_multi
       @temp.fetch_multi keys do |missing_keys|
+        Rails.logger.info "MULTI (#{@klass}): #{keys.size}"
+
+        tally :read_multi
         @shared ? @shared.read_multi(missing_keys) : {}
       end
     end
@@ -85,7 +87,7 @@ class Card
     # @param key [String]
     def fetch key, &block
       unless @temp.exist?(key)
-        # Rails.logger.info "FETCH (#{@klass}): #{key}"
+        Rails.logger.info "FETCH (#{@klass}): #{key}"
         tally :fetch
       end
 
