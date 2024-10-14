@@ -37,8 +37,8 @@ end
 
 event :reset_cache_to_use_new_structure,
       before: :update_structurees_references do
-  Card::Cache.reset_hard
-  Card::Cache.reset_soft
+  Card::Cache.reset_shared
+  Card::Cache.reset_temp
 end
 
 event :update_structurees_type, :finalize,
