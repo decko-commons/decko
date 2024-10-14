@@ -24,9 +24,11 @@ class Card
       end
 
       # @param key [String]
-      def write key, value, callback: true
+      def write key, value, callback: true, blank_id_ok: false
         @store[key] = value.tap do
-          @klass.try :after_write_to_temp_cache, value if callback
+          if callback
+            @klass.try :after_write_to_temp_cache, value, blank_id_ok: blank_id_ok
+          end
         end
       end
 
@@ -41,7 +43,7 @@ class Card
           missing = keys - found.keys
           if (newfound = missing.present? && yield(missing))
             found.merge! newfound
-            newfound.each { |key, value| write key, value }
+            newfound.each { |key, value| write key, value, blank_id_ok: true }
           end
         end
       end
