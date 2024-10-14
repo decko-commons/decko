@@ -16,9 +16,6 @@ class Card
     #
     class Shared
       extend SharedClass
-
-      attr_accessor :prefix
-
       # @param opts [Hash]
       # @option opts [Rails::Cache] :store
       # @option opts [ruby Class] :class, typically ActiveRecord descendant

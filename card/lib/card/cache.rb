@@ -6,9 +6,14 @@ class Card
       Card::Cache[Card]
     end
 
-    def after_write_to_temp_cache key, card
-
+    def after_write_to_temp_cache card
+      card.update_lexicon if card.is_a? Card
     end
+  end
+
+  def update_lexicon
+    Lexicon.cache.temp.write id.to_s, name
+    Lexicon.cache.temp.write Lexicon.name_to_cache_key(name), id
   end
 
   # The {Cache} class manages and integrates {Temporary} and {Shared}
@@ -36,7 +41,7 @@ class Card
     def initialize opts={}
       @klass = opts[:class]
       @shared = Shared.new opts if opts[:store]
-      @temp = Temporary.new
+      @temp = Temporary.new @klass
     end
 
     # read cache value (and write to temp cache if missing)

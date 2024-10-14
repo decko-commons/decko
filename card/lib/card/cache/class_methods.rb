@@ -118,23 +118,20 @@ class Card
         keys = names.map { |n| n.to_name.key }
 
         # use keys to look up
-        Card.cache.read_multi(keys).each do |key, card|
-          Lexicon.cache.temp.write "L-#{key}", card.id
-        end
+        Card.cache.read_multi keys
       end
 
       def seed_names names
         keys = names.map { |n| n.to_name.key }
         cards = Card.cache.read_multi keys
-        Lexicon.cache.read_multi lexicon_cache_keys(cards)
+        #Lexicon.cache.read_multi lexicon_cache_keys(cards)
       end
 
       private
 
       def lexicon_cache_keys cards
         cards.each_value.with_object([]) do |card, cache_keys|
-          cache_keys << card.id.to_s if card.id.present?
-          cache_keys << Lexicon.name_to_cache_key(card.name)
+
         end
       end
 
