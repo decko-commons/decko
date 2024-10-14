@@ -88,7 +88,7 @@ class Card
 
       def id_to_lex id
         cache.fetch id.to_s do
-          card = Card.where(id: id).take
+          card = Card.where(id: id, trash: false).take
           return unless card
 
           fetch_card_cache card
