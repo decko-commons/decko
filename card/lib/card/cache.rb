@@ -12,9 +12,15 @@ class Card
   end
 
   def write_lexicon
-    Lexicon.cache.temp.write id.to_s, name if id.present? && name.present?
+    return unless id.present?
+    # without this return, we have trash problems. The issue is that the lexicon and
+    # card cashes don't have very compatible trash handling yet. The lexicon returns
+    # an id even for trashed cards; the card cache returns a new card.
+
+    temp = Lexicon.cache.temp
+    temp.write id.to_s, name if name.present?
     lx = lex
-    Lexicon.cache.temp.write Lexicon.cache_key(lx), id if lx && id.present?
+    temp.write Lexicon.cache_key(lx), id if lx
   end
 
   def lex
