@@ -47,8 +47,7 @@ format :html do
   private
 
   def seed_asset_outputs asset_card
-    asset_outputs = asset_card.item_names.map { |name| [name, :asset_output].cardname }
-    Cache.seed_names asset_outputs
+    Cache.populate_fields asset_card.item_names, :asset_output
   end
 
   def trigger_slot_ready

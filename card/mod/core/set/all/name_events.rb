@@ -4,13 +4,13 @@ event :validate_name, :validate, on: :save, changed: :name, when: :no_autoname? 
   validate_legality_of_name
   return if errors.any?
 
-  Card.write_to_soft_cache self
+  Card.write_to_temp_cache self
   validate_uniqueness_of_name
 end
 
 # called by validate_name
 event :validate_uniqueness_of_name, skip: :allowed do
-  return unless (existing_id = Card::Lexicon.id key) && existing_id != id
+  return unless (existing_id = Lexicon.id key) && existing_id != id
   # The above is a fast check but cannot detect if card is in trash
 
   # TODO: perform the following as a remote-only fetch (not yet supported)

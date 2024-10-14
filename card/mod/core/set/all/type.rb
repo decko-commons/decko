@@ -37,7 +37,7 @@ end
 alias_method :type, :type_name
 
 def type_name_or_default
-  type_card.try(:name) || Card.quick_fetch(Card.default_type_id).name
+  type_card.try(:name) || Card.default_type_id.cardname
 end
 
 def type_cardname
