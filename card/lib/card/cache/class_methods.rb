@@ -22,7 +22,7 @@ class Card
       def renew
         # TODO: remove these!!!
         # Cardio.config.view_cache = false
-        # Cardio.config.asset_refresh = :cautious
+        Cardio.config.asset_refresh = :cautious
         # Cardio.config.prepopulate_cache = true
 
         Card::Cache.counter = nil
