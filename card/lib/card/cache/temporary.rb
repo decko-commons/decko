@@ -24,9 +24,9 @@ class Card
       end
 
       # @param key [String]
-      def write key, value
+      def write key, value, callback: true
         @store[key] = value.tap do
-          @klass.try :after_write_to_temp_cache, value
+          @klass.try :after_write_to_temp_cache, value if callback
         end
       end
 
