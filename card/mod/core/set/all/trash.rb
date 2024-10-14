@@ -57,10 +57,8 @@ event :delete_children, after: :validate_delete, on: :delete do
 end
 
 def pull_from_trash!
-  return unless (id = Card::Lexicon.id key) # name is already known
-  return unless (trashed_card = Card.where(id: id).take)&.trash
-
-  # confirm name is actually in trash
+  query = Lexicon.lex_query(lex).merge trash: true
+  return unless (trashed_card = Card.where(query).take)
 
   db_attributes["id"] = trashed_card.db_attributes["id"]
   # id_in_database returns existing card id
