@@ -36,14 +36,6 @@ class Card
         end
       end
 
-      def lex
-        if simple?
-          name
-        elsif left_id && right_id
-          [left_id, right_id]
-        end
-      end
-
       def autoname name
         if Card.exists?(name) || Director.include?(name)
           autoname name.next
