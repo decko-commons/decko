@@ -39,7 +39,7 @@ class Card
       end
 
       def fetch_multi keys
-        @store.slice(keys).tap do |found|
+        @store.slice(*keys).tap do |found|
           missing = keys - found.keys
           if (newfound = missing.present? && yield(missing))
             found.merge! newfound

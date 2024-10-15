@@ -67,7 +67,7 @@ class Card
 
     def read_multi keys
       @temp.fetch_multi keys do |missing_keys|
-        Rails.logger.debug "MULTI (#{@klass}): #{keys.size}"
+        Rails.logger.debug "MULTI (#{@klass}): #{keys.size} / #{missing_keys.size}"
 
         tally :read_multi
         @shared ? @shared.read_multi(missing_keys) : {}
