@@ -20,6 +20,8 @@ class Card
       def name= newname
         @name = superize_name newname.to_name
         self.key = @name.key
+        return @name if @action == :delete
+
         update_subcard_names @name
         write_attribute :name, (@name.simple? ? @name.s : nil)
         assign_side_ids
@@ -37,7 +39,11 @@ class Card
       end
 
       def lex
-        simple? ? name : [left_id, right_id]
+        if simple?
+          name
+        elsif left_id && right_id
+          [left_id, right_id]
+        end
       end
 
       def autoname name

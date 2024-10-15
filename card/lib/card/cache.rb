@@ -7,23 +7,12 @@ class Card
     end
 
     def after_write_to_temp_cache card
-      card.write_lexicon if card.is_a? Card
+      card.write_lexicon if card.is_a?(Card) && !card.trash
     end
   end
 
   def write_lexicon
-    temp = Lexicon.cache.temp
-    temp.write id.to_s, name if id.present?
-    lx = lex
-    temp.write Lexicon.cache_key(lx), id if lx
-  end
-
-  def lex
-    if simple?
-      name
-    elsif left_id && right_id
-      [left_id, right_id]
-    end
+    Lexicon.write_to_temp_cache id, name, lex
   end
 
   # The {Cache} class manages and integrates {Temporary} and {Shared}

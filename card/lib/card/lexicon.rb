@@ -27,16 +27,6 @@ class Card
         Card::Cache[Lexicon]
       end
 
-      def update card
-        add card
-        expire_lex card.lex_before_act
-      end
-
-      def delete card
-        cache.delete card.id.to_s
-        cache.delete cache_key(card.lex_before_act)
-      end
-
       def lex_to_name lex
         return lex unless lex.is_a? Array
 
@@ -68,14 +58,36 @@ class Card
         raise e
       end
 
+      def write_to_temp_cache id, name, lex
+        write cache.temp, id, name, lex
+      end
+
+      def update card
+        lex = card.lex
+        add_to_act card, lex
+        if card.trash
+          delete card
+        else
+          expire_lex card.lex_before_act if card.action == :update
+          write cache, card.id, card.name, lex
+        end
+      end
+
       private
 
-      def add card
-        lex = card.lex
+      def delete card
+        cache.write card.id.to_s, nil
+        cache.write cache_key(card.lex_before_act), nil
+      end
+
+      def write cache_klass, id, name, lex
+        cache_klass.write id.to_s, name if id.present?
+        cache_klass.write cache_key(lex), id if lex
+      end
+
+      def add_to_act card, lex
         @act_lexes << lex
         @act_ids << card.id
-        cache.write card.id.to_s, lex
-        cache.write cache_key(lex), card.id
       end
 
       def expire_lex lex
@@ -87,12 +99,16 @@ class Card
       end
 
       def id_to_lex id
-        cache.read(id.to_s) || card_by_id(id)&.lex || cache.write(id.to_s, nil)
+        cache.fetch(id.to_s) do
+          card_by_id(id)&.lex
+        end
       end
 
       def lex_to_id lex
         key = cache_key lex
-        cache.read(key) || card_by_lex(lex)&.id || cache.write(key, nil)
+        cache.fetch(key) do
+          card_by_lex(lex)&.id
+        end
       end
 
       def name_to_lex name
@@ -101,10 +117,6 @@ class Card
         elsif (left_id = id name.left_name) && (right_id = id name.right_name)
           [left_id, right_id]
         end
-      end
-
-      def fetch_card_cache card
-        Card.cache.temp.fetch(card.key, callback: false) { card }
       end
 
       def card_by_id id
@@ -116,9 +128,13 @@ class Card
       end
 
       def cache_card query
-        return unless (card = Card.where(query).take)
-
-        Card.cache.temp.write card.key, card
+        # card =
+        Card.where(query).take
+        # return unless ()
+        # card.tap do |card|
+        #   Card.cache.temp.fetch(card.key, callback: false) { card }
+        #   card.write_lexicon
+        # end
       end
     end
   end
