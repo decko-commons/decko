@@ -13,7 +13,7 @@ end
 
 def item_type_id
   type = cql_hash[:type]
-  type = type&.card_id unless type.is_a? Hash
+  type = type&.card_id if plausible_type? type
   type if type.is_a? Integer
 end
 
@@ -65,10 +65,16 @@ def query args={}
   Query.new standardized_query_args(args), name
 end
 
+private
+
 def standardized_query_args args
   args = cql_hash.merge args.symbolize_keys
   args[:context] ||= name
   args
+end
+
+def plausible_type? type
+  type.class.in?([String, Symbol, Integer]) && type != "_left"
 end
 
 format do
