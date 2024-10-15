@@ -37,7 +37,11 @@ class Card
       end
 
       def lex
-        simple? ? name : [left_id, right_id]
+        if simple?
+          name
+        elsif left_id && right_id
+          [left_id, right_id]
+        end
       end
 
       def autoname name
