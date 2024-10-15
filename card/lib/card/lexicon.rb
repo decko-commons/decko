@@ -2,9 +2,8 @@ class Card
   # Translates names to ids and vice versa via a cached "lex" representation:
   # name for simple cards, [left_id, right_id] for compound cards.
   #
-  # Note, unlike Card::Fetch, Card::Lexicon:
-  #   1. does NOT distinguish between trashed and untrashed cards.
-  #   2. does NOT respect local name changes
+  # Note, unlike Card::Fetch, Card::Lexicon: does NOT return local name changes
+  # until stored
   module Lexicon
     class << self
       # param id [Integer]
@@ -28,16 +27,6 @@ class Card
         Card::Cache[Lexicon]
       end
 
-      def update card
-        add card
-        expire_lex card.lex_before_act
-      end
-
-      # def delete card
-      #   cache.delete card.id.to_s
-      #   cache.delete cache_key(card.lex_before_act)
-      # end
-
       def lex_to_name lex
         return lex unless lex.is_a? Array
 
@@ -46,6 +35,14 @@ class Card
 
       def cache_key lex
         "L-#{lex.is_a?(Array) ? lex.join('-') : lex.to_name.key}"
+      end
+
+      def lex_query lex
+        if lex.is_a?(Array)
+          { left_id: lex.first, right_id: lex.last }
+        else
+          { key: lex.to_name.key }
+        end
       end
 
       # this is to address problems whereby renaming errors leave the lexicon broken.
@@ -61,14 +58,36 @@ class Card
         raise e
       end
 
+      def write_to_temp_cache id, name, lex
+        write cache.temp, id, name, lex
+      end
+
+      def update card
+        lex = card.lex
+        add_to_act card, lex
+        if card.trash
+          delete card
+        else
+          expire_lex card.lex_before_act if card.action == :update
+          write cache, card.id, card.name, lex
+        end
+      end
+
       private
 
-      def add card
-        lex = card.lex
+      def delete card
+        cache.write card.id.to_s, nil
+        cache.write cache_key(card.lex_before_act), nil
+      end
+
+      def write cache_klass, id, name, lex
+        cache_klass.write id.to_s, name if id.present?
+        cache_klass.write cache_key(lex), id if lex
+      end
+
+      def add_to_act card, lex
         @act_lexes << lex
         @act_ids << card.id
-        cache.write card.id.to_s, lex
-        cache.write cache_key(lex), card.id
       end
 
       def expire_lex lex
@@ -80,13 +99,15 @@ class Card
       end
 
       def id_to_lex id
-        cache.fetch id.to_s do
-          result = Card.where(id: id).pluck(:name, :left_id, :right_id).first
-          return unless result
+        cache.fetch(id.to_s) do
+          card_by_id(id)&.lex
+        end
+      end
 
-          (result[0] || [result[1], result[2]]).tap do |lex|
-            cache.write cache_key(lex), id
-          end
+      def lex_to_id lex
+        key = cache_key lex
+        cache.fetch(key) do
+          card_by_lex(lex)&.id
         end
       end
 
@@ -98,21 +119,22 @@ class Card
         end
       end
 
-      def lex_to_id lex
-        cache.fetch cache_key(lex) do
-          Card.where(lex_query(lex)).pluck(:id).first.tap do |id|
-            # don't store name, because lex might not be the canonical name
-            cache.write id.to_s, lex if lex.is_a?(Array)
-          end
-        end
+      def card_by_id id
+        cache_card id: id, trash: false
       end
 
-      def lex_query lex
-        if lex.is_a?(Array)
-          { left_id: lex.first, right_id: lex.last }
-        else
-          { key: lex.to_name.key }
-        end
+      def card_by_lex lex
+        cache_card lex_query(lex).merge(trash: false)
+      end
+
+      def cache_card query
+        # card =
+        Card.where(query).take
+        # return unless ()
+        # card.tap do |card|
+        #   Card.cache.temp.fetch(card.key, callback: false) { card }
+        #   card.write_lexicon
+        # end
       end
     end
   end
