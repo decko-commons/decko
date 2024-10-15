@@ -12,18 +12,7 @@ class Card
   end
 
   def write_lexicon
-    temp = Lexicon.cache.temp
-    temp.write id.to_s, name if id.present?
-    lx = lex
-    temp.write Lexicon.cache_key(lx), id if lx
-  end
-
-  def lex
-    if simple?
-      name
-    elsif left_id && right_id
-      [left_id, right_id]
-    end
+    Lexicon.write_to_temp_cache id, name, lex
   end
 
   # The {Cache} class manages and integrates {Temporary} and {Shared}
@@ -58,7 +47,7 @@ class Card
     # @param key [String]
     def read key
       unless @temp.exist?(key)
-        Rails.logger.info "READ (#{@klass}): #{key}"
+        Rails.logger.debug "READ (#{@klass}): #{key}"
         tally :read
       end
 
@@ -67,7 +56,7 @@ class Card
 
     def read_multi keys
       @temp.fetch_multi keys do |missing_keys|
-        Rails.logger.info "MULTI (#{@klass}): #{keys.size}"
+        Rails.logger.debug "MULTI (#{@klass}): #{keys.size}"
 
         tally :read_multi
         @shared ? @shared.read_multi(missing_keys) : {}
@@ -87,7 +76,7 @@ class Card
     # @param key [String]
     def fetch key, &block
       unless @temp.exist?(key)
-        Rails.logger.info "FETCH (#{@klass}): #{key}"
+        Rails.logger.debug "FETCH (#{@klass}): #{key}"
         tally :fetch
       end
 

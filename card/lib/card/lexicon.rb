@@ -68,6 +68,11 @@ class Card
         raise e
       end
 
+      def write_to_temp_cache id, name, lex
+        cache.temp.write id.to_s, name if id.present?
+        cache.temp.write cache_key(lex), id if lex
+      end
+
       private
 
       def add card
