@@ -3,8 +3,6 @@ class Card
     # cache-related class methods
     module CardClass
       def retrieve_from_cache cache_key, local_only=false
-        return unless cache
-
         local_only ? cache.temp.read(cache_key) : cache.read(cache_key)
       end
 
