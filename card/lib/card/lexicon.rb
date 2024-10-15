@@ -118,7 +118,7 @@ class Card
       def cache_card query
         return unless (card = Card.where(query).take)
 
-        Card.cache.temp.fetch(card.key) { card }
+        Card.cache.temp.write card.key, card
       end
     end
   end
