@@ -20,8 +20,6 @@ class Card
       def name= newname
         @name = superize_name newname.to_name
         self.key = @name.key
-        return @name if @action == :delete
-
         update_subcard_names @name
         write_attribute :name, (@name.simple? ? @name.s : nil)
         assign_side_ids

@@ -54,10 +54,9 @@ class Card
       def new_by_card card
         card.supercard = @context_card
         card.update_superleft card.name
-        @keys << card.key
         Card.write_to_temp_cache card
         card.director = @context_card.director.subdirectors.add card
-        card
+        cardmap[card.key] = card
       end
 
       def new_by_attributes name, attributes={}
@@ -92,6 +91,23 @@ class Card
             new_by_attributes key, val
           end
         end
+      end
+
+      def subcard_key cardish
+        key = case cardish
+              when Card   then cardish.key
+              when Symbol then fetch_subcard(cardish).key
+              else             cardish.to_name.key
+              end
+        key = absolutize_subcard_name(key).key unless cardmap.keys.include?(key)
+        key
+      end
+
+      def absolutize_subcard_name name
+        name = Card::Name[name]
+        return name if @context_card.name.parts.first.blank?
+
+        name.absolute_name @context_card.name
       end
     end
   end
