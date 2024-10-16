@@ -112,19 +112,8 @@ class Card
       # iterate through every card with a codename
       # @yieldparam codename [Symbol]
       # @yieldparam id [Integer]
-      def each_codenamed_card
-        sql = "select id, codename from cards where codename is not NULL"
-        ActiveRecord::Base.connection.select_all(sql).each do |row|
-          yield row["codename"].to_sym, row["id"].to_i
-        end
-      end
-
-      # @todo remove duplicate checks here; should be caught upon creation
-      def check_duplicates codehash, codename, card_id
-        return unless codehash.key?(codename) || codehash.key?(card_id)
-
-        Rails.logger.debug "dup codename: #{codename}, "\
-                           "ID:#{card_id} (#{codehash[codename]})"
+      def each_codenamed_card &block
+        Card.where("codename is not NULL and left_id is null").each &block
       end
 
       # generate Hash for @codehash and put it in the cache
@@ -136,10 +125,11 @@ class Card
 
       def generate_codehash
         hash = {}
-        each_codenamed_card do |codename, card_id|
-          check_duplicates hash, codename, card_id
-          hash[codename] = card_id
-          hash[card_id] = codename
+        each_codenamed_card do |card|
+          hash[card.codename] = card.id
+          hash[card.id] = card.codename
+          Card::Lexicon.write Lexicon.cache, card.id, card.name, card.lex
+          Card.cache.write card.key, card
         end
         hash
       end

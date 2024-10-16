@@ -31,9 +31,9 @@ class Card
       end
 
       # @param key [String]
-      def fetch key
+      def fetch key, callback: true
         # read(key) || write(key, yield)
-        exist?(key) ? read(key) : write(key, yield)
+        exist?(key) ? read(key) : write(key, yield, callback: callback)
       end
 
       def fetch_multi keys
