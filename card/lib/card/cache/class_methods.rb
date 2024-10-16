@@ -23,6 +23,7 @@ class Card
         # TODO: remove these!!!
         # Cardio.config.view_cache = false
         # Cardio.config.asset_refresh = :cautious
+        # Card::Codename.reset_cache
         # Cardio.config.prepopulate_cache = true
 
         Card::Cache.counter = nil

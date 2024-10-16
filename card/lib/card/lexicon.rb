@@ -59,6 +59,7 @@ class Card
       end
 
       def write_to_temp_cache id, name, lex
+<<<<<<< HEAD
         write cache.temp, id, name, lex
       end
 
