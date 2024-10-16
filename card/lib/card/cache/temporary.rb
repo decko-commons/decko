@@ -24,11 +24,9 @@ class Card
       end
 
       # @param key [String]
-      def write key, value, callback: true, blank_id_ok: false
+      def write key, value, callback: true
         @store[key] = value.tap do
-          if callback
-            @klass.try :after_write_to_temp_cache, value, blank_id_ok: blank_id_ok
-          end
+          @klass.try :after_write_to_temp_cache, value if callback
         end
       end
 
@@ -39,11 +37,11 @@ class Card
       end
 
       def fetch_multi keys
-        @store.slice(keys).tap do |found|
+        @store.slice(*keys).tap do |found|
           missing = keys - found.keys
           if (newfound = missing.present? && yield(missing))
             found.merge! newfound
-            newfound.each { |key, value| write key, value, blank_id_ok: true }
+            newfound.each { |key, value| write key, value }
           end
         end
       end

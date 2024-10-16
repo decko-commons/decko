@@ -6,21 +6,13 @@ class Card
       Card::Cache[Card]
     end
 
-    def after_write_to_temp_cache card, blank_id_ok: false
-      card.write_lexicon blank_id_ok if card.is_a? Card
+    def after_write_to_temp_cache card
+      card.write_lexicon if card.is_a? Card
     end
   end
 
-  def write_lexicon blank_id_ok
-    return if id.blank? && !blank_id_ok
-    # without this return, we have trash problems. The issue is that the lexicon and
-    # card cashes don't have very compatible trash handling yet. The lexicon returns
-    # an id even for trashed cards; the card cache returns a new card.
-
-    temp = Lexicon.cache.temp
-    temp.write id.to_s, name if name.present?
-    lx = lex
-    temp.write Lexicon.cache_key(lx), id if lx
+  def write_lexicon
+    Lexicon.write_to_temp_cache id, name, lex
   end
 
   def lex
@@ -63,7 +55,7 @@ class Card
     # @param key [String]
     def read key
       unless @temp.exist?(key)
-        Rails.logger.info "READ (#{@klass}): #{key}"
+        Rails.logger.debug "READ (#{@klass}): #{key}"
         tally :read
       end
 
@@ -71,8 +63,10 @@ class Card
     end
 
     def read_multi keys
-      tally :read_multi
       @temp.fetch_multi keys do |missing_keys|
+        Rails.logger.debug "MULTI (#{@klass}): #{keys.size}"
+
+        tally :read_multi
         @shared ? @shared.read_multi(missing_keys) : {}
       end
     end
@@ -90,7 +84,7 @@ class Card
     # @param key [String]
     def fetch key, &block
       unless @temp.exist?(key)
-        Rails.logger.info "FETCH (#{@klass}): #{key}"
+        Rails.logger.debug "FETCH (#{@klass}): #{key}"
         tally :fetch
       end
 
