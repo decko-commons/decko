@@ -16,6 +16,10 @@ module Cardio
 
         source_root File.expand_path("templates", __dir__)
 
+        def self.databases
+          Rails::Generators::Database::DATABASES.join "/"
+        end
+
         # All but the first aliases should be considered deprecated
         class_option "monkey",
                      type: :boolean, aliases: %w[-M --mod-dev],
@@ -36,7 +40,7 @@ module Cardio
         class_option :database,
                      type: :string, aliases: %w[-D -d], default: "mysql",
                      desc: "Preconfigure for selected database " \
-                           "(options: #{DATABASES.join('/')})"
+                           "(options: #{databases})"
 
         class_option "interactive",
                      type: :boolean, aliases: %w[-I -i], default: false, group: :runtime,
@@ -127,16 +131,6 @@ module Cardio
       2. Run `#{prefix}decko setup` to seed your database (see config/database.yml).
       3. Run `#{prefix}decko server` to start your server"
           end
-        end
-
-        protected
-
-        def database_gemfile_entry
-          return [] if options[:skip_active_record]
-
-          gem_name, gem_version = gem_for_database
-          msg = "Use #{options[:database]} as the database for Active Record"
-          GemfileEntry.version gem_name, gem_version, msg
         end
       end
     end

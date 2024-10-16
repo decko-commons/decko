@@ -1,2551 +1,2599 @@
 ---
 card_acts_001:
-  id: 105330
+  id: 106370
   card_id: 1
   actor_id: 1
-  acted_at: 2024-10-09 13:51:02.000000000 Z
+  acted_at: 2024-07-02 22:44:35.000000000 Z
   ip_address:
 card_acts_002:
-  id: 105331
+  id: 106371
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:01.000000000 Z
+  acted_at: 2024-08-12 16:20:16.000000000 Z
   ip_address:
 card_acts_003:
-  id: 105332
+  id: 106372
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:01.000000000 Z
+  acted_at: 2024-08-12 16:20:16.000000000 Z
   ip_address:
 card_acts_004:
-  id: 105333
+  id: 106373
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:01.000000000 Z
+  acted_at: 2024-08-12 16:20:16.000000000 Z
   ip_address:
 card_acts_005:
-  id: 105334
+  id: 106374
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:01.000000000 Z
+  acted_at: 2024-08-12 16:20:16.000000000 Z
   ip_address:
 card_acts_006:
-  id: 105335
+  id: 106375
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:01.000000000 Z
+  acted_at: 2024-08-12 16:20:16.000000000 Z
   ip_address:
 card_acts_007:
-  id: 105336
+  id: 106376
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:02.000000000 Z
+  acted_at: 2024-08-12 16:20:16.000000000 Z
   ip_address:
 card_acts_008:
-  id: 105337
+  id: 106377
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:02.000000000 Z
+  acted_at: 2024-08-12 16:20:16.000000000 Z
   ip_address:
 card_acts_009:
-  id: 105338
+  id: 106378
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:02.000000000 Z
+  acted_at: 2024-08-12 16:20:16.000000000 Z
   ip_address:
 card_acts_010:
-  id: 105339
+  id: 106379
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:02.000000000 Z
+  acted_at: 2024-08-12 16:20:16.000000000 Z
   ip_address:
 card_acts_011:
-  id: 105340
+  id: 106380
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:02.000000000 Z
+  acted_at: 2024-08-12 16:20:16.000000000 Z
   ip_address:
 card_acts_012:
-  id: 105341
+  id: 106381
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:02.000000000 Z
+  acted_at: 2024-08-12 16:20:16.000000000 Z
   ip_address:
 card_acts_013:
-  id: 105342
+  id: 106382
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:02.000000000 Z
+  acted_at: 2024-08-12 16:20:16.000000000 Z
   ip_address:
 card_acts_014:
-  id: 105343
+  id: 106383
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:02.000000000 Z
+  acted_at: 2024-08-12 16:20:16.000000000 Z
   ip_address:
 card_acts_015:
-  id: 105344
+  id: 106384
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:02.000000000 Z
+  acted_at: 2024-08-12 16:20:16.000000000 Z
   ip_address:
 card_acts_016:
-  id: 105345
+  id: 106385
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:02.000000000 Z
+  acted_at: 2024-08-12 16:20:16.000000000 Z
   ip_address:
 card_acts_017:
-  id: 105346
+  id: 106386
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:02.000000000 Z
+  acted_at: 2024-08-12 16:20:16.000000000 Z
   ip_address:
 card_acts_018:
-  id: 105347
+  id: 106387
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:02.000000000 Z
+  acted_at: 2024-08-12 16:20:16.000000000 Z
   ip_address:
 card_acts_019:
-  id: 105348
+  id: 106388
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:02.000000000 Z
+  acted_at: 2024-08-12 16:20:16.000000000 Z
   ip_address:
 card_acts_020:
-  id: 105349
+  id: 106389
   card_id: 618
   actor_id: 1
-  acted_at: 2024-10-09 13:57:02.000000000 Z
+  acted_at: 2024-08-12 16:20:16.000000000 Z
   ip_address:
 card_acts_021:
-  id: 105350
+  id: 106390
   card_id: 624
   actor_id: 618
-  acted_at: 2024-10-09 13:57:02.000000000 Z
+  acted_at: 2024-08-12 16:20:17.000000000 Z
   ip_address:
 card_acts_022:
-  id: 105351
+  id: 106391
   card_id: 630
   actor_id: 1
-  acted_at: 2024-10-09 13:57:03.000000000 Z
+  acted_at: 2024-08-12 16:20:17.000000000 Z
   ip_address:
 card_acts_023:
-  id: 105352
+  id: 106392
   card_id: 636
   actor_id: 1
-  acted_at: 2024-10-09 13:57:03.000000000 Z
+  acted_at: 2024-08-12 16:20:17.000000000 Z
   ip_address:
 card_acts_024:
-  id: 105353
+  id: 106393
   card_id: 637
   actor_id: 1
-  acted_at: 2024-10-09 13:57:03.000000000 Z
+  acted_at: 2024-08-12 16:20:17.000000000 Z
   ip_address:
 card_acts_025:
-  id: 105354
+  id: 106394
   card_id: 643
   actor_id: 1
-  acted_at: 2024-10-09 13:57:03.000000000 Z
+  acted_at: 2024-08-12 16:20:17.000000000 Z
   ip_address:
 card_acts_026:
-  id: 105355
+  id: 106395
   card_id: 644
   actor_id: 1
-  acted_at: 2024-10-09 13:57:03.000000000 Z
+  acted_at: 2024-08-12 16:20:17.000000000 Z
   ip_address:
 card_acts_027:
-  id: 105356
+  id: 106396
   card_id: 645
   actor_id: 1
-  acted_at: 2024-10-09 13:57:03.000000000 Z
+  acted_at: 2024-08-12 16:20:17.000000000 Z
   ip_address:
 card_acts_028:
-  id: 105357
+  id: 106397
   card_id: 646
   actor_id: 1
-  acted_at: 2024-10-09 13:57:03.000000000 Z
+  acted_at: 2024-08-12 16:20:17.000000000 Z
   ip_address:
 card_acts_029:
-  id: 105358
+  id: 106398
   card_id: 647
   actor_id: 1
-  acted_at: 2024-10-09 13:57:03.000000000 Z
+  acted_at: 2024-08-12 16:20:17.000000000 Z
   ip_address:
 card_acts_030:
-  id: 105359
+  id: 106399
   card_id: 648
   actor_id: 1
-  acted_at: 2024-10-09 13:57:03.000000000 Z
+  acted_at: 2024-08-12 16:20:17.000000000 Z
   ip_address:
 card_acts_031:
-  id: 105360
+  id: 106400
   card_id: 649
   actor_id: 1
-  acted_at: 2024-10-09 13:57:03.000000000 Z
+  acted_at: 2024-08-12 16:20:17.000000000 Z
   ip_address:
 card_acts_032:
-  id: 105361
+  id: 106401
   card_id: 650
   actor_id: 1
-  acted_at: 2024-10-09 13:57:03.000000000 Z
+  acted_at: 2024-08-12 16:20:17.000000000 Z
   ip_address:
 card_acts_033:
-  id: 105362
+  id: 106402
   card_id: 651
   actor_id: 1
-  acted_at: 2024-10-09 13:57:03.000000000 Z
+  acted_at: 2024-08-12 16:20:17.000000000 Z
   ip_address:
 card_acts_034:
-  id: 105363
+  id: 106403
   card_id: 652
   actor_id: 1
-  acted_at: 2024-10-09 13:57:03.000000000 Z
+  acted_at: 2024-08-12 16:20:17.000000000 Z
   ip_address:
 card_acts_035:
-  id: 105364
+  id: 106404
   card_id: 653
   actor_id: 1
-  acted_at: 2024-10-09 13:57:03.000000000 Z
+  acted_at: 2024-08-12 16:20:17.000000000 Z
   ip_address:
 card_acts_036:
-  id: 105365
+  id: 106405
   card_id: 654
   actor_id: 1
-  acted_at: 2024-10-09 13:57:03.000000000 Z
+  acted_at: 2024-08-12 16:20:17.000000000 Z
   ip_address:
 card_acts_037:
-  id: 105366
+  id: 106406
   card_id: 655
   actor_id: 1
-  acted_at: 2024-10-09 13:57:03.000000000 Z
+  acted_at: 2024-08-12 16:20:17.000000000 Z
   ip_address:
 card_acts_038:
-  id: 105367
+  id: 106407
   card_id: 656
   actor_id: 1
-  acted_at: 2024-10-09 13:57:03.000000000 Z
+  acted_at: 2024-08-12 16:20:17.000000000 Z
   ip_address:
 card_acts_039:
-  id: 105368
+  id: 106408
   card_id: 657
   actor_id: 1
-  acted_at: 2024-10-09 13:57:03.000000000 Z
+  acted_at: 2024-08-12 16:20:17.000000000 Z
   ip_address:
 card_acts_040:
-  id: 105369
+  id: 106409
   card_id: 658
   actor_id: 1
-  acted_at: 2024-10-09 13:57:04.000000000 Z
+  acted_at: 2024-08-12 16:20:18.000000000 Z
   ip_address:
 card_acts_041:
-  id: 105370
+  id: 106410
   card_id: 659
   actor_id: 1
-  acted_at: 2024-10-09 13:57:04.000000000 Z
+  acted_at: 2024-08-12 16:20:18.000000000 Z
   ip_address:
 card_acts_042:
-  id: 105371
+  id: 106411
   card_id: 660
   actor_id: 1
-  acted_at: 2024-10-09 13:57:04.000000000 Z
+  acted_at: 2024-08-12 16:20:18.000000000 Z
   ip_address:
 card_acts_043:
-  id: 105372
+  id: 106412
   card_id: 661
   actor_id: 1
-  acted_at: 2024-10-09 13:57:04.000000000 Z
+  acted_at: 2024-08-12 16:20:18.000000000 Z
   ip_address:
 card_acts_044:
-  id: 105373
+  id: 106413
   card_id: 662
   actor_id: 1
-  acted_at: 2024-10-09 13:57:04.000000000 Z
+  acted_at: 2024-08-12 16:20:18.000000000 Z
   ip_address:
 card_acts_045:
-  id: 105374
+  id: 106414
   card_id: 663
   actor_id: 1
-  acted_at: 2024-10-09 13:57:05.000000000 Z
+  acted_at: 2024-08-12 16:20:18.000000000 Z
   ip_address:
 card_acts_046:
-  id: 105375
+  id: 106415
   card_id: 664
   actor_id: 1
-  acted_at: 2024-10-09 13:57:05.000000000 Z
+  acted_at: 2024-08-12 16:20:18.000000000 Z
   ip_address:
 card_acts_047:
-  id: 105376
+  id: 106416
   card_id: 665
   actor_id: 1
-  acted_at: 2024-10-09 13:57:05.000000000 Z
+  acted_at: 2024-08-12 16:20:18.000000000 Z
   ip_address:
 card_acts_048:
-  id: 105377
+  id: 106417
   card_id: 666
   actor_id: 1
-  acted_at: 2024-10-09 13:57:05.000000000 Z
+  acted_at: 2024-08-12 16:20:18.000000000 Z
   ip_address:
 card_acts_049:
-  id: 105378
+  id: 106418
   card_id: 667
   actor_id: 1
-  acted_at: 2024-10-09 13:57:05.000000000 Z
+  acted_at: 2024-08-12 16:20:18.000000000 Z
   ip_address:
 card_acts_050:
-  id: 105379
+  id: 106419
   card_id: 668
   actor_id: 1
-  acted_at: 2024-10-09 13:57:05.000000000 Z
+  acted_at: 2024-08-12 16:20:18.000000000 Z
   ip_address:
 card_acts_051:
-  id: 105380
+  id: 106420
   card_id: 669
   actor_id: 1
-  acted_at: 2024-10-09 13:57:05.000000000 Z
+  acted_at: 2024-08-12 16:20:18.000000000 Z
   ip_address:
 card_acts_052:
-  id: 105381
+  id: 106421
   card_id: 670
   actor_id: 1
-  acted_at: 2024-10-09 13:57:05.000000000 Z
+  acted_at: 2024-08-12 16:20:18.000000000 Z
   ip_address:
 card_acts_053:
-  id: 105382
+  id: 106422
   card_id: 671
   actor_id: 1
-  acted_at: 2024-10-09 13:57:05.000000000 Z
+  acted_at: 2024-08-12 16:20:18.000000000 Z
   ip_address:
 card_acts_054:
-  id: 105383
+  id: 106423
   card_id: 672
   actor_id: 1
-  acted_at: 2024-10-09 13:57:05.000000000 Z
+  acted_at: 2024-08-12 16:20:18.000000000 Z
   ip_address:
 card_acts_055:
-  id: 105384
+  id: 106424
   card_id: 673
   actor_id: 1
-  acted_at: 2024-10-09 13:57:05.000000000 Z
+  acted_at: 2024-08-12 16:20:18.000000000 Z
   ip_address:
 card_acts_056:
-  id: 105385
+  id: 106425
   card_id: 674
   actor_id: 1
-  acted_at: 2024-10-09 13:57:05.000000000 Z
+  acted_at: 2024-08-12 16:20:18.000000000 Z
   ip_address:
 card_acts_057:
-  id: 105386
+  id: 106426
   card_id: 675
   actor_id: 1
-  acted_at: 2024-10-09 13:57:14.000000000 Z
+  acted_at: 2024-08-12 16:20:23.000000000 Z
   ip_address:
 card_acts_058:
-  id: 105387
+  id: 106427
   card_id: 676
   actor_id: 1
-  acted_at: 2024-10-09 13:57:14.000000000 Z
+  acted_at: 2024-08-12 16:20:23.000000000 Z
   ip_address:
 card_acts_059:
-  id: 105388
+  id: 106428
   card_id: 677
   actor_id: 1
-  acted_at: 2024-10-09 13:57:14.000000000 Z
+  acted_at: 2024-08-12 16:20:23.000000000 Z
   ip_address:
 card_acts_060:
-  id: 105389
+  id: 106429
   card_id: 678
   actor_id: 1
-  acted_at: 2024-10-09 13:57:14.000000000 Z
+  acted_at: 2024-08-12 16:20:23.000000000 Z
   ip_address:
 card_acts_061:
-  id: 105390
+  id: 106430
   card_id: 679
   actor_id: 1
-  acted_at: 2024-10-09 13:57:14.000000000 Z
+  acted_at: 2024-08-12 16:20:23.000000000 Z
   ip_address:
 card_acts_062:
-  id: 105391
+  id: 106431
   card_id: 680
   actor_id: 1
-  acted_at: 2024-10-09 13:57:14.000000000 Z
+  acted_at: 2024-08-12 16:20:23.000000000 Z
   ip_address:
 card_acts_063:
-  id: 105392
+  id: 106432
   card_id: 681
   actor_id: 1
-  acted_at: 2024-10-09 13:57:14.000000000 Z
+  acted_at: 2024-08-12 16:20:23.000000000 Z
   ip_address:
 card_acts_064:
-  id: 105393
+  id: 106433
   card_id: 682
   actor_id: 1
-  acted_at: 2024-10-09 13:57:14.000000000 Z
+  acted_at: 2024-08-12 16:20:23.000000000 Z
   ip_address:
 card_acts_065:
-  id: 105394
+  id: 106434
   card_id: 683
   actor_id: 1
-  acted_at: 2024-10-09 13:57:14.000000000 Z
+  acted_at: 2024-08-12 16:20:23.000000000 Z
   ip_address:
 card_acts_066:
-  id: 105395
+  id: 106435
   card_id: 684
   actor_id: 1
-  acted_at: 2024-10-09 13:57:14.000000000 Z
+  acted_at: 2024-08-12 16:20:23.000000000 Z
   ip_address:
 card_acts_067:
-  id: 105396
+  id: 106436
   card_id: 685
   actor_id: 624
-  acted_at: 2024-10-09 13:57:14.000000000 Z
+  acted_at: 2024-08-12 16:20:23.000000000 Z
   ip_address:
 card_acts_068:
-  id: 105397
+  id: 106437
   card_id: 686
   actor_id: 624
-  acted_at: 2024-10-09 13:57:14.000000000 Z
+  acted_at: 2024-08-12 16:20:23.000000000 Z
   ip_address:
 card_acts_069:
-  id: 105398
+  id: 106438
   card_id: 687
   actor_id: 1
-  acted_at: 2024-10-09 13:57:14.000000000 Z
+  acted_at: 2024-08-12 16:20:23.000000000 Z
   ip_address:
 card_acts_070:
-  id: 105399
+  id: 106439
   card_id: 688
   actor_id: 1
-  acted_at: 2024-10-09 13:57:14.000000000 Z
+  acted_at: 2024-08-12 16:20:23.000000000 Z
   ip_address:
 card_acts_071:
-  id: 105400
+  id: 106440
   card_id: 689
   actor_id: 1
-  acted_at: 2024-10-09 13:57:15.000000000 Z
+  acted_at: 2024-08-12 16:20:23.000000000 Z
   ip_address:
 card_acts_072:
-  id: 105401
+  id: 106441
   card_id: 690
   actor_id: 1
-  acted_at: 2024-10-09 13:57:15.000000000 Z
+  acted_at: 2024-08-12 16:20:23.000000000 Z
   ip_address:
 card_acts_073:
-  id: 105402
+  id: 106442
   card_id: 692
   actor_id: 1
-  acted_at: 2024-10-09 13:57:15.000000000 Z
+  acted_at: 2024-08-12 16:20:23.000000000 Z
   ip_address:
 card_acts_074:
-  id: 105403
+  id: 106443
   card_id: 693
   actor_id: 1
-  acted_at: 2024-10-09 13:57:15.000000000 Z
+  acted_at: 2024-08-12 16:20:23.000000000 Z
   ip_address:
 card_acts_075:
-  id: 105404
+  id: 106444
   card_id: 698
   actor_id: 1
-  acted_at: 2024-10-09 13:57:15.000000000 Z
+  acted_at: 2024-08-12 16:20:23.000000000 Z
   ip_address:
 card_acts_076:
-  id: 105405
+  id: 106445
   card_id: 702
   actor_id: 1
-  acted_at: 2024-10-09 13:57:15.000000000 Z
+  acted_at: 2024-08-12 16:20:23.000000000 Z
   ip_address:
 card_acts_077:
-  id: 105406
+  id: 106446
   card_id: 703
   actor_id: 1
-  acted_at: 2024-10-09 13:57:15.000000000 Z
+  acted_at: 2024-08-12 16:20:23.000000000 Z
   ip_address:
 card_acts_078:
-  id: 105407
+  id: 106447
   card_id: 704
   actor_id: 1
-  acted_at: 2024-10-09 13:57:15.000000000 Z
+  acted_at: 2024-08-12 16:20:23.000000000 Z
   ip_address:
 card_acts_079:
-  id: 105408
+  id: 106448
   card_id: 705
   actor_id: 1
-  acted_at: 2024-10-09 13:57:15.000000000 Z
+  acted_at: 2024-08-12 16:20:23.000000000 Z
   ip_address:
 card_acts_080:
-  id: 105409
+  id: 106449
   card_id: 706
   actor_id: 1
-  acted_at: 2024-10-09 13:57:15.000000000 Z
+  acted_at: 2024-08-12 16:20:23.000000000 Z
   ip_address:
 card_acts_081:
-  id: 105410
+  id: 106450
   card_id: 707
   actor_id: 1
-  acted_at: 2024-10-09 13:57:15.000000000 Z
+  acted_at: 2024-08-12 16:20:23.000000000 Z
   ip_address:
 card_acts_082:
-  id: 105411
+  id: 106451
   card_id: 708
   actor_id: 1
-  acted_at: 2024-10-09 13:57:15.000000000 Z
+  acted_at: 2024-08-12 16:20:23.000000000 Z
   ip_address:
 card_acts_083:
-  id: 105412
+  id: 106452
   card_id: 709
   actor_id: 1
-  acted_at: 2024-10-09 13:57:15.000000000 Z
+  acted_at: 2024-08-12 16:20:23.000000000 Z
   ip_address:
 card_acts_084:
-  id: 105413
+  id: 106453
   card_id: 711
   actor_id: 1
-  acted_at: 2024-10-09 13:57:15.000000000 Z
+  acted_at: 2024-08-12 16:20:23.000000000 Z
   ip_address:
 card_acts_085:
-  id: 105414
+  id: 106454
   card_id: 713
   actor_id: 1
-  acted_at: 2024-10-09 13:57:15.000000000 Z
+  acted_at: 2024-08-12 16:20:23.000000000 Z
   ip_address:
 card_acts_086:
-  id: 105415
+  id: 106455
   card_id: 715
   actor_id: 1
-  acted_at: 2024-10-09 13:57:15.000000000 Z
+  acted_at: 2024-08-12 16:20:23.000000000 Z
   ip_address:
 card_acts_087:
-  id: 105416
+  id: 106456
   card_id: 716
   actor_id: 1
-  acted_at: 2024-10-09 13:57:15.000000000 Z
+  acted_at: 2024-08-12 16:20:23.000000000 Z
   ip_address:
 card_acts_088:
-  id: 105417
+  id: 106457
   card_id: 717
   actor_id: 1
-  acted_at: 2024-10-09 13:57:15.000000000 Z
+  acted_at: 2024-08-12 16:20:23.000000000 Z
   ip_address:
 card_acts_089:
-  id: 105418
+  id: 106458
   card_id: 719
   actor_id: 1
-  acted_at: 2024-10-09 13:57:15.000000000 Z
+  acted_at: 2024-08-12 16:20:23.000000000 Z
   ip_address:
 card_acts_090:
-  id: 105419
+  id: 106459
   card_id: 720
   actor_id: 1
-  acted_at: 2024-10-09 13:57:15.000000000 Z
+  acted_at: 2024-08-12 16:20:23.000000000 Z
   ip_address:
 card_acts_091:
-  id: 105420
+  id: 106460
   card_id: 721
   actor_id: 1
-  acted_at: 2024-10-09 13:57:15.000000000 Z
+  acted_at: 2024-08-12 16:20:23.000000000 Z
   ip_address:
 card_acts_092:
-  id: 105421
+  id: 106461
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:15.000000000 Z
+  acted_at: 2024-08-12 16:20:23.000000000 Z
   ip_address:
 card_acts_093:
-  id: 105422
+  id: 106462
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:15.000000000 Z
+  acted_at: 2024-08-12 16:20:23.000000000 Z
   ip_address:
 card_acts_094:
-  id: 105423
+  id: 106463
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:15.000000000 Z
+  acted_at: 2024-08-12 16:20:23.000000000 Z
   ip_address:
 card_acts_095:
-  id: 105424
+  id: 106464
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:15.000000000 Z
+  acted_at: 2024-08-12 16:20:23.000000000 Z
   ip_address:
 card_acts_096:
-  id: 105425
+  id: 106465
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:15.000000000 Z
+  acted_at: 2024-08-12 16:20:23.000000000 Z
   ip_address:
 card_acts_097:
-  id: 105426
+  id: 106466
   card_id: 722
   actor_id: 1
-  acted_at: 2024-10-09 13:57:15.000000000 Z
+  acted_at: 2024-08-12 16:20:23.000000000 Z
   ip_address:
 card_acts_098:
-  id: 105427
+  id: 106467
   card_id: 723
   actor_id: 1
-  acted_at: 2024-10-09 13:57:16.000000000 Z
+  acted_at: 2024-08-12 16:20:23.000000000 Z
   ip_address:
 card_acts_099:
-  id: 105428
+  id: 106468
   card_id: 724
   actor_id: 1
-  acted_at: 2024-10-09 13:57:16.000000000 Z
+  acted_at: 2024-08-12 16:20:23.000000000 Z
   ip_address:
 card_acts_100:
-  id: 105429
+  id: 106469
   card_id: 726
   actor_id: 1
-  acted_at: 2024-10-09 13:57:16.000000000 Z
+  acted_at: 2024-08-12 16:20:24.000000000 Z
   ip_address:
 card_acts_101:
-  id: 105430
+  id: 106470
   card_id: 728
   actor_id: 1
-  acted_at: 2024-10-09 13:57:16.000000000 Z
+  acted_at: 2024-08-12 16:20:24.000000000 Z
   ip_address:
 card_acts_102:
-  id: 105431
+  id: 106471
   card_id: 729
   actor_id: 1
-  acted_at: 2024-10-09 13:57:16.000000000 Z
+  acted_at: 2024-08-12 16:20:24.000000000 Z
   ip_address:
 card_acts_103:
-  id: 105432
+  id: 106472
   card_id: 730
   actor_id: 1
-  acted_at: 2024-10-09 13:57:16.000000000 Z
+  acted_at: 2024-08-12 16:20:24.000000000 Z
   ip_address:
 card_acts_104:
-  id: 105433
+  id: 106473
   card_id: 731
   actor_id: 1
-  acted_at: 2024-10-09 13:57:16.000000000 Z
+  acted_at: 2024-08-12 16:20:24.000000000 Z
   ip_address:
 card_acts_105:
-  id: 105434
+  id: 106474
   card_id: 732
   actor_id: 1
-  acted_at: 2024-10-09 13:57:16.000000000 Z
+  acted_at: 2024-08-12 16:20:24.000000000 Z
   ip_address:
 card_acts_106:
-  id: 105435
+  id: 106475
   card_id: 733
   actor_id: 1
-  acted_at: 2024-10-09 13:57:16.000000000 Z
+  acted_at: 2024-08-12 16:20:24.000000000 Z
   ip_address:
 card_acts_107:
-  id: 105436
+  id: 106476
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:16.000000000 Z
+  acted_at: 2024-08-12 16:20:24.000000000 Z
   ip_address:
 card_acts_108:
-  id: 105437
+  id: 106477
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:16.000000000 Z
+  acted_at: 2024-08-12 16:20:24.000000000 Z
   ip_address:
 card_acts_109:
-  id: 105438
+  id: 106478
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:16.000000000 Z
+  acted_at: 2024-08-12 16:20:24.000000000 Z
   ip_address:
 card_acts_110:
-  id: 105439
+  id: 106479
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:16.000000000 Z
+  acted_at: 2024-08-12 16:20:24.000000000 Z
   ip_address:
 card_acts_111:
-  id: 105440
+  id: 106480
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:16.000000000 Z
+  acted_at: 2024-08-12 16:20:24.000000000 Z
   ip_address:
 card_acts_112:
-  id: 105441
+  id: 106481
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:16.000000000 Z
+  acted_at: 2024-08-12 16:20:24.000000000 Z
   ip_address:
 card_acts_113:
-  id: 105442
+  id: 106482
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:16.000000000 Z
+  acted_at: 2024-08-12 16:20:24.000000000 Z
   ip_address:
 card_acts_114:
-  id: 105443
+  id: 106483
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:16.000000000 Z
+  acted_at: 2024-08-12 16:20:24.000000000 Z
   ip_address:
 card_acts_115:
-  id: 105444
+  id: 106484
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:16.000000000 Z
+  acted_at: 2024-08-12 16:20:24.000000000 Z
   ip_address:
 card_acts_116:
-  id: 105445
+  id: 106485
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:16.000000000 Z
+  acted_at: 2024-08-12 16:20:24.000000000 Z
   ip_address:
 card_acts_117:
-  id: 105446
+  id: 106486
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:16.000000000 Z
+  acted_at: 2024-08-12 16:20:24.000000000 Z
   ip_address:
 card_acts_118:
-  id: 105447
+  id: 106487
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:16.000000000 Z
+  acted_at: 2024-08-12 16:20:24.000000000 Z
   ip_address:
 card_acts_119:
-  id: 105448
+  id: 106488
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:16.000000000 Z
+  acted_at: 2024-08-12 16:20:24.000000000 Z
   ip_address:
 card_acts_120:
-  id: 105449
+  id: 106489
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:16.000000000 Z
+  acted_at: 2024-08-12 16:20:24.000000000 Z
   ip_address:
 card_acts_121:
-  id: 105450
+  id: 106490
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:16.000000000 Z
+  acted_at: 2024-08-12 16:20:24.000000000 Z
   ip_address:
 card_acts_122:
-  id: 105451
+  id: 106491
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:16.000000000 Z
+  acted_at: 2024-08-12 16:20:24.000000000 Z
   ip_address:
 card_acts_123:
-  id: 105452
+  id: 106492
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:16.000000000 Z
+  acted_at: 2024-08-12 16:20:24.000000000 Z
   ip_address:
 card_acts_124:
-  id: 105453
+  id: 106493
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:16.000000000 Z
+  acted_at: 2024-08-12 16:20:24.000000000 Z
   ip_address:
 card_acts_125:
-  id: 105454
+  id: 106494
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:16.000000000 Z
+  acted_at: 2024-08-12 16:20:24.000000000 Z
   ip_address:
 card_acts_126:
-  id: 105455
+  id: 106495
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:16.000000000 Z
+  acted_at: 2024-08-12 16:20:24.000000000 Z
   ip_address:
 card_acts_127:
-  id: 105456
+  id: 106496
   card_id: 736
   actor_id: 1
-  acted_at: 2024-10-09 13:57:16.000000000 Z
+  acted_at: 2024-08-12 16:20:24.000000000 Z
   ip_address:
 card_acts_128:
-  id: 105457
+  id: 106497
   card_id: 737
   actor_id: 1
-  acted_at: 2024-10-09 13:57:16.000000000 Z
+  acted_at: 2024-08-12 16:20:24.000000000 Z
   ip_address:
 card_acts_129:
-  id: 105458
+  id: 106498
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:16.000000000 Z
+  acted_at: 2024-08-12 16:20:24.000000000 Z
   ip_address:
 card_acts_130:
-  id: 105459
+  id: 106499
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:16.000000000 Z
+  acted_at: 2024-08-12 16:20:24.000000000 Z
   ip_address:
 card_acts_131:
-  id: 105460
+  id: 106500
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:16.000000000 Z
+  acted_at: 2024-08-12 16:20:24.000000000 Z
   ip_address:
 card_acts_132:
-  id: 105461
+  id: 106501
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:16.000000000 Z
+  acted_at: 2024-08-12 16:20:24.000000000 Z
   ip_address:
 card_acts_133:
-  id: 105462
+  id: 106502
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:16.000000000 Z
+  acted_at: 2024-08-12 16:20:24.000000000 Z
   ip_address:
 card_acts_134:
-  id: 105463
+  id: 106503
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:16.000000000 Z
+  acted_at: 2024-08-12 16:20:24.000000000 Z
   ip_address:
 card_acts_135:
-  id: 105464
+  id: 106504
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:17.000000000 Z
+  acted_at: 2024-08-12 16:20:24.000000000 Z
   ip_address:
 card_acts_136:
-  id: 105465
+  id: 106505
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:17.000000000 Z
+  acted_at: 2024-08-12 16:20:24.000000000 Z
   ip_address:
 card_acts_137:
-  id: 105466
+  id: 106506
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:17.000000000 Z
+  acted_at: 2024-08-12 16:20:24.000000000 Z
   ip_address:
 card_acts_138:
-  id: 105467
+  id: 106507
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:17.000000000 Z
+  acted_at: 2024-08-12 16:20:24.000000000 Z
   ip_address:
 card_acts_139:
-  id: 105468
+  id: 106508
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:17.000000000 Z
+  acted_at: 2024-08-12 16:20:24.000000000 Z
   ip_address:
 card_acts_140:
-  id: 105469
+  id: 106509
   card_id: 738
   actor_id: 1
-  acted_at: 2024-10-09 13:57:17.000000000 Z
+  acted_at: 2024-08-12 16:20:24.000000000 Z
   ip_address:
 card_acts_141:
-  id: 105470
+  id: 106510
   card_id: 740
   actor_id: 1
-  acted_at: 2024-10-09 13:57:17.000000000 Z
+  acted_at: 2024-08-12 16:20:24.000000000 Z
   ip_address:
 card_acts_142:
-  id: 105471
+  id: 106511
   card_id: 741
   actor_id: 1
-  acted_at: 2024-10-09 13:57:17.000000000 Z
+  acted_at: 2024-08-12 16:20:24.000000000 Z
   ip_address:
 card_acts_143:
-  id: 105472
+  id: 106512
   card_id: 743
   actor_id: 1
-  acted_at: 2024-10-09 13:57:17.000000000 Z
+  acted_at: 2024-08-12 16:20:24.000000000 Z
   ip_address:
 card_acts_144:
-  id: 105473
+  id: 106513
   card_id: 744
   actor_id: 1
-  acted_at: 2024-10-09 13:57:17.000000000 Z
+  acted_at: 2024-08-12 16:20:24.000000000 Z
   ip_address:
 card_acts_145:
-  id: 105474
+  id: 106514
   card_id: 745
   actor_id: 1
-  acted_at: 2024-10-09 13:57:17.000000000 Z
+  acted_at: 2024-08-12 16:20:24.000000000 Z
   ip_address:
 card_acts_146:
-  id: 105475
+  id: 106515
   card_id: 751
   actor_id: 1
-  acted_at: 2024-10-09 13:57:17.000000000 Z
+  acted_at: 2024-08-12 16:20:24.000000000 Z
   ip_address:
 card_acts_147:
-  id: 105476
+  id: 106516
   card_id: 757
   actor_id: 1
-  acted_at: 2024-10-09 13:57:17.000000000 Z
+  acted_at: 2024-08-12 16:20:24.000000000 Z
   ip_address:
 card_acts_148:
-  id: 105477
+  id: 106517
   card_id: 184
   actor_id: 1
-  acted_at: 2024-10-09 13:57:17.000000000 Z
+  acted_at: 2024-08-12 16:20:24.000000000 Z
   ip_address:
 card_acts_149:
-  id: 105478
+  id: 106518
   card_id: 191
   actor_id: 1
-  acted_at: 2024-10-09 13:57:17.000000000 Z
+  acted_at: 2024-08-12 16:20:25.000000000 Z
   ip_address:
 card_acts_150:
-  id: 105479
+  id: 106519
   card_id: 196
   actor_id: 1
-  acted_at: 2024-10-09 13:57:17.000000000 Z
+  acted_at: 2024-08-12 16:20:25.000000000 Z
   ip_address:
 card_acts_151:
-  id: 105480
+  id: 106520
   card_id: 763
   actor_id: 1
-  acted_at: 2024-10-09 13:57:18.000000000 Z
+  acted_at: 2024-08-12 16:20:25.000000000 Z
   ip_address:
 card_acts_152:
-  id: 105481
+  id: 106521
   card_id: 765
   actor_id: 1
-  acted_at: 2024-10-09 13:57:18.000000000 Z
+  acted_at: 2024-08-12 16:20:25.000000000 Z
   ip_address:
 card_acts_153:
-  id: 105482
+  id: 106522
   card_id: 767
   actor_id: 1
-  acted_at: 2024-10-09 13:57:18.000000000 Z
+  acted_at: 2024-08-12 16:20:25.000000000 Z
   ip_address:
 card_acts_154:
-  id: 105483
+  id: 106523
   card_id: 769
   actor_id: 1
-  acted_at: 2024-10-09 13:57:18.000000000 Z
+  acted_at: 2024-08-12 16:20:25.000000000 Z
   ip_address:
 card_acts_155:
-  id: 105484
+  id: 106524
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:18.000000000 Z
+  acted_at: 2024-08-12 16:20:25.000000000 Z
   ip_address:
 card_acts_156:
-  id: 105485
-  card_id: 89
+  id: 106525
+  card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:18.000000000 Z
+  acted_at: 2024-08-12 16:20:25.000000000 Z
   ip_address:
 card_acts_157:
-  id: 105486
+  id: 106526
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:18.000000000 Z
+  acted_at: 2024-08-12 16:20:25.000000000 Z
   ip_address:
 card_acts_158:
-  id: 105487
+  id: 106527
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:18.000000000 Z
+  acted_at: 2024-08-12 16:20:25.000000000 Z
   ip_address:
 card_acts_159:
-  id: 105488
+  id: 106528
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:18.000000000 Z
+  acted_at: 2024-08-12 16:20:25.000000000 Z
   ip_address:
 card_acts_160:
-  id: 105489
+  id: 106529
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:18.000000000 Z
+  acted_at: 2024-08-12 16:20:25.000000000 Z
   ip_address:
 card_acts_161:
-  id: 105490
+  id: 106530
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:18.000000000 Z
+  acted_at: 2024-08-12 16:20:25.000000000 Z
   ip_address:
 card_acts_162:
-  id: 105491
+  id: 106531
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:18.000000000 Z
+  acted_at: 2024-08-12 16:20:25.000000000 Z
   ip_address:
 card_acts_163:
-  id: 105492
+  id: 106532
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:18.000000000 Z
+  acted_at: 2024-08-12 16:20:25.000000000 Z
   ip_address:
 card_acts_164:
-  id: 105493
+  id: 106533
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:18.000000000 Z
+  acted_at: 2024-08-12 16:20:25.000000000 Z
   ip_address:
 card_acts_165:
-  id: 105494
+  id: 106534
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:18.000000000 Z
+  acted_at: 2024-08-12 16:20:25.000000000 Z
   ip_address:
 card_acts_166:
-  id: 105495
+  id: 106535
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:18.000000000 Z
+  acted_at: 2024-08-12 16:20:25.000000000 Z
   ip_address:
 card_acts_167:
-  id: 105496
+  id: 106536
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:18.000000000 Z
+  acted_at: 2024-08-12 16:20:25.000000000 Z
   ip_address:
 card_acts_168:
-  id: 105497
+  id: 106537
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:18.000000000 Z
+  acted_at: 2024-08-12 16:20:25.000000000 Z
   ip_address:
 card_acts_169:
-  id: 105498
+  id: 106538
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:18.000000000 Z
+  acted_at: 2024-08-12 16:20:25.000000000 Z
   ip_address:
 card_acts_170:
-  id: 105499
+  id: 106539
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:18.000000000 Z
+  acted_at: 2024-08-12 16:20:25.000000000 Z
   ip_address:
 card_acts_171:
-  id: 105500
+  id: 106540
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:18.000000000 Z
+  acted_at: 2024-08-12 16:20:25.000000000 Z
   ip_address:
 card_acts_172:
-  id: 105501
+  id: 106541
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:18.000000000 Z
+  acted_at: 2024-08-12 16:20:25.000000000 Z
   ip_address:
 card_acts_173:
-  id: 105502
+  id: 106542
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:18.000000000 Z
+  acted_at: 2024-08-12 16:20:25.000000000 Z
   ip_address:
 card_acts_174:
-  id: 105503
+  id: 106543
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:18.000000000 Z
+  acted_at: 2024-08-12 16:20:25.000000000 Z
   ip_address:
 card_acts_175:
-  id: 105504
+  id: 106544
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:18.000000000 Z
+  acted_at: 2024-08-12 16:20:25.000000000 Z
   ip_address:
 card_acts_176:
-  id: 105505
+  id: 106545
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:18.000000000 Z
+  acted_at: 2024-08-12 16:20:25.000000000 Z
   ip_address:
 card_acts_177:
-  id: 105506
+  id: 106546
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:18.000000000 Z
+  acted_at: 2024-08-12 16:20:25.000000000 Z
   ip_address:
 card_acts_178:
-  id: 105507
+  id: 106547
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:18.000000000 Z
+  acted_at: 2024-08-12 16:20:25.000000000 Z
   ip_address:
 card_acts_179:
-  id: 105508
+  id: 106548
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:18.000000000 Z
+  acted_at: 2024-08-12 16:20:25.000000000 Z
   ip_address:
 card_acts_180:
-  id: 105509
+  id: 106549
   card_id: 771
   actor_id: 1
-  acted_at: 2024-10-09 13:57:18.000000000 Z
+  acted_at: 2024-08-12 16:20:25.000000000 Z
   ip_address:
 card_acts_181:
-  id: 105510
+  id: 106550
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:18.000000000 Z
+  acted_at: 2024-08-12 16:20:25.000000000 Z
   ip_address:
 card_acts_182:
-  id: 105511
+  id: 106551
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:18.000000000 Z
+  acted_at: 2024-08-12 16:20:25.000000000 Z
   ip_address:
 card_acts_183:
-  id: 105512
+  id: 106552
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:19.000000000 Z
+  acted_at: 2024-08-12 16:20:25.000000000 Z
   ip_address:
 card_acts_184:
-  id: 105513
+  id: 106553
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:19.000000000 Z
+  acted_at: 2024-08-12 16:20:25.000000000 Z
   ip_address:
 card_acts_185:
-  id: 105514
+  id: 106554
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:19.000000000 Z
+  acted_at: 2024-08-12 16:20:25.000000000 Z
   ip_address:
 card_acts_186:
-  id: 105515
+  id: 106555
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:19.000000000 Z
+  acted_at: 2024-08-12 16:20:25.000000000 Z
   ip_address:
 card_acts_187:
-  id: 105516
+  id: 106556
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:19.000000000 Z
+  acted_at: 2024-08-12 16:20:25.000000000 Z
   ip_address:
 card_acts_188:
-  id: 105517
+  id: 106557
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:19.000000000 Z
+  acted_at: 2024-08-12 16:20:25.000000000 Z
   ip_address:
 card_acts_189:
-  id: 105518
+  id: 106558
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:19.000000000 Z
+  acted_at: 2024-08-12 16:20:25.000000000 Z
   ip_address:
 card_acts_190:
-  id: 105519
+  id: 106559
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:19.000000000 Z
+  acted_at: 2024-08-12 16:20:25.000000000 Z
   ip_address:
 card_acts_191:
-  id: 105520
+  id: 106560
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:19.000000000 Z
+  acted_at: 2024-08-12 16:20:25.000000000 Z
   ip_address:
 card_acts_192:
-  id: 105521
+  id: 106561
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:19.000000000 Z
+  acted_at: 2024-08-12 16:20:25.000000000 Z
   ip_address:
 card_acts_193:
-  id: 105522
+  id: 106562
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:19.000000000 Z
+  acted_at: 2024-08-12 16:20:25.000000000 Z
   ip_address:
 card_acts_194:
-  id: 105523
+  id: 106563
   card_id: 772
   actor_id: 1
-  acted_at: 2024-10-09 13:57:19.000000000 Z
+  acted_at: 2024-08-12 16:20:25.000000000 Z
   ip_address:
 card_acts_195:
-  id: 105524
+  id: 106564
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:19.000000000 Z
+  acted_at: 2024-08-12 16:20:25.000000000 Z
   ip_address:
 card_acts_196:
-  id: 105525
+  id: 106565
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:19.000000000 Z
+  acted_at: 2024-08-12 16:20:25.000000000 Z
   ip_address:
 card_acts_197:
-  id: 105526
+  id: 106566
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:19.000000000 Z
+  acted_at: 2024-08-12 16:20:25.000000000 Z
   ip_address:
 card_acts_198:
-  id: 105527
+  id: 106567
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:19.000000000 Z
+  acted_at: 2024-08-12 16:20:25.000000000 Z
   ip_address:
 card_acts_199:
-  id: 105528
+  id: 106568
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:19.000000000 Z
+  acted_at: 2024-08-12 16:20:25.000000000 Z
   ip_address:
 card_acts_200:
-  id: 105529
+  id: 106569
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:19.000000000 Z
+  acted_at: 2024-08-12 16:20:25.000000000 Z
   ip_address:
 card_acts_201:
-  id: 105530
+  id: 106570
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:19.000000000 Z
+  acted_at: 2024-08-12 16:20:25.000000000 Z
   ip_address:
 card_acts_202:
-  id: 105531
+  id: 106571
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:19.000000000 Z
+  acted_at: 2024-08-12 16:20:25.000000000 Z
   ip_address:
 card_acts_203:
-  id: 105532
+  id: 106572
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:19.000000000 Z
+  acted_at: 2024-08-12 16:20:25.000000000 Z
   ip_address:
 card_acts_204:
-  id: 105533
+  id: 106573
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:19.000000000 Z
+  acted_at: 2024-08-12 16:20:25.000000000 Z
   ip_address:
 card_acts_205:
-  id: 105534
+  id: 106574
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:19.000000000 Z
+  acted_at: 2024-08-12 16:20:25.000000000 Z
   ip_address:
 card_acts_206:
-  id: 105535
+  id: 106575
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:19.000000000 Z
+  acted_at: 2024-08-12 16:20:25.000000000 Z
   ip_address:
 card_acts_207:
-  id: 105536
+  id: 106576
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:19.000000000 Z
+  acted_at: 2024-08-12 16:20:25.000000000 Z
   ip_address:
 card_acts_208:
-  id: 105537
+  id: 106577
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:19.000000000 Z
+  acted_at: 2024-08-12 16:20:25.000000000 Z
   ip_address:
 card_acts_209:
-  id: 105538
+  id: 106578
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:19.000000000 Z
+  acted_at: 2024-08-12 16:20:25.000000000 Z
   ip_address:
 card_acts_210:
-  id: 105539
+  id: 106579
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:19.000000000 Z
+  acted_at: 2024-08-12 16:20:25.000000000 Z
   ip_address:
 card_acts_211:
-  id: 105540
+  id: 106580
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:19.000000000 Z
+  acted_at: 2024-08-12 16:20:25.000000000 Z
   ip_address:
 card_acts_212:
-  id: 105541
+  id: 106581
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:19.000000000 Z
+  acted_at: 2024-08-12 16:20:25.000000000 Z
   ip_address:
 card_acts_213:
-  id: 105542
+  id: 106582
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:19.000000000 Z
+  acted_at: 2024-08-12 16:20:25.000000000 Z
   ip_address:
 card_acts_214:
-  id: 105543
+  id: 106583
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:19.000000000 Z
+  acted_at: 2024-08-12 16:20:25.000000000 Z
   ip_address:
 card_acts_215:
-  id: 105544
+  id: 106584
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:19.000000000 Z
+  acted_at: 2024-08-12 16:20:25.000000000 Z
   ip_address:
 card_acts_216:
-  id: 105545
+  id: 106585
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:19.000000000 Z
+  acted_at: 2024-08-12 16:20:25.000000000 Z
   ip_address:
 card_acts_217:
-  id: 105546
+  id: 106586
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:20.000000000 Z
+  acted_at: 2024-08-12 16:20:25.000000000 Z
   ip_address:
 card_acts_218:
-  id: 105547
+  id: 106587
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:20.000000000 Z
+  acted_at: 2024-08-12 16:20:25.000000000 Z
   ip_address:
 card_acts_219:
-  id: 105548
+  id: 106588
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:20.000000000 Z
+  acted_at: 2024-08-12 16:20:26.000000000 Z
   ip_address:
 card_acts_220:
-  id: 105549
+  id: 106589
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:20.000000000 Z
+  acted_at: 2024-08-12 16:20:26.000000000 Z
   ip_address:
 card_acts_221:
-  id: 105550
+  id: 106590
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:20.000000000 Z
+  acted_at: 2024-08-12 16:20:26.000000000 Z
   ip_address:
 card_acts_222:
-  id: 105551
+  id: 106591
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:20.000000000 Z
+  acted_at: 2024-08-12 16:20:26.000000000 Z
   ip_address:
 card_acts_223:
-  id: 105552
+  id: 106592
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:20.000000000 Z
+  acted_at: 2024-08-12 16:20:26.000000000 Z
   ip_address:
 card_acts_224:
-  id: 105553
+  id: 106593
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:20.000000000 Z
+  acted_at: 2024-08-12 16:20:26.000000000 Z
   ip_address:
 card_acts_225:
-  id: 105554
+  id: 106594
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:20.000000000 Z
+  acted_at: 2024-08-12 16:20:26.000000000 Z
   ip_address:
 card_acts_226:
-  id: 105555
+  id: 106595
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:20.000000000 Z
+  acted_at: 2024-08-12 16:20:26.000000000 Z
   ip_address:
 card_acts_227:
-  id: 105556
+  id: 106596
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:20.000000000 Z
+  acted_at: 2024-08-12 16:20:26.000000000 Z
   ip_address:
 card_acts_228:
-  id: 105557
+  id: 106597
   card_id: 773
   actor_id: 1
-  acted_at: 2024-10-09 13:57:20.000000000 Z
+  acted_at: 2024-08-12 16:20:26.000000000 Z
   ip_address:
 card_acts_229:
-  id: 105558
+  id: 106598
   card_id: 773
   actor_id: 1
-  acted_at: 2024-10-09 13:57:20.000000000 Z
+  acted_at: 2024-08-12 16:20:26.000000000 Z
   ip_address:
 card_acts_230:
-  id: 105559
+  id: 106599
   card_id: 773
   actor_id: 624
-  acted_at: 2024-10-09 13:57:21.000000000 Z
+  acted_at: 2024-08-12 16:20:27.000000000 Z
   ip_address:
 card_acts_231:
-  id: 105560
+  id: 106600
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:20.000000000 Z
+  acted_at: 2024-08-12 16:20:26.000000000 Z
   ip_address:
 card_acts_232:
-  id: 105561
+  id: 106601
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:20.000000000 Z
+  acted_at: 2024-08-12 16:20:26.000000000 Z
   ip_address:
 card_acts_233:
-  id: 105562
+  id: 106602
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:20.000000000 Z
+  acted_at: 2024-08-12 16:20:26.000000000 Z
   ip_address:
 card_acts_234:
-  id: 105563
+  id: 106603
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:20.000000000 Z
+  acted_at: 2024-08-12 16:20:26.000000000 Z
   ip_address:
 card_acts_235:
-  id: 105564
+  id: 106604
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:20.000000000 Z
+  acted_at: 2024-08-12 16:20:26.000000000 Z
   ip_address:
 card_acts_236:
-  id: 105565
+  id: 106605
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:21.000000000 Z
+  acted_at: 2024-08-12 16:20:26.000000000 Z
   ip_address:
 card_acts_237:
-  id: 105566
+  id: 106606
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:21.000000000 Z
+  acted_at: 2024-08-12 16:20:26.000000000 Z
   ip_address:
 card_acts_238:
-  id: 105567
+  id: 106607
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:21.000000000 Z
+  acted_at: 2024-08-12 16:20:26.000000000 Z
   ip_address:
 card_acts_239:
-  id: 105568
+  id: 106608
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:21.000000000 Z
+  acted_at: 2024-08-12 16:20:26.000000000 Z
   ip_address:
 card_acts_240:
-  id: 105569
+  id: 106609
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:21.000000000 Z
+  acted_at: 2024-08-12 16:20:26.000000000 Z
   ip_address:
 card_acts_241:
-  id: 105570
+  id: 106610
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:21.000000000 Z
+  acted_at: 2024-08-12 16:20:26.000000000 Z
   ip_address:
 card_acts_242:
-  id: 105571
+  id: 106611
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:21.000000000 Z
+  acted_at: 2024-08-12 16:20:26.000000000 Z
   ip_address:
 card_acts_243:
-  id: 105572
+  id: 106612
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:21.000000000 Z
+  acted_at: 2024-08-12 16:20:26.000000000 Z
   ip_address:
 card_acts_244:
-  id: 105573
+  id: 106613
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:21.000000000 Z
+  acted_at: 2024-08-12 16:20:26.000000000 Z
   ip_address:
 card_acts_245:
-  id: 105574
+  id: 106614
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:22.000000000 Z
+  acted_at: 2024-08-12 16:20:26.000000000 Z
   ip_address:
 card_acts_246:
-  id: 105575
+  id: 106615
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:22.000000000 Z
+  acted_at: 2024-08-12 16:20:26.000000000 Z
   ip_address:
 card_acts_247:
-  id: 105576
+  id: 106616
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:22.000000000 Z
+  acted_at: 2024-08-12 16:20:26.000000000 Z
   ip_address:
 card_acts_248:
-  id: 105577
+  id: 106617
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:22.000000000 Z
+  acted_at: 2024-08-12 16:20:26.000000000 Z
   ip_address:
 card_acts_249:
-  id: 105578
+  id: 106618
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:22.000000000 Z
+  acted_at: 2024-08-12 16:20:26.000000000 Z
   ip_address:
 card_acts_250:
-  id: 105579
+  id: 106619
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:22.000000000 Z
+  acted_at: 2024-08-12 16:20:26.000000000 Z
   ip_address:
 card_acts_251:
-  id: 105580
+  id: 106620
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:22.000000000 Z
+  acted_at: 2024-08-12 16:20:26.000000000 Z
   ip_address:
 card_acts_252:
-  id: 105581
+  id: 106621
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:22.000000000 Z
+  acted_at: 2024-08-12 16:20:26.000000000 Z
   ip_address:
 card_acts_253:
-  id: 105582
+  id: 106622
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:22.000000000 Z
+  acted_at: 2024-08-12 16:20:26.000000000 Z
   ip_address:
 card_acts_254:
-  id: 105583
+  id: 106623
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:22.000000000 Z
+  acted_at: 2024-08-12 16:20:26.000000000 Z
   ip_address:
 card_acts_255:
-  id: 105584
+  id: 106624
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:22.000000000 Z
+  acted_at: 2024-08-12 16:20:26.000000000 Z
   ip_address:
 card_acts_256:
-  id: 105585
+  id: 106625
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:22.000000000 Z
+  acted_at: 2024-08-12 16:20:26.000000000 Z
   ip_address:
 card_acts_257:
-  id: 105586
+  id: 106626
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:22.000000000 Z
+  acted_at: 2024-08-12 16:20:26.000000000 Z
   ip_address:
 card_acts_258:
-  id: 105587
+  id: 106627
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:22.000000000 Z
+  acted_at: 2024-08-12 16:20:26.000000000 Z
   ip_address:
 card_acts_259:
-  id: 105588
+  id: 106628
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:22.000000000 Z
+  acted_at: 2024-08-12 16:20:26.000000000 Z
   ip_address:
 card_acts_260:
-  id: 105589
+  id: 106629
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:22.000000000 Z
+  acted_at: 2024-08-12 16:20:26.000000000 Z
   ip_address:
 card_acts_261:
-  id: 105590
+  id: 106630
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:22.000000000 Z
+  acted_at: 2024-08-12 16:20:26.000000000 Z
   ip_address:
 card_acts_262:
-  id: 105591
+  id: 106631
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:22.000000000 Z
+  acted_at: 2024-08-12 16:20:26.000000000 Z
   ip_address:
 card_acts_263:
-  id: 105592
+  id: 106632
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:22.000000000 Z
+  acted_at: 2024-08-12 16:20:26.000000000 Z
   ip_address:
 card_acts_264:
-  id: 105593
+  id: 106633
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:22.000000000 Z
+  acted_at: 2024-08-12 16:20:26.000000000 Z
   ip_address:
 card_acts_265:
-  id: 105594
+  id: 106634
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:22.000000000 Z
+  acted_at: 2024-08-12 16:20:26.000000000 Z
   ip_address:
 card_acts_266:
-  id: 105595
+  id: 106635
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:22.000000000 Z
+  acted_at: 2024-08-12 16:20:26.000000000 Z
   ip_address:
 card_acts_267:
-  id: 105596
+  id: 106636
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:23.000000000 Z
+  acted_at: 2024-08-12 16:20:27.000000000 Z
   ip_address:
 card_acts_268:
-  id: 105597
+  id: 106637
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:23.000000000 Z
+  acted_at: 2024-08-12 16:20:27.000000000 Z
   ip_address:
 card_acts_269:
-  id: 105598
+  id: 106638
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:23.000000000 Z
+  acted_at: 2024-08-12 16:20:27.000000000 Z
   ip_address:
 card_acts_270:
-  id: 105599
+  id: 106639
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:23.000000000 Z
+  acted_at: 2024-08-12 16:20:27.000000000 Z
   ip_address:
 card_acts_271:
-  id: 105600
+  id: 106640
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:24.000000000 Z
+  acted_at: 2024-08-12 16:20:27.000000000 Z
   ip_address:
 card_acts_272:
-  id: 105601
+  id: 106641
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:24.000000000 Z
+  acted_at: 2024-08-12 16:20:27.000000000 Z
   ip_address:
 card_acts_273:
-  id: 105602
+  id: 106642
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:25.000000000 Z
+  acted_at: 2024-08-12 16:20:27.000000000 Z
   ip_address:
 card_acts_274:
-  id: 105603
+  id: 106643
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:25.000000000 Z
+  acted_at: 2024-08-12 16:20:27.000000000 Z
   ip_address:
 card_acts_275:
-  id: 105604
+  id: 106644
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:25.000000000 Z
+  acted_at: 2024-08-12 16:20:27.000000000 Z
   ip_address:
 card_acts_276:
-  id: 105605
+  id: 106645
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:25.000000000 Z
+  acted_at: 2024-08-12 16:20:27.000000000 Z
   ip_address:
 card_acts_277:
-  id: 105606
+  id: 106646
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:26.000000000 Z
+  acted_at: 2024-08-12 16:20:28.000000000 Z
   ip_address:
 card_acts_278:
-  id: 105607
+  id: 106647
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:26.000000000 Z
+  acted_at: 2024-08-12 16:20:28.000000000 Z
   ip_address:
 card_acts_279:
-  id: 105608
+  id: 106648
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:26.000000000 Z
+  acted_at: 2024-08-12 16:20:28.000000000 Z
   ip_address:
 card_acts_280:
-  id: 105609
+  id: 106649
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:26.000000000 Z
+  acted_at: 2024-08-12 16:20:28.000000000 Z
   ip_address:
 card_acts_281:
-  id: 105610
+  id: 106650
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:27.000000000 Z
+  acted_at: 2024-08-12 16:20:28.000000000 Z
   ip_address:
 card_acts_282:
-  id: 105611
+  id: 106651
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:27.000000000 Z
+  acted_at: 2024-08-12 16:20:28.000000000 Z
   ip_address:
 card_acts_283:
-  id: 105612
+  id: 106652
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:27.000000000 Z
+  acted_at: 2024-08-12 16:20:28.000000000 Z
   ip_address:
 card_acts_284:
-  id: 105613
+  id: 106653
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:27.000000000 Z
+  acted_at: 2024-08-12 16:20:28.000000000 Z
   ip_address:
 card_acts_285:
-  id: 105614
+  id: 106654
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:28.000000000 Z
+  acted_at: 2024-08-12 16:20:28.000000000 Z
   ip_address:
 card_acts_286:
-  id: 105615
+  id: 106655
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:28.000000000 Z
+  acted_at: 2024-08-12 16:20:28.000000000 Z
   ip_address:
 card_acts_287:
-  id: 105616
+  id: 106656
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:29.000000000 Z
+  acted_at: 2024-08-12 16:20:29.000000000 Z
   ip_address:
 card_acts_288:
-  id: 105617
+  id: 106657
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:29.000000000 Z
+  acted_at: 2024-08-12 16:20:29.000000000 Z
   ip_address:
 card_acts_289:
-  id: 105618
+  id: 106658
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:29.000000000 Z
+  acted_at: 2024-08-12 16:20:29.000000000 Z
   ip_address:
 card_acts_290:
-  id: 105619
+  id: 106659
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:29.000000000 Z
+  acted_at: 2024-08-12 16:20:29.000000000 Z
   ip_address:
 card_acts_291:
-  id: 105620
+  id: 106660
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:30.000000000 Z
+  acted_at: 2024-08-12 16:20:29.000000000 Z
   ip_address:
 card_acts_292:
-  id: 105621
+  id: 106661
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:30.000000000 Z
+  acted_at: 2024-08-12 16:20:29.000000000 Z
   ip_address:
 card_acts_293:
-  id: 105622
+  id: 106662
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:30.000000000 Z
+  acted_at: 2024-08-12 16:20:29.000000000 Z
   ip_address:
 card_acts_294:
-  id: 105623
+  id: 106663
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:31.000000000 Z
+  acted_at: 2024-08-12 16:20:29.000000000 Z
   ip_address:
 card_acts_295:
-  id: 105624
+  id: 106664
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:31.000000000 Z
+  acted_at: 2024-08-12 16:20:29.000000000 Z
   ip_address:
 card_acts_296:
-  id: 105625
+  id: 106665
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:31.000000000 Z
+  acted_at: 2024-08-12 16:20:29.000000000 Z
   ip_address:
 card_acts_297:
-  id: 105626
+  id: 106666
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:32.000000000 Z
+  acted_at: 2024-08-12 16:20:30.000000000 Z
   ip_address:
 card_acts_298:
-  id: 105627
+  id: 106667
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:32.000000000 Z
+  acted_at: 2024-08-12 16:20:30.000000000 Z
   ip_address:
 card_acts_299:
-  id: 105628
+  id: 106668
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:32.000000000 Z
+  acted_at: 2024-08-12 16:20:30.000000000 Z
   ip_address:
 card_acts_300:
-  id: 105629
+  id: 106669
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:32.000000000 Z
+  acted_at: 2024-08-12 16:20:30.000000000 Z
   ip_address:
 card_acts_301:
-  id: 105630
+  id: 106670
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:33.000000000 Z
+  acted_at: 2024-08-12 16:20:30.000000000 Z
   ip_address:
 card_acts_302:
-  id: 105631
+  id: 106671
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:33.000000000 Z
+  acted_at: 2024-08-12 16:20:30.000000000 Z
   ip_address:
 card_acts_303:
-  id: 105632
+  id: 106672
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:33.000000000 Z
+  acted_at: 2024-08-12 16:20:30.000000000 Z
   ip_address:
 card_acts_304:
-  id: 105633
+  id: 106673
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:33.000000000 Z
+  acted_at: 2024-08-12 16:20:30.000000000 Z
   ip_address:
 card_acts_305:
-  id: 105634
+  id: 106674
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:34.000000000 Z
+  acted_at: 2024-08-12 16:20:30.000000000 Z
   ip_address:
 card_acts_306:
-  id: 105635
+  id: 106675
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:34.000000000 Z
+  acted_at: 2024-08-12 16:20:30.000000000 Z
   ip_address:
 card_acts_307:
-  id: 105636
+  id: 106676
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:34.000000000 Z
+  acted_at: 2024-08-12 16:20:31.000000000 Z
   ip_address:
 card_acts_308:
-  id: 105637
+  id: 106677
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:35.000000000 Z
+  acted_at: 2024-08-12 16:20:31.000000000 Z
   ip_address:
 card_acts_309:
-  id: 105638
+  id: 106678
   card_id: 774
   actor_id: 1
-  acted_at: 2024-10-09 13:57:35.000000000 Z
+  acted_at: 2024-08-12 16:20:31.000000000 Z
   ip_address:
 card_acts_310:
-  id: 105639
+  id: 106679
   card_id: 779
   actor_id: 1
-  acted_at: 2024-10-09 13:57:46.000000000 Z
+  acted_at: 2024-08-12 16:20:37.000000000 Z
   ip_address:
 card_acts_311:
-  id: 105640
+  id: 106680
   card_id: 781
   actor_id: 1
-  acted_at: 2024-10-09 13:57:47.000000000 Z
+  acted_at: 2024-08-12 16:20:37.000000000 Z
   ip_address:
 card_acts_312:
-  id: 105641
+  id: 106681
   card_id: 782
   actor_id: 1
-  acted_at: 2024-10-09 13:57:47.000000000 Z
+  acted_at: 2024-08-12 16:20:37.000000000 Z
   ip_address:
 card_acts_313:
-  id: 105642
+  id: 106682
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:47.000000000 Z
+  acted_at: 2024-08-12 16:20:37.000000000 Z
   ip_address:
 card_acts_314:
-  id: 105643
+  id: 106683
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:47.000000000 Z
+  acted_at: 2024-08-12 16:20:37.000000000 Z
   ip_address:
 card_acts_315:
-  id: 105644
+  id: 106684
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:47.000000000 Z
+  acted_at: 2024-08-12 16:20:37.000000000 Z
   ip_address:
 card_acts_316:
-  id: 105645
+  id: 106685
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:47.000000000 Z
+  acted_at: 2024-08-12 16:20:37.000000000 Z
   ip_address:
 card_acts_317:
-  id: 105646
+  id: 106686
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:47.000000000 Z
+  acted_at: 2024-08-12 16:20:38.000000000 Z
   ip_address:
 card_acts_318:
-  id: 105647
+  id: 106687
   card_id: 783
   actor_id: 1
-  acted_at: 2024-10-09 13:57:47.000000000 Z
+  acted_at: 2024-08-12 16:20:38.000000000 Z
   ip_address:
 card_acts_319:
-  id: 105648
+  id: 106688
   card_id: 785
   actor_id: 1
-  acted_at: 2024-10-09 13:57:47.000000000 Z
+  acted_at: 2024-08-12 16:20:38.000000000 Z
   ip_address:
 card_acts_320:
-  id: 105649
+  id: 106689
   card_id: 786
   actor_id: 1
-  acted_at: 2024-10-09 13:57:47.000000000 Z
+  acted_at: 2024-08-12 16:20:38.000000000 Z
   ip_address:
 card_acts_321:
-  id: 105650
+  id: 106690
   card_id: 787
   actor_id: 1
-  acted_at: 2024-10-09 13:57:47.000000000 Z
+  acted_at: 2024-08-12 16:20:38.000000000 Z
   ip_address:
 card_acts_322:
-  id: 105651
+  id: 106691
   card_id: 788
   actor_id: 1
-  acted_at: 2024-10-09 13:57:47.000000000 Z
+  acted_at: 2024-08-12 16:20:38.000000000 Z
   ip_address:
 card_acts_323:
-  id: 105652
+  id: 106692
   card_id: 789
   actor_id: 1
-  acted_at: 2024-10-09 13:57:47.000000000 Z
+  acted_at: 2024-08-12 16:20:38.000000000 Z
   ip_address:
 card_acts_324:
-  id: 105653
+  id: 106693
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:47.000000000 Z
+  acted_at: 2024-08-12 16:20:38.000000000 Z
   ip_address:
 card_acts_325:
-  id: 105654
+  id: 106694
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:47.000000000 Z
+  acted_at: 2024-08-12 16:20:38.000000000 Z
   ip_address:
 card_acts_326:
-  id: 105655
+  id: 106695
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:47.000000000 Z
+  acted_at: 2024-08-12 16:20:38.000000000 Z
   ip_address:
 card_acts_327:
-  id: 105656
+  id: 106696
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:47.000000000 Z
+  acted_at: 2024-08-12 16:20:38.000000000 Z
   ip_address:
 card_acts_328:
-  id: 105657
+  id: 106697
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:47.000000000 Z
+  acted_at: 2024-08-12 16:20:38.000000000 Z
   ip_address:
 card_acts_329:
-  id: 105658
+  id: 106698
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:47.000000000 Z
+  acted_at: 2024-08-12 16:20:38.000000000 Z
   ip_address:
 card_acts_330:
-  id: 105659
+  id: 106699
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:47.000000000 Z
+  acted_at: 2024-08-12 16:20:38.000000000 Z
   ip_address:
 card_acts_331:
-  id: 105660
+  id: 106700
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:47.000000000 Z
+  acted_at: 2024-08-12 16:20:38.000000000 Z
   ip_address:
 card_acts_332:
-  id: 105661
+  id: 106701
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:47.000000000 Z
+  acted_at: 2024-08-12 16:20:38.000000000 Z
   ip_address:
 card_acts_333:
-  id: 105662
+  id: 106702
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:47.000000000 Z
+  acted_at: 2024-08-12 16:20:38.000000000 Z
   ip_address:
 card_acts_334:
-  id: 105663
+  id: 106703
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:47.000000000 Z
+  acted_at: 2024-08-12 16:20:38.000000000 Z
   ip_address:
 card_acts_335:
-  id: 105664
+  id: 106704
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:47.000000000 Z
+  acted_at: 2024-08-12 16:20:38.000000000 Z
   ip_address:
 card_acts_336:
-  id: 105665
+  id: 106705
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:47.000000000 Z
+  acted_at: 2024-08-12 16:20:38.000000000 Z
   ip_address:
 card_acts_337:
-  id: 105666
+  id: 106706
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:47.000000000 Z
+  acted_at: 2024-08-12 16:20:38.000000000 Z
   ip_address:
 card_acts_338:
-  id: 105667
+  id: 106707
   card_id: 790
   actor_id: 1
-  acted_at: 2024-10-09 13:57:47.000000000 Z
+  acted_at: 2024-08-12 16:20:38.000000000 Z
   ip_address:
 card_acts_339:
-  id: 105668
+  id: 106708
   card_id: 796
   actor_id: 1
-  acted_at: 2024-10-09 13:57:47.000000000 Z
+  acted_at: 2024-08-12 16:20:38.000000000 Z
   ip_address:
 card_acts_340:
-  id: 105669
+  id: 106709
   card_id: 802
   actor_id: 1
-  acted_at: 2024-10-09 13:57:47.000000000 Z
+  acted_at: 2024-08-12 16:20:38.000000000 Z
   ip_address:
 card_acts_341:
-  id: 105670
+  id: 106710
   card_id: 808
   actor_id: 1
-  acted_at: 2024-10-09 13:57:48.000000000 Z
+  acted_at: 2024-08-12 16:20:38.000000000 Z
   ip_address:
 card_acts_342:
-  id: 105671
+  id: 106711
   card_id: 814
   actor_id: 1
-  acted_at: 2024-10-09 13:57:48.000000000 Z
+  acted_at: 2024-08-12 16:20:38.000000000 Z
   ip_address:
 card_acts_343:
-  id: 105672
+  id: 106712
   card_id: 820
   actor_id: 1
-  acted_at: 2024-10-09 13:57:48.000000000 Z
+  acted_at: 2024-08-12 16:20:38.000000000 Z
   ip_address:
 card_acts_344:
-  id: 105673
+  id: 106713
   card_id: 826
   actor_id: 1
-  acted_at: 2024-10-09 13:57:48.000000000 Z
+  acted_at: 2024-08-12 16:20:38.000000000 Z
   ip_address:
 card_acts_345:
-  id: 105674
+  id: 106714
   card_id: 827
   actor_id: 1
-  acted_at: 2024-10-09 13:57:48.000000000 Z
+  acted_at: 2024-08-12 16:20:38.000000000 Z
   ip_address:
 card_acts_346:
-  id: 105675
+  id: 106715
   card_id: 828
   actor_id: 1
-  acted_at: 2024-10-09 13:57:48.000000000 Z
+  acted_at: 2024-08-12 16:20:38.000000000 Z
   ip_address:
 card_acts_347:
-  id: 105676
+  id: 106716
   card_id: 829
   actor_id: 1
-  acted_at: 2024-10-09 13:57:48.000000000 Z
+  acted_at: 2024-08-12 16:20:38.000000000 Z
   ip_address:
 card_acts_348:
-  id: 105677
+  id: 106717
   card_id: 830
   actor_id: 1
-  acted_at: 2024-10-09 13:57:48.000000000 Z
+  acted_at: 2024-08-12 16:20:38.000000000 Z
   ip_address:
 card_acts_349:
-  id: 105678
+  id: 106718
   card_id: 831
   actor_id: 1
-  acted_at: 2024-10-09 13:57:48.000000000 Z
+  acted_at: 2024-08-12 16:20:38.000000000 Z
   ip_address:
 card_acts_350:
-  id: 105679
+  id: 106719
   card_id: 833
   actor_id: 1
-  acted_at: 2024-10-09 13:57:48.000000000 Z
+  acted_at: 2024-08-12 16:20:38.000000000 Z
   ip_address:
 card_acts_351:
-  id: 105680
+  id: 106720
   card_id: 836
   actor_id: 1
-  acted_at: 2024-10-09 13:57:48.000000000 Z
+  acted_at: 2024-08-12 16:20:38.000000000 Z
   ip_address:
 card_acts_352:
-  id: 105681
+  id: 106721
   card_id: 836
   actor_id: 820
-  acted_at: 2024-10-09 13:57:48.000000000 Z
+  acted_at: 2024-08-12 16:20:39.000000000 Z
   ip_address:
 card_acts_353:
-  id: 105682
+  id: 106722
   card_id: 837
   actor_id: 820
-  acted_at: 2024-10-09 13:57:48.000000000 Z
+  acted_at: 2024-08-12 16:20:39.000000000 Z
   ip_address:
 card_acts_354:
-  id: 105683
+  id: 106723
   card_id: 838
   actor_id: 808
-  acted_at: 2024-10-09 13:57:48.000000000 Z
+  acted_at: 2024-08-12 16:20:39.000000000 Z
   ip_address:
 card_acts_355:
-  id: 105684
+  id: 106724
   card_id: 840
   actor_id: 1
-  acted_at: 2024-10-09 13:57:48.000000000 Z
+  acted_at: 2024-08-12 16:20:39.000000000 Z
   ip_address:
 card_acts_356:
-  id: 105685
+  id: 106725
   card_id: 842
   actor_id: 1
-  acted_at: 2024-10-09 13:57:48.000000000 Z
+  acted_at: 2024-08-12 16:20:39.000000000 Z
   ip_address:
 card_acts_357:
-  id: 105686
+  id: 106726
   card_id: 843
   actor_id: 1
-  acted_at: 2024-10-09 13:57:48.000000000 Z
+  acted_at: 2024-08-12 16:20:39.000000000 Z
   ip_address:
 card_acts_358:
-  id: 105687
+  id: 106727
   card_id: 845
   actor_id: 1
-  acted_at: 2024-10-09 13:57:48.000000000 Z
+  acted_at: 2024-08-12 16:20:39.000000000 Z
   ip_address:
 card_acts_359:
-  id: 105688
+  id: 106728
   card_id: 847
   actor_id: 1
-  acted_at: 2024-10-09 13:57:48.000000000 Z
+  acted_at: 2024-08-12 16:20:39.000000000 Z
   ip_address:
 card_acts_360:
-  id: 105689
+  id: 106729
   card_id: 850
   actor_id: 1
-  acted_at: 2024-10-09 13:57:48.000000000 Z
+  acted_at: 2024-08-12 16:20:39.000000000 Z
   ip_address:
 card_acts_361:
-  id: 105690
+  id: 106730
   card_id: 853
   actor_id: 1
-  acted_at: 2024-10-09 13:57:49.000000000 Z
+  acted_at: 2024-08-12 16:20:39.000000000 Z
   ip_address:
 card_acts_362:
-  id: 105691
+  id: 106731
   card_id: 856
   actor_id: 1
-  acted_at: 2024-10-09 13:57:49.000000000 Z
+  acted_at: 2024-08-12 16:20:39.000000000 Z
   ip_address:
 card_acts_363:
-  id: 105692
+  id: 106732
   card_id: 858
   actor_id: 1
-  acted_at: 2024-10-09 13:57:49.000000000 Z
+  acted_at: 2024-08-12 16:20:39.000000000 Z
   ip_address:
 card_acts_364:
-  id: 105693
+  id: 106733
   card_id: 861
   actor_id: 1
-  acted_at: 2024-10-09 13:57:49.000000000 Z
+  acted_at: 2024-08-12 16:20:39.000000000 Z
   ip_address:
 card_acts_365:
-  id: 105694
+  id: 106734
   card_id: 863
   actor_id: 1
-  acted_at: 2024-10-09 13:57:49.000000000 Z
+  acted_at: 2024-08-12 16:20:39.000000000 Z
   ip_address:
 card_acts_366:
-  id: 105695
+  id: 106735
   card_id: 865
   actor_id: 1
-  acted_at: 2024-10-09 13:57:49.000000000 Z
+  acted_at: 2024-08-12 16:20:39.000000000 Z
   ip_address:
 card_acts_367:
-  id: 105696
+  id: 106736
   card_id: 868
   actor_id: 1
-  acted_at: 2024-10-09 13:57:49.000000000 Z
+  acted_at: 2024-08-12 16:20:39.000000000 Z
   ip_address:
 card_acts_368:
-  id: 105697
+  id: 106737
   card_id: 870
   actor_id: 1
-  acted_at: 2024-10-09 13:57:49.000000000 Z
+  acted_at: 2024-08-12 16:20:39.000000000 Z
   ip_address:
 card_acts_369:
-  id: 105698
+  id: 106738
   card_id: 873
   actor_id: 1
-  acted_at: 2024-10-09 13:57:49.000000000 Z
+  acted_at: 2024-08-12 16:20:39.000000000 Z
   ip_address:
 card_acts_370:
-  id: 105699
+  id: 106739
   card_id: 877
   actor_id: 1
-  acted_at: 2024-10-09 13:57:49.000000000 Z
+  acted_at: 2024-08-12 16:20:39.000000000 Z
   ip_address:
 card_acts_371:
-  id: 105700
+  id: 106740
   card_id: 879
   actor_id: 1
-  acted_at: 2024-10-09 13:57:49.000000000 Z
+  acted_at: 2024-08-12 16:20:39.000000000 Z
   ip_address:
 card_acts_372:
-  id: 105701
+  id: 106741
   card_id: 881
   actor_id: 1
-  acted_at: 2024-10-09 13:57:49.000000000 Z
+  acted_at: 2024-08-12 16:20:39.000000000 Z
   ip_address:
 card_acts_373:
-  id: 105702
+  id: 106742
   card_id: 883
   actor_id: 1
-  acted_at: 2024-10-09 13:57:49.000000000 Z
+  acted_at: 2024-08-12 16:20:39.000000000 Z
   ip_address:
 card_acts_374:
-  id: 105703
+  id: 106743
   card_id: 885
   actor_id: 1
-  acted_at: 2024-10-09 13:57:49.000000000 Z
+  acted_at: 2024-08-12 16:20:40.000000000 Z
   ip_address:
 card_acts_375:
-  id: 105704
+  id: 106744
   card_id: 886
   actor_id: 624
-  acted_at: 2024-10-09 13:57:50.000000000 Z
+  acted_at: 2024-08-12 16:20:40.000000000 Z
   ip_address:
 card_acts_376:
-  id: 105705
+  id: 106745
   card_id: 891
   actor_id: 624
-  acted_at: 2024-10-09 13:57:50.000000000 Z
+  acted_at: 2024-08-12 16:20:40.000000000 Z
   ip_address:
 card_acts_377:
-  id: 105706
+  id: 106746
   card_id: 895
   actor_id: 624
-  acted_at: 2024-10-09 13:57:50.000000000 Z
+  acted_at: 2024-08-12 16:20:40.000000000 Z
   ip_address:
 card_acts_378:
-  id: 105707
+  id: 106747
   card_id: 898
   actor_id: 624
-  acted_at: 2024-10-09 13:57:50.000000000 Z
+  acted_at: 2024-08-12 16:20:40.000000000 Z
   ip_address:
 card_acts_379:
-  id: 105708
+  id: 106748
   card_id: 903
   actor_id: 1
-  acted_at: 2024-10-09 13:57:50.000000000 Z
+  acted_at: 2024-08-12 16:20:40.000000000 Z
   ip_address:
 card_acts_380:
-  id: 105709
+  id: 106749
   card_id: 905
   actor_id: 1
-  acted_at: 2024-10-09 13:57:50.000000000 Z
+  acted_at: 2024-08-12 16:20:40.000000000 Z
   ip_address:
 card_acts_381:
-  id: 105710
+  id: 106750
   card_id: 907
   actor_id: 1
-  acted_at: 2024-10-09 13:57:50.000000000 Z
+  acted_at: 2024-08-12 16:20:40.000000000 Z
   ip_address:
 card_acts_382:
-  id: 105711
+  id: 106751
   card_id: 909
   actor_id: 1
-  acted_at: 2024-10-09 13:57:50.000000000 Z
+  acted_at: 2024-08-12 16:20:40.000000000 Z
   ip_address:
 card_acts_383:
-  id: 105712
+  id: 106752
   card_id: 911
   actor_id: 1
-  acted_at: 2024-10-09 13:57:50.000000000 Z
+  acted_at: 2024-08-12 16:20:40.000000000 Z
   ip_address:
 card_acts_384:
-  id: 105713
+  id: 106753
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:50.000000000 Z
+  acted_at: 2024-08-12 16:20:40.000000000 Z
   ip_address:
 card_acts_385:
-  id: 105714
+  id: 106754
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:50.000000000 Z
+  acted_at: 2024-08-12 16:20:40.000000000 Z
   ip_address:
 card_acts_386:
-  id: 105715
+  id: 106755
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:50.000000000 Z
+  acted_at: 2024-08-12 16:20:40.000000000 Z
   ip_address:
 card_acts_387:
-  id: 105716
+  id: 106756
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:51.000000000 Z
+  acted_at: 2024-08-12 16:20:40.000000000 Z
   ip_address:
 card_acts_388:
-  id: 105717
+  id: 106757
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:51.000000000 Z
+  acted_at: 2024-08-12 16:20:40.000000000 Z
   ip_address:
 card_acts_389:
-  id: 105718
+  id: 106758
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:51.000000000 Z
+  acted_at: 2024-08-12 16:20:40.000000000 Z
   ip_address:
 card_acts_390:
-  id: 105719
+  id: 106759
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:51.000000000 Z
+  acted_at: 2024-08-12 16:20:40.000000000 Z
   ip_address:
 card_acts_391:
-  id: 105720
+  id: 106760
   card_id: 496
   actor_id: 1
-  acted_at: 2024-10-09 13:57:51.000000000 Z
+  acted_at: 2024-08-12 16:20:40.000000000 Z
   ip_address:
 card_acts_392:
-  id: 105721
+  id: 106761
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:51.000000000 Z
+  acted_at: 2024-08-12 16:20:40.000000000 Z
   ip_address:
 card_acts_393:
-  id: 105722
+  id: 106762
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:51.000000000 Z
+  acted_at: 2024-08-12 16:20:40.000000000 Z
   ip_address:
 card_acts_394:
-  id: 105723
+  id: 106763
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:51.000000000 Z
+  acted_at: 2024-08-12 16:20:40.000000000 Z
   ip_address:
 card_acts_395:
-  id: 105724
+  id: 106764
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:51.000000000 Z
+  acted_at: 2024-08-12 16:20:40.000000000 Z
   ip_address:
 card_acts_396:
-  id: 105725
+  id: 106765
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:51.000000000 Z
+  acted_at: 2024-08-12 16:20:40.000000000 Z
   ip_address:
 card_acts_397:
-  id: 105726
+  id: 106766
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:51.000000000 Z
+  acted_at: 2024-08-12 16:20:40.000000000 Z
   ip_address:
 card_acts_398:
-  id: 105727
+  id: 106767
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:51.000000000 Z
+  acted_at: 2024-08-12 16:20:40.000000000 Z
   ip_address:
 card_acts_399:
-  id: 105728
+  id: 106768
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:51.000000000 Z
+  acted_at: 2024-08-12 16:20:40.000000000 Z
   ip_address:
 card_acts_400:
-  id: 105729
+  id: 106769
   card_id: 912
   actor_id: 1
-  acted_at: 2024-10-09 13:57:51.000000000 Z
+  acted_at: 2024-08-12 16:20:40.000000000 Z
   ip_address:
 card_acts_401:
-  id: 105730
+  id: 106770
   card_id: 913
   actor_id: 1
-  acted_at: 2024-10-09 13:57:51.000000000 Z
+  acted_at: 2024-08-12 16:20:40.000000000 Z
   ip_address:
 card_acts_402:
-  id: 105731
+  id: 106771
   card_id: 915
   actor_id: 1
-  acted_at: 2024-10-09 13:57:51.000000000 Z
+  acted_at: 2024-08-12 16:20:40.000000000 Z
   ip_address:
 card_acts_403:
-  id: 105732
+  id: 106772
   card_id: 916
   actor_id: 1
-  acted_at: 2024-10-09 13:57:51.000000000 Z
+  acted_at: 2024-08-12 16:20:40.000000000 Z
   ip_address:
 card_acts_404:
-  id: 105733
+  id: 106773
   card_id: 917
   actor_id: 1
-  acted_at: 2024-10-09 13:57:51.000000000 Z
+  acted_at: 2024-08-12 16:20:41.000000000 Z
   ip_address:
 card_acts_405:
-  id: 105734
+  id: 106774
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:51.000000000 Z
+  acted_at: 2024-08-12 16:20:41.000000000 Z
   ip_address:
 card_acts_406:
-  id: 105735
+  id: 106775
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:51.000000000 Z
+  acted_at: 2024-08-12 16:20:41.000000000 Z
   ip_address:
 card_acts_407:
-  id: 105736
+  id: 106776
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:51.000000000 Z
+  acted_at: 2024-08-12 16:20:41.000000000 Z
   ip_address:
 card_acts_408:
-  id: 105737
+  id: 106777
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:51.000000000 Z
+  acted_at: 2024-08-12 16:20:41.000000000 Z
   ip_address:
 card_acts_409:
-  id: 105738
+  id: 106778
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:51.000000000 Z
+  acted_at: 2024-08-12 16:20:41.000000000 Z
   ip_address:
 card_acts_410:
-  id: 105739
+  id: 106779
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:51.000000000 Z
+  acted_at: 2024-08-12 16:20:41.000000000 Z
   ip_address:
 card_acts_411:
-  id: 105740
+  id: 106780
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:51.000000000 Z
+  acted_at: 2024-08-12 16:20:41.000000000 Z
   ip_address:
 card_acts_412:
-  id: 105741
+  id: 106781
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:51.000000000 Z
+  acted_at: 2024-08-12 16:20:41.000000000 Z
   ip_address:
 card_acts_413:
-  id: 105742
+  id: 106782
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:51.000000000 Z
+  acted_at: 2024-08-12 16:20:41.000000000 Z
   ip_address:
 card_acts_414:
-  id: 105743
+  id: 106783
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:51.000000000 Z
+  acted_at: 2024-08-12 16:20:41.000000000 Z
   ip_address:
 card_acts_415:
-  id: 105744
+  id: 106784
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:51.000000000 Z
+  acted_at: 2024-08-12 16:20:41.000000000 Z
   ip_address:
 card_acts_416:
-  id: 105745
+  id: 106785
   card_id: 496
   actor_id: 1
-  acted_at: 2024-10-09 13:57:52.000000000 Z
+  acted_at: 2024-08-12 16:20:41.000000000 Z
   ip_address:
 card_acts_417:
-  id: 105746
+  id: 106786
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:52.000000000 Z
+  acted_at: 2024-08-12 16:20:41.000000000 Z
   ip_address:
 card_acts_418:
-  id: 105747
+  id: 106787
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:52.000000000 Z
+  acted_at: 2024-08-12 16:20:41.000000000 Z
   ip_address:
 card_acts_419:
-  id: 105748
+  id: 106788
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:52.000000000 Z
+  acted_at: 2024-08-12 16:20:41.000000000 Z
   ip_address:
 card_acts_420:
-  id: 105749
+  id: 106789
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:52.000000000 Z
+  acted_at: 2024-08-12 16:20:41.000000000 Z
   ip_address:
 card_acts_421:
-  id: 105750
+  id: 106790
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:52.000000000 Z
+  acted_at: 2024-08-12 16:20:41.000000000 Z
   ip_address:
 card_acts_422:
-  id: 105751
+  id: 106791
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:52.000000000 Z
+  acted_at: 2024-08-12 16:20:41.000000000 Z
   ip_address:
 card_acts_423:
-  id: 105752
+  id: 106792
   card_id:
   actor_id: 1
-  acted_at: 2024-10-09 13:57:52.000000000 Z
+  acted_at: 2024-08-12 16:20:41.000000000 Z
   ip_address:
 card_acts_424:
-  id: 105753
+  id: 106793
   card_id: 305
   actor_id: 1
-  acted_at: 2024-10-09 13:57:52.000000000 Z
+  acted_at: 2024-08-12 16:20:41.000000000 Z
   ip_address:
 card_acts_425:
-  id: 105754
+  id: 106794
   card_id: 326
   actor_id: 1
-  acted_at: 2024-10-09 13:57:52.000000000 Z
+  acted_at: 2024-08-12 16:20:41.000000000 Z
+  ip_address:
+card_acts_426:
+  id: 106795
+  card_id: 496
+  actor_id: 1
+  acted_at: 2024-09-23 18:33:32.000000000 Z
+  ip_address:
+card_acts_427:
+  id: 106796
+  card_id: 496
+  actor_id: 1
+  acted_at: 2024-09-23 18:33:32.000000000 Z
+  ip_address:
+card_acts_428:
+  id: 106797
+  card_id: 305
+  actor_id: 1
+  acted_at: 2024-09-23 18:33:32.000000000 Z
+  ip_address:
+card_acts_429:
+  id: 106798
+  card_id: 326
+  actor_id: 1
+  acted_at: 2024-09-23 18:33:32.000000000 Z
+  ip_address:
+card_acts_430:
+  id: 106799
+  card_id: 496
+  actor_id: 1
+  acted_at: 2024-10-09 15:53:28.000000000 Z
+  ip_address:
+card_acts_431:
+  id: 106800
+  card_id: 496
+  actor_id: 1
+  acted_at: 2024-10-09 15:53:28.000000000 Z
+  ip_address:
+card_acts_432:
+  id: 106801
+  card_id: 305
+  actor_id: 1
+  acted_at: 2024-10-09 15:53:28.000000000 Z
+  ip_address:
+card_acts_433:
+  id: 106802
+  card_id: 326
+  actor_id: 1
+  acted_at: 2024-10-09 15:53:28.000000000 Z
   ip_address:

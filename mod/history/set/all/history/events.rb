@@ -13,15 +13,7 @@ end
 # must be called on all actions and before :set_name, :process_subcards and
 # :delete_children
 event :assign_action, :initialize, when: :actionable? do
-  act = director.need_act
-  @current_action = Card::Action.create(
-    card_act_id: act.id,
-    action_type: action,
-    draft: (Env.params["draft"] == "true")
-  )
-  if @supercard && @supercard != self
-    @current_action.super_action = @supercard.current_action
-  end
+  @current_action = new_action
 end
 
 event :detect_conflict, :validate, on: :update, when: :edit_conflict? do
@@ -57,12 +49,6 @@ event :finalize_act, after: :finalize_action, when: :act_card? do
   Card::Director.act.update! card_id: id
 end
 
-event :remove_empty_act, :integrate_with_delay_final,
-      priority: 100, when: :remove_empty_act? do
-  # Card::Director.act.delete
-  # Card::Director.act = nil
-end
-
 # can we store an action? (can be overridden, eg in files)
 def actionable?
   history?
@@ -84,6 +70,26 @@ def edit_conflict?
 end
 
 private
+
+def new_action
+  Card::Action.new(
+    act: director.need_act,
+    # ar_card: self,
+    action_type: action,
+    draft: draft_action?,
+    super_action: super_action
+  )
+end
+
+def draft_action?
+  Env.params["draft"] == "true"
+end
+
+def super_action
+  return unless @supercard && @supercard != self
+
+  @supercard.current_action
+end
 
 # changes for the create action are stored after the first update
 def store_card_changes_for_create_action
