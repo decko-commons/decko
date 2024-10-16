@@ -37,7 +37,7 @@ class Card
       end
 
       def autoname name
-        if Card.exists?(name) || Director.include?(name)
+        if Card.exist?(name) || Director.include?(name)
           autoname name.next
         else
           name

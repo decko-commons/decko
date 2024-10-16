@@ -74,7 +74,7 @@ module Cardio
     end
 
     def ensure_card
-      if Card::Codename.exists? codename
+      if Card::Codename.exist? codename
         card = Card.fetch codename.to_sym
         card.update type: :mod unless card.type_code == :mod
         card

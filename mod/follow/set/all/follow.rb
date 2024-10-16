@@ -29,5 +29,5 @@ def follow_rule_card user=nil, args={}
 end
 
 def follow_rule? user=nil
-  Card.exists? follow_rule_name(user)
+  Card.exist? follow_rule_name(user)
 end

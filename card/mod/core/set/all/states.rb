@@ -100,5 +100,5 @@ def altered?
 end
 
 def user_changes?
-  actions.joins(:act).where("card_acts.actor_id != ?", WagnBotID).exists?
+  actions.joins(:act).where("card_acts.actor_id != ?", WagnBotID).exist?
 end

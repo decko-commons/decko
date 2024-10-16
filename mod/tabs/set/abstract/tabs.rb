@@ -55,7 +55,7 @@ format :html do
 
   def tab_title_from_map tab_key, opts
     opts ||= {}
-    if Codename.exists? tab_key
+    if Codename.exist? tab_key
       tab_title_from_fieldcode tab_key, opts
     else
       label = opts[:label] || tab_key
