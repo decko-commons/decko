@@ -41,7 +41,10 @@ class Card
       end
 
       def id_from_mark
-        mark_type == :id ? mark_value : Lexicon.id(mark_value)
+        return mark_value if mark_type == :id
+        id = Lexicon.id mark_value
+        return id if id.present? || !look_in_trash?
+        Card.where(key: mark_value.to_name.key, trash: true).take&.id
       end
 
       # In both the cache and the db, ids and keys are used to retrieve card data.

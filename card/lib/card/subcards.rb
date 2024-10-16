@@ -15,11 +15,19 @@ class Card
     include Remove
     include Relate
 
-    attr_accessor :context_card, :keys
+    attr_accessor :context_card, :keys, :cardmap
 
     def initialize context_card
       @context_card = context_card
       @keys = ::Set.new
+    end
+
+    def cardmap
+      @cardmap ||= {}
+    end
+
+    def keys
+      cardmap.keys
     end
 
     def [] name
@@ -27,18 +35,15 @@ class Card
     end
 
     def field name
-      key = field_name_to_key name
-      fetch_subcard key if @keys.include? key
+      cardmap.find { |_k, c| c.name.right_name == name.to_name }
     end
 
     def card name
-      return unless @keys.include? name.to_name.key
-
-      fetch_subcard name
+      cardmap[name.to_name.key]
     end
 
     def present?
-      @keys.present?
+      cardmap.present?
     end
 
     def catch_up_to_stage stage_index
@@ -48,30 +53,28 @@ class Card
     end
 
     def rename old_name, new_name
-      return unless @keys.include? old_name.to_name.key
+      return unless cardmap.keys.include? old_name.to_name.key
 
-      @keys.delete old_name.to_name.key
-      @keys << new_name.to_name.key
+      card = cardmap.delete old_name.to_name.key
+      cardmap[new_name.to_name.key] = card if card
     end
 
-    def respond_to_missing? method_name, _include_private=false
-      @keys.respond_to? method_name
-    end
-
-    def method_missing method, *args
-      return unless respond_to_missing?(method)
-
-      @keys.send method, *args
-    end
+    # def respond_to_missing? method_name, _include_private=false
+    #   map.keys.respond_to? method_name
+    # end
+    #
+    # def method_missing method, *args
+    #   return unless respond_to_missing?(method)
+    #
+    #   map.keys.send method, *args
+    # end
 
     # fetch all cards first to avoid side effects
     # e.g. deleting a user adds follow rules and +*account to subcards
     # for deleting but deleting follow rules can remove +*account from the
     # cache if it belongs to the rule cards
     def cards
-      @keys.map do |key|
-        fetch_subcard key
-      end.compact
+      cardmap.values
     end
 
     def each_card &block
@@ -80,34 +83,8 @@ class Card
 
     alias_method :each, :each_card
 
-    def each_with_key
-      @keys.each do |key|
-        card = fetch_subcard(key)
-        yield(card, key) if card
-      end
-    end
-
-    def fetch_subcard key
-      Card.fetch key, local_only: true, new: {}
-    end
-
-    private
-
-    def subcard_key cardish
-      key = case cardish
-            when Card   then cardish.key
-            when Symbol then fetch_subcard(cardish).key
-            else             cardish.to_name.key
-            end
-      key = absolutize_subcard_name(key).key unless @keys.include?(key)
-      key
-    end
-
-    def absolutize_subcard_name name
-      name = Card::Name[name]
-      return name if @context_card.name.parts.first.blank?
-
-      name.absolute_name @context_card.name
+    def each_with_key &block
+      cardmap.each &block
     end
   end
 end
