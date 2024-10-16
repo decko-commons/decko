@@ -22,7 +22,8 @@ class Card
       def renew
         # TODO: remove these!!!
         # Cardio.config.view_cache = false
-        Cardio.config.asset_refresh = :cautious
+        # Cardio.config.asset_refresh = :cautious
+        # Card::Codename.reset_cache
         # Cardio.config.prepopulate_cache = true
 
         Card::Cache.counter = nil
@@ -142,7 +143,10 @@ class Card
       end
 
       def seed_temp_cache
-        seed_ids Codename.ids if shared_cache
+        return unless shared_cache
+
+        result = seed_ids Codename.ids
+        Codename.generate_codehash if result.blank?
         Card.cache.read_multi Set.basket[:cache_seed_strings]
         seed_names Set.basket[:cache_seed_names]
       end

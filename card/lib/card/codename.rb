@@ -1,6 +1,14 @@
 # -*- encoding : utf-8 -*-
 
 class Card
+  def codename
+    super&.to_sym
+  end
+
+  def codename?
+    codename.present?
+  end
+
   # {Card}'s names can be changed, and therefore _names_ should not be directly mentioned
   # in code, lest a name change break the application.
   #
@@ -19,7 +27,6 @@ class Card
   #
   # The {Codename} class provides a fast cache for this slow-changing data.
   # Every process maintains a complete cache that is not frequently reset
-  #
   class Codename
     class << self
       # returns codename for id and id for codename
@@ -90,6 +97,7 @@ class Card
       end
 
       def generate_id_constants
+        Rails.logger.info "generating ID constants"
         # If a card has the codename _example_, then Card::ExampleID will
         # return the id for that card.
         codehash.each do |codename, id|
@@ -107,24 +115,21 @@ class Card
         reset_cache
       end
 
+      def generate_codehash
+        each_codenamed_card.with_object({}) do |card, hash|
+          hash[card.codename] = card.id
+          hash[card.id] = card.codename
+          seed_caches card
+        end
+      end
+
       private
 
       # iterate through every card with a codename
       # @yieldparam codename [Symbol]
       # @yieldparam id [Integer]
-      def each_codenamed_card
-        sql = "select id, codename from cards where codename is not NULL"
-        ActiveRecord::Base.connection.select_all(sql).each do |row|
-          yield row["codename"].to_sym, row["id"].to_i
-        end
-      end
-
-      # @todo remove duplicate checks here; should be caught upon creation
-      def check_duplicates codehash, codename, card_id
-        return unless codehash.key?(codename) || codehash.key?(card_id)
-
-        Rails.logger.debug "dup codename: #{codename}, "\
-                           "ID:#{card_id} (#{codehash[codename]})"
+      def each_codenamed_card &block
+        Card.where("codename is not NULL").each &block
       end
 
       # generate Hash for @codehash and put it in the cache
@@ -134,14 +139,11 @@ class Card
         end
       end
 
-      def generate_codehash
-        hash = {}
-        each_codenamed_card do |codename, card_id|
-          check_duplicates hash, codename, card_id
-          hash[codename] = card_id
-          hash[card_id] = codename
-        end
-        hash
+      def seed_caches card
+        return if card.left_id
+
+        Card::Lexicon.write card.id, card.name, card.lex
+        Card.cache.write card.key, card
       end
 
       def unknown_codename! mark
