@@ -27,7 +27,7 @@ class Card
 
       # @param key [String]
       def write key, value, callback: true
-        within_key_counts value do
+        within_key_counts do
           @store[key] = value.tap do
             @reps += 1
             @klass.try :after_write_to_temp_cache, value if callback
@@ -74,12 +74,14 @@ class Card
 
       private
 
+      # enforces MAX_KEYS. The @reps count increments with each write but may
+      # overestimate the store size, because of multiple writes to the same key.
+      # (but this approach avoids recounting each time)
       def within_key_counts
-        if @reps >= MAX_KEYS
-          sd            Rails.logger.info "RESETTING temporary #{@klass} cache. " \
-                                "MAX_KEYS (#{MAX_KEYS}) exceeded"
-            @store = {}
-          end
+        if @reps >= MAX_KEYS && (@reps = @store.size) > MAX_KEYS
+          Rails.logger.info "RESETTING temporary #{@klass} cache. " \
+                              "MAX_KEYS (#{MAX_KEYS}) exceeded"
+          reset
         end
         yield
       end
