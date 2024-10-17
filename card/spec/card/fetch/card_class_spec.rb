@@ -16,11 +16,11 @@ RSpec.describe Card::Fetch::CardClass do
 
   describe "#exists?" do
     it "is true for cards that are there" do
-      expect(Card.exists?("A")).to eq(true)
+      expect(Card.exist?("A")).to eq(true)
     end
 
     it "is false for cards that aren't" do
-      expect(Card.exists?("Mumblefunk is gone")).to eq(false)
+      expect(Card.exist?("Mumblefunk is gone")).to eq(false)
     end
   end
 
