@@ -154,7 +154,7 @@ class Card
         return if card.left_id
 
         Card::Lexicon.write card.id, card.name, card.lex
-        Card.cache.write card.key, card
+        # Card.cache.write card.key, card
       end
 
       def unknown_codename! mark

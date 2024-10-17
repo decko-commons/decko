@@ -12,7 +12,6 @@ end
 
 private
 
-
 def validate_codename_characters
   return unless codename.to_s.match?(/[^a-z_]/)
 
