@@ -8,7 +8,7 @@ RSpec::Matchers.define :exist do
     should_be_true =
       case card
       when String
-        Card.exists? card
+        Card.exist? card
       when Card
         card.real?
       else

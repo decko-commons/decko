@@ -1,11 +1,3 @@
-def codename
-  super&.to_sym
-end
-
-def codename?
-  codename.present?
-end
-
 event :validate_codename, :validate, on: :update, changed: :codename do
   validate_codename_permission
   validate_codename_uniqueness

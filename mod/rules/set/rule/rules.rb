@@ -105,5 +105,5 @@ def state_of_nonexisting_set
 end
 
 def rule_for_set? set_name
-  Card.exists?("#{set_name}+#{rule_user_setting_name}")
+  Card.exist?("#{set_name}+#{rule_user_setting_name}")
 end

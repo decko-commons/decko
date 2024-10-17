@@ -21,6 +21,7 @@ class Card
         # needed eg in development mode to detect changes)
         inputters += nonstandard_inputters if force
         Cache.populate_fields inputters, :asset_input, :asset_output
+        Virtual.cache.read_multi(inputters.map { |i| [i, :asset_input].to_name.key })
         inputters.each(&:refresh_asset)
 
         generate_asset_output_files if force
