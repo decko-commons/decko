@@ -4,7 +4,7 @@ class Card
   module Auth
     # methods for setting current account
     module Token
-      SECRET_KEY = Rails.application.secrets.secret_key_base.to_s
+      SECRET_KEY = Rails.application.credentials.secret_key_base.to_s
 
       class << self
         def encode user_id, extra_payload={}
