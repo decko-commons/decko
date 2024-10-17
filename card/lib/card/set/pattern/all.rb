@@ -10,7 +10,7 @@ class Card
         # However, we can optimize considerably by saving the list of ruby modules in
         # environments where they won't be changing (eg production) or at least the list
         # of matching set patterns
-        def prep_modules_qfor_caching
+        def prep_modules_for_caching
           patterns
           set_modules if Cardio.config.cache_set_module_list
         end
