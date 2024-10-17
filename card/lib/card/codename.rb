@@ -81,7 +81,7 @@ class Card
       # clear codename cache both in local variable and in temporary and shared caches
       def reset_cache
         @codehash = nil
-        ::Card.cache.delete "CODEHASH"
+        ::Card.cache.delete "CODENAMES"
       end
 
       # @param codename [Symbol, String]
@@ -104,7 +104,6 @@ class Card
       # Creates ruby constants for codenames. Eg, if a card has the codename _gibbon_,
       # then Card::GibbonID will contain the id for that card.
       def generate_id_constants
-        load_codehash seed: false
         codehash[:c2i].each do |codename, id|
           Card.const_get_or_set("#{codename.to_s.camelize}ID") { id }
         end
@@ -124,11 +123,11 @@ class Card
       # It _also_ seeds the Card and Lexicon caches with codename details
       #
       # @return [Hash] (the codehash)
-      def process_codenames seed: true
+      def process_codenames
         codenamed_cards.each_with_object(c2i: {}, i2c: {}) do |card, hash|
           hash[:c2i][card.codename] = card.id
           hash[:i2c][card.id] = card.codename
-          seed_caches card if seed
+          seed_caches card
         end
       end
 
@@ -147,8 +146,8 @@ class Card
       end
 
       # generate Hash for @codehash and put it in the cache
-      def load_codehash seed: true
-        Card.cache.fetch("CODEHASH") { process_codenames seed: seed }
+      def load_codehash
+        Card.cache.fetch("CODENAMES") { process_codenames }
       end
 
       def seed_caches card
