@@ -2,6 +2,18 @@ class Card
   class Cache
     # cache-related instance methods available to all Cards
     module All
+      def write_lexicon
+        Lexicon.write_to_temp_cache id, name, lex
+      end
+
+      def lex
+        if simple?
+          name
+        elsif left_id && right_id
+          [left_id, right_id]
+        end
+      end
+
       def expire cache_type=nil
         return unless (cache_class = cache_class_from_type cache_type)
 

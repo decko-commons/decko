@@ -1,28 +1,6 @@
 # -*- encoding : utf-8 -*-
 
 class Card
-  class << self
-    def cache
-      Card::Cache[Card]
-    end
-
-    def after_write_to_temp_cache card
-      card.write_lexicon if card.is_a? Card
-    end
-  end
-
-  def write_lexicon
-    Lexicon.write_to_temp_cache id, name, lex
-  end
-
-  def lex
-    if simple?
-      name
-    elsif left_id && right_id
-      [left_id, right_id]
-    end
-  end
-
   # The {Cache} class manages and integrates {Temporary} and {Shared}
   # caching. The {Temporary} cache is typically process- and request- specific
   # and is often "ahead" of the database; the {Shared} cache is typically
