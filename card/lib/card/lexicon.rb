@@ -73,14 +73,18 @@ class Card
         cache.temp.write cache_key(lex), id if lex
       end
 
+      def write id, name, lex
+        cache.write id.to_s, name
+        cache.write cache_key(lex), id
+      end
+
       private
 
       def add card
         lex = card.lex
         @act_lexes << lex
         @act_ids << card.id
-        cache.write card.id.to_s, lex
-        cache.write cache_key(lex), card.id
+        write card.id, card.name, card.lex
       end
 
       def expire_lex lex

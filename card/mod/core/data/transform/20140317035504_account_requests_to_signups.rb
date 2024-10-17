@@ -3,7 +3,7 @@
 class AccountRequestsToSignups < Cardio::Migration::Transform
   def up
     newname = "Sign up"
-    newname = "*signup" if Card.exists? newname
+    newname = "*signup" if Card.exist? newname
 
     # get old codename and name out of the way
     old_signup = Card[:signup]
