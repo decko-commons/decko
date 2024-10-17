@@ -33,7 +33,7 @@ class Skin
   end
 
   def create_or_update
-    Card.exists?(@skin_name) ? update_skin : create_skin
+    Card.exist?(@skin_name) ? update_skin : create_skin
   end
 
   def create_skin
