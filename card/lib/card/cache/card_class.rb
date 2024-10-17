@@ -2,6 +2,14 @@ class Card
   class Cache
     # cache-related class methods
     module CardClass
+      def cache
+        Card::Cache[Card]
+      end
+
+      def after_write_to_temp_cache card
+        card.write_lexicon if card.is_a? Card
+      end
+
       def retrieve_from_cache cache_key, local_only=false
         local_only ? cache.temp.read(cache_key) : cache.read(cache_key)
       end

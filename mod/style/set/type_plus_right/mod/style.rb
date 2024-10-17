@@ -23,7 +23,7 @@ format :html do
     end.join("\n")
   end
 
-  view :remote_include_tags do
+  view :remote_include_tags, cache: :never do
     map_remote_items do |tag_args|
       tag "link",
           href: tag_args.delete("src"),
