@@ -81,7 +81,7 @@ class Card
       # clear codename cache both in local variable and in temporary and shared caches
       def reset_cache
         @codehash = nil
-        ::Card.cache.delete "CODEHASH"
+        ::Card.cache.delete "CODENAMES"
       end
 
       # @param codename [Symbol, String]
@@ -147,7 +147,7 @@ class Card
 
       # generate Hash for @codehash and put it in the cache
       def load_codehash
-        Card.cache.fetch("CODEHASH") { process_codenames }
+        Card.cache.fetch("CODENAMES") { process_codenames }
       end
 
       def seed_caches card

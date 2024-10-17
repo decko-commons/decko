@@ -12,6 +12,13 @@ end
 
 private
 
+
+def validate_codename_characters
+  return unless codename.to_s.match?(/[^a-z_]/)
+
+  errors.add :codename, t(:core_error_codename_special_characters)
+end
+
 def validate_codename_permission
   return if Auth.always_ok? || Auth.as_id == creator_id
 
