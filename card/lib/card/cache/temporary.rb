@@ -11,11 +11,13 @@ class Card
     # Unlike the Shared cache, the Temporary cache can handle objects with
     # singleton classes.
     class Temporary
+      MAX_KEYS = 10_000
       attr_reader :store
 
       def initialize klass
         @klass = klass
         @store = {}
+        @reps = 0
       end
 
       # @param key [String]
@@ -25,8 +27,11 @@ class Card
 
       # @param key [String]
       def write key, value, callback: true
-        @store[key] = value.tap do
-          @klass.try :after_write_to_temp_cache, value if callback
+        within_key_counts do
+          @store[key] = value.tap do
+            @reps += 1
+            @klass.try :after_write_to_temp_cache, value if callback
+          end
         end
       end
 
@@ -58,12 +63,27 @@ class Card
       end
 
       def reset
+        @reps = 0
         @store = {}
       end
 
       # @param key [String]
       def exist? key
         @store.key? key
+      end
+
+      private
+
+      # enforces MAX_KEYS. The @reps count increments with each write but may
+      # overestimate the store size, because of multiple writes to the same key.
+      # (but this approach avoids recounting each time)
+      def within_key_counts
+        if @reps >= MAX_KEYS && (@reps = @store.size) > MAX_KEYS
+          Rails.logger.info "RESETTING temporary #{@klass} cache. " \
+                              "MAX_KEYS (#{MAX_KEYS}) exceeded"
+          reset
+        end
+        yield
       end
     end
   end

@@ -26,6 +26,10 @@ class Card
         find_by_card(card)&.delete
       end
 
+      def cache
+        Card::Cache[Virtual]
+      end
+
       private
 
       def create_or_update card
@@ -35,10 +39,6 @@ class Card
         else
           create(card)
         end
-      end
-
-      def cache
-        Card::Cache[Virtual]
       end
 
       def create card
