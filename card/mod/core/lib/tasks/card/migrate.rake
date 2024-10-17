@@ -15,9 +15,7 @@ namespace :card do
       puts "running schema migrations"
 
       interpret_env_schema
-      without_dumping do
-        run_migration :schema
-      end
+      without_dumping { run_migration :schema }
       reset_column_information true
     end
 
@@ -116,7 +114,7 @@ end
 
 def without_dumping
   unless ENV["DECKO_DUMP_SCHEMA"] == "true"
-    ActiveRecord::Base.dump_schema_after_migration = false
+    ActiveRecord.dump_schema_after_migration = false
   end
   yield
 end
