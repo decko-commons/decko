@@ -92,7 +92,7 @@ class Card
     end
 
     def symbol
-      @symbol ||= self.class.symbol
+      self.class.symbol
     end
     alias_method :to_sym, :symbol
   end
