@@ -46,6 +46,7 @@ class Card
         #     * *:no* - (default) do not independently cache this view. However, if this
         #       view is nested within another view of the same card, and that view is
         #       cached, it's ok to cache it.
+
         #     * *:always* - cache even when rendered within another cached view
         #     * *:never* - don't ever cache this view. Frequently used to prevent caching
         #       problems
