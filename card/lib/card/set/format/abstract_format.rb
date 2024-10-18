@@ -42,7 +42,11 @@ class Card
         #   and then completing a request. Only applies to HtmlFormat
         #
         # * __:cache__ directs how to handle caching for this view. Supported values:
-        #     * *:standard* - (default)
+        #     * *:yes* - cache this view whenever it's safe to do so.
+        #     * *:no* - (default) do not independently cache this view. However, if this
+        #       view is nested within another view of the same card, and that view is
+        #       cached, it's ok to cache it.
+
         #     * *:always* - cache even when rendered within another cached view
         #     * *:never* - don't ever cache this view. Frequently used to prevent caching
         #       problems
