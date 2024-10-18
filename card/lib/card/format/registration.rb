@@ -51,7 +51,7 @@ class Card
       private
 
       def symbol_from_classname
-        match = self.to_s.match(/::(?<format>[^:]+)Format/)
+        match = to_s.match(/::(?<format>[^:]+)Format/)
         raise "no symbol for #{self.class}" unless match
 
         match[:format].underscore.to_sym
