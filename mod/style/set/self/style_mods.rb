@@ -6,7 +6,7 @@ def dependent_asset_inputters
 end
 
 format :html do
-  view :remote_style_tags, perms: :none do
+  view :remote_style_tags, cache: :never, perms: :none do
     card.item_cards.map do |mod_style_card|
       nest mod_style_card, view: :remote_include_tags
     end.select(&:present?)
