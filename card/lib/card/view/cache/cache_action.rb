@@ -72,10 +72,15 @@ class Card
 
         # @return [True/False]
         def active_cache_ok?
-          return false unless parent && clean_enough_to_cache?
+          return false unless cacheable_card? && clean_enough_to_cache?
           return true if normalized_options[:skip_perms]
 
           active_cache_permissible?
+        end
+
+        def cacheable_card?
+          parent.present? || # we're still in the same card
+            (format.parent.card.name == card.name.left_name)
         end
 
         # apply any permission checks required by view.
@@ -83,10 +88,14 @@ class Card
         def active_cache_permissible?
           case view_perms
           when :none             then true
-          when parent.view_perms then true
+          when view_perm_context then true
           when *Permission::CRUD then format.anyone_can?(view_perms)
           else                        false
           end
+        end
+
+        def view_perm_context
+          parent&.view_perms || format.parent&.voo&.view_perms
         end
 
         # determine the cache action from the cache setting
