@@ -67,6 +67,8 @@ class Card
           junction val, :right, :left_id
         end
 
+        # DEPRECATED - do not use until/unless optimized, especially with large dbs
+        # Multiple joins of cards to cards makes this difficult to scale
         def plus val
           any(left_plus: val, right_plus: val.deep_clone)
         end
