@@ -58,7 +58,7 @@ class Card
 
         # @return [True/False]
         def free_cache_ok?
-          cache_setting != :never && clean_enough_to_cache?
+          !cache_setting.in?(%i[no never]) && clean_enough_to_cache?
         end
 
         # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -98,7 +98,10 @@ class Card
         end
 
         ACTIVE_CACHE_LEVEL =
-          { always: :cache_yield, standard: :yield, never: :stub }.freeze
+          { always: :cache_yield,
+            no: :yield,
+            yes: :yield,
+            never: :stub }.freeze
 
         # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         # SHARED METHODS
