@@ -4,13 +4,13 @@ event :validate_name, :validate, on: :save, changed: :name, when: :no_autoname? 
   validate_legality_of_name
   return if errors.any?
 
-  Card.write_to_soft_cache self
+  Card.write_to_temp_cache self
   validate_uniqueness_of_name
 end
 
 # called by validate_name
 event :validate_uniqueness_of_name, skip: :allowed do
-  return unless (existing_id = Card::Lexicon.id key) && existing_id != id
+  return unless (existing_id = Lexicon.id key) && existing_id != id
   # The above is a fast check but cannot detect if card is in trash
 
   # TODO: perform the following as a remote-only fetch (not yet supported)
@@ -73,8 +73,8 @@ end
 
 # as soon as the name has an id, we have to update the lexicon.
 # (the after_store callbacks are called _right_ after the storage)
-event :update_lexicon, :store, changed: :name, on: :save do
-  lexicon_action = @action == :create ? :add : :update
+event :update_lexicon, :store, changed: :name do
+  lexicon_action = @action == :create ? :add : @action
   director.after_store { |card| Lexicon.send lexicon_action, card }
 end
 

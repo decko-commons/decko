@@ -97,8 +97,7 @@ RSpec.describe Card::Fetch do
 
     it "expires card and dependencies on save" do
       # Card.cache.dump # should be empty
-      Card.cache.soft.reset
-      expect(Card.cache.soft.store.keys).to eq([])
+      Card.cache.temp.reset
       Cardio.delaying!
       Card::Auth.as_bot do
         a = Card.fetch("A")

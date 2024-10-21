@@ -73,7 +73,7 @@ RSpec.describe Card::Set::All::Trash do
       create! "born to die"
       create! "born to die+slowly"
       create! "slowly+born to die"
-      create! "born to die+slowly+without regrets"
+      bsw = create! "born to die+slowly+without regrets"
 
       Card["born to die"].delete!
 
@@ -84,8 +84,8 @@ RSpec.describe Card::Set::All::Trash do
       expect(Card["slowly"]).to be_a Card
       expect(Card["without regrets"]).to be_a Card
 
-      trashed_dependant = Card.find Card::Lexicon.id("born to die+slowly+without regrets")
-      expect(trashed_dependant.trash).to be_truthy
+      trashed_dependent = Card.find bsw.id
+      expect(trashed_dependent.trash).to be_truthy
     end
 
     # TODO: explain what this adds to testing above or remove test.

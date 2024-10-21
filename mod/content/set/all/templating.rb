@@ -1,3 +1,6 @@
+basket[:cache_seed_strings] = %w[ASSETS_REFRESHED RULES READRULES ALWAYS]
+basket[:cache_seed_names] = [%i[all default]]
+
 def is_template?
   return @is_template unless @is_template.nil?
 

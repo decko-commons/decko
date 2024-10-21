@@ -3,9 +3,7 @@ class Card
     # cache-related class methods
     module CardClass
       def retrieve_from_cache cache_key, local_only=false
-        return unless cache
-
-        local_only ? cache.soft.read(cache_key) : cache.read(cache_key)
+        local_only ? cache.temp.read(cache_key) : cache.read(cache_key)
       end
 
       def retrieve_from_cache_by_id id, local_only=false
@@ -21,16 +19,16 @@ class Card
 
       def write_to_cache card, local_only=false
         if local_only
-          write_to_soft_cache card
+          write_to_temp_cache card
         elsif cache
           cache.write card.key, card
         end
       end
 
-      def write_to_soft_cache card
+      def write_to_temp_cache card
         return unless cache
 
-        cache.soft.write card.key, card
+        cache.temp.write card.key, card, callback: false
       end
 
       def expire name
