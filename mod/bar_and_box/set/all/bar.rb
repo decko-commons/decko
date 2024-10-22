@@ -53,7 +53,7 @@ format :html do
     wrap do
       accordion_item render_bar_body,
                      subheader: render_menu,
-                     body: bar_bottom,
+                     body: bar_bottom(open: open),
                      open: open,
                      context: :accordion_bar
     end
@@ -95,9 +95,8 @@ format :html do
   end
 
   # TODO: make card_stubs work
-  def bar_bottom _open: false
-    # open ? render_bar_bottom : card_stub(view: :bar_bottom)
-    render_bar_bottom
+  def bar_bottom open: false
+    open ? render_bar_bottom : card_stub(view: :bar_bottom)
   end
 
   # TODO: move to a more general accessible place (or its own abstract module)
