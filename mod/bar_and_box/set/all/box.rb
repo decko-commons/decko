@@ -1,4 +1,4 @@
-view :box, template: :haml do
+view :box, template: :haml, cache: :yes do
   voo.hide :menu
 end
 
