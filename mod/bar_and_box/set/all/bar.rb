@@ -39,13 +39,13 @@ format :html do
     build_accordion_bar
   end
   view :closed_bar, :closed
-  view :closed_bar, :closed
+  view :accordion_bar, :closed
 
   view :open, cache: :yes do
     build_accordion_bar open: true
   end
-  view :expanded_bar, :open
   view :open_bar, :open
+  view :expanded_bar, :open
 
   def build_accordion_bar open: false
     prepare_bar mini_bar_cols
