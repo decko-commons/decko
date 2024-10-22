@@ -49,7 +49,7 @@ class Card
       #   include_set_formats Type::Basic, except: :css
       def include_set_formats set, opts={}
         each_format set do |format, format_mods|
-          format_sym = Card::Format.format_sym format
+          format_sym = format.to_sym
           next unless applicable_format?(format_sym, opts[:except], opts[:only])
 
           format_mods.each do |format_mod|
@@ -77,8 +77,7 @@ class Card
         Set.modules[format_type].each_pair { |*args| yield(*args) }
       end
 
-      def applicable_format? format, except, only
-        format_sym = Card::Format.format_sym format
+      def applicable_format? format_sym, except, only
         return false if except && Array(except).include?(format_sym)
         return false if only && !Array(only).include?(format_sym)
 

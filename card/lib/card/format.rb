@@ -36,8 +36,14 @@ class Card
     delegate :basket, to: Set
     delegate :session, :params, to: Env
 
-    def self.view_caching?
-      true
+    @symbol = :base
+
+    class << self
+      attr_writer :symbol
+
+      def view_caching?
+        true
+      end
     end
 
     def initialize card, opts={}
@@ -85,8 +91,9 @@ class Card
       literal
     end
 
-    def to_sym
-      Card::Format.format_sym self
+    def symbol
+      self.class.symbol
     end
+    alias_method :to_sym, :symbol
   end
 end
