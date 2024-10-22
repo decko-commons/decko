@@ -21,7 +21,7 @@ format do
 end
 
 format :html do
-  view :head, unknown: true, perms: :none do
+  view :head, unknown: true, perms: :none, cache: :yes do
     basket[:head_views].map { |viewname| render viewname }.flatten.compact.join "\n"
   end
 

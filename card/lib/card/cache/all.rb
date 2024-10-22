@@ -20,6 +20,7 @@ class Card
         expire_views
         expire_names cache_class
         expire_id cache_class
+        expire_left cache_class
       end
 
       def view_cache_clean?
@@ -34,6 +35,16 @@ class Card
       end
 
       private
+
+      def expire_left cache_type
+        return unless name.compound? && expire_left?
+
+        Card.cache.read(name.left_name.key)&.expire cache_type
+      end
+
+      def expire_left?
+        true
+      end
 
       def shared_read_view_cache_keys key_root=key
         Card.cache.shared&.read_attribute key_root, :view_cache_keys

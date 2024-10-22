@@ -3,6 +3,13 @@ class Card
     module Cache
       # determine action to be used in #fetch
       module CacheAction
+        ACTIVE_CACHE_LEVEL =
+          { always: :cache_yield,
+            deep: :cache_yield,
+            no: :yield,
+            yes: :yield,
+            never: :stub }.freeze
+
         private
 
         # course of action based on config/status/options
@@ -79,8 +86,12 @@ class Card
         end
 
         def cacheable_card?
-          parent.present? || # we're still in the same card
-            (format.parent.card.name == card.name.left_name)
+          return true if caching == :deep || parent.present?
+          # a parent voo means we're still in the same card
+
+          return unless (superformat_card = format.parent&.card)
+
+          superformat_card.name == card.name.left_name
         end
 
         # apply any permission checks required by view.
@@ -106,18 +117,12 @@ class Card
           level || raise("unknown cache setting: #{cache_setting}")
         end
 
-        ACTIVE_CACHE_LEVEL =
-          { always: :cache_yield,
-            no: :yield,
-            yes: :yield,
-            never: :stub }.freeze
-
         # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         # SHARED METHODS
 
         # @return [Symbol] :standard, :always, or :never
         def cache_setting
-          format.view_cache_setting requested_view
+          @cache_setting ||= format.view_cache_setting requested_view
         end
 
         # altered view requests and altered cards are not cacheable
