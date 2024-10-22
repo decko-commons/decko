@@ -6,6 +6,7 @@ module Cardio
     class ModGenerator < ModBase
       def create_mod
         inside mod_path do
+          data_dir
           assets_dir
           config_dir
           set_dir
@@ -24,6 +25,12 @@ module Cardio
         inside "assets" do
           empty_directory "script"
           empty_directory "style"
+        end
+      end
+
+      def data_dir
+        inside "data" do
+          create_file "real.yml"
         end
       end
 
