@@ -1,10 +1,11 @@
 require File.expand_path("command_base", __dir__)
+require "shellwords"
 
 module Cardio
   class Command
     # enhance standard rake command with some decko/card -specific options
     class RakeCommand < CommandBase
-      def initialize gem, command, args={}
+      def initialize gem, command, args=[]
         @command = command
         @task = "#{gem}:#{command}"
         @args = [args].flatten
@@ -31,12 +32,19 @@ module Cardio
 
       def commands
         task_cmd = "bundle exec rake #{@task}"
-        task_cmd += " -- #{@args.join ' '}" unless @args.empty?
+        task_cmd += " -- #{escape_args(@args).join ' '}" unless @args.empty?
+        puts task_cmd
         return [task_cmd] if !@envs || @envs.empty?
 
         # @envs.map do |env|
         #   "env RAILS_ENV=#{env} #{task_cmd}"
         # end
+      end
+
+      def escape_args args
+        args.map do |arg|
+          arg.start_with?("-") ? arg : arg.shellescape
+        end
       end
     end
   end

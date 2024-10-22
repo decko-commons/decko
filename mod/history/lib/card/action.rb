@@ -31,8 +31,8 @@ class Card
                             inverse_of: :action,
                             dependent: :delete_all,
                             class_name: "Card::Change"
-    belongs_to :super_action, class_name: "Action", inverse_of: :sub_actions
-    has_many :sub_actions, class_name: "Action", inverse_of: :super_action
+    belongs_to :super_action, class_name: "Card::Action", inverse_of: :sub_actions
+    has_many :sub_actions, class_name: "Card::Action", inverse_of: :super_action
 
     scope :created_by, lambda { |actor_id|
                          joins(:act).where "card_acts.actor_id = ?", actor_id

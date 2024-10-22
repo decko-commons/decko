@@ -31,7 +31,7 @@ card_changes_006:
   value: '179'
 card_changes_007:
   id: 7
-  card_action_id: 1188
+  card_action_id: 3085
   field: 2
   value: |-
     ~618
@@ -68,7 +68,7 @@ card_changes_013:
   value: '179'
 card_changes_014:
   id: 14
-  card_action_id: 1191
+  card_action_id: 3088
   field: 2
   value: |-
     ~618
@@ -106,229 +106,148 @@ card_changes_020:
   value: '179'
 card_changes_021:
   id: 21
-  card_action_id: 1194
+  card_action_id: 3091
   field: 2
   value: "~618"
 card_changes_022:
   id: 22
-  card_action_id: 156
+  card_action_id: 3293
   field: 0
-  value:
+  value: First
 card_changes_023:
   id: 23
-  card_action_id: 156
+  card_action_id: 3293
   field: 1
-  value: '4'
+  value: '2'
 card_changes_024:
   id: 24
-  card_action_id: 156
+  card_action_id: 3293
   field: 2
-  value: help_desk
+  value: egg
 card_changes_025:
   id: 25
-  card_action_id: 156
+  card_action_id: 3293
   field: 3
   value: f
 card_changes_026:
   id: 26
-  card_action_id: 156
+  card_action_id: 3293
   field: 4
-  value: '90'
+  value:
 card_changes_027:
   id: 27
-  card_action_id: 156
+  card_action_id: 3293
   field: 5
-  value: '65'
+  value:
 card_changes_028:
   id: 28
-  card_action_id: 1211
-  field: 2
-  value: Help Desk
-card_changes_029:
-  id: 29
-  card_action_id: 157
-  field: 0
-  value:
-card_changes_030:
-  id: 30
-  card_action_id: 157
-  field: 1
-  value: '4'
-card_changes_031:
-  id: 31
-  card_action_id: 157
-  field: 2
-  value: help_desk
-card_changes_032:
-  id: 32
-  card_action_id: 157
-  field: 3
-  value: f
-card_changes_033:
-  id: 33
-  card_action_id: 157
-  field: 4
-  value: '90'
-card_changes_034:
-  id: 34
-  card_action_id: 157
-  field: 5
-  value: '66'
-card_changes_035:
-  id: 35
-  card_action_id: 1212
-  field: 2
-  value: Help Desk
-card_changes_036:
-  id: 36
-  card_action_id: 158
-  field: 0
-  value:
-card_changes_037:
-  id: 37
-  card_action_id: 158
-  field: 1
-  value: '4'
-card_changes_038:
-  id: 38
-  card_action_id: 158
-  field: 2
-  value: help_desk
-card_changes_039:
-  id: 39
-  card_action_id: 158
-  field: 3
-  value: f
-card_changes_040:
-  id: 40
-  card_action_id: 158
-  field: 4
-  value: '90'
-card_changes_041:
-  id: 41
-  card_action_id: 158
-  field: 5
-  value: '67'
-card_changes_042:
-  id: 42
-  card_action_id: 1213
-  field: 2
-  value: Help Desk
-card_changes_043:
-  id: 43
-  card_action_id: 1397
-  field: 0
-  value: First
-card_changes_044:
-  id: 44
-  card_action_id: 1397
-  field: 1
-  value: '2'
-card_changes_045:
-  id: 45
-  card_action_id: 1397
-  field: 2
-  value: egg
-card_changes_046:
-  id: 46
-  card_action_id: 1397
-  field: 3
-  value: f
-card_changes_047:
-  id: 47
-  card_action_id: 1397
-  field: 4
-  value:
-card_changes_048:
-  id: 48
-  card_action_id: 1397
-  field: 5
-  value:
-card_changes_049:
-  id: 49
-  card_action_id: 1399
+  card_action_id: 3295
   field: 2
   value: chicken
-card_changes_050:
-  id: 50
-  card_action_id: 1401
+card_changes_029:
+  id: 29
+  card_action_id: 3297
   field: 2
   value: chick
-card_changes_051:
-  id: 51
-  card_action_id: 1626
+card_changes_030:
+  id: 30
+  card_action_id: 3522
   field: 0
   value:
-card_changes_052:
-  id: 52
-  card_action_id: 1626
+card_changes_031:
+  id: 31
+  card_action_id: 3522
   field: 1
   value: '2'
-card_changes_053:
-  id: 53
-  card_action_id: 1626
+card_changes_032:
+  id: 32
+  card_action_id: 3522
   field: 2
   value: ''
-card_changes_054:
-  id: 54
-  card_action_id: 1626
+card_changes_033:
+  id: 33
+  card_action_id: 3522
   field: 3
   value: f
-card_changes_055:
-  id: 55
-  card_action_id: 1626
+card_changes_034:
+  id: 34
+  card_action_id: 3522
   field: 4
   value: '834'
-card_changes_056:
-  id: 56
-  card_action_id: 1626
+card_changes_035:
+  id: 35
+  card_action_id: 3522
   field: 5
   value: '835'
-card_changes_057:
-  id: 57
-  card_action_id: 1630
+card_changes_036:
+  id: 36
+  card_action_id: 3526
   field: 2
   value: zoom in
-card_changes_058:
-  id: 58
-  card_action_id: 789
+card_changes_037:
+  id: 37
+  card_action_id: 2772
   field: 0
   value: "*main menu"
-card_changes_059:
-  id: 59
-  card_action_id: 789
+card_changes_038:
+  id: 38
+  card_action_id: 2772
   field: 1
   value: '58'
-card_changes_060:
-  id: 60
-  card_action_id: 789
+card_changes_039:
+  id: 39
+  card_action_id: 2772
   field: 2
   value: |-
     [[:getting_started_links|Getting started]]
     [[:recent|Recent Changes]]
-card_changes_061:
-  id: 61
-  card_action_id: 789
+card_changes_040:
+  id: 40
+  card_action_id: 2772
   field: 3
   value: f
-card_changes_062:
-  id: 62
-  card_action_id: 789
+card_changes_041:
+  id: 41
+  card_action_id: 2772
   field: 4
   value:
-card_changes_063:
-  id: 63
-  card_action_id: 789
+card_changes_042:
+  id: 42
+  card_action_id: 2772
   field: 5
   value:
-card_changes_064:
-  id: 64
-  card_action_id: 1761
+card_changes_043:
+  id: 43
+  card_action_id: 3657
   field: 2
   value: "[[:recent|Recent Changes]]"
-card_changes_065:
-  id: 65
-  card_action_id: 1797
+card_changes_044:
+  id: 44
+  card_action_id: 3693
+  field: 2
+  value: |-
+    [[:getting_started_links|Getting started]]
+    [[:recent|Recent Changes]]
+card_changes_045:
+  id: 45
+  card_action_id: 3702
+  field: 2
+  value: "[[:recent|Recent Changes]]"
+card_changes_046:
+  id: 46
+  card_action_id: 3703
+  field: 2
+  value: |-
+    [[:getting_started_links|Getting started]]
+    [[:recent|Recent Changes]]
+card_changes_047:
+  id: 47
+  card_action_id: 3704
+  field: 2
+  value: "[[:recent|Recent Changes]]"
+card_changes_048:
+  id: 48
+  card_action_id: 3705
   field: 2
   value: |-
     [[:getting_started_links|Getting started]]

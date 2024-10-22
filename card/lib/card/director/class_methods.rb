@@ -25,7 +25,7 @@ class Card
       end
 
       def need_act
-        self.act ||= Card::Act.create ip_address: Env.ip
+        self.act ||= Card::Act.new ip_address: Env.ip
       end
 
       def clear
