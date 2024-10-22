@@ -7,7 +7,7 @@ format :html do
 
   before(:content) { prepare_content_slot }
 
-  view :content do
+  view :content, cache: :yes do
     wrap do
       [
         render_menu(optional: :hide),
