@@ -8,7 +8,7 @@ class CardController
     private
 
     def respond format, result, status
-      Rails.logger.info Card::Cache.tallies
+      Rails.logger.info Card::Cache.tallies if Cardio.config.cache_log_level
       if status.in? [302, 303]
         hard_redirect result
       elsif format.is_a?(Card::Format::FileFormat) && status == 200

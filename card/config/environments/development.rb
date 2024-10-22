@@ -4,7 +4,7 @@ Cardio.application.class.configure do
   # Settings specified here will take precedence over those in config/application.rb
 
   config.view_cache = false
-
+  config.cache_log_level = :debug
   config.eager_load = false
 
   config.asset_refresh = :eager
@@ -37,14 +37,6 @@ Cardio.application.class.configure do
   # if false, most rendering errors will be rescued and made visible only
   # in the nest where the error occurred
   config.raise_all_rendering_errors = true
-
-  # config.performance_logger = {
-  #     methods:   [:event, :search, :fetch, :view],  # choose methods to log
-  #     min_time:  100,               # show only method calls that are slower than 100ms
-  #     max_depth: 3,                 # show nested method calls only up to depth 3
-  #     details:   true               # show method arguments and sql
-  #     log_level: :info
-  # }
 
   # Only use best-standards-support built into browsers
   config.action_dispatch.best_standards_support = :builtin
