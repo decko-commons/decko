@@ -86,10 +86,12 @@ class Card
         end
 
         def cacheable_card?
-          return true if caching == :deep
+          return true if caching == :deep || parent.present?
+          # a parent voo means we're still in the same card
 
-          parent.present? || # we're still in the same card
-            (format.parent.card.name == card.name.left_name)
+          return unless (superformat_card = format.parent&.card)
+
+          superformat_card.name == card.name.left_name
         end
 
         # apply any permission checks required by view.

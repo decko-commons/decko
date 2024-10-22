@@ -1,5 +1,5 @@
 format :html do
-  view :box do
+  more  view :box, cache: :yes do
     class_up "box-middle", "p-0"
     voo.hide :customize_button, :box_middle
     super()

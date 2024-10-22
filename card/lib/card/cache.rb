@@ -40,6 +40,8 @@ class Card
     end
 
     def read_multi keys
+      return {} unless keys.size > 1
+
       @temp.fetch_multi keys do |missing_keys|
         track :read_multi, missing_keys do
           @shared ? @shared.read_multi(missing_keys) : {}
