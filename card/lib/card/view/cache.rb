@@ -229,7 +229,7 @@ class Card
 
       def cache_key
         @cache_key ||= [
-          card_cache_key, format.class, format.nest_mode, options_for_cache_key
+          format.symbol, format.nest_mode, card_cache_key, options_for_cache_key
         ].map(&:to_s).join "-"
       end
 
@@ -243,7 +243,7 @@ class Card
       end
 
       def options_for_cache_key
-        hash_for_cache_key(live_options) + hash_for_cache_key(viz_hash)
+        hash_for_cache_key(live_options) + ";" + hash_for_cache_key(viz_hash)
       end
 
       def hash_for_cache_key hash

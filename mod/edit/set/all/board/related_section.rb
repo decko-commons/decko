@@ -1,9 +1,10 @@
 format :html do
   RELATED_ITEMS =
     {
-      "by name" => [["children", :children],
-                    ["mates", :mates]],
-      # FIXME: optimize,
+      "by name" => [["children", :children]],
+      # FIXME: too slow; optimize:
+      # ["mates", :mates],
+
       "by content" => [["links out", :links_to],
                        ["links in", :linked_to_by],
                        ["nests", :nests],
