@@ -20,7 +20,7 @@ class Card
         expire_views
         expire_names cache_class
         expire_id cache_class
-        expire_left cache_class
+        expire_left cache_type
       end
 
       def view_cache_clean?
