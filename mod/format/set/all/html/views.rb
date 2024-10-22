@@ -7,7 +7,7 @@ format :html do
 
   before(:content) { prepare_content_slot }
 
-  view :content do
+  view :content, cache: :yes do
     wrap do
       [
         render_menu(optional: :hide),
@@ -52,7 +52,7 @@ format :html do
     end
   end
 
-  view :titled do
+  view :titled, cache: :yes do
     @content_body = true
     wrap do
       [
@@ -64,7 +64,7 @@ format :html do
   end
 
   # unlike unknown: true, unknown: (same view) can be overridden
-  view :labeled, unknown: :labeled do
+  view :labeled, unknown: :labeled, cache: :yes do
     @content_body = true
     wrap(true, class: "row") do
       [labeled(render_title, wrap_body { render_labeled_content }), render_menu]

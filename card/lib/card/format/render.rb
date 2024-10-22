@@ -69,9 +69,10 @@ class Card
                                       '\1: ')}:#{source_location.second}"
       end
 
-      # :standard, :always, :never
+      # see {Abstract::Format}
+      # :yes, :no, :deep, :always, :never
       def view_cache_setting view
-        voo&.cache || view_setting(:cache, view) || :standard
+        voo&.cache || view_setting(:cache, view) || :no
       end
 
       def view_setting setting_name, view

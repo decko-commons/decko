@@ -32,20 +32,18 @@ class Card
     # read cache value (and write to temp cache if missing)
     # @param key [String]
     def read key
-      unless @temp.exist?(key)
-        Rails.logger.debug "READ (#{@klass}): #{key}"
-        tally :read
+      @temp.fetch(key) do
+        track :read, key do
+          @shared&.read key
+        end
       end
-
-      @temp.fetch(key) { @shared&.read key }
     end
 
     def read_multi keys
       @temp.fetch_multi keys do |missing_keys|
-        Rails.logger.debug "MULTI (#{@klass}): #{keys.size}"
-
-        tally :read_multi
-        @shared ? @shared.read_multi(missing_keys) : {}
+        track :read_multi, missing_keys do
+          @shared ? @shared.read_multi(missing_keys) : {}
+        end
       end
     end
 
@@ -53,28 +51,29 @@ class Card
     # @param key [String]
     # @param value
     def write key, value
-      tally :write
-      @shared&.write key, value
-      @temp.write key, value
+      track :write, key do
+        @shared&.write key, value
+        @temp.write key, value
+      end
     end
 
     # read and (if not there yet) write
     # @param key [String]
     def fetch key, &block
-      unless @temp.exist?(key)
-        Rails.logger.debug "FETCH (#{@klass}): #{key}"
-        tally :fetch
+      @temp.fetch(key) do
+        track :fetch, key do
+          @shared ? @shared.fetch(key, &block) : yield(key)
+        end
       end
-
-      @temp.fetch(key) { @shared ? @shared.fetch(key, &block) : yield(key) }
     end
 
     # delete specific cache entries by key
     # @param key [String]
     def delete key
-      tally :delete
-      @shared&.delete key
-      @temp.delete key
+      track :delete, key do
+        @shared&.delete key
+        @temp.delete key
+      end
     end
 
     # reset both caches (for a given Card::Cache instance)
@@ -90,6 +89,17 @@ class Card
     end
 
     private
+
+    def track action, key
+      return yield unless (log_action = Cardio.config.cache_log_level)
+
+      key = key.size if key.is_a? Array
+      unless log_action == :tally
+        Rails.logger.send log_action, "#{action.to_s.upcase} (#{@klass}): #{key}"
+      end
+      tally action
+      yield
+    end
 
     def tally type
       h = Card::Cache.counter ||= {}
