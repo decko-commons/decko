@@ -21,8 +21,8 @@ module Cardio
 
     config.view_cache = false
 
-    config.request_logger = false
-    config.performance_logger = false
+    config.cache_log_level = nil
+
     config.sql_comments = false
 
     config.deck_origin = nil
