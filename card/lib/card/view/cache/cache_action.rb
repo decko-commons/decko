@@ -5,7 +5,7 @@ class Card
       module CacheAction
         ACTIVE_CACHE_LEVEL =
           { always: :cache_yield,
-            deep: :yield,
+            deep: :cache_yield,
             no: :yield,
             yes: :yield,
             never: :stub }.freeze
