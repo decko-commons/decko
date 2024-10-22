@@ -1,4 +1,4 @@
-$(window).ready ->
+$ ->
 # $("body").on "click", ".bar-menu", (e) ->
 #   e.stopImmediatePropagation()
 
@@ -12,6 +12,11 @@ $(window).ready ->
       cl.find("._modal-page-link").trigger "click"
     else
       window.location = cardLinkPath(cl)
+
+  $("body").on "shown.bs.collapse", ".bar > .collapse", (_event) ->
+    s = $(this).find "> .d0-card-body > .card-slot-stub"
+    s.slotReload s.data("stubUrl")
+    s.removeClass "card-slot-stub"
 
 openInNewTab = (event) -> event.metaKey
 cardLinkPath = (cl) -> decko.path(cl.data("cardLinkUrl") || cl.data("cardLinkName"))
