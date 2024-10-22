@@ -51,7 +51,6 @@ class Card
         #     * *:day*
         #     * *:month*
 
-
         #     * *:always* - cache even when rendered within another cached view
         #     * *:never* - don't ever cache this view. Frequently used to prevent caching
         #       problems
