@@ -14,7 +14,7 @@ format :html do
     end
   end
 
-  view :javascript_tags, unknown: true, cache: :never, perms: :none do
+  view :javascript_tags, unknown: true, cache: :deep, perms: :none do
     Array.wrap(head_javascript_paths).reject(&:empty?).join
   end
 
