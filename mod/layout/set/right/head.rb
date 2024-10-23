@@ -5,7 +5,7 @@ def ok_to_read?
 end
 
 format :html do
-  view :head_content do
+  view :head_content, cache: :yes do
     process_content render_raw
   end
 
