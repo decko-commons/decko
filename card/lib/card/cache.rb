@@ -40,11 +40,11 @@ class Card
     end
 
     def read_multi keys
-      return {} unless keys.size > 1
-
-      @temp.fetch_multi keys do |missing_keys|
-        track :read_multi, missing_keys do
-          @shared ? @shared.read_multi(missing_keys) : {}
+      with_multiple_keys keys do
+        @temp.fetch_multi keys do |missing_keys|
+          track :read_multi, missing_keys do
+            @shared ? @shared.read_multi(missing_keys) : {}
+          end
         end
       end
     end
@@ -91,6 +91,10 @@ class Card
     end
 
     private
+
+    def with_multiple_keys keys
+      keys.size > 1 ? yield : {}
+    end
 
     def track action, key
       return yield unless (log_action = Cardio.config.cache_log_level)
