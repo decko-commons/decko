@@ -80,19 +80,19 @@ class Card
       end
 
       def stub_render cached_content
-        stub_debugging do
-          expand_stubs cached_content
-        end
+        # stub_debugging do
+        expand_stubs cached_content
+        # end
       end
 
-      def stub_debugging
-        result = yield
-        if Rails.env.development? && result.is_a?(String) && result =~ /StUb/
-          Rails.logger.debug "STUB IN RENDERED VIEW: #{card.name}: " \
-                            "#{voo.ok_view}\n#{result}"
-        end
-        result
-      end
+      # def stub_debugging
+      #   result = yield
+      #   if Rails.env.development? && result.is_a?(String) && result =~ /StUb/
+      #     Rails.logger.debug "STUB IN RENDERED VIEW: #{card.name}: " \
+      #                       "#{voo.ok_view}\n#{result}"
+      #   end
+      #   result
+      # end
 
       def prepare_stub_nest stub_hash
         stub_card = Card.fetch_from_cast stub_hash[:cast]
