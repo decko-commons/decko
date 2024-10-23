@@ -221,7 +221,7 @@ class Card
 
       # keep track of nested cache fetching
       def caching &block
-        self.class.caching(self, &block)
+        self.class.caching(cache_setting, &block)
       end
 
       # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -283,11 +283,21 @@ class Card
           !@caching.nil?
         end
 
-        def caching voo
+        def caching setting, &block
+          return @caching unless block_given?
+
+          caching_mode setting, &block
+        end
+
+        private
+
+        def caching_mode setting
           old_caching = @caching
-          @caching = voo
+          # puts "OPEN CACHING from #{old_caching} to #{setting}" unless @caching == :deep
+          @caching = setting unless @caching == :deep
           yield
         ensure
+          # puts "CLOSE CACHING from #{@caching} to #{old_caching}"
           @caching = old_caching
         end
       end

@@ -69,7 +69,9 @@ class Card
       return if process_live_options == :hide
 
       Rails.logger.info "processing #{card.name} / #{ok_view}"
-      fetch { yield ok_view }
+      fetch do
+        yield ok_view
+      end
     end
 
     # the view to "attempt".  Typically the same as @raw_view, but @raw_view can
