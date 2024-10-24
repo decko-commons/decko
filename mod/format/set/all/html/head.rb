@@ -56,8 +56,11 @@ format :html do
   end
 
   def head_stylesheet_path
-    href = nest param_or_rule_card(:style), view: :stylesheet_path
-    tag "link", href: href, media: "all", rel: "stylesheet", type: "text/css"
+    @head_stylesheet_path ||=
+      tag "link", media: "all",
+                  rel: "stylesheet",
+                  type: "text/css",
+                  href: nest(param_or_rule_card(:style), view: :stylesheet_path)
   end
 
   def param_or_rule_card setting

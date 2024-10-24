@@ -17,7 +17,7 @@ Cardio.application.class.configure do
   config.assets.enabled = true if Object.const_defined?(:JasmineRails)
 
   config.shared_cache = false
-  config.prepopulate_cache = true
+  config.seed_cache_from_stash = true
 
   # Configure static asset server for tests with Cache-Control for performance
   config.serve_static_files = true
