@@ -27,7 +27,7 @@ class Card
 
         def seed_cache sql_results, retrn
           id_field = retrn.match?(/id$/) ? retrn : "id"
-          Cache.seed_ids(sql_results.map { |record| record[id_field] })
+          Cache.populate_ids(sql_results.map { |record| record[id_field] })
         end
 
         def large_list length
