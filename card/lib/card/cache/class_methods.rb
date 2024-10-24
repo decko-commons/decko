@@ -116,11 +116,20 @@ class Card
 
       def seed_ids ids
         # use ids to look up names
-        names = Lexicon.cache.read_multi(ids.map(&:to_s)).values
-        keys = names.map { |n| n.to_name.key if n.is_a? String }.compact
+        results = Lexicon.cache.read_multi(ids.map(&:to_s)).values
+        names = []
+        pairs = []
+        results.each do |result|
+          result.is_a?(String) ? (names << result) : (pairs << result)
+        end
+
+        if pairs.any?
+          seed_ids pairs.flatten
+          names += pairs.map(&:cardname)
+        end
 
         # use keys to look up
-        Card.cache.read_multi keys
+        seed_names names
       end
 
       def seed_names names
