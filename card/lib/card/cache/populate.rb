@@ -48,7 +48,7 @@ class Card
       # for testing, stash rules in variable and use that to re-seed cache
       def seed_from_stash
         return unless Cardio.config.seed_cache_from_stash
-        
+
         stash_to_cache("RULES") { Card::Rule.rule_cache }
         stash_to_cache("READRULES") { Card::Rule.read_rule_cache }
         stash_to_cache("PREFERENCES") { Card::Rule.preference_cache }

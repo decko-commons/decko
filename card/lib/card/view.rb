@@ -66,12 +66,8 @@ class Card
     # handle rendering, including optional visibility, permissions, and caching
     # @return [rendered view or a stub]
     def process
-      return if process_live_options == :hide
-
-      Rails.logger.info "processing #{card.name} / #{ok_view}"
-      fetch do
-        yield ok_view
-      end
+      # Rails.logger.info "processing #{card.name} / #{ok_view}"
+      fetch { yield ok_view } unless process_live_options == :hide
     end
 
     # the view to "attempt".  Typically the same as @raw_view, but @raw_view can
