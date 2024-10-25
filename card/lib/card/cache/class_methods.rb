@@ -21,8 +21,8 @@ class Card
       # on the shared caches.
       def renew
         # TODO: remove these!!!
-        Cardio.config.view_cache = true
-        Cardio.config.asset_refresh = :cautious
+        # Cardio.config.view_cache = true
+        # Cardio.config.asset_refresh = :cautious
         # Cache.reset_all
         # Card::Codename.reset_cache
         # Cardio.config.seed_cache_from_stash = true
