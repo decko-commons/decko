@@ -231,7 +231,7 @@ class Card
 
       def cache_key
         @cache_key ||= [
-          format.symbol, format.nest_mode, card_cache_key, options_for_cache_key, timestamp
+          format.symbol, nest_mode, timestamp, card_cache_key, options_for_cache_key
         ].compact.map(&:to_s).join "-"
       end
 
@@ -244,7 +244,7 @@ class Card
         return unless (expire = format.view_setting :expire, requested_view)
         raise "invalid expire setting: #{expire}" unless EXPIRE_VALUES.include? expire
 
-        DateTime.now.send("end_of_#{expire}").to_i
+        Time.now.send("end_of_#{expire}").to_i
       end
 
       def cache_setting
