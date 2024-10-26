@@ -166,6 +166,8 @@ class Card
     # cached and retrieved even when it's rendered inside another cached view.
     #
     module Cache
+      EXPIRE_VALUES = %i[minute hour day week month].freeze
+
       require "card/view/cache/cache_action"
       require "card/view/cache/stub"
 
@@ -229,8 +231,24 @@ class Card
 
       def cache_key
         @cache_key ||= [
-          format.symbol, format.nest_mode, card_cache_key, options_for_cache_key
-        ].map(&:to_s).join "-"
+          format.symbol, nest_mode, timestamp, card_cache_key, options_for_cache_key
+        ].compact.map(&:to_s).join "-"
+      end
+
+      def nest_mode
+        mode = format.nest_mode
+        mode == :normal ? nil : mode
+      end
+
+      def timestamp
+        return unless (expire = format.view_setting :expire, requested_view)
+        raise "invalid expire setting: #{expire}" unless EXPIRE_VALUES.include? expire
+
+        Time.now.send("end_of_#{expire}").to_i
+      end
+
+      def cache_setting
+        @cache_setting ||= format.view_cache_setting requested_view
       end
 
       def card_cache_key

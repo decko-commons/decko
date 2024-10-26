@@ -134,6 +134,14 @@ class Card
         e
       end
 
+      def rescue_card card
+        yield
+      rescue StandardError => e
+        report e, card
+      end
+
+      private
+
       def cardify_exception exception, card
         card_exception =
           if exception.is_a? Card::Error
