@@ -70,9 +70,9 @@ class Card
       end
 
       # see {Abstract::Format}
-      # :yes, :no, :deep, :always, :never
+      # (:default), :yes, :deep, :always, :never
       def view_cache_setting view
-        voo&.cache || view_setting(:cache, view) || :no
+        voo&.cache || view_setting(:cache, view) || :default
       end
 
       def view_setting setting_name, view
