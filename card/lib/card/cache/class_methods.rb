@@ -3,7 +3,7 @@ class Card
   class Cache
     # class methods for Card::Cache
     module ClassMethods
-      include Prepopulate
+      include Populate
 
       attr_accessor :no_renewal
       attr_accessor :counter
@@ -23,8 +23,9 @@ class Card
         # TODO: remove these!!!
         # Cardio.config.view_cache = true
         # Cardio.config.asset_refresh = :cautious
+        # Cache.reset_all
         # Card::Codename.reset_cache
-        # Cardio.config.prepopulate_cache = true
+        # Cardio.config.seed_cache_from_stash = true
 
         Card::Cache.counter = nil
         return if no_renewal
@@ -35,7 +36,7 @@ class Card
           cache.shared&.renew
         end
 
-        seed_temp_cache
+        populate_temp_cache
       end
 
       def renew_shared
@@ -89,7 +90,7 @@ class Card
 
       def restore
         reset_temp
-        prepopulate
+        seed_from_stash
       end
 
       def shared_on!
@@ -113,42 +114,10 @@ class Card
         "#{tally_total} Cache calls (" + counter.map { |k, v| "#{k}=#{v} " }.join + ")"
       end
 
-      def seed_ids ids
-        # use ids to look up names
-        names = Lexicon.cache.read_multi(ids.map(&:to_s)).values
-        keys = names.map { |n| n.to_name.key if n.is_a? String }.compact
-
-        # use keys to look up
-        Card.cache.read_multi keys
-      end
-
-      def seed_names names
-        keys = names.map { |n| n.to_name.key }
-        Card.cache.read_multi keys
-      end
-
-      def populate_fields list, *fields
-        name_arrays = list.each_with_object([]) do |item, arrays|
-          fields.flatten.each do |field|
-            arrays << [item, field]
-          end
-        end
-        seed_names name_arrays
-      end
-
       private
 
       def tally_total
         counter.values.map(&:values).flatten.sum
-      end
-
-      def seed_temp_cache
-        return unless shared_cache
-
-        seed_ids Codename.ids
-        # Codename.process_codenames if result.blank?
-        Card.cache.read_multi Set.basket[:cache_seed_strings]
-        seed_names Set.basket[:cache_seed_names]
       end
     end
   end

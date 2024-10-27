@@ -3,6 +3,13 @@ class Card
     module Cache
       # determine action to be used in #fetch
       module CacheAction
+        ACTIVE_CACHE_LEVEL =
+          { always: :cache_yield,
+            deep: :cache_yield,
+            default: :yield,
+            yes: :yield,
+            never: :stub }.freeze
+
         private
 
         # course of action based on config/status/options
@@ -58,7 +65,7 @@ class Card
 
         # @return [True/False]
         def free_cache_ok?
-          cache_setting != :never && clean_enough_to_cache?
+          !cache_setting.in?(%i[default never]) && clean_enough_to_cache?
         end
 
         # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -72,10 +79,19 @@ class Card
 
         # @return [True/False]
         def active_cache_ok?
-          return false unless parent && clean_enough_to_cache?
+          return false unless cacheable_card? && clean_enough_to_cache?
           return true if normalized_options[:skip_perms]
 
           active_cache_permissible?
+        end
+
+        def cacheable_card?
+          return true if caching == :deep || parent.present?
+          # a parent voo means we're still in the same card
+
+          return unless (superformat_card = format.parent&.card)
+
+          superformat_card.name == card.name.left_name
         end
 
         # apply any permission checks required by view.
@@ -83,10 +99,14 @@ class Card
         def active_cache_permissible?
           case view_perms
           when :none             then true
-          when parent.view_perms then true
+          when view_perm_context then true
           when *Permission::CRUD then format.anyone_can?(view_perms)
           else                        false
           end
+        end
+
+        def view_perm_context
+          parent&.view_perms || format.parent&.voo&.view_perms
         end
 
         # determine the cache action from the cache setting
@@ -97,15 +117,12 @@ class Card
           level || raise("unknown cache setting: #{cache_setting}")
         end
 
-        ACTIVE_CACHE_LEVEL =
-          { always: :cache_yield, standard: :yield, never: :stub }.freeze
-
         # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         # SHARED METHODS
 
         # @return [Symbol] :standard, :always, or :never
         def cache_setting
-          format.view_cache_setting requested_view
+          @cache_setting ||= format.view_cache_setting requested_view
         end
 
         # altered view requests and altered cards are not cacheable

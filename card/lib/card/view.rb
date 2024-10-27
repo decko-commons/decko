@@ -68,6 +68,7 @@ class Card
     def process
       return if process_live_options == :hide
 
+      # Rails.logger.debug "processing #{card.name} / #{ok_view}"
       fetch { yield ok_view }
     end
 

@@ -6,18 +6,18 @@ format :html do
   mini_bar_cols 9, 3
 
   # drops bar-middle in small viewports
-  view :bar, unknown: :mini_bar do
+  view :bar, unknown: :mini_bar, cache: :yes do
     cols = bar_cols.size == 3 ? [mini_bar_cols, bar_cols] : [bar_cols]
     prepare_bar(*cols)
     build_bar
   end
 
-  view :mini_bar, unknown: true do
+  view :mini_bar, cache: :yes, unknown: true do
     prepare_bar mini_bar_cols
     build_bar
   end
 
-  view :full_bar, unknown: :mini_bar do
+  view :full_bar, unknown: :mini_bar, cache: :yes do
     class_up "bar", full_page_card.safe_set_keys
     class_up_cols %w[bar-left bar-middle bar-right], bar_cols
     build_bar
@@ -35,18 +35,15 @@ format :html do
   view :bar_menu, unknown: true, template: :haml
   view :bar_body, unknown: true, template: :haml
 
-  view :closed, unknown: :mini_bar do
+  view :closed, unknown: :mini_bar, cache: :yes do
     build_accordion_bar
   end
-
-  view :open do
-    build_accordion_bar open: true
-  end
-
-  # DEPRECATED
   view :closed_bar, :closed
   view :accordion_bar, :closed
 
+  view :open, cache: :yes do
+    build_accordion_bar open: true
+  end
   view :open_bar, :open
   view :expanded_bar, :open
 
@@ -56,7 +53,7 @@ format :html do
     wrap do
       accordion_item render_bar_body,
                      subheader: render_menu,
-                     body: bar_bottom,
+                     body: bar_bottom(open: open),
                      open: open,
                      context: :closed
     end
@@ -98,9 +95,8 @@ format :html do
   end
 
   # TODO: make card_stubs work
-  def bar_bottom _open: false
-    # open ? render_bar_bottom : card_stub(view: :bar_bottom)
-    render_bar_bottom
+  def bar_bottom open: false
+    open ? render_bar_bottom : card_stub(view: :bar_bottom)
   end
 
   # TODO: move to a more general accessible place (or its own abstract module)

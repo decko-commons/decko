@@ -181,14 +181,12 @@ end
 private
 
 def seeding_names
-  yield.tap do |names|
-    Cache.seed_names names if names.size > 1
-  end
+  yield.tap { |names| Cache.populate_names names }
 end
 
 def seeding_ids
   yield.tap do |ids|
-    Cache.seed_ids ids if ids.size > 1
+    Cache.populate_ids ids if ids.size > 1
   end
 end
 

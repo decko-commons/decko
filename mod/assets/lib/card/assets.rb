@@ -70,7 +70,7 @@ class Card
       def standard_inputters
         @standard_inputter_names ||=
           Card.search left: { type: :mod }, right_id: [StyleID, ScriptID], return: :name
-        Cache.seed_names @standard_inputter_names
+        Cache.populate_names @standard_inputter_names
         @standard_inputter_names.map(&:card)
       end
 

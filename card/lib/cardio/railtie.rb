@@ -21,8 +21,8 @@ module Cardio
 
     config.view_cache = false
 
-    config.request_logger = false
-    config.performance_logger = false
+    config.cache_log_level = nil
+
     config.sql_comments = false
 
     config.deck_origin = nil
@@ -30,7 +30,7 @@ module Cardio
     config.rich_text_editor = :tinymce
 
     config.shared_cache = true
-    config.prepopulate_cache = false
+    config.seed_cache_from_stash = false
     config.asset_refresh = :cautious
     config.compress_assets = true
 

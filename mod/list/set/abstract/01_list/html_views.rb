@@ -1,5 +1,5 @@
 format :html do
-  view :core, cache: :never do
+  view :core do
     standard_pointer_core
   end
 
