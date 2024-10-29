@@ -1,21 +1,21 @@
 format do
-  view :verify_url, cache: :never do
+  view :verify_url, cache: :never, denial: :blank do
     raise Error::PermissionDenied unless card.ok?(:create) || card.action
 
     token_url :verify_and_activate, anonymous: true
   end
 
-  view :reset_password_url do
+  view :reset_password_url, denial: :blank do
     raise Error::PermissionDenied unless card.password_card.ok? :update
 
     token_url :reset_password
   end
 
-  view :token_expiry do
+  view :token_expiry, denial: :blank do
     "(#{token_expiry_sentence}"
   end
 
-  view :token_days do
+  view :token_days, denial: :blank do
     Card.config.token_expiry / 1.day
   end
 

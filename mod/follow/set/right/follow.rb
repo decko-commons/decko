@@ -32,16 +32,16 @@ def ok_to_create?
   permit :create
 end
 
-def ok_to_delete?
-  permit :delete
-end
+# def ok_to_delete?
+#   permit :delete
+# end
 
 def raw_help_text
   "Get notified about changes"
 end
 
 def permit action, verb=nil
-  if %i[create delete update].include?(action) && allowed_to_change_follow_status?
+  if action.in?(%i[create delete update]) && allowed_to_change_follow_status?
     true
   else
     super action, verb

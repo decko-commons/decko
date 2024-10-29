@@ -20,6 +20,8 @@ def email_config context, fields={}, opts={}
   config.select { |_k, v| v.present? }
 end
 
+private
+
 def email_field_from_card field, auth, format_opts
   return unless (field_card = fetch(field))
 
