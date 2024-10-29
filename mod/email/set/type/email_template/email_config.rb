@@ -20,6 +20,19 @@ def email_config context, fields={}, opts={}
   config.select { |_k, v| v.present? }
 end
 
+# html messages return procs because image attachments can't be properly rendered
+# without a mail object. (which isn't available at initial config time)
+def email_html_message_field message_card, auth, format_opts
+  proc do |mail|
+    Auth.as auth do
+      format_opts = format_opts.merge format: :email_html, active_mail: mail
+      message_card.format(format_opts).email_content @active_email_context
+    end
+  end
+end
+
+private
+
 def email_field_from_card field, auth, format_opts
   return unless (field_card = fetch(field))
 
@@ -40,17 +53,6 @@ def standard_email_field field, field_card, auth, format_opts
   format_opts = format_opts.merge format: :email_text
   Auth.as auth do
     field_card.format(format_opts).send method, @active_email_context
-  end
-end
-
-# html messages return procs because image attachments can't be properly rendered
-# without a mail object. (which isn't available at initial config time)
-def email_html_message_field message_card, auth, format_opts
-  proc do |mail|
-    Auth.as auth do
-      format_opts = format_opts.merge format: :email_html, active_mail: mail
-      message_card.format(format_opts).email_content @active_email_context
-    end
   end
 end
 
