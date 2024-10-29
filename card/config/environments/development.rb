@@ -4,7 +4,7 @@ Cardio.application.class.configure do
   # Settings specified here will take precedence over those in config/application.rb
 
   config.view_cache = false
-  config.cache_log_level = :debug
+  # config.cache_log_level = :debug
   config.eager_load = false
 
   config.asset_refresh = :eager
