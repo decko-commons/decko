@@ -17,6 +17,7 @@ namespace :card do
 
     # desc "finalize seed data with migrations, installations, asset coding, and cleaning"
     task polish: :environment do
+      ENV["DECKO_DUMP_SCHEMA"] = "true"
       ENV["STAMP_MIGRATIONS"] = "true"
 
       invoke_card_tasks %w[update assets:code]
