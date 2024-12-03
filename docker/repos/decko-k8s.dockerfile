@@ -28,8 +28,7 @@ WORKDIR /home/app/decko
 
 COPY --chown=app:app . .
 
-RUN cp -R config/sample/* config && \
-    rm -R config/sample
+RUN cp -R vendor/decko/docker/template/config/* config
 
 RUN bundle config without test cucumber cypress development profile && \
     bundle install && \
@@ -39,4 +38,4 @@ USER root
 
 ENV RAILS_ENV=production
 
-CMD ["/bin/bash", "/home/app/decko/docker/entrypoint.sh"]
+CMD ["/bin/bash", "/home/app/decko/vendor/decko/docker/template/k8s/entrypoint.sh"]
