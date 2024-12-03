@@ -29,7 +29,7 @@ WORKDIR /home/app/decko
 COPY --chown=app:app . .
 
 RUN cp -R vendor/decko/docker/template/config/* config && \
-    cp -R sample/config/* config
+    cp -R config/sample/* config
 
 RUN bundle config without test cucumber cypress development profile && \
     bundle install && \
