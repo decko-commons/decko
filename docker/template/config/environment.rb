@@ -2,4 +2,4 @@
 require File.expand_path("application", __dir__)
 
 # Initialize the decko application
-Decko::Deck.initialize!
+Cardio.application.class.initialize!
