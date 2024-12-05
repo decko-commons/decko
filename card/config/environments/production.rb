@@ -4,6 +4,7 @@ Cardio.application.class.configure do
   # Settings specified here will take precedence over those in config/application.rb
 
   config.eager_load = true
+  config.view_cache = true
 
   # temporary fix for formerly autoloaded files that stopped autoloading in Rails 5
   # TODO: configure eager_load_paths explicitly (and remove this)
