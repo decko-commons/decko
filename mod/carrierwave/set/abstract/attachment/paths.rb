@@ -12,7 +12,7 @@ def upload_dir
 end
 
 def files_base_dir
-  dir = bucket ? bucket_config[:subdirectory] : Card.paths["files"].existent.first
+  dir = bucket ? bucket_config[:subdirectory] : Card.paths["tmp"].existent.first
   dir || files_base_dir_configuration_error
 end
 

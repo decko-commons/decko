@@ -66,9 +66,17 @@ module CarrierWave
         def write_uploader *args; write_attribute *args; end
 
         def #{column}=(new_file)
-          return if new_file.blank?
+          return if new_file.blank? || identical_file?(new_file)
           self.selected_action_id = Time.now.to_i unless history?
           assign_file(new_file) { super }
+        end
+
+        def identical_file? new_file
+          return false if new?
+
+          ::File.identical? #{column}.file.to_file, new_file
+        rescue StandardError
+          false
         end
 
         def remote_#{column}_url=(url)
