@@ -8,6 +8,7 @@ module CarrierWave
   # to card events.
   module CardMount
     include CarrierWave::Mount
+    Helper # load helper module so it's available to mounted cards
 
     def uploaders
       Card.uploaders ||= {}
