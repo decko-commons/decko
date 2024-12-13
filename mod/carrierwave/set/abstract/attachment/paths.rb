@@ -11,8 +11,8 @@ def upload_dir
   id ? "#{files_base_dir}/#{id}" : tmp_upload_dir
 end
 
-def files_base_dir
-  dir = bucket ? bucket_config[:subdirectory] : Card.paths["files"].existent.first
+def files_base_dir type="files"
+  dir = bucket ? bucket_config[:subdirectory] : Card.paths[type].existent.first
   dir || files_base_dir_configuration_error
 end
 
