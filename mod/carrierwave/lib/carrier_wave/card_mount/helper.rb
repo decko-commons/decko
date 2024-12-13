@@ -10,17 +10,17 @@ module CarrierWave
         write_attribute(*args)
       end
 
-      def reload(*)
+      def reload *_args
         @_mounters = nil
         super
       end
 
-      def serializable_hash(opts=nil)
+      def serializable_hash opts=nil
         except = serializable_hash_config opts, :except
         only = serializable_hash_config opts, :only
 
         self.class.uploaders.each_with_object(super(opts)) do |(column, _uploader), hash|
-          if add_column_to_serializable_hash? column, only, except
+          if add_column_to_serializable_hash? column.to_s, only, except
             hash[column.to_s] = _mounter(column).uploader.serializable_hash
           end
         end
@@ -33,12 +33,10 @@ module CarrierWave
       end
 
       def add_column_to_serializable_hash? column, only, except
-        return true unless only || except
-
         if only
-          only.include? column.to_s
-        else
-          except && !except.include?(column.to_s)
+          only.include? column
+        elsif except
+          !except.include? column
         end
       end
     end
