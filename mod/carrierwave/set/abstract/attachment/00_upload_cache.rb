@@ -86,5 +86,5 @@ end
 
 # place for files if card doesn't have an id yet
 def tmp_upload_dir _action_id=nil
-  "#{files_base_dir}/#{upload_cache_card.id}"
+  "#{files_base_dir 'tmp'}/#{upload_cache_card.id}"
 end
