@@ -3,4 +3,4 @@
 
 require File.expand_path("config/application", __dir__)
 
-DockerDeck::Application.load_tasks
+Cardio.application.class.load_tasks
