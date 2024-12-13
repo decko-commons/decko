@@ -1,6 +1,5 @@
 require "carrierwave"
 
-
 module CarrierWave
   # Adapt carrierwave mount to cards.
   # We translate the active record hooks in
@@ -8,7 +7,7 @@ module CarrierWave
   # to card events.
   module CardMount
     include CarrierWave::Mount
-    Helper # load helper module so it's available to mounted cards
+    # Helper # load helper module so it's available to mounted cards
 
     def uploaders
       Card.uploaders ||= {}
