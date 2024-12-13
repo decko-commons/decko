@@ -23,7 +23,7 @@ module CarrierWave
 
       class_eval <<-RUBY, __FILE__, __LINE__ + 1
         include CarrierWave::CardMount::Helper
-  
+
         def attachment
           #{column}
         end
