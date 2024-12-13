@@ -1,5 +1,6 @@
 require "carrierwave"
 
+
 module CarrierWave
   # Adapt carrierwave mount to cards.
   # We translate the active record hooks in
@@ -7,6 +8,7 @@ module CarrierWave
   # to card events.
   module CardMount
     include CarrierWave::Mount
+    Helper # load helper module so it's available to mounted cards
 
     def uploaders
       Card.uploaders ||= {}
@@ -21,6 +23,12 @@ module CarrierWave
       super
 
       class_eval <<-RUBY, __FILE__, __LINE__ + 1
+        include CarrierWave::CardMount::Helper
+  
+        def attachment
+          #{column}
+        end
+
         event :store_#{column}_event, :finalize, when: :store_#{column}_event? do
           store_#{column}!
         end
@@ -49,10 +57,6 @@ module CarrierWave
           !coded? || ENV["STORE_CODED_FILES"]
         end
 
-        def attachment
-          #{column}
-        end
-
         def store_attachment!
           set_specific.delete :#{column}
           store_#{column}!
@@ -62,13 +66,18 @@ module CarrierWave
           "#{column}".to_sym
         end
 
-        def read_uploader *args; read_attribute *args; end
-        def write_uploader *args; write_attribute *args; end
-
         def #{column}=(new_file)
-          return if new_file.blank?
+          return if new_file.blank? || identical_file?(new_file)
           self.selected_action_id = Time.now.to_i unless history?
           assign_file(new_file) { super }
+        end
+
+        def identical_file? new_file
+          return false if new?
+
+          ::File.identical? #{column}.file.to_file, new_file
+        rescue StandardError
+          false
         end
 
         def remote_#{column}_url=(url)
@@ -110,24 +119,6 @@ module CarrierWave
 
         def #{column}_changed?
           @#{column}_changed
-        end
-
-        def serializable_hash(opts=nil)
-          except = opts&.dig(:except) && Array.wrap(opts[:except]).map(&:to_s)
-          only = opts&.dig(:only) && Array.wrap(opts[:only]).map(&:to_s)
-
-          self.class.uploaders.each_with_object(super(opts)) do |(column, uploader), hash|
-            if (!only && !except) ||
-               (only && only.include?(column.to_s)) ||
-               (!only && except && !except.include?(column.to_s))
-              hash[column.to_s] = _mounter(column).uploader.serializable_hash
-            end
-          end
-        end
-
-        def reload(*)
-          @_mounters = nil
-          super
         end
       RUBY
     end
