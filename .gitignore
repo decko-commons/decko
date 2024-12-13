@@ -22,6 +22,8 @@ decko/spec/node_modules
 decko/spec/cypress/screenshots
 decko/spec/cypress/videos
 vendor
+doc
+.yardoc
 docker/env
 docker/test
 /platypus
