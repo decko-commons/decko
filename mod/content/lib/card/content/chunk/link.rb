@@ -89,7 +89,7 @@ class Card
           return unless raw_syntax
 
           if (i = divider_index raw_syntax)                    # if [[A | B]]
-            [raw_syntax[0..(i - 1)], raw_syntax[(i + 1)..-1]]  # [A, B]
+            [raw_syntax[0..(i - 1)], raw_syntax[(i + 1)..]]  # [A, B]
           else                                                 # else must be [[ A ]]
             [raw_syntax, nil]                                  # [A, nil]
           end
