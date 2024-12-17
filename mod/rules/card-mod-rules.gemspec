@@ -6,5 +6,5 @@ DeckoGem.mod "rules" do |s, d|
   required_ruby_version = ">= 3.0.0"
   s.summary = "rules"
   s.description = ""
-  ) :format, :search
+  d.depends_on_mod :format, :search
 end
