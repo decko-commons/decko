@@ -42,6 +42,7 @@ end
 
 def asset_input_content
   return assemble_asset_input_content if virtual?
+
   update_asset_input if asset_input.blank?
   asset_input
 end

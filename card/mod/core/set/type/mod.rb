@@ -53,17 +53,20 @@ format :html do
   view :styles do
     style = card.fetch :style
     return unless style
+
     section "Styles", nest(style, view: :core)
   end
 
   view :scripts do
     style = card.fetch :script
     return unless style
+
     section "Scripts", nest(style, view: :core)
   end
 
   view :gem_info do
     return unless card.mod&.spec
+
     properties =
       %w[name summary version authors description email homepage].map do |property|
         "#{property}: #{card.mod.spec.send(property)}"
@@ -128,7 +131,7 @@ def depends_on
   mod&.spec&.dependencies
     &.map { |dep| dep.name }
     &.select { |name| name.starts_with? "card-mod" }
-    &.map { |name| "mod_#{name[8..-1]}" }
+    &.map { |name| "mod_#{name[8..]}" }
 end
 
 def tasks
@@ -205,6 +208,7 @@ end
 
 def load_admin_config
   return unless admin_config_exists?
+
   admin_config = YAML.load_file admin_config_path
   return {} unless admin_config # blank manifest
   # validate_manifest manifest
