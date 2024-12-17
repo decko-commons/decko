@@ -3,7 +3,7 @@
 require "../decko_gem"
 
 DeckoGem.gem "cardname" do |s, d|
-  required_ruby_version = ">= 3.0.0"
+  s.required_ruby_version = ">= 3.0.0"
   s.description = "Naming patterns abstracted from Decko cards"
   s.summary = "Card names without all the cards"
 

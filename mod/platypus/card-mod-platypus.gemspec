@@ -3,7 +3,7 @@
 require "../../decko_gem"
 
 DeckoGem.mod "platypus" do |s, d|
-  required_ruby_version = ">= 3.0.0"
+  s.required_ruby_version = ">= 3.0.0"
   s.summary = "support for core developers (platypuses)"
   s.description = ""
   d.depends_on ["fog-aws", "~> 3.10"],

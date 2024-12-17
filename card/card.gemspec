@@ -3,7 +3,7 @@
 require "../decko_gem"
 
 DeckoGem.gem "card" do |s, d|
-  required_ruby_version = ">= 3.0.0"
+  s.required_ruby_version = ">= 3.0.0"
   s.version = d.card_version
 
   s.summary = "a simple engine for emergent data structures"

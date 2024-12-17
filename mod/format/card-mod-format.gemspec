@@ -3,7 +3,7 @@
 require "../../decko_gem"
 
 DeckoGem.mod "format" do |s, d|
-  required_ruby_version = ">= 3.0.0"
+  s.required_ruby_version = ">= 3.0.0"
   s.summary = "format"
   s.description = ""
   # d.depends_on ["truncato", "~> 0.7"] # truncates html strings
