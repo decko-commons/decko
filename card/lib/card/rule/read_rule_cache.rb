@@ -17,6 +17,8 @@ class Card
       self.cache_key = "READRULES".freeze
 
       class << self
+        private
+
         def lookup_hash
           rows.each_with_object({}) do |row, h|
             party_id = row["party_id"].to_i

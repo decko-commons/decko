@@ -4,7 +4,7 @@ format :html do
   #  - value is the argument to send to the method
   basket[:script_calls] = {}
 
-  basket[:head_views] += %w[head_javascript script_variables script_calls]
+  basket[:head_views] += %w[javascript_tags script_variables script_calls]
 
   view :script_variables, unknown: true, cache: :never, perms: :none do
     javascript_tag do
@@ -14,7 +14,7 @@ format :html do
     end
   end
 
-  view :head_javascript, unknown: true, cache: :never, perms: :none do
+  view :javascript_tags, unknown: true, cache: :deep, perms: :none do
     Array.wrap(head_javascript_paths).reject(&:empty?).join
   end
 
@@ -22,7 +22,7 @@ format :html do
     javascript_tag { (script_configs << trigger_slot_ready).join "\n\n" }
   end
 
-  view :javascript_include_tag, unknown: true, perms: :none do
+  view :javascript_include_tag, cache: :never, unknown: true, perms: :none do
     "\n<!-- javascript_include_tag not overridden for #{card.name} -->\n"
   end
 
@@ -38,12 +38,17 @@ format :html do
   def head_javascript_paths
     return unless (asset_card = param_or_rule_card :script)
 
+    seed_asset_outputs asset_card
     asset_card.item_cards.map do |script|
       script.format(:html).render :javascript_include_tag
     end
   end
 
   private
+
+  def seed_asset_outputs asset_card
+    Cache.populate_fields asset_card.item_names, :asset_output
+  end
 
   def trigger_slot_ready
     "$('document').ready(function() { $('.card-slot').trigger('decko.slot.ready'); })"

@@ -97,8 +97,7 @@ RSpec.describe Card::Fetch do
 
     it "expires card and dependencies on save" do
       # Card.cache.dump # should be empty
-      Card.cache.soft.reset
-      expect(Card.cache.soft.store.keys).to eq([])
+      Card.cache.temp.reset
       Cardio.delaying!
       Card::Auth.as_bot do
         a = Card.fetch("A")
@@ -246,7 +245,7 @@ RSpec.describe Card::Fetch do
     before do
       Card::Auth.as_bot do
         Card.create! name: "testsearch+*right+*structure",
-                     content: '{"plus":"_self"}', type: "Search"
+                     content: '{"right_plus":"_self"}', type: "Search"
       end
     end
 
@@ -254,7 +253,7 @@ RSpec.describe Card::Fetch do
       expect(Card.fetch("A+testsearch".to_name))
         .to be_virtual
         .and have_type(:search_type)
-        .and have_content '{"plus":"_self"}'
+        .and have_content '{"right_plus":"_self"}'
     end
 
     context "with new args" do
@@ -264,7 +263,7 @@ RSpec.describe Card::Fetch do
         c = Card.fetch("Home+testsearch".to_name)
         expect(c).to be_virtual
           .and have_type(:search_type)
-          .and have_content('{"plus":"_self"}')
+          .and have_content('{"right_plus":"_self"}')
 
         patterns = c.instance_variable_get("@patterns").map(&:to_s)
         expect(patterns).to include("Search+*type")

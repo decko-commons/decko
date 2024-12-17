@@ -21,16 +21,16 @@ module Cardio
 
     config.view_cache = false
 
-    config.request_logger = false
-    config.performance_logger = false
+    config.cache_log_level = nil
+
     config.sql_comments = false
 
     config.deck_origin = nil
 
     config.rich_text_editor = :tinymce
 
-    config.persistent_cache = true
-    config.prepopulate_cache = false
+    config.shared_cache = true
+    config.seed_cache_from_stash = false
     config.asset_refresh = :cautious
     config.compress_assets = true
 
@@ -76,6 +76,7 @@ module Cardio
 
             p["lib/graph_q_l/types/query.rb"] <<
               "#{mod_path}/lib/graph_q_l/types/query.rb"
+            p["config/environments"] << "#{mod_path}/config/environments"
             p["config/initializers"] << "#{mod_path}/config/early"
             p["late/initializers"] << "#{mod_path}/config/late"
             p["lib/tasks"] << "#{mod_path}/lib/tasks"

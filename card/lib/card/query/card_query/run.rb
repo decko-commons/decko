@@ -19,9 +19,15 @@ class Card
         # @return [Array]
         def return_list sql_results, retrn
           large_list sql_results.length if sql_results.length > 1000
+          seed_cache sql_results, retrn
           sql_results.map do |record|
             return_simple record, retrn
           end
+        end
+
+        def seed_cache sql_results, retrn
+          id_field = retrn.match?(/id$/) ? retrn : "id"
+          Cache.populate_ids(sql_results.map { |record| record[id_field] })
         end
 
         def large_list length
@@ -31,9 +37,9 @@ class Card
         def result_method retrn
           case
           when respond_to?(:"#{retrn}_result") then :"#{retrn}_result"
-          when (retrn =~ /id$/)                then :id_result
-          when (retrn =~ /_\w+/)               then :name_result
-          when (retrn == "key")                then :key_result
+          when retrn.match?(/id$/)             then :id_result
+          when retrn.match?(/_\w+/)            then :name_result
+          when retrn == "key"                  then :key_result
           else                                      :default_result
           end
         end

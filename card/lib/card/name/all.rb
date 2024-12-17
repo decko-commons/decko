@@ -36,12 +36,8 @@ class Card
         end
       end
 
-      def lex
-        simple? ? name : [left_id, right_id]
-      end
-
       def autoname name
-        if Card.exists?(name) || Director.include?(name)
+        if Card.exist?(name) || Director.include?(name)
           autoname name.next
         else
           name
@@ -107,8 +103,8 @@ class Card
 
       def update_cache_key oldkey
         yield
-        was_in_cache = Card.cache.soft.delete oldkey
-        Card.write_to_soft_cache self if was_in_cache
+        was_in_cache = Card.cache.temp.delete oldkey
+        Card.write_to_temp_cache self if was_in_cache
       end
 
       def update_subcard_name subcard, new_name, name_to_replace

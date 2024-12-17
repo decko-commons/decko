@@ -28,7 +28,7 @@ class AddSharkAndHelpDeskRole < Cardio::Migration::Transform
 
   def delete_right_read_permissions
     %i[machine_output head script style solid_cache].each do |n|
-      next unless Card::Codename.exists? n
+      next unless Card::Codename.exist? n
       delete_card [n, :right, :read]
     end
   end

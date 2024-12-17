@@ -8,7 +8,6 @@ $box_stripe_color: $secondary !default;
     cursor: pointer
   }
   border-top: 3px solid $box_stripe_color;
-  width: 320px;
 }
 
 .box-top {
@@ -55,12 +54,19 @@ $box_stripe_color: $secondary !default;
 .card-list-box {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: space-around;
 }
 
 // wrapper around box in list context
 .item-box {
-  display: inline-block;
-  padding: 10px 1%;
+  display: flex;
+  padding: 1rem 0;
   vertical-align: top;
+  justify-content: center;
+}
+
+.box, .item-box {
+  min-width: 320px;
+  max-width: 400px;
+  width: 100%
 }

@@ -16,8 +16,8 @@ Cardio.application.class.configure do
 
   config.assets.enabled = true if Object.const_defined?(:JasmineRails)
 
-  config.persistent_cache = false
-  config.prepopulate_cache = true
+  config.shared_cache = false
+  config.seed_cache_from_stash = true
 
   # Configure static asset server for tests with Cache-Control for performance
   config.serve_static_files = true
@@ -46,13 +46,13 @@ Cardio.application.class.configure do
   # config.action_mailer.delivery_method = :smtp
   # config.action_mailer.smtp_settings = { address: "localhost", port: 1025 }
 
-  # Use SQL instead of Active Record's schema dumper when creating the test database.
+  # Use SQL instead of ActiveRecord's schema dumper when creating the test database.
   # This is necessary if your schema can't be completely dumped by the schema dumper,
   # like if you have constraints or database-specific column types
   # config.active_record.schema_format = :sql
 
   # FIXME: - add back the next one when we go back to 3.2
-  # Raise exception on mass assignment protection for Active Record models
+  # Raise exception on mass assignment protection for ActiveRecord models
   #  config.active_record.mass_assignment_sanitizer = :strict
 
   # Print deprecation notices to the stderr

@@ -12,7 +12,10 @@ end
 
 # we need a card id for the path so we have to update db_content when we have
 # an id
-event :correct_identifier, :finalize, on: :create, when: proc { |c| !c.web? } do
+event :correct_identifier, :finalize, on: :save, when: proc { |c| !c.web? } do
+  correct_id = attachment.db_content
+  return if db_content == correct_id
+
   update_column :db_content, attachment.db_content
   expire
 end
@@ -20,7 +23,7 @@ end
 event :save_original_filename, :prepare_to_store, on: :save, when: :file_ready_to_save? do
   return unless @current_action
 
-  @current_action.update! comment: original_filename
+  @current_action.comment = original_filename
 end
 
 event :validate_file_exist, :validate, on: :create, skip: :allowed do
@@ -101,10 +104,10 @@ def duplicate?
 end
 
 def delete_files_for_action action
-  with_selected_action_id(action.id) do
+  with_selected_action_id action.id do
     attachment.file.delete
     attachment.versions.each_value do |version|
-      version.file.delete
+      version.file&.delete
     end
   end
 end

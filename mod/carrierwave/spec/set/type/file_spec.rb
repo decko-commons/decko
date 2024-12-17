@@ -55,7 +55,7 @@ RSpec.describe Card::Set::Type::File do
     end
 
     it "handles urls as source" do
-      url = "https://decko.org/files/bruce_logo-large-122798.png"
+      url = "https://imgs.xkcd.com/comics/advent_calendar_advent_calendar_2x.png"
       with_storage_config :local do
         file = (create_file_card :local, nil, remote_file_url: url)&.file
         expect(file.size).to be_positive

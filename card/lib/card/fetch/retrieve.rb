@@ -21,7 +21,7 @@ class Card
       def retrieve_from_db
         query = retrieval_from_db_query
         @card = query ? Card.where(query).take : nil
-        @cache_ready = true if card.present? && !card.trash
+        @fresh_from_db = true if card.present? && !card.trash
         card
       end
 

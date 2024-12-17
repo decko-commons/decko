@@ -3,6 +3,18 @@ class Card
     module Pattern
       # pattern-related Card instance methods
       module All
+        # Because Card works by including set-specific ruby modules on singleton classes,
+        # and singleton classes generally can't be cached, we can never cache the cards
+        # in a completely ready-to-roll form.
+        #
+        # However, we can optimize considerably by saving the list of ruby modules in
+        # environments where they won't be changing (eg production) or at least the list
+        # of matching set patterns
+        def prep_modules_for_caching
+          patterns
+          set_modules if Cardio.config.cache_set_module_list
+        end
+
         def patterns?
           defined? @patterns
         end

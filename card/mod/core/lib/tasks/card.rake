@@ -13,8 +13,7 @@ namespace :card do
       ENV["NO_RAILS_CACHE"] = "true"
       # Benchmark.bm do |x|
       ["migrate:port", "migrate:schema", "migrate:recode", :eat, "migrate:transform",
-       :reset,
-       "mod:uninstall", "mod:install", "mod:symlink"].each do |task|
+       "mod:uninstall", "mod:install", "mod:symlink", :reset].each do |task|
         Rake::Task["card:#{task}"].invoke
       end
     end
@@ -85,6 +84,8 @@ namespace :card do
   desc "Clears both cache and tmpfiles"
   task reset: :environment do
     puts "resetting"
+    Card::Cache.shared_on!
+
     parse_options :reset do
       flag_opt :c, :cache, "cache only"
       flag_opt :t, :tmpfiles, "tmpfiles only"

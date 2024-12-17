@@ -14,7 +14,7 @@ Decko.application.class.configure do
   # For more information see https://rspec.lighthouseapp.com/projects/16211/tickets/165
   config.cache_classes = true
 
-  config.prepopulate_cache = true
+  config.seed_cache_from_stash = true
 
   # Log error messages when you accidentally call methods on nil.
   config.whiny_nils = true
