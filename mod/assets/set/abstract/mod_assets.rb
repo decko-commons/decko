@@ -21,6 +21,7 @@ end
 
 def folder_group_card
   return unless assets_path
+
   card = new_assets_group_card local_group_name, folder_group_type_id
   card.assets_path = assets_path
   card
@@ -35,6 +36,7 @@ end
 
 def remote_group_urls
   return unless manifest_exists?
+
   manifest_group_items "remote"
 end
 
@@ -86,6 +88,7 @@ end
 
 def load_manifest
   return unless manifest_exists?
+
   manifest = YAML.load_file manifest_path
   return {} unless manifest # blank manifest
   validate_manifest manifest
