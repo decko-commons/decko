@@ -3,6 +3,7 @@
 require "../../decko_gem"
 
 DeckoGem.gem "decko-profile" do |s, d|
+  required_ruby_version = ">= 3.0.0"
   s.summary = "decko and card mod profiling"
   s.description = ""
 

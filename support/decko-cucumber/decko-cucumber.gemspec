@@ -3,6 +3,7 @@
 require "../../decko_gem"
 
 DeckoGem.gem "decko-cucumber" do |s, d|
+  required_ruby_version = ">= 3.0.0"
   s.summary = "cucumber support for decko monkeys"
   s.description = ""
 
