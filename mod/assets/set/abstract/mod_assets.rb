@@ -30,6 +30,7 @@ end
 def local_manifest_group_cards
   manifest.map do |group_name, config|
     next if remote_group?(group_name, config)
+
     new_local_manifest_group_card group_name
   end.compact
 end
@@ -91,6 +92,7 @@ def load_manifest
 
   manifest = YAML.load_file manifest_path
   return {} unless manifest # blank manifest
+
   validate_manifest manifest
   manifest
 end
@@ -143,8 +145,7 @@ end
 
 def new_assets_group_card group_name, type_id
   item_name = "#{name}+group: #{group_name}"
-  card = Card.new group_card_args(group_name, type_id, item_name)
-  card
+  Card.new group_card_args(group_name, type_id, item_name)
 end
 
 def validate_manifest_item name, config
