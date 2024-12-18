@@ -27,7 +27,7 @@ unless defined? TEST_ROOT
       # Read Mike Clark's excellent walkthrough at
       #   http://clarkware.com/cgi/blosxom/2005/10/24#Rails10FastTesting
       #
-      # Every Active Record database supports transactions except MyISAM tables
+      # Every ActiveRecord database supports transactions except MyISAM tables
       # in MySQL.  Turn off transactional fixtures in this case; however, if you
       # don't care one way or the other, switching from MyISAM to InnoDB tables
       # is recommended.

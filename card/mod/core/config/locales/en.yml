@@ -21,6 +21,7 @@ en:
   core_exception_almost_deleted: Narrowly averted deleting current file
   core_is_incomplete: is incomplete
   core_only_admins_codename: only admins can set codename
+  core_error_codename_special_characters: codenames cannot have special characters; only a-z and _.
   core_renaming: "Renaming"
   core_rename: "Rename"
   core_rename_confirm: "Are you sure you want to rename?"

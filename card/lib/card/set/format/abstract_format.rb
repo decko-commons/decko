@@ -42,13 +42,30 @@ class Card
         #   and then completing a request. Only applies to HtmlFormat
         #
         # * __:cache__ directs how to handle caching for this view. Supported values:
-        #     * *:standard* - (default)
+        #     * *:default* - (default) do not independently cache this view. However, if
+        #       this view is rendered by another view of the same card, and that view is
+        #       cached, it's ok to cache it.
+        #     * *:yes* - cache this view whenever it's safe to do so. Do NOT start
+        #       a new caching when this view is rendered inside another view of the same
+        #       card. And do NOT include
+        #       nested cards in your cache. (Instead, stub them and process them
+        #       separately)
         #     * *:always* - cache even when rendered within another cached view
-        #     * *:never* - don't ever cache this view. Frequently used to prevent caching
-        #       problems
+        #     * *:deep* cache this view and include nested cards
+        #     * *:never* - don't ever cache this view, even if it's rendered by another
+        #       view of the same card. Frequently used to prevent caching problems, when
+        #       dynamic context (eg params) can alter the view.
         #
         #   You should certainly {Card::View::Cache learn more about caching} if you want
         #   to develop mods that are safe in a caching environment.
+        #
+        # * __:expire__ handles cache expiration. (can only apply when cache setting is
+        #     yes, always, or deep)
+        #
+        #     * *:hour* - expire when the hour next changes
+        #     * *:day* - expire when the day next changes
+        #     * *:week* - expire when the week next changes
+        #     * *:month* - expire when the month next changes
         #
         # * __:compact__ [True/False]. Is view acceptable for rendering inside `compact`
         #   view?  Default is false.

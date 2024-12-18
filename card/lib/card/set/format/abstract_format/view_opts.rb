@@ -14,7 +14,7 @@ class Card
 
           # view setting values can be accessed from Format objects (eg within format
           # blocks in set modules) using #view_setting(:setting_name, :view_name)
-          VIEW_SETTINGS = %i[cache compact denial perms unknown wrap].freeze
+          VIEW_SETTINGS = %i[cache compact denial perms unknown wrap expire].freeze
 
           # view def opts are used in defining views but are not available
           # at any later point

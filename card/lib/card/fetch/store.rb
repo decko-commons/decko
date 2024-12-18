@@ -5,16 +5,16 @@ class Card
       def update_cache
         return unless update_cache?
 
-        prep_for_cache
+        card.prep_modules_for_caching unless skip_modules?
         Card.write_to_cache card, local_only?
       end
 
       def update_cache?
-        (cache_ready? || new_for_cache || needs_prep?) && !card&.uncacheable?
+        (fresh_from_db? || new_for_cache || needs_prep?) && !card&.uncacheable?
       end
 
-      def cache_ready?
-        @cache_ready
+      def fresh_from_db?
+        @fresh_from_db
       end
 
       # instantiate a card as a cache placeholder
@@ -47,20 +47,6 @@ class Card
 
       def reusable?
         !(mark.is_a?(Integer) || (mark.blank? && !opts[:new]))
-      end
-
-      # Because Card works by including set-specific ruby modules on singleton classes and
-      # singleton classes generally can't be cached, we can never cache the cards in a
-      # completely ready-to-roll form.
-      #
-      # However, we can optimize considerably by saving the list of ruby modules in
-      # environments where they won't be changing (eg production) or at least the list of
-      # matching set patterns
-      def prep_for_cache
-        # return # DELETE ME
-        return if skip_modules?
-
-        Cardio.config.cache_set_module_list ? card.set_modules : card.patterns
       end
     end
   end

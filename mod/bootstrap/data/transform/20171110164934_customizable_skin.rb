@@ -20,7 +20,7 @@ class CustomizableSkin < Cardio::Migration::Transform
     end
 
     def create_or_update
-      Card.exists?(@skin_name) ? update_skin : create_skin
+      Card.exist?(@skin_name) ? update_skin : create_skin
     end
 
     private

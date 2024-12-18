@@ -42,7 +42,7 @@ module Cardio
       end
 
       def delete_files_with_id dir, file_id
-        raise Card::Error, t(:core_exception_almost_deleted) if Card.exists?(file_id)
+        raise Card::Error, t(:core_exception_almost_deleted) if Card.exist?(file_id)
 
         ::FileUtils.rm_rf "#{dir}/#{file_id}", secure: true
       end

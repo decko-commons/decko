@@ -228,3 +228,39 @@ card_changes_044:
   value: |-
     [[:getting_started_links|Getting started]]
     [[:recent|Recent Changes]]
+card_changes_045:
+  id: 45
+  card_action_id: 3702
+  field: 2
+  value: "[[:recent|Recent Changes]]"
+card_changes_046:
+  id: 46
+  card_action_id: 3703
+  field: 2
+  value: |-
+    [[:getting_started_links|Getting started]]
+    [[:recent|Recent Changes]]
+card_changes_047:
+  id: 47
+  card_action_id: 3704
+  field: 2
+  value: "[[:recent|Recent Changes]]"
+card_changes_048:
+  id: 48
+  card_action_id: 3705
+  field: 2
+  value: |-
+    [[:getting_started_links|Getting started]]
+    [[:recent|Recent Changes]]
+card_changes_049:
+  id: 49
+  card_action_id: 3706
+  field: 2
+  value: "[[:recent|Recent Changes]]"
+card_changes_050:
+  id: 50
+  card_action_id: 3707
+  field: 2
+  value: |-
+    [[:getting_started_links|Getting started]]
+    [[:recent|Recent Changes]]

@@ -66,7 +66,7 @@ private
 def new_content_action_id
   return unless @current_action && current_action_changes_content?
 
-  @current_action.id
+  @current_action.id || (@current_action.save! && @current_action.id)
 end
 
 def current_action_changes_content?

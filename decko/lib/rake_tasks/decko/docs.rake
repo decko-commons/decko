@@ -24,8 +24,9 @@ namespace :decko do
     # If you run this while using decko as a built gem, you could get some funky docs in
     # your gems directory...
     task :yardoc do
+      output_dir = ENV["DECKO_DOCS_DIR"] || "./doc"
       doc_dir = File.expand_path "..", Decko.gem_root
-      system %(cd #{doc_dir}; yardoc)
+      system %(cd #{doc_dir}; yardoc --output-dir #{output_dir} )
     end
 
     # just load environment and trigger Card load (used to generate tmpsets)

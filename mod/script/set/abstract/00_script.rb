@@ -75,7 +75,7 @@ format :html do
     process_content highlight(render_raw)
   end
 
-  view :javascript_include_tag do
+  view :javascript_include_tag, cache: :never do
     javascript_include_tag path(format: :js)
   end
 

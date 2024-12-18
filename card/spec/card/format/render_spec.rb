@@ -14,8 +14,8 @@ RSpec.describe Card::Format::Render do
     after { Cardio.config.view_cache = false }
 
     let(:cache_key) do
-      "#{'Z'.card_id}-Card::Format::HtmlFormat-normal-home_view:content;" \
-      "nest_name:Z;nest_syntax:Z|content;view:contentcontent:show"
+      "html-#{'Z'.card_id}-home_view:content;" \
+      "nest_name:Z;nest_syntax:Z|content;view:content;content:show"
     end
 
     it "can be changed with nest option" do

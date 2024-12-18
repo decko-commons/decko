@@ -1,11 +1,3 @@
-def codename
-  super&.to_sym
-end
-
-def codename?
-  codename.present?
-end
-
 event :validate_codename, :validate, on: :update, changed: :codename do
   validate_codename_permission
   validate_codename_uniqueness
@@ -19,6 +11,12 @@ event :reset_codename_cache, :integrate, changed: :codename do
 end
 
 private
+
+def validate_codename_characters
+  return unless codename.to_s.match?(/[^a-z_]/)
+
+  errors.add :codename, t(:core_error_codename_special_characters)
+end
 
 def validate_codename_permission
   return if Auth.always_ok? || Auth.as_id == creator_id
