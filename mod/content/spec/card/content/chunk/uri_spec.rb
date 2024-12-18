@@ -79,7 +79,7 @@ RSpec.describe Card::Content::Chunk::Uri do
                    path: "/HelpOnNavigation"
   end
 
-  it "works with some path at the end, and without http:// prefix "\
+  it "works with some path at the end, and without http:// prefix " \
      "(@link_text has prefix added)" do
     match_http_uri "moinmoin.wikiwikiweb.de/HelpOnNavigation",
                    host: "moinmoin.wikiwikiweb.de",
@@ -107,7 +107,7 @@ RSpec.describe Card::Content::Chunk::Uri do
   end
 
   it "works on Query with two arguments" do
-    match_http_uri "http://www.example.com.tw:80/HelpOnNavigation"\
+    match_http_uri "http://www.example.com.tw:80/HelpOnNavigation" \
                    "?arg=val&arg2=val2",
                    host: "www.example.com.tw", port: 80,
                    path: "/HelpOnNavigation", query: "arg=val&arg2=val2"

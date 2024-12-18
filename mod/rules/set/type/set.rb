@@ -84,7 +84,7 @@ def visible_settings group=nil, cardtype_id=nil
 end
 
 def broader_sets
-  prototype.set_names[1..-1].map(&Card.method(:fetch))
+  prototype.set_names[1..].map(&Card.method(:fetch))
 end
 
 def prototype
