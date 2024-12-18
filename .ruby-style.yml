@@ -113,5 +113,7 @@ Style/CollectionMethods:
     detect: 'find'
     find_all: 'select'
     reduce: 'inject'
-Style/BracesAroundHashParameters:
-  EnforcedStyle: context_dependent
+RSpec/ImplicitSubject:
+  Enabled: false
+Naming/MethodParameterName:
+  Enabled: false
