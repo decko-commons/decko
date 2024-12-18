@@ -2,7 +2,9 @@ include Abstract::Permission
 
 assign_type :list
 
-format :html do include Abstract::Permission::HtmlFormat end
+format :html do
+  include Abstract::Permission::HtmlFormat
+end
 
 event :cascade_read_rule, :finalize, after: :update_rule_cache, when: :rule? do
   # left&.update_lexicon
@@ -52,7 +54,7 @@ end
 # These may include cards that are no longer set members if the card was renamed
 # (edge case)
 def update_cards_with_read_rule_id processed
-  processed ||= ::Set.new
+  processed ||= Set.new
   Card::Auth.as_bot do
     Card.search(read_rule_id: id) do |card|
       card.update_read_rule unless processed.include?(card.key)
@@ -62,7 +64,7 @@ end
 
 def each_member &block
   Auth.as_bot do
-    all_members.each_with_object(::Set.new, &block)
+    all_members.each_with_object(Set.new, &block)
   end
 end
 

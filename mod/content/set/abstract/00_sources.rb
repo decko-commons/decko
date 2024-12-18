@@ -20,5 +20,5 @@ def existing_source_paths
 end
 
 def source_changed? since:
-  existing_source_paths.any? { |path| ::File.mtime(path) > since }
+  existing_source_paths.any? { |path| File.mtime(path) > since }
 end

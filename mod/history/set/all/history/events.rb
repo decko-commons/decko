@@ -17,7 +17,7 @@ event :assign_action, :initialize, when: :actionable? do
 end
 
 event :detect_conflict, :validate, on: :update, when: :edit_conflict? do
-  errors.add :conflict, ::I18n.t(:history_error_not_latest_revision)
+  errors.add :conflict, I18n.t(:history_error_not_latest_revision)
 end
 
 # stores changes in the changes table and assigns them to the current action

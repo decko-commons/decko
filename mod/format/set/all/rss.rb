@@ -5,7 +5,7 @@ format :rss do
 
   def initialize card, args
     super
-    @xml = @parent ? @parent.xml : ::Builder::XmlMarkup.new
+    @xml = @parent ? @parent.xml : Builder::XmlMarkup.new
   end
 
   def show view, args

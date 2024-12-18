@@ -10,7 +10,7 @@ event :validate_css, :validate, on: :save, changed: %i[type_id content] do
   # results.errors.each do |error|
   #  errors.add :content, "#{error.message} (line #{error.line})"
   # en
-  ::Sass::SCSS::Parser.new(content, nil, nil).parse
-rescue ::Sass::SyntaxError => e
+  Sass::SCSS::Parser.new(content, nil, nil).parse
+rescue Sass::SyntaxError => e
   errors.add :content, e.message
 end

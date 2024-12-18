@@ -80,7 +80,7 @@ format :html do
   end
 
   def highlight script
-    ::CodeRay.scan(script, :js).div
+    CodeRay.scan(script, :js).div
   end
 end
 

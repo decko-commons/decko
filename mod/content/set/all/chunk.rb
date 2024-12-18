@@ -80,7 +80,7 @@ format do
   end
 
   def uniq_chunks chunks
-    processed = ::Set.new [card.key]
+    processed = Set.new [card.key]
     chunks.select do |chunk|
       key = chunk.referee_name.key
       ok = !processed.include?(key)

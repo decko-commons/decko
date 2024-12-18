@@ -149,9 +149,9 @@ RSpec.describe Card::Set::Type::Image do
       small_path = subject.image.small.path
       medium_path = subject.image.medium.path
       subject.delete_files_for_action(subject.last_action)
-      expect(File).not_to be_exist(small_path)
-      expect(File).not_to be_exist(medium_path)
-      expect(File).not_to be_exist(path)
+      expect(File).not_to exist(small_path)
+      expect(File).not_to exist(medium_path)
+      expect(File).not_to exist(path)
     end
   end
 end

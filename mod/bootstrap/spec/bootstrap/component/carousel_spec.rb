@@ -1,8 +1,8 @@
 # -*- encoding : utf-8 -*-
 
-RSpec.describe ::Card::Bootstrap::Component::Carousel do
+RSpec.describe Card::Bootstrap::Component::Carousel do
   subject(:carousel) do
-    card = ::Card["A"].format(:html)
+    card = Card["A"].format(:html)
     card.bs_carousel id, 0 do
       item do
         @html.img src: "item1"
@@ -60,7 +60,7 @@ RSpec.describe ::Card::Bootstrap::Component::Carousel do
   end
 
   it "doesn't escape markup" do
-    carousel = ::Card["A"].format(:html).bs_carousel "csID", 0 do
+    carousel = Card["A"].format(:html).bs_carousel "csID", 0 do
       item "<strong>item 2</strong>"
     end
     expect(carousel).to have_tag "div.carousel-item" do
