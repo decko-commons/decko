@@ -1,9 +1,9 @@
 format :html do
   def raw_help_text
     # LOCALIZE
-    "Register your domain at Google's [[http://google.com/recaptcha|reCAPTCHA service]] "\
-    "and enter your site key and secret key below.<br>"\
-    "If you want to turn captchas off then change all [[*captcha|captcha rules]] to 'no'."
+    "Register your domain at Google's [[http://google.com/recaptcha|reCAPTCHA service]] " \
+      "and enter your site key and secret key below.<br>" \
+      "If you want to turn captchas off then change all [[*captcha|captcha rules]] to 'no'."
   end
 
   view :core do
