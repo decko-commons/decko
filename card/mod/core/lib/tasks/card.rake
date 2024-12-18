@@ -51,6 +51,7 @@ namespace :card do
     puts "sowing"
     parse_options :sow do
       add_opt :n, :name, "export card with name/mark (handles : and ~ prefixes)"
+      add_opt :r, :remote, "export card from remote deck (with -n)"
       flag_opt :i, :items, "also export card items (with -n)"
       flag_opt :o, :only_items, "only export card items (with -n)", items: :only
       add_opt :c, :cql, "export cards found by CQL (in JSON format)"
