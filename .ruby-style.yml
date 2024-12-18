@@ -40,7 +40,7 @@ RSpec/ExampleLength:
   Max: 25
 RSpec/SpecFilePathFormat:
   Description: Checks that spec file paths are consistent and well-formed.
-  Enabled: true
+  Enabled: false
   Include:
     - "**/*_spec.rb"
   Exclude:
@@ -56,7 +56,7 @@ RSpec/SpecFilePathFormat:
 
 RSpec/SpecFilePathSuffix:
   Description: Checks that spec file paths suffix are consistent and well-formed.
-  Enabled: true
+  Enabled: false
   VersionAdded: '2.24'
   Include:
     - "**/*_spec*rb*"
@@ -373,7 +373,7 @@ Style/YAMLFileRead: # new in 1.53
   Enabled: true
 RSpec/StringAsInstanceDoubleConstant: # new in 3.1
   Enabled: true
-Rspec/RedundantPredicateMatcher:
+RSpec/RedundantPredicateMatcher:
   Enabled: false # Changes in file specs "be_exist" to "exits", which breaks the tests
 RSpec/MultipleMemoizedHelpers:
   Enabled: true
