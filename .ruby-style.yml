@@ -115,3 +115,5 @@ Style/CollectionMethods:
     reduce: 'inject'
 RSpec/ImplicitSubject:
   Enabled: false
+Naming/MethodParameterName:
+  Enabled: false
