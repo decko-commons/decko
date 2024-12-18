@@ -16,7 +16,7 @@ RSpec.describe Card::Set::Abstract::AssetOutputter do
       card = Card[:mod_format, :script]
       card.update_asset_output
       card.make_asset_output_coded
-      expect(File).to be_exist(path)
+      expect(File).to exist(path)
     end
   end
 end
