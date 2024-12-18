@@ -1,4 +1,3 @@
-
 basket[:tasks] = {}
 basket[:config_title] = {
   basic: "Basic configuration",
@@ -59,7 +58,7 @@ def all_admin_configs_of_category category
 end
 
 def config_codenames_grouped_by_title configs
-  configs&.group_by { |c| c.title }&.map do |title, grouped_configs|
+  configs&.group_by(&:title)&.map do |title, grouped_configs|
     [title, grouped_configs.map { |config| config.codename.to_sym }]
   end
 end
