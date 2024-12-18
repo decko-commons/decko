@@ -26,6 +26,7 @@ module Cardio
       def rename_old_tables
         old_tables.each do |old_table_name|
           next unless lease_connection.table_exists? old_table_name
+
           lease_connection.rename_table old_table_name, table
         end
       end

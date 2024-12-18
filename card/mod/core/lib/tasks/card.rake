@@ -34,7 +34,7 @@ namespace :card do
   end
 
   def args_without_env_arg
-    env_index = ARGV.find_index { |entry| entry == "-e" || entry == "--env" }
+    env_index = ARGV.find_index { |entry| %w[-e --env].include?(entry) }
     args =
       if env_index
         ARGV[1..].select.with_index do |_, index|

@@ -129,7 +129,7 @@ end
 
 def depends_on
   mod&.spec&.dependencies
-    &.map { |dep| dep.name }
+    &.map(&:name)
     &.select { |name| name.starts_with? "card-mod" }
     &.map { |name| "mod_#{name[8..]}" }
 end
@@ -141,9 +141,7 @@ end
 def settings
   return unless admin_config
 
-  admin_config["settings"]&.map do |setting|
-    setting.to_sym
-  end
+  admin_config["settings"]&.map(&:to_sym)
 end
 
 def configurations
@@ -211,6 +209,7 @@ def load_admin_config
 
   admin_config = YAML.load_file admin_config_path
   return {} unless admin_config # blank manifest
+
   # validate_manifest manifest
   admin_config
 end
