@@ -2,7 +2,7 @@
 
 RSpec.describe Card::Set::Type::Set do
   describe "#compound_only?" do
-    it "identifies sets that only apply to plus cards", aggregate_failures: true do
+    it "identifies sets that only apply to plus cards", :aggregate_failures do
       expect(Card.fetch("*all")).not_to be_compound_only
       expect(Card.fetch("*all plus")).to be_compound_only
       expect(Card.fetch("Book+*type")).not_to be_compound_only
@@ -13,7 +13,7 @@ RSpec.describe Card::Set::Type::Set do
   end
 
   describe "#inheritable?" do
-    it "identifies sets that can inherit rules", aggregate_failures: true do
+    it "identifies sets that can inherit rules", :aggregate_failures do
       expect(Card.fetch("A+*self")).not_to be_inheritable
       expect(Card.fetch("A+B+*self")).to be_inheritable
       expect(Card.fetch("Book+*to+*type plus right")).to be_inheritable

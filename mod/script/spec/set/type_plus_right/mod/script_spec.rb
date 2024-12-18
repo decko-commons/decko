@@ -8,12 +8,12 @@ RSpec.describe Card::Set::TypePlusRight::Mod::Script do
 
     it "contains remote sources" do
       script_card
-        .should include "<script src=\"https://code.jquery.com/jquery-3.5.1.min.js\" "\
+        .should include "<script src=\"https://code.jquery.com/jquery-3.5.1.min.js\" " \
                         "crossorigin=\"anonymous\"></script>"
       script_card
-        .should include "<script src=\"https://cdnjs.cloudflare.com/ajax/libs/"\
-                        "jquery-ujs/1.2.3/rails.min.js\" "\
-                        "crossorigin=\"anonymous\" referrerpolicy=\"no-referrer\">"\
+        .should include "<script src=\"https://cdnjs.cloudflare.com/ajax/libs/" \
+                        "jquery-ujs/1.2.3/rails.min.js\" " \
+                        "crossorigin=\"anonymous\" referrerpolicy=\"no-referrer\">" \
                         "</script>"
     end
 

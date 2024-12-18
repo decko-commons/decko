@@ -1,4 +1,3 @@
-
 class RemoveCustomizedBootswatchSkins < Cardio::Migration::Transform
   def up
     Card.ensure! codename: "parent", name: "parent"
