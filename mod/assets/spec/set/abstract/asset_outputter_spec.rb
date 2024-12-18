@@ -6,7 +6,7 @@ RSpec.describe Card::Set::Abstract::AssetOutputter do
       mod_path = Cardio::Mod.dirs.path "format"
       path = File.join mod_path,
                        "data", "files", "mod_format_script_asset_output", "file.js"
-      expect(File).to exist(path),
+      expect(File).to be_exist(path),
                       "Decko should be shipped with generated script file. " \
                       "Couldn't find #{path}"
 
