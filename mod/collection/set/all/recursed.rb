@@ -1,8 +1,8 @@
 def recursed_item_cards context=nil
   list = []
-  book = Set.new # avoid loops
+  book = ::Set.new # avoid loops
   items =
-    recursable_items? ? item_cards(limit: "", context: context&.name || name) : [self]
+    recursable_items? ? item_cards(limit: "", context: (context&.name || name)) : [self]
   recurse_item_list items, list, book until items.empty?
   list
 end

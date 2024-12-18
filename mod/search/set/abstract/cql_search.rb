@@ -7,7 +7,7 @@ end
 # override this to define search
 def cql_content
   query = content
-  query = parse_json_cql(query) unless query.is_a?(Hash)
+  query = query.is_a?(Hash) ? query : parse_json_cql(query)
   query.symbolize_keys
 end
 

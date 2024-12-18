@@ -4,7 +4,7 @@ attr_accessor :base_path
 
 def source_paths
   source_files.map do |file|
-    File.join base_path, file
+    ::File.join base_path, file
   end
 end
 
@@ -25,7 +25,7 @@ def find_file path
 end
 
 def unknown_file? file_path
-  return false if File.exist? file_path
+  return false if ::File.exist? file_path
 
   Rails.logger.info "couldn't locate #{file_path}"
   true
@@ -47,7 +47,7 @@ format do
 
   def link_to_view view, text=nil, opts={}
     opts[:path] = { card: { type: card.type, content: card.db_content } }
-    super(view, text || view, opts)
+    super view, (text || view), opts
   end
 end
 

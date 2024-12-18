@@ -24,7 +24,7 @@ module RecaptchaCard
 
   class << self
     def load_recaptcha_config setting
-      full_setting = :"recaptcha_#{setting}"
+      full_setting = "recaptcha_#{setting}".to_sym
       Cardio.config.send "#{full_setting}=",
                          recaptcha_setting_value(setting, full_setting)
     end
@@ -67,4 +67,4 @@ ActiveSupport.on_load :after_card do
   end
 end
 
-CardController.include Recaptcha::Verify
+CardController.include ::Recaptcha::Verify

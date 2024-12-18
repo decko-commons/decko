@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 
 RSpec.describe Card::Set::Type::Session do
-  it "stores content in session", :aggregate_failures, :as_bot do
+  it "stores content in session", as_bot: true, aggregate_failures: true do
     create_session "sesh", "some content"
     expect(Card.fetch("sesh", new: { type: :session }).content)
       .to eq "some content"
@@ -21,7 +21,7 @@ RSpec.describe Card::Set::Type::Session do
     expect(card.content).to eq "new content"
   end
 
-  example "delete content", :aggregate_failures, :as_bot do
+  example "delete content", as_bot: true, aggregate_failures: true do
     create_session "sesh", "some content"
     card = Card.fetch("sesh", new: { type: :session })
 

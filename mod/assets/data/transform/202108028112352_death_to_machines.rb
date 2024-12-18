@@ -63,7 +63,6 @@ class DeathToMachines < Cardio::Migration::Transform
   def drop_all_style_items
     Card[:all, :style].item_cards.each do |card|
       next unless card.left&.type_id == Card::ModID && card.right&.codename == :style
-
       Card[:all, :style].drop_item! card
     end
   end

@@ -9,11 +9,11 @@ def subpath
 end
 
 def folder_group_type_id
-  Card::LocalStyleFolderGroupID
+  ::Card::LocalStyleFolderGroupID
 end
 
 def local_manifest_group_type_id
-  Card::LocalStyleManifestGroupID
+  ::Card::LocalStyleManifestGroupID
 end
 
 format :html do

@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 
 RSpec.describe Card::Set::Type::List do
-  it "handles references", :aggregate_failures do
+  it "handles references", aggregate_failures: true do
     content = "A\n[[+B]]\n[[C]]"
     card = create_list "test", content
     refs = Card::Reference.where(referer_id: card.id).pluck(:referee_key, :ref_type)

@@ -1,3 +1,4 @@
+
 class RemoveScriptCards < Cardio::Migration::Transform
   def up
     delete_code_card :script_select2

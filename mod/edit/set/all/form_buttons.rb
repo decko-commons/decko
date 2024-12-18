@@ -7,7 +7,7 @@ format :html do
   #
   # @param [Hash] opts The options for the save button.
   # @option opts [String] :text ("Save") The text displayed on the button.
-  #
+  # 
   # @return [String] The HTML code for the standard save button.
   #
   # @example

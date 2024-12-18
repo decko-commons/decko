@@ -254,8 +254,8 @@ RSpec.describe Card::Set::All::History do
 
   describe "timestamping" do
     # NOTE: B includes Z, so updates to Z stamp B
-    example "includers get a new timestamp", :aggregate_failures,
-            with_user: "Sample User" do
+    example "includers get a new timestamp",
+            with_user: "Sample User", aggregate_failures: true do
       time = Time.now - 1.second
       expect(Card["B"].updated_at).to be < time
       expect(Card["B"].updater_id).not_to eq "Sample User".card_id

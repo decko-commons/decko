@@ -39,7 +39,7 @@ format :html do
     options = tab_options
     tab_list.each_with_object({}) do |tab_key, hash|
       hash[tab_key] = {
-        view: options.dig(tab_key, :view) || "#{tab_key}_tab",
+        view: (options.dig(tab_key, :view) || "#{tab_key}_tab"),
         title: tab_title_from_map(tab_key, options[tab_key])
       }
     end

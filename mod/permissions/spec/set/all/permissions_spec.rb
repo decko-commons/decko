@@ -46,7 +46,7 @@ RSpec.describe Card::Set::All::Permissions do
       end
     end
 
-    it "reader setting", :aggregate_failures do
+    it "reader setting", aggregate_failures: true do
       Card.where(trash: false).each do |ca|
         rule_id, rule_class = ca.permission_rule_id_and_class :read
         expect(ca.read_rule_class)
@@ -256,7 +256,7 @@ RSpec.describe Card::Set::All::Permissions do
     end
   end
 
-  it "creates self read rule", :as_bot do
+  it "creates self read rule", as_bot: true do
     read_rule = Card.ensure! name: %i[uri self read], content: "Anyone"
     expect(:uri.card.read_rule_class).to eq("*self")
     expect(:uri.card.read_rule_id).to eq(read_rule.id)

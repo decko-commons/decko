@@ -168,7 +168,7 @@ format :html do
   end
 
   def signin_success
-    { redirect: true, mark: Env.interrupted_action || "*previous" }
+    { redirect: true, mark: (Env.interrupted_action || "*previous") }
   end
 
   def signin_button

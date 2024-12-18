@@ -23,7 +23,7 @@ class Card
 
         def inspect
           "<##{self.class}:e[#{@explicit_link}]n[#{@name}]l[#{@link_text}]" \
-            "p[#{@process_chunk}] txt:#{@text}>"
+          "p[#{@process_chunk}] txt:#{@text}>"
         end
 
         # view options

@@ -13,7 +13,7 @@ RSpec.describe Card::Set::All::Follow do
         Card::Auth.as_bot do
           Card["Joe User"].follow "No One Sees Me"
           expect(Card["No One Sees Me"].follower_ids)
-            .to eq Set.new([Card["Joe User"].id])
+            .to eq ::Set.new([Card["Joe User"].id])
         end
       end
     end

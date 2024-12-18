@@ -28,7 +28,7 @@ end
 
 format :html do
   view :core do
-    process_content CodeRay.scan(_render_raw, :json).div
+    process_content ::CodeRay.scan(_render_raw, :json).div
   end
 
   def input_type

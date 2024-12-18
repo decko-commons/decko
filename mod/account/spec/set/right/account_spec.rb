@@ -15,7 +15,6 @@ RSpec.describe Card::Set::Right::Account do
     context "valid user" do
       # NOTE: - much of this is tested in account_request_spec
       before { Card::Auth.as_bot { user_card } }
-
       let(:user_card) { Card.create! dummy_account_args.merge(type_code: :user) }
 
       it "creates an authenticable password" do

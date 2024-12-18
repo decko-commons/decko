@@ -7,9 +7,10 @@ RSpec.describe Card::Reference::NestParser do
 
   context "with field" do
     let(:parser) do
-      parse "{{+hi|view: open; show: menu, toggle; wrap: slot; invalid: x" \
-            "|view: titled; hide: header, footer" \
-            "|content; title: subsub}}"
+      Card
+      parse "{{+hi|view: open; show: menu, toggle; wrap: slot; invalid: x"\
+                      "|view: titled; hide: header, footer"\
+                      "|content; title: subsub}}"
     end
 
     it "removes + from name" do

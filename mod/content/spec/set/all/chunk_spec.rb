@@ -22,7 +22,7 @@ RSpec.describe Card::Set::All::Chunk do
                                              with: { "data-card-name": "B" }
     end
 
-    it "treats symbols as codenames", :as_bot do
+    it "treats symbols as codenames", as_bot: true do
       format = format_with_edit_fields %i[write basic]
       expect(format.render_edit).to have_tag ".card-slot" do
         with_tag ".card-editor.RIGHT-Xwrite",
@@ -32,7 +32,7 @@ RSpec.describe Card::Set::All::Chunk do
       end
     end
 
-    example "absolute option", :as_bot do
+    example "absolute option", as_bot: true do
       format = format_with_edit_fields [[:self, { absolute: true }]]
 
       expect(format.render_edit).to have_tag ".card-editor",

@@ -1,5 +1,5 @@
 %i[create update delete].each do |action|
-  event :"observer_#{action}", :integrate, on: action do
+  event "observer_#{action}".to_sym, :integrate, on: action do
     execute_card_events on: action
   end
 end
@@ -9,7 +9,7 @@ event :cache_delete_card_events, :store, on: :delete do
 end
 
 def execute_card_events args
-  setting = :"on_#{args[:on]}"
+  setting = "on_#{args[:on]}".to_sym
   event_cards(setting).each do |event_card|
     event_card.deliver self
   end

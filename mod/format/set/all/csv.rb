@@ -3,7 +3,7 @@ require "csv"
 format :csv do
   def show view, args
     view ||= :titled
-    super
+    super view, args
   end
 
   def nests

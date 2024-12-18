@@ -6,8 +6,8 @@ class Card
       @bootstrap ||= Bootstrap.new(self)
     end
 
-    def bs(...)
-      bootstrap.render(...)
+    def bs *args, &block
+      bootstrap.render(*args, &block)
     end
 
     components.each do |component|

@@ -10,8 +10,8 @@ class Card
       @context = context
     end
 
-    def render(...)
-      instance_exec(...)
+    def render *args, &block
+      instance_exec(*args, &block)
     end
   end
 end

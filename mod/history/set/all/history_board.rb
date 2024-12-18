@@ -3,8 +3,8 @@ format :html do
        wrap: { div: { class: "text-muted creator-credit" } }, cache: :never do
     return "" unless card.real?
 
-    "Created by #{nest card.creator, view: :link} " \
-      "#{time_ago_in_words(card.created_at)} ago"
+    "Created by #{nest card.creator, view: :link} "\
+    "#{time_ago_in_words(card.created_at)} ago"
   end
 
   view :updated_by, wrap: { div: { class: "text-muted" } } do

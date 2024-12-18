@@ -26,7 +26,7 @@ RSpec.describe Card::Set::Type::Skin do
     end
   end
 
-  context "when item changed", :as_bot do
+  context "when item changed", as_bot: true do
     it "updates output of related asset outputter card" do
       skin.name.card.add_item! item
       item.name.card.update! content: changed_css

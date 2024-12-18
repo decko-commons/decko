@@ -5,7 +5,7 @@ RSpec.describe Card::Set::Type::Set do
     Card.fetch("User+*type")
   end
 
-  specify "#nest_editor_field_related_settings", :as_bot do
+  specify "#nest_editor_field_related_settings", as_bot: true do
     create ["characters", :right, :input_type], content: "select"
     create ["characters", :right, :default], type_id: Card::ListID
     card = Card.new name: "RichText+characters+*type plus right"

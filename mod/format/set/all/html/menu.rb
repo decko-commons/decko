@@ -7,7 +7,6 @@ format :html do
 
   view :menu, denial: :blank, unknown: true do
     return "" unless card.known?
-
     # would be preferable to do this with unknown: :blank, but that fails with view
     # caching on, because voo always thinks it's the root.
     wrap_with(:div, class: "card-menu #{menu_link_classes}") { menu_items }
@@ -150,7 +149,7 @@ format :html do
 
   def edit_link view=:edit, link_text: nil, text: "", modal: nil
     link_to_view view, link_text || "#{menu_icon} #{text}",
-                 edit_link_opts(modal: modal || :lg)
+                 edit_link_opts(modal: (modal || :lg))
   end
 
   # Generates options hash for an edit link with optional parameters.

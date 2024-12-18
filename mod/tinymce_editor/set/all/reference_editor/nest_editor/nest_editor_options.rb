@@ -63,7 +63,7 @@ format :html do
 
   def nest_option_value_default_template
     text_field_tag "value", nil,
-                   class: "_nest-option-template-default _nest-option-value " \
+                   class: "_nest-option-template-default _nest-option-value "\
                           "#{nest_option_classes}",
                    id: nil
   end

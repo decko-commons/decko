@@ -31,9 +31,7 @@ format :html do
 
   def filter_radio name, label, checked=false
     <<-HTML.strip_heredoc
-        <input type="radio" class="btn-check _setting-category" name="options" id="#{name}" autocomplete="off" #{if checked
-                                                                                                                   'checked'
-                                                                                                                 end}>
+        <input type="radio" class="btn-check _setting-category" name="options" id="#{name}" autocomplete="off" #{'checked' if checked}>
         <label class="btn btn-outline-primary" for="#{name}">#{label}</label>
     HTML
   end

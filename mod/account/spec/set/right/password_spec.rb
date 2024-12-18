@@ -16,7 +16,7 @@ RSpec.describe Card::Set::Right::Password do
   check_views_for_errors
 
   describe "#update" do
-    it "encrypts password", :aggregate_failures do
+    it "encrypts password", aggregate_failures: true do
       password_card.update! content: "new Pas5word!"
       expect(password).not_to eq("new password")
       authenticated = Card::Auth.authenticate "joe@user.com", "new Pas5word!"
@@ -67,14 +67,14 @@ RSpec.describe Card::Set::Right::Password do
     end
 
     context "blank password" do
-      it "does not change the password", :aggregate_failures do
+      it "does not change the password", aggregate_failures: true do
         original_pw = account.password
         expect(original_pw.size).to be > 10
         password_card.update! content: ""
         expect(original_pw).to eq(password_card.refresh(_force = true).db_content)
       end
 
-      it "does not break email editing", :aggregate_failures do
+      it "does not break email editing", aggregate_failures: true do
         account.update! subcards: { "+*password" => "", "+*email" => "joe2@user.com" }
         expect(account.email).to eq("joe2@user.com")
         expect(account.password).not_to be_empty

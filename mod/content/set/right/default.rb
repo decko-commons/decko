@@ -8,8 +8,8 @@ format :html do
 
   def quick_form_opts
     super.merge "data-update-foreign-slot":
-                ".card-slot.quick_edit-view.RIGHT-Xinput_type," \
-                ".card-slot.quick_edit-view.RIGHT-Xcontent_option" \
+                ".card-slot.quick_edit-view.RIGHT-Xinput_type,"\
+                ".card-slot.quick_edit-view.RIGHT-Xcontent_option"\
                 ".card-slot.quick_edit-view.RIGHT-Xcontent_option_view"
   end
 

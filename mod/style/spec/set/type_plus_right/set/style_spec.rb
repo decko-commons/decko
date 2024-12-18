@@ -29,7 +29,7 @@ RSpec.describe Card::Set::TypePlusRight::Set::Style do
     it "catches invalid item type" do
       card = Card.create name: "A+*self+*style", content: "B"
       expect(card.errors[:content])
-        .to include("B has an invalid type: RichText. " \
+        .to include("B has an invalid type: RichText. "\
                     "Allowed types: CSS, SCSS, Skin, and Bootswatch skin.")
     end
 

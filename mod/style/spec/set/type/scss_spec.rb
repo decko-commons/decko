@@ -31,12 +31,12 @@ RSpec.describe Card::Set::Type::Scss do
     let(:create_asset_outputter_card) { Card.ensure name: "A+*self+*style" }
 
     let :card_content do
-      { in: scss,         out:         scss,
+      { in:         scss,         out:         scss,
         changed_in: changed_scss, changed_out: changed_scss }
     end
   end
 
-  it "processes links and nests but not urls", :as_bot do
+  it "processes links and nests but not urls", as_bot: true do
     scss = ".TYPE-X.no-citations {\n  color: #BA5B5B;\n}\n"
     card = Card.create! name: "minimal css", type: "scss", content: scss
     card.format(:css).render_core.should == scss

@@ -56,7 +56,7 @@ format :html do
 
   def pointer_items args
     voo.items[:view] ||= :link
-    super
+    super(args)
   end
 
   # TODO: research and generalize

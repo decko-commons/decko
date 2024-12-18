@@ -30,7 +30,7 @@ format :html do
   # TODO: consider putting all these under one top-level param, eg:
   # act: { seq: X, diff: [show/hide], action_view: Y }
   def act_listing_opts_from_params seq
-    { act_seq: seq || params["act_seq"],
+    { act_seq: (seq || params["act_seq"]),
       action_view: (params["action_view"] || "summary").to_sym,
       hide_diff: params["hide_diff"].to_s.strip == "true" }
   end
@@ -62,7 +62,7 @@ format :html do
   end
 
   def act_list_starting_seq acts
-    acts.size - ((acts_page_from_params - 1) * acts_per_page)
+    acts.size - (acts_page_from_params - 1) * acts_per_page
   end
 
   def acts_per_page

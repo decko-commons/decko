@@ -42,12 +42,12 @@ module CarrierWave
     # end
 
     def identifier
-      full_filename(super)
+      full_filename(super())
     end
 
     # add 'original' if no version is given
     def full_filename for_file
-      name = super
+      name = super(for_file)
       if name.blank? || version_name
         name
       else

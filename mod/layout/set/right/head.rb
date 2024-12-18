@@ -14,6 +14,6 @@ format :html do
   end
 
   view :core do
-    process_content CodeRay.scan(render_raw, :html).div
+    process_content ::CodeRay.scan(render_raw, :html).div
   end
 end

@@ -36,6 +36,7 @@ basket[:icons] = {
     show_password: :visibility,
     hide_password: :visibility_off
   },
+  #
   font_awesome: {
     plus: :plus,
     pencil: :pencil,
@@ -67,6 +68,7 @@ basket[:icons] = {
     show_password: "eye",
     hide_password: "eye-slash"
   },
+  #
   bootstrap: {
     plus: "plus-lg",
     pencil: "pencil-fill",

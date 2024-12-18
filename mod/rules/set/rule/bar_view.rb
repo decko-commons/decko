@@ -46,7 +46,6 @@ format :html do
 
   def rule_short_content
     return "" unless existing_rule_card
-
     nest existing_rule_card,
          { view: :one_line_content },
          { set_context: card.name.trunk_name }

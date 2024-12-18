@@ -1,5 +1,5 @@
 format :html do
-  # ##---( TOP_LEVEL (used by menu) NEW / EDIT VIEWS )
+  ###---( TOP_LEVEL (used by menu) NEW / EDIT VIEWS )
   view :board, perms: :update, unknown: true, cache: :never, wrap: :board do
     with_nest_mode :edit do
       add_name_context

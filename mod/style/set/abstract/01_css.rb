@@ -36,7 +36,7 @@ format :html do
     # FIXME: scan must happen before process for inclusion interactions to
     # work, but this will likely cause
     # problems with including other css?
-    process_content CodeRay.scan(_render_raw, :css).div, size: :icon
+    process_content ::CodeRay.scan(_render_raw, :css).div, size: :icon
   end
 
   def content_changes action, diff_type, hide_diff=false

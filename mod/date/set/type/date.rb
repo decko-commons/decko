@@ -4,6 +4,6 @@ format :html do
   end
 
   view :core do
-    Date.parse(card.content).strftime "%B %-d, %Y"
+    ::Date.parse(card.content).strftime "%B %-d, %Y"
   end
 end

@@ -1,13 +1,13 @@
 format :html do
   def button_tag content_or_options=nil, options={}, &block
     bootstrapify_button(block_given? ? content_or_options : options)
-    super
+    super(content_or_options, options, &block)
   end
 
   def type_field args={}
     args[:class] ||= ""
     args[:class] += " form-control"
-    super
+    super(args)
   end
 
   def bootstrap_options options

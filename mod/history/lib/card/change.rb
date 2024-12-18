@@ -29,7 +29,7 @@ class Card
       # (janitorial)
       def delete_actionless
         joins(
-          "LEFT JOIN card_actions " \
+          "LEFT JOIN card_actions "\
           "ON card_changes.card_action_id = card_actions.id "
         ).where(
           "card_actions.id is null"

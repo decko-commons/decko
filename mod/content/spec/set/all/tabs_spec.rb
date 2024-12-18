@@ -51,7 +51,7 @@ RSpec.describe Card::Set::All::Tabs do
     it "handles contextual titles" do
       create name: "tabs card", type: "pointer",
              content: "[[A+B]]\n[[One+Two+Three]]\n[[Four+One+Five]]"
-      tabs = render_content "{{tabs card|tabs|closed;title:_left}}"
+      tabs = render_content  "{{tabs card|tabs|closed;title:_left}}"
       assert_view_select tabs, "div[role=tabpanel]" do
         assert_select 'li > a[data-bs-toggle="tab"]', "A"
         assert_select 'li > a[data-bs-toggle="tab"]', "One+Two"

@@ -2,6 +2,6 @@
 
 class MemberIds < Cardio::Migration::Transform
   def up
-    Card.search(right: :members).each(&:save!)
+    Card.search(right: :members).each &:save!
   end
 end
