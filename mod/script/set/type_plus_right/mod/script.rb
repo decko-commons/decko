@@ -2,7 +2,7 @@ include_set Abstract::AssetOutputter, output_format: :js
 include_set Abstract::ModAssets
 
 def make_asset_output_coded
-  super mod_name
+  super(mod_name)
 end
 
 def subpath
@@ -10,11 +10,11 @@ def subpath
 end
 
 def folder_group_type_id
-  ::Card::LocalScriptFolderGroupID
+  Card::LocalScriptFolderGroupID
 end
 
 def local_manifest_group_type_id
-  ::Card::LocalScriptManifestGroupID
+  Card::LocalScriptManifestGroupID
 end
 
 def refresh_asset

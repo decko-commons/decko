@@ -20,7 +20,7 @@ def content
   Array.wrap(source_paths).map do |path|
     if (source_path = find_file path)
       Rails.logger.debug "reading file: #{source_path}"
-      ::File.read source_path
+      File.read source_path
     end
   end.compact.join "\n"
 end

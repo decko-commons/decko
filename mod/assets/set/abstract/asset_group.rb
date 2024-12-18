@@ -18,7 +18,7 @@ def item_cards _args={}
   end.compact
 end
 
-def new_asset_file_card path, name=::File.basename(path)
+def new_asset_file_card path, name=File.basename(path)
   return unless (constants = new_asset_constants path)
 
   asset_card = Card.new(name: name, type_id: constants[:type_id], content: path)
@@ -39,7 +39,7 @@ def local
 end
 
 def source_changed? since:
-  existing_source_paths.any? { |path| ::File.mtime(path) > since }
+  existing_source_paths.any? { |path| File.mtime(path) > since }
 end
 
 def input_item_cards
@@ -52,5 +52,5 @@ def asset_input_needs_refresh?
 end
 
 def last_file_change
-  paths.map { |path| ::File.mtime(path) }.max
+  paths.map { |path| File.mtime(path) }.max
 end

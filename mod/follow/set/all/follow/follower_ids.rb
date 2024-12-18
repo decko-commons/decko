@@ -73,7 +73,7 @@ def followers_count
 end
 
 def indirect_follower_ids
-  result = ::Set.new
+  result = Set.new
   left_card = left
   while left_card
     result += left_card.direct_follower_ids if left_card.followed_field? self
@@ -93,7 +93,7 @@ def direct_followers
 end
 
 def direct_follower_ids &block
-  ids = ::Set.new
+  ids = Set.new
   set_names.each do |set_name|
     direct_follower_ids_for_set setcard_from_name(set_name), ids, &block
   end

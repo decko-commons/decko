@@ -27,7 +27,7 @@ format :html do
                               assign: true,
                               slot: { show: :type_form }),
                    class: "_live-type-field",
-                   'data-remote': true
+                   "data-remote": true
   end
 
   view :type_formgroup do
@@ -58,7 +58,7 @@ format :html do
       # regardless of create perms
       options.push(card.type_name).sort!
     end
-    @raw_type_options = ::Set.new options
+    @raw_type_options = Set.new options
   end
 
   def wrap_type_formgroup

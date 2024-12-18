@@ -48,7 +48,7 @@ format do
 
   def haml_partial partial, locals={}
     locals[:template_path] ||= @template_path
-    process_haml_template "_#{partial}".to_sym, locals
+    process_haml_template :"_#{partial}", locals
   end
 
   private
@@ -62,7 +62,7 @@ format do
     locals = args.first || {}
     path = identify_template_path template_name, locals
     with_template_path path do
-      haml_to_html ::File.read(path), *args
+      haml_to_html File.read(path), *args
     end
     # rescue => e
     #   raise Card::Error, "HAML error #{template_name}: #{e.message}\n#{e.backtrace}"
