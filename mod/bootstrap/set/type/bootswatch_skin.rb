@@ -72,8 +72,8 @@ def theme_codename
 end
 
 def scss_from_theme_file file
-  path = ::File.join source_dir, "_#{file}.scss"
-  path && ::File.exist?(path) ? ::File.read(path) : ""
+  path = File.join source_dir, "_#{file}.scss"
+  path && File.exist?(path) ? File.read(path) : ""
 end
 
 def editable_item_cards
@@ -93,7 +93,7 @@ def content_from_theme field
 end
 
 def read_bootstrap_variables
-  ::File.read ::File.expand_path(
+  File.read File.expand_path(
     "#{mod_path :bootstrap}/vendor/bootstrap/scss/_variables.scss"
   )
 end
@@ -172,7 +172,7 @@ def load_content *names
 end
 
 def source_dir
-  @source_dir ||= ::File.expand_path(
+  @source_dir ||= File.expand_path(
     "#{mod_path :bootstrap}/vendor/bootswatch/dist/#{theme_name}", __FILE__
   )
 end

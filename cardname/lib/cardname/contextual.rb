@@ -1,7 +1,7 @@
 class Cardname
   # contextual (or relative) names are names that vary by context
   module Contextual
-    RELATIVE_REGEXP = /\b_(left|right|whole|self|user|main|\d+|L*R?)\b/
+    RELATIVE_REGEXP = /\b_(left|right|whole|self|user|main|\d+|L*R?)\b/.freeze
 
     # true if name is left or right of context
     # @return [Boolean]

@@ -39,8 +39,8 @@ def recaptcha_success? result
 end
 
 def recaptcha_response
-  ::Recaptcha.get({ secret: Card.config.recaptcha_secret_key,
-                    response: Env.params[:recaptcha_token] }, {})
+  Recaptcha.get({ secret: Card.config.recaptcha_secret_key,
+                  response: Env.params[:recaptcha_token] }, {})
 end
 
 def recaptcha_keys?
