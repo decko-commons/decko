@@ -14,8 +14,6 @@ Style/Documentation:
   Enabled: false
 Lint/ScriptPermission:
   Enabled: false
-Naming/MethodParameterName:
-  Enabled: false
 Naming/AccessorMethodName:
   Enabled: false
 #  Decko/ViewLength:
