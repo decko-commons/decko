@@ -25,7 +25,7 @@ class Card
 
         # new cards do not
         def patterns
-          @patterns ||= (new_card? ? concrete_patterns[1..-1] : concrete_patterns)
+          @patterns ||= (new_card? ? concrete_patterns[1..] : concrete_patterns)
         end
 
         def reset_patterns

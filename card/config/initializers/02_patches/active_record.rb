@@ -37,7 +37,7 @@ module Patches
 
       # Remove :id column if not in *columns
       def cleaned_batch_items items, remove_id
-        items.map! { |row| row[1..-1] } if remove_id
+        items.map! { |row| row[1..] } if remove_id
       end
 
       def prepare_batch_pluck columns

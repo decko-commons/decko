@@ -32,7 +32,7 @@ format :html do
   def title_in_context title=nil
     title = title&.html_safe
     # escape titles generated from card names, but not those set explicitly
-    h super(title)
+    h super
   end
 
   def wrapped_title title

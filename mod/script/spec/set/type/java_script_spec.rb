@@ -28,10 +28,10 @@ RSpec.describe Card::Set::Type::JavaScript do
     card = Card.create name: "tmp javascript", type_code: "java_script",
                        content: "your turn"
     expect(card.errors[:content].first)
-      .to eq "<pre>Unexpected token: name (turn)\n"\
-             "--\n"\
-             "<span style='color: lightcoral; '> => </span>"\
-             "your <span style='color: lightcoral; '>turn</span>\n"\
+      .to eq "<pre>Unexpected token: name (turn)\n" \
+             "--\n" \
+             "<span style='color: lightcoral; '> => </span>" \
+             "your <span style='color: lightcoral; '>turn</span>\n" \
              "==</pre>"
   end
 

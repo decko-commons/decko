@@ -58,7 +58,7 @@ format :html do
 
   def board_slot_selector
     ".board-main > .overlay-container > .card-slot._bottomlay-slot," \
-    ".board-main > ._overlay-container-placeholder > .card-slot"
+      ".board-main > ._overlay-container-placeholder > .card-slot"
   end
 
   def default_board_tab

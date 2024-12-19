@@ -155,6 +155,7 @@ class Cardname
 
     def generate_part_names
       return blank_part_names if blank?
+
       parts = Cardname.split_parts s
       @simple = parts.size <= 1
       @simple ? [self] : parts.map(&:to_name)

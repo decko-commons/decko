@@ -60,7 +60,7 @@ Lint/EndAlignment:
     - 'decko/test/test_helper.rb'
 
 # Offense count: 2
-Lint/Eval:
+Security/Eval:
   Exclude:
     - 'card/lib/card/loader/mod_dirs.rb'
     - 'card/lib/card/set/event.rb'

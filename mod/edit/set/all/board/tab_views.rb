@@ -22,7 +22,7 @@ format :html do
     class_up "card-slot", "flex-column"
     wrap do
       [
-        set_select(set_list_type),
+        set_select(set_list_type)
         # set_alert(set_list_type)
       ]
     end

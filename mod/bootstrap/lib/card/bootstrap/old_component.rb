@@ -15,8 +15,8 @@ class Card
       end
 
       class << self
-        def render format, *args, &block
-          new(format, *args, &block).render
+        def render(format, ...)
+          new(format, ...).render
         end
 
         # Like add_tag_method but always generates a div tag

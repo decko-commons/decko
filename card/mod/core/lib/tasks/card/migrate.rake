@@ -1,4 +1,3 @@
-
 namespace :card do
   desc "migrate structure and cards"
   task migrate: :environment do
@@ -60,7 +59,7 @@ namespace :card do
     end
 
     def version
-      ENV["VERSION"] ? ENV["VERSION"].to_i : nil
+      ENV["VERSION"]&.to_i
     end
   end
 end

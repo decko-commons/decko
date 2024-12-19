@@ -33,6 +33,7 @@ module Cardio
       end
 
       attr_reader :loader
+
       delegate :template_class, :pattern_groups, :each_file, :mod_dirs, :parts_from_path,
                to: :loader
 

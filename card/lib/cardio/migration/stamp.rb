@@ -5,6 +5,7 @@ module Cardio
       def stamp
         mode do
           return unless (version = stampable_version) && (file = stamp_file)
+
           puts ">>  writing version: #{version} to #{file.path}"
           file.puts version
         end

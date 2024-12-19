@@ -1,4 +1,3 @@
-
 event :initialize_because_of_type_change, :prepare_to_store,
       on: :update, changed: :type do
   self.content = content

@@ -13,7 +13,7 @@ class Cardname
     #   "A".cardname.field_name "B" -> "A+B"
     # @return [Cardname]
     def field_name tag
-      tag = tag.to_s[1..-1] if !tag.is_a?(Symbol) && tag.to_s[0] == "+"
+      tag = tag.to_s[1..] if !tag.is_a?(Symbol) && tag.to_s[0] == "+"
       [self, tag].to_name
     end
 

@@ -24,7 +24,7 @@ module RecaptchaCard
 
   class << self
     def load_recaptcha_config setting
-      full_setting = "recaptcha_#{setting}".to_sym
+      full_setting = :"recaptcha_#{setting}"
       Cardio.config.send "#{full_setting}=",
                          recaptcha_setting_value(setting, full_setting)
     end

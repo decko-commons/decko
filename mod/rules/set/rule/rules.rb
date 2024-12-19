@@ -83,7 +83,7 @@ private
 def set_option_candidates
   candidates = set_prototype.set_names
   first = first_set_option_index candidates
-  candidates[first..-1]
+  candidates[first..]
 end
 
 def state_of_set set_name

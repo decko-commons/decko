@@ -54,7 +54,7 @@ format :html do
   #
   # @return [String] The HTML code for the submit button.
   #
-  # @example 
+  # @example
   #   submit_button(text: "Create", situation: "success", disable_with: "Creating")
   def submit_button args={}
     text = args.delete(:text) || "Submit"

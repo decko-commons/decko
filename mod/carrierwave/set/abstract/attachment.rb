@@ -112,7 +112,7 @@ def delete_files_for_action action
   end
 end
 
-def revision action, before_action=false
+def revision action, before_action: false
   return unless (result = super)
 
   result[:empty_ok] = true

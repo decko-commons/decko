@@ -8,6 +8,7 @@ class Card
       # TODO: use delegations and include more name functions
       delegate :simple?, :compound?, :junction?, to: :name
       attr_reader :supercard
+
       def name
         @name ||= left_id ? Lexicon.lex_to_name([left_id, right_id]) : super.to_name
       end

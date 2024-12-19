@@ -100,7 +100,7 @@ end
 
 def replace_with_env_variable config, option, prefix=nil
   env_key = [prefix, option].compact.join("_").upcase
-  new_value = ENV["#{bucket.to_s.upcase}_#{env_key}"] || ENV[env_key]
+  new_value = ENV["#{bucket.to_s.upcase}_#{env_key}"] || ENV.fetch(env_key, nil)
   config[option] = new_value if new_value
 end
 

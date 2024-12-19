@@ -2,8 +2,8 @@ class Card
   class Bootstrap
     # class methods for Bootstrap::Component
     module ComponentKlass
-      def render format, *args, &block
-        new(format, *args, &block).render
+      def render(format, ...)
+        new(format, ...).render
       end
 
       # Like def_tag_method but always generates a div tag

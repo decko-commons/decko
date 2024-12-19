@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 
 RSpec.describe Card::Set::All::Form do
-  CARDTYPE_COUNT = 40
+  cardtype_count = 40
 
   describe "type_list" do
     let(:card) { Card["UserForm"] } # no cards with this type
@@ -11,10 +11,10 @@ RSpec.describe Card::Set::All::Form do
         expect(card.format.type_field).to match(/<option [^>]*selected/)
         tf = card.format.type_field(no_current_type: true)
         expect(tf).not_to match(/<option [^>]*selected/)
-        expect(tf.scan(/<option /).length).to eq(CARDTYPE_COUNT)
+        expect(tf.scan("<option ").length).to eq(cardtype_count)
         tf = card.format.type_field
         expect(tf).to match(/<option [^>]*selected/)
-        expect(tf.scan(/<option /).length).to eq(CARDTYPE_COUNT)
+        expect(tf.scan("<option ").length).to eq(cardtype_count)
       end
     end
 
@@ -23,10 +23,10 @@ RSpec.describe Card::Set::All::Form do
         tf = card.format.type_field(no_current_type: true)
         aggregate_failures do
           expect(tf).not_to match(/<option [^>]*selected/)
-          expect(tf.scan(/<option /).length).to eq(1)
+          expect(tf.scan("<option ").length).to eq(1)
           tf = card.format.type_field
           expect(tf).to match(/<option [^>]*selected/)
-          expect(tf.scan(/<option /).length).to eq(2)
+          expect(tf.scan("<option ").length).to eq(2)
         end
       end
     end

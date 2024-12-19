@@ -91,7 +91,7 @@ format :html do
   end
 
   def new_success
-    { mark: (card.rule(:thanks) || "_self") }
+    { mark: card.rule(:thanks) || "_self" }
   end
 
   def new_in_modal_success; end
@@ -177,7 +177,7 @@ format :html do
     if main?
       path_to_previous
     else
-      path view: (voo&.home_view || :unknown)
+      path view: voo&.home_view || :unknown
     end
   end
 

@@ -124,8 +124,8 @@ format :html do
   def structure_link
     # LOCALIZE
     structured = link_to_card card.structure_rule_card, "structured"
-    "<label>Content</label>"\
-    "<p><em>Uneditable; content is #{structured} without nests</em></p>"
+    "<label>Content</label>" \
+      "<p><em>Uneditable; content is #{structured} without nests</em></p>"
   end
 
   # # @param [Hash|Array] fields either an array with field names and/or field

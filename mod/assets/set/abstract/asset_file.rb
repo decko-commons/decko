@@ -47,7 +47,7 @@ format do
 
   def link_to_view view, text=nil, opts={}
     opts[:path] = { card: { type: card.type, content: card.db_content } }
-    super view, (text || view), opts
+    super(view, text || view, opts)
   end
 end
 

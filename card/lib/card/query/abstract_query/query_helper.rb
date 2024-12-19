@@ -19,13 +19,12 @@ class Card
         end
 
         def table_alias
-          @table_alias ||= begin
+          @table_alias ||=
             if fasten == :direct
               @superquery.table_alias
             else
               "#{table_prefix}#{root.table_seq}#{@table_suffix}"
             end
-          end
         end
 
         def table_seq

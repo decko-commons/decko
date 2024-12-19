@@ -35,7 +35,7 @@ class Cardname
 
     def compound_pieces
       [].tap do |pieces|
-        parts[1..-1].inject parts[0] do |left, right|
+        parts[1..].inject parts[0] do |left, right|
           piece = [left, right] * self.class.joint
           pieces << piece
           piece

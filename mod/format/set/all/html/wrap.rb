@@ -49,7 +49,7 @@ format :html do
 
   def slot_cardname
     name = card.name
-    name = card.new? && name.compound? ? name.url_key : name
+    name = name.url_key if card.new? && name.compound?
     h name
   end
 
@@ -140,21 +140,21 @@ format :html do
   private
 
   def content_items_within_wrap content, args
-    content = block_given? ? yield(args) : content
+    content = yield(args) if block_given?
     content.compact
   end
 
   def content_within_wrap content
-    content = block_given? ? yield : content
+    content = yield if block_given?
     output(content).to_s.html_safe
   end
 
   def html_escape_except_quotes string
     # to be used inside single quotes (makes for readable json attributes)
-    string.to_s.gsub(/&/,  "&amp;")
-          .gsub(/'/, "&apos;")
-          .gsub(/>/,  "&gt;")
-          .gsub(/</,  "&lt;")
+    string.to_s.gsub("&",  "&amp;")
+          .gsub("'", "&apos;")
+          .gsub(">",  "&gt;")
+          .gsub("<",  "&lt;")
   end
 
   wrapper :div, :div

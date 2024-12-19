@@ -6,7 +6,7 @@
 
 unless ARGV.any? { |a| a =~ /^gems/ } # Don't load anything when running the gems:* tasks
   vendor_bin = Dir["#{Rails.root}/vendor/{gems,plugins}/cucumber*/bin/cucumber"].first
-  $LOAD_PATH.unshift(File.dirname(vendor_bin) + "/../lib") unless vendor_bin.nil?
+  $LOAD_PATH.unshift("#{File.dirname(vendor_bin)}/../lib") unless vendor_bin.nil?
 
   begin
     require "cucumber/rake/task"
@@ -61,7 +61,7 @@ unless ARGV.any? { |a| a =~ /^gems/ } # Don't load anything when running the gem
     task default: :cucumber
 
     task features: :cucumber do
-      STDERR.puts "*** The 'features' task is deprecated. See rake -T cucumber ***"
+      warn "*** The 'features' task is deprecated. See rake -T cucumber ***"
     end
 
     # In case we don't have the generic Rails test:prepare hook,

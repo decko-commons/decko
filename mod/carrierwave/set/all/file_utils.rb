@@ -30,10 +30,10 @@ module ClassMethods
 
   def draft_actions_with_attachment
     Card::Action.find_by_sql(
-      "SELECT * FROM card_actions "\
-        "INNER JOIN cards ON card_actions.card_id = cards.id "\
-        "WHERE cards.type_id IN (#{Card::FileID}, #{Card::ImageID}) "\
-        "AND card_actions.draft = true"
+      "SELECT * FROM card_actions " \
+      "INNER JOIN cards ON card_actions.card_id = cards.id " \
+      "WHERE cards.type_id IN (#{Card::FileID}, #{Card::ImageID}) " \
+      "AND card_actions.draft = true"
     )
   end
 

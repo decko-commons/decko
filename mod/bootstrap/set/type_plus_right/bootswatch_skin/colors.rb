@@ -23,7 +23,7 @@ end
 
 def value_from_scss name, source
   name = name.to_s
-  name = name[1..-1] if name.start_with?("$")
+  name = name[1..] if name.start_with?("$")
   source.match(definition_regex(name))&.capture(:value)
 end
 
@@ -78,7 +78,7 @@ format :html do
   end
 
   def theme_color_picker name, value
-    # value = value[1..-1] if value.start_with? "$"
+    # value = value[1..] if value.start_with? "$"
     options = VARIABLE_NAMES[:colors].map { |var| "$#{var}" }
     options << value unless options.include? value
     select_tag "theme_colors[#{name}]", options_for_select(options, value),
@@ -92,10 +92,10 @@ format :html do
   view :core, template: :haml do
     @colornames_with_value = card.colors.with_indifferent_access
     @colors = @colornames_with_value.to_a[0..9]
-    @grays = @colornames_with_value.to_a[10..-1]
+    @grays = @colornames_with_value.to_a[10..]
     @themecolornames_with_value =
       card.theme_colors.map  do |k, v|
-        v.starts_with?("$") ? [k, @colornames_with_value[v[1..-1]]] : [k, v]
+        v.starts_with?("$") ? [k, @colornames_with_value[v[1..]]] : [k, v]
       end
   end
 

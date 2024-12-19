@@ -1,4 +1,4 @@
-module Kaminari #:nodoc: all
+module Kaminari # :nodoc: all
   module Helpers
     class Tag
       include Patches::Kaminari::Helpers::Tag
@@ -7,14 +7,14 @@ module Kaminari #:nodoc: all
 end
 
 if defined? BetterErrors
-  module BetterErrors #:nodoc: all
+  module BetterErrors # :nodoc: all
     class StackFrame
       # suppress_warnings { include Patches::BetterErrors::StackFrame::TmpPath }
     end
   end
 end
 
-module ActiveRecord #:nodoc: all
+module ActiveRecord # :nodoc: all
   class Relation
     include Patches::ActiveRecord::Relation
   end

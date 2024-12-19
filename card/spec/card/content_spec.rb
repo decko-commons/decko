@@ -184,7 +184,7 @@ RSpec.describe Card::Content do
           expect(wrong_class).to be_falsey
           is_last = m.size == 1
           unless wrong_class
-            is_last ? true : m[1..-1]
+            is_last ? true : m[1..]
           end
         end
       end

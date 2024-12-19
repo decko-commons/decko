@@ -51,8 +51,8 @@ class CustomizableSkin < Cardio::Migration::Transform
       {
         "+custom theme" => {
           type: :scss,
-          content: "{{bootstrap: functions}}\n"\
-                   "#{theme_field_nests}\n"\
+          content: "{{bootstrap: functions}}\n" \
+                   "#{theme_field_nests}\n" \
                    "{{bootstrap: core}}\n{{+style|title: style}}",
           subcards: custom_theme_subcard_args.merge(
             "+style" => {

@@ -92,7 +92,7 @@ module Cardio
         def pattern_label *anchors
           anchor_count = pattern_class.anchor_parts_count
           label = pattern_class.label(pattern_anchor(*anchors, anchor_count))
-          remainder = anchors[anchor_count..-1]
+          remainder = anchors[anchor_count..]
           label += " (#{remainder.join ', '})" if remainder.any?
           label
         end

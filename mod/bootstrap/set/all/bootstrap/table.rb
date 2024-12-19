@@ -38,7 +38,7 @@ format :html do
     def row row
       row_data, row_class =
         case row
-        when Hash then
+        when Hash
           [row.delete(:content), row]
         else
           [row, {}]

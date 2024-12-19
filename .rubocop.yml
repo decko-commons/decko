@@ -14,8 +14,6 @@ Style/Documentation:
   Enabled: false
 Lint/ScriptPermission:
   Enabled: false
-Naming/MethodParameterName:
-  Enabled: false
 Naming/AccessorMethodName:
   Enabled: false
 #  Decko/ViewLength:
@@ -29,4 +27,4 @@ Naming/AccessorMethodName:
 #    CountComments: false
 #    Max: 10
 AllCops:
-  TargetRubyVersion: 2.5
+  TargetRubyVersion: 3.0

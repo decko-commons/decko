@@ -30,6 +30,6 @@ class LinkParser
 
   def init_name name
     @field = name.to_name.simple_relative?
-    @name = @field ? name.to_s[1..-1] : name
+    @name = @field ? name.to_s[1..] : name
   end
 end

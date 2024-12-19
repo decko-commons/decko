@@ -2,7 +2,7 @@ include_set Abstract::AssetOutputter, output_format: :js
 include_set Abstract::ModAssets
 
 def make_asset_output_coded
-  super mod_name
+  super(mod_name)
 end
 
 def subpath

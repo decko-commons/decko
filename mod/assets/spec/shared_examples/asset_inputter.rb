@@ -1,10 +1,6 @@
 # -*- encoding : utf-8 -*-
 
 shared_examples_for "asset inputter" do |_args|
-  before do
-    # Cardio.config.compress_assets = true
-  end
-
   let! :asset_outputter do
     f = create_asset_outputter_card
     f.add_item! input.name
@@ -27,7 +23,7 @@ shared_examples_for "asset inputter" do |_args|
   end
 
   context "when removed" do
-    it "updates asset output card", as_bot: true do
+    it "updates asset output card", :as_bot do
       input.name.card.delete!
       expect(outputter_file_content).to eq("")
     end
