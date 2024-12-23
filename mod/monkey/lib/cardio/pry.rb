@@ -97,15 +97,15 @@ module Cardio
     end
 
     def _a
-      @_array ||= (1..6).to_a
+      @_a ||= (1..6).to_a
     end
 
     def _h
-      @_hash ||= { hello: "world", free: "of charge" }
+      @_h ||= { hello: "world", free: "of charge" }
     end
 
     def _u
-      @_user ||= Card.fetch "Joe User"
+      @_u ||= Card.fetch "Joe User"
     end
 
     intro = File.read File.expand_path("pry/intro.txt", __dir__)
