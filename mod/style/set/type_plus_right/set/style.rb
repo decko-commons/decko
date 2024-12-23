@@ -11,7 +11,7 @@ def ok_to_read?
 end
 
 def make_asset_output_coded
-  super Cardio.config.seed_mods.first
+  super(Cardio.config.seed_mods.first)
 end
 
 format do
