@@ -26,15 +26,16 @@ RSpec.describe Card::Set::All::History do
     let(:content) { "Nobody expects the Spanish inquisition" }
     let(:act) { card.acts.last }
     let(:action) { act.actions.last }
-
-    INITIAL_VALUES = {
-      name: "single card",
-      type_id: Card::BasicID.to_s,
-      db_content: "Nobody expects the Spanish inquisition",
-      trash: "f",
-      left_id: nil,
-      right_id: nil
-    }.freeze
+    let(:initial_values) do
+      {
+            name: "single card",
+            type_id: Card::BasicID.to_s,
+            db_content: "Nobody expects the Spanish inquisition",
+            trash: "f",
+            left_id: nil,
+            right_id: nil
+      }
+    end
 
     context "with for single card" do
       let :card do
@@ -59,7 +60,7 @@ RSpec.describe Card::Set::All::History do
         end
 
         it "fetches card changes from cards table" do
-          expect(action.changed_values).to eq(INITIAL_VALUES)
+          expect(action.changed_values).to eq(initial_values)
         end
       end
 
@@ -77,7 +78,7 @@ RSpec.describe Card::Set::All::History do
 
         it "adds changes to create action" do
           card.update content: "new content"
-          expect(card.actions.first.changed_values).to eq INITIAL_VALUES
+          expect(card.actions.first.changed_values).to eq initial_values
         end
       end
 
@@ -100,7 +101,7 @@ RSpec.describe Card::Set::All::History do
         end
 
         it "adds changes to create action" do
-          expect(card.actions.first.changed_values).to eq INITIAL_VALUES
+          expect(card.actions.first.changed_values).to eq initial_values
         end
       end
 

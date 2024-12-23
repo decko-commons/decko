@@ -1,9 +1,9 @@
 # -*- encoding : utf-8 -*-
 
-RSpec.describe Card::Set::Type::BootswatchSkin do
-  CUSTOM_CSS = "body{background-color:#123}".freeze
-  YETI_THEME_CSS = "background-color:#f6f6f6;".freeze
+CUSTOM_CSS = "body{background-color:#123}".freeze
+YETI_THEME_CSS = "background-color:#f6f6f6;".freeze
 
+RSpec.describe Card::Set::Type::BootswatchSkin do
   check_views_for_errors
 
   let(:customized_skin) { "customized yeti skin".card }

@@ -1,3 +1,17 @@
+FIELD_HELPERS =
+  %w[
+    hidden_field color_field date_field datetime_field datetime_local_field
+    email_field month_field number_field password_field phone_field
+    range_field search_field telephone_field text_area text_field time_field
+    url_field week_field file_field label check_box radio_button
+  ].freeze
+
+FIELD_HELPERS.each do |method_name|
+  define_method(method_name) do |*args|
+    form.send(method_name, *args)
+  end
+end
+
 format :html do
   def success_tags opts
     return "" unless opts.present?
@@ -25,20 +39,6 @@ format :html do
       end.join
     else
       hidden_field_tag base, val, options
-    end
-  end
-
-  FIELD_HELPERS =
-    %w[
-      hidden_field color_field date_field datetime_field datetime_local_field
-      email_field month_field number_field password_field phone_field
-      range_field search_field telephone_field text_area text_field time_field
-      url_field week_field file_field label check_box radio_button
-    ].freeze
-
-  FIELD_HELPERS.each do |method_name|
-    define_method(method_name) do |*args|
-      form.send(method_name, *args)
     end
   end
 

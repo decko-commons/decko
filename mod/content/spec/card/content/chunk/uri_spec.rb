@@ -276,7 +276,7 @@ RSpec.describe Card::Content::Chunk::Uri do
 
   private
 
-  DUMMY_CARD = Card.new(name: "dummy")
+  let(:dummy_card) { Card.new(name: "dummy") }
 
   # Asserts a number of tests for the given type and text.
   def no_match type, test_text
@@ -308,7 +308,7 @@ RSpec.describe Card::Content::Chunk::Uri do
   end
 
   def get_chunk type, test_text
-    cont = Card::Content.new(test_text, DUMMY_CARD)
+    cont = Card::Content.new(test_text, dummy_card)
     cont = [cont] unless cont.respond_to?(:each)
     cont.find { |ck| ck.is_a? type }
   end
