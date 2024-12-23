@@ -6,7 +6,7 @@ RSpec.describe Card::Subcards::All do
                             "12" => { subcards: { "121" => "A" } } }
   end
 
-  class Card
+  Card.class_eval do
     def __current_trans
       @current_trans = ActiveRecord::Base.connection.current_transaction
     end
