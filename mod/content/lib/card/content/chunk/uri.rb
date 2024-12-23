@@ -45,7 +45,7 @@ class Card
                             ""
                           end
             content = prepend_str + content
-            match = super content, prefix
+            match = super
             [match, prepend_str.length]
           end
 
