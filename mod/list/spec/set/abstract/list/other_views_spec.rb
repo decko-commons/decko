@@ -20,7 +20,7 @@ RSpec.describe Card::Set::Abstract::List do
 
     specify "view: items" do
       expect_view(:items, format: :json)
-        .to contain_exactly(*item_names.map { |i| atom_values Card[i] })
+        .to match_array(item_names.map { |i| atom_values Card[i] })
     end
   end
 

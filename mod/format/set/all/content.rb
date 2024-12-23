@@ -1,6 +1,6 @@
-format do
-  ONE_LINE_CHARACTER_LIMIT = 60
+ONE_LINE_CHARACTER_LIMIT = 60
 
+format do
   # override to customize by set
   def chunk_list
     :default
