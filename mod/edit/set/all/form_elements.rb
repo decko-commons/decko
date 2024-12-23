@@ -6,13 +6,13 @@ FIELD_HELPERS =
     url_field week_field file_field label check_box radio_button
   ].freeze
 
-FIELD_HELPERS.each do |method_name|
-  define_method(method_name) do |*args|
-    form.send(method_name, *args)
-  end
-end
-
 format :html do
+  FIELD_HELPERS.each do |method_name|
+    define_method(method_name) do |*args|
+      form.send(method_name, *args)
+    end
+  end
+
   def success_tags opts
     return "" unless opts.present?
 
