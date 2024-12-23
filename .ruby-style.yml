@@ -50,7 +50,7 @@ RSpec/SpecFilePathFormat:
     RSpec: rspec
   IgnoreMethods: false
   IgnoredWords:
-    - Card
+    - card
   IgnoreMetadata:
     type: routing
   VersionAdded: '2.24'
