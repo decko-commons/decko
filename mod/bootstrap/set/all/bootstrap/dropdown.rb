@@ -47,6 +47,7 @@ format :html do
 
   def dropdown_item item
     return unless item.present?
+
     item = dropdown_item_from_array item if item.is_a? Array
     "<li>#{item}</li>"
   end
