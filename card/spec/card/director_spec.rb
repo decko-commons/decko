@@ -263,7 +263,7 @@ RSpec.describe "Card::Director" do
       in_stage :prepare_to_validate, on: :create, trigger: :create_subcards do
         if name.empty? && !changed
           self.name = "main1+main2"
-          expect(field("sub1")).to be
+          expect(field("sub1")).to be_truthy
           expect(field("sub1").content).to eq("some content")
         end
       end

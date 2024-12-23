@@ -374,7 +374,7 @@ Style/YAMLFileRead: # new in 1.53
 RSpec/StringAsInstanceDoubleConstant: # new in 3.1
   Enabled: true
 RSpec/RedundantPredicateMatcher:
-  Enabled: false # Changes in file specs "be_exist" to "exits", which breaks the tests
+  Enabled: false # Changes in file specs "be_exist" to "exists", which breaks the tests
 RSpec/MultipleMemoizedHelpers:
   Enabled: true
   Max: 9
