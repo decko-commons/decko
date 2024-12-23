@@ -40,7 +40,7 @@ RSpec/ExampleLength:
   Max: 25
 RSpec/SpecFilePathFormat:
   Description: Checks that spec file paths are consistent and well-formed.
-  Enabled: false
+  Enabled: true
   Include:
     - "**/*_spec.rb"
   Exclude:
@@ -59,7 +59,7 @@ RSpec/SpecFilePathFormat:
 
 RSpec/SpecFilePathSuffix:
   Description: Checks that spec file paths suffix are consistent and well-formed.
-  Enabled: false
+  Enabled: true
   VersionAdded: '2.24'
   Include:
     - "**/*_spec*rb*"

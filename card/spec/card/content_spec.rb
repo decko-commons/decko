@@ -1,7 +1,8 @@
 # -*- encoding : utf-8 -*-
 
 RSpec.describe Card::Content do
-  EXAMPLES = {
+  let(:examples) do
+    {
     nests: {
       content: "Some Literals: \\[{I'm not| a link]}, and " \
                 '\\{{This Card|Is not Nestd}}' \
@@ -167,8 +168,9 @@ RSpec.describe Card::Content do
    )
     }
   }.freeze
+  end
 
-  EXAMPLES.each_value do |val|
+  examples.each_value do |val|
     next unless val[:classes]
 
     val[:classes] = val[:classes].map do |klass|
@@ -205,7 +207,7 @@ RSpec.describe Card::Content do
       end
     end
 
-    let(:example)       { EXAMPLES[@example] }
+    let(:example)       { examples[@example] }
     let(:cobj)          { described_class.new example[:content], @card }
     let(:classes)       { example[:classes] }
     let(:rendered)      { example[:rendered] }
@@ -323,16 +325,18 @@ RSpec.describe Card::Content do
     end
   end
 
-  UNTAGGED_CASES = [" [grrew][/wiki/grrew]ss ",
-                    " {{this is a test}}, {{this|view|is:too}} and",
-                    " so is http://foo.bar.come//",
-                    ' and foo="my attr, not int a tag" <not a=tag ',
-                    ' p class"foobar"> and more'].freeze
-
   context "class" do
+    let(:untagged_cases) do
+      [" [grrew][/wiki/grrew]ss ",
+                          " {{this is a test}}, {{this|view|is:too}} and",
+                          " so is http://foo.bar.come//",
+                          ' and foo="my attr, not int a tag" <not a=tag ',
+                          ' p class"foobar"> and more'].freeze
+    end
+
     describe "#clean!" do
       it "does not alter untagged content" do
-        UNTAGGED_CASES.each do |test_case|
+        untagged_cases.each do |test_case|
           assert_equal test_case, described_class.clean!(test_case)
         end
       end
