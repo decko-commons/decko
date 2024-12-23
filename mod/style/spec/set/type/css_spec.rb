@@ -31,7 +31,7 @@ RSpec.describe Card::Set::Type::Css do
     let(:create_asset_outputter_card) { Card.ensure name: "A+*self+*style" }
 
     let :card_content do
-      { in:         css,         out:         compressed_css,
+      { in: css,         out:         compressed_css,
         changed_in: changed_css, changed_out: compressed_changed_css }
     end
   end

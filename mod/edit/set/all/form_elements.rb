@@ -1,4 +1,18 @@
+FIELD_HELPERS =
+  %w[
+    hidden_field color_field date_field datetime_field datetime_local_field
+    email_field month_field number_field password_field phone_field
+    range_field search_field telephone_field text_area text_field time_field
+    url_field week_field file_field label check_box radio_button
+  ].freeze
+
 format :html do
+  FIELD_HELPERS.each do |method_name|
+    define_method(method_name) do |*args|
+      form.send(method_name, *args)
+    end
+  end
+
   def success_tags opts
     return "" unless opts.present?
 
@@ -28,20 +42,6 @@ format :html do
     end
   end
 
-  FIELD_HELPERS =
-    %w[
-      hidden_field color_field date_field datetime_field datetime_local_field
-      email_field month_field number_field password_field phone_field
-      range_field search_field telephone_field text_area text_field time_field
-      url_field week_field file_field label check_box radio_button
-    ].freeze
-
-  FIELD_HELPERS.each do |method_name|
-    define_method(method_name) do |*args|
-      form.send(method_name, *args)
-    end
-  end
-
   # Generates an HTML submit button with optional parameters.
   #
   # @param [Hash] args The options for the submit button.
@@ -54,7 +54,7 @@ format :html do
   #
   # @return [String] The HTML code for the submit button.
   #
-  # @example 
+  # @example
   #   submit_button(text: "Create", situation: "success", disable_with: "Creating")
   def submit_button args={}
     text = args.delete(:text) || "Submit"
