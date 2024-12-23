@@ -132,6 +132,7 @@ class Card
         unless type.in? %i[private format_private public single_use]
           raise ArgumentError, "#{type} not a valid class list"
         end
+
         @class_list ||= {}
         @class_list[type] ||= {}
       end
