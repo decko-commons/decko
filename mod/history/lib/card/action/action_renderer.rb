@@ -59,6 +59,7 @@ class Card
 
       def name_diff
         return relative_name if @action.card.name.compound?
+
         # TODO: handle compound names better
 
         # if @action.card == @format.card
