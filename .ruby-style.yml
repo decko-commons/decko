@@ -50,13 +50,10 @@ RSpec/SpecFilePathFormat:
     RSpec: rspec
     Card: ""
   IgnoreMethods: false
-  IgnoredWords:
-    - Card
   IgnoreMetadata:
     type: routing
   VersionAdded: '2.24'
   Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/SpecFilePathFormat
-
 RSpec/SpecFilePathSuffix:
   Description: Checks that spec file paths suffix are consistent and well-formed.
   Enabled: true
