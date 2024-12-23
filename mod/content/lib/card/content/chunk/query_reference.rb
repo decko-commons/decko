@@ -56,7 +56,7 @@ class Card
           def full_match content, prefix
             # matches cardnames that are not keywords
             # FIXME: would not match cardnames that are keywords
-            match, offset = super(content, prefix)
+            match, offset = super
             return if !match || keyword?(match[1])
 
             [match, offset]

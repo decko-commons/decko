@@ -16,7 +16,7 @@ class Card
 
       def active requested, keys
         r = requested.to_name
-        r && keys.find { |k| k.to_name == r } || keys.first
+        (r && keys.find { |k| k.to_name == r }) || keys.first
       end
     end
 

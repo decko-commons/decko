@@ -8,7 +8,7 @@ RSpec.describe Card::Set::Abstract::List::OptionsApi do
     Card.new type_id: Card::PointerID
   end
 
-  describe "#options_hash", as_bot: true do
+  describe "#options_hash", :as_bot do
     let(:options_hash) do
       sample_pointer.options_hash
     end
