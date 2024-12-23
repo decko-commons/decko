@@ -11,7 +11,7 @@ def ok_to_read?
 end
 
 def make_asset_output_coded
-  super Cardio.config.seed_mods.first
+  super(Cardio.config.seed_mods.first)
 end
 
 format do
@@ -21,10 +21,10 @@ format do
   end
 end
 
-format :html do
-  HIDDEN_SKINS = %w[bootstrap_default_skin themeless_bootstrap_skin bootstrap_default_skin
-                    classic_bootstrap_skin].freeze
+HIDDEN_SKINS = %w[bootstrap_default_skin themeless_bootstrap_skin bootstrap_default_skin
+                  classic_bootstrap_skin].freeze
 
+format :html do
   view :stylesheet_path, cache: :never, perms: :none do
     if params[:debug] == "style"
       path mark: card.name, item: :import, format: :css
