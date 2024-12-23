@@ -33,6 +33,7 @@ module Cardio
       # Override Rails namespace handling so we can put generators in `module Cardio`
       def namespace name=nil
         return super if name
+
         @namespace ||= super.sub(/cardio:/, "")
       end
     end
