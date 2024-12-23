@@ -6,13 +6,11 @@ languages:
 plugins:
   rubocop:
     enabled: true
-#    config:
-#      file: .codeclimate-rubocop.yml
+    config:
+      file: .codeclimate-rubocop.yml
     channel: rubocop-1-56-3
     checks:
       Rubocop/Style/SpaceInsideStringInterpolation:
-        enabled: false
-      Rubocop/RSpec/SpecFilePathFormat:
         enabled: false
   golint:
     enabled: false
