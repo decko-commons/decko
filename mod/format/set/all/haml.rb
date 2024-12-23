@@ -48,7 +48,7 @@ format do
 
   def haml_partial partial, locals={}
     locals[:template_path] ||= @template_path
-    process_haml_template "_#{partial}".to_sym, locals
+    process_haml_template :"_#{partial}", locals
   end
 
   private
