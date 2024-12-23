@@ -4,13 +4,13 @@ FIELD_HELPERS = %w[hidden_field color_field date_field datetime_field
                    telephone_field text_area text_field time_field
                    url_field week_field file_field].freeze
 
-FIELD_HELPERS.each do |method_name|
-  define_method(method_name) do |name, options={}|
-    form.send(method_name, name, bootstrap_options(options))
-  end
-end
-
 format :html do
+  FIELD_HELPERS.each do |method_name|
+    define_method(method_name) do |name, options={}|
+      form.send(method_name, name, bootstrap_options(options))
+    end
+  end
+
   def button_tag content_or_options=nil, options={}, &block
     bootstrapify_button(block_given? ? content_or_options : options)
     super
