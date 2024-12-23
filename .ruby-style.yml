@@ -48,6 +48,7 @@ RSpec/SpecFilePathFormat:
   CustomTransform:
     RuboCop: rubocop
     RSpec: rspec
+    Card: ""
   IgnoreMethods: false
   IgnoreMetadata:
     type: routing
