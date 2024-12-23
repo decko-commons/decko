@@ -2,20 +2,22 @@
 
 # spec doesn't run when describing Card::Director as constant
 RSpec.describe "Card::Director" do
-  STAGE_MAP = { VI: :initialize,
-                VP: :prepare_to_validate,
-                VV: :validate,
-                SP: :prepare_to_store,
-                SS: :store,
-                SF: :finalize,
-                II: :integrate,
-                IA: :after_integrate,
-                ID: :integrate_with_delay }.freeze
+  let(:stage_map) do
+    { VI: :initialize,
+      VP: :prepare_to_validate,
+      VV: :validate,
+      SP: :prepare_to_store,
+      SS: :store,
+      SF: :finalize,
+      II: :integrate,
+      IA: :after_integrate,
+      ID: :integrate_with_delay }.freeze
+  end
 
   let(:called_events) { @called_events ||= [] }
 
   def stage_test_events args
-    STAGE_MAP.each do |stage_shortname, stage|
+    stage_map.each do |stage_shortname, stage|
       test_event(stage, args) { called_events << stage_shortname }
     end
   end
@@ -176,7 +178,7 @@ RSpec.describe "Card::Director" do
       end
 
       def define_test_events adding_subcard, called_events
-        STAGE_MAP.each do |stage_shortname, stage|
+        stage_map.each do |stage_shortname, stage|
           subcard = adding_subcard && stage == :validate
           define_test_event stage, subcard do |name|
             called_events << "#{stage_shortname}:#{name}"
