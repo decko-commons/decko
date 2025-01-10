@@ -20,7 +20,7 @@ global_job_config:
     commands:
       # INSTALL DECKO CODE AND DEPENDENCIES
       - checkout # semaphore does git checkout and cds into decko
-      - sem-version ruby 3.0.2
+      - sem-version ruby 3.3.0
       - gem update --system
 
       - git submodule init

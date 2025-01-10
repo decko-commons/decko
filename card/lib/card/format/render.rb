@@ -69,9 +69,10 @@ class Card
                                       '\1: ')}:#{source_location.second}"
       end
 
-      # :standard, :always, :never
+      # see {Abstract::Format}
+      # (:default), :yes, :deep, :always, :never
       def view_cache_setting view
-        voo&.cache || view_setting(:cache, view) || :standard
+        voo&.cache || view_setting(:cache, view) || :default
       end
 
       def view_setting setting_name, view
@@ -79,19 +80,19 @@ class Card
       end
 
       def stub_render cached_content
-        stub_debugging do
-          expand_stubs cached_content
-        end
+        # stub_debugging do
+        expand_stubs cached_content
+        # end
       end
 
-      def stub_debugging
-        result = yield
-        if Rails.env.development? && result.is_a?(String) && result =~ /StUb/
-          Rails.logger.debug "STUB IN RENDERED VIEW: #{card.name}: " \
-                            "#{voo.ok_view}\n#{result}"
-        end
-        result
-      end
+      # def stub_debugging
+      #   result = yield
+      #   if Rails.env.development? && result.is_a?(String) && result =~ /StUb/
+      #     Rails.logger.debug "STUB IN RENDERED VIEW: #{card.name}: " \
+      #                       "#{voo.ok_view}\n#{result}"
+      #   end
+      #   result
+      # end
 
       def prepare_stub_nest stub_hash
         stub_card = Card.fetch_from_cast stub_hash[:cast]

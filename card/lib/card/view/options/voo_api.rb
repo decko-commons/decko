@@ -103,7 +103,7 @@ class Card
         # symbols as keys, managing standard view inheritance, and special
         # handling for main_views.
         def normalize_options
-          @normalized_options = opts = options_to_hash @raw_options.clone
+          @normalized_options = opts = options_to_hash(@raw_options.clone)
           normalize_special_options! opts
           @optional = opts.delete(:optional) || false
           add_implicit_options!

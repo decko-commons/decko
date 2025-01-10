@@ -7,6 +7,9 @@
   right: 8px;
   top: 5px;
   width: auto;
+  > a {
+    text-decoration: none !important;
+  }
 }
 
 .d0-card-content, .titled-view > .d0-card-header {

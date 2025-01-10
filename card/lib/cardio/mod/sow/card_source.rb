@@ -1,7 +1,7 @@
 module Cardio
   class Mod
     class Sow
-      # Fetch sow data form cards
+      # Fetch sow data from cards
       module CardSource
         def new_data_from_cards
           cards.map { |c| c.pod_hash field_tags: field_tag_marks }

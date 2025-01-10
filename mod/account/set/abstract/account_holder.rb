@@ -82,7 +82,7 @@ end
 
 def with_enabled_roles
   Auth.as_bot do
-    Card::Codename.exists?(:enabled_roles) ? yield(enabled_roles_card) : fetch_roles
+    Card::Codename.exist?(:enabled_roles) ? yield(enabled_roles_card) : fetch_roles
   end
 end
 

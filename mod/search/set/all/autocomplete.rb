@@ -48,3 +48,9 @@ format :html do
     card.name
   end
 end
+
+format :json do
+  view :select2_option do
+    { id: "~#{card.id}", text: card.name }
+  end
+end

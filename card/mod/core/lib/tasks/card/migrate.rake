@@ -15,10 +15,7 @@ namespace :card do
       puts "running schema migrations"
 
       interpret_env_schema
-      without_dumping do
-        run_migration :schema
-      end
-      Rake::Task["db:_dump"].invoke # write schema.rb
+      without_dumping { run_migration :schema }
       reset_column_information true
     end
 
@@ -49,10 +46,12 @@ namespace :card do
     end
 
     task port: :environment do
+      puts "porting"
       Cardio::Migration.port_all
     end
 
     task recode: :environment do
+      puts "recoding"
       Cardio::Mod.dirs.subpaths("data", "recode.yml").each_value do |path|
         YAML.load_file(path).each do |oldcode, newcode|
           Card::Codename.recode oldcode, newcode
@@ -114,6 +113,8 @@ def load_mod_lib
 end
 
 def without_dumping
-  ActiveRecord::Base.dump_schema_after_migration = false
+  unless ENV["DECKO_DUMP_SCHEMA"] == "true"
+    ActiveRecord.dump_schema_after_migration = false
+  end
   yield
 end

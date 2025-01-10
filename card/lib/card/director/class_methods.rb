@@ -25,7 +25,7 @@ class Card
       end
 
       def need_act
-        self.act ||= Card::Act.create ip_address: Env.ip
+        self.act ||= Card::Act.new ip_address: Env.ip
       end
 
       def clear
@@ -66,14 +66,6 @@ class Card
         directors.keys.any? { |card| card.id == id }
       end
 
-      def new_director card, parent
-        if !parent && act_card && act_card != card && running_act?
-          act_card.director.subdirectors.add card
-        else
-          Director.new card, parent
-        end
-      end
-
       def card name
         directors.values.find do |dir|
           dir.card.name == name
@@ -106,15 +98,23 @@ class Card
         delete director
       end
 
-      def running_act?
-        act_director&.running?
-      end
-
       def to_s
         act_director.to_s
       end
 
       private
+
+      def new_director card, parent
+        if !parent && act_card && act_card != card && running_act?
+          act_card.director.subdirectors.add card
+        else
+          Director.new card, parent
+        end
+      end
+
+      def running_act?
+        act_director&.running?
+      end
 
       def delete_card card
         card_key = @directors.keys.find { |key| key == card }

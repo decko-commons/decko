@@ -4,7 +4,7 @@ event :set_autoname, :prepare_to_store, on: :create, when: :autoname? do
   autoname_card.update_column :db_content, name
   autoname_card.expire
   pull_from_trash!
-  Card.write_to_soft_cache self
+  Card.write_to_temp_cache self
 end
 
 def no_autoname?

@@ -14,8 +14,8 @@ RSpec.describe Card::Format::Render do
     after { Cardio.config.view_cache = false }
 
     let(:cache_key) do
-      "#{'Z'.card_id}-Card::Format::HtmlFormat-normal-home_view:content;" \
-      "nest_name:Z;nest_syntax:Z|content;view:contentcontent:show"
+      "html-#{'Z'.card_id}-home_view:content;" \
+      "nest_name:Z;nest_syntax:Z|content;view:content;content:show"
     end
 
     it "can be changed with nest option" do
@@ -28,10 +28,7 @@ RSpec.describe Card::Format::Render do
 
   describe "voo.wrap" do
     let :wrapped_main_view do
-      Card::Env.with_params layout: :default, view: :core do
-        Card["Joe User+*account+*password"].format.render_with_layout :core, :default
-        # + password cards wrap their core view in "em"
-      end
+      Card["Joe User+*account+*password"].format.render :core, layout: :default
     end
 
     it "wraps inside layout" do

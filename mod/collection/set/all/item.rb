@@ -13,10 +13,12 @@
 # @option args [String, Integer] :limit max number of cards to return
 # @option args [String, Integer] :offset begin after the offset-th item
 def item_names args={}
-  context = args[:context]
-  item_strings(args).map do |item|
-    clean_item_name item, context
-  end.compact
+  seeding_names do
+    context = args[:context]
+    item_strings(args).map do |item|
+      clean_item_name item, context
+    end.compact
+  end
 end
 
 # @return [Array] list of cards
@@ -177,6 +179,16 @@ format :html do
 end
 
 private
+
+def seeding_names
+  yield.tap { |names| Cache.populate_names names }
+end
+
+def seeding_ids
+  yield.tap do |ids|
+    Cache.populate_ids ids if ids.size > 1
+  end
+end
 
 def raw_item_strings content
   content.to_s.split(/\n+/).map { |i| strip_item i }

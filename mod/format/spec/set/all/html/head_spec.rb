@@ -2,7 +2,7 @@
 
 describe Card::Set::All::Html::Head do
   specify "view head" do
-    expect_view(:head).to have_tag("title"), "A - WikiRate"
+    expect_view(:head).to have_tag("title")
     expect_view(:head).to have_tag("link")
     expect_view(:head).to have_tag("script")
   end
@@ -23,8 +23,8 @@ describe Card::Set::All::Html::Head do
     expect_view(:universal_edit_button).to have_tag("link")
   end
 
-  specify "view head_stylesheet" do
-    expect_view(:head_stylesheet).to have_tag("link")
+  specify "view stylesheet_tags" do
+    expect_view(:stylesheet_tags).to have_tag("link")
   end
 
   specify "view decko_script_variables" do

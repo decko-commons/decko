@@ -52,7 +52,7 @@ class DeathToMachines < Cardio::Migration::Transform
   private
 
   def update_mod_asset_type_id
-    return unless Card::Codename.exists? "mod_script_assets"
+    return unless Card::Codename.exist? "mod_script_assets"
 
     Card.search type_id: ["in", Card::ModScriptAssetsID, Card::ModStyleAssetsID] do |card|
       card.update! type_id: Card::ListID,

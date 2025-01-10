@@ -166,6 +166,8 @@ class Card
     # cached and retrieved even when it's rendered inside another cached view.
     #
     module Cache
+      EXPIRE_VALUES = %i[minute hour day week month].freeze
+
       require "card/view/cache/cache_action"
       require "card/view/cache/stub"
 
@@ -221,7 +223,7 @@ class Card
 
       # keep track of nested cache fetching
       def caching &block
-        self.class.caching(self, &block)
+        self.class.caching(cache_setting, &block)
       end
 
       # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -229,8 +231,24 @@ class Card
 
       def cache_key
         @cache_key ||= [
-          card_cache_key, format.class, format.nest_mode, options_for_cache_key
-        ].map(&:to_s).join "-"
+          format.symbol, nest_mode, timestamp, card_cache_key, options_for_cache_key
+        ].compact.map(&:to_s).join "-"
+      end
+
+      def nest_mode
+        mode = format.nest_mode
+        mode == :normal ? nil : mode
+      end
+
+      def timestamp
+        return unless (expire = format.view_setting :expire, requested_view)
+        raise "invalid expire setting: #{expire}" unless EXPIRE_VALUES.include? expire
+
+        Time.now.send("end_of_#{expire}").to_i
+      end
+
+      def cache_setting
+        @cache_setting ||= format.view_cache_setting requested_view
       end
 
       def card_cache_key
@@ -243,7 +261,7 @@ class Card
       end
 
       def options_for_cache_key
-        hash_for_cache_key(live_options) + hash_for_cache_key(viz_hash)
+        hash_for_cache_key(live_options) + ";" + hash_for_cache_key(viz_hash)
       end
 
       def hash_for_cache_key hash
@@ -283,11 +301,21 @@ class Card
           !@caching.nil?
         end
 
-        def caching voo
+        def caching setting, &block
+          return @caching unless block_given?
+
+          caching_mode setting, &block
+        end
+
+        private
+
+        def caching_mode setting
           old_caching = @caching
-          @caching = voo
+          # puts "OPEN CACHING from #{old_caching} to #{setting}" unless @caching == :deep
+          @caching = setting unless @caching == :deep
           yield
         ensure
+          # puts "CLOSE CACHING from #{@caching} to #{old_caching}"
           @caching = old_caching
         end
       end
