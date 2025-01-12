@@ -15,10 +15,7 @@ class UniqueCodename < Cardio::Migration::Schema
   private
 
   def remove_blank_codenames
-    connection.execute "UPDATE cards SET codename = null where codename = ''"
-  end
-
-  def connection
-    ActiveRecord::Base.lease_connection
+    Cardio::Record.connection
+                  .execute "UPDATE cards SET codename = null where codename = ''"
   end
 end
