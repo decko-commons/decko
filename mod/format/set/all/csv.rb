@@ -24,7 +24,7 @@ format :csv do
   end
 
   view :body do
-    item_cards.map { |item_card| nest item_card }
+    card.item_cards.map { |item_card| nest item_card }
   end
 
   view :row do
