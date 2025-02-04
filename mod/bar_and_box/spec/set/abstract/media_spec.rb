@@ -23,7 +23,7 @@ RSpec.describe Card::Set::Abstract::Media do
     end
 
     it "takes image card object as image" do
-      expect(text_with_image(image: Card[:yeti_skin_image]))
+      expect(text_with_image(image: %i[yeti_skin image].card))
         .to have_tag :div, with: { class: "media" } do
           with_tag "img[src*='/files/']", with: { alt: "yeti skin+Image" }
         end
