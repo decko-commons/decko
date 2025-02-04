@@ -53,6 +53,8 @@ def coded_dir new_mod=nil
 end
 
 def codename_parts
+  return [codename.to_s] if name.simple?
+
   @codename_parts ||= name.parts.map { |p| p.codename&.to_s }
 end
 
