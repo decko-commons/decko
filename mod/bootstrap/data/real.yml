@@ -27,8 +27,7 @@
 - :name:
     - :cerulean_skin
     - :image
-  :image: cerulean_skin_image/image-original.png
-  :codename: cerulean_skin_image
+  :image: cerulean_skin/image/image-original.png
   :storage_type: :coded
 - :name: cosmo skin
   :type: :bootswatch_skin
@@ -36,8 +35,7 @@
 - :name:
     - :cosmo_skin
     - :image
-  :image: cosmo_skin_image/image-original.png
-  :codename: cosmo_skin_image
+  :image: cosmo_skin/image/image-original.png
   :storage_type: :coded
 - :name: cyborg skin
   :type: :bootswatch_skin
@@ -45,8 +43,7 @@
 - :name:
     - :cyborg_skin
     - :image
-  :image: cyborg_skin_image/image-original.png
-  :codename: cyborg_skin_image
+  :image: cyborg_skin/image/image-original.png
   :storage_type: :coded
 - :name: darkly skin
   :type: :bootswatch_skin
@@ -54,8 +51,7 @@
 - :name:
     - :darkly_skin
     - :image
-  :image: darkly_skin_image/image-original.png
-  :codename: darkly_skin_image
+  :image: darkly_skin/image/image-original.png
   :storage_type: :coded
 - :name: flatly skin
   :type: :bootswatch_skin
@@ -63,8 +59,7 @@
 - :name:
     - :flatly_skin
     - :image
-  :image: flatly_skin_image/image-original.png
-  :codename: flatly_skin_image
+  :image: flatly_skin/image/image-original.png
   :storage_type: :coded
 - :name: journal skin
   :type: :bootswatch_skin
@@ -72,8 +67,7 @@
 - :name:
     - :journal_skin
     - :image
-  :image: journal_skin_image/image-original.png
-  :codename: journal_skin_image
+  :image: journal_skin/image/image-original.png
   :storage_type: :coded
 - :name: lumen skin
   :type: :bootswatch_skin
@@ -81,8 +75,7 @@
 - :name:
     - :lumen_skin
     - :image
-  :image: lumen_skin_image/image-original.png
-  :codename: lumen_skin_image
+  :image: lumen_skin/image/image-original.png
   :storage_type: :coded
 - :name: sandstone skin
   :type: :bootswatch_skin
@@ -90,8 +83,7 @@
 - :name:
     - :sandstone_skin
     - :image
-  :image: sandstone_skin_image/image-original.png
-  :codename: sandstone_skin_image
+  :image: sandstone_skin/image/image-original.png
   :storage_type: :coded
 - :name: simplex skin
   :type: :bootswatch_skin
@@ -99,8 +91,7 @@
 - :name:
     - :simplex_skin
     - :image
-  :image: simplex_skin_image/image-original.png
-  :codename: simplex_skin_image
+  :image: simplex_skin/image/image-original.png
   :storage_type: :coded
 - :name: slate skin
   :type: :bootswatch_skin
@@ -108,8 +99,7 @@
 - :name:
     - :slate_skin
     - :image
-  :image: slate_skin_image/image-original.png
-  :codename: slate_skin_image
+  :image: slate_skin/image/image-original.png
   :storage_type: :coded
 - :name: spacelab skin
   :type: :bootswatch_skin
@@ -117,8 +107,7 @@
 - :name:
     - :spacelab_skin
     - :image
-  :image: spacelab_skin_image/image-original.png
-  :codename: spacelab_skin_image
+  :image: spacelab_skin/image/image-original.png
   :storage_type: :coded
 - :name: superhero skin
   :type: :bootswatch_skin
@@ -126,8 +115,7 @@
 - :name:
     - :superhero_skin
     - :image
-  :image: superhero_skin_image/image-original.png
-  :codename: superhero_skin_image
+  :image: superhero_skin/image/image-original.png
   :storage_type: :coded
 - :name: united skin
   :type: :bootswatch_skin
@@ -135,8 +123,7 @@
 - :name:
     - :united_skin
     - :image
-  :image: united_skin_image/image-original.png
-  :codename: united_skin_image
+  :image: united_skin/image/image-original.png
   :storage_type: :coded
 - :name: yeti skin
   :type: :bootswatch_skin
@@ -144,8 +131,7 @@
 - :name:
     - :yeti_skin
     - :image
-  :image: yeti_skin_image/image-original.png
-  :codename: yeti_skin_image
+  :image: yeti_skin/image/image-original.png
   :storage_type: :coded
 - :name: litera skin
   :type: :bootswatch_skin
@@ -153,8 +139,7 @@
 - :name:
     - :litera_skin
     - :image
-  :image: litera_skin_image/image-original.png
-  :codename: litera_skin_image
+  :image: litera_skin/image/image-original.png
   :storage_type: :coded
 - :name: lux skin
   :type: :bootswatch_skin
@@ -162,8 +147,7 @@
 - :name:
     - :lux_skin
     - :image
-  :image: lux_skin_image/image-original.png
-  :codename: lux_skin_image
+  :image: lux_skin/image/image-original.png
   :storage_type: :coded
 - :name: materia skin
   :type: :bootswatch_skin
@@ -171,8 +155,7 @@
 - :name:
     - :materia_skin
     - :image
-  :image: materia_skin_image/image-original.png
-  :codename: materia_skin_image
+  :image: materia_skin/image/image-original.png
   :storage_type: :coded
 - :name: minty skin
   :type: :bootswatch_skin
@@ -180,8 +163,7 @@
 - :name:
     - :minty_skin
     - :image
-  :image: minty_skin_image/image-original.png
-  :codename: minty_skin_image
+  :image: minty_skin/image/image-original.png
   :storage_type: :coded
 - :name: pulse skin
   :type: :bootswatch_skin
@@ -189,8 +171,7 @@
 - :name:
     - :pulse_skin
     - :image
-  :image: pulse_skin_image/image-original.png
-  :codename: pulse_skin_image
+  :image: pulse_skin/image/image-original.png
   :storage_type: :coded
 - :name: solar skin
   :type: :bootswatch_skin
@@ -198,8 +179,7 @@
 - :name:
     - :solar_skin
     - :image
-  :image: solar_skin_image/image-original.png
-  :codename: solar_skin_image
+  :image: solar_skin/image/image-original.png
   :storage_type: :coded
 - :name: sketchy skin
   :type: :bootswatch_skin
@@ -207,8 +187,7 @@
 - :name:
     - :sketchy_skin
     - :image
-  :image: sketchy_skin_image/image-original.png
-  :codename: sketchy_skin_image
+  :image: sketchy_skin/image/image-original.png
   :storage_type: :coded
 
 - :name:

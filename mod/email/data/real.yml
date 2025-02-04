@@ -9,16 +9,14 @@
     :type:
       :fields:
         :structure: |-
-          <p>
-            {{+*from | labeled | link}} 
-            {{+*to | labeled | link}} 
-            {{+*cc | labeled | link}}
-            {{+*bcc | labeled | link}}
-            {{+*subject | titled}}
-            {{+*html message | titled}} 
-            {{+*text message | titled}}
-            {{+*attach | titled}}
-          </p>"
+          {{+:from | labeled | link}} 
+          {{+:to | labeled | link}} 
+          {{+:cc | labeled | link}}
+          {{+:bcc | labeled | link}}
+          {{+:subject | titled}}
+          {{+:html_message | titled}} 
+          {{+:text_message | titled}}
+          {{+:attach | titled}}
 
 - :name: "*to"
   :codename: to
