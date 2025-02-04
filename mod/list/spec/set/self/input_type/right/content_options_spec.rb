@@ -1,4 +1,4 @@
-describe Card::Set::Self::InputOptions do
+describe Card::Set::Self::InputType::Right::ContentOptions do
   it "loads the self set" do
     expect(Card[:input_type, :right, :content_options].item_names)
       .to contain_exactly(
