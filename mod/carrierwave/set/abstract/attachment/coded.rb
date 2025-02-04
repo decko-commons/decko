@@ -6,7 +6,7 @@ end
 
 event :validate_coded_storage_type, :validate, on: :save, when: :coded? do
   storage_type_error :mod_argument_needed_to_save unless mod
-  storage_type_error :codename_needed_for_storage if coded_ok?
+  storage_type_error :codename_needed_for_storage unless coded_ok?
 end
 
 def mod= value
@@ -53,7 +53,7 @@ def coded_dir new_mod=nil
 end
 
 def codename_parts
-  @codename_parts ||= name.parts.map { |p| p.card&.codename&.to_s }
+  @codename_parts ||= name.parts.map { |p| p.codename&.to_s }
 end
 
 def mod_dir new_mod=nil
