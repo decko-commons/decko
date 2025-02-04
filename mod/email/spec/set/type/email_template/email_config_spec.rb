@@ -197,8 +197,8 @@ RSpec.describe Card::Set::Type::EmailTemplate::EmailConfig do
 
     it "handles inline image nests in html message  in core view" do
       Cardio.with_config deck_origin: "http://testhost" do
-        yeti_img = "http://testhost/files/:yeti_skin_image/bootstrap-medium.png"
-        update_field "*html message", content: "Triggered by {{:yeti_skin_image|core}}"
+        yeti_img = "http://testhost/files/:yeti_skin+:image/bootstrap-medium.png"
+        update_field "*html message", content: "Triggered by {{:yeti_skin+:image|core}}"
         mail = email.format.mail context_card
         expect(mail.parts.size).to eq 2
         expect(mail.parts[0].mime_type).to eq "text/plain"
@@ -209,7 +209,7 @@ RSpec.describe Card::Set::Type::EmailTemplate::EmailConfig do
 
     it "handles inline image nests in html message" do
       update_field "*html message",
-                   content: "Triggered by {{:yeti_skin_image|inline}}"
+                   content: "Triggered by {{:yeti_skin+:image|inline}}"
       mail = email.format.mail context_card
       expect(mail.parts[0].mime_type).to eq "image/png"
       url = mail.parts[0].url
@@ -220,14 +220,14 @@ RSpec.describe Card::Set::Type::EmailTemplate::EmailConfig do
 
     it "handles image nests in html message in default view" do
       update_field "*html message",
-                   content: "Triggered by {{:yeti_skin_image|core}}"
+                   content: "Triggered by {{:yeti_skin+:image|core}}"
       mail = email.format.mail context_card
       expect(mail.parts.size).to eq 2
       expect(mail.parts[0].mime_type).to eq "text/plain"
       expect(mail.parts[1].mime_type).to eq "text/html"
       expect(mail.parts[1].body.raw_source)
         .to have_tag(:img,
-                     with: { src: "/files/:yeti_skin_image/bootstrap-medium.png" })
+                     with: { src: "/files/:yeti_skin+:image/bootstrap-medium.png" })
     end
 
     it "handles contextual name for attachments" do
