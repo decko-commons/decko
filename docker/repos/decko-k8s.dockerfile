@@ -28,7 +28,7 @@ WORKDIR /home/app/decko
 
 COPY --chown=app:app . .
 
-RUN cp -R vendor/decko/docker/template/config/* config
+RUN cp -Rn vendor/decko/docker/template/config/* config
     # && \
     # cp -R config/sample/* config
 

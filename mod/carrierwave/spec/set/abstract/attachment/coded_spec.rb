@@ -4,7 +4,7 @@ RSpec.describe Card::Set::Abstract::Attachment::Coded do
     File.join deck_mod_path, "test_mod"
   end
 
-  let(:codename) { :yeti_skin_image }
+  let(:codename) { :logo }
 
   let(:file_card) { Card[codename] }
 
