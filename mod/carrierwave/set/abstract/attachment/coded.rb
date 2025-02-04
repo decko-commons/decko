@@ -6,7 +6,7 @@ end
 
 event :validate_coded_storage_type, :validate, on: :save, when: :coded? do
   storage_type_error :mod_argument_needed_to_save unless mod
-  storage_type_error :codename_needed_for_storage if codename.blank?
+  storage_type_error :codename_needed_for_storage unless coded_ok?
 end
 
 def mod= value
@@ -18,6 +18,10 @@ def mod
 end
 
 private
+
+def coded_ok?
+  !codename_parts.find &:blank?
+end
 
 def uncode?
   (@explicit_storage_type != :coded) && !set_specific[:mod].present? && current.coded?
@@ -37,14 +41,19 @@ def mod_from_content
 end
 
 def mod_name_match cont
-  cont&.match %r{^:[^/]+/([^.]+)}
+  cont&.match %r{^:[:\w/+]+/([^./]+)\.}
 end
 
 # place for files of mod file cards
 def coded_dir new_mod=nil
-  dir = File.join mod_dir(new_mod), MOD_FILE_DIR, codename.to_s
+  dir_parts = [mod_dir(new_mod), MOD_FILE_DIR] + codename_parts
+  dir = File.join *dir_parts
   FileUtils.mkdir_p(dir) unless File.directory?(dir)
   dir
+end
+
+def codename_parts
+  @codename_parts ||= name.parts.map { |p| p.codename&.to_s }
 end
 
 def mod_dir new_mod=nil
