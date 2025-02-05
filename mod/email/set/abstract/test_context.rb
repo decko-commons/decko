@@ -13,15 +13,15 @@ format :html do
 end
 
 format :email_html do
+
   view :core do
-    voo.hide! :test_context
-    super()
+    process_content render_raw
   end
 end
 
-format :email_text do
-  view :core do
-    voo.hide! :test_context
-    super()
-  end
-end
+# format :email_text do
+#   view :core do
+#     voo.hide! :test_context
+#     super()
+#   end
+# end

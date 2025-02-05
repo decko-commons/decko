@@ -22,7 +22,7 @@ RSpec.describe Card::Set::Abstract::ModAssets do
     card = Card["mod: format+*script"]
     card.update_asset_output
     card.make_asset_output_coded
-    card.asset_output_card.content.should eq(":mod_format_script_asset_output/format.js")
+    card.asset_output_card.content.should eq(":mod_format+:script+:asset_output/format.js")
     content = card.asset_output_card.file.file.read
     content.should include "// decko.js.coffee"
   end

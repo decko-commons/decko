@@ -9,8 +9,13 @@ basket[:cache_seed_names] += [
   %i[all style],
   %i[all style asset_output],
   %i[all script],
-  %i[script right content_options]
+  %i[script right content_options],
+  :noindex
 ]
+
+def noindex?
+  unknown? || :noindex.card.include_item?(name)
+end
 
 format do
   view :page_title, unknown: true, perms: :none do
@@ -21,6 +26,8 @@ format do
 end
 
 format :html do
+  delegate :noindex?, to: :card
+
   view :head, unknown: true, perms: :none, cache: :yes do
     basket[:head_views].map { |viewname| render viewname }.flatten.compact.join "\n"
   end
@@ -54,6 +61,8 @@ format :html do
   view :stylesheet_tags, cache: :never, unknown: true, perms: :none do
     [nest(:style_mods, view: :remote_style_tags), head_stylesheet_path]
   end
+
+  private
 
   def head_stylesheet_path
     @head_stylesheet_path ||=
