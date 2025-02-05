@@ -10,7 +10,7 @@ class Card
       # Card::Set::Type::User
       def shortname
         first = 2 # shortname eliminates Card::Set
-        last = first + num_set_parts(pattern_code)
+        last = pattern_code == :self ? -1 : (first + num_set_parts(pattern_code))
         set_name_parts[first..last].join "::"
       end
 

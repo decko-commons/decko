@@ -22,6 +22,6 @@ def anchor_id card
   card.id
 end
 
-def anchor_parts_count
-  @anchor_parts_count ||= @anchor_name ? @anchor_name.part_names.size : 1
+def self.anchor_parts_count
+  @anchor_name ? @anchor_name.part_names.size : 1
 end
