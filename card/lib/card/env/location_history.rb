@@ -37,7 +37,6 @@ class Card
         session.delete :interrupted_action
       end
 
-
       private
 
       def location_for_history card
@@ -51,7 +50,6 @@ class Card
       def save_location? card
         !Env.ajax? && Env.html? && card.known? && (card.codename != :signin)
       end
-
     end
   end
 end

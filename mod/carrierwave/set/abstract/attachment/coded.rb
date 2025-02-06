@@ -20,7 +20,7 @@ end
 private
 
 def coded_ok?
-  !codename_parts.find &:blank?
+  !codename_parts.find(&:blank?)
 end
 
 def uncode?
@@ -47,7 +47,7 @@ end
 # place for files of mod file cards
 def coded_dir new_mod=nil
   dir_parts = [mod_dir(new_mod), MOD_FILE_DIR] + codename_parts
-  dir = File.join *dir_parts
+  dir = File.join(*dir_parts)
   FileUtils.mkdir_p(dir) unless File.directory?(dir)
   dir
 end

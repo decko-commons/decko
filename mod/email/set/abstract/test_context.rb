@@ -13,7 +13,6 @@ format :html do
 end
 
 format :email_html do
-
   view :core do
     process_content render_raw
   end

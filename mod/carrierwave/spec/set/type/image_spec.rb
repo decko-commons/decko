@@ -106,7 +106,8 @@ RSpec.describe Card::Set::Type::Image do
     end
 
     it "has correct url" do
-      expect(subject.image.url).to eq "/files/:cerulean_skin+:image/bootstrap-original.png"
+      expect(subject.image.url)
+        .to eq "/files/:cerulean_skin+:image/bootstrap-original.png"
     end
 
     it "has correct url as content" do
