@@ -2,6 +2,7 @@
 
 class UniqueCodename < Cardio::Migration::Schema
   def up
+    remove_blank_codenames
     remove_index :cards, name: "cards_codename_index"
     add_index :cards, :codename, name: "cards_codename_index", unique: true
   end
@@ -9,5 +10,12 @@ class UniqueCodename < Cardio::Migration::Schema
   def down
     remove_index :cards, name: "cards_codename_index"
     add_index :cards, :codename, name: "cards_codename_index"
+  end
+
+  private
+
+  def remove_blank_codenames
+    Cardio::Record.connection
+                  .execute "UPDATE cards SET codename = null where codename = ''"
   end
 end

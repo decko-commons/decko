@@ -4,7 +4,7 @@ RSpec.describe Card::Set::Abstract::Attachment::Coded do
     File.join deck_mod_path, "test_mod"
   end
 
-  let(:codename) { :yeti_skin_image }
+  let(:codename) { :logo }
 
   let(:file_card) { Card[codename] }
 
@@ -22,7 +22,7 @@ RSpec.describe Card::Set::Abstract::Attachment::Coded do
 
   specify "view: source" do
     expect(file_card.format.render_source)
-      .to eq("/files/:#{codename}/bootstrap-medium.png")
+      .to eq("/files/:#{codename}/carrierwave-original.svg")
   end
 
   describe "creating" do
