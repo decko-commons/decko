@@ -125,6 +125,7 @@ module Cardio
         def postamble
           "end;" * (@modules.size + 3)
         end
+
         #   [set_registration, ends].compact.join "\n"
         # end
         #
