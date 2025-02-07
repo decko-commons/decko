@@ -1,6 +1,10 @@
 RSpec.describe Card::Set::Self::InputType::Right::ContentOptions do
+  let :options_rule_card do
+    Card[:input_type, :right, :content_options]
+  end
+
   it "loads the self set" do
-    expect(Card[:input_type, :right, :content_options].item_names)
+    expect(options_rule_card.item_names)
       .to contain_exactly(
         "ace editor",
         "autocomplete",
