@@ -38,7 +38,7 @@ class Card
           compound_only? ? card.name.compound? : true
         end
 
-        def anchor_parts_count
+        def anchor_parts_count _anchor_name=nil
           @anchor_parts_count ||= (anchorless? ? 0 : 1)
         end
 

@@ -2785,7 +2785,7 @@ cards_150:
   right_id: 59
   current_revision_id:
   created_at: 2024-05-21 23:24:15.000000000 Z
-  updated_at: 2024-05-21 23:24:15.000000000 Z
+  updated_at: 2025-02-04 21:04:30.186566000 Z
   creator_id: 1
   updater_id: 1
   read_rule_class: "*all plus"
@@ -2821,7 +2821,7 @@ cards_152:
   right_id:
   current_revision_id:
   created_at: 2024-05-21 23:24:15.000000000 Z
-  updated_at: 2024-05-21 23:24:15.000000000 Z
+  updated_at: 2025-02-04 20:17:58.491081000 Z
   creator_id: 1
   updater_id: 1
   read_rule_class: "*all"
@@ -2880,7 +2880,7 @@ cards_155:
   right_id: 28
   current_revision_id:
   created_at: 2024-05-21 23:24:15.000000000 Z
-  updated_at: 2024-05-21 23:24:15.000000000 Z
+  updated_at: 2025-02-04 20:17:58.435197000 Z
   creator_id: 1
   updater_id: 1
   read_rule_class: "*all plus"
@@ -2888,10 +2888,9 @@ cards_155:
   references_expired:
   trash: 0
   type_id: 57
-  db_content: "<p>\n  {{+*from | labeled | link}} \n  {{+*to | labeled | link}} \n
-    \ {{+*cc | labeled | link}}\n  {{+*bcc | labeled | link}}\n  {{+*subject | titled}}\n
-    \ {{+*html message | titled}} \n  {{+*text message | titled}}\n  {{+*attach |
-    titled}}\n</p>\""
+  db_content: "{{+:from | labeled | link}} \n{{+:to | labeled | link}} \n{{+:cc |
+    labeled | link}}\n{{+:bcc | labeled | link}}\n{{+:subject | titled}}\n{{+:html_message
+    | titled}} \n{{+:text_message | titled}}\n{{+:attach | titled}}"
 cards_156:
   id: 156
   name: "*to"
@@ -3635,7 +3634,7 @@ cards_196:
   right_id:
   current_revision_id:
   created_at: 2024-05-21 23:24:17.000000000 Z
-  updated_at: 2024-08-12 16:20:25.000000000 Z
+  updated_at: 2025-02-04 20:18:00.346217000 Z
   creator_id: 1
   updater_id: 1
   read_rule_class: "*all"
@@ -6877,7 +6876,7 @@ cards_363:
   id: 363
   name:
   key:
-  codename: cerulean_skin_image
+  codename:
   left_id: 360
   right_id: 284
   current_revision_id:
@@ -6890,7 +6889,7 @@ cards_363:
   references_expired:
   trash: 0
   type_id: 284
-  db_content: ":cerulean_skin_image/bootstrap.png"
+  db_content: ":cerulean_skin+:image/bootstrap.png"
 cards_364:
   id: 364
   name: cosmo skin
@@ -6949,7 +6948,7 @@ cards_367:
   id: 367
   name:
   key:
-  codename: cosmo_skin_image
+  codename:
   left_id: 364
   right_id: 284
   current_revision_id:
@@ -6962,7 +6961,7 @@ cards_367:
   references_expired:
   trash: 0
   type_id: 284
-  db_content: ":cosmo_skin_image/bootstrap.png"
+  db_content: ":cosmo_skin+:image/bootstrap.png"
 cards_368:
   id: 368
   name: cyborg skin
@@ -7021,7 +7020,7 @@ cards_371:
   id: 371
   name:
   key:
-  codename: cyborg_skin_image
+  codename:
   left_id: 368
   right_id: 284
   current_revision_id:
@@ -7034,7 +7033,7 @@ cards_371:
   references_expired:
   trash: 0
   type_id: 284
-  db_content: ":cyborg_skin_image/bootstrap.png"
+  db_content: ":cyborg_skin+:image/bootstrap.png"
 cards_372:
   id: 372
   name: darkly skin
@@ -7093,7 +7092,7 @@ cards_375:
   id: 375
   name:
   key:
-  codename: darkly_skin_image
+  codename:
   left_id: 372
   right_id: 284
   current_revision_id:
@@ -7106,7 +7105,7 @@ cards_375:
   references_expired:
   trash: 0
   type_id: 284
-  db_content: ":darkly_skin_image/bootstrap.png"
+  db_content: ":darkly_skin+:image/bootstrap.png"
 cards_376:
   id: 376
   name: flatly skin
@@ -7165,7 +7164,7 @@ cards_379:
   id: 379
   name:
   key:
-  codename: flatly_skin_image
+  codename:
   left_id: 376
   right_id: 284
   current_revision_id:
@@ -7178,7 +7177,7 @@ cards_379:
   references_expired:
   trash: 0
   type_id: 284
-  db_content: ":flatly_skin_image/bootstrap.png"
+  db_content: ":flatly_skin+:image/bootstrap.png"
 cards_380:
   id: 380
   name: journal skin
@@ -7237,7 +7236,7 @@ cards_383:
   id: 383
   name:
   key:
-  codename: journal_skin_image
+  codename:
   left_id: 380
   right_id: 284
   current_revision_id:
@@ -7250,7 +7249,7 @@ cards_383:
   references_expired:
   trash: 0
   type_id: 284
-  db_content: ":journal_skin_image/bootstrap.png"
+  db_content: ":journal_skin+:image/bootstrap.png"
 cards_384:
   id: 384
   name: lumen skin
@@ -7309,7 +7308,7 @@ cards_387:
   id: 387
   name:
   key:
-  codename: lumen_skin_image
+  codename:
   left_id: 384
   right_id: 284
   current_revision_id:
@@ -7322,7 +7321,7 @@ cards_387:
   references_expired:
   trash: 0
   type_id: 284
-  db_content: ":lumen_skin_image/bootstrap.png"
+  db_content: ":lumen_skin+:image/bootstrap.png"
 cards_388:
   id: 388
   name: sandstone skin
@@ -7381,7 +7380,7 @@ cards_391:
   id: 391
   name:
   key:
-  codename: sandstone_skin_image
+  codename:
   left_id: 388
   right_id: 284
   current_revision_id:
@@ -7394,7 +7393,7 @@ cards_391:
   references_expired:
   trash: 0
   type_id: 284
-  db_content: ":sandstone_skin_image/bootstrap.png"
+  db_content: ":sandstone_skin+:image/bootstrap.png"
 cards_392:
   id: 392
   name: simplex skin
@@ -7453,7 +7452,7 @@ cards_395:
   id: 395
   name:
   key:
-  codename: simplex_skin_image
+  codename:
   left_id: 392
   right_id: 284
   current_revision_id:
@@ -7466,7 +7465,7 @@ cards_395:
   references_expired:
   trash: 0
   type_id: 284
-  db_content: ":simplex_skin_image/bootstrap.png"
+  db_content: ":simplex_skin+:image/bootstrap.png"
 cards_396:
   id: 396
   name: slate skin
@@ -7525,7 +7524,7 @@ cards_399:
   id: 399
   name:
   key:
-  codename: slate_skin_image
+  codename:
   left_id: 396
   right_id: 284
   current_revision_id:
@@ -7538,7 +7537,7 @@ cards_399:
   references_expired:
   trash: 0
   type_id: 284
-  db_content: ":slate_skin_image/bootstrap.png"
+  db_content: ":slate_skin+:image/bootstrap.png"
 cards_400:
   id: 400
   name: spacelab skin
@@ -7597,7 +7596,7 @@ cards_403:
   id: 403
   name:
   key:
-  codename: spacelab_skin_image
+  codename:
   left_id: 400
   right_id: 284
   current_revision_id:
@@ -7610,7 +7609,7 @@ cards_403:
   references_expired:
   trash: 0
   type_id: 284
-  db_content: ":spacelab_skin_image/bootstrap.png"
+  db_content: ":spacelab_skin+:image/bootstrap.png"
 cards_404:
   id: 404
   name: superhero skin
@@ -7669,7 +7668,7 @@ cards_407:
   id: 407
   name:
   key:
-  codename: superhero_skin_image
+  codename:
   left_id: 404
   right_id: 284
   current_revision_id:
@@ -7682,7 +7681,7 @@ cards_407:
   references_expired:
   trash: 0
   type_id: 284
-  db_content: ":superhero_skin_image/bootstrap.png"
+  db_content: ":superhero_skin+:image/bootstrap.png"
 cards_408:
   id: 408
   name: united skin
@@ -7741,7 +7740,7 @@ cards_411:
   id: 411
   name:
   key:
-  codename: united_skin_image
+  codename:
   left_id: 408
   right_id: 284
   current_revision_id:
@@ -7754,7 +7753,7 @@ cards_411:
   references_expired:
   trash: 0
   type_id: 284
-  db_content: ":united_skin_image/bootstrap.png"
+  db_content: ":united_skin+:image/bootstrap.png"
 cards_412:
   id: 412
   name: yeti skin
@@ -7813,7 +7812,7 @@ cards_415:
   id: 415
   name:
   key:
-  codename: yeti_skin_image
+  codename:
   left_id: 412
   right_id: 284
   current_revision_id:
@@ -7826,7 +7825,7 @@ cards_415:
   references_expired:
   trash: 0
   type_id: 284
-  db_content: ":yeti_skin_image/bootstrap.png"
+  db_content: ":yeti_skin+:image/bootstrap.png"
 cards_416:
   id: 416
   name: litera skin
@@ -7885,7 +7884,7 @@ cards_419:
   id: 419
   name:
   key:
-  codename: litera_skin_image
+  codename:
   left_id: 416
   right_id: 284
   current_revision_id:
@@ -7898,7 +7897,7 @@ cards_419:
   references_expired:
   trash: 0
   type_id: 284
-  db_content: ":litera_skin_image/bootstrap.png"
+  db_content: ":litera_skin+:image/bootstrap.png"
 cards_420:
   id: 420
   name: lux skin
@@ -7957,7 +7956,7 @@ cards_423:
   id: 423
   name:
   key:
-  codename: lux_skin_image
+  codename:
   left_id: 420
   right_id: 284
   current_revision_id:
@@ -7970,7 +7969,7 @@ cards_423:
   references_expired:
   trash: 0
   type_id: 284
-  db_content: ":lux_skin_image/bootstrap.png"
+  db_content: ":lux_skin+:image/bootstrap.png"
 cards_424:
   id: 424
   name: materia skin
@@ -8029,7 +8028,7 @@ cards_427:
   id: 427
   name:
   key:
-  codename: materia_skin_image
+  codename:
   left_id: 424
   right_id: 284
   current_revision_id:
@@ -8042,7 +8041,7 @@ cards_427:
   references_expired:
   trash: 0
   type_id: 284
-  db_content: ":materia_skin_image/bootstrap.png"
+  db_content: ":materia_skin+:image/bootstrap.png"
 cards_428:
   id: 428
   name: minty skin
@@ -8101,7 +8100,7 @@ cards_431:
   id: 431
   name:
   key:
-  codename: minty_skin_image
+  codename:
   left_id: 428
   right_id: 284
   current_revision_id:
@@ -8114,7 +8113,7 @@ cards_431:
   references_expired:
   trash: 0
   type_id: 284
-  db_content: ":minty_skin_image/bootstrap.png"
+  db_content: ":minty_skin+:image/bootstrap.png"
 cards_432:
   id: 432
   name: pulse skin
@@ -8173,7 +8172,7 @@ cards_435:
   id: 435
   name:
   key:
-  codename: pulse_skin_image
+  codename:
   left_id: 432
   right_id: 284
   current_revision_id:
@@ -8186,7 +8185,7 @@ cards_435:
   references_expired:
   trash: 0
   type_id: 284
-  db_content: ":pulse_skin_image/bootstrap.png"
+  db_content: ":pulse_skin+:image/bootstrap.png"
 cards_436:
   id: 436
   name: solar skin
@@ -8245,7 +8244,7 @@ cards_439:
   id: 439
   name:
   key:
-  codename: solar_skin_image
+  codename:
   left_id: 436
   right_id: 284
   current_revision_id:
@@ -8258,7 +8257,7 @@ cards_439:
   references_expired:
   trash: 0
   type_id: 284
-  db_content: ":solar_skin_image/bootstrap.png"
+  db_content: ":solar_skin+:image/bootstrap.png"
 cards_440:
   id: 440
   name: sketchy skin
@@ -8317,7 +8316,7 @@ cards_443:
   id: 443
   name:
   key:
-  codename: sketchy_skin_image
+  codename:
   left_id: 440
   right_id: 284
   current_revision_id:
@@ -8330,7 +8329,7 @@ cards_443:
   references_expired:
   trash: 0
   type_id: 284
-  db_content: ":sketchy_skin_image/bootstrap.png"
+  db_content: ":sketchy_skin+:image/bootstrap.png"
 cards_444:
   id: 444
   name:
@@ -8353,12 +8352,12 @@ cards_445:
   id: 445
   name:
   key:
-  codename: all_style_asset_output
+  codename:
   left_id: 444
   right_id: 299
   current_revision_id:
   created_at: 2024-05-21 23:25:44.000000000 Z
-  updated_at: 2024-12-13 17:35:34.104980000 Z
+  updated_at: 2025-02-04 21:04:51.807999000 Z
   creator_id: 1
   updater_id: 1
   read_rule_class: "*all plus"
@@ -8366,7 +8365,7 @@ cards_445:
   references_expired:
   trash: 0
   type_id: 282
-  db_content: ":all_style_asset_output/defaults.css"
+  db_content: ":all+:style+:asset_output/defaults.css"
 cards_446:
   id: 446
   name: discussion
@@ -9038,7 +9037,7 @@ cards_481:
   right_id:
   current_revision_id:
   created_at: 2024-05-21 23:25:46.000000000 Z
-  updated_at: 2024-08-12 16:20:40.000000000 Z
+  updated_at: 2025-02-04 20:17:58.497071000 Z
   creator_id: 1
   updater_id: 1
   read_rule_class: "*self"
@@ -9047,6 +9046,7 @@ cards_481:
   trash: 0
   type_id: 2
   db_content: |-
+    *structure
     *layout
     *read
     *follow
@@ -9056,7 +9056,6 @@ cards_481:
     *update
     *create
     *content options
-    *structure
     *script
     *captcha
     *input type
@@ -9324,7 +9323,7 @@ cards_496:
   right_id:
   current_revision_id:
   created_at: 2024-05-21 23:25:47.000000000 Z
-  updated_at: 2024-12-13 17:35:18.422093000 Z
+  updated_at: 2025-02-04 21:04:32.301700000 Z
   creator_id: 1
   updater_id: 1
   read_rule_class: "*self"
@@ -9344,7 +9343,7 @@ cards_497:
   right_id:
   current_revision_id:
   created_at: 2024-05-21 23:25:47.000000000 Z
-  updated_at: 2024-12-13 17:35:18.435657000 Z
+  updated_at: 2025-02-04 21:04:32.316906000 Z
   creator_id: 1
   updater_id: 1
   read_rule_class: "*self"
@@ -9551,7 +9550,7 @@ cards_507:
   right_id:
   current_revision_id:
   created_at: 2024-05-21 23:25:48.000000000 Z
-  updated_at: 2024-12-13 17:35:18.435657000 Z
+  updated_at: 2025-02-04 21:04:32.316906000 Z
   creator_id: 1
   updater_id: 1
   read_rule_class: "*all"
@@ -9574,7 +9573,7 @@ cards_508:
   right_id:
   current_revision_id:
   created_at: 2024-05-21 23:25:48.000000000 Z
-  updated_at: 2024-12-13 17:35:18.435657000 Z
+  updated_at: 2025-02-04 21:04:32.316906000 Z
   creator_id: 1
   updater_id: 1
   read_rule_class: "*all"
@@ -9597,7 +9596,7 @@ cards_509:
   right_id:
   current_revision_id:
   created_at: 2024-05-21 23:25:48.000000000 Z
-  updated_at: 2024-12-13 17:35:18.435657000 Z
+  updated_at: 2025-02-04 21:04:32.316906000 Z
   creator_id: 1
   updater_id: 1
   read_rule_class: "*all"
@@ -9620,7 +9619,7 @@ cards_510:
   right_id:
   current_revision_id:
   created_at: 2024-05-21 23:25:48.000000000 Z
-  updated_at: 2024-12-13 17:35:18.435657000 Z
+  updated_at: 2025-02-04 21:04:32.316906000 Z
   creator_id: 1
   updater_id: 1
   read_rule_class: "*all"
@@ -9644,7 +9643,7 @@ cards_511:
   right_id:
   current_revision_id:
   created_at: 2024-05-21 23:25:48.000000000 Z
-  updated_at: 2024-12-13 17:35:18.435657000 Z
+  updated_at: 2025-02-04 21:04:32.316906000 Z
   creator_id: 1
   updater_id: 1
   read_rule_class: "*all"
@@ -10013,7 +10012,7 @@ cards_529:
   right_id: 523
   current_revision_id:
   created_at: 2024-05-21 23:25:50.000000000 Z
-  updated_at: 2024-08-12 16:20:25.000000000 Z
+  updated_at: 2025-02-04 20:18:00.346217000 Z
   creator_id: 1
   updater_id: 1
   read_rule_class: "*all plus"
@@ -10028,8 +10027,8 @@ cards_529:
     <h3>Help Texts</h3>
     <p>{{:help|bar}}</p>
     <h3>Emails </h3>
-    <p>Here are the current [[Email Templates|Email templates]] for your site.</p>
-    <p>{{Email Templates+*type+by update|content}} </p>
+    <p>Here are the current [[:email_template|Email templates]] for your site.</p>
+    <p>{{:email_template+:type+:by_update|content}} </p>
 cards_530:
   id: 530
   name:
@@ -10290,12 +10289,12 @@ cards_539:
   id: 539
   name:
   key:
-  codename: mod_format_script_asset_output
+  codename:
   left_id: 538
   right_id: 299
   current_revision_id:
   created_at: 2024-05-21 23:25:53.000000000 Z
-  updated_at: 2024-12-13 17:35:33.902526000 Z
+  updated_at: 2025-02-04 21:04:50.953074000 Z
   creator_id: 1
   updater_id: 1
   read_rule_class: "*all plus"
@@ -10303,7 +10302,7 @@ cards_539:
   references_expired:
   trash: 0
   type_id: 282
-  db_content: ":mod_format_script_asset_output/format.js"
+  db_content: ":mod_format+:script+:asset_output/format.js"
 cards_540:
   id: 540
   name:
@@ -10362,12 +10361,12 @@ cards_543:
   id: 543
   name:
   key:
-  codename: mod_list_script_asset_output
+  codename:
   left_id: 542
   right_id: 299
   current_revision_id:
   created_at: 2024-05-21 23:25:53.000000000 Z
-  updated_at: 2024-12-13 17:35:33.917644000 Z
+  updated_at: 2025-02-04 21:04:50.968683000 Z
   creator_id: 1
   updater_id: 1
   read_rule_class: "*all plus"
@@ -10375,7 +10374,7 @@ cards_543:
   references_expired:
   trash: 0
   type_id: 282
-  db_content: ":mod_list_script_asset_output/list.js"
+  db_content: ":mod_list+:script+:asset_output/list.js"
 cards_544:
   id: 544
   name:
@@ -10524,12 +10523,12 @@ cards_552:
   id: 552
   name:
   key:
-  codename: mod_search_script_asset_output
+  codename:
   left_id: 551
   right_id: 299
   current_revision_id:
   created_at: 2024-05-21 23:25:54.000000000 Z
-  updated_at: 2024-12-13 17:35:33.930848000 Z
+  updated_at: 2025-02-04 21:04:51.000645000 Z
   creator_id: 1
   updater_id: 1
   read_rule_class: "*all plus"
@@ -10537,7 +10536,7 @@ cards_552:
   references_expired:
   trash: 0
   type_id: 282
-  db_content: ":mod_search_script_asset_output/search.js"
+  db_content: ":mod_search+:script+:asset_output/search.js"
 cards_553:
   id: 553
   name:
@@ -10596,12 +10595,12 @@ cards_556:
   id: 556
   name:
   key:
-  codename: mod_rules_script_asset_output
+  codename:
   left_id: 555
   right_id: 299
   current_revision_id:
   created_at: 2024-05-21 23:25:55.000000000 Z
-  updated_at: 2024-12-13 17:35:33.941873000 Z
+  updated_at: 2025-02-04 21:04:51.015970000 Z
   creator_id: 1
   updater_id: 1
   read_rule_class: "*all plus"
@@ -10609,7 +10608,7 @@ cards_556:
   references_expired:
   trash: 0
   type_id: 282
-  db_content: ":mod_rules_script_asset_output/rules.js"
+  db_content: ":mod_rules+:script+:asset_output/rules.js"
 cards_557:
   id: 557
   name:
@@ -10668,12 +10667,12 @@ cards_560:
   id: 560
   name:
   key:
-  codename: mod_edit_script_asset_output
+  codename:
   left_id: 559
   right_id: 299
   current_revision_id:
   created_at: 2024-05-21 23:25:56.000000000 Z
-  updated_at: 2024-12-13 17:35:33.951799000 Z
+  updated_at: 2025-02-04 21:04:51.110160000 Z
   creator_id: 1
   updater_id: 1
   read_rule_class: "*all plus"
@@ -10681,7 +10680,7 @@ cards_560:
   references_expired:
   trash: 0
   type_id: 282
-  db_content: ":mod_edit_script_asset_output/edit.js"
+  db_content: ":mod_edit+:script+:asset_output/edit.js"
 cards_561:
   id: 561
   name:
@@ -10776,12 +10775,12 @@ cards_566:
   id: 566
   name:
   key:
-  codename: mod_account_script_asset_output
+  codename:
   left_id: 565
   right_id: 299
   current_revision_id:
   created_at: 2024-05-21 23:25:56.000000000 Z
-  updated_at: 2024-12-13 17:35:33.963272000 Z
+  updated_at: 2025-02-04 21:04:51.161619000 Z
   creator_id: 1
   updater_id: 1
   read_rule_class: "*all plus"
@@ -10789,7 +10788,7 @@ cards_566:
   references_expired:
   trash: 0
   type_id: 282
-  db_content: ":mod_account_script_asset_output/account.js"
+  db_content: ":mod_account+:script+:asset_output/account.js"
 cards_567:
   id: 567
   name:
@@ -10884,12 +10883,12 @@ cards_572:
   id: 572
   name:
   key:
-  codename: mod_carrierwave_script_asset_output
+  codename:
   left_id: 571
   right_id: 299
   current_revision_id:
   created_at: 2024-05-21 23:25:57.000000000 Z
-  updated_at: 2024-12-13 17:35:33.973759000 Z
+  updated_at: 2025-02-04 21:04:51.223481000 Z
   creator_id: 1
   updater_id: 1
   read_rule_class: "*all plus"
@@ -10897,7 +10896,7 @@ cards_572:
   references_expired:
   trash: 0
   type_id: 282
-  db_content: ":mod_carrierwave_script_asset_output/carrierwave.js"
+  db_content: ":mod_carrierwave+:script+:asset_output/carrierwave.js"
 cards_573:
   id: 573
   name:
@@ -11010,12 +11009,12 @@ cards_579:
   id: 579
   name:
   key:
-  codename: mod_ace_editor_script_asset_output
+  codename:
   left_id: 578
   right_id: 299
   current_revision_id:
   created_at: 2024-05-21 23:25:58.000000000 Z
-  updated_at: 2024-12-13 17:35:33.985125000 Z
+  updated_at: 2025-02-04 21:04:51.241035000 Z
   creator_id: 1
   updater_id: 1
   read_rule_class: "*all plus"
@@ -11023,7 +11022,7 @@ cards_579:
   references_expired:
   trash: 0
   type_id: 282
-  db_content: ":mod_ace_editor_script_asset_output/ace_editor.js"
+  db_content: ":mod_ace_editor+:script+:asset_output/ace_editor.js"
 cards_580:
   id: 580
   name: 'mod: api key'
@@ -11136,12 +11135,12 @@ cards_586:
   id: 586
   name:
   key:
-  codename: mod_bar_and_box_script_asset_output
+  codename:
   left_id: 585
   right_id: 299
   current_revision_id:
   created_at: 2024-05-21 23:25:58.000000000 Z
-  updated_at: 2024-12-13 17:35:33.996620000 Z
+  updated_at: 2025-02-04 21:04:51.263551000 Z
   creator_id: 1
   updater_id: 1
   read_rule_class: "*all plus"
@@ -11149,7 +11148,7 @@ cards_586:
   references_expired:
   trash: 0
   type_id: 282
-  db_content: ":mod_bar_and_box_script_asset_output/bar_and_box.js"
+  db_content: ":mod_bar_and_box+:script+:asset_output/bar_and_box.js"
 cards_587:
   id: 587
   name:
@@ -11208,12 +11207,12 @@ cards_590:
   id: 590
   name:
   key:
-  codename: mod_bootstrap_script_asset_output
+  codename:
   left_id: 589
   right_id: 299
   current_revision_id:
   created_at: 2024-05-21 23:26:00.000000000 Z
-  updated_at: 2024-12-13 17:35:34.008199000 Z
+  updated_at: 2025-02-04 21:04:51.328456000 Z
   creator_id: 1
   updater_id: 1
   read_rule_class: "*all plus"
@@ -11221,7 +11220,7 @@ cards_590:
   references_expired:
   trash: 0
   type_id: 282
-  db_content: ":mod_bootstrap_script_asset_output/bootstrap.js"
+  db_content: ":mod_bootstrap+:script+:asset_output/bootstrap.js"
 cards_591:
   id: 591
   name:
@@ -11352,12 +11351,12 @@ cards_598:
   id: 598
   name:
   key:
-  codename: mod_follow_script_asset_output
+  codename:
   left_id: 597
   right_id: 299
   current_revision_id:
   created_at: 2024-05-21 23:26:01.000000000 Z
-  updated_at: 2024-12-13 17:35:34.019427000 Z
+  updated_at: 2025-02-04 21:04:51.399803000 Z
   creator_id: 1
   updater_id: 1
   read_rule_class: "*all plus"
@@ -11365,7 +11364,7 @@ cards_598:
   references_expired:
   trash: 0
   type_id: 282
-  db_content: ":mod_follow_script_asset_output/follow.js"
+  db_content: ":mod_follow+:script+:asset_output/follow.js"
 cards_599:
   id: 599
   name:
@@ -11442,12 +11441,12 @@ cards_603:
   id: 603
   name:
   key:
-  codename: mod_tabs_script_asset_output
+  codename:
   left_id: 602
   right_id: 299
   current_revision_id:
   created_at: 2024-05-21 23:26:01.000000000 Z
-  updated_at: 2024-12-13 17:35:34.030153000 Z
+  updated_at: 2025-02-04 21:04:51.484559000 Z
   creator_id: 1
   updater_id: 1
   read_rule_class: "*all plus"
@@ -11455,7 +11454,7 @@ cards_603:
   references_expired:
   trash: 0
   type_id: 282
-  db_content: ":mod_tabs_script_asset_output/tabs.js"
+  db_content: ":mod_tabs+:script+:asset_output/tabs.js"
 cards_604:
   id: 604
   name: 'mod: layout'
@@ -11496,12 +11495,12 @@ cards_606:
   id: 606
   name:
   key:
-  codename: mod_layout_script_asset_output
+  codename:
   left_id: 605
   right_id: 299
   current_revision_id:
   created_at: 2024-05-21 23:26:01.000000000 Z
-  updated_at: 2024-12-13 17:35:34.040658000 Z
+  updated_at: 2025-02-04 21:04:51.543291000 Z
   creator_id: 1
   updater_id: 1
   read_rule_class: "*all plus"
@@ -11509,7 +11508,7 @@ cards_606:
   references_expired:
   trash: 0
   type_id: 282
-  db_content: ":mod_layout_script_asset_output/layout.js"
+  db_content: ":mod_layout+:script+:asset_output/layout.js"
 cards_607:
   id: 607
   name:
@@ -11568,12 +11567,12 @@ cards_610:
   id: 610
   name:
   key:
-  codename: mod_recaptcha_script_asset_output
+  codename:
   left_id: 609
   right_id: 299
   current_revision_id:
   created_at: 2024-05-21 23:26:02.000000000 Z
-  updated_at: 2024-12-13 17:35:34.052292000 Z
+  updated_at: 2025-02-04 21:04:51.678977000 Z
   creator_id: 1
   updater_id: 1
   read_rule_class: "*all plus"
@@ -11581,7 +11580,7 @@ cards_610:
   references_expired:
   trash: 0
   type_id: 282
-  db_content: ":mod_recaptcha_script_asset_output/recaptcha.js"
+  db_content: ":mod_recaptcha+:script+:asset_output/recaptcha.js"
 cards_611:
   id: 611
   name: 'mod: tinymce editor'
@@ -11622,12 +11621,12 @@ cards_613:
   id: 613
   name:
   key:
-  codename: mod_tinymce_editor_script_asset_output
+  codename:
   left_id: 612
   right_id: 299
   current_revision_id:
   created_at: 2024-05-21 23:26:03.000000000 Z
-  updated_at: 2024-12-13 17:35:34.075780000 Z
+  updated_at: 2025-02-04 21:04:51.737199000 Z
   creator_id: 1
   updater_id: 1
   read_rule_class: "*all plus"
@@ -11635,7 +11634,7 @@ cards_613:
   references_expired:
   trash: 0
   type_id: 282
-  db_content: ":mod_tinymce_editor_script_asset_output/tinymce_editor.js"
+  db_content: ":mod_tinymce_editor+:script+:asset_output/tinymce_editor.js"
 cards_614:
   id: 614
   name:
@@ -17194,4 +17193,22 @@ cards_917:
   references_expired:
   trash: 0
   type_id: 55
+  db_content: ''
+cards_918:
+  id: 918
+  name: "*noindex"
+  key: "*noindex"
+  codename: noindex
+  left_id:
+  right_id:
+  current_revision_id:
+  created_at: 2025-02-04 20:17:57.808942000 Z
+  updated_at: 2025-02-04 20:17:57.808942000 Z
+  creator_id: 1
+  updater_id: 1
+  read_rule_class: "*all"
+  read_rule_id: 10
+  references_expired:
+  trash: 0
+  type_id: 4
   db_content: ''

@@ -84,8 +84,8 @@
     <h3>Help Texts</h3>
     <p>{{:help|bar}}</p>
     <h3>Emails </h3>
-    <p>Here are the current [[Email Templates|Email templates]] for your site.</p>
-    <p>{{Email Templates+*type+by update|content}} </p>
+    <p>Here are the current [[:email_template|Email templates]] for your site.</p>
+    <p>{{:email_template+:type+:by_update|content}} </p>
 
 - :name:
     - :eagle

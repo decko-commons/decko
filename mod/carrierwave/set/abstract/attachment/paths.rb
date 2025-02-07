@@ -24,7 +24,7 @@ end
 # used in the identifier
 def file_dir
   if coded?
-    ":#{codename}"
+    codename_parts.map { |c| ":#{c}" }.join Name.joint
   elsif cloud?
     "(#{bucket})/#{file_id}"
   else
