@@ -43,7 +43,7 @@ class Card
         end
 
         def anchor_parts_count
-          self.class.anchor_parts_count @anchor_name
+          @anchor_parts_count ||= self.class.anchor_parts_count @anchor_name
         end
 
         def anchor_parts
