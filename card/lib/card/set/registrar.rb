@@ -13,9 +13,9 @@ class Card
       # Definition Phase
 
       # each set file calls `extend Card::Set` when loaded
-      # def extended mod
-      #   register_set mod
-      # end
+      def extended mod
+        register_set mod
+      end
 
       # make the set available for use
       def register_set set_module
