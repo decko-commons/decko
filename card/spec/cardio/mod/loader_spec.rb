@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-describe Cardio::Mod::Loader do
+RSpec.describe Cardio::Mod::Loader do
   # let(:card_double) { double "Card" }
   # let(:pat_all_double) { proxy Card::Set::All }
   # let(:format_double) { proxy Card::Format }
@@ -51,16 +51,18 @@ describe Cardio::Mod::Loader do
   end
 
   it "loads self set for junction card" do
-    create_card "set+test+load", codename: "set_test_load"
+    create_card ":set+:css"
     Card::Cache.reset_all
-    module Card::Set::Self::SetTestLoad
-      extend Card::Set
-      def hello
-        "hello"
+    module Card::Set::Self::Set
+      module Css
+        extend Card::Set
+        def hello
+          "hello"
+        end
       end
     end
 
-    expect(Card["set+test+load"]).to respond_to :hello
+    expect(Card["set+css"]).to respond_to :hello
   end
 
   it "loads type set" do
@@ -75,8 +77,10 @@ describe Cardio::Mod::Loader do
     expect(Card.new(name: "test load", type: "set test load")).to respond_to :hello
   end
 
-  it "loads type set for a junction cardtyp" do
-    create_card "set+test load", codename: "set_test_load", type_id: Card::CardtypeID
+  it "loads type set for a compound cardtype" do
+    # now that compound cards can't have codenames, for this to work, we will need to
+    # make it so that type sets can have multi-codename modules
+    create_card "set+test load", codename: "set_test_load", type: :cardtype
     Card::Cache.reset_all
     module Card::Set::Type::SetTestLoad
       extend Card::Set

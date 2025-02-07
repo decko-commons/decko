@@ -106,11 +106,12 @@ RSpec.describe Card::Set::Type::Image do
     end
 
     it "has correct url" do
-      expect(subject.image.url).to eq "/files/:cerulean_skin_image/bootstrap-original.png"
+      expect(subject.image.url)
+        .to eq "/files/:cerulean_skin+:image/bootstrap-original.png"
     end
 
     it "has correct url as content" do
-      expect(subject.content).to eq ":#{subject.codename}/bootstrap.png"
+      expect(subject.content).to eq ":cerulean_skin+:image/bootstrap.png"
     end
 
     it "becomes a regular file when changed" do
@@ -131,7 +132,7 @@ RSpec.describe Card::Set::Type::Image do
     describe "source view" do
       it "renders url with original version" do
         expect(subject.format.render_source)
-          .to eq "/files/:#{subject.codename}/bootstrap-medium.png"
+          .to eq "/files/:cerulean_skin+:image/bootstrap-medium.png"
       end
     end
   end

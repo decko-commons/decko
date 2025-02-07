@@ -264,3 +264,117 @@ card_changes_050:
   value: |-
     [[:getting_started_links|Getting started]]
     [[:recent|Recent Changes]]
+card_changes_051:
+  id: 51
+  card_action_id: 250
+  field: 0
+  value:
+card_changes_052:
+  id: 52
+  card_action_id: 250
+  field: 1
+  value: '57'
+card_changes_053:
+  id: 53
+  card_action_id: 250
+  field: 2
+  value: "<p>\n  {{+*from | labeled | link}} \n  {{+*to | labeled | link}} \n  {{+*cc
+    | labeled | link}}\n  {{+*bcc | labeled | link}}\n  {{+*subject | titled}}\n  {{+*html
+    message | titled}} \n  {{+*text message | titled}}\n  {{+*attach | titled}}\n</p>\""
+card_changes_054:
+  id: 54
+  card_action_id: 250
+  field: 3
+  value: f
+card_changes_055:
+  id: 55
+  card_action_id: 250
+  field: 4
+  value: '154'
+card_changes_056:
+  id: 56
+  card_action_id: 250
+  field: 5
+  value: '28'
+card_changes_057:
+  id: 57
+  card_action_id: 3709
+  field: 2
+  value: "{{+:from | labeled | link}} \n{{+:to | labeled | link}} \n{{+:cc | labeled
+    | link}}\n{{+:bcc | labeled | link}}\n{{+:subject | titled}}\n{{+:html_message
+    | titled}} \n{{+:text_message | titled}}\n{{+:attach | titled}}"
+card_changes_058:
+  id: 58
+  card_action_id: 3710
+  field: 2
+  value: "[[:recent|Recent Changes]]"
+card_changes_059:
+  id: 59
+  card_action_id: 3711
+  field: 2
+  value: |-
+    [[:getting_started_links|Getting started]]
+    [[:recent|Recent Changes]]
+card_changes_060:
+  id: 60
+  card_action_id: 797
+  field: 0
+  value:
+card_changes_061:
+  id: 61
+  card_action_id: 797
+  field: 1
+  value: '2'
+card_changes_062:
+  id: 62
+  card_action_id: 797
+  field: 2
+  value: |
+    {{_L|configs}}
+    <h3>Accounts</h3>
+    <p>{{:account|content}}</p>
+    <h3>Help Texts</h3>
+    <p>{{:help|bar}}</p>
+    <h3>Emails </h3>
+    <p>Here are the current [[Email Templates|Email templates]] for your site.</p>
+    <p>{{Email Templates+*type+by update|content}} </p>
+card_changes_063:
+  id: 63
+  card_action_id: 797
+  field: 3
+  value: f
+card_changes_064:
+  id: 64
+  card_action_id: 797
+  field: 4
+  value: '196'
+card_changes_065:
+  id: 65
+  card_action_id: 797
+  field: 5
+  value: '523'
+card_changes_066:
+  id: 66
+  card_action_id: 3712
+  field: 2
+  value: |
+    {{_L|configs}}
+    <h3>Accounts</h3>
+    <p>{{:account|content}}</p>
+    <h3>Help Texts</h3>
+    <p>{{:help|bar}}</p>
+    <h3>Emails </h3>
+    <p>Here are the current [[:email_template|Email templates]] for your site.</p>
+    <p>{{:email_template+:type+:by_update|content}} </p>
+card_changes_067:
+  id: 67
+  card_action_id: 3713
+  field: 2
+  value: "[[:recent|Recent Changes]]"
+card_changes_068:
+  id: 68
+  card_action_id: 3714
+  field: 2
+  value: |-
+    [[:getting_started_links|Getting started]]
+    [[:recent|Recent Changes]]
