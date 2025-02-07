@@ -21,3 +21,7 @@ end
 def anchor_id card
   card.id
 end
+
+def anchor_parts_count anchor_name=nil
+  anchor_name&.part_names&.size || 1
+end
