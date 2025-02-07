@@ -66,16 +66,9 @@ def make_asset_output_coded mod
   mod ||= :assets
   Card::Auth.as_bot do
     ENV["STORE_CODED_FILES"] = "true"
-    asset_output_card.update! storage_type: :coded, mod: mod,
-                              codename: asset_output_codename
+    asset_output_card.update! storage_type: :coded, mod: mod
     ENV["STORE_CODED_FILES"] = nil
   end
-end
-
-def asset_output_codename
-  asset_output_card.name.parts.map do |part|
-    Card[part].codename&.to_s || part.cardname.safe_key
-  end.join "_"
 end
 
 def input_item_cards
