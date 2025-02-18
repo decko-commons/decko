@@ -1,13 +1,9 @@
 format do
-  view :verify_url, cache: :never, denial: :blank do
-    raise Error::PermissionDenied unless card.ok?(:create) || card.action
-
+  view :verify_url, cache: :never, denial: :blank, perms: :verify_url_ok? do
     token_url :verify_and_activate, anonymous: true
   end
 
-  view :reset_password_url, denial: :blank do
-    raise Error::PermissionDenied unless card.password_card.ok? :update
-
+  view :reset_password_url, denial: :blank, perms: :reset_password_ok? do
     token_url :reset_password
   end
 
@@ -22,6 +18,16 @@ format do
   # DEPRECATED
   view :verify_days, :token_days
   view :reset_password_days, :token_days
+
+  private
+
+  def verify_url_ok?
+    card.ok?(:create) || card.action
+  end
+
+  def reset_password_ok?
+    card.password_card.ok? :update
+  end
 
   def token_url trigger, extra_payload={}
     card_url path(action: :update,
