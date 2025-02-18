@@ -6,17 +6,6 @@
     :description: |-
       Design custom emails to be triggered by card actions.
       [[http://decko.org/actions|more]]
-    :type:
-      :fields:
-        :structure: |-
-          {{+:from | labeled | link}} 
-          {{+:to | labeled | link}} 
-          {{+:cc | labeled | link}}
-          {{+:bcc | labeled | link}}
-          {{+:subject | titled}}
-          {{+:html_message | titled}} 
-          {{+:text_message | titled}}
-          {{+:attach | titled}}
 
 - :name: "*to"
   :codename: to
