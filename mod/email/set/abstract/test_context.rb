@@ -1,9 +1,15 @@
 format :html do
   view :core, cache: :never do
-    return super() if voo.hide? :test_context
+    contextualizing { super() }
+  end
 
-    card.with_context test_context_card do
-      super()
+  private
+
+  def contextualizing
+    if voo.hide? :test_context
+      yield
+    else
+      card.with_context(test_context_card) { yield }
     end
   end
 
@@ -18,9 +24,9 @@ format :email_html do
   end
 end
 
+
 # format :email_text do
 #   view :core do
-#     voo.hide! :test_context
-#     super()
+#     process_content render_raw
 #   end
 # end
