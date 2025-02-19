@@ -24,7 +24,6 @@ format :email_html do
   end
 end
 
-
 # format :email_text do
 #   view :core do
 #     process_content render_raw
