@@ -34,7 +34,7 @@ class Card
         request.session_options[:drop] = is_anonymous
       end
 
-      private
+      # private
 
       # FIXME: not working
       # the response generally works to destroy a cookie, but
