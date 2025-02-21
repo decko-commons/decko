@@ -270,7 +270,7 @@ module CarrierWave
 
       # put version at the end of the filename
       def full_filename for_file
-        name = super(for_file)
+        name = super
         return unless name.present?
 
         parts = name.split "."

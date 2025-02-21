@@ -1,4 +1,3 @@
-
 class Card
   class Cache
     # class methods for Card::Cache

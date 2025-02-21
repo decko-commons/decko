@@ -1,10 +1,15 @@
+ACTION_ICONS =  {
+  create: :create_action,
+  update: :update_action,
+  delete: :delete_action,
+  draft: :draft
+}.freeze
+
 format :html do
   def act_from_context
-    if (act_id = params["act_id"])
-      Act.find(act_id) || raise(Card::NotFound, "act not found")
-    else
-      card.last_action.act
-    end
+    return card.last_action.act unless (act_id = params["act_id"])
+
+    Act.find(act_id) || raise(Card::NotFound, "act not found")
   end
 
   # used (by history and recent)for rendering act lists with legend and paging
@@ -30,7 +35,7 @@ format :html do
   # TODO: consider putting all these under one top-level param, eg:
   # act: { seq: X, diff: [show/hide], action_view: Y }
   def act_listing_opts_from_params seq
-    { act_seq: (seq || params["act_seq"]),
+    { act_seq: seq || params["act_seq"],
       action_view: (params["action_view"] || "summary").to_sym,
       hide_diff: params["hide_diff"].to_s.strip == "true" }
   end
@@ -62,7 +67,7 @@ format :html do
   end
 
   def act_list_starting_seq acts
-    acts.size - (acts_page_from_params - 1) * acts_per_page
+    acts.size - ((acts_page_from_params - 1) * acts_per_page)
   end
 
   def acts_per_page
@@ -74,12 +79,7 @@ format :html do
   end
 
   def action_icon action_type, extra_class=nil
-    icon = case action_type
-           when :create then :create_action
-           when :update then :update_action
-           when :delete then :delete_action
-           when :draft then :draft
-           end
+    icon = ACTION_ICONS[action_type]
     icon_tag icon, extra_class
   end
 
