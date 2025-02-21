@@ -1,10 +1,15 @@
+ACTION_ICONS =  {
+  create: :create_action,
+  update: :update_action,
+  delete: :delete_action,
+  draft: :draft
+}.freeze
+
 format :html do
   def act_from_context
-    if (act_id = params["act_id"])
-      Act.find(act_id) || raise(Card::NotFound, "act not found")
-    else
-      card.last_action.act
-    end
+    return card.last_action.act unless (act_id = params["act_id"])
+
+    Act.find(act_id) || raise(Card::NotFound, "act not found")
   end
 
   # used (by history and recent)for rendering act lists with legend and paging
@@ -74,12 +79,7 @@ format :html do
   end
 
   def action_icon action_type, extra_class=nil
-    icon = case action_type
-           when :create then :create_action
-           when :update then :update_action
-           when :delete then :delete_action
-           when :draft then :draft
-           end
+    icon = ACTION_ICONS[action_type]
     icon_tag icon, extra_class
   end
 

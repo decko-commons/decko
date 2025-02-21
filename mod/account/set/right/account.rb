@@ -53,4 +53,3 @@ def method_missing method, *args
 
   status == matches[:status]
 end
-

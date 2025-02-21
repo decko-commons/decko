@@ -1,4 +1,4 @@
-RSpec.describe Card::Set::All::Permissions, "reader rules" do
+RSpec.describe Card::Set::All::Permissions do
   describe "reader rules" do
     let :perm_card do
       Card.new name: "Home+*self+*read", type: "Pointer", content: "[[Anyone Signed In]]"

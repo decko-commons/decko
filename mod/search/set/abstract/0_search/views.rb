@@ -83,7 +83,7 @@ format :json do
 
   def format_json_search
     results = yield
-    return results if item_view_options.dig(:view)&.to_sym == :name
+    return results if item_view_options[:view]&.to_sym == :name
 
     results.map do |item_card|
       nest_item item_card

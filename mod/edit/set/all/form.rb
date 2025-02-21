@@ -187,7 +187,7 @@ format :html do
   def form_root
     return self if @form_root
 
-    parent ? parent.form_root : nil
+    parent&.form_root
   end
 
   def card_form action, opts={}

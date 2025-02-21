@@ -7,20 +7,19 @@ class Card
 
       attr_reader :name, :view, :options, :item_options, :raw
 
+      Nest = Struct.new :name, :field?, :options, :item_options, :raw, keyword_init: true
       def self.new nest_string
         return super if nest_string.is_a? String
 
-        OpenStruct.new(name: "", field?: true,
-                       options: [], item_options: [],
-                       raw: "{{+ }}")
+        Nest.new name: "", field?: true, options: [], item_options: [], raw: "{{+ }}"
       end
 
       def self.new_image name
-        OpenStruct.new(name: name, field?: false,
-                       view: "content",
-                       options: [%i[size medium]],
-                       item_options: [],
-                       raw: "{{#{name}|view: content; size: medium}}")
+        Nest.new name: name, field?: false,
+                 view: "content",
+                 options: [%i[size medium]],
+                 item_options: [],
+                 raw: "{{#{name}|view: content; size: medium}}"
       end
 
       def empty?
