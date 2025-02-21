@@ -6,7 +6,7 @@ module Cardio
       CARD_MINOR = { 0 => 90, 1 => 1000 }.freeze # can remove and hardcode after 1.0
 
       def release
-        @version ||= File.read(File.expand_path("../../VERSION", __dir__)).strip
+        @release ||= File.read(File.expand_path("../../VERSION", __dir__)).strip
       end
 
       def card_release

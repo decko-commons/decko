@@ -38,7 +38,7 @@ class Card
         end
 
         def current_act?
-          return unless @format.card.last_act && @act
+          return false unless @format.card.last_act && @act
 
           @act.id == @format.card.last_act.id
         end

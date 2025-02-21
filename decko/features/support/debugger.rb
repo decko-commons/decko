@@ -34,7 +34,7 @@ AfterStep do |_result, _step|
   # print "At step ##{@counter} of #{scenario.steps.count}. Press Return to"\
   #      " execute..."
   print "Press Return to execute next step...\n"\
-          "(d=debug, c=continue, s=step, a=abort)"
+        "(d=debug, c=continue, s=step, a=abort)"
   case $stdin.getch
   when "d"
     binding.pry

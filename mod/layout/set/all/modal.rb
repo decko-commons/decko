@@ -1,9 +1,9 @@
-format :html do
-  MODAL_SIZE = { small: "sm", medium: nil, large: "lg",  full: "full", xl: "xl" }.freeze
-  MODAL_CLOSE_OPTS = { type: "button",
-                       "data-bs-dismiss": "modal",
-                       "data-cy": "close-modal" }.freeze
+MODAL_SIZE = { small: "sm", medium: nil, large: "lg",  full: "full", xl: "xl" }.freeze
+MODAL_CLOSE_OPTS = { type: "button",
+                     "data-bs-dismiss": "modal",
+                     "data-cy": "close-modal" }.freeze
 
+format :html do
   wrapper :modal do |opts={}|
     haml :modal_dialog, body: interior,
                         classes: modal_dialog_classes(opts),
