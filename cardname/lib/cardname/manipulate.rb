@@ -21,9 +21,9 @@ class Cardname
       old_name = old.to_name
       new_name = new.to_name
 
-      if old_name.num_parts > num_parts
-        self
-      elsif old_name.simple?
+      return self if old_name.num_parts > num_parts
+
+      if old_name.simple?
         swap_part old_name, new_name
       elsif include? old_name
         swap_all_subsequences(old_name, new_name).to_name
@@ -36,7 +36,7 @@ class Cardname
     # @return [String]
     def prepend_joint
       joint = self.class.joint
-      self =~ /^#{Regexp.escape joint}/ ? self : (joint + self)
+      match?(/^#{Regexp.escape joint}/) ? self : joint + self
     end
     alias_method :to_field, :prepend_joint
 

@@ -28,9 +28,9 @@ module Cardio
             format_name = Regexp.last_match(1)
             format_name = format_name.blank? ? nil : format_name.to_sym
             "module #{module_name format_name}; " \
-            "module_parent.send :register_set_format, "\
-            "#{format_class format_name}, self; "\
-            "extend Card::Set::AbstractFormat"
+              "module_parent.send :register_set_format, " \
+              "#{format_class format_name}, self; " \
+              "extend Card::Set::AbstractFormat"
           end
         end
 

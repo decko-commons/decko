@@ -141,18 +141,20 @@ RSpec.describe Card::Content do
       let :example do
         {
           content: "Some URIs and Links: http://a.url.com/ " \
-            "More urls: decko.com/a/path/to.html " \
-            "http://localhost:2020/path?cgi=foo&bar=baz " \
-            "[[http://brain.org/Home|extra]] " \
-            "[ http://gerry.decko.com/a/path ] " \
-            "{ https://brain.org/more?args } ",
+                   "More urls: decko.com/a/path/to.html " \
+                   "http://localhost:2020/path?cgi=foo&bar=baz " \
+                   "[[http://brain.org/Home|extra]] " \
+                   "[ http://gerry.decko.com/a/path ] " \
+                   "{ https://brain.org/more?args } ",
           rendered: ["Some URIs and Links: ",
                      '<a target="_blank" class="external-link" ' \
-                       'href="http://a.url.com/">http://a.url.com/</a>',
+                     'href="http://a.url.com/">http://a.url.com/</a>',
+
                      " More urls: ",
                      '<a target="_blank" class="external-link" ' \
-                       'href="http://decko.com/a/path/to.html">' \
-                       "decko.com/a/path/to.html</a>",
+                     'href="http://decko.com/a/path/to.html">' \
+                     "decko.com/a/path/to.html</a>",
+
                      " ",
                      '<a target="_blank" class="external-link" ' \
                        'href="http://localhost:2020/path?cgi=foo&amp;bar=baz">' \
@@ -217,27 +219,39 @@ RSpec.describe Card::Content do
             "http://localhost:2020/path?cgi=foo&bar=baz " \
             "[[http://brain.org/Home|extra]]",
           rendered: ["Some URIs and Links: ",
+
                      '<a target="_blank" class="external-link" ' \
-                       'href="http://a.url.com">http://a.url.com</a>',
+                     'href="http://a.url.com">http://a.url.com</a>',
+
                      " More urls: ",
+
                      '<a target="_blank" class="external-link" ' \
-                       'href="http://decko.com/a/path/to.html">' \
-                       "decko.com/a/path/to.html</a>",
+                     'href="http://decko.com/a/path/to.html">' \
+                     "decko.com/a/path/to.html</a>",
+
                      " [ ",
+
                      '<a target="_blank" class="external-link" ' \
-                       'href="http://gerry.decko.com/a/path">' \
-                       "http://gerry.decko.com/a/path</a>",
+                     'href="http://gerry.decko.com/a/path">' \
+                     "http://gerry.decko.com/a/path</a>",
+
                      " ] { ",
+
                      '<a target="_blank" class="external-link" ' \
-                       'href="https://brain.org/more?args">' \
-                       "https://brain.org/more?args</a>",
+                     'href="https://brain.org/more?args">' \
+                     "https://brain.org/more?args</a>",
+
                      " } ",
+
                      '<a target="_blank" class="external-link" ' \
-                       'href="http://localhost:2020/path?cgi=foo&amp;bar=baz">' \
-                       "http://localhost:2020/path?cgi=foo&bar=baz</a>",
+                     'href="http://localhost:2020/path?cgi=foo&amp;bar=baz">' \
+                     "http://localhost:2020/path?cgi=foo&bar=baz</a>",
+
                      " ",
+
                      '<a target="_blank" class="external-link" ' \
-                       'href="http://brain.org/Home">extra</a>'],
+                     'href="http://brain.org/Home">extra</a>'],
+
           classes: chunk_constants(String, :Uri, String, :HostUri, String, :Uri,
                                    String, :Uri, String, :Uri, String, :Link)
         }
@@ -328,10 +342,10 @@ RSpec.describe Card::Content do
   context "class" do
     let(:untagged_cases) do
       [" [grrew][/wiki/grrew]ss ",
-                          " {{this is a test}}, {{this|view|is:too}} and",
-                          " so is http://foo.bar.come//",
-                          ' and foo="my attr, not int a tag" <not a=tag ',
-                          ' p class"foobar"> and more'].freeze
+       " {{this is a test}}, {{this|view|is:too}} and",
+       " so is http://foo.bar.come//",
+       ' and foo="my attr, not int a tag" <not a=tag ',
+       ' p class"foobar"> and more'].freeze
     end
 
     describe "#clean!" do
@@ -361,7 +375,7 @@ RSpec.describe Card::Content do
       end
 
       it "strips permitted_classes " \
-            "but not permitted ones when both are present" do
+         "but not permitted ones when both are present" do
         assert_equal '<span class="w-spotlight w-ok">foo</span>',
                      described_class.clean!(
                        '<span class="w-spotlight banana w-ok">foo</span>'
