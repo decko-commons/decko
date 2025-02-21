@@ -63,7 +63,7 @@ class Card
           end
 
           def keyword? str
-            return unless str
+            return false unless str
 
             QUERY_KEYWORDS.include?(str.tr(" ", "_").downcase)
           end

@@ -31,9 +31,9 @@ AfterStep do |_result, _step|
     @counter = 0
   end
   @counter += 1
-  # print "At step ##{@counter} of #{scenario.steps.count}. Press Return to"\
+  # print "At step ##{@counter} of #{scenario.steps.count}. Press Return to" \
   #      " execute..."
-  print "Press Return to execute next step...\n"\
+  print "Press Return to execute next step...\n" \
         "(d=debug, c=continue, s=step, a=abort)"
   case $stdin.getch
   when "d"

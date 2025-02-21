@@ -1,4 +1,4 @@
-ACTION_ICONS =  {
+ACTION_ICONS = {
   create: :create_action,
   update: :update_action,
   delete: :delete_action,

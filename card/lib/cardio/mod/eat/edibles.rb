@@ -98,7 +98,7 @@ module Cardio
 
         def mod_file mod, filename
           unless (mod_file_path = mod.subpath "data/files", filename)
-            raise StandardError, "#{filename} not found. "\
+            raise StandardError, "#{filename} not found. " \
                                  "Should be in data/files in #{mod.name} mod."
           end
           File.open mod_file_path

@@ -28,12 +28,12 @@ RSpec.describe Card::Set::All::History do
     let(:action) { act.actions.last }
     let(:initial_values) do
       {
-            name: "single card",
-            type_id: Card::BasicID.to_s,
-            db_content: "Nobody expects the Spanish inquisition",
-            trash: "f",
-            left_id: nil,
-            right_id: nil
+        name: "single card",
+        type_id: Card::BasicID.to_s,
+        db_content: "Nobody expects the Spanish inquisition",
+        trash: "f",
+        left_id: nil,
+        right_id: nil
       }
     end
 
