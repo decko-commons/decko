@@ -125,6 +125,16 @@ module Cardio
         def postamble
           "end;" * (@modules.size + 3)
         end
+
+        #   [set_registration, ends].compact.join "\n"
+        # end
+        #
+        # def set_registration
+        #   "Card::Set.register_set self" unless helper_module?
+        # end
+        #
+        # def ends
+        # end
       end
     end
   end

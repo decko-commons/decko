@@ -39,9 +39,7 @@ class CardController
     end
 
     def authenticators
-      return {} unless request
-
-      { token: token_from_header || params[:token] }
+      request ? { token: token_from_header || params[:token] } : {}
     end
 
     def token_from_header

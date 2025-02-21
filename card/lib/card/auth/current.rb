@@ -34,14 +34,16 @@ class Card
 
       # set current user in process and session
       def signin cardish
-        session[session_user_key] =
-          self.current_id = Card.id(cardish) || Card::AnonymousID
+        user_id = Card.id(cardish) || AnonymousID
+        (session[session_user_key] = self.current_id = user_id).tap do
+          Env.update_cookie_setting !signed_in?
+        end
       end
 
       # current user is not anonymous
       # @return [true/false]
       def signed_in?
-        current_id != Card::AnonymousID
+        current_id != AnonymousID
       end
 
       # set current from token, api_key, or session
@@ -63,7 +65,7 @@ class Card
       # get session object from Env
       # return [Session]
       def session
-        Card::Env.session
+        Env.session
       end
 
       # find +\*account card by +\*email card
@@ -89,8 +91,8 @@ class Card
       # @return [+*account card, nil]
       def find_account_by fieldcode, value
         Auth.as_bot do
-          Card.search({ right_id: Card::AccountID,
-                        right_plus: [Card::Codename.id(fieldcode), { content: value }] },
+          Card.search({ right_id: AccountID,
+                        right_plus: [Codename.id(fieldcode), { content: value }] },
                       "find +:account with +#{fieldcode} (#{value})").first
         end
       end

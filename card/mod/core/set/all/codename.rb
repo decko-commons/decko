@@ -1,6 +1,7 @@
 event :validate_codename, :validate, on: :update, changed: :codename do
   validate_codename_permission
   validate_codename_uniqueness
+  validate_codename_simplicity
 end
 
 event :reset_codename_cache, :integrate, changed: :codename do
@@ -29,4 +30,10 @@ def validate_codename_uniqueness
   return if errors.present? || !Card.find_by_codename(codename)
 
   errors.add :codename, t(:core_error_code_in_use, codename: codename)
+end
+
+def validate_codename_simplicity
+  return if name.simple?
+
+  errors.add :codename, t(:core_codename_must_be_simple)
 end
