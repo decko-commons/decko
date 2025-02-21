@@ -98,7 +98,7 @@ RSpec.describe Card::Set::All::Trash do
       create! "#{book1}+value"
       create! "#{book2}+value"
 
-      expect(Card["CA"]).to be
+      expect(Card["CA"]).to be_truthy
 
       Card["CA"].delete!
 
