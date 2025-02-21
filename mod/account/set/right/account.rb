@@ -44,12 +44,12 @@ def send_account_email email_template
   ecard.deliver self, to: email
 end
 
+def respond_to_missing? method, _include_private=false
+  method.match?(/\?$/) ? true : super
+end
+
 def method_missing method, *args
   return super unless args.empty? && (matches = method.match(/^(?<status>.*)\?$/))
 
   status == matches[:status]
-end
-
-def respond_to_missing? method, _include_private=false
-  method.match?(/\?$/) ? true : super
 end

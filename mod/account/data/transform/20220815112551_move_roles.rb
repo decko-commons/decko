@@ -42,6 +42,7 @@ class MoveRoles < Cardio::Migration::Transform
                                 .exec_query(query)
                                 .rows&.first&.first
     return unless content.present?
+
     content.split "\n"
   end
 end

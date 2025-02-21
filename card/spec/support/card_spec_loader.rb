@@ -125,8 +125,9 @@ class CardSpecLoader
     def require_environment
       path = File.join deck_root, "config/environment.rb"
       unless File.exist? path
-        raise StandardError, "Cannot find config/environment.rb in #{path}." \
-          "run rspec from deck root or use DECK_ROOT environmental variable."
+        raise StandardError,
+              "Cannot find config/environment.rb in #{path}." \
+              "run rspec from deck root or use DECK_ROOT environmental variable."
       end
       require path
     end
