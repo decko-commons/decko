@@ -1,7 +1,7 @@
 format :html do
   def show view, args
     content = send show_method, view, args
-    Env.ajax? ? content : wrap_with_html_page(content)
+    Env.ajax? || no_layout? ? content : wrap_with_html_page(content)
   end
 
   wrapper :html_page do
@@ -9,7 +9,7 @@ format :html do
       <!DOCTYPE HTML>
       <html class="h-100">
         <head>
-          #{nest card.rule_card(:head), view: :head_content}
+          #{head_content}
         </head>
         #{interior}
       </html>
@@ -17,6 +17,10 @@ format :html do
   end
 
   private
+
+  def head_content
+    nest card.rule_card(:head), view: :head_content
+  end
 
   def show_without_page_layout view, args
     @main = true if params[:is_main] || args[:main]
@@ -34,6 +38,12 @@ format :html do
   end
 
   def show_layout?
+    return false if no_layout?
+
     !Env.ajax? || params[:layout]
+  end
+
+  def no_layout?
+    params[:layout] == "none"
   end
 end

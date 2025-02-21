@@ -122,7 +122,7 @@ format :html do
   end
 
   def no_main_wrap?
-    Env.ajax? || params[:layout] == "none"
+    Env.ajax? || no_layout?
   end
 
   def wrap_with tag, content_or_args={}, html_args={}, &block

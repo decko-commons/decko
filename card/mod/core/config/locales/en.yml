@@ -8,6 +8,7 @@ en:
   core_error_cant_alter: can't alter this type; %{name} cards still exist
   core_error_cant_change_errors: "of %{name} can't be changed; errors creating new %{type_id}: %{error_messages}"
   core_error_code_in_use: codename %{codename} already in use
+  core_codename_must_be_simple: only simple cards can have codenames
   core_error_hard_templated: can't be changed because %{name} is hard templated to %{type_name}
   core_error_indestructible: "%{name} is an indestructible rule"
   core_error_invalid_character_in_cardtype: "may not contain any of the following characters: %{banned}"

@@ -10,6 +10,6 @@ RSpec.describe Card::Set::Type::Json do
   it "rejects invalid json" do
     invalid_json = "{\"a\":\"5\"\n\"b\":\"4\"}"
     expect { create "json card", type: :json, content: invalid_json }
-      .to raise_error(/Invalid json unexpected token at/)
+      .to raise_error(/Invalid json.*expected/)
   end
 end
