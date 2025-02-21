@@ -12,6 +12,8 @@ plugins:
     checks:
       Rubocop/Style/SpaceInsideStringInterpolation:
         enabled: false
+      Rubocop/Gemspec/RequiredRubyVersion: # handled by DeckoGem
+        enabled: false
   golint:
     enabled: false
   gofmt:

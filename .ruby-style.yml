@@ -381,4 +381,4 @@ RSpec/MultipleMemoizedHelpers:
 Style/OptionalBooleanParameter:  # we like it but it is too much work
   Enabled: false
 Rubocop/Gemspec/RequiredRubyVersion: # handled by DeckoGem
-  enabled: false
+  Enabled: false
