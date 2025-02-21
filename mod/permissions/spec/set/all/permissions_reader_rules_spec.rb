@@ -1,4 +1,4 @@
-RSpec.describe Card::Set::All::Permissions do
+RSpec.describe Card::Set::All::Permissions, "reader rules" do
   describe "reader rules" do
     let :perm_card do
       Card.new name: "Home+*self+*read", type: "Pointer", content: "[[Anyone Signed In]]"
@@ -21,7 +21,7 @@ RSpec.describe Card::Set::All::Permissions do
       pc = Card[name]
       card = Card["Home"]
       # warn "card #{name}, #{card.inspect}, #{pc.inspect}"
-      expect(pc).to be
+      expect(pc).to be_truthy
       expect(card.read_rule_id).to eq(pc.id)
       expect(card.who_can(:read)).to eq([Card::AnyoneSignedInID])
       Card::Auth.as(:anonymous) { expect(card).not_to be_ok(:read) }
@@ -58,7 +58,7 @@ RSpec.describe Card::Set::All::Permissions do
           pc = Card.create name: "B+*right+*read", type: "Pointer",
                            content: "[[Anyone Signed In]]"
         end
-        expect(pc).to be
+        expect(pc).to be_truthy
         card = Card.fetch("A+B")
         expect(card.read_rule_id).to eq(pc.id)
         # important to re-fetch to catch issues
