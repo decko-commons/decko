@@ -26,7 +26,7 @@ def email_html_message_field message_card, auth, format_opts
   proc do |mail|
     Auth.as auth do
       format_opts = format_opts.merge format: :email_html, active_mail: mail
-      message_card.format(format_opts).email_content @active_email_context
+      message_card.format(format_opts).show @active_email_context
     end
   end
 end

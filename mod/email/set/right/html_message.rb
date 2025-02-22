@@ -1,14 +1,12 @@
 include_set Abstract::TestContext
 
+# why not?
 def clean_html?
   false
 end
 
-format :email_html do
-  def email_content context
-    content = contextual_content context
-    return unless content.present?
-
-    Card::Mailer.layout content
+format :html do
+  view :content do
+    haml :content_with_link, simple_core: super()
   end
 end
