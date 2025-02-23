@@ -56,3 +56,6 @@
   :codename: html_message
 - :name: "*text message"
   :codename: text_message
+- :name: "email stylesheet"
+  :codename: email_stylesheet
+  :type: :scss
