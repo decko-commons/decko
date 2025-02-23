@@ -6,7 +6,7 @@ format :html do
   private
 
   def contextualizing
-    if voo.hide? :test_context
+    if @context_card.present? || voo.hide?(:test_context)
       yield
     else
       card.with_context(test_context_card) { yield }
