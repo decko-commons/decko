@@ -1,5 +1,6 @@
 attachment :file, uploader: CarrierWave::FileCardUploader
 
+# sheared method for action identification
 module SelectedAction
   def select_action_by_params params
     # skip action table lookups for current revision
