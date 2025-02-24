@@ -33,7 +33,7 @@ end
 Then /^In (.*) I should see "([^"]*)"$/ do |section, text|
   within scope_of(section) do
     if text.index("|")
-      expect(text.split("|").any? { |t| have_content(t) }).to be
+      expect(text.split("|").any? { |t| have_content(t) }).to be_truthy
     else
       expect(page).to have_content(text)
     end

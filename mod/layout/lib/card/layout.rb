@@ -50,7 +50,7 @@ class Card
       end
 
       def built_in_layouts_hash
-        @built_in_layouts ||= {}
+        @built_in_layouts_hash ||= {}
       end
 
       def built_in_layouts

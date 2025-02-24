@@ -37,7 +37,7 @@ format :html do
                   btn_type: :default,
                   path: { mark: :admin, action: :update, task: :empty_trash,
                           success: { mark: "~#{card.id}" } },
-                  "data-confirm" => "Are you sure you want to delete "\
+                  "data-confirm" => "Are you sure you want to delete " \
                                     "all cards in the trash?")
     )
   end

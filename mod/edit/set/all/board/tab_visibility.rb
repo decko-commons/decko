@@ -8,7 +8,7 @@ format :html do
   private
 
   def show_engage_tab?
-    return unless card.real?
+    return false unless card.real?
 
     show_follow? || show_discussion?
   end
@@ -34,7 +34,7 @@ format :html do
   end
 
   def show_discussion?
-    return unless (d_card = discussion_card)
+    return false unless (d_card = discussion_card)
 
     d_card.ok? discussion_permission_task(d_card)
   end

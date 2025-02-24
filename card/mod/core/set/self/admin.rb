@@ -23,6 +23,7 @@ end
 
 event :admin_tasks, :initialize, on: :update do
   return unless (task = Env.params[:task]&.to_sym) && (task_config = basket[:tasks][task])
+
   raise Card::Error::PermissionDenied, self unless Auth.always_ok?
 
   # when :repair_references    then Card::Reference.repair_all
@@ -46,7 +47,7 @@ end
 
 def not_allowed task
   raise Card::Error::PermissionDenied,
-        "The admin task '#{task}' is disabled for security reasons.<br>"\
+        "The admin task '#{task}' is disabled for security reasons.<br>" \
         "You can enable it with the config option 'allow_irreversible_admin_tasks'"
 end
 
