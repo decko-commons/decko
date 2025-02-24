@@ -1,9 +1,11 @@
 # -*- encoding : utf-8 -*-
 
 RSpec.describe Card::Set::Abstract::List do
-  let(:pointer) { Card.new type: "Pointer", content: "[[Busy]]\n[[Body]]" }
-
   context "with two items" do
+    let :pointer do
+      Card.new type: "Pointer", content: "[[Busy]]\n[[Body]]"
+    end
+
     describe "item_names" do
       it "returns array of names of items referred to by a pointer" do
         expect(pointer.item_names).to eq(%w[Busy Body])

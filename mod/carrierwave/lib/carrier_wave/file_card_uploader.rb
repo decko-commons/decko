@@ -1,3 +1,4 @@
+# extend the carrierwave gem modules/classes
 module CarrierWave
   # Takes care of the file upload for cards with attached files.
   # Most of the upload behaviour depends on the card itself.
@@ -235,6 +236,7 @@ module CarrierWave
     end
   end
 
+  # alterations to Carrierwave methods
   class SanitizedFile
     def content_type
       # the original content_type method doesn't seem to be very reliable
