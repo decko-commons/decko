@@ -1,9 +1,9 @@
+BOARD_PILL_UL_CLASSES =
+  "nav nav-pills _auto-single-select board-pills flex-column".freeze
+
+BOARD_PILL_LI_CLASSES = "nav-item".freeze
+
 format :html do
-  BOARD_PILL_UL_CLASSES =
-    "nav nav-pills _auto-single-select board-pills flex-column".freeze
-
-  BOARD_PILL_LI_CLASSES = "nav-item".freeze
-
   def board_pills items
     list_tag class: BOARD_PILL_UL_CLASSES, items: { class: BOARD_PILL_LI_CLASSES } do
       items

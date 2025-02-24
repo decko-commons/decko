@@ -1,3 +1,4 @@
+# for extending the Card class
 module ClassMethods
   def default_accounted_type_id
     UserID

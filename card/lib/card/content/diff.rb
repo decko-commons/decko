@@ -57,7 +57,7 @@ class Card
         when :html
           opts[:exclude] = /^</
         when :text
-          opts[:reject] =  /^</
+          opts[:reject] = /^</
           opts[:postprocess] = proc { |word| word.gsub("\n", "<br>") }
         when :pointer
           opts[:preprocess] = proc { |word| word.gsub("[[", "").gsub("]]", "<br>") }

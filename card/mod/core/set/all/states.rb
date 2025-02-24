@@ -28,10 +28,9 @@ end
 # @return [Symbol] :real, :virtual, or :unknown
 def state anti_fishing=true
   case
-  when !known?                     then :unknown
-  when anti_fishing && !ok?(:read) then :unknown
-  when real?                       then :real
-  when virtual?                    then :virtual
+  when !known? || (anti_fishing && !ok?(:read)) then :unknown
+  when real?                                    then :real
+  when virtual?                                 then :virtual
   else :wtf
   end
 end

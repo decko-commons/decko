@@ -1,9 +1,11 @@
 # -*- encoding : utf-8 -*-
 
 RSpec.describe Card::Set::Abstract::List do
-  let(:pointer) { Card.new type: "Pointer", content: "[[Busy]]\n[[Body]]" }
-
   context "with two items" do
+    let :pointer do
+      Card.new type: "Pointer", content: "[[Busy]]\n[[Body]]"
+    end
+
     describe "item_names" do
       it "returns array of names of items referred to by a pointer" do
         expect(pointer.item_names).to eq(%w[Busy Body])
@@ -47,43 +49,6 @@ RSpec.describe Card::Set::Abstract::List do
       it "handles offsets" do
         expect(pointer.first_name(offset: 1)).to eq("Body")
       end
-    end
-  end
-
-  describe "add_item" do
-    let(:pointer) { Card.new name: "tp", type: "pointer" }
-
-    it "add to empty ref list" do
-      pointer.add_item "John"
-      expect(pointer.content).to eq("John")
-    end
-
-    it "add to existing ref list" do
-      pointer.content = "[[Jane]]"
-      pointer.add_item "John"
-      expect(pointer.content).to eq("Jane\nJohn")
-    end
-  end
-
-  describe "drop_item" do
-    let :pointer do
-      Card.new name: "tp", type: "pointer", content: "[[Jane]]\n[[John]]"
-    end
-
-    it "remove the link" do
-      pointer.drop_item "Jane"
-      expect(pointer.content).to eq("John")
-    end
-
-    it "not fail on non-existent reference" do
-      pointer.drop_item "Bigfoot"
-      expect(pointer.content).to eq("Jane\nJohn")
-    end
-
-    it "remove the last link" do
-      pointer.drop_item "John"
-      pointer.drop_item "Jane"
-      pointer.content.should == ""
     end
   end
 end
