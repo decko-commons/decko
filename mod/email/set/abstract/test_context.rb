@@ -5,11 +5,11 @@ format :html do
 
   private
 
-  def contextualizing
+  def contextualizing &block
     if @context_card.present? || voo.hide?(:test_context)
       yield
     else
-      card.with_context(test_context_card) { yield }
+      card.with_context test_context_card, &block
     end
   end
 
