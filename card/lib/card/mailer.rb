@@ -14,20 +14,6 @@ class Card
         end
       end
 
-      def layout message
-        <<-HTML
-          <!DOCTYPE html>
-          <html>
-            <head>
-              <meta http-equiv="Content-type" content="text/html;charset=UTF-8"/>
-            </head>
-            <body>
-              #{message}
-            </body>
-          </html>
-        HTML
-      end
-
       def defaults_from_config
         (Card.config.email_defaults || {}).symbolize_keys.tap do |defaults|
           defaults[:return_path] ||= defaults[:from] if defaults[:from]

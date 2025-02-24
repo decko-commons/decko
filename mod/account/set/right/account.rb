@@ -28,13 +28,6 @@ def ok_to_update?
   (own_account? && !name_changed? && !type_id_changed?) || super
 end
 
-def changes_visible? act
-  act.actions_affecting(act.card).each do |action|
-    return true if action.card.ok? :read
-  end
-  false
-end
-
 def send_account_email email_template
   ecard = Card[email_template]
   unless ecard&.type_id == EmailTemplateID
