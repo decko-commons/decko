@@ -15,7 +15,7 @@ module Cardio
           return yield unless @name
 
           yield.select do |edible|
-            if @name.match?(/^\:/)
+            if @name.match?(/^:/)
               explicit_codename_match? edible[:codename]
             else
               explicit_name_match? edible[:name]
@@ -24,7 +24,7 @@ module Cardio
         end
 
         def explicit_codename_match? codename
-          codename && (codename == @name[1..-1])
+          codename && (codename == @name[1..])
         end
 
         def explicit_name_match? name
@@ -98,7 +98,7 @@ module Cardio
 
         def mod_file mod, filename
           unless (mod_file_path = mod.subpath "data/files", filename)
-            raise StandardError, "#{filename} not found. "\
+            raise StandardError, "#{filename} not found. " \
                                  "Should be in data/files in #{mod.name} mod."
           end
           File.open mod_file_path
