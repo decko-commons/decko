@@ -36,9 +36,8 @@ RSpec.describe Card::Set::All::Json do
 
     context "with external link" do
       def card_subject
-        @card ||= create "external link",
-                         content: "[[http://xkcd.com|link text]]" \
-                                  "[[/Z]]"
+        @card_subject ||= create "external link",
+                                 content: "[[http://xkcd.com|link text]][[/Z]]"
       end
 
       it "has link urls" do

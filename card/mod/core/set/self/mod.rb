@@ -18,7 +18,7 @@ format :html do
         card.all_admin_configs_grouped_by(:category, :mod)[view_name.to_s]
             .map do |(mod, configs)|
           list_section(mod.name, configs.map { |c| c.codename.to_sym })
-        end.join("<br\>")
+        end.join("<br/>")
       ]
     end
   end
@@ -33,7 +33,7 @@ format :html do
             list_section cat, configs.map(&:codename)
           end)
         ]
-      end.join("<br\>")
+      end.join("<br/>")
     ]
   end
 end

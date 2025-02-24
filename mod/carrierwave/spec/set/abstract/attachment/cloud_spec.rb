@@ -39,7 +39,7 @@ RSpec.describe Card::Set::Abstract::Attachment::Cloud do
     context "when changing storage type to cloud" do
       let(:file_card) { create_file_card :local }
 
-      it "works" do
+      it "completes change without error" do
         # local
         expect(file_card.db_content).to eq "~#{file_path}"
 
@@ -48,7 +48,7 @@ RSpec.describe Card::Set::Abstract::Attachment::Cloud do
         expect(file_card.db_content).to eq("(test_bucket)/#{file_path}")
         url = file_card.file.url
         expect(url).to eq(cloud_url)
-        expect(URI.open(url).read.strip).to eq "file1"
+        expect(URI.parse(url).open.read.strip).to eq "file1"
       end
     end
 
@@ -75,7 +75,7 @@ RSpec.describe Card::Set::Abstract::Attachment::Cloud do
   #     end
   #     #file_card { cloud_file }
   #
-  #     it "stores correct identifier "\
+  #     it "stores correct identifier " \
   #        "((<bucket>)/<card id>/<action id>.<ext>)" do
   #       expect(@cloud_card.content)
   #         .to eq "(test_bucket)/#{@cloud_card.id}/#{@cloud_card.last_action_id}.txt"
@@ -87,7 +87,7 @@ RSpec.describe Card::Set::Abstract::Attachment::Cloud do
   #
   #     it "generates correct absolute url" do
   #       expect(@cloud_card.file.url)
-  #         .to eq "http://#{DIRECTORY}.s3.amazonaws.com/"\
+  #         .to eq "http://#{DIRECTORY}.s3.amazonaws.com/" \
   #            "files/#{@cloud_card.id}/#{@cloud_card.last_action_id}.txt"
   #     end
   #   end

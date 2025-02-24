@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 
 RSpec.describe Card::Content::Chunk::Nest do
-  describe "parsing syntax", aggregate_failures: true do
+  describe "parsing syntax", :aggregate_failures do
     let :full_match do
       described_class.new(described_class.full_match(@chunk), nil)
     end

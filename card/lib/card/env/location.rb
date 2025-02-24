@@ -6,7 +6,7 @@ class Card
 
       def card_path rel_path
         unless rel_path.is_a? String
-          Rails.logger.warn "Pass only strings to card_path. "\
+          Rails.logger.warn "Pass only strings to card_path. " \
                             "(#{rel_path} = #{rel_path.class})"
         end
         if rel_path.match? %r{^(https?:)?/}

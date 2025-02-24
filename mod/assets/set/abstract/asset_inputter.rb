@@ -32,6 +32,7 @@ end
 
 def update_asset_input
   return unless Codename.exist? :asset_input
+
   # otherwise the migration that adds the asset_input card fails
 
   Card::Auth.as_bot do
@@ -42,6 +43,7 @@ end
 
 def asset_input_content
   return assemble_asset_input_content if virtual?
+
   update_asset_input if asset_input.blank?
   asset_input
 end
