@@ -35,20 +35,22 @@ end
   end
 end
 
+# NOTE: this only works in the context of an action.
+# if run independently, it will not activate an account
+event :activate_account do
+  field :status, content: "active"
+  trigger_event! :send_welcome_email
+end
+
 ## EVENT HELPERS
+
+private
 
 def activatable
   abort :failure, "no field manipulation mid-activation" if subcards.present?
   # above is necessary because activation uses super user (Decko Bot),
   # so allowing subcards would be unsafe
   yield
-end
-
-# NOTE: this only works in the context of an action.
-# if run independently, it will not activate an account
-event :activate_account do
-  field :status, content: "active"
-  trigger_event! :send_welcome_email
 end
 
 def verifying_token success, failure

@@ -12271,3 +12271,27 @@ card_actions_1534:
   action_type: 1
   draft: 0
   comment:
+card_actions_1535:
+  id: 3715
+  card_id: 919
+  card_act_id: 106819
+  super_action_id:
+  action_type: 0
+  draft: 0
+  comment:
+card_actions_1536:
+  id: 3716
+  card_id: 496
+  card_act_id: 106820
+  super_action_id:
+  action_type: 1
+  draft: 0
+  comment:
+card_actions_1537:
+  id: 3717
+  card_id: 496
+  card_act_id: 106821
+  super_action_id:
+  action_type: 1
+  draft: 0
+  comment:
