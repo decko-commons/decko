@@ -117,16 +117,18 @@ class CardSpecLoader
     end
 
     def deck_root
-      root = ENV["DECK_ROOT"] || ENV["RAILS_ROOT"] || ENV["PWD"]
+      root = ENV.fetch("DECK_ROOT", nil) || ENV.fetch("RAILS_ROOT", nil) || ENV.fetch("PWD", nil)
       raise StandardError, "No DECK_ROOT given. Can't load environment." unless root
+
       root
     end
 
     def require_environment
       path = File.join deck_root, "config/environment.rb"
       unless File.exist? path
-        raise StandardError, "Cannot find config/environment.rb in #{path}." \
-          "run rspec from deck root or use DECK_ROOT environmental variable."
+        raise StandardError,
+              "Cannot find config/environment.rb in #{path}." \
+              "run rspec from deck root or use DECK_ROOT environmental variable."
       end
       require path
     end

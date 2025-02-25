@@ -52,7 +52,7 @@ class Card
     end
 
     def nested? card, field
-      return unless field.to_name.key == includes_card_key
+      return false unless field.to_name.key == includes_card_key
 
       @checked.intersection(nestee_set(card)).any?
     end

@@ -1,6 +1,7 @@
 require "htmlentities"
 
 class Cardname
+  # some useful variants of card names
   module Variants
     # URI-friendly version of name. retains case, underscores for space
     # @return [String]

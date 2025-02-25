@@ -177,8 +177,7 @@ RSpec.describe Card::Set::Type::Signup do
 
   context "invitation" do
     before do
-      # NOTE:
-      # by default Anonymous does not have permission to create User cards.
+      # NOTE: by default Anonymous does not have permission to create User cards.
       Card::Auth.signin Card::WagnBotID
       @signup = big_bad_signup
       @account = @signup.account

@@ -11,9 +11,9 @@ module Cardio
     module ClassMethods
       def source_root path=nil
         if path
-          @_card_source_root = path
+          @source_root = path
         else
-          @_card_source_root ||= File.expand_path(
+          @source_root ||= File.expand_path(
             "../../generators/#{generator_name}/templates", __FILE__
           )
         end
@@ -33,7 +33,8 @@ module Cardio
       # Override Rails namespace handling so we can put generators in `module Cardio`
       def namespace name=nil
         return super if name
-        @namespace ||= super.sub(/cardio:/, "")
+
+        @namespace ||= super.sub("cardio:", "")
       end
     end
     delegate :banner_command, to: :class

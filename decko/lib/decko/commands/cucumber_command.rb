@@ -15,7 +15,7 @@ module Decko
       end
 
       def command
-        @cmd ||=
+        @command ||=
           "#{env_args} #{@opts[:executer] || 'bundle exec'} " \
           "cucumber #{require_args} #{feature_args} #{@cucumber_args.shelljoin}"
       end
