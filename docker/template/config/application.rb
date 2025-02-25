@@ -40,7 +40,8 @@ module Decko
             aws_access_key_id: ENV.fetch("DECKO_FILE_KEY"),
             aws_secret_access_key: ENV.fetch("DECKO_FILE_SECRET"),
             region: ENV.fetch("DECKO_FILE_REGION"),
-            enable_signature_v4_streaming: ENV.fetch("ENABLE_SIGNATURE_V4_STREAMING").present?
+            enable_signature_v4_streaming:
+              ENV.fetch("ENABLE_SIGNATURE_V4_STREAMING", nil).present?
           },
           attributes: { "Cache-Control" => "max-age=#{365.day.to_i}" },
           public: true,
