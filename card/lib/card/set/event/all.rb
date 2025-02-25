@@ -14,7 +14,9 @@ class Card
         include SkipAndTrigger
 
         def event_applies? event
-          return false unless set_condition_applies? event.set_module, event.opts[:changing]
+          unless set_condition_applies? event.set_module, event.opts[:changing]
+            return false
+          end
 
           CONDITIONS.all? { |c| send "#{c}_condition_applies?", event, event.opts[c] }
         end

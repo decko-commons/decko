@@ -5,13 +5,8 @@ class Card
       include Content
 
       def initialize context, *args, &block
-        @context = context
-        @content = ["".html_safe]
-        @args = args
-        @child_args = []
-        @append = []
-        @wrap = []
-        @build_block = block
+        super
+        @html = nil
       end
 
       class << self

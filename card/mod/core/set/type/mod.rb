@@ -226,5 +226,5 @@ end
 private
 
 def read_admin_yml
-  YAML.safe_load File.read(filename), [Symbol] if File.exist? filename
+  YAML.safe_load_file filename, permitted_classes: [Symbol] if File.exist? filename
 end

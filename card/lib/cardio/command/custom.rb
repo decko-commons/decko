@@ -49,6 +49,7 @@ module Cardio
         puts "For #{"#{group}s".yellow}:"
         map.each do |command, conf|
           next unless conf[:group] == group
+
           puts command_help(command, conf)
         end
         puts

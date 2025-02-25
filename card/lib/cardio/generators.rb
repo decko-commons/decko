@@ -34,7 +34,7 @@ module Cardio
       def namespace name=nil
         return super if name
 
-        @namespace ||= super.sub(/cardio:/, "")
+        @namespace ||= super.sub("cardio:", "")
       end
     end
     delegate :banner_command, to: :class

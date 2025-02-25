@@ -3,6 +3,8 @@ RSpec.describe Card::Set::All::ItemAssignment do
     "stacks".card
   end
 
+  let(:pointer) { Card.new type: "Pointer", content: "[[Busy]]\n[[Body]]" }
+
   specify "#add_item!" do
     card_subject.add_item! "A"
     expect(card_subject.item_names).to eq %w[horizontal vertical A]
@@ -17,8 +19,6 @@ RSpec.describe Card::Set::All::ItemAssignment do
     card_subject.replace_item "vertical", "A"
     expect(card_subject.item_names).to eq %w[horizontal A]
   end
-
-  let(:pointer) { Card.new type: "Pointer", content: "[[Busy]]\n[[Body]]" }
 
   context "with two items" do
     describe "item_names" do
