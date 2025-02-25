@@ -151,9 +151,7 @@ RSpec.describe Card::Content::Diff do
 
       expect(diff(a, b)).to eq(
         "<p>this #{del 'was'}#{ins 'is'}</p>" \
-        "\n<p> the " \
-        "#{del 'original'}#{ins 'new'}" \
-        " string</p>\n" \
+        "\n<p> the #{del 'original'}#{ins 'new'} string</p>\n" \
         "<p>#{ins 'around the world'}</p>"
       )
     end

@@ -59,7 +59,6 @@ RSpec.describe Card::Content do
     let(:text_rendered) { example[:text_rendered] }
     let(:content)       { example[:content] }
 
-
     describe "nests" do
       let :example do
         {
@@ -208,16 +207,15 @@ RSpec.describe Card::Content do
       end
     end
 
-
     describe "different uris and links" do # TODO: better name
       let :example do
         {
           content: "Some URIs and Links: http://a.url.com " \
-            "More urls: decko.com/a/path/to.html " \
-            "[ http://gerry.decko.com/a/path ] " \
-            "{ https://brain.org/more?args } " \
-            "http://localhost:2020/path?cgi=foo&bar=baz " \
-            "[[http://brain.org/Home|extra]]",
+                   "More urls: decko.com/a/path/to.html " \
+                   "[ http://gerry.decko.com/a/path ] " \
+                   "{ https://brain.org/more?args } " \
+                   "http://localhost:2020/path?cgi=foo&bar=baz " \
+                   "[[http://brain.org/Home|extra]]",
           rendered: ["Some URIs and Links: ",
 
                      '<a target="_blank" class="external-link" ' \
