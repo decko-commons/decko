@@ -46,9 +46,10 @@ module Cardio
 
       def run_help_for_group group
         puts
-        puts "For " + "#{group}s".yellow + ":"
+        puts "For #{"#{group}s".yellow}:"
         map.each do |command, conf|
           next unless conf[:group] == group
+
           puts command_help(command, conf)
         end
         puts
@@ -57,7 +58,7 @@ module Cardio
       # formats command string for help text
       def command_help command, conf
         alt = conf[:alias] ? "(or #{conf[:alias]})" : ""
-        "    " + command.to_s.ljust(12).light_cyan + alt.ljust(10) + conf[:desc]
+        "    #{command.to_s.ljust(12).light_cyan}#{alt.ljust(10)}#{conf[:desc]}"
       end
     end
   end
