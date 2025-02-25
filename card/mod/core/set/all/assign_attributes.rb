@@ -47,10 +47,10 @@ def prepare_assignment_args args
   args
 end
 
-def assign_with_set_modules args
+def assign_with_set_modules args, &block
   return yield unless args[:name] || args[:type_id]
 
-  refresh_set_modules { yield }
+  refresh_set_modules(&block)
 end
 
 def assign_with_subcards args

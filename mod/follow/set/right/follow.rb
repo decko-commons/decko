@@ -44,13 +44,13 @@ def permit action, verb=nil
   if action.in?(%i[create delete update]) && allowed_to_change_follow_status?
     true
   else
-    super action, verb
+    super
   end
 end
 
 def allowed_to_change_follow_status?
-  Auth.signed_in? &&
-    ((user = rule_user) && Auth.current_id == user.id) || Auth.always_ok?
+  (Auth.signed_in? &&
+    ((user = rule_user) && Auth.current_id == user.id)) || Auth.always_ok?
 end
 
 format :html do

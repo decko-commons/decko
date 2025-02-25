@@ -41,7 +41,7 @@ module CarrierWave
       end
 
       def tmp_path
-        Dir.mkdir model.tmp_upload_dir unless Dir.exist? model.tmp_upload_dir
+        Dir.mkdir_p model.tmp_upload_dir
         File.join model.tmp_upload_dir, filename
       end
 

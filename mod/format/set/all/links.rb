@@ -112,13 +112,13 @@ format :html do
     name = Card::Name[cardish]
     slotterify opts if opts[:slotter]
     add_known_or_wanted_class opts, name
-    super name, (text || name), opts
+    super(name, text || name, opts)
   end
 
   # in HTML, #link_to_view defaults to a remote link with rel="nofollow".
   def link_to_view view, text=nil, opts={}
     slotterify opts
-    super view, (text || view), opts
+    super(view, text || view, opts)
   end
 
   # in HTML, #link_to_resource automatically adds a target to external resources
