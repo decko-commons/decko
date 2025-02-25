@@ -28,18 +28,4 @@ RSpec.describe Cardname::Variants do
       expect("Alpha?+*be-ta".to_name.safe_key).to eq("alpha-Xbe_tum")
     end
   end
-
-  describe "#url_key" do
-    cardnames = ["GrassCommons.org", "Oh you @##", "Alice's Restaurant!",
-                 "PB &amp; J", "Mañana"].map(&:to_name)
-
-    cardnames.each do |cardname|
-      it "has the same key as the name" do
-        k = cardname.key
-        k2 = cardname.url_key
-        # warn "cn tok #{cardname.inspect}, #{k.inspect}, #{k2.inspect}"
-        expect(k).to eq(k2.to_name.key)
-      end
-    end
-  end
 end

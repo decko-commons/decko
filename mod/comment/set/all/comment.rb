@@ -7,7 +7,7 @@ event :add_comment, :prepare_to_store, on: :save, when: :comment do
   return unless comment.present?
 
   self.content =
-    [content, format.comment_with_signature].compact.join "\n<hr\>\n"
+    [content, format.comment_with_signature].compact.join "\n<hr>\n"
   self.comment = nil
 end
 
@@ -19,7 +19,7 @@ def comment_author
 end
 
 def clean_comment
-  comment.split(/\n/).map do |line|
+  comment.split("\n").map do |line|
     "<p>#{line.strip.empty? ? '&nbsp;' : line}</p>"
   end * "\n"
 end

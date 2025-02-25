@@ -212,6 +212,7 @@ def direct_rule_card action
   Card.quick_fetch direct_rule_id
 end
 
+# extend Card class
 module ClassMethods
   def repair_all_permissions
     Card.where("(read_rule_class is null or read_rule_id is null) and trash is false")
