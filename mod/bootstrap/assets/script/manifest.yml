@@ -6,6 +6,8 @@ remote:
       integrity: sha512-Y4+u+T/6DpDb2AkTrxs3eJiN9o/u+l8pLNt0lSRKnJe2wIDVCwd7N8afy+70Pmr5FtmoX5IXmwK6H7Jlb8Nx8A==
       referrerpolicy: no-referrer
       crossorigin: anonymous
+    - src: https://kit.fontawesome.com/1366963381.js
+      crossorigin: anonymous
 
 bootstrap:
   items:
@@ -15,4 +17,3 @@ bootstrap:
     - script_load_select2.js.coffee
     - ../../vendor/bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js
     - script_colorpicker.js.coffee
-
