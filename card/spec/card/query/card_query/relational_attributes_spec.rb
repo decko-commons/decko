@@ -2,7 +2,8 @@ require_relative "../query_spec_helper"
 
 RSpec.describe Card::Query::CardQuery::RelationalAttributes do
   include QuerySpecHelper
-  A_JOINEES = %w[B C D E F].freeze
+
+  let(:a_joinees) { %w[B C D E F].freeze }
 
   each_fasten do |fastn|
     context "with fasten: #{fastn}" do
@@ -43,7 +44,7 @@ RSpec.describe Card::Query::CardQuery::RelationalAttributes do
 
       describe "plus/part" do
         it "finds plus cards" do
-          expect(run_query(plus: "A")).to eq(A_JOINEES)
+          expect(run_query(plus: "A")).to eq(a_joinees)
         end
 
         it "finds connection cards" do
@@ -83,15 +84,15 @@ RSpec.describe Card::Query::CardQuery::RelationalAttributes do
         end
 
         it "finds plus cards for _self" do
-          expect(run_query(plus: "_self", context: "A")).to eq(A_JOINEES)
+          expect(run_query(plus: "_self", context: "A")).to eq(a_joinees)
         end
 
         it "finds plus cards for _left" do
-          expect(run_query(plus: "_left", context: "A+B")).to eq(A_JOINEES)
+          expect(run_query(plus: "_left", context: "A+B")).to eq(a_joinees)
         end
 
         it "finds plus cards for _right" do
-          expect(run_query(plus: "_right", context: "C+A")).to eq(A_JOINEES)
+          expect(run_query(plus: "_right", context: "C+A")).to eq(a_joinees)
         end
       end
 

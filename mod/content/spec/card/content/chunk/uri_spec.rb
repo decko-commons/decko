@@ -79,7 +79,7 @@ RSpec.describe Card::Content::Chunk::Uri do
                    path: "/HelpOnNavigation"
   end
 
-  it "works with some path at the end, and without http:// prefix "\
+  it "works with some path at the end, and without http:// prefix " \
      "(@link_text has prefix added)" do
     match_http_uri "moinmoin.wikiwikiweb.de/HelpOnNavigation",
                    host: "moinmoin.wikiwikiweb.de",
@@ -107,7 +107,7 @@ RSpec.describe Card::Content::Chunk::Uri do
   end
 
   it "works on Query with two arguments" do
-    match_http_uri "http://www.example.com.tw:80/HelpOnNavigation"\
+    match_http_uri "http://www.example.com.tw:80/HelpOnNavigation" \
                    "?arg=val&arg2=val2",
                    host: "www.example.com.tw", port: 80,
                    path: "/HelpOnNavigation", query: "arg=val&arg2=val2"
@@ -276,7 +276,7 @@ RSpec.describe Card::Content::Chunk::Uri do
 
   private
 
-  DUMMY_CARD = Card.new(name: "dummy")
+  let(:dummy_card) { Card.new(name: "dummy") }
 
   # Asserts a number of tests for the given type and text.
   def no_match type, test_text
@@ -308,7 +308,7 @@ RSpec.describe Card::Content::Chunk::Uri do
   end
 
   def get_chunk type, test_text
-    cont = Card::Content.new(test_text, DUMMY_CARD)
+    cont = Card::Content.new(test_text, dummy_card)
     cont = [cont] unless cont.respond_to?(:each)
     cont.find { |ck| ck.is_a? type }
   end

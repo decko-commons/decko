@@ -16,7 +16,7 @@ end
 # returns true if according to the follow_field_rule followers of self also
 # follow changes of field_card
 def followed_field? field_card
-  return unless (follow_field_rule = rule_card(:follow_fields))
+  return false unless (follow_field_rule = rule_card(:follow_fields))
 
   follow_field_rule.item_names(context: self).find do |item|
     case item.to_name.key
