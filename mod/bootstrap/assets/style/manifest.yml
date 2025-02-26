@@ -9,7 +9,7 @@ bootstrap_decko:
 
 libraries:
   items:
-    - font_awesome.css
+    # - font_awesome.css
     # - material_icons.css
     - bootstrap-icons.css
     - bootstrap_colorpicker.scss
