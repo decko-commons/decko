@@ -1,3 +1,5 @@
+
+# extends Card Class
 module ClassMethods
   def default_type_id
     @default_type_id ||= Card.fetch_type_id %i[all default]

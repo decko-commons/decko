@@ -39,8 +39,8 @@ def send_account_email email_template
   ecard.deliver self, to: email
 end
 
-STATUS_OPTIONS.each do |status|
-  define_method "#{status}?" do
-    status == status
+STATUS_OPTIONS.each do |stat|
+  define_method "#{stat}?" do
+    status == stat
   end
 end

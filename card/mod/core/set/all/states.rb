@@ -13,6 +13,7 @@
 # - *known* cards are either _real_ or _virtual_
 # - *new* (or *unreal*) cards are either _unknown_ or _virtual_
 
+# extends Card Class
 module ClassMethods
   def real? mark
     quick_fetch(mark).present?

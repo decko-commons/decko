@@ -2,6 +2,7 @@
 
 class Card
   class Content
+    # handle comparisons of card content
     class Diff
       class << self
         def complete a, b, opts={}

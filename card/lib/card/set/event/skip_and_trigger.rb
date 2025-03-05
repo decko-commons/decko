@@ -7,7 +7,7 @@ class Card
           :skip,                        # [Array] skip event(s) for all cards in act
           :skip_in_action,              # [Array] skip event for just this card
           :trigger,                     # [Array] trigger event(s) for all cards in act
-          :trigger_in_action,           # [Array] trigger event for just this card
+          :trigger_in_action            # [Array] trigger event for just this card
         ]
         attr_reader(*settings)
 

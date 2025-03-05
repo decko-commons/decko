@@ -1,6 +1,7 @@
 class Card
   module Set
     class Event
+      # handle options available for event definition
       module Options
         def validate_conditions
           @opts.each do |key, val|
@@ -33,7 +34,7 @@ class Card
 
           raise ArgumentError,
                 "invalid option#{'s' if invalid.size > 1} '#{invalid}' " \
-                  "for condition '#{condition}' in event '#{@event}'"
+                "for condition '#{condition}' in event '#{@event}'"
         end
 
         def invalid_condition_values condition, val
