@@ -51,8 +51,7 @@ class Card
         end
 
         def check_exclude_and_disjunction_pattern list
-          list.each_with_index.each_with_object([[], []]) do |pair, res|
-            element, index = pair
+          list.each_with_index.with_object([[], []]) do |(element, index), res|
             if element.match? @disjunction_pattern
               res[1] << { chunk_index: index, element: element, type: :disjunction }
             elsif element.match? @exclude_pattern

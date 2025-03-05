@@ -1,12 +1,12 @@
 # -*- encoding : utf-8 -*-
 
-RSpec.describe Card::Set::Abstract::List do
+RSpec.describe Card::Set::Abstract::List::OtherViews do
   before do
     Card::Env.params[:max_export_depth] = 4
   end
 
   describe "json" do
-    include_context "json context"
+    include_context "with json context"
 
     def card_subject
       sample_pointer
@@ -20,7 +20,7 @@ RSpec.describe Card::Set::Abstract::List do
 
     specify "view: items" do
       expect_view(:items, format: :json)
-        .to contain_exactly(*item_names.map { |i| atom_values Card[i] })
+        .to match_array(item_names.map { |i| atom_values Card[i] })
     end
   end
 

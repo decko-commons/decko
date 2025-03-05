@@ -1,4 +1,3 @@
-
 %i[be_hidden be_locked].each do |test|
   RSpec::Matchers.define "#{test}_from" do |user|
     match do |card|

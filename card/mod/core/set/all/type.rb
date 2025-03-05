@@ -1,3 +1,5 @@
+
+# extends Card Class
 module ClassMethods
   def default_type_id
     @default_type_id ||= Card.fetch_type_id %i[all default]
@@ -66,6 +68,7 @@ end
 
 def type_id_from_code
   return if simple?
+
   each_type_assigning_module_key do |module_key|
     type_id = Card::Set::Type.assignment[module_key]&.card_id
     return type_id if type_id

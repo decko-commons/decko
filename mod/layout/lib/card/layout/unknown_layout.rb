@@ -1,5 +1,6 @@
 class Card
   class Layout
+    # handling for layout specified but unknown
     class UnknownLayout < Layout
       delegate :t, to: Cardio
 
