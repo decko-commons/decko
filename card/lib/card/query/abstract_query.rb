@@ -71,10 +71,10 @@ class Card
       end
 
       def context
-        if !@context.nil?
-          @context
-        else
+        if @context.nil?
           @context = superquery ? superquery.context : ""
+        else
+          @context
         end
       end
 

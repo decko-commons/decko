@@ -21,7 +21,7 @@ format :html do
     self.class.ancestors.each_with_object({}) do |format_class, hash|
       next unless (views = views_for_format_class format_class).present?
 
-      format_class.name =~ /^Card(::Set)?::(.+?)$/ #::(\w+Format)
+      format_class.name =~ /^Card(::Set)?::(.+?)$/ # ::(\w+Format)
       hash[Regexp.last_match(2)] = views
     end
   end

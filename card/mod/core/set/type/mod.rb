@@ -53,17 +53,20 @@ format :html do
   view :styles do
     style = card.fetch :style
     return unless style
+
     section "Styles", nest(style, view: :core)
   end
 
   view :scripts do
     style = card.fetch :script
     return unless style
+
     section "Scripts", nest(style, view: :core)
   end
 
   view :gem_info do
     return unless card.mod&.spec
+
     properties =
       %w[name summary version authors description email homepage].map do |property|
         "#{property}: #{card.mod.spec.send(property)}"
@@ -113,7 +116,7 @@ def scripts?
 end
 
 def depends_on?
-  mod&.spec&.dependencies.present?
+  depends_on.present?
 end
 
 def description?
@@ -125,10 +128,7 @@ def views?
 end
 
 def depends_on
-  mod&.spec&.dependencies
-    &.map { |dep| dep.name }
-    &.select { |name| name.starts_with? "card-mod" }
-    &.map { |name| "mod_#{name[8..-1]}" }
+  @depends_on ||= card_mods { mod&.spec&.dependencies }
 end
 
 def tasks
@@ -138,9 +138,7 @@ end
 def settings
   return unless admin_config
 
-  admin_config["settings"]&.map do |setting|
-    setting.to_sym
-  end
+  admin_config["settings"]&.map(&:to_sym)
 end
 
 def configurations
@@ -205,8 +203,10 @@ end
 
 def load_admin_config
   return unless admin_config_exists?
+
   admin_config = YAML.load_file admin_config_path
   return {} unless admin_config # blank manifest
+
   # validate_manifest manifest
   admin_config
 end
@@ -222,6 +222,12 @@ end
 
 private
 
+def card_mods
+  yield&.map(&:name)
+       &.select { |name| name.starts_with? "card-mod" }
+       &.map { |name| "mod_#{name[8..]}" }
+end
+
 def read_admin_yml
-  YAML.safe_load File.read(filename), [Symbol] if File.exist? filename
+  YAML.safe_load_file filename, permitted_classes: [Symbol] if File.exist? filename
 end

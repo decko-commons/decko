@@ -1,5 +1,6 @@
 JUNK_INIT_ARGS = %i[missing skip_virtual id].freeze
 
+# extends Card Class
 module ClassMethods
   def new args={}, _options={}
     with_normalized_new_args args do |normalized_args|

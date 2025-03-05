@@ -1,4 +1,5 @@
 class Card
+  # support class for layout wrappers
   class Layout
     class << self
       def render layout, format
@@ -50,7 +51,7 @@ class Card
       end
 
       def built_in_layouts_hash
-        @built_in_layouts ||= {}
+        @built_in_layouts_hash ||= {}
       end
 
       def built_in_layouts

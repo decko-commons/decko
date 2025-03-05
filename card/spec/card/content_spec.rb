@@ -1,179 +1,27 @@
 # -*- encoding : utf-8 -*-
 
 RSpec.describe Card::Content do
-  EXAMPLES = {
-    nests: {
-      content: "Some Literals: \\[{I'm not| a link]}, and " \
-                '\\{{This Card|Is not Nestd}}' \
-                ", but " \
-                "{{this is}}" \
-                ", and some tail",
-      rendered: ["Some Literals: \\[{I'm not| a link]}, and ",
-                 "<span>{</span>{This Card|Is not Nestd}}",
-                 ", but ",
-                 { options: { nest_name: "this is",
-                              nest_syntax: "this is" } },
-                 ", and some tail"],
-      classes: [String, :EscapedLiteral, String, :Nest, String]
-    },
-
-    links_and_nests: {
-      content: "Some Links and includes: [[the card|the text]], " \
-               "and {{This Card|Is Nestd}}{{this too}} " \
-               "and [[http://external.decko.org/path|link text]]" \
-               "{{Nestd|open}}",
-      rendered: ["Some Links and includes: ",
-                 '<a class="wanted-card" ' \
-                 'href="/the_card">' \
-                 '<span class="card-title" title="the text">the text</span></a>',
-                 ", and ",
-                 { options: { view: "Is Nestd",
-                              nest_name: "This Card",
-                              nest_syntax: "This Card|Is Nestd" } },
-                 { options: { nest_name: "this too",
-                              nest_syntax: "this too" } },
-                 " and ",
-                 '<a target="_blank" class="external-link" ' \
-               'href="http://external.decko.org/path">link text</a>',
-                 { options: { view: "open",
-                              nest_name: "Nestd",
-                              nest_syntax: "Nestd|open" } }],
-      classes: [
-        String, :Link, String, :Nest, :Nest, String, :Link, :Nest
-      ]
-    },
-
-    uris_and_links: {
-      content: "Some URIs and Links: http://a.url.com/ " \
-               "More urls: decko.com/a/path/to.html " \
-               "http://localhost:2020/path?cgi=foo&bar=baz " \
-               "[[http://brain.org/Home|extra]] " \
-               "[ http://gerry.decko.com/a/path ] " \
-               "{ https://brain.org/more?args } ",
-      rendered: ["Some URIs and Links: ",
-                 '<a target="_blank" class="external-link" ' \
-                 'href="http://a.url.com/">http://a.url.com/</a>',
-                 " More urls: ",
-                 '<a target="_blank" class="external-link" ' \
-                 'href="http://decko.com/a/path/to.html">' \
-                 "decko.com/a/path/to.html</a>",
-                 " ",
-                 '<a target="_blank" class="external-link" ' \
-                 'href="http://localhost:2020/path?cgi=foo&amp;bar=baz">' \
-                 "http://localhost:2020/path?cgi=foo&bar=baz</a>",
-                 " ",
-                 '<a target="_blank" class="external-link" ' \
-                 'href="http://brain.org/Home">extra</a>',
-                 " [ ",
-                 '<a target="_blank" class="external-link" ' \
-                 'href="http://gerry.decko.com/a/path">' \
-                 "http://gerry.decko.com/a/path</a>",
-                 " ] { ",
-                 '<a target="_blank" class="external-link" ' \
-                 'href="https://brain.org/more?args">' \
-                 "https://brain.org/more?args</a>",
-                 " } "],
-      text_rendered: ["Some URIs and Links: ", "http://a.url.com/",
-                      " More urls: ",
-                      "decko.com/a/path/to.html[http://decko.com/a/path/to.html]",
-                      " ",
-                      "http://localhost:2020/path?cgi=foo&bar=baz",
-                      " ",
-                      "extra[http://brain.org/Home]",
-                      " [ ",
-                      "http://gerry.decko.com/a/path",
-                      " ] { ",
-                      "https://brain.org/more?args",
-                      " } "],
-      classes: [
-        String, :Uri, String, :HostUri, String, :Uri, String, :Link,
-        String, :Uri, String, :Uri, String
-      ]
-    },
-
-    uris_and_links_2: {
-      content: "Some URIs and Links: http://a.url.com " \
-               "More urls: decko.com/a/path/to.html " \
-               "[ http://gerry.decko.com/a/path ] " \
-               "{ https://brain.org/more?args } " \
-               "http://localhost:2020/path?cgi=foo&bar=baz " \
-               "[[http://brain.org/Home|extra]]",
-      rendered: ["Some URIs and Links: ",
-                 '<a target="_blank" class="external-link" ' \
-                 'href="http://a.url.com">http://a.url.com</a>',
-                 " More urls: ",
-                 '<a target="_blank" class="external-link" ' \
-                 'href="http://decko.com/a/path/to.html">' \
-                 "decko.com/a/path/to.html</a>",
-                 " [ ",
-                 '<a target="_blank" class="external-link" ' \
-                 'href="http://gerry.decko.com/a/path">' \
-                 "http://gerry.decko.com/a/path</a>",
-                 " ] { ",
-                 '<a target="_blank" class="external-link" ' \
-                 'href="https://brain.org/more?args">' \
-                 "https://brain.org/more?args</a>",
-                 " } ",
-                 '<a target="_blank" class="external-link" ' \
-                 'href="http://localhost:2020/path?cgi=foo&amp;bar=baz">' \
-                 "http://localhost:2020/path?cgi=foo&bar=baz</a>",
-                 " ",
-                 '<a target="_blank" class="external-link" ' \
-               'href="http://brain.org/Home">extra</a>'],
-      classes: [
-        String, :Uri, String, :HostUri, String, :Uri, String, :Uri,
-        String, :Uri, String, :Link
-      ]
-    },
-
-    no_chunks: {
-      content: "No chunks",
-      rendered: "No chunks"
-    },
-
-    single_nest: {
-      content: "{{one nest|size;large}}",
-      classes: [:Nest]
-    },
-
-    css: {
-      content: %(
-     /* body text */
-     body {
-       color: #444444;
-     }
-
-     /* page - background image and color */
-     body#decko {
-       background: #ffffff;
-     }
-
-     /* top bar background color; text colors */
-     #menu {
-       background: #3260a0;
-     }
-     #menu a {
-       color: #EEEEEE;
-     }
-
-     /* header text */
-     h1, h2 {
-       color: #664444;
-     }
-     h1.page-header,
-     h2.page-header {
-       color: #222299;
-     }
-   )
-    }
-  }.freeze
-
-  EXAMPLES.each_value do |val|
-    next unless val[:classes]
-
-    val[:classes] = val[:classes].map do |klass|
+  def chunk_constants *classes
+    classes.map do |klass|
       klass.is_a?(Class) ? klass : Card::Content::Chunk.const_get(klass)
     end
+  end
+
+  def check_chunk_classes
+    all_classes_pass_check_proc
+    clist = nonstring_classes
+    cobj.each_chunk do |chk|
+      expect(chk).to be_instance_of clist.shift
+    end
+    expect(clist).to be_empty
+  end
+
+  def nonstring_classes
+    classes.reject { |c| String == c }
+  end
+
+  def all_classes_pass_check_proc
+    expect(cobj.inject(classes, &@check_proc)).to eq(true)
   end
 
   context "instance" do
@@ -184,7 +32,7 @@ RSpec.describe Card::Content do
           expect(wrong_class).to be_falsey
           is_last = m.size == 1
           unless wrong_class
-            is_last ? true : m[1..-1]
+            is_last ? true : m[1..]
           end
         end
       end
@@ -205,98 +53,147 @@ RSpec.describe Card::Content do
       end
     end
 
-    let(:example)       { EXAMPLES[@example] }
     let(:cobj)          { described_class.new example[:content], @card }
     let(:classes)       { example[:classes] }
     let(:rendered)      { example[:rendered] }
     let(:text_rendered) { example[:text_rendered] }
     let(:content)       { example[:content] }
 
-    describe "parse" do
-      def check_chunk_classes
-        all_classes_pass_check_proc
-        clist = nonstring_classes
-        cobj.each_chunk do |chk|
-          expect(chk).to be_instance_of clist.shift
-        end
-        expect(clist).to be_empty
-      end
-
-      def nonstring_classes
-        classes.reject { |c| String == c }
-      end
-
-      def all_classes_pass_check_proc
-        expect(cobj.inject(classes, &@check_proc)).to eq(true)
+    describe "nests" do
+      let :example do
+        {
+          content: "Some Literals: \\[{I'm not| a link]}, and " \
+            '\\{{This Card|Is not Nestd}}' \
+            ", but " \
+            "{{this is}}" \
+            ", and some tail",
+          rendered: ["Some Literals: \\[{I'm not| a link]}, and ",
+                     "<span>{</span>{This Card|Is not Nestd}}",
+                     ", but ",
+                     { options: { nest_name: "this is",
+                                  nest_syntax: "this is" } },
+                     ", and some tail"],
+          classes: chunk_constants(String, :EscapedLiteral, String, :Nest, String)
+        }
       end
 
       it "finds all the chunks and strings" do
         # NOTE: the mixed [} that are considered matching, needs some cleanup ...
-        @example = :nests
         all_classes_pass_check_proc
       end
 
       it "gives just the chunks" do
-        @example = :nests
         check_chunk_classes
       end
 
-      it "finds all the chunks links and trasclusions" do
-        @example = :links_and_nests
+      it "renders all nests" do
+        expect(cobj.as_json.to_s).to match(/not rendered/)
+        cobj.process_chunks(&@render_block)
+        rdr = cobj.as_json.to_json
+        expect(rdr).not_to match(/not rendered/)
+        expect(rdr).to eq(rendered.to_json)
+      end
+    end
+
+    describe "links and nests" do
+      let :example do
+        {
+          content: "Some Links and includes: [[the card|the text]], " \
+            "and {{This Card|Is Nestd}}{{this too}} " \
+            "and [[http://external.decko.org/path|link text]]" \
+            "{{Nestd|open}}",
+          rendered: ["Some Links and includes: ",
+                     '<a class="wanted-card" ' \
+                       'href="/the_card">' \
+                       '<span class="card-title" title="the text">the text</span></a>',
+                     ", and ",
+                     { options: { view: "Is Nestd",
+                                  nest_name: "This Card",
+                                  nest_syntax: "This Card|Is Nestd" } },
+                     { options: { nest_name: "this too",
+                                  nest_syntax: "this too" } },
+                     " and ",
+                     '<a target="_blank" class="external-link" ' \
+                       'href="http://external.decko.org/path">link text</a>',
+                     { options: { view: "open",
+                                  nest_name: "Nestd",
+                                  nest_syntax: "Nestd|open" } }],
+          classes: chunk_constants(String, :Link, String, :Nest, :Nest,
+                                   String, :Link, :Nest)
+        }
+      end
+
+      it "finds all the chunks links and nests" do
         all_classes_pass_check_proc
+      end
+
+      it "renders links and nests" do
+        expect(cobj.as_json.to_s).to match(/not rendered/)
+        cobj.process_chunks(&@render_block)
+        rdr = cobj.as_json.to_json
+        expect(rdr).not_to match(/not rendered/)
+        expect(rdr).to eq(rendered.to_json)
+      end
+    end
+
+    describe "uris and links" do
+      let :example do
+        {
+          content: "Some URIs and Links: http://a.url.com/ " \
+                   "More urls: decko.com/a/path/to.html " \
+                   "http://localhost:2020/path?cgi=foo&bar=baz " \
+                   "[[http://brain.org/Home|extra]] " \
+                   "[ http://gerry.decko.com/a/path ] " \
+                   "{ https://brain.org/more?args } ",
+          rendered: ["Some URIs and Links: ",
+                     '<a target="_blank" class="external-link" ' \
+                     'href="http://a.url.com/">http://a.url.com/</a>',
+
+                     " More urls: ",
+                     '<a target="_blank" class="external-link" ' \
+                     'href="http://decko.com/a/path/to.html">' \
+                     "decko.com/a/path/to.html</a>",
+
+                     " ",
+                     '<a target="_blank" class="external-link" ' \
+                       'href="http://localhost:2020/path?cgi=foo&amp;bar=baz">' \
+                       "http://localhost:2020/path?cgi=foo&bar=baz</a>",
+                     " ",
+                     '<a target="_blank" class="external-link" ' \
+                       'href="http://brain.org/Home">extra</a>',
+                     " [ ",
+                     '<a target="_blank" class="external-link" ' \
+                       'href="http://gerry.decko.com/a/path">' \
+                       "http://gerry.decko.com/a/path</a>",
+                     " ] { ",
+                     '<a target="_blank" class="external-link" ' \
+                       'href="https://brain.org/more?args">' \
+                       "https://brain.org/more?args</a>",
+                     " } "],
+          text_rendered: ["Some URIs and Links: ", "http://a.url.com/",
+                          " More urls: ",
+                          "decko.com/a/path/to.html[http://decko.com/a/path/to.html]",
+                          " ",
+                          "http://localhost:2020/path?cgi=foo&bar=baz",
+                          " ",
+                          "extra[http://brain.org/Home]",
+                          " [ ",
+                          "http://gerry.decko.com/a/path",
+                          " ] { ",
+                          "https://brain.org/more?args",
+                          " } "],
+          classes: chunk_constants(String, :Uri, String, :HostUri, String, :Uri,
+                                   String, :Link, String, :Uri, String, :Uri, String)
+        }
       end
 
       it "finds uri chunks " do
         # tried some tougher cases that failed, don't know the spec, so
         # hard to form better tests for URIs here
-        @example = :uris_and_links
         check_chunk_classes
-      end
-
-      it "finds uri chunks (b)" do
-        # tried some tougher cases that failed, don't know the spec, so
-        # hard to form better tests for URIs here
-        @example = :uris_and_links_2
-        check_chunk_classes
-      end
-
-      it "parses just a string" do
-        @example = :no_chunks
-        expect(cobj).to eq(rendered)
-      end
-
-      it "parses a single chunk" do
-        @example = :single_nest
-        check_chunk_classes
-      end
-
-      it "leaves css alone" do
-        @example = :css
-        expect(cobj).to eq(content)
-      end
-    end
-
-    describe "render" do
-      it "renders all nests" do
-        @example = :nests
-        expect(cobj.as_json.to_s).to match(/not rendered/)
-        cobj.process_chunks(&@render_block)
-        rdr = cobj.as_json.to_json
-        expect(rdr).not_to match(/not rendered/)
-        expect(rdr).to eq(rendered.to_json)
-      end
-
-      it "renders links and nests" do
-        @example = :links_and_nests
-        expect(cobj.as_json.to_s).to match(/not rendered/)
-        cobj.process_chunks(&@render_block)
-        rdr = cobj.as_json.to_json
-        expect(rdr).not_to match(/not rendered/)
-        expect(rdr).to eq(rendered.to_json)
       end
 
       it "renders links correctly for text formatters" do
-        @example = :uris_and_links
         card2 = Card[@card.id]
         format = card2.format format: :text
         cobj = described_class.new content, format
@@ -305,13 +202,65 @@ RSpec.describe Card::Content do
       end
 
       it "does not need rendering if no nests" do
-        @example = :uris_and_links
         cobj.process_chunks
         expect(cobj.as_json.to_json).to eq(rendered.to_json)
       end
+    end
+
+    describe "different uris and links" do # TODO: better name
+      let :example do
+        {
+          content: "Some URIs and Links: http://a.url.com " \
+                   "More urls: decko.com/a/path/to.html " \
+                   "[ http://gerry.decko.com/a/path ] " \
+                   "{ https://brain.org/more?args } " \
+                   "http://localhost:2020/path?cgi=foo&bar=baz " \
+                   "[[http://brain.org/Home|extra]]",
+          rendered: ["Some URIs and Links: ",
+
+                     '<a target="_blank" class="external-link" ' \
+                     'href="http://a.url.com">http://a.url.com</a>',
+
+                     " More urls: ",
+
+                     '<a target="_blank" class="external-link" ' \
+                     'href="http://decko.com/a/path/to.html">' \
+                     "decko.com/a/path/to.html</a>",
+
+                     " [ ",
+
+                     '<a target="_blank" class="external-link" ' \
+                     'href="http://gerry.decko.com/a/path">' \
+                     "http://gerry.decko.com/a/path</a>",
+
+                     " ] { ",
+
+                     '<a target="_blank" class="external-link" ' \
+                     'href="https://brain.org/more?args">' \
+                     "https://brain.org/more?args</a>",
+
+                     " } ",
+
+                     '<a target="_blank" class="external-link" ' \
+                     'href="http://localhost:2020/path?cgi=foo&amp;bar=baz">' \
+                     "http://localhost:2020/path?cgi=foo&bar=baz</a>",
+
+                     " ",
+
+                     '<a target="_blank" class="external-link" ' \
+                     'href="http://brain.org/Home">extra</a>'],
+
+          classes: chunk_constants(String, :Uri, String, :HostUri, String, :Uri,
+                                   String, :Uri, String, :Uri, String, :Link)
+        }
+      end
+      it "finds uri chunks (b)" do
+        # tried some tougher cases that failed, don't know the spec, so
+        # hard to form better tests for URIs here
+        check_chunk_classes
+      end
 
       it "does not need rendering if no nests (b)" do
-        @example = :uris_and_links_2
         rdr1 = cobj.as_json.to_json
         expect(rdr1).to match(/not rendered/)
         # links are rendered too, but not with a block
@@ -321,18 +270,85 @@ RSpec.describe Card::Content do
         expect(rdr2).to eq(rendered.to_json)
       end
     end
+
+    describe "no chunks" do
+      let :example do
+        {
+          content: "No chunks",
+          rendered: "No chunks"
+        }
+      end
+
+      it "parses just a string" do
+        expect(cobj).to eq(rendered)
+      end
+    end
+
+    describe "single nest" do
+      let :example do
+        {
+          content: "{{one nest|size;large}}",
+          classes: chunk_constants(:Nest)
+        }
+      end
+
+      it "parses a single chunk" do
+        check_chunk_classes
+      end
+    end
+
+    describe "css" do
+      let :example do
+        {
+          content: %(
+            /* body text */
+            body {
+              color: #444444;
+            }
+
+            /* page - background image and color */
+            body#decko {
+              background: #ffffff;
+            }
+
+            /* top bar background color; text colors */
+            #menu {
+              background: #3260a0;
+            }
+            #menu a {
+              color: #EEEEEE;
+            }
+
+            /* header text */
+            h1, h2 {
+              color: #664444;
+            }
+            h1.page-header,
+            h2.page-header {
+              color: #222299;
+            }
+          )
+        }
+      end
+
+      it "leaves css alone" do
+        expect(cobj).to eq(content)
+      end
+    end
   end
 
-  UNTAGGED_CASES = [" [grrew][/wiki/grrew]ss ",
-                    " {{this is a test}}, {{this|view|is:too}} and",
-                    " so is http://foo.bar.come//",
-                    ' and foo="my attr, not int a tag" <not a=tag ',
-                    ' p class"foobar"> and more'].freeze
-
   context "class" do
+    let(:untagged_cases) do
+      [" [grrew][/wiki/grrew]ss ",
+       " {{this is a test}}, {{this|view|is:too}} and",
+       " so is http://foo.bar.come//",
+       ' and foo="my attr, not int a tag" <not a=tag ',
+       ' p class"foobar"> and more'].freeze
+    end
+
     describe "#clean!" do
       it "does not alter untagged content" do
-        UNTAGGED_CASES.each do |test_case|
+        untagged_cases.each do |test_case|
           assert_equal test_case, described_class.clean!(test_case)
         end
       end
@@ -357,7 +373,7 @@ RSpec.describe Card::Content do
       end
 
       it "strips permitted_classes " \
-            "but not permitted ones when both are present" do
+         "but not permitted ones when both are present" do
         assert_equal '<span class="w-spotlight w-ok">foo</span>',
                      described_class.clean!(
                        '<span class="w-spotlight banana w-ok">foo</span>'
@@ -403,7 +419,7 @@ RSpec.describe Card::Content do
       # it "doesn't fix regular nbsp order with setting" do
       #   # manually configure this setting, then make this one live
       #   # (test above will then fail)
-      #   pending "Can't set Card.config.space_last_in_multispace= false "\
+      #   pending "Can't set Card.config.space_last_in_multispace= false " \
       #           'for one test'
       #   assert_equal 'space&nbsp; test &nbsp;two &nbsp;&nbsp;space',
       #                Card::Content.clean!(

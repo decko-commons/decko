@@ -1,6 +1,8 @@
 class Card
   class Content
     module Chunk
+      # handle chunks of card content that are "stubbed" versions of views
+      # (stubs allow caching of containers)
       class ViewStub < Abstract
         Chunk.register_class(
           self,
