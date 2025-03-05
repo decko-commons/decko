@@ -71,7 +71,7 @@ class Card
       end
 
       def define_trait_card trait, opts
-        define_method "#{trait}_card" do |sub = false|
+        define_method "#{trait}_card" do |sub=false|
           if sub && (card = subfield trait)
             return card
           end
