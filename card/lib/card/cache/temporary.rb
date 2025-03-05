@@ -80,7 +80,7 @@ class Card
       def within_key_counts
         if @reps >= MAX_KEYS && (@reps = @store.size) > MAX_KEYS
           Rails.logger.info "RESETTING temporary #{@klass} cache. " \
-                              "MAX_KEYS (#{MAX_KEYS}) exceeded"
+                            "MAX_KEYS (#{MAX_KEYS}) exceeded"
           reset
         end
         yield

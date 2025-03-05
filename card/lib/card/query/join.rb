@@ -44,10 +44,10 @@ class Card
       end
 
       def side
-        if !@side.nil?
-          @side.to_s.upcase
-        else
+        if @side.nil?
           @side = inside_or? ? "LEFT" : nil
+        else
+          @side.to_s.upcase
         end
       end
 
