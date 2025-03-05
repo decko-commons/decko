@@ -1,5 +1,7 @@
 # -*- encoding : utf-8 -*-
 
+STAGES = %i[validate store finalize integrate].freeze
+
 RSpec.describe Card::Set::Event::All do
   let(:log) { @log ||= [] }
   let(:create_card) { Card.create!(name: "main card") }
@@ -20,8 +22,6 @@ RSpec.describe Card::Set::Event::All do
   end
 
   context "when changing content" do
-    STAGES = %i[validate store finalize integrate].freeze
-
     def change_content
       Card["A"].update! content: "changed content"
     end

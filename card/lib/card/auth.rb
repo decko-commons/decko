@@ -19,12 +19,9 @@ class Card
       # @return [+*account card, nil]
       def authenticate email, password
         account = Auth.find_account_by_email email
-        case
-        when !account                                 then nil
-        when !account.active?                         then nil
-        when Card.config.no_authentication            then account
-        when password_valid?(account, password.strip) then account
-        end
+        return nil unless account&.active?
+
+        account if not_required? || password_valid?(account, password.strip)
       end
 
       # check whether password is correct for account card
@@ -42,6 +39,10 @@ class Card
 
       def serialize
         { as_id: as_id, current_id: current_id }
+      end
+
+      def not_required?
+        Card.config.no_authentication
       end
     end
   end

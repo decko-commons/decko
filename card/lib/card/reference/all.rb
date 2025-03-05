@@ -1,13 +1,12 @@
 class Card
   class Reference < Cardio::Record
+    # frozen_string_literal: true
+
+    # Cards can refer to other cards in their content, eg via links and nests.
+    # The card that refers is the "referer", the card that is referred to is
+    # the "referee". The reference itself has its own class (Card::Reference),
+    # which handles id-based reference tracking.
     module All
-      # frozen_string_literal: true
-
-      # Cards can refer to other cards in their content, eg via links and nests.
-      # The card that refers is the "referer", the card that is referred to is
-      # the "referee". The reference itself has its own class (Card::Reference),
-      # which handles id-based reference tracking.
-
       PARTIAL_REF_CODE = "P".freeze
 
       # cards that refer to self

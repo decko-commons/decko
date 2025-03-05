@@ -7,6 +7,7 @@ class Card
     # match by its pattern.
     #
     module Chunk
+      # Abstract class used for all different types of chunks of card content
       class Abstract
         class_attribute :config
         attr_reader :text, :process_chunk

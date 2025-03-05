@@ -28,7 +28,7 @@ module Cardio
         end
 
         def load_initializers
-          Cardio.config.paths["late/initializers"].existent.sort.each do |init|
+          Cardio.config.paths["late/initializers"].existent.each do |init|
             load init
           end
         end
@@ -36,7 +36,7 @@ module Cardio
         # load all files in directory
         # @param dir [String] directory name
         def load_dir dir
-          Dir["#{dir}/*.rb"].sort.each do |file|
+          Dir["#{dir}/*.rb"].each do |file|
             # puts Benchmark.measure("from #load_dir: rd: #{file}") {
             # require file
             # "require" breaks the reloading in development env

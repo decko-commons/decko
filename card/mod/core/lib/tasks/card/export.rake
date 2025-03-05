@@ -9,7 +9,7 @@ namespace :card do
       end
       filename = options[:file] || "cards.csv"
       puts "Exporting all card data to #{filename}..."
-      File.open(filename, "w") { |f| f.write to_csv }
+      File.write(filename) { |f| f.write to_csv }
     end
   end
 end
