@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-RSpec.describe Card::Codename, "Codename" do
+RSpec.describe Card::Codename do
   let(:codename) { :default }
 
   it "is sane" do

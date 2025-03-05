@@ -1,5 +1,7 @@
 class Card
   class Format
+    # missing methods may be render calls or action view methods
+    # these methods sort that out
     module MethodDelegation
       RENDER_METHOD_RE =
         /^

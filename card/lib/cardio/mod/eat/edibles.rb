@@ -109,15 +109,17 @@ module Cardio
         end
 
         def pod_types
-          if @pod_type == :all
+          if all_pod_types?
             %i[real test]
           elsif @pod_type
             [@pod_type]
-          elsif Rails.env.test?
-            %i[real test]
           else
             [:real]
           end
+        end
+
+        def all_pod_types?
+          @pod_type == :all || (Rails.env.test? && !@pod_type)
         end
       end
     end

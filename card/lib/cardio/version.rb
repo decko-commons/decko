@@ -1,6 +1,7 @@
 # -*- encoding : utf-8 -*-
 
 module Cardio
+  # handle version numbers for releases
   module Version
     class << self
       CARD_MINOR = { 0 => 90, 1 => 1000 }.freeze # can remove and hardcode after 1.0
