@@ -145,7 +145,7 @@ RSpec.describe Card::Set::Event::All do
 
         aggregate_failures do
           expect(log).to be_empty
-          Card["A"].update! content: "changed content", trigger: :test_event0
+          Card["A"].update! content: "changed content", trigger: :test_event_0
           expect(log).to contain_exactly "triggered"
         end
       end
@@ -178,10 +178,10 @@ RSpec.describe Card::Set::Event::All do
     def update_with_skip force, changes, skip_key
       skip_card = Card["A"]
       if force
-        skip_card.skip_event! :test_event0
+        skip_card.skip_event! :test_event_0
         skip_card.update! changes
       else
-        skip_card.update! changes.merge(skip_key => :test_event0)
+        skip_card.update! changes.merge(skip_key => :test_event_0)
       end
     end
 

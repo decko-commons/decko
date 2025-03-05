@@ -7,7 +7,8 @@ class Card
 
       attr_reader :name, :view, :options, :item_options, :raw
 
-      Nest = Struct.new :name, :field?, :options, :item_options, :raw, keyword_init: true
+      Nest = Struct.new :name, :view, :field?, :options, :item_options, :raw,
+                        keyword_init: true
       def self.new nest_string
         return super if nest_string.is_a? String
 

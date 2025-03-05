@@ -3,6 +3,10 @@
 RSpec.describe Card::Set::Type::Set do
   check_views_for_errors
 
+  def card_subject
+    Card.fetch "User+*type"
+  end
+
   describe "#compound_only?" do
     it "identifies sets that only apply to plus cards", :aggregate_failures do
       expect(Card.fetch("*all")).not_to be_compound_only
@@ -64,10 +68,6 @@ RSpec.describe Card::Set::Type::Set do
   end
 
   describe "#nest_editor_field_related_settings" do
-    def card_subject
-      Card.fetch "User+*type"
-    end
-
     it "finds settings based on set", :as_bot do
       create ["characters", :right, :input_type], content: "select"
       create ["characters", :right, :default], type_id: Card::ListID
