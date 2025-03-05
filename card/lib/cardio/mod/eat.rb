@@ -38,7 +38,7 @@ module Cardio
       def handle_up &block
         Card::Cache.reset_all
         Card::Mailer.perform_deliveries = false
-        Card::Auth.as_bot &block
+        Card::Auth.as_bot(&block)
         :success
       rescue StandardError => e
         e.message

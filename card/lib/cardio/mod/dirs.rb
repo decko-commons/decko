@@ -130,7 +130,7 @@ module Cardio
       end
 
       def each_subpath *subdirs, &block
-        subpaths(*subdirs).each &block
+        subpaths(*subdirs).each(&block)
       end
 
       private

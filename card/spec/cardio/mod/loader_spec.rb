@@ -12,7 +12,8 @@ RSpec.describe Cardio::Mod::Loader do
   #   #card = Card[:all]
   #   #expect(card_double).to receive(:load_formats)
   #   #expect(Card).to receive(:load_sets)
-  #   #expect(Card).to receive(:tracks).with(:any_args) # so Card still loads without core in failure testing
+  #   #expect(Card).to receive(:tracks).with(:any_args)
+  #      # so Card still loads without core in failure testing
   #   Card[:all]
   #   expect(Cardio::Mod::Loader).to have_received(:load_mods)
   #   #expect(Card.instance_method(:version)).to be
