@@ -6,7 +6,7 @@ RSpec.describe Card::Set::Abstract::List::OtherViews do
   end
 
   describe "json" do
-    include_context "json context"
+    include_context "with json context"
 
     def card_subject
       sample_pointer

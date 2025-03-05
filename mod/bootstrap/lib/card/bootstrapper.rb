@@ -1,4 +1,5 @@
 class Card
+  # shared methods for bootstrapping in card formats and act renderers
   module Bootstrapper
     extend Bootstrap::ComponentLoader
 

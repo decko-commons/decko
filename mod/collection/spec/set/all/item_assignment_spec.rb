@@ -1,4 +1,4 @@
-RSp ec.describe Card::Set::All::ItemAssignment do
+RSpec.describe Card::Set::All::ItemAssignment do
   def card_subject
     "stacks".card
   end

@@ -13,7 +13,7 @@ RSpec.describe Card::Bootstrap do
   end
 
   describe "html" do
-    it "renderes plain text" do
+    it "renders plain text" do
       # expect(render { html "test" }).to eq "test"
     end
   end

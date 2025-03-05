@@ -1,6 +1,7 @@
 class Card
   class Bootstrap
     class Component
+      # support class for horizontal bootstrap forms
       class HorizontalForm < Form
         def left_col_width
           (@child_args.last && @child_args.last[0]) || 2

@@ -1,6 +1,7 @@
 class Card
   class Bootstrap
     class Component
+      # support class for bootstrap forms
       class Form < Component
         def render_content *args
           form(*args, &@build_block)

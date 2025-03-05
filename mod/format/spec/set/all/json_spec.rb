@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 
 RSpec.describe Card::Set::All::Json do
-  include_context "json context"
+  include_context "with json context"
   specify "nucleus view" do
     expect_view(:nucleus, format: :json)
       .to eq nucleus_values
