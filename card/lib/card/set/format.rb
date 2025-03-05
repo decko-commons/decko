@@ -103,14 +103,14 @@ class Card
 
       # shortcut for {AbstractFormat#view} for when #view is called outside of a format
       # block
-      def view *args, &block
-        format { view(*args, &block) }
+      def view(...)
+        format { view(...) }
       end
 
       # shortcut for {AbstractFormat#before} for when #before is called outside of a
       # format block
-      def before view, &block
-        format { before view, &block }
+      def before(...)
+        format { before(...) }
       end
 
       private

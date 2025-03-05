@@ -8,7 +8,7 @@ format :html do
     rule_opt_array = following_rule_options_hash.map do |key, val|
       [(Card.fetch key, new: {}), val]
     end
-    rules_and_options_by_set_pattern Hash[rule_opt_array], &block
+    rules_and_options_by_set_pattern rule_opt_array.to_h, &block
   end
 
   # constructs hash of rules/options for "Ignore" tab
@@ -25,7 +25,7 @@ format :html do
   def ignore_rules
     never = :never.cardname.key
     card.item_cards.select do |follow_rule|
-      follow_rule.item_names.select { |n| n.key == never }.any?
+      follow_rule.item_names.any? { |n| n.key == never }
     end
   end
 

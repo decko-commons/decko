@@ -1,6 +1,7 @@
 class Card
   class Bootstrap
     class Component
+      # support class for bootstrap carousels
       class Carousel < Component
         def render_content
           carousel(*@args, &@build_block)

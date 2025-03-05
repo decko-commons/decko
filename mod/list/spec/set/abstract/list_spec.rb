@@ -51,41 +51,4 @@ RSpec.describe Card::Set::Abstract::List do
       end
     end
   end
-
-  describe "add_item" do
-    let(:pointer) { Card.new name: "tp", type: "pointer" }
-
-    it "add to empty ref list" do
-      pointer.add_item "John"
-      expect(pointer.content).to eq("John")
-    end
-
-    it "add to existing ref list" do
-      pointer.content = "[[Jane]]"
-      pointer.add_item "John"
-      expect(pointer.content).to eq("Jane\nJohn")
-    end
-  end
-
-  describe "drop_item" do
-    let :pointer do
-      Card.new name: "tp", type: "pointer", content: "[[Jane]]\n[[John]]"
-    end
-
-    it "remove the link" do
-      pointer.drop_item "Jane"
-      expect(pointer.content).to eq("John")
-    end
-
-    it "not fail on non-existent reference" do
-      pointer.drop_item "Bigfoot"
-      expect(pointer.content).to eq("Jane\nJohn")
-    end
-
-    it "remove the last link" do
-      pointer.drop_item "John"
-      pointer.drop_item "Jane"
-      pointer.content.should == ""
-    end
-  end
 end

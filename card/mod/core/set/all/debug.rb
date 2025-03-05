@@ -10,9 +10,9 @@ end
 private
 
 def inspect_tags
-  %w[trash new frozen readonly virtual set_mods_loaded].map do |tag|
-    tag if send "#{tag}?"
-  end.compact
+  %w[trash new frozen readonly virtual set_mods_loaded].select do |tag|
+    send "#{tag}?"
+  end
 end
 
 def debug_type

@@ -8,7 +8,7 @@ format :html do
 
   # public for testing
   def explicit_modal_wrapper? view
-    return unless (wrap_view = view_setting :wrap, view)
+    return false unless (wrap_view = view_setting :wrap, view)
 
     (wrapper_names(wrap_view) & %i[modal board]).any?
   end

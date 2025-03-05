@@ -16,6 +16,8 @@ class Card
       # query keywords as name
 
       require File.expand_path("reference", __dir__)
+
+      # handle chunks of CQL query content that refer to other cards
       class QueryReference < Reference
         QUERY_KEYWORDS = ::Set.new(
           (
@@ -56,14 +58,14 @@ class Card
           def full_match content, prefix
             # matches cardnames that are not keywords
             # FIXME: would not match cardnames that are keywords
-            match, offset = super(content, prefix)
+            match, offset = super
             return if !match || keyword?(match[1])
 
             [match, offset]
           end
 
           def keyword? str
-            return unless str
+            return false unless str
 
             QUERY_KEYWORDS.include?(str.tr(" ", "_").downcase)
           end

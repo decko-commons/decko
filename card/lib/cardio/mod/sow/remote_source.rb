@@ -7,6 +7,7 @@ module Cardio
           @remote_source ||=
             if @remote
               raise Card::Error::NotFound, "must specify name (-n)" unless @name
+
               URI.join(@remote, "/#{@name.cardname.url_key}/", "pod.yml")
             else
               @url

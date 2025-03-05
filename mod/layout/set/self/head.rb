@@ -21,6 +21,7 @@ format :html do
   end
 
   view :bar_bottom do
+    ""
   end
 
   def escape_in_main

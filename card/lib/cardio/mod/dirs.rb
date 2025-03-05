@@ -129,10 +129,8 @@ module Cardio
         end
       end
 
-      def each_subpath *subdirs
-        subpaths(*subdirs).each do |mod_name, subpath|
-          yield mod_name, subpath
-        end
+      def each_subpath *subdirs, &block
+        subpaths(*subdirs).each(&block)
       end
 
       private
