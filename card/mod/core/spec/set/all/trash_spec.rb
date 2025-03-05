@@ -12,7 +12,7 @@ RSpec.describe Card::Set::All::Trash do
   it "deletes account of user", as_bot: true do
     expect(Card["Sample User", :account]).to be_a Card
     Card["Sample User"].delete!
-    expect(Card["Sample User", :account]).not_to be
+    expect(Card["Sample User", :account]).to be_nil
   end
 
   describe "event: validate_delete" do
@@ -102,11 +102,11 @@ RSpec.describe Card::Set::All::Trash do
 
       Card["CA"].delete!
 
-      expect(Card["CA"]).not_to be
-      expect(Card[book1]).not_to be
-      expect(Card["#{book1}+value"]).not_to be
-      expect(Card[book2]).not_to be
-      expect(Card["#{book2}+value"]).not_to be
+      expect(Card["CA"]).to be_nil
+      expect(Card[book1]).to be_nil
+      expect(Card["#{book1}+value"]).to be_nil
+      expect(Card[book2]).to be_nil
+      expect(Card["#{book2}+value"]).to be_nil
     end
 
     it "handles compound cards", as_bot: true do

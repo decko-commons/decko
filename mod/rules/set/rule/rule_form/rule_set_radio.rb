@@ -1,4 +1,6 @@
 #! no set module
+
+# handles special radios for choosing set to which a rule applies
 class RuleSetRadio
   attr_reader :format
 

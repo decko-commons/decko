@@ -1,5 +1,6 @@
 class Card
   class Action
+    # supports rendering action details within ui
     class ActionRenderer
       attr_reader :action, :header
 

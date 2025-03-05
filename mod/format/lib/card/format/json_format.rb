@@ -2,6 +2,7 @@
 
 class Card
   class Format
+    # card format class for json (JavaScript Object Notation) views
     class JsonFormat < DataFormat
       register :json
 

@@ -1,4 +1,4 @@
-RSpec.shared_context "json context", shared_context: :json do
+RSpec.shared_context "with json context", shared_context: :json do
   before { Card.config.deck_origin = "http://json.com" }
   after { Card.config.deck_origin = nil }
 

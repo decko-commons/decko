@@ -1,4 +1,5 @@
 class Card
+  # support class for layout wrappers
   class Layout
     class << self
       def render layout, format

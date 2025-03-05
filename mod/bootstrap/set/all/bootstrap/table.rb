@@ -10,6 +10,7 @@ format :html do
   end
 end
 
+# support class for bootstrap tables
 class TableHelper
   def initialize format, content, opts={}
     @format = format
