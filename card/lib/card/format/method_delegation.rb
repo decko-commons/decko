@@ -36,11 +36,11 @@ class Card
       # TODO: make it so we fall back to super if action_view can't handle method.
       # It's not as easy as `elsif api_render? method`, because respond_to gives
       # false for many methods action view can actually handle, like `h`
-      def method_missing method, *opts, &proc, &block
+      def method_missing method, *opts, &proc
         if (match = api_render? method)
           api_render match, opts
         else
-          delegate_to_action_view method, opts, proc, &block
+          delegate_to_action_view(method, opts, proc) { yield }
         end
       end
 

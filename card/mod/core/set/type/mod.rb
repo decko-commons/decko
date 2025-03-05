@@ -116,7 +116,7 @@ def scripts?
 end
 
 def depends_on?
-  mod&.spec&.dependencies.present?
+  depends_on.present?
 end
 
 def description?
@@ -128,10 +128,7 @@ def views?
 end
 
 def depends_on
-  mod&.spec&.dependencies
-    &.map(&:name)
-    &.select { |name| name.starts_with? "card-mod" }
-    &.map { |name| "mod_#{name[8..]}" }
+  @depends_on ||= card_mods { mod&.spec&.dependencies }
 end
 
 def tasks
@@ -224,6 +221,12 @@ def admin_config_path
 end
 
 private
+
+def card_mods
+  yield&.map(&:name)
+       &.select { |name| name.starts_with? "card-mod" }
+       &.map { |name| "mod_#{name[8..]}" }
+end
 
 def read_admin_yml
   YAML.safe_load_file filename, permitted_classes: [Symbol] if File.exist? filename

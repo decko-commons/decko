@@ -1,4 +1,3 @@
-
 # extends Card Class
 module ClassMethods
   def default_type_id
