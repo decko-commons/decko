@@ -8,7 +8,7 @@ format :html do
   view :view_list do
     view_list.map do |v|
       wrap_with :p, [content_tag(:h3, v), render(v, show: :menu)]
-    end.flatten.join ""
+    end.flatten.join
   end
 
   def view_list

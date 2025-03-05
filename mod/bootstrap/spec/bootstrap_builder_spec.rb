@@ -1,22 +1,6 @@
 # -*- encoding : utf-8 -*-
 
 RSpec.describe Card::Bootstrap, "builder" do
-  class BuilderTest < Card::Bootstrap::Component
-    def_tag_method :test_tag, "test-class" do |_html, opts, _extra_args|
-      before { tag :before, "prepend-class" }
-
-      after { tag :after, "after-class" }
-
-      prepend { tag :prepend, "prepend-class" }
-      append { tag :append, "append-class" }
-      wrap_inner :wrap, "wrap-class"
-      wrap :container
-      opts
-    end
-
-    def_div_method :container, "container-class"
-  end
-
   describe "tag create helper methods" do
     subject do
       fo = Card["A"].format(:html)
@@ -40,4 +24,21 @@ RSpec.describe Card::Bootstrap, "builder" do
       end
     end
   end
+end
+
+# support class for testing bootstrap components
+class BuilderTest < Card::Bootstrap::Component
+  def_tag_method :test_tag, "test-class" do |_html, opts, _extra_args|
+    before { tag :before, "prepend-class" }
+
+    after { tag :after, "after-class" }
+
+    prepend { tag :prepend, "prepend-class" }
+    append { tag :append, "append-class" }
+    wrap_inner :wrap, "wrap-class"
+    wrap :container
+    opts
+  end
+
+  def_div_method :container, "container-class"
 end

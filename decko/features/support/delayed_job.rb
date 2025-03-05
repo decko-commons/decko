@@ -15,6 +15,6 @@ end
 
 After("@background-jobs") do
   Cardio.delaying! :off
-  system "ps -ef | grep 'rake jobs:work' | grep -v grep | awk '{print $2}' | "\
+  system "ps -ef | grep 'rake jobs:work' | grep -v grep | awk '{print $2}' | " \
          "xargs kill -9"
 end

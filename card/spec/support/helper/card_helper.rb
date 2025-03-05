@@ -6,7 +6,7 @@ class Card
         cattr_accessor :rspec_binding
       end
 
-      # rubocop:disable Lint/Eval
+      # rubocop:disable Security/Eval
       def method_missing m, *args, &block
         return super unless Card.rspec_binding
 
@@ -19,7 +19,7 @@ class Card
         end
         super
       end
-      # rubocop:enable Lint/Eval
+      # rubocop:enable Security/Eval
 
       def suppress_name_error
         yield

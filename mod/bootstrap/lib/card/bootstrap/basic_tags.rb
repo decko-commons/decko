@@ -1,5 +1,6 @@
 class Card
   class Bootstrap
+    # simple html tag handling (div, span, etc)
     module BasicTags
       def html content
         add_content String(content).html_safe

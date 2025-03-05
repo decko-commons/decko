@@ -3,12 +3,16 @@ languages:
   JavaScript: true
   PHP: false
   Python: false
-engines:
+plugins:
   rubocop:
     enabled: true
-    config: .codeclimate-rubocop.yml
+    config:
+      file: .codeclimate-rubocop.yml
+    channel: rubocop-1-56-3
     checks:
       Rubocop/Style/SpaceInsideStringInterpolation:
+        enabled: false
+      Rubocop/Gemspec/RequiredRubyVersion: # handled by DeckoGem
         enabled: false
   golint:
     enabled: false

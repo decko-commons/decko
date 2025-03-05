@@ -3,6 +3,7 @@
 class Card
   class Content
     module Chunk
+      # handle chunks of card content that refer to other cards
       class Reference < Abstract
         attr_writer :referee_name
         attr_accessor :name

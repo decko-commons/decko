@@ -38,7 +38,7 @@ class Card
         @chunk_class = Chunk.find_class_by_prefix @prefix, @chunk_list
 
         # get the chunk class from the prefix
-        content_slice = @content[@position..-1]
+        content_slice = @content[@position..]
         @chunk_class.full_match content_slice, @prefix
       end
 
@@ -59,7 +59,7 @@ class Card
       end
 
       def match_prefix prefix_regexp
-        prefix_match = @content[@position..-1].match(prefix_regexp)
+        prefix_match = @content[@position..].match(prefix_regexp)
         if prefix_match
           @prefix = prefix_match[0]
           # prefix of matched chunk
@@ -79,10 +79,8 @@ class Card
       def record_chunk
         @position += (@match.end(0) - @offset.to_i)
         # move scanning position up to end of chunk
-        if !@chunk_class.context_ok? @content, @chunk_start
-          # make sure there aren't contextual reasons for ignoring this chunk
-          false
-        else
+
+        if @chunk_class.context_ok? @content, @chunk_start
           @chunks << @interval_string unless @interval_string.empty?
           @interval_string = ""
           # add the nonchunk string to the chunk list and
@@ -93,13 +91,16 @@ class Card
           # NOTE: that the end of the chunk was the last place where a
           # chunk was found (so far)
           true
+        else
+          # make sure there aren't contextual reasons for ignoring this chunk
+          false
         end
       end
 
       def handle_remainder
         if @chunks.any? && @last_position < @content.size
           # handle any leftover nonchunk string at the end of content
-          @chunks << @content[@last_position..-1]
+          @chunks << @content[@last_position..]
         end
       end
     end
