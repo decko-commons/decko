@@ -8,14 +8,14 @@ module Cardio
       private
 
       def run_new
-        if !["-h", "--help"].intersection(args).empty?
-          ARGV.unshift "new"
-          require "cardio/command/application"
-        else
+        if ["-h", "--help"].intersection(args).empty?
           puts "Can't initialize a new deck within the directory of another, " \
-               "please change to a non-deck directory first.\n"
+                 "please change to a non-deck directory first.\n"
           puts "Type '#{gem}' for help."
           exit 1
+        else
+          ARGV.unshift "new"
+          require "cardio/command/application"
         end
       end
 
