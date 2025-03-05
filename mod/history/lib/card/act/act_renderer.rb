@@ -1,5 +1,6 @@
 class Card
   class Act
+    # supports rendering act details within ui
     class ActRenderer
       def initialize format, act, args
         @format = format

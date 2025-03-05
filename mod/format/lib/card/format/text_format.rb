@@ -2,6 +2,7 @@
 
 class Card
   class Format
+    # card format class for plaintext views
     class TextFormat < Format
       register :text
       register :txt

@@ -8,14 +8,14 @@ module Cardio
       private
 
       def run_new
-        if !["-h", "--help"].intersection(args).empty?
-          ARGV.unshift "new"
-          require "cardio/command/application"
-        else
+        if ["-h", "--help"].intersection(args).empty?
           puts "Can't initialize a new deck within the directory of another, " \
-               "please change to a non-deck directory first.\n"
+                 "please change to a non-deck directory first.\n"
           puts "Type '#{gem}' for help."
           exit 1
+        else
+          ARGV.unshift "new"
+          require "cardio/command/application"
         end
       end
 
@@ -46,9 +46,10 @@ module Cardio
 
       def run_help_for_group group
         puts
-        puts "For " + "#{group}s".yellow + ":"
+        puts "For #{"#{group}s".yellow}:"
         map.each do |command, conf|
           next unless conf[:group] == group
+
           puts command_help(command, conf)
         end
         puts
@@ -57,7 +58,7 @@ module Cardio
       # formats command string for help text
       def command_help command, conf
         alt = conf[:alias] ? "(or #{conf[:alias]})" : ""
-        "    " + command.to_s.ljust(12).light_cyan + alt.ljust(10) + conf[:desc]
+        "    #{command.to_s.ljust(12).light_cyan}#{alt.ljust(10)}#{conf[:desc]}"
       end
     end
   end

@@ -1,4 +1,5 @@
 class Card
+  # shared methods for bootstrapping in card formats and act renderers
   module Bootstrapper
     extend Bootstrap::ComponentLoader
 
@@ -6,8 +7,8 @@ class Card
       @bootstrap ||= Bootstrap.new(self)
     end
 
-    def bs *args, &block
-      bootstrap.render(*args, &block)
+    def bs(...)
+      bootstrap.render(...)
     end
 
     components.each do |component|

@@ -15,7 +15,7 @@ RSpec.describe Card::Set::All::Account do
         @parties = @joe_user_card.parties # NOTE: must be called to test resets
       end
 
-      it "initially has only auth, shark and self " do
+      it "initially has only auth, shark and self" do
         expect(@parties)
           .to eq([Card::AnyoneSignedInID, Card::SharkID, @joe_user_card.id])
       end
@@ -79,7 +79,7 @@ RSpec.describe Card::Set::All::Account do
       expect(account.email).to eq("joe@user.co.uk")
     end
 
-    it "lets Wagn Bot block accounts", as_bot: true do
+    it "lets Wagn Bot block accounts", :as_bot do
       card.account.status_card.update! content: "blocked"
       expect(account).to be_blocked
     end
@@ -88,8 +88,8 @@ RSpec.describe Card::Set::All::Account do
       expect do
         account.status_card.update! content: "blocked"
       end.to raise_error(ActiveRecord::RecordInvalid,
-                         "Validation failed: Permission denied You don't have "\
-                       "permission to change the status of your own account")
+                         "Validation failed: Permission denied You don't have " \
+                         "permission to change the status of your own account")
       expect(account).not_to be_blocked
     end
   end
