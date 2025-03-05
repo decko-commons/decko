@@ -133,7 +133,7 @@ def set_ace_editor_content name, content
 
     sleep(0.5)
     content = escape_quotes content
-    page.execute_script "ace.edit($('.ace_editor').get(0))"\
+    page.execute_script "ace.edit($('.ace_editor').get(0))" \
                         ".getSession().setValue('#{content}')"
   end
 end
@@ -150,7 +150,7 @@ def set_tinymce_editor_content name, content
   wait_for_iframe_load
   find_editor "textarea[name='#{name}']" do |editors|
     editor_id = editors.first[:id]
-    return unless page.evaluate_script("typeof tinyMCE != 'undefined' && "\
+    return unless page.evaluate_script("typeof tinyMCE != 'undefined' && " \
                                        "tinyMCE.get('#{editor_id}') != null")
 
     sleep(0.5)

@@ -3,7 +3,7 @@ class MoveRevisionsToActions < Cardio::Migration::Schema
     belongs_to :tmp_card, foreign_key: :card_id
     self.table_name = "card_revisions"
     def self.delete_cardless
-      left_join = "LEFT JOIN cards "\
+      left_join = "LEFT JOIN cards " \
                   "ON card_revisions.card_id = cards.id"
       TmpRevision.joins(left_join).where("cards.id IS NULL").delete_all
     end
@@ -55,7 +55,7 @@ class MoveRevisionsToActions < Cardio::Migration::Schema
 
   def create_create_action rev
     TmpAction.connection.execute(
-      "INSERT INTO card_actions (id, card_id, card_act_id, action_type) VALUES "\
+      "INSERT INTO card_actions (id, card_id, card_act_id, action_type) VALUES " \
       "('#{rev.id}', '#{rev.card_id}', '#{rev.id}', 0)")
     if (tmp_card = rev.tmp_card)
       TmpChange.connection.execute "INSERT INTO card_changes (card_action_id, field, value) VALUES

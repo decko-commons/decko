@@ -5,7 +5,7 @@ event :set_default_salt, :prepare_to_validate, on: :create do
 end
 
 event :set_default_status, :prepare_to_validate, on: :create do
-  field :status, content: (accounted&.try(:default_account_status) || "active")
+  field :status, content: accounted&.try(:default_account_status) || "active"
 end
 
 # ON UPDATE
@@ -30,7 +30,7 @@ end
 # INTEGRATION
 
 %i[password_reset_email verification_email welcome_email].each do |email|
-  event "send_#{email}".to_sym, :integrate, trigger: :required do
+  event :"send_#{email}", :integrate, trigger: :required do
     send_account_email email
   end
 end
@@ -65,10 +65,10 @@ def verifying_token success, failure
 end
 
 def requiring_token
-  if !(token = Env.params[:token])
-    errors.add :token, "is required"
-  else
+  if (token = Env.params[:token])
     yield token
+  else
+    errors.add :token, "is required"
   end
 end
 
