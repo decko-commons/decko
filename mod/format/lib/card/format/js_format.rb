@@ -2,6 +2,7 @@
 
 class Card
   class Format
+    # card format class for js (JavaScript) views
     class JsFormat < Format
       register :js
 

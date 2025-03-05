@@ -10,7 +10,7 @@ format :html do
 end
 
 def option_names
-  %w[unapproved unverified active blocked] # system
+  Right::Account::STATUS_OPTIONS
 end
 
 def ok_to_update?

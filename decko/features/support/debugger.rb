@@ -5,7 +5,7 @@ end
 
 # `FAST=1 cucumber` to stop on first failure
 After do |scenario|
-  Cucumber.wants_to_quit = ENV["FAST"] && scenario.failed?
+  Cucumber.wants_to_quit = ENV.fetch("FAST") && scenario.failed?
 end
 
 # `DEBUG=1 cucumber` to drop into debugger on failure
@@ -31,10 +31,10 @@ AfterStep do |_result, _step|
     @counter = 0
   end
   @counter += 1
-  # print "At step ##{@counter} of #{scenario.steps.count}. Press Return to"\
+  # print "At step ##{@counter} of #{scenario.steps.count}. Press Return to" \
   #      " execute..."
-  print "Press Return to execute next step...\n"\
-          "(d=debug, c=continue, s=step, a=abort)"
+  print "Press Return to execute next step...\n" \
+        "(d=debug, c=continue, s=step, a=abort)"
   case $stdin.getch
   when "d"
     binding.pry

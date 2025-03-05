@@ -44,7 +44,7 @@ class Card
 
         def module_key anchor_codes
           return pattern_code.to_s.camelize if anchorless?
-          return unless anchor_codes # not all anchors have codenames
+          return false unless anchor_codes # not all anchors have codenames
 
           ([pattern_code] + anchor_codes).map { |code| code.to_s.camelize }.join "::"
         end
