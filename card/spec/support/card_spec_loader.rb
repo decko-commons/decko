@@ -1,3 +1,4 @@
+# supports loading of rspec tests
 class CardSpecLoader
   class << self
     def init
@@ -13,7 +14,7 @@ class CardSpecLoader
 
         # Requires supporting ruby files with custom matchers and macros, etc,
         # in spec/support/ and its subdirectories.
-        Dir[File.join(Cardio.gem_root, "spec/support/matchers/*.rb")].sort.each do |f|
+        Dir[File.join(Cardio.gem_root, "spec/support/matchers/*.rb")].each do |f|
           require f
         end
         yield if block_given?
@@ -111,13 +112,15 @@ class CardSpecLoader
       require File.expand_path "card_shared_examples", __dir__
       %w[shared_examples shared_context].each do |dirname|
         Cardio::Mod.dirs.each "spec/#{dirname}" do |shared_ex_dir|
-          Dir["#{shared_ex_dir}/**/*.rb"].sort.each { |f| require f }
+          Dir["#{shared_ex_dir}/**/*.rb"].each { |f| require f }
         end
       end
     end
 
     def deck_root
-      root = ENV.fetch("DECK_ROOT", nil) || ENV.fetch("RAILS_ROOT", nil) || ENV.fetch("PWD", nil)
+      root = ENV.fetch("DECK_ROOT", nil) ||
+             ENV.fetch("RAILS_ROOT", nil) ||
+             ENV.fetch("PWD", nil)
       raise StandardError, "No DECK_ROOT given. Can't load environment." unless root
 
       root

@@ -8,6 +8,7 @@ AllCops:
     - "mod/*/{lib,assets}/{script,javascript}/*.js"
     - "mod/*/{data/files,public,vendor}/**/*"
     - "card/mod/core/data/**/*"
+    - "decko/Guardfile"
 
 Layout/DotPosition:
   EnforcedStyle: leading
