@@ -30,7 +30,7 @@ class Card
       end
 
       def field field_name, args={}
-        if (sf = subcards.field field_name)
+        if (sf = subfield field_name)
           sf.assign_attributes args
           sf
         else
@@ -39,11 +39,19 @@ class Card
       end
 
       def field_content field_name
-        subcards.field(field_name)&.content
+        subfield(field_name)&.content
       end
 
-      def field? tag
-        fetch(tag) || subcards.field(tag).present?
+      def subfield field_name
+        subcards.field field_name
+      end
+
+      def subfield? field_name
+        subfield(field_name).present?
+      end
+
+      def field? field_name
+        fetch(field_name) || subfield?(field_name)
       end
 
       def drop_subcard name_or_card
