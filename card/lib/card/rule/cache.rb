@@ -1,5 +1,6 @@
 class Card
   module Rule
+    # a cache of all card rules in the deck
     class Cache
       class_attribute :sql, :cache_key
 

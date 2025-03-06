@@ -19,7 +19,7 @@ module Cardio
         @verbose = !verbose.nil?
       end
 
-      def up
+      def run
         handle_up do
           edibles.each do |edible|
             track edible do
@@ -35,10 +35,10 @@ module Cardio
       private
 
       # if output mod given,
-      def handle_up
+      def handle_up &block
         Card::Cache.reset_all
         Card::Mailer.perform_deliveries = false
-        Card::Auth.as_bot { yield }
+        Card::Auth.as_bot(&block)
         :success
       rescue StandardError => e
         e.message

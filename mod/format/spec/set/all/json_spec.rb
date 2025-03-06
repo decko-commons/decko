@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 
 RSpec.describe Card::Set::All::Json do
-  include_context "json context"
+  include_context "with json context"
   specify "nucleus view" do
     expect_view(:nucleus, format: :json)
       .to eq nucleus_values
@@ -36,9 +36,8 @@ RSpec.describe Card::Set::All::Json do
 
     context "with external link" do
       def card_subject
-        @card ||= create "external link",
-                         content: "[[http://xkcd.com|link text]]" \
-                                  "[[/Z]]"
+        @card_subject ||= create "external link",
+                                 content: "[[http://xkcd.com|link text]][[/Z]]"
       end
 
       it "has link urls" do

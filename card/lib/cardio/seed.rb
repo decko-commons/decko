@@ -64,7 +64,7 @@ module Cardio
 
       def write_seed_file table
         filename = File.join default_path, "#{table}.yml"
-        File.open(filename, "w") { |file| file.write yield }
+        File.write(filename, yield)
       end
 
       def yamlize_records table

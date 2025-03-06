@@ -75,6 +75,7 @@ end
 
 def action_from_id action_id
   return unless action_id.is_a?(Integer) || action_id =~ /^\d+$/
+
   # if not an integer, action_id is probably a mod (e.g. if you request
   # files/:logo/standard.png)
 

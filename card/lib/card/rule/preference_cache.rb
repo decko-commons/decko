@@ -1,5 +1,7 @@
 class Card
   module Rule
+    # a preference is a user-specific rule.
+    # This caches all preferences in the deck
     class PreferenceCache < Cache
       self.sql = %(
         SELECT

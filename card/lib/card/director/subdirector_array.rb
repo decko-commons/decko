@@ -1,5 +1,6 @@
 class Card
   class Director
+    # extends array with special methods for handling lists of card subdirectors
     class SubdirectorArray < Array
       def self.initialize_with_subcards parent
         dir_array = new(parent)

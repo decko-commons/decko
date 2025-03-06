@@ -58,7 +58,7 @@ class Card
 
             views[mod][alias_to] || begin
               raise "cannot find #{alias_to} view in #{mod}; " \
-                      "failed to alias #{view} from #{self}"
+                    "failed to alias #{view} from #{self}"
             end
           end
         end
