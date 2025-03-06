@@ -46,7 +46,7 @@ module Cardio
       private
 
       def update_seed?
-        ENV.fetch("CARD_UPDATE_SEED", nil)
+        ENV["CARD_UPDATE_SEED"]
       end
 
       # TODO: make this more robust. only handles simple case of extra seed tables

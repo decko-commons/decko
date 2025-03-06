@@ -32,7 +32,7 @@ module Cardio
       def determine_repo_path
         @repo_path_determined ? (return nil) : (@repo_path_determined = true)
         path = options["repo-path"]
-        path = ENV.fetch("DECKO_REPO_PATH") if path.blank?
+        path = ENV["DECKO_REPO_PATH"] if path.blank?
         path = prompt_for_repo_path if path.blank? && platypus?
         path.to_s
       end
