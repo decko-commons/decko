@@ -1,5 +1,6 @@
 #! no set module
 
+# links to begin following card sets
 class StartFollowLink < FollowLink
   def initialize format
     @rule_content = "*always"

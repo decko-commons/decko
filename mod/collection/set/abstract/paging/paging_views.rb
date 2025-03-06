@@ -15,9 +15,9 @@ format do
   end
 end
 
-format :html do
-  PAGE_LI_CLASS = { ellipses: "disabled", current: "active" }.freeze
+PAGE_LI_CLASS = { ellipses: "disabled", current: "active" }.freeze
 
+format :html do
   def with_paging path_args={}
     with_paging_path_args path_args do
       output [yield(@paging_path_args), render_paging]

@@ -46,7 +46,7 @@ module Cardio
 
       def in_application_subdirectory? path=Pathname.new(Dir.pwd)
         File.exist?(File.join(path, script)) ||
-          !path.root? && in_application_subdirectory?(path.parent)
+          (!path.root? && in_application_subdirectory?(path.parent))
       end
     end
 

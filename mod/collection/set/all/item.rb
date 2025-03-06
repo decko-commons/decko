@@ -1,6 +1,6 @@
 # ITEM LISTS
 
-# Note: while most methods for returning lists of items can handle arguments,
+# NOTE: while most methods for returning lists of items can handle arguments,
 # they are most commonly used without them.
 
 # @return [Array] list of Card::Name objects

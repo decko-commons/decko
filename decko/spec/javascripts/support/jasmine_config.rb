@@ -1,11 +1,5 @@
 # -*- encoding : utf-8 -*-
 
-module Jasmine
-  class Config
-    # Add your overrides or custom config code here
-  end
-end
-
 # Note - this is necessary for rspec2, which has removed the backtrace
 module Jasmine
   class SpecBuilder
@@ -18,5 +12,9 @@ module Jasmine
         me.report_spec(spec["id"])
       end
     end
+  end
+
+  class Config
+    # Add your overrides or custom config code here
   end
 end

@@ -39,7 +39,7 @@ class Card
         # list of codenames of pattern cards
         # @return [Array <Symbol>]
         def codes
-          @codes ||= concrete.map(&:pattern_code).to_set
+          @codes ||= concrete.to_set(&:pattern_code)
         end
 
         # list of lists of codenames in pattern load order

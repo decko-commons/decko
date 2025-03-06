@@ -32,7 +32,7 @@ def assigns_type?
   # for example, X+*type+*structure governs all cards of type X,
   # but the content rule does not (in fact cannot) have the type X.
   pattern_code = Card.quick_fetch(name.trunk_name.tag_name)&.codename
-  return unless pattern_code && (set_class = Set::Pattern.find pattern_code)
+  return false unless pattern_code && (set_class = Set::Pattern.find pattern_code)
 
   set_class.assigns_type
 end

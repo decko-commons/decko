@@ -86,7 +86,7 @@ class Card
 
         rest_value = match[0]
         if attrib == "class"
-          rest_value.split(/\s+/).select { |s| s =~ /^w-/i }.join(" ")
+          rest_value.split(/\s+/).grep(/^w-/i).join " "
         else
           rest_value
         end

@@ -152,7 +152,7 @@ Decko::RestSpecHelper.describe_api do
   describe "#update" do
     before { login_as "joe_user" }
 
-    it "works" do
+    it "updates the content" do
       patch :update, xhr: true, params: { mark: "Sample RichHtml",
                                           card: { content: "brand new content" } }
       assert_response :success, "edited card"

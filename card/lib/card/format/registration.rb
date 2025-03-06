@@ -1,5 +1,7 @@
 class Card
   class Format
+    # handles format registry, tracking which formats (html, css, json, etc) are
+    # available
     module Registration
       def register format
         registered << format.to_s
@@ -7,11 +9,11 @@ class Card
       end
 
       def new card, opts={}
-        if self != Format
-          super
-        else
+        if self == Format
           klass = format_class opts
           self == klass ? super : klass.new(card, opts)
+        else
+          super
         end
       end
 

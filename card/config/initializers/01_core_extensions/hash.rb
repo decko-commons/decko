@@ -1,6 +1,9 @@
 module CoreExtensions
+  # extensions for Ruby Hashes
   module Hash
+    # extend ruby Hash class
     module ClassMethods
+      # nested ruby hashes
       module Nesting
         # create hash with default nested structures
         # @example
@@ -21,6 +24,7 @@ module CoreExtensions
       end
     end
 
+    # special ruby hash merging behavior
     module Merging
       # attach CSS classes
       # @example
