@@ -1,8 +1,7 @@
 # -*- encoding : utf-8 -*-
 
-# codename retrieval methods for cards
 class Card
-  # @return [Symbol]
+    # @return [Symbol]
   def codename
     super&.to_sym
   end

@@ -4,6 +4,7 @@
       %button.btn.btn-secondary.input-group-text.p-1._nest-delete-option{:type => "button", class: [!name && "d-none"]}
         %small.text-muted
           = icon_tag :remove
-      = nest_option_name_select name, level, view_selectable, template
+      = nest_option_name_select selected: name, level: level,
+                                include_view_option: view_selectable, template: template
   .col-6._nest-option-value-col
     = nest_option_value_select value

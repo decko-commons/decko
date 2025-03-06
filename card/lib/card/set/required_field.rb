@@ -1,5 +1,8 @@
 class Card
   module Set
+    # supports requiring field cards
+    # for example, if A requires a B field, then you cannot create A without also
+    # creating A+B
     class RequiredField
       attr_reader :parent_set, :field, :options
 

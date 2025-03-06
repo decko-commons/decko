@@ -1,7 +1,11 @@
+RELEVANT_FIELDS_BY_ACTION = { create: %i[cardtype content],
+                              update: %i[name cardtype content],
+                              delete: %i[content] }.freeze
+
 format do
   view :list_of_changes, denial: :blank, cache: :never do
     action = notification_action voo.action_id
-    relevant_fields(action).map do |type|
+    RELEVANT_FIELDS_BY_ACTION[action.action_type].map do |type|
       edit_info_for(type, action)
     end.compact.join
   end
@@ -48,14 +52,6 @@ format do
     card_url path(mark: [active_notice(:follower), :follow].cardname,
                   action: :update,
                   card: { subcards: { rule_name => :never.cardname } })
-  end
-
-  def relevant_fields action
-    case action.action_type
-    when :create then %i[cardtype content]
-    when :update then %i[name cardtype content]
-    when :delete then %i[content]
-    end
   end
 
   def name_before_action action

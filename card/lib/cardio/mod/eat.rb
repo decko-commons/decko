@@ -19,7 +19,7 @@ module Cardio
         @verbose = !verbose.nil?
       end
 
-      def up
+      def run
         handle_up do
           edibles.each do |edible|
             track edible do
@@ -35,10 +35,10 @@ module Cardio
       private
 
       # if output mod given,
-      def handle_up
+      def handle_up &block
         Card::Cache.reset_all
         Card::Mailer.perform_deliveries = false
-        Card::Auth.as_bot { yield }
+        Card::Auth.as_bot(&block)
         :success
       rescue StandardError => e
         e.message
@@ -76,7 +76,8 @@ module Cardio
         case value
         when /^[+-]\d+$/
           # plus or minus an integer (safe to eval)
-          eval "#{Time.now.to_i} #{value}", binding, __FILE__, __LINE__
+          eval "#{Time.now.to_i} #{value}", # 1741296981 +1  (e.g.)
+               binding, __FILE__, __LINE__
         when Integer
           value
         else

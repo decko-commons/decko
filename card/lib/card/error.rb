@@ -78,6 +78,7 @@ class Card
     class BadQuery < UserError
     end
 
+    # error with url
     class BadAddress < UserError
       self.status_code = 404
       self.view = :bad_address

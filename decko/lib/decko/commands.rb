@@ -3,6 +3,7 @@ ENV["CARDIO_COMMANDS"] = "NO_RUN"
 require "cardio/command"
 
 module Decko
+  # Decko commands extend Cardio::Command to include tasks involving a webserver
   class Commands < Cardio::Command
     Cardio::Command.bin_name = "decko"
 

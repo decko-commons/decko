@@ -1,4 +1,6 @@
 #! no set module
+
+# handles special radios for choosing set to which a rule applies
 class RuleSetRadio
   attr_reader :format
 
@@ -82,6 +84,6 @@ class RuleSetRadio
   def narrower_warning_message
     plural = @narrower_rules.size > 1 ? "s" : ""
     "This rule will not have any effect on this card unless you delete " \
-    "the narrower rule#{plural} for #{@narrower_rules.to_sentence}."
+      "the narrower rule#{plural} for #{@narrower_rules.to_sentence}."
   end
 end

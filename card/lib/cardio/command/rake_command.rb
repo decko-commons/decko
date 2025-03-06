@@ -6,6 +6,7 @@ module Cardio
     # enhance standard rake command with some decko/card -specific options
     class RakeCommand < CommandBase
       def initialize gem, command, args=[]
+        super()
         @command = command
         @task = "#{gem}:#{command}"
         @args = [args].flatten
@@ -34,7 +35,7 @@ module Cardio
         task_cmd = "bundle exec rake #{@task}"
         task_cmd += " -- #{escape_args(@args).join ' '}" unless @args.empty?
         puts task_cmd
-        return [task_cmd] if !@envs || @envs.empty?
+        [task_cmd] if !@envs || @envs.empty?
 
         # @envs.map do |env|
         #   "env RAILS_ENV=#{env} #{task_cmd}"

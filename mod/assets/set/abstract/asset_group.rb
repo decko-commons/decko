@@ -20,6 +20,7 @@ end
 
 def new_asset_file_card path, name=::File.basename(path)
   return unless (constants = new_asset_constants path)
+
   asset_card = Card.new(name: name, type_id: constants[:type_id], content: path)
   asset_card.include_set_module constants[:set_module]
   asset_card.minimize if @minimize
