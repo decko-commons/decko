@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 
 class Card
-    # @return [Symbol]
+  # @return [Symbol]
   def codename
     super&.to_sym
   end
