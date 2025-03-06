@@ -72,7 +72,10 @@ class Card
       end
 
       def define_trait_card trait, opts
-        define_method "#{trait}_card" do
+        define_method "#{trait}_card" do |sub=false|
+          if sub && (card = subfield trait)
+            return card
+          end
           # opts = opts.clone.merge supercard: card
           fetch trait.to_sym, new: opts.clone, eager_cache: true
         end
