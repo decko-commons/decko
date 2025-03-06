@@ -5,6 +5,7 @@ def self.included host_class
   host_class.include OverrideCodeFile
 end
 
+# method overrides wrt bootstrap codefile
 module OverrideCodeFile
   def content
     stylesheets.join "\n"

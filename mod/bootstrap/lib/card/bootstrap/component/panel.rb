@@ -1,6 +1,7 @@
 class Card
   class Bootstrap
     class Component
+      # support class for bootstrap panels
       class Panel < OldComponent
         def_div_method :panel, "card"
         def_div_method :heading, "card-header"

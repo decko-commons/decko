@@ -165,8 +165,8 @@ class Card
   end
 
   # one failed integration event should not harm others.
-  def rescuing_integration
-    Error.rescue_card(self) { yield }
+  def rescuing_integration &block
+    Error.rescue_card(self, &block)
   ensure
     true
   end

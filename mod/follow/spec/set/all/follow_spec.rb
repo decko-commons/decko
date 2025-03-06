@@ -73,12 +73,12 @@ RSpec.describe Card::Set::All::Follow do
                          args.reverse_merge(following: true, text: "unfollow")
     end
 
-    #  href="/card/update/Home+*self+philipp+*follow?"\
-    #       "card%5Bcontent%5D=%5B%5Bnever%5D%5D&"\
+    #  href="/card/update/Home+*self+philipp+*follow?" \
+    #       "card%5Bcontent%5D=%5B%5Bnever%5D%5D&" \
     #       "success%5Bid%5D=Home&success%5Bview%5D=follow"
     def assert_follow_view name, args
       args[:user] ||= "Big_Brother"
-      #      href = "/card/update/#{args[:add_set].to_name.url_key}+"\
+      #      href = "/card/update/#{args[:add_set].to_name.url_key}+" \
       #             "#{args[:user]}+*follow?"
       #      href += CGI.escape("card[content]") + '='
       #      href +=

@@ -9,11 +9,11 @@ RSpec.describe Card::Bootstrap do
 
   it "loads components" do
     is_expected.to respond_to(:form)
-    expect(subject.form {}).to eq "<form></form>"
+    expect(subject.form { nil }).to eq "<form></form>"
   end
 
   describe "html" do
-    it "renderes plain text" do
+    it "renders plain text" do
       # expect(render { html "test" }).to eq "test"
     end
   end

@@ -18,6 +18,7 @@ end
 
 protected
 
+# extends Card Class
 module ClassMethods
   def assign_or_newish name, attributes, fetch_opts={}
     if (known_card = Card.fetch(name, fetch_opts))
@@ -47,10 +48,10 @@ def prepare_assignment_args args
   args
 end
 
-def assign_with_set_modules args
+def assign_with_set_modules args, &block
   return yield unless args[:name] || args[:type_id]
 
-  refresh_set_modules { yield }
+  refresh_set_modules(&block)
 end
 
 def assign_with_subcards args
