@@ -5,6 +5,7 @@ load File.expand_path("reference.rb", __dir__)
 class Card
   class Content
     module Chunk
+      # handle chunks of card content that are links
       class Link < Reference
         CODE = "L".freeze # L for "Link"
         attr_reader :link_text

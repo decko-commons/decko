@@ -16,6 +16,8 @@ class Card
       # query keywords as name
 
       require File.expand_path("reference", __dir__)
+
+      # handle chunks of CQL query content that refer to other cards
       class QueryReference < Reference
         QUERY_KEYWORDS = ::Set.new(
           (

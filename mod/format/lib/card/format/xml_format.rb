@@ -2,6 +2,7 @@
 
 class Card
   class Format
+    # card format class for xml (extensible markup language) views
     class XmlFormat < DataFormat
       register :xml
 

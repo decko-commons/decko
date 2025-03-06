@@ -26,6 +26,7 @@ RSpec.describe Card::Bootstrap, "builder" do
   end
 end
 
+# support class for testing bootstrap components
 class BuilderTest < Card::Bootstrap::Component
   def_tag_method :test_tag, "test-class" do |_html, opts, _extra_args|
     before { tag :before, "prepend-class" }

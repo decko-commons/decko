@@ -90,6 +90,7 @@ class Card
       end
 
       # FIXME: DRY, merge these two into one class
+      # handle chunks of card content that refer to email addresses
       class EmailUri < Uri
         PREPEND_STR = "mailto:".freeze
         EMAIL = '[a-zA-Z\\d](?:[-a-zA-Z\\d.]*[a-zA-Z\\d])?\\@'.freeze
@@ -107,6 +108,7 @@ class Card
         end
       end
 
+      # handle chunks of card content that refer to web hosts
       class HostUri < Uri
         GENERIC = "aero|biz|com|coop|edu|gov|info|int|mil|" \
                   "museum|name|net|org".freeze

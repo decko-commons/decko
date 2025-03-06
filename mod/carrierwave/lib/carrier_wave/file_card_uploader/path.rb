@@ -1,8 +1,10 @@
+# extend core module from carrierwave gem
 module CarrierWave
   def self.tmp_path
     @tmp_path ||= Card.paths["tmp"].existent.first
   end
 
+  # custom uploader class for cards
   class FileCardUploader
     # path-related methods for uploader
     module Path

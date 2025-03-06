@@ -3,6 +3,7 @@
 require "open-uri"
 
 class Card
+  # extends ActionMailer with card config
   class Mailer < ActionMailer::Base
     class << self
       def new_mail *args, &block

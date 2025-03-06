@@ -93,10 +93,10 @@ class Card
         def wrong_stage opts
           return false if director.stage_ok? opts
 
-          if !stage
-            "phase method #{method} called outside of event phases"
-          else
+          if stage
             "#{opts.inspect} method #{method} called in stage #{stage}"
+          else
+            "phase method #{method} called outside of event phases"
           end
         end
 

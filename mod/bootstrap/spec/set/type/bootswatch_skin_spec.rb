@@ -4,14 +4,15 @@ CUSTOM_CSS = "body{background-color:#123}".freeze
 YETI_THEME_CSS = "background-color:#f6f6f6;".freeze
 
 RSpec.describe Card::Set::Type::BootswatchSkin do
-  check_views_for_errors
-
   let(:customized_skin) { "customized yeti skin".card }
   let(:style_with_customized_theme) { "*colors+*self+*style".card }
 
   def generated_css
     File.read(style_with_customized_theme.asset_output_path)
   end
+
+  # the bootswatch skin has the word error in it, so the following doesn't work
+  # check_views_for_errors
 
   it "adds bootswatch styles to asset output" do
     style_with_customized_theme.update_asset_output

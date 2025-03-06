@@ -1,6 +1,12 @@
 # -*- encoding : utf-8 -*-
 
 RSpec.describe Card::Set::Type::Set do
+  check_views_for_errors
+
+  def card_subject
+    Card.fetch "User+*type"
+  end
+
   describe "#compound_only?" do
     it "identifies sets that only apply to plus cards", :aggregate_failures do
       expect(Card.fetch("*all")).not_to be_compound_only
@@ -58,6 +64,16 @@ RSpec.describe Card::Set::Type::Set do
         with_text(/^\{\{.+\}\}$/)
         with_tag "a", "modal_nest_rules"
       end
+    end
+  end
+
+  describe "#nest_editor_field_related_settings" do
+    it "finds settings based on set", :as_bot do
+      create ["characters", :right, :input_type], content: "select"
+      create ["characters", :right, :default], type_id: Card::ListID
+      card = Card.new name: "RichText+characters+*type plus right"
+      expect(card.nest_editor_field_related_settings)
+        .to eq %i[default help input_type content_options content_option_view]
     end
   end
 end

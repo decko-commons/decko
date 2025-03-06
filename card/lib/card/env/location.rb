@@ -1,9 +1,8 @@
 class Card
   module Env
+    # shared methods for handling paths/urls
     module Location
       # card_path    makes a relative path site-absolute (if not already)
-      # card_url     makes it a full url (if not already)
-
       def card_path rel_path
         unless rel_path.is_a? String
           Rails.logger.warn "Pass only strings to card_path. " \
@@ -16,6 +15,7 @@ class Card
         end
       end
 
+      # card_url     makes it a full url (if not already)
       def card_url rel
         rel.match?(/^https?:/) ? rel : "#{Env.origin}#{card_path rel}"
       end

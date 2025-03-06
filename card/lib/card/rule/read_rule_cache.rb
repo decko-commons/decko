@@ -1,5 +1,8 @@
 class Card
   module Rule
+    # the read rule cache, unlike the standard rule cache, is optimized for lookups
+    # based on the rules' values, because this is needed for high-performance
+    # permission-checking
     class ReadRuleCache < Cache
       self.sql = %(
         SELECT

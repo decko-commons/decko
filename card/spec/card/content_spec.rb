@@ -17,7 +17,7 @@ RSpec.describe Card::Content do
   end
 
   def nonstring_classes
-    classes.reject { |c| String == c }
+    classes.reject { |c| c == String }
   end
 
   def all_classes_pass_check_proc
@@ -63,16 +63,21 @@ RSpec.describe Card::Content do
       let :example do
         {
           content: "Some Literals: \\[{I'm not| a link]}, and " \
-            '\\{{This Card|Is not Nestd}}' \
-            ", but " \
-            "{{this is}}" \
-            ", and some tail",
+                   '\\{{This Card|Is not Nestd}}' \
+                   ", but " \
+                   "{{this is}}" \
+                   ", and some tail",
+
           rendered: ["Some Literals: \\[{I'm not| a link]}, and ",
                      "<span>{</span>{This Card|Is not Nestd}}",
+
                      ", but ",
+
                      { options: { nest_name: "this is",
                                   nest_syntax: "this is" } },
+
                      ", and some tail"],
+
           classes: chunk_constants(String, :EscapedLiteral, String, :Nest, String)
         }
       end
@@ -99,25 +104,34 @@ RSpec.describe Card::Content do
       let :example do
         {
           content: "Some Links and includes: [[the card|the text]], " \
-            "and {{This Card|Is Nestd}}{{this too}} " \
-            "and [[http://external.decko.org/path|link text]]" \
-            "{{Nestd|open}}",
+                   "and {{This Card|Is Nestd}}{{this too}} " \
+                   "and [[http://external.decko.org/path|link text]]" \
+                   "{{Nestd|open}}",
+
           rendered: ["Some Links and includes: ",
+
                      '<a class="wanted-card" ' \
-                       'href="/the_card">' \
-                       '<span class="card-title" title="the text">the text</span></a>',
+                     'href="/the_card">' \
+                     '<span class="card-title" title="the text">the text</span></a>',
+
                      ", and ",
+
                      { options: { view: "Is Nestd",
                                   nest_name: "This Card",
                                   nest_syntax: "This Card|Is Nestd" } },
+
                      { options: { nest_name: "this too",
                                   nest_syntax: "this too" } },
+
                      " and ",
+
                      '<a target="_blank" class="external-link" ' \
-                       'href="http://external.decko.org/path">link text</a>',
+                     'href="http://external.decko.org/path">link text</a>',
+
                      { options: { view: "open",
                                   nest_name: "Nestd",
                                   nest_syntax: "Nestd|open" } }],
+
           classes: chunk_constants(String, :Link, String, :Nest, :Nest,
                                    String, :Link, :Nest)
         }
@@ -150,27 +164,38 @@ RSpec.describe Card::Content do
                      'href="http://a.url.com/">http://a.url.com/</a>',
 
                      " More urls: ",
+
                      '<a target="_blank" class="external-link" ' \
                      'href="http://decko.com/a/path/to.html">' \
                      "decko.com/a/path/to.html</a>",
 
                      " ",
+
                      '<a target="_blank" class="external-link" ' \
-                       'href="http://localhost:2020/path?cgi=foo&amp;bar=baz">' \
-                       "http://localhost:2020/path?cgi=foo&bar=baz</a>",
+                     'href="http://localhost:2020/path?cgi=foo&amp;bar=baz">' \
+                     "http://localhost:2020/path?cgi=foo&bar=baz</a>",
+
                      " ",
+
                      '<a target="_blank" class="external-link" ' \
-                       'href="http://brain.org/Home">extra</a>',
+                     'href="http://brain.org/Home">extra</a>',
+
                      " [ ",
+
                      '<a target="_blank" class="external-link" ' \
-                       'href="http://gerry.decko.com/a/path">' \
-                       "http://gerry.decko.com/a/path</a>",
+                     'href="http://gerry.decko.com/a/path">' \
+                     "http://gerry.decko.com/a/path</a>",
+
                      " ] { ",
+
                      '<a target="_blank" class="external-link" ' \
-                       'href="https://brain.org/more?args">' \
-                       "https://brain.org/more?args</a>",
+                     'href="https://brain.org/more?args">' \
+                     "https://brain.org/more?args</a>",
+
                      " } "],
-          text_rendered: ["Some URIs and Links: ", "http://a.url.com/",
+
+          text_rendered: ["Some URIs and Links: ",
+                          "http://a.url.com/",
                           " More urls: ",
                           "decko.com/a/path/to.html[http://decko.com/a/path/to.html]",
                           " ",
@@ -254,6 +279,7 @@ RSpec.describe Card::Content do
                                    String, :Uri, String, :Uri, String, :Link)
         }
       end
+
       it "finds uri chunks (b)" do
         # tried some tougher cases that failed, don't know the spec, so
         # hard to form better tests for URIs here

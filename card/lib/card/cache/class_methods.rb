@@ -4,8 +4,7 @@ class Card
     module ClassMethods
       include Populate
 
-      attr_accessor :no_renewal
-      attr_accessor :counter
+      attr_accessor :no_renewal, :counter
 
       # create a new cache for the ruby class provided
       # @param klass [Class]

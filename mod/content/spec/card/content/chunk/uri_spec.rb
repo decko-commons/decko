@@ -1,6 +1,8 @@
 # -*- encoding : utf-8 -*-
 
 RSpec.describe Card::Content::Chunk::Uri do
+  let(:dummy_card) { Card.new(name: "dummy") }
+
   it "test_non_matches" do
     no_match_uri "There is no URI here"
     no_match_uri "One gemstone is the garnet:reddish in colour, like ruby"
@@ -275,8 +277,6 @@ RSpec.describe Card::Content::Chunk::Uri do
   end
 
   private
-
-  let(:dummy_card) { Card.new(name: "dummy") }
 
   # Asserts a number of tests for the given type and text.
   def no_match type, test_text

@@ -1,8 +1,6 @@
-RELEVANT_FIELDS_BY_ACTION = {
-  create:  %i[cardtype content],
-  update:  %i[name cardtype content],
-  delete:  %i[content],
-}
+RELEVANT_FIELDS_BY_ACTION = { create: %i[cardtype content],
+                              update: %i[name cardtype content],
+                              delete: %i[content] }.freeze
 
 format do
   view :list_of_changes, denial: :blank, cache: :never do

@@ -48,14 +48,14 @@ module ActiveRecord # :nodoc: all
 end
 
 module ActiveJob
-  module Arguments #:nodoc: all
+  module Arguments # :nodoc: all
     class << self
       prepend Patches::ActiveJob::Arguments
     end
   end
 end
 
-module ActiveSupport #:nodoc: all
+module ActiveSupport # :nodoc: all
   module Callbacks
     class Callback
       prepend Patches::ActiveSupport::Callbacks::Callback
@@ -63,7 +63,7 @@ module ActiveSupport #:nodoc: all
   end
 end
 
-module Zeitwerk #:nodoc: all
+module Zeitwerk # :nodoc: all
   class Loader
     prepend Patches::Zeitwerk
   end

@@ -18,6 +18,7 @@ end
 
 protected
 
+# extends Card Class
 module ClassMethods
   def assign_or_newish name, attributes, fetch_opts={}
     if (known_card = Card.fetch(name, fetch_opts))

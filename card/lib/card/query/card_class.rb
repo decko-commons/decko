@@ -1,5 +1,6 @@
 class Card
   module Query
+    # query-related methods with which to extend Card class
     module CardClass
       def search spec, comment=nil, &block
         results = ::Card::Query.run(spec, comment)

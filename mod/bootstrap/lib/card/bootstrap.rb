@@ -1,4 +1,5 @@
 class Card
+  # base class for bootstrap component support
   class Bootstrap
     include Delegate
     extend ComponentLoader

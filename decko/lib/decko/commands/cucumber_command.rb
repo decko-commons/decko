@@ -5,6 +5,7 @@ require "cardio/mod/dirs"
 
 module Decko
   class Commands
+    # handling of `decko cucumber` command
     class CucumberCommand < Cardio::Command::CommandBase
       require "decko/commands/cucumber_command/parser"
 

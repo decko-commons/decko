@@ -63,7 +63,7 @@ RSpec.describe Card::Set::Type::SearchType do
   end
 
   describe "json" do
-    include_context "json context"
+    include_context "with json context"
 
     def card_subject
       sample_search
