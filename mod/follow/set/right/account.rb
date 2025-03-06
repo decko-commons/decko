@@ -6,6 +6,10 @@ def send_change_notice act, followed_set, follow_option
   end
 end
 
+def changes_visible? act
+  act.actions_affecting(act.card).any? { |action| action.card.ok? :read }
+end
+
 private
 
 def notify_of_act act
@@ -14,11 +18,4 @@ def notify_of_act act
       act.card, { to: email }, { auth: left, active_notice: yield }
     )
   end
-end
-
-def changes_visible? act
-  act.actions_affecting(act.card).each do |action|
-    return true if action.card.ok? :read
-  end
-  false
 end

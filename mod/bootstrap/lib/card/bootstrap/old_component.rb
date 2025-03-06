@@ -5,18 +5,13 @@ class Card
       include Content
 
       def initialize context, *args, &block
-        @context = context
-        @content = ["".html_safe]
-        @args = args
-        @child_args = []
-        @append = []
-        @wrap = []
-        @build_block = block
+        super
+        @html = nil
       end
 
       class << self
-        def render format, *args, &block
-          new(format, *args, &block).render
+        def render(format, ...)
+          new(format, ...).render
         end
 
         # Like add_tag_method but always generates a div tag

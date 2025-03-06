@@ -1,6 +1,9 @@
 module Cardio
   class Mod
     class Loader
+      # arguably overkill, the set pattern loader makes set patterns use
+      # directory/file-aware loading much as set patterns do. Since they are so
+      # rarely added, this optimization should probably be deprecated
       class SetPatternLoader < Loader
         def template_class
           SetPatternTemplate
@@ -17,6 +20,7 @@ module Cardio
         end
       end
 
+      # templates for set pattern modules
       class SetPatternTemplate < ModuleTemplate
         def to_const
           return Object if simple_load?

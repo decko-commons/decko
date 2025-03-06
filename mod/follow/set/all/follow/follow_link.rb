@@ -1,4 +1,6 @@
 #! no set module
+
+# handles links to follow card sets (base class)
 class FollowLink
   attr_reader :format, :rule_content, :link_text, :action, :css_class, :hover_text
 

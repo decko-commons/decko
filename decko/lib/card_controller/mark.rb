@@ -27,7 +27,8 @@ class CardController
 
     def implicit_mark
       case
-      when initial_setup
+      when initial_setup?
+        prepare_setup_card! # alters params
         ""
       when (name = mark_from_card_hash)
         name
@@ -52,11 +53,8 @@ class CardController
       params.dig :card, :name
     end
 
-    # alters params
-    def initial_setup
-      return unless Card::Auth.needs_setup? && Card::Env.html?
-
-      prepare_setup_card!
+    def initial_setup?
+      Card::Auth.needs_setup? && Card::Env.html?
     end
 
     def prepare_setup_card!

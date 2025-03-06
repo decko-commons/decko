@@ -56,8 +56,8 @@ format :html do
   end
 
   before :content_formgroups do
-    voo.edit_structure = [[:email, title: "email"],
-                          [:password, title: "password"]]
+    voo.edit_structure = [[:email, { title: "email" }],
+                          [:password, { title: "password" }]]
   end
 
   view :token_expiry do
@@ -67,6 +67,6 @@ end
 
 format :email_html do
   def mail context, fields
-    super context, fields.reverse_merge(to: card.email)
+    super(context, fields.reverse_merge(to: card.email))
   end
 end
