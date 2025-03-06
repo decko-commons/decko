@@ -8,7 +8,7 @@ RECAPTCHA_ERROR_CODES = {  # LOCALIZE
 
 def human?
   result = JSON.parse recaptcha_response
-  return if recaptcha_success?(result)
+  return false if recaptcha_success?(result)
 
   add_recaptcha_errors result["error-codes"]
 end
@@ -66,7 +66,7 @@ def handle_recaptcha_config_errors
 end
 
 def validate_recaptcha?
-  return unless Card::Codename.exist? :captcha
+  return false unless Card::Codename.exist? :captcha
 
   !@supercard && !:captcha.card.captcha_used? && recaptcha_on?
 end

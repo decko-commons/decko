@@ -5,17 +5,19 @@ require "cardio/mod/dirs"
 
 module Decko
   class Commands
+    # handling of `decko cucumber` command
     class CucumberCommand < Cardio::Command::CommandBase
       require "decko/commands/cucumber_command/parser"
 
       def initialize args
+        super()
         @decko_args, @cucumber_args = split_args args
         @opts = {}
         Parser.new(@opts).parse!(@decko_args)
       end
 
       def command
-        @cmd ||=
+        @command ||=
           "#{env_args} #{@opts[:executer] || 'bundle exec'} " \
           "cucumber #{require_args} #{feature_args} #{@cucumber_args.shelljoin}"
       end

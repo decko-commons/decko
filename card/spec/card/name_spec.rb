@@ -86,7 +86,8 @@ RSpec.describe Card::Name do
       end
 
       it "does interpret symbols and integers in arrays" do
-        expect { described_class.new ["A", :no_codename, 5] }.to raise_error
+        expect { described_class.new ["A", :no_codename, 5] }
+          .to raise_error(Card::Error::CodenameNotFound, "unknown codename: no_codename")
       end
 
       it "interprets ~ as id" do

@@ -1,4 +1,4 @@
-RSpec.describe Card::Set::Abstract::List do
+RSpec.describe Card::Set::Abstract::List::Events do
   let(:pointer) do
     Card.create! name: "tp", type: :pointer, content: "[[item1]]\n[[item2]]"
   end

@@ -1,6 +1,8 @@
 # -*- encoding : utf-8 -*-
 
 module Cardio
+  # Base class for both schema and transform card migrations,
+  # which are found in <mod>/data/schema and <mod>/data/transform respectively
   class Migration < ActiveRecord::Migration[6.1]
     include Assumption
     include Stamp

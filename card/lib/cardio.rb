@@ -8,6 +8,9 @@ ActiveSupport.on_load :after_card do
   Cardio::Mod.load
 end
 
+# Cardio is a quick loading module and is at the heart (get it?) of
+# card loading and configuration because it is useful long before the Card class is
+# (or card objects are)
 module Cardio
   extend Delaying
 

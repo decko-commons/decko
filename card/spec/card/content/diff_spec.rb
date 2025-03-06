@@ -129,7 +129,7 @@ RSpec.describe Card::Content::Diff do
     end
   end
 
-  context "html format" do
+  context "with html format" do
     let(:opts) { { diff_format: :html } }
 
     it "doesn't change a text without changes" do
@@ -150,16 +150,14 @@ RSpec.describe Card::Content::Diff do
       b = "<p>this is</p>\n<p> the new string</p>\n<p>around the world</p>"
 
       expect(diff(a, b)).to eq(
-        "<p>this #{del 'was'}#{ins 'is'}</p>"\
-        "\n<p> the " \
-        "#{del 'original'}#{ins 'new'}" \
-        " string</p>\n" \
+        "<p>this #{del 'was'}#{ins 'is'}</p>" \
+        "\n<p> the #{del 'original'}#{ins 'new'} string</p>\n" \
         "<p>#{ins 'around the world'}</p>"
       )
     end
   end
 
-  context "text format" do
+  context "with text format" do
     let(:opts) { { diff_format: :text } }
 
     it "removes html" do
@@ -179,7 +177,7 @@ RSpec.describe Card::Content::Diff do
     end
   end
 
-  context "raw format" do
+  context "with raw format" do
     let(:opts) { { diff_format: :raw } }
 
     it "excapes html" do
@@ -192,7 +190,7 @@ RSpec.describe Card::Content::Diff do
     end
   end
 
-  context "pointer format" do
+  context "with pointer format" do
     let(:opts) { { diff_format: :pointer } }
 
     it "removes square brackets" do

@@ -1,5 +1,6 @@
 class Card
   class Bootstrap
+    # support class for loading bootstrap components
     module ComponentLoader
       def load_components
         components.each do |component|

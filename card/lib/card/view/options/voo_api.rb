@@ -197,7 +197,7 @@ class Card
         # @param opts [Hash] options hash
         # @return [Hash] options Hash
         def foreign_options_in opts
-          foreign_opts = opts.reject { |k, _v| Options.all_keys.include? k }
+          foreign_opts = opts.except(*Options.all_keys)
           foreign_opts.empty? ? nil : foreign_opts
         end
       end
