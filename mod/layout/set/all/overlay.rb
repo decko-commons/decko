@@ -1,8 +1,8 @@
-format :html do
-  OVERLAY_CLOSE_OPTS = { class: "_close-overlay btn-sm",
-                         "data-bs-dismiss": "overlay",
-                         type: "button" }.freeze
+OVERLAY_CLOSE_OPTS = { class: "_close-overlay btn-sm",
+                       "data-bs-dismiss": "overlay",
+                       type: "button" }.freeze
 
+format :html do
   wrapper :overlay do |opts|
     class_up "card-slot", "_overlay d0-card-overlay bg-body", :single_use
     @set_keys = true

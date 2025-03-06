@@ -46,7 +46,7 @@ module Cardio
       private
 
       def update_seed?
-        ENV["CARD_UPDATE_SEED"]
+        ENV.fetch("CARD_UPDATE_SEED", nil)
       end
 
       # TODO: make this more robust. only handles simple case of extra seed tables
@@ -64,7 +64,7 @@ module Cardio
 
       def write_seed_file table
         filename = File.join default_path, "#{table}.yml"
-        File.open(filename, "w") { |file| file.write yield }
+        File.write(filename, yield)
       end
 
       def yamlize_records table

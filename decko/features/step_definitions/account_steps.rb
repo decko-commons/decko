@@ -15,8 +15,8 @@
 
 Given /^I am signed in as (.+)$/ do |account_name|
   accounted = Card[account_name]
-  visit "/update/:signin?card[subcards][%2B*email][content]="\
-    "#{accounted.account.email}&card[subcards][%2B*password][content]=joe_pass"
+  visit "/update/:signin?card[subcards][%2B*email][content]=" \
+        "#{accounted.account.email}&card[subcards][%2B*password][content]=joe_pass"
   # could optimize by specifying simple text success page
 end
 

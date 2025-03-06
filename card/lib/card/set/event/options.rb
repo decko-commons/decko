@@ -32,7 +32,7 @@ class Card
           return if invalid.empty?
 
           raise ArgumentError,
-                "invalid option#{'s' if invalid.size > 1} '#{invalid}' "\
+                "invalid option#{'s' if invalid.size > 1} '#{invalid}' " \
                   "for condition '#{condition}' in event '#{@event}'"
         end
 

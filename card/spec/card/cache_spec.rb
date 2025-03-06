@@ -34,7 +34,7 @@ RSpec.describe Card::Cache do
 
     it "#fetch" do
       block = proc { "hi" }
-      expect(store).to receive(:fetch).with("#{prefix}/foo", &block)
+      allow(store).to receive(:fetch).with("#{prefix}/foo", &block)
       cache.fetch("foo", &block)
     end
 
