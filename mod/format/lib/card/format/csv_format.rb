@@ -2,6 +2,7 @@
 
 class Card
   class Format
+    # card format class for csv (comma separated values) views
     class CsvFormat < Format
       register :csv
 

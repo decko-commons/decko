@@ -15,7 +15,7 @@ RSpec.describe Card::Format::Render do
 
     let(:cache_key) do
       "html-#{'Z'.card_id}-home_view:content;" \
-      "nest_name:Z;nest_syntax:Z|content;view:content;content:show"
+        "nest_name:Z;nest_syntax:Z|content;view:content;content:show"
     end
 
     it "can be changed with nest option" do

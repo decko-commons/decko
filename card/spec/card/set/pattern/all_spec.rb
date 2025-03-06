@@ -94,7 +94,7 @@ RSpec.describe Card::Set::Pattern::All do
       it "includes 6 sets when real" do
         plus_card.save!
         expect(plus_card.safe_set_keys)
-          .to eq("ALL ALL_PLUS TYPE-rich_text RIGHT-author TYPE_PLUS_RIGHT-book-author "\
+          .to eq("ALL ALL_PLUS TYPE-rich_text RIGHT-author TYPE_PLUS_RIGHT-book-author " \
                  "SELF-iliad-author")
       end
     end

@@ -28,7 +28,7 @@ module Cardio
         end
 
         def load_initializers
-          Cardio.config.paths["late/initializers"].existent.sort.each do |init|
+          Cardio.config.paths["late/initializers"].existent.each do |init|
             load init
           end
         end
@@ -36,7 +36,7 @@ module Cardio
         # load all files in directory
         # @param dir [String] directory name
         def load_dir dir
-          Dir["#{dir}/*.rb"].sort.each do |file|
+          Dir["#{dir}/*.rb"].each do |file|
             # puts Benchmark.measure("from #load_dir: rd: #{file}") {
             # require file
             # "require" breaks the reloading in development env
@@ -60,7 +60,7 @@ module Cardio
 
       def parts_from_path path
         # remove file extension and number prefixes
-        parts = path.gsub(/\.rb/, "").gsub(%r{(?<=\A|/)\d+_}, "").split(File::SEPARATOR)
+        parts = path.gsub(/\.rb$/, "").gsub(%r{(?<=\A|/)\d+_}, "").split(File::SEPARATOR)
         parts.map(&:camelize)
       end
 
@@ -72,7 +72,7 @@ module Cardio
 
       def each_file_in_dir base_dir, subdir=nil
         pattern = File.join(*[base_dir, subdir, "**/*.rb"].compact)
-        Dir.glob(pattern).sort.each do |abs_path|
+        Dir.glob(pattern).each do |abs_path|
           rel_path = abs_path.sub("#{base_dir}/", "")
           const_parts = parts_from_path rel_path
           yield abs_path, const_parts

@@ -1,4 +1,3 @@
-
 def mod_path modname
   Cardio::Mod.dirs.path modname
 end

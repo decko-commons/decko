@@ -1,4 +1,6 @@
 module Decko
+  # Decko::Engine inherits from Rails Engine
+  # see https://guides.rubyonrails.org/engines.html
   class Engine < ::Rails::Engine
     paths.add "config/routes.rb", with: "config/engine_routes.rb"
 

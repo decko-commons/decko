@@ -59,7 +59,7 @@ class Card
       end
 
       def test_event stage, opts={}, &block
-        event_name = :"test_event_#{@events.size}"
+        event_name = :"test_event#{@events.size}"
         @events << [stage, event_name]
         add_test_event stage, event_name, opts, &block
       end
