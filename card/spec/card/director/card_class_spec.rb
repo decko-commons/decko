@@ -50,6 +50,7 @@ RSpec.describe Card::Director::CardClass do
 
     context "with codename and name" do
       after { Card::Codename.reset_cache }
+
       let(:lookup_key) { :codename }
 
       context "with known codename" do

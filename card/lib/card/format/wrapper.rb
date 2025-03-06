@@ -1,5 +1,6 @@
 class Card
   class Format
+    # handles view wrapping, including with layouts and slots
     module Wrapper
       def with_wrapper
         if voo.layout.present?

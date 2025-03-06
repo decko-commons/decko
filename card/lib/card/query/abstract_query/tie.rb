@@ -107,7 +107,7 @@ class Card
         end
 
         def list_of_ids? val
-          return unless val.is_a? Array
+          return false unless val.is_a? Array
 
           !val.find { |v| !id_from_val v }
         end

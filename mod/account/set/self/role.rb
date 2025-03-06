@@ -8,6 +8,7 @@ class << self
   def role_ids user_id
     role_hash.each_with_object([]) do |(role_id, member_ids), all_role_ids|
       next unless member_ids.include? user_id
+
       all_role_ids << role_id
     end
   end

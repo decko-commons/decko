@@ -28,9 +28,9 @@ module Cardio
             format_name = Regexp.last_match(1)
             format_name = format_name.blank? ? nil : format_name.to_sym
             "module #{module_name format_name}; " \
-            "module_parent.send :register_set_format, "\
-            "#{format_class format_name}, self; "\
-            "extend Card::Set::AbstractFormat"
+              "module_parent.send :register_set_format, " \
+              "#{format_class format_name}, self; " \
+              "extend Card::Set::AbstractFormat"
           end
         end
 
@@ -92,7 +92,7 @@ module Cardio
         def pattern_label *anchors
           anchor_count = pattern_class.anchor_parts_count
           label = pattern_class.label(pattern_anchor(*anchors, anchor_count))
-          remainder = anchors[anchor_count..-1]
+          remainder = anchors[anchor_count..]
           label += " (#{remainder.join ', '})" if remainder.any?
           label
         end
