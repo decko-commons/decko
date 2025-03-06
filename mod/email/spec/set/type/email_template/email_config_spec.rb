@@ -18,8 +18,8 @@ RSpec.describe Card::Set::Type::EmailTemplate::EmailConfig do
 
   before do
     Card::Auth.signin Card::WagnBotID
-    chunk_test = "Url(decko.org) Link([[https://decko.org|Decko]])"\
-                 " Inclusion({{B|name}}) Card link([[A]])"
+    chunk_test = "Url(decko.org) Link([[https://decko.org|Decko]]) " \
+                 "Inclusion({{B|name}}) Card link([[A]])"
     Card.create! name: email_name, type: :email_template, subcards: {
       "+*to" => "joe@user.com",
       "+*from" => "from@user.com",
@@ -123,13 +123,13 @@ RSpec.describe Card::Set::Type::EmailTemplate::EmailConfig do
     end
 
     it "renders url" do
-      is_expected.to include 'Url(<a target="_blank" class="external-link" '\
-                               'href="http://decko.org">decko.org</a>)'
+      is_expected.to include 'Url(<a target="_blank" class="external-link" ' \
+                             'href="http://decko.org">decko.org</a>)'
     end
 
     it "renders link" do
-      is_expected.to include 'Link(<a target="_blank" class="external-link" '\
-                               'href="https://decko.org">Decko</a>)'
+      is_expected.to include 'Link(<a target="_blank" class="external-link" ' \
+                             'href="https://decko.org">Decko</a>)'
     end
 
     it "renders nest" do
@@ -138,7 +138,7 @@ RSpec.describe Card::Set::Type::EmailTemplate::EmailConfig do
 
     it "renders absolute urls" do
       Cardio.with_config deck_origin: "http://www.fake.com" do
-        is_expected.to include 'Card link(<a class="known-card" '\
+        is_expected.to include 'Card link(<a class="known-card" ' \
                                'href="http://www.fake.com/A">' \
                                '<span class="card-title" title="A">A</span></a>)'
       end
@@ -195,7 +195,7 @@ RSpec.describe Card::Set::Type::EmailTemplate::EmailConfig do
       expect(expected).to include "Nobody expects the Spanish Inquisition"
     end
 
-    it "handles inline image nests in html message  in core view" do
+    it "handles inline image nests in html message in core view" do
       Cardio.with_config deck_origin: "http://testhost" do
         yeti_img = "http://testhost/files/:yeti_skin+:image/bootstrap-medium.png"
         update_field "*html message", content: "Triggered by {{:yeti_skin+:image|core}}"

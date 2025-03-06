@@ -1,5 +1,6 @@
 class Card
   class Bootstrap
+    # delegating methods to context
     module Delegate
       def method_missing method_name, *args, &block
         # return super unless @context.respond_to? method_name

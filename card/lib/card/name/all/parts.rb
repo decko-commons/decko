@@ -5,7 +5,7 @@ class Card
       module Parts
         def left *args
           case
-          when simple?    then nil
+          when simple?   then nil
           when superleft then superleft
           when name_is_changing? && name.to_name.trunk_name == name_before_act.to_name
             nil # prevent recursion when, eg, renaming A+B to A+B+C
