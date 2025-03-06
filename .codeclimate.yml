@@ -14,6 +14,8 @@ plugins:
         enabled: false
       Rubocop/Gemspec/RequiredRubyVersion: # handled by DeckoGem
         enabled: false
+      Rubocop/Style/FetchEnvVar:
+        enabled: false
   golint:
     enabled: false
   gofmt:

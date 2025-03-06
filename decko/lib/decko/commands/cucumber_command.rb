@@ -10,6 +10,7 @@ module Decko
       require "decko/commands/cucumber_command/parser"
 
       def initialize args
+        super()
         @decko_args, @cucumber_args = split_args args
         @opts = {}
         Parser.new(@opts).parse!(@decko_args)
