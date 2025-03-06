@@ -76,7 +76,8 @@ module Cardio
         case value
         when /^[+-]\d+$/
           # plus or minus an integer (safe to eval)
-          eval "#{Time.now.to_i} #{value}", binding, __FILE__, __LINE__
+          eval "#{Time.now.to_i} #{value}", # 1741296981 +1  (e.g.)
+               binding, __FILE__, __LINE__
         when Integer
           value
         else

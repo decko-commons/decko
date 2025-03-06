@@ -76,6 +76,7 @@ class Card
           if sub && (card = subfield trait)
             return card
           end
+
           # opts = opts.clone.merge supercard: card
           fetch trait.to_sym, new: opts.clone, eager_cache: true
         end

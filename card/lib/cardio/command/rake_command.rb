@@ -6,6 +6,7 @@ module Cardio
     # enhance standard rake command with some decko/card -specific options
     class RakeCommand < CommandBase
       def initialize gem, command, args=[]
+        super()
         @command = command
         @task = "#{gem}:#{command}"
         @args = [args].flatten

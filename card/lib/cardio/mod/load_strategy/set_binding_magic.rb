@@ -40,6 +40,7 @@ module Cardio
           m, b =
             eval(
               "[ #{part} , #{part}.module_eval('binding') ]",
+              # [ History , History.module_eval('binding') ]
               b
             )
         end
