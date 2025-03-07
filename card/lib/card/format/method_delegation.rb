@@ -1,5 +1,7 @@
 class Card
   class Format
+    # missing methods may be render calls or action view methods
+    # these methods sort that out
     module MethodDelegation
       RENDER_METHOD_RE =
         /^
@@ -40,7 +42,7 @@ class Card
         if (match = api_render? method)
           api_render match, opts
         else
-          delegate_to_action_view(method, opts, proc) { yield }
+          delegate_to_action_view method, opts, &proc
         end
       end
 
@@ -66,9 +68,9 @@ class Card
         end
       end
 
-      def delegate_to_action_view method, opts, proc
-        proc = proc { |*a| raw yield(*a) } if proc
-        response = action_view.send method, *opts, &proc
+      def delegate_to_action_view method, opts, &proc
+        new_proc = proc { |*a| raw yield(*a) } if proc
+        response = action_view.send method, *opts, &new_proc
         response.is_a?(String) ? action_view.raw(response) : response
       end
     end

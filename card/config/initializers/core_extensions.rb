@@ -1,7 +1,6 @@
 # -*- encoding : utf-8 -*-
 
 # extend core Ruby object classes
-
 module CoreExtensions
   ::Kernel.include Kernel
   ::Object.include Object

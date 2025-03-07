@@ -120,18 +120,18 @@ class Card
         [classes, class_list(:single_use).delete(klass)]
       end
 
+      OK_TYPES = { ancestor_format: [:public],
+                   self_format: %i[public format_private],
+                   self: %i[public format_private private] }.freeze
       def ok_types space
-        case space
-        when :ancestor_format then [:public]
-        when :self_format     then %i[public format_private]
-        when :self            then %i[public format_private private]
-        end
+        OK_TYPES[space]
       end
 
       def class_list type=:private
         unless type.in? %i[private format_private public single_use]
           raise ArgumentError, "#{type} not a valid class list"
         end
+
         @class_list ||= {}
         @class_list[type] ||= {}
       end

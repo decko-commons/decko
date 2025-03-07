@@ -1,5 +1,6 @@
 class Card
   class Format
+    # permissions and errors in card format classes
     module Error
       def ok? task
         task = :create if task == :update && card.new_card?

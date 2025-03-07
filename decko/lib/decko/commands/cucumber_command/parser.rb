@@ -5,7 +5,9 @@ require "optparse"
 module Decko
   class Commands
     class CucumberCommand
+      # parses options to `decko cucumber` command
       class Parser < OptionParser
+        # supports CucumberCommand::Parser class in parsing flags
         class Flagger
           def initialize parser, opts
             @parser = parser

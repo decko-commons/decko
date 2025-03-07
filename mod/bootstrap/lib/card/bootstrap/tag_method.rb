@@ -24,10 +24,10 @@ class Card
         ""
       end
 
-      def method_missing method, *args, &block
+      def method_missing(method, ...)
         return super unless respond_to_missing? method
 
-        @component.send method, *args, &block
+        @component.send(method, ...)
       end
 
       def respond_to_missing? method, _include_private=false

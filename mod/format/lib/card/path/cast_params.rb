@@ -1,4 +1,5 @@
 class Card
+  # handle card-related uri paths
   class Path
     cattr_accessor :cast_params
     self.cast_params = { slot: { hide: :array, show: :array, wrap: :array } }.freeze

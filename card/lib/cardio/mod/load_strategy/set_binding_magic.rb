@@ -39,7 +39,7 @@ module Cardio
         mod.name.split("::").each do |part|
           m, b =
             eval(
-              "[ #{part} , #{part}.module_eval('binding') ]",
+              "[ #{part} , #{part}.module_eval('binding') ]",  # [ History , History.module_eval('binding') ]
               b
             )
         end

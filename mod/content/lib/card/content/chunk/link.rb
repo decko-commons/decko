@@ -5,6 +5,7 @@ load File.expand_path("reference.rb", __dir__)
 class Card
   class Content
     module Chunk
+      # handle chunks of card content that are links
       class Link < Reference
         CODE = "L".freeze # L for "Link"
         attr_reader :link_text
@@ -23,7 +24,7 @@ class Card
 
         def inspect
           "<##{self.class}:e[#{@explicit_link}]n[#{@name}]l[#{@link_text}]" \
-          "p[#{@process_chunk}] txt:#{@text}>"
+            "p[#{@process_chunk}] txt:#{@text}>"
         end
 
         # view options
@@ -89,7 +90,7 @@ class Card
           return unless raw_syntax
 
           if (i = divider_index raw_syntax)                    # if [[A | B]]
-            [raw_syntax[0..(i - 1)], raw_syntax[(i + 1)..-1]]  # [A, B]
+            [raw_syntax[0..(i - 1)], raw_syntax[(i + 1)..]]  # [A, B]
           else                                                 # else must be [[ A ]]
             [raw_syntax, nil]                                  # [A, nil]
           end

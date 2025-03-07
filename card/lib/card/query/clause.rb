@@ -1,5 +1,6 @@
 class Card
   module Query
+    # shared methods for query clauses
     module Clause
       #    attr_accessor :clause
 

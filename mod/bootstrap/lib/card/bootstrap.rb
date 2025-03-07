@@ -1,4 +1,5 @@
 class Card
+  # base class for bootstrap component support
   class Bootstrap
     include Delegate
     extend ComponentLoader
@@ -10,8 +11,8 @@ class Card
       @context = context
     end
 
-    def render *args, &block
-      instance_exec(*args, &block)
+    def render(...)
+      instance_exec(...)
     end
   end
 end

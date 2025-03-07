@@ -10,7 +10,7 @@ END_TAG
   page.execute_script(str)
   page.driver.browser.switch_to.window(page.driver.browser.window_handles.last)
   email = Card[account_name].account.email
-  visit "/update/:signin?card[subcards][%2B*email][content]=#{email}&"\
+  visit "/update/:signin?card[subcards][%2B*email][content]=#{email}&" \
         "card[subcards][%2B*password][content]=joe_pass"
 end
 
