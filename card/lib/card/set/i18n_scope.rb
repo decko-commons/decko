@@ -1,5 +1,6 @@
 class Card
   module Set
+    # Adapt Internationalization(i18n) scope handling to infer mod prefixes.
     module I18nScope
       delegate :tmp_files?, to: Cardio::Mod::LoadStrategy
 
