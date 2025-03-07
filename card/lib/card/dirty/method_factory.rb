@@ -1,5 +1,6 @@
 class Card
   module Dirty
+    # handles special method definitions for dirty cards
     module MethodFactory
       def define_dirty_methods field
         define_method "#{field}_before_act" do

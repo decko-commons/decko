@@ -73,7 +73,7 @@ class Card
         when String then return # no chunks
         else
           Rails.logger.warn "unrecognized type for #each_chunk: " \
-                            " #{self.class} #{__getobj__.class}"
+                            "#{self.class} #{__getobj__.class}"
           return
         end
       send(iterator) { |item| yield item if item.is_a?(Chunk::Abstract) }

@@ -20,7 +20,7 @@ class Card
             format format_type, &block
           end
         format_with_set dynamic_set, format_type
-        #::Card::Set::Self::DynamicSet, :html
+        # ::Card::Set::Self::DynamicSet, :html
       end
 
       # define dynamically a self set on a card object
@@ -48,6 +48,7 @@ class Card
         format = format format_type
         set.format_modules(format_type).each do |modul|
           next if format.is_a? modul
+
           format.singleton_class.include modul
         end
         block_given? ? yield(format) : format

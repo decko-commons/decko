@@ -3,8 +3,8 @@ format :html do
     "form-control"
   end
 
-  def nest_option_name_select selected=nil, level=0,
-                              include_view_option=true, template=false
+  def nest_option_name_select selected: nil, level: 0,
+                              include_view_option: true, template: false
     classes = "#{nest_option_classes} _nest-option-name"
     classes += " _new-row" unless selected
     classes += " _no-select2" if template
@@ -63,7 +63,7 @@ format :html do
 
   def nest_option_value_default_template
     text_field_tag "value", nil,
-                   class: "_nest-option-template-default _nest-option-value "\
+                   class: "_nest-option-template-default _nest-option-value " \
                           "#{nest_option_classes}",
                    id: nil
   end

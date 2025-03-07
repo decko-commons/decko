@@ -1,7 +1,9 @@
+# helper methods for specs testing CQL queries
 module QuerySpecHelper
   # CARDS_MATCHING_TWO = ["42", "Joe User", "One+Two", "One+Two+Three", "Two"].freeze
   CARDS_MATCHING_TWO = ["42", "Joe User", "Two"].freeze
 
+  # extra helper for specs testing CQL fasteners
   module Fasten
     def each_fasten &block
       %i[join exist in].each(&block)

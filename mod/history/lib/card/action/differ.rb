@@ -76,7 +76,7 @@ class Card
       end
 
       def content_diff_object opts=nil
-        @diff ||= begin
+        @content_diff_object ||= begin
           diff_args = opts || card.include_set_modules.diff_args
           previous_value = previous_value(:content)
           previous = previous_value ? raw_view(previous_value) : ""

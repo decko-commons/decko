@@ -53,6 +53,7 @@ class Card
 
       def assign_trait_type trait, type
         return unless type && (parts = trait_module_key_parts trait)
+
         assign_type type, normalize_const(parts)
       end
 
@@ -71,7 +72,11 @@ class Card
       end
 
       def define_trait_card trait, opts
-        define_method "#{trait}_card" do
+        define_method "#{trait}_card" do |sub=false|
+          if sub && (card = subfield trait)
+            return card
+          end
+
           # opts = opts.clone.merge supercard: card
           fetch trait.to_sym, new: opts.clone, eager_cache: true
         end

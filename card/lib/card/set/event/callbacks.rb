@@ -1,6 +1,7 @@
 class Card
   module Set
     class Event
+      # handle card event callbacks
       module Callbacks
         def set_event_callbacks
           %i[before after around].each do |kind|
