@@ -68,8 +68,8 @@ class Card
         end
       end
 
-      def delegate_to_action_view method, opts, &proc
-        new_proc = proc { |*a| raw yield(*a) } if proc
+      def delegate_to_action_view method, opts, &old_proc
+        new_proc = proc { |*a| raw yield(*a) } if old_proc
         response = action_view.send method, *opts, &new_proc
         response.is_a?(String) ? action_view.raw(response) : response
       end
