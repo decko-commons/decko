@@ -14,7 +14,7 @@ class CardSpecLoader
 
         # Requires supporting ruby files with custom matchers and macros, etc,
         # in spec/support/ and its subdirectories.
-        Dir[File.join(Cardio.gem_root, "spec/support/matchers/*.rb")].each do |f|
+        Dir[File.join(Cardio.gem_root, "spec/support/matchers/*.rb")].sort.each do |f|
           require f
         end
         yield if block_given?
@@ -111,7 +111,7 @@ class CardSpecLoader
     def load_shared_examples
       require File.expand_path "card_shared_examples", __dir__
       %w[shared_examples shared_context].each do |dirname|
-        Cardio::Mod.dirs.each "spec/#{dirname}" do |shared_ex_dir|
+        Cardio::Mod.dirs.sort.each "spec/#{dirname}" do |shared_ex_dir|
           Dir["#{shared_ex_dir}/**/*.rb"].each { |f| require f }
         end
       end
