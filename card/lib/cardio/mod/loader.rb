@@ -28,7 +28,7 @@ module Cardio
         end
 
         def load_initializers
-          Cardio.config.paths["late/initializers"].existent.sort.each do |init|
+          Cardio.config.paths["late/initializers"].existent.each do |init|
             load init
           end
         end

@@ -111,7 +111,7 @@ class CardSpecLoader
     def load_shared_examples
       require File.expand_path "card_shared_examples", __dir__
       %w[shared_examples shared_context].each do |dirname|
-        Cardio::Mod.dirs.sort.each "spec/#{dirname}" do |shared_ex_dir|
+        Cardio::Mod.dirs.each "spec/#{dirname}" do |shared_ex_dir|
           Dir["#{shared_ex_dir}/**/*.rb"].each { |f| require f }
         end
       end
