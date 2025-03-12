@@ -43,7 +43,7 @@ namespace :card do
       else
         ARGV[1..]
       end
-    args.join " "
+    args&.join " "
   end
 
   def adjust_environment options, args_without_env, task, task_message
