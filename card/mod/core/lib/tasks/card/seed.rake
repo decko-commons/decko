@@ -34,6 +34,7 @@ namespace :card do
 
     # desc "dump db to fixtures"
     task dump: :environment do
+      puts "dumping".green
       Card::Cache.reset_all
       Cardio::Seed.dump
     end
