@@ -30,7 +30,8 @@ namespace :card do
       add_opt :e, :env, "environment (test, production, etc)"
       flag_opt :v, :verbose, "output progress info and error backtraces"
     end
-    exit 0 # to avoid that rake tries to run the arguments as rake tasks
+    # FIXME: this was killing tasks of which eat was just one part (eg card:seed:update)
+    # exit 0 # to avoid that rake tries to run the arguments as rake tasks
   end
 
   def args_without_env_arg
@@ -43,7 +44,7 @@ namespace :card do
       else
         ARGV[1..]
       end
-    args.join " "
+    args&.join " "
   end
 
   def adjust_environment options, args_without_env, task, task_message
