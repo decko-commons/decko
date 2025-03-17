@@ -42,7 +42,6 @@ module Cardio
       def ensure_installed
         Card::Auth.as_bot do
           Card::Cache.reset_all
-          puts "installing card mods".green
           ensure_asset_lists do |hash|
             puts "ensuring mod and asset cards"
             Cardio.mods.each { |mod| ensure_asset_cards mod.ensure_card, hash }

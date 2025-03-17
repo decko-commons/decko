@@ -34,7 +34,7 @@ module Cardio
       def commands
         task_cmd = "bundle exec rake #{@task}"
         task_cmd += " -- #{escape_args(@args).join ' '}" unless @args.empty?
-        puts task_cmd
+        puts task_cmd.yellow
         [task_cmd] if !@envs || @envs.empty?
 
         # @envs.map do |env|
