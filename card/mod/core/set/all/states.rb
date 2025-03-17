@@ -68,8 +68,9 @@ end
 
 # @return [True/False]
 def new?
-  new_record? ||       # not yet in db (from ActiveRecord)
-    !@from_trash.nil?  # in process of restoration from trash
+  (new_record? ||         # not yet in db (from ActiveRecord) or
+    !@from_trash.nil?) && # in process of restoration from trash, but
+    !trash?               # not in trash
 end
 alias_method :new_card?, :new?
 alias_method :unreal?, :new?
