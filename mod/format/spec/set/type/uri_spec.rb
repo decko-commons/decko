@@ -4,11 +4,11 @@ RSpec.describe Card::Set::Type::Uri do
   def card_subject
     Card.new type: "URI",
              name: "A URI card",
-             content: "https://decko.org/Home"
+             content: "https://decko.org/:home"
   end
 
   context "with HTML format" do
-    let(:external_link) { 'a[class="external-link"][href="https://decko.org/Home"]' }
+    let(:external_link) { 'a[class="external-link"][href="https://decko.org/:home"]' }
 
     specify "input view" do
       expect_view(:input).to have_tag('input[type="text"][class~="d0-card-content"]')
@@ -19,7 +19,7 @@ RSpec.describe Card::Set::Type::Uri do
     end
 
     specify "url_link view" do
-      expect_view(:url_link).to have_tag(external_link, text: "https://decko.org/Home")
+      expect_view(:url_link).to have_tag(external_link, text: "https://decko.org/:home")
     end
 
     # calls title_link
@@ -37,7 +37,7 @@ RSpec.describe Card::Set::Type::Uri do
 
   context "with TEXT format" do
     specify "url_link view" do
-      expect_view(:url_link, format: :base).to eq "https://decko.org/Home"
+      expect_view(:url_link, format: :base).to eq "https://decko.org/:home"
     end
   end
 end
