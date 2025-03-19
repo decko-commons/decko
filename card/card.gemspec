@@ -21,10 +21,11 @@ DeckoGem.gem "card" do |s, d|
     ["cardname",             d.decko_version],
     ["rake",                       "~> 13.0"],
     ["sprockets-rails",             "~> 3.2"],
-    ["colorize",                    "~> 0.8"], # livelier cli outputs
+    ["colorize",                    "~> 1.1"], # livelier cli outputs
     ["timecop",                     "~> 0.9"],
     # temporary. bad version(s)
-    ["zeitwerk",                  "!= 2.5.0"],
+    ["zeitwerk",                  "~> 2.7.2"],
+    ["csv",                        "~> 3.3"],
     # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     # MOVE TO MODS?
     # card-mod-format
