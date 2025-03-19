@@ -11,10 +11,24 @@ namespace :card do
   task :update do
     failing_loudly "decko update" do
       ENV["NO_RAILS_CACHE"] = "true"
-      # Benchmark.bm do |x|
-      ["migrate:port", "migrate:schema", "migrate:recode", :eat, "migrate:transform",
-       "mod:uninstall", "mod:install", "mod:symlink", :reset].each do |task|
-        Rake::Task["card:#{task}"].invoke
+      run_tasks ["migrate:port", "migrate:schema", "migrate:recode", :eat, "migrate:transform",
+                 "mod:uninstall", "mod:install", "mod:symlink", :reset] #, true
+    end
+  end
+
+  def run_tasks tasks, with_benchmark: false
+    if with_benchmark
+      require "benchmark"
+      Benchmark.bm do |x|
+        x.report("total") do
+          tasks.each do |task|
+            x.report(task) { Rake::Task["card:#{task}"].invoke }
+          end
+        end
+      end
+    else
+      tasks.each do |task|
+         Rake::Task["card:#{task}"].invoke
       end
     end
   end
@@ -30,8 +44,6 @@ namespace :card do
       add_opt :e, :env, "environment (test, production, etc)"
       flag_opt :v, :verbose, "output progress info and error backtraces"
     end
-    # FIXME: this was killing tasks of which eat was just one part (eg card:seed:update)
-    # exit 0 # to avoid that rake tries to run the arguments as rake tasks
   end
 
   def args_without_env_arg
@@ -50,8 +62,9 @@ namespace :card do
   def adjust_environment options, args_without_env, task, task_message
     if (env = options.delete(:env))
       command = "env RAILS_ENV=#{env} bundle exec rake card:#{task} #{args_without_env}"
-      puts command
-      system command
+      puts command.yellow
+      success = system command
+      exit success # to avoid that rake tries to run the arguments as rake tasks
     else
       puts task_message
       yield
@@ -80,7 +93,6 @@ namespace :card do
       add_opt :t, :field_tags, "comma-separated list of field tag marks"
       add_opt :e, :env, "environment (test, production, etc)"
     end
-    exit 0 # to avoid that rake tries to run the arguments as rake tasks
   end
 
   desc "Clears both cache and tmpfiles"
