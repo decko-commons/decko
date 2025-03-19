@@ -11,8 +11,9 @@ namespace :card do
   task :update do
     failing_loudly "decko update" do
       ENV["NO_RAILS_CACHE"] = "true"
-      run_tasks ["migrate:port", "migrate:schema", "migrate:recode", :eat, "migrate:transform",
-                 "mod:uninstall", "mod:install", "mod:symlink", :reset] #, true
+      run_tasks ["migrate:port", "migrate:schema", "migrate:recode",
+                 :eat, "migrate:transform",
+                 "mod:uninstall", "mod:install", "mod:symlink", :reset] # , true
     end
   end
 
@@ -28,7 +29,7 @@ namespace :card do
       end
     else
       tasks.each do |task|
-         Rake::Task["card:#{task}"].invoke
+        Rake::Task["card:#{task}"].invoke
       end
     end
   end
