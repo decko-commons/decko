@@ -55,7 +55,7 @@ namespace :card do
     end
 
     def invoke_card_task task
-      puts "invoking: #{task}".green
+      puts "invoking: #{task}"
       Rake::Task["card:#{task}"].invoke
     end
   end
