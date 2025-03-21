@@ -61,11 +61,9 @@ jQuery.fn.extend
   slotReload: (url) ->
     @each -> $(this)._slotReloadSingle url
 
-  slotReloading: ()->
-    # TODO: add default spinner behavior
-
-  slotLoadingComplete: ()->
-    # TODO: add default spinner behavior
+  startLoading: () ->
+  stopLoading: () ->
+  # TODO: add default spinner behavior
 
   slotUpdate: (newContent, mode) ->
     mode ||= "replace"
