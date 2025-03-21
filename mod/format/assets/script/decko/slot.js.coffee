@@ -64,8 +64,8 @@ jQuery.fn.extend
   slotReloading: ()->
     # TODO: add default spinner behavior
 
-  slotLoadingComplete: ()->
-    # TODO: add default spinner behavior
+#  slotLoadingComplete: ()->
+#    # TODO: add default spinner behavior
 
   slotUpdate: (newContent, mode) ->
     mode ||= "replace"
