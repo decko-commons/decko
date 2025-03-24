@@ -118,7 +118,7 @@ jQuery.fn.extend
     # that's where handleRemote gets the url from
     # .attr(href, url) only works for anchors
     $.rails.handleRemote $slot
-    $slot.slotReloading()
+    $slot.startLoading()
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~
 # "private" helper methods
