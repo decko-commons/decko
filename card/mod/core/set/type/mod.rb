@@ -162,12 +162,9 @@ def views
 end
 
 def description
-  default = if mod&.spec&.description.present?
-              mod&.spec&.description
-            else
-              mod&.spec&.summary
-            end
-  t("#{modname}_mod_description", default: default)
+  spec = mod&.spec
+  default = spec&.description.present? ? spec&.description : spec&.summary
+  t "#{modname}_mod_description", default: default
 end
 
 def modname
