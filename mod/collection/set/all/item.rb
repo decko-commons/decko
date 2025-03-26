@@ -41,6 +41,12 @@ def item_keys args={}
   end
 end
 
+# @return [Array] of Symbol objects
+# @param args [Hash] see #item_names
+def item_codes args={}
+  item_ids(args).map(&:codename).compact
+end
+
 # @return [Array] of String objects
 # @param args [Hash] see #item_names
 def item_strings args={}
