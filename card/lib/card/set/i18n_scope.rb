@@ -1,5 +1,6 @@
 class Card
   module Set
+    # Adapt Internationalization(i18n) scope handling to infer mod prefixes.
     module I18nScope
       delegate :tmp_files?, to: Cardio::Mod::LoadStrategy
 
@@ -22,7 +23,7 @@ class Card
 
       def set_from_parts parts, index
         start_index = index + (tmp_files? ? 2 : 1)
-        parts[start_index..-1].join "."
+        parts[start_index..].join "."
       end
 
       def mod_from_parts parts, set_index
@@ -55,7 +56,7 @@ class Card
       #   this method returns ["core", "all", "event"]
       # def set_path_parts backtrace
       #   parts = path_parts backtrace
-      #   res = parts[path_mod_index(parts)..-1]
+      #   res = parts[path_mod_index(parts)..]
       #   res.delete_at 1
       # end
 
@@ -65,7 +66,7 @@ class Card
       #   this method returns ["core", "all", "event"]
       # def tmp_set_path_parts backtrace
       #   path_parts = find_tmp_set_path(backtrace).split(File::SEPARATOR)
-      #   res = path_parts[tmp_path_mod_index(path_parts)..-1]
+      #   res = path_parts[tmp_path_mod_index(path_parts)..]
       #   res[0] = mod_name_from_tmp_dir res.first
       #   res[-1] = res.last.split(".").first
       #   res

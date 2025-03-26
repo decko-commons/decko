@@ -21,13 +21,11 @@ module Cardio
       end
 
       # if output mod given,
-      def out
+      def run
         Card::Cache.reset_all
         @mod ? dump(output_hash) : puts(new_data.to_yaml.yellow)
         :success
-      rescue Card::Error::NotFound => e
-        e.message
-      rescue JSON::ParserError => e
+      rescue Card::Error::NotFound, JSON::ParserError => e
         e.message
       end
 
@@ -77,6 +75,7 @@ module Cardio
 
       def old_data
         return unless File.exist? filename
+
         parse_pod_yaml File.read(filename)
       end
 

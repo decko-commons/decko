@@ -1,4 +1,5 @@
 module CoreExtensions
+  # extensions for Ruby Arrays
   module Array
     def to_pointer_content
       map do |item|

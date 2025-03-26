@@ -1,3 +1,4 @@
+# Decko puts cards on the web
 module Decko
   DECKO_GEM_ROOT = File.expand_path("..", __dir__)
 

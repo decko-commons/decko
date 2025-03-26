@@ -5,14 +5,12 @@ RSpec.describe Card::Cache do
   let(:store) { nil }
 
   describe "with nil store" do
-    describe "#basic operations" do
-      it "works" do
-        cache.write("a", "foo")
-        expect(cache.read("a")).to eq("foo")
-        cache.fetch("b") { "bar" }
-        expect(cache.read("b")).to eq("bar")
-        cache.reset
-      end
+    specify "#basic operations" do
+      cache.write("a", "foo")
+      expect(cache.read("a")).to eq("foo")
+      cache.fetch("b") { "bar" }
+      expect(cache.read("b")).to eq("bar")
+      cache.reset
     end
   end
 
@@ -34,7 +32,7 @@ RSpec.describe Card::Cache do
 
     it "#fetch" do
       block = proc { "hi" }
-      expect(store).to receive(:fetch).with("#{prefix}/foo", &block)
+      allow(store).to receive(:fetch).with("#{prefix}/foo", &block)
       cache.fetch("foo", &block)
     end
 
@@ -79,25 +77,21 @@ RSpec.describe Card::Cache do
       ActiveSupport::Cache::FileStore.new(cache_path).tap(&:clear)
     end
 
-    describe "#basic operations with special symbols" do
-      it "works" do
-        cache.write('%\\/*:?"<>|', "foo")
-        cache2 = described_class.new store: store, prefix: "prefix"
-        expect(cache2.read('%\\/*:?"<>|')).to eq("foo")
-        cache.reset
-      end
+    specify "#basic operations with special symbols" do
+      cache.write('%\\/*:?"<>|', "foo")
+      cache2 = described_class.new store: store, prefix: "prefix"
+      expect(cache2.read('%\\/*:?"<>|')).to eq("foo")
+      cache.reset
     end
 
-    describe "#basic operations with non-latin symbols" do
-      it "works" do
-        cache.write("(汉语漢語 Hànyǔ; 华语華語 Huáyǔ; 中文 Zhōngwén", "foo")
-        cache.write("русский", "foo")
-        cache3 = described_class.new store: store, prefix: "prefix"
-        cached = cache3.read "(汉语漢語 Hànyǔ; 华语華語 Huáyǔ; 中文 Zhōngwén"
-        expect(cached).to eq("foo")
-        expect(cache3.read("русский")).to eq("foo")
-        cache.reset
-      end
+    specify "#basic operations with non-latin symbols" do
+      cache.write("(汉语漢語 Hànyǔ; 华语華語 Huáyǔ; 中文 Zhōngwén", "foo")
+      cache.write("русский", "foo")
+      cache3 = described_class.new store: store, prefix: "prefix"
+      cached = cache3.read "(汉语漢語 Hànyǔ; 华语華語 Huáyǔ; 中文 Zhōngwén"
+      expect(cached).to eq("foo")
+      expect(cache3.read("русский")).to eq("foo")
+      cache.reset
     end
 
     describe "#tempfile" do

@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-RSpec.describe Card::Codename, "Codename" do
+RSpec.describe Card::Codename do
   let(:codename) { :default }
 
   it "is sane" do
@@ -15,7 +15,7 @@ RSpec.describe Card::Codename, "Codename" do
       card = Card[codename]
       card.delete
       expect(card.errors[:delete].first).to match "is a system card"
-      expect(Card[codename]).to be
+      expect(Card[codename]).to be_truthy
     end
   end
 

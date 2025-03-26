@@ -34,6 +34,7 @@ namespace :card do
 
     # desc "dump db to fixtures"
     task dump: :environment do
+      puts "dumping".green
       Card::Cache.reset_all
       Cardio::Seed.dump
     end
@@ -54,7 +55,7 @@ namespace :card do
     end
 
     def invoke_card_task task
-      puts "invoking: #{task}".green
+      puts "invoking: #{task}"
       Rake::Task["card:#{task}"].invoke
     end
   end

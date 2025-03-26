@@ -1,4 +1,3 @@
-
 namespace :card do
   desc "migrate structure and cards"
   task migrate: :environment do
@@ -61,7 +60,7 @@ namespace :card do
     end
 
     def version
-      ENV["VERSION"] ? ENV["VERSION"].to_i : nil
+      ENV["VERSION"]&.to_i
     end
   end
 end
@@ -110,7 +109,7 @@ end
 # FIXME: too general
 # intent is to find Record classes; this gets a lot more.
 def load_mod_lib
-  Dir.glob(Cardio.root.join("mod/*/lib/*.rb")).sort.each { |x| require x }
+  Dir.glob(Cardio.root.join("mod/*/lib/*.rb")).each { |x| require x }
 end
 
 def without_dumping

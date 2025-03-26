@@ -11,9 +11,24 @@ namespace :card do
   task :update do
     failing_loudly "decko update" do
       ENV["NO_RAILS_CACHE"] = "true"
-      # Benchmark.bm do |x|
-      ["migrate:port", "migrate:schema", "migrate:recode", :eat, "migrate:transform",
-       "mod:uninstall", "mod:install", "mod:symlink", :reset].each do |task|
+      run_tasks ["migrate:port", "migrate:schema", "migrate:recode",
+                 :eat, "migrate:transform",
+                 "mod:uninstall", "mod:install", "mod:symlink", :reset] # , true
+    end
+  end
+
+  def run_tasks tasks, with_benchmark: false
+    if with_benchmark
+      require "benchmark"
+      Benchmark.bm do |x|
+        x.report("total") do
+          tasks.each do |task|
+            x.report(task) { Rake::Task["card:#{task}"].invoke }
+          end
+        end
+      end
+    else
+      tasks.each do |task|
         Rake::Task["card:#{task}"].invoke
       end
     end
@@ -21,8 +36,7 @@ namespace :card do
 
   desc "Ingests card data from mod yaml"
   task eat: :environment do
-    puts "eating"
-    parse_options :eat do
+    run_with_options :eat, Cardio::Mod::Eat, "eating" do
       add_opt :m, :mod, "only eat cards in given mod"
       add_opt :n, :name, "only eat card with name (handles : for codenames)"
       add_opt :u, :user, "user to credit unless specified (default is Decko Bot)"
@@ -31,25 +45,44 @@ namespace :card do
       add_opt :e, :env, "environment (test, production, etc)"
       flag_opt :v, :verbose, "output progress info and error backtraces"
     end
+  end
 
-    adjust_environment options, :eat do
-      rake_result(:eat) { Cardio::Mod::Eat.new(**options).up }
+  def args_without_env_arg
+    env_index = ARGV.find_index { |entry| %w[-e --env].include?(entry) }
+    args =
+      if env_index
+        ARGV[1..].select.with_index do |_, index|
+          (index != env_index - 1) && (index != env_index)
+        end
+      else
+        ARGV[1..]
+      end
+    args&.join " "
+  end
+
+  def adjust_environment options, args_without_env, task, task_message
+    if (env = options.delete(:env))
+      command = "env RAILS_ENV=#{env} bundle exec rake card:#{task} #{args_without_env}"
+      puts command.yellow
+      success = system command
+      exit success # to avoid that rake tries to run the arguments as rake tasks
+    else
+      puts task_message
+      yield
     end
   end
 
-  def adjust_environment options, task
-    if (env = options.delete(:env))
-      task_options = options.map { |k, v| "--#{k}=#{v}" }.join(" ")
-      system "env RAILS_ENV=#{env} bundle exec rake card:#{task} #{task_options}"
-    else
-      yield
+  def run_with_options task_name, task_class, start_message, &block
+    args_without_env = args_without_env_arg
+    parse_options task_name, &block
+    adjust_environment options, args_without_env, task_name, start_message do
+      rake_result(task_name) { task_class.new(**options).run }
     end
   end
 
   desc "Exports card data to mod yaml"
   task sow: :environment do
-    puts "sowing"
-    parse_options :sow do
+    run_with_options :sow, Cardio::Mod::Sow, "sowing" do
       add_opt :n, :name, "export card with name/mark (handles : and ~ prefixes)"
       add_opt :r, :remote, "export card from remote deck (with -n)"
       flag_opt :i, :items, "also export card items (with -n)"
@@ -60,9 +93,6 @@ namespace :card do
       add_opt :p, :podtype, "podtype to dump (real or test. default based on current env)"
       add_opt :t, :field_tags, "comma-separated list of field tag marks"
       add_opt :e, :env, "environment (test, production, etc)"
-    end
-    adjust_environment options, :sow do
-      rake_result(:sow) { Cardio::Mod::Sow.new(**options).out }
     end
   end
 

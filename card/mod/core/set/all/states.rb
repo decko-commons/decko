@@ -13,6 +13,7 @@
 # - *known* cards are either _real_ or _virtual_
 # - *new* (or *unreal*) cards are either _unknown_ or _virtual_
 
+# extends Card Class
 module ClassMethods
   def real? mark
     quick_fetch(mark).present?
@@ -28,10 +29,9 @@ end
 # @return [Symbol] :real, :virtual, or :unknown
 def state anti_fishing=true
   case
-  when !known?                     then :unknown
-  when anti_fishing && !ok?(:read) then :unknown
-  when real?                       then :real
-  when virtual?                    then :virtual
+  when !known? || (anti_fishing && !ok?(:read)) then :unknown
+  when real?                                    then :real
+  when virtual?                                 then :virtual
   else :wtf
   end
 end
@@ -68,8 +68,9 @@ end
 
 # @return [True/False]
 def new?
-  new_record? ||       # not yet in db (from ActiveRecord)
-    !@from_trash.nil?  # in process of restoration from trash
+  (new_record? ||         # not yet in db (from ActiveRecord) or
+    !@from_trash.nil?) && # in process of restoration from trash, but
+    !trash?               # not in trash
 end
 alias_method :new_card?, :new?
 alias_method :unreal?, :new?

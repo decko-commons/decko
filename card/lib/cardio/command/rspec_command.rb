@@ -8,6 +8,7 @@ module Cardio
       def initialize args
         require "rspec/core"
 
+        super()
         cardio_args, @rspec_args = split_args args
         @opts = {}
         Parser.new(@opts).parse!(cardio_args)

@@ -1,6 +1,6 @@
 # ITEM LISTS
 
-# Note: while most methods for returning lists of items can handle arguments,
+# NOTE: while most methods for returning lists of items can handle arguments,
 # they are most commonly used without them.
 
 # @return [Array] list of Card::Name objects
@@ -39,6 +39,12 @@ def item_keys args={}
   item_names(args).map do |item|
     item.to_name.key
   end
+end
+
+# @return [Array] of Symbol objects
+# @param args [Hash] see #item_names
+def item_codes args={}
+  item_ids(args).map(&:codename).compact
 end
 
 # @return [Array] of String objects

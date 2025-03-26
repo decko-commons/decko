@@ -28,7 +28,7 @@ module Cardio
         end
 
         def load_initializers
-          Cardio.config.paths["late/initializers"].existent.sort.each do |init|
+          Cardio.config.paths["late/initializers"].existent.each do |init|
             load init
           end
         end
@@ -60,7 +60,7 @@ module Cardio
 
       def parts_from_path path
         # remove file extension and number prefixes
-        parts = path.gsub(/\.rb/, "").gsub(%r{(?<=\A|/)\d+_}, "").split(File::SEPARATOR)
+        parts = path.gsub(/\.rb$/, "").gsub(%r{(?<=\A|/)\d+_}, "").split(File::SEPARATOR)
         parts.map(&:camelize)
       end
 

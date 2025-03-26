@@ -2,6 +2,7 @@
 
 class Card
   class Format
+    # card format class for css (cascading stylesheet) views
     class CssFormat < Format
       register :css
 

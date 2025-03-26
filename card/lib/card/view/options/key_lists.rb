@@ -1,6 +1,7 @@
 class Card
   class View
     module Options
+      # lists of view option keys
       module KeyLists
         # all standard option keys
         # @return [Array]

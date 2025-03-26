@@ -65,8 +65,8 @@
 #
 #
 $(window).ready ->
-  $('body').on 'ajax:send', '.slotter', (event, data) ->
-    $(this).slot().slotReloading()
+  $('body').on 'ajax:send', '.slotter', () ->
+    $(this).slot().startLoading()
 
   $('body').on 'ajax:success', '.slotter', (event, data) ->
     $(this).slotterSuccess event, data
@@ -74,8 +74,8 @@ $(window).ready ->
   $('body').on 'ajax:error', '.slotter', (event, xhr) ->
     $(this).showErrorResponse xhr.status, xhr.responseText
 
-  $('body').on 'ajax:complete', '.slotter', (event, data) ->
-    $(this).slot().slotLoadingComplete()
+  $('body').on 'ajax:complete', '.slotter', () ->
+    $(this).slot().stopLoading()
 
   $('body').on 'click', 'button.slotter', ->
     return false if !$.rails.allowAction $(this)
