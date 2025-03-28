@@ -5,8 +5,8 @@ require_relative "card/lib/cardio/version"
 class DeckoGem
   attr_reader :spec
 
-  RUBY_VERSION = ">= 3.0".freeze
-  RAILS_VERSION = "~> 7.1".freeze
+  RUBY_VERSION = ">= 3.2".freeze
+  RAILS_VERSION = "~> 7.2".freeze
 
   class << self
     def gem name, mod=false
