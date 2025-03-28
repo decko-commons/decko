@@ -162,7 +162,7 @@ end
 def description
   spec = mod&.spec
   default = spec&.description.present? ? spec&.description : spec&.summary
-  t("#{modname}_mod_description", default: default)
+  t "#{modname}_mod_description", default: default
 end
 
 def modname

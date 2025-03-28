@@ -10,16 +10,14 @@ def standardize_item cardish
 end
 
 def item_ids args={}
-  seeding_ids do
-    item_strings(args).map do |item|
-      item = standardize_item item unless item.match?(/^~/)
-      item&.to_s&.tr("~", "")&.to_i
-    end.compact
-  end
+  item_strings(args).map do |item|
+    item = standardize_item item unless item.match?(/^~/)
+    item&.to_s&.tr("~", "")&.to_i
+  end.compact
 end
 
 def item_names args={}
-  item_ids(args).map(&:cardname).compact
+  seeding_ids { item_ids(args) }.map(&:cardname).compact
 end
 
 def pod_content

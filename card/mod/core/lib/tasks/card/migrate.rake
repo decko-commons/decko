@@ -46,6 +46,7 @@ namespace :card do
 
     task port: :environment do
       puts "porting"
+      ENV["NO_CARD_LOAD"] = "true"
       Cardio::Migration.port_all
     end
 
