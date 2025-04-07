@@ -3,7 +3,7 @@ format do
     token_url :verify_and_activate, anonymous: true
   end
 
-  view :reset_password_url, denial: :blank, perms: :reset_password_ok? do
+  view :reset_password_url do
     token_url :reset_password
   end
 
@@ -23,10 +23,6 @@ format do
 
   def verify_url_ok?
     card.ok?(:create) || card.action
-  end
-
-  def reset_password_ok?
-    card.password_card.ok? :update
   end
 
   def token_url trigger, extra_payload={}
