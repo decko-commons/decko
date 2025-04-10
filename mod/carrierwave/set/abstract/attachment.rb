@@ -12,10 +12,7 @@ end
 
 # we need a card id for the path so we have to update db_content when we have
 # an id
-event :correct_identifier, :finalize, on: :save, when: proc { |c| !c.web? } do
-  correct_id = attachment.db_content
-  return if db_content == correct_id
-
+event :correct_identifier, :finalize, on: :save, when: :correct_identifier? do
   update_column :db_content, attachment.db_content
   expire
 end
@@ -36,8 +33,19 @@ event :validate_file_exist, :validate, on: :create, skip: :allowed do
   end
 end
 
-event :write_identifier, after: :save_original_filename, when: proc { |c| !c.web? } do
+event :write_identifier, after: :save_original_filename, when: :write_identifier? do
   self.content = attachment.db_content
+end
+
+def correct_identifier?
+  return false unless web?
+
+  correct_id = attachment.db_content
+  correct_id.present? && db_content != correct_id
+end
+
+def write_identifier?
+  !web?
 end
 
 def file_ready_to_save?
@@ -127,11 +135,23 @@ def attachment_format ext
   end
 end
 
+def original_extension
+  @original_extension ||= attachment&.extension&.sub(/^\./, "")
+end
+
+private
+
 def rescuing_extension_issues
   yield
 rescue StandardError => e
   Rails.logger.info "attachment_format issue: #{e.message}"
   nil
+end
+
+def confirm_original_extension ext
+  return unless ["file", original_extension].member? ext
+
+  original_extension
 end
 
 def detect_extension ext
@@ -142,14 +162,4 @@ end
 
 def recognized_extension? mime_types, ext
   mime_types.find { |mt| mt.extensions.member? ext }
-end
-
-def confirm_original_extension ext
-  return unless ["file", original_extension].member? ext
-
-  original_extension
-end
-
-def original_extension
-  @original_extension ||= attachment&.extension&.sub(/^\./, "")
 end
