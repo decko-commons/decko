@@ -14,9 +14,9 @@ end
 # an id
 event :correct_identifier, :finalize, on: :save, when: proc { |c| !c.web? } do
   correct_id = attachment.db_content
-  return if db_content == correct_id
+  return if correct_id.blank? || db_content == correct_id
 
-  update_column :db_content, attachment.db_content
+  update_column :db_content, correct_id
   expire
 end
 
