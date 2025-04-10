@@ -12,7 +12,7 @@ end
 
 # we need a card id for the path so we have to update db_content when we have
 # an id
-event :correct_identifier, :finalize, on: :save, when: :correct_identifier? do
+event :correct_identifier, :finalize, on: :save, when: :incorrect_identifier? do
   update_column :db_content, attachment.db_content
   expire
 end
@@ -37,8 +37,8 @@ event :write_identifier, after: :save_original_filename, when: :write_identifier
   self.content = attachment.db_content
 end
 
-def correct_identifier?
-  return false unless web?
+def incorrect_identifier?
+  return false if web?
 
   correct_id = attachment.db_content
   correct_id.present? && db_content != correct_id
@@ -138,8 +138,6 @@ end
 def original_extension
   @original_extension ||= attachment&.extension&.sub(/^\./, "")
 end
-
-private
 
 def rescuing_extension_issues
   yield
