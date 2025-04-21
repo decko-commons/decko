@@ -72,6 +72,10 @@ def account_manager?
   own_account? || parties.member?(HelpDeskID)
 end
 
+def closure_deletions
+  Card::Auth.as_bot { Card.search left: id }
+end
+
 private
 
 def enabled_role_ids
@@ -141,7 +145,11 @@ format :html do
       ["API", :account,
        { path: { view: :api_key,
                  items: { view: :content },
-                 slot: { hide: %i[help_link board_link] } } }]
+                 slot: { hide: %i[help_link board_link] } } }],
+      ["Close Account", :account,
+       { path: { view: :closure } }
+      ]
+
     ]
   end
 

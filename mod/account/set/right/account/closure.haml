@@ -1,0 +1,28 @@
+
+#account-closure.p-3
+  %h2
+    Close Account
+
+  .alert-danger.p-4.my-3
+    %strong Warning:
+    this action cannot be undone
+
+  %p
+    Closing your account entails:
+    %ul
+      %li Deleting your account information and personal data
+      %li Anonymizing your edits
+
+    It does
+    %em not
+    entail deleting your collaborative contributions; that would be messy and unfair to
+    collaborators.
+
+  .closure-deletions
+    The following cards will be permanently deleted:
+
+    %ul.py-2
+      - card.left.closure_deletions.each do |deletee|
+        %li
+          = link_to_card deletee
+

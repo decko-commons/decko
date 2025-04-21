@@ -19,6 +19,8 @@ format do
   view :verify_days, :token_days
   view :reset_password_days, :token_days
 
+  view :closure, perms: :delete, template: :haml
+
   private
 
   def verify_url_ok?
