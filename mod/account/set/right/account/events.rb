@@ -42,6 +42,14 @@ event :activate_account do
   trigger_event! :send_welcome_email
 end
 
+event :delete_account, :prepare_to_validate, on: :delete do
+  subcard accounted.close_account
+end
+
+event :signout_upon_delete, :integrate, on: :delete, when: :current_account? do
+  Self::Signin.signout
+end
+
 ## EVENT HELPERS
 
 private

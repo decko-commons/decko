@@ -1,0 +1,39 @@
+
+#account-closure.p-3
+  %h2
+    Close Account
+
+  .alert-danger.p-4.my-3
+    %strong Warning:
+    this action cannot be undone
+
+  %p
+    Closing your account entails:
+    %ul
+      %li Deleting your account information and personal data
+      %li Anonymizing your edits
+
+    It does
+    %em not
+    entail deleting your collaborative contributions; that would be messy and unfair to
+    collaborators.
+
+  .closure-deletions
+    The following cards will be permanently deleted:
+
+    %ul.py-2
+      - card.accounted.closure_deletions.each do |deletee|
+        %li
+          = link_to_card deletee
+
+  .button-form-group.py-3.justify-content-end
+    - accounted = card.accounted
+    - confirmation = t :account_confirm_delete_account, accounted: accounted.name
+    %a.btn.btn-primary.slotter{ href: path(success: { mark: "~#{accounted.id}",
+                                                      redirect: true,
+                                                      view: :closed_account }),
+                                "data-method": :delete,
+                                "data-remote": true,
+                                "rel": "nofollow",
+                                "data-confirm": confirmation }
+      = t :account_close_account
