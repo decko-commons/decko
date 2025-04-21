@@ -14,11 +14,11 @@ class Card
           card(name_context) || @target || Card.fetch(name_context)
         end
 
-        # TODO: refactor to use cardish
         def mark= value
-          case value
-          when Integer then @id = value
-          when Card then @card = value
+          if (id = Card.id value)
+            @id = id
+          elsif value.is_a? Card
+            @card = value
           else
             self.target = value
           end
