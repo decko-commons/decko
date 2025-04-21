@@ -72,11 +72,22 @@ def account_manager?
   own_account? || parties.member?(HelpDeskID)
 end
 
-def closure_deletions
-  Card::Auth.as_bot { Card.search left: id }
+
+def close_account
+  anonymize!
+  closure_deletions.each &:delete
+  self
 end
 
 private
+
+def anonymize!
+  self.name = "ANON-#{SecureRandom.hex(6)}"
+end
+
+def closure_deletions
+  Card::Auth.as_bot { Card.search left: id, not: { right: :account } }
+end
 
 def enabled_role_ids
   with_enabled_roles do |enabled|
@@ -113,6 +124,8 @@ def fetch_read_rules
 end
 
 format :html do
+  view :closed_account, template: :haml
+
   def default_board_tab
     card.current_account? ? :account_tab : super
   end

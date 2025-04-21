@@ -32,5 +32,9 @@ en:
   account_sign_in_title: Sign In
   account_sign_out: Sign out
   account_sign_up: Sign up
+  account_close_account: Permanently Close Account
+  account_confirm_delete_account:
+    Are you CERTAIN you want to PERMANENTLY delete the account associated 
+    with %{accounted}?
   account_sorry_email_reset:
     Sorry, %{error_msg}. Please check your email for a new password reset link.

@@ -19,7 +19,7 @@ format do
   view :verify_days, :token_days
   view :reset_password_days, :token_days
 
-  view :closure, perms: :delete, template: :haml
+  view :closure, perms: :delete, template: :haml, wrap: :slot
 
   private
 

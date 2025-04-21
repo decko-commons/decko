@@ -22,7 +22,18 @@
     The following cards will be permanently deleted:
 
     %ul.py-2
-      - card.left.closure_deletions.each do |deletee|
+      - card.accounted.closure_deletions.each do |deletee|
         %li
           = link_to_card deletee
 
+  .button-form-group.py-3.justify-content-end
+    - accounted = card.accounted
+    - confirmation = t :account_confirm_delete_account, accounted: accounted.name
+    %a.btn.btn-primary.slotter{ href: path(success: { mark: "~#{accounted.id}",
+                                                      redirect: true,
+                                                      view: :closed_account }),
+                                "data-method": :delete,
+                                "data-remote": true,
+                                "rel": "nofollow",
+                                "data-confirm": confirmation }
+      = t :account_close_account
