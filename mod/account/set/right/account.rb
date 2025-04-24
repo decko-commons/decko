@@ -13,6 +13,10 @@ def own_account?
   accounted&.try :own_account?
 end
 
+def current_account?
+  accounted&.try :current_account?
+end
+
 def accounted
   left
 end
