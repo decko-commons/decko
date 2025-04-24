@@ -14,7 +14,7 @@ RSpec.describe Card::Set::Right::Account::Events do
       expect(accounted_id.card.name).to match(/ANON/)
     end
 
-    it "deletes children", as_bot: :true do
+    it "deletes children", as_bot: true do
       expect(accounted_child.id.card).to be_a(Card)
       delete_account!
       expect(accounted_child.id.card).to be_nil
