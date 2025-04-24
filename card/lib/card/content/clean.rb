@@ -13,7 +13,9 @@ class Card
         "a" => %w[href title target],
         "img" => %w[src alt title],
         "code" => ["lang"],
-        "blockquote" => ["cite"]
+        "blockquote" => ["cite"],
+        "ol" => ["type"],
+        "ul" => ["type"]
       )
 
       if Cardio.config.allow_inline_styles

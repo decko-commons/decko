@@ -66,7 +66,9 @@
 #
 $(window).ready ->
   $('body').on 'ajax:send', '.slotter', () ->
-    $(this).slot().startLoading()
+    slot = $(this).slot()
+    slot.hideErrorResponse()
+    slot.startLoading()
 
   $('body').on 'ajax:success', '.slotter', (event, data) ->
     $(this).slotterSuccess event, data
@@ -183,6 +185,9 @@ jQuery.fn.extend
         @slot().find('.current_revision_id').val(
           @slot().find('.new-current-revision-id').text()
         )
+
+  hideErrorResponse: () ->
+    $(this).find(".card-notice").hide()
 
   updateModalOrigin: () ->
     if @overlaySlot()
