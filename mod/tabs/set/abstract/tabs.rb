@@ -46,9 +46,8 @@ format :html do
   end
 
   def tab_from_params
-    Env.params[:tab]&.to_sym.tap do |tab|
-      return unless tab.in? tab_map.keys
-    end
+    tab = Env.params[:tab]&.to_sym
+    tab if tab&.in? tab_map.keys
   end
 
   def tab_url tab
