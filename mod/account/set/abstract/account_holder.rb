@@ -72,10 +72,9 @@ def account_manager?
   own_account? || parties.member?(HelpDeskID)
 end
 
-
 def close_account
   anonymize!
-  closure_deletions.each &:delete
+  closure_deletions.each(&:delete)
   self
 end
 
@@ -160,9 +159,7 @@ format :html do
                  items: { view: :content },
                  slot: { hide: %i[help_link board_link] } } }],
       ["Close Account", :account,
-       { path: { view: :closure } }
-      ]
-
+       { path: { view: :closure } }]
     ]
   end
 
