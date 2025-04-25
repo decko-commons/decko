@@ -159,8 +159,7 @@ format :html do
                  items: { view: :content },
                  slot: { hide: %i[help_link board_link] } } }],
       ["Close Account", :account,
-       { path: { view: :closure } }
-      ]
+       { path: { view: :closure } }]
     ]
   end
 
