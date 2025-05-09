@@ -38,6 +38,7 @@ module Cardio
     config.raise_all_rendering_errors = false
 
     config.cache_set_module_list = false
+    config.max_temporary_cache_keys = 10_000
 
     config.i18n.enforce_available_locales = true
     config.read_only = !ENV["DECKO_READ_ONLY"].nil?
