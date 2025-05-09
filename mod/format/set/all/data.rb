@@ -68,7 +68,7 @@ format :data do
   # NOCACHE because sometimes item_cards is dynamic.
   # could be safely cached for non-dynamic lists
   view :items, cache: :never do
-    listing item_cards, view: voo_items_view || :atom
+    listing_list item_cards, view: voo_items_view || :atom
   end
 
   view :links do
