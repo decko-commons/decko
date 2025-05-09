@@ -11,7 +11,7 @@ class Card
     # Unlike the Shared cache, the Temporary cache can handle objects with
     # singleton classes.
     class Temporary
-      MAX_KEYS = 10_000
+      MAX_KEYS = Cardio.config.max_temporary_cache_keys
       attr_reader :store
 
       def initialize klass

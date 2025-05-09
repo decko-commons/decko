@@ -161,11 +161,13 @@ format do
     options[:type] = type_name if type_name
   end
 
-  def listing listing_cards, item_args={}
-    listing_cards.map do |item_card|
-      nest_item item_card, item_args do |rendered, item_view|
-        wrap_item rendered, item_view
-      end
+  def listing_list listing_cards, item_args={}
+    listing_cards.map { |item_card| listing item_card, item_args }
+  end
+
+  def listing item_card, item_args={}
+    nest_item item_card, item_args do |rendered, item_view|
+      wrap_item rendered, item_view
     end
   end
 
