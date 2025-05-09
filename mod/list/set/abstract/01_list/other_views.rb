@@ -11,7 +11,7 @@ format do
 
   def pointer_items args={}
     page_args = args.extract! :limit, :offset
-    listing card.item_cards(page_args), args
+    listing_list card.item_cards(page_args), args
   end
 end
 
