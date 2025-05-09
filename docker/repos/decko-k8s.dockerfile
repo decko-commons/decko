@@ -4,7 +4,7 @@
 FROM phusion/passenger-full:3.1.3
 
 # ENABLE ruby
-RUN bash -lc "rvm --default use ruby-3.4.3"
+RUN bash -lc "rvm --default use ruby-3.4.2"
 
 # INSTALL imagemagick and libcurl4-openssl-dev
 RUN apt-get update && \
