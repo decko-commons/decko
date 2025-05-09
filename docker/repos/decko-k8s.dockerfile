@@ -1,7 +1,7 @@
 # PASSENGER-DOCKER
 # https://github.com/phusion/passenger-docker
 
-FROM phusion/passenger-full:3.0.7
+FROM phusion/passenger-full:3.1.3
 
 # ENABLE ruby
 RUN bash -lc "rvm --default use ruby-3.3.4"
