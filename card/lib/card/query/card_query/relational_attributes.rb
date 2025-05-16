@@ -4,7 +4,7 @@ class Card
       # interpret CQL attributes that relate multiple cards
       # each method below corresponds to a relational CQL term
       #
-      # NOTE: methods using "restrict" can  be executed without
+      # NOTE: methods using "restrict" can be executed without
       # tying in an additional query if the val in question can be
       # reduced to an id.
       module RelationalAttributes
