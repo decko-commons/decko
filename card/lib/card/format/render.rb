@@ -41,6 +41,57 @@ class Card
         add_debug_info view, method, rendered
       end
 
+      def pretty_path source_location
+        "#{source_location.first.gsub(%r{^.+mod\d+-([^/]+)},
+                                      '\1: ')}:#{source_location.second}"
+      end
+
+      # see {Abstract::Format}
+      # (:default), :yes, :deep, :always, :never
+      def view_cache_setting view
+        voo&.cache || view_setting(:cache, view) || :default
+      end
+
+      def view_setting setting_name, view
+        try Card::Set::Format.view_setting_method_name(view, setting_name)
+      end
+
+      def stub_render cached_content
+        return cached_content if Cardio.config.view_cache == :debug
+
+        # stub_debugging do
+        expand_stubs cached_content
+        # end
+      end
+
+      def view_method view
+        unless supports_view? view
+          raise Card::Error::UserError, unsupported_view_error_message(view)
+        end
+
+        method Card::Set::Format.view_method_name(view)
+      end
+
+      def supports_view? view
+        respond_to? Card::Set::Format.view_method_name(view)
+      end
+
+      def current_view view
+        old_view = @current_view
+        @current_view = view
+        yield
+      ensure
+        @current_view = old_view
+      end
+
+      def stub_nest stub_hash
+        prepare_stub_nest(stub_hash) do |stub_card, view_opts|
+          nest stub_card, view_opts, stub_hash[:format_opts]
+        end
+      end
+
+      private
+
       def wrap_and_render view
         current_view(view) { with_wrapper { final_render view } }
       rescue StandardError => e
@@ -62,27 +113,6 @@ class Card
 
       def show_debug_info?
         Env.params[:debug] == "view"
-      end
-
-      def pretty_path source_location
-        "#{source_location.first.gsub(%r{^.+mod\d+-([^/]+)},
-                                      '\1: ')}:#{source_location.second}"
-      end
-
-      # see {Abstract::Format}
-      # (:default), :yes, :deep, :always, :never
-      def view_cache_setting view
-        voo&.cache || view_setting(:cache, view) || :default
-      end
-
-      def view_setting setting_name, view
-        try Card::Set::Format.view_setting_method_name(view, setting_name)
-      end
-
-      def stub_render cached_content
-        # stub_debugging do
-        expand_stubs cached_content
-        # end
       end
 
       # def stub_debugging
@@ -116,32 +146,6 @@ class Card
           conto.pieces.first.to_s
         else
           conto.to_s
-        end
-      end
-
-      def view_method view
-        unless supports_view? view
-          raise Card::Error::UserError, unsupported_view_error_message(view)
-        end
-
-        method Card::Set::Format.view_method_name(view)
-      end
-
-      def supports_view? view
-        respond_to? Card::Set::Format.view_method_name(view)
-      end
-
-      def current_view view
-        old_view = @current_view
-        @current_view = view
-        yield
-      ensure
-        @current_view = old_view
-      end
-
-      def stub_nest stub_hash
-        prepare_stub_nest(stub_hash) do |stub_card, view_opts|
-          nest stub_card, view_opts, stub_hash[:format_opts]
         end
       end
     end
