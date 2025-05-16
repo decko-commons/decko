@@ -24,6 +24,7 @@ class Card
         @fields = fields
         @tables = tables
         @joins  = joins
+        @indexes = indexes
         @where  = where
         @group  = group
         @order  = order
@@ -33,7 +34,8 @@ class Card
 
       def to_s
         [
-          comment, select, from, @joins, @where, @group, @order, @limit_and_offset
+          comment, select, from,
+          @joins, @indexes, @where, @group, @order, @limit_and_offset
         ].compact.join " "
       end
 
@@ -101,6 +103,11 @@ class Card
             string
           end
         end
+      end
+
+      def indexes
+        return unless @mods[:index]
+        "USE INDEX (#{Array.wrap(@mods[:index]).join ', '})"
       end
 
       def full_syntax
