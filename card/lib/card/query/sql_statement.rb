@@ -106,9 +106,8 @@ class Card
       end
 
       def indexes
-        return unless @query.conditions.any? { |c| c.is_a?(Array) && c.first == :type_id }
-
-        "USE INDEX cards_type_id_index"
+        return unless @mods[:index]
+        "USE INDEX (#{Array.wrap(@mods[:index]).join ', '})"
       end
 
       def full_syntax
