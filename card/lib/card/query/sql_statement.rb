@@ -106,8 +106,7 @@ class Card
       end
 
       def indexes
-        return unless @mods[:index]
-        "USE INDEX (#{Array.wrap(@mods[:index]).join ', '})"
+        "USE INDEX (#{Array.wrap(@mods[:index]).join ', '})" if @mods[:index]
       end
 
       def full_syntax
