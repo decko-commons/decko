@@ -35,7 +35,7 @@ class Card
         Env.controller&.try(:authenticators)&.values&.compact
       end
 
-      def api_act?
+      def api_request?
         api_keys.present?
       end
     end
