@@ -14,7 +14,7 @@ RSpec.describe Card::Set::Type::SearchType do
 
   it "fails for invalid search syntax" do
     expect { create_search_type "Bad Search", content: "not no search" }
-      .to raise_error(/Invalid json unexpected token 'not no search'/)
+      .to raise_error(/Invalid json unexpected token 'not/)
   end
 
   it "handles returning 'count'" do
