@@ -4,6 +4,7 @@ basket[:non_createable_types] << :signup
 
 require_field :account
 
+# TODO: either justify separating these two statuses or merge them
 def default_account_status
   can_approve? ? "unverified" : "unapproved"
 end

@@ -18,9 +18,12 @@ class Card
       # param name [String]
       # @return [Integer]
       def id name
-        return unless name.present?
+        return if name.blank?
 
-        (lex = name_to_lex name.to_name) && lex_to_id(lex)
+        name = name.to_name
+        return if name.relative_fragment?
+
+        (lex = name_to_lex name) && lex_to_id(lex)
       end
 
       def cache
