@@ -10,7 +10,7 @@ format :html do
 end
 
 def option_names
-  Right::Account::STATUS_OPTIONS
+  Card::Set::Right::Account::STATUS_OPTIONS
 end
 
 def ok_to_update?
