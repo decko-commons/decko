@@ -14,13 +14,18 @@ class Cardname
 
     # @return [Boolean]
     def relative?
-      starts_with_joint? || (s =~ RELATIVE_REGEXP).present?
+      starts_with_joint? || s.match?(RELATIVE_REGEXP)
     end
 
     # starts with joint, no other contextual element
     # @return [Boolean]
     def simple_relative?
-      starts_with_joint? && (s =~ RELATIVE_REGEXP).nil?
+      starts_with_joint? && !s.match?(RELATIVE_REGEXP)
+    end
+
+    # _left, _right, _self or any other name fragment referring to a relative part
+    def relative_fragment?
+      s.match?(/^#{RELATIVE_REGEXP}$/)
     end
 
     # not relative
