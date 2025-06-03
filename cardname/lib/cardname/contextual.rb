@@ -25,7 +25,7 @@ class Cardname
 
     # _left, _right, _self or any other name fragment referring to a relative part
     def relative_fragment?
-      s.match? /^#{RELATIVE_REGEXP}$/
+      s.match?(/^#{RELATIVE_REGEXP}$/)
     end
 
     # not relative
