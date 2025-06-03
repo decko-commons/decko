@@ -76,8 +76,8 @@ format :html do
     focal? ? loud_denial : quiet_denial
   end
 
-  def view_for_unknown setting_view
-    main? && voo.root? && ok?(:create) ? :new : super
+  def page_view_for_unknown
+    ok?(:create) ? :new : super
   end
 
   def show_all_errors?
