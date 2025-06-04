@@ -92,7 +92,7 @@ class CardController
 
     def load_format status
       request.format = :html if implicit_html?
-      card.format(response_format).tap { |fmt| fmt.error_status = status }
+      @format = card.format(response_format).tap { |fmt| fmt.error_status = status }
     end
 
     def implicit_html?
