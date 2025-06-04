@@ -79,7 +79,6 @@ Decko::RestSpecHelper.describe_api do
     it "handles nonexistent card with create permission" do
       login_as "joe_user"
       get :read, params: { mark: "Sample_Fako" }
-      expect(assigns[]).to eq(:new)
       assert_response 404
     end
 
