@@ -1,6 +1,9 @@
 $(window).ready ->
 
   $('body').on 'show.bs.tab', 'a', (e) ->
+    link = $(this)
+    return if link.closest(".tab-content").length > 0
+
     tabname = $(this).data "tabName"
     window.history.pushState("tab", "", "?tab=" + tabname)
 
