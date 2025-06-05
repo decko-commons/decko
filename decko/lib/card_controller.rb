@@ -15,7 +15,7 @@ class CardController < ActionController::Base
   include ::Card::Env::Location
 
   layout nil
-  attr_reader :card
+  attr_reader :card, :format
 
   before_action :setup, except: [:asset]
   before_action :authenticate, except: [:asset]

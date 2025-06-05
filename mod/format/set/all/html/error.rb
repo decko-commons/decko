@@ -76,8 +76,14 @@ format :html do
     focal? ? loud_denial : quiet_denial
   end
 
-  def view_for_unknown setting_view
-    main? && voo.root? && ok?(:create) ? :new : super
+  private
+
+  def page_view_for_unknown
+    ok?(:create) ? :new : super
+  end
+
+  def page_status_for_unknown
+    ok?(:create) ? 200 : 404
   end
 
   def show_all_errors?
@@ -94,9 +100,9 @@ format :html do
     wrap_with(:span, class: "render-error alert alert-danger") { super }
   end
 
-  def error_modal_id
-    @error_modal_id ||= unique_id
-  end
+  # def error_modal_id
+  #   @error_modal_id ||= unique_id
+  # end
 
   def error_message exception
     %{
