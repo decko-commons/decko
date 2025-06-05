@@ -25,7 +25,7 @@ RSpec.describe Card::Set::Abstract::ModAssets do
     card.make_asset_output_coded
     content = card.asset_output_card.file.file.read
 
-    content.should include ".api-key-core"    # from api mod
+    content.should include ".api-key-top"    # from api mod
     content.should include ".invite-links a"  # from account mod
   end
 end

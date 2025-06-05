@@ -1,11 +1,6 @@
-.api-key-core
-  .current-api-key
+.api-key-core.p-1
+  .api-key-top.d-flex.my-2.py-3.border-bottom.justify-content-between.w-100
     - if card.content.present?
-      %label{ for: :current_api_key }
-        = t :api_key_label
-
-      = text_field_tag :current_api_key, card.content, readonly: true
-    - else
-      %em= t('api_key_no_key')
-  .api-key-generate-button
-    = render_generate_button
+      = render core_top_view
+  .api-key-buttons.d-flex.my-2.py-3.justify-content-between.w-100
+    = render_buttons

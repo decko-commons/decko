@@ -68,9 +68,9 @@ end
 
 format :html do
   view :core, unknown: true, template: :haml
-  view(:content, unknown: true) { super() }
+  view :current, unknown: true, template: :haml
 
-  %i[titled titled_content].each do |viewname|
+  %i[titled titled_content content].each do |viewname|
     view(viewname, unknown: true) { super() }
   end
 
@@ -78,17 +78,38 @@ format :html do
     link_to t(:api_key_get_jwt_token), path: { format: :json, view: :token }
   end
 
+  view :buttons, perms: :update, unknown: true do
+    render_generate_button
+  end
+
   view :generate_button, perms: :update, unknown: true do
-    text = card.content.present? ? t(:api_key_regenerate) : t(:api_key_generate)
     card_form :update do
       [
-        hidden_tags(card: { trigger: :generate_api_key }),
-        submit_button(text: text, disable_with: t(:api_key_generating))
+        hidden_tags(generate_button_hidden_tags),
+        submit_button(text: generate_button_text,
+                      situation: generate_button_situation,
+                      disable_with: t(:api_key_generating))
       ]
     end
   end
 
+  def generate_button_hidden_tags
+    { card: { trigger: :generate_api_key } }
+  end
+
+  def generate_button_text
+    card.content.present? ? t(:api_key_regenerate) : t(:api_key_generate)
+  end
+
+  def generate_button_situation
+    :primary
+  end
+
   def input_type
     :text_field
+  end
+
+  def core_top_view
+    :current
   end
 end

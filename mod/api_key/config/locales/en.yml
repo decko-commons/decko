@@ -8,4 +8,3 @@ en:
   api_key_generating: "Generating API Key"
   api_key_taken: "API Key taken"
   api_key_get_jwt_token: "get a JWT token"
-  api_key_no_key: "No key."
