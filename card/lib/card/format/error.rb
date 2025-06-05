@@ -17,15 +17,11 @@ class Card
 
       def view_for_unknown setting_view
         if main? && voo.root?
-          root.error_status = 404
+          root.error_status = page_status_for_unknown
           page_view_for_unknown
         else
           setting_view || :unknown
         end
-      end
-
-      def page_view_for_unknown
-        :not_found
       end
 
       def view_for_denial view, task
@@ -43,9 +39,19 @@ class Card
         yield
       end
 
+      private
+
       def rescue_view e, view
         method = loud_error? ? :loud_error : :quiet_error
         send method, e, view
+      end
+
+      def page_status_for_unknown
+        404
+      end
+
+      def page_view_for_unknown
+        :not_found
       end
 
       def error_cardname _exception
