@@ -38,7 +38,7 @@ class Card
           case
           when respond_to?(:"#{retrn}_result") then :"#{retrn}_result"
           when retrn.match?(/id$/)             then :id_result
-          when retrn.match?(/_\w+/)            then :name_result
+          when retrn.match?(/^_\w+/)           then :name_result
           when retrn == "key"                  then :key_result
           else                                      :default_result
           end
@@ -50,6 +50,10 @@ class Card
 
         def default_result record, field
           record[field]
+        end
+
+        def content_result record, _pattern
+          record["db_content"]
         end
 
         def id_result record, field
