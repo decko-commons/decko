@@ -100,7 +100,9 @@ format :data do
 end
 
 format :csv do
-  view :body, :body, mod: All::Csv::CsvFormat
+  view :body do
+    search_with_params.map { |item_card| nest item_card }
+  end
 end
 
 format :html do
