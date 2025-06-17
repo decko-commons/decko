@@ -13,8 +13,8 @@ namespace :card do
       ENV["NO_RAILS_CACHE"] = "true"
       run_tasks ["migrate:port", "migrate:schema", "migrate:recode",
                  :eat, "migrate:transform",
-                 "mod:uninstall", "mod:install", "mod:symlink", :reset] #,
-      # with_benchmark: true
+                 "mod:uninstall", "mod:install", "mod:symlink", :reset]
+      # , with_benchmark: true
     end
   end
 
