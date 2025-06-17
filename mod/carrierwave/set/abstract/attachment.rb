@@ -102,12 +102,11 @@ end
 # updates to coded cards.  Tried #read but wasn't getting the same value on both
 # files even when they were definitely duplicates.
 def duplicate?
-  return @duplicate unless @duplicate.nil?
-  @duplicate = real? &&
-               storage_type == :coded &&
-               (old = attachment.file) &&
-               (new = set_specific[attachment_name]) &&
-               old.size == new.size
+  real? &&
+    storage_type == :coded &&
+    (old = attachment.file) &&
+    (new = set_specific[attachment_name]) &&
+    old.size == new.size
 end
 
 def delete_files_for_action action
