@@ -1,74 +1,74 @@
 ---
 card_changes_001:
   id: 1
-  card_action_id: 297
+  card_action_id: 234
   field: 0
   value:
 card_changes_002:
   id: 2
-  card_action_id: 297
+  card_action_id: 234
   field: 1
   value: '4'
 card_changes_003:
   id: 3
-  card_action_id: 297
+  card_action_id: 234
   field: 2
   value: ''
 card_changes_004:
   id: 4
-  card_action_id: 297
+  card_action_id: 234
   field: 3
   value: f
 card_changes_005:
   id: 5
-  card_action_id: 297
+  card_action_id: 234
   field: 4
   value: '184'
 card_changes_006:
   id: 6
-  card_action_id: 297
+  card_action_id: 234
   field: 5
   value: '179'
 card_changes_007:
   id: 7
-  card_action_id: 3085
+  card_action_id: 831
   field: 2
   value: |-
     ~618
     ~757
 card_changes_008:
   id: 8
-  card_action_id: 306
+  card_action_id: 243
   field: 0
   value:
 card_changes_009:
   id: 9
-  card_action_id: 306
+  card_action_id: 243
   field: 1
   value: '4'
 card_changes_010:
   id: 10
-  card_action_id: 306
+  card_action_id: 243
   field: 2
   value: ''
 card_changes_011:
   id: 11
-  card_action_id: 306
+  card_action_id: 243
   field: 3
   value: f
 card_changes_012:
   id: 12
-  card_action_id: 306
+  card_action_id: 243
   field: 4
   value: '191'
 card_changes_013:
   id: 13
-  card_action_id: 306
+  card_action_id: 243
   field: 5
   value: '179'
 card_changes_014:
   id: 14
-  card_action_id: 3088
+  card_action_id: 833
   field: 2
   value: |-
     ~618
@@ -76,328 +76,294 @@ card_changes_014:
     ~757
 card_changes_015:
   id: 15
-  card_action_id: 312
+  card_action_id: 249
   field: 0
   value:
 card_changes_016:
   id: 16
-  card_action_id: 312
+  card_action_id: 249
   field: 1
   value: '4'
 card_changes_017:
   id: 17
-  card_action_id: 312
+  card_action_id: 249
   field: 2
   value: ''
 card_changes_018:
   id: 18
-  card_action_id: 312
+  card_action_id: 249
   field: 3
   value: f
 card_changes_019:
   id: 19
-  card_action_id: 312
+  card_action_id: 249
   field: 4
   value: '196'
 card_changes_020:
   id: 20
-  card_action_id: 312
+  card_action_id: 249
   field: 5
   value: '179'
 card_changes_021:
   id: 21
-  card_action_id: 3091
+  card_action_id: 835
   field: 2
   value: "~618"
 card_changes_022:
   id: 22
-  card_action_id: 3293
+  card_action_id: 113
   field: 0
-  value: First
+  value:
 card_changes_023:
   id: 23
-  card_action_id: 3293
+  card_action_id: 113
   field: 1
-  value: '2'
+  value: '4'
 card_changes_024:
   id: 24
-  card_action_id: 3293
+  card_action_id: 113
   field: 2
-  value: egg
+  value: help_desk
 card_changes_025:
   id: 25
-  card_action_id: 3293
+  card_action_id: 113
   field: 3
   value: f
 card_changes_026:
   id: 26
-  card_action_id: 3293
+  card_action_id: 113
   field: 4
-  value:
+  value: '91'
 card_changes_027:
   id: 27
-  card_action_id: 3293
+  card_action_id: 113
   field: 5
-  value:
+  value: '66'
 card_changes_028:
   id: 28
-  card_action_id: 3295
+  card_action_id: 848
   field: 2
-  value: chicken
+  value: Help Desk
 card_changes_029:
   id: 29
-  card_action_id: 3297
-  field: 2
-  value: chick
+  card_action_id: 114
+  field: 0
+  value:
 card_changes_030:
   id: 30
-  card_action_id: 3522
-  field: 0
-  value:
+  card_action_id: 114
+  field: 1
+  value: '4'
 card_changes_031:
   id: 31
-  card_action_id: 3522
-  field: 1
-  value: '2'
+  card_action_id: 114
+  field: 2
+  value: help_desk
 card_changes_032:
   id: 32
-  card_action_id: 3522
-  field: 2
-  value: ''
+  card_action_id: 114
+  field: 3
+  value: f
 card_changes_033:
   id: 33
-  card_action_id: 3522
-  field: 3
-  value: f
+  card_action_id: 114
+  field: 4
+  value: '91'
 card_changes_034:
   id: 34
-  card_action_id: 3522
-  field: 4
-  value: '834'
+  card_action_id: 114
+  field: 5
+  value: '67'
 card_changes_035:
   id: 35
-  card_action_id: 3522
-  field: 5
-  value: '835'
+  card_action_id: 849
+  field: 2
+  value: Help Desk
 card_changes_036:
   id: 36
-  card_action_id: 3526
-  field: 2
-  value: zoom in
+  card_action_id: 115
+  field: 0
+  value:
 card_changes_037:
   id: 37
-  card_action_id: 2772
-  field: 0
-  value: "*main menu"
+  card_action_id: 115
+  field: 1
+  value: '4'
 card_changes_038:
   id: 38
-  card_action_id: 2772
-  field: 1
-  value: '58'
+  card_action_id: 115
+  field: 2
+  value: help_desk
 card_changes_039:
   id: 39
-  card_action_id: 2772
-  field: 2
-  value: |-
-    [[:getting_started_links|Getting started]]
-    [[:recent|Recent Changes]]
+  card_action_id: 115
+  field: 3
+  value: f
 card_changes_040:
   id: 40
-  card_action_id: 2772
-  field: 3
-  value: f
+  card_action_id: 115
+  field: 4
+  value: '91'
 card_changes_041:
   id: 41
-  card_action_id: 2772
-  field: 4
-  value:
+  card_action_id: 115
+  field: 5
+  value: '68'
 card_changes_042:
   id: 42
-  card_action_id: 2772
-  field: 5
-  value:
+  card_action_id: 850
+  field: 2
+  value: Help Desk
 card_changes_043:
   id: 43
-  card_action_id: 3657
-  field: 2
-  value: "[[:recent|Recent Changes]]"
+  card_action_id: 217
+  field: 0
+  value: email stylesheet
 card_changes_044:
   id: 44
-  card_action_id: 3693
-  field: 2
-  value: |-
-    [[:getting_started_links|Getting started]]
-    [[:recent|Recent Changes]]
-card_changes_045:
-  id: 45
-  card_action_id: 3702
-  field: 2
-  value: "[[:recent|Recent Changes]]"
-card_changes_046:
-  id: 46
-  card_action_id: 3703
-  field: 2
-  value: |-
-    [[:getting_started_links|Getting started]]
-    [[:recent|Recent Changes]]
-card_changes_047:
-  id: 47
-  card_action_id: 3704
-  field: 2
-  value: "[[:recent|Recent Changes]]"
-card_changes_048:
-  id: 48
-  card_action_id: 3705
-  field: 2
-  value: |-
-    [[:getting_started_links|Getting started]]
-    [[:recent|Recent Changes]]
-card_changes_049:
-  id: 49
-  card_action_id: 3706
-  field: 2
-  value: "[[:recent|Recent Changes]]"
-card_changes_050:
-  id: 50
-  card_action_id: 3707
-  field: 2
-  value: |-
-    [[:getting_started_links|Getting started]]
-    [[:recent|Recent Changes]]
-card_changes_051:
-  id: 51
-  card_action_id: 250
-  field: 0
-  value:
-card_changes_052:
-  id: 52
-  card_action_id: 250
-  field: 1
-  value: '57'
-card_changes_053:
-  id: 53
-  card_action_id: 250
-  field: 2
-  value: "<p>\n  {{+*from | labeled | link}} \n  {{+*to | labeled | link}} \n  {{+*cc
-    | labeled | link}}\n  {{+*bcc | labeled | link}}\n  {{+*subject | titled}}\n  {{+*html
-    message | titled}} \n  {{+*text message | titled}}\n  {{+*attach | titled}}\n</p>\""
-card_changes_054:
-  id: 54
-  card_action_id: 250
-  field: 3
-  value: f
-card_changes_055:
-  id: 55
-  card_action_id: 250
-  field: 4
-  value: '154'
-card_changes_056:
-  id: 56
-  card_action_id: 250
-  field: 5
-  value: '28'
-card_changes_057:
-  id: 57
-  card_action_id: 3709
-  field: 2
-  value: "{{+:from | labeled | link}} \n{{+:to | labeled | link}} \n{{+:cc | labeled
-    | link}}\n{{+:bcc | labeled | link}}\n{{+:subject | titled}}\n{{+:html_message
-    | titled}} \n{{+:text_message | titled}}\n{{+:attach | titled}}"
-card_changes_058:
-  id: 58
-  card_action_id: 3710
-  field: 2
-  value: "[[:recent|Recent Changes]]"
-card_changes_059:
-  id: 59
-  card_action_id: 3711
-  field: 2
-  value: |-
-    [[:getting_started_links|Getting started]]
-    [[:recent|Recent Changes]]
-card_changes_060:
-  id: 60
-  card_action_id: 797
-  field: 0
-  value:
-card_changes_061:
-  id: 61
-  card_action_id: 797
+  card_action_id: 217
   field: 1
   value: '2'
-card_changes_062:
-  id: 62
-  card_action_id: 797
+card_changes_045:
+  id: 45
+  card_action_id: 217
   field: 2
-  value: |
-    {{_L|configs}}
-    <h3>Accounts</h3>
-    <p>{{:account|content}}</p>
-    <h3>Help Texts</h3>
-    <p>{{:help|bar}}</p>
-    <h3>Emails </h3>
-    <p>Here are the current [[Email Templates|Email templates]] for your site.</p>
-    <p>{{Email Templates+*type+by update|content}} </p>
-card_changes_063:
-  id: 63
-  card_action_id: 797
+  value: ''
+card_changes_046:
+  id: 46
+  card_action_id: 217
   field: 3
   value: f
+card_changes_047:
+  id: 47
+  card_action_id: 217
+  field: 4
+  value:
+card_changes_048:
+  id: 48
+  card_action_id: 217
+  field: 5
+  value:
+card_changes_049:
+  id: 49
+  card_action_id: 852
+  field: 1
+  value: '335'
+card_changes_050:
+  id: 50
+  card_action_id: 854
+  field: 0
+  value: First
+card_changes_051:
+  id: 51
+  card_action_id: 854
+  field: 1
+  value: '2'
+card_changes_052:
+  id: 52
+  card_action_id: 854
+  field: 2
+  value: egg
+card_changes_053:
+  id: 53
+  card_action_id: 854
+  field: 3
+  value: f
+card_changes_054:
+  id: 54
+  card_action_id: 854
+  field: 4
+  value:
+card_changes_055:
+  id: 55
+  card_action_id: 854
+  field: 5
+  value:
+card_changes_056:
+  id: 56
+  card_action_id: 855
+  field: 2
+  value: chicken
+card_changes_057:
+  id: 57
+  card_action_id: 856
+  field: 2
+  value: chick
+card_changes_058:
+  id: 58
+  card_action_id: 911
+  field: 0
+  value:
+card_changes_059:
+  id: 59
+  card_action_id: 911
+  field: 1
+  value: '2'
+card_changes_060:
+  id: 60
+  card_action_id: 911
+  field: 2
+  value: ''
+card_changes_061:
+  id: 61
+  card_action_id: 911
+  field: 3
+  value: f
+card_changes_062:
+  id: 62
+  card_action_id: 911
+  field: 4
+  value: '834'
+card_changes_063:
+  id: 63
+  card_action_id: 911
+  field: 5
+  value: '835'
 card_changes_064:
   id: 64
-  card_action_id: 797
-  field: 4
-  value: '196'
+  card_action_id: 914
+  field: 2
+  value: zoom in
 card_changes_065:
   id: 65
-  card_action_id: 797
-  field: 5
-  value: '523'
+  card_action_id: 611
+  field: 0
+  value: "*main menu"
 card_changes_066:
   id: 66
-  card_action_id: 3712
-  field: 2
-  value: |
-    {{_L|configs}}
-    <h3>Accounts</h3>
-    <p>{{:account|content}}</p>
-    <h3>Help Texts</h3>
-    <p>{{:help|bar}}</p>
-    <h3>Emails </h3>
-    <p>Here are the current [[:email_template|Email templates]] for your site.</p>
-    <p>{{:email_template+:type+:by_update|content}} </p>
+  card_action_id: 611
+  field: 1
+  value: '59'
 card_changes_067:
   id: 67
-  card_action_id: 3713
+  card_action_id: 611
   field: 2
-  value: "[[:recent|Recent Changes]]"
+  value: |-
+    [[:getting_started_links|Getting started]]
+    [[:recent|Recent Changes]]
 card_changes_068:
   id: 68
-  card_action_id: 3714
-  field: 2
-  value: |-
-    [[:getting_started_links|Getting started]]
-    [[:recent|Recent Changes]]
+  card_action_id: 611
+  field: 3
+  value: f
 card_changes_069:
   id: 69
-  card_action_id: 3716
-  field: 2
-  value: "[[:recent|Recent Changes]]"
+  card_action_id: 611
+  field: 4
+  value:
 card_changes_070:
   id: 70
-  card_action_id: 3717
-  field: 2
-  value: |-
-    [[:getting_started_links|Getting started]]
-    [[:recent|Recent Changes]]
+  card_action_id: 611
+  field: 5
+  value:
 card_changes_071:
   id: 71
-  card_action_id: 3718
+  card_action_id: 994
   field: 2
   value: "[[:recent|Recent Changes]]"
 card_changes_072:
   id: 72
-  card_action_id: 3719
+  card_action_id: 1001
   field: 2
   value: |-
     [[:getting_started_links|Getting started]]
