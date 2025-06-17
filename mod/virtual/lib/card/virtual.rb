@@ -10,6 +10,14 @@ class Card
       new_content
     end
 
+    def card_id
+      Card.fetch left_id, right_id
+    end
+
+    def cardname
+      [left_id, right_id].cardname
+    end
+
     class << self
       def fetch card
         cache.fetch card.key do
