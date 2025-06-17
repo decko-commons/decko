@@ -5,3 +5,7 @@
 - :name: Remote manifest group
   :type: :cardtype
   :codename: remote_manifest_group
+- :name: "group: local"
+  :codename: group_local
+- :name: "group: remote"
+  :codename: group_remote
