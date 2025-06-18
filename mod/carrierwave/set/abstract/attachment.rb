@@ -107,8 +107,6 @@ def duplicate?
     (old = attachment.file) &&
     (new = set_specific[attachment_name]) &&
     old.size == new.size
-  # rescue Card::Error
-  #   false
 end
 
 def delete_files_for_action action
