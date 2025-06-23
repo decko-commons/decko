@@ -9,7 +9,7 @@ remote:
     - src: https://kit.fontawesome.com/1366963381.js
       crossorigin: anonymous
 
-bootstrap:
+local:
   items:
     - ../../vendor/bootstrap/dist/js/bootstrap.bundle.js
     - decko_modal.js.coffee
