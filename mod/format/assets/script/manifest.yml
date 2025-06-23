@@ -11,7 +11,7 @@ remote:
       crossorigin: anonymous
       referrerpolicy: no-referrer
 
-jquery:
+local:
   items:
     # jquery-ui includes all interaction components, the dialog and the autocomplete widget
     # and all dependencies for those
@@ -26,8 +26,8 @@ jquery:
     - ../../vendor/jquery_file_upload/js/jquery.fileupload.js
     - ../../vendor/jquery_file_upload/js/jquery.iframe-transport.js
 
-decko:
-  items:
+    # Decko code
+
     - decko/decko.js.coffee
     - decko/decko_jquery.js.coffee
 
