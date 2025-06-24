@@ -1,6 +1,9 @@
 include_set Abstract::ReadOnly
 include_set Abstract::ManifestGroup
 
+# TODO: migrate away the cardtype and remove the following
+basket[:non_createable_types] << :remote_manifest_group
+
 def virtual?
   new?
 end

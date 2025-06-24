@@ -5,6 +5,6 @@ remote:
      integrity: sha512-xcE2qpHHeRGdUixQ0W0CRrb5RcfFLPol+7Kbix/fxXMnB+Dg4ECW3pldd3gY3bOOqcKQ3wv4IHJKUbSlgn83Qw==
      crossorigin: anonymous
 
-local:
+ace_config:
   items:
     - decko_ace_config.js.coffee

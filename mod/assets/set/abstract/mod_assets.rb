@@ -157,7 +157,7 @@ end
 
 format :html do
   def map_remote_items &block
-    card.group_remote_card.map_items &block
+    card.group_remote_card.map_items(&block)
   end
 
   view :core do

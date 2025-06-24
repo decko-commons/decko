@@ -3,20 +3,20 @@ remote:
     - src: https://fonts.googleapis.com/css2?family=Material+Icons #+Round
       # see https://stackoverflow.com/questions/50303454/how-to-use-the-new-material-design-icon-themes-outlined-rounded-two-tone-and
 
-local:
+bootstrap_decko:
   items:
     - decko_bootstrap.scss
 
-    # BOOTSTRAP LIBRARIES
-
+libraries:
+  items:
     # - font_awesome.css
     # - material_icons.css
     - bootstrap-icons.css
     - bootstrap_colorpicker.scss
     - ../../vendor/bootstrap-colorpicker/src/sass/_colorpicker.scss
 
-    # SELECT2 LIBRARIES
-
+select2:
+  items:
     - ../../vendor/select2/dist/css/select2.css
     - ../../vendor/select2-bootstrap-5-theme/src/_variables.scss
     - ../../vendor/select2-bootstrap-5-theme/src/_layout.scss
