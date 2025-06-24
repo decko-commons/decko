@@ -5,3 +5,4 @@ input: input_type
 options: content_options
 options_label: content_option_view
 token: api_key
+#wagn_bot: decko_bot
