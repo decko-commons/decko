@@ -1031,3 +1031,39 @@ card_acts_172:
   actor_id: 1
   acted_at: 2025-06-17 14:55:09.000000000 Z
   ip_address:
+card_acts_173:
+  id: 105499
+  card_id: 918
+  actor_id: 1
+  acted_at: 2025-06-23 19:20:55.700586000 Z
+  ip_address:
+card_acts_174:
+  id: 105500
+  card_id: 919
+  actor_id: 1
+  acted_at: 2025-06-23 19:20:55.721232000 Z
+  ip_address:
+card_acts_175:
+  id: 105501
+  card_id: 496
+  actor_id: 1
+  acted_at: 2025-06-23 19:20:57.618233000 Z
+  ip_address:
+card_acts_176:
+  id: 105502
+  card_id: 496
+  actor_id: 1
+  acted_at: 2025-06-23 19:20:57.902075000 Z
+  ip_address:
+card_acts_177:
+  id: 105503
+  card_id: 305
+  actor_id: 1
+  acted_at: 2025-06-23 19:20:58.375598000 Z
+  ip_address:
+card_acts_178:
+  id: 105504
+  card_id: 326
+  actor_id: 1
+  acted_at: 2025-06-23 19:20:58.385209000 Z
+  ip_address:
