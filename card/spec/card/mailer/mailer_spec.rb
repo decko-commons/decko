@@ -34,7 +34,7 @@ RSpec.describe Card::Mailer do
   #       assert_equal ["sara@user.com"],  @mail.to
   #     end
   #     it "is from Wag bot email" do
-  #       assert_equal [Card[Card::WagnBotID].account.email], @mail.from
+  #       assert_equal [Card[Card::DeckoBotID].account.email], @mail.from
   #     end
   #   end
   # end

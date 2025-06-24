@@ -113,7 +113,7 @@ def fetch_roles
 end
 
 def fetch_read_rules
-  return [] if id == WagnBotID # always_ok, so not needed
+  return [] if id == DeckoBotID # always_ok, so not needed
 
   ([AnyoneID] + parties).each_with_object([]) do |party_id, rule_ids|
     next unless (cache = Card::Rule.read_rule_cache[party_id])

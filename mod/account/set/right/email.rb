@@ -33,7 +33,7 @@ event :downcase_email, :prepare_to_validate, on: :save do
 end
 
 def email_required?
-  !left&.left&.codename == :wagn_bot
+  !left&.left&.codename == :decko_bot
 end
 
 def ok_to_read?

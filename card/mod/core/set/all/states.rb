@@ -89,7 +89,7 @@ def pristine?
     true
   elsif subcards? && subcards.cards.find(&:altered?)
     false
-  elsif (created_at == updated_at) && (creator_id == WagnBotID)
+  elsif (created_at == updated_at) && (creator_id == DeckoBotID)
     true
   else
     !user_changes?
@@ -101,5 +101,5 @@ def altered?
 end
 
 def user_changes?
-  actions.joins(:act).where("card_acts.actor_id != ?", WagnBotID).exists?
+  actions.joins(:act).where("card_acts.actor_id != ?", DeckoBotID).exists?
 end
