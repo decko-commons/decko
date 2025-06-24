@@ -3,7 +3,7 @@ cards_001:
   id: 1
   name: Decko Bot
   key: decko_bot
-  codename: wagn_bot
+  codename: decko_bot
   left_id:
   right_id:
   current_revision_id:

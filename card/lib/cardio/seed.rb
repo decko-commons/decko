@@ -104,7 +104,7 @@ module Cardio
       end
 
       def author_id
-        Card::WagnBotID
+        Card::DeckoBotID
       end
     end
   end
