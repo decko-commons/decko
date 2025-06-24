@@ -7,7 +7,7 @@ describe Card::Set::Right::Email do
       @format = @card.format
     end
 
-    it "allows Wagn Bot to read" do
+    it "allows Decko Bot to read" do
       Card::Auth.as_bot do
         expect(@format.render_raw).to eq("u1@user.com")
       end

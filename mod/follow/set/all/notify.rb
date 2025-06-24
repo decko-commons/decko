@@ -37,7 +37,7 @@ end
 
 def notable_change?
   !silent_change? && current_act_card? &&
-    (Card::Auth.current_id != WagnBotID) && followable?
+    (Card::Auth.current_id != DeckoBotID) && followable?
 end
 
 def silent_change?

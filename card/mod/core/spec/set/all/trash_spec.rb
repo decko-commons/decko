@@ -178,9 +178,9 @@ end
 # NOT WORKING, BUT IT SHOULD
 # describe Card, "a part of an unremovable card" do
 #  before do
-#     Card::Auth.as(Card::WagnBotID)
+#     Card::Auth.as(Card::DeckoBotID)
 #     # this ugly setup makes it so A+Admin is the actual user with edits..
-#     Card["Wagn Bot"].update! name: "A+Wagn Bot"
+#     Card["Decko Bot"].update! name: "A+Decko Bot"
 #  end
 #  it "does not be removable" do
 #    @a = Card['A']

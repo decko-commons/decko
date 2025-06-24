@@ -41,8 +41,8 @@ class Card
       end
 
       def user_account_cql
-        # every deck starts with two accounts: WagnBot and Anonymous
-        { right: :account, creator_id: ["ne", Card::WagnBotID] }
+        # every deck starts with two accounts: DeckoBot and Anonymous
+        { right: :account, creator_id: ["ne", Card::DeckoBotID] }
       end
 
       def user_account_count
