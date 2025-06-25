@@ -16,7 +16,7 @@
         [[http://decko.org/card_types|more]]
       </p>
 - :name: Decko Bot
-  :codename: wagn_bot
+  :codename: decko_bot
   :content: |-
     <p>
       This is the account that makes any automated updates &mdash; cards

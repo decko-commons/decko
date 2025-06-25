@@ -2,7 +2,7 @@
 
 RSpec.describe Card::Rule::All do
   before do
-    Card::Auth.signin Card::WagnBotID
+    Card::Auth.signin Card::DeckoBotID
   end
 
   describe "setting data setup" do

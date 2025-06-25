@@ -146,7 +146,7 @@ RSpec.describe Card::Fetch do
 
     describe "preferences" do
       before do
-        Card::Auth.signin Card::WagnBotID
+        Card::Auth.signin Card::DeckoBotID
       end
 
       it "prefers db cards to pattern virtual cards" do

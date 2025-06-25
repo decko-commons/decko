@@ -23,9 +23,9 @@ class Card
         end
       end
 
-      # operate with the permissions of WagnBot (administrator)
+      # operate with the permissions of DeckoBot (administrator)
       def as_bot &block
-        as Card::WagnBotID, &block
+        as Card::DeckoBotID, &block
       end
 
       # id of proxy user

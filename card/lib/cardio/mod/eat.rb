@@ -63,7 +63,7 @@ module Cardio
       end
 
       def current_user item_user
-        Card::Auth.current_id = item_user&.card_id || @user_id || Card::WagnBotID
+        Card::Auth.current_id = item_user&.card_id || @user_id || Card::DeckoBotID
       end
 
       def time_machine value, &block
