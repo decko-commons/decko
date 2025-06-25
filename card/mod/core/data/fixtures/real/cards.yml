@@ -3,7 +3,7 @@ cards_001:
   id: 1
   name: Decko Bot
   key: decko_bot
-  codename: wagn_bot
+  codename: decko_bot
   creator_id: 1
   updater_id: 1
   read_rule_class: "*all"

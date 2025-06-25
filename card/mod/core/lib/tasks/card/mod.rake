@@ -30,7 +30,7 @@ namespace :card do
     desc "install all mods"
     task install: :environment do
       puts "installing mods"
-      Card::Auth.signin :wagn_bot.card
+      Card::Auth.signin :decko_bot.card
       # Cardio.config.compress_assets = true # should not be here, imo #efm
       Cardio::Mod.ensure_installed
     end

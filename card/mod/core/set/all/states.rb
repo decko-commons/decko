@@ -85,15 +85,11 @@ end
 
 # has not been edited directly by human users.  bleep blorp.
 def pristine?
-  if new_card?
-    true
-  elsif subcards? && subcards.cards.find(&:altered?)
-    false
-  elsif (created_at == updated_at) && (creator_id == WagnBotID)
-    true
-  else
-    !user_changes?
-  end
+  return true if new_card?
+  return false if subcards? && subcards.cards.find(&:altered?)
+  return true if (created_at == updated_at) && (creator_id == DeckoBotID)
+
+  !user_changes?
 end
 
 def altered?
@@ -101,5 +97,5 @@ def altered?
 end
 
 def user_changes?
-  actions.joins(:act).where("card_acts.actor_id != ?", WagnBotID).exists?
+  actions.joins(:act).where("card_acts.actor_id != ?", DeckoBotID).exists?
 end

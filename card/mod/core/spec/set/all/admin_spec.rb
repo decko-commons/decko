@@ -26,7 +26,7 @@ RSpec.describe Card::Set::All::Admin do
                           "link_list",
                           "local_script_folder_group", "local_script_manifest_group",
                           "local_style_folder_group",
-                          "nest_list", "remote_manifest_group", "role",
+                          "nest_list", "role",
                           "local_style_manifest_group", "bootswatch_skin",
                           "date", "notification_template", "session", "basic",
                           "search_type", "signup")
