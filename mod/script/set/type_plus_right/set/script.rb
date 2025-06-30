@@ -1,3 +1,5 @@
+include_set Abstract::AssetOutputter, output_format: :js
+
 def ok_item_types
   %i[java_script coffee_script list]
 end
