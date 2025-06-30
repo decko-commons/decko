@@ -72,7 +72,7 @@ def email_from_field_value conf_name, conf_email, actual_email
   elsif actual_email.present?
     actual_email
   else
-    Card[WagnBotID].account.email
+    Card[DeckoBotID].account.email
   end
 end
 

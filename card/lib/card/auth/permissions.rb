@@ -6,7 +6,7 @@ class Card
       # @return [true/false]
       def always_ok?
         case as_id
-        when WagnBotID then true # cannot disable
+        when DeckoBotID then true # cannot disable
         when nil       then false
         else
           always_ok_cached?

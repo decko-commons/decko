@@ -1,6 +1,8 @@
 include_set Abstract::List
 include_set Abstract::ReadOnly
 
+card_accessor :group_remote
+
 def item_cards _args={}
   local_group_cards
 end
@@ -28,17 +30,11 @@ def folder_group_card
 end
 
 def local_manifest_group_cards
-  manifest.map do |group_name, config|
-    next if remote_group?(group_name, config)
+  manifest.map do |group_name, _config|
+    next if remote_group? group_name
 
     new_local_manifest_group_card group_name
   end.compact
-end
-
-def remote_group_urls
-  return unless manifest_exists?
-
-  manifest_group_items "remote"
 end
 
 def content?
@@ -70,8 +66,8 @@ def local_group_name
   "local"
 end
 
-def remote_group? name, _config
-  name == "remote" # || config["remote"]
+def remote_group? name
+  name == "remote"
 end
 
 def manifest_group_items group_name
@@ -168,20 +164,17 @@ def raise_manifest_error msg
 end
 
 format :html do
-  def map_remote_items
-    remote_items = card.manifest_group_items "remote"
-    return unless remote_items
-
-    remote_items.map { |args| yield args.clone }
+  def map_remote_items &block
+    card.group_remote_card.map_items(&block)
   end
 
   view :core do
-    groups =
-      card.item_cards.map do |item|
-        [item.cardname.tag, item.input_item_cards.map(&:name)]
-      end
-    if card.remote_group_urls.present?
-      groups << ["group: remote", card.remote_group_urls.map { |remote| remote["src"] }]
+    groups = []
+    urls = card.group_remote_card.urls
+    groups << ["group: remote", urls] if urls.present?
+
+    card.item_cards.map do |item|
+      groups << [item.cardname.tag, item.input_item_cards.map(&:name)]
     end
 
     haml :group_list, groups: groups

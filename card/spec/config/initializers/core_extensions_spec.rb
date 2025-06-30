@@ -33,7 +33,7 @@ describe CoreExtensions do
 
   context CoreExtensions::PersistentIdentifier do
     describe "#name" do
-      subject { :wagn_bot.cardname }
+      subject { :decko_bot.cardname }
 
       it "converts into a name" do
         is_expected.to be_instance_of Card::Name

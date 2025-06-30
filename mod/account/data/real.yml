@@ -199,7 +199,7 @@
   :content: _left
 
 - :name:
-    - :wagn_bot
+    - :decko_bot
     - :account
   :fields:
     :email: no-reply@decko.org

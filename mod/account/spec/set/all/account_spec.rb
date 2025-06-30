@@ -1,8 +1,8 @@
 RSpec.describe Card::Set::All::Account do
   describe "parties" do
-    it "for Wagn Bot", with_user: Card::WagnBotID do
+    it "for Decko Bot", with_user: Card::DeckoBotID do
       expect(Card::Auth.current.parties.sort)
-        .to eq([Card::WagnBotID, Card::AnyoneSignedInID])
+        .to eq([Card::DeckoBotID, Card::AnyoneSignedInID])
     end
 
     it "for Anonymous", with_user: Card::AnonymousID do
@@ -79,7 +79,7 @@ RSpec.describe Card::Set::All::Account do
       expect(account.email).to eq("joe@user.co.uk")
     end
 
-    it "lets Wagn Bot block accounts", :as_bot do
+    it "lets Decko Bot block accounts", :as_bot do
       card.account.status_card.update! content: "blocked"
       expect(account).to be_blocked
     end

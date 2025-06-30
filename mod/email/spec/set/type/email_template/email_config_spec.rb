@@ -17,7 +17,7 @@ RSpec.describe Card::Set::Type::EmailTemplate::EmailConfig do
   end
 
   before do
-    Card::Auth.signin Card::WagnBotID
+    Card::Auth.signin Card::DeckoBotID
     chunk_test = "Url(decko.org) Link([[https://decko.org|Decko]]) " \
                  "Inclusion({{B|name}}) Card link([[A]])"
     Card.create! name: email_name, type: :email_template, subcards: {
