@@ -4,6 +4,10 @@ def ok_item_types
   %i[java_script coffee_script list]
 end
 
+def make_asset_output_coded
+  super(Cardio.config.seed_mods.first)
+end
+
 format :html do
   view :remote_script_tags do
     card.item_cards.map do |mod|

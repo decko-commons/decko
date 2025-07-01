@@ -1,2 +1,0 @@
-// toggle_visibility.js.coffee
-(function(){$(function(){return $("body").on("click","._toggle-pw-visibility",function(){var i,t;return i=$("._pw-input"),t=$("._pw-text-area"),"password"===i.prop("type")?(i.prop("type","text"),t.find("i").text("visibility")):(i.prop("type","password"),t.find("i").text("visibility_off"))})})}).call(this);

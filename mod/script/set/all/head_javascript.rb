@@ -18,6 +18,7 @@ format :html do
     return unless (asset_card = param_or_rule_card :script)
 
     [nest(asset_card, view: :remote_script_tags),
+     "<!-- MAIN DECKO JAVASCRIPT -->",
      main_javascript_tag(asset_card)]
   end
 
@@ -39,8 +40,7 @@ format :html do
   end
 
   def main_javascript_tag asset_card
-    "<!-- MAIN DECKO JAVASCRIPT -->\n" +
-    javascript_include_tag(asset_card.asset_output_url)
+    javascript_include_tag asset_card.asset_output_url
   end
 
   private
