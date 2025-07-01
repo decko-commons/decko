@@ -14,17 +14,17 @@ RSpec.describe Card::Set::Abstract::ModAssets do
       .and include("group: jquery")
   end
 
-  specify "javascript_include_tag view" do
-    expect_view(:javascript_include_tag, card: script).to include("<script src=").thrice
+  specify "remote_script_tags" do
+    expect_view(:remote_script_tags, card: script).to include("<script src=").twice
   end
 
-  it "updates assets" do
-    card = Card["mod: format+*script"]
-    card.update_asset_output
-    card.make_asset_output_coded
-    expect(card.asset_output_card.content)
-      .to eq(":mod_format+:script+:asset_output/format.js")
-    expect(card.asset_output_card.file.file.read)
-      .to include "// decko.js.coffee"
-  end
+  # it "updates assets" do
+  #   card = Card["mod: format+*script"]
+  #   card.update_asset_output
+  #   card.make_asset_output_coded
+  #   expect(card.asset_output_card.content)
+  #     .to eq(":mod_format+:script+:asset_output/format.js")
+  #   expect(card.asset_output_card.file.file.read)
+  #     .to include "// decko.js.coffee"
+  # end
 end

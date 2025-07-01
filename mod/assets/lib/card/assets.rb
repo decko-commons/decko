@@ -53,16 +53,8 @@ class Card
         asset_outputters.each(&:update_asset_output)
       end
 
-      def script_outputters
-        Card.search(left: { type: :mod }, right: :script).flatten
-      end
-
-      def style_outputters
-        [Card[:all, :style]]
-      end
-
       def asset_outputters
-        script_outputters + style_outputters
+        %i[script style].map { |asset| [:all, asset].card }
       end
 
       # MOD+:style and MOD+:script cards, which represent the assets in MOD/assets/style
