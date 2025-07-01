@@ -15,7 +15,10 @@ format :html do
   end
 
   view :javascript_tags, unknown: true, cache: :deep, perms: :none do
-    Array.wrap(head_javascript_paths).reject(&:empty?).join
+    return unless (asset_card = param_or_rule_card :script)
+
+    [nest(asset_card, view: :remote_script_tags),
+     main_javascript_tag(asset_card)]
   end
 
   view :script_calls, unknown: true, perms: :none do
@@ -30,25 +33,17 @@ format :html do
     {
       "decko.rootUrl": card_url(""),
       "decko.doubleClick": Card.config.double_click,
-      "decko.cssPath": head_stylesheet_path,
+      "decko.cssPath": main_stylesheet_path,
       "decko.currentUserId": (Auth.current_id if Auth.signed_in?)
     }
   end
 
-  def head_javascript_paths
-    return unless (asset_card = param_or_rule_card :script)
-
-    seed_asset_outputs asset_card
-    asset_card.item_cards.map do |script|
-      script.format(:html).render :javascript_include_tag
-    end
+  def main_javascript_tag asset_card
+    "<!-- MAIN DECKO JAVASCRIPT -->\n" +
+    javascript_include_tag(asset_card.asset_output_url)
   end
 
   private
-
-  def seed_asset_outputs asset_card
-    Cache.populate_fields asset_card.item_names, :asset_output
-  end
 
   def trigger_slot_ready
     "$('document').ready(function() { $('.card-slot').trigger('decko.slot.ready'); })"
@@ -67,9 +62,5 @@ format :html do
     basket[:script_calls].map do |js_function, ruby_method|
       "decko.#{js_function}('#{escape_javascript send(ruby_method)}')"
     end
-  end
-
-  def javascript_include_tag *args
-    "\n<!-- #{card.name} -->#{super}"
   end
 end

@@ -31,11 +31,3 @@ format :html do
     end
   end
 end
-
-def asset_input_needs_refresh?
-  !asset_input_updated_at || source_changed?(since: asset_input_updated_at)
-end
-
-def asset_input_updated_at
-  asset_input_card&.updated_at
-end
