@@ -54,7 +54,8 @@ class Card
       end
 
       def script_outputters
-        Card.search(left: { type: :mod }, right: :script).flatten
+        [Card[:all, :script]]
+        # Card.search(left: { type: :mod }, right: :script).flatten
       end
 
       def style_outputters
