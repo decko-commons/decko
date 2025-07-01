@@ -59,17 +59,21 @@ format :html do
   # it would then be safe to cache if combined with param handling
   # (but note that machine clearing would need to reset card cache...)
   view :stylesheet_tags, cache: :never, unknown: true, perms: :none do
-    [nest(:style_mods, view: :remote_style_tags), head_stylesheet_path]
+    [nest(:style_mods, view: :remote_style_tags), main_stylesheet_tag]
   end
 
   private
 
-  def head_stylesheet_path
-    @head_stylesheet_path ||=
+  def main_stylesheet_tag
+    @main_stylesheet_tag ||=
       tag "link", media: "all",
                   rel: "stylesheet",
                   type: "text/css",
-                  href: nest(param_or_rule_card(:style), view: :stylesheet_path)
+                  href: main_stylesheet_path
+  end
+
+  def main_stylesheet_path
+    nest(param_or_rule_card(:style), view: :stylesheet_path)
   end
 
   def param_or_rule_card setting
