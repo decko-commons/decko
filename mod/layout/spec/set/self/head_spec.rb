@@ -22,10 +22,7 @@ RSpec.describe Card::Set::Self::Head do
       aggregate_failures do
         %w[https://code.jquery.com/jquery-3.5.1.min.js
            https://cdnjs.cloudflare.com/ajax/libs/jquery-ujs/1.2.3/rails.min.js
-           /files/:mod_format+:script+:asset_output/format.js
-           /files/:mod_ace_editor+:script+:asset_output/ace_editor.js
-           /files/:mod_bootstrap+:script+:asset_output/bootstrap.js
-           /files/:mod_tinymce_editor+:script+:asset_output/tinymce_editor.js]
+           /files/:all+:script+:asset_output/defaults.js]
           .each do |src|
             is_expected.to have_tag(:script, with: { src: src })
           end
