@@ -145,8 +145,6 @@ def new_local_manifest_group_card group_name
   card = new_assets_group_card group_name, local_manifest_group_type_id
   card.group_name = group_name
   card
-rescue
-  binding.pry
 end
 
 def new_assets_group_card group_name, type_id
