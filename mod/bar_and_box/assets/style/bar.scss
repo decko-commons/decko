@@ -87,6 +87,11 @@ $bar-transition: $accordion-transition !default;
   width: calc(100% - 3em);
 }
 
+
+.bar-menu-dropdown.dropdown {
+  position: absolute;
+}
+
 .bar-menu-button {
   padding: 0.25em;
   // border-radius: 5px;
@@ -116,7 +121,7 @@ $bar-transition: $accordion-transition !default;
     display: none;
   }
 
-  ._card-link:hover .bar-menu-button {
+  .bar:hover .bar-menu-button {
     display: flex;
   }
 }
