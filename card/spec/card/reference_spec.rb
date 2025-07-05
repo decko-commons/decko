@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 
 RSpec.describe Card::Reference, as_bot: true do
-  describe "references on hard templated cards should get updated" do
+  describe "references on structured cards should get updated" do
     it "on structuree creation" do
       Card.create! name: "JoeForm", type: "UserForm"
       Card["JoeForm"].format.render!(:core)
