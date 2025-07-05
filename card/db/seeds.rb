@@ -7,7 +7,6 @@ Card::Cache.reset_all
 
 # get rid of bad constants
 Card::Codename.reset_cache
-Card::Codename.generate_id_constants
 
 # TODO: explain why this is necessary
 # (card:seed:build breaks without it)

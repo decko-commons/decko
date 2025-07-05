@@ -8,7 +8,6 @@ event :reset_codename_cache, :integrate, changed: :codename do
   return if action == :create && codename.nil?
 
   Card::Codename.reset_cache
-  Card::Codename.generate_id_constants
 end
 
 private

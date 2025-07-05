@@ -81,6 +81,7 @@ class Card
       def reset_cache
         @codehash = nil
         ::Card.cache.delete "CODENAMES"
+        generate_id_constants
       end
 
       # @param codename [Symbol, String]
