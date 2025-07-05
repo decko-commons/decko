@@ -133,7 +133,7 @@ es:
           type:
             error_cant_change_errors: "de %{name} no se puede cambiar; creando nuevos errores %{type_id}: %{error_messages}"
             error_no_such_type: No hay tal tipo
-            error_hard_templated: no se puede cambiar porque %{name} es una plantilla dificil de %{type_name}
+            error_structured: no se puede cambiar porque %{name} es una plantilla dificil de %{type_name}
           utils:
             exception_almost_deleted: Se evitó de forma muy estrecha eliminar el archivo actual
       set_pattern:

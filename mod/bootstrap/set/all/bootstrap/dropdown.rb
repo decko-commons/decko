@@ -33,7 +33,7 @@ format :html do
       "aria-haspopup" => "true",
       "aria-expanded" => "false"
     ) do
-      '<span class="sr-only">Toggle Dropdown</span>'
+      '<span class="visually-hidden">Toggle Dropdown</span>'
     end
   end
 
