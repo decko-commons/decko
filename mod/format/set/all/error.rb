@@ -55,17 +55,17 @@ format do
 end
 
 format :json do
-  view :errors do
+  view :errors, perms: :none do
     {
       error_status: error_status,
       errors: card.errors.each_with_object({}) { |e, h| h[e.attribute] = e.message }
     }
   end
 
-  view :server_error, :errors
-  view :denial, :errors
-  view :not_found, :errors
-  view :bad_address do
+  view :server_error, :errors, perms: :none
+  view :denial, :errors, perms: :none
+  view :not_found, :errors, perms: :none
+  view :bad_address, perms: :none do
     card.errors.add :address, super()
     render_errors
   end

@@ -76,7 +76,7 @@ class Card
     # be overridden, eg for the main view (top view of the main card on a page)
     # @return [Symbol] view name
     def requested_view
-      @requested_view ||= View.normalize live_options[:view]
+      @requested_view ||= View.normalize(live_options[:view] || @raw_view)
     end
 
     # the final view.  can be different from @requested_view when there are
