@@ -35,11 +35,11 @@ format :json do
   end
 
   # TODO: design better autocomplete API
-  view :name_complete, cache: :never do
+  view :name_complete, cache: :never, perms: :none do
     format_json_search { complete_search limit: AUTOCOMPLETE_LIMIT }
   end
 
-  view :name_match, cache: :never do
+  view :name_match, cache: :never, perms: :none do
     format_json_search { complete_or_match_search limit: AUTOCOMPLETE_LIMIT }
   end
 
