@@ -42,6 +42,6 @@ format :html do
   end
 
   def wrapped_joint
-    wrap_with :span, "+", classy("joint")
+    wrap_with :span, (voo.joint || "+"), classy("joint")
   end
 end
