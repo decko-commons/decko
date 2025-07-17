@@ -52,6 +52,7 @@ class Card
           :structure,      # overrides the content of the card
           :title,          # overrides the name of the card
           :variant,        # override the standard name with a different variant
+          :joint,          # what joins the parts of a compound name ("+" by default)
           :input_type,     # inline_nests makes a form within standard content (Symbol)
           :type,           # set the default type of new cards
           :size,           # set an image size
