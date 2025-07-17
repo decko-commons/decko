@@ -67,11 +67,11 @@ format :html do
 end
 
 format :json do
-  view :search_box_complete, cache: :never do
+  view :search_box_complete, cache: :never, perms: :none do
     search_box_items :search_item, :add_item, :goto_items
   end
 
-  view :complete, cache: :never do
+  view :complete, cache: :never, perms: :none do
     complete_or_match_search(start_only: match_start_only?).map do |name|
       goto_item_label name
     end

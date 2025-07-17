@@ -165,7 +165,7 @@ class Card
 
         # adds the wrappers assigned to ok_view in view definition
         def process_view_wrappers
-          view_wrappers = format.view_setting(:wrap, ok_view)
+          view_wrappers = format.view_setting(:wrap, ok_view) if requested_view
           return unless view_wrappers.present?
 
           @live_options[:wrap] = Array.wrap(@live_options[:wrap])
