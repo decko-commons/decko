@@ -50,7 +50,7 @@ format :html do
 end
 
 format :json do
-  view :select2_option do
+  view :select2_option, perms: :none do
     { id: "~#{card.id}", text: card.name }
   end
 end
