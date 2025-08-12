@@ -120,7 +120,7 @@ class Card
         # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         # SHARED METHODS
 
-        # @return [Symbol] :standard, :always, or :never
+        # @return [Symbol] :always, :deep, or :never
         def cache_setting
           @cache_setting ||= format.view_cache_setting requested_view
         end
