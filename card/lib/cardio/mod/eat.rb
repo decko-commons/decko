@@ -16,7 +16,7 @@ module Cardio
         @pod_type = podtype&.to_sym
         @name = name
         @user_id = user&.card_id
-        @verbose = true # !verbose.nil?
+        @verbose = !verbose.nil?
       end
 
       def run
