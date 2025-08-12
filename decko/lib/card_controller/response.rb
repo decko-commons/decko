@@ -105,11 +105,11 @@ class CardController
     end
 
     def explicit_file_format? rf
-      params[:explicit_file] || !Card::Format.registered.member?(rf.to_s)
+      params[:explicit_file] || !Card::Format.registered.member?(rf)
     end
 
     def requested_format
-      params[:format].present? ? params[:format] : request.format
+      params[:format].present? ? params[:format].to_s : request.format
     end
   end
 end
