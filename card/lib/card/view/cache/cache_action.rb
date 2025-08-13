@@ -74,7 +74,13 @@ class Card
 
         # @return [Symbol]
         def active_cache_action
-          active_cache_ok? ? active_cache_action_from_setting : :stub
+          if caching == :deep
+            :yield
+          elsif active_cache_ok?
+            active_cache_action_from_setting
+          else
+            :stub
+          end
         end
 
         # @return [True/False]
