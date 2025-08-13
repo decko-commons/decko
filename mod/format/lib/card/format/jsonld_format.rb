@@ -9,6 +9,10 @@ class Card
       def mime_type
         "application/ld+json"
       end
+
+      def page_details obj
+        obj
+      end
     end
   end
 end
