@@ -31,6 +31,8 @@ global_job_config:
       # INSTALL CODE CLIMATE REPORTER
       # Assumes $QLTY_COVERAGE_TOKEN is set in the environment
       - curl https://qlty.sh | sh
+      - source /home/semaphore/.bash_profile
+      - qlty --help
 
       # TWEAK ENVIRONMENTAL VARIABLES
       # ...that are too complex for the env_vars config.
