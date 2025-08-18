@@ -74,7 +74,13 @@ class Card
 
         # @return [Symbol]
         def active_cache_action
-          active_cache_ok? ? active_cache_action_from_setting : :stub
+          if caching == :deep
+            :yield
+          elsif active_cache_ok?
+            active_cache_action_from_setting
+          else
+            :stub
+          end
         end
 
         # @return [True/False]
@@ -120,7 +126,7 @@ class Card
         # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         # SHARED METHODS
 
-        # @return [Symbol] :standard, :always, or :never
+        # @return [Symbol] :always, :deep, or :never
         def cache_setting
           @cache_setting ||= format.view_cache_setting requested_view
         end
