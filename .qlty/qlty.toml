@@ -17,6 +17,7 @@ exclude_patterns = [
   "*_min.*",
   "*-min.*",
   "*.min.*",
+  "mod/*/public/**",
   "**/.yarn/**",
   "**/*.d.ts",
   "**/assets/**",
