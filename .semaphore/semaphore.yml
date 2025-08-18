@@ -16,6 +16,7 @@ global_job_config:
   secrets:
     - name: s3-credentials
     - name: code-climate-decko
+    - name: qlty-coverage-token
   prologue:
     commands:
       # INSTALL DECKO CODE AND DEPENDENCIES
