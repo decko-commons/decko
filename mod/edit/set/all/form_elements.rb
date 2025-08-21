@@ -35,7 +35,7 @@ format :html do
     when Array
       base += "[]"
       val.map do |v|
-        hidden_field_tag base, v, options
+        process_hidden_value v, base, options
       end.join
     else
       hidden_field_tag base, val, options

@@ -58,6 +58,10 @@ class Card
         end
       end
 
+      def id_string
+        "~#{id}"
+      end
+
       def key= newkey
         return if newkey == key
 
