@@ -74,7 +74,7 @@ class Card
 
         # @return [Symbol]
         def active_cache_action
-          if caching == :deep
+          if caching == :deep && cache_setting != :never
             :yield
           elsif active_cache_ok?
             active_cache_action_from_setting
