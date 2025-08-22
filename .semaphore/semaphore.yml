@@ -29,8 +29,8 @@ global_job_config:
       - alias be='bundle exec'
 
       # INSTALL CODE CLIMATE REPORTER
-      - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
-      - chmod +x ./cc-test-reporter
+      #      - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+      #      - chmod +x ./cc-test-reporter
 
       # TWEAK ENVIRONMENTAL VARIABLES
       # ...that are too complex for the env_vars config.
@@ -85,7 +85,7 @@ blocks:
           - psql -U postgres -h localhost -c "ALTER USER platypus WITH SUPERUSER;"
           - git submodule update
           - cache restore bundle-gems-$(checksum Gemfile.lock)
-          - ./cc-test-reporter before-build
+#          - ./cc-test-reporter before-build
           - bundle install
 
       jobs:
@@ -103,8 +103,8 @@ blocks:
         on_pass:
           commands:
             - cd -
-            - ./cc-test-reporter format-coverage --output "coverage/codeclimate.$SEMAPHORE_JOB_ID.json" -t simplecov
-            - aws s3 cp "coverage/codeclimate.$SEMAPHORE_JOB_ID.json" $S3_PATH
+#            - ./cc-test-reporter format-coverage --output "coverage/codeclimate.$SEMAPHORE_JOB_ID.json" -t simplecov
+#            - aws s3 cp "coverage/codeclimate.$SEMAPHORE_JOB_ID.json" $S3_PATH
 
   - name: Unit Tests (MySql)
     run:
@@ -115,7 +115,7 @@ blocks:
           - sem-service start mysql
           - git submodule update
           - cache restore bundle-gems-$(checksum Gemfile.lock)
-          - ./cc-test-reporter before-build
+#          - ./cc-test-reporter before-build
           - bundle install
 
       jobs:
@@ -132,7 +132,7 @@ blocks:
         on_pass:
           commands:
             - cd -
-            - ./cc-test-reporter format-coverage --output "coverage/codeclimate.$SEMAPHORE_JOB_ID.json" -t simplecov
+#            - ./cc-test-reporter format-coverage --output "coverage/codeclimate.$SEMAPHORE_JOB_ID.json" -t simplecov
             - aws s3 cp "coverage/codeclimate.$SEMAPHORE_JOB_ID.json" $S3_PATH
 
   - name: Integration Tests
@@ -168,7 +168,7 @@ blocks:
           commands:
             - test-results publish /home/semaphore/reports/*.xml
             - cd ~/decko
-            - ./cc-test-reporter format-coverage --output "coverage/codeclimate.$SEMAPHORE_JOB_ID.json" -t simplecov
+#            - ./cc-test-reporter format-coverage --output "coverage/codeclimate.$SEMAPHORE_JOB_ID.json" -t simplecov
             - aws s3 cp "coverage/codeclimate.$SEMAPHORE_JOB_ID.json" $S3_PATH
             - artifact push job ~/decko/decko/spec/cypress/screenshots
             - artifact push job ~/decko/decko/spec/cypress/videos
@@ -176,14 +176,14 @@ blocks:
 
   # NOTE: the code climate reporting cannot be handled in after_pipeline, because
   # after_pipeline does not make secrets available - efm 2022-10-12
-  - name: Coverage Report
-    task:
-      jobs:
-        - name: CodeClimate Coverage
-          commands:
-            - aws s3 sync $S3_PATH coverage/
-            - ./cc-test-reporter sum-coverage --output - --parts $(ls -1 coverage/ | wc -l) coverage/codeclimate.*.json > coverage/codeclimate.json
-            - ./cc-test-reporter upload-coverage
+#  - name: Coverage Report
+#    task:
+#      jobs:
+#        - name: CodeClimate Coverage
+#          commands:
+#            - aws s3 sync $S3_PATH coverage/
+#            - ./cc-test-reporter sum-coverage --output - --parts $(ls -1 coverage/ | wc -l) coverage/codeclimate.*.json > coverage/codeclimate.json
+#            - ./cc-test-reporter upload-coverage
 
 after_pipeline:
   task:
