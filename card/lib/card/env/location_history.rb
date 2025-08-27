@@ -10,9 +10,10 @@ class Card
       end
 
       def save_location card
-        return unless save_location?(card)
+        return unless save_location? card
 
-        location_history.push(request.original_url).uniq!
+        location = request ? request.original_url : location_for_history(card)
+        location_history.push(location).uniq!
       end
 
       def previous_location
@@ -35,12 +36,16 @@ class Card
 
       private
 
+      def location_for_history card
+        Env::Location.card_path card.name.url_key
+      end
+
       def location_cardname location
         URI.parse(location).path.sub(/^\//, "").sub(/\/.*$/, "")&.cardname
       end
 
       def save_location? card
-        return false unless Auth.signed_in? || Cardio.config.allow_anonymous_cookies
+        # return false unless Auth.signed_in? || Cardio.config.allow_anonymous_cookies
 
         !Env.ajax? && Env.html? && card.known? && (card.codename != :signin)
       end

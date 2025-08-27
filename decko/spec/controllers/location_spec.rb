@@ -12,7 +12,7 @@ RSpec.describe CardController, "location test from old integration" do
   describe "previous location" do
     it "gets updated after viewing" do
       get :read, params: { mark: "Joe_User" }
-      assert_equal "/Joe_User", Card::Env.previous_location
+      assert_equal "/Joe_User", URI.parse(Card::Env.previous_location).path
     end
 
     it "doesn't link to nonexistent cards" do
