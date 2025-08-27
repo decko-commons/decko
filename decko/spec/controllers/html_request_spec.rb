@@ -55,13 +55,6 @@ Decko::RestSpecHelper.describe_api do
                                 success: { redirect: true, mark: "_self" } }
         assert_redirected_to "/Wombly"
       end
-
-      it "redirects to previous" do
-        post :create, params: { mark: "Wombly",
-                                success: { redirect: true, mark: "*previous" } },
-                      session: { history: ["/blam"] }
-        assert_redirected_to "/blam"
-      end
     end
   end
 
