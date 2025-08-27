@@ -22,16 +22,16 @@ class Card
         if session.is_a? Hash
           @session = {}
         elsif request
-          update_session_options
+          update_session_options drop: false
           controller.reset_session
           # destroy_cookie unless Cardio.config.allow_anonymous_cookies
         end
       end
 
-      def update_session_options
+      def update_session_options drop: nil
         return if Cardio.config.allow_anonymous_cookies
 
-        request&.session_options[:drop] = !Auth.signed_in?
+        request&.session_options[:drop] =  drop.nil? ? !Auth.signed_in? : drop
       end
 
       # private

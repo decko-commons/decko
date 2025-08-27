@@ -12,8 +12,7 @@ class Card
       def save_location card
         return unless save_location?(card)
 
-        discard_locations_for card
-        location_history.push location_for_history(card)
+        location_history.push(request.original_url).uniq!
       end
 
       def previous_location
@@ -21,11 +20,8 @@ class Card
       end
 
       def discard_locations_for card
-        # quoting necessary because cards have things like "+*" in the names..
-        session[:history] = location_history.reject do |loc|
-          if (url_key = url_key_for_location(loc))
-            url_key.to_name.key == card.key
-          end
+        session[:history] = location_history.reject do |l|
+          location_cardname(l) == card.name
         end.compact
       end
 
@@ -39,15 +35,13 @@ class Card
 
       private
 
-      def location_for_history card
-        Env::Location.card_path card.name.url_key
-      end
-
-      def url_key_for_location location
-        %r{/([^/]*$)} =~ location ? Regexp.last_match[1] : nil
+      def location_cardname location
+        URI.parse(location).path.sub(/^\//, "").sub(/\/.*$/, "")&.cardname
       end
 
       def save_location? card
+        return false unless Auth.signed_in? || Cardio.config.allow_anonymous_cookies
+
         !Env.ajax? && Env.html? && card.known? && (card.codename != :signin)
       end
     end
