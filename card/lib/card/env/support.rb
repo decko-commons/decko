@@ -29,9 +29,10 @@ class Card
       end
 
       def update_session_options drop: nil
+        return unless request
         return if Cardio.config.allow_anonymous_cookies
 
-        request&.session_options[:drop] =  drop.nil? ? !Auth.signed_in? : drop
+        request.session_options[:drop] = drop.nil? ? !Auth.signed_in? : drop
       end
 
       # private
