@@ -7,7 +7,6 @@ RSpec.describe Card::Env::Success do
   let(:success_params) { nil }
 
   let :success_object do
-    Card::Env.save_location Card["B"]
     described_class.new context, success_params
   end
 
@@ -68,6 +67,8 @@ RSpec.describe Card::Env::Success do
 
     context "with redirect string" do
       let(:success_params) { { mark: "*previous" } }
+
+      before { Card::Env.session[:history] = ["/B"] }
 
       it { is_expected.to eq previous }
     end
