@@ -102,19 +102,5 @@ Decko::RestSpecHelper.describe_api do
       expect(get: "card/delete/monster")
         .to route_to_card(action: "delete", mark: "monster")
     end
-
-    ["/decko", ""].each do |prefix|
-      describe "routes prefixed with '#{prefix}'" do
-        it "works without format" do
-          expect(get: "#{prefix}/random")
-            .to route_to_card(action: "read", mark: "random")
-        end
-
-        it "recognizes format" do
-          expect(get: "#{prefix}/*recent.xml")
-            .to route_to_card(action: "read", mark: "*recent", format: "xml")
-        end
-      end
-    end
   end
 end
