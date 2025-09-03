@@ -180,7 +180,7 @@ blocks:
       jobs:
         - name: Qlty Coverage
           commands:
-            - qlty coverage complete
+            - qlty coverage complete --override-commit-sha $SEMAPHORE_GIT_PR_SHA --override-branch $SEMAPHORE_GIT_BRANCH
 
 after_pipeline:
   task:
