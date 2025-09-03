@@ -168,7 +168,10 @@ format :html do
   end
 
   def signin_success
-    { redirect: true, mark: Env.interrupted_action || "*previous" }
+    (Env.hash(params[:success]) || {}).symbolize_keys.reverse_merge(
+      redirect: true,
+      mark: Env.interrupted_action || "*previous"
+    )
   end
 
   def signin_button

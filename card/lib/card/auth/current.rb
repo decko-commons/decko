@@ -36,7 +36,7 @@ class Card
       def signin cardish
         user_id = Card.id(cardish) || AnonymousID
         (session[session_user_key] = self.current_id = user_id).tap do
-          Env.update_cookie_setting !signed_in?
+          Env.update_session_options
         end
       end
 
