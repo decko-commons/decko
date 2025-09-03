@@ -153,7 +153,22 @@ format :html do
 
   def signin_link
     link_to_card :signin, t(:account_sign_in)&.downcase,
-                 class: "signin-link", path: { view: :titled }
+                 class: "signin-link", path: signin_link_path
+  end
+
+  def signin_link_path
+    { view: :titled }.tap do |path|
+      unless Cardio.config.allow_anonymous_cookies
+        # cookie handles where to go after signin if we have it. if not...
+
+        target = signin_link_success_target
+        path[:success] = { mark: target } if target.present?
+      end
+    end
+  end
+
+  def signin_link_success_target
+    Env.ajax? ? request.referer : request.original_url
   end
 
   def signup_link

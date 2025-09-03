@@ -92,7 +92,7 @@ class Card
       def expire_id cache
         return unless id.present?
 
-        cache.delete "~#{id}"
+        cache.delete id_string
       end
 
       def expire_view_cache_keys view_keys

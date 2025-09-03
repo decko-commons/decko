@@ -1,3 +1,3 @@
 Cardio::Railtie.config.tap do |config|
-  config.anonymous_cookies = true
+  config.allow_anonymous_cookies = true
 end
