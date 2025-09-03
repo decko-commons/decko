@@ -14,7 +14,7 @@ global_job_config:
       value: tmp_files
 
   secrets:
-    - name: qlty-coverage
+    - name: decko-qlty-coverage
   prologue:
     commands:
       # INSTALL DECKO CODE AND DEPENDENCIES
