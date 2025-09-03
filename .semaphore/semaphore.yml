@@ -14,8 +14,6 @@ global_job_config:
       value: tmp_files
 
   secrets:
-    - name: s3-credentials
-    - name: code-climate-decko
     - name: qlty-coverage
   prologue:
     commands:
