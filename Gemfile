@@ -11,6 +11,8 @@ end
 gem "mysql2"
 gem "thin"
 
+gem "rubocop-rspec"
+
 path "./mod" do
   gem "card-mod-defaults"
   gem "card-mod-delayed_job"

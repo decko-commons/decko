@@ -85,3 +85,4 @@ default = true
 
 [[plugin]]
 name = "rubocop"
+package_file = "Gemfile"
