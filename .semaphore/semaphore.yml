@@ -27,7 +27,7 @@ global_job_config:
       # SETUP ALIAS(ES)
       - alias be='bundle exec'
 
-      # INSTALL CODE CLIMATE REPORTER
+      # INSTALL QLTY REPORTER
       # Assumes $QLTY_COVERAGE_TOKEN is set in the environment
       - curl https://qlty.sh | sh
       - source /home/semaphore/.bash_profile
@@ -84,7 +84,6 @@ blocks:
           - psql -U postgres -h localhost -c "ALTER USER platypus WITH SUPERUSER;"
           - git submodule update
           - cache restore bundle-gems-$(checksum Gemfile.lock)
-#          - ./cc-test-reporter before-build
           - bundle install
 
       jobs:
@@ -137,7 +136,7 @@ blocks:
     task:
       secrets:
         - name: decko-cypress
-        - name: decko-cucumber
+        # - name: decko-cucumber
       prologue:
         commands:
           - sem-service start mysql
