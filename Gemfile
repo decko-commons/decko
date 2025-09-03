@@ -11,6 +11,7 @@ end
 gem "mysql2"
 gem "thin"
 
+gem "rubocop"
 gem "rubocop-rspec"
 
 path "./mod" do
