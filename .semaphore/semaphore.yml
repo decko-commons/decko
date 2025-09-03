@@ -137,7 +137,7 @@ blocks:
     task:
       secrets:
         - name: decko-cypress
-        - name: publish-cucumber
+        - name: decko-cucumber
       prologue:
         commands:
           - sem-service start mysql
