@@ -198,7 +198,7 @@ class Card
       # @return [String (usually)] rendered view
       def cache_render &block
         cached_view = cache_fetch(&block)
-        cache_render? ? cached_view : format.stub_render(cached_view)
+        cache_active? ? cached_view : format.stub_render(cached_view)
       end
 
       # Is there already a view cache in progress on which this one depends?
@@ -212,9 +212,9 @@ class Card
         deep_root? ? false : self.class.caching?
       end
 
-      def cache_render?
-        cache_active? && !deep_caching?
-      end
+      # def cache_render?
+      #   cache_active? && !deep_caching?
+      # end
 
       # If view is cached, retrieve it.  Otherwise render and store it.
       # Uses the primary cache API.

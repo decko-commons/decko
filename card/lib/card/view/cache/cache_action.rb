@@ -22,10 +22,11 @@ class Card
         end
 
         def log_cache_action
-          yield.tap do |action|
-            Rails.logger.warn "VIEW CACHE #{cache_active? ? '-->' : ''}[#{action}] "\
-                                "(#{card.name}##{requested_view})"
-          end
+          yield
+          #   .tap do |action|
+          #   Rails.logger.warn "VIEW CACHE #{cache_active? ? '-->' : ''}[#{action}] "\
+          #                       "(#{card.name}##{requested_view})"
+          # end
         end
 
         # @return [Symbol] :off, :active, or :free
