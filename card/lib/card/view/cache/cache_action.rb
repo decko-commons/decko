@@ -6,6 +6,7 @@ class Card
         ACTIVE_CACHE_LEVEL =
           { always: :cache_yield,
             deep: :cache_yield,
+            force: :cache_yield,
             default: :yield,
             yes: :yield,
             never: :stub }.freeze
@@ -21,11 +22,10 @@ class Card
         end
 
         def log_cache_action
-          yield
-          # TODO: make configurable
-          # ...or better yet, integrate into performance logger...
-          # Rails.logger.warn "VIEW CACHE #{cache_active? ? '-->' : ''}[#{action}] "\
-          #                   "(#{card.name}##{requested_view})"
+          yield.tap do |action|
+            Rails.logger.warn "VIEW CACHE #{cache_active? ? '-->' : ''}[#{action}] "\
+                                "(#{card.name}##{requested_view})"
+          end
         end
 
         # @return [Symbol] :off, :active, or :free
@@ -74,7 +74,9 @@ class Card
 
         # @return [Symbol]
         def active_cache_action
-          if caching == :deep && cache_setting != :never
+          if caching == :force
+            :yield
+          elsif deep_caching? && cache_setting != :never
             :yield
           elsif active_cache_ok?
             active_cache_action_from_setting
@@ -92,7 +94,7 @@ class Card
         end
 
         def cacheable_card?
-          return true if caching == :deep || parent.present?
+          return true if deep_caching? || parent.present?
           # a parent voo means we're still in the same card
 
           return false unless (superformat_card = format.parent&.card)
@@ -125,8 +127,11 @@ class Card
 
         # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         # SHARED METHODS
+        def deep_caching?
+          caching.in? %i[deep force]
+        end
 
-        # @return [Symbol] :always, :deep, or :never
+        # @return [Symbol] :default, :yes, :deep, :force, :always, or :never
         def cache_setting
           @cache_setting ||= format.view_cache_setting requested_view
         end

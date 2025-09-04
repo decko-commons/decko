@@ -51,10 +51,12 @@ class Card
         #       nested cards in your cache. (Instead, stub them and process them
         #       separately)
         #     * *:always* - cache even when rendered within another cached view
-        #     * *:deep* cache this view and include nested cards
+        #     * *:deep* cache this view and include nested cards (but stub nested views
+        #       that are set to "never")
         #     * *:never* - don't ever cache this view, even if it's rendered by another
         #       view of the same card. Frequently used to prevent caching problems, when
         #       dynamic context (eg params) can alter the view.
+        #     * *:force* - deep cache everything, even views marked "never"
         #
         #   You should certainly {Card::View::Cache learn more about caching} if you want
         #   to develop mods that are safe in a caching environment.

@@ -198,7 +198,7 @@ class Card
       # @return [String (usually)] rendered view
       def cache_render &block
         cached_view = cache_fetch(&block)
-        cache_active? ? cached_view : format.stub_render(cached_view)
+        cache_render? ? cached_view : format.stub_render(cached_view)
       end
 
       # Is there already a view cache in progress on which this one depends?
@@ -210,6 +210,10 @@ class Card
       # @return [true/false]
       def cache_active?
         deep_root? ? false : self.class.caching?
+      end
+
+      def cache_render?
+        cache_active? && !deep_caching?
       end
 
       # If view is cached, retrieve it.  Otherwise render and store it.
@@ -312,11 +316,9 @@ class Card
 
         def with_caching setting
           old_caching = caching
-          # puts "OPEN CACHING from #{old_caching} to #{setting}" unless @caching == :deep
-          @caching = setting unless @caching == :deep
+          @caching = setting unless @caching.in? %i[deep force]
           yield
         ensure
-          # puts "CLOSE CACHING from #{@caching} to #{old_caching}"
           @caching = old_caching
         end
 

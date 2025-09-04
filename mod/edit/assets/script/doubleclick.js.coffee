@@ -1,6 +1,6 @@
 
 $(window).ready ->
-  doubleClickActiveMap = { off: false, on: true, signed_in: decko.currentUserId }
+  doubleClickActiveMap = { off: false, on: true, signed_in: decko.signed_in }
 
   doubleClickActive = () ->
     doubleClickActiveMap[decko.doubleClick]

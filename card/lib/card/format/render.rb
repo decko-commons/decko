@@ -47,7 +47,7 @@ class Card
       end
 
       # see {Abstract::Format}
-      # (:default), :yes, :deep, :always, :never
+      # (:default), :yes, :deep, :force, :always, :never
       def view_cache_setting view
         voo&.cache || view_setting(:cache, view) || :default
       end
@@ -60,6 +60,7 @@ class Card
         return cached_content if Cardio.config.view_cache == :debug
 
         # stub_debugging do
+        # Rails.logger.info cached_content
         expand_stubs cached_content
         # end
       end
@@ -115,14 +116,14 @@ class Card
         Env.params[:debug] == "view"
       end
 
-      # def stub_debugging
-      #   result = yield
-      #   if Rails.env.development? && result.is_a?(String) && result =~ /StUb/
-      #     Rails.logger.debug "STUB IN RENDERED VIEW: #{card.name}: " \
-      #                       "#{voo.ok_view}\n#{result}"
-      #   end
-      #   result
-      # end
+      def stub_debugging
+        result = yield
+        if Rails.env.development? && result.is_a?(String) && result =~ /StUb/
+          Rails.logger.debug "STUB IN RENDERED VIEW: #{card.name}: " \
+                            "#{voo.ok_view}\n#{result}"
+        end
+        result
+      end
 
       def prepare_stub_nest stub_hash
         stub_card = Card.fetch_from_cast stub_hash[:cast]
