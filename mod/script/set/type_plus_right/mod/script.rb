@@ -15,7 +15,7 @@ def local_manifest_group_type_id
 end
 
 format :html do
-  view :remote_script_tags, cache: :never do
+  view :remote_script_tags do
     remote_include_tags.compact.join "\n"
   end
 
