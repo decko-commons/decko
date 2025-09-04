@@ -14,7 +14,7 @@ format :html do
     end
   end
 
-  view :javascript_tags, unknown: true, cache: :deep, perms: :none do
+  view :javascript_tags, unknown: true, cache: :force, perms: :none do
     return unless (asset_card = param_or_rule_card :script)
 
     [nest(asset_card, view: :remote_script_tags),
@@ -35,7 +35,7 @@ format :html do
       "decko.rootUrl": card_url(""),
       "decko.doubleClick": Card.config.double_click,
       "decko.cssPath": main_stylesheet_path,
-      "decko.currentUserId": (Auth.current_id if Auth.signed_in?)
+      "decko.signed_in": Auth.signed_in?
     }
   end
 
@@ -50,12 +50,20 @@ format :html do
   end
 
   def script_variable_to_js value
-    return "'#{value}'" unless value.is_a? Hash
+    case value
+    when TrueClass, FalseClass
+      value.to_s
+    when Hash
+      "{ #{script_hash_variable_to_js value} }"
+    else
+      "'#{value}'"
+    end
+  end
 
-    vars = value.each_with_object("") do |(k, v), string|
+  def script_hash_variable_to_js value
+    value.each_with_object("") do |(k, v), string|
       string << "#{k}: #{script_variable_to_js v}"
     end
-    "{ #{vars} }"
   end
 
   def script_configs
