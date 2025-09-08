@@ -3,7 +3,7 @@ class Card
     class SqlStatement
       # handle where clause in SqlStatement
       module Where
-        def where explicit=true
+        def where explicit: true
           conditions = [explicit_conditions(@query), implicit_conditions(@query)]
           conditions = conditions.reject(&:blank?).join " AND "
           "#{'WHERE ' if explicit}#{conditions}" unless conditions.blank?

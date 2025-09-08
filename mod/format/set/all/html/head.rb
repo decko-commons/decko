@@ -28,7 +28,7 @@ end
 format :html do
   delegate :noindex?, to: :card
 
-  view :head, unknown: true, perms: :none, cache: :yes do
+  view :head, unknown: true, perms: :none, cache: :always do
     basket[:head_views].map { |viewname| render viewname }.flatten.compact.join "\n"
   end
 
