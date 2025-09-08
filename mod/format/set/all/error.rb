@@ -70,3 +70,28 @@ format :json do
     render_errors
   end
 end
+
+format :jsonld do
+
+  view :errors, perms: :none do
+    messages = {"403" => "Permission denied.", 
+                "404" => "Card not found.", 
+                "406" => "This resource cannot be represented as JSON-LD.", 
+                "400" => "Missing or invalid parameters.",
+                "500" => "Internal Server Error",
+                "401" => "Unauthorized"}  
+    {
+            "@context": "https://www.w3.org/ns/hydra/core#",
+            "@type": "hydra:Error",
+            "hydra:title": "#{error_status} | #{messages[error_status.to_s]}"
+        }.to_json
+  end
+
+  view :server_error, :errors, perms: :none
+  view :denial, :errors, perms: :none
+  view :not_found, :errors, perms: :none
+  view :bad_address, perms: :none do
+    card.errors.add :address, super()
+    render_errors
+  end
+end
