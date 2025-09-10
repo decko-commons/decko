@@ -215,15 +215,20 @@ class Card
       # If view is cached, retrieve it.  Otherwise render and store it.
       # Uses the primary cache API.
       def cache_fetch &block
-        caching do
+        with_caching do
           ensure_cache_key
+          # Rails.logger.debug "Fetching:::  #{cache_key}"
           self.class.cache.fetch cache_key, &block
         end
       end
 
       # keep track of nested cache fetching
-      def caching &block
-        self.class.caching(cache_setting, &block)
+       def with_caching &block
+        self.class.with_caching(cache_setting, &block)
+      end
+
+      def caching
+        self.class.caching
       end
 
       # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -293,24 +298,20 @@ class Card
       # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
       # cache-related Card::View class methods
       module ClassMethods
+        def caching
+          @caching
+        end
+
         def cache
           Card::Cache[Card::View]
         end
 
         def caching?
-          !@caching.nil?
+          !caching.nil?
         end
 
-        def caching setting, &block
-          return @caching unless block_given?
-
-          caching_mode setting, &block
-        end
-
-        private
-
-        def caching_mode setting
-          old_caching = @caching
+        def with_caching setting
+          old_caching = caching
           # puts "OPEN CACHING from #{old_caching} to #{setting}" unless @caching == :deep
           @caching = setting unless @caching == :deep
           yield
@@ -318,6 +319,7 @@ class Card
           # puts "CLOSE CACHING from #{@caching} to #{old_caching}"
           @caching = old_caching
         end
+
       end
     end
   end
