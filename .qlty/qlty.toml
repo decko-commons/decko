@@ -41,6 +41,7 @@ exclude_patterns = [
   "**/templates/**",
   "**/testdata/**",
   "**/vendor/**",
+  "**/*.js"
 ]
 
 test_patterns = [
@@ -84,3 +85,4 @@ default = true
 
 [[plugin]]
 name = "rubocop"
+package_file = "Gemfile"
