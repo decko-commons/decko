@@ -1,4 +1,5 @@
 include_set Abstract::Paging
+include_set Abstract::Items
 
 AUTOCOMPLETE_LIMIT = 8 # number of name suggestions for autocomplete text fields
 

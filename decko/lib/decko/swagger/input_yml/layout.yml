@@ -170,8 +170,8 @@ components:
         request will be redirected.  Eg, `success[mark]=mycardname`
 
   schemas:
-    "nucleus view":
-      name: "nucleus view"
+    nucleus_view:
+      name: nucleus view
       type: object
       properties:
         id:
@@ -186,8 +186,8 @@ components:
         codename:
           type: string
 
-    "atom view":
-      name: "atom view"
+    atom_view:
+      name: atom view
       type: object
       properties:
         id:
@@ -204,7 +204,7 @@ components:
         content:
           type: string
 
-    "molecule view":
+    molecule_view:
       type: object
       properties:
         id:
@@ -214,7 +214,7 @@ components:
         url:
           type: string
         type:
-          $ref: '#/components/schemas/nucleus%20view'
+          $ref: '#/components/schemas/nucleus_view'
         codename:
           type: string
         content:
@@ -224,7 +224,7 @@ components:
         items:
           type: array
           items:
-            $ref: '#/components/schemas/atom%20view'
+            $ref: '#/components/schemas/atom_view'
         links:
           type: array
           items:
@@ -232,9 +232,9 @@ components:
         ancestors:
           type: array
           items:
-            $ref: "#/components/schemas/atom%20view"
+            $ref: "#/components/schemas/atom_view"
 
-    "errors view":
+    errors_view:
       type: object
       properties:
         error_status:
@@ -245,20 +245,20 @@ components:
             type: string
 
   responses:
-    200:
+    "200":
       description: |-
         Card data. Defaults to molecule view.
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/molecule%20view'
-    404:
+            $ref: '#/components/schemas/molecule_view'
+    "404":
       description: "Could not find the card requested."
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/errors%20view'
-    302:
+            $ref: '#/components/schemas/errors_view'
+    "302":
       description: |-
         Successful non-idempotent requests redirect to idempotent GET
         requests.
