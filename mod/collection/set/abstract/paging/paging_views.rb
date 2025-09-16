@@ -106,13 +106,14 @@ end
 format :jsonld do
   view :paging_urls, cache: :never do
     return {} unless show_paging?
-    paging_urls_hash
+    phash = paging_urls_hash
+    
     {"hydra:view": 
       {
         "@type": "hydra:PartialCollectionView", 
         "@id": path, 
-        "hydra:previous": paging_urls_hash[:previous],
-        "hydra:next": paging_urls_hash[:next]
+        "hydra:previous": phash[:previous],
+        "hydra:next": phash[:next]
       }.compact
     }
   end
