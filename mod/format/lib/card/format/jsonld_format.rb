@@ -5,7 +5,6 @@ class Card
       Mime::Type.register "application/ld+json", :jsonld
       register :jsonld
 
-
       def mime_type
         "application/ld+json"
       end
