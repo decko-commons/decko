@@ -86,12 +86,4 @@ format :jsonld do
             "hydra:title": "#{error_status} | #{messages[error_status.to_s]}"
         }.to_json
   end
-
-  view :server_error, :errors, perms: :none
-  view :denial, :errors, perms: :none
-  view :not_found, :errors, perms: :none
-  view :bad_address, perms: :none do
-    card.errors.add :address, super()
-    render_errors
-  end
 end
