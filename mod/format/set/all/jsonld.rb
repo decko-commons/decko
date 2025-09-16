@@ -29,8 +29,6 @@ format :jsonld do
         end
     end
 
-    def page_details(obj) = obj
-
     def molecule
         {
             "@id": path,
