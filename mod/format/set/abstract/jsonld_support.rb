@@ -1,7 +1,7 @@
-module Card::Set::Abstract::JsonldSupport
-  extend Card::Set
+format :jsonld do
+  def jsonld_supported_collection? = true
+end
 
-  format :jsonld do
-    def jsonld_supported_collection? = true
-  end
+def export_formats
+  %i[csv json jsonld]
 end

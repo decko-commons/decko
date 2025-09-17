@@ -2,7 +2,6 @@ format :jsonld do
     # Default: JSON-LD not supported (can be overridden by any set)
     def jsonld_supported_collection? = false
 
-
     def jsonld_error(status: 406, description:)
         response.status = status
         response.headers["Content-Type"] = "application/ld+json"
