@@ -46,9 +46,6 @@ module Cardio
 
       def track edible
         rescuing edible do
-          # n = edible[:name]
-          # binding.pry if (n.is_a? Array) && n.first.to_s == "main_menu"
-          # puts "eating: #{edible}" if @verbose
           card = yield
           puts "eaten: #{card.name}".cyan if @verbose
         end

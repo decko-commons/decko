@@ -14,8 +14,7 @@ global_job_config:
       value: tmp_files
 
   secrets:
-    - name: s3-credentials
-    - name: code-climate-decko
+    - name: decko-qlty-coverage
   prologue:
     commands:
       # INSTALL DECKO CODE AND DEPENDENCIES
@@ -28,9 +27,10 @@ global_job_config:
       # SETUP ALIAS(ES)
       - alias be='bundle exec'
 
-      # INSTALL CODE CLIMATE REPORTER
-      - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
-      - chmod +x ./cc-test-reporter
+      # INSTALL QLTY REPORTER
+      # Assumes $QLTY_COVERAGE_TOKEN is set in the environment
+      - curl https://qlty.sh | sh
+      - source /home/semaphore/.bash_profile
 
       # TWEAK ENVIRONMENTAL VARIABLES
       # ...that are too complex for the env_vars config.
@@ -38,7 +38,6 @@ global_job_config:
       # without the following, code climate uses git to get git details.
       # Semaphore uses the merge sha for PRS, so this leads to coverage report failures.
       - if [ $SEMAPHORE_GIT_PR_SHA ]; then export GIT_COMMIT_SHA=$SEMAPHORE_GIT_PR_SHA; fi;
-      - export S3_PATH="s3://deckodev-test/$SEMAPHORE_PROJECT_NAME/$SEMAPHORE_GIT_BRANCH/coverage/$SEMAPHORE_WORKFLOW_ID/"
 
 blocks:
   - name: Smoke
@@ -49,7 +48,7 @@ blocks:
       prologue:
         commands:
           # occasionally clear:
-          # - cache delete bundle-gems-baseline
+          - cache delete bundle-gems-baseline
           - cache restore bundle-gems-baseline
           - GLCHECK=`checksum Gemfile.lock`
           - cache restore bundle-gems-$GLCHECK
@@ -85,7 +84,6 @@ blocks:
           - psql -U postgres -h localhost -c "ALTER USER platypus WITH SUPERUSER;"
           - git submodule update
           - cache restore bundle-gems-$(checksum Gemfile.lock)
-          - ./cc-test-reporter before-build
           - bundle install
 
       jobs:
@@ -103,8 +101,8 @@ blocks:
         on_pass:
           commands:
             - cd -
-            - ./cc-test-reporter format-coverage --output "coverage/codeclimate.$SEMAPHORE_JOB_ID.json" -t simplecov
-            - aws s3 cp "coverage/codeclimate.$SEMAPHORE_JOB_ID.json" $S3_PATH
+            - qlty coverage publish --incomplete --override-commit-sha $SEMAPHORE_GIT_PR_SHA --override-branch $SEMAPHORE_GIT_BRANCH coverage/.resultset.json
+
 
   - name: Unit Tests (MySql)
     run:
@@ -115,7 +113,7 @@ blocks:
           - sem-service start mysql
           - git submodule update
           - cache restore bundle-gems-$(checksum Gemfile.lock)
-          - ./cc-test-reporter before-build
+#          - ./cc-test-reporter before-build
           - bundle install
 
       jobs:
@@ -132,14 +130,13 @@ blocks:
         on_pass:
           commands:
             - cd -
-            - ./cc-test-reporter format-coverage --output "coverage/codeclimate.$SEMAPHORE_JOB_ID.json" -t simplecov
-            - aws s3 cp "coverage/codeclimate.$SEMAPHORE_JOB_ID.json" $S3_PATH
+            - qlty coverage publish --incomplete --override-commit-sha $SEMAPHORE_GIT_PR_SHA --override-branch $SEMAPHORE_GIT_BRANCH coverage/.resultset.json
 
   - name: Integration Tests
     task:
       secrets:
         - name: decko-cypress
-        - name: publish-cucumber
+        # - name: decko-cucumber
       prologue:
         commands:
           - sem-service start mysql
@@ -168,8 +165,7 @@ blocks:
           commands:
             - test-results publish /home/semaphore/reports/*.xml
             - cd ~/decko
-            - ./cc-test-reporter format-coverage --output "coverage/codeclimate.$SEMAPHORE_JOB_ID.json" -t simplecov
-            - aws s3 cp "coverage/codeclimate.$SEMAPHORE_JOB_ID.json" $S3_PATH
+            - qlty coverage publish --incomplete --override-commit-sha $SEMAPHORE_GIT_PR_SHA --override-branch $SEMAPHORE_GIT_BRANCH coverage/.resultset.json
             - artifact push job ~/decko/decko/spec/cypress/screenshots
             - artifact push job ~/decko/decko/spec/cypress/videos
 
@@ -179,11 +175,9 @@ blocks:
   - name: Coverage Report
     task:
       jobs:
-        - name: CodeClimate Coverage
+        - name: Qlty Coverage
           commands:
-            - aws s3 sync $S3_PATH coverage/
-            - ./cc-test-reporter sum-coverage --output - --parts $(ls -1 coverage/ | wc -l) coverage/codeclimate.*.json > coverage/codeclimate.json
-            - ./cc-test-reporter upload-coverage
+            - qlty coverage complete --override-commit-sha $SEMAPHORE_GIT_PR_SHA
 
 after_pipeline:
   task:

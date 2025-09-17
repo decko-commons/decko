@@ -212,6 +212,10 @@ class Card
         deep_root? ? false : self.class.caching?
       end
 
+      # def cache_render?
+      #   cache_active? && !deep_caching?
+      # end
+
       # If view is cached, retrieve it.  Otherwise render and store it.
       # Uses the primary cache API.
       def cache_fetch &block
@@ -312,11 +316,9 @@ class Card
 
         def with_caching setting
           old_caching = caching
-          # puts "OPEN CACHING from #{old_caching} to #{setting}" unless @caching == :deep
-          @caching = setting unless @caching == :deep
+          @caching = setting unless @caching.in? %i[deep force]
           yield
         ensure
-          # puts "CLOSE CACHING from #{@caching} to #{old_caching}"
           @caching = old_caching
         end
 

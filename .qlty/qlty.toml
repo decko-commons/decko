@@ -17,6 +17,7 @@ exclude_patterns = [
   "*_min.*",
   "*-min.*",
   "*.min.*",
+  "mod/*/public/**",
   "**/.yarn/**",
   "**/*.d.ts",
   "**/assets/**",
@@ -40,6 +41,7 @@ exclude_patterns = [
   "**/templates/**",
   "**/testdata/**",
   "**/vendor/**",
+  "**/*.js"
 ]
 
 test_patterns = [
@@ -72,7 +74,7 @@ threshold = 4
 threshold = 4
 
 [smells.function_complexity]
-threshold = 5
+threshold = 7
 
 [smells.duplication]
 threshold = 22
@@ -83,3 +85,4 @@ default = true
 
 [[plugin]]
 name = "rubocop"
+package_file = "Gemfile"

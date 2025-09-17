@@ -10,10 +10,11 @@ end
 # TO DISCUSS: should this default behavior be directly in the controller?
 # Or at least in decko?
 def configure_successful_deletion
-  if Env.ajax?
+  if Env.ajax? && !Env.params[:is_main]
     success.card = self
     success.view = :unknown unless success.view
   else
+    success.redirect = true
     success.target = :previous
   end
 end
