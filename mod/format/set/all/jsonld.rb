@@ -1,8 +1,6 @@
 format :jsonld do
-    def jsonld_supported_collection?
-        deny = %i[project dataset research_group company_group topic_framework]
-        !deny.include?(card.type.codename)
-    end
+    # Default: JSON-LD not supported (can be overridden by any set)
+    def jsonld_supported_collection? = false
 
 
     def jsonld_error(status: 406, description:)
