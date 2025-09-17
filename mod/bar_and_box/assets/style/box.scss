@@ -29,7 +29,7 @@ $box_stripe_color: $secondary !default;
   text-overflow: ellipsis;
   display: flex;
   justify-content: center;
-  img {
+  img, svg {
     object-fit: contain;
     height: 130px;
     width: 190px;

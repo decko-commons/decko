@@ -1,105 +1,120 @@
----
 openapi: 3.0.0
 info:
-  description: |-
+  description: >-
     Decko organizes data into "cards." Decko's API supports retrieval and alteration of card data.
+
     To get the JSON responses as described below, do _any_ of the following:
       1. Set the http Accept header to `application/json` in your request
       2. Add `.json` to the url, or
       3. Add `format=json` to the query params.
-  version: 0.8.0
+
+  version: "0.8.0"
   title: Decko API
   contact:
     email: info@decko.org
   license:
     name: GPL-2.0
-    url: https://opensource.org/licenses/GPL-2.0
+    url: 'https://opensource.org/licenses/GPL-2.0'
 tags:
-- name: create
-- name: read
-- name: update
-- name: delete
+  - name: create
+  - name: read
+  - name: update
+  - name: delete
+
 paths:
-  "/{mark}":
+  /{mark}:
     get:
       tags:
-      - read
-      summary: get specified view of card
+        - Decko
+      summary: "get specified view of card"
       description: |-
         All read operations involve producing a _view_ of a card.
+
         The request can come in several variants, eg\:
           1. /{mark}?view={view} (standard)
           1. /{mark}/{view}
           1. /?mark={mark}&view={view}
+
       parameters:
-      - "$ref": "#/components/parameters/cardmark"
-      - "$ref": "#/components/parameters/view"
+        - $ref: '#/components/parameters/cardmark'
+        - $ref: '#/components/parameters/view'
       responses:
         200:
-          "$ref": "#/components/responses/200"
+          $ref: '#/components/responses/200'
         404:
-          "$ref": "#/components/responses/404"
+          $ref: '#/components/responses/404'
     put:
       tags:
-      - update
-      summary: update a card
+        - Decko
+      summary: "update a card"
+      description: |-
+        Update a card's name, type, and/or content. It's also possible to use
+        a GET request with /update/{mark}
       parameters:
-      - "$ref": "#/components/parameters/cardmark"
-      - "$ref": "#/components/parameters/card"
-      - "$ref": "#/components/parameters/success"
+        - $ref: '#/components/parameters/cardmark'
+        - $ref: '#/components/parameters/card'
+        - $ref: '#/components/parameters/success'
       responses:
-        200:
-          "$ref": "#/components/responses/200"
+        302:
+          $ref: '#/components/responses/302'
         404:
-          "$ref": "#/components/responses/404"
+          $ref: '#/components/responses/404'
+    # TODO: add patch
     delete:
       tags:
-      - delete
-      summary: delete a card
+        - Decko
+      summary: "delete a card"
       parameters:
-      - "$ref": "#/components/parameters/cardmark"
-      - "$ref": "#/components/parameters/success"
+        - $ref: '#/components/parameters/cardmark'
+        - $ref: '#/components/parameters/success'
       responses:
-        200:
-          "$ref": "#/components/responses/200"
+        302:
+          $ref: '#/components/responses/302'
         404:
-          "$ref": "#/components/responses/404"
-  "/":
+          $ref: '#/components/responses/404'
+  /:
     post:
       tags:
-      - create
-      summary: create a card
+        - Decko
+      summary: "create a card"
+      description: |-
+        Create a card, setting its name, type, and/or content. It's also possible to use
+        a GET request with /card/create
       parameters:
-      - "$ref": "#/components/parameters/cardmark"
-      - "$ref": "#/components/parameters/card"
-      - "$ref": "#/components/parameters/success"
+        - $ref: '#/components/parameters/cardmark'
+        - $ref: '#/components/parameters/card'
+        - $ref: '#/components/parameters/success'
       responses:
-        200:
-          "$ref": "#/components/responses/200"
-        404:
-          "$ref": "#/components/responses/404"
+        302:
+          $ref: '#/components/responses/302'
+
 externalDocs:
   description: Find out more about Decko
-  url: http://decko.org
+  url: 'http://decko.org'
 servers:
-- url: http://decko.org
+  - url: 'http://decko.org'
+
 components:
   parameters:
     cardmark:
       name: mark
       in: path
       required: true
-      description: |-
+      description: >-
         A card's "mark" can be a name, an id, or a codename. Prefix ids with a tilde (~) and codenames with a colon (\:).
+
         - **name:** Every card has a unique name. A name can have many variants. For example, `Berlin`, `berlin`, and `BERLIN!` all refer to the same card. The singularized, lower-cased, underscored variant of a name is called its "key."
+
         - **id:** Every card stored in the database has a unique numerical id. _Note: some cards, called 'virtual cards', are not stored in the database and therefore do not have a numerical id. For example, the name `Menu+*refer to` identifies a virtual Search card that finds all the cards that refer to the `Menu` card.Because it is based on patterns that apply to all cards with names ending in `+*refer to`, there is no need to store each instance of that pattern._
+
         - **codename:** Some cards also have special identifiers called "codenames". Card names can be edited by Decko users. If these names were used directly in code, then renaming would break that code. Codename identifiers solve this problem by providing persistent readable identifiers. Only cards referred to directly in code have codenames.
+
       schema:
         type: string
         enum:
-        - "{name}"
-        - "~{id}"
-        - ":{codename}"
+          - '{name}'
+          - '~{id}'
+          - ':{codename}'
     view:
       name: view
       in: query
@@ -107,18 +122,17 @@ components:
       schema:
         type: string
         enum:
-        - nucleus
-        - atom
-        - molecule
-        - id
-        - codename
-        - name
-        - key
-        - content
-        - type
+          - nucleus
+          - atom
+          - molecule
+          - id
+          - codename
+          - name
+          - key
+          - content
+          - type
         default: molecule
-      description: The view determines the contents of the response JSON.  See the
-        corresponding schema for more details.
+      description: The view determines the contents of the response JSON.  See the corresponding schema for more details.
     card:
       name: card
       in: header
@@ -131,24 +145,32 @@ components:
             type: string
           content:
             type: string
-      description: |-
-        The card parameter contains card field data, subcard field data. It follows RubyOnRails hash parameter pattern; for example, a card's name is represented as `card[name]=foobar`.
+      description: >-
+        The card parameter contains card field data, subcard field data.
+        It follows RubyOnRails hash parameter pattern; for example, a card's name is represented as `card[name]=foobar`.
+
         The most common fields are:
+
         - **name:** Every card has a unique name.
+
         - **type:** The card\'s type.  Note that every card has a type, and the value of this field should be the type card\'s name. You can alternatively use **type_id** or **type_code** with the type card\s id
           or mark respectively.
 
         - **content:** The card\'s content (in string form)
+
         - **subcards** A hash that contains information about additional cards to be handled in the same transaction.  Each key is a card name, and each value is a card hash. Eg `cards[subcards][+color][content]=red`
+
     success:
       name: success
       in: header
       schema:
         type: object
-      description: parameters hash to pass on to the GET request to which a successful
+      description: >-
+        parameters hash to pass on to the GET request to which a successful
         request will be redirected.  Eg, `success[mark]=mycardname`
+
   schemas:
-    nucleus view:
+    nucleus_view:
       name: nucleus view
       type: object
       properties:
@@ -163,7 +185,8 @@ components:
           type: string
         codename:
           type: string
-    atom view:
+
+    atom_view:
       name: atom view
       type: object
       properties:
@@ -180,7 +203,8 @@ components:
           type: string
         content:
           type: string
-    molecule view:
+
+    molecule_view:
       type: object
       properties:
         id:
@@ -190,7 +214,7 @@ components:
         url:
           type: string
         type:
-          "$ref": "#/components/schemas/nucleus%20view"
+          $ref: '#/components/schemas/nucleus_view'
         codename:
           type: string
         content:
@@ -200,7 +224,7 @@ components:
         items:
           type: array
           items:
-            "$ref": "#/components/schemas/atom%20view"
+            $ref: '#/components/schemas/atom_view'
         links:
           type: array
           items:
@@ -208,8 +232,9 @@ components:
         ancestors:
           type: array
           items:
-            "$ref": "#/components/schemas/atom%20view"
-    errors view:
+            $ref: "#/components/schemas/atom_view"
+
+    errors_view:
       type: object
       properties:
         error_status:
@@ -218,16 +243,22 @@ components:
           type: array
           items:
             type: string
+
   responses:
-    200:
-      description: card data
+    "200":
+      description: |-
+        Card data. Defaults to molecule view.
       content:
         application/json:
           schema:
-            "$ref": "#/components/schemas/molecule%20view"
-    404:
-      description: Could not find the card requested.
+            $ref: '#/components/schemas/molecule_view'
+    "404":
+      description: "Could not find the card requested."
       content:
         application/json:
           schema:
-            "$ref": "#/components/schemas/errors%20view"
+            $ref: '#/components/schemas/errors_view'
+    "302":
+      description: |-
+        Successful non-idempotent requests redirect to idempotent GET
+        requests.
