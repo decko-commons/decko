@@ -102,3 +102,19 @@ format :json do
     hash[status] = path page_link_path_args(page)
   end
 end
+
+format :jsonld do
+  view :paging_urls, cache: :never do
+    return {} unless show_paging?
+    phash = paging_urls_hash
+    
+    {"hydra:view": 
+      {
+        "@type": "hydra:PartialCollectionView", 
+        "@id": path, 
+        "hydra:previous": phash[:previous],
+        "hydra:next": phash[:next]
+      }.compact
+    }
+  end
+end
