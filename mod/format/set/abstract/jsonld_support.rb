@@ -1,5 +1,5 @@
 format :jsonld do
-  def jsonld_supported_collection? = true
+  def jsonld_supported? = true
 end
 
 def export_formats

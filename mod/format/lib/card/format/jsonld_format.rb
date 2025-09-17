@@ -9,6 +9,7 @@ class Card
         "application/ld+json"
       end
 
+      # overrides #page_details in Json format, which adds standard info to every request
       def page_details obj
         obj
       end
