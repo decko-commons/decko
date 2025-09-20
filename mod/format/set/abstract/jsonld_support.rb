@@ -1,5 +1,6 @@
 module Card::Set::Abstract::JsonldSupported
   extend Card::Set
+    # TODO: Move some of those methods to a more general place is not jsonld-specific logic maybe under wikirate repo?
     format :jsonld do
       def jsonld_supported? = true
 
