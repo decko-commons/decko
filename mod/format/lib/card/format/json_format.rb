@@ -7,7 +7,7 @@ class Card
       register :json
 
       def mime_type
-        "text/json"
+        "application/json"
       end
 
       def expand_stubs content
