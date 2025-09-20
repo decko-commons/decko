@@ -100,6 +100,6 @@ format :jsonld do
       "@context": "https://www.w3.org/ns/hydra/core#",
       "@type": "hydra:Error",
       "hydra:title": "#{status} | #{message}"
-    }
+    }.to_json
   end
 end
