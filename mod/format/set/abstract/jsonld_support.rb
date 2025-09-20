@@ -35,6 +35,10 @@ module Card::Set::Abstract::JsonldSupported
           end
           metric.unit.presence
       end
+
+      def resource_iri
+        path(mark: card.name, format: nil)
+      end
     end
 
     def export_formats
