@@ -469,7 +469,7 @@ GEM
       json
     reline (0.6.2)
       io-console (~> 0.5)
-    rexml (3.4.1)
+    rexml (3.4.2)
     ruby-vips (2.2.5)
       ffi (~> 1.12)
       logger
