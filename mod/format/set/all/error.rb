@@ -70,3 +70,36 @@ format :json do
     render_errors
   end
 end
+
+format :jsonld do
+  view :test do
+    fail "blah"
+  end
+
+  view :not_found, perms: :none do
+    error_result 404, "Not Found"
+  end
+
+  view :denial, perms: :none do
+    error_result 403, "Permission denied"
+  end
+
+  view :errors, perms: :none do
+    error_result error_status, error_messages
+  end
+
+  view :format_unsupported, perms: :none do
+    root.error_status = 406
+    error_result 406, "JSON-LD is not available for this resource"
+  end
+
+  view :server_error, :errors, perms: :none
+
+  def error_result status=500, message="Internal Server Error"
+    {
+      "@context": "https://www.w3.org/ns/hydra/core#",
+      "@type": "hydra:Error",
+      "hydra:title": "#{status} | #{message}"
+    }.to_json
+  end
+end

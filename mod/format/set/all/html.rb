@@ -22,3 +22,11 @@ format :html do
     :bar
   end
 end
+
+format do
+  # Sanitizer that strips all html tags
+  def sanitize_html value
+    return if value.blank?
+    (@full_sanitizer ||= Rails::Html::FullSanitizer.new).sanitize(value.to_s).presence
+  end
+end
