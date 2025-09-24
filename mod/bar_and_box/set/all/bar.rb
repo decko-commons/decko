@@ -5,7 +5,7 @@ format :html do
   bar_cols 9, 3
   mini_bar_cols 9, 3
 
-  # drops bar-middle in small viewports
+  # drops bar-middle view in small viewports
   view :bar, unknown: :mini_bar, cache: :yes do
     cols = bar_cols.size == 3 ? [mini_bar_cols, bar_cols] : [bar_cols]
     prepare_bar(*cols)
