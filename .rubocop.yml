@@ -1,6 +1,6 @@
 require:
 #  - rubocop-decko
-  - rubocop-rspec
+#  - rubocop-rspec
 inherit_from: .ruby-style.yml
 Layout/IndentationConsistency:
   AutoCorrect: false
