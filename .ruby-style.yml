@@ -33,44 +33,44 @@ Metrics/MethodLength:
   Max: 15
 Metrics/BlockLength:
   Enabled: false
-RSpec/MultipleExpectations:
-  Enabled: false
-RSpec/ExampleLength:
-  Description: Checks for long examples.
-  Enabled: true
-  Max: 25
-RSpec/SpecFilePathFormat:
-  Description: Checks that spec file paths are consistent and well-formed.
-  Enabled: true
-  Include:
-    - "**/*_spec.rb"
-  Exclude:
-    - "**/spec/routing/**/*"
-  CustomTransform:
-    RuboCop: rubocop
-    RSpec: rspec
-    Card: ""
-  IgnoreMethods: false
-  IgnoreMetadata:
-    type: routing
-  VersionAdded: '2.24'
-  Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/SpecFilePathFormat
-RSpec/SpecFilePathSuffix:
-  Description: Checks that spec file paths suffix are consistent and well-formed.
-  Enabled: true
-  VersionAdded: '2.24'
-  Include:
-    - "**/*_spec*rb*"
-    - "**/spec/**/*"
-  Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/SpecFilePathSuffix
-RSpec/NestedGroups:
-  Description: Checks for nested example groups.
-  Enabled: true
-  Max: 5
-RSpec/ExpectActual:
-  Enabled: true
-  Exclude:
-    - "**/spec/routing/**/*"
+#RSpec/MultipleExpectations:
+#  Enabled: false
+#RSpec/ExampleLength:
+#  Description: Checks for long examples.
+#  Enabled: true
+#  Max: 25
+#RSpec/SpecFilePathFormat:
+#  Description: Checks that spec file paths are consistent and well-formed.
+#  Enabled: true
+#  Include:
+#    - "**/*_spec.rb"
+#  Exclude:
+#    - "**/spec/routing/**/*"
+#  CustomTransform:
+#    RuboCop: rubocop
+#    RSpec: rspec
+#    Card: ""
+#  IgnoreMethods: false
+#  IgnoreMetadata:
+#    type: routing
+#  VersionAdded: '2.24'
+#  Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/SpecFilePathFormat
+#RSpec/SpecFilePathSuffix:
+#  Description: Checks that spec file paths suffix are consistent and well-formed.
+#  Enabled: true
+#  VersionAdded: '2.24'
+#  Include:
+#    - "**/*_spec*rb*"
+#    - "**/spec/**/*"
+#  Reference: https://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/SpecFilePathSuffix
+#RSpec/NestedGroups:
+#  Description: Checks for nested example groups.
+#  Enabled: true
+#  Max: 5
+#RSpec/ExpectActual:
+#  Enabled: true
+#  Exclude:
+#    - "**/spec/routing/**/*"
 
 Style/Encoding:
   Description: Use UTF-8 as the source file encoding.
@@ -372,14 +372,14 @@ Style/SwapValues: # new in 1.1
   Enabled: true
 Style/YAMLFileRead: # new in 1.53
   Enabled: true
-RSpec/StringAsInstanceDoubleConstant: # new in 3.1
-  Enabled: true
-RSpec/RedundantPredicateMatcher:
-  Enabled: false # Changes in file specs "be_exist" to "exists", which breaks the tests
-RSpec/MultipleMemoizedHelpers:
-  Enabled: true
-  Max: 9
+#RSpec/StringAsInstanceDoubleConstant: # new in 3.1
+#  Enabled: true
+#RSpec/RedundantPredicateMatcher:
+#  Enabled: false # Changes in file specs "be_exist" to "exists", which breaks the tests
+#RSpec/MultipleMemoizedHelpers:
+#  Enabled: true
+#  Max: 9
 Style/OptionalBooleanParameter:  # we like it but it is too much work
   Enabled: false
-Rubocop/Gemspec/RequiredRubyVersion: # handled by DeckoGem
+Gemspec/RequiredRubyVersion: # handled by DeckoGem
   Enabled: false
