@@ -11,8 +11,8 @@ DeckoGem.gem "decko" do |s, d|
 
   s.bindir = "bin"
   s.executables = ["decko"]
-  s.add_runtime_dependency "actionpack", d.rails_version
-  s.add_runtime_dependency "card", d.card_version
+  s.add_dependency "actionpack", d.rails_version
+  s.add_dependency "card", d.card_version
 
   # TODO: remove following.
   # It is just a temporary fix so that old sites continue to work without having to

@@ -3,12 +3,12 @@ module Cardio
     # Pry command configuration
     module Commands
       class << self
-        def alias_command *args
-          ::Pry.config.commands.alias_command(*args)
+        def alias_command(*)
+          ::Pry.config.commands.alias_command(*)
         end
 
-        def block_command *args
-          ::Pry.commands.block_command(*args)
+        def block_command(*)
+          ::Pry.commands.block_command(*)
         end
       end
 

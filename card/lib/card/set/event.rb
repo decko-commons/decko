@@ -69,8 +69,8 @@ class Card
         #   event to fire.
         # @option opts [Symbol] :stage alternate representation for specifying stage
         # @option opts [True/False] :after_subcards run event after running subcard events
-        def event event, stage_or_opts={}, opts={}, &final
-          Event.new(event, self).register stage_or_opts, opts, &final
+        def event(event, stage_or_opts={}, opts={}, &)
+          Event.new(event, self).register(stage_or_opts, opts, &)
         end
       end
 
@@ -160,15 +160,13 @@ class Card
     end
   end
 
-  def rescuing_if_integration is_integration, &block
-    is_integration ? rescuing_integration(&block) : yield
+  def rescuing_if_integration(is_integration, &)
+    is_integration ? rescuing_integration(&) : yield
   end
 
   # one failed integration event should not harm others.
-  def rescuing_integration &block
-    Error.rescue_card(self, &block)
-  ensure
-    true
+  def rescuing_integration(&)
+    Error.rescue_card(self, &)
   end
 
   def log_event_call event

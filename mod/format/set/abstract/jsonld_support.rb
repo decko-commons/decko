@@ -1,4 +1,3 @@
-
 format :jsonld do
   def jsonld_supported? = true
 

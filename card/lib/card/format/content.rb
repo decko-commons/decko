@@ -1,18 +1,18 @@
 class Card
   class Format
     module Content
-      def process_content override_content=nil, content_opts=nil, &block
+      def process_content(override_content=nil, content_opts=nil, &)
         content_obj = content_object override_content, content_opts
-        content_obj.process_chunks(&block)
+        content_obj.process_chunks(&)
         content_obj.to_s
       end
 
       # 1. Break out references (nests / links) into separate chunks
       # 2. yields the other (non-ref) content
       # 3. processes references
-      def safe_process_content override_content=nil, content_opts=nil, &block
+      def safe_process_content(override_content=nil, content_opts=nil, &)
         content_obj = content_object override_content, chunk_list: :references
-        process_content content_obj.without_references(&block), content_opts
+        process_content content_obj.without_references(&), content_opts
       end
 
       # nested by another card's content

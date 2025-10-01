@@ -18,6 +18,7 @@ module Decko
         routes { Decko::Engine.routes }
         include Capybara::DSL
         include RestSpecMethods
+
         instance_eval(&block)
       end
     end

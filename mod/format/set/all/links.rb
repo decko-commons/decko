@@ -8,7 +8,7 @@ format do
   # @param text [String] optional string associated with link
   # @param opts [Hash] optional Hash. In simple formats, :path is usually the only key
   def link_to text=nil, opts={}
-    path = path((opts.delete(:path) || {}))
+    path = path(opts.delete(:path) || {})
     if text && path != text
       "#{text}[#{path}]"
     else

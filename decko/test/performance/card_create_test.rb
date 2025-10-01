@@ -4,9 +4,9 @@ require "test_helper"
 require "rails/performance_test_help"
 
 class CardCreateTest < ActionDispatch::PerformanceTest
-  def initialize *args
+  def initialize(*)
     @name = "CardA"
-    super(*args)
+    super
     Card::Auth.as Card::WagnBotID
   end
 

@@ -103,7 +103,7 @@ class Card
         end
 
         def relate_multi_value_with_subcondition key, conj, val
-          send conj, (val.map { |v| { key => v } })
+          send(conj, val.map { |v| { key => v } })
         end
 
         def relate_multi_value_without_subcondition method, key, val

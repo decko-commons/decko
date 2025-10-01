@@ -35,10 +35,10 @@ module Cardio
       private
 
       # if output mod given,
-      def handle_up &block
+      def handle_up(&)
         Card::Cache.reset_all
         Card::Mailer.perform_deliveries = false
-        Card::Auth.as_bot(&block)
+        Card::Auth.as_bot(&)
         :success
       rescue StandardError => e
         e.message
@@ -63,10 +63,10 @@ module Cardio
         Card::Auth.current_id = item_user&.card_id || @user_id || Card::DeckoBotID
       end
 
-      def time_machine value, &block
+      def time_machine(value, &)
         return yield unless value.present?
 
-        Timecop.freeze Time.at(time_integer(value)), &block
+        Timecop.freeze(Time.at(time_integer(value)), &)
       end
 
       def time_integer value

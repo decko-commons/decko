@@ -60,7 +60,8 @@ class Card
 
       def match_prefix prefix_regexp
         prefix_match = @content[@position..].match(prefix_regexp)
-        if prefix_match
+        return unless prefix_match
+
           @prefix = prefix_match[0]
           # prefix of matched chunk
           @chunk_start = prefix_match.begin(0) + @position
@@ -73,7 +74,6 @@ class Card
           @position = @chunk_start
           # move scanning position up to beginning of chunk
           true
-        end
       end
 
       def record_chunk
@@ -98,10 +98,10 @@ class Card
       end
 
       def handle_remainder
-        if @chunks.any? && @last_position < @content.size
+        return unless @chunks.any? && @last_position < @content.size
+
           # handle any leftover nonchunk string at the end of content
           @chunks << @content[@last_position..]
-        end
       end
     end
   end

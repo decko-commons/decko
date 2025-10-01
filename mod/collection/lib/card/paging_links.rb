@@ -66,7 +66,7 @@ class Card
     end
 
     def direct_page_link page
-      return unless page >= 0 && page <= @total
+      return unless page.between?(0, @total)
 
       paging_item page + 1, page
     end

@@ -70,11 +70,11 @@ module Cardio
       text.is_a?(String) && (text.match?(%r{</\w+>}) || text.include?("\e"))
     end
 
-    def puts_html html, text, &block
+    def puts_html(html, text, &)
       if html.errors.present?
-        puts_html_errors html, text, &block
+        puts_html_errors(html, text, &)
       else
-        puts_highlighted_html html, &block
+        puts_highlighted_html(html, &)
       end
     end
 

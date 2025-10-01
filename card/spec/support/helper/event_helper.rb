@@ -17,11 +17,11 @@ class Card
       #            trigger: -> { test_card.update! content: '' } do
       #     expect(item_names).to eq []
       #   end
-      def in_stage stage, opts={}, &event_block
+      def in_stage(stage, opts={}, &)
         Card.rspec_binding = binding
         trigger = opts.delete(:trigger)
         trigger = method(trigger) if trigger.is_a?(Symbol)
-        add_test_event stage, :in_stage_test, opts, &event_block
+        add_test_event(stage, :in_stage_test, opts, &)
         ensure_clean_up stage do
           trigger.call
         end
@@ -33,8 +33,8 @@ class Card
         remove_test_event stage, :in_stage_test
       end
 
-      def create_with_event name, stage, opts={}, &event_block
-        in_stage stage, opts.merge(for: name, trigger: -> { create name }), &event_block
+      def create_with_event(name, stage, opts={}, &)
+        in_stage(stage, opts.merge(for: name, trigger: -> { create name }), &)
       end
 
       # if you need more then one test event (otherwise use #in_stage)
@@ -58,20 +58,20 @@ class Card
         Card.rspec_binding = false
       end
 
-      def test_event stage, opts={}, &block
+      def test_event(stage, opts={}, &)
         event_name = :"test_event#{@events.size}"
         @events << [stage, event_name]
-        add_test_event stage, event_name, opts, &block
+        add_test_event(stage, event_name, opts, &)
       end
 
-      def add_test_event stage, name, opts={}, &event_block
+      def add_test_event(stage, name, opts={}, &)
         # use random set module that is always included so that the
         # event applies to all cards
         set_module = opts.delete(:set) || Card::Set::All::Type
         if (only_for_card = opts.delete(:for))
           opts[:when] = proc { |c| c.name == only_for_card }
         end
-        Card::Set::Event.new(name, set_module).register stage, opts, &event_block
+        Card::Set::Event.new(name, set_module).register(stage, opts, &)
       end
 
       def remove_test_event stage, name

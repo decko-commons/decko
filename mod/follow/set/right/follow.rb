@@ -50,7 +50,7 @@ end
 
 def allowed_to_change_follow_status?
   (Auth.signed_in? &&
-    ((user = rule_user) && Auth.current_id == user.id)) || Auth.always_ok?
+    (user = rule_user) && Auth.current_id == user.id) || Auth.always_ok?
 end
 
 format :html do

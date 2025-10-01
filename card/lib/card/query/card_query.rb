@@ -13,6 +13,7 @@ class Card
       include Sorting
       include Conjunctions
       include Custom
+
       # Query Execution
 
       # By default a query returns card objects. This is accomplished by returning
@@ -32,7 +33,7 @@ class Card
       end
 
       def initialize statement, comment=nil
-        super statement
+        super(statement)
         @comment = comment || default_comment
         interpret @statement
       end

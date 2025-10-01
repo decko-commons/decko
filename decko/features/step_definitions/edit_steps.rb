@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-# rubocop:disable Lint/AmbiguousRegexpLiteral, Metrics/
+# rubocop:disable Lint/AmbiguousRegexpLiteral, /
 
 Given /^(.*) (is|am) watching "([^"]+)"$/ do |user, _verb, cardname|
   Delayed::Worker.new.work_off
