@@ -44,8 +44,8 @@ class Card
       "A"
     end
 
-    def format_subject format=:html, &block
-      card_subject.format_with_set described_class, format, &block
+    def format_subject(format=:html, &)
+      card_subject.format_with_set(described_class, format, &)
     end
 
     def expect_content
@@ -65,18 +65,18 @@ class Card
       Card.fetch "Books+*type+by name"
     end
 
-    def assert_view_select view_html, *args, &block
+    def assert_view_select(view_html, *, &)
       node = Nokogiri::HTML::Document.parse(view_html).root
       if block_given?
-        assert_select node, *args, &block
+        assert_select(node, *, &)
       else
-        assert_select node, *args
+        assert_select(node, *)
       end
     end
 
-    def debug_assert_view_select view_html, *args, &block
+    def debug_assert_view_select(view_html, *, &)
       log_html view_html
-      assert_view_select view_html, *args, &block
+      assert_view_select(view_html, *, &)
     end
 
     def log_html html

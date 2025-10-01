@@ -38,7 +38,7 @@ class Cardname
     # regular expression for detecting banned characters
     # @return [Regexp]
     def banned_re
-      @banned_re ||= /[#{Regexp.escape((banned_array + [joint])).join}]/
+      @banned_re ||= /[#{Regexp.escape(banned_array + [joint]).join}]/
     end
 
     # split string on joint into parts

@@ -7,9 +7,7 @@ class Card
   # Each chunk has an object whose class inherits from {Card::Content::Chunk::Abstract}
   #
   class Content < SimpleDelegator
-    extend Clean
-
-    Chunk # trigger autoload
+    extend Clean # trigger autoload
 
     attr_reader :revision, :format, :chunks, :opts
 
@@ -47,8 +45,8 @@ class Card
     end
 
     # sends &block to #process_chunk on each Chunk object
-    def process_chunks &block
-      return custom_process_chunks(&block) if block_given?
+    def process_chunks(&)
+      return custom_process_chunks(&) if block_given?
 
       each_chunk(&:process_chunk)
     end
@@ -98,12 +96,12 @@ class Card
       "<#{__getobj__.class}:#{card}:#{self}>"
     end
 
-    def without_nests &block
-      without_chunks Chunk::Nest, &block
+    def without_nests(&)
+      without_chunks(Chunk::Nest, &)
     end
 
-    def without_references &block
-      without_chunks Chunk::Nest, Chunk::Link, Chunk::EscapedLiteral, &block
+    def without_references(&)
+      without_chunks(Chunk::Nest, Chunk::Link, Chunk::EscapedLiteral, &)
     end
 
     def without_chunks *chunk_classes

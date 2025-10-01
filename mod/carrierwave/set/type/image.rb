@@ -12,6 +12,7 @@ end
 
 format do
   include File::Format
+
   delegate :svg?, to: :card
 
   view :one_line_content do

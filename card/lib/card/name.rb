@@ -40,7 +40,7 @@ class Card
         elsif (id = id_from_string str)  # handles ~[id] and :[codename]
           from_id_from_string id, str
         else
-          super str
+          super(str)
         end
       end
 
@@ -89,8 +89,8 @@ class Card
         new_from_parts(parts) { |part| new part }
       end
 
-      def new_from_parts parts, &block
-        name_parts = parts.flatten.map(&block)
+      def new_from_parts(parts, &)
+        name_parts = parts.flatten.map(&)
         new name_parts.join(joint), true
       end
 

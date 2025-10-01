@@ -27,11 +27,11 @@ class Card
           end
       end
 
-      def act options={}, &block
+      def act(options={}, &)
         if act_card
-          add_to_act options, &block
+          add_to_act(options, &)
         else
-          start_new_act(&block)
+          start_new_act(&)
         end
       end
 
@@ -45,7 +45,7 @@ class Card
 
       def save! **args
         as_subcard = args.delete :as_subcard
-        act(as_subcard: as_subcard) { super **args }
+        act(as_subcard: as_subcard) { super(**args) }
       end
 
       def save *_args

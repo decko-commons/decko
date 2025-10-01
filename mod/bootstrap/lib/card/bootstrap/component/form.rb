@@ -3,8 +3,8 @@ class Card
     class Component
       # support class for bootstrap forms
       class Form < Component
-        def render_content *args
-          form(*args, &@build_block)
+        def render_content(*)
+          form(*, &@build_block)
         end
 
         #
@@ -35,8 +35,8 @@ class Card
           end
         end
 
-        def label text=nil, &block
-          @html.label text, &block
+        def label(text=nil, &)
+          @html.label(text, &)
         end
 
         def input type, text: nil, label: nil, id: nil

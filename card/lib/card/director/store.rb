@@ -21,14 +21,14 @@ class Card
       # the subcards as we do in the other phases.
       # Instead we have to call `save` on the subcards and use the ActiveRecord
       # :around_save callback.
-      def store &save_block
+      def store(&)
         raise Card::Error, "need block to store main card" if main? && !block_given?
 
         # the block is the ActiveRecord block from the around save callback that
         # saves the card
         if block_given?
           run_stage_callbacks :store
-          store_with_subcards(&save_block)
+          store_with_subcards(&)
         else
           trigger_storage_phase_callback
         end

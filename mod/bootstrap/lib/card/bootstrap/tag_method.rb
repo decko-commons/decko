@@ -15,10 +15,10 @@ class Card
         @xm = Builder::XmlMarkup.new
       end
 
-      def call *_args, &content_block
+      def call(*_args, &)
         component.content.push "".html_safe
 
-        opts = process_content(&content_block)
+        opts = process_content(&)
         process_collected_content tag_name, opts
         process_append
         ""
@@ -34,14 +34,14 @@ class Card
         @component.respond_to? method
       end
 
-      def prepend &block
+      def prepend(&)
         tmp = @content.pop
-        instance_exec(&block)
+        instance_exec(&)
         @content << tmp
       end
 
-      def wrap &block
-        instance_exec(&block)
+      def wrap(&)
+        instance_exec(&)
       end
 
       def append &block

@@ -21,11 +21,11 @@ class Card
         # run block with new_mode as nest_mode, then return to prior mode
         # @param new_mode [Symbol] :normal, :compact, :edit, or :template
         # @return block result
-        def with_nest_mode new_mode, &block
+        def with_nest_mode(new_mode, &)
           if new_mode == @nest_mode
             yield
           else
-            with_altered_nest_mode new_mode, &block
+            with_altered_nest_mode(new_mode, &)
           end
         end
 

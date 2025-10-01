@@ -31,7 +31,7 @@ class Card
 
         def on_condition_applies? _event, actions
           actions = Array(actions).compact
-          actions.empty? ? true : actions.include?(action)
+          actions.empty? || actions.include?(action)
         end
 
         # if changing name/type, the old card has no-longer-applicable set modules,

@@ -73,7 +73,7 @@ end
 
 format :jsonld do
   view :test do
-    fail "blah"
+    raise "blah"
   end
 
   view :not_found, perms: :none do

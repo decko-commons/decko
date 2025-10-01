@@ -5,7 +5,7 @@ def assign_attributes args={}
 
   assign_with_subcards args do
     assign_with_set_modules args do
-      super prepare_assignment_params(args)
+      super(prepare_assignment_params(args))
     end
   end
 end
@@ -48,10 +48,10 @@ def prepare_assignment_args args
   args
 end
 
-def assign_with_set_modules args, &block
+def assign_with_set_modules(args, &)
   return yield unless args[:name] || args[:type_id]
 
-  refresh_set_modules(&block)
+  refresh_set_modules(&)
 end
 
 def assign_with_subcards args

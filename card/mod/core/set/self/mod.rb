@@ -29,9 +29,9 @@ format :html do
       card.all_admin_configs_grouped_by(:roles, :category).map do |(role, configs_by_cat)|
         output [
           content_tag(:h2, role.to_sym.cardname),
-          (configs_by_cat.map do |(cat, configs)|
+          configs_by_cat.map do |(cat, configs)|
             list_section cat, configs.map(&:codename)
-          end)
+          end
         ]
       end.join("<br/>")
     ]
