@@ -3,6 +3,7 @@ class Card
   class Bootstrap
     include Delegate
     extend ComponentLoader
+
     load_components
 
     attr_reader :context

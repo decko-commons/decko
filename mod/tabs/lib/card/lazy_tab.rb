@@ -30,7 +30,7 @@ class Card
       @content ||= ""
     end
 
-    def tab_pane args=nil, &block
+    def tab_pane(args=nil, &)
       @content = yield if active? && block_given?
       super
     end

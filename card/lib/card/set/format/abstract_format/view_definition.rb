@@ -9,8 +9,8 @@ class Card
 
           private
 
-          def define_view_method view, def_opts, &block
-            view_block = view_block view, def_opts, &block
+          def define_view_method(view, def_opts, &)
+            view_block = view_block(view, def_opts, &)
             view_type = def_opts[:async] ? :async : :standard
             send "define_#{view_type}_view_method", view, &view_block
           end
@@ -20,7 +20,7 @@ class Card
             define_method Card::Set::Format.view_method_name(view), &block
           end
 
-          def define_async_view_method view, &block
+          def define_async_view_method(view, &)
             # This case makes only sense for HtmlFormat
             # but I don't see an easy way to override class methods for a specific
             # format. All formats are extended with this general module. So
@@ -28,7 +28,7 @@ class Card
             # We need something like AbstractHtmlFormat for that.
 
             view_content = "#{view}_async_content"
-            define_standard_view_method view_content, &block
+            define_standard_view_method(view_content, &)
             define_standard_view_method view do
               %(<card-view-placeholder data-url="#{path view: view_content}" />)
             end
@@ -44,8 +44,8 @@ class Card
             end
           end
 
-          def template_view_block view, template, &block
-            return haml_view_block(view, &block) if template == :haml
+          def template_view_block(view, template, &)
+            return haml_view_block(view, &) if template == :haml
 
             raise Card::Error::ServerError, "unknown view template: #{template}"
           end

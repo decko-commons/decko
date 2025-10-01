@@ -120,7 +120,7 @@ class CardSpecLoader
     def deck_root
       root = ENV["DECK_ROOT"] ||
              ENV["RAILS_ROOT"] ||
-             ENV["PWD"]
+             ENV.fetch("PWD", nil)
       raise StandardError, "No DECK_ROOT given. Can't load environment." unless root
 
       root

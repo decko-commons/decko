@@ -10,7 +10,7 @@ module Decko
     def map
       @map ||= super.merge(
         server: { desc: "start a local web server", group: :shark, alias: :s },
-        cucumber: { desc: "run cucumber tests", group: :monkey, alias: :cc, via: :call}
+        cucumber: { desc: "run cucumber tests", group: :monkey, alias: :cc, via: :call }
       )
     end
 

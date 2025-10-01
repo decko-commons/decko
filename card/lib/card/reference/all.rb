@@ -113,10 +113,10 @@ class Card
         end
       end
 
-      def each_reference_type ref_types, &block
+      def each_reference_type(ref_types, &)
         ref_types.delete PARTIAL_REF_CODE if ref_types.size > 1
         # partial references are not necessary if there are explicit references
-        ref_types.each(&block)
+        ref_types.each(&)
       end
 
       # invokes the given block for each reference in content with

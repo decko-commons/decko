@@ -179,10 +179,10 @@ class Card
       # render or retrieve view (or stub) with current options
       # @param block [Block] code block to render
       # @return [rendered view or stub]
-      def fetch &block
+      def fetch(&)
         case cache_action
         when :yield       then yield                # simple render
-        when :cache_yield then cache_render(&block) # render to/from cache
+        when :cache_yield then cache_render(&) # render to/from cache
         when :stub        then stub                 # render stub
         end
       end
@@ -196,8 +196,8 @@ class Card
       # those stubs.
       #
       # @return [String (usually)] rendered view
-      def cache_render &block
-        cached_view = cache_fetch(&block)
+      def cache_render(&)
+        cached_view = cache_fetch(&)
         cache_active? ? cached_view : format.stub_render(cached_view)
       end
 
@@ -227,8 +227,8 @@ class Card
       end
 
       # keep track of nested cache fetching
-       def with_caching &block
-        self.class.with_caching(cache_setting, &block)
+      def with_caching(&)
+        self.class.with_caching(cache_setting, &)
       end
 
       def caching
@@ -321,7 +321,6 @@ class Card
         ensure
           @caching = old_caching
         end
-
       end
     end
   end

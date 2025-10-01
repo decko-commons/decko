@@ -17,11 +17,11 @@ class Card
           Card.exist? name
         end
 
-        def method_missing method, *args
+        def method_missing(method, *)
           method_name, cardtype_card = extract_cardtype_from_method_name method
           return super unless method_name
 
-          sargs = standardize_args(*args).merge(type_id: cardtype_card.id)
+          sargs = standardize_args(*).merge(type_id: cardtype_card.id)
           if method_name == "ensure"
             Card.ensure sargs
           else

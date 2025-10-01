@@ -2,12 +2,12 @@ class Card
   class Bootstrap
     # delegating methods to context
     module Delegate
-      def method_missing method_name, *args, &block
+      def method_missing(method_name, *, &)
         # return super unless @context.respond_to? method_name
         if block_given?
-          @context.send(method_name, *args, &block)
+          @context.send(method_name, *, &)
         else
-          @context.send(method_name, *args)
+          @context.send(method_name, *)
         end
       end
 

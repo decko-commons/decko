@@ -58,10 +58,10 @@ class Card
       @keys.respond_to? method_name
     end
 
-    def method_missing method, *args
+    def method_missing(method, *)
       return unless respond_to_missing?(method)
 
-      @keys.send method, *args
+      @keys.send(method, *)
     end
 
     # fetch all cards first to avoid side effects
@@ -74,8 +74,8 @@ class Card
       end.compact
     end
 
-    def each_card &block
-      cards.each(&block)
+    def each_card(&)
+      cards.each(&)
     end
 
     alias_method :each, :each_card

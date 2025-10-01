@@ -2,12 +2,12 @@ module CarrierWave
   module CardMount
     # helper methods for mounted cards
     module Helper
-      def read_uploader *args
-        read_attribute(*args)
+      def read_uploader(*)
+        read_attribute(*)
       end
 
-      def write_uploader *args
-        write_attribute(*args)
+      def write_uploader(*)
+        write_attribute(*)
       end
 
       def reload *_args
@@ -19,7 +19,7 @@ module CarrierWave
         except = serializable_hash_config opts, :except
         only = serializable_hash_config opts, :only
 
-        self.class.uploaders.each_with_object(super(opts)) do |(column, _uploader), hash|
+        self.class.uploaders.each_with_object(super) do |(column, _uploader), hash|
           if add_column_to_serializable_hash? column.to_s, only, except
             hash[column.to_s] = _mounter(column).uploader.serializable_hash
           end

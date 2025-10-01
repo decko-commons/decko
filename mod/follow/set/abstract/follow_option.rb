@@ -40,7 +40,7 @@ module ClassMethods
     # can't use insert.
   end
 
-  def add_option opts, type, &_block
+  def add_option(opts, type, &)
     codename = get_codename opts
     if opts[:position]
       insert_option opts[:position] - 1, codename, type

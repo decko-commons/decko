@@ -28,7 +28,7 @@ class Card
           case clause
           when Hash              then clause
           when Integer           then { id: clause }
-          when String            then { id: (Card::Lexicon.id(clause) || -2) }
+          when String            then { id: Card::Lexicon.id(clause) || -2 }
           when Symbol            then { id: Card::Codename.id(clause) }
           else raise Error::BadQuery, "Invalid clause: #{clause.inspect}"
           end

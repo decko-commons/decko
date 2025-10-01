@@ -43,6 +43,7 @@ RSpec.describe Cardio::Mod::Loader do
     Card::Cache.reset_all
     module Card::Set::Self::SetTestLoad
       extend Card::Set
+
       def hello
         "hello"
       end
@@ -57,6 +58,7 @@ RSpec.describe Cardio::Mod::Loader do
     module Card::Set::Self::Set
       module Css
         extend Card::Set
+
         def hello
           "hello"
         end
@@ -71,6 +73,7 @@ RSpec.describe Cardio::Mod::Loader do
     Card::Cache.reset_all
     module Card::Set::Type::SetTestLoad
       extend Card::Set
+
       def hello
         "hello"
       end
@@ -85,6 +88,7 @@ RSpec.describe Cardio::Mod::Loader do
     Card::Cache.reset_all
     module Card::Set::Type::SetTestLoad
       extend Card::Set
+
       def hi
         "hello"
       end

@@ -66,8 +66,8 @@ module Cardio
 
       private
 
-      def each_mod_dir module_type, &block
-        @mod_dirs.each module_type, &block
+      def each_mod_dir(module_type, &)
+        @mod_dirs.each(module_type, &)
       end
 
       def each_file_in_dir base_dir, subdir=nil
