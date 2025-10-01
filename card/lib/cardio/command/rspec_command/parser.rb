@@ -21,7 +21,7 @@ module Cardio
 
           RSPEC ARGS
 
-          See https://rspec.info/features/3-12/rspec-core/command-line/ or#{' '}
+          See https://rspec.info/features/3-12/rspec-core/command-line/ or
           run card rspec -- -hb
         BANNER
 
