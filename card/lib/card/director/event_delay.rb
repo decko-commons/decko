@@ -20,10 +20,10 @@ class Card
         Cardio.config.delaying == true
       end
 
-      def with_delay_act act_id, card, &block
+      def with_delay_act(act_id, card, &)
         return yield unless act_id && (self.act = Act.find act_id)
 
-        run_job_with_act act, card, &block
+        run_job_with_act(act, card, &)
       end
 
       def run_job_with_act act, card, &block

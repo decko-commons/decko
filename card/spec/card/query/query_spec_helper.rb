@@ -5,8 +5,8 @@ module QuerySpecHelper
 
   # extra helper for specs testing CQL fasteners
   module Fasten
-    def each_fasten &block
-      %i[join exist in].each(&block)
+    def each_fasten(&)
+      %i[join exist in].each(&)
     end
   end
 

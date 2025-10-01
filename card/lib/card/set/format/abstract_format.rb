@@ -94,9 +94,9 @@ class Card
         # * __:wrap__ wrap view dynamically. Value is Symbol for wrapper or Hash with
         #   wrappers and wrapper options. See {Wrapper}
         #
-        def view viewname, *args, &block
+        def view(viewname, *args, &)
           def_opts = process_view_opts viewname, args
-          define_view_method viewname, def_opts, &block
+          define_view_method(viewname, def_opts, &)
         end
 
         # simple placeholder for views designed to be overridden elsewhere
@@ -108,8 +108,8 @@ class Card
         end
 
         # define code to be executed before a view is rendered
-        def before view, &block
-          define_method "_before_#{view}", &block
+        def before(view, &)
+          define_method("_before_#{view}", &)
         end
 
         # Defines a setting method that can be used in all formats. Example:

@@ -24,9 +24,9 @@ class Card
 
           private
 
-          def haml_view_block view, &block
+          def haml_view_block(view, &)
             path = haml_template_path view
-            haml_template_proc ::File.read(path), path, &block
+            haml_template_proc(::File.read(path), path, &)
           end
 
           def haml_template_proc template, path, &block

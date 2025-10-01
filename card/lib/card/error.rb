@@ -27,7 +27,7 @@ class Card
         self.card = message
         message = message_from_card
       end
-      super message
+      super
     end
 
     def message_from_card
@@ -119,7 +119,7 @@ class Card
 
       def initialize status, msg=""
         @status = status
-        super msg
+        super(msg)
       end
     end
 

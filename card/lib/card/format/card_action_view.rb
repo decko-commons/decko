@@ -4,7 +4,7 @@ class Card
     class CardActionView < ActionView::Base
       class << self
         def new controller
-          super lookup_context, { _routes: nil }, controller
+          super(lookup_context, { _routes: nil }, controller)
         end
 
         def lookup_context

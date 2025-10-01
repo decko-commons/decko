@@ -1,5 +1,6 @@
 RSpec.describe Card::Set::Type::NotificationTemplate do
   include ActionController::TestCase::Behavior
+
   before do
     @routes = Decko::Engine.routes
     @controller = CardController.new

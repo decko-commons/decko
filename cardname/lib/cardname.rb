@@ -40,7 +40,7 @@ class Cardname < String
   # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   # ~~~~~~~~~~~~~~~~~~~~~~ INSTANCE ~~~~~~~~~~~~~~~~~~~~~~~~~
   def initialize str
-    super str
+    super
     strip!
     encode! "UTF-8"
     part_names # populates @part_names and @simple
@@ -86,8 +86,8 @@ class Cardname < String
 
   # cardname based on part index
   # @return [Cardname]
-  def [] *args
-    self.class.new part_names[*args]
+  def [](*)
+    self.class.new part_names[*]
   end
 
   # @see #parts

@@ -107,11 +107,11 @@ class Card
         end
       end
 
-      def ensuring_purity card, other, opts, &block
+      def ensuring_purity(card, other, opts, &)
         if opts[:codename] && other
-          ensure_purity_advanced card, other, opts, &block
+          ensure_purity_advanced(card, other, opts, &)
         else
-          ensure_purity_simple card, &block
+          ensure_purity_simple(card, &)
         end
       end
 

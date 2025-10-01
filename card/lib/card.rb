@@ -162,9 +162,7 @@ class Card < Cardio::Record
   include Reference::All
   include Rule::All
   include Fetch::All
-  include Subcards::All
-
-  Card::Cache # trigger autoload
+  include Subcards::All # trigger autoload
 
   has_many :references_in,  class_name: :Reference, foreign_key: :referee_id
   has_many :references_out, class_name: :Reference, foreign_key: :referer_id

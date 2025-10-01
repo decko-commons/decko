@@ -7,6 +7,7 @@ RSpec.describe Card::Set::Trait do
         class Type
           module Phrase
             extend Card::Set
+
             card_accessor :write, type: :phrase
             card_accessor :read, type: PhraseID
           end
@@ -16,6 +17,7 @@ RSpec.describe Card::Set::Trait do
           module Phrase
             module Write
               extend Card::Set
+
               def type_plus_right_module_loaded
                 true
               end
@@ -27,6 +29,7 @@ RSpec.describe Card::Set::Trait do
           module Phrase
             module Read
               extend Card::Set
+
               def type_plus_right_module_loaded
                 true
               end

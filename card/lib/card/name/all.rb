@@ -24,7 +24,6 @@ class Card
         update_subcard_names @name
         write_attribute :name, (@name.simple? ? @name.s : nil)
         assign_side_ids
-        @name
       end
 
       def [] *args
@@ -70,7 +69,6 @@ class Card
           @key = newkey
         end
         clean_patterns
-        @key
       end
 
       private

@@ -41,9 +41,9 @@ class Card
       def raise_wrap_error wrapper
         if wrapper.is_a? String
           raise Card::Error::UserError, "unknown layout card: #{wrapper}"
-        else
-          raise ArgumentError, "unknown wrapper: #{wrapper}"
         end
+
+          raise ArgumentError, "unknown wrapper: #{wrapper}"
       end
 
       def send_wrapper_method method_name, opts

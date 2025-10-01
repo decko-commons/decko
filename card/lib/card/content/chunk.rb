@@ -72,9 +72,9 @@ class Card
         end
 
         def validate_chunk_list_key chunk_list_key
-          unless raw_list.key? chunk_list_key
+          return if raw_list.key? chunk_list_key
+
             raise ArgumentError, "invalid chunk list key: #{chunk_list_key}"
-          end
         end
       end
 

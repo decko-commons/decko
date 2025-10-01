@@ -4,6 +4,7 @@ class Card
       # class from which set patterns inherit
       class Base
         extend ClassMethods
+
         delegate :pattern_code, :pattern, :anchorless?, :assigns_type, to: :class
 
         def initialize card

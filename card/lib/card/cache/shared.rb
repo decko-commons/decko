@@ -16,6 +16,7 @@ class Card
     #
     class Shared
       extend SharedClass
+
       # @param opts [Hash]
       # @option opts [Rails::Cache] :store
       # @option opts [ruby Class] :class, typically ActiveRecord descendant
@@ -116,8 +117,8 @@ class Card
         @store.write full_key(key), value
       end
 
-      def fetch key, &block
-        @store.fetch full_key(key), &block
+      def fetch(key, &)
+        @store.fetch(full_key(key), &)
       end
 
       def delete key

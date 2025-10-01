@@ -2,6 +2,7 @@ class Card
   module SpecHelper
     module SaveHelper
       include Card::Model::SaveHelper
+
       def create! name, content=""
         Card.create! name: name, content: content
       end

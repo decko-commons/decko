@@ -30,7 +30,9 @@ Lint/SharedMutableDefault: # new in 1.70
 Lint/SuppressedExceptionInNumberConversion: # new in 1.72
   Enabled: true
 Lint/UselessConstantScoping: # new in 1.72
-  Enabled: true
+  Enabled: false
+Lint/UselessAccessModifier:
+  Enabled: false
 Lint/UselessDefaultValueArgument: # new in 1.76
   Enabled: true
 Lint/UselessOr: # new in 1.76

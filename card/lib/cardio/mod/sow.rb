@@ -60,7 +60,7 @@ module Cardio
       end
 
       def target
-        @target ||= (old_data || nil)
+        @target ||= old_data || nil
       end
 
       def target_index new_item

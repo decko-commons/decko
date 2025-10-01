@@ -13,11 +13,11 @@ class Card
 
       include Card::Bootstrapper
 
-      def method_missing method_name, *args, &block
+      def method_missing(method_name, *, &)
         if block_given?
-          @format.send(method_name, *args, &block)
+          @format.send(method_name, *, &)
         else
-          @format.send(method_name, *args)
+          @format.send(method_name, *)
         end
       end
 
