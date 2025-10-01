@@ -1,7 +1,7 @@
 require:
 #  - rubocop-decko
 #  - rubocop-rspec
-inherit_from: .ruby-style.yml
+inherit_from: /home/runner/work/decko/.ruby-style.yml
 Layout/IndentationConsistency:
   AutoCorrect: false
 Style/MutableConstant:
