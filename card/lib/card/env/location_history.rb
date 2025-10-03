@@ -28,6 +28,7 @@ class Card
 
       def save_interrupted_action uri
         session[:interrupted_action] = uri
+      rescue StandardError => e
       end
 
       def interrupted_action
