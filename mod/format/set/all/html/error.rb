@@ -210,7 +210,7 @@ format :html do
     when Auth.signed_in?
       t(:format_need_permission_task, task: to_task)
     else
-      Env.save_interrupted_action request.env["REQUEST_URI"]
+      # Env.save_interrupted_action request.env["REQUEST_URI"]
       sign_in_or_up_links to_do_unauthorized_task
     end
   end

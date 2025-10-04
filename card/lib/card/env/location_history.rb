@@ -26,13 +26,13 @@ class Card
         end.compact
       end
 
-      def save_interrupted_action uri
-        session[:interrupted_action] = uri
-      end
+      # def save_interrupted_action uri
+      #   session[:interrupted_action] = uri
+      # end
 
-      def interrupted_action
-        session.delete :interrupted_action
-      end
+      # def interrupted_action
+      #   session.delete :interrupted_action
+      # end
 
       private
 
