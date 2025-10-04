@@ -170,7 +170,8 @@ format :html do
   def signin_success
     (Env.hash(params[:success]) || {}).symbolize_keys.reverse_merge(
       redirect: true,
-      mark: Env.interrupted_action || "*previous"
+      # mark: Env.interrupted_action ||
+      "*previous"
     )
   end
 

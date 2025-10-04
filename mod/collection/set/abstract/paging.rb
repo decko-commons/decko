@@ -28,6 +28,8 @@ format do
   end
 
   def current_page
+    return 1 if limit.zero?
+
     (offset / limit).to_i
   end
 
