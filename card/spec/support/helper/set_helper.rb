@@ -30,8 +30,8 @@ class Card
       # Card["A"].set_with do
       #   def special_method; end
       # end
-      def set_with &block
-        with_set create_dynamic_set(&block)
+      def set_with(&)
+        with_set create_dynamic_set(&)
       end
 
       # load set into card object
@@ -61,11 +61,11 @@ class Card
 
       private
 
-      def create_dynamic_set &block
+      def create_dynamic_set(&)
         ::Card::Set::Type.const_remove_if_defined :DynamicSet
         ::Card::Set::Type.const_set :DynamicSet, Module.new
         ::Card::Set::Type::DynamicSet.extend Card::Set
-        ::Card::Set::Type::DynamicSet.module_eval(&block)
+        ::Card::Set::Type::DynamicSet.module_eval(&)
         ::Card::Set::Type::DynamicSet
       end
     end

@@ -7,11 +7,11 @@ class Card
           carousel(*@args, &@build_block)
         end
 
-        def carousel id, active_index, &block
+        def carousel(id, active_index, &)
           @id = id
           @active_item_index = active_index
           @items = []
-          instance_exec(&block)
+          instance_exec(&)
 
           @html.div class: "carousel slide", id: id, "data-bs-ride" => "true" do
             indicators

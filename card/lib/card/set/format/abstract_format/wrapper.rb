@@ -37,20 +37,20 @@ class Card
           #   wrapper :burger, :div, class: "medium"
           #
           #   wrap_with_burger "meat"  # => "<div class='medium'>meat</div>"
-          def wrapper wrapper_name, *args, &wrap_block
+          def wrapper(wrapper_name, *, &)
             method_name = Card::Set::Format.wrapper_method_name(wrapper_name)
             if block_given?
-              define_method method_name, &wrap_block
+              define_method(method_name, &)
             else
-              define_tag_wrapper method_name, *args
+              define_tag_wrapper(method_name, *)
             end
             define_wrap_with_method wrapper_name, method_name
           end
 
-          def layout layout, opts={}, &block
+          def layout(layout, opts={}, &)
             Card::Layout.register_built_in_layout layout, opts
             method_name = Card::Set::Format.layout_method_name(layout)
-            define_method method_name, &block
+            define_method(method_name, &)
             wrapper layout do
               send method_name
             end

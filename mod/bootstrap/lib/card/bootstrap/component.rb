@@ -19,14 +19,14 @@ class Card
         @rendered = render_content
       end
 
-      def prepend &block
+      def prepend(&)
         tmp = @content.pop
-        instance_exec(&block)
+        instance_exec(&)
         @content << tmp
       end
 
-      def insert &block
-        instance_exec(&block)
+      def insert(&)
+        instance_exec(&)
       end
 
       def append &block
@@ -43,9 +43,9 @@ class Card
 
       private
 
-      def tag_method_opts args, html_class, tag_opts, &tag_opts_block
+      def tag_method_opts(args, html_class, tag_opts, &)
         opts = {}
-        _blah, opts, _blah = standardize_args args, &tag_opts_block if block_given?
+        _blah, opts, _blah = standardize_args(args, &) if block_given?
         add_classes opts, html_class, tag_opts.delete(:optional_classes)
         opts
       end

@@ -1,4 +1,5 @@
 # -*- encoding : utf-8 -*-
+
 require_relative "card/lib/cardio/version"
 
 # Helper methods for gem specs and gem-related tasks
@@ -18,8 +19,8 @@ class DeckoGem
       end
     end
 
-    def mod name, &block
-      gem name, true, &block
+    def mod(name, &)
+      gem(name, true, &)
     end
 
     def decko_version

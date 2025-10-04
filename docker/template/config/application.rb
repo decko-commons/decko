@@ -13,12 +13,12 @@ module Decko
     # EMAIL
     config.action_mailer.perform_deliveries = true
     config.action_mailer.smtp_settings = {
-      address: ENV["DECKO_SMTP_ADDRESS"],
-      domain: ENV["DECKO_SMTP_DOMAIN"] || ENV["DECKO_SMTP_ADDRESS"],
-      user_name: ENV["DECKO_SMTP_USER"],
-      password: ENV["DECKO_SMTP_PASSWORD"],
-      authentication: ENV["DECKO_SMTP_AUTHENTICATION"],
-      port: ENV["DECKO_SMTP_PORT"],
+      address: ENV.fetch("DECKO_SMTP_ADDRESS", nil),
+      domain: ENV["DECKO_SMTP_DOMAIN"] || ENV.fetch("DECKO_SMTP_ADDRESS", nil),
+      user_name: ENV.fetch("DECKO_SMTP_USER", nil),
+      password: ENV.fetch("DECKO_SMTP_PASSWORD", nil),
+      authentication: ENV.fetch("DECKO_SMTP_AUTHENTICATION", nil),
+      port: ENV.fetch("DECKO_SMTP_PORT", nil),
       enable_starttls_auto: false,
       ssl: true,
       tls: true
@@ -31,15 +31,15 @@ module Decko
       config.file_buckets = {
         my_bucket: {
           provider: "fog/aws",
-          directory: ENV["DECKO_FILE_BUCKET"],
+          directory: ENV.fetch("DECKO_FILE_BUCKET", nil),
           subdirectory: "files",
           credentials: {
             provider: "AWS",
-            host: ENV["DECKO_FILE_HOST"],
-            endpoint: ENV["DECKO_FILE_ENDPOINT"],
-            aws_access_key_id: ENV["DECKO_FILE_KEY"],
-            aws_secret_access_key: ENV["DECKO_FILE_SECRET"],
-            region: ENV["DECKO_FILE_REGION"],
+            host: ENV.fetch("DECKO_FILE_HOST", nil),
+            endpoint: ENV.fetch("DECKO_FILE_ENDPOINT", nil),
+            aws_access_key_id: ENV.fetch("DECKO_FILE_KEY", nil),
+            aws_secret_access_key: ENV.fetch("DECKO_FILE_SECRET", nil),
+            region: ENV.fetch("DECKO_FILE_REGION", nil),
             enable_signature_v4_streaming:
               ENV["ENABLE_SIGNATURE_V4_STREAMING"].present?
           },
@@ -53,7 +53,7 @@ module Decko
     end
 
     # ORIGIN AND RELATIVE_ROOT
-    config.deck_origin = ENV["DECKO_ORIGIN"]
-    config.relative_url_root = ENV["DECKO_RELATIVE_URL_ROOT"]
+    config.deck_origin = ENV.fetch("DECKO_ORIGIN", nil)
+    config.relative_url_root = ENV.fetch("DECKO_RELATIVE_URL_ROOT", nil)
   end
 end

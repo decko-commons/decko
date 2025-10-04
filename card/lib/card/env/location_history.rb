@@ -41,7 +41,7 @@ class Card
       end
 
       def location_cardname location
-        URI.parse(location).path.sub(/^\//, "").sub(/\/.*$/, "")&.cardname
+        URI.parse(location).path.sub(%r{^/}, "").sub(%r{/.*$}, "")&.cardname
       end
 
       def save_location? card

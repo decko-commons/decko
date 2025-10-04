@@ -55,6 +55,6 @@ DeckoGem.gem "card" do |s, d|
     actionmailbox
     railties
   ].each do |gem_name|
-    s.add_runtime_dependency gem_name, d.rails_version
+    s.add_dependency gem_name, d.rails_version
   end
 end

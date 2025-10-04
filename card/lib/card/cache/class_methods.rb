@@ -12,7 +12,7 @@ class Card
       def [] klass
         raise "nil klass" if klass.nil?
 
-        cache_by_class[klass] ||= new class: klass, store: (shared_cache || nil)
+        cache_by_class[klass] ||= new class: klass, store: shared_cache || nil
       end
 
       # clear the temporary caches and ensure we're using the latest stamp

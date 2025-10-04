@@ -7,6 +7,7 @@ module CarrierWave
   # to card events.
   module CardMount
     include CarrierWave::Mount
+
     # Helper # load helper module so it's available to mounted cards
 
     def uploaders
@@ -17,7 +18,7 @@ module CarrierWave
       Card.uploader_options ||= {}
     end
 
-    def mount_uploader column, uploader=nil, options={}, &block
+    def mount_uploader(column, uploader=nil, options={}, &)
       options[:mount_on] ||= :db_content
       super
 

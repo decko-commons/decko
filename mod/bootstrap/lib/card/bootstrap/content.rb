@@ -10,11 +10,11 @@ class Card
         add_content content_tag(tag_name, collected_content, opts, false)
       end
 
-      def process_content &content_block
+      def process_content(&)
         content, opts = yield
         wrappers = @wrap.pop
         if wrappers.present?
-          process_wrappers wrappers, content, &content_block
+          process_wrappers(wrappers, content, &)
         else
           add_content content
         end
@@ -27,11 +27,11 @@ class Card
         end
       end
 
-      def process_wrappers wrappers, content, &content_block
+      def process_wrappers(wrappers, content, &)
         while wrappers.present?
           wrapper = wrappers.shift
           if wrapper.is_a? Symbol
-            send wrapper, &content_block
+            send(wrapper, &)
           else
             instance_exec content, &wrappers.shift
           end

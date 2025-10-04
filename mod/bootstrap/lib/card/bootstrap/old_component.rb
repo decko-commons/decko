@@ -4,7 +4,7 @@ class Card
     class OldComponent < Component
       include Content
 
-      def initialize context, *args, &block
+      def initialize(context, *args, &)
         super
         @html = nil
       end
@@ -16,8 +16,8 @@ class Card
 
         # Like add_tag_method but always generates a div tag
         # The tag option is not available
-        def add_div_method name, html_class, opts={}, &tag_block
-          add_tag_method name, html_class, opts.merge(tag: :div), &tag_block
+        def add_div_method(name, html_class, opts={}, &)
+          add_tag_method(name, html_class, opts.merge(tag: :div), &)
         end
 
         # Defines a method that generates a html tag
@@ -64,12 +64,12 @@ class Card
 
       private
 
-      def process_tag tag_name, &content_block
+      def process_tag(tag_name, &)
         @content.push "".html_safe
         @append << []
         @wrap << []
 
-        opts = process_content(&content_block)
+        opts = process_content(&)
         process_collected_content tag_name, opts
         process_append
         ""

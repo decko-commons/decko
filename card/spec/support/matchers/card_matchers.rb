@@ -36,7 +36,7 @@ RSpec::Matchers.define :be_valid do
 end
 
 %i[name codename db_content type_id left_id right_id].each do |field|
-  RSpec::Matchers.define "have_#{field}".to_sym do |name|
+  RSpec::Matchers.define :"have_#{field}" do |name|
     match do |card|
       values_match?(name, card.send(field))
     end

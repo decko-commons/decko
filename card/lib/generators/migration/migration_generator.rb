@@ -5,6 +5,7 @@ module Cardio
     # generate structure and card migrations
     class MigrationGenerator < ActiveRecord::Generators::Base
       extend ClassMethods
+
       source_root File.expand_path("templates", __dir__)
 
       argument :name, required: true

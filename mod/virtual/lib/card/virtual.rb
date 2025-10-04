@@ -88,10 +88,13 @@ class Card
       end
 
       def validate_card card
-        reason ||=
+        reason =
           if card.compound?
-            "needs left_id" unless left_id(card)
-            "needs right_id" unless right_id(card)
+            if !left_id(card)
+              "needs left_id"
+            elsif !right_id(card)
+              "needs right_id"
+            end
           elsif !card.id
             "needs id"
           end

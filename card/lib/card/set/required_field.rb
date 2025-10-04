@@ -45,7 +45,7 @@ class Card
       def field_test_name
         return unless event_test
 
-        "_when_left_#{event_test}".to_sym
+        :"_when_left_#{event_test}"
       end
 
       def event_test

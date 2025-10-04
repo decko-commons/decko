@@ -21,7 +21,7 @@ module Cardio
           # Since module_eval doesn't take a binding argument, we have to
           # execute module_eval with eval.
           eval "#{set_module}.module_eval ::File.read('#{abs_path}'), '#{abs_path}'",
-               module_path_binding(set_module)
+               module_path_binding(set_module), __FILE__, __LINE__ - 1
         end
       end
 
@@ -40,7 +40,7 @@ module Cardio
           m, b =
             eval(
               "[ #{part} , #{part}.module_eval('binding') ]",  # [ History , History.module_eval('binding') ]
-              b
+              b, __FILE__, __LINE__ - 1
             )
         end
         raise "Module found at name path not same as specified module" unless m == mod

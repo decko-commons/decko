@@ -77,12 +77,12 @@ class TableHelper
     end
   end
 
-  def tag elem, *args, &block
+  def tag(elem, *, &)
     if @div_table
-      add_div_table_class elem, *args
+      add_div_table_class(elem, *)
       elem = :div
     end
-    @format.wrap_with elem, *args, &block
+    @format.wrap_with(elem, *, &)
   end
 
   private
