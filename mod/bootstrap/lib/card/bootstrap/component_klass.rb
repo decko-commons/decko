@@ -8,8 +8,8 @@ class Card
 
       # Like def_tag_method but always generates a div tag
       # The tag option is not available
-      def def_div_method name, html_class, opts={}, &tag_block
-        def_tag_method name, html_class, opts.merge(tag: :div), &tag_block
+      def def_div_method(name, html_class, opts={}, &)
+        def_tag_method(name, html_class, opts.merge(tag: :div), &)
       end
 
       # Defines a method that generates a html tag

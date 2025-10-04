@@ -11,7 +11,7 @@ format :html do
     end
   end
 
-  def button_tag content_or_options=nil, options={}, &block
+  def button_tag(content_or_options=nil, options={}, &)
     bootstrapify_button(block_given? ? content_or_options : options)
     super
   end

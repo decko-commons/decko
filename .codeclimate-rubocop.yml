@@ -1,4 +1,0 @@
-require: rubocop-rspec
-inherit_from: .ruby-style.yml
-AllCops:
-  TargetRubyVersion: 3.0

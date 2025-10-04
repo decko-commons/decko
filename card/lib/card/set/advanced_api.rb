@@ -9,16 +9,17 @@ class Card
 
       def setting_opts opts
         extend Card::Setting
+
         register_setting opts
       end
 
-      def ensure_set &block
+      def ensure_set(&)
         set_module = yield
         set_module = card_set_module_const_get(set_module) unless set_module.is_a?(Module)
       rescue NameError => e
         define_set_from_error e
         # try again - there might be another submodule that doesn't exist
-        ensure_set(&block)
+        ensure_set(&)
       else
         set_module.extend Card::Set
       end
@@ -32,7 +33,7 @@ class Card
 
       def attachment name, args
         include_set Abstract::Attachment
-        add_attributes name, "remote_#{name}_url".to_sym,
+        add_attributes name, :"remote_#{name}_url",
                        :action_id_of_cached_upload, :empty_ok,
                        :storage_type, :bucket, :mod
         mount_uploader name, (args[:uploader] || ::CarrierWave::FileCardUploader)

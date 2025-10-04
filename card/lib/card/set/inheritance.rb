@@ -73,7 +73,7 @@ class Card
 
       def each_format_with_mods set
         set_type = set.abstract_set? ? :abstract : :nonbase
-        format_type = "#{set_type}_format".to_sym
+        format_type = :"#{set_type}_format"
         Set.modules[format_type].each_pair { |*args| yield(*args) }
       end
 

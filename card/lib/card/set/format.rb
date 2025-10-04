@@ -115,7 +115,7 @@ class Card
 
       private
 
-      def define_on_format format_name=:base, &block
+      def define_on_format(format_name=:base, &)
         # format class name, eg. HtmlFormat
         klass = Card::Format.format_class_name format_name
 
@@ -127,7 +127,7 @@ class Card
           m.extend Card::Set::Format::AbstractFormat
           m
         end
-        mod.class_eval(&block)
+        mod.class_eval(&)
       end
 
       def register_set_format format_class, mod

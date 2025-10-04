@@ -80,7 +80,7 @@ class Card
       end
 
       def session_user_key
-        "user_#{Cardio.database.underscore}".to_sym
+        :"user_#{Cardio.database.underscore}"
       end
 
       private

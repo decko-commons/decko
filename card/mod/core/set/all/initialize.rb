@@ -4,7 +4,7 @@ JUNK_INIT_ARGS = %i[missing skip_virtual id].freeze
 module ClassMethods
   def new args={}, _options={}
     with_normalized_new_args args do |normalized_args|
-      super normalized_args
+      super(normalized_args)
     end
   end
 
@@ -37,7 +37,7 @@ def initialize args={}
 
   handle_set_modules args do
     handle_type args do
-      super args # ActiveRecord #initialize
+      super(args) # ActiveRecord #initialize
     end
   end
 end

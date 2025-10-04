@@ -85,12 +85,12 @@ module Capybara
       alias_method :original_fill_in, :fill_in
       alias_method :original_select, :select
 
-      def fill_in locator, with: nil, **options
-        decko_fill_in(locator, with) || original_fill_in(locator, with: with, **options)
+      def fill_in(locator, with: nil, **)
+        decko_fill_in(locator, with) || original_fill_in(locator, with: with, **)
       end
 
-      def select value, from: nil, **options
-        decko_select(value, from) || original_select(value, from: from, **options)
+      def select(value, from: nil, **)
+        decko_select(value, from) || original_select(value, from: from, **)
       end
 
       def decko_fill_in locator, with

@@ -123,7 +123,7 @@ module Cardio
 
         def seed_data
           if options["interactive"]
-            Interactive.new(destination_root, (monkey? || platypus?)).run
+            Interactive.new(destination_root, monkey? || platypus?).run
           else
             prefix = "bundle exec " if options["platypus"]
             puts "Now:
