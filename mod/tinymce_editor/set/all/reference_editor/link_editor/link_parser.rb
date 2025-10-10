@@ -5,7 +5,7 @@
 class LinkParser
   attr_reader :name, :options, :field, :raw
 
-  Link = Struct.new :name, :options, :raw
+  Link = Struct.new :name, :options, :raw, :title, :field?
 
   def self.new link_string
     return super if link_string.is_a? String

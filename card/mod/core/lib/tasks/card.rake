@@ -18,23 +18,6 @@ namespace :card do
     end
   end
 
-  def run_tasks tasks, with_benchmark: false
-    if with_benchmark
-      require "benchmark"
-      Benchmark.bm do |x|
-        x.report("total") do
-          tasks.each do |task|
-            x.report(task) { Rake::Task["card:#{task}"].invoke }
-          end
-        end
-      end
-    else
-      tasks.each do |task|
-        Rake::Task["card:#{task}"].invoke
-      end
-    end
-  end
-
   desc "Ingests card data from mod yaml"
   task eat: :environment do
     run_with_options :eat, Cardio::Mod::Eat, "eating" do
@@ -115,6 +98,23 @@ namespace :card do
 
   def options
     @options ||= {}
+  end
+
+  def run_tasks tasks, with_benchmark: false
+    if with_benchmark
+      require "benchmark"
+      Benchmark.bm do |x|
+        x.report("total") do
+          tasks.each do |task|
+            x.report(task) { Rake::Task["card:#{task}"].invoke }
+          end
+        end
+      end
+    else
+      tasks.each do |task|
+        Rake::Task["card:#{task}"].invoke
+      end
+    end
   end
 
   def rake_result task
