@@ -66,7 +66,7 @@ format :html do
     return unless card.errors.any?
 
     if card.errors.find { |attrib, _msg| attrib == :permission_denied }
-      Env.save_interrupted_action(request.env["REQUEST_URI"])
+      # Env.save_interrupted_action(request.env["REQUEST_URI"])
       voo.title = "Problems with #{card.name}"
       class_up "d0-card-frame", "card card-warning card-inverse"
       frame do
