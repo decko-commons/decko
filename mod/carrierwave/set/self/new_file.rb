@@ -1,3 +1,7 @@
+def upload_dir
+  tmp_upload_dir
+end
+
 format :html do
   view :source, cache: :never do
     super()
