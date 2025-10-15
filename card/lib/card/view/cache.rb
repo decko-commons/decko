@@ -181,9 +181,9 @@ class Card
       # @return [rendered view or stub]
       def fetch(&)
         case cache_action
-        when :yield       then yield                # simple render
+        when :yield       then yield           # simple render
         when :cache_yield then cache_render(&) # render to/from cache
-        when :stub        then stub                 # render stub
+        when :stub        then stub            # render stub
         end
       end
 
