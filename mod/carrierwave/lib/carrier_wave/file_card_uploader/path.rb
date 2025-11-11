@@ -22,7 +22,7 @@ module CarrierWave
       end
 
       def cache_dir
-        "#{@model.files_base_dir 'tmp'}/cache"
+        "#{@model.files_base_dir 'tmp'}/files"
       end
 
       # Carrierwave calls store_path without argument when it stores the file
