@@ -93,7 +93,6 @@ module Cardio
         act = Card::Act.create! actor_id: author_id, card_id: author_id
         Card::Action.make_current_state_the_initial_state act
         Card::Act.where("id <> #{act.id}").delete_all
-        ActiveRecord::Base.connection.execute("truncate sessions")
       end
 
       def clean_time_and_user_stamps
