@@ -86,6 +86,6 @@ def save_preliminary_upload?
 end
 
 # place for files if card doesn't have an id yet
-def tmp_upload_dir _action_id=nil
-  "#{files_base_dir 'tmp'}/#{upload_cache_card.id}"
+def tmp_upload_dir
+  "#{files_base_dir 'tmp'}/files/#{upload_cache_card.id}"
 end

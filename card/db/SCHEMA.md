@@ -26,11 +26,11 @@ Together with cards, acts, actions, and changes comprise our card history system
 
 Any time you create, update or delete anything, there is an act. The act stores an `actor_id` (who did it) and an `acted_at` (when they did it). It also stores an `ip_address`, which can be useful for detect malicious actors, but which many choose to delete periodically for data privacy reasons. Finally, it stores a `card_id`, which we'll wait a whole paragraph to explain.
 
-Any given act can involve many actions, and each action is associated with one and only only card. A user might submit a form that creates 5 cards. That's one act and five actions. Another act might update 2 cards and create 4 more (6 actions). The action's `card_id` refers to the card created, updated, or deleted. The `card_act_id`, of course, refers to the act that contains all the actions. The `action` type is create, update, or delete. A `draft` is a non-final action. The `comment` field is basically unstructured metadata, used for example to add the original filename in a file upload. Finally, the `super_action_id` comes into play when one action triggers another. The "super action" triggers the "sub action."
+Any given act can involve many "actions", and each action is associated with one and only one card. A user might submit a form that creates 5 cards. That's one act and five actions. Another act might update 2 cards and create 4 more (6 actions). The action's `card_id` refers to the card created, updated, or deleted. The `card_act_id`, of course, refers to the act that contains all the actions. The `action` type is create, update, or delete. A `draft` is a non-final action. The `comment` field is basically unstructured metadata, used for example to add the original filename in a file upload. Finally, the `super_action_id` comes into play when one action triggers another. The "super action" triggers the "sub action."
 
-Back to that `card_id` on the card_acts table. When you initiate an act, for example by submitting a web form, the act is always performed on a specific card. But that card is not necessarily one of the action cards. For example, I might submit a form where the card in question is "Tito" but only "Tito+address" is changed. Tito is the card identified by the `card_id` of the act, but "Tito+address" is the card identified by the `card_id` of the action.
+Back to that `card_id` on the `card_acts` table. When you initiate an act, for example by submitting a web form, the act is always performed on a specific card. But that card is not necessarily one of the action cards. For example, I might submit a form where the card in question is "Tito" but only "Tito+address" is changed. Tito is the card identified by the `card_id` of the act, but "Tito+address" is the card identified by the `card_id` of the action.
 
-The final table in the history system is the card_changes table, which is where the actual changes to field values are tracked. The `card_action_id` is the id of the action, the field is an integer (0-5) representing, in order, the following six fields in the cards table: `name`, `type_id`, `db_content`, `trash`, `left_id`, or `right_id`. As an optimization, no change is stored upon the initial creation. All initial values are stored (associated with the creation action) after the first update action.
+The final table in the history system is the `card_changes` table, which is where the actual changes to field values are tracked. The `card_action_id` is the id of the action, the field is an integer (0-5) representing, in order, the following six fields in the cards table: `name`, `type_id`, `db_content`, `trash`, `left_id`, or `right_id`. As an optimization, no change is stored upon the initial creation. All initial values are stored (associated with the creation action) after the first update action.
 
 ## Card References
 
@@ -42,3 +42,24 @@ The `referer_id` is the id of the card that does the referring ("Grocery List" i
 - **I**: a nest (we used to call them "inclusions")
 - **S**: a search (eg, `{ type: "Image" }` refers to the Image card)
 - **P**: partial (stored when we have ids for parts of the referee but not the whole. Eg, the card named "Image+:self" likely doesn't have an id, but both `Image` and `:self`, so partial references are tracked to each.)
+
+
+# Card Virtuals
+
+Even though virtual cards are very widely used, the `card_virtuals` table isn't used very much at all. 
+
+The idea of a virtual cards is that it doesn't have to be stored in the database but instead is generated dynamically because of a `:structure` rule, essentially a content pattern. For example, any ending in `+:creator` is structured to be a pointer to the card of the user who created that card. But this is not stored as a separate card in the database, it's stored in the `creator_id`. Still, you can treat that virtual card like any other card. You can link to it, nest it, etc.
+
+The vast majority of virtual cards do not use the `card_virtuals` table; their content is generated dynamically from rules. But asset cards (eg JavaScript and CSS) can get so complicated that dynamically generating them is completely impractical. So their content is stored in the `card_virtuals` table.
+
+Virtual cards are always compound, so they have a `left_id` for their left card and a `right_id` for their right card. The `left_key` is stored only in cases where the left card is not in the database (eg, the left card itself is a virtual card) and therefore does not have an id.
+
+# Delayed Jobs
+
+The `delayed_jobs` table is not created by Decko Code but by the [Delayed Jobs gem](https://github.com/collectiveidea/delayed_job). It should be moved out of this core schema and added to the database only when the `delayed_job` card mod (which is not in the `defaults` mod) is installed.
+
+# Transform Migration
+
+There are two types of card migrations: schema migrations and transform migrations. The schema migrations are typical Rails migrations; they alter the database schema. Transform migrations alter the data, not the schema. Both the `schema_migrations` table (which doesn't appear in schema.rb) and the `transform_migrations` maintain records of which migrations have been run.
+
+Fails hides the `schema_migrations` table by default. We should either override that or also hide the `transform_migrations` table for consistency.
