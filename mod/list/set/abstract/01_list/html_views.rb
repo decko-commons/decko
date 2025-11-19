@@ -25,7 +25,7 @@ format :html do
     end
   end
 
-  def wrap_item rendered, item_view
+  def wrap_item _item_card, rendered, item_view
     %(<div class="pointer-item item-#{item_view}">#{rendered}</div>)
   end
 

@@ -8,7 +8,7 @@ end
 # format :html do
 #   def pointer_items args
 #     card.item_names(context: :raw).map do |iname|
-#       wrap_item iname, args
+#       wrap_item icard, iname, args
 #     end
 #   end
 # end#

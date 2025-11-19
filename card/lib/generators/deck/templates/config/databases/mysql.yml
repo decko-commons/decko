@@ -5,7 +5,6 @@
 shared:
   adapter: mysql2
   encoding: utf8
-  reconnect: false
   pool: 5
   username: root
   password:
