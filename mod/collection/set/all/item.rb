@@ -167,11 +167,11 @@ format do
 
   def listing item_card, item_args={}
     nest_item item_card, item_args do |rendered, item_view|
-      wrap_item rendered, item_view
+      wrap_item item_card, rendered, item_view
     end
   end
 
-  def wrap_item item, _args={}
+  def wrap_item _item_card, item, _args={}
     item # no wrap in base
   end
 end
@@ -181,7 +181,7 @@ format :html do
     number_with_delimiter try(:count)
   end
 
-  def wrap_item rendered, item_view
+  def wrap_item _item_card, rendered, item_view
     %(<div class="item-#{item_view}">#{rendered}</div>)
   end
 end
