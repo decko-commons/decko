@@ -2,7 +2,7 @@
 
 require "./decko_gem"
 
-DOCKER_IMAGES = %w[base bundled sandbox].map { |name| "decko-#{name}" } # TODO restore all images
+DOCKER_IMAGES = %w[base bundled postgres mysql sandbox].map { |name| "decko-#{name}" }
 
 # DOCKER_IMAGES = ["decko-base", "decko-bundled"]
 

@@ -7,7 +7,7 @@ RUN ./script/db_yml_from_env.rb
 # Use baseimage-docker's init process.
 CMD ["/sbin/my_init"]
 
-RUN gem install bundler --force -N -v "$(tail -n 1 Gemfile.lock | tr -d '[:blank:]\n')" && bundle --version
+# RUN gem install bundler --force -N -v "$(tail -n 1 Gemfile.lock | tr -d '[:blank:]\n')" && bundle --version
     # Fix for issue with bundler
     # see https://github.com/phusion/passenger-docker/issues/409
     # and https://stackoverflow.com/questions/78747131/app-not-starting-with-cryptic-passenger-log-error
