@@ -1,4 +1,4 @@
-FROM ethn/decko-base
+FROM deckocommons/decko-base
 
 RUN bundle install
 RUN rake card:mod:symlink
