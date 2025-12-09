@@ -13,9 +13,11 @@ ENGINES = {
 engine = ENV["DECKO_DB_ENGINE"]&.to_sym || :mysql
 
 string = File.read "#{FILENAME}.erb"
-ENGINES[engine]
-engine == :postgres ? :postgres : :root
 
-rendered = ERB.new(string).result
+# define input for erb file
+adapter = ENGINES[engine]
+username = engine == :postgres ? :postgres : :root
+
+rendered = ERB.new(string).result(binding)
 
 File.write FILENAME, rendered
