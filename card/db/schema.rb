@@ -35,7 +35,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_11_10_200407) do
   create_table "card_changes", id: :integer, charset: "utf8mb3", force: :cascade do |t|
     t.integer "card_action_id"
     t.integer "field"
-    t.text "value", size: :medium
+    t.text "content", limit: 16_777_215
     t.index ["card_action_id"], name: "card_changes_card_action_id_index"
   end
 
@@ -55,7 +55,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_11_10_200407) do
     t.integer "left_id"
     t.integer "right_id"
     t.string "left_key"
-    t.text "content", size: :medium
+    t.text "content", limit: 16_777_215
     t.datetime "updated_at", precision: nil
     t.index ["left_id"], name: "right_id_index"
     t.index ["right_id"], name: "left_id_index"
@@ -75,7 +75,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_11_10_200407) do
     t.integer "read_rule_id"
     t.boolean "trash", null: false
     t.integer "type_id", null: false
-    t.text "db_content", size: :medium
+    t.text "db_content", limit: 16_777_215
     t.index ["codename"], name: "cards_codename_index"
     t.index ["created_at"], name: "cards_created_at_index"
     t.index ["key"], name: "cards_key_index", unique: true
@@ -90,7 +90,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_11_10_200407) do
   create_table "delayed_jobs", charset: "utf8mb3", force: :cascade do |t|
     t.integer "priority", default: 0, null: false
     t.integer "attempts", default: 0, null: false
-    t.text "handler", size: :medium, null: false
+    t.text "handler", limit: 16_777_215, null: false
     t.text "last_error"
     t.datetime "run_at", precision: nil
     t.datetime "locked_at", precision: nil
