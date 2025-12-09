@@ -19,7 +19,7 @@ will also want [Docker compose](https://docs.docker.com/compose/install/)).
 If you just want to give Decko a quick try without worrying about saving your work, you
 can install a sandbox with the following command:
 
-`docker run -dp 4444:80 ethn/decko-sandbox`
+`docker run -dp 4444:80 deckocommons/decko-sandbox`
 
 That will install a fully operational, seeded deck that will be available on a browser on
 port 4444 of the host server. For example, if you are running this command on your local

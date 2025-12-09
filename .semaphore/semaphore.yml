@@ -33,11 +33,8 @@ global_job_config:
       - source /home/semaphore/.bash_profile
 
       # TWEAK ENVIRONMENTAL VARIABLES
-      # ...that are too complex for the env_vars config.
-
-      # without the following, code climate uses git to get git details.
-      # Semaphore uses the merge sha for PRS, so this leads to coverage report failures.
-      - if [ $SEMAPHORE_GIT_PR_SHA ]; then export GIT_COMMIT_SHA=$SEMAPHORE_GIT_PR_SHA; fi;
+      - export QLTY_COMMIT_SHA=$SEMAPHORE_GIT_SHA
+      - if [ $SEMAPHORE_GIT_PR_SHA ]; then export QLTY_COMMIT_SHA=$SEMAPHORE_GIT_PR_SHA; fi;
 
 blocks:
   - name: Smoke
@@ -47,14 +44,20 @@ blocks:
           value: eval
       prologue:
         commands:
+          # NOTE: SEMAPHORE CACHING DISABLED
+          # it stopped working when we stopped using s3 (which is where the cached data
+          # was stored.
+          # To fix it, we will need to set a SEMAPHORE_CACHE_BACKEND environment variable
+          # (and uncomment a lot of cache commands)
+
           # occasionally clear:
-          - cache delete bundle-gems-baseline
-          - cache restore bundle-gems-baseline
+          # - cache delete bundle-gems-baseline
+          # - cache restore bundle-gems-baseline
           - GLCHECK=`checksum Gemfile.lock`
-          - cache restore bundle-gems-$GLCHECK
+          #- cache restore bundle-gems-$GLCHECK
           - bundle install
-          - cache store bundle-gems-$GLCHECK ~/bundle
-          - cache store bundle-gems-baseline ~/bundle
+          #- cache store bundle-gems-$GLCHECK ~/bundle
+          #- cache store bundle-gems-baseline ~/bundle
 
           - sem-service start mysql
 
@@ -83,7 +86,7 @@ blocks:
           - psql -U postgres -h localhost -c "CREATE USER platypus WITH PASSWORD 'developer';"
           - psql -U postgres -h localhost -c "ALTER USER platypus WITH SUPERUSER;"
           - git submodule update
-          - cache restore bundle-gems-$(checksum Gemfile.lock)
+          # - cache restore bundle-gems-$(checksum Gemfile.lock)
           - bundle install
 
       jobs:
@@ -101,7 +104,7 @@ blocks:
         on_pass:
           commands:
             - cd -
-            - qlty coverage publish --incomplete --override-commit-sha $SEMAPHORE_GIT_PR_SHA --override-branch $SEMAPHORE_GIT_BRANCH coverage/.resultset.json
+            - qlty coverage publish --incomplete --override-commit-sha $QLTY_COMMIT_SHA --override-branch $SEMAPHORE_GIT_BRANCH coverage/.resultset.json
 
 
   - name: Unit Tests (MySql)
@@ -112,7 +115,7 @@ blocks:
         commands:
           - sem-service start mysql
           - git submodule update
-          - cache restore bundle-gems-$(checksum Gemfile.lock)
+          # - cache restore bundle-gems-$(checksum Gemfile.lock)
 #          - ./cc-test-reporter before-build
           - bundle install
 
@@ -130,7 +133,7 @@ blocks:
         on_pass:
           commands:
             - cd -
-            - qlty coverage publish --incomplete --override-commit-sha $SEMAPHORE_GIT_PR_SHA --override-branch $SEMAPHORE_GIT_BRANCH coverage/.resultset.json
+            - qlty coverage publish --incomplete --override-commit-sha $QLTY_COMMIT_SHA --override-branch $SEMAPHORE_GIT_BRANCH coverage/.resultset.json
 
   - name: Integration Tests
     task:
@@ -141,7 +144,8 @@ blocks:
         commands:
           - sem-service start mysql
           - git submodule update
-          - cache restore bundle-gems-$(checksum Gemfile.lock)
+          #- cache restore bundle-gems-$(checksum Gemfile.lock)
+          - bundle install
           - be decko new platypus --platypus
           - cd platypus
           - env RAILS_ENV=test bundle exec decko setup # --test
@@ -165,7 +169,7 @@ blocks:
           commands:
             - test-results publish /home/semaphore/reports/*.xml
             - cd ~/decko
-            - qlty coverage publish --incomplete --override-commit-sha $SEMAPHORE_GIT_PR_SHA --override-branch $SEMAPHORE_GIT_BRANCH coverage/.resultset.json
+            - qlty coverage publish --incomplete --override-commit-sha $QLTY_COMMIT_SHA --override-branch $SEMAPHORE_GIT_BRANCH coverage/.resultset.json
             - artifact push job ~/decko/decko/spec/cypress/screenshots
             - artifact push job ~/decko/decko/spec/cypress/videos
 
@@ -177,7 +181,7 @@ blocks:
       jobs:
         - name: Qlty Coverage
           commands:
-            - qlty coverage complete --override-commit-sha $SEMAPHORE_GIT_PR_SHA
+            - qlty coverage complete --override-commit-sha $QLTY_COMMIT_SHA
 
 after_pipeline:
   task:
