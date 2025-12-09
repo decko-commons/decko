@@ -33,11 +33,8 @@ global_job_config:
       - source /home/semaphore/.bash_profile
 
       # TWEAK ENVIRONMENTAL VARIABLES
-      # ...that are too complex for the env_vars config.
-
-      # without the following, code climate uses git to get git details.
-      # Semaphore uses the merge sha for PRS, so this leads to coverage report failures.
-      - if [ $SEMAPHORE_GIT_PR_SHA ]; then export GIT_COMMIT_SHA=$SEMAPHORE_GIT_PR_SHA; fi;
+      - export QLTY_COMMIT_SHA=$SEMAPHORE_GIT_SHA
+      - if [ $SEMAPHORE_GIT_PR_SHA ]; then export QLTY_COMMIT_SHA=$SEMAPHORE_GIT_PR_SHA; fi;
 
 blocks:
   - name: Smoke
@@ -107,7 +104,7 @@ blocks:
         on_pass:
           commands:
             - cd -
-            - qlty coverage publish --incomplete --override-commit-sha $SEMAPHORE_GIT_PR_SHA --override-branch $SEMAPHORE_GIT_BRANCH coverage/.resultset.json
+            - qlty coverage publish --incomplete --override-commit-sha $QLTY_COMMIT_SHA --override-branch $SEMAPHORE_GIT_BRANCH coverage/.resultset.json
 
 
   - name: Unit Tests (MySql)
@@ -136,7 +133,7 @@ blocks:
         on_pass:
           commands:
             - cd -
-            - qlty coverage publish --incomplete --override-commit-sha $SEMAPHORE_GIT_PR_SHA --override-branch $SEMAPHORE_GIT_BRANCH coverage/.resultset.json
+            - qlty coverage publish --incomplete --override-commit-sha $QLTY_COMMIT_SHA --override-branch $SEMAPHORE_GIT_BRANCH coverage/.resultset.json
 
   - name: Integration Tests
     task:
@@ -172,7 +169,7 @@ blocks:
           commands:
             - test-results publish /home/semaphore/reports/*.xml
             - cd ~/decko
-            - qlty coverage publish --incomplete --override-commit-sha $SEMAPHORE_GIT_PR_SHA --override-branch $SEMAPHORE_GIT_BRANCH coverage/.resultset.json
+            - qlty coverage publish --incomplete --override-commit-sha $QLTY_COMMIT_SHA --override-branch $SEMAPHORE_GIT_BRANCH coverage/.resultset.json
             - artifact push job ~/decko/decko/spec/cypress/screenshots
             - artifact push job ~/decko/decko/spec/cypress/videos
 
@@ -184,7 +181,7 @@ blocks:
       jobs:
         - name: Qlty Coverage
           commands:
-            - qlty coverage complete --override-commit-sha $SEMAPHORE_GIT_PR_SHA
+            - qlty coverage complete --override-commit-sha $QLTY_COMMIT_SHA
 
 after_pipeline:
   task:
