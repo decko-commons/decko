@@ -1,4 +1,4 @@
-FROM ethn/decko-bundled
+FROM deckocommons/decko-bundled
 
 ENV DECKO_DB_ENGINE=mysql
 RUN ./script/db_yml_from_env.rb

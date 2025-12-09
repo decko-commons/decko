@@ -2,7 +2,7 @@
 
 require "./decko_gem"
 
-DOCKER_IMAGES = %w[base bundled mysql postgres sandbox].map { |name| "decko-#{name}" }
+DOCKER_IMAGES = %w[base bundled postgres mysql sandbox].map { |name| "decko-#{name}" }
 
 # DOCKER_IMAGES = ["decko-base", "decko-bundled"]
 
@@ -30,16 +30,16 @@ end
 
 # do NOT use `bundle exec` or bundle update won't work
 task :build_images do
-  system "docker pull phusion/passenger-full:latest"
-  system "cd docker/template; bundle update"
+  # system "docker pull phusion/passenger-full:latest"
+  # system "cd docker/template; bundle update"
 
   DOCKER_IMAGES.each do |i|
     system "echo '\nBUILDING: #{i}'"
     system "cd docker; " \
            "docker build -f repos/#{i}.dockerfile " \
-           "-t ethn/#{i} -t ethn/#{i}:latest -t ethn/#{i}:v#{version} ."
-    system "docker push ethn/#{i}:latest"
-    system "docker push ethn/#{i}:v#{version}"
+           "-t deckocommons/#{i} -t deckocommons/#{i}:latest -t deckocommons/#{i}:v#{version} ."
+    system "docker push deckocommons/#{i}:latest"
+    system "docker push deckocommons/#{i}:v#{version}"
   end
 end
 
