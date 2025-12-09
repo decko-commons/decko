@@ -104,6 +104,15 @@ format :json do
 end
 
 format :jsonld do
+  def page_link_path_args page
+    {
+      limit: limit,
+      offset: page * limit,
+      item: default_item_view, # hack. need standard voo handling
+      format: :jsonld
+    }.merge extra_paging_path_args
+  end
+
   view :paging_urls, cache: :never do
     return {} unless show_paging?
 
