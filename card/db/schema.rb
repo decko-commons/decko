@@ -35,7 +35,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_11_10_200407) do
   create_table "card_changes", id: :integer, charset: "utf8mb3", force: :cascade do |t|
     t.integer "card_action_id"
     t.integer "field"
-    t.text "content", limit: 16_777_215
+    t.text "value", limit: 16_777_215
     t.index ["card_action_id"], name: "card_changes_card_action_id_index"
   end
 
