@@ -47,14 +47,20 @@ blocks:
           value: eval
       prologue:
         commands:
+          # NOTE: SEMAPHORE CACHING DISABLED
+          # it stopped working when we stopped using s3 (which is where the cached data
+          # was stored.
+          # To fix it, we will need to set a SEMAPHORE_CACHE_BACKEND environment variable
+          # (and uncomment a lot of cache commands)
+
           # occasionally clear:
-          - cache delete bundle-gems-baseline
-          - cache restore bundle-gems-baseline
+          # - cache delete bundle-gems-baseline
+          # - cache restore bundle-gems-baseline
           - GLCHECK=`checksum Gemfile.lock`
-          - cache restore bundle-gems-$GLCHECK
+          #- cache restore bundle-gems-$GLCHECK
           - bundle install
-          - cache store bundle-gems-$GLCHECK ~/bundle
-          - cache store bundle-gems-baseline ~/bundle
+          #- cache store bundle-gems-$GLCHECK ~/bundle
+          #- cache store bundle-gems-baseline ~/bundle
 
           - sem-service start mysql
 
@@ -83,7 +89,7 @@ blocks:
           - psql -U postgres -h localhost -c "CREATE USER platypus WITH PASSWORD 'developer';"
           - psql -U postgres -h localhost -c "ALTER USER platypus WITH SUPERUSER;"
           - git submodule update
-          - cache restore bundle-gems-$(checksum Gemfile.lock)
+          # - cache restore bundle-gems-$(checksum Gemfile.lock)
           - bundle install
 
       jobs:
@@ -112,7 +118,7 @@ blocks:
         commands:
           - sem-service start mysql
           - git submodule update
-          - cache restore bundle-gems-$(checksum Gemfile.lock)
+          # - cache restore bundle-gems-$(checksum Gemfile.lock)
 #          - ./cc-test-reporter before-build
           - bundle install
 
@@ -141,7 +147,8 @@ blocks:
         commands:
           - sem-service start mysql
           - git submodule update
-          - cache restore bundle-gems-$(checksum Gemfile.lock)
+          #- cache restore bundle-gems-$(checksum Gemfile.lock)
+          - bundle install
           - be decko new platypus --platypus
           - cd platypus
           - env RAILS_ENV=test bundle exec decko setup # --test
