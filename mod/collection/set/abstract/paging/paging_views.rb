@@ -104,6 +104,10 @@ format :json do
 end
 
 format :jsonld do
+  def page_link_path_args page
+    super(page).merge format: :jsonld
+  end
+
   view :paging_urls, cache: :never do
     return {} unless show_paging?
 

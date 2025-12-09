@@ -218,7 +218,7 @@ format :html do
   def card_form_html_opts action, opts={}
     add_class opts, "card-form"
     add_class opts, "slotter" unless opts[:redirect] || opts[:no_slotter]
-    add_class opts, "autosave" if action == :update
+    # add_class opts, "autosave" if action == :update
     interpret_main_success_opts opts
     opts
   end
